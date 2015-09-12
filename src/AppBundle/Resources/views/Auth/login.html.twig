@@ -1,0 +1,110 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block content %}
+<div id="authpage">
+<div id="fullpage">
+	<div class="section" id="section0">
+	    <div class="slide login active">
+			{% if error %}
+				<div class="error">{{ error.message|trans({},'messages') }}</div>
+			{% endif %}
+			
+			<form id="login" class="simform" action="{{ path("_auth_login_check") }}" method="post">
+					<div class="simform-inner">
+						<ol class="questions">
+							<li>
+								<input id="q1" name="_username" type="email" placeholder="Type Your Email" value="{{ last_username }}"/>
+							</li>
+							<li>
+								<input id="q2" name="_password" type="password" placeholder="And Your Password"/>
+							</li>
+						</ol>
+						<button class="submit" type="submit">Send answers</button>
+						<div class="controls">
+							<button class="next show"><i class="pe-7s-right-arrow"></i></button>
+							<div class="progress"></div>
+							<span class="number">
+								<span class="number-current"></span>
+								<span class="number-total"></span>
+							</span>
+							<span class="error-message"></span>
+						</div>
+					</div>
+				</form>
+			
+		</div>
+	    <div class="slide">
+			<form id="registration" class="simform">
+				<div class="simform-inner">
+					<ol class="questions">
+						<li>
+							<span><label for="q1">What's your email?</label></span>
+							<input id="q1" name="q1" type="email"/>
+						</li>
+						<li>
+							<span><label for="q2">Type Your Email</label></span>
+							<input id="q2" name="q2" type="password"/>
+						</li>
+						<li>
+							<span><label for="q3">Retype Your Password</label></span>
+							<input id="q3" name="q3" type="text"/>
+						</li>
+					</ol><!-- /questions -->
+					<button class="submit" type="submit">Send answers</button>
+					<div class="controls">
+						<button class="next"><i class="pe-7s-angle-right"></i></button>
+						<div class="progress"></div>
+						<span class="number">
+							<span class="number-current"></span>
+							<span class="number-total"></span>
+						</span>
+						<span class="error-message"></span>
+					</div><!-- / controls -->
+				</div><!-- /simform-inner -->
+				<span class="final-message"></span>
+			</form></div>
+		<div class="slide password-remainder"><h1>Password Remeinder</h1></div>
+	</div>
+	<div class="section" id="section1">
+	    <div class="slide "><h1>Simple Demo</h1></div>
+	    <div class="slide active"><h1>Only text</h1></div>
+	    <div class="slide"><h1>And text</h1></div>
+	    <div class="slide"><h1>And more text</h1></div>
+	</div>
+	<div class="section" id="section2"><h1>No wraps, no extra markup</h1></div>
+	<div class="section" id="section3"><h1>Just the simplest demo ever</h1></div>
+</div>
+
+<footer>
+<a class="brand" href="http://supla.org">&copy; supla 2015</a>
+<ul class="menu list-inline">
+	<li><a href="#3rdPage">What is it?</a></li>
+	<li><a href="#firstPage">Sign In</li>
+	<li><a href="#firstPage/1">Sign Up</li>
+	<li><a href="#firstPage/2">Password Remeinder</a></li>
+</ul>
+</footer>
+</div>
+
+<script src="{{ asset('assets/js/classie.js') }}"></script>
+		<script src="{{ asset('assets/js/stepsForm.js') }}"></script>
+			<script>
+                var theForm = document.getElementById( 'login' );
+                theForm.setAttribute( "autocomplete", "off" );
+    
+                new stepsForm( theForm, {
+                onSubmit : function( form ) {
+                classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+				 $("#authpage").fadeOut(500, function(){ form.submit() });
+                }
+                });
+				var theForm = document.getElementById( 'registration' );
+                theForm.setAttribute( "autocomplete", "off" );
+    
+                new stepsForm( theForm, {
+                onSubmit : function( form ) {
+                classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+				form.submit()
+                }
+                });
+            </script>
+{% endblock %}

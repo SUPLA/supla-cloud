@@ -1,0 +1,158 @@
+{% block location_details %}
+	<div id="location-detail" data-id="{{ location.id }}" data-item-path="{{ path('_loc_item', {'id': location.id}) }}">
+		<div class="row margin-top-30 margin-bottom-70">
+			<div class="info one-third">
+				<h2>ID<strong>{{ location.id }}</strong></h2>
+				<ul class="list-unstyled">
+					<li class="row">
+						<div class="col-xs-3">
+							<span class="name">{% trans %}Caption{% endtrans %}</span>
+						</div>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="text" class="form-control" id="caption" placeholder="{% trans %}Caption{% endtrans %}" value="{{ location.caption }}">
+								<span class="input-group-btn">
+									<button data-preloader="set-caption-pl" class="btn btn-default last" id="caption-save" type="button">{% trans %}SAVE{% endtrans %}</button>
+									<div id="set-caption-pl" style="display: none;" class="btn btn-load"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
+								</span>
+							</div>
+						</div>
+					</li>
+					<li class="row">
+						<div class="col-xs-3">
+							<span class="name">{% trans %}Password{% endtrans %}</span>
+						</div>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="text" id="password" class="form-control" placeholder="{% trans %}Password{% endtrans %}" value="{{ location.password }}">
+								<span class="input-group-btn">
+									<button class="btn btn-default" id="generate-short" type="button">{% trans %} GENERATE {% endtrans %}</button>
+									<button data-preloader="set-pwd-pl" class="btn btn-default last" id="password-save" type="button">{% trans %} SAVE {% endtrans %}</button>
+									<div id="set-pwd-pl" style="display: none;" class="btn btn-load"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
+								</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="buttons">
+				<div data-preloader="set-enabled-pl" class="btn btn-default btn-enable" {%if location.enabled == false%}style="display: none;"{%endif%}><strong>{% trans %}ENABLED{% endtrans %}</strong><br >{% trans %}CLICK TO DISABLE{% endtrans %}</div>
+				<div data-preloader="set-enabled-pl" class="btn btn-default btn-disable" {%if location.enabled == true%}style="display: none;"{%endif%}><strong>{% trans %}DISABLED{% endtrans %}</strong><br >{% trans %}CLICK TO ENABLE{% endtrans %}</div> 
+				<div class="btn btn-load btn-big" id="set-enabled-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
+				<a class="btn btn-default btn-edit" id="overlay-delete"><strong>DELETE</strong></a>
+				</div>
+			</div>
+			
+
+			<div class="assignments two-third">
+				<div>
+					<h2>{% trans %}Assigned Access Identifiers{% endtrans %}</h2>
+					<table class="locationtable table table-hover">
+					 <thead>
+						<tr>
+						  <th style="width: 45px; text-align: center;">ID</th>
+						  <th style="width: 100px;">Password</th>
+						  <th>Caption</th>
+						</tr>
+						{% if aids|length %}
+							{% for aid in aids %}
+							<tr data-id="{{ aid.id }}" class="supla-tooltip" title="
+							
+							&lt;a class&#61;&quot;details {%if aid.enabled == true%}enabled{% else %}disabled{% endif %}&quot; href&#61;&quot;{{ path('_aid_item', {'id': aid.id}) }}&quot;&gt;
+							&lt;span class&#61;&quot;id&quot;&gt;ID&lt;strong&gt;{{ aid.id }}&lt;/strong&gt;  &lt;/span&gt; &lt;br/ &gt;
+							&lt;div class&#61;&quot;details-wrapper&quot;&gt; Caption &lt;br/ &gt;
+							&lt;strong&gt;{{ aid.caption }}&lt;/strong&gt;&lt;br/ &gt;
+							Password &lt;br/ &gt;
+							&lt;strong&gt;{{ aid.password }}&lt;/strong&gt;&lt;/div&gt;
+							
+							&lt;br/ &gt;
+							
+							&lt;span class&#61;&quot;status&quot;&gt;{%if aid.enabled == true%}enabled{% else %}disabled{% endif %}&lt;/span&gt;
+							&lt;/a&gt;
+							
+							">
+							 <td class="text-center"><a href="{{ path('_aid_item', {'id': aid.id}) }}" {% if aid.enabled is empty %} class="disabled" {% endif %}><strong>{{ aid.id }}</strong></a></td>
+							 <td>{{aid.password}}</td>
+							 <td scope="row"><a class="caption" href="{{ path('_aid_item', {'id': aid.id}) }}">{{aid.caption}}</a></td>
+							</tr>
+						   {% endfor %}
+						{% else %}
+							<tr><td></td><td colspan="2">No Access Identifiers</td></tr>
+						{% endif %}
+					 </thead>
+					 <tbody>
+	
+					   <tr>
+						 <td><a href="#"><i class="pe-7s-more"></i></a></td>
+						 <td colspan=2><a href="#" id="overlay-assignments"><strong>{% trans %}Assign Access Identifiers{% endtrans %}</strong></a></td>
+					   </tr>
+					  
+						  
+					 </tbody>
+				   </table>
+				</div>
+				<div class="margin-top-40">
+				<h2>{% trans %}I/O Devices{% endtrans %}</h2>
+				<table class="locationtable table table-hover">
+				 <thead>
+					<tr>
+					  <th style="width: 45px; text-align: center;">No</th>
+					  <th>Name</th>
+					  <th style="width: 220px;">Status</th>
+					</tr>
+				 </thead>
+				 <tbody>
+				 {% if iodevices|length %}
+					 {% for iodevice in iodevices %} 
+					 
+					 <tr class="supla-tooltip" 
+					  title="
+						 	&lt;a class&#61;&quot;details device {% if iodevice.enabled == true %}enabled{% else %}disabled{% endif %}&quot; href&#61;&quot;{{ path('_iodev_item', {'id': iodevice.id}) }}&quot;&gt;
+							&lt;span class&#61;&quot;id&quot;&gt;{{iodevice.name}}  &lt;/span&gt; &lt;br/ &gt;
+							&lt;span class&#61;&quot;guid&quot;&gt;GUID: {{iodevice.guidstring}}&lt;/span&gt;
+							&lt;br/ &gt;
+							&lt;div class&#61;&quot;details-wrapper&quot;&gt; Software &lt;strong&gt;{{iodevice.softwareversion}}&lt;/strong&gt;&lt;br/ &gt;
+							Last connected &lt;strong&gt;{{ iodevice.lastconnected|date("d.m.Y H:m") }}&lt;/strong&gt;&lt;/div&gt;
+							
+							&lt;/a&gt;">
+					   <td class="text-center"><strong>{{ loop.index0+1 }}</strong></td>
+					   <td><a href="{{ path('_iodev_item', {'id': iodevice.id}) }}" class="caption">{{ iodevice.name}}</a></td>
+					   <td><div class="iodev_connection_state" data-id="{{ iodevice.id }}"><span class="unknown">unknown</span></div><span class="{% if iodevice.enabled == true %}enabled">{% trans %}Enabled{% endtrans %}{%else%}disabled">{% trans %}Disabled{% endtrans %}{%endif%}</span></td>
+					 </tr>
+					{% endfor %}
+				{% else %}
+				<tr><td></td><td colspan="2">No Devices</td></tr>
+				{% endif %}
+
+
+				 </tbody>
+			   </table>
+			  
+			</div>
+		</div>
+
+
+
+<div class="overlay-delete overlay-data">
+	<div class="dialog">
+		<h1>Are You sure?</h1>
+		<p>Please confirm removal of Location ID <strong>{{ location.id }}</strong>. You will be no longer able to connect to devices in this Location.</p>
+		<div class="controls">
+			<a href="#" class="overlay-delete-close cancel">CANCEL</a>
+			<a href="{{ path('_loc_item_delete', {'id': location.id}) }}" class="save"><i class="pe-7s-check"></i></a></div>
+		</div>
+	</form>
+</div>
+
+
+<div class="overlay overlay-data overlay-assignments">
+	<div class="overlay-title"><h1>Assign Access Identifiers</h1>
+	  <p>Choose which Access Identifiers will be assigned with Location ID <strong>{{ location.id }}</strong></p></div>
+      <div class="overlay-list">
+            <div class="assign-list">
+            
+			</div>
+	</div>
+</div>
+	
+<script src="{{ asset('assets/js/details.js') }}"></script> 
+{% endblock %}

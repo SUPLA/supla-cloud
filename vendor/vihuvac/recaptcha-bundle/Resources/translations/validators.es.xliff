@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="es" datatype="plaintext" original="GoogleRecaptchaBundle.es.xliff">
+        <body>
+            <trans-unit id="validate_captcha_value">
+                <source>validate_captcha_value</source>
+                <target>Por favor, introduzca un valor de CAPTCHA válido.</target>
+            </trans-unit>
+            <trans-unit id="recaptcha_remote_ip">
+                <source>recaptcha_remote_ip</source>
+                <target>Por razones de seguridad, debes pasar la IP remota al reCAPTCHA.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

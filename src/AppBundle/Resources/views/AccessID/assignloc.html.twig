@@ -1,0 +1,38 @@
+<div class="loc-accessids">
+    
+     {{ form_start(form) }}
+
+    <div class="aid-locations">
+	<div class="row">
+	{% if locations|length %}
+		{% for loc in locations %}
+		         
+		  <label class="col-xs-4" data-id="{{ loc.id }}">
+			 <input type="checkbox" name="lid[{{ loc.id }}]" value="1" {% if loc in selected %}checked{% endif %}>
+			 <div class="item {% if loc.enabled == true %} enabled {% else %} disabled {% endif %}">
+			 <span class="id">ID<strong>{{ loc.id }}</strong></span>
+			 <div class="details-wrapper">
+			 Caption<br />
+			 <strong>{{ loc.caption }}</strong><br />
+			 Password<br />
+			 <strong>{{ loc.password }}</strong>
+			 </div>
+			 <span class="status">{% if loc.enabled == true %} enabled {% else %} disabled {% endif %}</span>
+			 </div>
+		   </label>
+		  
+		 {% endfor %}
+	{% else %}
+	<div class="attention">
+		<i class="pe-7s-attention"></i>
+		<h2>No Locations</h2>
+		<p>There are no Locations which You can assign with this<br /> Access Identifier. Go to <a class="nav-link" href="{{ path('_loc_list') }}">Locations</a> and create some.</p>
+	</div>
+	{% endif %}
+	</div>
+	</div>
+    <div class="overlay-controls">
+    {{ form_widget(form) }}
+    </div>
+    {{ form_end(form) }}         
+ </div>

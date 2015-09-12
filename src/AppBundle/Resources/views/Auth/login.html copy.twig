@@ -1,0 +1,19 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+
+	{% if error %}
+        <div class="error">{{ error.message|trans({},'messages') }}</div>
+    {% endif %}
+	
+	<div class="logon-screen">
+	
+		 <form action="{{ path("_auth_login_check") }}" method="post" id="login">
+		 <a href="http://supla.org" target="_blank"><img src={{ asset('assets/img/logo.svg') }}></img></a>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="E-mail"/><br />
+            <input type="password" id="password" name="_password" placeholder="Password"/><br />
+			<button type="submit" class="btn btn-default">{% trans %}Sign In{% endtrans %}</button>
+		</form>
+	</div>
+
+{% endblock %}
