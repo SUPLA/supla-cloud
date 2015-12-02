@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<event-dispatcher>
-  <callable type="function" name="global_function"/>
-  <callable type="closure"/>
-</event-dispatcher>

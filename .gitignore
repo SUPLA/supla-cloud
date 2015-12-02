@@ -9,3 +9,7 @@
 /composer.phar
 /vendor/
 /web/bundles/
+trans_debug.sh
+update_db.sh
+clear_cache.sh
+diff.sh
