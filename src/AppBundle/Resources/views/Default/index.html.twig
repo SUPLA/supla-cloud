@@ -1,0 +1,91 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block content %}
+<div class="container margin-top-50 ">
+
+
+<h1 class="big animated">{% trans %}Start Here{% endtrans %}</h1>
+<p class="intro animated">{% trans %}It's easy to get your home or office connected to SUPLA.{% endtrans %}<br />
+{% trans %}All you need is to follow the steps below.{% endtrans %}</p>
+
+<div class="row margin-top-70">
+	<div class="computer animated">
+		<div class="computer-window"><div class="title">location.txt</div><div class="body">[LOCATION]<br />ID={{ base_locid }}<br />PASSWORD={{ base_locpwd }} <br /><br />
+		[SERVER] <br />host={{ base_server }}<br />
+<span class="blink">|</span></div></div>
+		<img src={{ asset('assets/img/computer.svg') }}>
+	</div>
+	<div class="phone animated">
+	{% if show_base_settings == true %}
+		<div class="phone-app">
+			<input type="text" id="server_address" value="{{ base_server }}"><br />
+			<label for="server_address">{% trans %}Server address{% endtrans %}</label>
+			<input type="text" id="access_identifier" value="{{ base_accessid }}"><br />
+			<label for="access_identifier">{% trans %}Access Identifier{% endtrans %}</label>
+			<input type="text" id="password" value="{{ base_accesspwd }}"><br />
+			<label for="password" class="password">{% trans %}Password{% endtrans %}</label>
+			<i class="pe-7s-check"></i></div>
+			<img src={{ asset('assets/img/smartphone.svg') }}>
+		</div>
+	{% else %}
+	<div class="phone-app-error animated">
+			<i class="pe-7s-attention"></i>
+			<h3>{% trans %}Make it work{% endtrans %}</h3>
+			<p>
+			{% trans %}You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location{%endtrans%}			
+			</p>
+			</div>
+			<img src={{ asset('assets/img/smartphone-error.svg') }}>
+		</div>
+	{% endif %}
+	</div>
+<div class="row instruction">
+	<div class="half computer-instructions">
+		<h2 class="animated fadeInUp">{% trans %}On your computer...{% endtrans %}</h2>
+		
+		<div class="btn-group sys-select animated fadeInUp" role="tablist" data-toggle="btns">
+			<a href="#raspberrypi" aria-controls="raspberrypi" class="btn btn-default active" role="tab" data-toggle="tab">RaspberryPi</a>
+			<a href="#esp8266" aria-controls="esp8266" class="btn btn-default" role="tab" data-toggle="tab">ESP8266</a>
+			<a href="#arduino" aria-controls="arduino" class="btn btn-default" role="tab" data-toggle="tab">Arduino</a>
+		</div>
+	  
+		<div class="tab-content">
+		  <div role="tabpanel" class="tab-pane active fade in" id="raspberrypi">
+		  <ol>
+			<li class="animated fadeInUp">{% trans %}Download RaspberryPI <a href="https://www.supla.org/download.php">SD Card Image</a>.{% endtrans %}</li>
+			<li class="animated fadeInUp">{% trans %}Transfer downloaded image onto the SD Card.{% endtrans %}</li>
+			<li class="animated fadeInUp">{% trans %}Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.{% endtrans%}</li>
+			<li class="animated fadeInUp">{% trans %}Done.{% endtrans%} ({% trans %}For more details please go to <a href="https://www.supla.org">www.supla.org</a>{%endtrans%})</li>
+		  </ol>
+		  </div>
+		  <div role="tabpanel" class="tab-pane fade" id="esp8266">{% trans %}Coming soon{% endtrans %}</div>
+		  <div role="tabpanel" class="tab-pane fade" id="arduino">{% trans %}Coming soon{% endtrans %}</div>
+		</div>
+	</div>
+	<div class="half phone-instructions">
+		<h2 class="animated fadeInUp">{% trans %}On your smartphone...{% endtrans %}</h2>
+		<div class="phone-app-btns animated fadeInUp">
+			<a href="https://itunes.apple.com/us/app/supla/id996384706?l=pl&ls=1&mt=8" class="btn btn-default">iOS</a>
+			<a href="#" class="btn btn-default">Android</a>
+			<a href="#" class="btn btn-default">Windows Phone</a>
+		</div>
+		<ol>
+			<li class="animated fadeInUp">{% trans %}Install SUPLA on your smartphone.{% endtrans %}</li>
+			<li class="animated fadeInUp">{% trans %}Open SUPLA app.{% endtrans %}</li>
+			<li class="animated fadeInUp">{% trans %}Fill in the fields with settings provided above.{% endtrans %}</li>
+			<li class="animated fadeInUp">{% trans %}Tap <strong>Done</strong> and wait until the app connects.{% endtrans %}</li>
+		</ol>
+</div>
+</div> 
+
+
+<script type='text/javascript'>
+  $(document).ready(function() {
+	  $('[data-toggle="btns"] .btn').on('click', function(){
+		  var $this = $(this);
+		  $this.parent().find('.active').removeClass('active');
+		  $this.addClass('active');
+	  });
+  });        
+</script>
+
+{% endblock %}

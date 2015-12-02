@@ -1,0 +1,208 @@
+html.fp-enabled,.fp-enabled body {margin: 0;padding: 0;overflow:hidden;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-font-smoothing: antialiased;background: #FAFBFC;}
+#superContainer {height: 100%;position: relative;-ms-touch-action: none;touch-action: none;}
+.fp-section {position: relative; -webkit-box-sizing: border-box;-moz-box-sizing: border-box; box-sizing: border-box;}
+.fp-slide {float: left;}
+.fp-slide, .fp-slidesContainer {height: 100%;display: block; text-align: center;}
+.fp-slides { z-index:1;height: 100%;overflow: hidden;position: relative; -webkit-transition: all 0.3s ease-out; transition: all 0.3s ease-out;}
+.fp-section.fp-table, .fp-slide.fp-table {display: table;table-layout:fixed;width: 100%;}
+.fp-tableCell {display: table-cell;vertical-align: middle; width: 100%;height: 100%;transition: all 2s ease-in-out;}
+.recovery .fp-tableCell {background: #FFE838;}
+.fp-slidesContainer {float: left;position: relative;}
+.fp-scrollable {overflow: scroll;}
+.fp-notransition {-webkit-transition: none !important;transition: none !important;}
+.fp-auto-height.fp-section,
+.fp-auto-height .fp-slide,
+.fp-auto-height .fp-tableCell{height: auto !important;}
+
+#slides { position: relative; width: 100%; overflow: visible;}
+#slides .slides-container {display: none;}
+.slides-navigation {margin: 0 auto; position: absolute;z-index: 3; top: 46%;width: 100%;}
+.slides-navigation a, .slides-navigation a:focus { position: absolute;display: block;font-size: 60px; color: rgba(255,255,255,0.7); padding: 0px; background: transparent;transition: all 0.3s;}
+.slides-navigation a:hover, .slides-navigation a:active:focus, .slides-navigation a:active {color: #fff; background: transparent;}
+.slides-navigation a.prev {left: 20px;}
+.slides-navigation a.next {right: 20px;}
+#slides .container {height: 100%; display: table; }
+#slides .container .info-wrapper {display: table-cell; height: 100%; vertical-align: middle;}
+#slides .container .info-wrapper article {width: 40%; height: 366px}
+#slides .container .info-wrapper article h1 {text-transform: none;}
+#slides .container .info-wrapper article p {color: #fff;}
+
+/* SUPLA */
+html, body {text-align: center;}
+.wrapper { max-width: 400px; margin: 0 auto;}
+.wrapper a.brand {animation-name: fadeIn; animation-delay: 0s; animation-duration: 1s;}
+.wrapper a.brand img {display: block; width: 150px; height: auto; margin: 0 auto 70px;}
+.wrapper a.error { display: inline-block; background: #FFE838; padding: 12px 20px; margin-top: 15px; border-radius: 3px; text-align: left;animation-name: fadeIn; animation-delay: 0; animation-duration: 1s;}
+.wrapper p {font-size: 13px; color: #000; margin: 0;}
+
+footer {position:fixed;bottom:0;left:0;z-index: 9999;width: calc(100% - 20px);padding: 0;margin:10px;color: #000;font-size: 14.5px;color: #fff;padding: 0 20px;font-size: 13px;line-height: 32px;min-width: 1030px; animation-name: fadeIn; animation-delay: 0.9s; animation-duration: 1s;}
+footer select {padding:0px 7px; margin: 0; border-radius:3px;background: rgba(255,255,255,0); outline:none;display: inline-block;-webkit-appearance:none;-moz-appearance:none; appearance:none;cursor:pointer;color: #000;border: solid 1px rgba(0,2,4,0.15);width: 150px;height: 32px!important;line-height: 32px;}
+footer select::-ms-expand { display: none;}
+footer label {position:relative; color: #000; font-weight: 400;}
+footer label:after {font-family: 'Pe-icon-7-stroke';line-height: 26px; content:'\e682';font-size:26px;color:#000;right:8px; op:0px; padding:0 0 2px;position:absolute;pointer-events:none;}
+footer label:before { content:'';right:6px;top:0px; width:20px;height:20px;position:absolute;pointer-events:none;display:block;}
+footer a{ font-weight: 400; color: #000; border-radius: 3px; padding: 7px 9px;}
+footer a:hover{background: rgba(0, 2, 4, 0.08); color: #000;}
+.section.login {background: #00D151}
+.password-remainder {background: #FFE804;}
+.recovery h2 {max-width: 400px; margin: 0 auto 50px; text-align: left; font-size: 40px;}
+.recovery .forgot-password {position: relative; max-width: 400px; margin: 0 auto;}
+.recovery .forgot-password input[type="email"], .reset-form input[type="password"] {background: transparent; border: none; border-bottom: solid 1px rgba(0,0,0,0.2); width: 100%; line-height: 40px; height: 40px; font-family: "Open Sans",sans-serif;font-weight: 300; padding: 1px 60px 1px 0px; font-size: 20px; margin-bottom: 5px; transition: all 0.25s;}
+.reset-form input[type="password"] { display: block; padding: 1px 0; max-width: 400px; margin: 5px auto 23px;}
+.recovery .forgot-password input[type="email"]:focus, .reset-form input[type="password"]:focus {border-bottom-color: #000;}
+.recovery .forgot-password input[type="email"]::-webkit-input-placeholder, .reset-form input[type="password"]::-webkit-input-placeholder { color: #000;}
+.recovery .forgot-password input[type="email"]:-moz-placeholder, .reset-form input[type="password"]:-moz-placeholder { color:    #000; opacity:  1;}
+.recovery .forgot-password input[type="email"]::-moz-placeholder, .reset-form input[type="password"]::-moz-placeholder {color:    #000; opacity:  1;}
+.recovery .forgot-password input[type="email"]:-ms-input-placeholder, .reset-form input[type="password"]:-ms-input-placeholder {color:    #000;}
+.recovery .forgot-password button, .reset-form button {position: absolute; top: 7px; right: 0px; background: #000; color: #FFE804; border: none; border-radius: 3px; font-size: 13px; padding: 5px 10px; transition: visibility 0s, opacity 0.5s linear; visibility: visible;opacity: 1; text-transform: uppercase;}
+.reset-form button:hover, .reset-form button:active, .reset-form button.active {background: #000; color: #FFE804}
+.reset-form button {position: relative; margin: 15px auto;}
+.recovery .forgot-password  .next {bottom: 14px; font-size: 36px;}
+.recovery .forgot-password p {color: #000; text-align: left; font-size: 13px;}
+.recovery .back {color: #000; font-size: 40px; margin: 50px auto 0; display: inline-block;}
+.recovery .back:hover {color: #15B133;}
+.recovery-form:not( .form-btn-active ) button {visibility: hidden; opacity: 0;  transition: visibility 0s, opacity 0.5s linear;}
+.recovery .btn.btn-load, .recovery .btn.btn-load:hover, .recovery .btn.btn-load:active {position: absolute; top: 7px; right: 0px; border-radius: 3px; background: #000; border-color: #000; padding: 3px 7px;}
+.recovery .btn.btn-load .circleG {animation-name:bounce_circleG_yellow;}
+@keyframes bounce_circleG_yellow{
+	0%{}
+	50%{background-color:#FFE804;}
+	100%{}
+}
+
+@-o-keyframes bounce_circleG_yellow{
+	0%{}
+	50%{background-color:#FFE804;}
+	100%{}
+}
+
+@-ms-keyframes bounce_circleG_yellow{
+	0%{}
+	50%{background-color:#FFE804;}
+	100%{}
+}
+
+@-webkit-keyframes bounce_circleG_yellow{
+	0%{}
+	50%{background-color:#FFE804;}
+	100%{}
+}
+
+@-moz-keyframes bounce_circleG_yellow{
+	0%{}
+	50%{background-color:#FFE804;}
+	100%{}
+}
+
+.simform {position: relative;margin: 0 auto;padding: 10px 0px;max-width: 860px;width: 100%;text-align: left; animation-name: fadeIn; animation-delay: 0.3s; animation-duration: 1s;}
+.simform .submit {display: none;}
+.simform ol {margin: 0;padding: 0;list-style: none;position: relative;-webkit-transition: height 0.4s;transition: height 0.4s;}
+.simform ol:before {content: '';background-color: transparent;position: absolute;left: 0;bottom: 0;width: 100%;height: 30px;}
+.questions li {z-index: 100;position: relative;visibility: hidden;height: 0;-webkit-transition: visibility 0s 0.4s, height 0s 0.4s;transition: visibility 0s 0.4s, height 0s 0.4s;}
+.questions li.current,.no-js .questions li {visibility: visible;height: auto;-webkit-transition: none;transition: none;}
+.questions li > span {display: block;overflow: hidden;}
+.questions li > span label {display: block;-webkit-transition: -webkit-transform 0.4s;transition: transform 0.4s;-webkit-transform: translateY(-100%);transform: translateY(-100%);}
+.questions li.current > span label, .no-js .questions li > span label {-webkit-transition: none;transition: none; -webkit-transform: translateY(0); transform: translateY(0);}
+.show-next .questions li.current > span label {-webkit-animation: moveUpFromDown 0.4s both;animation: moveUpFromDown 0.4s both;}
+.error-message {font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 13px;}
+@-webkit-keyframes moveUpFromDown {
+	from { -webkit-transform: translateY(100%); }
+	to { -webkit-transform: translateY(0); }
+}
+
+@keyframes moveUpFromDown {
+	from { -webkit-transform: translateY(100%); transform: tranaslateY(100%); }
+	to { -webkit-transform: translateY(0); transform: translateY(0); }
+}
+.questions input {display: block;margin: 0;padding: 2px 75px 2px 0;width: 100%;border: none;background: transparent;color: #000;font-size: 26px;line-height: 40px;opacity: 0;-webkit-transition: opacity 0.3s;transition: opacity 0.3s;font-family: 'Open Sans', sans-serif;font-weight: 300; height: 44px;}
+.questions input::-webkit-input-placeholder {color: #000;}
+.questions input:-moz-placeholder {color: #000; opacity: 1;}
+.questions input::-moz-placeholder {color: #000; opacity: 1;}
+.questions input:-ms-input-placeholder {color: #000;}
+.questions .current input,.no-js .questions input {opacity: 1;}
+.questions input:focus,
+.simform button:focus {outline: none;}
+.next {position: absolute;right: 0px;top: 21px;padding: 0;border: none;background: #000;color: #FAFBFC;text-align: center;z-index: 100;cursor: pointer;border-radius: 3px; font-size: 13px;padding: 5px 10px;text-transform: uppercase;transition: all 0.3s;font-weight: 400; transition: visibility 0s, background 0.3s, opacity 0.5s linear; opacity: 1;}
+.next.show {
+	opacity: 1;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	pointer-events: auto;
+}
+.next:hover {background: #00D151;}
+.simform .progress {width: 0px;height: 1px;max-width: 400px;background: #00D151;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out; margin-bottom: 5px}
+.simform .progress::before {position: absolute;top: auto;width: 100%;max-width: 400px;height: inherit;background: rgba(0,0,0,0.1);content: '';}
+.no-js .simform {font-size: 1.75em;}
+.no-js .questions li {padding: 0 0 2em;}
+.no-js .simform .submit {display: block;float: right;padding: 10px 20px;border: none;background: rgba(0,0,0,0.3);color: rgba(0,0,0,0.4);}
+.no-js .simform .controls {display: none;}
+.simform-inner.hide {display: block!important;opacity: 1!important;visibility: visible!important}
+input[type=text]::-ms-clear {display: none;}
+input[type=text]::-ms-clear {display: none;}
+#login .number {display: none;}
+.shortcuts {padding-top: 35px; animation-name: fadeIn; animation-delay: 0.6s; animation-duration: 1s;}
+.shortcuts .col-xs-6 {padding-left: 3px; padding-right: 3px;}
+.shortcuts a {display: inline-block; width: 100%; border-radius: 3px; border: solid 1px #15B133; padding: 0 10px; line-height: 40px; color: #15B133; font-weight: 400; text-align: right; position: relative;}
+.shortcuts a img {position: absolute; max-width: 31px; left: 10px; top: 3px;}
+.shortcuts a span {display: inline-block; width: 140px; text-align: center;}
+.shortcuts a:hover {background: rgba(41, 175, 36, 0.08); color: #29AF24}
+
+body.register, body.register_success {background: #00D151; overflow: visible; color: #fff;}
+.create-form {position: absolute;top: 0px; left: 55%; height: 100%;z-index: 50; max-width: 400px; display: table;}
+.create-form .wrapper {display: table-cell; height: 100%; vertical-align: middle;}
+.create-form .wrapper h1 {color: #fff; margin-bottom: 20px;}
+.create-form input[type="password"], .create-form input[type="email"] {padding: 0px; border: none; border-bottom: solid 1px rgba(255,255,255,0.7); font-size: 18px; line-height: 36px; width: 100%; background: none; margin-bottom: 3px; font-weight: 300; color: #000; transition: all 0.3s; color: #fff; margin-top: 10px; max-width: 301px; height: 37px;}
+.create-form input[type="password"]:focus, .create-form input[type="password"]:hover, .create-form input[type="email"]:focus, .create-form input[type="email"]:hover {border-bottom-color: #fff;}
+.create-form label {color: #FFE804; margin: 3px 0 10px;}
+.create-form #registration input[type="password"]:hover + label, .create-form 
+.recaptcha {margin: 10px 0 20px;}
+#user_registration_type_Create {background:  #fff; border: solid 1px #fff; border-radius: 3px; width: 100%; max-width: 301px; line-height: 30px; font-size: 13px; text-transform: uppercase; color: #000; transition: all 0.3s;}
+.create-form i {color: #fff; font-size: 40px; display: inline-block; margin-top: 40px;}
+#user_registration_type_Create:hover {background: #F0F1F4; border-color: #F0F1F4; color: #000; transition: all 0.3s;}
+body.register footer a, body.register_success footer a {color: #fff; border: solid 1px transparent;}
+body.register footer a:hover, body.register_success footer a:hover {background: none; border: solid 1px rgba(255,255,255,0.5);}
+body.register footer select {color: #fff; border: solid 1px rgba(255,255,255,0.5);}
+body.register_success .message {padding-top: 17%;}
+body.register_success .message i {font-size: 200px; display: inline-block;  margin-bottom: 40px; animation-name: fadeInUp; animation-delay: 0.2s;}
+body.register_success .message h1 {animation-name: fadeInUp; animation-delay: 0.8s;}
+body.register_success .message p {color: #fff; font-size: 17px; font-weight: 300; display: inline-block; margin-top: 10px; color: rgba(255,255,255,0.8); animation-name: fadeInUp; animation-delay: 1.4s;}
+body.register a.brand img { display: block; width: 280px; height: auto; margin: 250px auto 0; opacity: 0.8}
+body.register {text-align: left}
+body.register footer label:after {color: #fff;}
+
+
+.overlay-apps .inner {max-width: 800px; margin: 14% auto 0;}
+@media (min-width: 1200px) {
+	.overlay-apps .inner {margin: 230px auto 0;}
+}
+@media (min-width: 1900px) {
+	.overlay-apps .inner {margin: 200px auto 0;}
+}
+.overlay-apps .app-preview {position: absolute; display: block;  max-width: 562px; height:auto; top: 0px; right: 0px;}
+@media (max-width: 1300px) {
+	.overlay-apps .app-preview {max-width: 400px;}
+}
+@media (max-width: 1100px) {
+	.overlay-apps .app-preview {display: none;}
+}
+.overlay-apps .inner .app-links {margin: 10px 0 30px; height: 400px; position: relative; overflow-y:scroll;}
+.overlay-apps .inner .app-links .col-xs-12 {font-size: 13px; text-transform: uppercase; text-align: left; font-weight: 600; padding: 20px 15px 5px;}
+.overlay-apps .inner .app-links a {display: inline-block; padding: 10px 12px; border: solid 2px #15B133; border-radius: 5px; width: 180px;}
+.overlay-apps .inner .app-links a img {display: block; max-width: 90px; max-height: 90px; margin: 5px auto 10px;}
+.overlay-apps .inner .app-links a.nav-link:hover {color: #15B133;background: RGBA(41, 175, 36, 0.08)}
+.overlay-apps .inner .app-links a.nav-link:active {transform: scale(0.95);}
+.overlay-apps .inner .app-links a .coming-soon {position: absolute; background: rgba(255,255,255,0.6); top: 0px; left: 14px; width: 182px; height: 150px; border-radius: 5px; overflow: hidden;}
+.overlay-apps .inner .app-links a .coming-soon span {position: absolute; padding: 5px; font-weight: 600; text-transform: uppercase; text-align: center; background: #FFE838; color: #000; transform:rotate(39deg);  width: 300px; left: -58px; top: 60px;}
+.overlay-apps .inner i {font-size: 40px;}
+.overlay-apps .github {position: absolute; bottom: 10px; width: 100%; text-align: center;}
+.overlay-apps .github a {display: inline-block; width: 350px; background: #000; border-radius: 3px; color: #fff; margin: 0 auto; padding: 7px; text-align: left; line-height: 40px;}
+.overlay-apps .github a img {width: 40px; height: 40px;}
+
+body.reset {background: #FFE838; color: #000;}
+.reset-interior {position:absolute; height:100%; width:100%;display: table;}
+.reset-form { display: table-cell; vertical-align: middle; text-align:center; max-width: 400px;}
+.reset-form h1 {margin-bottom: 40px;}
+.create-form input[type="password"]::-webkit-input-placeholder, .create-form input[type="email"]::-webkit-input-placeholder  {color: #fff; opacity: 0.8}
+.create-form input[type="password"]::-moz-placeholder, .create-form input[type="email"]::-moz-placeholder  {color: #fff; opacity: 0.8}
+.create-form input[type="password"]:-moz-placeholder, .create-form input[type="email"]:-moz-placeholder  {color: #fff; opacity: 0.8}
+.create-form input[type="password"]:-ms-input-placeholder, .create-form input[type="email"]:-ms-input-placeholder  {color: #fff; opacity: 0.8}

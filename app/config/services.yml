@@ -1,0 +1,82 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+
+     app.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
+            
+                        
+     form.type.channelfunction:
+        class: AppBundle\Form\Type\ChannelFunctionType
+        tags:
+            - { name: form.type, alias: channelfunction }
+        arguments:
+             iodevice_manager: "@iodevice_manager"   
+            
+     supla_mailer:
+         class: AppBundle\Mailer\SuplaMailer        
+         arguments:
+              router: "@router"
+              templating: "@templating"
+              mailer: "@mailer"
+              mailer_from: %mailer_from%
+              admin_email: %admin_email%
+                    
+     user_manager:
+         class: AppBundle\Model\UserManager
+         arguments:
+              doctrine: "@doctrine" 
+              encoder_factory: "@security.encoder_factory"
+              accessid_manager: "@accessid_manager"
+              location_manager: "@location_manager"
+              
+     accessid_manager:
+         class: AppBundle\Model\AccessIdManager
+         arguments:
+              translator: "@translator"
+              doctrine: "@doctrine" 
+              security_token: "@security.token_storage"
+              
+     location_manager:
+         class: AppBundle\Model\LocationManager
+         arguments:
+              translator: "@translator"
+              doctrine: "@doctrine" 
+              security_token: "@security.token_storage"
+              
+     iodevice_manager:
+         class: AppBundle\Model\IODeviceManager
+         arguments:
+              translator: "@translator"
+              doctrine: "@doctrine" 
+              security_token: "@security.token_storage"
+              template: "@templating"
+              
+     authentication_handler:
+        class: AppBundle\Handler\AuthHandler
+        calls:
+            - [ setContainer, [ @service_container ] ] 
+            
+            
+     validator.supla.channel:
+        class: AppBundle\Validator\Constraints\ChannelValidator
+        tags:
+            - { name: validator.constraint_validator, alias: channel_validator }
+        arguments:
+             iodevice_manager: "@iodevice_manager"     
+             
+     validator.supla.usernameexists:
+        class: AppBundle\Validator\Constraints\UsernameExistsValidator
+        tags:
+            - { name: validator.constraint_validator, alias: username_exists_validator }
+        arguments:
+             user_manager: "@user_manager"    
+            
+
+

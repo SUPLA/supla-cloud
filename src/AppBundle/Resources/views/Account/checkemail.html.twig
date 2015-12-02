@@ -1,0 +1,17 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+	<div class="message">
+		<i class="pe-7s-mail-open-file animated"></i>
+		<h1 class="animated">{% trans %}Check your email box{% endtrans %}</h1>
+		<p class="animated">{{ email }}</p>
+	</div>
+	
+<footer class="animated">
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<a class="brand nav-link" href="https://www.supla.org">www.supla.org</a>
+		</div>
+	</div>
+</footer>
+{% endblock %}

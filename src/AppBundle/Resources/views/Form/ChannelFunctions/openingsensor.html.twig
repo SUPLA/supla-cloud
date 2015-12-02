@@ -1,0 +1,19 @@
+<div id="channel_function_params">
+
+    <div class="cfp_channel">
+      <span>{% trans %}Channel for the sensor{% endtrans %}</span>
+    
+      <div class="dropdown" id="subchannel_select" data-param_id="param1">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuChannels" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <span id="subchannel_name">{{ subchannel_selected }}</span>
+        <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuChannels">
+           <li><a href="#" data-id="0">{% trans %}None{% endtrans %}</a></li>
+           {% for channel in channels %}
+           <li><a href="#" data-id="{{ channel.id }}">{{ channel.name }}</a></li>
+           {% endfor %}
+        </ul>
+     </div>
+  </div>
+</div>

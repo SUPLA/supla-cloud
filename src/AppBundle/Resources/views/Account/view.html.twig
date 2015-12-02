@@ -1,0 +1,41 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="user-account">
+	<div class="wrapper">
+		<h1>{{ user.email }}</h1>
+		<span>{% trans %}Previous login{% endtrans %} <strong>{% if user.lastlogin is null %}{{ user.currentlogin|date("Y-m-d H:i:s") }}{% else %}{{ user.lastlogin|date("Y-m-d H:i:s") }}{% endif %}</strong> {% trans %}from IP{% endtrans %} {% if user.lastlogin is null %}{{ user.currentipv4 }}{% else %}{{ user.lastipv4 }}{% endif %}</strong> </span>
+		<ul class="user list-unstyled">
+			<li><a href="#" id="overlay-delete">{% trans %}Change Your Password{% endtrans %}</a></li>
+			<li><a href="https://www.supla.org">www.supla.org</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<div id="change_pwd_dialog" class="overlay-delete overlay-data">
+	<div class="dialog">
+		<h1>{% trans %}Change Password{% endtrans %}</h1>
+		<div class="password-form">
+		  <div class="form-group">
+			<input type="password" class="form-control" id="old-password">
+			<label for="old-password">{% trans %}Current Password{% endtrans %}</label>
+		  </div>
+		  <div class="form-group">
+			<input type="password" class="form-control" id="new-password">
+			<label for="new-password">{% trans %}New password{% endtrans %}</label>
+		  </div>
+		  <div class="form-group">
+			<input type="password" class="form-control" id="confirm-password">
+			<label for="confirm-password">{% trans %}Confirm Password{% endtrans %}</label>
+		  </div>
+		</div>
+		<div class="controls">
+			<a href="#" class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
+			<a href="#" data-path="{{ path('_account_view') }}" id="change_pwd_btn" class="save green"><i class="pe-7s-check"></i></a></div>
+		</div>
+	</form>
+</div>
+
+<script src="{{ asset('assets/js/details.js') }}"></script>
+{% endblock %}
