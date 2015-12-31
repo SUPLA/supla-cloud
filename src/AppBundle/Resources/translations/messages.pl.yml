@@ -83,14 +83,14 @@ Lighting: Oświetlenie
 Temperature: Temperatura
 Doors and gates: Drzwi i bramy
 Roller shutters: Rolety
-Home appliances: Sprzęt AGD
+Home appliances: Sprzęt AGD/RTV
 And more: I znacznie więcej
 From anywhere: Z każdego miejsca
 With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz sterować oświetleniem w Twoim domu lub biurze
 ...you can monitor temperature: ...możesz monitorować temperaturę
 ...open gateways, gates or doors: ...otworzyć furtkę, bramę lub drzwi
 ...open and shut roller shutters: ...zasłonić i odsłonić rolety
-...or control home appliances: ...lub sterować sprzętem AGD
+...or control home appliances: ...lub sterować sprzętem AGD/RTV
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tebletu
 SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło
 Registred: Zarejestrowany
@@ -128,7 +128,7 @@ Based on available electronics, SUPLA enables you to build simple modules to nav
 SUPLA everywhere!: SUPLA wszędzie!
 One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!.: Jednymi z podstawowych założeń projektu są prostota i dostępność. SUPLA pozwala jednym przesunięciem palca włączyć światło czy też otworzyć bramę wjazdową w momencie gdy chcemy wjechać na posesję. SUPLA dostępna jest wszędzie tam gdzie posiadasz dostęp do sieci Internet i masz pod ręką smartfon lub tablet . SUPLA jest rozwijana na zasadach Otwartego Oprogramowania oraz Otwartego Sprzętu dzięki temu Ty również możesz rozwijać ten projekt!
 Free of charge and open!: Bezpłatna i otwarta!
-Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!: Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich w z wykorzystaniem sieci LAN oraz WiFi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!
+Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!: Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz WiFi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!
 
 #inside php code
 Data saved: Dane zostały zapisane
@@ -185,6 +185,7 @@ Sources available from <strong>GitHub</strong>: Źródła dostępne w <strong>Gi
 Input: Wejście
 Output: Wyjście
 Sensor (normal open): Czujnik (normalnie otwarty)
+Relay: Przekaźnik
 HFD4 Relay: Przekaźnik HFD4
 G5LA1A Relay: Przekaźnik G5LA1A
 G5LA1A Relay x2: Przekaźnik 2xG5LA1A

@@ -473,6 +473,7 @@ function detectIE() {
 	        
 	        	
 	        	if ( response.success == true ) {
+	        		
 	        		cparam.replaceWith(response.html);
 	        		cparam = $("#channel_function_params");
 	        		
@@ -500,9 +501,9 @@ function detectIE() {
 	        		if ( function_id == 0 ) {
 	                	pictogram_nofunc.show();
 	        		} else if ( function_id == 40 ) {
-	        			pictogram_std.hide();
+	        			pictogram_temp.show();
 	        		} else {
-
+	        			
 	        			var img = pictogram_std.find('img');
 	        			
 	        			if ( img != undefined && img.length != 0 ) {

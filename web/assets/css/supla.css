@@ -571,7 +571,7 @@ h1 .cd-btn:hover {color: #27CF46}
 .is-visible .cd-panel-container {-webkit-transform: translate3d(0, 0, 0); -moz-transform: translate3d(0, 0, 0); -ms-transform: translate3d(0, 0, 0); -o-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0); -webkit-transition-delay: 0s; -moz-transition-delay: 0s; transition-delay: 0s;}
 .cd-panel-content {position: absolute; top: 0;left: 0;height: 100%;width: 100%;padding: 114px 0 30px;overflow: scroll;-webkit-overflow-scrolling: touch; line-height: 20px; font-size: 13px;}
 .cd-panel-content h1 {margin: 0 30px 20px;}
-.cd-panel-content p { margin: 0 30px 15px; line-height: 23px;}
+.cd-panel-content p { margin: 0 30px 15px; line-height: 23px; color: #000}
 .cd-panel-content a {color: #000; font-weight: 600;}
 
 

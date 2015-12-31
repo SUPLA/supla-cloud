@@ -26,8 +26,7 @@ class ChannelValidator extends ConstraintValidator
 		    
 		    if ( $channel instanceof IODeviceChannel ) {
 		    	
-		    	$fmap = $this->iodevice_manager->channelFunctionMap();
-		    	$f = @$fmap[$channel->getType()];
+		    	$f = $this->iodevice_manager->channelFunctionMap($channel->getType(), $channel->getFuncList());
 		    	
 		    	if ( !is_array($f) || !in_array($channel->getFunction(), $f) ) {
 		    		$msg = $constraint->config_message;

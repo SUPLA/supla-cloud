@@ -64,7 +64,7 @@ class ChannelFunctionType extends AbstractType
 		
 		$view->vars['selected'] = $this->iodevice_manager->channelFunctionToString($channel->getFunction());
 		
-		$map = $this->iodevice_manager->channelFunctionMap($channel->getType());
+		$map = $this->iodevice_manager->channelFunctionMap($channel->getType(), $channel->getFuncList());
 		$fnc = array();
 		
 		foreach($map as $f) {

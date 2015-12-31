@@ -47,7 +47,7 @@ class IODeviceManager
 		$this->template = $template;
 	}
 	
-	public function channelFunctionMap($type = null)
+	public function channelFunctionMap($type = null, $flist = null)
 	{
 		$map[SuplaConst::TYPE_SENSORNO] = array('0', SuplaConst::FNC_OPENINGSENSOR_GATEWAY, 
 				                                     SuplaConst::FNC_OPENINGSENSOR_GATE,
@@ -69,6 +69,7 @@ class IODeviceManager
 				SuplaConst::FNC_POWERSWITCH,
 				SuplaConst::FNC_LIGHTSWITCH
 		);
+		
 		$map[SuplaConst::TYPE_2XRELAYG5LA1A] = array('0', SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
 				SuplaConst::FNC_CONTROLLINGTHEGATE,
 				SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR,
@@ -77,9 +78,48 @@ class IODeviceManager
 				SuplaConst::FNC_LIGHTSWITCH,
 				SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER
 		);
+		
 		$map[SuplaConst::TYPE_THERMOMETERDS18B20] = array('0', SuplaConst::FNC_THERMOMETER);
 		
-		return $type === null ? $map : $map[$type];
+		if ( $type === null ) {
+			return $map;
+		}
+		
+		if ( $type == SuplaConst::TYPE_RELAY ) {
+			
+			$fnc = array(0);
+			
+			if ( $flist !== null
+				 && is_int($flist) ) {
+
+				 if ( $flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEGATEWAYLOCK )
+				 	$fnc[] = SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK;
+				 
+				 if ( $flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEGATE )
+				 	$fnc[] = SuplaConst::FNC_CONTROLLINGTHEGATE;				 
+				 	
+				 if ( $flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEGARAGEDOOR )
+				 	$fnc[] = SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR;
+				 
+				 if ( $flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEDOORLOCK )
+				 	$fnc[] = SuplaConst::FNC_CONTROLLINGTHEDOORLOCK;
+				 
+				 if ( $flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEROLLERSHUTTER )
+				 	$fnc[] = SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER;
+				 
+				 if ( $flist & SuplaConst::BIT_RELAYFNC_POWERSWITCH )
+				 	$fnc[] = SuplaConst::FNC_POWERSWITCH;
+				 
+				 if ( $flist & SuplaConst::BIT_RELAYFNC_LIGHTSWITCH )
+				 	$fnc[] = SuplaConst::FNC_LIGHTSWITCH;
+				
+			}
+			
+			return $fnc;
+			
+		}
+		
+		return $map[$type];
 	} 
 	
 	public function channelTypeToString($type) 
@@ -88,6 +128,7 @@ class IODeviceManager
 		
 		switch($type) {
 			case SuplaConst::TYPE_SENSORNO: $result = 'Sensor (normal open)'; break;
+			case SuplaConst::TYPE_RELAY: $result = 'Relay'; break;
 			case SuplaConst::TYPE_RELAYHFD4: $result = 'HFD4 Relay'; break;
 			case SuplaConst::TYPE_RELAYG5LA1A: $result = 'G5LA1A Relay'; break;
 			case SuplaConst::TYPE_2XRELAYG5LA1A: $result = 'G5LA1A Relay x2'; break;
@@ -142,6 +183,7 @@ class IODeviceManager
 		switch($type) {
 			case SuplaConst::TYPE_THERMOMETERDS18B20: 
 			case SuplaConst::TYPE_SENSORNO: $result = 'Input'; break;
+			case SuplaConst::TYPE_RELAY:
 			case SuplaConst::TYPE_RELAYG5LA1A:
 			case SuplaConst::TYPE_2XRELAYG5LA1A:
 			case SuplaConst::TYPE_RELAYHFD4: $result = 'Output'; break;
@@ -201,7 +243,7 @@ class IODeviceManager
 		
 		return $this->channel_rep->findBy(
 				array('user' => $user, 
-					  'type' => array(SuplaConst::TYPE_RELAYHFD4, SuplaConst::TYPE_RELAYG5LA1A, SuplaConst::TYPE_2XRELAYG5LA1A),
+					  'type' => array(SuplaConst::TYPE_RELAY, SuplaConst::TYPE_RELAYHFD4, SuplaConst::TYPE_RELAYG5LA1A, SuplaConst::TYPE_2XRELAYG5LA1A),
 					  'function' => $func, 
 					  'param2' => array(0, $include), 
 					  'param3' => 0)

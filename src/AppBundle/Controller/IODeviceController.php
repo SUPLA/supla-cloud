@@ -138,6 +138,7 @@ class IODeviceController extends Controller
     						$related_channel->setParam2(0);
     				}
     		
+    			case SuplaConst::TYPE_RELAY:
     			case SuplaConst::TYPE_RELAYHFD4:
     			case SuplaConst::TYPE_RELAYG5LA1A:
     			case SuplaConst::TYPE_2XRELAYG5LA1A:
@@ -229,6 +230,7 @@ class IODeviceController extends Controller
     						
     				break;
     				
+    			case SuplaConst::TYPE_RELAY:
 				case SuplaConst::TYPE_RELAYHFD4:
 				case SuplaConst::TYPE_RELAYG5LA1A:
 				case SuplaConst::TYPE_2XRELAYG5LA1A:

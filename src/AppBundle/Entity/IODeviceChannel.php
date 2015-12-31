@@ -79,6 +79,11 @@ class IODeviceChannel
     
     
     /**
+     * @ORM\Column(name="flist", type="integer", nullable=true)
+     */
+    protected $funcList;
+    
+    /**
      * @ORM\Column(name="param1", type="integer", nullable=false)
      */
     protected $param1;
@@ -132,6 +137,16 @@ class IODeviceChannel
     public function setFunction($function) 
     {
     	$this->function = $function;
+    }
+    
+    public function getFuncList()
+    {
+    	return $this->funcList;
+    }
+    
+    public function setFuncList($funcList)
+    {
+    	$this->funcList = $funcList;
     }
     
     public function getChannel() 

@@ -48,7 +48,7 @@
 			<a href="#arduino" aria-controls="arduino" class="btn btn-default" role="tab" data-toggle="tab">Arduino</a>
 		</div>
 	  
-		<div class="tab-content">
+		<div id="cft" class="tab-content cft">
 		  <div role="tabpanel" class="tab-pane active fade in" id="raspberrypi">
 		  <ol>
 			<li class="animated fadeInUp">{% trans %}Download RaspberryPI <a href="https://www.supla.org/download.php">SD Card Image</a>.{% endtrans %}</li>
@@ -80,11 +80,22 @@
 
 <script type='text/javascript'>
   $(document).ready(function() {
+  
 	  $('[data-toggle="btns"] .btn').on('click', function(){
 		  var $this = $(this);
 		  $this.parent().find('.active').removeClass('active');
 		  $this.addClass('active');
 	  });
+	  
+	  if ( $('#cft').hasClass( 'cft' ) ) {
+	      setTimeout(
+		      function() {
+		      		$('#cft').removeClass( 'cft' )  
+		      }, 
+		  5500);
+	  };
+	  
+
   });        
 </script>
 
