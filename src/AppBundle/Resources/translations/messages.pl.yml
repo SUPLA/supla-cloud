@@ -18,6 +18,7 @@ CANCEL: ANULUJ
 Are you sure you want to delete?: Czy na pewno chcesz usunąć ?
 Relay switching time: Czas załączenia<br />przekaźnika
 sec.: sek.
+Download the history of measurement: Pobierz historię pomiarów
 Open sensor: Czujnik otwarcia
 None: Brak
 Channel for the sensor: Czujnik dla kanału
@@ -111,18 +112,34 @@ Install SUPLA on your smartphone.: Zainstaluj SUPLĘ w Twoim smartfonie.
 Open SUPLA app.: Uruchom aplikację.
 Fill in the fields with settings provided above.: Wprowadź w ustawienia dane widoczne powyżej.
 Tap <strong>Done</strong> and wait until the app connects.: Dotknij przycisk <strong>Gotowe</strong> i zaczekaj, aż aplikacja się połączy.
-Download RaspberryPI <a href="https://www.supla.org/download.php">SD Card Image</a>.: Pobierz obraz <a href="https://www.supla.org/download.php">karty SD</a> dla Raspberry PI.
+Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Pobierz obraz <a href="https://www.supla.org/download">karty SD</a> dla Raspberry PI.
 Transfer downloaded image onto the SD Card.: Przenieś pobrany obraz na kartę SD.
 Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Otwórz plik <strong>boot\location.txt</strong>. Skopiuj i wklej powyższe ustawienia.
 Done.: Gotowe.
 For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Więcej szczegółów na <a href="https://www.supla.org">www.supla.org</a>
+Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Pobierz <a href="https://www.supla.org/download">firmware</a> i wgraj go do mikrokontrolera
+Turn the device on: Włącz urządzenie
+Press and hold the P1 button for 5 sec. (Default GPIO2): Wciśnij i przytrzymaj przycisk P1 przez min. 5 sek. (Domyślnie GPIO2)
+Connect the computer to WiFi called SUPLA-ESP8266: Podłącz komputer do sieci WiFi o nazwie SUPLA-ESP8266
+Go to http://192.168.4.1: Otwórz stronę pod adresem http://192.168.4.1
+Enter location settings provided above: Wprowadź ustawienia lokalizacji widoczne powyżej
+Enter access data to your WiFi: Wprowadź dane dostępowe do Twojej sieci WiFi
+Click "Save": Kliknij "Save"
+Restart the device or press the P1 button: Uruchom ponownie urządzenie lub naciśnij przycisk P1
+
+Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Pobierz <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">bibliotekę SuplaDevice</a> dla Arduino
+Run Arduino IDE: Uruchom Arduino IDE
+Click Sketch -> Include library -> Add .ZIP Library: Kliknij Szkic -> Dołącz bibliotekę -> Dodaj bibliotekę .ZIP
+Open one of the examples. File -> Examples -> SuplaDevice: Otwórz jeden z przykładów.  Plik -> Przykłady -> SuplaDevice
+Complete the code (GUID, Server, Location ID, Location Password): Uzupełnij kod (GUID, Serwer, ID lokalizacji, Hasło lokalizacji)
+Upload program to Arduino: Wgraj program do Arduino
+
 Previous login: Poprzednie logowanie
 from IP: z adresu IP
 Current Password: Aktualne hasło
 New password: Nowe hasło
 Change Password: Zmiana hasła
 Coming soon: Dostępne wkrótce
-
 Develop your own building automation: Własny Inteligentny Budynek
 Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.: W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.
 SUPLA everywhere!: SUPLA wszędzie!

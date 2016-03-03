@@ -18,6 +18,7 @@ CANCEL: ABBRECHEN
 Are you sure you want to delete?: Bist du sicher, dass du es löschen möchtest?
 Relay switching time: Dauer der Befestigung<br />des Relais
 sec.: Sek.
+Download the history of measurement: Verlauf der Messung herunterladen
 Open sensor: Offen-Sensor
 None: Ohne
 Channel for the sensor: Sensor für den Kanal
@@ -111,11 +112,28 @@ Install SUPLA on your smartphone.: SUPLA in deinem Smartphone installieren.
 Open SUPLA app.: SUPLA App öffnen.
 Fill in the fields with settings provided above.: O.g. Dateien in die Einstellungen eintragen.
 Tap <strong>Done</strong> and wait until the app connects.: <strong>Fertig</strong> drücken und warten bis die Applikation verbunden ist.
-Download RaspberryPI <a href="https://www.supla.org/download.php">SD Card Image</a>.: Herunterladen Raspberry PI <a href="https://www.supla.org/download.php">SD Karte Image</a>.
+Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Herunterladen Raspberry PI <a href="https://www.supla.org/download">SD Karte Image</a>.
 Transfer downloaded image onto the SD Card.: Herunterladene Image auf SD Karte tragen.
 Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: <strong>boot\location.txt</strong> öffnen. Dann bitte kopieren und o.g. Einstellungen einfügen.
 Done.: Fertig.
+Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: <a href="https://www.supla.org/download">Firmware</a> herunterladen und zu dem Mikrocontroller laden
+Turn the device on: Das Gerät einschalten
+Press and hold the P1 button for 5 sec. (Default GPIO2): Die P1 Taste drücken und mindestens 5 Sekunden halten (default GPIO2)
+Connect the computer to WiFi called SUPLA-ESP8266: Computer zu WiFi Netz mit der Name SUPLA-ESP8266 verbinden
+Go to http://192.168.4.1: Auf die Seite http://192.168.4.1 gehen
+Enter location settings provided above: Die oben genannten Einstellungen der Lokalisierung einfügen
+Enter access data to your WiFi: Die Zugangsdaten in WiFi Netz einfügen
+Click "Save": Save drücken
+Restart the device or press the P1 button: Das Gerät neustarten oder die Taste P1 drücken.
 For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Mehr Details auf <a href="https://www.supla.org">www.supla.org</a>
+
+Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Die <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">Bibliothek SUPLADevice</a> Arduino herunterladen 
+Run Arduino IDE: Arduino IDE starten
+Click Sketch -> Include library -> Add .ZIP Library: Klicken Sketch -> Bibliothek einbinden ->. ZIP-Bibliothek hinzufügen…
+Open one of the examples. File -> Examples -> SuplaDevice: Einen Beispiel öffnen.  Datei -> Beispiele -> SuplaDevice
+Complete the code (GUID, Server, Location ID, Location Password): Kod ergänzen (GUIG, Server, ID der Lokalisierung, Passwort der Lokalisierund)
+Upload program to Arduino: Hochladen Programm für Arduino
+
 Previous login: Vorletzte Anmeldung
 from IP: aus der IP Adresse
 Current Password: Aktueller Kennwort

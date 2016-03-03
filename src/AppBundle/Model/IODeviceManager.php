@@ -23,6 +23,7 @@ use AppBundle\Supla\SuplaConst;
 use AppBundle\Entity\IODevice;
 use AppBundle\Entity\IODeviceChannel;
 use AppBundle\Entity\User;
+use ZipArchive;
 
 /**
  * @author Przemyslaw Zygmunt p.zygmunt@acsoftware.pl [AC SOFTWARE]
@@ -459,6 +460,43 @@ class IODeviceManager
 		return null;
 	}
 	
+	public function channelGetCSV($channel_id, $zip_filename = false)
+	{
 	
+		$temp_file = tempnam(sys_get_temp_dir(), 'supla_csv_');
+			
+		if ( $temp_file !== FALSE ) {
+	
+			$handle = fopen($temp_file, 'w+');
+	
+			fputcsv($handle, array('Timestamp', 'Date and time (CET)', 'Temperature'));
+			$results = $this->doctrine->getManager()->getConnection()->query( "SELECT UNIX_TIMESTAMP(`date`) AS date_ts, `date`, `temperature` FROM `supla_temperature_log` WHERE channel_id = ".intval($channel_id) );
+	
+			while( $row = $results->fetch() )
+				fputcsv($handle, array($row['date_ts'], $row['date'], $row['temperature']));
+	
+			fclose($handle);
+	
+			if ( $zip_filename !== false ) {
+					
+				$zip = new ZipArchive();
+					
+				if ($zip->open($temp_file.'.zip', ZipArchive::CREATE) === TRUE) {
+	
+					$zip->addFile($temp_file, $zip_filename.'.csv');
+					$zip->close();
+						
+				}
+					
+				unlink($temp_file);
+				$temp_file = $temp_file.'.zip';
+			}
+	
+			return $temp_file;
+	
+		}
+	
+		return FALSE;
+	}
 	
 }

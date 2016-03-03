@@ -33,6 +33,11 @@
 				{{ form_start(form) }}
 				{{ form_row(form.channel)  }}
 				{{ form_row(form.caption)  }}
+				
+				{% if channel.function == '40' %}
+					<a href="{{ path('_iodev_channel_item_csv', {'devid': channel.iodevice.id, 'id': channel.id}) }}" class="btn btn-default btn-temp">{% trans %}Download the history of measurement{% endtrans %}</a>
+				{% endif %}
+				
 				<div class="buttons">
 				{{ form_row(form.cancel)  }}
 				{{ form_row(form.save)  }}

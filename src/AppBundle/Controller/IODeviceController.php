@@ -29,6 +29,7 @@ use AppBundle\Entity\IODevice;
 use AppBundle\Form\Type\IODeviceType;
 use AppBundle\Form\Type\IODeviceChannelType;
 use AppBundle\Supla\ServerCtrl;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @author Przemyslaw Zygmunt p.zygmunt@acsoftware.pl [AC SOFTWARE]
@@ -285,6 +286,39 @@ class IODeviceController extends Controller
     	 
     }
     
+    /**
+     * @Route("/{devid}/{id}/csv", name="_iodev_channel_item_csv")
+     */
+    public function channelItemGetCSV(Request $request, $devid, $id)
+    {
+    
+    	$channel = $this->getChannelById($id);
+    
+    	if ( $channel === null || $channel->getIoDevice()->getId() != $devid )
+    		return $this->redirectToRoute("_iodev_list");
+    
+    
+    	$iodev_man = $this->get('iodevice_manager');
+    	$file = $iodev_man->channelGetCSV($id, "measurement_".intval($id));
+    
+    	if ( $file !== FALSE ) {
+    
+    		return new StreamedResponse(
+    				function () use ($file) {
+    					readfile($file);
+    					unlink($file);
+    				}, 200, array('Content-Type' => 'application/zip',
+    						'Content-Disposition' => 'attachment; filename="measurement_'.intval($id).'.zip"'
+    				)
+    		);
+    
+    
+    	}
+    
+    	$this->get('session')->getFlashBag()->add('error', array('title' => 'Error', 'message' => 'Error creating file'));
+    
+    	return $this->redirectToRoute("_iodev_channel_item_edit", array('devid' => $devid, 'id' => $id));
+    }
     
     private function ajaxItemEdit(IODevice $iodev, $message, $value)
     {
