@@ -35,8 +35,8 @@ twig:
         - 'AppBundle:Form:fields.html.twig'
 
 ewz_recaptcha:
-    public_key:   6LeNIwcTAAAAABVn8YQgySvSvusLk31afKzbzJle
-    private_key:  6LeNIwcTAAAAANAK0dnAdaSkbOxJlwdnzNqg9y9j
+    public_key:   "%ewz_recaptcha_public_key%"
+    private_key:  "%ewz_recaptcha_private_key%"
     
 # Assetic Configuration
 assetic:

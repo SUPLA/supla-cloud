@@ -19,6 +19,9 @@ parameters:
     admin_email: ~
     supla_server: ~
 
+    ewz_recaptcha_public_key: ~
+    ewz_recaptcha_private_key: ~
+
     locale:            en
 
     # A secret key that's used to generate certain security-related tokens
