@@ -25,11 +25,19 @@ namespace AppBundle\Supla;
 class SuplaConst
 {
 	const TYPE_SENSORNO            = 1000;
+	const TYPE_SENSORNC            = 1010;
+	const TYPE_CALLBUTTON          = 1500;
 	const TYPE_RELAYHFD4           = 2000;
 	const TYPE_RELAYG5LA1A         = 2010;
 	const TYPE_2XRELAYG5LA1A       = 2020;
 	const TYPE_RELAY               = 2900;
 	const TYPE_THERMOMETERDS18B20  = 3000;
+	const TYPE_DHT11               = 3010;
+	const TYPE_DHT22               = 3020;
+	const TYPE_AM2302              = 3030;
+	const TYPE_DIMMER              = 4000;
+	const TYPE_RGBLED              = 4010;
+	const TYPE_DIMMERANDRGBLED     = 4020;
 	
 	const BIT_RELAYFNC_CONTROLLINGTHEGATEWAYLOCK       =  0x00000001;
 	const BIT_RELAYFNC_CONTROLLINGTHEGATE              =  0x00000002;

@@ -203,6 +203,7 @@ Sources available from <strong>GitHub</strong>: Quelltext in <strong>GitHub</str
 Input: Eingabe
 Output: Ausgabe
 Sensor (normal open): Sensor (normal auf)
+Sensor (normal closed): Sensor (normal zu)
 Relay: Relais
 HFD4 Relay: HFD4 Relais
 G5LA1A Relay: G5LA1A Relais

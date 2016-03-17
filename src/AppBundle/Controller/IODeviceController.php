@@ -127,6 +127,7 @@ class IODeviceController extends Controller
     		switch($channel->getType()) {
     			 
     			case SuplaConst::TYPE_SENSORNO:
+    			case SuplaConst::TYPE_SENSORNC:
     				 
     				if ( $channel->getParam1() != 0 ) {
     						
@@ -194,6 +195,7 @@ class IODeviceController extends Controller
     		switch($channel->getType()) {
     			
     			case SuplaConst::TYPE_SENSORNO:
+    			case SuplaConst::TYPE_SENSORNC:
     				
     				if (  $channel->getFunction() == SuplaConst::FNC_NONE
     						|| $old_param1 != $channel->getParam1() ) {
@@ -278,7 +280,8 @@ class IODeviceController extends Controller
     				  'channel_function' => $channel->getFunction(),
     				  'channel_function_name' => $dev_man->channelFunctionToString($channel->getFunction()),
     				  'form' => $form->createView(),
-    				  'show_sensorstate' => $channel->getType() == SuplaConst::TYPE_SENSORNO ? true : false,
+    				  'show_sensorstate' => ( $channel->getType() == SuplaConst::TYPE_SENSORNO
+    				  		                  || $channel->getType() == SuplaConst::TYPE_SENSORNC ) ? true : false,
     				  'show_temperature' => $channel->getType() == SuplaConst::TYPE_THERMOMETERDS18B20 ? true : false,
     			)
     	);

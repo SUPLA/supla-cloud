@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Supla\ServerCtrl;
+use AppBundle\Supla\SuplaConst;
 
 /**
  * @author Przemyslaw Zygmunt p.zygmunt@acsoftware.pl [AC SOFTWARE]
@@ -123,6 +124,16 @@ class AjaxController extends Controller
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
     	$value = (new ServerCtrl())->get_double_value($user->getId(), $iodevice_id, $channel_id);
+    	
+    	$dev_man = $this->get('iodevice_manager');
+    	$channel = $dev_man->channelById($channel_id);
+    	
+    	if ( $channel !== null
+    		 && $channel->getType() == SuplaConst::TYPE_SENSORNC ) {
+    					
+    			$value = $value == '1' ? '0' : '1';
+    	}
+
     	
     	return AjaxController::jsonResponse(true, array('value' => $this->get('translator')->trans($value == '1' ? 'Close' : 'Open')));
     }

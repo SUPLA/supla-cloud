@@ -19,8 +19,8 @@
 					<ul class="list-unstyled">
 						<li><strong>{{ iodevice.name }}</strong></li>
 						<li>GUID <strong>{{ iodevice.guidstring }}</strong></li>
-						<li>{% trans %}Registred{% endtrans %} <strong>{{ iodevice.regdate|date("d.m.Y H:m") }}</strong></li>
-						<li>{% trans %}Last connection{% endtrans %} <strong>{{ iodevice.lastconnected|date("d.m.Y H:m") }}</strong></li>
+						<li>{% trans %}Registred{% endtrans %} <strong>{{ iodevice.regdate|date("d.m.Y H:i") }}</strong></li>
+						<li>{% trans %}Last connection{% endtrans %} <strong>{{ iodevice.lastconnected|date("d.m.Y H:i") }}</strong></li>
 						<li><div class="miniform">
 						<textarea id="comment_value" rows="2" cols="27" placeholder="{% trans %}Comment{% endtrans %}">{{iodevice.comment}}</textarea><button id="comment-save" data-preloader="set-comment-pl" class="btn btn-textarea"><br />&nbsp;&nbsp;&nbsp;{% trans %}SAVE{% endtrans %}&nbsp;&nbsp;&nbsp;</button>
 						<div class="btn btn-load btn-big" id="set-comment-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>

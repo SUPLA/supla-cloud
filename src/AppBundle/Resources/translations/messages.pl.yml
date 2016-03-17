@@ -202,6 +202,7 @@ Sources available from <strong>GitHub</strong>: Źródła dostępne w <strong>Gi
 Input: Wejście
 Output: Wyjście
 Sensor (normal open): Czujnik (normalnie otwarty)
+Sensor (normal closed): Czujnik (normalnie zamknięty)
 Relay: Przekaźnik
 HFD4 Relay: Przekaźnik HFD4
 G5LA1A Relay: Przekaźnik G5LA1A
