@@ -4,13 +4,13 @@ project.
 The fields are: name (N), email (E), description (D)
 
 N: Przemyslaw Zygmunt
-E: p.zygmunt@acsoftware.pl
+E: przemek@supla.org
 D: Founder of the project
 D: Software developer [supla-dev, supla-server, supla-client, CLOUD, iOS APP, Android APP]
 D: Electronics design [RASPBERRY-PI B+ EXTENSION 01]
 
 N: Dariusz Milkowski
-E: darektci@gmail.com
+E: darek@supla.org
 D: Electronics design [RASPBERRY-PI B+ EXTENSION 01, ESP 8266 EXTENSION 01]
 
 N: Mateusz Major
@@ -25,3 +25,12 @@ D: German translations
 N: Adriana Gamon
 E: ada@transcom.com.pl
 D: English translations
+
+N: Patryk Orlanski
+E: patryk@supla.org
+D: Videos & Photos
+
+N: Jakub Palider
+E: jpalider@gmail.com
+D: Software developer [supla-core, MCP23008 support]
+
