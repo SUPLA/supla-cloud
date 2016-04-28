@@ -1,224 +1,224 @@
-# src/AppBundle/Resources/translations/messages.pl.yml
+# src/AppBundle/Resources/translations/messages.ru.yml
 
-Hi: Cześć
-Delete: Usuń
-Caption: Podpis
-Enabled: Włączone
-Disabled: Wyłączone
-Search: Szukaj
-Assigned Locations: Przypisane Lokalizacje
-Password change: Zmiana hasła
-Registration: Rejestracja
-Password Reset: Resetowanie hasła
-Account: Konto
-Forgot your password ?: Nie pamiętasz hasła ?
-Server address: Adres serwera
-Cancel: Anuluj
-CANCEL: ANULUJ
-Are you sure you want to delete?: Czy na pewno chcesz usunąć ?
-Relay switching time: Czas załączenia<br />przekaźnika
-sec.: sek.
-Download the history of measurement: Pobierz historię pomiarów
-Open sensor: Czujnik otwarcia
-None: Brak
-Channel for the sensor: Czujnik dla kanału
-Channel: Kanał
-Channel No: Numer kanału
-Channel properties: Właściwości kanału
-Device: Urządzenie
-Access Identifier: Identyfikator Dostępu
-Type: Typ
-Number: Numer
-I/O: Wejście/Wyjście
-Function: Funkcja
-Name: Nazwa
-Location: Lokalizacja
-Locations: Lokalizacje
-No Locations assigned: Brak przypisanych lokalizacji
-Lack of Locations: Brak lokalizacji
-SoftVer: WerOpr
-All: Wszystko
-Electric: Elektryka
-Doors, Gates: Drzwi, Bramy
-Roller shutters: Rolety
-Liquid, Temp: Ciecz, Temperatura
-Sensors: Czujniki
-No function: Brak funkcji
-Connected: Połączony
-Disconnected: Rozłączony
-unknown: nieznany
-Comment: Komentarz
-Channels: Kanały
-I/O Devices: Urządzenia we/wy
-Assigned Access Identifiers: Przypisane Identyfikatory Dostępu
-Start Here: Rozpocznij tutaj
-Sign In: Zaloguj się
-Sign Out: Wyloguj się
-Generate new password: Generuj nowe hasło
-Password: Hasło
-Confirm Password: Potwierdzenie hasła
-SAVE: ZAPISZ
-GENERATE: GENERUJ
-ENABLED: WŁĄCZONE
-CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
-DISABLED: WYŁĄCZONE
-CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
-DELETE: USUŃ
-Assign Locations: Przypisz Lokalizacje
-Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
-Confirm if you want to remove Location: Potwierdź chęć usunięcia Lokalizacji
-Further connection with this Identifier will be impossible: Dalsze łączenie poprzez ten identyfikator będzie niemożliwe
-Choose locations to be assigned to Access Identifier: Wybierz Lokalizacje, które zostaną przypisane do tego Identyfikatora Dostępu
-Access Identifiers: Identyfikatory dostępu
-Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
-No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Brak lokalizacji, które możesz przypisać do tego<br />  Identyfikatora Dostępu. Przejdź do Lokalizacji i utwórz minimum jedną.
-No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Brak Identyfikatorów Dostępu, które możesz przypisać do tej<br /> lokalizacji. Przejdź do Identyfikatorów Dostępu i utwórz minimum jeden. 
-You will no longer be able to connect the i/o devices to this Location: Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe
-Create New Location: Utwórz nową Lokalizację
-Assign Access Identifiers: Przypisz Identyfikatory Dostępu
-Languages: Języki
-No I/O Devices: Brak Urządzeń We/Wy
-Choose Access Identifiers to be assigned to this Location: Wybierz Identyfikatory Dostępu, które zostaną przypisane do tej Lokalizacji
-Are you sure?: Czy na pewno?
-Lighting: Oświetlenie
-Temperature: Temperatura
-Doors and gates: Drzwi i bramy
-Roller shutters: Rolety
-Home appliances: Sprzęt AGD/RTV
-And more: I znacznie więcej
-From anywhere: Z każdego miejsca
-With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz sterować oświetleniem w Twoim domu lub biurze
-...you can monitor temperature: ...możesz monitorować temperaturę
-...open gateways, gates or doors: ...otworzyć furtkę, bramę lub drzwi
-...open and shut roller shutters: ...zasłonić i odsłonić rolety
-...or control home appliances: ...lub sterować sprzętem AGD/RTV
-All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tebletu
-SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło
-Registred: Zarejestrowany
-Last connection: Ostatnie połączenie
-Confirm if you want to remove <strong>%devname%</strong> device: Potwierdź chęć usunięcia urządzenia <strong>%devname%</strong>
-All Your I/O Devices: Wszystkie Twoje Urządzenia We/Wy
-Please select function for this channel: Wybierz funkcję dla tego kanału
-No Access Identifiers assigned: Brak przypisanych Identyfikatorów Dostępu
-Lack of Access Identifiers: Brak Identyfikatorów Dostępu
-Change Your Password: Zmiana hasła
-On your computer...: W Twoim komputerze...
-On your smartphone...: W Twoim smartfonie...
-It's easy to get your home or office connected to SUPLA.: Podłączenie Twojego domu lub biura do SUPLI jest proste.
-All you need is to follow the steps below.: Wszystko co musisz zrobić to wykonać kilka poniższych kroków.
-Make it work: Spraw by działało
-You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Nie możesz podłączyć Urządzeń wejścia/wyjścia dopóki nie skojarzysz przynajmniej jednego Identyfikatora Dostępu z dowolną Lokalizacją
-Install SUPLA on your smartphone.: Zainstaluj SUPLĘ w Twoim smartfonie.
-Open SUPLA app.: Uruchom aplikację.
-Fill in the fields with settings provided above.: Wprowadź w ustawienia dane widoczne powyżej.
-Tap <strong>Done</strong> and wait until the app connects.: Dotknij przycisk <strong>Gotowe</strong> i zaczekaj, aż aplikacja się połączy.
-Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Pobierz obraz <a href="https://www.supla.org/download">karty SD</a> dla Raspberry PI.
-Transfer downloaded image onto the SD Card.: Przenieś pobrany obraz na kartę SD.
-Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Otwórz plik <strong>boot\location.txt</strong>. Skopiuj i wklej powyższe ustawienia.
-Done.: Gotowe.
-For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Więcej szczegółów na <a href="https://www.supla.org">www.supla.org</a>
-Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Pobierz <a href="https://www.supla.org/download">firmware</a> i wgraj go do mikrokontrolera
-Turn the device on: Włącz urządzenie
-Press and hold the P1 button for 5 sec. (Default GPIO2): Wciśnij i przytrzymaj przycisk P1 przez min. 5 sek. (Domyślnie GPIO2)
-Connect the computer to WiFi called SUPLA-ESP8266: Podłącz komputer do sieci WiFi o nazwie SUPLA-ESP8266
-Go to http://192.168.4.1: Otwórz stronę pod adresem http://192.168.4.1
-Enter location settings provided above: Wprowadź ustawienia lokalizacji widoczne powyżej
-Enter access data to your WiFi: Wprowadź dane dostępowe do Twojej sieci WiFi
-Click "Save": Kliknij "Save"
-Restart the device or press the P1 button: Uruchom ponownie urządzenie lub naciśnij przycisk P1
+Hi: Привет
+Delete: Удалить
+Caption: Подпись
+Enabled: Используется
+Disabled: Неиспользуется
+Search: Поиск
+Assigned Locations: Приписанные Позиции
+Password change: Изменение пароля
+Registration: Регистрация
+Password Reset: Сброс пароля
+Account: Учетка
+Forgot your password ?: Не помнишь пароль ?
+Server address: Адрес сервера
+Cancel: Отмена
+CANCEL: ОТМЕНА
+Are you sure you want to delete?: Точно удалить ?
+Relay switching time: Время переключения<br />реле
+sec.: сек.
+Download the history of measurement: Скачать историю измерений
+Open sensor : Датчик открытия
+None: Нет
+Channel for the sensor: Канал датчика
+Channel: Канал
+Channel No: Номер канала
+Channel properties: Свойства канала
+Device: Устройство
+Access Identifier: Ключи доступа
+Type: Тип
+Number: Номер
+I/O: Ввод/Вывод
+Function: Назначение
+Name: Название
+Location: Позиция
+Locations: Позиции
+No Locations assigned: Нет назначенных позиций
+Lack of Locations: Нет свободных позиций
+SoftVer: Версия
+All: Все
+Electric: Электрика
+Doors, Gates: Двери, Калитки
+Roller shutters: Ролетты
+Liquid, Temp: Жидкость, Темп
+Sensors: Датчики
+No function: Не назначенно
+Connected: Подключенно
+Disconnected: Отключенно
+unknown: неизвестно
+Comment: Коментарий
+Channels: Каналы
+I/O Devices: Устройства
+Assigned Access Identifiers: Присвоенные ключи доступа
+Start Here: Начни отсюда
+Sign In: Войти
+Sign Out: Выйти
+Generate new password: Создать новый пароль
+Password: Пароль
+Confirm Password: Подтвердить пароль
+SAVE: СОХРАНИТЬ
+GENERATE: СОЗДАТЬ
+ENABLED: ИСПООЛЬЗУЕТСЯ
+CLICK TO DISABLE: ОТКЛЮЧИТЬ
+DISABLED: НЕ ИСПОЛЬЗУЕТСЯ
+CLICK TO ENABLE: ИСПОЛЬЗОВАТЬ
+DELETE: УДАЛИТЬ
+Assign Locations: Назначенные Позиции
+Confirm if you want to remove Access Identifier: Подтвердите удаление Ключа Доступа
+Confirm if you want to remove Location: Подтвердите удаление Позиции
+Further connection with this Identifier will be impossible: Подключится с этим Ключем будет невозможно
+Choose locations to be assigned to Access Identifier: Выберите позиции доступные для данного ключа доступа
+Access Identifiers: Ключ Доступа
+Create New Access Identifier: Создать новый ключ доступа
+No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Нет Позиций для назначения этому Ключу.<br />Создайте хотябы одну Позицию.
+No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Нет свободных Ключей доступа<br /> Создайте хотябы один Ключ Доступа. 
+You will no longer be able to connect the i/o devices to this Location: Вам не удастся назначить устройства в эту Позицию
+Create New Location: Создать новую Позицию
+Assign Access Identifiers: Приписать Ключи Доступа
+Languages: Язык
+No I/O Devices: Устройства
+Choose Access Identifiers to be assigned to this Location: Выберите Ключи Доступа для этой Позиции
+Are you sure?: Вы уверенны?
+Lighting: Освещение
+Temperature: Температура
+Doors and gates: Двери и калитки
+Roller shutters: Роллеты
+Home appliances: Бытовая техника
+And more: И прочее
+From anywhere: Отовсюду
+With SUPLA you can operate the lights in your home or office: С SUPLĄ можно управлять светом в доме или офисе
+...you can monitor temperature: ...узнать температуру
+...open gateways, gates or doors: ...открыть ворота, калитки или двери
+...open and shut roller shutters: ...открывать и закрывать роллеты
+...or control home appliances: ...или управлять бытовой техникой
+All the above and many more can be done from your phone or tablet: Все это и даже больше управляется со сартфона или планшета
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA доступна везде и всегда, так что не бойтесь забыть выключить свет или утюг
+Registred: Зарегистрирован
+Last connection: Последнее соединение
+Confirm if you want to remove <strong>%devname%</strong> device: Подтвердите удаление <strong>%devname%</strong>
+All Your I/O Devices: Все Ваши устройства
+Please select function for this channel: Выберете назначение канала
+No Access Identifiers assigned: Не присвоен Ключ Доступа
+Lack of Access Identifiers: Нехватает Ключей Доступа
+Change Your Password: Сменить пароль
+On your computer...: На Вашем компьютере...
+On your smartphone...: На Вашем смартфоне...
+It's easy to get your home or office connected to SUPLA.: Дом или офис так просто подключить к SUPLA.
+All you need is to follow the steps below.: Достаточно нескольких простых действий.
+Make it work: Заставь работать
+You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Нельзя подключить устройства пока не назначен хоть один Ключ Доступа к любой Позиции
+Install SUPLA on your smartphone.: Установи SUPLА на смартфон.
+Open SUPLA app.: Открой приложение SUPLA.
+Fill in the fields with settings provided above.: Запролни поля с настройками как на картике сверху.
+Tap <strong>Done</strong> and wait until the app connects.: Кликни <strong>Готово</strong> и подожди соединения с сервером.
+Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Скачай образ <a href="https://www.supla.org/download">карты SD</a> для Raspberry PI.
+Transfer downloaded image onto the SD Card.: Перепиши скачанный образ на SD карту.
+Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Скопируй в файл <strong>boot\location.txt</strong> приведенные выше настройки.
+Done.: Готово.
+For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Подробнее на <a href="https://www.supla.org">www.supla.org</a>
+Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Скачай и прошей <a href="https://www.supla.org/download">два файла</a> в ESP8266
+Turn the device on: Включи микроконроллер
+Press and hold the P1 button for 5 sec. (Default GPIO2): Нажми на кнопку P1 на 5 секунд. (GPIO2 на землю)
+Connect the computer to WiFi called SUPLA-ESP8266: ПОдключись к сети WiFi с названием SUPLA-ESP8266
+Go to http://192.168.4.1: Открой страницу http://192.168.4.1
+Enter location settings provided above: Введи установки как на картинке сверху
+Enter access data to your WiFi: Впиши название и пароль к твоей сети Wi-Fi
+Click "Save": Нажми "Save"
+Restart the device or press the P1 button: Перезапусти устройство реметом или нажми кнопку P1
 
-Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Pobierz <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">bibliotekę SuplaDevice</a> dla Arduino
-Run Arduino IDE: Uruchom Arduino IDE
-Click Sketch -> Include library -> Add .ZIP Library: Kliknij Szkic -> Dołącz bibliotekę -> Dodaj bibliotekę .ZIP
-Open one of the examples. File -> Examples -> SuplaDevice: Otwórz jeden z przykładów.  Plik -> Przykłady -> SuplaDevice
-Complete the code (GUID, Server, Location ID, Location Password): Uzupełnij kod (GUID, Serwer, ID lokalizacji, Hasło lokalizacji)
-Upload program to Arduino: Wgraj program do Arduino
+Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Скачай <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">библиотеку SUPLA</a> для Arduino
+Run Arduino IDE: Запусти Arduino IDE
+Click Sketch -> Include library -> Add .ZIP Library: Нажми Скетч -> Добавить библиотеку -> Добавить .ZIP библиотеку
+Open one of the examples. File -> Examples -> SuplaDevice: Открой один из примеров.  Файл -> Примеры -> SuplaDevice
+Complete the code (GUID, Server, Location ID, Location Password): Вставвь в код (GUID, Адрес сервера, ID Позиции, Пароль Позиции)
+Upload program to Arduino: Загрузи код в Arduino
 
-Previous login: Poprzednie logowanie
-from IP: z adresu IP
-Current Password: Aktualne hasło
-New password: Nowe hasło
-Change Password: Zmiana hasła
-Coming soon: Dostępne wkrótce
-Develop your own building automation: Własny Inteligentny Budynek
-Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.: W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.
-SUPLA everywhere!: SUPLA wszędzie!
-One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!.: Jednymi z podstawowych założeń projektu są prostota i dostępność. SUPLA pozwala jednym przesunięciem palca włączyć światło czy też otworzyć bramę wjazdową w momencie gdy chcemy wjechać na posesję. SUPLA dostępna jest wszędzie tam gdzie posiadasz dostęp do sieci Internet i masz pod ręką smartfon lub tablet . SUPLA jest rozwijana na zasadach Otwartego Oprogramowania oraz Otwartego Sprzętu dzięki temu Ty również możesz rozwijać ten projekt!
-Free of charge and open!: Bezpłatna i otwarta!
-Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!: Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz WiFi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!
+Previous login: Предидущий вход
+from IP: с IP
+Current Password: Текущий пароль
+New password: Новый пароль
+Change Password: Смена пароля
+Coming soon: Скоро будет
+Develop your own building automation: Разработай собственную домашнюю автоматику
+Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.: С помощью простой и доступной электроники с помощью SUPLA можно создать устройства управляющие домашней автоматикой. Двери, роллеты, гаражные ворота и калитки, розетки и лампочкм, бытовая тезника и контроль температуры станут подвластны простому прикосновению пальца.
+SUPLA everywhere!: SUPLA везде!
+One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!.: Основное достоинство проекта это простота и доступность. SUPLA дает возможность управлять своим домом в любом месте Земли где есть интернет для вашего планшета или смартфона. SUPLA проект с открытым програмным кодом и дизайном электрических схем. Вы даже можете внести свой вклад в развитие SUPLA 
+Free of charge and open!: Бесплатно и с открыто дляя всех!
+Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!: Системы Умного Дома зачастую слишком сложны и требуют монтажа во время строительства. SUPLA проста и бесплатна. Возможно построение элементов на платформах RaspberryPI, Arduino а также ESP8266 объединяя их с помощью LAN или WiFi. Присоединяйтесь к нам и постройте собственную систему автоматики своего здания!
 
 #inside php code
-Data saved: Dane zostały zapisane
-Save: Zapisz
-Location limit has been exceeded: Limit lokalizacji został przekroczony
-Success: Sukces
-New location has been created: Nowa lokalizacja została utworzona
-Error: Błąd
-Location has been deleted: Lokalizacja została usunięta
-Data saved!: Dane zostały zapisane!
-Access identifier limit has been exceeded: Limit identyfikatorów dostępu został przekroczony
-New access identifier has been created: Nowy identyfikator dostępu został utworzony
-Information: Informacja
-Access identifier has been deleted: Identyfikator dostępu został usunięty
-I/O Device has been deleted: Urządzenie wejścia/wyjścia zostało usunięte
-Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
-Unknown error: Nieokreślony bład
-Token does not exist: Token nie istnieje
-Access identifier has been enabled: Identyfikator Dostępu został włączony
-Access identifier has been disabled: Identyfikator Dostępu został wyłączony
-Caption has been changed: Podpis został zmieniony
-Password has been changed: Hasło zostało zmienione
-Location has been enabled: Lokalizacja została włączona
-Location has been disabled: Lokalizacja została wyłączona
-Remove all the associated devices before you delete this location: Usuń powiązane urządzenia zanim usuniesz tą lokalizację
-Comment has been modified: Komentarz został zmieniony
-I/O Device has been disabled: Urządzenie we/wy zostało wyłaczone
-I/O Device has been enabled: Urządzenie we/wy zostało włączone
-Password field cannot be left empty: Hasło nie może być puste
-Current password is incorrect: Aktualne hasło jest niepoprawne
-Password has been changed!: Hasło zostało zmienione!
-Create an account: Utwórz konto
-Enter your email: Wprowadź Twój email
-Enter your email address: Wprowadź Twój adres email
-Repeat your email: Powtórz email
-Enter password: Wprowadź hasło
-Enter strong password: Wprowadź silne hasło
-Repeat password: Powtórz hasło
-Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.: Nie martw się. Zawsze możesz zresetować hasło za pośrednictwem Twojej poczty email. <strong>Kliknij tutaj</strong> aby to zrobić.
-Password Reset: Resetowanie hasła
-RESET: RESETUJ
-Click RESET button when visible: Kliknij przycisk RESETUJ kiedy sie pojawi
-Check your email box: Sprawdź swoją skrzynkę email
-Please fill the field before continuing: Uzupełnij to pole zanim kontynuujesz
-Please fill a valid email address: Wprowadź poprawny adres email
-Whoops, that's not an email address!: Upss, to nie jest poprawny email
-Supla for devices: Supla na urządzenia
-Next: Dalej
-Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
-...and start your adventure with building automation today!: ...i rozpocznij przygodę z inteligentnymi budynkami już dzisiaj!
-Mobile Apps: Aplikacje mobilne
-Sources available from <strong>GitHub</strong>: Źródła dostępne w <strong>GitHub</strong>
+Data saved: Данные сохранены
+Save: Сохранить
+Location limit has been exceeded: Достигнуто ограничение числа Позиций
+Success: Успешно
+New location has been created: Создана новая Позиция
+Error: Ошибка
+Location has been deleted: Позиция удалена
+Data saved!: Данные сохранены!
+Access identifier limit has been exceeded: Достигнут лимит Ключей Доступа
+New access identifier has been created: Создан новый Ключ Доступа
+Information: Информация
+Access identifier has been deleted: Ключ Доступа Удален
+I/O Device has been deleted: Устройство удалено
+Account has been activated. You can Sign In now.: Аккаунт создан. Можете войти
+Unknown error: Непонятная ошибка
+Token does not exist: индификатор не существует
+Access identifier has been enabled: Ключ Доступа задействован
+Access identifier has been disabled: Ключ Доступа отключен
+Caption has been changed: Название изменено
+Password has been changed: Пароль изменен
+Location has been enabled: Позиция используется
+Location has been disabled: Позиция неиспользуется
+Remove all the associated devices before you delete this location: Отключите все привязанные устройства перед удалением позиции
+Comment has been modified: Пояснение изменено
+I/O Device has been disabled: Устройство неипользуется
+I/O Device has been enabled: Устройство используется
+Password field cannot be left empty: Пароль не может быть пустым
+Current password is incorrect: Введенный пароль неправилен
+Password has been changed!: Пароль изменен!
+Create an account: Создать учетку
+Enter your email: Введите почту
+Enter your email address: ВВедите адрес почты
+Repeat your email: Повторите адрес
+Enter password: Введите пароль
+Enter strong password: Введите сложный пароль
+Repeat password: Повторите пароль
+Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.: Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого <strong>нажмите здесь</strong>.
+Password Reset: Сброс пароля
+RESET: СБРОС
+Click RESET button when visible: Нажмите на СБРОС как появится
+Check your email box: Проверьте почтовый ящик
+Please fill the field before continuing: Заполните поля для продолжения
+Please fill a valid email address: Впишите корретный почтовый адрес
+Whoops, that's not an email address!: Не похоже на правильный адрес
+Supla for devices: Supla для устройств
+Next: Далее
+Get SUPLA on your devices: Загрузи SUPLА на свое устройство
+..and start your adventure with building automation today!: ...и начни творить свою домашнюю автоматику!
+Mobile Apps: Мобильное приложение
+Sources available from <strong>GitHub</strong>: Исходный код доступен на <strong>GitHub</strong>
 
-Input: Wejście
-Output: Wyjście
-Sensor (normal open): Czujnik (normalnie otwarty)
-Sensor (normal closed): Czujnik (normalnie zamknięty)
-Relay: Przekaźnik
-HFD4 Relay: Przekaźnik HFD4
-G5LA1A Relay: Przekaźnik G5LA1A
-G5LA1A Relay x2: Przekaźnik 2xG5LA1A
-DS18B20 Thermometer: Termometr DS18B20
-Thermometer: Termometr
-Gateway lock operation: Otwieranie furtki
-Gate operation: Otwieranie/zamykanie bramy wjazdowej
-Garage door operation: Otwieranie/zamykanie bramy garażowej
-Door lock operation: Otwieranie drzwi
-Roller shutter operation: Otwieranie i zamykanie rolet
-Gateway opening sensor: Czujnik otwarcia furtki
-Gate opening sensor: Czujnik otwarcia bramy wjazdowej
-Garage door opening sensor: Czujnik otwarcia bramy garażowej
-Door opening sensor: Czujnik otwarcia drzwi
-Roller shutter opening sensor: Czujnik otwarcia rolet
-No liquid sensor: Czujnik braku cieczy
-On/Off switch: Włącznik zasilania
-Light switch: Włącznik światła
+Input: Вход
+Output: Выход
+Sensor (normal open): Датчик (нормально открытый)
+Sensor (normal closed): Датчик (нормально закрытый)
+Relay: Реле
+HFD4 Relay: Реле HFD4
+G5LA1A Relay: Реле G5LA1A
+G5LA1A Relay x2: Двойное реле G5LA1A
+DS18B20 Thermometer: Термометр DS18B20
+Thermometer: Термометр
+Gateway lock operation: Открытие калитки
+Gate operation: Открытие/закрытие ворот
+Garage door operation: Открытие/закрытие гаражных ворот
+Door lock operation: Открытие двери
+Roller shutter operation: Управление роллетами
+Gateway opening sensor: Датчик открытия калитки
+Gate opening sensor: Датчик открытия ворот
+Garage door opening sensor: Датчик открытия гаража
+Door opening sensor: Датчик открытия двери
+Roller shutter opening sensor: Датчик роллет
+No liquid sensor: Датчик наличия жидкости
+On/Off switch: Выключатель
+Light switch: Выключатель света
