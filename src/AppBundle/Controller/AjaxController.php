@@ -85,7 +85,7 @@ class AjaxController extends Controller
     {
     	$result = false;
     	
-    	if ( in_array($_loc, array('en', 'pl', 'de')) ) {
+    	if ( in_array($_loc, array('en', 'pl', 'de', 'ru')) ) {
     		$request->getSession()->set('_locale', $_loc);
     		$result = true;
     	}
@@ -144,9 +144,18 @@ class AjaxController extends Controller
     public function serverctrlTempValAction($iodevice_id, $channel_id)
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
-    	$value = (new ServerCtrl())->get_double_value($user->getId(), $iodevice_id, $channel_id);
-    	
+    	$value = (new ServerCtrl())->get_temperature_value($user->getId(), $iodevice_id, $channel_id);
     	return AjaxController::jsonResponse(true, array('value' => $value === FALSE || $value < -273 ? '-' : number_format($value, 1)));
+    }
+    
+    /**
+     * @Route("/serverctrl-humidityval/{iodevice_id}/{channel_id}", name="_ajax_serverctrl-humiditypval")
+     */
+    public function serverctrlHumidityValAction($iodevice_id, $channel_id)
+    {
+    	$user = $this->get('security.token_storage')->getToken()->getUser();
+    	$value = (new ServerCtrl())->get_humidity_value($user->getId(), $iodevice_id, $channel_id);
+    	return AjaxController::jsonResponse(true, array('value' => $value === FALSE || $value < 0 ? '-' : number_format($value, 1)));
     }
     
     /**
