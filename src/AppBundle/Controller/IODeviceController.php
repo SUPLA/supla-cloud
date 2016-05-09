@@ -273,6 +273,7 @@ class IODeviceController extends Controller
     		return $this->redirectToRoute("_iodev_item", array('id' => $devid));
     	}
     	
+    	$channelType = $channel->getType();
    
     	return $this->render('AppBundle:IODevice:channeledit.html.twig',
     			array('channel' => $channel,
@@ -280,9 +281,12 @@ class IODeviceController extends Controller
     				  'channel_function' => $channel->getFunction(),
     				  'channel_function_name' => $dev_man->channelFunctionToString($channel->getFunction()),
     				  'form' => $form->createView(),
-    				  'show_sensorstate' => ( $channel->getType() == SuplaConst::TYPE_SENSORNO
-    				  		                  || $channel->getType() == SuplaConst::TYPE_SENSORNC ) ? true : false,
-    				  'show_temperature' => $channel->getType() == SuplaConst::TYPE_THERMOMETERDS18B20 ? true : false,
+    				  'show_sensorstate' => ( $channelType == SuplaConst::TYPE_SENSORNO
+    				  		                  || $channelType == SuplaConst::TYPE_SENSORNC ) ? true : false,
+    				  'show_temperature' => $channelType == SuplaConst::TYPE_THERMOMETERDS18B20 ? true : false,
+    				  'show_temphumidity' => ( $channelType == SuplaConst::TYPE_DHT11
+    				  		                   || $channelType == SuplaConst::TYPE_DHT22
+    				  		                   || $channelType == SuplaConst::TYPE_AM2302 ) ? true : false,
     			)
     	);
     	
@@ -302,7 +306,7 @@ class IODeviceController extends Controller
     
     
     	$iodev_man = $this->get('iodevice_manager');
-    	$file = $iodev_man->channelGetCSV($id, "measurement_".intval($id));
+    	$file = $iodev_man->channelGetCSV($channel, "measurement_".intval($id));
     
     	if ( $file !== FALSE ) {
     

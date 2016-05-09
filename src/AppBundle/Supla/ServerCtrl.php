@@ -120,34 +120,47 @@ class ServerCtrl
    	 
    	return FALSE;
    }
-    
    
-   function get_double_value($user_id, $iodev_id, $channel_id) {
-   	
+   
+   private function get_value($type, $user_id, $iodev_id, $channel_id) {
+   
    	$user_id = intval($user_id, 0);
    	$iodev_id = intval($iodev_id, 0);
    	$channel_id = intval($channel_id, 0);
    	 
-   	if ( $user_id != 0 
+   	if ( $user_id != 0
    			&& $iodev_id != 0
    			&& $channel_id != 0
    			&& $this->connect() !== FALSE ) {
-   				
-   		$result = $this->command("GET-DOUBLE-VALUE:".$user_id.",".$iodev_id.",".$channel_id);
-
-   		if ( $result !== FALSE 
-   			 && preg_match("/^VALUE:/", $result) === 1 ) {
-   			 	list($val) = sscanf($result, "VALUE:%f\n");
-   			 	
-   			 	if ( is_numeric($val) ) {	
-   			 		return $val;
-   			 	};
-   		}
-   		
-   	}
-   	 
-   	return FALSE;
-   	
+   					
+   				$result = $this->command("GET-".$type."-VALUE:".$user_id.",".$iodev_id.",".$channel_id);
+   
+   				if ( $result !== FALSE
+   						&& preg_match("/^VALUE:/", $result) === 1 ) {
+   							list($val) = sscanf($result, "VALUE:%f\n");
+   
+   							if ( is_numeric($val) ) {
+   								return $val;
+   							};
+   						}
+   						 
+   			}
+   			 
+   			return FALSE;
+   
+   }
+    
+   
+   function get_double_value($user_id, $iodev_id, $channel_id) {
+   	    return $this->get_value('DOUBLE', $user_id, $iodev_id, $channel_id);
+   }
+   
+   function get_temperature_value($user_id, $iodev_id, $channel_id) {
+   	    return $this->get_value('TEMPERATURE', $user_id, $iodev_id, $channel_id);
+   }
+   
+   function get_humidity_value($user_id, $iodev_id, $channel_id) {
+   	return $this->get_value('HUMIDITY', $user_id, $iodev_id, $channel_id);
    }
    
 }

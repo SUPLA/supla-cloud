@@ -452,6 +452,18 @@ body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: v
 .pictogram .temperature .thermometer_state { display: inline-block; position: absolute; top: 200px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
 .pictogram .temperature .thermometer_state #temperature_value {display: inline-block; margin-right: 5px;}
 
+.pictogram .humidity {position: relative;}
+.pictogram .humidity img{display: block; width: auto; height: auto; margin: 0 auto;}
+.pictogram .humidity .humidity_state { display: inline-block; position: absolute; top: 200px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
+.pictogram .humidity .humidity_state #humidity_value {display: inline-block; margin-right: 5px;}
+
+.pictogram .temphumidity {position: relative;}
+.pictogram .temphumidity img{display: block; width: 320px; height: auto; margin-left: 110px }
+.pictogram .temphumidity .thermometer_state { display: inline-flex; position: absolute; top: 110px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
+.pictogram .temphumidity .thermometer_state #thermometer_value {display: inline-block; margin-right: 5px;}
+.pictogram .temphumidity .humidity_state { display: inline-flex; position: absolute; top: 160px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
+.pictogram .temphumidity .humidity_state #humidity_value {display: inline-block; margin-right: 5px;}
+
 /* ACCESS IDENTIFIERS */
 #accessid-detail, #details {display: none;}
 .row .info h2, .row .assignments h2 {margin-bottom: 15px;}

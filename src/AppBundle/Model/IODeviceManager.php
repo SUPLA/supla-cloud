@@ -85,6 +85,22 @@ class IODeviceManager
 		
 		$map[SuplaConst::TYPE_THERMOMETERDS18B20] = array('0', SuplaConst::FNC_THERMOMETER);
 		
+		$map[SuplaConst::TYPE_DHT11] = array('0', SuplaConst::FNC_THERMOMETER,
+				                                  SuplaConst::FNC_HUMIDITY,
+				                                  SuplaConst::FNC_HUMIDITYANDTEMPERATURE
+		);
+		
+		$map[SuplaConst::TYPE_DHT22] = $map[SuplaConst::TYPE_DHT11];
+		
+		$map[SuplaConst::TYPE_AM2302] = $map[SuplaConst::TYPE_DHT11];
+		
+		$map[SuplaConst::TYPE_DIMMER] = array('0', SuplaConst::FNC_DIMMER);
+		
+		$map[SuplaConst::TYPE_RGBLEDCONTROLLER] = array('0', SuplaConst::FNC_RGBLIGHTING);
+		
+		$map[SuplaConst::TYPE_DIMMERANDRGBLED] = array('0', SuplaConst::FNC_DIMMERANDRGBLIGHTING);
+		
+		
 		if ( $type === null ) {
 			return $map;
 		}
@@ -138,6 +154,12 @@ class IODeviceManager
 			case SuplaConst::TYPE_RELAYG5LA1A: $result = 'G5LA1A Relay'; break;
 			case SuplaConst::TYPE_2XRELAYG5LA1A: $result = 'G5LA1A Relay x2'; break;
 			case SuplaConst::TYPE_THERMOMETERDS18B20: $result = 'DS18B20 Thermometer'; break;
+			case SuplaConst::TYPE_DHT11: $result = 'DHT11 Temperature & Humidity Sensor'; break;
+			case SuplaConst::TYPE_DHT22: $result = 'DHT22 Temperature & Humidity Sensor'; break;
+			case SuplaConst::TYPE_AM2302: $result = 'AM2302 Temperature & Humidity Sensor'; break;
+			case SuplaConst::TYPE_DIMMER: $result = 'Dimmer'; break;
+			case SuplaConst::TYPE_RGBLEDCONTROLLER: $result = 'RGB led controller'; break;
+			case SuplaConst::TYPE_DIMMERANDRGBLED: $result = 'Dimmer & RGB led controller'; break;
 		}
 		
 		return $this->translator->trans($result);		
@@ -162,6 +184,11 @@ class IODeviceManager
 			case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:  $result = 'Roller shutter opening sensor'; break;
 			case SuplaConst::FNC_POWERSWITCH:  $result = 'On/Off switch'; break;
 			case SuplaConst::FNC_LIGHTSWITCH:  $result = 'Light switch'; break;
+			case SuplaConst::FNC_HUMIDITY:  $result = 'Humidity sensor'; break;
+			case SuplaConst::FNC_HUMIDITYANDTEMPERATURE:  $result = 'Temperature and humidity sensor'; break;
+			case SuplaConst::FNC_DIMMER:  $result = 'Dimmer'; break;
+			case SuplaConst::FNC_RGBLIGHTING: $result = 'RGB lighting'; break;
+			case SuplaConst::FNC_DIMMERANDRGBLIGHTING: $result = 'Dimmer and RGB lighting'; break;
 		}
 		
 		return $this->translator->trans($result);
@@ -187,8 +214,14 @@ class IODeviceManager
 		
 		switch($type) {
 			case SuplaConst::TYPE_THERMOMETERDS18B20: 
+			case SuplaConst::TYPE_DHT11:
+			case SuplaConst::TYPE_DHT22:
+			case SuplaConst::TYPE_AM2302:
 			case SuplaConst::TYPE_SENSORNO: 
 			case SuplaConst::TYPE_SENSORNC: $result = 'Input'; break;
+			case SuplaConst::TYPE_DIMMER:
+			case SuplaConst::TYPE_RGBLEDCONTROLLER: 
+			case SuplaConst::TYPE_DIMMERANDRGBLED:
 			case SuplaConst::TYPE_RELAY:
 			case SuplaConst::TYPE_RELAYG5LA1A:
 			case SuplaConst::TYPE_2XRELAYG5LA1A:
@@ -465,20 +498,40 @@ class IODeviceManager
 		return null;
 	}
 	
-	public function channelGetCSV($channel_id, $zip_filename = false)
+	public function channelGetCSV($channel, $zip_filename = false)
 	{
 	
+		if ( $channel->getType() != SuplaConst::TYPE_THERMOMETERDS18B20
+			 && $channel->getType() != SuplaConst::TYPE_DHT11
+			 && $channel->getType() != SuplaConst::TYPE_DHT22
+			 && $channel->getType() != SuplaConst::TYPE_AM2302 ) return FALSE;
+		
 		$temp_file = tempnam(sys_get_temp_dir(), 'supla_csv_');
 			
 		if ( $temp_file !== FALSE ) {
 	
 			$handle = fopen($temp_file, 'w+');
 	
-			fputcsv($handle, array('Timestamp', 'Date and time (CET)', 'Temperature'));
-			$results = $this->doctrine->getManager()->getConnection()->query( "SELECT UNIX_TIMESTAMP(`date`) AS date_ts, `date`, `temperature` FROM `supla_temperature_log` WHERE channel_id = ".intval($channel_id) );
-	
-			while( $row = $results->fetch() )
-				fputcsv($handle, array($row['date_ts'], $row['date'], $row['temperature']));
+			if ( $channel->getType() == SuplaConst::TYPE_THERMOMETERDS18B20 ) {
+				
+				fputcsv($handle, array('Timestamp', 'Date and time (CET)', 'Temperature'));
+					
+				$results = $this->doctrine->getManager()->getConnection()->query( "SELECT UNIX_TIMESTAMP(`date`) AS date_ts, `date`, `temperature` FROM `supla_temperature_log` WHERE channel_id = ".intval($channel->getId()) );
+				
+				while( $row = $results->fetch() )
+					fputcsv($handle, array($row['date_ts'], $row['date'], $row['temperature']));
+				
+			} else {
+				
+				fputcsv($handle, array('Timestamp', 'Date and time (CET)', 'Temperature', 'Humidity'));
+					
+				$results = $this->doctrine->getManager()->getConnection()->query( "SELECT UNIX_TIMESTAMP(`date`) AS date_ts, `date`, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = ".intval($channel->getId()) );
+				
+				while( $row = $results->fetch() )
+					fputcsv($handle, array($row['date_ts'], $row['date'], $row['temperature'], $row['humidity']));
+				
+			}
+
 	
 			fclose($handle);
 	

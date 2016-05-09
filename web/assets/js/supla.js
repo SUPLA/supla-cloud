@@ -81,17 +81,19 @@ function fadeToUrl(url) {
 	  return false;
 }
 
-function checkChannelState(state_class, value_class, ajax_action, timeout) {
+function checkChannelState(state_class, value_id, ajax_action, timeout) {
 	
-	  var channel_state = $('#'+state_class);
-	  var channel_state_value = $('#'+value_class);
+	  var channel_state = $("."+state_class);
+	  var exists = false;
 	  
-	  if ( channel_state == undefined 
-		   || channel_state.length == 0 
-		   || channel_state_value == undefined 
-		   || channel_state_value.length == 0 ) return;
+	  $(document).find("."+state_class).each(function (index, element) {	  
+		  $(this).find('#'+value_id).html('<div class="ajax_loader3"></div>');
+		  
+		  exists = true;
+	  });
 	  
-	  channel_state_value.html('<div class="ajax_loader3"></div>');
+	  if ( exists == false )
+		  return;
 	  	  
 	  var check_action = function () {
 		  
@@ -99,7 +101,11 @@ function checkChannelState(state_class, value_class, ajax_action, timeout) {
 	        .done(function( response ) {        		
 	        	
 	        	if ( response.success == true ) {
-	        		channel_state_value.html(response.value);
+
+	        		  $(document).find("."+state_class).each(function (index, element) {	  
+	        			  $(this).find('#'+value_id).html(response.value);
+	        		  });
+	        		
 	        		setTimeout(check_action, timeout);
 	        	}
 	        });	 
@@ -444,6 +450,8 @@ function detectIE() {
             var pictogram = $("#pictogram_group");
             var pictogram_nofunc = $("#pictogram_no-function");
             var pictogram_temp = $("#pictogram_temperature");
+            var pictogram_humidity = $("#pictogram_humidity");
+            var pictogram_temphumidity = $("#pictogram_temphumidity");
             var pictogram_std = $("#pictogram_standard");
             
             
@@ -495,6 +503,8 @@ function detectIE() {
 	        		}
 	        		
 	        		pictogram_temp.hide();
+	        		pictogram_humidity.hide();
+	        		pictogram_temphumidity.hide();
 	        		pictogram_std.hide();
         			pictogram_nofunc.hide();
         			
@@ -502,6 +512,10 @@ function detectIE() {
 	                	pictogram_nofunc.show();
 	        		} else if ( function_id == 40 ) {
 	        			pictogram_temp.show();
+	        		} else if ( function_id == 42 ) {
+	        			pictogram_humidity.show();
+	        		} else if ( function_id == 45 ) {
+	        			pictogram_temphumidity.show();
 	        		} else {
 	        			
 	        			var img = pictogram_std.find('img');
@@ -567,6 +581,7 @@ function detectIE() {
         channelFunctionAssignHandlers();
         checkChannelState('sensor_state', 'sensor_state_value', 'serverctrl-sensorstate', 5000);	
         checkChannelState('thermometer_state', 'temperature_value', 'serverctrl-tempval', 10000);	
+        checkChannelState('humidity_state', 'humidity_value', 'serverctrl-humidityval', 10000);	
         checkConnectionState(5000);
         
                

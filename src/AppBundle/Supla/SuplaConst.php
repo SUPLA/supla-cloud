@@ -36,7 +36,7 @@ class SuplaConst
 	const TYPE_DHT22               = 3020;
 	const TYPE_AM2302              = 3030;
 	const TYPE_DIMMER              = 4000;
-	const TYPE_RGBLED              = 4010;
+	const TYPE_RGBLEDCONTROLLER    = 4010;
 	const TYPE_DIMMERANDRGBLED     = 4020;
 	
 	const BIT_RELAYFNC_CONTROLLINGTHEGATEWAYLOCK       =  0x00000001;
@@ -52,6 +52,8 @@ class SuplaConst
 	const FNC_CONTROLLINGTHEGATE            = 20;
 	const FNC_CONTROLLINGTHEGARAGEDOOR      = 30;
 	const FNC_THERMOMETER                   = 40;
+	const FNC_HUMIDITY                      = 42;
+	const FNC_HUMIDITYANDTEMPERATURE        = 45;
 	const FNC_OPENINGSENSOR_GATEWAY         = 50;
 	const FNC_OPENINGSENSOR_GATE            = 60;
 	const FNC_OPENINGSENSOR_GARAGEDOOR      = 70;
@@ -62,8 +64,9 @@ class SuplaConst
 	const FNC_OPENINGSENSOR_ROLLERSHUTTER   = 120;
 	const FNC_POWERSWITCH                   = 130;
 	const FNC_LIGHTSWITCH                   = 140;
-
-	
+	const FNC_DIMMER                        = 180;
+	const FNC_RGBLIGHTING                   = 190;
+	const FNC_DIMMERANDRGBLIGHTING          = 200;
 }
 
 ?>

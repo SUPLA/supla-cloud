@@ -34,7 +34,7 @@
 				{{ form_row(form.channel)  }}
 				{{ form_row(form.caption)  }}
 				
-				{% if channel.function == '40' %}
+				{% if ( channel.function == '40' or channel.function == '42' or channel.function == '45' ) %}
 					<a href="{{ path('_iodev_channel_item_csv', {'devid': channel.iodevice.id, 'id': channel.id}) }}" class="btn btn-default btn-temp">{% trans %}Download the history of measurement{% endtrans %}</a>
 				{% endif %}
 				
@@ -58,7 +58,7 @@
 			
 			<div id="pictogram_temperature" class="temperature" {% if channel.function != '40' %}style="display:none"{% endif %}>
 			
-				{% if show_temperature == true %}
+				{% if (show_temperature == true or show_temphumidity == true) %}
 					<div class="thermometer_state" data-iodevid="{{ channel.iodevice.id }}" data-id="{{ channel.id }}" id="thermometer_state"><div id="temperature_value"></div>&deg;C</div>
 				{% endif %} 
 				
@@ -67,8 +67,26 @@
 				<img src={{ asset('assets/img/functions/40_b.svg') }}>
 			</div>
 	
+			<div id="pictogram_humidity" class="humidity" {% if channel.function != '42' %}style="display:none"{% endif %}>
 			
-			<div id="pictogram_standard" class="standard-function-icon" {% if (channel.function == '0' or channel.function == '40') %}style="display:none"{% endif %}>
+				{% if show_temphumidity == true %}
+					<div class="humidity_state" data-iodevid="{{ channel.iodevice.id }}" data-id="{{ channel.id }}" id="humidity_state"><div id="humidity_value"></div>&#37;</div>
+				{% endif %} 
+				
+				<img src={{ asset('assets/img/functions/42.svg') }}>
+			</div>
+			
+			<div id="pictogram_temphumidity" class="temphumidity" {% if channel.function != '45' %}style="display:none"{% endif %}>
+			
+				{% if show_temphumidity == true %}
+					<div class="thermometer_state" data-iodevid="{{ channel.iodevice.id }}" data-id="{{ channel.id }}" id="thermometer_state"><div id="temperature_value"></div>&deg;C</div>
+					<div class="humidity_state" data-iodevid="{{ channel.iodevice.id }}" data-id="{{ channel.id }}" id="humidity_state"><div id="humidity_value"></div>&#37;</div>
+				{% endif %} 
+				
+				<img src={{ asset('assets/img/functions/45.svg') }}>
+			</div>
+			
+			<div id="pictogram_standard" class="standard-function-icon" {% if (channel.function == '0' or channel.function == '40' or channel.function == '42' or channel.function == '45') %}style="display:none"{% endif %}>
 				<img src={{ asset('assets/img/functions/') }}{{ channel.function }}.svg>
 			</div>
 			</div>

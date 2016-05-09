@@ -209,6 +209,12 @@ HFD4 Relay: HFD4 Relais
 G5LA1A Relay: G5LA1A Relais
 G5LA1A Relay x2: 2xG5LA1A Relais
 DS18B20 Thermometer: DS18B20 Thermometer
+DHT11 Temperature & Humidity Sensor: DHT11 Temperatur- und Feuchtigkeitssensor 
+DHT22 Temperature & Humidity Sensor: DHT22 Temperatur- und Feuchtigkeitssensor
+AM2302 Temperature & Humidity Sensor: AM2302  Temperatur- und Feuchtigkeitssensor 
+Dimmer: Helligkeitsregler
+RGB led controller: RGB- Beleuchtungskontroller
+Dimmer & RGB led controller: Helligkeitsregler und RGB-Beleuchtungskontroller
 Thermometer: Thermometer
 Gateway lock operation: Pforte aufmachen
 Gate operation: Tor auf- und zumachen
@@ -223,3 +229,7 @@ Roller shutter opening sensor: Rolladen-Öffnungssensor
 No liquid sensor: Kein Flüssigkeitssensor
 On/Off switch: Aufladen anmachen
 Light switch: Licht anmachen
+Humidity sensor: Feuchtigkeitssensor
+Temperature and humidity sensor: Temperatur- und Feuchtigkeitssensor
+RGB lighting: RGB- Beleuchtung
+Dimmer and RGB lighting: Helligkeitsregler und RGB-Beleuchtung 
