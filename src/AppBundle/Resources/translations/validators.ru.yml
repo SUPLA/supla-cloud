@@ -1,5 +1,4 @@
-﻿# src/AppBundle/Resources/translations/validators.ru_RU.yml
-
+# src/AppBundle/Resources/translations/validators.ru_RU.yml
 
 The password and its confirm are not the same.: Введенные пароль и его подтверждение не совпадают.
 The password and its repeat are not the same.: Введенный пароль и его повторение не совпадают.

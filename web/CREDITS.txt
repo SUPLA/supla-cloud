@@ -34,3 +34,6 @@ N: Jakub Palider
 E: jpalider@gmail.com
 D: Software developer [supla-core, MCP23008 support]
 
+N: Mike Jangolenko
+E: 7472945@mail.ru
+D: Russian translations

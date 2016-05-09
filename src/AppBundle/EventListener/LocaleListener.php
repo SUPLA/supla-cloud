@@ -60,8 +60,18 @@ class LocaleListener implements EventSubscriberInterface
             	
             	switch($locale) {
             		case 'pl_PL':
+            	    case 'pl-PL':
             		case 'pl':
             			$locale = 'pl';
+            			break;
+            		case 'ru_RU':
+            		case 'ru-RU':
+            		case 'ru_MD':
+            		case 'ru-MD':
+            		case 'ru_UA':
+            		case 'ru-UA':
+            		case 'ru':
+            			$locale = 'ru';
             			break;
             		case 'de-CH':
             		case 'de_CH':

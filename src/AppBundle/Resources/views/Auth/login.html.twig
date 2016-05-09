@@ -84,6 +84,7 @@
 				<select id="lngSelector">
 				    <option {% if locale == 'en' %}selected{% endif %} value="en">English</option>
 					<option {% if locale == 'pl' %}selected{% endif %} value="pl">Polski</option>
+					<option {% if locale == 'ru' %}selected{% endif %} value="ru">Русский</option>
 					<option {% if locale == 'de' %}selected{% endif %} value="de">Deutsch</option>
 				</select>
 			</label>
@@ -117,7 +118,7 @@
 			</div>
 				<div class="col-xs-3"><a href="https://www.supla.org/download" class="nav-link"><img src={{ asset('assets/img/raspberrypi.svg') }}>Raspberry Pi</a></div>
 				<div class="col-xs-3"><a href="https://www.supla.org/download" class="nav-link"><img src={{ asset('assets/img/esp8266.svg') }}>ESP8266</a></div>
-				<div class="col-xs-3"><a href="#"><div class="coming-soon"><span>{% trans %}Coming Soon{% endtrans %}</span></div><img src={{ asset('assets/img/arduino.svg') }}>Arduino</a></div>
+				<div class="col-xs-3"><a href="https://www.supla.org/download" class="nav-link"><img src={{ asset('assets/img/arduino.svg') }}>Arduino</a></div>
 		</div>
 		<a href="#" class="overlay-delete-close cancel"><i class="pe-7s-close-circle"></i></a>
 	</div>
