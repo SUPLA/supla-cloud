@@ -1,106 +1,106 @@
-SIGN IN: ZALOGUJ SIĘ
-Sign In: Zaloguj się
-Open building automation is now coming!: Otwarta automatyka budynkowa nadchodzi!
-Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Open Hardware . This way, you can also develop this project!: Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte i kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich ze sobą z wykorzystaniem sieci LAN oraz WiFi. Dzięki SUPLI możesz między innymi sterować oświetleniem, włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. Wszystko to możesz zrobić jednym przesunięciem palca. SUPLA dostępna jest wszędzie tam, gdzie posiadasz dostęp do sieci Internet i masz pod ręką smartfon lub tablet. SUPLA rozwijana jest na zasadach Otwartego Oprogramowania oraz Otwartego Sprzętu, dzięki czemu Ty również możesz rozwijać ten projekt!
-Doors: Drzwi
-Open or check, if the door is open.: Otwórz lub sprawdź czy są otwarte.
-Roller Shutters: Rolety
-Open and shut roller shutters with a swipe of your finger. When out, you can see at any given time, if they are open or shut.: Otwieraj i zamykaj rolety jednym przesunięciem palca. Będąc poza domem możesz również sprawdzić, czy obecnie są one otwarte, czy też zamknięte.
-Lighting: Oświetlenie
-Turn the lights on and off.: Włączaj i wyłączaj oświetlenie.
-Garage Door: Brama garażowa
-Check if the garage door is open from any place around the world.: Sprawdź czy brama garażowa jest otwarta, będąc w dowolnym miejscu na świecie.
-Gateway: Furtka
-Open or check, if the gateway is open.: Otwórz furtkę lub sprawdź czy jest otwarta
-Home Appliances: Urządzenia AGD/RTV
-Turn the appliances on and off through WiFi socket.: Włączaj i wyłączaj sprzęt AGD/RTV z wykorzystaniem Gniazdka WiFi.
-Temperature: Temperatura
-Monitor temperature.: Kontroluj temperaturę.
-Gate: Brama wjazdowa
-Use your smartphone as a handheld controller to your gate.: Wykorzystuj swój smartfon jako pilot do bramy wjazdowej
-Liquid Sensor: Czujnik cieczy
-Check liquid level in different containers.: Sprawdzaj poziom cieczy w zbiornikach.
-Many more in the future...: Jeszcze więcej w przyszłości...
-SUPLA is an open and constantly developing project. Over time it will be enlarged to include more functions. If you want to expand the project with us – feel free to join us!: SUPLA jest otwartym – rozwijającym się projektem. Z czasem będzie bogatsza o nowe funkcje. Jeżeli chcesz rozwijać projekt razem z nami – przyłącz się!
-Altogether at your fingertips. Anywhere at any time.: Wszystko pod ręką. Wszędzie i o każdej porze.
+SIGN IN: ВОЙТИ
+Sign In: Войти
+Open building automation is now coming!: Пришло время доступной домашней автоматики!
+Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature.All the above can be done with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Open Hardware . This way, you can also develop this project!: Сейчас на рынке представлены довольно сложные, дорогие и закрытые ситемы умного дома. Зачастую их нужно устанавливать на ранних стадиях строительства. SUPLA это просто, бесплатно и открыто для разработчиков. Supla предоставляет возможно сконструировать собственные элементы автоматики на платформах RaspberryPI, Arduino, ESP8266 и объединить их с помощью LAN и WiFi. С SUPLA можно, кроме всего, управлять светом и розетками, включать и выключать бытовую технику, открывать и закрывать двери, ворота, калитки и даже следить за температурой и влажностью. Все это теперь подвластно простому прикосновению. SUPLA доет доступ к управлению с любой точки Земли где только есть Интернет. SUPLA работает на открытом коде и открытой схемотехнике. Таким образом Вы можете не только использовать проект но и дополнять и развивать его по своему усмотрению!
+Doors: Двери
+Open or check, if the door is open.: Открыть или проверить открытие.
+Roller Shutters: Роллеты
+Open and shut roller shutters with a swipe of your finger. When out, you can see at any given time, if they are open or shut.: Поднимай и закрывай роллеты одним движение пальца. Удаленно в любое время можно проверить открыты они или закрыты.
+Lighting: Освещение
+Turn the lights on and off.: Включай свет и выключай его.
+Garage Door: Гаражные ворота
+Check if the garage door is open from any place around the world.: Проверь не остались ли открыты ворота из любого места в мире.
+Gateway: Калитка
+Open or check, if the gateway is open.: Открой калитку и проверь зарыта ли она.
+Home Appliances: Управление мультимедия
+Turn the appliances on and off through WiFi socket.: Включай и выключай аудиосистемы с помощью  WiFi розетки.
+Temperature: Температура
+Monitor temperature.: Контролируй температуру.
+Gate: Ворота
+Use your smartphone as a handheld controller to your gate.: Испльзуй смартфон как пульт управления въездными воротами.
+Liquid Sensor: Датчик жидкости
+Check liquid level in different containers.: Проверь уровень жидкости.
+Many more in the future...: Ну и еще много чего напридумаем совместно...
+SUPLA is an open and constantly developing project. Over time it will be enlarged to include more functions. If you want to expand the project with us – feel free to join us!: SUPLA открытый и постоянно развивающийся проект. С каждым часом мы добавляем новые функции. Если хотите что-то добавить и улучшить - нестесняйтесь и присоединяйтесь к нам!
+Altogether at your fingertips. Anywhere at any time.: Всё под рукой. Всегда и везде.
 All of us have at least once been wondering whether they turned the light, oven, or boiling pot off when they left home. Today, you do not have to worry about that. The only thing to do is to start SUPLA on your smartphone and immediately you will have a chance to see whether all of those are actually off. If they are not, you can simply with a touch of your finger turn the lighting/house appliances off , shut the window rollers or close the gate. Download the application on your smartphone and start the adventure wit SUPLA today. The software and all the other elements of the project are free of charge and open.: Każdemu z nas zdarza się czasem zastanawiać czy wyłączył światło, kuchenkę lub czajnik po wyjściu z domu. Dziś już nie musisz się o to martwić. Wystarczy, że uruchomisz SUPLĘ w Twoim smartfonie i natychmiast możesz sprawdzić czy rzeczywiście wszystko, co powinno, zastało wyłączone. Jeżeli nie, to jednym przesunięciem palca możesz wyłączyć oświetlenie/sprzęt AGD, domknąć rolety lub zamknąć bramę wjazdową. Pobierz aplikację na swój smartfon i rozpocznij przygodę z SUPLĄ już dziś. Oprogramowanie jak i pozostała część projektu jest bezpłatne i otwarte. 
-Kitchen: Kuchnia
-OFF: WYŁĄCZ
-SHUT: ZASŁOŃ
-Roller Shutter: Rolety
-Porch: Ganek 
-OPEN: OTWÓRZ
-Door: Drzwi
-Socket: Gniazdko
-Garage: Garaż
-CLOSE: ZAMKNIJ
-Garage Door: Brama garażowa
-ON: WŁĄCZ
-Bedroom: Sypialnia
-Garden: Ogród
-Gate: Brama
-Gateway: Furtka
-Rainwater: Deszczówka
-SUPLA-CLOUD is a central point joining the executive devices for indirect and direct operation of your household or office appliances and other elements with client applications which you can install on your tablets and smartphones. This software allows to operate, from one spot, the whole system infrastructure using any modern Internet browser.  Server access is free of charge. You can also set up your own independent server working within the Internet or home network using system sources which you can download from GITHUB.: SUPLA-CLOUD jest punktem centralnym łączącym ze sobą urządzenia wykonawcze, które sterują pośrednio lub bezpośrednio wyposażeniem Twojego domu, oraz firmy z aplikacjami klienckimi, które możesz  zainstalować na swoich tabletach oraz smartfonach. Oprogramowanie to pozwala na zarządzanie z jednego miejsca całą infrastrukturą systemu przy użyciu dowolnej - nowoczesnej przeglądarki internetowej. Dostęp do serwera jest bezpłatny. Możesz również uruchomić własny niezależny serwer pracujący w sieci Internet lub w obrębie sieci domowej, wykorzystując do tego źródła systemu, które są do pobrania w serwisie GITHUB.
-Create an account: Utwórz konto
-Get form GITHUB: Pobierz z GITHUB
-Download from GITHUB: Pobierz z GITHUB
-Along with project start-up, we would like to initiate a community around SUPL A – a group of people who are interested not only in software, electronics, intelligent solutions, enthusiasts and fans… but also people who are entirely technology users interested in handy, easy and functional solutions. We will try to provide  materials, tutorials and movies, but at the same time would like to ask for suggestions or questions from your side – in brief, we would like to invite you to join the community and our project:): Wraz z uruchomieniem projektu chcielibyśmy również zapoczątkować zawiązanie się wokół SUPLI społeczności – ludzi, którzy interesują się nie tylko programowaniem, elektroniką, inteligentnymi rozwiązaniami, zapaleńców, entuzjastów... ale także ludzi, którzy są wyłącznie użytkownikami technologii i interesują ich wygodne, proste, funkcjonalne rozwiązania. Postaramy się wrzucać materiały, tutoriale, filmy, a także prosimy o sugestie, pytania - jednym słowem zapraszamy do budowania społeczności i projektu razem z nami :)
-16 January 2016: 16 Styczeń 2016
-After many months of intensive work, pulling nights and no free weekends, we are happy to start SUPLA – an open building automation system.: Po miesiącach intensywnej pracy, zarwanych nocy i wolnych weekendów, uruchamiamy projekt SUPLA – Otwarty system automatyki budynkowej.
-26 February 2016: 26 Luty 2016
-We have made the Arduino MEGA library Version 1.0 available. This software enables you to connect Arduino to SUPLA system. The Library supports Ethernet modules based on ENC28J60 and the popular Ethernet Shield based on W5100. Click here to download the Library.: W dniu dzisiejszym udostępniamy wersję  1.0 biblioteki dla Arduino MEGA. Oprogramowanie to pozwala na podłączenie Arduino do systemu SUPLA. Biblioteka wspiera moduły Ethernet oparte o układ ENC28J60 oraz popularny Ethernet Shield z układem W5100 na pokładzie. Kliknij aby pobrać bibliotekę. 
-All you need to start your adventure with SUPLA, can be found below.: Wszystko czego potrzebujesz, aby rozpocząć zabawę z SUPLĄ, znajdziesz poniżej.
-Software for executive devices built based on Raspberry PI, Arduino or ESP8266 microcomputer.: Oprogramowanie dla urządzeń wykonawczych zbudowanych w oparciu o platformy Raspberry PI, Arduino lub mikrokontroler ESP8266. 
-To get further information, please select the proper platform:: Aby uzyskać dalsze informacje wybierz odpowiednią platformę:
-Server software enabling communication and system management through Internet browser.: Oprogramowanie serwerowe zapewniające komunikację oraz umożliwiające zarządzanie systemem za pośrednictwem przeglądarki internetowej.
-Server software sources SUPLA-CLOUD can be downloaded from GITHUB.: Źródła oprogramowania serwerowego SUPLA-CLOUD dostępne są do pobrania z serwisu GITHUB
+Kitchen: Кухня
+OFF: ВЫКЛЮЧИТЬ
+SHUT: ЗАКРЫТЬ
+Roller Shutter: Роллеты
+Porch: Вход 
+OPEN: Открыть
+Door: Дверь
+Socket: Розетка
+Garage: Гараж
+CLOSE: ЗАКРЫТЬ
+Garage Door: Ворота гаража
+ON: ВКЛЮЧИТЬ
+Bedroom: Спальня
+Garden: Сад
+Gate: Ворота
+Gateway: Калитка
+Rainwater: Дождевка
+SUPLA-CLOUD is a central point joining the executive devices for indirect and direct operation of your household or office appliances and other elements with client applications which you can install on your tablets and smartphones. This software allows to operate, from one spot, the whole system infrastructure using any modern Internet browser.  Server access is free of charge. You can also set up your own independent server working within the Internet or home network using system sources which you can download from GITHUB.: SUPLA-CLOUD это центральная точка объединения исполнительных устройств для  управления техникой в доме или офисе с клиентскими приложениями, которые можно установить на Ваши смартфоны или планшеты. Это приложение позволяет управлять из одной точки всей инфраструктурой системы  через браузер. Доступ к серверу бесплатен. Так же можно установить свой собственный независимый сервер работающий через интернет или только в локальной сети скачав образ сервера с GITHUB.
+Create an account: Создать учетку
+Get form GITHUB: Скачать с GITHUB
+Download from GITHUB: Скачать с GITHUB
+Along with project start-up, we would like to initiate a community around SUPLA – a group of people who are interested not only in software, electronics, intelligent solutions, enthusiasts and fans… but also people who are entirely technology users interested in handy, easy and functional solutions. We will try to provide  materials, tutorials and movies, but at the same time would like to ask for suggestions or questions from your side – in brief, we would like to invite you to join the community and our project:): С самого начала нашего проекта мы  приглашаем в сообщество SUPLA - группу людей не только разбирающихся в программировании м электронике, фанов и энтузиастов но и людей заинтересованных в простых и функциональных решениях. Мы будем выкладывать документацию, описания и видео, но в то же время просим и Вас задавать вопросы и предложения. В общем - присоединяйтесь к нашему сообществу и нашему проекту :)
+16 January 2016: 16 Января 2016
+After many months of intensive work, pulling nights and no free weekends, we are happy to start SUPLA – an open building automation system.: После нескольких месяцев тяжелой работы, бессоных ночей и без отдыха в выходные, мы рады предствить SUPLA - открытый проект домашней автоматики.
+26 February 2016: 26 Февраля 2016
+We have made the Arduino MEGA library Version 1.0 available. This software enables you to connect Arduino to SUPLA system. The Library supports Ethernet modules based on ENC28J60 and the popular Ethernet Shield based on W5100. Click here to download the Library.: Предоставляем доступ к библеотеке для Arduino MEGA, первая версия. Этот софт позволяет подключить Arduino к серверу SUPLA. Библиотека поддерживает Езернет модуль на ENC28J60 и популярную плату  на  W5100 na pokładzie. Нажмите на текст, чтобы перейти к библиотеке. 
+All you need to start your adventure with SUPLA, can be found below.: Все что нужно для исследования возможностей SUPLA представлено ниже.
+Software for executive devices built based on Raspberry PI, Arduino or ESP8266 microcomputer.: Прошивки для исполнительных устройств на платформе Raspberry PI, Arduino и WiFi модуля ESP8266. 
+To get further information, please select the proper platform:: Для детальной информации выберете необходимую платформу:
+Server software enabling communication and system management through Internet browser.: Программа сервера для управления системой и сзвязи с устройствами через интернет браузер.
+Server software sources SUPLA-CLOUD can be downloaded from GITHUB.: Исходный код сервера SUPLA-CLOUD доступен для скачивания через GITHUB
 
-Virtual machine with the Linux Debian and Espressif IoT SDK environment enabling you to compile your own version of ESP8266 firmware. Default user: Maszyna wirtualna z zainstalowanym systemem Linux Debian oraz środowiskiem Espressif IoT SDK, umozliwiającym skompilowanie własnej wersji firmware-u dla ESP8266. Domyślny uzytkownik
-default password: domyślne hasło
-. "BUILD" script (compilation launcher) is available on the desktop in the ESP8266-Firmware folder. Sources available from Eclipse editor.: . Skrypt o nazwie "BUILD" uruchamiający kompilację dostępny jest na pulpicie w folderze ESP8266-Firmware. Źródła dostępne z poziomu edytora Eclipse.
-Virtual machine for VirtualBox with the Linux Debian and SUPLA-CLOUD software installed. Default Linux user: Maszyna Wirtualna dla VirtualBox-a z zainstalowanym systemem Linux Debian i zainstalowanym oprogramowaniem SUPLA-CLOUD. Domyślny użytkownik systemu Linux
-default Linux user password: domyślne hasło
-Default cloud user: Domyślny użytkownik cloud
-default cloud user password: domyślne hasło użytkownika cloud
+Virtual machine with the Linux Debian and Espressif IoT SDK environment enabling you to compile your own version of ESP8266 firmware. Default user: Образ виртуальной машины с Дебиан Линукс и Espressif IoT SDK для компиляции собственных версий прошивок под ESP8266. Пользватель по умолчанию
+default password: пароль по умолчанию
+. "BUILD" script (compilation launcher) is available on the desktop in the ESP8266-Firmware folder. Sources available from Eclipse editor.: . Скрипт с именем "BUILD" с запуском компилятора находится на рабочем столе в папке ESP8266-Firmware. Исходные коды доступны для редактирования с помощью редактора Eclipse.
+Virtual machine for VirtualBox with the Linux Debian and SUPLA-CLOUD software installed. Default Linux user: Образ виртуальной машины с Дебиан Линукс и программой сервера SUPLA-CLOUD. Пользватель 
+default Linux user password: пароль 
+Default cloud user: пользователь сервера 
+default cloud user password: пароль пользователя сеервера
 
-Library for Arduino: Biblioteka dla Arduino
-Library for Arduino MEGA enables you to connect the device to SUPLA system.  The Library supports Ethernet modules based on ENC28J60 and the popular Ethernet Shield based on W5100. Regarding the ENC28J60, additional <a href="https://github.com/ntruchsess/arduino_uip">UIPEthernet</a> library must be installed.: Biblioteka przeznaczona dla Arduino MEGA umożliwiająca podłączenie urządzenia do systemu SUPLA. Biblioteka wspiera moduły Ethernet oparte o układ ENC28J60 oraz popularny Ethernet Shield z układem W5100 na pokładzie. W przypadku układu ENC28J60 wymagane jest zainstalowanie dodatkowej biblioteki <a href="https://github.com/ntruchsess/arduino_uip">UIPEthernet</a>.
+Library for Arduino: Библиотека для Arduino
+Library for Arduino MEGA enables you to connect the device to SUPLA system.  The Library supports Ethernet modules based on ENC28J60 and the popular Ethernet Shield based on W5100. Regarding the ENC28J60, additional <a href="https://github.com/ntruchsess/arduino_uip">UIPEthernet</a> library must be installed.: Библиотека Arduino MEGA для подключения ваших устройств к облаку SUPLA. Библиотека поддерживает платы с сетевым адаптером ENC28J60 и щит на W5100 . Для ENC28J60 необходимо установить дополнительно библиотеку <a href="https://github.com/ntruchsess/arduino_uip">UIPEthernet</a>.
 
-Application for smartphones and tablets based on iOS, Android and (soon) Windows Phone.: Aplikacja na smartfon i tablet pracujący pod kontrolą systemu iOS, Android lub (wkrótce) Windows Phone.
-Application for iPhone and iPad: Aplikacja dla iPhone i iPad
-Application for Android: Aplikacja dla systemu Android
-Do you like the project? Give us support by sharing it with your friends. Join us!: Podoba Ci się projekt? Wesprzyj nas, dzieląc się nim ze swoimi znajomymi. Przyłącz się!
-Team: Zespół
-Software: Oprogramowanie
-Electronics: Elektronika
-Project sponsorship: Sponsor projektu
-News and infos: Nowości i informacje
-SUPLA - Open Source building automation system based on Rasberry Pi, ESP8266 and Arduino: SUPLA - Otwarta automatyka budynkowa oparta o Raspberry PI, ESP8266 i Arduino
-Download: Pobierz
+Application for smartphones and tablets based on iOS, Android and (soon) Windows Phone.: Приложения для смартфонов и планшетов  iOS, Анроид и (скоро) Windows Phone.
+Application for iPhone and iPad: Приложение для iPhone и iPad
+Application for Android: Приложение для Андроид
+Do you like the project? Give us support by sharing it with your friends. Join us!: Понравился наш проект? Поддержите нас, поделитесь ссылками с друзьями. Присоединяйтесь!
+Team: Команда
+Software: Программы
+Electronics: Электроника
+Project sponsorship: Спонсор проекта
+News and infos: Новости и информация
+SUPLA - Open Source building automation system based on Rasberry Pi, ESP8266 and Arduino: SUPLA - открытый проект систем автоматизации зданий на платформах Raspberry PI, ESP8266 и Arduino
+Download: Скачать
 
-What is SUPLA?: Co to jest SUPLA?
-SUPLA is a constantly developing project based on an open software and open hardware enabling to build a simple building automation system allowing to operate appliances and other elements at your home or in the office.: SUPLA to projekt rozwijany na zasadach otwartego oprogramowania i otwartego sprzętu pozwalający na zbudowanie prostego systemu automatyki budynkowej i umożliwiający sterowanie wyposażeniem domu lub firmy.
-What the latest version does?: Co umożliwia aktualna wersja?
-Current version allows to:: Aktualna wersja umożliwia:
-Operate roller shutter: Otwieranie i zamykanie rolet;
-Operate gate : Otwieranie i zamykanie bramy wjazdowej;
-Operate garage door: Otwieranie i zamykanie bramy garażowej;
-Operate gateway lock: Otwieranie furtki;
-Operate door lock: Otwieranie drzwi;
-Turn the lights on and off: Włączanie i wyłączanie oświetlenia;
-Control home appliances: Włączanie i wyłączanie urządzeń RTV i AGD;
-See window roller, gate or door opening status: Monitorowanie stanu otwarcia rolet, bram oraz drzwi;
-Monitor temperature.: Monitorowanie temperatury.
-What are the components?: Co składa się na elementy systemu?
-a) Software, including:: a)	Oprogramowanie, w skład którego wchodzą:
-SUPLA-APP – Client Application: SUPLA-APP - Aplikacja kliencka
-SUPLA-CLOUD – Server software enabling system management through Internet browser. Software will also allow communication between client’s application and executive devices.: SUPLA-CLOUD – Oprogramowanie serwerowe umożliwiające zarządzanie systemem za pośrednictwem przeglądarki internetowej. Oprogramowanie to umożliwia również komunikację pomiędzy aplikacjami klienckimi a urządzeniami wykonawczymi.
-SUPLA-DEV – Software for executive devices.: SUPLA-DEV – Oprogramowanie dla urządzeń wykonawczych.
-b) Equipment in the form of executive modules.: b) Sprzęt w formie modułów wykonawczych.
-What is the executive module?: Co to jest moduł wykonawczy?
-An executive module is the device element built based on Raspberry PI, Arduino or ESP8266 microcomputer. It performs user commands, e.g. to shut off power through connecting a proper relay or in cooperation  with proper driver – opens the gate.: Moduł wykonawczy jest elementem warstwy sprzętowej zbudowanym w oparciu o platformy Raspberry PI, Arduino lub mikrokontroler ESP8266. Wykonuje komendy użytkownika mające na celu np. wyłączenie zasilania poprzez załączenie odpowiedniego przekaźnika, czy też we współpracy z odpowiednim sterownikiem - otwarcie bramy wjazdowej.
-How to start?: Jak zacząć?
+What is SUPLA?: Что такое SUPLA?
+SUPLA is a constantly developing project based on an open software and open hardware enabling to build a simple building automation system allowing to operate appliances and other elements at your home or in the office.: SUPLA это постепенно развивающийся проект по созданию простых автоматических систем управляющих техникой дома и в офисе.
+What the latest version does?: Что может делать последняя версия?
+Current version allows to:: Текущая версия позволяет:
+Operate roller shutter: Открытие и закрытие штор;
+Operate gate : Открытие калитки;
+Operate garage door: Управление гаражными воротами;
+Operate gateway lock: Управление въездными воротами;
+Operate door lock: Открывание дверей;
+Turn the lights on and off: Управление освещением;
+Control home appliances: Управление домашней аудиотехникой;
+See window roller, gate or door opening status: Просмотр состояния открытия дверей, ворот, роллет;
+Monitor temperature.: Слежение за температурой и влажностью.
+What are the components?: Из чего состоит?
+a) Software, including:: a)	Программы в которые входят:
+SUPLA-APP – Client Application: SUPLA-APP - клиентское приложение
+SUPLA-CLOUD – Server software enabling system management through Internet browser. Software will also allow communication between client’s application and executive devices.: SUPLA-CLOUD – облачный сервер для управления системой через браузер. С его же помощью происходит связь клиентских приложений с исполнительными устройствами.
+SUPLA-DEV – Software for executive devices.: SUPLA-DEV – Программы для исполнительных устройств.
+b) Equipment in the form of executive modules.: b) Оборудование исполнительных устройств.
+What is the executive module?: ЧТо такое исполнительное устройство?
+An executive module is the device element built based on Raspberry PI, Arduino or ESP8266 microcomputer. It performs user commands, e.g. to shut off power through connecting a proper relay or in cooperation  with proper driver – opens the gate.: Исполнительное устройство это элемент системы построенный на основе Raspberry PI, Arduino или ESP8266. Оно исполняет команды пользователя подавая или выключая эолетроэнергию через реле или вместе со штатным приводом открывая, к примеру, ворота.
+How to start?: Как начать?
 The easiest way to start is to run a RaspberryPI based application . Therefore, you need to:: Najprościej zacząć od uruchomienia wersji opartej o Raspberry PI. W tym celu należy:
 Sign in on <a href="https://cloud.supla.org">https://cloud.supla.org</a>: Zarejestrować się na <a href="https://cloud.supla.org">https://cloud.supla.org</a>
 Write the rbpiext01.img file on the SD card: Przenieść obraz rbpiext01.img na kartę SD
@@ -173,4 +173,4 @@ BOTLAND is one of the biggest online shops providing electronics and automated t
 AC SOFTWARE is a supplier of an innovative IT development solutions and consulting services for small and medium-sized enterprises. They can be proud of many completed projects which have been created to support company management.: AC SOFTWARE jest dostawcą innowacyjnych rozwiązań programistycznych oraz usług konsultingowych w zakresie rozwiązań IT dla sektora małych i średnich przedsiębiorstw. Firma posiada w swoim dorobku wiele zrealizowanych projektów, z których większość powstała na potrzeby wspomagania zarządzania przedsiębiorstwami.
 AC SOFTWARE  has made and provides the well known and valued software – ProfitCRM as well as a modern Domophone working with smartphones and tablets. The company is also a main partner and sponsor of the SUPLA project.: AC SOFTWARE jest producentem znanego i cenionego oprogramowania ProfitCRM oraz nowoczesnego domofonu współpracującego ze smartfonami i tabletami. Jest także głównym partnerem i sponsorem projektu SUPLA.
 Reset Brave Projects is a company engaged in production and delivery of professional movies and photography. Two young and extremely creative people working hard to meet requirements of the most demanding customers. Their main offer includes advertisements, video clips and packshots.: Reset Brave Projects to firma zajmująca się profesjonalną produkcją filmową oraz fotografią. Dwójka młodych i kreatywnych ludzi, którzy wykorzystują zdobyte doświadczenie aby spełnić wymagania najbardziej wymagających klientów. Główna oferta firmy to przede wszystkim reklama, teledyski oraz fotografia produktów.
-Videos & Photos: Wideo i Zdjęcia
+Videos & Photos: Видео и фото
