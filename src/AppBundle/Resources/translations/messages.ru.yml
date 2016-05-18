@@ -6,7 +6,7 @@ Caption: Подпись
 Enabled: Используется
 Disabled: Неиспользуется
 Search: Поиск
-Assigned Locations: Приписанные Позиции
+Assigned Locations: Подключенные Области
 Password change: Изменение пароля
 Registration: Регистрация
 Password Reset: Сброс пароля
@@ -32,10 +32,10 @@ Number: Номер
 I/O: Ввод/Вывод
 Function: Назначение
 Name: Название
-Location: Позиция
-Locations: Позиции
-No Locations assigned: Нет назначенных позиций
-Lack of Locations: Нет свободных позиций
+Location: Область
+Locations: Область
+No Locations assigned: Нет назначенных областей
+Lack of Locations: Нет свободных областей
 SoftVer: Версия
 All: Все
 Electric: Электрика
@@ -43,9 +43,9 @@ Doors, Gates: Двери, Калитки
 Roller shutters: Ролетты
 Liquid, Temp: Жидкость, Темп
 Sensors: Датчики
-No function: Не назначенно
-Connected: Подключенно
-Disconnected: Отключенно
+No function: Не назначено
+Connected: Подключено
+Disconnected: Отключено
 unknown: неизвестно
 Comment: Коментарий
 Channels: Каналы
@@ -59,27 +59,27 @@ Password: Пароль
 Confirm Password: Подтвердить пароль
 SAVE: СОХРАНИТЬ
 GENERATE: СОЗДАТЬ
-ENABLED: ИСПООЛЬЗУЕТСЯ
+ENABLED: ИСПОЛЬЗУЕТСЯ
 CLICK TO DISABLE: ОТКЛЮЧИТЬ
 DISABLED: НЕ ИСПОЛЬЗУЕТСЯ
 CLICK TO ENABLE: ИСПОЛЬЗОВАТЬ
 DELETE: УДАЛИТЬ
-Assign Locations: Назначенные Позиции
+Assign Locations: Подключенные Области
 Confirm if you want to remove Access Identifier: Подтвердите удаление Ключа Доступа
-Confirm if you want to remove Location: Подтвердите удаление Позиции
+Confirm if you want to remove Location: Подтвердите удаление Области
 Further connection with this Identifier will be impossible: Подключится с этим Ключем будет невозможно
-Choose locations to be assigned to Access Identifier: Выберите позиции доступные для данного ключа доступа
+Choose locations to be assigned to Access Identifier: Выберите области доступные для данного ключа доступа
 Access Identifiers: Ключ Доступа
 Create New Access Identifier: Создать новый ключ доступа
-No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Нет Позиций для назначения этому Ключу.<br />Создайте хотябы одну Позицию.
+No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Нет Областей для назначения этому Ключу.<br />Создайте хотябы одну Позицию.
 No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Нет свободных Ключей доступа<br /> Создайте хотябы один Ключ Доступа. 
-You will no longer be able to connect the i/o devices to this Location: Вам не удастся назначить устройства в эту Позицию
-Create New Location: Создать новую Позицию
+You will no longer be able to connect the i/o devices to this Location: Вам не удастся назначить устройства в эту Область
+Create New Location: Создать новую Область
 Assign Access Identifiers: Приписать Ключи Доступа
 Languages: Язык
 No I/O Devices: Устройства
 Choose Access Identifiers to be assigned to this Location: Выберите Ключи Доступа для этой Позиции
-Are you sure?: Вы уверенны?
+Are you sure?: Вы уверены?
 Lighting: Освещение
 Temperature: Температура
 Doors and gates: Двери и калитки
@@ -125,7 +125,7 @@ Go to http://192.168.4.1: Открой страницу http://192.168.4.1
 Enter location settings provided above: Введи установки как на картинке сверху
 Enter access data to your WiFi: Впиши название и пароль к твоей сети Wi-Fi
 Click "Save": Нажми "Save"
-Restart the device or press the P1 button: Перезапусти устройство реметом или нажми кнопку P1
+Restart the device or press the P1 button: Перезапусти устройство или нажми кнопку P1
 
 Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Скачай <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">библиотеку SUPLA</a> для Arduino
 Run Arduino IDE: Запусти Arduino IDE
@@ -150,11 +150,11 @@ Building automation systems available on the market are usually very complex, cl
 #inside php code
 Data saved: Данные сохранены
 Save: Сохранить
-Location limit has been exceeded: Достигнуто ограничение числа Позиций
+Location limit has been exceeded: Достигнуто ограничение числа Областей
 Success: Успешно
-New location has been created: Создана новая Позиция
+New location has been created: Создана новая Область
 Error: Ошибка
-Location has been deleted: Позиция удалена
+Location has been deleted: Область удалена
 Data saved!: Данные сохранены!
 Access identifier limit has been exceeded: Достигнут лимит Ключей Доступа
 New access identifier has been created: Создан новый Ключ Доступа
@@ -168,8 +168,8 @@ Access identifier has been enabled: Ключ Доступа задействов
 Access identifier has been disabled: Ключ Доступа отключен
 Caption has been changed: Название изменено
 Password has been changed: Пароль изменен
-Location has been enabled: Позиция используется
-Location has been disabled: Позиция неиспользуется
+Location has been enabled: Область используется
+Location has been disabled: Область неиспользуется
 Remove all the associated devices before you delete this location: Отключите все привязанные устройства перед удалением позиции
 Comment has been modified: Пояснение изменено
 I/O Device has been disabled: Устройство неипользуется
@@ -179,7 +179,7 @@ Current password is incorrect: Введенный пароль неправил�
 Password has been changed!: Пароль изменен!
 Create an account: Создать учетку
 Enter your email: Введите почту
-Enter your email address: ВВедите адрес почты
+Enter your email address: Введите адрес почты
 Repeat your email: Повторите адрес
 Enter password: Введите пароль
 Enter strong password: Введите сложный пароль
@@ -208,13 +208,14 @@ HFD4 Relay: Реле HFD4
 G5LA1A Relay: Реле G5LA1A
 G5LA1A Relay x2: Двойное реле G5LA1A
 DS18B20 Thermometer: Термометр DS18B20
-DHT11 Temperature & Humidity Sensor: Датчик температуры и влажности DHT11
-DHT22 Temperature & Humidity Sensor: Датчик температуры и влажности DHT22
-AM2302 Temperature & Humidity Sensor: Датчик температуры и влажности AM2302
-Dimmer: Диммер
-RGB led controller: Контроллер RGB ламп
-Dimmer & RGB led controller: Диммер и контроллер RGB ламп
 Thermometer: Термометр
+DHT11 Temperature & Humidity Sensor: Датчик температуры и влажности DHT11  
+DHT22 Temperature & Humidity Sensor: Датчик температуры и влажности DHT22  
+AM2302 Temperature & Humidity Sensor: Датчик температуры и влажности AM2302  
+Dimmer: Диммер  
+RGB led controller: Контроллер освещения RGB  
+Dimmer & RGB led controller: Диммер и контроллер освещения RGB  
+
 Gateway lock operation: Открытие калитки
 Gate operation: Открытие/закрытие ворот
 Garage door operation: Открытие/закрытие гаражных ворот
@@ -229,7 +230,6 @@ No liquid sensor: Датчик наличия жидкости
 On/Off switch: Выключатель
 Light switch: Выключатель света
 Humidity sensor: Датчик влажности
-Temperature and humidity sensor: Датчик температуры и влажности
-RGB lighting: RGB освещение
-Dimmer and RGB lighting: Диммер и контроллер RGB ламп
-
+Temperature and humidity sensor: Датчик температуры и влажности 
+RGB lighting: Освещение RGB  
+Dimmer and RGB lighting: Диммер и освещение RGB  
