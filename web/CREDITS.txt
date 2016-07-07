@@ -37,3 +37,11 @@ D: Software developer [supla-core, MCP23008 support]
 N: Mike Jangolenko
 E: 7472945@mail.ru
 D: Russian translations
+
+N: Winicjusz Filipow
+E: vinny@supla.org
+D: Software & Hardware tests
+
+N: Slawomir Sleziak
+E: slawek@supla.org
+D: Software & Hardware tests

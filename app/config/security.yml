@@ -35,6 +35,11 @@ security:
         account_create:
             pattern:  ^/account/create$
             security: false
+            
+            
+        account_create_here:
+            pattern:  ^/account/create_here$
+            security: false
     
         account_checkemail:
             pattern:  ^/account/checkemail$
@@ -52,6 +57,14 @@ security:
            pattern:  ^/account/reset_passwd/
            security: false
            
+        account_user_exists:
+           pattern:  ^/account/ajax/user_exists
+           security: false
+        
+        auth_server:
+            pattern:  ^/auth/server$
+            security: false
+           
         ajax_lngset:
             pattern: ^/ajax/lngset/
             security: false
@@ -59,7 +72,11 @@ security:
         login:
             pattern:  ^/auth/login$
             security: false
-                    
+                   
+        pages:
+           pattern:  ^/page_
+           security: false
+            
         secured_area:
             pattern: ^/
             

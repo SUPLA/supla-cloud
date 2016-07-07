@@ -42,6 +42,37 @@ class AjaxController extends Controller
 	}
 	
 	
+	static public function remoteRequest($url, $data) {
+	
+		$data_string = json_encode($data);
+		$result = FALSE;
+		 
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	
+		// TESTS
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		// -----------
+	
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($data_string))
+				);
+	
+		$cresult = curl_exec($ch);
+		 
+		if ( curl_errno($ch) == 0 ) {
+		$result = json_decode($cresult);
+		}
+
+		curl_close( $ch );
+
+		return $result;
+	}
+	
 	static function itemEdit($validator, $translator, $doctrine, $item, $message, $value)
 	{
 	
@@ -184,6 +215,8 @@ class AjaxController extends Controller
     
     	return AjaxController::jsonResponse(count($result) > 0, array('states' => $result));
     }
+    
+    
     
 }
 

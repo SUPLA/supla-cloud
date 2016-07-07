@@ -149,7 +149,34 @@
                 new stepsForm( theForm, {
                 onSubmit : function( form ) {
                 classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
-				 $("#authpage").fadeOut(500, function(){ form.submit() });
+                
+                    var $server = null;
+                
+                    $.ajax( {type: "POST", url: '{{ path("_auth_server") }}', data: JSON.stringify({ username: $('#q1').val() }) } )
+			        .done(function( response ) {        		
+			        	
+			        	if ( response.success == true ) {
+			        		$server = response.server;
+			        	}
+			        	
+			            if ( $server == null ) {
+	                
+		                   $(location).attr('href', '{{ path("_temp_unavailable") }}')
+		                
+		                } else {
+		                
+		                     $action = '{{ path("_auth_login_check") }}';
+		                
+		                     $('#login').attr('action', 'https://' + $server + $action ); 
+		                
+		                	 $("#authpage").fadeOut(500, function(){ 
+					             form.submit() 
+					         });
+		                };
+			        });	 
+	        
+
+                
                 }
                 });
 				

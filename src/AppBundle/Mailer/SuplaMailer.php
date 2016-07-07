@@ -32,14 +32,16 @@ class SuplaMailer
 	protected $mailer_from;
 	protected $mailer;
 	protected $email_admin;
+	protected $supla_server;
 	
-	public function __construct($router, $templating, $mailer, $mailer_from, $email_admin)
+	public function __construct($router, $templating, $mailer, $mailer_from, $email_admin, $supla_server)
 	{
 		$this->router = $router;
 		$this->templating = $templating;
 		$this->mailer_from = $mailer_from;
 		$this->mailer = $mailer;
 		$this->email_admin = $email_admin;
+		$this->supla_server = $supla_server;
 	}
 	
 	private function extractSubjectAndBody($template, $params, &$subject) 
@@ -122,6 +124,7 @@ class SuplaMailer
 				$this->email_admin,
 				array(
 						'user' => $user,
+						'supla_server' => $this->supla_server
 				));
 	}
 	

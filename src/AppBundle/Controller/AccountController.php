@@ -30,8 +30,10 @@ use AppBundle\Form\Model\Registration;
 use AppBundle\Form\Model\ChangePassword;
 use AppBundle\Form\Model\ResetPassword;
 use AppBundle\Form\Model\ForgotPassword;
+use Symfony\Component\Form\FormError;
 use AppBundle\Entity\User;
 use AppBundle\Model\UserManager;
+use AppBundle\Supla\ServerList;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -50,7 +52,7 @@ class AccountController extends Controller
     {    	
         $registration = new Registration();
         $form = $this->createForm(new RegistrationType(), $registration, array(
-            'action' => $this->generateUrl('_account_create'),
+            'action' => $this->generateUrl('_account_create_here'),
             'validation_groups' => array('_registration')
         ));
 
@@ -104,16 +106,46 @@ class AccountController extends Controller
     
 
     /**
-     * @Route("/create", name="_account_create")
+     * @Route("/create_here", name="_account_create_here")
      */
-    public function createAction(Request $request)
+    public function createActionHere(Request $request)
     {
    
     	$form = $this->createForm(new RegistrationType(), new Registration(), array('language'=>$request->getLocale()));    
     
     	$form->handleRequest($request);
-    
-    	if ($form->isValid()) {
+    	    	
+    	$sl = $this->get('server_list');
+    	
+    	if ( $form->isValid() ) {
+    		
+    		$username = $form->getData()->getUser()->getUsername();
+    		
+    		for($n=0;$n<4;$n++) {
+    			$exists = $sl->userExists($username);
+    			
+    			if ( $exists === false ) {
+    				usleep(1000000);
+    			} else {
+    				break;
+    			}
+    		}
+    		
+    		
+    	} else {
+    		$exists = false;
+    	}
+    	
+    	
+    	if ( $exists === NULL ) {
+    		return $this->redirectToRoute("_temp_unavailable");
+    	} else if ( $exists === true ) {
+    		$translator = $this->get('translator');
+    		$form->get('user')->get('email')->addError(new FormError($translator->trans('Email already exists', array(), 'validators')));
+    	}
+    		    	
+    	if ( $exists === false
+    			&& $form->isValid() ) {
     		
     		$registration = $form->getData();
     		$user_manager = $this->get('user_manager');
@@ -137,7 +169,14 @@ class AccountController extends Controller
     	);
     }
     
-   
+    /**
+     * @Route("/create", name="_account_create")
+     */
+    public function createAction(Request $request)
+    {
+    	$sl = $this->get('server_list');
+    	return $this->redirect($sl->getCreateAccountUrl($request));
+    } 
     
     /**
      * @Route("/view", name="_account_view")
@@ -224,12 +263,10 @@ class AccountController extends Controller
     }
     
     /**
-     * @Route("/ajax/forgot_passwd", name="_account_ajax_forgot_passwd")
+     * @Route("/ajax/forgot_passwd_here", name="_account_ajax_forgot_passwd_here")
      */
-    public function forgotPasswordAction(Request $request)
-    {
-    	sleep(2); // Delay
-    	
+    public function forgotPasswordHereAction(Request $request)
+    {	
     	$translator = $this->get('translator');
     	$user_manager = $this->get('user_manager');
     	
@@ -247,4 +284,51 @@ class AccountController extends Controller
     	
     	
     }
+    
+    /**
+     * @Route("/ajax/forgot_passwd", name="_account_ajax_forgot_passwd")
+     */
+    public function forgotPasswordAction(Request $request)
+    {
+    	$data = json_decode($request->getContent());
+    	$username = @$data->email;
+    	
+    	if ( preg_match('/@/', $username) ) {
+    		
+    		$sl = $this->get('server_list');
+    		$server = $sl->getAuthServerForUser($request, $username);
+    		
+    		if ( strlen(@$server) > 0 )
+    			AjaxController::remoteRequest('https://'.$server.$this->generateUrl('_account_ajax_forgot_passwd_here'), array('email' => $username));
+    		
+    	}
+
+    	return AjaxController::jsonResponse(true, null);
+    			    			 
+    }
+    
+    
+    /**
+     * @Route("/ajax/user_exists", name="_account_ajax_user_exists")
+     */
+    public function userExists(Request $request)
+    {
+    	$exists = NULL;
+    	
+    	$sl = $this->get('server_list');
+    	
+    	if  ( $sl->requestAllowed() ) {
+    		
+    		$data = json_decode($request->getContent());
+    		$user_manager = $this->get('user_manager');
+    		$user = $user_manager->userByEmail(@$data->username);
+    		
+    		$exists = $user !== null ? true : false;
+    	};
+    	
+    	return AjaxController::jsonResponse($exists !== null, array('exists' => $exists));
+    			 
+    }
+    
+   
 }

@@ -24,7 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
+use AppBundle\Supla\ServerList;
 
 /**
  * @author Przemyslaw Zygmunt p.zygmunt@acsoftware.pl [AC SOFTWARE]
@@ -67,6 +67,22 @@ class AuthController extends Controller
     {
     	// The security layer will intercept this request
     }
+
     
+    /**
+     * @Route("/server", name="_auth_server")
+     */
+    public function authServer(Request $request)
+    {
+    	    	
+    	$server = NULL;
+    	$data = json_decode($request->getContent());
+    	
+    	$sl = $this->get('server_list');
+    	
+    	$server = $sl->getAuthServerForUser($request, @$data->username);
+    
+    	return AjaxController::jsonResponse($server !== NULL, array('server' => $server));
+    }
 
 }

@@ -27,6 +27,7 @@ services:
               mailer: "@mailer"
               mailer_from: %mailer_from%
               admin_email: %admin_email%
+              supla_server: %supla_server%
                     
      user_manager:
          class: AppBundle\Model\UserManager
@@ -57,6 +58,14 @@ services:
               doctrine: "@doctrine" 
               security_token: "@security.token_storage"
               template: "@templating"
+              
+     server_list:
+         class: AppBundle\Supla\ServerList
+         arguments: 
+                 router: "@router"
+                 user_manager: "@user_manager"
+                 supla_server: %supla_server%
+                 supla_server_list: %supla_server_list%
               
      authentication_handler:
         class: AppBundle\Handler\AuthHandler

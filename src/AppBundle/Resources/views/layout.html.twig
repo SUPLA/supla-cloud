@@ -84,7 +84,7 @@
 	
         
     </head>
-    <body {% if app.request.get('_route') == '_auth_login' %} class="login" {% endif %} {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %} {% if app.request.get('_route') == '_account_create'%} class="register" {% endif %}  {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %} {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %}
+    <body {% if app.request.get('_route') == '_auth_login' %} class="login" {% endif %} {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %} {% if app.request.get('_route') == '_account_create_here'%} class="register" {% endif %}  {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %} {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %}
 	{% if homepage_viewed is defined and homepage_viewed == false %} class="first-time" {% endif %} 
 	{% if app.request.get('_route') == '_iodev_channel_item_edit' %} class="channel" {% endif %}>
 	<div id="hello">

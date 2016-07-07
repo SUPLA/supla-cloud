@@ -80,7 +80,23 @@ class DefaultController extends Controller
 		return false;			
 	}
 	
+	/**
+	 * @Route("/page_temp_unavailable", name="_temp_unavailable")
+	 */
+	public function tempUnavailable(Request $request)
+	{
+		 
+		return $this->render(
+				'AppBundle:Pages:temp_unavailable.html.twig',
+				array(
+						'locale' => $request->getLocale()
+				)
+		);
+	}
 	
+	/**
+	 * @Route("/", name="_homepage")
+	 */
     public function indexAction(Request $request)
     {
     	

@@ -18,6 +18,7 @@ parameters:
     mailer_from: ~
     admin_email: ~
     supla_server: ~
+    supla_server_list: ~
 
     ewz_recaptcha_public_key: ~
     ewz_recaptcha_private_key: ~

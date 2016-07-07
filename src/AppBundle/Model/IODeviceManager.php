@@ -85,7 +85,8 @@ class IODeviceManager
 		
 		$map[SuplaConst::TYPE_THERMOMETERDS18B20] = array('0', SuplaConst::FNC_THERMOMETER);
 		
-                $map[SuplaConst::TYPE_DHT11] = array('0', SuplaConst::FNC_HUMIDITYANDTEMPERATURE);	
+		$map[SuplaConst::TYPE_DHT11] = array('0', SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
+		
 		$map[SuplaConst::TYPE_DHT22] = $map[SuplaConst::TYPE_DHT11];
 		
 		$map[SuplaConst::TYPE_AM2302] = $map[SuplaConst::TYPE_DHT11];
