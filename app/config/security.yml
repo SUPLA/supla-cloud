@@ -38,7 +38,7 @@ security:
             
             
         account_create_here:
-            pattern:  ^/account/create_here$
+            pattern:  ^/account/create_here
             security: false
     
         account_checkemail:

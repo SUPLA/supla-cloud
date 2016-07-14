@@ -1,1 +1,48 @@
-Service temporarily unavailable! Try again leter.
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="HandheldFriendly" content="true" />
+		<title>SUPLA</title>
+	
+    	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/fonts.css') }}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,latin-ext" rel="stylesheet">
+		<link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
+        
+        <link rel="icon" href="{{ asset('assets/img/icons/favicon.ico') }}" type="image/x-icon" />
+		<link rel="shortcut icon" href="{{ asset('assets/img/icons/favicon.ico') }}" type="image/x-icon" />
+
+		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla16.png') }}" sizes="16x16" />
+		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla32.png') }}" sizes="32x32" />
+		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla96.png') }}" sizes="96x96" />
+		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla160.png') }}" sizes="160x160" />
+		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla196.png') }}" sizes="196x196" />
+		 
+		<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/icons/supla57.png') }}" />
+		<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('assets/img/icons/supla114.png') }}" />
+		<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/img/icons/supla72.png') }}" />
+		<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('assets/img/icons/supla144.png') }}" />
+		<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/img/icons/supla60.png') }}" />
+		<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/img/icons/supla120.png') }}" />
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/icons/supla76.png') }}" />
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/img/icons/supla152.png') }}" />
+        <style>
+			html {height: 100%;}
+		</style>
+        
+	</head>
+	<body class="service">
+    <div id="info">
+    	<div class="child">
+        <img src="{{ asset('assets/img/supla-logo.svg') }}">
+    	<h1>{% trans %}Service temporarily unavailable{% endtrans %}</h1>
+        {% trans %}Try again later{% endtrans %}
+        </div>
+    </div>
+    <div class="footer"> <a href="https://supla.org">www.supla.org</a> </div>
+	</body>
+</html>

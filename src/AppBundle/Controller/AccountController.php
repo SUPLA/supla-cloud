@@ -109,8 +109,7 @@ class AccountController extends Controller
      * @Route("/create_here", name="_account_create_here")
      */
     public function createActionHere(Request $request)
-    {
-   
+    {	
     	$form = $this->createForm(new RegistrationType(), new Registration(), array('language'=>$request->getLocale()));    
     
     	$form->handleRequest($request);
@@ -167,6 +166,19 @@ class AccountController extends Controller
     				  'locale' => $request->getLocale()
     			)
     	);
+    }
+    
+    /**
+     * @Route("/create_here/{locale}", name="_account_create_here_lc")
+     */
+    public function createActionHereLC(Request $request, $locale)
+    {
+    	if ( in_array(@$locale, array('en', 'pl', 'de', 'ru')) ) {
+    		$request->getSession()->set('_locale', $locale);
+    		$request->setLocale($locale);
+    	}
+    	
+    	return $this->redirectToRoute("_account_create_here");
     }
     
     /**
@@ -272,6 +284,12 @@ class AccountController extends Controller
     	
     	$data = json_decode($request->getContent());
     	
+    	if ( in_array(@$data->locale, array('en', 'pl', 'de', 'ru')) ) {
+    		$request->getSession()->set('_locale', $data->locale);
+    		$request->setLocale($data->locale);
+    	}
+    	
+    	
     	if ( preg_match('/@/', @$data->email) 
     		 && null !== ( $user = $user = $user_manager->userByEmail($data->email) ) 
     		 &&  $user_manager->paswordRequest($user) === true ) {
@@ -299,7 +317,7 @@ class AccountController extends Controller
     		$server = $sl->getAuthServerForUser($request, $username);
     		
     		if ( strlen(@$server) > 0 )
-    			AjaxController::remoteRequest('https://'.$server.$this->generateUrl('_account_ajax_forgot_passwd_here'), array('email' => $username));
+    			AjaxController::remoteRequest('https://'.$server.$this->generateUrl('_account_ajax_forgot_passwd_here'), array('email' => $username, 'locale' => $request->getLocale()));
     		
     	}
 

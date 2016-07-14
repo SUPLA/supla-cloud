@@ -42,12 +42,15 @@ class AuthController extends Controller
     	$error = $authenticationUtils->getLastAuthenticationError();
     	$lastUsername = $authenticationUtils->getLastUsername();
     	
+    	$sl = $this->get('server_list');
+    	
     	return $this->render(
     			'AppBundle:Auth:login.html.twig',
     			array(
     					'last_username' => $lastUsername,
     					'error'         => $error,
-    					'locale' => $request->getLocale()
+    					'locale' => $request->getLocale(),
+    					'create_url' => $sl->getCreateAccountUrl($request),
     			)
     	);
     }

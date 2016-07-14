@@ -170,7 +170,7 @@ class ServerList
    function getCreateAccountUrl(Request $request) {
    	
    	   if ( count(@$this->servers) < 2 ) {
-   	   	  return 'https://'.$request->getHost().$this->router->generate('_account_create_here');
+   	   	  return 'https://'.$request->getHost().$this->router->generate('_account_create_here_lc', array('locale' => $request->getLocale()));
    	   }
    	   
    	   $avil = array();
@@ -183,7 +183,7 @@ class ServerList
    	   	  $server = $avil[rand ( 0 , count($avil)-1 )];
    	   	  
    	   	  if ( strlen(@$server['address']) > 0 )
-   	   	  	return 'https://'.$server['address'].$this->router->generate('_account_create_here');
+   	   	  	return 'https://'.$server['address'].$this->router->generate('_account_create_here_lc', array('locale' => $request->getLocale()));
    	   }
    	
    	   return 'https://'.$request->getHost().$this->router->generate('_temp_unavailable');
