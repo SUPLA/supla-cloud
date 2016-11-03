@@ -453,7 +453,8 @@ function detectIE() {
             var pictogram_humidity = $("#pictogram_humidity");
             var pictogram_temphumidity = $("#pictogram_temphumidity");
             var pictogram_std = $("#pictogram_standard");
-            
+            var pictogram_depth = $("#pictogram_depth_sensor");
+            var pictogram_distance = $("#pictogram_distance_sensor");
             
             var form = csel.closest("form");
            
@@ -507,7 +508,9 @@ function detectIE() {
 	        		pictogram_temphumidity.hide();
 	        		pictogram_std.hide();
         			pictogram_nofunc.hide();
-        			
+                    pictogram_depth.hide();
+                    pictogram_distance.hide();
+                    
 	        		if ( function_id == 0 ) {
 	                	pictogram_nofunc.show();
 	        		} else if ( function_id == 40 ) {
@@ -516,6 +519,10 @@ function detectIE() {
 	        			pictogram_humidity.show();
 	        		} else if ( function_id == 45 ) {
 	        			pictogram_temphumidity.show();
+	        		} else if ( function_id == 210 ) {
+	        			pictogram_depth.show();
+	        		} else if ( function_id == 220 ) {
+	        			pictogram_distance.show();
 	        		} else {
 	        			
 	        			var img = pictogram_std.find('img');
@@ -582,6 +589,8 @@ function detectIE() {
         checkChannelState('sensor_state', 'sensor_state_value', 'serverctrl-sensorstate', 5000);	
         checkChannelState('thermometer_state', 'temperature_value', 'serverctrl-tempval', 10000);	
         checkChannelState('humidity_state', 'humidity_value', 'serverctrl-humidityval', 10000);	
+        checkChannelState('depth_state', 'depth_value', 'serverctrl-distanceval', 5000);
+        checkChannelState('distance_state', 'distance_value', 'serverctrl-distanceval', 5000);
         checkConnectionState(5000);
         
                

@@ -97,6 +97,9 @@ class IODeviceManager
 		
 		$map[SuplaConst::TYPE_DIMMERANDRGBLED] = array('0', SuplaConst::FNC_DIMMERANDRGBLIGHTING);
 		
+		$map[SuplaConst::TYPE_DISTANCESENSOR] = array('0', SuplaConst::FNC_DEPTHSENSOR,
+				SuplaConst::FNC_DISTANCESENSOR,
+		);
 		
 		if ( $type === null ) {
 			return $map;
@@ -157,6 +160,7 @@ class IODeviceManager
 			case SuplaConst::TYPE_DIMMER: $result = 'Dimmer'; break;
 			case SuplaConst::TYPE_RGBLEDCONTROLLER: $result = 'RGB led controller'; break;
 			case SuplaConst::TYPE_DIMMERANDRGBLED: $result = 'Dimmer & RGB led controller'; break;
+			case SuplaConst::TYPE_DISTANCESENSOR: $result = 'Distance sensor'; break;
 		}
 		
 		return $this->translator->trans($result);		
@@ -186,6 +190,8 @@ class IODeviceManager
 			case SuplaConst::FNC_DIMMER:  $result = 'Dimmer'; break;
 			case SuplaConst::FNC_RGBLIGHTING: $result = 'RGB lighting'; break;
 			case SuplaConst::FNC_DIMMERANDRGBLIGHTING: $result = 'Dimmer and RGB lighting'; break;
+			case SuplaConst::FNC_DISTANCESENSOR:  $result = 'Distance sensor'; break;
+			case SuplaConst::FNC_DEPTHSENSOR:  $result = 'Depth sensor'; break;
 		}
 		
 		return $this->translator->trans($result);
@@ -215,7 +221,8 @@ class IODeviceManager
 			case SuplaConst::TYPE_DHT22:
 			case SuplaConst::TYPE_AM2302:
 			case SuplaConst::TYPE_SENSORNO: 
-			case SuplaConst::TYPE_SENSORNC: $result = 'Input'; break;
+			case SuplaConst::TYPE_SENSORNC:
+			case SuplaConst::TYPE_DISTANCESENSOR: $result = 'Input'; break;
 			case SuplaConst::TYPE_DIMMER:
 			case SuplaConst::TYPE_RGBLEDCONTROLLER: 
 			case SuplaConst::TYPE_DIMMERANDRGBLED:

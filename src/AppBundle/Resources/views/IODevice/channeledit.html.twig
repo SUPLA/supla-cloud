@@ -85,8 +85,26 @@
 				
 				<img src={{ asset('assets/img/functions/45.svg') }}>
 			</div>
+				
+			<div id="pictogram_depth_sensor" class="depth_sensor" {% if channel.function != '210' %}style="display:none"{% endif %}>
+		
+				{% if (show_distance == true) %}
+					<div class="depth_state" data-iodevid="{{ channel.iodevice.id }}" data-id="{{ channel.id }}" id="depth_state"><div id="depth_value"></div></div>
+				{% endif %} 
+				
+				<img src={{ asset('assets/img/functions/210.svg') }}>
+			</div>
 			
-			<div id="pictogram_standard" class="standard-function-icon" {% if (channel.function == '0' or channel.function == '40' or channel.function == '42' or channel.function == '45') %}style="display:none"{% endif %}>
+			<div id="pictogram_distance_sensor" class="distance_sensor" {% if channel.function != '220' %}style="display:none"{% endif %}>
+		
+				{% if (show_distance == true) %}
+					<div class="distance_state" data-iodevid="{{ channel.iodevice.id }}" data-id="{{ channel.id }}" id="distance_state"><div id="distance_value"></div></div>
+				{% endif %} 
+				
+				<img src={{ asset('assets/img/functions/220.svg') }}>
+			</div>
+			
+			<div id="pictogram_standard" class="standard-function-icon" {% if (channel.function == '0' or channel.function == '40' or channel.function == '42' or channel.function == '45' or channel.function == '210' or channel.function == '220') %}style="display:none"{% endif %}>
 				<img src={{ asset('assets/img/functions/') }}{{ channel.function }}.svg>
 			</div>
 			</div>

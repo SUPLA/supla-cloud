@@ -214,6 +214,8 @@ AM2302 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2302
 Dimmer: Ściemniacz
 RGB led controller: Kontroler oświetlenia RGB
 Dimmer & RGB led controller: Ściemniacz i kontroler oświetlenia RGB
+Distance sensor: Czujnik odległości
+Depth sensor: Czujnik głębokości
 Thermometer: Termometr
 Gateway lock operation: Otwieranie furtki
 Gate operation: Otwieranie/zamykanie bramy wjazdowej

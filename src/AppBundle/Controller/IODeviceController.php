@@ -287,6 +287,7 @@ class IODeviceController extends Controller
     				  'show_temphumidity' => ( $channelType == SuplaConst::TYPE_DHT11
     				  		                   || $channelType == SuplaConst::TYPE_DHT22
     				  		                   || $channelType == SuplaConst::TYPE_AM2302 ) ? true : false,
+    				  'show_distance' => $channelType == SuplaConst::TYPE_DISTANCESENSOR ? true : false,
     			)
     	);
     	

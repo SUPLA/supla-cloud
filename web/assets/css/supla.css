@@ -464,6 +464,20 @@ body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: v
 .pictogram .temphumidity .humidity_state { display: inline-flex; position: absolute; top: 160px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
 .pictogram .temphumidity .humidity_state #humidity_value {display: inline-block; margin-right: 5px;}
 
+.pictogram .depth_sensor {position: relative;}
+.pictogram .depth_sensor img{display: block; width: 320px; height: auto; margin-left: 50px }
+.pictogram .depth_sensor .depth_state { display: inline-flex; position: absolute; top: 90px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
+.pictogram .depth_sensor .depth_state #depth_value {display: inline-block; margin-right: 5px;}
+.pictogram .depth_sensor .depth_state { display: inline-flex; position: absolute; top: 120px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
+.pictogram .depth_sensor .depth_state #depth_value {display: inline-block; margin-right: 5px;}
+
+.pictogram .distance_sensor {position: relative;}
+.pictogram .distance_sensor img{display: block; width: 320px; height: auto; margin-left: 0px }
+.pictogram .distance_sensor .distance_state { display: inline-flex; position: absolute; top: 50px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
+.pictogram .distance_sensor .distance_state #depth_value {display: inline-block; margin-right: 5px;}
+.pictogram .distance_sensor .distance_state { display: inline-flex; position: absolute; top: 60px; left: 90px; font-family: "Quicksand",sans-serif; font-size: 30px;}
+.pictogram .distance_sensor .distance_state #distance_value {display: inline-block; margin-right: 5px;}
+
 /* ACCESS IDENTIFIERS */
 #accessid-detail, #details {display: none;}
 .row .info h2, .row .assignments h2 {margin-bottom: 15px;}

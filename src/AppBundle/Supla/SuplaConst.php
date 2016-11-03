@@ -20,12 +20,13 @@
 namespace AppBundle\Supla;
 
 /**
- * @author Przemyslaw Zygmunt p.zygmunt@acsoftware.pl [AC SOFTWARE]
+ * @author Przemyslaw Zygmunt przemek@supla.org
  */
 class SuplaConst
 {
 	const TYPE_SENSORNO            = 1000;
 	const TYPE_SENSORNC            = 1010;
+	const TYPE_DISTANCESENSOR      = 1020;
 	const TYPE_CALLBUTTON          = 1500;
 	const TYPE_RELAYHFD4           = 2000;
 	const TYPE_RELAYG5LA1A         = 2010;
@@ -67,6 +68,8 @@ class SuplaConst
 	const FNC_DIMMER                        = 180;
 	const FNC_RGBLIGHTING                   = 190;
 	const FNC_DIMMERANDRGBLIGHTING          = 200;
+	const FNC_DEPTHSENSOR                   = 210; 
+	const FNC_DISTANCESENSOR                = 220;
 }
 
 ?>

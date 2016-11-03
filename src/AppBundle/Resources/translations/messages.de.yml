@@ -215,6 +215,8 @@ AM2302 Temperature & Humidity Sensor: AM2302  Temperatur- und Feuchtigkeitssenso
 Dimmer: Helligkeitsregler
 RGB led controller: RGB- Beleuchtungskontroller
 Dimmer & RGB led controller: Helligkeitsregler und RGB-Beleuchtungskontroller
+Distance sensor: Abstandssensor
+Depth sensor: Tiefensensor
 Thermometer: Thermometer
 Gateway lock operation: Pforte aufmachen
 Gate operation: Tor auf- und zumachen

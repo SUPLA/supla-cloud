@@ -163,6 +163,10 @@ class ServerCtrl
    	return $this->get_value('HUMIDITY', $user_id, $iodev_id, $channel_id);
    }
    
+   function get_distance_value($user_id, $iodev_id, $channel_id) {
+      return $this->get_value('DOUBLE', $user_id, $iodev_id, $channel_id);
+   }
+   
 }
 
 ?>

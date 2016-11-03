@@ -190,6 +190,37 @@ class AjaxController extends Controller
     }
     
     /**
+     * @Route("/serverctrl-distanceval/{iodevice_id}/{channel_id}", name="_ajax_serverctrl-distanceval")
+     */
+    public function serverctrlDistanceValAction($iodevice_id, $channel_id)
+    {
+    	$user = $this->get('security.token_storage')->getToken()->getUser();
+    	$value = (new ServerCtrl())->get_distance_value($user->getId(), $iodevice_id, $channel_id);
+    	
+    	if ( $value === FALSE || $value < 0 ) {
+    		$value = "-";
+    	} else {
+    		if ( $value >= 1000 ) {
+    			$value = number_format($value/1000.00, 2) . ' km';
+    		} else if ( $value >= 1 ) {
+    			$value = number_format($value, 2) . ' m';
+    		} else { 
+    			$value *= 100;
+    		   
+    			if ( $value >= 1 ) { 
+    				$value = number_format($value, 1) . ' cm';
+    			} else {
+    				$value *= 10;
+    				$value = intval($value) . ' mm';
+    			}
+    			
+    		}
+    	}
+    	
+    	return AjaxController::jsonResponse(true, array('value' => $value ));
+    }
+    
+    /**
      * @Route("/serverctrl-connstate", name="_ajax_serverctrl-connstate")
      */
     public function serverctrlConnStateAction(Request $request)
