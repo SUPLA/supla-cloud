@@ -44,10 +44,37 @@ class AuthController extends Controller
     	
     	$sl = $this->get('server_list');
     	
+    	$step = @$request->request->get("step");
+    
+    	if ( @$step != "2"
+    		 && $request->getMethod() == 'POST'
+    		 && strlen(@$request->request->get("_username")) > 3 ) {
+    		 	
+    		$step = 2;
+    		$lastUsername = @$request->request->get("_username");
+    		
+    		$__locale = @$request->request->get("__locale");
+    		
+    		if ( in_array($__locale, array('en', 'pl', 'de', 'ru')) ) {
+
+    			$request->getSession()->set('_locale', $__locale);
+    			$request->setLocale($__locale);
+    			
+	    		$translator = $this->get('translator');
+	    		$translator->setLocale($__locale);
+    		}
+    	
+    		
+    	} else {
+    		$step = 1;
+    	}
+
+    	
     	return $this->render(
     			'AppBundle:Auth:login.html.twig',
     			array(
     					'last_username' => $lastUsername,
+    					'step' => $step,
     					'error'         => $error,
     					'locale' => $request->getLocale(),
     					'create_url' => $sl->getCreateAccountUrl($request),

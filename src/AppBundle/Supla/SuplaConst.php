@@ -34,7 +34,9 @@ class SuplaConst
 	const TYPE_RELAY               = 2900;
 	const TYPE_THERMOMETERDS18B20  = 3000;
 	const TYPE_DHT11               = 3010;
+	const TYPE_DHT21               = 3022;
 	const TYPE_DHT22               = 3020;
+	const TYPE_AM2301              = 3032;
 	const TYPE_AM2302              = 3030;
 	const TYPE_DIMMER              = 4000;
 	const TYPE_RGBLEDCONTROLLER    = 4010;

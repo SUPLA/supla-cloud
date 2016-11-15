@@ -209,7 +209,9 @@ G5LA1A Relay: Przekaźnik G5LA1A
 G5LA1A Relay x2: Przekaźnik 2xG5LA1A
 DS18B20 Thermometer: Termometr DS18B20
 DHT11 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT11
+DHT21 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT21
 DHT22 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT22
+AM2301 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2301
 AM2302 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2302
 Dimmer: Ściemniacz
 RGB led controller: Kontroler oświetlenia RGB

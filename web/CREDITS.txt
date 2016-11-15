@@ -45,3 +45,15 @@ D: Software & Hardware tests
 N: Slawomir Sleziak
 E: slawek@supla.org
 D: Software & Hardware tests
+
+N: Zbigniew Chmielak
+E: z.chmielak@gmail.com
+D: Software [ESP8266 custom firmware builds]
+
+N: Kamil Kamiński
+E: kamil@programistyk.pl
+N: Software [Arduino - NodeMCU 0.9 compatibility]
+
+N: Paweł Budka
+E: espablo@o2.pl 
+D: Electronics design [ESP8266]

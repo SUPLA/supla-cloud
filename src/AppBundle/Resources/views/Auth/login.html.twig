@@ -9,15 +9,23 @@
 					<img src={{ asset('assets/img/logo.svg') }}>
 				</a>
 				
-				<form id="login" class="simform animated" action="{{ path("_auth_login_check") }}" method="post">
+				<form id="login" class="simform animated" action="{% if step == "2" %} {{ path("_auth_login_check") }}  {% else %} {{ path("_auth_login") }} {% endif %}" method="post">
+				
+				    <input type="hidden" name="step" value="{{ step }}"/>
+				
 					<div class="simform-inner">
 						<ol class="questions">
-							<li>
-								<input id="q1" name="_username" type="email" autocomplete="off" placeholder="{% trans %}Enter your email{% endtrans %}" value="{{ last_username }}"/>
-							</li>
-							<li>
-								<input id="q2" name="_password" type="password" autocomplete="off" placeholder="{% trans %}Enter password{% endtrans %}"/>
-							</li>
+						    {% if step == "2" %}
+								<input type="hidden" name="_username" value="{{ last_username }}"/>
+								<li>
+									<input id="q1" name="_password" type="password" autocomplete="off" placeholder="{% trans %}Enter password{% endtrans %}" autofocus/>
+								</li>
+							{% else %}
+							    <input type="hidden" name="__locale" value="{{ locale }}"/>
+								<li>
+									<input id="q1" name="_username" type="email" autocomplete="off" placeholder="{% trans %}Enter your email{% endtrans %}" value="{{ last_username }}" autofocus/>
+								</li>
+							{% endif %}
 						</ol>
 						<button class="submit" type="submit">Login</button>
 						<div class="controls">
@@ -149,32 +157,39 @@
                 new stepsForm( theForm, {
                 onSubmit : function( form ) {
                 classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
-                
+          
                     var $server = null;
-                
-                    $.ajax( {type: "POST", url: '{{ path("_auth_server") }}', data: JSON.stringify({ username: $('#q1').val() }) } )
-			        .done(function( response ) {        		
-			        	
-			        	if ( response.success == true ) {
-			        		$server = response.server;
-			        	}
-			        	
-			            if ( $server == null ) {
-	                
-		                   $(location).attr('href', '{{ path("_temp_unavailable") }}')
+                    
+                    {% if step == "2" %}
+                    
+	                    form.submit();
+                    
+                    {% else %}
+                    
+	                    $.ajax( {type: "POST", url: '{{ path("_auth_server") }}', data: JSON.stringify({ username: $('#q1').val() }) } )
+				        .done(function( response ) {        		
+				        	
+				        	if ( response.success == true ) {
+				        		$server = response.server;
+				        	}
+				        	
+				            if ( $server == null ) {
 		                
-		                } else {
-		                
-		                     $action = '{{ path("_auth_login_check") }}';
-		                
-		                     $('#login').attr('action', 'https://' + $server + $action ); 
-		                
-		                	 $("#authpage").fadeOut(500, function(){ 
-					             form.submit() 
-					         });
-		                };
-			        });	 
-	        
+			                   $(location).attr('href', '{{ path("_temp_unavailable") }}')
+			                
+			                } else {
+			                
+			                     $action = '{{ path("_auth_login") }}';
+			                
+			                     $('#login').attr('action', 'https://' + $server + $action ); 
+			                
+			                	 $("#authpage").fadeOut(500, function(){ 
+						             form.submit() 
+						         });
+			                };
+				        });	 
+	   
+	                 {% endif %}
 
                 
                 }

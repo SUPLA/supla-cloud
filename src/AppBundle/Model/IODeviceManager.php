@@ -87,7 +87,11 @@ class IODeviceManager
 		
 		$map[SuplaConst::TYPE_DHT11] = array('0', SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
 		
+		$map[SuplaConst::TYPE_DHT21] = $map[SuplaConst::TYPE_DHT11];
+		
 		$map[SuplaConst::TYPE_DHT22] = $map[SuplaConst::TYPE_DHT11];
+		
+		$map[SuplaConst::TYPE_AM2301] = $map[SuplaConst::TYPE_DHT11];
 		
 		$map[SuplaConst::TYPE_AM2302] = $map[SuplaConst::TYPE_DHT11];
 		
@@ -155,7 +159,9 @@ class IODeviceManager
 			case SuplaConst::TYPE_2XRELAYG5LA1A: $result = 'G5LA1A Relay x2'; break;
 			case SuplaConst::TYPE_THERMOMETERDS18B20: $result = 'DS18B20 Thermometer'; break;
 			case SuplaConst::TYPE_DHT11: $result = 'DHT11 Temperature & Humidity Sensor'; break;
+			case SuplaConst::TYPE_DHT21: $result = 'DHT21 Temperature & Humidity Sensor'; break;
 			case SuplaConst::TYPE_DHT22: $result = 'DHT22 Temperature & Humidity Sensor'; break;
+			case SuplaConst::TYPE_AM2301: $result = 'AM2301 Temperature & Humidity Sensor'; break;
 			case SuplaConst::TYPE_AM2302: $result = 'AM2302 Temperature & Humidity Sensor'; break;
 			case SuplaConst::TYPE_DIMMER: $result = 'Dimmer'; break;
 			case SuplaConst::TYPE_RGBLEDCONTROLLER: $result = 'RGB led controller'; break;
@@ -218,7 +224,9 @@ class IODeviceManager
 		switch($type) {
 			case SuplaConst::TYPE_THERMOMETERDS18B20: 
 			case SuplaConst::TYPE_DHT11:
+			case SuplaConst::TYPE_DHT21:
 			case SuplaConst::TYPE_DHT22:
+			case SuplaConst::TYPE_AM2301:
 			case SuplaConst::TYPE_AM2302:
 			case SuplaConst::TYPE_SENSORNO: 
 			case SuplaConst::TYPE_SENSORNC:
@@ -507,7 +515,9 @@ class IODeviceManager
 	
 		if ( $channel->getType() != SuplaConst::TYPE_THERMOMETERDS18B20
 			 && $channel->getType() != SuplaConst::TYPE_DHT11
+			 && $channel->getType() != SuplaConst::TYPE_DHT21
 			 && $channel->getType() != SuplaConst::TYPE_DHT22
+			 && $channel->getType() != SuplaConst::TYPE_AM2301
 			 && $channel->getType() != SuplaConst::TYPE_AM2302 ) return FALSE;
 		
 		$temp_file = tempnam(sys_get_temp_dir(), 'supla_csv_');

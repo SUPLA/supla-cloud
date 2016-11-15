@@ -210,7 +210,9 @@ G5LA1A Relay: G5LA1A Relais
 G5LA1A Relay x2: 2xG5LA1A Relais
 DS18B20 Thermometer: DS18B20 Thermometer
 DHT11 Temperature & Humidity Sensor: DHT11 Temperatur- und Feuchtigkeitssensor 
+DHT21 Temperature & Humidity Sensor: DHT21 Temperatur- und Feuchtigkeitssensor
 DHT22 Temperature & Humidity Sensor: DHT22 Temperatur- und Feuchtigkeitssensor
+AM2301 Temperature & Humidity Sensor: AM2301  Temperatur- und Feuchtigkeitssensor 
 AM2302 Temperature & Humidity Sensor: AM2302  Temperatur- und Feuchtigkeitssensor 
 Dimmer: Helligkeitsregler
 RGB led controller: RGB- Beleuchtungskontroller
