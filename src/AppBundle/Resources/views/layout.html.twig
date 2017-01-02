@@ -108,6 +108,7 @@
 				  <li {% if app.request.get('_route') == '_iodev_list' or app.request.get('_route') == '_iodev_item' or app.request.get('_route') == '_iodev_channel_item_edit' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_iodev_list') }}"><i class="pe-7s-plug"></i><br /> {% trans %}I/O Devices{% endtrans %}</a></li>
 				  <li {% if app.request.get('_route') == '_loc_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_loc_list') }}"><i class="pe-7s-home"></i><br /> {% trans %}Locations{% endtrans %}</a></li>
 				  <li {% if app.request.get('_route') == '_aid_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_aid_list') }}"><i class="pe-7s-key"></i><br /> {% trans %}Access Identifiers{% endtrans %}</a></li>
+				  <li {% if app.request.get('_route') == '_schedule_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_schedule_list') }}"><i class="pe-7s-key"></i><br /> {% trans %}Schedules{% endtrans %}</a></li>
 				  <li class="dropdown pull-right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.email }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">

@@ -1,0 +1,22 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block content %}
+    <div class="container margin-top-30">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="title">
+                    {% trans %}Schedules{% endtrans %}
+                </h1>
+            </div>
+        </div>
+
+        <div class="row scroll_list margin-top-20">
+            <div class="col-lg-3">
+                <a class="item new" href="{{ path('_schedule_new') }}">
+                    <i class="pe-7s-plus"></i>
+                    <br/>
+                    {% trans %}Create New Schedule{% endtrans %}</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

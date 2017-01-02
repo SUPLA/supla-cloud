@@ -21,6 +21,10 @@ _loc:
 _iodev:
     resource: "@AppBundle/Controller/IODeviceController.php"
     type:     annotation
+
+_schedule:
+    resource: "@AppBundle/Controller/ScheduleController.php"
+    type:     annotation
     
 _ajax:
     resource: "@AppBundle/Controller/AjaxController.php"
