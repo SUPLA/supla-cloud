@@ -50,10 +50,10 @@ class ScheduleController extends Controller
     {
         return [
             'scheduleModes' => [
-                'once' => 'Run once',
-                'minutely' => 'Every N minutes',
-                'hourly' => 'Hourly',
-                'daily' => 'Daily',
+                'once' => 'Jednorazowy',
+                'minutely' => 'Cykl minutowy',
+                'hourly' => 'Cykl godzinny',
+                'daily' => 'Codziennie',
             ],
             'locations' => [
                 [
