@@ -11,40 +11,112 @@
         <div class="row margin-top-20" id="new-schedule-form">
             <div class="col-xs-12">
                 <div class="form-group">
+                    <label>{% trans %}Name{% endtrans %}</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>{% trans %}Schedule mode{% endtrans %}</label>
+                    <div class="clearfix"></div>
                     <div class="btn-group btn-group-lg">
-                        <button class="btn btn-default"
-                                v-on:click="scheduleMode = 'oneTime'"
-                                v-bind:class="{active: scheduleMode == 'oneTime'}">
-                            Jednorazowe wykonanie
-                        </button>
-                        <button class="btn btn-default"
-                                v-on:click="scheduleMode = 'periodically'"
-                                v-bind:class="{active: scheduleMode == 'periodically'}">
-                            Cykliczne wykonanie
-                        </button>
+                        {% for mode, label in scheduleModes %}
+                            <button class="btn btn-default"
+                                    v-on:click="scheduleMode = '{{ mode }}'"
+                                    v-bind:class="{'active btn-success': scheduleMode == '{{ mode }}'}">
+                                {{ label }}
+                            </button>
+                        {% endfor %}
                     </div>
                 </div>
-                <div v-if="scheduleMode == 'oneTime'">
-                    <div class="form-group">
-                        <label>Kiedy?</label>
-                        <input type="text" class="form-control datetimepicker">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="well">
+                            <h3>Kiedy?</h3>
+                            {% for mode, label in scheduleModes %}
+                                <div v-show="scheduleMode == '{{ mode }}'">
+                                    {{ include("AppBundle:Schedule:modes/new-schedule-mode-#{mode}.html.twig") }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="well">
+                            <h3>Akcja do wykonania</h3>
+                            <div class="form-group">
+                                <label>Lokalizacja</label>
+                                <select class="selectpicker form-control">
+                                    {% for location in locations %}
+                                        <option value="{{ location['id'] }}"
+                                                title="{{ location['name'] }}"
+                                                data-content="<h4>{{ location['name'] }} (ID{{ location['id'] }})</h4><p>Urządzeń: {{ location['devices'] | length }}</p>">{{ location['name'] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Urządzenie</label>
+                                {% for location in locations %}
+                                    <select class="selectpicker form-control">
+                                        {% for device in location['devices'] %}
+                                            <option value="{{ device['id'] }}"
+                                                    title="{{ device['name'] }}"
+                                                    data-content="<h4>{{ device['name'] }} (ID{{ device['id'] }})</h4>">{{ device['name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label>Kanał</label>
+                                {% for location in locations %}
+                                    {% for device in location['devices'] %}
+                                        <select class="selectpicker form-control">
+                                            {% for channel in device['channels'] %}
+                                                <option value="{{ channel['name'] }}"
+                                                        title="{{ channel['name'] }}"
+                                                        data-content="<img class='pull-right' height=60 src='/assets/img/functions/{{ channel['function'] }}.svg'><h4>{{ channel['name'] }}</h4><p>{{ channel['caption'] }}</p>">{{ channel['name'] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label>Akcja do wykonania</label>
+                                {% for location in locations %}
+                                    {% for device in location['devices'] %}
+                                        {% for channel in device['channels'] %}
+                                            <select class="selectpicker form-control">
+                                                {% for action in channel['actions'] %}
+                                                    <option value="{{ action }}"
+                                                            title="{{ action }}"
+                                                            data-content="<h4>{{ action }}</h4>">{{ action }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div v-if="scheduleMode == 'periodically'">
-                    CYKLICZNE
-                </div>
+
+                <button class="btn btn-success btn-lg pull-right">
+                    <i class="pe-7s-plus"></i>
+                    Dodaj
+                </button>
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block styles %}
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"/>
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
 {% endblock %}
+
 {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     <script src="{{ asset('assets/js/new-schedule-form.js') }}"></script>
 {% endblock %}

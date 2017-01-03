@@ -20,6 +20,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Supla\SuplaConst;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -48,7 +49,75 @@ class ScheduleController extends Controller
     public function newScheduleAction()
     {
         return [
-            'a' => 'b'
+            'scheduleModes' => [
+                'once' => 'Run once',
+                'minutely' => 'Every N minutes',
+                'hourly' => 'Hourly',
+                'daily' => 'Daily',
+            ],
+            'locations' => [
+                [
+                    'name' => 'Salon',
+                    'id' => '455',
+                    'devices' => [
+                        [
+                            'name' => 'SONOFF-DS18B20',
+                            'id' => 123,
+                            'channels' => [
+                                [
+                                    'name' => 'Włącznik światła',
+                                    'function' => SuplaConst::FNC_LIGHTSWITCH,
+                                    'caption' => 'Lampka nocna',
+                                    'actions' => ['Włącz', 'Wyłącz']
+                                ]
+                            ],
+                        ],
+                        [
+                            'name' => 'RGB-SWITCH',
+                            'id' => '333',
+                            'channels' => [
+                                [
+                                    'name' => 'Ściemniacz',
+                                    'function' => SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+                                    'caption' => 'Podświetlenie kanapy',
+                                    'actions' => ['Ściemnij', 'Rozjaśnij']
+                                ],
+                                [
+                                    'name' => 'Barwa',
+                                    'function' => SuplaConst::FNC_RGBLIGHTING,
+                                    'caption' => 'Podświetlenie kanapy',
+                                    'actions' => ['Zmień na zielony', 'Zmień na żółty', 'Zmień na losowy']
+                                ]
+                            ]
+                        ]
+                    ],
+                ],
+                [
+                    'name' => 'Na zewnątrz',
+                    'id' => 567,
+                    'devices' => [
+                        [
+                            'name' => 'SUPLA-GATE-MODULE',
+                            'id' => '455',
+                            'channels' => [
+                                [
+                                    'name' => 'Otwieranie furtki',
+                                    'function' => SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
+                                    'caption' => 'Furtka w ogrodzeniu',
+                                    'actions' => ['Otwórz', 'Zamknij']
+                                ],
+                                [
+                                    'name' => 'Otwieranie bramy garażowej',
+                                    'function' => SuplaConst::FNC_CONTROLLINGTHEGATE,
+                                    'caption' => 'Garaż na zewnątrz',
+                                    'actions' => ['Otwórz', 'Zamknij']
+                                ]
+                            ]
+                        ]
+                    ]
+
+                ]
+            ],
         ];
     }
 }
