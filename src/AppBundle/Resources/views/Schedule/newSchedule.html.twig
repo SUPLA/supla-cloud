@@ -8,13 +8,43 @@
                 </h1>
             </div>
         </div>
-        <div class="row margin-top-20">
+        <div class="row margin-top-20" id="new-schedule-form">
             <div class="col-xs-12">
-                <div class="btn-group btn-group-lg">
-                    <button class="btn btn-default">Jednorazowe wykonanie</button>
-                    <button class="btn btn-default">Cykliczne wykonanie</button>
+                <div class="form-group">
+                    <div class="btn-group btn-group-lg">
+                        <button class="btn btn-default"
+                                v-on:click="scheduleMode = 'oneTime'"
+                                v-bind:class="{active: scheduleMode == 'oneTime'}">
+                            Jednorazowe wykonanie
+                        </button>
+                        <button class="btn btn-default"
+                                v-on:click="scheduleMode = 'periodically'"
+                                v-bind:class="{active: scheduleMode == 'periodically'}">
+                            Cykliczne wykonanie
+                        </button>
+                    </div>
+                </div>
+                <div v-if="scheduleMode == 'oneTime'">
+                    <div class="form-group">
+                        <label>Kiedy?</label>
+                        <input type="text" class="form-control datetimepicker">
+                    </div>
+                </div>
+                <div v-if="scheduleMode == 'periodically'">
+                    CYKLICZNE
                 </div>
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"/>
+{% endblock %}
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ asset('assets/js/new-schedule-form.js') }}"></script>
 {% endblock %}

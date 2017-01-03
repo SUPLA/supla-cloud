@@ -10,7 +10,9 @@
 			<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 			<link href="{{ asset('assets/css/supla-login.css') }}" rel="stylesheet" />
 		{% endif %}
-		
+
+		{% block styles %}{% endblock %}
+
 		<link href="{{ asset('assets/css/fonts.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('assets/css/supla.css') }}" rel="stylesheet" />
@@ -134,5 +136,6 @@
         {% block content %}{% endblock %}
  	</div>
 
+	{% block scripts %}{% endblock %}
     </body>
 </html>
