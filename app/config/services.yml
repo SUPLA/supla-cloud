@@ -78,7 +78,7 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: channel_validator }
         arguments:
-             iodevice_manager: "@iodevice_manager"     
+             iodevice_manager: "@iodevice_manager"
              
      validator.supla.usernameexists:
         class: AppBundle\Validator\Constraints\UsernameExistsValidator
@@ -88,4 +88,9 @@ services:
              user_manager: "@user_manager"    
             
 
-
+     app.twig_extension:
+        class: AppBundle\Twig\IoDeviceAttributesToStringExtension
+        public: false
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }

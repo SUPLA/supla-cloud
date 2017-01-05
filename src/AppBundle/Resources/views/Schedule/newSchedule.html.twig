@@ -42,53 +42,15 @@
                         <div class="well">
                             <h3>Akcja do wykonania</h3>
                             <div class="form-group">
-                                <label>Lokalizacja</label>
-                                <select class="selectpicker form-control" v-model="location"
-                                        v-on:change="device=undefined; renderDropdowns()">
-                                    <option disabled selected value> -- wybierz lokalizację --</option>
-                                    <option v-for="loc in locations"
-                                            v-bind:value="loc"
-                                            v-bind:title="loc.name"
-                                            v-bind:data-content="'<h4>' + loc.name + ' (ID' + loc.id + ')</h4><p>Urządzeń: ' + loc.devices.length + '</p>'">
-                                        ${loc.name}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group" v-if="location">
-                                <label>Urządzenie</label>
-                                <select class="selectpicker form-control" v-model="device"
-                                        v-on:change="renderDropdowns()">
-                                    <option disabled selected value> -- wybierz urządzenie --</option>
-                                    <option v-for="device in location.devices"
-                                            v-bind:value="device"
-                                            v-bind:title="device.name"
-                                            v-bind:data-content="'<h4>' + device.name + ' (ID' + device.id + ')</h4>'">
-                                        ${device.id}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group" v-if="device">
-                                <label>Kanał</label>
-                                <select class="selectpicker form-control" v-model="channel"
-                                        v-on:change="renderDropdowns()">
-                                    <option disabled selected value> -- wybierz kanał --</option>
-                                    <option v-for="channel in device.channels"
-                                            v-bind:value="channel"
-                                            v-bind:title="channel.name"
-                                            v-bind:data-content="'<img class=\'pull-right\' height=60 src=\'/assets/img/functions/' + channel.function + '.svg\'><h4>' + channel.name + '</h4><p>' + channel.caption + '</p>'">
-                                        ${ channel.name }
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group" v-if="channel">
-                                <label>Akcja do wykonania</label>
-                                <select class="selectpicker form-control" v-model="action">
-                                    <option disabled selected value> -- wybierz akcję --</option>
-                                    <option v-for="action in channel.actions"
-                                            v-bind:value="action"
-                                            v-bind:title="action"
-                                            v-bind:data-content="'<h4>' +  action + '</h4>'">${ action }
-                                    </option>
+                                <label>Podmiot</label>
+                                <select class="selectpicker form-control" data-live-search="true">
+                                    {% for channel in userChannels %}
+                                        <option value="{{ channel.id }}"
+                                                title="{{ channel.caption ?: channel.function|channelFunctionToString }} ({{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }})"
+                                                data-content="<img class='pull-right' height=60 src='{{ asset('assets/img/functions/') }}{{ channel.function }}.svg'><h4>{{ channel.caption ? channel.caption ~ " <span class='small text-muted'>(#{channel.function|channelFunctionToString})</span>" : (channel.function|channelFunctionToString) }}</h4><p>{{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }}</p>">
+                                            {{ channel.caption }}
+                                        </option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -113,13 +75,15 @@
         .timepicker-picker {
             font-size: 3em;
         }
+
+        .bootstrap-select li.active a {
+            background: #A0FFA0 !important;
+            color: inherit !important;
+        }
     </style>
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        var locations = {{ locations|json_encode|raw }};
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>

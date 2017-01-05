@@ -28,8 +28,8 @@ new Vue({
         location: undefined,
         device: undefined,
         channel: undefined,
-        action: undefined,
-        locations: locations
+        action: undefined
+        // locations: locations
     },
     methods: {
         chooseMode: function (mode) {
