@@ -28,7 +28,8 @@ new Vue({
         location: undefined,
         device: undefined,
         channel: undefined,
-        action: undefined
+        action: undefined,
+        cronExpression: ''
         // locations: locations
     },
     methods: {
