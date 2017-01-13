@@ -20,10 +20,12 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Schedule;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/schedule")
@@ -60,5 +62,24 @@ class ScheduleController extends Controller
             ],
             'userChannels' => $channels,
         ];
+    }
+
+    /**
+     * @Route("/next-run-dates/{cronExpression}", name="_schedule_get_run_dates", requirements={"cronExpression"=".+"})
+     */
+    public function getNextRunDatesAction($cronExpression)
+    {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            throw $this->createNotFoundException();
+        }
+        $temporarySchedule = new Schedule();
+        $temporarySchedule->setCronExpression($cronExpression);
+        $nextRunDates = $temporarySchedule->getRunDatesUntil('+7days', 'now', 3);
+        return new JsonResponse([
+            'nextRunDates' => array_map(function ($dateTime) {
+                return $dateTime->format(\DateTime::ATOM);
+            }, $nextRunDates),
+            'now' => (new \DateTime())->format(\DateTime::ATOM),
+        ]);
     }
 }

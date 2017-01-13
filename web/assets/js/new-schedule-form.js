@@ -25,16 +25,27 @@ new Vue({
     delimiters: ['${', '}'], // defaults conflict with twig delimiters, http://stackoverflow.com/a/33935750/878514
     data: {
         scheduleMode: undefined,
-        location: undefined,
-        device: undefined,
-        channel: undefined,
+        cronExpression: '',
         action: undefined,
-        cronExpression: ''
-        // locations: locations
+        nextRunDates: [],
+        calculatingNextRunDates: false
     },
     methods: {
         chooseMode: function (mode) {
-
+        },
+        updateCronExpression: function (mode, cronExpression) {
+            var self = this;
+            this.calculatingNextRunDates = true;
+            $.getJSON(BASE_URL + 'schedule/next-run-dates/' + cronExpression).then(function (response) {
+                self.nextRunDates = response.nextRunDates.map(function (dateString) {
+                    return {
+                        date: moment(dateString).format('LLL'),
+                        fromNow: moment(dateString).fromNow()
+                    }
+                });
+            }).always(function () {
+                self.calculatingNextRunDates = false;
+            });
         },
         renderDropdowns: function () {
             setTimeout(function () {

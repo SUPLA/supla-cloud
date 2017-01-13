@@ -127,9 +127,10 @@ class Schedule
     /**
      * @param string $currentDate
      * @param string $until
+     * @param int $maxCount
      * @return \DateTime[]
      */
-    public function getRunDatesUntil($until = '+5days', $currentDate = 'now')
+    public function getRunDatesUntil($until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX)
     {
         $until = strtotime($until);
         $runDates = [];
@@ -138,7 +139,7 @@ class Schedule
             do {
                 $nextRunDate = $this->getNextRunDate($nextRunDate);
                 $runDates[] = $nextRunDate;
-            } while ($nextRunDate->getTimestamp() < $until);
+            } while ($nextRunDate->getTimestamp() < $until && count($runDates) < $maxCount);
         } catch (\RuntimeException $e) {
             // impossible cron expression
         }
