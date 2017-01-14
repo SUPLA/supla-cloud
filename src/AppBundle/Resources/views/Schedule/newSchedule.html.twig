@@ -10,7 +10,6 @@
             </div>
         </div>
         <div class="row margin-top-20" id="new-schedule-form">
-            ${cronExpression}
             <div class="col-xs-12">
                 <div class="form-group">
                     <label>{% trans %}Name{% endtrans %}</label>
@@ -22,7 +21,7 @@
                     <div class="btn-group btn-group-lg">
                         {% for mode, label in scheduleModes %}
                             <button class="btn btn-default"
-                                    v-on:click="scheduleMode = '{{ mode }}'"
+                                    @click="chooseMode('{{ mode }}')"
                                     v-bind:class="{'active btn-success': scheduleMode == '{{ mode }}'}">
                                 {{ label }}
                             </button>
@@ -59,7 +58,8 @@
                             <h3>Akcja do wykonania</h3>
                             <div class="form-group">
                                 <label>Podmiot</label>
-                                <select class="selectpicker form-control" data-live-search="true">
+                                <select class="selectpicker form-control" data-live-search="true" v-model="channel">
+                                    <option disabled selected value> -- wybierz kanał --</option>
                                     {% for channel in userChannels %}
                                         <option value="{{ channel.id }}"
                                                 title="{{ channel.caption ?: channel.function|channelFunctionToString }} ({{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }})"
@@ -69,14 +69,31 @@
                                     {% endfor %}
                                 </select>
                             </div>
+                            <div class="form-group text-center" v-if="channel">
+                                <div class="btn-group">
+                                    <button class="btn btn-default"
+                                            @click="action = 1"
+                                            v-bind:class="{'active btn-success': action == 1}">
+                                        Włącz
+                                    </button>
+                                    <button class="btn btn-default"
+                                            @click="action = 0"
+                                            v-bind:class="{'active btn-success': action == 0}">
+                                        Wyłącz
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-lg pull-right"
+                                        v-bind:disabled="action == undefined || !nextRunDates.length || submitting"
+                                        @click="submit()">
+                                    <i class="pe-7s-plus"></i>
+                                    Dodaj
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <button class="btn btn-success btn-lg pull-right" v-if="action">
-                    <i class="pe-7s-plus"></i>
-                    Dodaj
-                </button>
             </div>
         </div>
     </div>

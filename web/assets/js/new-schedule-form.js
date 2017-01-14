@@ -26,12 +26,17 @@ new Vue({
     data: {
         scheduleMode: undefined,
         cronExpression: '',
+        channel: undefined,
         action: undefined,
         nextRunDates: [],
-        calculatingNextRunDates: false
+        calculatingNextRunDates: false,
+        submitting: false
     },
     methods: {
         chooseMode: function (mode) {
+            this.scheduleMode = mode;
+            this.nextRunDates = [];
+            this.cronExpression = '';
         },
         updateCronExpression: function (mode, cronExpression) {
             var self = this;
@@ -46,6 +51,14 @@ new Vue({
             }).always(function () {
                 self.calculatingNextRunDates = false;
             });
+        },
+        submit: function () {
+            this.submitting = true;
+            $.post(BASE_URL + 'schedule', {
+                cronExpression: this.cronExpression,
+                action: this.action,
+                channel: this.channel
+            }).then();
         },
         renderDropdowns: function () {
             setTimeout(function () {

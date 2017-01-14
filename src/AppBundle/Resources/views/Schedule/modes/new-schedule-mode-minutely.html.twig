@@ -5,8 +5,8 @@
         <label>Interwał</label>
         <div class="input-group">
             <span class="input-group-addon">Co</span>
-            <input type="number" class="form-control" step="5" min="5" max="55" v-model="minuteInterval"
-                   @change="onChange()">
+            <input type="number" class="form-control" step="5" min="5" max="30" v-model="minuteInterval"
+                   @change="onChange()" maxlength="2">
             <span class="input-group-addon">minut</span>
         </div>
     </div>
@@ -22,6 +22,7 @@
         },
         methods: {
             onChange: function () {
+                this.minuteInterval = Math.min(Math.max(Math.floor(this.minuteInterval / 5) * 5, 5), 30);
                 var cronExpression = '*/' + this.minuteInterval + ' * * * *';
                 this.$emit('changed', cronExpression);
             }
