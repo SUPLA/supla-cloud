@@ -1,23 +1,24 @@
 $(function () {
-    $('.datetimepicker').datetimepicker({
-        locale: 'pl',
-        inline: true,
-        sideBySide: true,
-        defaultDate: moment().add(2, 'hour').startOf('hour'),
-        minDate: moment().add(5, 'minute'),
-        maxDate: moment().add(5, 'year'),
-        stepping: 5
-    });
-    $('.timepicker').datetimepicker({
-        format: 'LT',
-        locale: 'pl',
-        inline: true,
-        // sideBySide: true,
-        // defaultDate: moment().add(2, 'hour').startOf('hour'),
-        // minDate: moment().add(5, 'minute'),
-        // maxDate: moment().add(5, 'year'),
-        stepping: 5
-    });
+    // $('.datetimepicker2').datetimepicker({
+    //     // locale: 'pl',
+    //     inline: true,
+    //     sideBySide: true,
+    //     // defaultDate: moment().add(2, 'hour').startOf('hour'),
+    //     // minDate: moment().add(5, 'minute'),
+    //     // maxDate: moment().add(5, 'year'),
+    //     // stepping: 5
+    // });
+    // $('.timepicker').datetimepicker({
+    //     format: 'LT',
+    //     locale: 'pl',
+    //     inline: true,
+    //     // sideBySide: true,
+    //     // defaultDate: moment().add(2, 'hour').startOf('hour'),
+    //     // minDate: moment().add(5, 'minute'),
+    //     // maxDate: moment().add(5, 'year'),
+    //     stepping: 5
+    // });
+
 });
 
 new Vue({
