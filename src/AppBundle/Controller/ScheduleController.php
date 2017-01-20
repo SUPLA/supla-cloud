@@ -22,10 +22,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Schedule;
 use AppBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/schedule")
@@ -62,6 +64,15 @@ class ScheduleController extends Controller
             ],
             'userChannels' => $channels,
         ];
+    }
+
+    /**
+     * @Route("/create")
+     * @Method("POST")
+     */
+    public function createScheduleAction(Request $request)
+    {
+        return new JsonResponse();
     }
 
     /**

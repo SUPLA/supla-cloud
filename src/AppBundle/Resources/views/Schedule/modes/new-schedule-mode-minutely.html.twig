@@ -1,31 +1,8 @@
-<schedule-form-minutely @changed="updateCronExpression('minutely', arguments[0])"></schedule-form-minutely>
-
-<script type="text/x-template" id="schedule-form-minutely-template">
-    <div class="form-group form-group-lg">
-        <label>Interwał</label>
-        <div class="input-group">
-            <span class="input-group-addon">Co</span>
-            <input type="number" class="form-control" step="5" min="5" max="30" v-model="minuteInterval"
-                   @change="onChange()" maxlength="2">
-            <span class="input-group-addon">minut</span>
-        </div>
+<div class="form-group form-group-lg" v-schedule-chooser-minutely>
+    <label>Interwał</label>
+    <div class="input-group">
+        <span class="input-group-addon">Co</span>
+        <input type="number" class="form-control" step="5" min="5" max="30" maxlength="2">
+        <span class="input-group-addon">minut</span>
     </div>
-</script>
-
-<script>
-    Vue.component('schedule-form-minutely', {
-        template: '#schedule-form-minutely-template',
-        data: function () {
-            return {
-                minuteInterval: 5
-            }
-        },
-        methods: {
-            onChange: function () {
-                this.minuteInterval = Math.min(Math.max(Math.floor(this.minuteInterval / 5) * 5, 5), 30);
-                var cronExpression = '*/' + this.minuteInterval + ' * * * *';
-                this.$emit('changed', cronExpression);
-            }
-        }
-    });
-</script>
+</div>

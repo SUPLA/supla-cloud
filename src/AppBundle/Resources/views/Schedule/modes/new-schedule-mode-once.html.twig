@@ -1,41 +1,22 @@
-<schedule-form-once @changed="updateCronExpression('minutely', arguments[0])" inline-template>
-    AAA
-</schedule-form-once>
-
-<script type="text/x-template" id="schedule-form-once-template">
-    <div class="input-group clockpicker" ref="clockpicker" v-ref="clockpicker" data-autoclose="true" data-default="now"
-         data-fromnow="600000">
-        <input type="text" class="form-control" @change="onChange()">
-        <span class="input-group-addon">
-        <span class="glyphicon glyphicon-time"></span>
-    </span>
+<div v-schedule-chooser-once>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label>Data</label>
+                <div class="datepicker"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Godzina</label>
+                <div class="input-group clockpicker" data-autoclose="true" data-default="now"
+                     data-fromnow="600000">
+                    <input type="text" class="form-control">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
-</script>
-
-<script>
-    Vue.component('schedule-form-once', Vue.extend({
-        template: '#schedule-form-once-template',
-        data: function () {
-            return {
-                minuteInterval: 5
-            }
-        },
-        mounted: function () {
-            var self = this;
-            Vue.nextTick(function () {
-                console.log(self.$refs);
-            });
-            console.log(this.minuteInterval);
-
-            $('.clockpicker').clockpicker();
-        },
-        methods: {
-            onChange: function () {
-                console.log('work somehow');
-//                this.minuteInterval = Math.min(Math.max(Math.floor(this.minuteInterval / 5) * 5, 5), 30);
-//                var cronExpression = '*/' + this.minuteInterval + ' * * * *';
-//                this.$emit('changed', cronExpression);
-            }
-        }
-    }));
-</script>
+</div>

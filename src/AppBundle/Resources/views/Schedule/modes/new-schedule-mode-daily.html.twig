@@ -1,8 +1,13 @@
-<div class="row">
+<div class="row" v-schedule-chooser-daily>
     <div class="col-md-6">
         <div class="form-group">
             <label>Godzina</label>
-            <div class="timepicker"></div>
+            <div class="input-group clockpicker" data-autoclose="true" data-default="now">
+                <input type="text" class="form-control">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
         </div>
     </div>
     <div class="col-md-6">
@@ -10,37 +15,37 @@
             <label>Dni tygodnia</label>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> Poniedziałki
+                    <input type="checkbox" value="1"> Poniedziałki
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> Wtorki
+                    <input type="checkbox" value="2"> Wtorki
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> Środy
+                    <input type="checkbox" value="3"> Środy
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> Czwartki
+                    <input type="checkbox" value="4"> Czwartki
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> Piątki
+                    <input type="checkbox" value="5"> Piątki
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> Soboty
+                    <input type="checkbox" value="6"> Soboty
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> Niedziele
+                    <input type="checkbox" value="7"> Niedziele
                 </label>
             </div>
         </div>

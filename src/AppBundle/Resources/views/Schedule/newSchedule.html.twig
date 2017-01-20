@@ -13,7 +13,7 @@
             <div class="col-xs-12">
                 <div class="form-group">
                     <label>{% trans %}Name{% endtrans %}</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" required v-model="scheduleName">
                 </div>
                 <div class="form-group">
                     <label>{% trans %}Tryb harmonogramu{% endtrans %}</label>
@@ -34,10 +34,15 @@
                             <h3>Kiedy?</h3>
                             <div class="form-group">
                                 {% for mode, label in scheduleModes %}
-                                    <div v-if="scheduleMode == '{{ mode }}'">
+                                    <div v-show="scheduleMode == '{{ mode }}'">
                                         {{ include("AppBundle:Schedule:modes/new-schedule-mode-#{mode}.html.twig") }}
                                     </div>
                                 {% endfor %}
+                            </div>
+                            <div class="progress" v-if="calculatingNextRunDates">
+                                <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 100%">
+                                    obliczam najbliższe wykonania...
+                                </div>
                             </div>
                             <div class="forum-group" v-if="nextRunDates.length > 0"
                                  v-bind:class="{opacity60: calculatingNextRunDates}">
@@ -101,9 +106,12 @@
 
 {% block styles %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
     <style type="text/css">
         .timepicker-picker {
             font-size: 3em;
@@ -120,9 +128,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pl.min.js"></script>
     <script>
         var BASE_URL = '{{ path('_homepage') }}';
-        moment.locale('{{ app.request.locale }}');
+        var LOCALE = '{{ app.request.locale }}';
+        moment.locale(LOCALE);
     </script>
     <script src="{{ asset('assets/js/new-schedule-form.js') }}"></script>
 {% endblock %}
