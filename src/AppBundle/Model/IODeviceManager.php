@@ -243,7 +243,42 @@ class IODeviceManager
 		
 		return $this->translator->trans($result);
 	}
-	
+
+    public function functionActionMap()
+    {
+        return [
+            SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK => [SuplaConst::ACTION_OPEN],
+            SuplaConst::FNC_CONTROLLINGTHEDOORLOCK => [SuplaConst::ACTION_OPEN],
+            SuplaConst::FNC_CONTROLLINGTHEGATE => [SuplaConst::ACTION_OPEN, SuplaConst::ACTION_CLOSE],
+            SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR => [SuplaConst::ACTION_OPEN, SuplaConst::ACTION_CLOSE],
+            SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER => [SuplaConst::ACTION_COVER, SuplaConst::ACTION_UNCOVER],
+            SuplaConst::FNC_POWERSWITCH => [SuplaConst::ACTION_TURN_ON, SuplaConst::ACTION_TURN_OFF],
+            SuplaConst::FNC_LIGHTSWITCH => [SuplaConst::ACTION_TURN_ON, SuplaConst::ACTION_TURN_OFF],
+            SuplaConst::FNC_DIMMER => [SuplaConst::ACTION_DIM],
+            SuplaConst::FNC_DIMMER => [SuplaConst::ACTION_SET_RGB_COLOR, SuplaConst::ACTION_TURN_OFF],
+            SuplaConst::FNC_DIMMERANDRGBLIGHTING => [SuplaConst::ACTION_DIM, SuplaConst::ACTION_SET_RGB_COLOR, SuplaConst::ACTION_TURN_OFF],
+        ];
+    }
+
+    public function getFunctionsThatCanBeScheduled()
+    {
+        return array_keys($this->functionActionMap());
+    }
+
+    public function actionStringMap()
+    {
+        return [
+            SuplaConst::ACTION_COVER => 'Cover',
+            SuplaConst::ACTION_CLOSE => 'Close',
+            SuplaConst::ACTION_OPEN => 'Open',
+            SuplaConst::ACTION_DIM => 'Dim',
+            SuplaConst::ACTION_SET_RGB_COLOR => 'Set color',
+            SuplaConst::ACTION_TURN_OFF => 'Turn off',
+            SuplaConst::ACTION_TURN_ON => 'Turn on',
+            SuplaConst::ACTION_UNCOVER => 'Uncover',
+        ];
+    }
+
 	public function ioDeviceById($id) 
 	{
 		$user = $this->sec->getToken()->getUser();

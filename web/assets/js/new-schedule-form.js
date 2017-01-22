@@ -93,8 +93,15 @@ var app = new Vue({
         scheduleName: '',
         nextRunDates: [],
         calculatingNextRunDates: false,
-        submitting: false
+        submitting: false,
+        channelFunctionMap: {}
     },
+    mounted: function () {
+        this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
+        $('#new-schedule-form-loading').remove();
+        $('#new-schedule-form').show();
+    }
+    ,
     methods: {
         chooseMode: function (mode) {
             this.scheduleMode = mode;

@@ -9,7 +9,12 @@
                 </h1>
             </div>
         </div>
-        <div class="row margin-top-20" id="new-schedule-form">
+        <div class="progress" id="new-schedule-form-loading">
+            <div class="progress-bar progress-bar-info progress-bar-striped active"
+                 style="width: 100%">
+            </div>
+        </div>
+        <div class="row margin-top-20" id="new-schedule-form" style="display: none">
             <div class="col-xs-12">
                 <div class="form-group">
                     <label>{% trans %}Name{% endtrans %}</label>
@@ -31,7 +36,7 @@
                 <div class="row" v-show="scheduleMode">
                     <div class="col-md-6">
                         <div class="well">
-                            <h3>Kiedy?</h3>
+                            <h3 class="no-margin-top">Kiedy?</h3>
                             <div class="form-group">
                                 {% for mode, label in scheduleModes %}
                                     <div v-show="scheduleMode == '{{ mode }}'">
@@ -40,7 +45,8 @@
                                 {% endfor %}
                             </div>
                             <div class="progress" v-if="calculatingNextRunDates">
-                                <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 100%">
+                                <div class="progress-bar progress-bar-info progress-bar-striped active"
+                                     style="width: 100%">
                                     obliczam najbliższe wykonania...
                                 </div>
                             </div>
@@ -60,10 +66,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="well">
-                            <h3>Akcja do wykonania</h3>
+                            <h3 class="no-margin-top">Akcja do wykonania</h3>
                             <div class="form-group">
                                 <label>Podmiot</label>
-                                <select class="selectpicker form-control" data-live-search="true" v-model="channel">
+                                <select class="selectpicker form-control" data-live-search="true"
+                                        data-live-search-placeholder="Filtruj" v-model="channel"
+                                        @change="action = undefined">
                                     <option disabled selected value> -- wybierz kanał --</option>
                                     {% for channel in userChannels %}
                                         <option value="{{ channel.id }}"
@@ -74,22 +82,34 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group text-center" v-if="channel">
-                                <div class="btn-group">
-                                    <button class="btn btn-default"
-                                            @click="action = 1"
-                                            v-bind:class="{'active btn-success': action == 1}">
-                                        Włącz
-                                    </button>
-                                    <button class="btn btn-default"
-                                            @click="action = 0"
-                                            v-bind:class="{'active btn-success': action == 0}">
-                                        Wyłącz
-                                    </button>
-                                </div>
+                            <div v-show="channel">
+                                <table class="table">
+                                    {% for action, actionLabel in actionStringMap %}
+                                        <div v-show="channelFunctionMap[channel] && channelFunctionMap[channel].indexOf({{ action }}) >= 0">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" value="{{ action }}" v-model="action">
+                                                    {{ actionLabel|trans }}
+                                                </label>
+                                            </div>
+                                            {% if action == 70 %}{# dim #}
+                                                <span class="input-group" v-show="action == {{ action }}">
+                                                    <input type="number" min="0" max="100" step="5" class="form-control"
+                                                           maxlength="3">
+                                                    <span class="input-group-addon">%</span>
+                                                </span>
+                                            {% elseif action == 80 %}{# rgb #}
+                                                <span class="input-group" v-show="action == {{ action }}">
+                                                    <span class="input-group-addon">#</span>
+                                                    <input type="text" class="form-control jscolor" maxlength="6">
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </table>
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-success btn-lg pull-right"
+                            <div class="text-right">
+                                <button class="btn btn-success btn-lg"
                                         v-bind:disabled="action == undefined || !nextRunDates.length || submitting"
                                         @click="submit()">
                                     <i class="pe-7s-plus"></i>
@@ -130,10 +150,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pl.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
     <script>
         var BASE_URL = '{{ path('_homepage') }}';
         var LOCALE = '{{ app.request.locale }}';
         moment.locale(LOCALE);
+        var CHANNEL_FUNCTION_MAP = {{ (channelToFunctionsMap|json_encode|raw) }};
     </script>
     <script src="{{ asset('assets/js/new-schedule-form.js') }}"></script>
 {% endblock %}

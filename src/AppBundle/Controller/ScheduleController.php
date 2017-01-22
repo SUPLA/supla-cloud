@@ -20,6 +20,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\IODeviceChannel;
 use AppBundle\Entity\Schedule;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -55,6 +56,15 @@ class ScheduleController extends Controller
         /** @var User $user */
         $user = $this->getUser();
         $channels = $this->getDoctrine()->getRepository('AppBundle:IODeviceChannel')->findBy(['user' => $user]);
+        $ioDeviceManager = $this->get('iodevice_manager');
+        $schedulableFunctions = $ioDeviceManager->getFunctionsThatCanBeScheduled();
+        $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
+            return in_array($channel->getFunction(), $schedulableFunctions);
+        });
+        $channelToFunctionsMap = [];
+        foreach ($schedulableChannels as $channel) {
+            $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
+        }
         return [
             'scheduleModes' => [
                 'once' => 'Jednorazowy',
@@ -62,7 +72,9 @@ class ScheduleController extends Controller
                 'hourly' => 'Cykl godzinny',
                 'daily' => 'Codziennie',
             ],
-            'userChannels' => $channels,
+            'userChannels' => $schedulableChannels,
+            'actionStringMap' => $ioDeviceManager->actionStringMap(),
+            'channelToFunctionsMap' => $channelToFunctionsMap,
         ];
     }
 
