@@ -94,7 +94,8 @@ var app = new Vue({
         nextRunDates: [],
         calculatingNextRunDates: false,
         submitting: false,
-        channelFunctionMap: {}
+        channelFunctionMap: {},
+        cronExpressionChangedInMeantime: false
     },
     mounted: function () {
         this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
@@ -110,17 +111,26 @@ var app = new Vue({
         },
         updateCronExpression: function (cronExpression) {
             var self = this;
-            this.calculatingNextRunDates = true;
-            $.getJSON(BASE_URL + 'schedule/next-run-dates/' + cronExpression).then(function (response) {
-                self.nextRunDates = response.nextRunDates.map(function (dateString) {
-                    return {
-                        date: moment(dateString).format('LLL'),
-                        fromNow: moment(dateString).fromNow()
+            this.cronExpression = cronExpression;
+            if (!this.calculatingNextRunDates) {
+                this.calculatingNextRunDates = true;
+                $.getJSON(BASE_URL + 'schedule/next-run-dates/' + cronExpression).then(function (response) {
+                    self.nextRunDates = response.nextRunDates.map(function (dateString) {
+                        return {
+                            date: moment(dateString).format('LLL'),
+                            fromNow: moment(dateString).fromNow()
+                        }
+                    });
+                }).always(function () {
+                    self.calculatingNextRunDates = false;
+                    if (self.cronExpressionChangedInMeantime) {
+                        self.cronExpressionChangedInMeantime = false;
+                        self.updateCronExpression(self.cronExpression);
                     }
                 });
-            }).always(function () {
-                self.calculatingNextRunDates = false;
-            });
+            } else {
+                this.cronExpressionChangedInMeantime = true;
+            }
         },
         submit: function () {
             var self = this;
