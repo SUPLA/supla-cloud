@@ -44,6 +44,58 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                            <div v-show="scheduleMode != 'once'">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Data rozpoczęcia</label>
+                                            <div class="input-group date">
+                                                <input type="text" class="form-control datepicker-start">
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Godzina rozpoczęcia</label>
+                                            <div class="input-group clockpicker-start" data-autoclose="true"
+                                                 data-default="now">
+                                                <input type="text" class="form-control">
+                                                <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Data zakończenia</label>
+                                            <div class="input-group date">
+                                                <input type="text" class="form-control datepicker-end">
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Godzina zakończenia</label>
+                                            <div class="input-group clockpicker-end" data-autoclose="true"
+                                                 data-default="now">
+                                                <input type="text" class="form-control">
+                                                <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="progress" v-if="calculatingNextRunDates">
                                 <div class="progress-bar progress-bar-info progress-bar-striped active"
                                      style="width: 100%">
@@ -88,7 +140,8 @@
                                         <div v-show="channelFunctionMap[channel] && channelFunctionMap[channel].indexOf({{ action }}) >= 0">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" value="{{ action }}" v-model="action" @change="actionParam = undefined">
+                                                    <input type="radio" value="{{ action }}" v-model="action"
+                                                           @change="actionParam = undefined">
                                                     {{ actionLabel|trans }}
                                                 </label>
                                             </div>

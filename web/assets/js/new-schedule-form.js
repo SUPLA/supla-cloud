@@ -114,6 +114,23 @@ var app = new Vue({
             var hue = this.value.match(/^hsv\(([0-9]+)/)[1]
             self.actionParam = hue;
         });
+        $('.clockpicker-start, .clockpicker-end').clockpicker().find('input').change(function () {
+            // time = this.value = roundTime(this.value);
+            // updateExpression();
+        });
+        $('.clockpicker-start').find('input').val(moment().format('H:mm'));
+        $('.datepicker-start, .datepicker-end').datepicker({
+            autoclose: true,
+            language: LOCALE,
+            startDate: moment().toDate()
+        });
+        $('.datepicker-start').on('changeDate', function () {
+            $('.datepicker-end').datepicker('setStartDate', $(this).datepicker('getDate'));
+        });
+        $('.datepicker-end').on('changeDate', function () {
+            $('.datepicker-start').datepicker('setEndDate', $(this).datepicker('getDate'));
+        });
+        $('.datepicker-start').datepicker('update', moment().toDate());
     }
     ,
     methods: {
