@@ -5,6 +5,10 @@ function roundTime(time) {
     return parts.join(':');
 }
 
+function roundTo5(int) {
+    return Math.round(Math.floor(int / 5) * 5);
+}
+
 var app = new Vue({
     el: '#new-schedule-form',
     delimiters: ['${', '}'], // defaults conflict with twig delimiters, http://stackoverflow.com/a/33935750/878514
@@ -16,7 +20,7 @@ var app = new Vue({
                     if (time && date) {
                         var timeParts = time.split(':');
                         var dateParts = date.split(' ');
-                        var cronExpression = [Math.round(timeParts[1]), Math.round(timeParts[0]), dateParts[0], dateParts[1], '*', dateParts[2]].join(' ');
+                        var cronExpression = [roundTo5(timeParts[1]), roundTo5(timeParts[0]), dateParts[0], dateParts[1], '*', dateParts[2]].join(' ');
                         app.updateCronExpression(cronExpression);
                     }
                 };
@@ -38,7 +42,7 @@ var app = new Vue({
         'schedule-chooser-minutely': {
             bind: function (element) {
                 $(element).find('input[type=number]').change(function () {
-                    this.value = Math.min(Math.max(Math.floor(this.value / 5) * 5, 5), 30);
+                    this.value = Math.min(Math.max(roundTo5(this.value), 5), 30);
                     var cronExpression = '*/' + this.value + ' * * * *';
                     app.updateCronExpression(cronExpression);
                 });
@@ -73,7 +77,7 @@ var app = new Vue({
                             }).toArray().join(',');
                         }
                         var timeParts = time.split(':');
-                        var cronExpression = [timeParts[1], timeParts[0], '*', '*', weekdays].join(' ');
+                        var cronExpression = [roundTo5(timeParts[1]), roundTo5(timeParts[0]), '*', '*', weekdays].join(' ');
                         app.updateCronExpression(cronExpression);
                     }
                 }
@@ -90,6 +94,7 @@ var app = new Vue({
         cronExpression: '',
         channel: undefined,
         action: undefined,
+        actionParam: undefined,
         scheduleName: '',
         nextRunDates: [],
         calculatingNextRunDates: false,
@@ -101,6 +106,14 @@ var app = new Vue({
         this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
         $('#new-schedule-form-loading').remove();
         $('#new-schedule-form').show();
+        var self = this;
+        $(".colorpicker").spectrum({
+            color: '#F00',
+            showButtons: false
+        }).change(function () {
+            var hue = this.value.match(/^hsv\(([0-9]+)/)[1]
+            self.actionParam = hue;
+        });
     }
     ,
     methods: {
@@ -139,6 +152,8 @@ var app = new Vue({
                 name: this.scheduleName,
                 cronExpression: this.cronExpression,
                 action: this.action,
+                actionParam: this.actionParam,
+                mode: this.scheduleMode,
                 channel: this.channel
             }).then(function () {
                 self.submitting = false;

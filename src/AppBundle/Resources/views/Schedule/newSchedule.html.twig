@@ -71,7 +71,7 @@
                                 <label>Podmiot</label>
                                 <select class="selectpicker form-control" data-live-search="true"
                                         data-live-search-placeholder="Filtruj" v-model="channel"
-                                        @change="action = undefined">
+                                        @change="action = actionParam = undefined">
                                     <option disabled selected value> -- wybierz kanał --</option>
                                     {% for channel in userChannels %}
                                         <option value="{{ channel.id }}"
@@ -88,21 +88,20 @@
                                         <div v-show="channelFunctionMap[channel] && channelFunctionMap[channel].indexOf({{ action }}) >= 0">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" value="{{ action }}" v-model="action">
+                                                    <input type="radio" value="{{ action }}" v-model="action" @change="actionParam = undefined">
                                                     {{ actionLabel|trans }}
                                                 </label>
                                             </div>
                                             {% if action == 70 %}{# dim #}
                                                 <span class="input-group" v-show="action == {{ action }}">
                                                     <input type="number" min="0" max="100" step="5" class="form-control"
-                                                           maxlength="3">
+                                                           maxlength="3" v-model="actionParam">
                                                     <span class="input-group-addon">%</span>
                                                 </span>
                                             {% elseif action == 80 %}{# rgb #}
-                                                <span class="input-group" v-show="action == {{ action }}">
-                                                    <span class="input-group-addon">#</span>
-                                                    <input type="text" class="form-control jscolor" maxlength="6">
-                                                </span>
+                                                <div v-show="action == {{ action }}">
+                                                    <input type="text" class="colorpicker">
+                                                </div>
                                             {% endif %}
                                         </div>
                                     {% endfor %}
@@ -132,6 +131,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css"/>
     <style type="text/css">
         .timepicker-picker {
             font-size: 3em;
@@ -140,6 +140,14 @@
         .bootstrap-select li.active a {
             background: #A0FFA0 !important;
             color: inherit !important;
+        }
+
+        .sp-picker-container .sp-color {
+            display: none;
+        }
+
+        .sp-picker-container .sp-hue {
+            left: 0;
         }
     </style>
 {% endblock %}
@@ -150,7 +158,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pl.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <script>
         var BASE_URL = '{{ path('_homepage') }}';
         var LOCALE = '{{ app.request.locale }}';
