@@ -46,19 +46,44 @@ class Schedule
     private $user;
 
     /**
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
-     * @Assert\Length(max=100)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(name="cron_expression", type="string", length=100, nullable=false)
      * @Assert\Length(max=100)
      */
     private $cronExpression;
 
     /**
-     * @return int
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel")
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
+     */
+    private $channel;
+
+    /**
+     * @ORM\Column(name="action", type="integer", nullable=false)
+     */
+    private $action;
+
+    /**
+     * @ORM\Column(name="mode", type="string", length=15, nullable=false)
+     */
+    private $mode;
+
+    /**
+     * @ORM\Column(name="date_start", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $dateStart;
+
+    /**
+     * @ORM\Column(name="date_end", type="datetime", nullable=true)
+     */
+    private $dateEnd;
+
+    /**
+     * @ORM\Column(name="next_calculation_date", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $nextCalculationDate;
+
+    /**
+     * @return mixed
      */
     public function getId()
     {
@@ -66,7 +91,7 @@ class Schedule
     }
 
     /**
-     * @return User
+     * @return mixed
      */
     public function getUser()
     {
@@ -74,7 +99,7 @@ class Schedule
     }
 
     /**
-     * @param User $user
+     * @param mixed $user
      */
     public function setUser($user)
     {
@@ -82,23 +107,7 @@ class Schedule
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
+     * @return mixed
      */
     public function getCronExpression()
     {
@@ -106,11 +115,107 @@ class Schedule
     }
 
     /**
-     * @param string $cronExpression
+     * @param mixed $cronExpression
      */
     public function setCronExpression($cronExpression)
     {
         $this->cronExpression = $cronExpression;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
+     * @param mixed $channel
+     */
+    public function setChannel($channel)
+    {
+        $this->channel = $channel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * @param mixed $action
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    /**
+     * @param mixed $mode
+     */
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateStart()
+    {
+        return $this->dateStart;
+    }
+
+    /**
+     * @param mixed $dateStart
+     */
+    public function setDateStart($dateStart)
+    {
+        $this->dateStart = $dateStart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateEnd()
+    {
+        return $this->dateEnd;
+    }
+
+    /**
+     * @param mixed $dateEnd
+     */
+    public function setDateEnd($dateEnd)
+    {
+        $this->dateEnd = $dateEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNextCalculationDate()
+    {
+        return $this->nextCalculationDate;
+    }
+
+    /**
+     * @param mixed $nextCalculationDate
+     */
+    public function setNextCalculationDate($nextCalculationDate)
+    {
+        $this->nextCalculationDate = $nextCalculationDate;
     }
 
     /**

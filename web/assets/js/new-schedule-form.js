@@ -103,7 +103,7 @@ var app = new Vue({
         submitting: false,
         channelFunctionMap: {},
         cronExpressionChangedInMeantime: false,
-        dateStart: undefined,
+        dateStart: moment(),
         dateEnd: undefined
     },
     mounted: function () {
@@ -132,6 +132,7 @@ var app = new Vue({
             } else {
                 self.dateEnd = undefined;
             }
+            self.updateCronExpression(self.cronExpression);
         };
         $('.clockpicker-start').clockpicker().find('input').change(updateStartDate).val(roundTime(moment().format('H:mm')));
         $('.clockpicker-end').clockpicker().find('input').change(updateEndDate);
@@ -194,7 +195,7 @@ var app = new Vue({
                 channel: this.channel,
                 dateStart: this.dateStart ? this.dateStart.format() : '',
                 dateEnd: this.dateEnd ? this.dateEnd.format() : ''
-            }).finally(function () {
+            }).always(function () {
                 self.submitting = false;
             });
         }

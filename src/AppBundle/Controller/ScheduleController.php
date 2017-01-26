@@ -84,6 +84,21 @@ class ScheduleController extends Controller
      */
     public function createScheduleAction(Request $request)
     {
+        $data = $request->request->all();
+        $channel = $this->get('iodevice_manager')->channelById($data['channel']);
+        $schedule = new Schedule();
+        $schedule->setUser($this->getUser());
+        $schedule->setChannel($channel);
+        $schedule->setAction($data['action']);
+        $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
+//        $schedule->setDateEnd($data['dateEnd'] ? strtotime($data['dateEnd']) : null);
+        $schedule->setMode($data['mode']);
+        $schedule->setCronExpression($data['cronExpression']);
+        $this->getDoctrine()->getManager()->persist($schedule);
+        $this->getDoctrine()->getManager()->flush();
+        // TODO use form type?
+        // TODO return someothing better?
+        // TODO validate
         return new JsonResponse();
     }
 
