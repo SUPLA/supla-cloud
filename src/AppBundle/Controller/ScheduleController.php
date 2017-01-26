@@ -88,16 +88,21 @@ class ScheduleController extends Controller
     }
 
     /**
-     * @Route("/next-run-dates/{cronExpression}", name="_schedule_get_run_dates", requirements={"cronExpression"=".+"})
+     * @Route("/next-run-dates", name="_schedule_get_run_dates", requirements={"cronExpression"=".+"})
      */
-    public function getNextRunDatesAction($cronExpression)
+    public function getNextRunDatesAction(Request $request)
     {
-        if (!$this->getRequest()->isXmlHttpRequest()) {
+        $data = $request->request->all();
+        if (!$request->isXmlHttpRequest() || empty($data['cronExpression'])) {
             throw $this->createNotFoundException();
         }
         $temporarySchedule = new Schedule();
-        $temporarySchedule->setCronExpression($cronExpression);
-        $nextRunDates = $temporarySchedule->getRunDatesUntil('+7days', 'now', 3);
+        $temporarySchedule->setCronExpression($data['cronExpression']);
+        $until = strtotime('+7days');
+        if (!empty($data['dateEnd'])) {
+            $until = min($until, strtotime($data['dateEnd']));
+        }
+        $nextRunDates = $temporarySchedule->getRunDatesUntil($until, $data['dateStart'], 3);
         return new JsonResponse([
             'nextRunDates' => array_map(function ($dateTime) {
                 return $dateTime->format(\DateTime::ATOM);

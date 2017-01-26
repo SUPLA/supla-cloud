@@ -132,7 +132,7 @@ class Schedule
      */
     public function getRunDatesUntil($until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX)
     {
-        $until = strtotime($until);
+        $until = is_int($until) ? $until : strtotime($until) + 1; // +1 to make it inclusive
         $runDates = [];
         $nextRunDate = $currentDate;
         try {

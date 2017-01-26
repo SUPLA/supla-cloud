@@ -1,5 +1,8 @@
 function roundTime(time) {
     var parts = time.split(':');
+    if (parts.length != 2) {
+        return '0:0';
+    }
     parts[1] = Math.min(Math.round(parts[1] / 5) * 5, 55);
     if (parts[1] < 10) parts[1] = '0' + parts[1];
     return parts.join(':');
@@ -99,7 +102,9 @@ var app = new Vue({
         calculatingNextRunDates: false,
         submitting: false,
         channelFunctionMap: {},
-        cronExpressionChangedInMeantime: false
+        cronExpressionChangedInMeantime: false,
+        dateStart: undefined,
+        dateEnd: undefined
     },
     mounted: function () {
         this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
@@ -113,17 +118,30 @@ var app = new Vue({
             var hue = this.value.match(/^hsv\(([0-9]+)/)[1]
             self.actionParam = hue;
         });
-        $('.clockpicker-start, .clockpicker-end').clockpicker().find('input').change(function () {
-            // time = this.value = roundTime(this.value);
-            // updateExpression();
-        });
-        $('.clockpicker-start').find('input').val(moment().format('H:mm'));
+        var updateStartDate = function () {
+            var time = roundTime($('.clockpicker-start').find('input').val()).split(':');
+            var date = $('.datepicker-start').datepicker('getDate');
+            self.dateStart = moment(date ? date : undefined).startOf('minute').set('hour', time[0]).set('minute', time[1]).subtract(1, 'minute'); // minus to make it inclusive
+            self.updateCronExpression(self.cronExpression);
+        };
+        var updateEndDate = function () {
+            var date = $('.datepicker-end').datepicker('getDate');
+            if (date) {
+                var time = roundTime($('.clockpicker-end').find('input').val()).split(':');
+                self.dateEnd = moment(date ? date : undefined).startOf('minute').set('hour', time[0]).set('minute', time[1]);
+            } else {
+                self.dateEnd = undefined;
+            }
+        };
+        $('.clockpicker-start').clockpicker().find('input').change(updateStartDate).val(roundTime(moment().format('H:mm')));
+        $('.clockpicker-end').clockpicker().find('input').change(updateEndDate);
         $('.datepicker-start, .datepicker-end').datepicker({
             autoclose: true,
             language: LOCALE,
             startDate: moment().toDate()
         });
         $('.datepicker-start').on('changeDate', function () {
+            updateStartDate();
             $('.datepicker-end').datepicker('setStartDate', $(this).datepicker('getDate'));
         });
         $('.datepicker-end').on('changeDate', function () {
@@ -141,9 +159,13 @@ var app = new Vue({
         updateCronExpression: function (cronExpression) {
             var self = this;
             this.cronExpression = cronExpression;
-            if (!this.calculatingNextRunDates) {
+            if (!this.calculatingNextRunDates && cronExpression) {
                 this.calculatingNextRunDates = true;
-                $.getJSON(BASE_URL + 'schedule/next-run-dates/' + cronExpression).then(function (response) {
+                $.post(BASE_URL + 'schedule/next-run-dates', {
+                    cronExpression: cronExpression,
+                    dateStart: this.dateStart ? this.dateStart.format() : '',
+                    dateEnd: this.dateEnd ? this.dateEnd.format(): ''
+                }).then(function (response) {
                     self.nextRunDates = response.nextRunDates.map(function (dateString) {
                         return {
                             date: moment(dateString).format('LLL'),
@@ -169,8 +191,10 @@ var app = new Vue({
                 action: this.action,
                 actionParam: this.actionParam,
                 mode: this.scheduleMode,
-                channel: this.channel
-            }).then(function () {
+                channel: this.channel,
+                dateStart: this.dateStart ? this.dateStart.format() : '',
+                dateEnd: this.dateEnd ? this.dateEnd.format() : ''
+            }).finally(function () {
                 self.submitting = false;
             });
         }
