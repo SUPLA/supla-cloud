@@ -73,4 +73,12 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $runDates);
         $this->assertContains(strtotime('2089-12-05 11:23'), $runDates);
     }
+
+    public function testCalculatingManyDates()
+    {
+        $schedule = new Schedule();
+        $schedule->setCronExpression('*/5 * * * *');
+        $dates = $schedule->getRunDatesUntil('+5 days');
+        $this->assertGreaterThan(1000, count($dates));
+    }
 }

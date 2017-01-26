@@ -95,7 +95,6 @@ var app = new Vue({
         channel: undefined,
         action: undefined,
         actionParam: undefined,
-        scheduleName: '',
         nextRunDates: [],
         calculatingNextRunDates: false,
         submitting: false,
@@ -166,7 +165,6 @@ var app = new Vue({
             var self = this;
             this.submitting = true;
             $.post(BASE_URL + 'schedule/create', {
-                name: this.scheduleName,
                 cronExpression: this.cronExpression,
                 action: this.action,
                 actionParam: this.actionParam,

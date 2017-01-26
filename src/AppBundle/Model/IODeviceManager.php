@@ -256,7 +256,7 @@ class IODeviceManager
             SuplaConst::FNC_LIGHTSWITCH => [SuplaConst::ACTION_TURN_ON, SuplaConst::ACTION_TURN_OFF],
             SuplaConst::FNC_DIMMER => [SuplaConst::ACTION_DIM],
             SuplaConst::FNC_DIMMER => [SuplaConst::ACTION_SET_RGB_COLOR, SuplaConst::ACTION_TURN_OFF],
-            SuplaConst::FNC_DIMMERANDRGBLIGHTING => [SuplaConst::ACTION_DIM, SuplaConst::ACTION_SET_RGB_COLOR, SuplaConst::ACTION_TURN_OFF],
+            SuplaConst::FNC_DIMMERANDRGBLIGHTING => [SuplaConst::ACTION_DIM, SuplaConst::ACTION_SET_RGB_COLOR, SuplaConst::ACTION_SET_RANDOM_RGB_COLOR, SuplaConst::ACTION_TURN_OFF],
         ];
     }
 
@@ -273,6 +273,7 @@ class IODeviceManager
             SuplaConst::ACTION_OPEN => 'Open',
             SuplaConst::ACTION_DIM => 'Dim',
             SuplaConst::ACTION_SET_RGB_COLOR => 'Set color',
+            SuplaConst::ACTION_SET_RANDOM_RGB_COLOR => 'Set random color',
             SuplaConst::ACTION_TURN_OFF => 'Turn off',
             SuplaConst::ACTION_TURN_ON => 'Turn on',
             SuplaConst::ACTION_UNCOVER => 'Uncover',

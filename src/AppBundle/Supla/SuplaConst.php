@@ -81,6 +81,7 @@ class SuplaConst
 	const ACTION_TURN_OFF = 60;
 	const ACTION_DIM = 70;
 	const ACTION_SET_RGB_COLOR = 80;
+	const ACTION_SET_RANDOM_RGB_COLOR = 90;
 }
 
 ?>
