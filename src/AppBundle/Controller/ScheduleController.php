@@ -45,10 +45,7 @@ class ScheduleController extends Controller
      */
     public function scheduleListAction()
     {
-        $user = $this->getUser();
-        return [
-            'a' => 'b'
-        ];
+        return [];
     }
 
     /**
@@ -150,5 +147,17 @@ class ScheduleController extends Controller
         } catch (Exception $e) {
             throw new BadRequestHttpException();
         }
+    }
+
+    /**
+     * @Route("/{schedule}", name="_schedule_details")
+     * @Template
+     */
+    public function scheduleDetailsAction(Schedule $schedule)
+    {
+        return [
+            'schedule' => $schedule,
+            'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule)
+        ];
     }
 }

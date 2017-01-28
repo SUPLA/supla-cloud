@@ -1,0 +1,107 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block content %}
+    <div class="container margin-top-30">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="title">
+                    {% trans %}Schedule{% endtrans %} #{{ schedule.id }}
+                </h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class='pull-right' height="120"
+                             src='{{ asset('assets/img/functions/') }}{{ schedule.channel.function }}.svg'>
+                        <h4>Akcja</h4>
+                        {{ schedule.action|functionActionToString }}
+
+                        <h4>Podmiot</h4>
+
+                        {{ schedule.channel.caption ? schedule.channel.caption : schedule.channel.function|channelFunctionToString }}
+
+                        <h4>Lokalizacja</h4>
+                        {{ schedule.channel.iodevice.location.caption }}
+
+                        <h4>Tryb</h4>
+                        {{ schedule.mode }}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-right">
+                            <div class="btn-group">
+                                <button class="btn btn-default">
+                                    Disable
+                                </button>
+                                <button class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                        <h3 class="text-center">Wykonania</h3>
+                        <ul class="schedule-times">
+                            {% for execution in closestExecutions['past'] %}
+                                <li class="past{{ closestExecutions['past']|length - loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
+                            {% endfor %}
+                            {% for execution in closestExecutions['future'] %}
+                                <li class="future{{ loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block styles %}
+    <style type="text/css">
+        .schedule-times {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .schedule-times li {
+            margin-bottom: 5px;
+        }
+
+        .schedule-times .past2 {
+            opacity: .6;
+            font-size: 0.8em;
+        }
+
+        .schedule-times .past1 {
+            opacity: .8;
+            font-size: 0.9em;
+        }
+
+        .schedule-times .past0 {
+            opacity: .9;
+            font-size: 1em;
+        }
+
+        .schedule-times .future1 {
+            opacity: 1;
+            font-size: 1.1em;
+            color: darkgreen;
+            font-weight: bold;
+        }
+
+        .schedule-times .future2 {
+            opacity: .9;
+            font-size: 1em;
+            color: darkgreen;
+        }
+
+        .schedule-times .future3 {
+            opacity: .8;
+            font-size: .9em;
+            color: darkgreen;
+        }
+
+        .schedule-times .future4 {
+            opacity: .6;
+            font-size: .8em;
+            color: darkgreen;
+        }
+    </style>
+{% endblock %}

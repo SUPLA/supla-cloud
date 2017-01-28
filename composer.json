@@ -22,7 +22,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "excelwebzone/recaptcha-bundle": "dev-master",
         "mtdowling/cron-expression": "^1.1",
-        "doctrine/doctrine-migrations-bundle": "^1.2"
+        "doctrine/doctrine-migrations-bundle": "^1.2",
+        "twig/extensions": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

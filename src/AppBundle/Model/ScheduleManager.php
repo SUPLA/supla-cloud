@@ -34,7 +34,7 @@ class ScheduleManager
     public function __construct($doctrine)
     {
         $this->entityManager = $doctrine->getManager();
-        $this->scheduledExecutionsRepository = $doctrine->getRepository('AppBundle:IODevice');
+        $this->scheduledExecutionsRepository = $doctrine->getRepository('AppBundle:ScheduledExecution');
     }
 
     public function generateScheduledExecutions(Schedule $schedule, $until = '+5days')
@@ -60,5 +60,28 @@ class ScheduleManager
         }
         $schedule->getDateStart()->setTimezone($userTimezone);
         return $schedule->getRunDatesUntil($until, $schedule->getDateStart(), $count);
+    }
+
+    public function findClosestExecutions(Schedule $schedule, $contextSize = 3)
+    {
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $criteria
+            ->where($criteria->expr()->gte('timestamp', $now))
+            ->andWhere($criteria->expr()->eq('schedule', $schedule))
+            ->orderBy(['timestamp' => 'ASC'])
+            ->setMaxResults($contextSize + 1);
+        $inFuture = $this->scheduledExecutionsRepository->matching($criteria)->toArray();
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $criteria
+            ->where($criteria->expr()->lt('timestamp', $now))
+            ->andWhere($criteria->expr()->eq('schedule', $schedule))
+            ->orderBy(['timestamp' => 'DESC'])
+            ->setMaxResults($contextSize);
+        $inPast = $this->scheduledExecutionsRepository->matching($criteria)->toArray();
+        return [
+            'past' => array_reverse($inPast),
+            'future' => $inFuture
+        ];
     }
 }

@@ -91,11 +91,14 @@ services:
             - { name: validator.constraint_validator, alias: username_exists_validator }
         arguments:
              user_manager: "@user_manager"    
-            
 
      app.twig_extension:
         class: AppBundle\Twig\IoDeviceAttributesToStringExtension
         public: false
         arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+     twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
