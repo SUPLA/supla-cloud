@@ -248,6 +248,10 @@ var app = new Vue({
                 channel: this.channel,
                 dateStart: this.dateStart ? this.dateStart.format() : '',
                 dateEnd: this.dateEnd ? this.dateEnd.format() : ''
+            }).done(function () {
+                window.location.href = BASE_URL + 'schedule';
+            }).fail(function (response) {
+                alert(response.responseJSON);
             }).always(function () {
                 self.submitting = false;
             });

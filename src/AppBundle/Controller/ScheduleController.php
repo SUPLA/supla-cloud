@@ -24,6 +24,7 @@ use AppBundle\Entity\IODeviceChannel;
 use AppBundle\Entity\Schedule;
 use AppBundle\Entity\User;
 use AppBundle\Model\UserManager;
+use Cron\CronExpression;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -94,15 +95,19 @@ class ScheduleController extends Controller
         $schedule->setChannel($channel);
         $schedule->setAction($data['action']);
         $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
-//        $schedule->setDateEnd($data['dateEnd'] ? strtotime($data['dateEnd']) : null);
+        $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']) : null);
         $schedule->setMode($data['mode']);
         $schedule->setCronExpression($data['cronExpression']);
-        $this->getDoctrine()->getManager()->persist($schedule);
-        $this->getDoctrine()->getManager()->flush();
-        // TODO use form type?
-        // TODO return someothing better?
-        // TODO validate
-        return new JsonResponse();
+        $errors = $this->get('validator')->validate($schedule);
+        if (count($errors) == 0 && CronExpression::isValidExpression($schedule->getCronExpression())) {
+            $this->getDoctrine()->getManager()->persist($schedule);
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse(['id' => $schedule->getId()]);
+        } else {
+            return new JsonResponse(array_map(function ($error) {
+                return $error->getMessage();
+            }, iterator_to_array($errors)), 400);
+        }
     }
 
     /**

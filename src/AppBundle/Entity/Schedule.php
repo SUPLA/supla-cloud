@@ -64,6 +64,7 @@ class Schedule
 
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
+     * @Assert\Choice({"once", "minutely", "hourly", "daily"})
      */
     private $mode;
 
