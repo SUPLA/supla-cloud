@@ -16,17 +16,45 @@
         </div>
         <div class="row margin-top-20" id="new-schedule-form" style="display: none">
             <div class="col-xs-12">
-                <div class="form-group">
-                    <label>{% trans %}Tryb harmonogramu{% endtrans %}</label>
-                    <div class="clearfix"></div>
-                    <div class="btn-group btn-group-lg">
-                        {% for mode, label in scheduleModes %}
-                            <button class="btn btn-default"
-                                    @click="chooseMode('{{ mode }}')"
-                                    v-bind:class="{'active btn-success': scheduleMode == '{{ mode }}'}">
-                                {{ label }}
-                            </button>
-                        {% endfor %}
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label>{% trans %}Tryb harmonogramu{% endtrans %}</label>
+                            <div class="clearfix"></div>
+                            <div class="btn-group btn-group-lg">
+                                {% for mode, label in scheduleModes %}
+                                    <button class="btn btn-default"
+                                            @click="chooseMode('{{ mode }}')"
+                                            v-bind:class="{'active btn-success': scheduleMode == '{{ mode }}'}">
+                                        {{ label }}
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="alert alert-warning">
+                            <timezone-chooser inline-template>
+                                <div>
+                                    <div v-if="!editingTimezone">
+                                        Twoja strefa czasowa: <strong>${ userTimezone }</strong>
+                                        <a @click="editTimezone()">zmień</a>
+                                    </div>
+                                    <div v-if="editingTimezone">
+                                        <label>Wybierz Twoją strefę czasową</label>
+                                        <select v-model="userTimezone" ref="timezoneDropdown" class="form-control"
+                                                @change="chooseTimezone()">
+                                            <option v-for="timezone in getAvailableTimezones()"
+                                                    v-bind:value="timezone.name">
+                                                ${ timezone.name }
+                                                (UTC${timezone.offset >= 0 ? '+' : ''}${timezone.offset})
+                                                ${ timezone.currentTime }
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </timezone-chooser>
+                        </div>
                     </div>
                 </div>
                 <div class="row" v-show="scheduleMode">
@@ -203,6 +231,8 @@
 
 {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.11/moment-timezone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.11/moment-timezone-with-data-2010-2020.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>

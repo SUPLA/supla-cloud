@@ -15,6 +15,46 @@ function roundTo5(int) {
 var app = new Vue({
     el: '#new-schedule-form',
     delimiters: ['${', '}'], // defaults conflict with twig delimiters, http://stackoverflow.com/a/33935750/878514
+    components: {
+        'timezone-chooser': {
+            data: function () {
+                return {
+                    editingTimezone: false,
+                    userTimezone: moment.tz.guess()
+                };
+            },
+            methods: {
+                editTimezone: function () {
+                    this.editingTimezone = true;
+                },
+                chooseTimezone: function () {
+                    this.editingTimezone = false;
+                    $.ajax({
+                        method: 'PUT',
+                        content: this.userTimezone,
+                        url: BASE_URL + 'user/timezone'
+                    })
+                },
+                getAvailableTimezones: function () {
+                    return moment.tz.names().filter(function (timezone) {
+                        return timezone.match(/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//);
+                    }).map(function (timezone) {
+                        return {
+                            name: timezone,
+                            offset: moment.tz(timezone).utcOffset() / 60,
+                            currentTime: moment.tz(timezone).format('H:mm')
+                        }
+                    }).sort(function (timezone1, timezone2) {
+                        if (timezone1.offset == timezone2.offset) {
+                            return timezone1.name < timezone2.name ? -1 : 1;
+                        } else {
+                            return timezone1.offset - timezone2.offset
+                        }
+                    });
+                }
+            }
+        }
+    },
     directives: {
         'schedule-chooser-once': {
             bind: function (element) {
@@ -165,7 +205,7 @@ var app = new Vue({
                 $.post(BASE_URL + 'schedule/next-run-dates', {
                     cronExpression: cronExpression,
                     dateStart: this.dateStart ? this.dateStart.format() : '',
-                    dateEnd: this.dateEnd ? this.dateEnd.format(): ''
+                    dateEnd: this.dateEnd ? this.dateEnd.format() : ''
                 }).then(function (response) {
                     self.nextRunDates = response.nextRunDates.map(function (dateString) {
                         return {
