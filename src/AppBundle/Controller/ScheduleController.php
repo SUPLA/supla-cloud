@@ -120,7 +120,8 @@ class ScheduleController extends Controller
         if (!empty($data['dateEnd'])) {
             $until = min($until, strtotime($data['dateEnd']));
         }
-        $nextRunDates = $temporarySchedule->getRunDatesUntil($until, $data['dateStart'], 3);
+        $dateStart = new \DateTime($data['dateStart'], new \DateTimeZone($this->getUser()->getTimezone()));
+        $nextRunDates = $temporarySchedule->getRunDatesUntil($until, $dateStart, 3);
         return new JsonResponse([
             'nextRunDates' => array_map(function ($dateTime) {
                 return $dateTime->format(\DateTime::ATOM);

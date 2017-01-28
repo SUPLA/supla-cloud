@@ -129,8 +129,8 @@ var app = new Vue({
                                 return this.value
                             }).toArray().join(',');
                         }
-                        var timeParts = time.split(':');
-                        var cronExpression = [roundTo5(timeParts[1]), roundTo5(timeParts[0]), '*', '*', weekdays].join(' ');
+                        var timeParts = roundTime(time).split(':');
+                        var cronExpression = [timeParts[1], timeParts[0], '*', '*', weekdays].join(' ');
                         app.updateCronExpression(cronExpression);
                     }
                 }
@@ -153,7 +153,7 @@ var app = new Vue({
         submitting: false,
         channelFunctionMap: {},
         cronExpressionChangedInMeantime: false,
-        dateStart: moment(),
+        dateStart: undefined,
         dateEnd: undefined
     },
     mounted: function () {
@@ -206,6 +206,9 @@ var app = new Vue({
             this.scheduleMode = mode;
             this.nextRunDates = [];
             this.cronExpression = '';
+            if (!this.dateStart) {
+                this.dateStart = moment();
+            }
         },
         updateCronExpression: function (cronExpression) {
             var self = this;
