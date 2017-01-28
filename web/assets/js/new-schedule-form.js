@@ -71,9 +71,9 @@ var app = new Vue({
                 var time, date;
                 var updateExpression = function () {
                     if (time && date) {
-                        var timeParts = time.split(':');
+                        var timeParts = roundTime(time).split(':');
                         var dateParts = date.split(' ');
-                        var cronExpression = [roundTo5(timeParts[1]), roundTo5(timeParts[0]), dateParts[0], dateParts[1], '*', dateParts[2]].join(' ');
+                        var cronExpression = [timeParts[1], timeParts[0], dateParts[0], dateParts[1], '*', dateParts[2]].join(' ');
                         app.updateCronExpression(cronExpression);
                     }
                 };
