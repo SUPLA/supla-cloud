@@ -243,6 +243,7 @@
         var LOCALE = '{{ app.request.locale }}';
         var TIMEZONE = '{{ app.user.timezone }}';
         moment.locale(LOCALE);
+        moment.tz.setDefault(TIMEZONE);
         var CHANNEL_FUNCTION_MAP = {{ (channelToFunctionsMap|json_encode|raw) }};
     </script>
     <script src="{{ asset('assets/js/new-schedule-form.js') }}"></script>

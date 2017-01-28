@@ -74,18 +74,18 @@ class Schedule
     private $mode;
 
     /**
-     * @ORM\Column(name="date_start", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="date_start", type="utcdatetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      * @Assert\NotNull()
      */
     private $dateStart;
 
     /**
-     * @ORM\Column(name="date_end", type="datetime", nullable=true)
+     * @ORM\Column(name="date_end", type="utcdatetime", nullable=true)
      */
     private $dateEnd;
 
     /**
-     * @ORM\Column(name="next_calculation_date", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="next_calculation_date", type="utcdatetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $nextCalculationDate;
 
@@ -206,7 +206,6 @@ class Schedule
      */
     public function setDateStart(\DateTime $dateStart)
     {
-        $dateStart->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $this->dateStart = $dateStart;
     }
 
@@ -223,9 +222,6 @@ class Schedule
      */
     public function setDateEnd($dateEnd)
     {
-        if ($dateEnd) {
-            $dateEnd->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-        }
         $this->dateEnd = $dateEnd;
     }
 
@@ -239,7 +235,6 @@ class Schedule
 
     public function setNextCalculationDate(\DateTime $nextCalculationDate)
     {
-        $nextCalculationDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $this->nextCalculationDate = $nextCalculationDate;
     }
 

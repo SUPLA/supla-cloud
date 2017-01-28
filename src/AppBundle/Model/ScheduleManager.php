@@ -39,15 +39,26 @@ class ScheduleManager
 
     public function generateScheduledExecutions(Schedule $schedule, $until = '+5days')
     {
-        $latestPlanned = null;//$this->scheduledExecutionsRepository->findOneBy(['schedule_id' => $schedule->getId()], ['timestamp' => 'DESC']);
-        $dateStart = $latestPlanned ? $latestPlanned->getTimestamp() : $schedule->getDateStart();
-        $from = new \DateTime($latestPlanned ? $latestPlanned->getTimestamp() : 'now', new \DateTimeZone($schedule->getUser()->getTimezone()));
-        $nextRunDates = $schedule->getRunDatesUntil($until, $from);
+        $nextRunDates = $this->getNextRunDates($schedule, $until);
         foreach ($nextRunDates as $nextRunDate) {
             $this->entityManager->persist(new ScheduledExecution($schedule, $nextRunDate));
         }
         $schedule->setNextCalculationDate(end($nextRunDates));
         $this->entityManager->persist($schedule);
         $this->entityManager->flush();
+    }
+
+    public function getNextRunDates(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX)
+    {
+        $userTimezone = new \DateTimeZone($schedule->getUser()->getTimezone());
+        if ($schedule->getDateEnd()) {
+            $schedule->getDateEnd()->setTimezone($userTimezone);
+            $until = min($schedule->getDateEnd()->getTimestamp(), strtotime($until));
+        }
+        if ($schedule->getDateStart()->getTimestamp() < time()) {
+            $schedule->getDateStart()->setTimestamp(time());
+        }
+        $schedule->getDateStart()->setTimezone($userTimezone);
+        return $schedule->getRunDatesUntil($until, $schedule->getDateStart(), $count);
     }
 }

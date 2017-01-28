@@ -96,7 +96,7 @@ class ScheduleController extends Controller
         $schedule->setAction($data['action']);
         $schedule->setActionParam(empty($data['actionParam']) ? null : $data['actionParam']);
         $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
-        $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']) : null);
+        $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
         $schedule->setMode($data['mode']);
         $schedule->setCronExpression($data['cronExpression']);
         $errors = $this->get('validator')->validate($schedule);
@@ -122,18 +122,15 @@ class ScheduleController extends Controller
             throw $this->createNotFoundException();
         }
         $temporarySchedule = new Schedule();
+        $temporarySchedule->setUser($this->getUser());
         $temporarySchedule->setCronExpression($data['cronExpression']);
-        $until = strtotime('+7days');
-        if (!empty($data['dateEnd'])) {
-            $until = min($until, strtotime($data['dateEnd']));
-        }
-        $dateStart = new \DateTime($data['dateStart'], new \DateTimeZone($this->getUser()->getTimezone()));
-        $nextRunDates = $temporarySchedule->getRunDatesUntil($until, $dateStart, 3);
+        $temporarySchedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
+        $temporarySchedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
+        $nextRunDates = $this->get('schedule_manager')->getNextRunDates($temporarySchedule, '+7days', 3);
         return new JsonResponse([
             'nextRunDates' => array_map(function ($dateTime) {
                 return $dateTime->format(\DateTime::ATOM);
             }, $nextRunDates),
-            'now' => (new \DateTime())->format(\DateTime::ATOM),
         ]);
     }
 

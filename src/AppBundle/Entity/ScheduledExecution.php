@@ -45,7 +45,7 @@ class ScheduledExecution
     private $schedule;
 
     /**
-     * @ORM\Column(name="timestamp", type="datetime", nullable=true)
+     * @ORM\Column(name="timestamp", type="utcdatetime", nullable=true)
      */
     protected $timestamp;
 
@@ -62,7 +62,6 @@ class ScheduledExecution
     public function __construct(Schedule $schedule, \DateTime $timestamp)
     {
         $this->schedule = $schedule;
-        $timestamp->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $this->timestamp = $timestamp;
     }
 

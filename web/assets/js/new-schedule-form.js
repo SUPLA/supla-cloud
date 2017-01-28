@@ -249,7 +249,7 @@ var app = new Vue({
                 dateStart: this.dateStart ? this.dateStart.format() : '',
                 dateEnd: this.dateEnd ? this.dateEnd.format() : ''
             }).done(function () {
-                window.location.href = BASE_URL + 'schedule';
+                // window.location.href = BASE_URL + 'schedule';
             }).fail(function (response) {
                 alert(response.responseJSON);
             }).always(function () {
