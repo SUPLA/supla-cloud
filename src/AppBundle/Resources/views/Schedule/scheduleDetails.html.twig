@@ -25,15 +25,24 @@
                     </div>
                     <div class="col-md-6">
                         <div class="text-right">
-                            <div class="btn-group">
-                                <button class="btn btn-default">
-                                    Disable
-                                </button>
-                                <button class="btn btn-danger">
-                                    Delete
-                                </button>
-                            </div>
+                            <form action="" method="post">
+                                <div class="btn-group">
+                                    {% if schedule.enabled %}
+                                        <button class="btn btn-default" name="disable">
+                                            {% trans %}Disable{% endtrans %}
+                                        </button>
+                                    {% else %}
+                                        <button class="btn btn-success" name="enable">
+                                            Enable
+                                        </button>
+                                    {% endif %}
+                                    <button class="btn btn-danger" name="delete">
+                                        Delete
+                                    </button>
+                                </div>
+                            </form>
                         </div>
+                        {% if schedule.enabled %}
                         <h3 class="text-center">Wykonania</h3>
                         <ul class="schedule-times">
                             {% for execution in closestExecutions['past'] %}
@@ -43,6 +52,9 @@
                                 <li class="future{{ loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
                             {% endfor %}
                         </ul>
+                        {% else %}
+                        <h3>Brak wykonań - harmonogram wyłączony</h3>
+                        {% endif %}
                     </div>
                 </div>
 

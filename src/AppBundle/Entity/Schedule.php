@@ -85,6 +85,11 @@ class Schedule
     private $dateEnd;
 
     /**
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     */
+    protected $enabled = true;
+
+    /**
      * @ORM\Column(name="next_calculation_date", type="utcdatetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $nextCalculationDate;
@@ -223,6 +228,22 @@ class Schedule
     public function setDateEnd($dateEnd)
     {
         $this->dateEnd = $dateEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param mixed $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 
     /**

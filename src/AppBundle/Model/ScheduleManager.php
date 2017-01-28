@@ -84,4 +84,24 @@ class ScheduleManager
             'future' => $inFuture
         ];
     }
+
+    public function disable(Schedule $schedule)
+    {
+        $schedule->setEnabled(false);
+        $schedule->setNextCalculationDate(new \DateTime());
+        $this->entityManager->createQueryBuilder()
+            ->delete('AppBundle:ScheduledExecution', 's')
+            ->where('s.schedule = :schedule')
+            ->setParameter('schedule', $schedule)
+            ->getQuery()
+            ->execute();
+        $this->entityManager->persist($schedule);
+        $this->entityManager->flush();
+    }
+
+    public function enable(Schedule $schedule)
+    {
+        $schedule->setEnabled(true);
+        $this->generateScheduledExecutions($schedule);
+    }
 }

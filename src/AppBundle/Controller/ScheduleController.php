@@ -153,8 +153,16 @@ class ScheduleController extends Controller
      * @Route("/{schedule}", name="_schedule_details")
      * @Template
      */
-    public function scheduleDetailsAction(Schedule $schedule)
+    public function scheduleDetailsAction(Schedule $schedule, Request $request)
     {
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if (isset($data['disable'])) {
+                $this->get('schedule_manager')->disable($schedule);
+            } else if (isset($data['enable'])) {
+                $this->get('schedule_manager')->enable($schedule);
+            }
+        }
         return [
             'schedule' => $schedule,
             'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule)
