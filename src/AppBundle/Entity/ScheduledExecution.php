@@ -52,12 +52,19 @@ class ScheduledExecution
     /**
      * @ORM\Column(name="executed", type="boolean", nullable=false, options={"default"=false})
      */
-    protected $executed;
+    protected $executed = false;
 
     /**
      * @ORM\Column(name="attempts", type="integer", nullable=false, options={"default"=0})
      */
-    protected $attempts;
+    protected $attempts = 0;
+
+    public function __construct(Schedule $schedule, \DateTime $timestamp)
+    {
+        $this->schedule = $schedule;
+        $timestamp->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $this->timestamp = $timestamp;
+    }
 
     /**
      * @return mixed
@@ -65,13 +72,5 @@ class ScheduledExecution
     public function getTimestamp()
     {
         return $this->timestamp;
-    }
-
-    /**
-     * @param mixed $timestamp
-     */
-    public function setTimestamp($timestamp)
-    {
-        $this->timestamp = $timestamp;
     }
 }

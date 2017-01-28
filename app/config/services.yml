@@ -58,7 +58,12 @@ services:
               doctrine: "@doctrine" 
               security_token: "@security.token_storage"
               template: "@templating"
-              
+
+     schedule_manager:
+         class: AppBundle\Model\ScheduleManager
+         arguments:
+              doctrine: "@doctrine"
+
      server_list:
          class: AppBundle\Supla\ServerList
          arguments: 

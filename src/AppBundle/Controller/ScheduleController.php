@@ -94,6 +94,7 @@ class ScheduleController extends Controller
         $schedule->setUser($this->getUser());
         $schedule->setChannel($channel);
         $schedule->setAction($data['action']);
+        $schedule->setActionParam(empty($data['actionParam']) ? null : $data['actionParam']);
         $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']) : null);
         $schedule->setMode($data['mode']);
@@ -102,6 +103,7 @@ class ScheduleController extends Controller
         if (count($errors) == 0 && CronExpression::isValidExpression($schedule->getCronExpression())) {
             $this->getDoctrine()->getManager()->persist($schedule);
             $this->getDoctrine()->getManager()->flush();
+            $this->get('schedule_manager')->generateScheduledExecutions($schedule);
             return new JsonResponse(['id' => $schedule->getId()]);
         } else {
             return new JsonResponse(array_map(function ($error) {

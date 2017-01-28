@@ -63,6 +63,11 @@ class Schedule
     private $action;
 
     /**
+     * @ORM\Column(name="action_param", type="string", nullable=true, length=255)
+     */
+    private $actionParam;
+
+    /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
      * @Assert\Choice({"once", "minutely", "hourly", "daily"})
      */
@@ -70,6 +75,7 @@ class Schedule
 
     /**
      * @ORM\Column(name="date_start", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @Assert\NotNull()
      */
     private $dateStart;
 
@@ -158,6 +164,22 @@ class Schedule
     /**
      * @return mixed
      */
+    public function getActionParam()
+    {
+        return $this->actionParam;
+    }
+
+    /**
+     * @param mixed $actionParam
+     */
+    public function setActionParam($actionParam)
+    {
+        $this->actionParam = $actionParam;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getMode()
     {
         return $this->mode;
@@ -182,8 +204,9 @@ class Schedule
     /**
      * @param mixed $dateStart
      */
-    public function setDateStart($dateStart)
+    public function setDateStart(\DateTime $dateStart)
     {
+        $dateStart->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $this->dateStart = $dateStart;
     }
 
@@ -200,6 +223,9 @@ class Schedule
      */
     public function setDateEnd($dateEnd)
     {
+        if ($dateEnd) {
+            $dateEnd->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        }
         $this->dateEnd = $dateEnd;
     }
 
@@ -211,11 +237,9 @@ class Schedule
         return $this->nextCalculationDate;
     }
 
-    /**
-     * @param mixed $nextCalculationDate
-     */
-    public function setNextCalculationDate($nextCalculationDate)
+    public function setNextCalculationDate(\DateTime $nextCalculationDate)
     {
+        $nextCalculationDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $this->nextCalculationDate = $nextCalculationDate;
     }
 
