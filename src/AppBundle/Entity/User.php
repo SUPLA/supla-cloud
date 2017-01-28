@@ -113,9 +113,9 @@ class User implements AdvancedUserInterface
 
     protected $recaptcha;
 
-//    /**
-//     * @ORM\Column(name="timezone", type="string", length=30, nullable=true)
-//     */
+    /**
+     * @ORM\Column(name="timezone", type="string", length=30, nullable=true)
+     */
     protected $timezone;
 
     /**
@@ -142,9 +142,9 @@ class User implements AdvancedUserInterface
      */
     protected $limitClientApp;
 
-//    /**
-//     * @ORM\Column(name="limit_schedule", type="integer", options={"default"=100})
-//     */
+    /**
+     * @ORM\Column(name="limit_schedule", type="integer", options={"default"=100})
+     */
     protected $limitSchedule;
 
     /**

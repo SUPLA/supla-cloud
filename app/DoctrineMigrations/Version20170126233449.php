@@ -25,6 +25,7 @@ class Version20170126233449 extends AbstractMigration
         $this->addSql('ALTER TABLE supla_scheduled_executions ADD CONSTRAINT FK_FB21DBDCA40BC2D5 FOREIGN KEY (schedule_id) REFERENCES supla_schedule (id)');
         $this->addSql('ALTER TABLE supla_client CHANGE guid guid BINARY(16) NOT NULL');
         $this->addSql('ALTER TABLE supla_iodevice CHANGE guid guid BINARY(16) NOT NULL');
+        $this->addSql('ALTER TABLE supla_user ADD timezone VARCHAR(30) DEFAULT NULL, ADD limit_schedule INT DEFAULT 100 NOT NULL');
     }
 
     /**
@@ -40,5 +41,6 @@ class Version20170126233449 extends AbstractMigration
         $this->addSql('DROP TABLE supla_scheduled_executions');
         $this->addSql('ALTER TABLE supla_client CHANGE guid guid TINYBLOB NOT NULL');
         $this->addSql('ALTER TABLE supla_iodevice CHANGE guid guid TINYBLOB NOT NULL');
+        $this->addSql('ALTER TABLE supla_user DROP timezone, DROP limit_schedule');
     }
 }
