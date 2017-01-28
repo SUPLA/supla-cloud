@@ -241,6 +241,7 @@
     <script>
         var BASE_URL = '{{ path('_homepage') }}';
         var LOCALE = '{{ app.request.locale }}';
+        var TIMEZONE = '{{ app.user.timezone }}';
         moment.locale(LOCALE);
         var CHANNEL_FUNCTION_MAP = {{ (channelToFunctionsMap|json_encode|raw) }};
     </script>

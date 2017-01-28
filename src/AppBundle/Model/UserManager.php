@@ -152,4 +152,11 @@ class UserManager
     	 
     }
 
+    public function updateTimeZone(User $user, \DateTimeZone $timezone)
+    {
+        $user->setTimezone($timezone->getName());
+        $em = $this->doctrine->getManager();
+        $em->persist($user);
+        $em->flush();
+    }
 }

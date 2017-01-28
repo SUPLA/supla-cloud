@@ -20,8 +20,17 @@ var app = new Vue({
             data: function () {
                 return {
                     editingTimezone: false,
-                    userTimezone: moment.tz.guess()
+                    userTimezone: undefined
                 };
+            },
+            mounted: function () {
+                if (TIMEZONE) {
+                    this.userTimezone = TIMEZONE;
+                    moment.tz.setDefault(this.userTimezone);
+                } else {
+                    this.userTimezone = moment.tz.guess();
+                    this.chooseTimezone();
+                }
             },
             methods: {
                 editTimezone: function () {
@@ -29,10 +38,11 @@ var app = new Vue({
                 },
                 chooseTimezone: function () {
                     this.editingTimezone = false;
+                    moment.tz.setDefault(this.userTimezone);
                     $.ajax({
                         method: 'PUT',
-                        content: this.userTimezone,
-                        url: BASE_URL + 'user/timezone'
+                        data: {timezone: this.userTimezone},
+                        url: BASE_URL + 'schedule/user-timezone'
                     })
                 },
                 getAvailableTimezones: function () {

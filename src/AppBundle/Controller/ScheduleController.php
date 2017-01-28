@@ -23,12 +23,15 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\IODeviceChannel;
 use AppBundle\Entity\Schedule;
 use AppBundle\Entity\User;
+use AppBundle\Model\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * @Route("/schedule")
@@ -124,5 +127,23 @@ class ScheduleController extends Controller
             }, $nextRunDates),
             'now' => (new \DateTime())->format(\DateTime::ATOM),
         ]);
+    }
+
+    /**
+     * @Route("/user-timezone", name="_schedule_update_user_timezone")
+     * @Method("PUT")
+     */
+    public function updateUserTimezoneAction(Request $request)
+    {
+        $data = $request->request->all();
+        try {
+            $timezone = new \DateTimeZone($data['timezone']);
+            /** @var UserManager $userManager */
+            $userManager = $this->get('user_manager');
+            $userManager->updateTimeZone($this->getUser(), $timezone);
+            return new JsonResponse(true);
+        } catch (Exception $e) {
+            throw new BadRequestHttpException();
+        }
     }
 }

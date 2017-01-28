@@ -442,4 +442,34 @@ class User implements AdvancedUserInterface
     {
         return $this->limitLoc;
     }
+
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
+
+    public function getLimitSchedule()
+    {
+        return $this->limitSchedule;
+    }
+
+    public function setLimitSchedule($limitSchedule)
+    {
+        $this->limitSchedule = $limitSchedule;
+    }
+
+    public function getSchedules()
+    {
+        return $this->schedules;
+    }
+
+    public function setSchedules($schedules)
+    {
+        $this->schedules = $schedules;
+    }
 }
