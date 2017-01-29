@@ -1,7 +1,7 @@
 <div class="row" v-schedule-chooser-daily>
     <div class="col-md-6">
         <div class="form-group">
-            <label>Godzina</label>
+            <label>{{ 'Hour'|trans }}</label>
             <div class="input-group clockpicker" data-autoclose="true" data-default="now">
                 <input type="text" class="form-control">
                 <span class="input-group-addon">
@@ -12,40 +12,40 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label>Dni tygodnia</label>
+            <label>{{ 'Weekdays'|trans }}</label>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="1"> Poniedziałki
+                    <input type="checkbox" value="1"> {{ 'Mondays'|trans }}
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="2"> Wtorki
+                    <input type="checkbox" value="2"> {{ 'Tuesdays'|trans }}
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="3"> Środy
+                    <input type="checkbox" value="3"> {{ 'Wednesdays'|trans }}
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="4"> Czwartki
+                    <input type="checkbox" value="4"> {{ 'Thursdays'|trans }}
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="5"> Piątki
+                    <input type="checkbox" value="5"> {{ 'Fridays'|trans }}
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="6"> Soboty
+                    <input type="checkbox" value="6"> {{ 'Saturdays'|trans }}
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="7"> Niedziele
+                    <input type="checkbox" value="7"> {{ 'Sundays'|trans }}
                 </label>
             </div>
         </div>

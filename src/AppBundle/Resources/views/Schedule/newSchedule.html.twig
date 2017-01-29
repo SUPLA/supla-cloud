@@ -19,14 +19,14 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
-                            <label>{% trans %}Tryb harmonogramu{% endtrans %}</label>
+                            <label>{% trans %}Schedule mode{% endtrans %}</label>
                             <div class="clearfix"></div>
                             <div class="btn-group btn-group-lg">
-                                {% for mode, label in scheduleModes %}
+                                {% for mode in scheduleModes %}
                                     <button class="btn btn-default"
                                             @click="chooseMode('{{ mode }}')"
                                             v-bind:class="{'active btn-success': scheduleMode == '{{ mode }}'}">
-                                        {{ label }}
+                                        {{ mode|trans|capitalize }}
                                     </button>
                                 {% endfor %}
                             </div>
@@ -37,11 +37,11 @@
                             <timezone-chooser inline-template>
                                 <div>
                                     <div v-if="!editingTimezone">
-                                        Twoja strefa czasowa: <strong>${ userTimezone }</strong>
-                                        <a @click="editTimezone()">zmień</a>
+                                        {% trans %}Your timezone{% endtrans %}: <strong>${ userTimezone }</strong>
+                                        <a @click="editTimezone()">{{ 'change'|trans }}</a>
                                     </div>
                                     <div v-if="editingTimezone">
-                                        <label>Wybierz Twoją strefę czasową</label>
+                                        <label>{% trans %}Choose your timezone{% endtrans %}</label>
                                         <select v-model="userTimezone" ref="timezoneDropdown" class="form-control"
                                                 @change="chooseTimezone()">
                                             <option v-for="timezone in getAvailableTimezones()"
@@ -60,9 +60,9 @@
                 <div class="row" v-show="scheduleMode">
                     <div class="col-md-6">
                         <div class="well">
-                            <h3 class="no-margin-top">Kiedy?</h3>
+                            <h3 class="no-margin-top">{{ 'When'|trans }}?</h3>
                             <div class="form-group">
-                                {% for mode, label in scheduleModes %}
+                                {% for mode in scheduleModes %}
                                     <div v-show="scheduleMode == '{{ mode }}'">
                                         {{ include("AppBundle:Schedule:modes/new-schedule-mode-#{mode}.html.twig") }}
                                     </div>
@@ -72,7 +72,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Data rozpoczęcia</label>
+                                            <label>{{ 'Start date'|trans }}</label>
                                             <div class="input-group date">
                                                 <input type="text" class="form-control datepicker-start">
                                                 <div class="input-group-addon">
@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Godzina rozpoczęcia</label>
+                                            <label>{{ 'Start hour'|trans }}</label>
                                             <div class="input-group clockpicker-start" data-autoclose="true"
                                                  data-default="now">
                                                 <input type="text" class="form-control">
@@ -97,7 +97,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Data zakończenia</label>
+                                            <label>{{ 'End date'|trans }}</label>
                                             <div class="input-group date">
                                                 <input type="text" class="form-control datepicker-end">
                                                 <div class="input-group-addon">
@@ -108,7 +108,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Godzina zakończenia</label>
+                                            <label>{{ 'End hour'|trans }}</label>
                                             <div class="input-group clockpicker-end" data-autoclose="true"
                                                  data-default="now">
                                                 <input type="text" class="form-control">
@@ -123,12 +123,12 @@
                             <div class="progress" v-if="calculatingNextRunDates">
                                 <div class="progress-bar progress-bar-info progress-bar-striped active"
                                      style="width: 100%">
-                                    obliczam najbliższe wykonania...
+                                    {{ 'calculating closest executions' }}...
                                 </div>
                             </div>
                             <div class="forum-group" v-if="nextRunDates.length > 0"
                                  v-bind:class="{opacity60: calculatingNextRunDates}">
-                                <h4>Najbliższe wykonania</h4>
+                                <h4>{{ 'The closest executions'|trans }}</h4>
                                 <div class="list-group">
                                     <div class="list-group-item" v-for="nextRunDate in nextRunDates">
                                         <span class="pull-right small text-muted">
@@ -142,13 +142,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="well">
-                            <h3 class="no-margin-top">Akcja do wykonania</h3>
+                            <h3 class="no-margin-top">{{ 'Action'|trans }}</h3>
                             <div class="form-group">
                                 <label>Podmiot</label>
                                 <select class="selectpicker form-control" data-live-search="true"
                                         data-live-search-placeholder="Filtruj" v-model="channel"
                                         @change="action = actionParam = undefined">
-                                    <option disabled selected value> -- wybierz kanał --</option>
+                                    <option disabled selected value> -- {{ 'choose the channel'|trans }} --</option>
                                     {% for channel in userChannels %}
                                         <option value="{{ channel.id }}"
                                                 title="{{ channel.caption ?: channel.function|channelFunctionToString }} ({{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }})"
@@ -189,7 +189,7 @@
                                         v-bind:disabled="action == undefined || !nextRunDates.length || submitting"
                                         @click="submit()">
                                     <i class="pe-7s-plus"></i>
-                                    Dodaj
+                                    {{ 'Add'|trans }}
                                 </button>
                             </div>
                         </div>

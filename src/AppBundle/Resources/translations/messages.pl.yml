@@ -240,8 +240,52 @@ Dimmer and RGB lighting: Ściemniacz i oświetlenie RGB
 Service temporarily unavailable: Usługa tymczasowo niedostępna
 Try again later: Spróbuj ponownie później
 
+Schedule: Harmonogram
 Schedules: Harmonogramy
 Create New Schedule: Stwórz nowy harmonogram
+No executions - schedule disabled: Brak wykonań - harmonogram wyłączony
+Enable: Włącz
+Disable: Wyłącz
+Delete: Usuń
+Executions: Wykonania
+Action: Akcja
+Subject: Podmiot
+Mode: Tryb
+Schedule has been deleted: Harmonogram został usunięty
+Schedule mode: Tryb harmonogramu
+Your timezone: Twoja strefa czasowa
+Choose your timezone: Wybierz Twoją strefę czasową
+change: zmień
+When: Kiedy
+Start date: Data rozpoczęcia
+Start hour: Godzina rozpoczęcia
+End date: Data zakończenia
+End hour: Godzina zakończenia
+calculating closest executions: obliczam najbliższe wykonania
+The closest executions: Najbliższe wykonania
+choose the channel: wybierz kanał
+Add: Dodaj
+Date: Data
+Hour: Godzina
+Interval: Interwał
+Every: Co
+minutes: minut
+Hours: Godziny
+Minute: Minuta
+Weekdays: Dni tygodnia
+
+Mondays: Poniedziałki
+Tuesdays: Wtorki
+Wednesdays: Środy
+Thursdays: Czwartki
+Fridays: Piątki
+Saturdays: Soboty
+Sundays: Niedziele
+
+once: Jednorazowy
+minutely: Cykl minutowy
+hourly: Cykl godzinny
+daily: Cykl dzienny
 
 Close: Zamknij
 Open: Otwórz
@@ -252,3 +296,5 @@ Turn on: Włącz
 Dim: Ustaw jasność
 Cover: Zasłoń
 Uncover: Odsłoń
+
+

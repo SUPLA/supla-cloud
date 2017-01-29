@@ -68,12 +68,7 @@ class ScheduleController extends Controller
             $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
         }
         return [
-            'scheduleModes' => [
-                'once' => 'Jednorazowy',
-                'minutely' => 'Cykl minutowy',
-                'hourly' => 'Cykl godzinny',
-                'daily' => 'Codziennie',
-            ],
+            'scheduleModes' => ['once', 'minutely', 'hourly', 'daily'],
             'userChannels' => $schedulableChannels,
             'actionStringMap' => $ioDeviceManager->actionStringMap(),
             'channelToFunctionsMap' => $channelToFunctionsMap,

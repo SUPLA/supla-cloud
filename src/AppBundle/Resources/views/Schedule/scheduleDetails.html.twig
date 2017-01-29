@@ -10,18 +10,18 @@
                     <div class="col-md-6">
                         <img class='pull-right' height="120"
                              src='{{ asset('assets/img/functions/') }}{{ schedule.channel.function }}.svg'>
-                        <h4>Akcja</h4>
+                        <h4>{{ 'Action'|trans }}</h4>
                         {{ schedule.action|functionActionToString }}
 
-                        <h4>Podmiot</h4>
+                        <h4>{{ 'Subject'|trans }}</h4>
 
                         {{ schedule.channel.caption ? schedule.channel.caption : schedule.channel.function|channelFunctionToString }}
 
-                        <h4>Lokalizacja</h4>
+                        <h4>{{ 'Location'|trans }}</h4>
                         {{ schedule.channel.iodevice.location.caption }}
 
-                        <h4>Tryb</h4>
-                        {{ schedule.mode }}
+                        <h4>{{ 'Mode'|trans }}</h4>
+                        {{ schedule.mode|trans|capitalize }}
                     </div>
                     <div class="col-md-6">
                         <div class="text-right">
@@ -33,17 +33,17 @@
                                         </button>
                                     {% else %}
                                         <button class="btn btn-success" name="enable">
-                                            Enable
+                                            {% trans %}Enable{% endtrans %}
                                         </button>
                                         <button class="btn btn-danger" name="delete">
-                                            Delete
+                                            {% trans %}Delete{% endtrans %}
                                         </button>
                                     {% endif %}
                                 </div>
                             </form>
                         </div>
                         {% if schedule.enabled %}
-                            <h3 class="text-center">Wykonania</h3>
+                            <h3 class="text-center">{{ 'Executions'|trans }}</h3>
                             <ul class="schedule-times">
                                 {% for execution in closestExecutions['past'] %}
                                     <li class="past{{ closestExecutions['past']|length - loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
@@ -53,7 +53,7 @@
                                 {% endfor %}
                             </ul>
                         {% else %}
-                            <h3>Brak wykonań - harmonogram wyłączony</h3>
+                            <h3>{% trans %}No executions - schedule disabled{% endtrans %}</h3>
                         {% endif %}
                     </div>
                 </div>

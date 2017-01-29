@@ -35,7 +35,7 @@
                             </span></strong>
                             <br>
                             Tryb:
-                            <strong><span class="caption_value">{{ schedule.mode }}</span></strong>
+                            <strong><span class="caption_value">{{ schedule.mode|trans|capitalize }}</span></strong>
                             {% if schedule.enabled %}<span class="status">{% trans %}
                                 ENABLED{% endtrans %}</span>{% else %}<span class="status disable">{% trans %}
                                 DISABLED{% endtrans %}</span>{% endif %}
