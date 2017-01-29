@@ -185,7 +185,7 @@
                             </div>
                             <div class="text-right">
                                 <button class="btn btn-success btn-lg"
-                                        v-bind:disabled="action == undefined || !nextRunDates.length || submitting"
+                                        v-bind:disabled="action == undefined || !nextRunDates.length || submitting || calculatingNextRunDates"
                                         @click="submit()">
                                     <i class="pe-7s-plus"></i>
                                     {{ 'Add'|trans }}
