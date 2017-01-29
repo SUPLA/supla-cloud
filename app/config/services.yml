@@ -92,7 +92,7 @@ services:
         arguments:
              user_manager: "@user_manager"    
 
-     app.twig_extension:
+     twig.extension.io_device_attributes_to_string:
         class: AppBundle\Twig\IoDeviceAttributesToStringExtension
         public: false
         arguments: ["@service_container"]
