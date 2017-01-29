@@ -1,6 +1,5 @@
 {% extends 'AppBundle::layout.html.twig' %}
 {% block content %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
     <div class="container margin-top-30">
         <div class="row">
             <div class="col-xs-12">
@@ -123,7 +122,7 @@
                             <div class="progress" v-if="calculatingNextRunDates">
                                 <div class="progress-bar progress-bar-info progress-bar-striped active"
                                      style="width: 100%">
-                                    {{ 'calculating closest executions' }}...
+                                    {{ 'calculating closest executions'|trans }}...
                                 </div>
                             </div>
                             <div class="forum-group" v-if="nextRunDates.length > 0"
@@ -201,19 +200,11 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css"/>
+    <link rel="stylesheet" href="{{ asset('assets/js/bootstrap-clockpicker/bootstrap-clockpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/bootstrap-select/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/spectrum-colorpicker/spectrum.min.css') }}">
     <style type="text/css">
-        .timepicker-picker {
-            font-size: 3em;
-        }
-
         .bootstrap-select li.active a {
             background: #A0FFA0 !important;
             color: inherit !important;
@@ -230,14 +221,14 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.11/moment-timezone.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.11/moment-timezone-with-data-2010-2020.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pl.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
+    <script src="{{ asset('assets/js/vue.min.js') }}"></script>
+    <script src="{{ asset('assets/js/momentjs/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('assets/js/momentjs/moment-timezone-with-data-2010-2020.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-clockpicker/bootstrap-clockpicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-datepicker/bootstrap-datepicker-pl.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/js/spectrum-colorpicker/spectrum.min.js') }}"></script>
     <script>
         var BASE_URL = '{{ path('_homepage') }}';
         var LOCALE = '{{ app.request.locale }}';
