@@ -472,4 +472,9 @@ class User implements AdvancedUserInterface
     {
         $this->schedules = $schedules;
     }
+
+    public function isLimitScheduleExceeded()
+    {
+        return $this->getLimitSchedule() > 0 && count($this->getSchedules()) > $this->getLimitSchedule();
+    }
 }

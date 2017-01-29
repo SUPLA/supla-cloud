@@ -10,15 +10,18 @@
         </div>
 
         <div class="row scroll_list margin-top-20">
-            <div class="col-lg-3">
-                <a class="item new" href="{{ path('_schedule_new') }}">
-                    <i class="pe-7s-plus"></i>
-                    <br/>
-                    {% trans %}Create New Schedule{% endtrans %}</a>
-            </div>
+            {% if not app.user.isLimitScheduleExceeded %}
+                <div class="col-lg-3">
+                    <a class="item new" href="{{ path('_schedule_new') }}">
+                        <i class="pe-7s-plus"></i>
+                        <br/>
+                        {% trans %}Create New Schedule{% endtrans %}</a>
+                </div>
+            {% endif %}
             {% for schedule in app.user.schedules %}
                 <div class="col-lg-3">
-                    <a class="item {% if schedule.enabled %}enable{% endif %}" href="{{ path('_schedule_details', {schedule: schedule.id}) }}">
+                    <a class="item {% if schedule.enabled %}enable{% endif %}"
+                       href="{{ path('_schedule_details', {schedule: schedule.id}) }}">
                         <span class="aid">ID<strong>{{ schedule.id }}</strong></span>
                         <div class="details-wrapper">
                             Akcja:
@@ -33,7 +36,9 @@
                             <br>
                             Tryb:
                             <strong><span class="caption_value">{{ schedule.mode }}</span></strong>
-                            {% if schedule.enabled %}<span class="status">{% trans %}ENABLED{% endtrans %}</span>{% else %}<span class="status disable">{% trans %}DISABLED{% endtrans %}</span>{% endif %}
+                            {% if schedule.enabled %}<span class="status">{% trans %}
+                                ENABLED{% endtrans %}</span>{% else %}<span class="status disable">{% trans %}
+                                DISABLED{% endtrans %}</span>{% endif %}
                         </div>
                     </a>
                     <div class="form-group"></div>

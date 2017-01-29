@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1 class="title">
-                    {% trans %}Schedule{% endtrans %} #{{ schedule.id }}
+                    {% trans %}Schedule{% endtrans %} ID{{ schedule.id }}
                 </h1>
                 <div class="row">
                     <div class="col-md-6">
@@ -35,25 +35,25 @@
                                         <button class="btn btn-success" name="enable">
                                             Enable
                                         </button>
+                                        <button class="btn btn-danger" name="delete">
+                                            Delete
+                                        </button>
                                     {% endif %}
-                                    <button class="btn btn-danger" name="delete">
-                                        Delete
-                                    </button>
                                 </div>
                             </form>
                         </div>
                         {% if schedule.enabled %}
-                        <h3 class="text-center">Wykonania</h3>
-                        <ul class="schedule-times">
-                            {% for execution in closestExecutions['past'] %}
-                                <li class="past{{ closestExecutions['past']|length - loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
-                            {% endfor %}
-                            {% for execution in closestExecutions['future'] %}
-                                <li class="future{{ loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
-                            {% endfor %}
-                        </ul>
+                            <h3 class="text-center">Wykonania</h3>
+                            <ul class="schedule-times">
+                                {% for execution in closestExecutions['past'] %}
+                                    <li class="past{{ closestExecutions['past']|length - loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
+                                {% endfor %}
+                                {% for execution in closestExecutions['future'] %}
+                                    <li class="future{{ loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
+                                {% endfor %}
+                            </ul>
                         {% else %}
-                        <h3>Brak wykonań - harmonogram wyłączony</h3>
+                            <h3>Brak wykonań - harmonogram wyłączony</h3>
                         {% endif %}
                     </div>
                 </div>

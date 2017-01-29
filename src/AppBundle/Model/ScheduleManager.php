@@ -88,20 +88,32 @@ class ScheduleManager
     public function disable(Schedule $schedule)
     {
         $schedule->setEnabled(false);
+        $this->deleteScheduledExecutions($schedule);
         $schedule->setNextCalculationDate(new \DateTime());
+        $this->entityManager->persist($schedule);
+        $this->entityManager->flush();
+    }
+
+    private function deleteScheduledExecutions(Schedule $schedule)
+    {
         $this->entityManager->createQueryBuilder()
             ->delete('AppBundle:ScheduledExecution', 's')
             ->where('s.schedule = :schedule')
             ->setParameter('schedule', $schedule)
             ->getQuery()
             ->execute();
-        $this->entityManager->persist($schedule);
-        $this->entityManager->flush();
     }
 
     public function enable(Schedule $schedule)
     {
         $schedule->setEnabled(true);
         $this->generateScheduledExecutions($schedule);
+    }
+
+    public function delete(Schedule $schedule)
+    {
+        $this->deleteScheduledExecutions($schedule);
+        $this->entityManager->remove($schedule);
+        $this->entityManager->flush();
     }
 }

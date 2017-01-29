@@ -27,6 +27,7 @@ use AppBundle\Model\UserManager;
 use Cron\CronExpression;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -88,7 +89,9 @@ class ScheduleController extends Controller
         $data = $request->request->all();
         $channel = $this->get('iodevice_manager')->channelById($data['channel']);
         $schedule = new Schedule();
-        $schedule->setUser($this->getUser());
+        /** @var User $user */
+        $user = $this->getUser();
+        $schedule->setUser($user);
         $schedule->setChannel($channel);
         $schedule->setAction($data['action']);
         $schedule->setActionParam(empty($data['actionParam']) ? null : $data['actionParam']);
@@ -96,16 +99,21 @@ class ScheduleController extends Controller
         $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
         $schedule->setMode($data['mode']);
         $schedule->setCronExpression($data['cronExpression']);
-        $errors = $this->get('validator')->validate($schedule);
-        if (count($errors) == 0 && CronExpression::isValidExpression($schedule->getCronExpression())) {
+        $errors = iterator_to_array($this->get('validator')->validate($schedule));
+        if ($user->isLimitScheduleExceeded()) {
+            $errors[] = 'Schedule limit has been exceeded';
+        } else if (CronExpression::isValidExpression($schedule->getCronExpression())) {
+            $errors[] = 'Invalid cron expression';
+        }
+        if (count($errors) == 0) {
             $this->getDoctrine()->getManager()->persist($schedule);
             $this->getDoctrine()->getManager()->flush();
             $this->get('schedule_manager')->generateScheduledExecutions($schedule);
             return new JsonResponse(['id' => $schedule->getId()]);
         } else {
             return new JsonResponse(array_map(function ($error) {
-                return $error->getMessage();
-            }, iterator_to_array($errors)), 400);
+                return is_string($error) ? $error : $error->getMessage();
+            }, $errors), 400);
         }
     }
 
@@ -152,6 +160,7 @@ class ScheduleController extends Controller
     /**
      * @Route("/{schedule}", name="_schedule_details")
      * @Template
+     * @Security("user == schedule.getUser()")
      */
     public function scheduleDetailsAction(Schedule $schedule, Request $request)
     {
@@ -161,7 +170,14 @@ class ScheduleController extends Controller
                 $this->get('schedule_manager')->disable($schedule);
             } else if (isset($data['enable'])) {
                 $this->get('schedule_manager')->enable($schedule);
+            } else if (isset($data['delete'])) {
+                if (!$schedule->getEnabled()) {
+                    $this->get('schedule_manager')->delete($schedule);
+                    $this->get('session')->getFlashBag()->add('success', array('title' => 'Success', 'message' => 'Schedule has been deleted'));
+                    return $this->redirectToRoute("_schedule_list");
+                }
             }
+            return $this->redirectToRoute("_schedule_details", ['schedule' => $schedule->getId()]);
         }
         return [
             'schedule' => $schedule,
