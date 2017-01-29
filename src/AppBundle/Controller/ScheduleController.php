@@ -97,7 +97,7 @@ class ScheduleController extends Controller
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         if ($user->isLimitScheduleExceeded()) {
             $errors[] = 'Schedule limit has been exceeded';
-        } else if (CronExpression::isValidExpression($schedule->getCronExpression())) {
+        } else if (!CronExpression::isValidExpression($schedule->getCronExpression())) {
             $errors[] = 'Invalid cron expression';
         }
         if (count($errors) == 0) {

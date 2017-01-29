@@ -43,7 +43,10 @@ class ScheduleManager
         foreach ($nextRunDates as $nextRunDate) {
             $this->entityManager->persist(new ScheduledExecution($schedule, $nextRunDate));
         }
-        $schedule->setNextCalculationDate(end($nextRunDates));
+        /** @var \DateTime $nextCalculationDate */
+        $nextCalculationDate = clone end($nextRunDates);
+        $nextCalculationDate->sub(new \DateInterval('P2D')); // the oldest scheduled execution minus 2 days
+        $schedule->setNextCalculationDate($nextCalculationDate);
         $this->entityManager->persist($schedule);
         $this->entityManager->flush();
     }
@@ -58,14 +61,19 @@ class ScheduleManager
         if ($schedule->getDateStart()->getTimestamp() < time()) {
             $schedule->getDateStart()->setTimestamp(time());
         }
-        $schedule->getDateStart()->setTimezone($userTimezone);
-        return $schedule->getRunDatesUntil($until, $schedule->getDateStart(), $count);
+        $dateStart = $schedule->getDateStart();
+        $latestExecution = current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['timestamp' => 'DESC'], 1));
+        if ($latestExecution) {
+            $dateStart = $latestExecution->getTimestamp();
+        }
+        $dateStart->setTimezone($userTimezone);
+        return $schedule->getRunDatesUntil($until, $dateStart, $count);
     }
 
     public function findClosestExecutions(Schedule $schedule, $contextSize = 3)
     {
         $criteria = new \Doctrine\Common\Collections\Criteria();
-        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $now = $this->getNow();
         $criteria
             ->where($criteria->expr()->gte('timestamp', $now))
             ->andWhere($criteria->expr()->eq('schedule', $schedule))
@@ -89,7 +97,7 @@ class ScheduleManager
     {
         $schedule->setEnabled(false);
         $this->deleteScheduledExecutions($schedule);
-        $schedule->setNextCalculationDate(new \DateTime());
+        $schedule->setNextCalculationDate($this->getNow());
         $this->entityManager->persist($schedule);
         $this->entityManager->flush();
     }
@@ -115,5 +123,10 @@ class ScheduleManager
         $this->deleteScheduledExecutions($schedule);
         $this->entityManager->remove($schedule);
         $this->entityManager->flush();
+    }
+
+    private function getNow()
+    {
+        return new \DateTime('now', new \DateTimeZone('UTC'));
     }
 }
