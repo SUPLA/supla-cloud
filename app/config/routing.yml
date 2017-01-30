@@ -1,2 +1,2 @@
 app:
-    resource: "@AppBundle/Resources/config/routing.yml"
+    resource: "@SuplaBundle/Resources/config/routing.yml"

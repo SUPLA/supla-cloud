@@ -1,0 +1,29 @@
+{% extends 'SuplaBundle::layout.html.twig' %}
+ 
+{% block content %}
+    <h1 class="title">{% trans %}Access Identifiers{% endtrans %} <input id="livefilter-input" class="pull-right" type="text" placeholder="Search"></h1>
+	<button class="example-show" data-direction="left">left</button>
+               
+</div>
+       <div class="scroll_list_wrapper access_id_list">
+            <ul class="scroll_list">
+			  <a class="item new" href="{{ path('_aid_new') }}"><i class="pe-7s-plus"></i><br />{% trans %}Create New Access Identifier{% endtrans %}</a>
+												
+			   {% for aid in accessids|reverse %}
+			   <a data-id="{{ aid.id }}" class="item {% if aid.enabled %}enabled{% else %}disabled{% endif %}">
+			   <span class="aid">ID <strong>{{ aid.id }}</strong></span> <br />
+			   <span class="acaption">Caption<br />
+			   <strong>{{ aid.caption }}</strong><br />
+			   <span class="apassword">Password<br />
+			   <strong>{{ aid.password }}</strong><br />
+			   {% if aid.enabled %}<span class="status">ENABLED</span>{% else %}<span class="status disable">DISABLED</span>{% endif %}
+			   </a>
+			   {% endfor %}
+             </ul>
+             </div>
+		<div class="container">
+        <div class="details" id="details">           
+     </div>
+</div>
+           
+{% endblock %}

@@ -25,14 +25,35 @@ framework:
         
     fragments:       ~
     http_method_override: true
+    serializer:
+        enabled: true
+        
     
-
+# RESTful API
+fos_rest:
+    routing_loader:
+        default_format: json
+        
+# OAUTH SERVER   
+fos_oauth_server:
+    db_driver: orm
+    client_class:        SuplaBundle\Entity\OAuth\Client
+    access_token_class:  SuplaBundle\Entity\OAuth\AccessToken
+    refresh_token_class: SuplaBundle\Entity\OAuth\RefreshToken
+    auth_code_class:     SuplaBundle\Entity\OAuth\AuthCode
+    service:
+        user_provider: oauth_user_provider
+        options:
+            supported_scopes: restapi
+            access_token_lifetime: 30
+            refresh_token_lifetime: 60
+    
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:
-        - 'AppBundle:Form:fields.html.twig'
+        - 'SuplaBundle:Form:fields.html.twig'
 
 ewz_recaptcha:
     public_key:   "%ewz_recaptcha_public_key%"
@@ -43,7 +64,7 @@ assetic:
                 
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [AppBundle]
+    bundles:        [SuplaBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -64,6 +85,9 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        types:
+           utcdatetime: SuplaBundle\Model\UTCDateTimeType
+
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"

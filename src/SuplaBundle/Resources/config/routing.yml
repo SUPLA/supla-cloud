@@ -1,0 +1,45 @@
+_homepage:
+    resource: "@SuplaBundle/Controller/DefaultController.php"
+    type:     annotation
+              
+_acount:
+    resource: "@SuplaBundle/Controller/AccountController.php"
+    type:     annotation
+  
+_auth:
+    resource: "@SuplaBundle/Controller/AuthController.php"
+    type:     annotation
+    
+_aid:
+    resource: "@SuplaBundle/Controller/AccessIDController.php"
+    type:     annotation
+    
+_loc:
+    resource: "@SuplaBundle/Controller/LocationController.php"
+    type:     annotation
+    
+_iodev:
+    resource: "@SuplaBundle/Controller/IODeviceController.php"
+    type:     annotation
+    
+_schedule:
+    resource: "@SuplaBundle/Controller/ScheduleController.php"
+    type:     annotation
+
+_ajax:
+    resource: "@SuplaBundle/Controller/AjaxController.php"
+    type:     annotation
+
+_api:
+    resource: "@SuplaBundle/Controller/APIController.php"
+    type:     annotation
+    
+_restapi:
+    type:     rest
+    host:     %supla_server%
+    prefix:   /api
+    resource: "@SuplaBundle/Controller/RestController.php"
+    
+    
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
