@@ -1,0 +1,49 @@
+{% extends 'SuplaBundle::layout.html.twig' %}
+{% block content %}
+    <div class="container margin-top-30">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="title">
+                    {% trans %}Schedules{% endtrans %}
+                </h1>
+            </div>
+        </div>
+
+        <div class="row scroll_list margin-top-20">
+            {% if not app.user.isLimitScheduleExceeded %}
+                <div class="col-lg-3">
+                    <a class="item new" href="{{ path('_schedule_new') }}">
+                        <i class="pe-7s-plus"></i>
+                        <br/>
+                        {% trans %}Create New Schedule{% endtrans %}</a>
+                </div>
+            {% endif %}
+            {% for schedule in app.user.schedules %}
+                <div class="col-lg-3">
+                    <a class="item {% if schedule.enabled %}enable{% endif %}"
+                       href="{{ path('_schedule_details', {schedule: schedule.id}) }}">
+                        <span class="aid">ID<strong>{{ schedule.id }}</strong></span>
+                        <div class="details-wrapper">
+                            Akcja:
+                            <strong><span
+                                        class="caption_value">{{ schedule.action|functionActionToString }}</span></strong>
+                            <br>
+                            Podmiot:
+                            <strong><span class="caption_value">
+                                {{ schedule.channel.caption ? schedule.channel.caption : schedule.channel.function|channelFunctionToString }}
+                                    ({{ schedule.channel.iodevice.location.caption }})
+                            </span></strong>
+                            <br>
+                            Tryb:
+                            <strong><span class="caption_value">{{ schedule.mode|trans|capitalize }}</span></strong>
+                            {% if schedule.enabled %}<span class="status">{% trans %}
+                                ENABLED{% endtrans %}</span>{% else %}<span class="status disable">{% trans %}
+                                DISABLED{% endtrans %}</span>{% endif %}
+                        </div>
+                    </a>
+                    <div class="form-group"></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
