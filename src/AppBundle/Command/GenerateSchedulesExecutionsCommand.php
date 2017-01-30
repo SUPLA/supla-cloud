@@ -19,6 +19,12 @@ class GenerateSchedulesExecutionsCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->generateFutureExecutions($output);
+        $this->clearOldExecutions($output);
+    }
+
+    private function generateFutureExecutions(OutputInterface $output)
+    {
         /** @var Registry $doctrine */
         $doctrine = $this->getContainer()->get('doctrine');
         /** @var ScheduleManager $scheduleManager */
@@ -34,5 +40,18 @@ class GenerateSchedulesExecutionsCommand extends ContainerAwareCommand
         foreach ($schedules as $schedule) {
             $scheduleManager->generateScheduledExecutions($schedule);
         }
+    }
+
+    private function clearOldExecutions(OutputInterface $output)
+    {
+        /** @var Registry $doctrine */
+        $doctrine = $this->getContainer()->get('doctrine');
+        $affectedRows = $doctrine->getManager()->createQueryBuilder()
+            ->delete('AppBundle:ScheduledExecution', 's')
+            ->where('s.timestamp < :expirationDate')
+            ->setParameter('expirationDate', (new \DateTime())->sub(new \DateInterval('P10D')))// 10 days
+            ->getQuery()
+            ->execute();
+        $output->writeln('Deleted expired scheduled executions: ' . $affectedRows);
     }
 }
