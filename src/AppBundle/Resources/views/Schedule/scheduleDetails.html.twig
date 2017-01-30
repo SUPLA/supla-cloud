@@ -46,10 +46,17 @@
                             <h3 class="text-center">{{ 'Executions'|trans }}</h3>
                             <ul class="schedule-times">
                                 {% for execution in closestExecutions['past'] %}
-                                    <li class="past{{ closestExecutions['past']|length - loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
+                                    <li class="past past{{ closestExecutions['past']|length - loop.index }} {{ execution.failed ? 'failed' : '' }}">
+                                        {{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}
+                                        {% if execution.failed %}
+                                            <div class="small">
+                                                {{ execution.result | actionExecutionResultToString }}
+                                            </div>
+                                        {% endif %}
+                                    </li>
                                 {% endfor %}
                                 {% for execution in closestExecutions['future'] %}
-                                    <li class="future{{ loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
+                                    <li class="future future{{ loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
                                 {% endfor %}
                             </ul>
                         {% else %}
@@ -91,29 +98,33 @@
             font-size: 1em;
         }
 
+        .schedule-times .past {
+            color: darkgreen;
+        }
+
+        .schedule-times .failed {
+            color: #F00;
+        }
+
         .schedule-times .future1 {
             opacity: 1;
             font-size: 1.1em;
-            color: darkgreen;
             font-weight: bold;
         }
 
         .schedule-times .future2 {
             opacity: .9;
             font-size: 1em;
-            color: darkgreen;
         }
 
         .schedule-times .future3 {
             opacity: .8;
             font-size: .9em;
-            color: darkgreen;
         }
 
         .schedule-times .future4 {
             opacity: .6;
             font-size: .8em;
-            color: darkgreen;
         }
     </style>
 {% endblock %}

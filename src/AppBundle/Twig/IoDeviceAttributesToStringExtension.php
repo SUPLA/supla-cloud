@@ -2,6 +2,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Model\IODeviceManager;
+use AppBundle\Supla\SuplaConst;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class IoDeviceAttributesToStringExtension extends \Twig_Extension
@@ -21,6 +22,7 @@ class IoDeviceAttributesToStringExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFilter('channelFunctionToString', array($this, 'channelFunctionToString')),
             new \Twig_SimpleFilter('functionActionToString', array($this, 'functionActionToString')),
+            new \Twig_SimpleFilter('actionExecutionResultToString', array($this, 'actionExecutionResultToString')),
         ];
     }
 
@@ -37,6 +39,14 @@ class IoDeviceAttributesToStringExtension extends \Twig_Extension
         $translator = $this->container->get('translator');
         $name = $ioDeviceManager->actionStringMap()[$action];
         return $translator->trans($name);
+    }
+
+    public function actionExecutionResultToString($result)
+    {
+        $text = 'To be executed';
+        if ($result === SuplaConst::ACTION_EXECUTION_RESULT_SUCCESS) $text = 'Successful';
+        if ($result === SuplaConst::ACTION_EXECUTION_RESULT_DEVICE_UNREACHABLE) $text = 'Device was unreachable';
+        return $this->container->get('translator')->trans($text);
     }
 
     public function getName()

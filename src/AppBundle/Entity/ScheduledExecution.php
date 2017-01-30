@@ -50,14 +50,9 @@ class ScheduledExecution
     protected $timestamp;
 
     /**
-     * @ORM\Column(name="executed", type="boolean", nullable=false, options={"default"=false})
+     * @ORM\Column(name="result", type="integer", nullable=true)
      */
-    protected $executed = false;
-
-    /**
-     * @ORM\Column(name="attempts", type="integer", nullable=false, options={"default"=0})
-     */
-    protected $attempts = 0;
+    protected $result;
 
     public function __construct(Schedule $schedule, \DateTime $timestamp)
     {
@@ -65,11 +60,18 @@ class ScheduledExecution
         $this->timestamp = $timestamp;
     }
 
-    /**
-     * @return mixed
-     */
     public function getTimestamp()
     {
         return $this->timestamp;
+    }
+
+    public function isFailed()
+    {
+        return $this->result > 0;
+    }
+
+    public function getResult()
+    {
+        return $this->result;
     }
 }
