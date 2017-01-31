@@ -331,6 +331,27 @@ class RestController extends FOSRestController
     			case 'onoff':
     				$value = $serverCtrl->get_char_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
     				break;
+    			case 'temperature':
+    				$value = $serverCtrl->get_temperature_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				break;
+    			case 'humidity':
+    				$value = $serverCtrl->get_humidity_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				break;
+    			case 'temp-hum':
+    				
+    				$t = $serverCtrl->get_temperature_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				
+    				if ( $t !== FALSE ) {
+    					
+    					$h = $serverCtrl->get_humidity_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    					
+    					if ( $h !== FALSE ) {
+    						$value = array('temperature' => $t, 'humidity' => $h);
+    					}
+    				}
+    				
+    				
+    				break;
     		}
  
     		if ( $value === FALSE ) {
@@ -346,6 +367,12 @@ class RestController extends FOSRestController
     			case 'onoff':
     				$value = array('on' => $value == '1' ? true : false);
     				break;
+    			case 'temperature':
+    				$value = array('temperature' => $value);
+    				break;
+    			case 'humidity':
+    				$value = array('humidity' => $value);
+    				break;
     		}
     	   	
     		return $this->handleView($this->resultView(true, $value));
@@ -360,7 +387,6 @@ class RestController extends FOSRestController
      */
     public function getChannelValueOnAction(Request $request, $channelid)
     {
-    //	przetestować...
     	$compat = array(SuplaConst::FNC_POWERSWITCH, 
     			   SuplaConst::FNC_LIGHTSWITCH);
     	 
@@ -373,7 +399,21 @@ class RestController extends FOSRestController
      */
     public function getChannelValueTemperatureAction(Request $request, $channelid)
     {
-          
+    	$compat = array(SuplaConst::FNC_THERMOMETER,
+    			SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
+    	
+    	return $this->getChannelValue($channelid, $compat, 'temperature');
+    }
+    
+    /**
+     * @Rest\Get("/channel/{channelid}/value/humidity")
+     */
+    public function getChannelValueHumidityAction(Request $request, $channelid)
+    {
+    	$compat = array(SuplaConst::FNC_HUMIDITY,
+    			SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
+    	 
+    	return $this->getChannelValue($channelid, $compat, 'humidity');
     }
     
     /**
@@ -381,7 +421,9 @@ class RestController extends FOSRestController
      */
     public function getChannelValueTempHumAction(Request $request, $channelid)
     {
-    
+    	$compat = array(SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
+    	
+    	return $this->getChannelValue($channelid, $compat, 'temp-hum');
     }
     
     /**

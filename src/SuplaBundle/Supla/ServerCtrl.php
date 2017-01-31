@@ -65,7 +65,10 @@ class ServerCtrl
    	
    	if ( $this->socket !== FALSE ) {
    		fwrite($this->socket,  $cmd."\n");   		
-   		return fread($this->socket, 4096);
+   		$result = fread($this->socket, 4096);
+   		$this->disconnect();
+   		
+   		return $result;
    	}
    	
    	return FALSE;
