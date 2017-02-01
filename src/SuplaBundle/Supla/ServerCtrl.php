@@ -24,6 +24,9 @@ class ServerCtrl
 {
    private $socket = FALSE;
    
+   function __destruct() {
+   	  $this->disconnect();
+   }
    
    private function connect() {
    
@@ -52,7 +55,7 @@ class ServerCtrl
    
    }
    
-   private function disconnect() {
+   public function disconnect() {
    	
    	if ( $this->socket !== FALSE ) {
    		fclose($this->socket);
@@ -66,7 +69,6 @@ class ServerCtrl
    	if ( $this->socket !== FALSE ) {
    		fwrite($this->socket,  $cmd."\n");   		
    		$result = fread($this->socket, 4096);
-   		$this->disconnect();
    		
    		return $result;
    	}
@@ -127,9 +129,8 @@ class ServerCtrl
    	return FALSE;
    }
    
-   
-   private function get_value($type, $user_id, $iodev_id, $channel_id) {
-   
+   private function __get_value($type, $user_id, $iodev_id, $channel_id) {
+   	
    	$user_id = intval($user_id, 0);
    	$iodev_id = intval($iodev_id, 0);
    	$channel_id = intval($channel_id, 0);
@@ -139,23 +140,37 @@ class ServerCtrl
    			&& $iodev_id != 0
    			&& $channel_id != 0
    			&& $this->connect() !== FALSE ) {
-   					
+   	
    				$result = $this->command("GET-".$type."-VALUE:".$user_id.",".$iodev_id.",".$channel_id);
-
    				
    				if ( $result !== FALSE
    						&& preg_match("/^VALUE:/", $result) === 1 ) {
-   							list($val) = sscanf($result, "VALUE:%f\n");
-   
-   							if ( is_numeric($val) ) {
-   								return $val;
-   							};
+   							
+   							return $result;
    						}
-   						 
+   	
    			}
-   			 
+   				
    			return FALSE;
+   			
+   }
    
+   private function get_value($type, $user_id, $iodev_id, $channel_id) {
+   
+   	    $result = $this->__get_value($type, $user_id, $iodev_id, $channel_id);
+   	    
+   	    if ( $result !== FALSE ) {
+   	    	
+   	    		list($val) = sscanf($result, "VALUE:%f\n");
+   	    		 
+   	    		if ( is_numeric($val) ) {
+   	    			return $val;
+   	    		};
+   	    	
+   	    }
+   	    
+   	    return false;
+   	    
    }
     
    function get_char_value($user_id, $iodev_id, $channel_id) {
@@ -176,6 +191,26 @@ class ServerCtrl
    
    function get_distance_value($user_id, $iodev_id, $channel_id) {
       return $this->get_value('DOUBLE', $user_id, $iodev_id, $channel_id);
+   }
+   
+   function get_rgbw_value($user_id, $iodev_id, $channel_id) {
+   	
+   	   $value = $this->__get_value('RGBW', $user_id, $iodev_id, $channel_id);
+   	      	   
+   	   if ( $value !== FALSE ) {
+   	   	
+   	     	list($color, $color_brightness, $brightness) = sscanf($value, "VALUE:%i,%i,%i\n");
+
+   	     	if ( is_numeric($color)
+   	     		 && is_numeric($color_brightness)
+   	     		 && is_numeric($brightness) ) {
+   	     		
+   	     		 	return array('color' => sprintf('0x%06X', $color), 'color_brightness' => $color_brightness, 'brightness' => $brightness);
+   	     		 	
+   	     	}
+   	   }
+   	   
+   	   return false;
    }
    
 }

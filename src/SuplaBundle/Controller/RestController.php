@@ -50,10 +50,10 @@ class RestController extends FOSRestController
 		return $this->user;
 	}
 	
-	public function getParent() {
+	public function getParentUser() {
 		
 		if ($this->parent === null) {
-			$this->parent = $this->getUser()->getParent();
+			$this->parent = $this->getUser()->getParentUser();
 		}
 		return $this->parent;
 	}
@@ -143,7 +143,7 @@ class RestController extends FOSRestController
     	$devid = intval($devid, 0);
     	$iodev_man = $this->container->get('iodevice_manager');
         
-    	$iodevice = $iodev_man->ioDeviceById($devid, $this->getParent());
+    	$iodevice = $iodev_man->ioDeviceById($devid, $this->getParentUser());
     	 
     	if ( !($iodevice instanceof IODevice) ) {
     		
@@ -164,7 +164,7 @@ class RestController extends FOSRestController
     {
     	if ( ($result = $this->ioDeviceById($devid)) instanceof IODevice ) {
     		    		
-    		$cids = (new ServerCtrl())->iodevice_connected($this->getParent()->getId(), array($devid));
+    		$cids = (new ServerCtrl())->iodevice_connected($this->getParentUser()->getId(), array($devid));
     		
     		return $this->handleView($this->resultView(true, array('connected' => in_array($devid, $cids) ? true : false)));
     	};
@@ -190,7 +190,7 @@ class RestController extends FOSRestController
     	$channelid = intval($channelid, 0);
     	$iodev_man = $this->container->get('iodevice_manager');
     
-    	$channel = $iodev_man->channelById($channelid, $this->getParent());
+    	$channel = $iodev_man->channelById($channelid, $this->getParentUser());
     
     	if ( !($channel instanceof IODeviceChannel ) ) {
     
@@ -329,6 +329,7 @@ class RestController extends FOSRestController
     		
     		switch($value_type) {
     			case 'onoff':
+    			case 'hilo':
     				$value = $serverCtrl->get_char_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
     				break;
     			case 'temperature':
@@ -349,10 +350,40 @@ class RestController extends FOSRestController
     						$value = array('temperature' => $t, 'humidity' => $h);
     					}
     				}
+    						
+    				break;
     				
+    			case 'rgbw':
+    				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				break;
+    				
+    			case 'color':
+    				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				
+    				if ( $value !== FALSE && array_key_exists('color', $value) )
+    					$value = array('color' => $value['color']);
     				
     				break;
+    				
+    			case 'color-brightness':
+    				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				
+    				if ( $value !== FALSE && array_key_exists('color_brightness', $value) )
+    					$value = array('color_brightness' => $value['color_brightness']);
+    				
+    				break;
+    				
+    			case 'brightness':
+    				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				
+    				if ( $value !== FALSE && array_key_exists('brightness', $value) )
+    					$value = array('brightness' => $value['brightness']);
+    				
+    				break;
+    						
     		}
+    		
+    		$serverCtrl->disconnect();
  
     		if ( $value === FALSE ) {
     			 
@@ -363,9 +394,12 @@ class RestController extends FOSRestController
     			 
     		}
     		
-    	    switch($value_type) {
+    	    switch($value_type) {    	    		
     			case 'onoff':
     				$value = array('on' => $value == '1' ? true : false);
+    				break;
+    			case 'hilo':
+    				$value = array('hi' => $value == '1' ? true : false);
     				break;
     			case 'temperature':
     				$value = array('temperature' => $value);
@@ -392,6 +426,23 @@ class RestController extends FOSRestController
     	 
     	return $this->getChannelValue($channelid, $compat, 'onoff');
 
+    }
+    
+    /**
+     * @Rest\Get("/channel/{channelid}/value/hi")
+     */
+    public function getChannelValueHiAction(Request $request, $channelid)
+    {
+    	$compat = array(SuplaConst::FNC_OPENINGSENSOR_GATEWAY,
+		    			SuplaConst::FNC_OPENINGSENSOR_GATE,
+		    			SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR,
+		    			SuplaConst::FNC_NOLIQUIDSENSOR,
+		    			SuplaConst::FNC_OPENINGSENSOR_DOOR,
+		    			SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER,
+    	);
+    
+    	return $this->getChannelValue($channelid, $compat, 'hilo');
+    
     }
     
     /**
@@ -432,6 +483,40 @@ class RestController extends FOSRestController
     public function getChannelValueRGBWAction(Request $request, $channelid)
     {
     
+    	$compat = array(SuplaConst::FNC_DIMMER,
+    			        SuplaConst::FNC_RGBLIGHTING,
+    			        SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+    	);
+    	 
+    	return $this->getChannelValue($channelid, $compat, 'rgbw');
+    
+    }
+    
+    /**
+     * @Rest\Get("/channel/{channelid}/value/color")
+     */
+    public function getChannelValueColorAction(Request $request, $channelid)
+    {
+    
+    	$compat = array(SuplaConst::FNC_RGBLIGHTING,
+    			SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+    	);
+    
+    	return $this->getChannelValue($channelid, $compat, 'color');
+    
+    }
+    
+    /**
+     * @Rest\Get("/channel/{channelid}/value/color-brightness")
+     */
+    public function getChannelValueColorBrightnessAction(Request $request, $channelid)
+    {
+    
+    	$compat = array(SuplaConst::FNC_RGBLIGHTING,
+    			SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+    	);
+    
+    	return $this->getChannelValue($channelid, $compat, 'color-brightness');
     
     }
     
@@ -441,6 +526,11 @@ class RestController extends FOSRestController
     public function getChannelValueBrightnessAction(Request $request, $channelid)
     {
     
+    	$compat = array(SuplaConst::FNC_DIMMER,
+    			SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+    	);
+    
+    	return $this->getChannelValue($channelid, $compat, 'brightness');
     
     }
     
