@@ -86,7 +86,7 @@ class AccessIdManager
 	
 	public function accessidsForApiUser(APIUser $user) {
 	
-		$parent = $user->getParent();
+		$parent = $user->getParentUser();
 			
 		$result = array();
 			

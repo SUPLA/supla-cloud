@@ -610,7 +610,7 @@ class IODeviceManager
 	
 	public function ioDevicesForApiUser(APIUser $user) {
 	
-		$parent = $user->getParent();
+		$parent = $user->getParentUser();
 			
 		$result = array();
 		

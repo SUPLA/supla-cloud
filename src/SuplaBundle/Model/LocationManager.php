@@ -85,7 +85,7 @@ class LocationManager
 	
 	public function locationsForApiUser(APIUser $user) {
 	
-		$parent = $user->getParent();
+		$parent = $user->getParentUser();
 		 
 		$result = array();
 		 

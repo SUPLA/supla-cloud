@@ -69,7 +69,7 @@ class Client extends BaseClient
     	return $this->type;
     }
     
-    public function getParent() {
+    public function getParentUser() {
     	return $this->parent;
     }
     

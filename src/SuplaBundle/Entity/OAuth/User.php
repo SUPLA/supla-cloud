@@ -87,7 +87,7 @@ class User implements AdvancedUserInterface
     	return $this->id;
     }
     
-    public function getParent() {
+    public function getParentUser() {
     	return $this->parent;
     }
     
