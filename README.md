@@ -1,12 +1,6 @@
-   _____ _    _ _____  _                  _____ _      ____  _    _ _____  
-  / ____| |  | |  __ \| |        /\      / ____| |    / __ \| |  | |  __ \ 
- | (___ | |  | | |__) | |       /  \    | |    | |   | |  | | |  | | |  | |
-  \___ \| |  | |  ___/| |      / /\ \   | |    | |   | |  | | |  | | |  | |
-  ____) | |__| | |    | |____ / ____ \  | |____| |___| |__| | |__| | |__| |
- |_____/ \____/|_|    |______/_/    \_\  \_____|______\____/ \____/|_____/ 
-                                                                           
-                                                                           
 
+ SUPLA CLOUD
+ www.supla.org
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
