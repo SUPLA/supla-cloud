@@ -173,39 +173,31 @@ var app = new Vue({
             var hue = this.value.match(/^hsv\(([0-9]+)/)[1]
             self.actionParam = hue;
         });
-        var updateStartDate = function () {
-            var time = roundTime($('.clockpicker-start').find('input').val()).split(':');
-            var date = $('.datepicker-start').datepicker('getDate');
-            self.dateStart = moment(date ? date : undefined).startOf('minute').set('hour', time[0]).set('minute', time[1]).subtract(1, 'minute'); // minus to make it inclusive
+        $('.datetimepicker-start').datetimepicker({
+            minDate: 'now',
+            locale: LOCALE,
+            stepping: 5
+        });
+        $('.datetimepicker-end').datetimepicker({
+            useCurrent: false,
+            locale: LOCALE,
+            stepping: 5
+        });
+        $(".datetimepicker-start").on("dp.change", function (e) {
+            $('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
+            self.dateStart = moment(e.date ? e.date : undefined).startOf('minute').subtract(1, 'minute'); // minus to make it inclusive
             self.updateCronExpression(self.cronExpression);
-        };
-        var updateEndDate = function () {
-            var date = $('.datepicker-end').datepicker('getDate');
-            if (date) {
-                var time = roundTime($('.clockpicker-end').find('input').val()).split(':');
-                self.dateEnd = moment(date ? date : undefined).startOf('minute').set('hour', time[0]).set('minute', time[1]);
+        });
+        $(".datetimepicker-end").on("dp.change", function (e) {
+            $('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
+            if (e.date) {
+                self.dateEnd = moment(e.date).startOf('minute');
             } else {
                 self.dateEnd = undefined;
             }
             self.updateCronExpression(self.cronExpression);
-        };
-        $('.clockpicker-start').clockpicker().find('input').change(updateStartDate).val(roundTime(moment().format('H:mm')));
-        $('.clockpicker-end').clockpicker().find('input').change(updateEndDate);
-        $('.datepicker-start, .datepicker-end').datepicker({
-            autoclose: true,
-            language: LOCALE,
-            startDate: moment().toDate()
         });
-        $('.datepicker-start').on('changeDate', function () {
-            updateStartDate();
-            $('.datepicker-end').datepicker('setStartDate', $(this).datepicker('getDate'));
-        });
-        $('.datepicker-end').on('changeDate', function () {
-            $('.datepicker-start').datepicker('setEndDate', $(this).datepicker('getDate'));
-        });
-        $('.datepicker-start').datepicker('update', moment().toDate());
-    }
-    ,
+    },
     methods: {
         chooseMode: function (mode) {
             this.scheduleMode = mode;
@@ -261,7 +253,7 @@ var app = new Vue({
                 self.submitting = false;
             });
         },
-        prepend0IfLessThan10: function(value) {
+        prepend0IfLessThan10: function (value) {
             return value < 10 ? '0' + value : value;
         }
     }
