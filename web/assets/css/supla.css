@@ -269,7 +269,7 @@ animation-duration: 0.5s; -webkit-animation-fill-mode: both; animation-fill-mode
 .scroll_list_wrapper  ul {margin: 0px; padding: 0px;}
 .scroll_list {list-style-type: none;}
 .scroll_list .item, .location-info .item {display: block; position: relative; padding: 5px 10px; min-height: 180px;background: #ebecef; color: #000;  border-radius: 3px; font-size: 13px; border: solid 2px transparent; list-style-type: none; margin: 0 5px; cursor: pointer; transition: all .2s ease-in-out;z-index: 20; margin-top: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.2)}
-.scroll_list .item:hover, .scroll_list .item.selected, .location-info .item:hover { margin-top: 0px; box-shadow: 0 4px 3px rgba(0,0,0,.6);}
+.scroll_list .item:hover, .scroll_list .item.selected, .location-info .item:hover { transform: translate(-1px, -4px); box-shadow: 0 4px 3px rgba(0,0,0,.6);}
 .scroll_list .item.selected, .location-info .item {border: solid 2px #000;}
 
 .scroll_list .item.new {text-align: center; padding: 20px; color: #fff; background: #000; transition: all .1s ease-in-out;}
