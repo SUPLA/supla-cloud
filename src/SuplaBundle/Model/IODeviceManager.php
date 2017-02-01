@@ -288,7 +288,12 @@ class IODeviceManager
 		
 		return $this->dev_rep->findOneBy(array('user' => $user, 'id' => intval($id)));
 	}
-	
+
+    /**
+     * @param int $id
+     * @param User $user
+     * @return IODeviceChannel|null
+     */
 	public function channelById($id, $user = null) 
 	{
 		if ( $user === null )
