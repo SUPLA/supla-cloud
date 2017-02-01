@@ -68,15 +68,6 @@ var app = new Vue({
     directives: {
         'schedule-chooser-once': {
             bind: function (element) {
-                // var time, date;
-                // var updateExpression = function () {
-                //     if (time && date) {
-                //         var timeParts = roundTime(time).split(':');
-                //         var dateParts = date.split(' ');
-                //         var cronExpression = [timeParts[1], timeParts[0], dateParts[0], dateParts[1], '*', dateParts[2]].join(' ');
-                //         app.updateCronExpression(cronExpression);
-                //     }
-                // };
                 var datepicker = $(element).find('.once-datepicker');
                 datepicker.datetimepicker({
                     minDate: 'now',
@@ -86,25 +77,9 @@ var app = new Vue({
                     sideBySide: true
                 });
                 datepicker.on("dp.change", function (e) {
-                    var cronExpression = moment(e.date).format('m h D M * Y');
+                    var cronExpression = moment(e.date).format('m H D M * Y');
                     app.updateCronExpression(cronExpression);
-                    // $('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
-                    // self.dateStart = moment(e.date ? e.date : undefined).startOf('minute').subtract(1, 'minute'); // minus to make it inclusive
-                    // self.updateCronExpression(self.cronExpression);
                 });
-                // $(element).find('.clockpicker').clockpicker().find('input').change(function () {
-                //     time = this.value = roundTime(this.value);
-                //     updateExpression();
-                // });
-                // $(element).find('.datepicker').datepicker({
-                //     language: LOCALE,
-                //     startDate: moment().toDate(),
-                //     format: 'd m yyyy'
-                // })
-                //     .on('changeDate', function () {
-                //         date = $(this).datepicker('getFormattedDate');
-                //         updateExpression();
-                //     });
             }
         },
         'schedule-chooser-minutely': {
@@ -149,8 +124,14 @@ var app = new Vue({
                         app.updateCronExpression(cronExpression);
                     }
                 }
-                $(element).find('.clockpicker').clockpicker().find('input').change(function () {
-                    time = this.value = roundTime(this.value);
+                $(element).find('.clockpicker').datetimepicker({
+                    minDate: 'now',
+                    format: 'LT',
+                    inline: true,
+                    locale: LOCALE,
+                    stepping: 5
+                }).on("dp.change", function (e) {
+                    time = moment(e.date).format('H:m');
                     updateExpression();
                 });
                 $(element).find('input[type=checkbox]').change(updateExpression);
