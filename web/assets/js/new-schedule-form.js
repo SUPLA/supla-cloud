@@ -154,7 +154,12 @@ var app = new Vue({
         channelFunctionMap: {},
         cronExpressionChangedInMeantime: false,
         dateStart: undefined,
-        dateEnd: undefined
+        dateEnd: undefined,
+        modeVariables: {
+            hourly: {
+                minute: 0
+            }
+        }
     },
     mounted: function () {
         this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
@@ -255,6 +260,9 @@ var app = new Vue({
             }).always(function () {
                 self.submitting = false;
             });
+        },
+        prepend0IfLessThan10: function(value) {
+            return value < 10 ? '0' + value : value;
         }
     }
 });
