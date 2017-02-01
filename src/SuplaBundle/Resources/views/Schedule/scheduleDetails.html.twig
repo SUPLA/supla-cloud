@@ -35,10 +35,11 @@
                                         <button class="btn btn-success" name="enable">
                                             {% trans %}Enable schedule{% endtrans %}
                                         </button>
-                                        <button class="btn btn-danger" name="delete">
-                                            {% trans %}Delete schedule{% endtrans %}
-                                        </button>
                                     {% endif %}
+                                    <button class="btn btn-danger" name="delete"
+                                            onclick="return confirm('{% trans %}Are you sure you want to delete the schedule?{% endtrans %}')">
+                                        {% trans %}Delete schedule{% endtrans %}
+                                    </button>
                                 </div>
                             </form>
                         </div>

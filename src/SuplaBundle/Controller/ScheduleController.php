@@ -166,11 +166,9 @@ class ScheduleController extends Controller
             } else if (isset($data['enable'])) {
                 $this->get('schedule_manager')->enable($schedule);
             } else if (isset($data['delete'])) {
-                if (!$schedule->getEnabled()) {
-                    $this->get('schedule_manager')->delete($schedule);
-                    $this->get('session')->getFlashBag()->add('success', array('title' => 'Success', 'message' => 'Schedule has been deleted'));
-                    return $this->redirectToRoute("_schedule_list");
-                }
+                $this->get('schedule_manager')->delete($schedule);
+                $this->get('session')->getFlashBag()->add('success', array('title' => 'Success', 'message' => 'Schedule has been deleted'));
+                return $this->redirectToRoute("_schedule_list");
             }
             return $this->redirectToRoute("_schedule_details", ['schedule' => $schedule->getId()]);
         }
