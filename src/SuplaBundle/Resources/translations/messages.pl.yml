@@ -250,9 +250,9 @@ Schedule: Harmonogram
 Schedules: Harmonogramy
 Create New Schedule: Stwórz nowy harmonogram
 No executions - schedule disabled: Brak wykonań - harmonogram wyłączony
-Enable: Włącz
-Disable: Wyłącz
-Delete: Usuń
+Enable schedule: Włącz harmonogram
+Disable schedule: Wyłącz harmonogram
+Delete schedule: Usuń harmonogram
 Executions: Wykonania
 Action: Akcja
 Subject: Podmiot
