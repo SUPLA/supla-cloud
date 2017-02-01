@@ -68,28 +68,18 @@ var app = new Vue({
     directives: {
         'schedule-chooser-once': {
             bind: function (element) {
-                var time, date;
-                var updateExpression = function () {
-                    if (time && date) {
-                        var timeParts = roundTime(time).split(':');
-                        var dateParts = date.split(' ');
-                        var cronExpression = [timeParts[1], timeParts[0], dateParts[0], dateParts[1], '*', dateParts[2]].join(' ');
-                        app.updateCronExpression(cronExpression);
-                    }
-                };
-                $(element).find('.clockpicker').clockpicker().find('input').change(function () {
-                    time = this.value = roundTime(this.value);
-                    updateExpression();
+                var datepicker = $(element).find('.once-datepicker');
+                datepicker.datetimepicker({
+                    minDate: 'now',
+                    locale: LOCALE,
+                    stepping: 5,
+                    inline: true,
+                    sideBySide: true
                 });
-                $(element).find('.datepicker').datepicker({
-                    language: LOCALE,
-                    startDate: moment().toDate(),
-                    format: 'd m yyyy'
-                })
-                    .on('changeDate', function () {
-                        date = $(this).datepicker('getFormattedDate');
-                        updateExpression();
-                    });
+                datepicker.on("dp.change", function (e) {
+                    var cronExpression = moment(e.date).format('m H D M * Y');
+                    app.updateCronExpression(cronExpression);
+                });
             }
         },
         'schedule-chooser-minutely': {
@@ -134,8 +124,14 @@ var app = new Vue({
                         app.updateCronExpression(cronExpression);
                     }
                 }
-                $(element).find('.clockpicker').clockpicker().find('input').change(function () {
-                    time = this.value = roundTime(this.value);
+                $(element).find('.clockpicker').datetimepicker({
+                    minDate: 'now',
+                    format: 'LT',
+                    inline: true,
+                    locale: LOCALE,
+                    stepping: 5
+                }).on("dp.change", function (e) {
+                    time = moment(e.date).format('H:m');
                     updateExpression();
                 });
                 $(element).find('input[type=checkbox]').change(updateExpression);
@@ -154,7 +150,12 @@ var app = new Vue({
         channelFunctionMap: {},
         cronExpressionChangedInMeantime: false,
         dateStart: undefined,
-        dateEnd: undefined
+        dateEnd: undefined,
+        modeVariables: {
+            hourly: {
+                minute: 0
+            }
+        }
     },
     mounted: function () {
         this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
@@ -168,39 +169,31 @@ var app = new Vue({
             var hue = this.value.match(/^hsv\(([0-9]+)/)[1]
             self.actionParam = hue;
         });
-        var updateStartDate = function () {
-            var time = roundTime($('.clockpicker-start').find('input').val()).split(':');
-            var date = $('.datepicker-start').datepicker('getDate');
-            self.dateStart = moment(date ? date : undefined).startOf('minute').set('hour', time[0]).set('minute', time[1]).subtract(1, 'minute'); // minus to make it inclusive
+        $('.datetimepicker-start').datetimepicker({
+            minDate: 'now',
+            locale: LOCALE,
+            stepping: 5
+        });
+        $('.datetimepicker-end').datetimepicker({
+            useCurrent: false,
+            locale: LOCALE,
+            stepping: 5
+        });
+        $(".datetimepicker-start").on("dp.change", function (e) {
+            $('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
+            self.dateStart = moment(e.date ? e.date : undefined).startOf('minute').subtract(1, 'minute'); // minus to make it inclusive
             self.updateCronExpression(self.cronExpression);
-        };
-        var updateEndDate = function () {
-            var date = $('.datepicker-end').datepicker('getDate');
-            if (date) {
-                var time = roundTime($('.clockpicker-end').find('input').val()).split(':');
-                self.dateEnd = moment(date ? date : undefined).startOf('minute').set('hour', time[0]).set('minute', time[1]);
+        });
+        $(".datetimepicker-end").on("dp.change", function (e) {
+            $('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
+            if (e.date) {
+                self.dateEnd = moment(e.date).startOf('minute');
             } else {
                 self.dateEnd = undefined;
             }
             self.updateCronExpression(self.cronExpression);
-        };
-        $('.clockpicker-start').clockpicker().find('input').change(updateStartDate).val(roundTime(moment().format('H:mm')));
-        $('.clockpicker-end').clockpicker().find('input').change(updateEndDate);
-        $('.datepicker-start, .datepicker-end').datepicker({
-            autoclose: true,
-            language: LOCALE,
-            startDate: moment().toDate()
         });
-        $('.datepicker-start').on('changeDate', function () {
-            updateStartDate();
-            $('.datepicker-end').datepicker('setStartDate', $(this).datepicker('getDate'));
-        });
-        $('.datepicker-end').on('changeDate', function () {
-            $('.datepicker-start').datepicker('setEndDate', $(this).datepicker('getDate'));
-        });
-        $('.datepicker-start').datepicker('update', moment().toDate());
-    }
-    ,
+    },
     methods: {
         chooseMode: function (mode) {
             this.scheduleMode = mode;
@@ -255,6 +248,9 @@ var app = new Vue({
             }).always(function () {
                 self.submitting = false;
             });
+        },
+        prepend0IfLessThan10: function (value) {
+            return value < 10 ? '0' + value : value;
         }
     }
 });

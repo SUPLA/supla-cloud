@@ -29,16 +29,17 @@
                                 <div class="btn-group">
                                     {% if schedule.enabled %}
                                         <button class="btn btn-default" name="disable">
-                                            {% trans %}Disable{% endtrans %}
+                                            {% trans %}Disable schedule{% endtrans %}
                                         </button>
                                     {% else %}
                                         <button class="btn btn-success" name="enable">
-                                            {% trans %}Enable{% endtrans %}
-                                        </button>
-                                        <button class="btn btn-danger" name="delete">
-                                            {% trans %}Delete{% endtrans %}
+                                            {% trans %}Enable schedule{% endtrans %}
                                         </button>
                                     {% endif %}
+                                    <button class="btn btn-danger" name="delete"
+                                            onclick="return confirm('{% trans %}Are you sure you want to delete the schedule?{% endtrans %}')">
+                                        {% trans %}Delete schedule{% endtrans %}
+                                    </button>
                                 </div>
                             </form>
                         </div>
