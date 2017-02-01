@@ -360,27 +360,35 @@ class RestController extends FOSRestController
     			case 'color':
     				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
     				
-    				if ( $value !== FALSE && array_key_exists('color', $value) )
-    					$value = array('color' => $value['color']);
+    				if ( $value !== FALSE && array_key_exists($value_type, $value) )
+    					$value = array('color' => $value[$value_type]);
     				
     				break;
     				
-    			case 'color-brightness':
+    			case 'color_brightness':
     				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
     				
-    				if ( $value !== FALSE && array_key_exists('color_brightness', $value) )
-    					$value = array('color_brightness' => $value['color_brightness']);
+    				if ( $value !== FALSE && array_key_exists($value_type, $value) )
+    					$value = array($value_type => $value[$value_type]);
     				
     				break;
     				
     			case 'brightness':
     				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
     				
-    				if ( $value !== FALSE && array_key_exists('brightness', $value) )
-    					$value = array('brightness' => $value['brightness']);
+    				if ( $value !== FALSE && array_key_exists($value_type, $value) )
+    					$value = array($value_type => $value[$value_type]);
     				
     				break;
-    						
+    			
+    			case 'distance':
+    				$value = $serverCtrl->get_distance_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				break;
+    				
+    			case 'depth':
+    				$value = $serverCtrl->get_depth_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				break;
+    					
     		}
     		
     		$serverCtrl->disconnect();
@@ -402,10 +410,10 @@ class RestController extends FOSRestController
     				$value = array('hi' => $value == '1' ? true : false);
     				break;
     			case 'temperature':
-    				$value = array('temperature' => $value);
-    				break;
     			case 'humidity':
-    				$value = array('humidity' => $value);
+    			case 'depth':
+    			case 'distance':
+    				$value = array($value_type => $value);
     				break;
     		}
     	   	
@@ -516,7 +524,7 @@ class RestController extends FOSRestController
     			SuplaConst::FNC_DIMMERANDRGBLIGHTING,
     	);
     
-    	return $this->getChannelValue($channelid, $compat, 'color-brightness');
+    	return $this->getChannelValue($channelid, $compat, 'color_brightness');
     
     }
     
@@ -531,6 +539,30 @@ class RestController extends FOSRestController
     	);
     
     	return $this->getChannelValue($channelid, $compat, 'brightness');
+    
+    }
+    
+    /**
+     * @Rest\Get("/channel/{channelid}/value/depth")
+     */
+    public function getChannelValueDepthAction(Request $request, $channelid)
+    {
+    
+    	$compat = array(SuplaConst::FNC_DEPTHSENSOR);
+    
+    	return $this->getChannelValue($channelid, $compat, 'depth');
+    
+    }
+    
+    /**
+     * @Rest\Get("/channel/{channelid}/value/distance")
+     */
+    public function getChannelValueDistanceAction(Request $request, $channelid)
+    {
+    
+    	$compat = array(SuplaConst::FNC_DISTANCESENSOR);
+    
+    	return $this->getChannelValue($channelid, $compat, 'distance');
     
     }
     

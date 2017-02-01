@@ -193,6 +193,10 @@ class ServerCtrl
       return $this->get_value('DOUBLE', $user_id, $iodev_id, $channel_id);
    }
    
+   function get_depth_value($user_id, $iodev_id, $channel_id) {
+   	return $this->get_value('DOUBLE', $user_id, $iodev_id, $channel_id);
+   }
+   
    function get_rgbw_value($user_id, $iodev_id, $channel_id) {
    	
    	   $value = $this->__get_value('RGBW', $user_id, $iodev_id, $channel_id);
