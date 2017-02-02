@@ -92,7 +92,7 @@ class UserManager
 			$this->aid_man->CreateID($user, true);
 		    $this->loc_man->CreateLocation($user, true);
 		    
-		    $user->setToken(null);
+		    $user->setToken('');
 			$user->setEnabled(true);
 
 			$this->Update($user);
