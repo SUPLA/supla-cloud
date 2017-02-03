@@ -83,6 +83,9 @@ class ScheduleController extends Controller
     {
         $data = $request->request->all();
         $channel = $this->get('iodevice_manager')->channelById($data['channel']);
+        if (!$request->isXmlHttpRequest() || !$channel) {
+            throw $this->createNotFoundException();
+        }
         $schedule = new Schedule();
         /** @var User $user */
         $user = $this->getUser();

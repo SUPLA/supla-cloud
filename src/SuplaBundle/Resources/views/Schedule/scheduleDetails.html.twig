@@ -24,7 +24,7 @@
                         {{ schedule.mode|trans|capitalize }}
                     </div>
                     <div class="col-md-6">
-                        <div class="text-right">
+                        <div class="form-group text-right">
                             <form action="" method="post">
                                 <div class="btn-group">
                                     {% if schedule.enabled %}
@@ -43,6 +43,13 @@
                                 </div>
                             </form>
                         </div>
+                        {% if schedule.channel.function in [20, 30] %}{# if gate #}
+                            <div class="form-group">
+                                <div class="alert alert-warning text-center">
+                                    {% trans %}A gate sensor must be available in order to execute the scheduled action.{% endtrans %}
+                                </div>
+                            </div>
+                        {% endif %}
                         {% if schedule.enabled %}
                             <h3 class="text-center">{{ 'Executions'|trans }}</h3>
                             <ul class="schedule-times">

@@ -46,6 +46,7 @@ class IoDeviceAttributesToStringExtension extends \Twig_Extension
         $text = 'To be executed';
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_SUCCESS) $text = 'Successful';
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_DEVICE_UNREACHABLE) $text = 'Device was unreachable';
+        if ($result === SuplaConst::ACTION_EXECUTION_RESULT_NO_SENSOR) $text = 'Disconnected sensor';
         return $this->container->get('translator')->trans($text);
     }
 

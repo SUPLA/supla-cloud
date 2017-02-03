@@ -83,7 +83,8 @@ class SuplaConst
 	
 	const ACTION_EXECUTION_RESULT_SUCCESS = 0;
 	const ACTION_EXECUTION_RESULT_DEVICE_UNREACHABLE = 1;
-	
+	const ACTION_EXECUTION_RESULT_NO_SENSOR = 2;
+
 	const typeStr = array(
 			1000 => 'TYPE_SENSORNO',
 			1010 => 'TYPE_SENSORNC',
@@ -140,5 +141,3 @@ class SuplaConst
 	);
 	
 }
-
-?>
