@@ -258,11 +258,6 @@ class IODeviceManager
 		];
 	}
 	
-	public function getFunctionsThatCanBeScheduled()
-	{
-		return array_keys($this->functionActionMap());
-	}
-	
 	public function actionStringMap()
 	{
 		return [

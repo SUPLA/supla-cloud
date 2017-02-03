@@ -1,7 +1,5 @@
 <?php
 /*
- src/SuplaBundle/Model/AccessIdManager.php
-
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -19,22 +17,46 @@
 
 namespace SuplaBundle\Model;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use SuplaBundle\Entity\User;
 
 class ScheduleManager
 {
+    /** @var Registry */
+    private $doctrine;
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var EntityRepository */
     private $scheduledExecutionsRepository;
+    /** @var IODeviceManager */
+    private $ioDeviceManager;
 
-    public function __construct($doctrine)
+    public function __construct($doctrine, IODeviceManager $ioDeviceManager)
     {
+        $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
         $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');
+        $this->ioDeviceManager = $ioDeviceManager;
+    }
+
+    public function getSchedulableChannels(User $user)
+    {
+        $schedulableFunctions = $this->getFunctionsThatCanBeScheduled();
+        $channels = $this->doctrine->getRepository('SuplaBundle:IODeviceChannel')->findBy(['user' => $user]);
+        $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
+            return in_array($channel->getFunction(), $schedulableFunctions);
+        });
+        return $schedulableChannels;
+    }
+
+    private function getFunctionsThatCanBeScheduled()
+    {
+        return array_keys($this->ioDeviceManager->functionActionMap());
     }
 
     public function generateScheduledExecutions(Schedule $schedule, $until = '+5days')

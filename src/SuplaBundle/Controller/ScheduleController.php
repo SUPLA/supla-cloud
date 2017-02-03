@@ -55,14 +55,8 @@ class ScheduleController extends Controller
      */
     public function newScheduleAction()
     {
-        /** @var User $user */
-        $user = $this->getUser();
-        $channels = $this->getDoctrine()->getRepository('SuplaBundle:IODeviceChannel')->findBy(['user' => $user]);
         $ioDeviceManager = $this->get('iodevice_manager');
-        $schedulableFunctions = $ioDeviceManager->getFunctionsThatCanBeScheduled();
-        $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
-            return in_array($channel->getFunction(), $schedulableFunctions);
-        });
+        $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
         $channelToFunctionsMap = [];
         foreach ($schedulableChannels as $channel) {
             $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
