@@ -74,6 +74,7 @@ services:
          class: SuplaBundle\Model\ScheduleManager
          arguments:
               doctrine: "@doctrine"
+              ioDeviceManager: '@iodevice_manager'
 
      server_list:
          class: SuplaBundle\Supla\ServerList

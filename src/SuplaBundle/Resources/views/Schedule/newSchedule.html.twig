@@ -117,7 +117,7 @@
                         <div class="well">
                             <h3 class="no-margin-top">{{ 'Action'|trans }}</h3>
                             <div class="form-group">
-                                <label>Podmiot</label>
+                                <label>{{ 'Subject'|trans }}</label>
                                 <select class="selectpicker form-control" data-live-search="true"
                                         data-live-search-placeholder="Filtruj" v-model="channel"
                                         @change="action = actionParam = undefined">
@@ -125,7 +125,7 @@
                                     {% for channel in userChannels %}
                                         <option value="{{ channel.id }}"
                                                 title="{{ channel.caption ?: channel.function|channelFunctionToString }} ({{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }})"
-                                                data-content="<img class='pull-right' height=60 src='{{ asset('assets/img/functions/') }}{{ channel.function }}.svg'><h4>{{ channel.caption ? channel.caption ~ " <span class='small text-muted'>(#{channel.function|channelFunctionToString})</span>" : (channel.function|channelFunctionToString) }}</h4><p>{{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }}</p>">
+                                                data-content="<img class='pull-right' height=60 src='{{ asset('assets/img/functions/') }}{{ channel.function }}.svg'><h4>{{ channel.function|channelFunctionToString }}{{ channel.caption ? " <span class='small text-muted'>(#{channel.caption})</span>" : '' }}</h4><p>{{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }}</p>">
                                             {{ channel.caption }}
                                         </option>
                                     {% endfor %}
