@@ -133,16 +133,4 @@ class DefaultController extends Controller
         		                    
         ));
     }
-    
-    /**
-     * @Route("/automation", name="_automation")
-     */
-    public function automationAction(Request $request)
-    {
-    
-    	 
-    	return $this->render('SuplaBundle:Default:automation.html.twig',
-    			array(
-    			));
-    }
 }
