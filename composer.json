@@ -12,6 +12,8 @@
     },
     "require": {
         "php": ">=5.5.9",
+        "ext-intl" : "*",
+        "ext-mbstring" : "*",
         "symfony/symfony": "3.1.*",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
@@ -26,7 +28,8 @@
         "friendsofsymfony/oauth-server-bundle": "^1.5",
         "mtdowling/cron-expression": "^1.1",
         "doctrine/doctrine-migrations-bundle": "^1.2",
-        "twig/extensions": "^1.4"
+        "twig/extensions": "^1.4",
+        "cocur/slugify": "^2.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

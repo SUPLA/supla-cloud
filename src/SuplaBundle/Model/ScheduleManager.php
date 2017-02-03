@@ -17,12 +17,13 @@
 
 namespace SuplaBundle\Model;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use SuplaBundle\Entity\User;
 
 class ScheduleManager
@@ -44,12 +45,31 @@ class ScheduleManager
         $this->ioDeviceManager = $ioDeviceManager;
     }
 
+    /** @return IODeviceChannel[] */
     public function getSchedulableChannels(User $user)
     {
         $schedulableFunctions = $this->getFunctionsThatCanBeScheduled();
         $channels = $this->doctrine->getRepository('SuplaBundle:IODeviceChannel')->findBy(['user' => $user]);
         $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
             return in_array($channel->getFunction(), $schedulableFunctions);
+        });
+        $slugify = new Slugify(['separator' => ' ']);
+        usort($schedulableChannels, function (IODeviceChannel $channelA, IODeviceChannel $channelB) use ($slugify) {
+            if ($channelA->getFunction() == $channelB->getFunction()) {
+                $captionA = $channelA->getCaption();
+                $captionB = $channelB->getCaption();
+                if (!$captionA) {
+                    return 1;
+                } else if (!$captionB) {
+                    return -1;
+                } else {
+                    return strcmp($slugify->slugify($captionA), $slugify->slugify($captionB));
+                }
+            } else {
+                $functionNameA = $this->ioDeviceManager->channelFunctionToString($channelA->getFunction());
+                $functionNameB = $this->ioDeviceManager->channelFunctionToString($channelB->getFunction());
+                return strcmp($slugify->slugify($functionNameA), $slugify->slugify($functionNameB));
+            }
         });
         return $schedulableChannels;
     }
