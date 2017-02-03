@@ -1,0 +1,7 @@
+{% extends 'SuplaBundle::layout.html.twig' %}
+
+{% block content %}
+
+<li {% if app.request.get('_route') == '_schedule_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_schedule_list') }}"><i class="pe-7s-key"></i><br /> {% trans %}Schedules{% endtrans %}</a></li>
+
+{% endblock %}

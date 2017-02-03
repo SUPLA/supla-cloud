@@ -8,8 +8,11 @@
 /bin/
 /composer.phar
 /vendor/
+/var/ 
 /web/bundles/
 trans_debug.sh
 update_db.sh
 clear_cache.sh
 diff.sh
+phpunit.xml.dist
+.idea/

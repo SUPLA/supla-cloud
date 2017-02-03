@@ -1,7 +1,5 @@
 /*
  cloud::details.js
- Przemyslaw Zygmunt <p.zygmunt@acsoftware.pl>
- Mateusz Major <mateuszmajor@me.com>
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -70,8 +68,6 @@ function loadAssignList() {
     });
    
 }
-
-
 
 function setEnabled(src_sel, dst_sel, detail_sel, enabled) {
 	
@@ -213,11 +209,14 @@ $(document).ready(function(){
 	
 		
 	$( "#overlay-assignments" ).click(function() {
-
 		loadAssignList();
-	
 		 $( ".overlay-assignments" ).addClass('overlay-open');
+		 	 $('body').attr('style', 'overflow: hidden');
+			 $( "#assign_type_cancel" ).click(function() {
+				$('body').attr('style', 'overflow: visible');
+			 });
 	});
+	
 	
 	$( "#overlay-delete" ).click(function() {
 		 $( ".overlay-delete" ).addClass

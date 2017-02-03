@@ -3,7 +3,8 @@
 security:
     # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
-        AppBundle\Entity\User: md5
+        SuplaBundle\Entity\User: md5
+        SuplaBundle\Entity\OAuth\User: md5
             
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
@@ -16,14 +17,26 @@ security:
     providers:
          supla_db_provider:
             entity:
-                class: AppBundle:User
-                property: email
+                class: SuplaBundle:User
+                property: email        
                 
+                  
                       
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
     firewalls:
-        
+    
+    
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+            
+        api:
+            pattern:    ^/api/
+            fos_oauth:  true
+            stateless:  true
+            anonymous:  false
+          
         css:
             pattern:  ^/assets
             security: false
@@ -88,6 +101,8 @@ security:
             logout:
                 path: /auth/logout
                 target: /auth/login
+                
+                           
                                             
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -99,3 +114,4 @@ security:
     # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
         #- { path: ^/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/api, role: [ IS_AUTHENTICATED_FULLY ], requires_channel: https  }

@@ -1,7 +1,5 @@
 /*
  cloud::iodev_item.js
- Przemyslaw Zygmunt <p.zygmunt@acsoftware.pl>
- Mateusz Major <mateuszmajor@me.com>
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -132,6 +130,15 @@ $(document).ready(function(){
 		$( ".overlay-delete" ).removeClass
 		( 'overlay-open' ); 
 	});
+	
+	
+	$( "#overlay-assignments" ).click(function() {
+		 $( ".overlay-assignments" ).addClass('overlay-open');
+	});
+	$( ".overlay-close" ).click(function() {
+		$( ".overlay-assignments" ).removeClass( 'overlay-open' );
+	});
+	
 	   
     
     $(".btn-enable").click(function() {  	

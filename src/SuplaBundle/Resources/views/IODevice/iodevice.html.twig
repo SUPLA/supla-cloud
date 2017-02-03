@@ -1,0 +1,151 @@
+{% extends 'SuplaBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="device-wrapper animated fadeIn" id="iodevice-detail" data-id="{{iodevice.id}}" data-item-path="{{ path('_iodev_item', {'id': iodevice.id}) }}">
+	<div class="container">
+	<a href="#0" class="cd-btn"><i class="pe-7s-help1"></i></a>
+		<div class="supla-route">
+			<div id="dot1" class="dot1 {%if iodevice.enabled == false%} red {% endif %}" data-id="{{ iodevice.id }}">
+			</div>
+			<div class="dot2 {% if iodevice.location.enabled == false %} red {% endif %}">
+			</div>
+			<div class="dot3 {% if aid_enabled == false %} red {% endif %}">
+			</div>
+		</div>
+		<div class="supla-route-info">
+			<div class="device">
+				<h3>{% trans %}Device{% endtrans %}</h3>
+				<div class="device-info">
+					<ul class="list-unstyled">
+						<li><strong>{{ iodevice.name }}</strong></li>
+						<li>GUID <strong>{{ iodevice.guidstring }}</strong></li>
+						<li>{% trans %}Registred{% endtrans %} <strong>{{ iodevice.regdate|date("d.m.Y H:i") }}</strong></li>
+						<li>{% trans %}Last connection{% endtrans %} <strong>{{ iodevice.lastconnected|date("d.m.Y H:i") }}</strong></li>
+						<li><div class="miniform">
+						<textarea id="comment_value" rows="2" cols="27" placeholder="{% trans %}Comment{% endtrans %}">{{iodevice.comment}}</textarea><button id="comment-save" data-preloader="set-comment-pl" class="btn btn-textarea"><br />&nbsp;&nbsp;&nbsp;{% trans %}SAVE{% endtrans %}&nbsp;&nbsp;&nbsp;</button>
+						<div class="btn btn-load btn-big" id="set-comment-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
+						</div></li>
+					</ul>
+					
+					<br />
+				<div data-preloader="set-enabled-pl" class="btn btn-default btn-enable" {%if iodevice.enabled == false%}style="display: none;"{%endif%}><strong>{% trans %}ENABLED{% endtrans %}</strong><br >{% trans %}CLICK TO DISABLE{% endtrans %}</div>
+				<div data-preloader="set-enabled-pl" class="btn btn-default btn-disable" {%if iodevice.enabled == true%}style="display: none;"{%endif%}><strong>{% trans %}DISABLED{% endtrans %}</strong><br >{% trans %}CLICK TO ENABLE{% endtrans %}</div> 
+				<div class="btn btn-load btn-big" id="set-enabled-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
+						
+					<div class="iodev_connection_state" data-id="{{ iodevice.id }}"><span class="unknown">unknown</span></div>
+					<a class="btn btn-default btn-trash" href="#" id="overlay-delete">{% trans %}DELETE{% endtrans %}</a>
+				</div>
+			</div>
+			<div class="location">
+				<h3>{% trans %}Location{% endtrans %}</h3>
+				<div class="location-info">
+					<a href="{{ path('_loc_item', {'id': iodevice.location.id}) }}" class="item nav-link {% if iodevice.location.enabled %}enable{% else %}disabled{% endif %}">
+					<span class="aid">ID<strong>{{ iodevice.location.id }}</strong></span> <br />
+					<span class="acaption">{% trans %}Caption{% endtrans %}<br />
+					<strong><span class="caption_value">{{ iodevice.location.caption }}</span></strong><br />
+					<span class="apassword">{% trans %}Password{% endtrans %}<br />
+					<strong><span class="password_value">{{ iodevice.location.password }}</span></strong><br />
+					{% if iodevice.location.enabled %}<span class="status">{% trans %}Enabled{% endtrans %}</span>{% else %}<span class="status disable">{% trans %}Disabled{% endtrans %}</span>{% endif %}
+					</a>
+					<a href="#" id="overlay-assignments">Zmień lokalizację</a>
+				</div>
+			</div>
+			<div class="accessid">
+				<h3>{% trans %}Access Identifier{% endtrans %}</h3>
+					<ul class="aid">
+					  {% for aid in iodevice.location.accessIds %}
+						 <li><a class="supla-tooltip nav-link {%if aid.enabled == false%}disabled{% endif %}" title="
+						 	&lt;a class&#61;&quot;details {%if aid.enabled == true%}enabled{% else %}disabled{% endif %}&quot; href&#61;&quot;{{ path('_aid_item', {'id': aid.id}) }}&quot;&gt;
+							&lt;span class&#61;&quot;id&quot;&gt;ID&lt;strong&gt;{{ aid.id }}&lt;/strong&gt;  &lt;/span&gt; &lt;br/ &gt;
+							&lt;div class&#61;&quot;details-wrapper&quot;&gt; {% trans %}Caption{% endtrans %} &lt;br/ &gt;
+							&lt;strong&gt;{{ aid.caption }}&lt;/strong&gt;&lt;br/ &gt;
+							{% trans %}Password{% endtrans %} &lt;br/ &gt;
+							&lt;strong&gt;{{ aid.password }}&lt;/strong&gt;&lt;/div&gt;
+							
+							&lt;br/ &gt;
+							
+							&lt;span class&#61;&quot;status&quot;&gt;{%if aid.enabled == true%}enabled{% else %}disabled{% endif %}&lt;/span&gt;
+							&lt;/a&gt;
+							" href="{{ path('_aid_item', {'id': aid.id}) }}">ID<strong>{{ aid.id }}</strong> {{ aid.caption }}</a></li>
+					  {% endfor %}
+				    </ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container margin-top-30 ">
+    <h1 class="title">{% trans %}Channels{% endtrans %}
+		<div class="pull-right filter-container">
+			<div id="filters" class="btn-group">
+			  <button class="btn btn-default active" data-filter="*">{% trans %}All{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".130, .140, .180, .190, .200">{% trans %}Electric{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".10, .20, .30, .20, .50, .60, .70, .90, .100">{% trans %}Doors, Gates{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".110, .120">{% trans %}Roller shutters{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".40, .42, .45, .80">{% trans %}Liquid, Temp{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".50, .60, .70, .80, .100, .120, .210, .220">{% trans %}Sensors{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".0">{% trans %}No function{% endtrans %}</button>
+			</div>
+		</div>
+	
+	</h1>
+</div>
+
+<div class="channels">
+	{% for  channel in channels %}
+	   <a class="element-item nav-link {{ channel.function_id }} {% if channel.function_id == '0' %} none {% endif %}" href="{{ path('_iodev_channel_item_edit', {'devid': iodevice.id, 'id': channel.id}) }}">
+	  		
+            <img src={{ asset('assets/img/functions/') }}{% if channel.function_is_openingsensor == true %}sensor{%else%}{{channel.function_id}}{%endif%}.svg>
+			
+			<h3>{{ channel.function }}</h3>
+			<div class="detials">
+				{% trans %}Channel{% endtrans %} <strong> {{ channel.number }}</strong> ({{channel.io}})<br />
+				{% trans %}Type{% endtrans %} <strong>{{ channel.type }}</strong>
+			</div>
+		 	
+			{% if channel.caption is not empty %}
+				<div class="caption">
+				{{ channel.caption }}
+				</div>
+			{% endif %}
+	   </a>
+	 {% endfor %}
+</div>
+
+
+<div class="overlay-delete overlay-data">
+	<div class="dialog">
+		<h1>{% trans %}Are you sure?{% endtrans %}</h1>
+		<p>{% set devname=iodevice.name %}{% trans %}Confirm if you want to remove <strong>%devname%</strong> device{% endtrans %}.</p>
+		<div class="controls">
+			<a href="#" class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
+			<a href="{{ path('_iodev_item_delete', {'id': iodevice.id}) }}" class="save"><i class="pe-7s-check"></i></a></div>
+		</div>
+	</form>
+</div>
+
+<!--Zmiana lokalizacji-->
+<div class="overlay overlay-data overlay-assignments">
+	<div class="overlay-title"><h1>Wybierz lokalizację</h1>
+	  <p>Wybierz nową lokalizację dla urządzenia <strong>{{ iodevice.name }}</strong></p></div>
+      <div class="overlay-list">
+		  <div class="assign-list"></div>
+	  </div>
+	  <div class="overlay-controls">
+    <div id="assign_type"><div>
+	<button type="button" id="assign_type_cancel" name="_assign_type[cancel]" class="overlay-close cancel">Anuluj</button></div>
+	<div><button type="submit" id="assign_type_save" name="_assign_type[save]" class="save pe-7s-check"></button></div></div>
+    </div>
+</div>
+
+<div class="cd-panel from-left">
+		<div class="cd-panel-container">
+			<div class="cd-panel-content">
+            {% include "SuplaBundle::Help/#{app.request.locale}/iodevicehelp.html.twig" %}
+			</div> <!-- cd-panel-content -->
+		</div> <!-- cd-panel-container -->
+	</div> <!-- cd-panel -->
+            
+<script src="{{ asset('assets/js/iodev_item.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'SuplaBundle::layout.html.twig' %}
+{% block content %}
+<div class="container margin-top-30 ">
+    <h1 class="title">{% trans %}I/O Devices{% endtrans %}<a href="#0" class="cd-btn"><i class="pe-7s-help1"></i></a>
+		<div class="pull-right filter-container">
+			<div id="filters" class="btn-group">
+			  <button class="btn btn-default active" data-filter="">{% trans %}All{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".disabled">{% trans %}Disabled{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".enabled">{% trans %}Enabled{% endtrans %}</button>
+			</div>
+			
+			<div id="filtersconnection" class="btn-group">
+			  <button class="btn btn-default active" data-filter="">{% trans %}All{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".connected">{% trans %}Connected{% endtrans %}</button>
+			  <button class="btn btn-default" data-filter=".disconnected">{% trans %}Disconnected{% endtrans %}</button>
+			</div>
+			
+			<input type="text" id="quicksearch" class="pull-right" placeholder="{% trans %}Search{% endtrans %}" />
+		</div>
+	
+	</h1>
+</div>
+
+<div class="devices">
+{% for dev in iodevices %}
+  	<a class="device nav-link {% if dev.enabled %}enabled{% else %}disabled{% endif %} " id="deviceitem" data-id="{{ dev.id }}" href="{{ path('_iodev_item', {'id': dev.id}) }}">
+    <h3 class="name">{{ dev.name }}</h3>
+    <span class="guid">{{ dev.guid }}</span><br />
+	<span class="software">{% trans %}SoftVer{% endtrans %} <strong>{{ dev.softwareversion }}</strong></span><br />
+	<span class="location">{% trans %}Location{% endtrans %} <strong>ID{{ dev.location.id }} {{ dev.location.caption }}</strong></span><br />
+	{% if dev.comment|default %}<div class="comment">{{ dev.comment }}</div><br />{% endif %}
+	<div class="iodev_connection_state status" data-id="{{ dev.id }}"><span class="unknown">{% trans %}unknown{% endtrans %}</span></div>
+  </a>
+{% endfor %}
+{% if iodevices.count < 3 %}
+<a class="device more" href="https://www.supla.org" target="_blank"><i class="pe-7s-light"></i><br /><span class="name">{% trans %}Lighting{% endtrans %}</span><p>{% trans %}With SUPLA you can operate the lights in your home or office{% endtrans %}</p></a>
+<a class="device more" href="https://www.supla.org" target="_blank"><img src={{ asset('assets/img/thermometer.svg') }}></img><br /><span class="name">{% trans %}Temperature{% endtrans %}</span><p>{% trans %}...you can monitor temperature{% endtrans %}</p></a>
+<a class="device more" href="https://www.supla.org" target="_blank"><img src={{ asset('assets/img/gate.svg') }}></img><br /><span class="name">{% trans %}Doors and gates{% endtrans %}</span><p>{% trans %}...open gateways, gates or doors{% endtrans %}</p></a>
+<a class="device more" href="https://www.supla.org" target="_blank"><img src={{ asset('assets/img/window-rollers.svg') }}></img><br /><span class="name">{% trans %}Roller shutters{% endtrans %}</span><p>{% trans %}...open and shut roller shutters{% endtrans %}</p></a>
+<a class="device more" href="https://www.supla.org" target="_blank"><i class="pe-7s-radio"></i><br /><span class="name">{% trans %}Home appliances{% endtrans %}</span><p>{% trans %}...or control home appliances{% endtrans %}</p></a>
+<a class="device more" href="https://www.supla.org" target="_blank"><i class="pe-7s-smile"></i><br /><span class="name">{% trans %}And more{% endtrans %}</span><p>{% trans %}All the above and many more can be done from your phone or tablet{% endtrans %}</p></a>
+<a class="device more" href="https://www.supla.org" target="_blank"><i class="pe-7s-plane"></i><br /><span class="name">{% trans %}From anywhere{% endtrans %}</span><p>{% trans %}SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time{% endtrans %} <strong>;)</strong></p></a>
+{% endif %}
+</div>
+
+<div class="cd-panel from-left">
+		<div class="cd-panel-container">
+			<div class="cd-panel-content">
+            {% include "SuplaBundle::Help/#{app.request.locale}/devlisthelp.html.twig" %}
+			</div> <!-- cd-panel-content -->
+		</div> <!-- cd-panel-container -->
+</div> <!-- cd-panel -->
+
+
+{% endblock %}

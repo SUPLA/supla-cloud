@@ -1,0 +1,150 @@
+{% extends 'SuplaBundle::layout.html.twig' %}
+
+{% block content %}<br>
+<div class="container" style="position: relative">
+<div class="restapi-wrapper">
+<svg version="1.1" id="api-settings" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1051 768" style="enable-background:new 0 0 1051 768;" xml:space="preserve">
+<style type="text/css">
+	.st0x{fill:none;stroke:#FFFFFF;stroke-width:1.0699;}
+	.st1x{fill:none;stroke:#FFFFFF;stroke-width:1.9971;}
+	.st2x{fill:none;stroke:#FFFFFF;stroke-width:1.9971;}
+	.st3x{fill:none;stroke:#FFFFFF;stroke-width:1.9479;}
+</style>
+
+<g>
+
+	<path class="st0x" d="M48.1,203.7h514 M562.1,272.9h-514 M48.2,342.3h514 M562.2,411.7h-514 M562.2,481.1h-514 M562.2,550.4h-514
+		 M562.2,619.8h-514"/>
+	<path class="st1x" d="M600.1,50.2H11"/>
+	<path class="st1x" d="M44.4,30.9c0,5.9-4.8,10.7-10.7,10.7S23,36.9,23,30.9s4.8-10.7,10.7-10.7S44.4,25,44.4,30.9z M64.6,20.2
+		c-5.9,0-10.7,4.8-10.7,10.7s4.8,10.7,10.7,10.7s10.7-4.8,10.7-10.7S70.6,20.2,64.6,20.2z M95.6,20.2c-5.9,0-10.7,4.8-10.7,10.7
+		s4.8,10.7,10.7,10.7c5.9,0,10.7-4.8,10.7-10.7S101.5,20.2,95.6,20.2z"/>
+	<path class="st1x" d="M594.5,575.4c-2.7,0-5-2.2-5-5V146c0-2.7,2.2-5,5-5h5.7V18.2c0-2.7-2.2-5-5-5H16c-2.7,0-5,2.2-5,5v727.2
+		c0,2.7,2.2,5,5,5h579.1c2.7,0,5-2.2,5-5v-170H594.5z"/>
+	<path class="st2x" d="M589.5,179.6v390.9c0,2.7,2.2,5,5,5h429.2c2.7,0,5-2.2,5-5V179.6H589.5z"/>
+	<path class="st1x" d="M622.9,161.3c0,5.9-4.8,10.7-10.7,10.7c-5.9,0-10.7-4.8-10.7-10.7c0-5.9,4.8-10.7,10.7-10.7
+		C618.1,150.6,622.9,155.4,622.9,161.3z M643.1,150.6c-5.9,0-10.7,4.8-10.7,10.7c0,5.9,4.8,10.7,10.7,10.7s10.7-4.8,10.7-10.7
+		C653.8,155.4,649,150.6,643.1,150.6z M674,150.6c-5.9,0-10.7,4.8-10.7,10.7c0,5.9,4.8,10.7,10.7,10.7c5.9,0,10.7-4.8,10.7-10.7
+		C684.8,155.4,680,150.6,674,150.6z"/>
+	<path class="st3x" d="M1028.7,179.6H589.5"/>
+	<path class="st1x" d="M594.5,141h429.2c2.7,0,5,2.2,5,5v424.4c0,2.7-2.2,5-5,5H594.5c-2.7,0-5-2.2-5-5V146
+		C589.5,143.3,591.7,141,594.5,141z"/>
+</g>
+</svg>
+
+
+
+		<div class="restapi">
+				<h2>RESTful API</h2>
+				<p>Autoryzacja OAuth 2.0</p>
+				
+				<div class="input-group">
+					<input type="text" class="form-control" id="server" value="{{ server }}" readonly>
+					<span class="input-group-btn">
+					   <button class="btn btn-default copy" type="button" data-id="server">copy</button>
+					</span>
+				</div>
+				<label for="server">{% trans %}Server{% endtrans %}</label>
+				
+				<div class="input-group">
+					<input type="text" class="form-control" id="token-url" value="{{ token_url }}" readonly>
+					<span class="input-group-btn">
+					   <button class="btn btn-default copy" type="button" data-id="token-url">copy</button>
+					</span>
+				</div>
+				
+				<label for="token-url">{% trans %}Token URL{% endtrans %}</label>
+				<div class="input-group">
+					<input type="text" class="form-control" id="clientid" value="{{ client.publicId }}" readonly>
+					<span class="input-group-btn">
+					   <button class="btn btn-default copy" type="button" data-id="clientid">copy</button>
+					</span>
+				</div>
+				<label for="clientid">{% trans %}ClientID{% endtrans %}</label>
+				
+				<div class="input-group">
+					<input type="text" class="form-control" id="secret" value="{{ client.secret }}" readonly>
+					<span class="input-group-btn">
+					   <button class="btn btn-default copy" type="button" data-id="secret">copy</button>
+					</span>
+				</div>
+				<label for="secret">{% trans %}Secret{% endtrans %}</label>
+				
+				<div class="input-group">
+					<input type="text" class="form-control" id="granttype" value="{{ client.grantType }}" readonly>
+					<span class="input-group-btn">
+					   <button class="btn btn-default copy" type="button" data-id="granttype">copy</button>
+					</span>
+				</div>
+				<label for="granttype">{% trans %}GrantType{% endtrans %}</label>
+				
+				<div class="input-group">
+					<input type="text" class="form-control" id="username" value="{{ api_user.username }}" readonly>
+					<span class="input-group-btn">
+					   <button class="btn btn-default copy" type="button" data-id="username">copy</button>
+					</span>
+				</div>
+				<label for="username">{% trans %}Username{% endtrans %}</label>
+				
+				<div class="input-group" style="margin: 4px 0 0px;">
+					<input type="password" class="form-control" id="password" value="123456789" disabled>
+					<span class="input-group-btn">
+						<a href="#" class="btn btn-default" id="overlay-delete">{% trans %}change{% endtrans %}</a>
+					</span>
+				</div>
+				<label for="password">{% trans %}Password{% endtrans %}</label>
+				
+				<br>
+				<br>
+			
+				<div data-preloader="set-enabled-pl" class="btn btn-default btn-enable" {%if api_user.enabled == false%}style="display: none;"{%endif%}><strong>{% trans %}ENABLED{% endtrans %}</strong><br >{% trans %}CLICK TO DISABLE{% endtrans %}</div>
+				<div data-preloader="set-enabled-pl" class="btn btn-default btn-disable" {%if api_user.enabled == true%}style="display: none;"{%endif%}><strong>{% trans %}DISABLED{% endtrans %}</strong><br >{% trans %}CLICK TO ENABLE{% endtrans %}</div> 
+
+				<br><br><br><p>
+				Client libraries and examples: <a href="https://github.com/SUPLA/restful-api" target="_blank">https://github.com/SUPLA/restful-api</a><br>
+				WikiDoc: <a href="https://github.com/SUPLA/restful-api/wiki" target="_blank">https://github.com/SUPLA/restful-api/wiki</a>
+				</p>
+				<div class="terminal"></div>
+				
+	</div>
+</div>
+<br><br>
+
+<div id="change_pwd_dialog" class="overlay-delete overlay-data unblur">
+	<div class="dialog">
+		<h1>{% trans %}Change Password{% endtrans %}</h1>
+		<div class="password-form">
+		
+			<div class="input-group">
+			  <input type="text" class="form-control" id="new-password">
+			  <span class="input-group-btn">
+				<button class="btn btn-default" id="generate-api_pwd" type="button">{% trans %}GENERATE{% endtrans %}</button>
+				<button class="btn btn-default copy" type="button" data-id="new-password">COPY</button>
+			  </span>
+			</div>
+			<label for="new-password" class="hidden">{% trans %}New password{% endtrans %}</label>
+		</div>
+		<div class="controls">
+			<a href="#" class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
+			<a href="#" data-path="{{ path('_api_ajax_changepassword') }}" id="apiuser_change_pwd_btn" class="save green"><i class="pe-7s-check"></i></a></div>
+		</div>
+	</form>
+</div>
+</div>
+<script>
+	var mySVG = $('#api-settings').drawsvg({
+	duration:3000
+	});
+	mySVG.drawsvg('animate');
+	$(function(){
+	$(".terminal").typed({
+	  strings: ["Witam Programisto! Z myślą o Tobie udostępniliśmy interfejs RESTful API dzięki, któremu możesz zintegrować własne rozwiązania IT z SUPLĄ."],
+	  typeSpeed: 0,
+	  startDelay: 10,
+	});
+});
+</script>
+<script src="{{ asset('assets/js/pGenerator.jquery.js') }}"></script>
+<script src="{{ asset('assets/js/apisettings.js') }}"></script>
+{% endblock %}

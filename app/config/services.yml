@@ -6,21 +6,20 @@ parameters:
 services:
 
      app.locale_listener:
-        class: AppBundle\EventListener\LocaleListener
+        class: SuplaBundle\EventListener\LocaleListener
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_subscriber }
-            
                         
      form.type.channelfunction:
-        class: AppBundle\Form\Type\ChannelFunctionType
+        class: SuplaBundle\Form\Type\ChannelFunctionType
         tags:
             - { name: form.type, alias: channelfunction }
         arguments:
              iodevice_manager: "@iodevice_manager"   
-            
+           
      supla_mailer:
-         class: AppBundle\Mailer\SuplaMailer        
+         class: SuplaBundle\Mailer\SuplaMailer        
          arguments:
               router: "@router"
               templating: "@templating"
@@ -28,64 +27,94 @@ services:
               mailer_from: %mailer_from%
               admin_email: %admin_email%
               supla_server: %supla_server%
-                    
+                                         
      user_manager:
-         class: AppBundle\Model\UserManager
+         class: SuplaBundle\Model\UserManager
          arguments:
               doctrine: "@doctrine" 
               encoder_factory: "@security.encoder_factory"
               accessid_manager: "@accessid_manager"
               location_manager: "@location_manager"
               
+     oauth_user_provider:
+         class: SuplaBundle\Provider\OAuth\UserProvider
+         arguments:
+              user_manager: "@api_manager" 
+              
      accessid_manager:
-         class: AppBundle\Model\AccessIdManager
+         class: SuplaBundle\Model\AccessIdManager
          arguments:
               translator: "@translator"
               doctrine: "@doctrine" 
               security_token: "@security.token_storage"
               
      location_manager:
-         class: AppBundle\Model\LocationManager
+         class: SuplaBundle\Model\LocationManager
          arguments:
               translator: "@translator"
               doctrine: "@doctrine" 
               security_token: "@security.token_storage"
               
      iodevice_manager:
-         class: AppBundle\Model\IODeviceManager
+         class: SuplaBundle\Model\IODeviceManager
          arguments:
               translator: "@translator"
               doctrine: "@doctrine" 
               security_token: "@security.token_storage"
               template: "@templating"
               
+     api_manager:
+         class: SuplaBundle\Model\APIManager
+         arguments:
+              doctrine: "@doctrine" 
+              encoder_factory: "@security.encoder_factory"
+              container: "@service_container"
+              
+     schedule_manager:
+         class: SuplaBundle\Model\ScheduleManager
+         arguments:
+              doctrine: "@doctrine"
+
      server_list:
-         class: AppBundle\Supla\ServerList
+         class: SuplaBundle\Supla\ServerList
          arguments: 
                  router: "@router"
                  user_manager: "@user_manager"
                  supla_server: %supla_server%
                  supla_server_list: %supla_server_list%
               
+        
      authentication_handler:
-        class: AppBundle\Handler\AuthHandler
-        calls:
-            - [ setContainer, [ @service_container ] ] 
-            
-            
+        class: SuplaBundle\Handler\AuthHandler
+        arguments:
+            entity_manager: "@doctrine.orm.entity_manager"
+            router: "@router"
+         
+               
      validator.supla.channel:
-        class: AppBundle\Validator\Constraints\ChannelValidator
+        class: SuplaBundle\Validator\Constraints\ChannelValidator
         tags:
             - { name: validator.constraint_validator, alias: channel_validator }
         arguments:
              iodevice_manager: "@iodevice_manager"     
              
      validator.supla.usernameexists:
-        class: AppBundle\Validator\Constraints\UsernameExistsValidator
+        class: SuplaBundle\Validator\Constraints\UsernameExistsValidator
         tags:
             - { name: validator.constraint_validator, alias: username_exists_validator }
         arguments:
              user_manager: "@user_manager"    
             
 
+     twig.extension.io_device_attributes_to_string:
+        class: SuplaBundle\Twig\IoDeviceAttributesToStringExtension
+        public: false
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+            
+     twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
 
