@@ -53,25 +53,24 @@ class ScheduleManager
         $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
             return in_array($channel->getFunction(), $schedulableFunctions);
         });
-        $slugify = new Slugify(['separator' => ' ']);
-        usort($schedulableChannels, function (IODeviceChannel $channelA, IODeviceChannel $channelB) use ($slugify) {
-            if ($channelA->getFunction() == $channelB->getFunction()) {
-                $captionA = $channelA->getCaption();
-                $captionB = $channelB->getCaption();
-                if (!$captionA) {
-                    return 1;
-                } else if (!$captionB) {
-                    return -1;
-                } else {
-                    return strcmp($slugify->slugify($captionA), $slugify->slugify($captionB));
-                }
-            } else {
-                $functionNameA = $this->ioDeviceManager->channelFunctionToString($channelA->getFunction());
-                $functionNameB = $this->ioDeviceManager->channelFunctionToString($channelB->getFunction());
-                return strcmp($slugify->slugify($functionNameA), $slugify->slugify($functionNameB));
-            }
-        });
-        return $schedulableChannels;
+        return $this->sortByFunctionNameAndCaption($schedulableChannels);
+    }
+
+    /** @return IODeviceChannel[] */
+    private function sortByFunctionNameAndCaption(array $schedulableChannels)
+    {
+        $slugify = new Slugify();
+        $channelsList = [];
+        foreach ($schedulableChannels as $channel) {
+            $sortKey = $slugify->slugify(implode(' ', [
+                $this->ioDeviceManager->channelFunctionToString($channel->getFunction()),
+                $channel->getCaption() ? $channel->getCaption() : 'zzzzzz', // Default zzzzz caption places the items without caption at the end. Lame, but works :-D
+                $channel->getId()
+            ]));
+            $channelsList[$sortKey] = $channel;
+        }
+        ksort($channelsList);
+        return array_values($channelsList);
     }
 
     private function getFunctionsThatCanBeScheduled()
