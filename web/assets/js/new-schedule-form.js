@@ -139,7 +139,7 @@ var app = new Vue({
         }
     },
     data: {
-        scheduleMode: undefined,
+        scheduleMode: 'once',
         cronExpression: '',
         channel: undefined,
         action: undefined,
