@@ -34,9 +34,12 @@ use Doctrine\ORM\Query;
 class RestController extends FOSRestController
 {
 	
-	const ERROR_CODE_NOTFOUND          = 1;
-	const ERROR_CODE_NOTALLOWED        = 2;
-	const ERROR_CODE_UNAVAILABLE       = 3;
+	const ERROR_CODE_NOTFOUND                     = 1;
+	const ERROR_CODE_NOTALLOWED                   = 2;
+	const ERROR_CODE_UNKNOWN_OR_UNAVAILABLE       = 3;
+	const ERROR_CODE_UNAUTHORIZED                 = 4;
+	const ERROR_CODE_OUTOFRANGE                   = 5;
+	
 	const RECORD_LIMIT_PER_REQUEST     = 5000;
 	
 	protected $user;
@@ -90,7 +93,7 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/server/info")
+     * @Rest\Get("/server-info")
      */
     public function getServerParamsAction(Request $request)
     {    	
@@ -158,9 +161,9 @@ class RestController extends FOSRestController
     } 
     
     /**
-     * @Rest\Get("/iodevice/{devid}/connected")
+     * @Rest\Get("/iodevices/{devid}/connected")
      */
-    public function getIODeviceConnectedAction(Request $request, $devid)
+    public function getIODevicesConnectedAction(Request $request, $devid)
     {
     	if ( ($result = $this->ioDeviceById($devid)) instanceof IODevice ) {
     		    		
@@ -173,9 +176,9 @@ class RestController extends FOSRestController
     }
         
     /**
-     * @Rest\Get("/iodevice/{devid}/enabled")
+     * @Rest\Get("/iodevices/{devid}/enabled")
      */
-    public function getIODeviceEnabledAction(Request $request, $devid)
+    public function getIODevicesEnabledAction(Request $request, $devid)
     {
     	
     	if ( ($result = $this->ioDeviceById($devid)) instanceof IODevice ) {
@@ -247,7 +250,7 @@ class RestController extends FOSRestController
     } 
     
     /**
-     * @Rest\Get("/channel/{channelid}/log/temp/count")
+     * @Rest\Get("/channels/{channelid}/log-temp-count")
      */
     public function getLogTempCountAction(Request $request, $channelid)
     {
@@ -292,7 +295,7 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/log/temp/items/{offset}/{limit}")
+     * @Rest\Get("/channels/{channelid}/log-temp-items/{offset}/{limit}")
      */
     public function getLogTempItemsAction(Request $request, $channelid, $offset, $limit)
     {
@@ -302,7 +305,7 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/log/temp-hum/count")
+     * @Rest\Get("/channels/{channelid}/log-temphum-count")
      */
     public function getLogTempHumCountAction(Request $request, $channelid)
     {
@@ -311,7 +314,7 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/log/temp-hum/items/{offset}/{limit}")
+     * @Rest\Get("/channels/{channelid}/log-temphum-items/{offset}/{limit}")
      */
     public function getLogTempHumItemsAction(Request $request, $channelid, $offset, $limit)
     {
@@ -357,6 +360,21 @@ class RestController extends FOSRestController
     				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
     				break;
     				
+    			case 'rgb':
+    				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
+    				
+    				if (  $value !== FALSE
+    					  && array_key_exists('color', $value)
+    					  && array_key_exists('color_brightness', $value) ) {
+    					
+
+    						$value = array('color' => $value['color'], 
+    								       'color_brightness' => $value['color_brightness']);
+    	
+    				}
+    				
+    				break;
+    				
     			case 'color':
     				$value = $serverCtrl->get_rgbw_value($result->getUser()->getId(), $result->getIoDevice()->getId(), $channelid);
     				
@@ -395,8 +413,8 @@ class RestController extends FOSRestController
  
     		if ( $value === FALSE ) {
     			 
-    			$error_code = RestController::ERROR_CODE_UNAVAILABLE;
-    			$error_msg = 'Channel is unavailable';
+    			$error_code = RestController::ERROR_CODE_UNKNOWN_OR_UNAVAILABLE;
+    			$error_msg = 'Unknown error or channel is unavailable';
     	
     			return $this->handleView($this->resultView(false, null, $error_code, $error_msg));
     			 
@@ -424,10 +442,54 @@ class RestController extends FOSRestController
     	
     }
     
+    private function setChannelValue($channelid, $compat, $value_type, $value) {
+    	 
+    	 
+    	if ( ($result = $this->channelById($channelid, $compat)) instanceof IODeviceChannel ) {
+    		 
+    		$serverCtrl = new ServerCtrl();
+    		
+    		$user_id = $this->getParentUser()->getId();
+    		
+    		if ( TRUE === $serverCtrl->oauth_authorize($user_id, 
+    				                                   $this->container->get('security.token_storage')->getToken()->getToken()) ) {
+    			
+    				switch($value_type) {
+    				   case 'char':
+    				       $result = $serverCtrl->set_char_value($user_id, $result->getIoDevice()->getId(), $channelid, $value);
+    				   break;             
+    				   case 'rgbw':
+    				   	   $result = $serverCtrl->set_rgbw_value($user_id, $result->getIoDevice()->getId(), $channelid, $value['color'], $value['color_brightness'], $value['brightness']);
+    				}        
+    				
+    				if ( $result !== TRUE ) {
+    
+    					$error_code = RestController::ERROR_CODE_UNKNOWN_OR_UNAVAILABLE;
+    					$error_msg = 'Unknown error or channel is unavailable';
+    						 
+    					return $this->handleView($this->resultView(false, null, $error_code, $error_msg));
+    				}
+    				                                   	
+    			
+    		} else {
+    			$error_code = RestController::ERROR_CODE_UNAUTHORIZED;
+    			$error_msg = 'Unauthorized';
+    			
+    			return $this->handleView($this->resultView(false, null, $error_code, $error_msg));
+    		}
+    		
+    			
+    		return $this->handleView($this->resultView(true, null));
+    	};
+    
+    	return $result;
+    	 
+    }
+    
     /**
-     * @Rest\Get("/channel/{channelid}/value/on")
+     * @Rest\Get("/channels/{channelid}/on")
      */
-    public function getChannelValueOnAction(Request $request, $channelid)
+    public function channelsGetOnAction(Request $request, $channelid)
     {
     	$compat = array(SuplaConst::FNC_POWERSWITCH, 
     			   SuplaConst::FNC_LIGHTSWITCH);
@@ -437,9 +499,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/hi")
+     * @Rest\Get("/channels/{channelid}/hi")
      */
-    public function getChannelValueHiAction(Request $request, $channelid)
+    public function channelsGetHiAction(Request $request, $channelid)
     {
     	$compat = array(SuplaConst::FNC_OPENINGSENSOR_GATEWAY,
 		    			SuplaConst::FNC_OPENINGSENSOR_GATE,
@@ -454,9 +516,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/temperature")
+     * @Rest\Get("/channels/{channelid}/temperature")
      */
-    public function getChannelValueTemperatureAction(Request $request, $channelid)
+    public function channelsGetTemperatureAction(Request $request, $channelid)
     {
     	$compat = array(SuplaConst::FNC_THERMOMETER,
     			SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
@@ -465,9 +527,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/humidity")
+     * @Rest\Get("/channels/{channelid}/humidity")
      */
-    public function getChannelValueHumidityAction(Request $request, $channelid)
+    public function channelsGetHumidityAction(Request $request, $channelid)
     {
     	$compat = array(SuplaConst::FNC_HUMIDITY,
     			SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
@@ -476,9 +538,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/temp-hum")
+     * @Rest\Get("/channels/{channelid}/temp-hum")
      */
-    public function getChannelValueTempHumAction(Request $request, $channelid)
+    public function channelsGetTempHumAction(Request $request, $channelid)
     {
     	$compat = array(SuplaConst::FNC_HUMIDITYANDTEMPERATURE);
     	
@@ -486,9 +548,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/rgbw")
+     * @Rest\Get("/channels/{channelid}/rgbw")
      */
-    public function getChannelValueRGBWAction(Request $request, $channelid)
+    public function channelsGetRGBWAction(Request $request, $channelid)
     {
     
     	$compat = array(SuplaConst::FNC_DIMMER,
@@ -501,9 +563,23 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/color")
+     * @Rest\Get("/channels/{channelid}/rgb")
      */
-    public function getChannelValueColorAction(Request $request, $channelid)
+    public function channelsGetRGBAction(Request $request, $channelid)
+    {
+    
+    	$compat = array(SuplaConst::FNC_RGBLIGHTING,
+    			SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+    	);
+    
+    	return $this->getChannelValue($channelid, $compat, 'rgb');
+    
+    }
+    
+    /**
+     * @Rest\Get("/channels/{channelid}/color")
+     */
+    public function getChannelColorAction(Request $request, $channelid)
     {
     
     	$compat = array(SuplaConst::FNC_RGBLIGHTING,
@@ -515,9 +591,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/color-brightness")
+     * @Rest\Get("/channels/{channelid}/color-brightness")
      */
-    public function getChannelValueColorBrightnessAction(Request $request, $channelid)
+    public function getChannelColorBrightnessAction(Request $request, $channelid)
     {
     
     	$compat = array(SuplaConst::FNC_RGBLIGHTING,
@@ -529,9 +605,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/brightness")
+     * @Rest\Get("/channels/{channelid}/brightness")
      */
-    public function getChannelValueBrightnessAction(Request $request, $channelid)
+    public function channelsGetBrightnessAction(Request $request, $channelid)
     {
     
     	$compat = array(SuplaConst::FNC_DIMMER,
@@ -543,9 +619,9 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/depth")
+     * @Rest\Get("/channels/{channelid}/depth")
      */
-    public function getChannelValueDepthAction(Request $request, $channelid)
+    public function getChannelDepthAction(Request $request, $channelid)
     {
     
     	$compat = array(SuplaConst::FNC_DEPTHSENSOR);
@@ -555,15 +631,189 @@ class RestController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/channel/{channelid}/value/distance")
+     * @Rest\Get("/channels/{channelid}/distance")
      */
-    public function getChannelValueDistanceAction(Request $request, $channelid)
+    public function channelsGetDistanceAction(Request $request, $channelid)
     {
     
     	$compat = array(SuplaConst::FNC_DISTANCESENSOR);
     
     	return $this->getChannelValue($channelid, $compat, 'distance');
     
+    }
+    
+    /**
+     * @Rest\Get("/channels/{channelid}/depth")
+     */
+    public function channelsGetDepthAction(Request $request, $channelid)
+    {
+    
+    	$compat = array(SuplaConst::FNC_DISTANCESENSOR);
+    
+    	return $this->getChannelValue($channelid, $compat, 'depth');
+    
+    }
+    
+    private function channelsSetRGBW($channelid, $compat, $color, $color_brightness, $brightness) {
+    	    	 
+    	if ( $color < 0
+    			|| $color > 0xffffff
+    			|| $color_brightness < 0
+    			|| $color_brightness > 100
+    			|| $brightness < 0
+    			|| $brightness > 100 ) {
+    	
+    				$error_code = RestController::ERROR_CODE_OUTOFRANGE;
+    				$error_msg = 'Value out of range';
+    				 
+    				return $this->handleView($this->resultView(false, null, $error_code, $error_msg));
+    	
+    	}
+    			 
+    	    			 
+    	$params = array('color' => $color,
+    					'color_brightness' => $color_brightness,
+    					'brightness' => $brightness
+    	);
+    			 
+    	return $this->setChannelValue($channelid, $compat, 'rgbw', $params);
+    			
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/rgbw")
+     */
+    public function channelsSetRGBWAction(Request $request, $channelid)
+    {
+    	$data = json_decode($request->getContent());
+    	
+    	$compat = array(SuplaConst::FNC_DIMMER,
+    			SuplaConst::FNC_RGBLIGHTING,
+    			SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+    			 
+    	);
+
+    	return $this->channelsSetRGBW($channelid, $compat, intval(@$data->color, 0), intval(@$data->color_brightness), intval(@$data->brightness));    
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/rgb")
+     */
+    public function channelsSetRGBAction(Request $request, $channelid)
+    {
+    	$data = json_decode($request->getContent());
+    	
+    	$compat = array(SuplaConst::FNC_RGBLIGHTING,
+    			SuplaConst::FNC_DIMMERANDRGBLIGHTING,
+    	
+    	);
+    
+    	return $this->channelsSetRGBW($channelid, $compat, intval(@$data->color, 0), intval(@$data->color_brightness), 0);
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/brightness")
+     */
+    public function channelsSetBrightnessAction(Request $request, $channelid)
+    {
+    	$data = json_decode($request->getContent());
+    	
+    	$compat = array(SuplaConst::FNC_DIMMER);
+    
+    	return $this->channelsSetRGBW($channelid, $compat, 0, 0, intval(@$data->brightness));
+    }
+
+    private function channelTurnOnOff($channelid, $on)
+    {
+    
+    	$compat = array(SuplaConst::FNC_POWERSWITCH,
+    			SuplaConst::FNC_LIGHTSWITCH
+    	);
+    
+    	return $this->setChannelValue($channelid, $compat, 'char', $on);
+    
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/turn-on")
+     */
+    public function channelTurnOnAction(Request $request, $channelid)
+    {
+    
+    	 return $this->channelTurnOnOff($channelid, 1);
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/turn-off")
+     */
+    public function channelTurnOffAction(Request $request, $channelid)
+    {
+    
+    	return $this->channelTurnOnOff($channelid, 0);
+    }
+    
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/open")
+     */
+    public function channelOpenAction(Request $request, $channelid)
+    {
+    	$compat = array(SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
+    			SuplaConst::FNC_CONTROLLINGTHEDOORLOCK,
+    			
+    	);
+    		
+    	return $this->setChannelValue($channelid, $compat, 'char', 1);
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/open-close")
+     */
+    public function channelOpenCloseAction(Request $request, $channelid)
+    {
+    	
+    	$compat = array(SuplaConst::FNC_CONTROLLINGTHEGATE,
+    			SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR,
+    			 
+    	);
+    
+    	return $this->setChannelValue($channelid, $compat, 'char', 1);
+    }
+    
+    private function channelShutRevealStop($channelid, $v)
+    {
+    
+    	$compat = array(SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER);
+    
+    	return $this->setChannelValue($channelid, $compat, 'char', $v);
+    
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/shut")
+     */
+    public function channelShutAction(Request $request, $channelid)
+    {
+    
+    	return $this->channelShutRevealStop($channelid, 1);
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/reveal")
+     */
+    public function channelRevealAction(Request $request, $channelid)
+    {
+    
+    	return $this->channelShutRevealStop($channelid, 2);
+    }
+    
+    /**
+     * @Rest\Post("/channels/{channelid}/stop")
+     */
+    public function channelStopAction(Request $request, $channelid)
+    {
+    
+    	return $this->channelShutRevealStop($channelid, 0);
     }
     
 }

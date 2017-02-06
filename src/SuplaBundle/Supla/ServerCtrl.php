@@ -77,6 +77,18 @@ class ServerCtrl
    	
    }
    
+   public function oauth_authorize($user_id, $access_token) {
+   	
+   	$result = false;
+   	
+   	if ( $this->connect() !== FALSE ) {
+   		$result = $this->command("OAUTH:".$access_token);	
+   	}
+   	 
+     return $result !== FALSE && preg_match("/^AUTH_OK:".$user_id."\n/", $result) === 1 ? TRUE : FALSE;
+   	 
+   }    
+   
    private function _iodevice_connected($user_id, $iodev_id) {
    
    	$iodev_id = intval($iodev_id, 0);
@@ -155,6 +167,32 @@ class ServerCtrl
    			
    }
    
+   private function set_value($type, $user_id, $iodev_id, $channel_id, $value) {
+   
+	   	$user_id = intval($user_id, 0);
+	   	$iodev_id = intval($iodev_id, 0);
+	   	$channel_id = intval($channel_id, 0);
+	   
+	   	 
+	   	if ( $user_id != 0
+	   			&& $iodev_id != 0
+	   			&& $channel_id != 0
+	   			&& $this->connect() !== FALSE ) {
+	   
+	   				$result = $this->command("SET-".$type."-VALUE:".$user_id.",".$iodev_id.",".$channel_id.",".$value);
+	   				
+	   				
+	   				if ( $result !== FALSE
+	   						&& preg_match("/^OK:/", $result) === 1 ) {
+	   							return TRUE;
+	   						}
+	   
+	   	}
+	   				
+	   	return FALSE;
+   
+   }
+   
    private function get_value($type, $user_id, $iodev_id, $channel_id) {
    
    	    $result = $this->__get_value($type, $user_id, $iodev_id, $channel_id);
@@ -215,6 +253,34 @@ class ServerCtrl
    	   }
    	   
    	   return false;
+   }
+   
+   function set_char_value($user_id, $iodev_id, $channel_id, $char) {
+   	
+	   	$char = intval($char, 0);
+	   	
+	   	if ( $char < 0 || $char > 255 )
+	   		$char = 0;
+	   	
+	   	return $this->set_value('CHAR', $user_id, $iodev_id, $channel_id, $char);
+   }
+   
+   function set_rgbw_value($user_id, $iodev_id, $channel_id, $color, $color_brightness, $brightness) {
+   
+	   	$color = intval($color, 0x00FF00);
+	   	$color_brightness = intval($color_brightness, 0);
+	   	$brightness = intval($brightness, 0);
+	   
+	   	if ( $color_brightness < 0 || $color_brightness > 255 )
+	   		$color_brightness = 0;
+	   	
+	   	if ( $brightness < 0 || $brightness > 255 )
+	   		$brightness = 0;
+	   	
+	   	if ( $color < 0 || $color > 0xffffff )
+	   		$color = 0x00FF00;
+   
+   		return $this->set_value('RGBW', $user_id, $iodev_id, $channel_id, $color.','.$color_brightness.','.$brightness);
    }
    
 }
