@@ -190,7 +190,7 @@
 								<a class="lng_switch" data-lng="de" href="#"><img src={{ asset('assets/img/flags/de.svg') }}></a>
 							</li>
 							<li class="divider"></li>
-							<li class="bottom"><a class="nav-link" href="{{ path('_api_settings') }}">{% trans %}RESTful API{% endtrans %}</a><a id="black" href="{{ path('_auth_logout') }}">{% trans %}Sign Out{% endtrans %}</a></li>
+							<li class="bottom"><a class="nav-link" href="{{ path('_api_settings') }}">{% trans %}RESTful API{% endtrans %}</a><a id="logout" href="{{ path('_auth_logout') }}">{% trans %}Sign Out{% endtrans %}</a></li>
 						</ul>
 				  	</li>
 				</ul>
@@ -203,7 +203,26 @@
         {% block content %}{% endblock %}
  	</div>
 
-    {% block scripts %}{% endblock %}
+	{% if app.user %}
+		<div class="modal fade" id="idleWarningModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">{% trans %}You will be logged out in a moment{% endtrans %}</h4>
+					</div>
+					<div class="modal-body">
+						<p>{% trans %}If you want to stay here, do something!{% endtrans %}</p>
+						<div class="progress">
+							<div class="progress-bar progress-bar-success progress-bar-striped active"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<script src="{{ asset('assets/js/idle-logout.js') }}"></script>
+	{% endif %}
+
+	{% block scripts %}{% endblock %}
     </body>
 </html>
