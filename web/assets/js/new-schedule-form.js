@@ -35,8 +35,13 @@ var app = new Vue({
             methods: {
                 editTimezone: function () {
                     this.editingTimezone = true;
+                    var self = this;
+                    setTimeout(function () {
+                        $(self.$refs.timezoneDropdown).selectpicker({liveSearch: true});
+                    });
                 },
                 chooseTimezone: function () {
+                    $(this.$refs.timezoneDropdown).selectpicker('destroy');
                     this.editingTimezone = false;
                     moment.tz.setDefault(this.userTimezone);
                     $.ajax({
