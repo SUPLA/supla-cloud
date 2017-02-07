@@ -35,8 +35,13 @@ var app = new Vue({
             methods: {
                 editTimezone: function () {
                     this.editingTimezone = true;
+                    var self = this;
+                    setTimeout(function () {
+                        $(self.$refs.timezoneDropdown).selectpicker({liveSearch: true});
+                    });
                 },
                 chooseTimezone: function () {
+                    $(this.$refs.timezoneDropdown).selectpicker('destroy');
                     this.editingTimezone = false;
                     moment.tz.setDefault(this.userTimezone);
                     $.ajax({
@@ -199,9 +204,6 @@ var app = new Vue({
             this.scheduleMode = mode;
             this.nextRunDates = [];
             this.cronExpression = '';
-            if (!this.dateStart) {
-                this.dateStart = moment();
-            }
         },
         updateCronExpression: function (cronExpression) {
             var self = this;
@@ -239,7 +241,7 @@ var app = new Vue({
                 actionParam: this.actionParam,
                 mode: this.scheduleMode,
                 channel: this.channel,
-                dateStart: this.dateStart ? this.dateStart.format() : '',
+                dateStart: (this.dateStart || moment()).format(),
                 dateEnd: this.dateEnd ? this.dateEnd.format() : ''
             }).done(function (schedule) {
                 window.location.href = BASE_URL + 'schedule/' + schedule.id;

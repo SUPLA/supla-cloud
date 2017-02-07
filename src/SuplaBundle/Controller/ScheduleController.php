@@ -121,7 +121,11 @@ class ScheduleController extends Controller
         $temporarySchedule = new Schedule();
         $temporarySchedule->setUser($this->getUser());
         $temporarySchedule->setCronExpression($data['cronExpression']);
-        $temporarySchedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
+        $dateStart = \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']);
+        if (!$dateStart) {
+            $dateStart = new \DateTime();
+        }
+        $temporarySchedule->setDateStart($dateStart);
         $temporarySchedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
         $nextRunDates = $this->get('schedule_manager')->getNextRunDates($temporarySchedule, '+7days', 3);
         return new JsonResponse([
