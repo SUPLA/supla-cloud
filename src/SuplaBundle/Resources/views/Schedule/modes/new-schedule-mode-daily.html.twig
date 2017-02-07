@@ -1,48 +1,80 @@
-<div class="row" v-schedule-chooser-daily>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>{{ 'Hour'|trans }}</label>
-            <div class="clockpicker"></div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>{{ 'Weekdays'|trans }}</label>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="1"> {{ 'Mondays'|trans }}
-                </label>
+<schedule-chooser-daily inline-template>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="btn-group btn-group-sm btn-group-justified">
+                    <a class="btn btn-default" @click="hourChooseMode = 'normal'"
+                       v-bind:class="{'active btn-success': hourChooseMode == 'normal'}">{{ 'Chosen hour'|trans }}</a>
+                    <a class="btn btn-default" @click="hourChooseMode = 'sun'"
+                       v-bind:class="{'active btn-success': hourChooseMode == 'sun'}">{{ 'Sunrise / Sunset'|trans }}</a>
+                </div>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="2"> {{ 'Tuesdays'|trans }}
-                </label>
+            <div class="form-group" v-show="hourChooseMode == 'normal'">
+                <div class="clockpicker"></div>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="3"> {{ 'Wednesdays'|trans }}
-                </label>
+            <div class="form-group" v-show="hourChooseMode == 'sun'">
+                <span class="input-group">
+                    <input type="number" class="form-control" step="5" min="0" max="200" maxlength="2"
+                           v-model="sunMinute" @change="updateExpression()">
+                    <span class="input-group-addon">
+                        {{ 'minutes'|trans }}
+                    </span>
+                </span>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="4"> {{ 'Thursdays'|trans }}
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="5"> {{ 'Fridays'|trans }}
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="6"> {{ 'Saturdays'|trans }}
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="7"> {{ 'Sundays'|trans }}
-                </label>
+            <div class="form-group">
+                <div class="text-right">
+                    <div class="btn-group">
+                        <a class="btn btn-default" @click="sunBefore = !sunBefore; updateExpression()" v-bind:disabled="!sunMinute">
+                            <span v-show="sunBefore">{{ 'before'|trans }}</span>
+                            <span v-show="!sunBefore">{{ 'after'|trans }}</span>
+                        </a>
+                        <a class="btn btn-default" @click="sunrise = !sunrise; updateExpression()">
+                            <span v-show="sunrise">{{ 'sunrise'|trans }}</span>
+                            <span v-show="!sunrise">{{ 'sunset'|trans }}</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>{{ 'Weekdays'|trans }}</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="1"> {{ 'Mondays'|trans }}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="2"> {{ 'Tuesdays'|trans }}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="3"> {{ 'Wednesdays'|trans }}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="4"> {{ 'Thursdays'|trans }}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="5"> {{ 'Fridays'|trans }}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="6"> {{ 'Saturdays'|trans }}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="7"> {{ 'Sundays'|trans }}
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</schedule-chooser-daily>
