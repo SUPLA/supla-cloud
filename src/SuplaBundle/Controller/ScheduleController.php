@@ -90,7 +90,7 @@ class ScheduleController extends Controller
         $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
         $schedule->setMode($data['mode']);
-        $schedule->setCronExpression($data['cronExpression']);
+        $schedule->setTimeExpression($data['cronExpression']);
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         if ($user->isLimitScheduleExceeded()) {
             $errors[] = 'Schedule limit has been exceeded';
@@ -120,7 +120,7 @@ class ScheduleController extends Controller
         }
         $temporarySchedule = new Schedule();
         $temporarySchedule->setUser($this->getUser());
-        $temporarySchedule->setCronExpression($data['cronExpression']);
+        $temporarySchedule->setTimeExpression($data['cronExpression']);
         $dateStart = \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']);
         if (!$dateStart) {
             $dateStart = new \DateTime();

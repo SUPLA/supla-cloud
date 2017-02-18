@@ -18,7 +18,7 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase
     public function testCalculatingRunDatesUntil()
     {
         $schedule = new ScheduleWithTimezone();
-        $schedule->setCronExpression('*/5 * * * *');
+        $schedule->setTimeExpression('*/5 * * * *');
         $runDates = array_map(function (\DateTime $d) {
             return $d->getTimestamp();
         }, $this->planner->calculateNextRunDatesUntil($schedule, '2017-01-02 00:00', '2017-01-01 00:00'));
@@ -34,7 +34,7 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase
     public function testCalculatingRunDatesUntilIfTheFirstOneIsLater()
     {
         $schedule = new ScheduleWithTimezone();
-        $schedule->setCronExpression('23 11 5 12 * 2089');
+        $schedule->setTimeExpression('23 11 5 12 * 2089');
         $runDates = array_map(function (\DateTime $d) {
             return $d->getTimestamp();
         }, $this->planner->calculateNextRunDatesUntil($schedule, '2017-01-01 00:00'));
@@ -45,7 +45,7 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase
     public function testCalculatingRunDatesUntilDoesNotThrowAnErrorIfNoMoreDates()
     {
         $schedule = new ScheduleWithTimezone();
-        $schedule->setCronExpression('23 11 5 12 * 2089');
+        $schedule->setTimeExpression('23 11 5 12 * 2089');
         $runDates = array_map(function ($d) {
             return $d->getTimestamp();
         }, $this->planner->calculateNextRunDatesUntil($schedule, '2099-01-01 00:00'));
@@ -56,7 +56,7 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase
     public function testCalculatingManyDates()
     {
         $schedule = new ScheduleWithTimezone();
-        $schedule->setCronExpression('*/5 * * * *');
+        $schedule->setTimeExpression('*/5 * * * *');
         $dates = $this->planner->calculateNextRunDatesUntil($schedule, '+5 days');
         $this->assertGreaterThan(1000, count($dates));
     }

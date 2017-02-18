@@ -45,10 +45,10 @@ class Schedule
     private $user;
 
     /**
-     * @ORM\Column(name="cron_expression", type="string", length=100, nullable=false)
+     * @ORM\Column(name="time_expression", type="string", length=100, nullable=false)
      * @Assert\Length(max=100)
      */
-    private $cronExpression;
+    private $timeExpression;
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel")
@@ -120,17 +120,17 @@ class Schedule
     /**
      * @return mixed
      */
-    public function getCronExpression()
+    public function getTimeExpression()
     {
-        return $this->cronExpression;
+        return $this->timeExpression;
     }
 
     /**
-     * @param mixed $cronExpression
+     * @param mixed $timeExpression
      */
-    public function setCronExpression($cronExpression)
+    public function setTimeExpression($timeExpression)
     {
-        $this->cronExpression = $cronExpression;
+        $this->timeExpression = $timeExpression;
     }
 
     /**

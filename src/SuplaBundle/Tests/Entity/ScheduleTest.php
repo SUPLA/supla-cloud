@@ -8,7 +8,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
     public function testSettingTheCronExpression()
     {
         $schedule = new Schedule();
-        $schedule->setCronExpression('* * * * * *');
-        $this->assertEquals('* * * * * *', $schedule->getCronExpression());
+        $schedule->setTimeExpression('* * * * * *');
+        $this->assertEquals('* * * * * *', $schedule->getTimeExpression());
     }
 }

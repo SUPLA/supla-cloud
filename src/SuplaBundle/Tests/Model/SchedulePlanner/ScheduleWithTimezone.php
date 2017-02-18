@@ -13,7 +13,7 @@ class ScheduleWithTimezone extends Schedule
         $user->setTimezone($timezone);
         $this->setUser($user);
         if ($timeSpec) {
-            $this->setCronExpression($timeSpec);
+            $this->setTimeExpression($timeSpec);
         }
     }
 }

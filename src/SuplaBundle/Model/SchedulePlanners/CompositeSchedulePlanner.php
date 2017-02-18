@@ -25,7 +25,7 @@ class CompositeSchedulePlanner
                 return $planner->calculateNextRunDate($schedule, $currentDate);
             }
         }
-        throw new RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. Expression: {$schedule->getCronExpression()}");
+        throw new RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. Expression: {$schedule->getTimeExpression()}");
     }
 
     /**

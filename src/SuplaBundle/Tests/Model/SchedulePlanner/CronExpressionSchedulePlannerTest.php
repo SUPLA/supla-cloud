@@ -13,7 +13,7 @@ class CronExpressionSchedulePlannerTest extends \PHPUnit_Framework_TestCase
     {
         $schedulePlanner = new CronExpressionSchedulePlanner();
         $schedule = new Schedule();
-        $schedule->setCronExpression($cronExpression);
+        $schedule->setTimeExpression($cronExpression);
         $format = 'Y-m-d H:i';
         $startDate = \DateTime::createFromFormat($format, $startDate);
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
@@ -41,7 +41,7 @@ class CronExpressionSchedulePlannerTest extends \PHPUnit_Framework_TestCase
     {
         $schedulePlanner = new CronExpressionSchedulePlanner();
         $schedule = new Schedule();
-        $schedule->setCronExpression($invalidCronExpression);
+        $schedule->setTimeExpression($invalidCronExpression);
         $this->assertFalse($schedulePlanner->canCalculateFor($schedule));
     }
 

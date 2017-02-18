@@ -13,8 +13,8 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner
     /** @inheritdoc */
     public function calculateNextRunDate(Schedule $schedule, \DateTime $currentDate)
     {
-        $cron = CronExpression::factory($this->getEveryMinuteCronExpression($schedule->getCronExpression()));
-        preg_match(self::SPECIFICATION_REGEX, $schedule->getCronExpression(), $matches);
+        $cron = CronExpression::factory($this->getEveryMinuteCronExpression($schedule->getTimeExpression()));
+        preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression(), $matches);
         $calculateFromDate = $currentDate;
         if (!$cron->isDue($currentDate)) {
             $calculateFromDate = $cron->getNextRunDate($currentDate);
@@ -43,6 +43,6 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner
 
     public function canCalculateFor(Schedule $schedule)
     {
-        return !!preg_match(self::SPECIFICATION_REGEX, $schedule->getCronExpression());
+        return !!preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression());
     }
 }
