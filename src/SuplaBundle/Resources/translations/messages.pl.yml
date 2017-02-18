@@ -314,6 +314,8 @@ If you want to stay here, do something!: Jeśli chcesz tu zostać, zrób coś!
 
 before: przed
 after: po
-sunrise: wschodem
-sunset: zachodem
+sunrise-before: wschodem
+sunset-before: zachodem
+sunrise-after: wschodzie
+sunset-after: zachodzie
 Sunrise / Sunset: Wschód / Zachód
