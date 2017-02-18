@@ -16,7 +16,7 @@
         <div class="row margin-top-20" id="new-schedule-form" style="display: none">
             <div class="col-xs-12">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label>{% trans %}Schedule mode{% endtrans %}</label>
                             <div class="clearfix"></div>
@@ -29,30 +29,6 @@
                                     </button>
                                 {% endfor %}
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="alert alert-warning">
-                            <timezone-chooser inline-template>
-                                <div>
-                                    <div v-if="!editingTimezone">
-                                        {% trans %}Your timezone{% endtrans %}: <strong>${ userTimezone }</strong>
-                                        <a @click="editTimezone()">{{ 'change'|trans }}</a>
-                                    </div>
-                                    <div v-if="editingTimezone">
-                                        <label>{% trans %}Choose your timezone{% endtrans %}</label>
-                                        <select v-model="userTimezone" ref="timezoneDropdown" class="form-control"
-                                                @change="chooseTimezone()">
-                                            <option v-for="timezone in getAvailableTimezones()"
-                                                    v-bind:value="timezone.name">
-                                                ${ timezone.name }
-                                                (UTC${timezone.offset >= 0 ? '+' : ''}${timezone.offset})
-                                                ${ timezone.currentTime }
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </timezone-chooser>
                         </div>
                     </div>
                 </div>
@@ -178,11 +154,6 @@
     <link rel="stylesheet" href="{{ asset('assets/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/spectrum-colorpicker/spectrum.min.css') }}">
     <style type="text/css">
-        .bootstrap-select li.active a {
-            background: #A0FFA0 !important;
-            color: inherit !important;
-        }
-
         .sp-picker-container .sp-color {
             display: none;
         }
@@ -208,6 +179,15 @@
         var BASE_URL = '{{ path('_homepage') }}';
         var LOCALE = '{{ app.request.locale }}';
         var TIMEZONE = '{{ app.user.timezone }}';
+        {% if not app.user.timezone %}
+        TIMEZONE = moment.tz.guess();
+        moment.tz.setDefault(TIMEZONE);
+        $.ajax({
+            method: 'PUT',
+            data: {timezone: TIMEZONE},
+            url: BASE_URL + 'account/user-timezone'
+        })
+        {% endif %}
         moment.locale(LOCALE);
         moment.tz.setDefault(TIMEZONE);
         var CHANNEL_FUNCTION_MAP = {{ (channelToFunctionsMap|json_encode|raw) }};

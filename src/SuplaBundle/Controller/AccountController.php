@@ -19,7 +19,9 @@
 
 namespace SuplaBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use SuplaBundle\Form\Type\ChangePasswordType;
@@ -37,6 +39,7 @@ use SuplaBundle\Supla\ServerList;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * @Route("/account")
@@ -361,6 +364,22 @@ class AccountController extends Controller
     	return AjaxController::jsonResponse($exists !== null, array('exists' => $exists));
     			 
     }
-    
-   
+
+    /**
+     * @Route("/user-timezone")
+     * @Method("PUT")
+     */
+    public function updateUserTimezoneAction(Request $request)
+    {
+        $data = $request->request->all();
+        try {
+            $timezone = new \DateTimeZone($data['timezone']);
+            /** @var UserManager $userManager */
+            $userManager = $this->get('user_manager');
+            $userManager->updateTimeZone($this->getUser(), $timezone);
+            return new JsonResponse(true);
+        } catch (\Exception $e) {
+            throw new BadRequestHttpException();
+        }
+    }
 }

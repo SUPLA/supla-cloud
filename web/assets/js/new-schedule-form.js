@@ -16,59 +16,6 @@ var app = new Vue({
     el: '#new-schedule-form',
     delimiters: ['${', '}'], // defaults conflict with twig delimiters, http://stackoverflow.com/a/33935750/878514
     components: {
-        'timezone-chooser': {
-            data: function () {
-                return {
-                    editingTimezone: false,
-                    userTimezone: undefined
-                };
-            },
-            mounted: function () {
-                if (TIMEZONE) {
-                    this.userTimezone = TIMEZONE;
-                    moment.tz.setDefault(this.userTimezone);
-                } else {
-                    this.userTimezone = moment.tz.guess();
-                    this.chooseTimezone();
-                }
-            },
-            methods: {
-                editTimezone: function () {
-                    this.editingTimezone = true;
-                    var self = this;
-                    setTimeout(function () {
-                        $(self.$refs.timezoneDropdown).selectpicker({liveSearch: true});
-                    });
-                },
-                chooseTimezone: function () {
-                    $(this.$refs.timezoneDropdown).selectpicker('destroy');
-                    this.editingTimezone = false;
-                    moment.tz.setDefault(this.userTimezone);
-                    $.ajax({
-                        method: 'PUT',
-                        data: {timezone: this.userTimezone},
-                        url: BASE_URL + 'schedule/user-timezone'
-                    })
-                },
-                getAvailableTimezones: function () {
-                    return moment.tz.names().filter(function (timezone) {
-                        return timezone.match(/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//);
-                    }).map(function (timezone) {
-                        return {
-                            name: timezone,
-                            offset: moment.tz(timezone).utcOffset() / 60,
-                            currentTime: moment.tz(timezone).format('H:mm')
-                        }
-                    }).sort(function (timezone1, timezone2) {
-                        if (timezone1.offset == timezone2.offset) {
-                            return timezone1.name < timezone2.name ? -1 : 1;
-                        } else {
-                            return timezone1.offset - timezone2.offset
-                        }
-                    });
-                }
-            }
-        },
         'schedule-chooser-daily': {
             data: function () {
                 return {
