@@ -8,7 +8,12 @@ class CronExpressionSchedulePlanner implements SchedulePlanner
 {
     public function calculateNextRunDate(Schedule $schedule, \DateTime $currentDate)
     {
-        $cron = CronExpression::factory($schedule->getCronExpression());
+        return $this->calculateNextRunDateForExpression($schedule->getCronExpression(), $currentDate);
+    }
+
+    public function calculateNextRunDateForExpression($cronExpression, \DateTime $currentDate)
+    {
+        $cron = CronExpression::factory($cronExpression);
         return $cron->getNextRunDate($currentDate);
     }
 
