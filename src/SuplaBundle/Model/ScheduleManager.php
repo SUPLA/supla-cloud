@@ -160,7 +160,12 @@ class ScheduleManager
     public function enable(Schedule $schedule)
     {
         $schedule->setEnabled(true);
-        $this->generateScheduledExecutions($schedule);
+        $this->generateScheduledExecutions($schedule, '+2days');
+    }
+
+    public function recalculateScheduledExecutions(Schedule $schedule) {
+        $this->disable($schedule);
+        $this->enable($schedule);
     }
 
     public function delete(Schedule $schedule)

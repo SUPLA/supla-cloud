@@ -374,7 +374,6 @@ class AccountController extends Controller
         $data = $request->request->all();
         try {
             $timezone = new \DateTimeZone($data['timezone']);
-            /** @var UserManager $userManager */
             $userManager = $this->get('user_manager');
             $userManager->updateTimeZone($this->getUser(), $timezone);
             return new JsonResponse(true);
