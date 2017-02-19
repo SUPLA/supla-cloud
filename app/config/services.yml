@@ -75,6 +75,20 @@ services:
          arguments:
               doctrine: "@doctrine"
               ioDeviceManager: '@iodevice_manager'
+              schedulePlanner: '@schedule_planner.composite'
+
+     schedule_planner.composite:
+         class: SuplaBundle\Model\SchedulePlanners\CompositeSchedulePlanner
+         arguments:
+              -
+                - '@schedule_planner.sunrise_sunset'
+                - '@schedule_planner.cron'
+
+     schedule_planner.cron:
+         class: SuplaBundle\Model\SchedulePlanners\CronExpressionSchedulePlanner
+
+     schedule_planner.sunrise_sunset:
+         class: SuplaBundle\Model\SchedulePlanners\SunriseSunsetSchedulePlanner
 
      server_list:
          class: SuplaBundle\Supla\ServerList

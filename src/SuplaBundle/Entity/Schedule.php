@@ -20,7 +20,6 @@
 namespace SuplaBundle\Entity;
 
 
-use Cron\CronExpression;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -46,10 +45,10 @@ class Schedule
     private $user;
 
     /**
-     * @ORM\Column(name="cron_expression", type="string", length=100, nullable=false)
+     * @ORM\Column(name="time_expression", type="string", length=100, nullable=false)
      * @Assert\Length(max=100)
      */
-    private $cronExpression;
+    private $timeExpression;
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel")
@@ -69,7 +68,7 @@ class Schedule
 
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
-     * @Assert\Choice({"once", "minutely", "hourly", "daily"})
+     * @Assert\Choice({"once", "minutely", "hourly", "daily", "sunset", "sunrise"})
      */
     private $mode;
 
@@ -103,7 +102,7 @@ class Schedule
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
@@ -121,17 +120,17 @@ class Schedule
     /**
      * @return mixed
      */
-    public function getCronExpression()
+    public function getTimeExpression()
     {
-        return $this->cronExpression;
+        return $this->timeExpression;
     }
 
     /**
-     * @param mixed $cronExpression
+     * @param mixed $timeExpression
      */
-    public function setCronExpression($cronExpression)
+    public function setTimeExpression($timeExpression)
     {
-        $this->cronExpression = $cronExpression;
+        $this->timeExpression = $timeExpression;
     }
 
     /**
@@ -259,36 +258,9 @@ class Schedule
         $this->nextCalculationDate = $nextCalculationDate;
     }
 
-    /**
-     * @param string $currentDate
-     * @return \DateTime
-     * @throws \RuntimeException if the next run date could not be calculated
-     */
-    public function getNextRunDate($currentDate = 'now')
+    /** @return \DateTimeZone */
+    public function getUserTimezone()
     {
-        $cron = CronExpression::factory($this->getCronExpression());
-        return $cron->getNextRunDate($currentDate);
-    }
-
-    /**
-     * @param string $currentDate
-     * @param string $until
-     * @param int $maxCount
-     * @return \DateTime[]
-     */
-    public function getRunDatesUntil($until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX)
-    {
-        $until = is_int($until) ? $until : strtotime($until) + 1; // +1 to make it inclusive
-        $runDates = [];
-        $nextRunDate = $currentDate;
-        try {
-            do {
-                $nextRunDate = $this->getNextRunDate($nextRunDate);
-                $runDates[] = $nextRunDate;
-            } while ($nextRunDate->getTimestamp() < $until && count($runDates) < $maxCount);
-        } catch (\RuntimeException $e) {
-            // impossible cron expression
-        }
-        return $runDates;
+        return new \DateTimeZone($this->getUser()->getTimezone());
     }
 }

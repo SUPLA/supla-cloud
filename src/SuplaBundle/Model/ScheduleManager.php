@@ -25,6 +25,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Model\SchedulePlanners\CompositeSchedulePlanner;
 
 class ScheduleManager
 {
@@ -36,13 +37,16 @@ class ScheduleManager
     private $scheduledExecutionsRepository;
     /** @var IODeviceManager */
     private $ioDeviceManager;
+    /** @var CompositeSchedulePlanner */
+    private $schedulePlanner;
 
-    public function __construct($doctrine, IODeviceManager $ioDeviceManager)
+    public function __construct($doctrine, IODeviceManager $ioDeviceManager, CompositeSchedulePlanner $schedulePlanner)
     {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
         $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');
         $this->ioDeviceManager = $ioDeviceManager;
+        $this->schedulePlanner = $schedulePlanner;
     }
 
     /** @return IODeviceChannel[] */
@@ -108,7 +112,7 @@ class ScheduleManager
             $dateStart = $latestExecution->getTimestamp();
         }
         $dateStart->setTimezone($userTimezone);
-        return $schedule->getRunDatesUntil($until, $dateStart, $count);
+        return $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
     }
 
     public function findClosestExecutions(Schedule $schedule, $contextSize = 3)

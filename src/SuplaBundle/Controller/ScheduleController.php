@@ -90,12 +90,12 @@ class ScheduleController extends Controller
         $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
         $schedule->setMode($data['mode']);
-        $schedule->setCronExpression($data['cronExpression']);
+        $schedule->setTimeExpression($data['cronExpression']);
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         if ($user->isLimitScheduleExceeded()) {
             $errors[] = 'Schedule limit has been exceeded';
-        } else if (!CronExpression::isValidExpression($schedule->getCronExpression())) {
-            $errors[] = 'Invalid cron expression';
+        } else if (!count($this->get('schedule_manager')->getNextRunDates($schedule, '+5days', 1))) {
+            $errors[] = 'Invalid time expression';
         }
         if (count($errors) == 0) {
             $this->getDoctrine()->getManager()->persist($schedule);
@@ -120,7 +120,7 @@ class ScheduleController extends Controller
         }
         $temporarySchedule = new Schedule();
         $temporarySchedule->setUser($this->getUser());
-        $temporarySchedule->setCronExpression($data['cronExpression']);
+        $temporarySchedule->setTimeExpression($data['cronExpression']);
         $dateStart = \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']);
         if (!$dateStart) {
             $dateStart = new \DateTime();

@@ -311,3 +311,11 @@ A gate sensor must be available in order to execute the scheduled action.: W cel
 
 You will be logged out in a moment: Za chwilę zostaniesz wylogowany
 If you want to stay here, do something!: Jeśli chcesz tu zostać, zrób coś!
+
+before: przed
+after: po
+sunrise-before: wschodem
+sunset-before: zachodem
+sunrise-after: wschodzie
+sunset-after: zachodzie
+Sunrise / Sunset: Wschód / Zachód
