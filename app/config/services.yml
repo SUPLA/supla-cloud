@@ -35,6 +35,7 @@ services:
               encoder_factory: "@security.encoder_factory"
               accessid_manager: "@accessid_manager"
               location_manager: "@location_manager"
+              scheduleManager: '@schedule_manager'
               
      oauth_user_provider:
          class: SuplaBundle\Provider\OAuth\UserProvider

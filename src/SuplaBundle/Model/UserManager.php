@@ -19,119 +19,123 @@
 
 namespace SuplaBundle\Model;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\AccessID;
 
-class UserManager 
+class UserManager
 {
-	
-	protected $doctrine;	
+    /** @var Registry */
+	protected $doctrine;
 	protected $encoder_factory;
 	protected $rep;
 	protected $loc_man;
 	protected $aid_man;
-	
-	public function __construct($doctrine, $encoder_factory, $accessid_manager, $location_manager)
+    /** @var ScheduleManager */
+    private $scheduleManager;
+
+	public function __construct($doctrine, $encoder_factory, $accessid_manager, $location_manager, ScheduleManager $scheduleManager)
 	{
 		$this->doctrine = $doctrine;
 		$this->encoder_factory = $encoder_factory;
 		$this->rep = $doctrine->getRepository('SuplaBundle:User');
 		$this->loc_man = $location_manager;
 		$this->aid_man = $accessid_manager;
+        $this->scheduleManager = $scheduleManager;
 	}
-	
+
 	public function Create($user)
 	{
 		$this->setPassword($user->getPlainPassword(), $user);
 		$user->genToken();
-		
+
 		$em = $this->doctrine->getManager();
 		$em->persist($user);
 		$em->flush();
 	}
-	
-	public function setPassword($password, User $user, $flush = false) 
-	{			
+
+	public function setPassword($password, User $user, $flush = false)
+	{
 		$user->setPlainPassword($password);
 		$encoder = $this->encoder_factory->getEncoder($user);
 		$password = $encoder->encodePassword($password, $user->getSalt());
 		$user->setPassword($password);
-		
+
 		if ( $flush === true ) {
-			
+
 			$em = $this->doctrine->getManager();
 			$em->persist($user);
 			$em->flush();
-			
+
 		}
 	}
-	
+
 	public function paswordRequest(User $user)
 	{
 		if ( $user->isEnabled() === true ) {
-			
+
 			$user->genToken();
 			$user->setPasswordRequestedAt(new \DateTime());
-			
+
 			$em = $this->doctrine->getManager();
 			$em->persist($user);
 			$em->flush();
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
-	
-	public function Confirm($token) 
+
+	public function Confirm($token)
 	{
 		$user = $this->UserByConfirmationToken($token);
-		 
+
 		if ( $user !== null ) {
 
 			$this->aid_man->CreateID($user, true);
 		    $this->loc_man->CreateLocation($user, true);
-		    
+
 		    $user->setToken('');
 			$user->setEnabled(true);
 
 			$this->Update($user);
 			return $user;
 		}
-		
+
 		return null;
 	}
-	
-	public function Update($user) 
+
+	public function Update($user)
 	{
 		$em = $this->doctrine->getManager();
 		$em->flush();
 	}
 
 
-    public function userByEmail($email) 
+    public function userByEmail($email)
     {
         return $this->rep->findOneByEmail($email);
     }
 
     public function userByConfirmationToken($token)
     {
-        if ( $token === null 
+        if ( $token === null
     			|| strlen($token) < 40 ) return null;
-    	
+
         return $this->rep->findOneBy(array('token' => $token, 'enabled' => 0, 'currentLogin' => null, 'lastLogin' => null, 'passwordRequestedAt' => null));
     }
-        
+
     public function userByPasswordToken($token)
     {
     	if ( $token === null
     			|| strlen($token) < 40 ) return null;
-    	
+
     	$date = new \DateTime();
     	$date->sub(new \DateInterval('PT1H'));
-    	
+
     	$qb = $this->rep->createQueryBuilder('u');
-    	
+
     	try {
     		return $qb->where($qb->expr()->eq('u.token', ':token'))
     		->andWhere("u.token != ''")
@@ -145,15 +149,24 @@ class UserManager
     	} catch(\Doctrine\ORM\NoResultException $e) {
     		return null;
     	}
-    	 
-    }
-    
-    public function updateTimeZone(User $user, \DateTimeZone $timezone)
-    {
-    	$user->setTimezone($timezone->getName());
-    	$em = $this->doctrine->getManager();
-    	$em->persist($user);
-    	$em->flush();
+
     }
 
+    public function updateTimeZone(User $user, \DateTimeZone $timezone)
+    {
+        $currentTimezone = new \DateTimeZone($user->getTimezone());
+        $user->setTimezone($timezone->getName());
+        $em = $this->doctrine->getManager();
+        $em->persist($user);
+        $now = new \DateTime();
+        if ($currentTimezone->getOffset($now) != $timezone->getOffset($now)) {
+            foreach ($user->getSchedules() as $schedule) {
+                /** @var Schedule $schedule */
+                if ($schedule->getEnabled()) {
+                    $this->scheduleManager->recalculateScheduledExecutions($schedule);
+                }
+            }
+        }
+        $em->flush();
+    }
 }

@@ -136,24 +136,6 @@ class ScheduleController extends Controller
     }
 
     /**
-     * @Route("/user-timezone", name="_schedule_update_user_timezone")
-     * @Method("PUT")
-     */
-    public function updateUserTimezoneAction(Request $request)
-    {
-        $data = $request->request->all();
-        try {
-            $timezone = new \DateTimeZone($data['timezone']);
-            /** @var UserManager $userManager */
-            $userManager = $this->get('user_manager');
-            $userManager->updateTimeZone($this->getUser(), $timezone);
-            return new JsonResponse(true);
-        } catch (Exception $e) {
-            throw new BadRequestHttpException();
-        }
-    }
-
-    /**
      * @Route("/{schedule}", name="_schedule_details")
      * @Template
      * @Security("user == schedule.getUser()")

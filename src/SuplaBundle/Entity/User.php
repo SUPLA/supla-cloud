@@ -476,6 +476,7 @@ class User implements AdvancedUserInterface
         $this->limitSchedule = $limitSchedule;
     }
 
+    /** Schedule[] */
     public function getSchedules()
     {
         return $this->schedules;

@@ -36,15 +36,37 @@
 
 
 <span class="supla-member">supla member</span>
-<div class="user-account">
+<div class="user-account" id="user-account">
 		<h1>{{ user.email }}</h1>
 		<ul class="user list-unstyled">
 			<li>{% trans %}Previous login{% endtrans %} <strong>{% if user.lastlogin is null %}{{ user.currentlogin|date("Y-m-d H:i:s") }}{% else %}{{ user.lastlogin|date("Y-m-d H:i:s") }}{% endif %}</strong></li>
 			<li>{% trans %}from IP{% endtrans %} <strong>{% if user.lastlogin is null %}{{ user.currentipv4 }}{% else %}{{ user.lastipv4 }}{% endif %}</strong></li>
 			<li><a href="#" id="overlay-delete">{% trans %}Change Your Password{% endtrans %}</a></li>
-			<li><a href="https://supla.org">supla.org</a></li>
+            <li>
+                <timezone-chooser inline-template>
+                    <div>
+                        <div v-if="!editingTimezone">
+                            {% trans %}Your timezone{% endtrans %}: <strong>${ userTimezone }</strong>
+                            <a @click="editTimezone()">{{ 'change'|trans }}</a>
+                        </div>
+                        <div v-if="editingTimezone">
+                            <label>{% trans %}Choose your timezone{% endtrans %}</label>
+                            <select v-model="userTimezone" ref="timezoneDropdown" class="form-control"
+                                    @change="chooseTimezone()">
+                                <option v-for="timezone in getAvailableTimezones()"
+                                        v-bind:value="timezone.name">
+                                    ${ timezone.name }
+                                    (UTC${timezone.offset >= 0 ? '+' : ''}${timezone.offset})
+                                    ${ timezone.currentTime }
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </timezone-chooser>
+            </li>
+            <li><a href="https://supla.org">supla.org</a></li>
 		</ul>
-		<span>Aktualnie używasz supla cloud w wersji 1.4.</span>
+		<span class="version-info">Aktualnie używasz supla cloud w wersji 1.4.</span>
 </div>
 
 
@@ -74,9 +96,86 @@
 
 <script src="{{ asset('assets/js/details.js') }}"></script>
 <script>
-	var mySVG = $('#user-account-bg').drawsvg({
-	duration:2000
-	});
-	mySVG.drawsvg('animate');
+    var mySVG = $('#user-account-bg').drawsvg({
+    duration: 2000
+    });
+    mySVG.drawsvg('animate');
 </script>
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ asset('assets/js/bootstrap-select/bootstrap-select.min.css') }}">
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('assets/js/vue.min.js') }}"></script>
+    <script src="{{ asset('assets/js/momentjs/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('assets/js/momentjs/moment-timezone-with-data-2010-2020.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script>
+        var BASE_URL = '{{ path('_homepage') }}';
+        var LOCALE = '{{ app.request.locale }}';
+        var TIMEZONE = '{{ app.user.timezone }}';
+        moment.locale(LOCALE);
+        moment.tz.setDefault(TIMEZONE);
+    </script>
+    <script>
+        var app = new Vue({
+            el: '#user-account',
+            delimiters: ['${', '}'], // defaults conflict with twig delimiters, http://stackoverflow.com/a/33935750/878514
+            components: {
+                'timezone-chooser': {
+                    data: function () {
+                        return {
+                            editingTimezone: false,
+                            userTimezone: undefined
+                        };
+                    },
+                    mounted: function () {
+                        if (TIMEZONE) {
+                            this.userTimezone = TIMEZONE;
+                            moment.tz.setDefault(this.userTimezone);
+                        } else {
+                            this.userTimezone = moment.tz.guess();
+                            this.chooseTimezone();
+                        }
+                    },
+                    methods: {
+                        editTimezone: function () {
+                            this.editingTimezone = true;
+                            var self = this;
+                            setTimeout(function () {
+                                $(self.$refs.timezoneDropdown).selectpicker({liveSearch: true});
+                            });
+                        },
+                        chooseTimezone: function () {
+                            $(this.$refs.timezoneDropdown).selectpicker('destroy');
+                            this.editingTimezone = false;
+                            moment.tz.setDefault(this.userTimezone);
+                            $.ajax({
+                                method: 'PUT',
+                                data: {timezone: this.userTimezone},
+                                url: BASE_URL + 'account/user-timezone'
+                            })
+                        },
+                        getAvailableTimezones: function () {
+                            return moment.tz.names().filter(function (timezone) {
+                                return timezone.match(/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//);
+                            }).map(function (timezone) {
+                                return {
+                                    name: timezone,
+                                    offset: moment.tz(timezone).utcOffset() / 60,
+                                    currentTime: moment.tz(timezone).format('H:mm')
+                                }
+                            }).sort(function (timezone1, timezone2) {
+                                if (timezone1.offset == timezone2.offset) {
+                                    return timezone1.name < timezone2.name ? -1 : 1;
+                                } else {
+                                    return timezone1.offset - timezone2.offset
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 {% endblock %}

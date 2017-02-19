@@ -824,14 +824,14 @@ body.account svg .st4x {-webkit-animation: fill2 1s;
 	    100% { fill: #000; }
 	}
 span.supla-member {position: absolute; top: 295px; left: calc(50% - 264px); display: inline-block;font-family: 'Quicksand', sans-serif;font-size: 16px; font-weight: 400; color:#fff;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 3s;}
-div.user-account {position: absolute; top: 397px; left: calc(50% - 250px); width: 500px}
-div.user-account h1 {text-transform: none; border-bottom: solid 1px rgba(0,0,0,.2); line-height: 80px;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 1.5s;}
+div.user-account {position: absolute; top: 360px; left: calc(50% - 250px); width: 500px}
+div.user-account h1 {text-transform: none; border-bottom: solid 1px rgba(0,0,0,.2); line-height: 80px;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 1.5s; position: static;}
 div.user-account span {-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn;}
 div.user-account ul.user {margin-top: 15px; -webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 2.5s;}
 div.user-account ul.user li {line-height: 24px}
 div.user-account ul.user li strong {color: #00D151;}
 div.user-account a {color: #00D151;}
-div.user-account span {display: inline-block; width: 100%; margin-top: 80px; color: rgba(255,255,255,.8); font-size: 12px; text-align:center;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 3s;}
+div.user-account .version-info {display: inline-block; width: 100%; margin-top: 100px; color: rgba(255,255,255,.8); font-size: 12px; text-align:center;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 3s;}
 
 .restapi-wrapper {width: 980px; margin: 0 auto;}
 .restapi-wrapper .restapi { width: 480px; position: absolute; top: 40px; left: 130px;}
@@ -853,3 +853,8 @@ div.user-account span {display: inline-block; width: 100%; margin-top: 80px; col
 
 #idleWarningModal .progress-bar { width: 0%; transition: width 60s linear; }
 #idleWarningModal.in .progress-bar { width: 100%; }
+
+.bootstrap-select li.active a {
+	background: #A0FFA0 !important;
+	color: inherit !important;
+}
