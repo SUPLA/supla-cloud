@@ -48,7 +48,7 @@ class GenerateSchedulesExecutionsCommand extends ContainerAwareCommand
         $doctrine = $this->getContainer()->get('doctrine');
         $affectedRows = $doctrine->getManager()->createQueryBuilder()
             ->delete('SuplaBundle:ScheduledExecution', 's')
-            ->where('s.timestamp < :expirationDate')
+            ->where('s.resultTimestamp < :expirationDate')
             ->setParameter('expirationDate', (new \DateTime())->sub(new \DateInterval('P10D')))// 10 days
             ->getQuery()
             ->execute();
