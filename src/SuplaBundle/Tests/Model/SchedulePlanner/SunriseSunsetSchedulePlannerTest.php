@@ -13,7 +13,7 @@ class SunriseSunsetSchedulePlannerTest extends \PHPUnit_Framework_TestCase
         $schedulePlanner = new SunriseSunsetSchedulePlanner();
         $schedule = new ScheduleWithTimezone($cronExpression, $timezone);
         $format = 'Y-m-d H:i';
-        $startDate = \DateTime::createFromFormat($format, $startDate);
+        $startDate = \DateTime::createFromFormat($format, $startDate, new \DateTimeZone($timezone));
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
         $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
         $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
@@ -29,6 +29,7 @@ class SunriseSunsetSchedulePlannerTest extends \PHPUnit_Framework_TestCase
             ['2017-06-29 00:00', 'SR0 * * * *', '2017-06-29 04:20'], // sunrise: 4:18, http://suncalc.net/#/52.2297,21.0122,11/2017.06.29/13:11
             ['2017-06-29 00:00', 'SS0 * * * *', '2017-06-29 21:00'], // sunset: 21:02
             ['2017-06-29 00:00', 'SS0 * * * *', '2017-06-29 16:55', 'Australia/Sydney'], // sunset: 21:02
+            ['2017-06-29 00:01', 'SS0 * * * *', '2017-06-29 16:55', 'Australia/Sydney'], // sunset: 21:02
             ['2017-06-24 04:14', 'SR0 * * * *', '2017-06-24 04:15'],
             ['2017-06-24 04:14', 'SR5 * * * *', '2017-06-24 04:20'],
             ['2017-06-24 04:14', 'SR15 * * * *', '2017-06-24 04:30'],
@@ -45,6 +46,7 @@ class SunriseSunsetSchedulePlannerTest extends \PHPUnit_Framework_TestCase
             ['2017-02-18 13:51', 'SR0 * * * 6', '2017-02-25 06:30'],
             ['2017-02-18 13:51', 'SR0 * * * 6', '2017-02-25 06:30'],
             ['2017-02-18 13:51', 'SR0 * 14 3 *', '2017-03-14 05:50'],
+            ['2017-02-19 11:36', 'SS0 * * * *', '2017-02-19 17:45', 'Asia/Shanghai'], // it caused stackoverflow in the past
         ];
     }
 }

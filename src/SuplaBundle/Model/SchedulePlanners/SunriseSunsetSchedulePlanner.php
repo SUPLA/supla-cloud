@@ -13,6 +13,19 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner
     /** @inheritdoc */
     public function calculateNextRunDate(Schedule $schedule, \DateTime $currentDate)
     {
+        $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $currentDate);
+        if ($nextRunDate <= $currentDate) {
+            $nextRunDate->setTime(0, 0);
+            while ($nextRunDate <= $currentDate) {
+                $nextRunDate->add(new \DateInterval('P1D'));
+            }
+            $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $nextRunDate);
+        }
+        return $nextRunDate;
+    }
+
+    private function calculateNextRunDateBasedOnSun(Schedule $schedule, \DateTime $currentDate)
+    {
         $cron = CronExpression::factory($this->getEveryMinuteCronExpression($schedule->getTimeExpression()));
         preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression(), $matches);
         $calculateFromDate = $currentDate;
@@ -25,11 +38,6 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner
         $nextSun += intval($matches[2]) * 60;
         $nextSunRoundTo5Minutes = round($nextSun / 300) * 300;
         $nextRunDate = (new \DateTime('now', $schedule->getUserTimezone()))->setTimestamp($nextSunRoundTo5Minutes);
-        if ($nextRunDate <= $currentDate) {
-            $nextRunDate->setTime(0, 0);
-            $nextRunDate->add(new \DateInterval('P1D'));
-            return $this->calculateNextRunDate($schedule, $nextRunDate);
-        }
         return $nextRunDate;
     }
 
