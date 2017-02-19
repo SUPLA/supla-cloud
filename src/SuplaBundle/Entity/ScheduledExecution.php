@@ -45,24 +45,34 @@ class ScheduledExecution
     private $schedule;
 
     /**
-     * @ORM\Column(name="timestamp", type="utcdatetime", nullable=true)
+     * @ORM\Column(name="planned_timestamp", type="utcdatetime", nullable=true)
      */
-    protected $timestamp;
+    private $plannedTimestamp;
+
+    /**
+     * @ORM\Column(name="fetched_timestamp", type="utcdatetime", nullable=true)
+     */
+    private $fetchedTimestamp;
+
+    /**
+     * @ORM\Column(name="result_timestamp", type="utcdatetime", nullable=true)
+     */
+    private $resultTimestamp;
 
     /**
      * @ORM\Column(name="result", type="integer", nullable=true)
      */
-    protected $result;
+    private $result;
 
-    public function __construct(Schedule $schedule, \DateTime $timestamp)
+    public function __construct(Schedule $schedule, \DateTime $plannedTimestamp)
     {
         $this->schedule = $schedule;
-        $this->timestamp = $timestamp;
+        $this->plannedTimestamp = $plannedTimestamp;
     }
 
-    public function getTimestamp()
+    public function getPlannedTimestamp()
     {
-        return $this->timestamp;
+        return $this->plannedTimestamp;
     }
 
     public function isFailed()
