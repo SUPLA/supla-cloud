@@ -47,6 +47,7 @@ class SunriseSunsetSchedulePlannerTest extends \PHPUnit_Framework_TestCase
             ['2017-02-18 13:51', 'SR0 * * * 6', '2017-02-25 06:30'],
             ['2017-02-18 13:51', 'SR0 * 14 3 *', '2017-03-14 05:50'],
             ['2017-02-19 11:36', 'SS0 * * * *', '2017-02-19 17:45', 'Asia/Shanghai'], // it caused stackoverflow in the past
+            ['2017-11-19 11:36', 'SS0 * * * *', '2017-11-19 17:50', 'Asia/Colombo'], // GMT+5.5
         ];
     }
 }
