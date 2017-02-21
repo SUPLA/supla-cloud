@@ -2,7 +2,6 @@
 namespace SuplaBundle\Model\SchedulePlanners;
 
 use Cron\CronExpression;
-use SebastianBergmann\GlobalState\RuntimeException;
 use SuplaBundle\Entity\Schedule;
 
 class SunriseSunsetSchedulePlanner implements SchedulePlanner
@@ -14,11 +13,14 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner
     public function calculateNextRunDate(Schedule $schedule, \DateTime $currentDate)
     {
         $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $currentDate);
-        if ($nextRunDate <= $currentDate) {
+        $retries = 3; // PHP sometimes returns past sunset even if we query for midnight of the next day...
+        $calculatingFromDate = $currentDate;
+        while (($nextRunDate <= $currentDate) && --$retries) {
             $nextRunDate->setTime(0, 0);
-            while ($nextRunDate <= $currentDate) {
+            while ($nextRunDate <= $calculatingFromDate) {
                 $nextRunDate->add(new \DateInterval('P1D'));
             }
+            $calculatingFromDate = $nextRunDate;
             $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $nextRunDate);
         }
         return $nextRunDate;

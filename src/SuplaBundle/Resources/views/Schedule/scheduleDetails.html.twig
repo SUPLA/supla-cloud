@@ -55,7 +55,7 @@
                             <ul class="schedule-times">
                                 {% for execution in closestExecutions['past'] %}
                                     <li class="past past{{ closestExecutions['past']|length - loop.index }} {{ execution.failed ? 'failed' : '' }}">
-                                        {{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}
+                                        {{ execution.plannedTimestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}
                                         {% if execution.failed %}
                                             <div class="small">
                                                 {{ execution.result | actionExecutionResultToString }}
@@ -64,7 +64,7 @@
                                     </li>
                                 {% endfor %}
                                 {% for execution in closestExecutions['future'] %}
-                                    <li class="future future{{ loop.index }}">{{ execution.timestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
+                                    <li class="future future{{ loop.index }}">{{ execution.plannedTimestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
                                 {% endfor %}
                             </ul>
                         {% else %}

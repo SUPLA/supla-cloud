@@ -98,7 +98,7 @@ class ScheduleManager
 
     public function getNextRunDates(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX)
     {
-        $userTimezone = new \DateTimeZone($schedule->getUser()->getTimezone());
+        $userTimezone = $schedule->getUserTimezone();
         if ($schedule->getDateEnd()) {
             $schedule->getDateEnd()->setTimezone($userTimezone);
             $until = min($schedule->getDateEnd()->getTimestamp(), strtotime($until));
@@ -107,9 +107,9 @@ class ScheduleManager
             $schedule->getDateStart()->setTimestamp(time());
         }
         $dateStart = $schedule->getDateStart();
-        $latestExecution = current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['timestamp' => 'DESC'], 1));
+        $latestExecution = current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));
         if ($latestExecution) {
-            $dateStart = $latestExecution->getTimestamp();
+            $dateStart = $latestExecution->getPlannedTimestamp();
         }
         $dateStart->setTimezone($userTimezone);
         return $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
@@ -120,16 +120,16 @@ class ScheduleManager
         $criteria = new \Doctrine\Common\Collections\Criteria();
         $now = $this->getNow();
         $criteria
-            ->where($criteria->expr()->gte('timestamp', $now))
+            ->where($criteria->expr()->gte('plannedTimestamp', $now))
             ->andWhere($criteria->expr()->eq('schedule', $schedule))
-            ->orderBy(['timestamp' => 'ASC'])
+            ->orderBy(['plannedTimestamp' => 'ASC'])
             ->setMaxResults($contextSize + 1);
         $inFuture = $this->scheduledExecutionsRepository->matching($criteria)->toArray();
         $criteria = new \Doctrine\Common\Collections\Criteria();
         $criteria
-            ->where($criteria->expr()->lt('timestamp', $now))
+            ->where($criteria->expr()->lt('plannedTimestamp', $now))
             ->andWhere($criteria->expr()->eq('schedule', $schedule))
-            ->orderBy(['timestamp' => 'DESC'])
+            ->orderBy(['plannedTimestamp' => 'DESC'])
             ->setMaxResults($contextSize);
         $inPast = $this->scheduledExecutionsRepository->matching($criteria)->toArray();
         return [
@@ -152,6 +152,7 @@ class ScheduleManager
         $this->entityManager->createQueryBuilder()
             ->delete('SuplaBundle:ScheduledExecution', 's')
             ->where('s.schedule = :schedule')
+            ->andWhere('s.fetchedTimestamp IS NULL')
             ->setParameter('schedule', $schedule)
             ->getQuery()
             ->execute();
@@ -163,7 +164,8 @@ class ScheduleManager
         $this->generateScheduledExecutions($schedule, '+2days');
     }
 
-    public function recalculateScheduledExecutions(Schedule $schedule) {
+    public function recalculateScheduledExecutions(Schedule $schedule)
+    {
         $this->disable($schedule);
         $this->enable($schedule);
     }
