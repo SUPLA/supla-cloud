@@ -29,6 +29,7 @@ Channel No: Номер канала
 Channel properties: Свойства канала
 Device: Устройство
 Access Identifier: Ключи доступа
+Location Identifier: ID Позиции
 Type: Тип
 Number: Номер
 I/O: Ввод/Вывод
@@ -106,8 +107,9 @@ Lack of Access Identifiers: Нехватает Ключей Доступа
 Change Your Password: Сменить пароль
 On your computer...: На Вашем компьютере...
 On your smartphone...: На Вашем смартфоне...
-It's easy to get your home or office connected to SUPLA.: Дом или офис так просто подключить к SUPLA.
-All you need is to follow the steps below.: Достаточно нескольких простых действий.
+Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (I/O Devices) and smartphone the following data.: Подключить ваш дом или офис к SUPLI очень просто.<br>Все, что вам нужно сделать, это переписать на свои устройства управления (входа/выхода) и смартфоны следующие данные.
+Enter the data below in the settings of your control device (I/O Device).: Введите данные ниже в настройки вашего устройства управления (устройство входа/выхода).
+Enter the data below in your mobile SUPLA application on your smartphone.: Введите данные ниже в мобильное приложение SUPLA, установленное на вашем смартфоне.
 Make it work: Заставь работать
 You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Нельзя подключить устройства пока не назначен хоть один Ключ Доступа к любой Позиции
 Install SUPLA on your smartphone.: Установи SUPLА на смартфон.
@@ -137,7 +139,7 @@ Complete the code (GUID, Server, Location ID, Location Password): Вставвь
 Upload program to Arduino: Загрузи код в Arduino
 
 Previous login: Предидущий вход
-from IP: с IP
+From IP: C IP
 Current Password: Текущий пароль
 New password: Новый пароль
 Change Password: Смена пароля

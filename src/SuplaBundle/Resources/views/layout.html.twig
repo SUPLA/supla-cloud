@@ -8,7 +8,7 @@
 			<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		{% else %}
 			<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-			<link href="{{ asset('assets/css/supla-login.css') }}" rel="stylesheet" />
+			<link href="{{ asset('assets/css/supla-login.css?v=3') }}" rel="stylesheet" />
 		{% endif %}
 		
 		{% block styles %}{% endblock %}
@@ -61,6 +61,7 @@
 			{% endif %}
 			{% if app.request.get('_route') == '_account_view' or app.request.get('_route') == '_api_settings' %} 
 				<script src="{{ asset('assets/js/jquery.drawsvg.js') }}"></script>
+				<script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
 				<script src="{{ asset('assets/js/typed.js') }}"></script>
 			{% endif %}
 			
@@ -93,12 +94,6 @@
     <body {% if app.request.get('_route') == '_auth_login' %} class="login" {% endif %} {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %} {% if app.request.get('_route') == '_account_create_here'%} class="register" {% endif %}  {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %} {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %} {% if app.request.get('_route') == '_account_view'%} class="account" {% endif %} {% if app.request.get('_route') == '_api_settings'%} class="api-settings" {% endif %} 
 	{% if homepage_viewed is defined and homepage_viewed == false %} class="first-time" {% endif %} 
 	{% if app.request.get('_route') == '_iodev_channel_item_edit' %} class="channel" {% endif %}>
-	<div id="hello">
-		<div class="container">
-			<h1>{% trans %}Hi{% endtrans %}</h1>
-		</div>
-	</div>
-	
     
     {% include 'SuplaBundle:Dialogs:flashmsgs.html.twig' %}
     
@@ -168,7 +163,6 @@
 	C44.8,27,45.1,27,45.4,27z"/>
 
 </g>
-
 </svg>
 
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;supla</a></li>
@@ -178,16 +172,16 @@
 				  <li {% if app.request.get('_route') == '_aid_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_aid_list') }}"><i class="pe-7s-key"></i><br /> {% trans %}Access Identifiers{% endtrans %}</a></li>
 				  <li {% if app.request.get('_route') == '_schedule_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_schedule_list') }}"><i class="pe-7s-play"></i><br />{% trans %}Schedules{% endtrans %}</a></li>
 				  
-				  
 				  <li class="dropdown pull-right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="pe-7s-user"></i><br />Konto<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 					  		<li><a class="nav-link" href="{{ path('_account_view') }}">{{ app.user.email }}<span><br>Przejdź do mojego konta</span></a></li>
 							<li class="divider"></li>
-							<li class="lng_switcher"><a class="lng_switch" data-lng="en" href="#"><img src={{ asset('assets/img/flags/en.svg') }}></a>
-								<a class="lng_switch" data-lng="pl" href="#"><img src={{ asset('assets/img/flags/pl.svg') }}></a>
-								<a class="lng_switch" data-lng="ru" href="#"><img src={{ asset('assets/img/flags/ru.svg') }}></a>
-								<a class="lng_switch" data-lng="de" href="#"><img src={{ asset('assets/img/flags/de.svg') }}></a>
+							<li class="lng_switcher">
+								<a class="lng_switch {% if app.request.locale == 'en' %} active {% endif %}" data-lng="en" href="#"><img src={{ asset('assets/img/flags/en.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'pl' %} active {% endif %}" data-lng="pl" href="#"><img src={{ asset('assets/img/flags/pl.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'ru' %} active {% endif %}" data-lng="ru" href="#"><img src={{ asset('assets/img/flags/ru.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'de' %} active {% endif %}" data-lng="de" href="#"><img src={{ asset('assets/img/flags/de.svg') }}></a>
 							</li>
 							<li class="divider"></li>
 							<li class="bottom"><a class="nav-link" href="{{ path('_api_settings') }}">{% trans %}RESTful API{% endtrans %}</a><a id="logout" href="{{ path('_auth_logout') }}">{% trans %}Sign Out{% endtrans %}</a></li>

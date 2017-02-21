@@ -29,6 +29,7 @@ Channel No: Numer kanału
 Channel properties: Właściwości kanału
 Device: Urządzenie
 Access Identifier: Identyfikator Dostępu
+Location Identifier: Identyfikator Lokalizacji
 Type: Typ
 Number: Numer
 I/O: Wejście/Wyjście
@@ -106,8 +107,9 @@ Lack of Access Identifiers: Brak Identyfikatorów Dostępu
 Change Your Password: Zmiana hasła
 On your computer...: W Twoim komputerze...
 On your smartphone...: W Twoim smartfonie...
-It's easy to get your home or office connected to SUPLA.: Podłączenie Twojego domu lub biura do SUPLI jest proste.
-All you need is to follow the steps below.: Wszystko co musisz zrobić to wykonać kilka poniższych kroków.
+Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (I/O Devices) and smartphone the following data.: Podłączenie Twojego domu lub biura do SUPLI jest proste.<br>Wszystko co musisz zrobić to przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
+Enter the data below in the settings of your control device (I/O Device).: Poniższe dane wprowadź w ustawieniach Twojego urządzenia sterującego (urządzenie we/wy).
+Enter the data below in your mobile SUPLA application on your smartphone.: Poniższe dane wprowadź w aplikacji mobilnej SUPLA zainstalowanej w Twoim smartfonie.
 Make it work: Spraw by działało
 You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Nie możesz podłączyć Urządzeń wejścia/wyjścia dopóki nie skojarzysz przynajmniej jednego Identyfikatora Dostępu z dowolną Lokalizacją
 Install SUPLA on your smartphone.: Zainstaluj SUPLĘ w Twoim smartfonie.
@@ -137,7 +139,7 @@ Complete the code (GUID, Server, Location ID, Location Password): Uzupełnij kod
 Upload program to Arduino: Wgraj program do Arduino
 
 Previous login: Poprzednie logowanie
-from IP: z adresu IP
+From IP: Z adresu IP
 Current Password: Aktualne hasło
 New password: Nowe hasło
 Change Password: Zmiana hasła

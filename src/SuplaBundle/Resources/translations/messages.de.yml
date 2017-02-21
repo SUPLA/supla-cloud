@@ -29,6 +29,7 @@ Channel No: Kanal Nummer
 Channel properties: Kanal Eigenschaften
 Device: Gerät
 Access Identifier: Zugriffskennung
+Location Identifier: ID der Lokalisierung
 Type: Typ
 Number: Nummer
 I/O: E/A
@@ -106,8 +107,9 @@ Lack of Access Identifiers: Keine Zugriffskennungen
 Change Your Password: Kennwort Änderung
 On your computer...: In deinem PC...
 On your smartphone...: In deinem Smartphone...
-It's easy to get your home or office connected to SUPLA.: Verbindung deines Hauses oder Büros zu SUPLA ist einfach.
-All you need is to follow the steps below.: Alles, was du zu tun hast, ist die folgenden Schritte zu folgen.
+Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (I/O Devices) and smartphone the following data.: Der Anschluss Ihres Hauses und Ihres Büros an SUPLI ist sehr einfach.<br>Alles, was Sie machen müssen, ist es, nachfolgende Daten in ihre Steuergeräte  (Eingänge/Ausgänge) sowie in die Smartphone  übertragen.
+Enter the data below in the settings of your control device (I/O Device).: Tragen Sie nachfolgende Daten  in den Einstellungen Ihres Steuergerätes (Eingans-/Ausgangsgerät) ein.
+Enter the data below in your mobile SUPLA application on your smartphone.: Tragen Sie nachfolgende Daten  in der Mobilapplikation SUPLA ein, die auf Ihrer Smartphone installiert ist.
 Make it work: Lass es funktionieren!
 You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Du kannst die E/A Geräte erst verbinden, wenn du mindestens eine Zugriffskennung mit einer Lokalisierung assoziiert hast
 Install SUPLA on your smartphone.: SUPLA in deinem Smartphone installieren.
@@ -137,7 +139,7 @@ Complete the code (GUID, Server, Location ID, Location Password): Kod ergänzen 
 Upload program to Arduino: Hochladen Programm für Arduino
 
 Previous login: Vorletzte Anmeldung
-from IP: aus der IP Adresse
+From IP: Aus der IP Adresse
 Current Password: Aktueller Kennwort
 New password: Neuer Kennwort
 Change Password: Kennwort Änderung
