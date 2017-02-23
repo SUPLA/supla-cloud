@@ -609,15 +609,5 @@ class IODeviceManager
 	}
 	
 		
-	public function temperatureLogItems($channelid, $offset, $limit) {
-				
-		$q = $this->doctrine->getManager()->getConnection()->query( "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` FROM `supla_temperature_log` WHERE channel_id = ".intval($channelid, 0)." LIMIT ".$limit." OFFSET ".$offset);
-		return $q->fetchAll();
-	}
-	
-	public function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
-	
-		$q = $this->doctrine->getManager()->getConnection()->query( "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = ".intval($channelid, 0)." LIMIT ".$limit." OFFSET ".$offset);
-		return $q->fetchAll();
-	}
+
 }

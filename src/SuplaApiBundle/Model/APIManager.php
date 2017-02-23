@@ -22,9 +22,6 @@ use SuplaBundle\Entity\OAuth\User as APIUser;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\RefreshToken;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Response;
-use SuplaBundle\Entity\IODevice;
 
 class APIManager 
 {
@@ -196,18 +193,5 @@ class APIManager
 		
 	}
 	
-	
-	public function ioDeviceById($devid, APIUser $user) {
-	
-		$devid = intval($devid, 0);
-		$iodev_man = $this->container->get('iodevice_manager');
-	
-		$iodevice = $iodev_man->ioDeviceById($devid, $user->getParentUser());
-	
-		if ( !($iodevice instanceof IODevice) )
-			throw new HttpException(Response::HTTP_NOT_FOUND);
-				
-		return $iodevice;
-	}
 
 }

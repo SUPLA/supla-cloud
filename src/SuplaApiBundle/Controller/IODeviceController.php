@@ -22,11 +22,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\ServerCtrl;
+use SuplaBundle\Entity\IODevice;
 
 class IODeviceController extends RestController
 {
+	
+	protected function ioDeviceById($devid) {
+	
+		$devid = intval($devid, 0);
+		$iodev_man = $this->container->get('iodevice_manager');
+	
+		$iodevice = $iodev_man->ioDeviceById($devid, $this->getParentUser());
+	
+		if ( !($iodevice instanceof IODevice) )
+			throw new HttpException(Response::HTTP_NOT_FOUND);
+	
+			return $iodevice;
+	}
+	
 	
 	protected function getIODevices() {
 	
@@ -91,7 +107,7 @@ class IODeviceController extends RestController
      */
     public function getIOdeviceAction(Request $request, $devid)
     {
-    	$iodevice = $this->getApiManager()->ioDeviceById($devid, $this->getApiUser());
+    	$iodevice = $this->ioDeviceById($devid);
     	
     	$cids = (new ServerCtrl())->iodevice_connected($this->getParentUser()->getId(), array($devid));
     	

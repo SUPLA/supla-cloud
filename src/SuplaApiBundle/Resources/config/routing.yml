@@ -24,6 +24,13 @@ _iodeviceapi:
     prefix:   /api 
     resource: "@SuplaApiBundle/Controller/IODeviceController.php"
     
+    
+_channelapi:
+    type:     rest
+    host:     %supla_server%
+    prefix:   /api 
+    resource: "@SuplaApiBundle/Controller/ChannelController.php"
+    
 
 
     
