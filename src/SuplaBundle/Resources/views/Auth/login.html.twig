@@ -1,8 +1,4 @@
 {% extends 'SuplaBundle::layout.html.twig' %}
-{% block scripts %}
-	<script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
-	<script src="{{ asset('assets/dist/schedules.build.js', 'webpack') }}"></script>
-{% endblock %}
 {% block content %}
 <div id="authpage">
 <div id="fullpage">
@@ -18,9 +14,6 @@
 				    <input type="hidden" name="step" value="{{ step }}"/>
 
 					<div class="simform-inner">
-						<div>
-						<div id="schedules"></div>
-						</div>
 						<ol class="questions">
 						    {% if step == "2" %}
 								<input type="hidden" name="_username" value="{{ last_username }}"/>
