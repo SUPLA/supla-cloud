@@ -65,7 +65,7 @@ services:
               template: "@templating"
               
      api_manager:
-         class: SuplaBundle\Model\APIManager
+         class: SuplaApiBundle\Model\APIManager
          arguments:
               doctrine: "@doctrine" 
               encoder_factory: "@security.encoder_factory"

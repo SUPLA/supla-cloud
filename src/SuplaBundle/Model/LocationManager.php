@@ -83,37 +83,7 @@ class LocationManager
 	}
 	
 	
-	public function locationsForApiUser(APIUser $user) {
-	
-		$parent = $user->getParentUser();
-		 
-		$result = array();
-		 
-		foreach($parent->getLocations() as $location) {
-		
-			$iodev = array();
-			$accessids = array();
-		
-			foreach($location->getIoDevices() as $iodevice) {
-				$iodev[] = $iodevice->getId();
-			}
-		
-			foreach($location->getAccessIds() as $accessid) {
-				$accessids[] = $accessid->getId();
-			}
-		
-			$result[] = array(
-					'id' => $location->getId(),
-					'password' => $location->getPassword(),
-					'caption' => $location->getCaption(),
-					'iodevices' => $iodev,
-					'accessids' => $accessids,
-			);
-		}
-		 
-		return array('locations' => $result);
-	}
-	
+
 
 	
 }

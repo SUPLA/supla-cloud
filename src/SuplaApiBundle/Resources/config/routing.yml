@@ -1,5 +1,13 @@
-_restapi:
+_serverapi:
     type:     rest
     host:     %supla_server%
     prefix:   /api 
-    resource: "@SuplaApiBundle/Controller/RestController.php"
+    resource: "@SuplaApiBundle/Controller/ServerController.php"
+    
+    
+_locationapi:
+    type:     rest
+    host:     %supla_server%
+    prefix:   /api 
+    resource: "@SuplaApiBundle/Controller/LocationController.php"
+    
