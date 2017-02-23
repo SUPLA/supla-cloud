@@ -1,0 +1,5 @@
+_restapi:
+    type:     rest
+    host:     %supla_server%
+    prefix:   /api 
+    resource: "@SuplaApiBundle/Controller/RestController.php"

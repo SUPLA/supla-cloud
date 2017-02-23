@@ -33,13 +33,7 @@ _ajax:
 _api:
     resource: "@SuplaBundle/Controller/APIController.php"
     type:     annotation
-    
-_restapi:
-    type:     rest
-    host:     %supla_server%
-    prefix:   /api
-    resource: "@SuplaBundle/Controller/RestController.php"
-    
+        
     
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
