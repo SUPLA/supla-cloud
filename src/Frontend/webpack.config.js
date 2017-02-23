@@ -2,12 +2,21 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    schedules: './src/schedules/schedules.js',
+    'user-profile': './src/user-profile/user-profile.js'
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: '[name].build.js'
   },
+  plugins: [
+   new webpack.optimize.CommonsChunkPlugin({
+     filename: "commons.js",
+     name: "commons"
+   })
+  ],
   module: {
     rules: [
       {

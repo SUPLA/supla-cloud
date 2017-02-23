@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './schedule-form.vue'
 
 new Vue({
-  el: '#app',
+  el: '#schedules',
   render: h => h(App)
 })
