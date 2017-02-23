@@ -7,8 +7,8 @@ module.exports = {
     'user-profile': './src/user-profile/user-profile.js'
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, '../../web/assets/dist'),
+    publicPath: 'https://localhost:8080/assets/dist/',
     filename: '[name].build.js'
   },
   plugins: [
@@ -54,7 +54,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    https: true
   },
   performance: {
     hints: false

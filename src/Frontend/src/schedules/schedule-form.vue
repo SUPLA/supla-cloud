@@ -9,7 +9,7 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Schedule form'
+      msg: 'SUPLA v2.0'
     }
   }
 }
@@ -17,6 +17,6 @@ export default {
 
 <style lang="scss" scoped>
 h1 {
-  color: pink;
+  color: red;
 }
 </style>
