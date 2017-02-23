@@ -281,6 +281,7 @@ class IODeviceManager
 		if ( $user === null ) 
 			return null;
 		
+			
 		return $this->dev_rep->findOneBy(array('user' => $user, 'id' => intval($id)));
 	}
 
@@ -607,50 +608,7 @@ class IODeviceManager
 		return FALSE;
 	}
 	
-	
-	public function ioDevicesForApiUser(APIUser $user) {
-	
-		$parent = $user->getParentUser();
-			
-		$result = array();
 		
-		foreach($parent->getIODevices() as $device) {
-			
-			$channels = array();
-			
-			foreach($this->getChannels($device) as $channel) {
-				$channels[] = array(
-					'id' => $channel->getId(),
-					'chnnel_number' => $channel->getChannelNumber(),
-					'caption' => $channel->getCaption(),
-					'type' => array('name' => SuplaConst::typeStr[$channel->getType()], 
-							        'id' => $channel->getType()),
-					'function' => array('name' => SuplaConst::fncStr[$channel->getFunction()], 
-							        'id' => $channel->getFunction()),
-				);
-			}
-			
-			$result[] = array(
-					'id' => $device->getId(),
-					'location_id' => $device->getLocation()->getId(),
-					'enabled' => $device->getEnabled(),
-					'name' => $device->getName(),
-					'comment' => $device->getComment(),
-					'registration' => array('date' => $device->getRegDate()->getTimestamp(),
-					                        'ip_v4' => long2ip($device->getRegIpv4())),
-
-					'last_connected' => array('date' => $device->getLastConnected()->getTimestamp(), 
-					                         'ip_v4' => long2ip($device->getLastIpv4())),
-					'guid' => $device->getGUIDString(),
-					'software_version' => $device->getSoftwareVersion(),
-					'protocol_version' => $device->getProtocolVersion(),
-					'channels' => $channels,
-			);
-		}
-			
-		return array('locations' => $result);
-	}
-	
 	public function temperatureLogItems($channelid, $offset, $limit) {
 				
 		$q = $this->doctrine->getManager()->getConnection()->query( "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` FROM `supla_temperature_log` WHERE channel_id = ".intval($channelid, 0)." LIMIT ".$limit." OFFSET ".$offset);

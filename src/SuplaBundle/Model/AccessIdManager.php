@@ -84,29 +84,5 @@ class AccessIdManager
 		return $this->rep->findOneBy(array('user' => $user, 'id' => $id));
 	}
 	
-	public function accessidsForApiUser(APIUser $user) {
-	
-		$parent = $user->getParentUser();
-			
-		$result = array();
-			
-		foreach($parent->getAccessIDS() as $aid) {
-	
-			$locations = array();
-	
-			foreach($aid->getLocations() as $location) {
-				$locations[] = $location->getId();
-			}
-	
-			$result[] = array(
-					'id' => $aid->getId(),
-					'password' => $aid->getPassword(),
-					'caption' => $aid->getCaption(),
-					'enabled' => $aid->getEnabled() === true ? true : false,
-					'locations' => $locations,
-			);
-		}
-			
-		return array('accessids' => $result);
-	}
+
 }

@@ -24,52 +24,47 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class LocationController extends RestController
+class AccessIDController extends RestController
 {
-	    
-	protected function getLocations() {
+	    	
+	protected function getAccessIDS() {
 	
 		$result = array();
 		$parent = $this->getParentUser();
-		
+			
 		if ( $parent !== null ) {
 			
-			foreach($parent->getLocations() as $location) {
+			foreach($parent->getAccessIDS() as $aid) {
 			
-				$iodev = array();
-				$accessids = array();
+				$locations = array();
 			
-				foreach($location->getIoDevices() as $iodevice) {
-					$iodev[] = $iodevice->getId();
-				}
-			
-				foreach($location->getAccessIds() as $accessid) {
-					$accessids[] = $accessid->getId();
+				foreach($aid->getLocations() as $location) {
+					$locations[] = $location->getId();
 				}
 			
 				$result[] = array(
-						'id' => $location->getId(),
-						'password' => $location->getPassword(),
-						'caption' => $location->getCaption(),
-						'iodevices' => $iodev,
-						'accessids' => $accessids,
+						'id' => $aid->getId(),
+						'password' => $aid->getPassword(),
+						'caption' => $aid->getCaption(),
+						'enabled' => $aid->getEnabled() === true ? true : false,
+						'locations' => $locations,
 				);
 			}
+			
 		}
 			
-
-		return array('locations' => $result);
+		return array('accessids' => $result);
 	}
-	
-	
-	/**
-	 * @Rest\Get("/locations")
-	 */
-	public function getLocationsAction(Request $request)
-	{
-		 
-		return  $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
 
+	
+
+	/**
+	 * @Rest\Get("/accessids")
+	 */
+	public function getAccessidsAction(Request $request)
+	{
+		return  $this->handleView($this->view($this->getAccessIDS(), Response::HTTP_OK));
+	
 	}
 	
 }

@@ -1,7 +1,5 @@
 <?php
 /*
- src/SuplaBundle/Model/APIManager.php
-
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -24,6 +22,9 @@ use SuplaBundle\Entity\OAuth\User as APIUser;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\RefreshToken;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\Response;
+use SuplaBundle\Entity\IODevice;
 
 class APIManager 
 {
@@ -193,6 +194,20 @@ class APIManager
 		
 		$qb->getQuery()->execute();
 		
+	}
+	
+	
+	public function ioDeviceById($devid, APIUser $user) {
+	
+		$devid = intval($devid, 0);
+		$iodev_man = $this->container->get('iodevice_manager');
+	
+		$iodevice = $iodev_man->ioDeviceById($devid, $user->getParentUser());
+	
+		if ( !($iodevice instanceof IODevice) )
+			throw new HttpException(Response::HTTP_NOT_FOUND);
+				
+		return $iodevice;
 	}
 
 }

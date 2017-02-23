@@ -52,7 +52,7 @@ abstract class RestController extends FOSRestController {
 	public function getApiManager() {
 		
 		if ( $this->api_man === null ) {
-			$api_man = $this->container->get('api_manager');
+			$this->api_man = $this->container->get('api_manager');
 		}
 		
 		return $this->api_man;
