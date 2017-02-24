@@ -115,12 +115,12 @@ class ScheduleController extends Controller
     public function getNextRunDatesAction(Request $request)
     {
         $data = $request->request->all();
-        if (!$request->isXmlHttpRequest() || empty($data['cronExpression'])) {
+        if (!$request->isXmlHttpRequest() || empty($data['timeExpression'])) {
             throw $this->createNotFoundException();
         }
         $temporarySchedule = new Schedule();
         $temporarySchedule->setUser($this->getUser());
-        $temporarySchedule->setTimeExpression($data['cronExpression']);
+        $temporarySchedule->setTimeExpression($data['timeExpression']);
         $dateStart = \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']);
         if (!$dateStart) {
             $dateStart = new \DateTime();

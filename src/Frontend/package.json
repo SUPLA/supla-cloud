@@ -9,27 +9,29 @@
     "build": "rm -fr ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.1.0"
+    "vue": "2.1.0"
   },
   "devDependencies": {
-    "babel-core": "^6.0.0",
-    "babel-loader": "^6.0.0",
+    "babel-core": "6.0.0",
+    "babel-loader": "6.0.0",
     "babel-preset-es2016": "6.22.0",
     "babel-preset-stage-3": "6.22.0",
-    "cross-env": "^3.0.0",
+    "cross-env": "3.0.0",
     "css-loader": "0.25.0",
     "eonasdan-bootstrap-datetimepicker": "4.17.46",
-    "file-loader": "^0.9.0",
+    "file-loader": "0.9.0",
     "json-loader": "0.5.4",
-    "node-sass": "^4.5.0",
-    "sass-loader": "^5.0.1",
+    "moment": "2.17.1",
+    "node-sass": "4.5.0",
+    "sass-loader": "5.0.1",
     "style-loader": "0.13.1",
     "vue-i18n": "5.0.2",
-    "vue-loader": "^10.0.0",
-    "vue-template-compiler": "^2.1.0",
+    "vue-loader": "10.0.0",
+    "vue-resource": "1.2.0",
+    "vue-template-compiler": "2.1.0",
     "vuex": "2.1.2",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0",
+    "webpack": "2.2.0",
+    "webpack-dev-server": "2.2.0",
     "yaml-loader": "0.4.0"
   }
 }

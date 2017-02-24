@@ -170,33 +170,33 @@ var app = new Vue({
             this.nextRunDates = [];
             this.cronExpression = '';
         },
-        updateCronExpression: function (cronExpression) {
-            var self = this;
-            this.cronExpression = cronExpression;
-            if (!this.calculatingNextRunDates && cronExpression) {
-                this.calculatingNextRunDates = true;
-                $.post(BASE_URL + 'schedule/next-run-dates', {
-                    cronExpression: cronExpression,
-                    dateStart: this.dateStart ? this.dateStart.format() : '',
-                    dateEnd: this.dateEnd ? this.dateEnd.format() : ''
-                }).then(function (response) {
-                    self.nextRunDates = response.nextRunDates.map(function (dateString) {
-                        return {
-                            date: moment(dateString).format('LLL'),
-                            fromNow: moment(dateString).fromNow()
-                        }
-                    });
-                }).always(function () {
-                    self.calculatingNextRunDates = false;
-                    if (self.cronExpressionChangedInMeantime) {
-                        self.cronExpressionChangedInMeantime = false;
-                        self.updateCronExpression(self.cronExpression);
-                    }
-                });
-            } else {
-                this.cronExpressionChangedInMeantime = true;
-            }
-        },
+        // updateCronExpression: function (cronExpression) {
+        //     var self = this;
+        //     this.cronExpression = cronExpression;
+        //     if (!this.calculatingNextRunDates && cronExpression) {
+        //         this.calculatingNextRunDates = true;
+        //         $.post(BASE_URL + 'schedule/next-run-dates', {
+        //             cronExpression: cronExpression,
+        //             dateStart: this.dateStart ? this.dateStart.format() : '',
+        //             dateEnd: this.dateEnd ? this.dateEnd.format() : ''
+        //         }).then(function (response) {
+        //             self.nextRunDates = response.nextRunDates.map(function (dateString) {
+        //                 return {
+        //                     date: moment(dateString).format('LLL'),
+        //                     fromNow: moment(dateString).fromNow()
+        //                 }
+        //             });
+        //         }).always(function () {
+        //             self.calculatingNextRunDates = false;
+        //             if (self.cronExpressionChangedInMeantime) {
+        //                 self.cronExpressionChangedInMeantime = false;
+        //                 self.updateCronExpression(self.cronExpression);
+        //             }
+        //         });
+        //     } else {
+        //         this.cronExpressionChangedInMeantime = true;
+        //     }
+        // },
         submit: function () {
             var self = this;
             this.submitting = true;

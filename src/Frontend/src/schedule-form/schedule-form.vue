@@ -14,8 +14,9 @@
                 <div class="well">
                     <h3 class="no-margin-top">{{ $t('When') }}?</h3>
                     <div class="form-group">
-                        <schedule-form-mode-once v-show="scheduleMode == 'once'"></schedule-form-mode-once>
+                        <schedule-form-mode-once v-if="scheduleMode == 'once'"></schedule-form-mode-once>
                     </div>
+                    <next-run-dates-preview></next-run-dates-preview>
                 </div>
             </div>
         </div>
@@ -25,21 +26,16 @@
 <script type="text/babel">
     import ScheduleModeChooser from "./schedule-mode-chooser.vue"
     import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue"
+    import NextRunDatesPreview from "./next-run-dates-preview.vue"
     import {mapState} from "vuex";
+
     export default {
         name: 'schedule-form',
-        data () {
-            return {
-                msg: 'SUPLA v2.0'
-            }
-        },
         computed: mapState(['scheduleMode']),
-        components: {ScheduleModeChooser, ScheduleFormModeOnce}
+        components: {ScheduleModeChooser, ScheduleFormModeOnce, NextRunDatesPreview}
     }
 </script>
 
 <style lang="scss" scoped>
-    h1 {
-        color: red;
-    }
+
 </style>

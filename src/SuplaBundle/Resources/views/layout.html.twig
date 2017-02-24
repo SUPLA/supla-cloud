@@ -37,7 +37,11 @@
 		
         <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
 		<script>
-			window.LOCALE = '{{ app.request.locale }}';
+			window.FRONTEND_CONFIG = {
+				locale: '{{ app.request.locale }}',
+				baseUrl: '{{ path('_homepage') }}',
+				timezone: '{{ app.user.timezone }}'
+			};
 		</script>
         <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('assets/js/jquery.turn-off-tv.js') }}"></script>

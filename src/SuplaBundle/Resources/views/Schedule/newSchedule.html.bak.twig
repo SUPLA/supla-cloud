@@ -69,24 +69,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="progress" v-if="calculatingNextRunDates">
-                            <div class="progress-bar progress-bar-info progress-bar-striped active"
-                                 style="width: 100%">
-                                {{ 'calculating closest executions'|trans }}...
-                            </div>
-                        </div>
-                        <div class="forum-group" v-if="nextRunDates.length > 0"
-                             v-bind:class="{opacity60: calculatingNextRunDates}">
-                            <h4>{{ 'The closest executions'|trans }}</h4>
-                            <div class="list-group">
-                                <div class="list-group-item" v-for="nextRunDate in nextRunDates">
-                                        <span class="pull-right small text-muted">
-                                            ${nextRunDate.fromNow}
-                                        </span>
-                                    ${nextRunDate.date}
-                                </div>
-                            </div>
-                        </div>
+                        {#<div class="progress" v-if="calculatingNextRunDates">#}
+                            {#<div class="progress-bar progress-bar-info progress-bar-striped active"#}
+                                 {#style="width: 100%">#}
+                                {#{{ 'calculating closest executions'|trans }}...#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="forum-group" v-if="nextRunDates.length > 0"#}
+                             {#v-bind:class="{opacity60: calculatingNextRunDates}">#}
+                            {#<h4>{{ 'The closest executions'|trans }}</h4>#}
+                            {#<div class="list-group">#}
+                                {#<div class="list-group-item" v-for="nextRunDate in nextRunDates">#}
+                                        {#<span class="pull-right small text-muted">#}
+                                            {#${nextRunDate.fromNow}#}
+                                        {#</span>#}
+                                    {#${nextRunDate.date}#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
                     </div>
                 </div>
                 <div class="col-md-6">
