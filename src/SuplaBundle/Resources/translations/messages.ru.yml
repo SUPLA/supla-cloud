@@ -43,7 +43,6 @@ SoftVer: Версия
 All: Все
 Electric: Электрика
 Doors, Gates: Двери, Калитки
-Roller shutters: Ролетты
 Liquid, Temp: Жидкость, Темп
 Sensors: Датчики
 No function: Не назначено
@@ -189,7 +188,6 @@ Enter password: Введите пароль
 Enter strong password: Введите сложный пароль
 Repeat password: Повторите пароль
 Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.: Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого <strong>нажмите здесь</strong>.
-Password Reset: Сброс пароля
 RESET: СБРОС
 Click RESET button when visible: Нажмите на СБРОС как появится
 Check your email box: Проверьте почтовый ящик

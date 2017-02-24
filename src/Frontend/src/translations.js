@@ -1,3 +1,8 @@
-var json = require("json-loader!yaml-loader!../../SuplaBundle/Resources/translations/messages.pl.yml");
+function requireTranslations(lang) {
+    return require("json-loader!yaml-loader!../../SuplaBundle/Resources/translations/messages." + lang + ".yml");
+}
 
-console.log(json);
+export var pl = requireTranslations('pl');
+export var en = requireTranslations('en');
+export var ru = requireTranslations('ru');
+export var de = requireTranslations('de');

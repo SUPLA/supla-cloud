@@ -14,138 +14,138 @@
             </div>
         </div>
         <div class="row margin-top-20" id="new-schedule-form" style="display: none">
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-sm-12">
+            {#<div class="col-xs-12">#}
+            {#<div class="row">#}
+            {#<div class="col-sm-12">#}
+            {#<div class="form-group">#}
+            {#<label>{% trans %}Schedule mode{% endtrans %}</label>#}
+            {#<div class="clearfix"></div>#}
+            {#<div class="btn-group btn-group-lg">#}
+            {#{% for mode in scheduleModes %}#}
+            {#<button class="btn btn-default"#}
+            {#@click="chooseMode('{{ mode }}')"#}
+            {#v-bind:class="{'active btn-success': scheduleMode == '{{ mode }}'}">#}
+            {#{{ mode|trans|capitalize }}#}
+            {#</button>#}
+            {#{% endfor %}#}
+            {#</div>#}
+            {#</div>#}
+            {#</div>#}
+            {#</div>#}
+            <div class="row" v-show="scheduleMode">
+                <div class="col-md-6">
+                    <div class="well">
+                        <h3 class="no-margin-top">{{ 'When'|trans }}?</h3>
                         <div class="form-group">
-                            <label>{% trans %}Schedule mode{% endtrans %}</label>
-                            <div class="clearfix"></div>
-                            <div class="btn-group btn-group-lg">
-                                {% for mode in scheduleModes %}
-                                    <button class="btn btn-default"
-                                            @click="chooseMode('{{ mode }}')"
-                                            v-bind:class="{'active btn-success': scheduleMode == '{{ mode }}'}">
-                                        {{ mode|trans|capitalize }}
-                                    </button>
-                                {% endfor %}
+                            {% for mode in scheduleModes %}
+                                <div v-show="scheduleMode == '{{ mode }}'">
+                                    {{ include("SuplaBundle:Schedule:modes/new-schedule-mode-#{mode}.html.twig") }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div v-show="scheduleMode != 'once'">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ 'Start date'|trans }}</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control datetimepicker-start">
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ 'End date'|trans }}</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control datetimepicker-end">
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress" v-if="calculatingNextRunDates">
+                            <div class="progress-bar progress-bar-info progress-bar-striped active"
+                                 style="width: 100%">
+                                {{ 'calculating closest executions'|trans }}...
+                            </div>
+                        </div>
+                        <div class="forum-group" v-if="nextRunDates.length > 0"
+                             v-bind:class="{opacity60: calculatingNextRunDates}">
+                            <h4>{{ 'The closest executions'|trans }}</h4>
+                            <div class="list-group">
+                                <div class="list-group-item" v-for="nextRunDate in nextRunDates">
+                                        <span class="pull-right small text-muted">
+                                            ${nextRunDate.fromNow}
+                                        </span>
+                                    ${nextRunDate.date}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row" v-show="scheduleMode">
-                    <div class="col-md-6">
-                        <div class="well">
-                            <h3 class="no-margin-top">{{ 'When'|trans }}?</h3>
-                            <div class="form-group">
-                                {% for mode in scheduleModes %}
-                                    <div v-show="scheduleMode == '{{ mode }}'">
-                                        {{ include("SuplaBundle:Schedule:modes/new-schedule-mode-#{mode}.html.twig") }}
-                                    </div>
+                <div class="col-md-6">
+                    <div class="well">
+                        <h3 class="no-margin-top">{{ 'Action'|trans }}</h3>
+                        <div class="form-group">
+                            <label>{{ 'Subject'|trans }}</label>
+                            <select class="selectpicker form-control" data-live-search="true"
+                                    data-live-search-placeholder="Filtruj" v-model="channel"
+                                    @change="action = actionParam = undefined">
+                                <option disabled selected value> -- {{ 'choose the channel'|trans }} --</option>
+                                {% for channel in userChannels %}
+                                    <option value="{{ channel.id }}"
+                                            title="{{ channel.caption ?: channel.function|channelFunctionToString }} ({{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }})"
+                                            data-content="<img class='pull-right' height=60 src='{{ asset('assets/img/functions/') }}{{ channel.function }}.svg'><h4>{{ channel.function|channelFunctionToString }}{{ channel.caption ? " <span class='small text-muted'>(#{channel.caption})</span>" : '' }}</h4><p>{{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }}</p>">
+                                        {{ channel.caption }}
+                                    </option>
                                 {% endfor %}
-                            </div>
-                            <div v-show="scheduleMode != 'once'">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>{{ 'Start date'|trans }}</label>
-                                            <div class="input-group date">
-                                                <input type="text" class="form-control datetimepicker-start">
-                                                <div class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>{{ 'End date'|trans }}</label>
-                                            <div class="input-group date">
-                                                <input type="text" class="form-control datetimepicker-end">
-                                                <div class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="progress" v-if="calculatingNextRunDates">
-                                <div class="progress-bar progress-bar-info progress-bar-striped active"
-                                     style="width: 100%">
-                                    {{ 'calculating closest executions'|trans }}...
-                                </div>
-                            </div>
-                            <div class="forum-group" v-if="nextRunDates.length > 0"
-                                 v-bind:class="{opacity60: calculatingNextRunDates}">
-                                <h4>{{ 'The closest executions'|trans }}</h4>
-                                <div class="list-group">
-                                    <div class="list-group-item" v-for="nextRunDate in nextRunDates">
-                                        <span class="pull-right small text-muted">
-                                            ${nextRunDate.fromNow}
-                                        </span>
-                                        ${nextRunDate.date}
-                                    </div>
-                                </div>
-                            </div>
+                            </select>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="well">
-                            <h3 class="no-margin-top">{{ 'Action'|trans }}</h3>
-                            <div class="form-group">
-                                <label>{{ 'Subject'|trans }}</label>
-                                <select class="selectpicker form-control" data-live-search="true"
-                                        data-live-search-placeholder="Filtruj" v-model="channel"
-                                        @change="action = actionParam = undefined">
-                                    <option disabled selected value> -- {{ 'choose the channel'|trans }} --</option>
-                                    {% for channel in userChannels %}
-                                        <option value="{{ channel.id }}"
-                                                title="{{ channel.caption ?: channel.function|channelFunctionToString }} ({{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }})"
-                                                data-content="<img class='pull-right' height=60 src='{{ asset('assets/img/functions/') }}{{ channel.function }}.svg'><h4>{{ channel.function|channelFunctionToString }}{{ channel.caption ? " <span class='small text-muted'>(#{channel.caption})</span>" : '' }}</h4><p>{{ channel.ioDevice.location.caption }} / {{ channel.ioDevice.name }}</p>">
-                                            {{ channel.caption }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div v-show="channel">
-                                <table class="table">
-                                    {% for action, actionLabel in actionStringMap %}
-                                        <div v-show="channelFunctionMap[channel] && channelFunctionMap[channel].indexOf({{ action }}) >= 0">
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" value="{{ action }}" v-model="action"
-                                                           @change="actionParam = undefined">
-                                                    {{ actionLabel|trans }}
-                                                </label>
-                                            </div>
-                                            {% if action == 70 %}{# dim #}
-                                                <span class="input-group" v-show="action == {{ action }}">
+                        <div v-show="channel">
+                            <table class="table">
+                                {% for action, actionLabel in actionStringMap %}
+                                    <div v-show="channelFunctionMap[channel] && channelFunctionMap[channel].indexOf({{ action }}) >= 0">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="{{ action }}" v-model="action"
+                                                       @change="actionParam = undefined">
+                                                {{ actionLabel|trans }}
+                                            </label>
+                                        </div>
+                                        {% if action == 70 %}{# dim #}
+                                            <span class="input-group" v-show="action == {{ action }}">
                                                     <input type="number" min="0" max="100" step="5" class="form-control"
                                                            maxlength="3" v-model="actionParam">
                                                     <span class="input-group-addon">%</span>
                                                 </span>
-                                            {% elseif action == 80 %}{# rgb #}
-                                                <div v-show="action == {{ action }}">
-                                                    <input type="text" class="colorpicker">
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                    {% endfor %}
-                                </table>
-                            </div>
-                            <div class="text-right">
-                                <button class="btn btn-success btn-lg"
-                                        v-bind:disabled="action == undefined || !nextRunDates.length || submitting || calculatingNextRunDates"
-                                        @click="submit()">
-                                    <i class="pe-7s-plus"></i>
-                                    {{ 'Add'|trans }}
-                                </button>
-                            </div>
+                                        {% elseif action == 80 %}{# rgb #}
+                                            <div v-show="action == {{ action }}">
+                                                <input type="text" class="colorpicker">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn-success btn-lg"
+                                    v-bind:disabled="action == undefined || !nextRunDates.length || submitting || calculatingNextRunDates"
+                                    @click="submit()">
+                                <i class="pe-7s-plus"></i>
+                                {{ 'Add'|trans }}
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}
 

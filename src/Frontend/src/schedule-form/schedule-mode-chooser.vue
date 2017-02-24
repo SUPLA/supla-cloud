@@ -4,13 +4,13 @@
                 v-for="mode in availableModes"
                 @click="changeScheduleMode(mode)"
                 :class="{'active btn-success': scheduleMode == mode}">
-            {{ mode }}
+            {{ $t(mode) }}
         </button>
     </div>
 </template>
 
 <script type="text/babel">
-    import {mapMutations, mapState} from "vuex/src/helpers";
+    import {mapMutations, mapState} from "vuex";
     export default {
         name: 'schedule-form-chooser',
         data () {

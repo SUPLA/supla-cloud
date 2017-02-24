@@ -1,11 +1,22 @@
 var path = require('path')
 var webpack = require('webpack')
+var glob = require("glob");
+
+var entries = {
+    'schedule-form': './src/schedule-form/schedule-form.js',
+    'user-profile': './src/user-profile/user-profile.js',
+    'commons': './src/common.js'
+};
+
+// glob.sync("./src/translations/*.js").forEach(function(translation){
+//     var lang = path.basename(translation).match(/translations-([a-z]+)\.js/);
+//     if (lang) {
+//         entries['translations/' + lang[1]] = translation;
+//     }
+// });
 
 module.exports = {
-    entry: {
-        'schedule-form': './src/schedule-form/schedule-form.js',
-        'user-profile': './src/user-profile/user-profile.js'
-    },
+    entry: entries,
     output: {
         path: path.resolve(__dirname, '../../web/assets/dist'),
         publicPath: 'https://localhost:25787/assets/dist/',
@@ -49,7 +60,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.common.js'
+            'vue$': 'vue/dist/vue.common.js',
+            'vuex$': 'vuex/dist/vuex.js'
         }
     },
     devServer: {

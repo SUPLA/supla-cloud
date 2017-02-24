@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group">
-                <label>Schedule mode</label>
+                <label>{{ $t("Schedule mode") }}</label>
                 <div class="clearfix"></div>
                 <schedule-mode-chooser></schedule-mode-chooser>
             </div>
