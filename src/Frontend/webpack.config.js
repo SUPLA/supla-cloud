@@ -8,7 +8,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, '../../web/assets/dist'),
-        publicPath: 'https://localhost:8080/assets/dist/',
+        publicPath: 'https://localhost:25787/assets/dist/',
         filename: '[name].js'
     },
     plugins: [
@@ -54,7 +54,8 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
-        noInfo: true
+        noInfo: true,
+        port: 25787
     },
     performance: {
         hints: false

@@ -10,7 +10,7 @@ framework:
         packages:
             webpack:
                 base_urls:
-                   - https://localhost:8080
+                   - https://localhost:25787
 
 web_profiler:
     toolbar: true
