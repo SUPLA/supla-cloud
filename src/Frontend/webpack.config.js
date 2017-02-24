@@ -45,6 +45,10 @@ module.exports = {
                 }
             },
             {
+                test: /\.css$/,
+                loader: "style-loader!css-loader"
+            },
+            {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
@@ -61,7 +65,8 @@ module.exports = {
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.common.js',
-            'vuex$': 'vuex/dist/vuex.js'
+            'vuex$': 'vuex/dist/vuex.js',
+            'jquery': 'jquery/src/jquery'
         }
     },
     devServer: {

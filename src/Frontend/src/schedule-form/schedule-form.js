@@ -7,7 +7,8 @@ new Vue({
     el: '#schedule-form',
     store: new Vuex.Store({
         state: {
-            scheduleMode: 'once'
+            scheduleMode: 'once',
+            timeExpression: ''
         },
         mutations: mutations
     }),
