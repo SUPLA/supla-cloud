@@ -91,22 +91,22 @@ var app = new Vue({
         //         });
         //     }
         // },
-        'schedule-chooser-hourly': {
-            bind: function (element) {
-                var updateExpression = function () {
-                    var chosenHours = $(element).find("input:checked");
-                    if (chosenHours.length) {
-                        chosenHours = chosenHours.map(function () {
-                            return this.value
-                        }).toArray();
-                        var minute = $(element).find('input[type=number]').val() || 0;
-                        var cronExpression = minute + ' ' + chosenHours.join(',') + ' * * *';
-                        app.updateCronExpression(cronExpression);
-                    }
-                };
-                $(element).find('input[type=checkbox], input[type=number]').change(updateExpression);
-            }
-        }
+        // 'schedule-chooser-hourly': {
+        //     bind: function (element) {
+        //         var updateExpression = function () {
+        //             var chosenHours = $(element).find("input:checked");
+        //             if (chosenHours.length) {
+        //                 chosenHours = chosenHours.map(function () {
+        //                     return this.value
+        //                 }).toArray();
+        //                 var minute = $(element).find('input[type=number]').val() || 0;
+        //                 var cronExpression = minute + ' ' + chosenHours.join(',') + ' * * *';
+        //                 app.updateCronExpression(cronExpression);
+        //             }
+        //         };
+        //         $(element).find('input[type=checkbox], input[type=number]').change(updateExpression);
+        //     }
+        // }
     },
     data: {
         scheduleMode: 'once',

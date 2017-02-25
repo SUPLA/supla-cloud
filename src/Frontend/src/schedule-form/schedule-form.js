@@ -14,7 +14,8 @@ new Vue({
             nextRunDates: [],
         },
         mutations: mutations,
-        actions: actions
+        actions: actions,
+        strict: process.env.NODE_ENV !== 'production'
     }),
     render: h => h(ScheduleForm)
 })

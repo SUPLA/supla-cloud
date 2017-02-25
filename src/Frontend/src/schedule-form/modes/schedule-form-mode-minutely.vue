@@ -32,7 +32,6 @@
             }
         },
         mounted() {
-            console.log('mounted');
             let currentMinutes = this.timeExpression.match(/^\*\/([01235]+)/);
             if (currentMinutes) {
                 this.minutes = +currentMinutes[1];

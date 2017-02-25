@@ -7,18 +7,22 @@ export const updateTimeExpression = ({commit, dispatch}, timeExpression) => {
 
 export const fetchNextRunDates = ({commit, state, dispatch}) => {
     if (!state.fetchingNextRunDates) {
-        commit('fetchingNextRunDates');
-        let query = {
-            timeExpression: state.timeExpression,
-            dateStart: '',
-            dateEnd: ''
-        };
-        Vue.http.post('schedule/next-run-dates', query).then(({body}) => {
-            commit('updateNextRunDates', body.nextRunDates);
-            commit('fetchingNextRunDates', false);
-            if (query.timeExpression != state.timeExpression) {
-                dispatch('fetchNextRunDates');
-            }
-        });
+        if (!state.timeExpression) {
+            commit('clearNextRunDates');
+        } else {
+            commit('fetchingNextRunDates');
+            let query = {
+                timeExpression: state.timeExpression,
+                dateStart: '',
+                dateEnd: ''
+            };
+            Vue.http.post('schedule/next-run-dates', query).then(({body}) => {
+                commit('updateNextRunDates', body.nextRunDates);
+                commit('fetchingNextRunDates', false);
+                if (query.timeExpression != state.timeExpression) {
+                    dispatch('fetchNextRunDates');
+                }
+            });
+        }
     }
 }
