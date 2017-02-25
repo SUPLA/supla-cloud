@@ -103,7 +103,7 @@ h2 {
 h2 strong {font-weight: 400;}
 a {color: #00D151; transition: all 0.3s;}
 a:hover, a:active, a:focus {text-decoration: none; color: #606060; outline: none; box-shadow: none;}
-.btn, .btn:hover, .btn:active, .btn:focus, input {outline: none!important; box-shadow: none!important; -webkit-appearance:none!important;}
+.btn, .btn:hover, .btn:active, .btn:focus, input {outline: none!important; box-shadow: none!important; }
 .table a.disabled {color: #FF3939}
 .table a.caption {color: #000}
 .table a i.pe-7s-more  {font-size: 24px; line-height: 18px; margin-left: 3px;}
