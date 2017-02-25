@@ -15,6 +15,7 @@
                     <h3 class="no-margin-top">{{ $t('When') }}?</h3>
                     <div class="form-group">
                         <schedule-form-mode-once v-if="scheduleMode == 'once'"></schedule-form-mode-once>
+                        <schedule-form-mode-minutely v-if="scheduleMode == 'minutely'"></schedule-form-mode-minutely>
                     </div>
                     <next-run-dates-preview></next-run-dates-preview>
                 </div>
@@ -26,13 +27,14 @@
 <script type="text/babel">
     import ScheduleModeChooser from "./schedule-mode-chooser.vue"
     import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue"
+    import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue"
     import NextRunDatesPreview from "./next-run-dates-preview.vue"
     import {mapState} from "vuex";
 
     export default {
         name: 'schedule-form',
         computed: mapState(['scheduleMode']),
-        components: {ScheduleModeChooser, ScheduleFormModeOnce, NextRunDatesPreview}
+        components: {ScheduleModeChooser, ScheduleFormModeOnce, ScheduleFormModeMinutely, NextRunDatesPreview}
     }
 </script>
 

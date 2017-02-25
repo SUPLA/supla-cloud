@@ -66,31 +66,31 @@ var app = new Vue({
         }
     },
     directives: {
-        'schedule-chooser-once': {
-            bind: function (element) {
-                var datepicker = $(element).find('.once-datepicker');
-                datepicker.datetimepicker({
-                    minDate: 'now',
-                    locale: LOCALE,
-                    stepping: 5,
-                    inline: true,
-                    sideBySide: true
-                });
-                datepicker.on("dp.change", function (e) {
-                    var cronExpression = moment(e.date).format('m H D M * Y');
-                    app.updateCronExpression(cronExpression);
-                });
-            }
-        },
-        'schedule-chooser-minutely': {
-            bind: function (element) {
-                $(element).find('input[type=number]').change(function () {
-                    this.value = Math.min(Math.max(roundTo5(this.value), 5), 30);
-                    var cronExpression = '*/' + this.value + ' * * * *';
-                    app.updateCronExpression(cronExpression);
-                });
-            }
-        },
+        // 'schedule-chooser-once': {
+        //     bind: function (element) {
+        //         var datepicker = $(element).find('.once-datepicker');
+        //         datepicker.datetimepicker({
+        //             minDate: 'now',
+        //             locale: LOCALE,
+        //             stepping: 5,
+        //             inline: true,
+        //             sideBySide: true
+        //         });
+        //         datepicker.on("dp.change", function (e) {
+        //             var cronExpression = moment(e.date).format('m H D M * Y');
+        //             app.updateCronExpression(cronExpression);
+        //         });
+        //     }
+        // },
+        // 'schedule-chooser-minutely': {
+        //     bind: function (element) {
+        //         $(element).find('input[type=number]').change(function () {
+        //             this.value = Math.min(Math.max(roundTo5(this.value), 5), 30);
+        //             var cronExpression = '*/' + this.value + ' * * * *';
+        //             app.updateCronExpression(cronExpression);
+        //         });
+        //     }
+        // },
         'schedule-chooser-hourly': {
             bind: function (element) {
                 var updateExpression = function () {

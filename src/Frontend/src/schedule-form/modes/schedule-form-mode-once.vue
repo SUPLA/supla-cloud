@@ -17,9 +17,6 @@
 
     export default {
         name: 'schedule-form-mode-once',
-        data () {
-            return {}
-        },
         mounted() {
             $(this.$refs.datepicker).datetimepicker({
                 minDate: 'now',
@@ -29,15 +26,14 @@
                 sideBySide: true
             });
             $(this.$refs.datepicker).on("dp.change", () => this.updateTimeExpression());
-            if (this.scheduleMode == 'once') {
-                if (this.timeExpression) {
-                    $(this.$refs.datepicker).data('DateTimePicker').date(moment(this.timeExpression, 'm H D M * Y'));
-                } else {
-                    this.updateTimeExpression();
-                }
+            if (this.timeExpression) {
+                let currentDateFromExpression = moment(this.timeExpression, 'm H D M * Y');
+                $(this.$refs.datepicker).data('DateTimePicker').date(currentDateFromExpression);
+            } else {
+                this.updateTimeExpression();
             }
         },
-        computed: mapState(['scheduleMode', 'timeExpression']),
+        computed: mapState(['timeExpression']),
         methods: {
             updateTimeExpression() {
                 let date = $(this.$refs.datepicker).data('DateTimePicker').date();

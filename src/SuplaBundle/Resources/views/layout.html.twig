@@ -40,7 +40,7 @@
 			window.FRONTEND_CONFIG = {
 				locale: '{{ app.request.locale }}',
 				baseUrl: '{{ path('_homepage') }}',
-				timezone: '{{ app.user.timezone }}'
+				timezone: '{{ app.user ? app.user.timezone : '' }}'
 			};
 		</script>
         <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
