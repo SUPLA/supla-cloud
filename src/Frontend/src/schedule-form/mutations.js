@@ -19,3 +19,18 @@ export const updateNextRunDates = (state, nextRunDates) => {
 export const clearNextRunDates = (state) => {
     state.nextRunDates = [];
 };
+
+export const updateChannel = (state, channel) => {
+    state.channel = channel;
+    state.action = undefined;
+    state.actionParam = undefined;
+};
+
+export const updateAction = (state, action) => {
+    state.action = action;
+    state.actionParam = undefined;
+};
+
+export const updateActionParam = (state, actionParam) => {
+    state.actionParam = actionParam;
+};

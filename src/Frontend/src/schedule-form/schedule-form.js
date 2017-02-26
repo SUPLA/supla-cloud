@@ -12,6 +12,9 @@ new Vue({
             timeExpression: '',
             fetchingNextRunDates: false,
             nextRunDates: [],
+            channel: undefined,
+            action: undefined,
+            actionParam: undefined
         },
         mutations: mutations,
         actions: actions,

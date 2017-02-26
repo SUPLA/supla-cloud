@@ -55,18 +55,7 @@ class ScheduleController extends Controller
      */
     public function newScheduleAction()
     {
-        $ioDeviceManager = $this->get('iodevice_manager');
-        $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
-        $channelToFunctionsMap = [];
-        foreach ($schedulableChannels as $channel) {
-            $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
-        }
-        return [
-            'scheduleModes' => ['once', 'minutely', 'hourly', 'daily'],
-            'userChannels' => $schedulableChannels,
-            'actionStringMap' => $ioDeviceManager->actionStringMap(),
-            'channelToFunctionsMap' => $channelToFunctionsMap,
-        ];
+        return [];
     }
 
     /**

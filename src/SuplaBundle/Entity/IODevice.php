@@ -139,7 +139,8 @@ class IODevice
     {
     	return $this->name;
     }
-    
+
+    /** @return Location */
     public function getLocation()
     {
     	return $this->location;

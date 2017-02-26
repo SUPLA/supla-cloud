@@ -123,6 +123,7 @@ class IODeviceChannel
     	return $this->type;
     }
 
+    /** @return IODevice */
     public function getIoDevice() 
     {
     	return $this->iodevice;

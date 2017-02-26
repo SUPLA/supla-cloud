@@ -22,6 +22,12 @@
                     <next-run-dates-preview></next-run-dates-preview>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="well">
+                    <h3 class="no-margin-top">{{ $t('Action') }}</h3>
+                    <schedule-form-action-chooser></schedule-form-action-chooser>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -33,6 +39,7 @@
     import ScheduleFormModeHourly from "./modes/schedule-form-mode-hourly.vue"
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue"
     import NextRunDatesPreview from "./next-run-dates-preview.vue"
+    import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue"
     import {mapState} from "vuex";
 
     export default {
@@ -44,15 +51,14 @@
             ScheduleFormModeMinutely,
             ScheduleFormModeHourly,
             ScheduleFormModeDaily,
-            NextRunDatesPreview
+            NextRunDatesPreview,
+            ScheduleFormActionChooser
         }
     }
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
-    .well {
-        h3 {
-            margin-top: 0;
-        }
+<style>
+    .no-margin-top {
+        margin-top: 0 !important;
     }
 </style>

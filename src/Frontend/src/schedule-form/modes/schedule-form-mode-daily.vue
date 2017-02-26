@@ -33,6 +33,7 @@
     import ScheduleFormModeDailyHour from "./schedule-form-mode-daily-hour.vue";
     import ScheduleFormModeDailySun from "./schedule-form-mode-daily-sun.vue";
     import {mapState} from "vuex";
+
     export default {
         name: 'schedule-form-mode-daily',
         components: {ScheduleFormModeDailyHour, ScheduleFormModeDailySun},
