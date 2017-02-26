@@ -10,15 +10,15 @@
 
 <script type="text/babel">
     import Vue from "vue";
+    import $ from "jquery";
     import {mapState} from "vuex";
-    import BootstrapDateTimePicker from "eonasdan-bootstrap-datetimepicker";
-    import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import moment from "moment";
 
     export default {
         name: 'schedule-form-mode-once',
         mounted() {
-            $(this.$refs.datepicker).datetimepicker({
+            let datepicker = $(this.$refs.datepicker);
+            datepicker.datetimepicker({
                 minDate: 'now',
                 locale: Vue.config.lang,
                 stepping: 5,
@@ -27,7 +27,7 @@
             }).on("dp.change", () => this.updateTimeExpression());
             if (this.timeExpression) {
                 let currentDateFromExpression = moment(this.timeExpression, 'm H D M * Y');
-                $(this.$refs.datepicker).data('DateTimePicker').date(currentDateFromExpression);
+                datepicker.data('DateTimePicker').date(currentDateFromExpression);
             } else {
                 this.updateTimeExpression();
             }
