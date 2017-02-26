@@ -1,18 +1,29 @@
-# hello-vue
+# SUPLA CLOUD - Frontend
 
-> A Vue.js project
+This directory contains sources of frontend components used in SUPLA CLOUD.
 
-## Build Setup
+They are written with [Vue.js](https://vuejs.org/) supported by 
+[Vuex](https://vuex.vuejs.org/). 
+The sources are built with [webpack](https://webpack.github.io/).
 
-``` bash
-# install dependencies
+## How to build the sources?
+
+Install [Node.js](https://nodejs.org/).
+
+```bash
 npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+The first command downloads the Internet. The second one builds the sources
+to the output directory (`web/assets/dist`).
+
+## How to develop the frontend components?
+
+> TODO how to congure symfony for dev
+
+In orer to start the webpack dev server with continous building and hot reloads, run:
+
+```bash
+npm run dev
+```

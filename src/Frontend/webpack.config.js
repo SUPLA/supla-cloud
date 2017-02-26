@@ -1,19 +1,11 @@
 var path = require('path')
 var webpack = require('webpack')
-var glob = require("glob");
 
 var entries = {
     'schedule-form': './src/schedule-form/schedule-form.js',
     'user-profile': './src/user-profile/user-profile.js',
     'commons': './src/common.js'
 };
-
-// glob.sync("./src/translations/*.js").forEach(function(translation){
-//     var lang = path.basename(translation).match(/translations-([a-z]+)\.js/);
-//     if (lang) {
-//         entries['translations/' + lang[1]] = translation;
-//     }
-// });
 
 module.exports = {
     entry: entries,
