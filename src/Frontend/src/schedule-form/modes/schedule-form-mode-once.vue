@@ -10,7 +10,7 @@
 
 <script type="text/babel">
     import Vue from "vue";
-    import {mapActions, mapState} from "vuex";
+    import {mapState} from "vuex";
     import BootstrapDateTimePicker from "eonasdan-bootstrap-datetimepicker";
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import moment from "moment";

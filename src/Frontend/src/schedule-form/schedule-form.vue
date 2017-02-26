@@ -19,6 +19,9 @@
                         <schedule-form-mode-hourly v-if="scheduleMode == 'hourly'"></schedule-form-mode-hourly>
                         <schedule-form-mode-daily v-if="scheduleMode == 'daily'"></schedule-form-mode-daily>
                     </div>
+                    <div v-if="scheduleMode != 'once'">
+                        <schedule-form-start-end-date></schedule-form-start-end-date>
+                    </div>
                     <next-run-dates-preview></next-run-dates-preview>
                 </div>
             </div>
@@ -26,6 +29,14 @@
                 <div class="well">
                     <h3 class="no-margin-top">{{ $t('Action') }}</h3>
                     <schedule-form-action-chooser></schedule-form-action-chooser>
+                    <div class="text-right">
+                        <button class="btn btn-success btn-lg"
+                                :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
+                                @click="submit()">
+                            <i class="pe-7s-plus"></i>
+                            {{ $t('Add') }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,11 +51,12 @@
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue"
     import NextRunDatesPreview from "./next-run-dates-preview.vue"
     import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue"
+    import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue"
     import {mapState} from "vuex";
 
     export default {
         name: 'schedule-form',
-        computed: mapState(['scheduleMode']),
+        computed: mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'action']),
         components: {
             ScheduleModeChooser,
             ScheduleFormModeOnce,
@@ -52,7 +64,8 @@
             ScheduleFormModeHourly,
             ScheduleFormModeDaily,
             NextRunDatesPreview,
-            ScheduleFormActionChooser
+            ScheduleFormActionChooser,
+            ScheduleFormStartEndDate
         }
     }
 </script>

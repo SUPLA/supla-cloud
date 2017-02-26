@@ -10,6 +10,8 @@ new Vue({
         state: {
             scheduleMode: 'once',
             timeExpression: '',
+            dateStart: '',
+            dateEnd: '',
             fetchingNextRunDates: false,
             nextRunDates: [],
             channel: undefined,

@@ -128,41 +128,41 @@ var app = new Vue({
         }
     },
     mounted: function () {
-        this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
-        $('#new-schedule-form-loading').remove();
-        $('#new-schedule-form').show();
-        var self = this;
-        $(".colorpicker").spectrum({
-            color: '#F00',
-            showButtons: false
-        }).change(function () {
-            var hue = this.value.match(/^hsv\(([0-9]+)/)[1]
-            self.actionParam = hue;
-        });
-        $('.datetimepicker-start').datetimepicker({
-            minDate: 'now',
-            locale: LOCALE,
-            stepping: 5
-        });
-        $('.datetimepicker-end').datetimepicker({
-            useCurrent: false,
-            locale: LOCALE,
-            stepping: 5
-        });
-        $(".datetimepicker-start").on("dp.change", function (e) {
-            $('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
-            self.dateStart = moment(e.date ? e.date : undefined).startOf('minute').subtract(1, 'minute'); // minus to make it inclusive
-            self.updateCronExpression(self.cronExpression);
-        });
-        $(".datetimepicker-end").on("dp.change", function (e) {
-            $('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
-            if (e.date) {
-                self.dateEnd = moment(e.date).startOf('minute');
-            } else {
-                self.dateEnd = undefined;
-            }
-            self.updateCronExpression(self.cronExpression);
-        });
+        // this.channelFunctionMap = CHANNEL_FUNCTION_MAP;
+        // $('#new-schedule-form-loading').remove();
+        // $('#new-schedule-form').show();
+        // var self = this;
+        // $(".colorpicker").spectrum({
+        //     color: '#F00',
+        //     showButtons: false
+        // }).change(function () {
+        //     var hue = this.value.match(/^hsv\(([0-9]+)/)[1]
+        //     self.actionParam = hue;
+        // });
+        // $('.datetimepicker-start').datetimepicker({
+        //     minDate: 'now',
+        //     locale: LOCALE,
+        //     stepping: 5
+        // });
+        // $('.datetimepicker-end').datetimepicker({
+        //     useCurrent: false,
+        //     locale: LOCALE,
+        //     stepping: 5
+        // });
+        // $(".datetimepicker-start").on("dp.change", function (e) {
+        //     $('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
+        //     self.dateStart = moment(e.date ? e.date : undefined).startOf('minute').subtract(1, 'minute'); // minus to make it inclusive
+        //     self.updateCronExpression(self.cronExpression);
+        // });
+        // $(".datetimepicker-end").on("dp.change", function (e) {
+        //     $('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
+        //     if (e.date) {
+        //         self.dateEnd = moment(e.date).startOf('minute');
+        //     } else {
+        //         self.dateEnd = undefined;
+        //     }
+        //     self.updateCronExpression(self.cronExpression);
+        // });
     },
     methods: {
         chooseMode: function (mode) {

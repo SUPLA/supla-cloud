@@ -8,6 +8,14 @@ export const updateTimeExpression = (state, timeExpression) => {
     state.timeExpression = timeExpression;
 };
 
+export const updateDateStart = (state, date) => {
+    state.dateStart = date ? date.format() : '';
+};
+
+export const updateDateEnd = (state, date) => {
+    state.dateEnd = date ? date.format() : '';
+};
+
 export const fetchingNextRunDates = (state, fetching = true) => {
     state.fetchingNextRunDates = fetching;
 };
