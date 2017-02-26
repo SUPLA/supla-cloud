@@ -24,8 +24,7 @@
                 stepping: 5,
                 inline: true,
                 sideBySide: true
-            });
-            $(this.$refs.datepicker).on("dp.change", () => this.updateTimeExpression());
+            }).on("dp.change", () => this.updateTimeExpression());
             if (this.timeExpression) {
                 let currentDateFromExpression = moment(this.timeExpression, 'm H D M * Y');
                 $(this.$refs.datepicker).data('DateTimePicker').date(currentDateFromExpression);

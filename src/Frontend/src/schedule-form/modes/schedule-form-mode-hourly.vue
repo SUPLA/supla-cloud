@@ -20,7 +20,6 @@
                    @change="updateTimeExpression()">
         </div>
     </div>
-
 </template>
 
 <script type="text/babel">
@@ -39,7 +38,7 @@
                 return value < 10 ? '0' + value : value
             },
             updateTimeExpression() {
-                console.log(this.hours);
+                this.minute = roundTo5(this.minute);
                 if (this.hours.length) {
                     this.hours = this.hours.sort();
                     let cronExpression = (this.minute || 0) + ' ' + this.hours.join(',') + ' * * *';

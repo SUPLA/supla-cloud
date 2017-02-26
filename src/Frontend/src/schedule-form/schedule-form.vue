@@ -17,6 +17,7 @@
                         <schedule-form-mode-once v-if="scheduleMode == 'once'"></schedule-form-mode-once>
                         <schedule-form-mode-minutely v-if="scheduleMode == 'minutely'"></schedule-form-mode-minutely>
                         <schedule-form-mode-hourly v-if="scheduleMode == 'hourly'"></schedule-form-mode-hourly>
+                        <schedule-form-mode-daily v-if="scheduleMode == 'daily'"></schedule-form-mode-daily>
                     </div>
                     <next-run-dates-preview></next-run-dates-preview>
                 </div>
@@ -30,6 +31,7 @@
     import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue"
     import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue"
     import ScheduleFormModeHourly from "./modes/schedule-form-mode-hourly.vue"
+    import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue"
     import NextRunDatesPreview from "./next-run-dates-preview.vue"
     import {mapState} from "vuex";
 
@@ -41,6 +43,7 @@
             ScheduleFormModeOnce,
             ScheduleFormModeMinutely,
             ScheduleFormModeHourly,
+            ScheduleFormModeDaily,
             NextRunDatesPreview
         }
     }

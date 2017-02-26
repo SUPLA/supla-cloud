@@ -16,54 +16,54 @@ var app = new Vue({
     el: '#new-schedule-form',
     delimiters: ['${', '}'], // defaults conflict with twig delimiters, http://stackoverflow.com/a/33935750/878514
     components: {
-        'schedule-chooser-daily': {
-            data: function () {
-                return {
-                    hourChooseMode: 'normal',
-                    sunBefore: true,
-                    sunrise: true,
-                    sunMinute: 0,
-                    time: undefined
-                };
-            },
-            methods: {
-                updateExpression: function () {
-                    var weekdays = '*';
-                    var chosenWeekdays = $(this.$el).find('input:checked');
-                    if (chosenWeekdays.length > 0 && chosenWeekdays.length < 7) {
-                        weekdays = chosenWeekdays.map(function () {
-                            return this.value
-                        }).toArray().join(',');
-                    }
-                    if (this.time && this.hourChooseMode == 'normal') {
-                        var timeParts = roundTime(this.time).split(':');
-                        var cronExpression = [timeParts[1], timeParts[0], '*', '*', weekdays].join(' ');
-                        app.updateCronExpression(cronExpression);
-                    } else if (this.hourChooseMode == 'sun') {
-                        var sunTimeEncoded = 'S' + (this.sunrise ? 'R' : 'S') + (this.sunBefore ? '-' : '') + (this.sunMinute || 0);
-                        var cronExpression = [sunTimeEncoded, 0, '*', '*', weekdays].join(' ');
-                        app.updateCronExpression(cronExpression);
-                    }
-                }
-            },
-            mounted: function () {
-                var time;
-                var self = this;
-                $(this.$el).find('.clockpicker').datetimepicker({
-                    minDate: 'now',
-                    format: 'LT',
-                    inline: true,
-                    locale: LOCALE,
-                    stepping: 5
-                }).on("dp.change", function (e) {
-                    self.time = moment(e.date).format('H:m');
-                    self.updateExpression();
-                });
-                $(this.$el).find('input[type=checkbox]').change(function () {
-                    self.updateExpression();
-                });
-            }
-        }
+        // 'schedule-chooser-daily': {
+        //     data: function () {
+        //         return {
+        //             hourChooseMode: 'normal',
+        //             sunBefore: true,
+        //             sunrise: true,
+        //             sunMinute: 0,
+        //             time: undefined
+        //         };
+        //     },
+        //     methods: {
+        //         updateExpression: function () {
+        //             var weekdays = '*';
+        //             var chosenWeekdays = $(this.$el).find('input:checked');
+        //             if (chosenWeekdays.length > 0 && chosenWeekdays.length < 7) {
+        //                 weekdays = chosenWeekdays.map(function () {
+        //                     return this.value
+        //                 }).toArray().join(',');
+        //             }
+        //             if (this.time && this.hourChooseMode == 'normal') {
+        //                 var timeParts = roundTime(this.time).split(':');
+        //                 var cronExpression = [timeParts[1], timeParts[0], '*', '*', weekdays].join(' ');
+        //                 app.updateCronExpression(cronExpression);
+        //             } else if (this.hourChooseMode == 'sun') {
+        //                 var sunTimeEncoded = 'S' + (this.sunrise ? 'R' : 'S') + (this.sunBefore ? '-' : '') + (this.sunMinute || 0);
+        //                 var cronExpression = [sunTimeEncoded, 0, '*', '*', weekdays].join(' ');
+        //                 app.updateCronExpression(cronExpression);
+        //             }
+        //         }
+        //     },
+        //     mounted: function () {
+        //         var time;
+        //         var self = this;
+        //         $(this.$el).find('.clockpicker').datetimepicker({
+        //             minDate: 'now',
+        //             format: 'LT',
+        //             inline: true,
+        //             locale: LOCALE,
+        //             stepping: 5
+        //         }).on("dp.change", function (e) {
+        //             self.time = moment(e.date).format('H:m');
+        //             self.updateExpression();
+        //         });
+        //         $(this.$el).find('input[type=checkbox]').change(function () {
+        //             self.updateExpression();
+        //         });
+        //     }
+        // }
     },
     directives: {
         // 'schedule-chooser-once': {
