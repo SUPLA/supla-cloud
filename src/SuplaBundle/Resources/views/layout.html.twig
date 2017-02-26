@@ -35,7 +35,6 @@
 		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/icons/supla76.png') }}" />
 		<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/img/icons/supla152.png') }}" />
 		
-        <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
 		<script>
 			window.FRONTEND_CONFIG = {
 				locale: '{{ app.request.locale }}',
@@ -43,11 +42,11 @@
 				timezone: '{{ app.user ? app.user.timezone : '' }}'
 			};
 		</script>
+		<script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
         <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('assets/js/jquery.turn-off-tv.js') }}"></script>
         <script src="{{ asset('assets/js/pnotify.custom.min.js') }}"></script>
         <script src="{{ asset('assets/js/supla.js') }}"></script>
-		<script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
 
         {% if app.user %}
 			{% if app.request.get('_route') == '_loc_list' or app.request.get('_route') == '_aid_list' %}

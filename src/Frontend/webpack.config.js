@@ -58,7 +58,7 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.common.js',
             'vuex$': 'vuex/dist/vuex.js',
-            'jquery': 'jquery/src/jquery'
+            'jquery': 'jquery/dist/jquery'
         }
     },
     devServer: {
