@@ -11,7 +11,7 @@ module.exports = {
     entry: entries,
     output: {
         path: path.resolve(__dirname, '../../web/assets/dist'),
-        publicPath: 'https://localhost:25787/assets/dist/',
+        publicPath: '/assets/dist/',
         filename: '[name].js'
     },
     plugins: [
@@ -81,6 +81,7 @@ if (process.env.NODE_ENV === 'production') {
                 NODE_ENV: '"production"'
             }
         }),
+        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
             compress: {

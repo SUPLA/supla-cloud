@@ -20,9 +20,14 @@ to the output directory (`web/assets/dist`).
 
 ## How to develop the frontend components?
 
-> TODO how to congure symfony for dev
+In order to start the webpack dev server with continous building and hot reloads, 
+add the following in you `app/config/parameters.yml`:
 
-In orer to start the webpack dev server with continous building and hot reloads, run:
+```
+use_webpack_dev_server: true
+```
+
+and run:
 
 ```bash
 npm run dev

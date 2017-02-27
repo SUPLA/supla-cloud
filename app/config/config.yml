@@ -29,6 +29,9 @@ framework:
     serializer:
         enabled: true
         enable_annotations: true
+    assets:
+        packages:
+            webpack: ~
         
     
 # RESTful API

@@ -66,9 +66,11 @@
         name: 'schedule-form',
         computed: mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'action', 'scheduleId']),
         mounted() {
-            this.$http.get('schedule/' + this.scheduleId).then(({body}) => {
-                this.loadScheduleToEdit(body.schedule);
-            });
+            if (this.scheduleId) {
+                this.$http.get('schedule/' + this.scheduleId).then(({body}) => {
+                    this.loadScheduleToEdit(body.schedule);
+                });
+            }
         },
         components: {
             ScheduleModeChooser,

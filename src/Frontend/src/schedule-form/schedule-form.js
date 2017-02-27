@@ -18,7 +18,7 @@ new Vue({
             action: undefined,
             actionParam: undefined,
             submitting: false,
-            scheduleId: +$('#schedule-form').attr('schedule-id'),
+            scheduleId: +($('#schedule-form').attr('schedule-id') || 0) || undefined,
             schedule: undefined,
         },
         mutations: mutations,
