@@ -52,7 +52,7 @@
     import NextRunDatesPreview from "./next-run-dates-preview.vue"
     import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue"
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue"
-    import {mapState} from "vuex";
+    import {mapState, mapActions} from "vuex";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
@@ -68,7 +68,8 @@
             NextRunDatesPreview,
             ScheduleFormActionChooser,
             ScheduleFormStartEndDate
-        }
+        },
+        methods: mapActions(['submit'])
     }
 </script>
 

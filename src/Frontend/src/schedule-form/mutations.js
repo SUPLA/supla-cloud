@@ -9,7 +9,7 @@ export const updateTimeExpression = (state, timeExpression) => {
 };
 
 export const updateDateStart = (state, date) => {
-    state.dateStart = date ? date.format() : '';
+    state.dateStart = date ? date.format() : moment().format();
 };
 
 export const updateDateEnd = (state, date) => {
@@ -41,4 +41,12 @@ export const updateAction = (state, action) => {
 
 export const updateActionParam = (state, actionParam) => {
     state.actionParam = actionParam;
+};
+
+export const submit = (state) => {
+    state.submitting = true;
+};
+
+export const submitFailed = (state) => {
+    state.submitting = false;
 };

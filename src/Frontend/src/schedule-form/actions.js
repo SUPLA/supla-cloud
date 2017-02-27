@@ -35,4 +35,11 @@ export const fetchNextRunDates = ({commit, state, dispatch}) => {
             });
         }
     }
-}
+};
+
+export const submit = ({commit, state}) => {
+    commit('submit');
+    Vue.http.post("schedule/create", state)
+        .then(({body: schedule}) => window.location.href = Vue.http.options.root + '/schedule/' + schedule.id)
+        .catch(() => commit('submitFailed'));
+};

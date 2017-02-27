@@ -78,8 +78,8 @@ class ScheduleController extends Controller
         $schedule->setActionParam(empty($data['actionParam']) ? null : $data['actionParam']);
         $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
-        $schedule->setMode($data['mode']);
-        $schedule->setTimeExpression($data['cronExpression']);
+        $schedule->setMode($data['scheduleMode']);
+        $schedule->setTimeExpression($data['timeExpression']);
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         if ($user->isLimitScheduleExceeded()) {
             $errors[] = 'Schedule limit has been exceeded';
@@ -99,7 +99,7 @@ class ScheduleController extends Controller
     }
 
     /**
-     * @Route("/next-run-dates", name="_schedule_get_run_dates", requirements={"cronExpression"=".+"})
+     * @Route("/next-run-dates", name="_schedule_get_run_dates", requirements={"timeExpression"=".+"})
      */
     public function getNextRunDatesAction(Request $request)
     {

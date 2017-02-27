@@ -165,11 +165,11 @@ var app = new Vue({
         // });
     },
     methods: {
-        chooseMode: function (mode) {
-            this.scheduleMode = mode;
-            this.nextRunDates = [];
-            this.cronExpression = '';
-        },
+        // chooseMode: function (mode) {
+        //     this.scheduleMode = mode;
+        //     this.nextRunDates = [];
+        //     this.cronExpression = '';
+        // },
         // updateCronExpression: function (cronExpression) {
         //     var self = this;
         //     this.cronExpression = cronExpression;

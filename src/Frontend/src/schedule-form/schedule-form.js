@@ -10,13 +10,14 @@ new Vue({
         state: {
             scheduleMode: 'once',
             timeExpression: '',
-            dateStart: '',
+            dateStart: moment().format(),
             dateEnd: '',
             fetchingNextRunDates: false,
             nextRunDates: [],
             channel: undefined,
             action: undefined,
-            actionParam: undefined
+            actionParam: undefined,
+            submitting: false
         },
         mutations: mutations,
         actions: actions,
