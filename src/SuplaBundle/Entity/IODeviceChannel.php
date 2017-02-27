@@ -21,6 +21,7 @@
 namespace SuplaBundle\Entity;
 
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use SuplaBundle\Validator\Constraints as SuplaAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -40,6 +41,7 @@ class IODeviceChannel
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic"})
      */
     private $id;
     

@@ -43,3 +43,8 @@ export const submit = ({commit, state}) => {
         .then(({body: schedule}) => window.location.href = Vue.http.options.root + '/schedule/' + schedule.id)
         .catch(() => commit('submitFailed'));
 };
+
+export const loadScheduleToEdit = ({commit, dispatch}, schedule) => {
+    commit('editSchedule', schedule);
+    dispatch('fetchNextRunDates')
+};

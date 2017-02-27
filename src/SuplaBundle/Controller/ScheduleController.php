@@ -51,11 +51,21 @@ class ScheduleController extends Controller
 
     /**
      * @Route("/new", name="_schedule_new")
-     * @Template
+     * @Template("@Supla/Schedule/scheduleForm.html.twig")
      */
     public function newScheduleAction()
     {
         return [];
+    }
+
+    /**
+     * @Route("/edit/{schedule}", name="_schedule_edit")
+     * @Template("@Supla/Schedule/scheduleForm.html.twig")
+     * @Security("user == schedule.getUser()")
+     */
+    public function scheduleEditAction(Schedule $schedule)
+    {
+        return ['schedule' => $schedule];
     }
 
     /**
@@ -126,7 +136,6 @@ class ScheduleController extends Controller
 
     /**
      * @Route("/{schedule}", name="_schedule_details")
-     * @Template
      * @Security("user == schedule.getUser()")
      */
     public function scheduleDetailsAction(Schedule $schedule, Request $request)
@@ -144,9 +153,14 @@ class ScheduleController extends Controller
             }
             return $this->redirectToRoute("_schedule_details", ['schedule' => $schedule->getId()]);
         }
-        return [
+        $data = [
             'schedule' => $schedule,
             'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule)
         ];
+        if (in_array('application/json', $request->getAcceptableContentTypes())) {
+            return new JsonResponse($this->get('serializer')->serialize($data, 'json', ['groups' => ['basic']]), 200, [], true);
+        } else {
+            return $this->render('@Supla/Schedule/scheduleDetails.html.twig', $data);
+        }
     }
 }

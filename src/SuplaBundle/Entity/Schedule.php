@@ -22,6 +22,7 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -35,6 +36,7 @@ class Schedule
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic"})
      */
     private $id;
 
@@ -47,39 +49,46 @@ class Schedule
     /**
      * @ORM\Column(name="time_expression", type="string", length=100, nullable=false)
      * @Assert\Length(max=100)
+     * @Groups({"basic"})
      */
     private $timeExpression;
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
+     * @Groups({"basic"})
      */
     private $channel;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $action;
 
     /**
      * @ORM\Column(name="action_param", type="string", nullable=true, length=255)
+     * @Groups({"basic"})
      */
     private $actionParam;
 
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
      * @Assert\Choice({"once", "minutely", "hourly", "daily", "sunset", "sunrise"})
+     * @Groups({"basic"})
      */
     private $mode;
 
     /**
      * @ORM\Column(name="date_start", type="utcdatetime", nullable=false)
      * @Assert\NotNull()
+     * @Groups({"basic"})
      */
     private $dateStart;
 
     /**
      * @ORM\Column(name="date_end", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
      */
     private $dateEnd;
 

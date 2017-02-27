@@ -17,7 +17,9 @@ new Vue({
             channel: undefined,
             action: undefined,
             actionParam: undefined,
-            submitting: false
+            submitting: false,
+            scheduleId: +$('#schedule-form').attr('schedule-id'),
+            schedule: undefined,
         },
         mutations: mutations,
         actions: actions,

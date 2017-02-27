@@ -50,3 +50,13 @@ export const submit = (state) => {
 export const submitFailed = (state) => {
     state.submitting = false;
 };
+
+export const editSchedule = (state, schedule) => {
+    state.scheduleMode = schedule.mode;
+    state.timeExpression = schedule.timeExpression;
+    state.dateStart = schedule.dateStart;
+    state.dateEnd = schedule.dateEnd;
+    state.channel = schedule.channel.id;
+    state.action = schedule.action;
+    state.actionParam = schedule.actionParam;
+};

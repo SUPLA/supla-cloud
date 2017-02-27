@@ -1,0 +1,22 @@
+{% extends 'SuplaBundle::layout.html.twig' %}
+{% block content %}
+    <div class="container margin-top-30">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="title">
+                    {% if schedule is defined %}
+                        {% trans %}Edit Schedule{% endtrans %} ID{{ schedule.id }}
+                    {% else %}
+                        {% trans %}Create New Schedule{% endtrans %}
+                    {% endif %}
+                </h1>
+            </div>
+        </div>
+        <div class="row margin-top-20"
+             id="schedule-form"{% if schedule is defined %} schedule-id="{{ schedule.id }}"{% endif %}></div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('assets/dist/schedule-form.js', 'webpack') }}"></script>
+{% endblock %}

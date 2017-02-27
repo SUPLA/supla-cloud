@@ -36,6 +36,9 @@
                                             {% trans %}Enable schedule{% endtrans %}
                                         </button>
                                     {% endif %}
+                                    <a class="btn btn-default" href="{{ path('_schedule_edit', {'schedule': schedule.id}) }}">
+                                        {% trans %}Edit schedule{% endtrans %}
+                                    </a>
                                     <button class="btn btn-danger" name="delete"
                                             onclick="return confirm('{% trans %}Are you sure you want to delete the schedule?{% endtrans %}')">
                                         {% trans %}Delete schedule{% endtrans %}

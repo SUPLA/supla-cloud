@@ -28,6 +28,7 @@ framework:
     http_method_override: true
     serializer:
         enabled: true
+        enable_annotations: true
         
     
 # RESTful API
