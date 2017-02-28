@@ -41,6 +41,7 @@
                 stepping: 5
             });
             endDatePicker.datetimepicker({
+                minDate: moment().add(5, 'minute'),
                 useCurrent: false,
                 locale: Vue.config.lang,
                 stepping: 5

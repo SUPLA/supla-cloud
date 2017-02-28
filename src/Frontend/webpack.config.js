@@ -19,7 +19,7 @@ module.exports = {
             filename: "commons.js",
             name: "commons"
         }),
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(pl|en-gb|ru|de)\./),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /pl|ru|de/),
     ],
     module: {
         rules: [

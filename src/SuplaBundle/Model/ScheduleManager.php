@@ -96,7 +96,7 @@ class ScheduleManager
         $this->entityManager->flush();
     }
 
-    public function getNextRunDates(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX)
+    public function getNextRunDates(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX, $ignoreExisting = false)
     {
         $userTimezone = $schedule->getUserTimezone();
         if ($schedule->getDateEnd()) {
@@ -108,7 +108,7 @@ class ScheduleManager
         }
         $dateStart = $schedule->getDateStart();
         $latestExecution = current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));
-        if ($latestExecution) {
+        if ($latestExecution && !$ignoreExisting) {
             $dateStart = $latestExecution->getPlannedTimestamp();
         }
         $dateStart->setTimezone($userTimezone);
@@ -147,7 +147,7 @@ class ScheduleManager
         $this->entityManager->flush();
     }
 
-    private function deleteScheduledExecutions(Schedule $schedule)
+    public function deleteScheduledExecutions(Schedule $schedule)
     {
         $this->entityManager->createQueryBuilder()
             ->delete('SuplaBundle:ScheduledExecution', 's')

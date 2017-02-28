@@ -489,6 +489,6 @@ class User implements AdvancedUserInterface
 
     public function isLimitScheduleExceeded()
     {
-        return $this->getLimitSchedule() > 0 && count($this->getSchedules()) > $this->getLimitSchedule();
+        return $this->getLimitSchedule() > 0 && count($this->getSchedules()) >= $this->getLimitSchedule();
     }
 }

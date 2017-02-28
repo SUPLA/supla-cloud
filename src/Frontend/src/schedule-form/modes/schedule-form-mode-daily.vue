@@ -59,7 +59,7 @@
                 if (this.weekdays.length == 0 || this.weekdays.length == 7) {
                     return '*';
                 } else {
-                    return this.weekdays.sort().join(',');
+                    return this.weekdays.sort((a, b) => a - b).join(',');
                 }
             },
             ...mapState(['timeExpression'])

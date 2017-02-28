@@ -20,10 +20,11 @@
 namespace SuplaBundle\Entity;
 
 
+use Assert\Assert;
+use Symfony\Component\Validator\Constraints;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -42,13 +43,14 @@ class Schedule
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="schedules")
+     * @Constraints\NotNull
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
      * @ORM\Column(name="time_expression", type="string", length=100, nullable=false)
-     * @Assert\Length(max=100)
+     * @Constraints\Length(max=100)
      * @Groups({"basic"})
      */
     private $timeExpression;
@@ -56,12 +58,14 @@ class Schedule
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
+     * @Constraints\NotNull
      * @Groups({"basic"})
      */
     private $channel;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
+     * @Constraints\NotNull
      * @Groups({"basic"})
      */
     private $action;
@@ -74,14 +78,14 @@ class Schedule
 
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
-     * @Assert\Choice({"once", "minutely", "hourly", "daily", "sunset", "sunrise"})
+     * @Constraints\Choice({"once", "minutely", "hourly", "daily"})
      * @Groups({"basic"})
      */
     private $mode;
 
     /**
      * @ORM\Column(name="date_start", type="utcdatetime", nullable=false)
-     * @Assert\NotNull()
+     * @Constraints\NotNull()
      * @Groups({"basic"})
      */
     private $dateStart;
@@ -102,6 +106,26 @@ class Schedule
      */
     private $nextCalculationDate;
 
+    public function __construct(User $user = null, array $data = [])
+    {
+        $this->user = $user;
+        if (count($data)) {
+            $this->fill($data);
+        }
+    }
+
+    public function fill(array $data)
+    {
+        Assert::that($data)->notEmptyKey('timeExpression');
+        $this->setTimeExpression($data['timeExpression']);
+        $this->setAction(empty($data['action']) ? null : $data['action']);
+        $this->setActionParam(empty($data['actionParam']) ? null : $data['actionParam']);
+        $this->setChannel(empty($data['channel']) ? null : $data['channel']);
+        $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
+        $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
+        $this->setMode(empty($data['scheduleMode']) ? null : $data['scheduleMode']);
+    }
+
     /**
      * @return mixed
      */
@@ -116,14 +140,6 @@ class Schedule
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
     }
 
     /**
@@ -143,16 +159,13 @@ class Schedule
     }
 
     /**
-     * @return mixed
+     * @return IODeviceChannel
      */
     public function getChannel()
     {
         return $this->channel;
     }
 
-    /**
-     * @param mixed $channel
-     */
     public function setChannel($channel)
     {
         $this->channel = $channel;

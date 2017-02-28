@@ -26,20 +26,29 @@ export const fetchNextRunDates = ({commit, state, dispatch}) => {
                 dateStart: state.dateStart,
                 dateEnd: state.dateEnd
             };
-            Vue.http.post('schedule/next-run-dates', query).then(({body}) => {
-                commit('updateNextRunDates', body.nextRunDates);
-                commit('fetchingNextRunDates', false);
-                if (query.timeExpression != state.timeExpression || query.dateStart != state.dateStart || query.dateEnd != state.dateEnd) {
-                    dispatch('fetchNextRunDates');
-                }
-            });
+            Vue.http.post('schedule/next-run-dates', query)
+                .then(({body}) => {
+                    commit('updateNextRunDates', body.nextRunDates);
+                    if (query.timeExpression != state.timeExpression || query.dateStart != state.dateStart || query.dateEnd != state.dateEnd) {
+                        dispatch('fetchNextRunDates');
+                    }
+                })
+                .catch(() => commit('updateNextRunDates', []))
+                .finally(() => commit('fetchingNextRunDates', false));
+
         }
     }
 };
 
 export const submit = ({commit, state}) => {
     commit('submit');
-    Vue.http.post("schedule/create", state)
+    let promise;
+    if (state.scheduleId) {
+        promise = Vue.http.put(`schedule/${state.scheduleId}`, state);
+    } else {
+        promise = Vue.http.post('schedule/create', state);
+    }
+    promise
         .then(({body: schedule}) => window.location.href = Vue.http.options.root + '/schedule/' + schedule.id)
         .catch(() => commit('submitFailed'));
 };

@@ -36,7 +36,7 @@
                         <schedule-form-action-chooser></schedule-form-action-chooser>
                         <div class="text-right">
                             <button class="btn btn-success btn-lg"
-                                    :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
+                                    :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates || submitting"
                                     @click="submit()">
                                 <i class="pe-7s-plus" v-show="!scheduleId"></i>
                                 {{ $t(scheduleId ? 'Save' : 'Add') }}
@@ -64,7 +64,7 @@
 
     export default {
         name: 'schedule-form',
-        computed: mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'scheduleId']),
+        computed: mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'scheduleId', 'submitting']),
         mounted() {
             if (this.scheduleId) {
                 this.$http.get('schedule/' + this.scheduleId).then(({body}) => {

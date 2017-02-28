@@ -134,3 +134,10 @@ services:
         tags:
             - { name: twig.extension }
 
+     supla.event_listener.ajax_exception_handler:
+        class: SuplaBundle\EventListener\AjaxExceptionHandler
+        arguments:
+          - '%kernel.debug%'
+        tags:
+          - { name: kernel.event_subscriber }
+

@@ -40,7 +40,7 @@
             updateTimeExpression() {
                 this.minute = roundTo5(this.minute);
                 if (this.hours.length) {
-                    this.hours = this.hours.sort();
+                    this.hours = this.hours.sort((a, b) => a - b);
                     let cronExpression = (this.minute || 0) + ' ' + this.hours.join(',') + ' * * *';
                     this.$store.dispatch('updateTimeExpression', cronExpression);
                 } else {
