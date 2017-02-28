@@ -38,8 +38,8 @@
                             <button class="btn btn-success btn-lg"
                                     :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
                                     @click="submit()">
-                                <i class="pe-7s-plus"></i>
-                                {{ $t('Add') }}
+                                <i class="pe-7s-plus" v-show="!scheduleId"></i>
+                                {{ $t(scheduleId ? 'Save' : 'Add') }}
                             </button>
                         </div>
                     </div>

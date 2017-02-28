@@ -35,13 +35,13 @@
                 locale: Vue.config.lang,
                 stepping: 5
             }).on("dp.change", () => this.updateTimeExpression());
-            debugger;
             if (this.timeExpression) {
                 let parts = this.timeExpression.split(' ');
-                let currentDateFromExpression = moment().hour(parts[1]).minute(parts[0]);
+                let currentDateFromExpression = moment().add(1, 'day').hour(parts[1]).minute(parts[0]);
                 $(this.$refs.clockpicker).data('DateTimePicker').date(currentDateFromExpression);
+            } else {
+                this.updateTimeExpression();
             }
-            this.updateTimeExpression();
         },
         computed: mapState(['timeExpression']),
     }

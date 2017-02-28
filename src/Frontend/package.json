@@ -1,8 +1,7 @@
 {
-  "name": "hello-vue",
-  "description": "A Vue.js project",
-  "version": "1.0.0",
-  "author": "Wojciech Frącz <fraczwojciech@gmail.com>",
+  "name": "SUPLA-CLOUD",
+  "description": "",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --https --hot --output-public-path https://localhost:25787/assets/dist",
