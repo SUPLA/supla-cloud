@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="progress" v-if="scheduleId && !action">
+        <div class="progress" v-if="scheduleId && !channel">
             <div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 100%"></div>
         </div>
-        <div v-if="!scheduleId || action">
+        <div v-if="!scheduleId || channel">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
@@ -64,7 +64,7 @@
 
     export default {
         name: 'schedule-form',
-        computed: mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'action', 'scheduleId']),
+        computed: mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'scheduleId']),
         mounted() {
             if (this.scheduleId) {
                 this.$http.get('schedule/' + this.scheduleId).then(({body}) => {

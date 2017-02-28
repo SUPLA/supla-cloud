@@ -18,7 +18,8 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             filename: "commons.js",
             name: "commons"
-        })
+        }),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(pl|en-gb|ru|de)\./),
     ],
     module: {
         rules: [
@@ -27,13 +28,8 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-                        // the "scss" and "sass" values for the lang attribute to the right configs here.
-                        // other preprocessors should work out of the box, no loader config like this necessary.
                         'scss': 'vue-style-loader!css-loader!sass-loader',
-                        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
                     }
-                    // other vue-loader options go here
                 }
             },
             {
@@ -58,7 +54,8 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.common.js',
             'vuex$': 'vuex/dist/vuex.js',
-            'jquery': 'jquery/dist/jquery'
+            'jquery': 'jquery/dist/jquery',
+            'moment-timezone': 'moment-timezone/builds/moment-timezone-with-data-2010-2020',
         }
     },
     devServer: {
@@ -81,7 +78,6 @@ if (process.env.NODE_ENV === 'production') {
                 NODE_ENV: '"production"'
             }
         }),
-        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
             compress: {
