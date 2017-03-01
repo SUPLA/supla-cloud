@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\ServerCtrl;
+use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 
 class ChannelController extends RestController
@@ -105,7 +106,7 @@ class ChannelController extends RestController
 	}
 	
 	
-	protected function getLogTempHumidityItemsAction($th, $channelid, $offset, $limit)
+	protected function getTempHumidityLogItemsAction($th, $channelid, $offset, $limit)
 	{
 	
 		$f[] = $th === TRUE ? SuplaConst::FNC_HUMIDITYANDTEMPERATURE : SuplaConst::FNC_THERMOMETER;
@@ -131,16 +132,16 @@ class ChannelController extends RestController
 	/**
 	 * @Rest\Get("/channels/{channelid}/temperature-log-items")
 	 */
-	public function getLogTempItemsAction(Request $request, $channelid)
+	public function getTempLogItemsAction(Request $request, $channelid)
 	{
 		
-		return $this->getLogTempHumidityItemsAction(FALSE, $channelid,  @$request->query->get('offset'), @$request->query->get('limit'));	
+		return $this->getTempHumidityLogItemsAction(FALSE, $channelid,  @$request->query->get('offset'), @$request->query->get('limit'));	
 	}
 	
 	/**
 	 * @Rest\Get("/channels/{channelid}/temperature-and-humidity-count")
 	 */
-	public function getLogTempHumCountAction(Request $request, $channelid)
+	public function getTempHumLogCountAction(Request $request, $channelid)
 	{
 		 
 		return $this->getTempHumidityLogCountAction(TRUE, $channelid);
@@ -149,11 +150,143 @@ class ChannelController extends RestController
 	/**
 	 * @Rest\Get("/channels/{channelid}/temperature-and-humidity-items")
 	 */
-	public function getLogTempHumItemsAction(Request $request, $channelid)
+	public function getTempHumLogItemsAction(Request $request, $channelid)
 	{
 		 
-		return $this->getLogTempHumidityItemsAction(TRUE, $channelid,  @$request->query->get('offset'), @$request->query->get('limit'));	
+		return $this->getTempHumidityLogItemsAction(TRUE, $channelid,  @$request->query->get('offset'), @$request->query->get('limit'));	
 	}
+	
+	/**
+	 * @Rest\Get("/channels/{channelid}")
+	 */
+	public function getChannelAction(Request $request, $channelid)
+	{
+		
+		$channel = $this->channelById($channelid);
+		
+		$enabled = false;
+		$connected = false;
+		
+		$devid = $channel->getIoDevice()->getId();
+		$userid = $this->getParentUser()->getId();
+		 
+		if ( $channel->getIoDevice()->getEnabled() ) {
+		
+			$enabled = true;
+			
+			$cids = (new ServerCtrl())->iodevice_connected($userid, array($devid));
+			$connected = in_array($devid, $cids);
+		}
+		 
+		$result = array('connected' => $connected,
+				'enabled' => $enabled,
+		);
+		
+		if ( $connected ) {
+			
+			$serverCtrl = new ServerCtrl();
+			
+			switch($channel->getFunction()) {
+					
+				case SuplaConst::FNC_POWERSWITCH:
+				case SuplaConst::FNC_LIGHTSWITCH:
+					
+					$value = $serverCtrl->get_char_value($userid, $devid, $channelid);
+					$result['on'] = $value == '1' ? true : false;
+					
+				break;
+				
+				case SuplaConst::FNC_OPENINGSENSOR_GATEWAY:
+				case SuplaConst::FNC_OPENINGSENSOR_GATE:
+				case SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR:
+				case SuplaConst::FNC_NOLIQUIDSENSOR:
+				case SuplaConst::FNC_OPENINGSENSOR_DOOR:
+				case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
+					
+					$value = $serverCtrl->get_char_value($userid, $devid, $channelid);
+					$result['hi'] = $value == '1' ? true : false;
+					
+				break;
+				
+				
+				case SuplaConst::FNC_THERMOMETER:
+				case SuplaConst::FNC_HUMIDITY:
+				case SuplaConst::FNC_HUMIDITYANDTEMPERATURE:
+					
+					if ( $channel->getFunction() == SuplaConst::FNC_THERMOMETER
+					     || $channel->getFunction() == SuplaConst::FNC_HUMIDITYANDTEMPERATURE ) {
+					     	
+					     	$value = $serverCtrl->get_temperature_value($userid, $devid, $channelid);
+					     	
+					     	if ( $value !== FALSE ) {
+					     		$result['temperature'] = $value;
+					     	}
+					}
+					
+					if ( $channel->getFunction() == SuplaConst::FNC_HUMIDITY
+					     || $channel->getFunction() == SuplaConst::FNC_HUMIDITYANDTEMPERATURE ) {
+					     	
+					     	$value = $serverCtrl->get_humidity_value($userid, $devid, $channelid);
+					     	
+					     	if ( $value !== FALSE ) {
+					     		$result['humidity'] = $value;
+					     	}
+					}
+						
+				break;
+				
+				
+				case SuplaConst::FNC_DIMMER:
+				case SuplaConst::FNC_RGBLIGHTING:
+				case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
+					
+					$value = $serverCtrl->get_rgbw_value($userid, $devid, $channelid);
+					
+					if ( $value !== FALSE ) {
+							
+						if ( $channel->getFunction() == SuplaConst::FNC_RGBLIGHTING
+							 || $channel->getFunction() == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
+									
+							 $result['color'] = $value['color'];
+							 $result['color_brightness'] = $value['color_brightness'];
+							 	
+						}
+
+						if ( $channel->getFunction() == SuplaConst::FNC_DIMMER
+								|| $channel->getFunction() == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
+										
+							$result['brightness'] = $value['brightness'];
+										
+						}
+						
+					}
+					
+				break;
+				
+				case SuplaConst::FNC_DISTANCESENSOR:
+					$value = $serverCtrl->get_distance_value($userid, $devid, $channelid);
+					
+					if ( $value !== FALSE ) {
+						$result['distance'] = $value;
+					}
+					
+				break;
+				
+				case SuplaConst::FNC_DEPTHSENSOR:
+					$value = $serverCtrl->get_distance_value($userid, $devid, $channelid);
+						
+					if ( $value !== FALSE ) {
+						$result['depth'] = $value;
+					}
+						
+				break;
+			}
+		}
+		
+		return $this->handleView($this->view($result, Response::HTTP_OK));
+		
+	}	
+	
 	
 }
 

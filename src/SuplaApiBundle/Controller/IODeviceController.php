@@ -109,10 +109,18 @@ class IODeviceController extends RestController
     {
     	$iodevice = $this->ioDeviceById($devid);
     	
-    	$cids = (new ServerCtrl())->iodevice_connected($this->getParentUser()->getId(), array($devid));
+    	$enabled = false;
+    	$connected = false;
     	
-    	$result = array('connected' => in_array($devid, $cids),
-    			        'enabled' => $iodevice->getEnabled() ? true : false,
+    	if ( $iodevice->getEnabled() ) {
+    		
+    		$enabled = true;
+    		$cids = (new ServerCtrl())->iodevice_connected($this->getParentUser()->getId(), array($devid));
+    		$connected = in_array($devid, $cids);
+    	}
+    	
+    	$result = array('connected' => $connected,
+    			        'enabled' => $enabled,
     	);
     	
     	return  $this->handleView($this->view($result, Response::HTTP_OK));
