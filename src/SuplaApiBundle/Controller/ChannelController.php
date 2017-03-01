@@ -387,7 +387,7 @@ class ChannelController extends RestController
 		return $this->handleView($this->view(NULL, Response::HTTP_OK));
 	}
 	
-	private function patchAllowed($action, $func) {
+	private function checkPatchAllowed($action, $func) {
 		
 		switch($action) {
 			case 'turn-on':
@@ -443,7 +443,7 @@ class ChannelController extends RestController
 		$action = @$data->action;
 
 		$func = $channel->getFunction();
-		$this->patchAllowed($action, $func);
+		$this->checkPatchAllowed($action, $func);
 		
 		$ctrlResult = false;
 		

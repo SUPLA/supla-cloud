@@ -181,9 +181,6 @@ class ServerCtrl
 	   
 	   				$result = $this->command("SET-".$type."-VALUE:".$user_id.",".$iodev_id.",".$channel_id.",".$value);
 	   				
-	  
-	   				file_put_contents('/tmp/f', $result);
-	   				
 	   				if ( $result !== FALSE
 	   						&& preg_match("/^OK:/", $result) === 1 ) {
 	   							return TRUE;
