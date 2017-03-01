@@ -1,11 +1,13 @@
 <template>
-    <select data-placeholder="Wybierz strefę czasową" v-model="timezone" ref="dropdown">
-        <option v-for="timezone in availableTimezones" :value="timezone.name">
-            {{ timezone.name }}
-            (UTC{{timezone.offset >= 0 ? '+' : ''}}{{timezone.offset}})
-            {{ timezone.currentTime }}
-        </option>
-    </select>
+    <span class="timezone-picker">
+        <select data-placeholder="Wybierz strefę czasową" v-model="timezone" ref="dropdown">
+            <option v-for="timezone in availableTimezones" :value="timezone.name">
+                {{ timezone.name }}
+                (UTC{{timezone.offset >= 0 ? '+' : ''}}{{timezone.offset}})
+                {{ timezone.currentTime }}
+            </option>
+        </select>
+    </span>
 </template>
 
 <script type="text/babel">
@@ -13,33 +15,15 @@
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
 
-    //      editTimezone: function () {
-    //        this.editingTimezone = true;
-    //        var self = this;
-    //        setTimeout(function () {
-    //          $(self.$refs.timezoneDropdown).selectpicker({liveSearch: true});
-    //        });
-    //      },
-    //      chooseTimezone: function () {
-    //        $(this.$refs.timezoneDropdown).selectpicker('destroy');
-    //        this.editingTimezone = false;
-    //        moment.tz.setDefault(this.userTimezone);
-    //        $.ajax({
-    //          method: 'PUT',
-    //          data: {timezone: this.userTimezone},
-    //          url: BASE_URL + 'account/user-timezone'
-    //        })
-    //      },
-    //      getAvailableTimezones: function () {
-
     export default {
         name: 'app',
         props: ['timezone'],
         mounted() {
-            Vue.nextTick(() => $(this.$refs.dropdown).chosen());
-//        .change((e) => {
-//                this.channel = e.currentTarget.value;
-//            <!--}));-->
+            Vue.nextTick(() => $(this.$refs.dropdown).chosen({search_contains: true}).change((e) => {
+                let timezone = e.currentTarget.value;
+                moment.tz.setDefault(timezone);
+                this.$http.put('account/user-timezone', {timezone});
+            }));
         },
         computed: {
             availableTimezones() {
@@ -63,8 +47,19 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    select {
-        padding: 0;
+<style lang="scss" rel="stylesheet/scss">
+    .timezone-picker {
+        select {
+            max-width: 100%;
+        }
+        .chosen-single {
+            cursor: pointer;
+            border: 0 !important;
+            background: transparent !important;
+            box-shadow: initial !important;
+            padding: 0 !important;
+            line-height: 25px !important;
+            height: 25px !important;
+        }
     }
 </style>
