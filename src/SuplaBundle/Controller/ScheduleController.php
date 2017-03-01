@@ -20,20 +20,16 @@
 namespace SuplaBundle\Controller;
 
 
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Model\UserManager;
-use Cron\CronExpression;
+use Assert\Assert;
+use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SuplaBundle\Entity\Schedule;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * @Route("/schedule")
@@ -51,22 +47,21 @@ class ScheduleController extends Controller
 
     /**
      * @Route("/new", name="_schedule_new")
-     * @Template
+     * @Template("@Supla/Schedule/scheduleForm.html.twig")
      */
     public function newScheduleAction()
     {
-        $ioDeviceManager = $this->get('iodevice_manager');
-        $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
-        $channelToFunctionsMap = [];
-        foreach ($schedulableChannels as $channel) {
-            $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
-        }
-        return [
-            'scheduleModes' => ['once', 'minutely', 'hourly', 'daily'],
-            'userChannels' => $schedulableChannels,
-            'actionStringMap' => $ioDeviceManager->actionStringMap(),
-            'channelToFunctionsMap' => $channelToFunctionsMap,
-        ];
+        return [];
+    }
+
+    /**
+     * @Route("/edit/{schedule}", name="_schedule_edit")
+     * @Template("@Supla/Schedule/scheduleForm.html.twig")
+     * @Security("user == schedule.getUser()")
+     */
+    public function scheduleEditAction(Schedule $schedule)
+    {
+        return ['schedule' => $schedule];
     }
 
     /**
@@ -75,58 +70,23 @@ class ScheduleController extends Controller
      */
     public function createScheduleAction(Request $request)
     {
+        Assertion::false($this->getUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
         $data = $request->request->all();
-        $channel = $this->get('iodevice_manager')->channelById($data['channel']);
-        if (!$request->isXmlHttpRequest() || !$channel) {
-            throw $this->createNotFoundException();
-        }
-        $schedule = new Schedule();
-        /** @var User $user */
-        $user = $this->getUser();
-        $schedule->setUser($user);
-        $schedule->setChannel($channel);
-        $schedule->setAction($data['action']);
-        $schedule->setActionParam(empty($data['actionParam']) ? null : $data['actionParam']);
-        $schedule->setDateStart(\DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
-        $schedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
-        $schedule->setMode($data['mode']);
-        $schedule->setTimeExpression($data['cronExpression']);
-        $errors = iterator_to_array($this->get('validator')->validate($schedule));
-        if ($user->isLimitScheduleExceeded()) {
-            $errors[] = 'Schedule limit has been exceeded';
-        } else if (!count($this->get('schedule_manager')->getNextRunDates($schedule, '+5days', 1))) {
-            $errors[] = 'Invalid time expression';
-        }
-        if (count($errors) == 0) {
-            $this->getDoctrine()->getManager()->persist($schedule);
-            $this->getDoctrine()->getManager()->flush();
-            $this->get('schedule_manager')->generateScheduledExecutions($schedule);
-            return new JsonResponse(['id' => $schedule->getId()]);
-        } else {
-            return new JsonResponse(array_map(function ($error) {
-                return is_string($error) ? $error : $error->getMessage();
-            }, $errors), 400);
-        }
+        $schedule = $this->fillSchedule(new Schedule($this->getUser()), $data);
+        $this->getDoctrine()->getManager()->persist($schedule);
+        $this->getDoctrine()->getManager()->flush();
+        $this->get('schedule_manager')->generateScheduledExecutions($schedule);
+        return new JsonResponse(['id' => $schedule->getId()]);
     }
 
     /**
-     * @Route("/next-run-dates", name="_schedule_get_run_dates", requirements={"cronExpression"=".+"})
+     * @Route("/next-run-dates", name="_schedule_get_run_dates", requirements={"timeExpression"=".+"})
      */
     public function getNextRunDatesAction(Request $request)
     {
+        Assertion::true($request->isXmlHttpRequest());
         $data = $request->request->all();
-        if (!$request->isXmlHttpRequest() || empty($data['cronExpression'])) {
-            throw $this->createNotFoundException();
-        }
-        $temporarySchedule = new Schedule();
-        $temporarySchedule->setUser($this->getUser());
-        $temporarySchedule->setTimeExpression($data['cronExpression']);
-        $dateStart = \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']);
-        if (!$dateStart) {
-            $dateStart = new \DateTime();
-        }
-        $temporarySchedule->setDateStart($dateStart);
-        $temporarySchedule->setDateEnd($data['dateEnd'] ? \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']) : null);
+        $temporarySchedule = new Schedule($this->getUser(), $data);
         $nextRunDates = $this->get('schedule_manager')->getNextRunDates($temporarySchedule, '+7days', 3);
         return new JsonResponse([
             'nextRunDates' => array_map(function ($dateTime) {
@@ -136,8 +96,42 @@ class ScheduleController extends Controller
     }
 
     /**
+     * @Route("/{schedule}")
+     * @Method("PUT")
+     */
+    public function editScheduleAction(Schedule $schedule, Request $request)
+    {
+        $data = $request->request->all();
+        $this->fillSchedule($schedule, $data);
+        return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule) {
+            $this->get('schedule_manager')->deleteScheduledExecutions($schedule);
+            $em->persist($schedule);
+            $this->get('schedule_manager')->generateScheduledExecutions($schedule);
+            return new JsonResponse(['id' => $schedule->getId()]);
+        });
+    }
+
+    /** @return Schedule */
+    private function fillSchedule(Schedule $schedule, array $data)
+    {
+        Assert::that($data)
+            ->notEmptyKey('channel')
+            ->notEmptyKey('action')
+            ->notEmptyKey('scheduleMode')
+            ->notEmptyKey('timeExpression');
+        $channel = $this->get('iodevice_manager')->channelById($data['channel']);
+        Assertion::notNull($channel);
+        $data['channel'] = $channel;
+        $schedule->fill($data);
+        $errors = iterator_to_array($this->get('validator')->validate($schedule));
+        Assertion::count($errors, 0, implode(', ', $errors));
+        $nextRunDates = $this->get('schedule_manager')->getNextRunDates($schedule, '+5days', 1, true);
+        Assertion::notEmpty($nextRunDates, 'Invalid time expression');
+        return $schedule;
+    }
+
+    /**
      * @Route("/{schedule}", name="_schedule_details")
-     * @Template
      * @Security("user == schedule.getUser()")
      */
     public function scheduleDetailsAction(Schedule $schedule, Request $request)
@@ -155,9 +149,14 @@ class ScheduleController extends Controller
             }
             return $this->redirectToRoute("_schedule_details", ['schedule' => $schedule->getId()]);
         }
-        return [
+        $data = [
             'schedule' => $schedule,
             'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule)
         ];
+        if (in_array('application/json', $request->getAcceptableContentTypes())) {
+            return new JsonResponse($this->get('serializer')->serialize($data, 'json', ['groups' => ['basic']]), 200, [], true);
+        } else {
+            return $this->render('@Supla/Schedule/scheduleDetails.html.twig', $data);
+        }
     }
 }

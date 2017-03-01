@@ -28,6 +28,10 @@ framework:
     http_method_override: true
     serializer:
         enabled: true
+        enable_annotations: true
+    assets:
+        packages:
+            webpack: ~
         
     
 # RESTful API

@@ -8,11 +8,11 @@
 				<a href="https://www.supla.org" class="brand nav-link animated">
 					<img src={{ asset('assets/img/logo.svg') }}>
 				</a>
-				
+
 				<form id="login" class="simform animated" action="{% if step == "2" %} {{ path("_auth_login_check") }}  {% else %} {{ path("_auth_login") }} {% endif %}" method="post">
-				
+
 				    <input type="hidden" name="step" value="{{ step }}"/>
-				
+
 					<div class="simform-inner">
 						<ol class="questions">
 						    {% if step == "2" %}
@@ -39,14 +39,14 @@
 						</div>
 					</div>
 				</form>
-				
+
 				{% if error %}
 					<a href="#sign/1" class="error animated" id="forgotpwd_btn">
-					
+
 					<p><strong>{% trans %}Forgot your password ?{% endtrans %}</strong> {% trans %}Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.{% endtrans %}</p>
 					</a>
 				{% endif %}
-				
+
 				<div class="row shortcuts animated">
 					<div class="col-xs-6">
 						<a id="overlay-delete" href="#">
@@ -83,7 +83,7 @@
 			</form>
 		</div>
 	</div>
-	
+
 </div>
 <footer class="animated">
 	<div class="row">
@@ -153,56 +153,56 @@
 			<script>
                 var theForm = document.getElementById( 'login' );
                 theForm.setAttribute( "autocomplete", "off" );
-    
+
                 new stepsForm( theForm, {
                 onSubmit : function( form ) {
                 classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
-          
+
                     var $server = null;
-                    
+
                     {% if step == "2" %}
-                    
+
 	                    form.submit();
-                    
+
                     {% else %}
-                    
+
 	                    $.ajax( {type: "POST", url: '{{ path("_auth_server") }}', data: JSON.stringify({ username: $('#q1').val() }) } )
-				        .done(function( response ) {        		
-				        	
+				        .done(function( response ) {
+
 				        	if ( response.success == true ) {
 				        		$server = response.server;
 				        	}
-				        	
+
 				            if ( $server == null ) {
-		                
+
 			                   $(location).attr('href', '{{ path("_temp_unavailable") }}')
-			                
+
 			                } else {
-			                
+
 			                     $action = '{{ path("_auth_login") }}';
-			                
-			                     $('#login').attr('action', 'https://' + $server + $action ); 
-			                
-			                	 $("#authpage").fadeOut(500, function(){ 
-						             form.submit() 
+
+			                     $('#login').attr('action', 'https://' + $server + $action );
+
+			                	 $("#authpage").fadeOut(500, function(){
+						             form.submit()
 						         });
 			                };
-				        });	 
-	   
+				        });
+
 	                 {% endif %}
 
-                
+
                 }
                 });
-				
+
 				$( "#overlay-delete" ).click(function() {
 					$( ".overlay-apps" ).addClass
 					('overlay-open');
 				  });
-							
+
 				$( ".overlay-delete-close" ).click(function() {
 					$( ".overlay-apps" ).removeClass
-					( 'overlay-open' ); 
+					( 'overlay-open' );
 				});
             </script>
 {% endblock %}

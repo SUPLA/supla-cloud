@@ -22,6 +22,14 @@
 
                         <h4>{{ 'Mode'|trans }}</h4>
                         {{ schedule.mode|trans|capitalize }}
+
+                        <h4>{{ 'Start date'|trans }}</h4>
+                        {{ schedule.dateStart|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}
+
+                        {% if schedule.dateEnd %}
+                            <h4>{{ 'End date'|trans }}</h4>
+                            {{ schedule.dateEnd|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}
+                        {% endif %}
                     </div>
                     <div class="col-md-6">
                         <div class="form-group text-right">
@@ -36,6 +44,10 @@
                                             {% trans %}Enable schedule{% endtrans %}
                                         </button>
                                     {% endif %}
+                                    <a class="btn btn-default"
+                                       href="{{ path('_schedule_edit', {'schedule': schedule.id}) }}">
+                                        {% trans %}Edit schedule{% endtrans %}
+                                    </a>
                                     <button class="btn btn-danger" name="delete"
                                             onclick="return confirm('{% trans %}Are you sure you want to delete the schedule?{% endtrans %}')">
                                         {% trans %}Delete schedule{% endtrans %}
@@ -46,7 +58,8 @@
                         {% if schedule.channel.function in [20, 30] %}{# if gate #}
                             <div class="form-group">
                                 <div class="alert alert-warning text-center">
-                                    {% trans %}A gate sensor must be available in order to execute the scheduled action.{% endtrans %}
+                                    {% trans %}A gate sensor must be available in order to execute the scheduled
+                                    action.{% endtrans %}
                                 </div>
                             </div>
                         {% endif %}
