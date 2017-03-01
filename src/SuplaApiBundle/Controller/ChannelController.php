@@ -32,10 +32,20 @@ class ChannelController extends RestController
 {
 	
 	const RECORD_LIMIT_PER_REQUEST     = 5000;
+	private $svrCtrl = null;
 	
-	protected function channelById($channelid, $functions = null) {
+	protected function getServerCtrl() {
+		
+		if ( $this->svrCtrl === null ) {
+			$this->svrCtrl = new ServerCtrl();
+		}
 	
-		$channelid = intval($channelid, 0);
+		return $this->svrCtrl;
+	}
+	
+	protected function channelById($channelid, $functions = null, $checkConnected = false, $authorize = false) {
+	
+		$channelid = intval($channelid);
 		$iodev_man = $this->container->get('iodevice_manager');
 	
 		$channel = $iodev_man->channelById($channelid, $this->getParentUser());
@@ -43,12 +53,39 @@ class ChannelController extends RestController
 		if ( !($channel instanceof IODeviceChannel ) )
 			throw new HttpException(Response::HTTP_NOT_FOUND);
 				
-			if ( is_array($functions)
+		if ( is_array($functions)
 					&& !in_array($channel->getFunction(), $functions) )
-				throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
+			throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
 	
+		if ( $checkConnected === true ) {
+			
+			$connected = false;
+				
+			$devid = $channel->getIoDevice()->getId();
+			$userid = $this->getParentUser()->getId();
+			
+			if ( $channel->getIoDevice()->getEnabled() ) {
+					
+				$enabled = true;
+					
+				$cids = $this->getServerCtrl()->iodevice_connected($userid, array($devid));
+				$connected = in_array($devid, $cids);
+			}
+			
+			if ( $connected === false )
+				throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+			
+		}
+			
+		if ( $authorize === true ) {
+			
+				if ( true !== $this->getServerCtrl()->oauth_authorize($userid,
+						$this->container->get('security.token_storage')->getToken()->getToken()) )
+					throw new HttpException(Response::HTTP_UNAUTHORIZED);
+						
+		}
 	
-				return $channel;
+		return $channel;
 	}
     
 	
@@ -113,8 +150,8 @@ class ChannelController extends RestController
 
 		$channel = $this->channelById($channelid, $f);
  
-		$offset = intval($offset, 0);
-		$limit = intval($limit, 0);
+		$offset = intval($offset);
+		$limit = intval($limit);
 
 		if ( $limit <= 0 )
 			$limit = ChannelController::RECORD_LIMIT_PER_REQUEST;
@@ -174,7 +211,7 @@ class ChannelController extends RestController
 		
 			$enabled = true;
 			
-			$cids = (new ServerCtrl())->iodevice_connected($userid, array($devid));
+			$cids = $this->getServerCtrl()->iodevice_connected($userid, array($devid));
 			$connected = in_array($devid, $cids);
 		}
 		 
@@ -184,14 +221,14 @@ class ChannelController extends RestController
 		
 		if ( $connected ) {
 			
-			$serverCtrl = new ServerCtrl();
+			$func = $channel->getFunction();
 			
-			switch($channel->getFunction()) {
+			switch($func) {
 					
 				case SuplaConst::FNC_POWERSWITCH:
 				case SuplaConst::FNC_LIGHTSWITCH:
 					
-					$value = $serverCtrl->get_char_value($userid, $devid, $channelid);
+					$value = $this->getServerCtrl()->get_char_value($userid, $devid, $channelid);
 					$result['on'] = $value == '1' ? true : false;
 					
 				break;
@@ -203,7 +240,7 @@ class ChannelController extends RestController
 				case SuplaConst::FNC_OPENINGSENSOR_DOOR:
 				case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
 					
-					$value = $serverCtrl->get_char_value($userid, $devid, $channelid);
+					$value = $this->getServerCtrl()->get_char_value($userid, $devid, $channelid);
 					$result['hi'] = $value == '1' ? true : false;
 					
 				break;
@@ -213,20 +250,20 @@ class ChannelController extends RestController
 				case SuplaConst::FNC_HUMIDITY:
 				case SuplaConst::FNC_HUMIDITYANDTEMPERATURE:
 					
-					if ( $channel->getFunction() == SuplaConst::FNC_THERMOMETER
-					     || $channel->getFunction() == SuplaConst::FNC_HUMIDITYANDTEMPERATURE ) {
+					if ( $func == SuplaConst::FNC_THERMOMETER
+					     || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE ) {
 					     	
-					     	$value = $serverCtrl->get_temperature_value($userid, $devid, $channelid);
+					     	$value = $this->getServerCtrl()->get_temperature_value($userid, $devid, $channelid);
 					     	
 					     	if ( $value !== FALSE ) {
 					     		$result['temperature'] = $value;
 					     	}
 					}
 					
-					if ( $channel->getFunction() == SuplaConst::FNC_HUMIDITY
-					     || $channel->getFunction() == SuplaConst::FNC_HUMIDITYANDTEMPERATURE ) {
+					if ( $func == SuplaConst::FNC_HUMIDITY
+					     || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE ) {
 					     	
-					     	$value = $serverCtrl->get_humidity_value($userid, $devid, $channelid);
+					     	$value = $this->getServerCtrl()->get_humidity_value($userid, $devid, $channelid);
 					     	
 					     	if ( $value !== FALSE ) {
 					     		$result['humidity'] = $value;
@@ -240,20 +277,20 @@ class ChannelController extends RestController
 				case SuplaConst::FNC_RGBLIGHTING:
 				case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
 					
-					$value = $serverCtrl->get_rgbw_value($userid, $devid, $channelid);
+					$value = $this->getServerCtrl()->get_rgbw_value($userid, $devid, $channelid);
 					
 					if ( $value !== FALSE ) {
 							
-						if ( $channel->getFunction() == SuplaConst::FNC_RGBLIGHTING
-							 || $channel->getFunction() == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
+						if ( $func == SuplaConst::FNC_RGBLIGHTING
+							 || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
 									
 							 $result['color'] = $value['color'];
 							 $result['color_brightness'] = $value['color_brightness'];
 							 	
 						}
 
-						if ( $channel->getFunction() == SuplaConst::FNC_DIMMER
-								|| $channel->getFunction() == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
+						if ( $func == SuplaConst::FNC_DIMMER
+							 || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
 										
 							$result['brightness'] = $value['brightness'];
 										
@@ -264,7 +301,7 @@ class ChannelController extends RestController
 				break;
 				
 				case SuplaConst::FNC_DISTANCESENSOR:
-					$value = $serverCtrl->get_distance_value($userid, $devid, $channelid);
+					$value = $this->getServerCtrl()->get_distance_value($userid, $devid, $channelid);
 					
 					if ( $value !== FALSE ) {
 						$result['distance'] = $value;
@@ -273,7 +310,7 @@ class ChannelController extends RestController
 				break;
 				
 				case SuplaConst::FNC_DEPTHSENSOR:
-					$value = $serverCtrl->get_distance_value($userid, $devid, $channelid);
+					$value = $$this->getServerCtrl()->get_distance_value($userid, $devid, $channelid);
 						
 					if ( $value !== FALSE ) {
 						$result['depth'] = $value;
@@ -286,6 +323,150 @@ class ChannelController extends RestController
 		return $this->handleView($this->view($result, Response::HTTP_OK));
 		
 	}	
+	
+
+	
+	/**
+	 * @Rest\Put("/channels/{channelid}")
+	 */
+	public function putChannelsAction(Request $request, $channelid)
+	{
+		$channel = $this->channelById($channelid, null, true, true);
+		$data = json_decode($request->getContent());
+		
+		$devid = $channel->getIoDevice()->getId();
+		$userid = $this->getParentUser()->getId();
+
+		$func = $channel->getFunction();
+
+		switch($func) {
+			case SuplaConst::FNC_DIMMER:
+			case SuplaConst::FNC_RGBLIGHTING:
+			case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
+				
+				$color = intval(@$data->color);
+				$color_brightness = intval(@$data->color_brightness);
+				$brightness = intval(@$data->brightness);
+				
+				if ( $func == SuplaConst::FNC_RGBLIGHTING
+					 || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
+				
+					if ( $color <= 0
+							|| $color > 0xffffff
+							|| $color_brightness < 0
+							|| $color_brightness > 100 ) {
+								
+						throw new HttpException(Response::HTTP_BAD_REQUEST);
+								
+					}
+					 	
+				}
+				
+				if ( $func == SuplaConst::FNC_DIMMER
+					 || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING ) {
+					 
+					if ( $brightness < 0
+					 	 || $brightness > 100 ) {
+					 	
+					 	throw new HttpException(Response::HTTP_BAD_REQUEST);
+					 	
+					}
+					 			
+				}
+				
+				if ( false === $this->getServerCtrl()->set_rgbw_value($userid, $devid, $channelid, $color, $color_brightness, $brightness) )
+					throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+				
+				break;
+				
+				default:
+					throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
+		}
+			
+	
+		return $this->handleView($this->view(NULL, Response::HTTP_OK));
+	}
+	
+	private function patchAllowed($action, $func) {
+		
+		switch($action) {
+			case 'turn-on':
+			case 'turn-off':
+				switch($func) {
+					case SuplaConst::FNC_POWERSWITCH:
+					case SuplaConst::FNC_LIGHTSWITCH:
+						return true;
+				}
+				break;
+				
+			case 'open':
+				switch($func) {
+					case SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK:
+					case SuplaConst::FNC_CONTROLLINGTHEDOORLOCK:
+						return true;
+				}
+				break;
+				
+			case 'open-close':
+				switch($func) {
+					case SuplaConst::FNC_CONTROLLINGTHEGATE:
+					case SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR:
+						return true;
+				}
+				break;
+				
+			case 'shut':
+			case 'reveal':
+			case 'stop':
+				
+				if ( $func == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER )
+					return true;
+
+				break;
+				
+				
+		}
+		
+		throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
+	}
+	
+	/**
+	 * @Rest\Patch("/channels/{channelid}")
+	 */
+	public function patchChannelsAction(Request $request, $channelid)
+	{
+		$channel = $this->channelById($channelid, null, true, true);
+		$data = json_decode($request->getContent());
+		
+		$devid = $channel->getIoDevice()->getId();
+		$userid = $this->getParentUser()->getId();
+		$action = @$data->action;
+
+		$func = $channel->getFunction();
+		$this->patchAllowed($action, $func);
+		
+		$ctrlResult = false;
+		
+		$value = 0;
+		
+		switch($action) {
+			case 'turn-on':
+			case 'open':
+			case 'open-close':
+			case 'shut':
+				$value = 1;
+				break;
+			case 'reveal':
+				$value = 2;
+				break;
+		}
+								
+		if ( false === $this->getServerCtrl()->set_char_value($userid, $devid, $channelid, $value) )
+			throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+	
+		return $this->handleView($this->view(NULL, Response::HTTP_OK));
+	}
+	
 	
 	
 }
