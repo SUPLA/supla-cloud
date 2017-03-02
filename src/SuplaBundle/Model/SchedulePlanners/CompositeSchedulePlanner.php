@@ -34,18 +34,20 @@ class CompositeSchedulePlanner {
      * @return \DateTime[]
      */
     public function calculateNextRunDatesUntil(Schedule $schedule, $until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX) {
-        $until = is_int($until) ? $until : strtotime($until) + 1; // +1 to make it inclusive
-        $runDates = [];
-        $nextRunDate = $currentDate;
-        try {
-            do {
-                $nextRunDate = $this->calculateNextRunDate($schedule, $nextRunDate);
-                $runDates[] = $nextRunDate;
-            } while ($nextRunDate->getTimestamp() < $until && count($runDates) < $maxCount);
-        } catch (\RuntimeException $e) {
-            // impossible cron expression
-        }
-        return $runDates;
+        return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $until, $currentDate, $maxCount) {
+            $until = is_int($until) ? $until : strtotime($until) + 1; // +1 to make it inclusive
+            $runDates = [];
+            $nextRunDate = $currentDate;
+            try {
+                do {
+                    $nextRunDate = $this->calculateNextRunDate($schedule, $nextRunDate);
+                    $runDates[] = $nextRunDate;
+                } while ($nextRunDate->getTimestamp() < $until && count($runDates) < $maxCount);
+            } catch (\RuntimeException $e) {
+                // impossible cron expression
+            }
+            return $runDates;
+        });
     }
 
     public static function wrapInScheduleTimezone(Schedule $schedule, $function) {
