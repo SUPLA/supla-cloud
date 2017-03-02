@@ -1,31 +1,29 @@
 <?php
 namespace SuplaBundle\Model\SchedulePlanners;
 
-use Cron\CronExpression;
 use SensioLabs\Security\Exception\RuntimeException;
 use SuplaBundle\Entity\Schedule;
 
-class CompositeSchedulePlanner
-{
+class CompositeSchedulePlanner {
     /** @var SchedulePlanner[] */
     private $planners;
 
-    public function __construct(array $planners)
-    {
+    public function __construct(array $planners) {
         $this->planners = $planners;
     }
 
-    public function calculateNextRunDate(Schedule $schedule, $currentDate = 'now')
-    {
-        if (!($currentDate instanceof \DateTime)) {
-            $currentDate = new \DateTime($currentDate, $schedule->getUserTimezone());
-        }
-        foreach ($this->planners as $planner) {
-            if ($planner->canCalculateFor($schedule)) {
-                return $planner->calculateNextRunDate($schedule, $currentDate);
+    public function calculateNextRunDate(Schedule $schedule, $currentDate = 'now') {
+        return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
+            if (!($currentDate instanceof \DateTime)) {
+                $currentDate = new \DateTime($currentDate, $schedule->getUserTimezone());
             }
-        }
-        throw new RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. Expression: {$schedule->getTimeExpression()}");
+            foreach ($this->planners as $planner) {
+                if ($planner->canCalculateFor($schedule)) {
+                    return $planner->calculateNextRunDate($schedule, $currentDate);
+                }
+            }
+            throw new RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. Expression: {$schedule->getTimeExpression()}");
+        });
     }
 
     /**
@@ -35,8 +33,7 @@ class CompositeSchedulePlanner
      * @param int $maxCount
      * @return \DateTime[]
      */
-    public function calculateNextRunDatesUntil(Schedule $schedule, $until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX)
-    {
+    public function calculateNextRunDatesUntil(Schedule $schedule, $until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX) {
         $until = is_int($until) ? $until : strtotime($until) + 1; // +1 to make it inclusive
         $runDates = [];
         $nextRunDate = $currentDate;
@@ -49,5 +46,13 @@ class CompositeSchedulePlanner
             // impossible cron expression
         }
         return $runDates;
+    }
+
+    public static function wrapInScheduleTimezone(Schedule $schedule, $function) {
+        $defaultTimezone = date_default_timezone_get();
+        date_default_timezone_set($schedule->getUser()->getTimezone());
+        $result = $function();
+        date_default_timezone_set($defaultTimezone);
+        return $result;
     }
 }
