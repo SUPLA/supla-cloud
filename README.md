@@ -1,4 +1,4 @@
-![Travis Build Status](https://travis-ci.org/SUPLA/supla-cloud.svg?branch=master)
+[![Build Status](https://travis-ci.org/SUPLA/supla-cloud.svg?branch=master)](https://travis-ci.org/SUPLA/supla-cloud)
 
  SUPLA CLOUD
  www.supla.org
