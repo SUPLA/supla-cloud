@@ -228,19 +228,25 @@ $(document).ready(function(){
 		( 'overlay-open' ); 
 	});
 	
-    $('#generate').pGenerator({
-		  'bind': 'click',
-		  'passwordElement': '',
-		  'displayElement': '#password',
-		  'passwordLength': 8,
-		  'uppercase': true,
-		  'lowercase': true,
-		  'numbers':   true,
-		  'specialChars': false,
-		  'onPasswordGenerated': function(generatedPassword) {
-			  $('#password').focus();
-		   }
-	  });
+	if ( $( "#generate" ).length ) {
+		
+	    $('#generate').pGenerator({
+			  'bind': 'click',
+			  'passwordElement': '',
+			  'displayElement': '#password',
+			  'passwordLength': 8,
+			  'uppercase': true,
+			  'lowercase': true,
+			  'numbers':   true,
+			  'specialChars': false,
+			  'onPasswordGenerated': function(generatedPassword) {
+				  $('#password').focus();
+			   }
+		  });
+	    
+	}
+	
+	if ( $( "#generate-short" ).length ) {
 	  
 	    $('#generate-short').pGenerator({
 		  'bind': 'click',
@@ -255,6 +261,8 @@ $(document).ready(function(){
 			  $('#password').focus();
 		   }
 	  });
+	    
+	}
 	   
     
     $(".btn-enable").click(function() {  	
@@ -279,12 +287,21 @@ $(document).ready(function(){
   });
   
  $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
+	 
+	 if ( $('.supla-tooltip').length ) {
+		 
+		  $('[data-toggle="tooltip"]').tooltip()
+		  
+		  $('.supla-tooltip').tooltipster({
+			  contentAsHTML: true,
+			  touchDevices: true,
+			  interactive: true,
+			  position: 'left',
+		  });
+		  
+	 }
+	 
+
   
-  $('.supla-tooltip').tooltipster({
-	  contentAsHTML: true,
-	  touchDevices: true,
-	  interactive: true,
-	  position: 'left',
-  });
+  
 });
