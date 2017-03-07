@@ -53,6 +53,16 @@ class ScheduledExecution
      * @ORM\Column(name="fetched_timestamp", type="utcdatetime", nullable=true)
      */
     private $fetchedTimestamp;
+    
+    /**
+     * @ORM\Column(name="retry_timestamp", type="utcdatetime", nullable=true)
+     */
+    private $retryTimestamp;
+    
+    /**
+     * @ORM\Column(name="retry_count", type="integer", nullable=true)
+     */
+    private $retryCount;
 
     /**
      * @ORM\Column(name="result_timestamp", type="utcdatetime", nullable=true)
