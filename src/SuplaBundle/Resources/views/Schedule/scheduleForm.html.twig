@@ -6,6 +6,9 @@
                 <h1 class="title">
                     {% if schedule is defined %}
                         {% trans %}Edit schedule{% endtrans %} ID{{ schedule.id }}
+                        {% if schedule.caption %}
+                            <span class="small">{{ schedule.caption }}</span>
+                        {% endif %}
                     {% else %}
                         {% trans %}Create New Schedule{% endtrans %}
                     {% endif %}

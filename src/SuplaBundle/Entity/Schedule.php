@@ -19,20 +19,18 @@
 
 namespace SuplaBundle\Entity;
 
-
 use Assert\Assert;
-use Symfony\Component\Validator\Constraints;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_schedule")
  * @UniqueEntity(fields="id", message="IODevice already exists")
  */
-class Schedule
-{
+class Schedule {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -106,16 +104,21 @@ class Schedule
      */
     private $nextCalculationDate;
 
-    public function __construct(User $user = null, array $data = [])
-    {
+    /**
+     * @ORM\Column(name="caption", type="string", length=255, nullable=true)
+     * @Constraints\Length(max=255)
+     * @Groups({"basic"})
+     */
+    private $caption;
+
+    public function __construct(User $user = null, array $data = []) {
         $this->user = $user;
         if (count($data)) {
             $this->fill($data);
         }
     }
 
-    public function fill(array $data)
-    {
+    public function fill(array $data) {
         Assert::that($data)->notEmptyKey('timeExpression');
         $this->setTimeExpression($data['timeExpression']);
         $this->setAction(empty($data['action']) ? null : $data['action']);
@@ -124,165 +127,159 @@ class Schedule
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(empty($data['scheduleMode']) ? null : $data['scheduleMode']);
+        $this->setCaption(empty($data['caption']) ? null : $data['caption']);
     }
 
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @return User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
     /**
      * @return mixed
      */
-    public function getTimeExpression()
-    {
+    public function getTimeExpression() {
         return $this->timeExpression;
     }
 
     /**
      * @param mixed $timeExpression
      */
-    public function setTimeExpression($timeExpression)
-    {
+    public function setTimeExpression($timeExpression) {
         $this->timeExpression = $timeExpression;
     }
 
     /**
      * @return IODeviceChannel
      */
-    public function getChannel()
-    {
+    public function getChannel() {
         return $this->channel;
     }
 
-    public function setChannel($channel)
-    {
+    public function setChannel($channel) {
         $this->channel = $channel;
     }
 
     /**
      * @return mixed
      */
-    public function getAction()
-    {
+    public function getAction() {
         return $this->action;
     }
 
     /**
      * @param mixed $action
      */
-    public function setAction($action)
-    {
+    public function setAction($action) {
         $this->action = $action;
     }
 
     /**
      * @return mixed
      */
-    public function getActionParam()
-    {
+    public function getActionParam() {
         return $this->actionParam;
     }
 
     /**
      * @param mixed $actionParam
      */
-    public function setActionParam($actionParam)
-    {
+    public function setActionParam($actionParam) {
         $this->actionParam = $actionParam;
     }
 
     /**
      * @return mixed
      */
-    public function getMode()
-    {
+    public function getMode() {
         return $this->mode;
     }
 
     /**
      * @param mixed $mode
      */
-    public function setMode($mode)
-    {
+    public function setMode($mode) {
         $this->mode = $mode;
     }
 
     /**
      * @return mixed
      */
-    public function getDateStart()
-    {
+    public function getDateStart() {
         return $this->dateStart;
     }
 
     /**
      * @param mixed $dateStart
      */
-    public function setDateStart(\DateTime $dateStart)
-    {
+    public function setDateStart(\DateTime $dateStart) {
         $this->dateStart = $dateStart;
     }
 
     /**
      * @return mixed
      */
-    public function getDateEnd()
-    {
+    public function getDateEnd() {
         return $this->dateEnd;
     }
 
     /**
      * @param mixed $dateEnd
      */
-    public function setDateEnd($dateEnd)
-    {
+    public function setDateEnd($dateEnd) {
         $this->dateEnd = $dateEnd;
     }
 
     /**
      * @return mixed
      */
-    public function getEnabled()
-    {
+    public function getEnabled() {
         return $this->enabled;
     }
 
     /**
      * @param mixed $enabled
      */
-    public function setEnabled($enabled)
-    {
+    public function setEnabled($enabled) {
         $this->enabled = $enabled;
     }
 
     /**
      * @return mixed
      */
-    public function getNextCalculationDate()
-    {
+    public function getNextCalculationDate() {
         return $this->nextCalculationDate;
     }
 
-    public function setNextCalculationDate(\DateTime $nextCalculationDate)
-    {
+    public function setNextCalculationDate(\DateTime $nextCalculationDate) {
         $this->nextCalculationDate = $nextCalculationDate;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCaption() {
+        return $this->caption;
+    }
+
+    /**
+     * @param mixed $caption
+     */
+    public function setCaption($caption) {
+        $this->caption = $caption;
+    }
+
     /** @return \DateTimeZone */
-    public function getUserTimezone()
-    {
+    public function getUserTimezone() {
         return new \DateTimeZone($this->getUser()->getTimezone());
     }
 }

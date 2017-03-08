@@ -8,6 +8,7 @@ new Vue({
     el: '#schedule-form',
     store: new Vuex.Store({
         state: {
+            caption: '',
             scheduleMode: 'once',
             timeExpression: '',
             dateStart: moment().format(),

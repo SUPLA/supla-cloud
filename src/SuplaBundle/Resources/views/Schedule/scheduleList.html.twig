@@ -23,6 +23,9 @@
                     <a class="item {% if schedule.enabled %}enable{% endif %}"
                        href="{{ path('_schedule_details', {schedule: schedule.id}) }}">
                         <span class="aid">ID<strong>{{ schedule.id }}</strong></span>
+                        {% if schedule.caption %}
+                            <span class="small">{{ schedule.caption }}</span>
+                        {% endif %}
                         <div class="details-wrapper">
                             Akcja:
                             <strong><span

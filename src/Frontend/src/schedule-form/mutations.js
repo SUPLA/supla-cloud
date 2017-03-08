@@ -8,6 +8,10 @@ export const updateTimeExpression = (state, timeExpression) => {
     state.timeExpression = timeExpression;
 };
 
+export const updateCaption = (state, caption) => {
+    state.caption = caption;
+};
+
 export const updateDateStart = (state, date) => {
     state.dateStart = date ? date.format() : moment().format();
 };
@@ -59,4 +63,5 @@ export const editSchedule = (state, schedule) => {
     state.channel = schedule.channel.id;
     state.action = schedule.action;
     state.actionParam = schedule.actionParam;
+    state.caption = schedule.caption;
 };
