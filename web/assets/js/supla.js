@@ -310,42 +310,43 @@ function detectIE() {
         $('button#relay_time_select').on('click', relayTimeClickHandler);
     }
 
-    var carouselItemClick = function (e) {
+    var carouselItemClick = function (itemType) {
+        return function (e) {
 
-        var id = $(this).data('id');
-        var details = $('#details');
+            var id = $(this).data('id');
+            var details = $('#details');
 
-        if (id == undefined || id == 0 || details.length == 0)
-            return;
+            if (id == undefined || id == 0 || details.length == 0)
+                return;
 
-        $(document).find('.scroll_list_wrapper a').each(function (index, element) {
-            if ($(this).data('id') == id) {
-                $(this).addClass('selected');
-            } else {
-                $(this).removeClass('selected');
-            }
-        });
-
-        details.html('<div class="gmb-loader"><div></div><div></div><div></div></div>');
-
-        $.ajax({type: "POST", url: FRONTEND_CONFIG.baseUrl + '/loc/' + id + '/ajax/getdetails'})
-            .done(function (response) {
-
-                if (response.success) {
-
-                    details.hide();
-                    details.html(response.html);
-                    details.fadeIn();
-
-                    checkConnectionState(5000);
-
+            $(document).find('.scroll_list_wrapper a').each(function (index, element) {
+                if ($(this).data('id') == id) {
+                    $(this).addClass('selected');
                 } else {
-                    details.html('');
-                    location.href = location.href;
+                    $(this).removeClass('selected');
                 }
-
             });
 
+            details.html('<div class="gmb-loader"><div></div><div></div><div></div></div>');
+
+            $.ajax({type: "POST", url: FRONTEND_CONFIG.baseUrl + '/' + itemType + '/' + id + '/ajax/getdetails'})
+                .done(function (response) {
+
+                    if (response.success) {
+
+                        details.hide();
+                        details.html(response.html);
+                        details.fadeIn();
+
+                        checkConnectionState(5000);
+
+                    } else {
+                        details.html('');
+                        location.href = location.href;
+                    }
+
+                });
+        }
     };
 
     $(document).ready(function () {
@@ -545,8 +546,8 @@ function detectIE() {
 
         });
 
-        $('.access_id_list a').on('click', carouselItemClick);
-        $('.location_list a').on('click', carouselItemClick);
+        $('.access_id_list a').on('click', carouselItemClick('aid'));
+        $('.location_list a').on('click', carouselItemClick('loc'));
 
         $('#logout').turnOffTV();
 
