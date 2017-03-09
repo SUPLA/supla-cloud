@@ -3,6 +3,7 @@ var webpack = require('webpack')
 
 var entries = {
     'schedule-form': './src/schedule-form/schedule-form.js',
+    'schedule-list': './src/schedule-list/schedule-list.js',
     'user-account': './src/user-account/user-account.js',
     'commons': './src/common.js'
 };

@@ -8,6 +8,7 @@
     "build": "rm -fr ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules"
   },
   "dependencies": {
+    "babel-runtime": "6.23.0",
     "bootstrap-chosen": "1.4.2",
     "chosen-js": "1.6.2",
     "eonasdan-bootstrap-datetimepicker": "4.17.46",
@@ -17,12 +18,15 @@
     "vue": "2.1.10",
     "vue-i18n": "5.0.2",
     "vue-resource": "1.2.0",
+    "vuetable-2": "1.3.0",
     "vuex": "2.1.2"
   },
   "devDependencies": {
     "babel-core": "6.23.1",
     "babel-loader": "6.3.2",
+    "babel-plugin-transform-runtime": "6.23.0",
     "babel-preset-es2015": "6.22.0",
+    "babel-preset-stage-2": "6.22.0",
     "babel-preset-stage-3": "6.22.0",
     "cross-env": "3.0.0",
     "css-loader": "0.25.0",
