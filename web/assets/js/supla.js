@@ -328,7 +328,7 @@ function detectIE() {
 
         details.html('<div class="gmb-loader"><div></div><div></div><div></div></div>');
 
-        $.ajax({type: "POST", url: location.search + id + '/ajax/getdetails'})
+        $.ajax({type: "POST", url: FRONTEND_CONFIG.baseUrl + '/loc/' + id + '/ajax/getdetails'})
             .done(function (response) {
 
                 if (response.success) {

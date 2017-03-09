@@ -38,7 +38,7 @@
 		<script>
 			window.FRONTEND_CONFIG = {
 				locale: '{{ app.request.locale }}',
-				baseUrl: '{{ path('_homepage') }}',
+				baseUrl: '{{ path('_homepage')[:-1] }}',
 				timezone: '{{ app.user ? app.user.timezone : '' }}'
 			};
 		</script>
