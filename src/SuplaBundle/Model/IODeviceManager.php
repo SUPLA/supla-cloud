@@ -249,7 +249,7 @@ class IODeviceManager
 				SuplaConst::FNC_CONTROLLINGTHEDOORLOCK => [SuplaConst::ACTION_OPEN],
 				SuplaConst::FNC_CONTROLLINGTHEGATE => [SuplaConst::ACTION_OPEN, SuplaConst::ACTION_CLOSE],
 				SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR => [SuplaConst::ACTION_OPEN, SuplaConst::ACTION_CLOSE],
-				SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER => [SuplaConst::ACTION_COVER, SuplaConst::ACTION_UNCOVER],
+				SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER => [SuplaConst::ACTION_SHUT, SuplaConst::ACTION_REVEAL],
 				SuplaConst::FNC_POWERSWITCH => [SuplaConst::ACTION_TURN_ON, SuplaConst::ACTION_TURN_OFF],
 				SuplaConst::FNC_LIGHTSWITCH => [SuplaConst::ACTION_TURN_ON, SuplaConst::ACTION_TURN_OFF],
 				SuplaConst::FNC_DIMMER => [SuplaConst::ACTION_DIM],
@@ -261,7 +261,7 @@ class IODeviceManager
 	public function actionStringMap()
 	{
 		return [
-				SuplaConst::ACTION_COVER => 'Cover',
+				SuplaConst::ACTION_SHUT => 'Shut',
 				SuplaConst::ACTION_CLOSE => 'Close',
 				SuplaConst::ACTION_OPEN => 'Open',
 				SuplaConst::ACTION_DIM => 'Dim',
@@ -269,7 +269,7 @@ class IODeviceManager
 				SuplaConst::ACTION_SET_RANDOM_RGB_COLOR => 'Set random color',
 				SuplaConst::ACTION_TURN_OFF => 'Turn off',
 				SuplaConst::ACTION_TURN_ON => 'Turn on',
-				SuplaConst::ACTION_UNCOVER => 'Uncover',
+				SuplaConst::ACTION_REVEAL => 'Reveal',
 		];
 	}
 	

@@ -71,13 +71,13 @@ class SuplaConst
 	const FNC_DEPTHSENSOR                   = 210;
 	const FNC_DISTANCESENSOR                = 220;
 	
-	const ACTION_OPEN = 10;
-	const ACTION_CLOSE = 20;
-	const ACTION_COVER = 30;
-	const ACTION_UNCOVER = 40;
-	const ACTION_TURN_ON = 50;
-	const ACTION_TURN_OFF = 60;
-	const ACTION_DIM = 70;
+	const ACTION_OPEN          = 10;
+	const ACTION_CLOSE         = 20;
+	const ACTION_SHUT          = 30;
+	const ACTION_REVEAL        = 40;
+	const ACTION_TURN_ON       = 50;
+	const ACTION_TURN_OFF      = 60;
+	const ACTION_DIM           = 70;
 	const ACTION_SET_RGB_COLOR = 80;
 	const ACTION_SET_RANDOM_RGB_COLOR = 90;
 	
