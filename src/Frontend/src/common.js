@@ -19,7 +19,7 @@ Object.keys(translations).forEach(function (lang) {
     Vue.locale(lang, translations[lang])
 });
 
-if (!Vue.config.external.timezone) {
+if (!Vue.config.external.timezone && moment.tz && moment.tz.guess) {
     Vue.config.external.timezone = moment.tz.guess();
     Vue.http.put('account/user-timezone', {timezone: Vue.config.external.timezone})
 }
