@@ -88,7 +88,8 @@ class SuplaConst
 	const ACTION_EXECUTION_RESULT_OVERDUE =                 4;
 	const ACTION_EXECUTION_RESULT_ZOMBIE =                  5;
 	const ACTION_EXECUTION_RESULT_SERVER_UNREACHABLE =      6;
-
+	const ACTION_EXECUTION_RESULT_FAILURE =                 7;
+	
 	const typeStr = array(
 			1000 => 'TYPE_SENSORNO',
 			1010 => 'TYPE_SENSORNC',
