@@ -2,9 +2,12 @@
     <div>
         <div class="form-group">
             <label>{{ $t('Subject') }}</label>
-            <select class="form-control" ref="channelsDropdown" :data-placeholder="$t('choose the channel')"
-                    v-model="channel">
-                <option v-for="channel in userChannels" :value="channel.id">
+            <select class="form-control"
+                ref="channelsDropdown"
+                :data-placeholder="$t('choose the channel')"
+                v-model="channel">
+                <option v-for="channel in userChannels"
+                    :value="channel.id">
                     {{ channelTitle(channel) }}
                 </option>
             </select>
@@ -13,18 +16,17 @@
             <div v-for="possibleAction in channelFunctionMap[channel]">
                 <div class="radio">
                     <label>
-                        <input type="radio" :value="possibleAction" v-model="action">
+                        <input type="radio"
+                            :value="possibleAction"
+                            v-model="action">
                         {{ $t(actionStringMap[possibleAction]) }}
                     </label>
-                    <span class="input-group" v-if="possibleAction == 70" v-show="action == possibleAction">
-                        <input type="number" min="0" max="100" step="5" class="form-control"
-                               maxlength="3" v-model="actionParam">
-                        <span class="input-group-addon">%</span>
-                    </span>
-                    <span class="input-group" v-if="possibleAction == 80 && action == possibleAction">
-                        <hue-colorpicker v-model="actionParam"></hue-colorpicker>
-                    </span>
                 </div>
+                <span v-if="possibleAction == 80"
+                    v-show="action == possibleAction">
+                    <rgbw-parameters-setter :channel-function="chosenChannel.function"
+                        v-model="actionParam"></rgbw-parameters-setter>
+                </span>
             </div>
         </div>
     </div>
@@ -36,11 +38,11 @@
     import moment from "moment";
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
-    import HueColorpicker from "./hue-colorpicker.vue";
+    import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
 
     export default {
         name: 'schedule-form-action-chooser',
-        components: {HueColorpicker},
+        components: {RgbwParametersSetter},
         data() {
             return {
                 userChannels: [],
@@ -64,13 +66,19 @@
             }
         },
         computed: {
+            chosenChannel() {
+                return this.userChannels.filter(c => c.id == this.channel)[0];
+            },
             channel: {
                 get() {
                     Vue.nextTick(() => $(this.$refs.channelsDropdown).trigger("chosen:updated"));
                     return this.$store.state.channel;
                 },
                 set(channel) {
-                    this.$store.commit('updateChannel', channel)
+                    this.$store.commit('updateChannel', channel);
+                    if (this.channelFunctionMap[channel].length == 1) {
+                        this.action = this.channelFunctionMap[channel][0];
+                    }
                 }
             },
             action: {

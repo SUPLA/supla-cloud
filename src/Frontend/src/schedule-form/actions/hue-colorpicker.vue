@@ -15,13 +15,23 @@
                 this.$emit('input', this.value);
             }
             $(this.$refs.picker).spectrum({
-                color: `hsv(${this.value}, 100%, 100%)`,
+                color: this.color,
                 showButtons: false,
                 containerClassName: 'hue-colorpicker'
             }).change((e) => {
                 let hue = e.target.value.match(/^hsv\(([0-9]+)/)[1];
                 this.$emit('input', hue);
             });
+        },
+        computed: {
+            color() {
+                return `hsv(${this.value}, 100%, 100%)`;
+            }
+        },
+        watch: {
+            value(newColor) {
+                $(this.$refs.picker).spectrum('set', this.color);
+            }
         }
     };
 </script>

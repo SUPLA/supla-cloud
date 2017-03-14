@@ -297,11 +297,13 @@ daily: Cykl dzienny
 
 Close: Zamknij
 Open: Otwórz
-Set color: Ustaw kolor
-Set random color: Ustaw losowy kolor
+Set parameters: Ustaw parametry
+Brightness: Jasność
+Color brightness: Jasność koloru
+Color: Kolor
+Random: Losowy
 Turn off: Wyłącz
 Turn on: Włącz
-Dim: Ustaw jasność
 Cover: Zasłoń
 Uncover: Odsłoń
 

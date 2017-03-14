@@ -62,6 +62,9 @@ export const editSchedule = (state, schedule) => {
     state.dateEnd = schedule.dateEnd;
     state.channel = schedule.channel.id;
     state.action = schedule.action;
-    state.actionParam = schedule.actionParam;
+    try {
+        state.actionParam = JSON.parse(schedule.actionParam);
+    } catch (e) {
+    }
     state.caption = schedule.caption;
 };

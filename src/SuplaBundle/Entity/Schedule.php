@@ -22,6 +22,7 @@ namespace SuplaBundle\Entity;
 use Assert\Assert;
 use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
@@ -129,6 +130,9 @@ class Schedule {
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(empty($data['scheduleMode']) ? null : $data['scheduleMode']);
         $this->setCaption(empty($data['caption']) ? null : $data['caption']);
+        if (in_array($this->getAction(), [SuplaConst::ACTION_SET_DIMRGBW_PARAMETERS, SuplaConst::ACTION_REVEAL_PARTIALLY])) {
+            Assertion::notNull($this->getActionParam());
+        }
     }
 
     /**
@@ -196,6 +200,9 @@ class Schedule {
      */
     public function setActionParam($actionParam) {
         if ($actionParam) {
+            if (!is_string($actionParam)) {
+                $actionParam = json_encode($actionParam);
+            }
             Assertion::isJsonString($actionParam);
         }
         $this->actionParam = $actionParam;
