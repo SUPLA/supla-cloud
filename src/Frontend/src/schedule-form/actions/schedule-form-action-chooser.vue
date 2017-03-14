@@ -22,10 +22,13 @@
                         {{ $t(actionStringMap[possibleAction]) }}
                     </label>
                 </div>
-                <span v-if="possibleAction == 80"
+                <span v-if="possibleAction == 50"
                     v-show="action == possibleAction">
-                    <rgbw-parameters-setter :channel-function="chosenChannel.function"
-                        v-model="actionParam"></rgbw-parameters-setter>
+                    <rolette-shutter-partial-percentage :channel="chosenChannel"
+                        v-model="actionParam"></rolette-shutter-partial-percentage>
+                </span>
+                <span v-if="possibleAction == 80 && action == possibleAction">
+                    <rgbw-parameters-setter v-model="actionParam"></rgbw-parameters-setter>
                 </span>
             </div>
         </div>
@@ -39,10 +42,11 @@
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
     import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
+    import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage.vue";
 
     export default {
         name: 'schedule-form-action-chooser',
-        components: {RgbwParametersSetter},
+        components: {RgbwParametersSetter, RoletteShutterPartialPercentage},
         data() {
             return {
                 userChannels: [],

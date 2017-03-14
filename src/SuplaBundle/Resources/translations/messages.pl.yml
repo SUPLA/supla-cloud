@@ -304,8 +304,9 @@ Color: Kolor
 Random: Losowy
 Turn off: Wyłącz
 Turn on: Włącz
-Cover: Zasłoń
-Uncover: Odsłoń
+Shut: Zasłoń
+Reveal: Odsłoń
+Reveal partially: Odsłoń częściowo
 
 Device was unreachable: Urządzenie niedostępne
 Disconnected sensor: Brak czujnika

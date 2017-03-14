@@ -80,7 +80,6 @@
                 this.colorBrightness = this.value.colorBrightness || 0;
                 this.brightness = this.value.brightness || 0;
             }
-
         },
         methods: {
             onChange() {

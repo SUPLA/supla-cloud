@@ -1,0 +1,39 @@
+<template>
+    <div class="form-group">
+        <span class="input-group">
+            <input type="number"
+                min="0"
+                max="100"
+                step="5"
+                class="form-control"
+                maxlength="3"
+                v-model="percentage"
+                @change="onChange()">
+            <span class="input-group-addon">%</span>
+        </span>
+    </div>
+</template>
+
+<script type="text/babel">
+    import Vue from "vue";
+    export default {
+        name: 'rolette-shutter-partial-percentage',
+        props: ['value'],
+        data() {
+            return {
+                percentage: 0
+            };
+        },
+        updated() {
+            if (this.value) {
+                this.percentage = this.value.percentage || 0;
+            }
+            Vue.nextTick(() => this.onChange());
+        },
+        methods: {
+            onChange() {
+                this.$emit('input', {percentage: this.percentage});
+            }
+        }
+    };
+</script>
