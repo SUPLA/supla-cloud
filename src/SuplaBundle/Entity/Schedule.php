@@ -20,6 +20,7 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assert;
+use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -184,16 +185,19 @@ class Schedule {
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getActionParam() {
         return $this->actionParam;
     }
 
     /**
-     * @param mixed $actionParam
+     * @param string $actionParam
      */
     public function setActionParam($actionParam) {
+        if ($actionParam) {
+            Assertion::isJsonString($actionParam);
+        }
         $this->actionParam = $actionParam;
     }
 
