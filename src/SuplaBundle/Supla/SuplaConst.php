@@ -84,7 +84,7 @@ class SuplaConst
 	const ACTION_EXECUTION_RESULT_SUCCESS =                 1;
 	const ACTION_EXECUTION_RESULT_DEVICE_UNREACHABLE =      2;
 	const ACTION_EXECUTION_RESULT_NO_SENSOR =               3;
-	const ACTION_EXECUTION_RESULT_OVERDUE =                 4;
+	const ACTION_EXECUTION_RESULT_EXPIRED =                 4;
 	const ACTION_EXECUTION_RESULT_ZOMBIE =                  5;
 	const ACTION_EXECUTION_RESULT_SERVER_UNREACHABLE =      6;
 	const ACTION_EXECUTION_RESULT_FAILURE =                 7;

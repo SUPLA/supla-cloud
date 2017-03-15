@@ -41,8 +41,8 @@ class IoDeviceAttributesToStringExtension extends \Twig_Extension {
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_SUCCESS) $text = 'Successful';
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_DEVICE_UNREACHABLE) $text = 'Device was unreachable';
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_NO_SENSOR) $text = 'Disconnected sensor';
-        if ($result === SuplaConst::ACTION_EXECUTION_RESULT_OVERDUE) $text = 'Failed';
-        if ($result === SuplaConst::ACTION_EXECUTION_RESULT_ZOMBIE) $text = 'Failed';
+        if ($result === SuplaConst::ACTION_EXECUTION_RESULT_EXPIRED) $text = 'Expired';
+        if ($result === SuplaConst::ACTION_EXECUTION_RESULT_ZOMBIE) $text = 'Failed (zombie)';
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_SERVER_UNREACHABLE) $text = 'Server unreachable';
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_FAILURE) $text = 'Failed';
         if ($result === SuplaConst::ACTION_EXECUTION_RESULT_CANCELLED) $text = 'Cancelled';
