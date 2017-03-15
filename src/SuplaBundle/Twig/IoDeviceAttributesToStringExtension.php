@@ -18,7 +18,6 @@ class IoDeviceAttributesToStringExtension extends \Twig_Extension {
     public function getFilters() {
         return [
             new \Twig_SimpleFilter('channelFunctionToString', [$this, 'channelFunctionToString']),
-            new \Twig_SimpleFilter('functionActionToString', [$this, 'functionActionToString']),
             new \Twig_SimpleFilter('actionExecutionResultToString', [$this, 'actionExecutionResultToString']),
         ];
     }
@@ -26,14 +25,6 @@ class IoDeviceAttributesToStringExtension extends \Twig_Extension {
     public function channelFunctionToString($function) {
         $ioDeviceManager = $this->container->get('iodevice_manager');
         return $ioDeviceManager->channelFunctionToString($function);
-    }
-
-    public function functionActionToString($action) {
-        /** @var IODeviceManager $ioDeviceManager */
-        $ioDeviceManager = $this->container->get('iodevice_manager');
-        $translator = $this->container->get('translator');
-        $name = $ioDeviceManager->actionStringMap()[$action];
-        return $translator->trans($name);
     }
 
     public function actionExecutionResultToString($result) {

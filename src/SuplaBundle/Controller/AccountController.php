@@ -20,26 +20,18 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Form\Model\ChangePassword;
+use SuplaBundle\Form\Model\Registration;
+use SuplaBundle\Form\Model\ResetPassword;
+use SuplaBundle\Form\Type\RegistrationType;
+use SuplaBundle\Form\Type\ResetPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use SuplaBundle\Form\Type\ChangePasswordType;
-use SuplaBundle\Form\Type\ResetPasswordType;
-use SuplaBundle\Form\Type\RegistrationType;
-use SuplaBundle\Form\Type\ForgotPasswordType;
-use SuplaBundle\Form\Model\Registration;
-use SuplaBundle\Form\Model\ChangePassword;
-use SuplaBundle\Form\Model\ResetPassword;
-use SuplaBundle\Form\Model\ForgotPassword;
-use Symfony\Component\Form\FormError;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Model\UserManager;
-use SuplaBundle\Supla\ServerList;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
@@ -415,7 +407,7 @@ class AccountController extends Controller
                     ]
                 ];
             }, $schedulableChannels),
-            'actionStringMap' => $ioDeviceManager->actionStringMap(),
+            'actionCaptions' => ScheduleAction::captions(),
             'channelFunctionMap' => $channelToFunctionsMap,
         ]);
     }

@@ -20,9 +20,8 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assert;
-use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Enums\ScheduleAction;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
@@ -123,16 +122,13 @@ class Schedule {
     public function fill(array $data) {
         Assert::that($data)->notEmptyKey('timeExpression');
         $this->setTimeExpression($data['timeExpression']);
-        $this->setAction(empty($data['action']) ? null : $data['action']);
-        $this->setActionParam(empty($data['actionParam']) ? null : $data['actionParam']);
-        $this->setChannel(empty($data['channel']) ? null : $data['channel']);
+        $this->setAction(new ScheduleAction($data['action'] ?? ScheduleAction::TURN_ON));
+        $this->setActionParam($data['actionParam'] ?? null);
+        $this->setChannel($data['channel'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
-        $this->setMode(empty($data['scheduleMode']) ? null : $data['scheduleMode']);
-        $this->setCaption(empty($data['caption']) ? null : $data['caption']);
-        if (in_array($this->getAction(), [SuplaConst::ACTION_SET_RGBW_PARAMETERS, SuplaConst::ACTION_REVEAL_PARTIALLY])) {
-            Assertion::notNull($this->getActionParam());
-        }
+        $this->setMode($data['scheduleMode'] ?? null);
+        $this->setCaption($data['caption'] ?? null);
     }
 
     /**
@@ -174,18 +170,12 @@ class Schedule {
         $this->channel = $channel;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAction() {
-        return $this->action;
+    public function getAction(): ScheduleAction {
+        return new ScheduleAction($this->action);
     }
 
-    /**
-     * @param mixed $action
-     */
-    public function setAction($action) {
-        $this->action = $action;
+    public function setAction(ScheduleAction $action) {
+        $this->action = $action->getValue();
     }
 
     /**
@@ -199,11 +189,9 @@ class Schedule {
      * @param string $actionParam
      */
     public function setActionParam($actionParam) {
+        $this->getAction()->validateActionParam($actionParam);
         if ($actionParam) {
-            if (!is_string($actionParam)) {
-                $actionParam = json_encode($actionParam);
-            }
-            Assertion::isJsonString($actionParam);
+            $actionParam = json_encode($actionParam);
         }
         $this->actionParam = $actionParam;
     }

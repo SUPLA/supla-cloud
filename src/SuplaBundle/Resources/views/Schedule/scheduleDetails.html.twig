@@ -14,7 +14,7 @@
                         <img class='pull-right' height="120"
                              src='{{ asset('assets/img/functions/') }}{{ schedule.channel.function }}.svg'>
                         <h4>{{ 'Action'|trans }}</h4>
-                        {{ schedule.action|functionActionToString }}
+                        {{ schedule.action.caption|trans }}
 
                         <h4>{{ 'Subject'|trans }}</h4>
 

@@ -19,7 +19,7 @@
                         <input type="radio"
                             :value="possibleAction"
                             v-model="action">
-                        {{ $t(actionStringMap[possibleAction]) }}
+                        {{ $t(actionCaptions[possibleAction]) }}
                     </label>
                 </div>
                 <span v-if="possibleAction == 50 && action == possibleAction">
@@ -49,14 +49,14 @@
             return {
                 userChannels: [],
                 channelFunctionMap: {},
-                actionStringMap: {}
+                actionCaptions: {}
             }
         },
         mounted() {
             this.$http.get('account/schedulable-channels').then(({body}) => {
                 this.userChannels = body.userChannels;
                 this.channelFunctionMap = body.channelFunctionMap;
-                this.actionStringMap = body.actionStringMap;
+                this.actionCaptions = body.actionCaptions;
                 Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
                     this.channel = e.currentTarget.value;
                 }));

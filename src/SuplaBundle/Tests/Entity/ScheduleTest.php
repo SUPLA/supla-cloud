@@ -3,7 +3,7 @@ namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
 use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Enums\ScheduleAction;
 
 class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testSettingTheCronExpression() {
@@ -27,19 +27,13 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testRequiresActionParamsForRgbLighting() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['timeExpression' => '*', 'action' => SuplaConst::ACTION_SET_RGBW_PARAMETERS]);
-    }
-
-    public function testSettingActionParamsAsString() {
-        $schedule = new Schedule();
-        $schedule->fill(['timeExpression' => '*', 'actionParam' => '{"color":123}']);
-        $this->assertEquals('{"color":123}', $schedule->getActionParam());
+        $schedule->fill(['timeExpression' => '*', 'action' => ScheduleAction::SET_RGBW_PARAMETERS]);
     }
 
     public function testSettingActionParamsAsArray() {
         $schedule = new Schedule();
-        $schedule->fill(['timeExpression' => '*', 'actionParam' => ['color' => 123]]);
-        $this->assertEquals('{"color":123}', $schedule->getActionParam());
+        $schedule->fill(['timeExpression' => '*', 'action' => ScheduleAction::REVEAL_PARTIALLY, 'actionParam' => ['percentage' => 12]]);
+        $this->assertEquals('{"percentage":12}', $schedule->getActionParam());
     }
 
     public function testSettingInvalidActionParam() {
