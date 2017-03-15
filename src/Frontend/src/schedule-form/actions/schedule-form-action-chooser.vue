@@ -22,10 +22,8 @@
                         {{ $t(actionStringMap[possibleAction]) }}
                     </label>
                 </div>
-                <span v-if="possibleAction == 50"
-                    v-show="action == possibleAction">
-                    <rolette-shutter-partial-percentage :channel="chosenChannel"
-                        v-model="actionParam"></rolette-shutter-partial-percentage>
+                <span v-if="possibleAction == 50 && action == possibleAction">
+                    <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
                 </span>
                 <span v-if="possibleAction == 80 && action == possibleAction">
                     <rgbw-parameters-setter v-model="actionParam"></rgbw-parameters-setter>

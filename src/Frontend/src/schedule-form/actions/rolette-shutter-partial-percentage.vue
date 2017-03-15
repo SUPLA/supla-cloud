@@ -24,7 +24,7 @@
                 percentage: 0
             };
         },
-        updated() {
+        mounted() {
             if (this.value) {
                 this.percentage = this.value.percentage || 0;
             }
