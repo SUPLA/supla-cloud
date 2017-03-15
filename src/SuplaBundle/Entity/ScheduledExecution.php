@@ -19,18 +19,15 @@
 
 namespace SuplaBundle\Entity;
 
-
-use Cron\CronExpression;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use SuplaBundle\Supla\SuplaConst;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_scheduled_executions", indexes={@ORM\Index(name="result_idx", columns={"result"}), @ORM\Index(name="planned_timestamp_idx", columns={"planned_timestamp"}), @ORM\Index(name="retry_timestamp_idx", columns={"retry_timestamp"})})
  */
-class ScheduledExecution
-{
+class ScheduledExecution {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -53,12 +50,12 @@ class ScheduledExecution
      * @ORM\Column(name="fetched_timestamp", type="utcdatetime", nullable=true)
      */
     private $fetchedTimestamp;
-    
+
     /**
      * @ORM\Column(name="retry_timestamp", type="utcdatetime", nullable=true)
      */
     private $retryTimestamp;
-    
+
     /**
      * @ORM\Column(name="retry_count", type="integer", nullable=true)
      */
@@ -74,24 +71,20 @@ class ScheduledExecution
      */
     private $result;
 
-    public function __construct(Schedule $schedule, \DateTime $plannedTimestamp)
-    {
+    public function __construct(Schedule $schedule, \DateTime $plannedTimestamp) {
         $this->schedule = $schedule;
         $this->plannedTimestamp = $plannedTimestamp;
     }
 
-    public function getPlannedTimestamp()
-    {
+    public function getPlannedTimestamp() {
         return $this->plannedTimestamp;
     }
 
-    public function isFailed()
-    {
-        return $this->result > 0;
+    public function isFailed() {
+        return $this->result && $this->result != SuplaConst::ACTION_EXECUTION_RESULT_SUCCESS;
     }
 
-    public function getResult()
-    {
+    public function getResult() {
         return $this->result;
     }
 }
