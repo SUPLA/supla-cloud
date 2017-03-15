@@ -78,7 +78,7 @@ class SuplaConst
 	const ACTION_REVEAL_PARTIALLY = 50;
 	const ACTION_TURN_ON       = 60;
 	const ACTION_TURN_OFF      = 70;
-	const ACTION_SET_DIMRGBW_PARAMETERS = 80;
+	const ACTION_SET_RGBW_PARAMETERS = 80;
 
 	const ACTION_EXECUTION_RESULT_UNKNOWN =                 0;
 	const ACTION_EXECUTION_RESULT_SUCCESS =                 1;
@@ -88,7 +88,8 @@ class SuplaConst
 	const ACTION_EXECUTION_RESULT_ZOMBIE =                  5;
 	const ACTION_EXECUTION_RESULT_SERVER_UNREACHABLE =      6;
 	const ACTION_EXECUTION_RESULT_FAILURE =                 7;
-
+	const ACTION_EXECUTION_RESULT_CANCELLED =               8;
+	
 	const typeStr = array(
 			1000 => 'TYPE_SENSORNO',
 			1010 => 'TYPE_SENSORNC',
