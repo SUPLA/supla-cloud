@@ -16,20 +16,20 @@
                 </span>
             </div>
         </div>
-        <div :class="colorClass">
+        <div :class="hueClass">
             <div class="form-group">
                 <label>{{ $t('Color') }}</label>
                 <div class="clearfix">
                     <div class="pull-left"
-                        v-show="!randomColor"
+                        v-show="!randomHue"
                         style="margin-right: 10px;vertical-align: middle;">
-                        <hue-colorpicker v-model="color"
+                        <hue-colorpicker v-model="hue"
                             @input="onChange()"></hue-colorpicker>
                     </div>
                     <div class="checkbox pull-left">
                         <label>
                             <input type="checkbox"
-                                v-model="randomColor"
+                                v-model="randomHue"
                                 @change="onChange()"> {{ $t('Random') }}
                         </label>
                     </div>
@@ -64,18 +64,18 @@
         props: ['channelFunction', 'value'],
         data() {
             return {
-                color: 0,
-                randomColor: false,
+                hue: 0,
+                randomHue: false,
                 colorBrightness: 0,
                 brightness: 0
             };
         },
         mounted(){
             if (this.value) {
-                if (this.value.color == 'random') {
-                    this.randomColor = true;
+                if (this.value.hue == 'random') {
+                    this.randomHue = true;
                 } else {
-                    this.color = this.value.color || 0;
+                    this.hue = this.value.hue || 0;
                 }
                 this.colorBrightness = this.value.colorBrightness || 0;
                 this.brightness = this.value.brightness || 0;
@@ -87,8 +87,8 @@
                 if (this.brightnessClass != 'hidden') {
                     value.brightness = this.brightness;
                 }
-                if (this.colorClass != 'hidden') {
-                    value.color = this.randomColor ? 'random' : +this.color;
+                if (this.hueClass != 'hidden') {
+                    value.hue = this.randomHue ? 'random' : +this.hue;
                 }
                 if (this.colorBrightnessClass != 'hidden') {
                     value.colorBrightness = this.colorBrightness;
@@ -101,7 +101,7 @@
             brightnessClass() {
                 return this.channelFunction == 180 ? 'col-xs-12' : (this.channelFunction == 190 ? 'hidden' : 'col-xs-4');
             },
-            colorClass() {
+            hueClass() {
                 return this.channelFunction == 180 ? 'hidden' : (this.channelFunction == 190 ? 'col-xs-6' : 'col-xs-4');
             },
             colorBrightnessClass() {
