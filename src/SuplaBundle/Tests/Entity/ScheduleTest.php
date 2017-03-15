@@ -27,7 +27,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testRequiresActionParamsForRgbLighting() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['timeExpression' => '*', 'action' => SuplaConst::ACTION_SET_DIMRGBW_PARAMETERS]);
+        $schedule->fill(['timeExpression' => '*', 'action' => SuplaConst::ACTION_SET_RGBW_PARAMETERS]);
     }
 
     public function testSettingActionParamsAsString() {

@@ -252,9 +252,9 @@ class IODeviceManager
 				SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER => [SuplaConst::ACTION_SHUT, SuplaConst::ACTION_REVEAL, SuplaConst::ACTION_REVEAL_PARTIALLY],
 				SuplaConst::FNC_POWERSWITCH => [SuplaConst::ACTION_TURN_ON, SuplaConst::ACTION_TURN_OFF],
 				SuplaConst::FNC_LIGHTSWITCH => [SuplaConst::ACTION_TURN_ON, SuplaConst::ACTION_TURN_OFF],
-				SuplaConst::FNC_DIMMER => [SuplaConst::ACTION_SET_DIMRGBW_PARAMETERS],
-				SuplaConst::FNC_RGBLIGHTING => [SuplaConst::ACTION_SET_DIMRGBW_PARAMETERS],
-				SuplaConst::FNC_DIMMERANDRGBLIGHTING => [SuplaConst::ACTION_SET_DIMRGBW_PARAMETERS],
+				SuplaConst::FNC_DIMMER => [SuplaConst::ACTION_SET_RGBW_PARAMETERS],
+				SuplaConst::FNC_RGBLIGHTING => [SuplaConst::ACTION_SET_RGBW_PARAMETERS],
+				SuplaConst::FNC_DIMMERANDRGBLIGHTING => [SuplaConst::ACTION_SET_RGBW_PARAMETERS],
 		];
 	}
 	
@@ -264,7 +264,7 @@ class IODeviceManager
 				SuplaConst::ACTION_SHUT => 'Shut',
 				SuplaConst::ACTION_CLOSE => 'Close',
 				SuplaConst::ACTION_OPEN => 'Open',
-				SuplaConst::ACTION_SET_DIMRGBW_PARAMETERS => 'Set parameters',
+				SuplaConst::ACTION_SET_RGBW_PARAMETERS => 'Set parameters',
 				SuplaConst::ACTION_TURN_OFF => 'Turn off',
 				SuplaConst::ACTION_TURN_ON => 'Turn on',
 				SuplaConst::ACTION_REVEAL => 'Reveal',

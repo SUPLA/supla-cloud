@@ -130,7 +130,7 @@ class Schedule {
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(empty($data['scheduleMode']) ? null : $data['scheduleMode']);
         $this->setCaption(empty($data['caption']) ? null : $data['caption']);
-        if (in_array($this->getAction(), [SuplaConst::ACTION_SET_DIMRGBW_PARAMETERS, SuplaConst::ACTION_REVEAL_PARTIALLY])) {
+        if (in_array($this->getAction(), [SuplaConst::ACTION_SET_RGBW_PARAMETERS, SuplaConst::ACTION_REVEAL_PARTIALLY])) {
             Assertion::notNull($this->getActionParam());
         }
     }
