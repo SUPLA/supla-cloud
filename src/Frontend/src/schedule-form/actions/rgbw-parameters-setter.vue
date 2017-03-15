@@ -77,7 +77,7 @@
                 } else {
                     this.hue = this.value.hue || 0;
                 }
-                this.colorBrightness = this.value.colorBrightness || 0;
+                this.colorBrightness = this.value.color_brightness || 0;
                 this.brightness = this.value.brightness || 0;
             }
         },
@@ -91,7 +91,7 @@
                     value.hue = this.randomHue ? 'random' : +this.hue;
                 }
                 if (this.colorBrightnessClass != 'hidden') {
-                    value.colorBrightness = this.colorBrightness;
+                    value.color_brightness = this.colorBrightness;
                 }
                 this.$emit('input', value);
             }
