@@ -88,10 +88,14 @@ class ScheduleManager
         foreach ($nextRunDates as $nextRunDate) {
             $this->entityManager->persist(new ScheduledExecution($schedule, $nextRunDate));
         }
-        /** @var \DateTime $nextCalculationDate */
-        $nextCalculationDate = clone end($nextRunDates);
-        $nextCalculationDate->sub(new \DateInterval('P2D')); // the oldest scheduled execution minus 2 days
-        $schedule->setNextCalculationDate($nextCalculationDate);
+        if (count($nextRunDates)) {
+            /** @var \DateTime $nextCalculationDate */
+            $nextCalculationDate = clone end($nextRunDates);
+            $nextCalculationDate->sub(new \DateInterval('P2D')); // the oldest scheduled execution minus 2 days
+            $schedule->setNextCalculationDate($nextCalculationDate);
+        } else {
+            $this->disable($schedule);
+        }
         $this->entityManager->persist($schedule);
         $this->entityManager->flush();
     }

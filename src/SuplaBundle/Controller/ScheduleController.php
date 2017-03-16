@@ -143,6 +143,9 @@ class ScheduleController extends Controller
                 $this->get('schedule_manager')->disable($schedule);
             } else if (isset($data['enable'])) {
                 $this->get('schedule_manager')->enable($schedule);
+                if (!$schedule->getEnabled()) {
+                    $this->get('session')->getFlashBag()->add('error', array('title' => 'Error', 'message' => 'Schedule cannot be enabled'));
+                }
             } else if (isset($data['delete'])) {
                 $this->get('schedule_manager')->delete($schedule);
                 $this->get('session')->getFlashBag()->add('success', array('title' => 'Success', 'message' => 'Schedule has been deleted'));
