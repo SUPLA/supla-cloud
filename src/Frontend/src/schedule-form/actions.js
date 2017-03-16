@@ -22,6 +22,7 @@ export const fetchNextRunDates = ({commit, state, dispatch}) => {
         } else {
             commit('fetchingNextRunDates');
             let query = {
+                scheduleMode: state.scheduleMode,
                 timeExpression: state.timeExpression,
                 dateStart: state.dateStart,
                 dateEnd: state.dateEnd

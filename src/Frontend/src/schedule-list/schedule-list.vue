@@ -50,7 +50,7 @@
                         sortField: 'location_caption',
                     },
                     {
-                        name: 'schedule.mode',
+                        name: 'schedule.mode.value',
                         title: this.$t('Schedule mode'),
                         callback: '$t',
                     },

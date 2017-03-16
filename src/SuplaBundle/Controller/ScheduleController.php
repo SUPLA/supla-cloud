@@ -67,12 +67,6 @@ class ScheduleController extends AbstractController {
     }
 
     /**
-     * @Route("/list")
-     */
-    public function scheduleListAjaxAction() {
-    }
-
-    /**
      * @Route("/new", name="_schedule_new")
      * @Template("@Supla/Schedule/scheduleForm.html.twig")
      */

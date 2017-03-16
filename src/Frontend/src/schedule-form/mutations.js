@@ -56,7 +56,7 @@ export const submitFailed = (state) => {
 };
 
 export const editSchedule = (state, schedule) => {
-    state.scheduleMode = schedule.mode;
+    state.scheduleMode = schedule.mode.value;
     state.timeExpression = schedule.timeExpression;
     state.dateStart = schedule.dateStart;
     state.dateEnd = schedule.dateEnd;

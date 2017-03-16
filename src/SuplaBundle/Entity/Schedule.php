@@ -22,6 +22,7 @@ namespace SuplaBundle\Entity;
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
@@ -77,7 +78,6 @@ class Schedule {
 
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
-     * @Constraints\Choice({"once", "minutely", "hourly", "daily"})
      * @Groups({"basic", "flat"})
      */
     private $mode;
@@ -128,7 +128,7 @@ class Schedule {
         $this->setChannel($data['channel'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
-        $this->setMode($data['scheduleMode'] ?? null);
+        $this->setMode(new ScheduleMode($data['scheduleMode']));
         $this->setCaption($data['caption'] ?? null);
     }
 
@@ -186,9 +186,6 @@ class Schedule {
         return $this->actionParam;
     }
 
-    /**
-     * @param string $actionParam
-     */
     public function setActionParam($actionParam) {
         $this->getAction()->validateActionParam($actionParam);
         if ($actionParam) {
@@ -197,18 +194,12 @@ class Schedule {
         $this->actionParam = $actionParam;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMode() {
-        return $this->mode;
+    public function getMode(): ScheduleMode {
+        return new ScheduleMode($this->mode);
     }
 
-    /**
-     * @param mixed $mode
-     */
-    public function setMode($mode) {
-        $this->mode = $mode;
+    public function setMode(ScheduleMode $mode) {
+        $this->mode = $mode->getValue();
     }
 
     /**
