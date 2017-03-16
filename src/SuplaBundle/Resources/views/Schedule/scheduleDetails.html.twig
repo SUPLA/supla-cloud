@@ -73,7 +73,7 @@
                                         {{ execution.plannedTimestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}
                                         {% if execution.failed %}
                                             <div class="small">
-                                                {{ execution.result | actionExecutionResultToString }}
+                                                {{ execution.result.caption|trans }}
                                             </div>
                                         {% endif %}
                                     </li>

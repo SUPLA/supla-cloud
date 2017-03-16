@@ -20,7 +20,7 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Enums\ScheduleActionExecutionResult;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -81,10 +81,10 @@ class ScheduledExecution {
     }
 
     public function isFailed() {
-        return $this->result && $this->result != SuplaConst::ACTION_EXECUTION_RESULT_SUCCESS;
+        return !$this->getResult()->isSuccessful();
     }
 
-    public function getResult() {
-        return $this->result;
+    public function getResult(): ScheduleActionExecutionResult {
+        return new ScheduleActionExecutionResult($this->result);
     }
 }
