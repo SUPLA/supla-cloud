@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        {% if schedule.enabled %}
+
                             <h3 class="text-center">{{ 'Executions'|trans }}</h3>
                             <ul class="schedule-times">
                                 {% for execution in closestExecutions['past'] %}
@@ -83,8 +83,8 @@
                                     <li class="future future{{ loop.index }}">{{ execution.plannedTimestamp|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}</li>
                                 {% endfor %}
                             </ul>
-                        {% else %}
-                            <h3>{% trans %}No executions - schedule disabled{% endtrans %}</h3>
+                        {% if not schedule.enabled %}
+                            <h4 class="text-center">{% trans %}No future executions - schedule disabled{% endtrans %}</h4>
                         {% endif %}
                     </div>
                 </div>
