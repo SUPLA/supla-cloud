@@ -71,15 +71,6 @@ class SuplaConst
 	const FNC_DEPTHSENSOR                   = 210;
 	const FNC_DISTANCESENSOR                = 220;
 
-	const ACTION_OPEN          = 10;
-	const ACTION_CLOSE         = 20;
-	const ACTION_SHUT          = 30;
-	const ACTION_REVEAL        = 40;
-	const ACTION_REVEAL_PARTIALLY = 50;
-	const ACTION_TURN_ON       = 60;
-	const ACTION_TURN_OFF      = 70;
-	const ACTION_SET_RGBW_PARAMETERS = 80;
-
 	const ACTION_EXECUTION_RESULT_UNKNOWN =                 0;
 	const ACTION_EXECUTION_RESULT_SUCCESS =                 1;
 	const ACTION_EXECUTION_RESULT_DEVICE_UNREACHABLE =      2;
