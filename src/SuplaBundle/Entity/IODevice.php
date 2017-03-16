@@ -62,9 +62,9 @@ class IODevice
     
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices")
-     * @ORM\JoinColumn(name="oryginal_location_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
      */
-    private $oryginalLocation;
+    private $originalLocation;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="iodevices")
@@ -153,9 +153,9 @@ class IODevice
     }
     
     /** @return Location */
-    public function getOryginalLocation()
+    public function getOriginalLocation()
     {
-    	return $this->oryginal_location;
+    	return $this->original_location;
     }
     
     public function getRegDate()
