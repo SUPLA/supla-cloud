@@ -43,7 +43,7 @@ class ScheduleController extends AbstractController {
         if (count($sort) != 2) {
             $sort = ['s.caption', 'asc'];
         }
-        Assertion::inArray($sort[0], ['s.caption', 'channel_caption', 'device_name', 'location_caption']);
+        Assertion::inArray($sort[0], ['s.caption', 's.dateStart', 'channel_caption', 'device_name', 'location_caption']);
         Assertion::inArray(strtolower($sort[1]), ['asc', 'desc']);
         if ($this->expectsJsonResponse()) {
             /** @var QueryBuilder $query */

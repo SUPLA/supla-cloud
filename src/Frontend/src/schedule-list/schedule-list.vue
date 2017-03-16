@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-xs-12">
-            <div :class="'schedule-list-wrapper ' + (loading ? 'loading' : '')"><!--Wrapper Element -->
+            <div :class="['schedule-list-wrapper', {loading: loading}]">
                 <div class="loader">
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped active"
@@ -10,11 +10,11 @@
                 </div>
                 <vuetable
                     api-url="schedule/"
-                    @vuetable:loading="loading = true"
-                    @vuetable:loaded="loading = false"
                     :css="bootstrapStyles"
                     :fields="columns"
-                    :item-actions="itemActions"
+                    @vuetable:loading="loading = true"
+                    @vuetable:loaded="loading = false"
+                    @vuetable:row-clicked="onRowClicked"
                 ></vuetable>
             </div>
         </div>
@@ -22,6 +22,7 @@
 </template>
 
 <script type="text/babel">
+    import Vue from 'vue';
     export default {
         name: 'schedule-list',
         data() {
@@ -58,29 +59,40 @@
                         title: this.$t('Action'),
                         callback: '$t',
                     },
+                    {
+                        name: 'schedule.dateStart',
+                        title: this.$t('Start date'),
+                        callback: 'formatDate',
+                        sortField: 's.dateStart'
+                    }
                 ],
                 bootstrapStyles: {
                     tableClass: 'table table-striped table-hover',
                     ascendingIcon: 'glyphicon glyphicon-chevron-up',
                     descendingIcon: 'glyphicon glyphicon-chevron-down',
-                },
-                itemActions: [
-//                    {name: 'view-item', label: '', icon: 'zoom icon', class: 'ui teal button'},
-//                    {name: 'edit-item', label: '', icon: 'edit icon', class: 'ui orange button'},
-//                    {name: 'delete-item', label: '', icon: 'delete icon', class: 'ui red button'}
-                ]
+                }
+            }
+        },
+        methods: {
+            formatDate(date) {
+               return moment(date).format('LLL');
+            },
+            onRowClicked(row) {
+                window.location.href = `${Vue.http.options.root}/schedule/${row.schedule.id}`;
             }
         }
     };
 </script>
 
 <style lang="scss"
-    rel="stylesheet/scss"
-    scoped>
+    rel="stylesheet/scss">
     // source: https://github.com/ratiw/vue-table/wiki/Loading-Animation
     .schedule-list-wrapper {
         position: relative;
         opacity: 1;
+        tbody td {
+            cursor: pointer;
+        }
         .loader {
             visibility: hidden;
             opacity: 0;
