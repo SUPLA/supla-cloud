@@ -101,8 +101,13 @@
 					</tr>
 				 </thead>
 				 <tbody>
-				 {% if iodevices|length %}
+				 {% if iodevices|length or iodevices_ol|length %}
+				     
+					 {% set counter = 0 %}
+				 
 					 {% for iodevice in iodevices %} 
+					 
+					 {% set counter = loop.index0+1 %}
 					 
 					 <tr class="supla-tooltip" 
 					  title="
@@ -119,6 +124,25 @@
 					   <td><div class="iodev_connection_state" data-id="{{ iodevice.id }}"><span class="unknown">unknown</span></div><span class="{% if iodevice.enabled == true %}enabled">{% trans %}Enabled{% endtrans %}{%else%}disabled">{% trans %}Disabled{% endtrans %}{%endif%}</span></td>
 					 </tr>
 					{% endfor %}
+					
+					{% for iodevice in iodevices_ol %} 
+					 
+					 <tr class="supla-tooltip" 
+					  title="
+						 	&lt;a class&#61;&quot;details device {% if iodevice.enabled == true %}enabled{% else %}disabled{% endif %}&quot; href&#61;&quot;{{ path('_iodev_item', {'id': iodevice.id}) }}&quot;&gt;
+							&lt;span class&#61;&quot;id&quot;&gt;{{iodevice.name}}  &lt;/span&gt; &lt;br/ &gt;
+							&lt;span class&#61;&quot;guid&quot;&gt;GUID: {{iodevice.guidstring}}&lt;/span&gt;
+							&lt;br/ &gt;
+							&lt;div class&#61;&quot;details-wrapper&quot;&gt; {% trans %}SoftVer{% endtrans %} &lt;strong&gt;{{iodevice.softwareversion}}&lt;/strong&gt;&lt;br/ &gt;
+							{% trans %}Last connection{% endtrans %} &lt;strong&gt;{{ iodevice.lastconnected|date("d.m.Y H:m") }}&lt;/strong&gt;&lt;/div&gt;
+							
+							&lt;/a&gt;">
+					   <td class="text-center"><strong>{{ loop.index0+counter+1 }}</strong></td>
+					   <td><span style="opacity: 0.3;"><a href="{{ path('_iodev_item', {'id': iodevice.id}) }}" class="caption">{{ iodevice.name }}</a> [{{ iodevice.location.caption }}]</span></td>
+					   <td></td>
+					 </tr>
+					{% endfor %}
+					
 				{% else %}
 				<tr><td></td><td colspan="2">{% trans %}No I/O Devices{% endtrans %}</td></tr>
 				{% endif %}

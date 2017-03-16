@@ -54,7 +54,8 @@ class LocationController extends Controller
 			return $this->get('templating')->render('SuplaBundle:Location:locdetails.html.twig',
 					array('location' => $loc,
 							'aids' => $loc->getAccessIds(),
-							'iodevices' => $loc->getIoDevices()
+							'iodevices' => $loc->getIoDevices(),
+							'iodevices_ol' => $loc->getIoDevicesByOriginalLocation(),
 					));
 		};
 	
@@ -164,7 +165,8 @@ class LocationController extends Controller
     	if ( $loc === null )
     		return $this->redirectToRoute("_loc_list");
     	
-    	if ( $loc->getIoDevices()->count() > 0 ) {
+    	if ( $loc->getIoDevices()->count() > 0
+    		 || $loc->getIoDevicesByOriginalLocation()->count() > 0 ) {
     		$this->get('session')->getFlashBag()->add('error', array('title' => 'Stop', 'message' => 'Remove all the associated devices before you delete this location'));
     		return $this->redirectToRoute("_loc_item", array('id' => $loc->getId()));
     	}

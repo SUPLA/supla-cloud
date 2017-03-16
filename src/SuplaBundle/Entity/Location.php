@@ -78,11 +78,17 @@ class Location
      **/
     private $ioDevices;
     
+    /**
+     * @ORM\OneToMany(targetEntity="IODevice", mappedBy="originalLocation")
+     **/
+    private $ioDevices_ol;
+    
     public function __construct(User $user) {
     	
     	$this->enabled = true;
     	$this->accessIds = new ArrayCollection();
     	$this->ioDevices = new ArrayCollection();
+    	$this->ioDevices_ol = new ArrayCollection();
     	
     	if ( $user !== null ) {
     		
@@ -130,6 +136,11 @@ class Location
     public function getIoDevices() 
     {
     	return $this->ioDevices;
+    }
+    
+    public function getIoDevicesByOriginalLocation()
+    {
+    	return $this->ioDevices_ol;
     }
     
     public function getAccessIds() 
