@@ -3,7 +3,14 @@
     <div class="container margin-top-30">
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="title">
+
+                {% if not app.user.isLimitScheduleExceeded %}
+                    <a class="btn btn-success pull-right btn-lg"
+                            href="{{ path('_schedule_new') }}">
+                        <i class="pe-7s-plus"></i>
+                        {% trans %}Create New Schedule{% endtrans %}</a>
+                {% endif %}
+                <h1 class="pull-left no-margin-top">
                     {% trans %}Schedules{% endtrans %}
                 </h1>
             </div>
