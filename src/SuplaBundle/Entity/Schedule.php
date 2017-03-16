@@ -36,7 +36,7 @@ class Schedule {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     private $id;
 
@@ -65,7 +65,7 @@ class Schedule {
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
      * @Constraints\NotNull
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     private $action;
 
@@ -85,18 +85,19 @@ class Schedule {
     /**
      * @ORM\Column(name="date_start", type="utcdatetime", nullable=false)
      * @Constraints\NotNull()
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     private $dateStart;
 
     /**
      * @ORM\Column(name="date_end", type="utcdatetime", nullable=true)
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     private $dateEnd;
 
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @Groups({"basic", "flat"})
      */
     protected $enabled = true;
 
@@ -108,7 +109,7 @@ class Schedule {
     /**
      * @ORM\Column(name="caption", type="string", length=255, nullable=true)
      * @Constraints\Length(max=255)
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     private $caption;
 

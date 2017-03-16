@@ -18,20 +18,20 @@
             return {
                 columns: [
                     {
-                        name: 'caption',
+                        name: 'channel_caption',
                         title: this.$t('Name')
                     },
                     {
-                        name: 'action',
+                        name: 'channel_function',
                         title: this.$t('Action'),
-                        callback: 'translatedCaption',
+//                        callback: 'translatedCaption',
                     },
                     '__actions'
                 ],
                 itemActions: [
-                    {name: 'view-item', label: '', icon: 'zoom icon', class: 'ui teal button'},
-                    {name: 'edit-item', label: '', icon: 'edit icon', class: 'ui orange button'},
-                    {name: 'delete-item', label: '', icon: 'delete icon', class: 'ui red button'}
+//                    {name: 'view-item', label: '', icon: 'zoom icon', class: 'ui teal button'},
+//                    {name: 'edit-item', label: '', icon: 'edit icon', class: 'ui orange button'},
+//                    {name: 'delete-item', label: '', icon: 'delete icon', class: 'ui red button'}
                 ]
             }
         },

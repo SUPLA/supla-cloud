@@ -28,14 +28,14 @@ final class ScheduleAction extends Enum {
     const SET_RGBW_PARAMETERS = 80;
 
     /**
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     public function getValue() {
         return parent::getValue();
     }
 
     /**
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     public function getCaption(): string {
         return self::captions()[$this->getValue()];

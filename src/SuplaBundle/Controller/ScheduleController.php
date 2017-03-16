@@ -21,33 +21,64 @@ namespace SuplaBundle\Controller;
 
 use Assert\Assert;
 use Assert\Assertion;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/schedule")
  */
-class ScheduleController extends Controller {
+class ScheduleController extends AbstractController {
     /**
      * @Route("/", name="_schedule_list")
      * @Template
      */
     public function scheduleListAction(Request $request) {
-        if (in_array('application/json', $request->getAcceptableContentTypes())) {
-            /** @var User $user */
-            $user = $this->getUser();
-            $response = [
-                'data' => $user->getSchedules()->getValues(),
-            ];
-            $response = $this->get('serializer')->serialize($response, 'json', ['groups' => ['basic']]);
-            return new JsonResponse($response, 200, [], true);
+        if ($this->expectsJsonResponse()) {
+            /** @var Query $query */
+            $query = $this->getDoctrine()->getManager()->createQuery(<<<SCHEDULE_QUERY
+                SELECT s schedule,
+                ch.caption channel_caption, ch.type channel_type, ch.function channel_function,
+                dev.name device_name,
+                loc.caption location_caption
+                FROM SuplaBundle:Schedule s 
+                JOIN s.channel ch
+                JOIN ch.iodevice dev
+                JOIN dev.location loc
+                WHERE s.user = :user
+SCHEDULE_QUERY
+            );
+            $page = max(intval($request->get('page', 1)) - 1, 0);
+            $query->setParameter('user', $this->getUser())
+                ->setFirstResult($page * 10)
+                ->setMaxResults(10);
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $this->jsonResponse([
+                'links' => [
+                    'pagination' => [
+                        'total' => $paginator->count(),
+                        'current_page' => $page + 1,
+                        'per_page' => 10,
+                        'last_page' => ceil($paginator->count() / 10),
+                        'from' => 1,
+                        'to' => 10
+//            "per_page": 15,
+//            "current_page": 1,
+//            "last_page": 4,
+//            "from": 1,
+//            "to": 15,
+                    ],
+                ],
+
+                'next_page_url' => $this->generateUrl('_schedule_list', ['page' => $page + 2]),
+                'data' => $paginator,
+            ], 'flat');
         } else {
             return [];
         }
