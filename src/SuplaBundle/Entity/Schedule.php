@@ -78,7 +78,7 @@ class Schedule {
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
      * @Constraints\Choice({"once", "minutely", "hourly", "daily"})
-     * @Groups({"basic"})
+     * @Groups({"basic", "flat"})
      */
     private $mode;
 

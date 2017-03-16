@@ -21,8 +21,7 @@ namespace SuplaBundle\Controller;
 
 use Assert\Assert;
 use Assert\Assertion;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -40,45 +39,28 @@ class ScheduleController extends AbstractController {
      * @Template
      */
     public function scheduleListAction(Request $request) {
+        $sort = explode('|', $request->get('sort', ''));
+        if (count($sort) != 2) {
+            $sort = ['s.caption', 'asc'];
+        }
+        Assertion::inArray($sort[0], ['s.caption', 'channel_caption', 'device_name', 'location_caption']);
+        Assertion::inArray(strtolower($sort[1]), ['asc', 'desc']);
         if ($this->expectsJsonResponse()) {
-            /** @var Query $query */
-            $query = $this->getDoctrine()->getManager()->createQuery(<<<SCHEDULE_QUERY
-                SELECT s schedule,
-                ch.caption channel_caption, ch.type channel_type, ch.function channel_function,
-                dev.name device_name,
-                loc.caption location_caption
-                FROM SuplaBundle:Schedule s 
-                JOIN s.channel ch
-                JOIN ch.iodevice dev
-                JOIN dev.location loc
-                WHERE s.user = :user
-SCHEDULE_QUERY
-            );
-            $page = max(intval($request->get('page', 1)) - 1, 0);
-            $query->setParameter('user', $this->getUser())
-                ->setFirstResult($page * 10)
-                ->setMaxResults(10);
-            $paginator = new Paginator($query, $fetchJoinCollection = true);
-            return $this->jsonResponse([
-                'links' => [
-                    'pagination' => [
-                        'total' => $paginator->count(),
-                        'current_page' => $page + 1,
-                        'per_page' => 10,
-                        'last_page' => ceil($paginator->count() / 10),
-                        'from' => 1,
-                        'to' => 10
-//            "per_page": 15,
-//            "current_page": 1,
-//            "last_page": 4,
-//            "from": 1,
-//            "to": 15,
-                    ],
-                ],
-
-                'next_page_url' => $this->generateUrl('_schedule_list', ['page' => $page + 2]),
-                'data' => $paginator,
-            ], 'flat');
+            /** @var QueryBuilder $query */
+            $query = $this->getDoctrine()->getManager()->createQueryBuilder();
+            $query = $query->select('s schedule')
+                ->addSelect(['ch.caption channel_caption', 'ch.type channel_type', 'ch.function channel_function'])
+                ->addSelect('dev.name device_name')
+                ->addSelect('loc.caption location_caption')
+                ->from(Schedule::class, 's')
+                ->join('s.channel', 'ch')
+                ->join('ch.iodevice', 'dev')
+                ->join('dev.location', 'loc')
+                ->where('s.user = :user')
+                ->orderBy($sort[0], $sort[1])
+                ->setParameter('user', $this->getUser())
+                ->getQuery();
+            return $this->jsonResponse(['data' => $query->getResult()], 'flat');
         } else {
             return [];
         }
@@ -172,6 +154,7 @@ SCHEDULE_QUERY
     /**
      * @Route("/{schedule}", name="_schedule_details")
      * @Security("user == schedule.getUser()")
+     * @Template()
      */
     public function scheduleDetailsAction(Schedule $schedule, Request $request) {
         if ($request->isMethod('POST')) {
@@ -194,10 +177,10 @@ SCHEDULE_QUERY
             'schedule' => $schedule,
             'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule),
         ];
-        if (in_array('application/json', $request->getAcceptableContentTypes())) {
-            return new JsonResponse($this->get('serializer')->serialize($data, 'json', ['groups' => ['basic']]), 200, [], true);
+        if ($this->expectsJsonResponse()) {
+            return $this->jsonResponse($data);
         } else {
-            return $this->render('@Supla/Schedule/scheduleDetails.html.twig', $data);
+            return $data;
         }
     }
 }
