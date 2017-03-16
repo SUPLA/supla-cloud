@@ -20,12 +20,13 @@ export const updateDateEnd = (state, date) => {
     state.dateEnd = date ? date.format() : '';
 };
 
-export const fetchingNextRunDates = (state, fetching = true) => {
-    state.fetchingNextRunDates = fetching;
+export const fetchingNextRunDates = (state) => {
+    state.fetchingNextRunDates = true;
 };
 
 export const updateNextRunDates = (state, nextRunDates) => {
     state.nextRunDates = nextRunDates;
+    state.fetchingNextRunDates = false;
 };
 
 export const clearNextRunDates = (state) => {

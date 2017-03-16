@@ -34,8 +34,7 @@ export const fetchNextRunDates = ({commit, state, dispatch}) => {
                         dispatch('fetchNextRunDates');
                     }
                 })
-                .catch(() => commit('updateNextRunDates', []))
-                .finally(() => commit('fetchingNextRunDates', false));
+                .catch(() => commit('updateNextRunDates', []));
 
         }
     }
