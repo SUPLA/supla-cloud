@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="SUPLA">
+    <description>SUPLA</description>
+    <rule ref="PSR2">
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+        <!--<exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>-->
+        <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+    </rule>
+    <rule ref="Generic.Classes.OpeningBraceSameLine"/>
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="140"/>
+            <property name="absoluteLineLimit" value="180"/>
+        </properties>
+    </rule>
+</ruleset>
