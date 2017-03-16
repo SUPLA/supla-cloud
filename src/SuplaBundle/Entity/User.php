@@ -184,6 +184,7 @@ class User implements AdvancedUserInterface
         $this->passwordRequestedAt = null;
         $this->lastLogin = null;
         $this->enabled = false;
+        $this->timezone = date_default_timezone_get();
     }
 
     public function getId()

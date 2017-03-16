@@ -48,7 +48,6 @@ class UserManager
 	{
 		$this->setPassword($user->getPlainPassword(), $user);
 		$user->genToken();
-        $user->setTimezone(date_default_timezone_get());
 
 		$em = $this->doctrine->getManager();
 		$em->persist($user);
