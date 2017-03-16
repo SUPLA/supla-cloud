@@ -19,7 +19,6 @@
 
 namespace SuplaBundle\Controller;
 
-
 use Assert\Assert;
 use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,7 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,23 +34,36 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Route("/schedule")
  */
-class ScheduleController extends Controller
-{
+class ScheduleController extends Controller {
     /**
      * @Route("/", name="_schedule_list")
      * @Template
      */
-    public function scheduleListAction()
-    {
-        return [];
+    public function scheduleListAction(Request $request) {
+        if (in_array('application/json', $request->getAcceptableContentTypes())) {
+            /** @var User $user */
+            $user = $this->getUser();
+            $response = [
+                'data' => $user->getSchedules()->getValues(),
+            ];
+            $response = $this->get('serializer')->serialize($response, 'json', ['groups' => ['basic']]);
+            return new JsonResponse($response, 200, [], true);
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * @Route("/list")
+     */
+    public function scheduleListAjaxAction() {
     }
 
     /**
      * @Route("/new", name="_schedule_new")
      * @Template("@Supla/Schedule/scheduleForm.html.twig")
      */
-    public function newScheduleAction()
-    {
+    public function newScheduleAction() {
         return [];
     }
 
@@ -60,8 +72,7 @@ class ScheduleController extends Controller
      * @Template("@Supla/Schedule/scheduleForm.html.twig")
      * @Security("user == schedule.getUser()")
      */
-    public function scheduleEditAction(Schedule $schedule)
-    {
+    public function scheduleEditAction(Schedule $schedule) {
         return ['schedule' => $schedule];
     }
 
@@ -69,8 +80,7 @@ class ScheduleController extends Controller
      * @Route("/create")
      * @Method("POST")
      */
-    public function createScheduleAction(Request $request)
-    {
+    public function createScheduleAction(Request $request) {
         Assertion::false($this->getUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
         $data = $request->request->all();
         $schedule = $this->fillSchedule(new Schedule($this->getUser()), $data);
@@ -83,8 +93,7 @@ class ScheduleController extends Controller
     /**
      * @Route("/next-run-dates", name="_schedule_get_run_dates", requirements={"timeExpression"=".+"})
      */
-    public function getNextRunDatesAction(Request $request)
-    {
+    public function getNextRunDatesAction(Request $request) {
         Assertion::true($request->isXmlHttpRequest());
         $data = $request->request->all();
         $temporarySchedule = new Schedule($this->getUser(), $data);
@@ -100,8 +109,7 @@ class ScheduleController extends Controller
      * @Route("/{schedule}")
      * @Method("PUT")
      */
-    public function editScheduleAction(Schedule $schedule, Request $request)
-    {
+    public function editScheduleAction(Schedule $schedule, Request $request) {
         $data = $request->request->all();
         $this->fillSchedule($schedule, $data);
         return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule) {
@@ -113,8 +121,7 @@ class ScheduleController extends Controller
     }
 
     /** @return Schedule */
-    private function fillSchedule(Schedule $schedule, array $data)
-    {
+    private function fillSchedule(Schedule $schedule, array $data) {
         Assert::that($data)
             ->notEmptyKey('channel')
             ->notEmptyKey('action')
@@ -135,8 +142,7 @@ class ScheduleController extends Controller
      * @Route("/{schedule}", name="_schedule_details")
      * @Security("user == schedule.getUser()")
      */
-    public function scheduleDetailsAction(Schedule $schedule, Request $request)
-    {
+    public function scheduleDetailsAction(Schedule $schedule, Request $request) {
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
             if (isset($data['disable'])) {
@@ -144,18 +150,18 @@ class ScheduleController extends Controller
             } else if (isset($data['enable'])) {
                 $this->get('schedule_manager')->enable($schedule);
                 if (!$schedule->getEnabled()) {
-                    $this->get('session')->getFlashBag()->add('error', array('title' => 'Error', 'message' => 'Schedule cannot be enabled'));
+                    $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Schedule cannot be enabled']);
                 }
             } else if (isset($data['delete'])) {
                 $this->get('schedule_manager')->delete($schedule);
-                $this->get('session')->getFlashBag()->add('success', array('title' => 'Success', 'message' => 'Schedule has been deleted'));
+                $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Schedule has been deleted']);
                 return $this->redirectToRoute("_schedule_list");
             }
             return $this->redirectToRoute("_schedule_details", ['schedule' => $schedule->getId()]);
         }
         $data = [
             'schedule' => $schedule,
-            'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule)
+            'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule),
         ];
         if (in_array('application/json', $request->getAcceptableContentTypes())) {
             return new JsonResponse($this->get('serializer')->serialize($data, 'json', ['groups' => ['basic']]), 200, [], true);

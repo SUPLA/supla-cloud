@@ -34,7 +34,10 @@ final class ScheduleAction extends Enum {
         return parent::getValue();
     }
 
-    public function caption(): string {
+    /**
+     * @Groups({"basic"})
+     */
+    public function getCaption(): string {
         return self::captions()[$this->getValue()];
     }
 
