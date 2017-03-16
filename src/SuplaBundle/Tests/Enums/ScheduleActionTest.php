@@ -46,4 +46,9 @@ class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
             [ScheduleAction::CLOSE(), [], false],
         ];
     }
+
+    public function testEveryValueHasCaption() {
+        $this->assertCount(count(ScheduleAction::values()), ScheduleAction::captions(),
+            'Have you forgot to add a caption for the new ScheduleAction value?');
+    }
 }
