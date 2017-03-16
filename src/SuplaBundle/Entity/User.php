@@ -113,7 +113,7 @@ class User implements AdvancedUserInterface
     private $recaptcha;
 
     /**
-     * @ORM\Column(name="timezone", type="string", length=30, nullable=true)
+     * @ORM\Column(name="timezone", type="string", length=50, nullable=false)
      */
     private $timezone;
 
