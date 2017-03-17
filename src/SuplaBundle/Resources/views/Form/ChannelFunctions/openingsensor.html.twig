@@ -9,9 +9,9 @@
         <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuChannels">
-           <li><a href="#" data-id="0">{% trans %}None{% endtrans %}</a></li>
+           <li><a data-id="0">{% trans %}None{% endtrans %}</a></li>
            {% for channel in channels %}
-           <li><a href="#" data-id="{{ channel.id }}">{{ channel.name }}</a></li>
+           <li><a data-id="{{ channel.id }}">{{ channel.name }}</a></li>
            {% endfor %}
         </ul>
      </div>

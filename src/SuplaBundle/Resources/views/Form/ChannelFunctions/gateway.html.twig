@@ -18,9 +18,9 @@
         <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuChannels">
-           <li><a href="#" data-id="0">{% trans %}None{% endtrans %}</a></li>
+           <li><a data-id="0">{% trans %}None{% endtrans %}</a></li>
            {% for sensor in channels %}
-           <li><a href="#" data-id="{{ sensor.id }}">{{ sensor.name }}</a></li>
+           <li><a data-id="{{ sensor.id }}">{{ sensor.name }}</a></li>
            {% endfor %}
         </ul>
      </div>

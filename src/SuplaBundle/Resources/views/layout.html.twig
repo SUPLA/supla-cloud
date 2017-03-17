@@ -176,7 +176,7 @@
 				  <li {% if app.request.get('_route') == '_schedule_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_schedule_list') }}"><i class="pe-7s-play"></i><br />{% trans %}Schedules{% endtrans %}</a></li>
 				  
 				  <li class="dropdown pull-right">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="pe-7s-user"></i><br />Konto<span class="caret"></span></a>
+						<a class="dropdown-toggle" data-toggle="dropdown"><i class="pe-7s-user"></i><br />Konto<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 					  		<li><a class="nav-link" href="{{ path('_account_view') }}">{{ app.user.email }}<span><br>Przejdź do mojego konta</span></a></li>
 							<li class="divider"></li>
