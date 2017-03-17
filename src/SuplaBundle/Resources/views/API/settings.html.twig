@@ -35,7 +35,7 @@
 
 
 
-		<div class="restapi">
+		<div class="restapi" id="api-detail" data-id="1" data-item-path="{{ path('_api_settings') }}/view">
 				<h2>RESTful API</h2>
 				<p>Autoryzacja OAuth 2.0</p>
 				
@@ -97,13 +97,16 @@
 				
 				<br>
 				<br>
-			
+				
 				<div data-preloader="set-enabled-pl" class="btn btn-default btn-enable" {%if api_user.enabled == false%}style="display: none;"{%endif%}><strong>{% trans %}ENABLED{% endtrans %}</strong><br >{% trans %}CLICK TO DISABLE{% endtrans %}</div>
 				<div data-preloader="set-enabled-pl" class="btn btn-default btn-disable" {%if api_user.enabled == true%}style="display: none;"{%endif%}><strong>{% trans %}DISABLED{% endtrans %}</strong><br >{% trans %}CLICK TO ENABLE{% endtrans %}</div> 
-
+            	<div class="btn btn-load btn-big" id="set-enabled-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
+		   
 				<br><br><br><p>
+				<!--
 				Client libraries and examples: <a href="https://github.com/SUPLA/restful-api" target="_blank">https://github.com/SUPLA/restful-api</a><br>
 				WikiDoc: <a href="https://github.com/SUPLA/restful-api/wiki" target="_blank">https://github.com/SUPLA/restful-api/wiki</a>
+				-->
 				</p>
 				<div class="terminal"></div>
 				
@@ -132,6 +135,7 @@
 	</form>
 </div>
 </div>
+<script src="{{ asset('assets/js/details.js') }}"></script>
 <script>
 	var mySVG = $('#api-settings').drawsvg({
 	duration:3000

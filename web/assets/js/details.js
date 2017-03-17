@@ -71,7 +71,6 @@ function loadAssignList() {
 
 function setEnabled(src_sel, dst_sel, detail_sel, enabled) {
 	
-	
 	if ( $(src_sel) == undefined
 		  || $(dst_sel) == undefined
 		  || $(detail_sel) == undefined )
@@ -90,7 +89,6 @@ function setEnabled(src_sel, dst_sel, detail_sel, enabled) {
      pl = $('#'+pl);
      pl.show();
      
-
  	$.ajax( {type: "POST", url: getAjaxUrl($(detail_sel).data('item-path'), 'setenabled/'+enabled) } )
      .done(function( response ) {      
      	
@@ -287,7 +285,6 @@ $(document).ready(function(){
   });
   
  $(function () {
-	 
 	 if ( $('.supla-tooltip').length ) {
 		 
 		  $('[data-toggle="tooltip"]').tooltip()

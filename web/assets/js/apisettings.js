@@ -79,11 +79,6 @@ $(document).ready(function(){
 		   $('#'+data_id).select();
 		   var label = $("label[for='"+data_id+"']").text();
 		   copyToClipboard(document.getElementById(data_id));
-		   new PNotify({
-			  type: 'success',
-			  title: 'Skopiowano',
-			  text: label+' został skopiowany.',
-		  });
        }); 
 });
 

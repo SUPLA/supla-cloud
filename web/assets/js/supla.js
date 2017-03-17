@@ -67,7 +67,9 @@ function getDetailId() {
         return '#location-detail';
     else if ($('#iodevice-detail').length != 0)
         return '#iodevice-detail';
-
+    else if ($('#api-detail').length != 0)
+        return '#api-detail';
+    
     return '#unknown'
 }
 

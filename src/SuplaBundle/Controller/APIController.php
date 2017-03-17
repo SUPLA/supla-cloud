@@ -90,7 +90,7 @@ class APIController extends Controller
     }
     
     /**
-     * @Route("/api-setenabled/{enabled}", name="_api_ajax_setenabled")
+     * @Route("/api-settings/ajax/setenabled/{enabled}", name="_api_ajax_setenabled")
      */
     public function ajaxSetEnabled(Request $request, $enabled)
     {
@@ -113,5 +113,7 @@ class APIController extends Controller
     	
  
     }
+    
+    
     
 }
