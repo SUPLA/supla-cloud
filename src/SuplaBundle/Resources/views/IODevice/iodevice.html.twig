@@ -33,7 +33,7 @@
 				<div class="btn btn-load btn-big" id="set-enabled-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
 						
 					<div class="iodev_connection_state" data-id="{{ iodevice.id }}"><span class="unknown">unknown</span></div>
-					<a class="btn btn-default btn-trash" href="#" id="overlay-delete">{% trans %}DELETE{% endtrans %}</a>
+					<div class="btn btn-default btn-trash" id="overlay-delete">{% trans %}DELETE{% endtrans %}</div>
 				</div>
 			</div>
 			<div class="location">
@@ -119,7 +119,7 @@
 		<h1>{% trans %}Are you sure?{% endtrans %}</h1>
 		<p>{% set devname=iodevice.name %}{% trans %}Confirm if you want to remove <strong>%devname%</strong> device{% endtrans %}.</p>
 		<div class="controls">
-			<a href="#" class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
+			<a class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
 			<a href="{{ path('_iodev_item_delete', {'id': iodevice.id}) }}" class="save"><i class="pe-7s-check"></i></a></div>
 		</div>
 	</form>
@@ -134,7 +134,7 @@
 	  </div>
 	  <div class="overlay-controls">
     <div id="assign_type"><div>
-	<button type="button" id="assign_type_cancel" name="_assign_type[cancel]" class="overlay-close cancel">Anuluj</button></div>
+	<button type="button" id="assign_type_cancel" name="_assign_type[cancel]" class="overlay-close cancel">{% trans %}CANCEL{% endtrans %}</button></div>
 	<div><button type="submit" id="assign_type_save" name="_assign_type[save]" class="save pe-7s-check"></button></div></div>
     </div>
 </div>

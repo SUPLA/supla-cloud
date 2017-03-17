@@ -406,8 +406,7 @@ body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: v
 .row .info ul li.row {width: 100%; padding: 1px 0; border-bottom: solid 1px #ddd; position: relative; line-height: 34px;}
 .row .info ul li.row .col-xs-3, .row .info ul li.row .col-xs-9 {padding: 0px;}
 .row .info ul li.row .col-xs-9 strong {margin-left: 6px;}
-.row .info ul li.row .form-control {box-shadow: none; font-weight: 600; padding: 6px; color: #000}
-
+.row .info ul li.row .form-control {box-shadow: none; font-weight: 600; padding: 6px; color: #000} 
 
 .row .info .form-control, .row .info .form-control + span .btn, .btn.btn-load {border-color: #FAFBFC; background: #FAFBFC;}
 .row .info .form-control + span .btn {color: #FAFBFC}
@@ -465,7 +464,7 @@ body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: v
 .overlay .attention i {font-size: 80px;}
 .overlay .attention p a {color: #000; font-weight: 600}
 
-.overlay .row .col-xs-4 {padding: 0 5px; min-height: 175px;}
+.overlay .row .col-xs-4 {min-height: 175px;}
 .overlay label { position:relative; cursor:pointer; transition: all .1s ease-in-out;}
 .overlay label:active {transform: scale(0.98);}
 .overlay label [type="checkbox"] {position: absolute; bottom: 10px; left: 10px; display: none;}

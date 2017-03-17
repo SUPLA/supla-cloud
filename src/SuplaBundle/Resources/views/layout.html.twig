@@ -181,10 +181,10 @@
 					  		<li><a class="nav-link" href="{{ path('_account_view') }}">{{ app.user.email }}<span><br>Przejdź do mojego konta</span></a></li>
 							<li class="divider"></li>
 							<li class="lng_switcher">
-								<a class="lng_switch {% if app.request.locale == 'en' %} active {% endif %}" data-lng="en" href="#"><img src={{ asset('assets/img/flags/en.svg') }}></a>
-								<a class="lng_switch {% if app.request.locale == 'pl' %} active {% endif %}" data-lng="pl" href="#"><img src={{ asset('assets/img/flags/pl.svg') }}></a>
-								<a class="lng_switch {% if app.request.locale == 'ru' %} active {% endif %}" data-lng="ru" href="#"><img src={{ asset('assets/img/flags/ru.svg') }}></a>
-								<a class="lng_switch {% if app.request.locale == 'de' %} active {% endif %}" data-lng="de" href="#"><img src={{ asset('assets/img/flags/de.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'en' %} active {% endif %}" data-lng="en"><img src={{ asset('assets/img/flags/en.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'pl' %} active {% endif %}" data-lng="pl"><img src={{ asset('assets/img/flags/pl.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'ru' %} active {% endif %}" data-lng="ru"><img src={{ asset('assets/img/flags/ru.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'de' %} active {% endif %}" data-lng="de"><img src={{ asset('assets/img/flags/de.svg') }}></a>
 							</li>
 							<li class="divider"></li>
 							<li class="bottom"><a class="nav-link" href="{{ path('_api_settings') }}">{% trans %}RESTful API{% endtrans %}</a><a id="logout" href="{{ path('_auth_logout') }}">{% trans %}Sign Out{% endtrans %}</a></li>

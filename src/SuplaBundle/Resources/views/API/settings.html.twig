@@ -90,7 +90,7 @@
 				<div class="input-group" style="margin: 4px 0 0px;">
 					<input type="password" class="form-control" id="password" value="123456789" disabled>
 					<span class="input-group-btn">
-						<a href="#" class="btn btn-default" id="overlay-delete">{% trans %}change{% endtrans %}</a>
+						<a class="btn btn-default" id="overlay-delete">{% trans %}change{% endtrans %}</a>
 					</span>
 				</div>
 				<label for="password">{% trans %}Password{% endtrans %}</label>
@@ -126,8 +126,8 @@
 			<label for="new-password" class="hidden">{% trans %}New password{% endtrans %}</label>
 		</div>
 		<div class="controls">
-			<a href="#" class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
-			<a href="#" data-path="{{ path('_api_ajax_changepassword') }}" id="apiuser_change_pwd_btn" class="save green"><i class="pe-7s-check"></i></a></div>
+			<a class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
+			<a data-path="{{ path('_api_ajax_changepassword') }}" id="apiuser_change_pwd_btn" class="save green"><i class="pe-7s-check"></i></a></div>
 		</div>
 	</form>
 </div>

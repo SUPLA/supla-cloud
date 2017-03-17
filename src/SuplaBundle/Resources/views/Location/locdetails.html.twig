@@ -82,8 +82,8 @@
 					 <tbody>
 	
 					   <tr>
-						 <td><a href="#"><i class="pe-7s-more"></i></a></td>
-						 <td colspan=2><a href="#" id="overlay-assignments"><strong>{% trans %}Assign Access Identifiers{% endtrans %}</strong></a></td>
+						 <td><a><i class="pe-7s-more"></i></a></td>
+						 <td colspan=2><a id="overlay-assignments"><strong>{% trans %}Assign Access Identifiers{% endtrans %}</strong></a></td>
 					   </tr>
 					  
 						  
@@ -161,7 +161,7 @@
 		<h1>{% trans %}Are you sure?{% endtrans %}</h1>
 		<p>{% trans %}Confirm if you want to remove Location{% endtrans %} <strong>(ID {{ location.id }})</strong>. {% trans %}You will no longer be able to connect the i/o devices to this Location{% endtrans %}.</p>
 		<div class="controls">
-			<a href="#" class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
+			<a class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
 			<a href="{{ path('_loc_item_delete', {'id': location.id}) }}" class="save"><i class="pe-7s-check"></i></a></div>
 		</div>
 	</form>
