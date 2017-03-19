@@ -1,10 +1,10 @@
 <template>
     <span>
-        <a :class="'btn btn-default ' + (deviceEnabled ? 'btn-enable' : 'btn-disable')"
+        <a :class="'btn btn-default ' + (device.enabled ? 'btn-enable' : 'btn-disable')"
             @click="toggleEnabled()"
             v-show="!loading">
-            <strong class="clearfix">{{ $t(deviceEnabled ? 'ENABLED' : 'DISABLED') }}</strong>
-            {{ $t('CLICK TO ' + (deviceEnabled ? 'DISABLE' : 'ENABLE')) }}
+            <strong class="clearfix">{{ $t(device.enabled ? 'ENABLED' : 'DISABLED') }}</strong>
+            {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading"></button-loading>
         <div class="overlay-delete overlay-data overlay-opn">
@@ -22,24 +22,23 @@
 
 <script>
     import ButtonLoading from "./button-loading.vue";
-    import {mapState} from "vuex";
+    import {mapState, mapActions} from "vuex";
 
     export default {
         components: {ButtonLoading},
-        props: ['deviceId', 'deviceEnabled'],
         data() {
             return {
                 loading: false
             };
         },
-        mounted() {
-            console.log(this);
-        },
         methods: {
             toggleEnabled() {
-                this.deviceEnabled = !this.deviceEnabled;
+                this.loading = true;
+                this.$store.dispatch('toggleEnabled')
+                    .catch(() => alert('siur?'))
+                    .finally(() => this.loading = false);
             }
         },
-        computed: mapState('id', 'enabled', 'name')
+        computed: mapState(['device'])
     };
 </script>

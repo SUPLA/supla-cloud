@@ -20,6 +20,7 @@
 namespace SuplaBundle\Controller;
 
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -376,20 +377,17 @@ class IODeviceController extends Controller
 
 
     /**
-     * @Route("/{id}/ajax/setenabled/{enabled}", name="_iodev_ajax_setenabled")
+     * @Route("/{device}", methods={"PUT"})
+     * @Security("user == device.getUser()")
      */
-    public function ajaxSetEnabled(Request $request, $id, $enabled)
-    {
-    	$iodev = $this->getIODeviceById($id);
-
-    	if ( $iodev !== null )
-    		$iodev->setEnabled($enabled == '1');
-
-    	return $this->ajaxItemEdit($iodev,
-    			'I/O Device has been '.($enabled == '1' ? 'enabled' : 'disabled'),
-    			$this->get('translator')->trans($enabled == '1' ? 'Enabled' : 'Disabled')
-    	);
-
+    public function ajaxSetEnabled(IODevice $device, Request $request) {
+        $data = $request->request->all();
+        if (isset($data['enabled'])) {
+            $device->setEnabled($data['enabled']);
+        }
+        $this->getDoctrine()->getManager()->persist($device);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->jsonResponse($device);
     }
 
 

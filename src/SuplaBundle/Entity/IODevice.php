@@ -20,6 +20,7 @@
 namespace SuplaBundle\Entity;
 
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -41,6 +42,7 @@ class IODevice
 	 * @ORM\Id
 	 * @ORM\Column(name="id", type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic", "flat"})
 	 */
 	private $id;
 	
@@ -52,6 +54,7 @@ class IODevice
     /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
+     * @Groups({"basic", "flat"})
      */
     private $name;
 
@@ -75,12 +78,14 @@ class IODevice
     
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @Groups({"basic", "flat"})
      */
     private $enabled;
     
     /**
      * @ORM\Column(name="comment", type="string", length=200, nullable=true)
      * @Assert\Length(max=200)
+     * @Groups({"basic", "flat"})
      */
     private $comment;
     
