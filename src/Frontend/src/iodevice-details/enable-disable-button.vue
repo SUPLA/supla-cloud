@@ -7,14 +7,19 @@
             {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading"></button-loading>
-        <div class="overlay-delete overlay-data overlay-opn">
+        <div class="overlay-delete overlay-data overlay-open"
+            v-if="showSchedulesConfirmation">
             <div class="dialog">
                 <h1>Harmonogramy</h1>
-                <p></p>
+                <p>Są i się wyłączą</p>
                 <div class="controls">
-                    <a class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
-                    <a href="{ path('_iodev_item_delete', {'id': iodevice.id}) }"
-                        class="save"><i class="pe-7s-check"></i></a></div>
+                    <a @click="showSchedulesConfirmation = false"
+                        class="overlay-delete-close cancel">{{ $t('CLOSE') }}</a>
+                    <a @click="disableConfirm()"
+                        class="save">
+                        <i class="pe-7s-check"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </span>
@@ -28,14 +33,15 @@
         components: {ButtonLoading},
         data() {
             return {
-                loading: false
+                loading: false,
+                showSchedulesConfirmation: false
             };
         },
         methods: {
             toggleEnabled() {
                 this.loading = true;
                 this.$store.dispatch('toggleEnabled')
-                    .catch(() => alert('siur?'))
+                    .catch(() => this.showSchedulesConfirmation = true)
                     .finally(() => this.loading = false);
             }
         },
