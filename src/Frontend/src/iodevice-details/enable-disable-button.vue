@@ -7,6 +7,9 @@
             {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading"></button-loading>
+        <modal title="Modal Title" :show.sync="!showSchedulesConfirmation">
+            Modal Text
+        </modal>
         <div class="overlay-delete overlay-data overlay-open"
             v-if="showSchedulesConfirmation">
             <div class="dialog">
@@ -28,9 +31,10 @@
 <script>
     import ButtonLoading from "./button-loading.vue";
     import {mapState, mapActions} from "vuex";
+    import Modal from "vue-bootstrap-modal";
 
     export default {
-        components: {ButtonLoading},
+        components: {ButtonLoading, Modal},
         data() {
             return {
                 loading: false,
