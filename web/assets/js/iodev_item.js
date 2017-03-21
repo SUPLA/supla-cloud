@@ -139,7 +139,6 @@ function loadLocationList() {
 	if ( loc_list.length == 0)
 	  return;
 	
-	//var aid = detail.data('id');
 	
 	loc_list.html('<div class="gmb-loader"><div></div><div></div><div></div></div>');
 	
@@ -152,20 +151,14 @@ function loadLocationList() {
     		loc_list.html(response.html);
     		loc_list.fadeIn();
     		
-    		 $('.iodev-change-location label').on('click', selectNewLocation);
-    		
-    		/*
-    		$('[name="tbl-checkall"]').bind('click', function() {
-    			  checkAll($(this));
-    		});
+    		$('.iodev-change-location label').on('click', selectNewLocation);
     		
     		$( ".overlay-close" ).click(function() {
     			$( ".overlay" ).removeClass
     			( 'overlay-open' ); 
     		});
-    		*/
-    		
-    		
+ 
+    	
     	} else {
     		loc_list.html('');
     		location.href = location.href;
