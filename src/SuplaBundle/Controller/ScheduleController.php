@@ -21,12 +21,14 @@ namespace SuplaBundle\Controller;
 
 use Assert\Assert;
 use Assert\Assertion;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\ScheduledExecution;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,8 +49,8 @@ class ScheduleController extends AbstractController {
         Assertion::inArray(strtolower($sort[1]), ['asc', 'desc']);
         if ($this->expectsJsonResponse()) {
             /** @var QueryBuilder $query */
-            $query = $this->getDoctrine()->getManager()->createQueryBuilder();
-            $query = $query->select('s schedule')
+            $queryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
+            $query = $queryBuilder->select('s schedule')
                 ->addSelect(['ch.caption channel_caption', 'ch.type channel_type', 'ch.function channel_function'])
                 ->addSelect('dev.name device_name')
                 ->addSelect('loc.caption location_caption')
@@ -60,7 +62,24 @@ class ScheduleController extends AbstractController {
                 ->orderBy($sort[0], $sort[1])
                 ->setParameter('user', $this->getUser())
                 ->getQuery();
-            return $this->jsonResponse(['data' => $query->getResult()], 'flat');
+            $schedules = $query->getResult();
+            $scheduleIds = implode(',', array_map(function ($schedule) { return $schedule['schedule']->getId(); }, $schedules));
+            $latestActionsQuery = <<<QUERY
+            SELECT *
+            FROM supla_scheduled_executions e
+            INNER JOIN (
+               SELECT id, MAX(result_timestamp)
+                FROM supla_scheduled_executions
+                WHERE schedule_id IN($scheduleIds)
+                AND result_timestamp IS NOT NULL
+                GROUP BY schedule_id
+            ) AS t
+            ON t.id = e.id;
+QUERY;
+            $rsm = new ResultSetMapping();
+            $rsm->addEntityResult(ScheduledExecution::class, 'e');
+            $latestActions = $this->getDoctrine()->getManager()->createNativeQuery($latestActionsQuery, $rsm)->getResult();
+            return $this->jsonResponse(['data' => $schedules, 'flat']);
         } else {
             return [];
         }
