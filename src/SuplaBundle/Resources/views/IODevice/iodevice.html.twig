@@ -38,6 +38,18 @@
 			</div>
 			<div class="location">
 				<h3>{% trans %}Location{% endtrans %}</h3>
+						
+				{% if iodevice.originalLocation %}
+				
+				<div class="location-info original">
+					<a href="{{ path('_loc_item', {'id': iodevice.originalLocation.id}) }}" class="item nav-link original">
+					<span class="acaption">{% trans %}Original location{% endtrans %}<br />
+					<strong><span class="caption_value">{{ iodevice.originalLocation.caption }}</span></strong><br />
+					</a>
+				</div>
+				
+				{% endif %}
+						
 				<div class="location-info">
 					<a href="{{ path('_loc_item', {'id': iodevice.location.id}) }}" class="item nav-link {% if iodevice.location.enabled %}enable{% else %}disabled{% endif %}">
 					<span class="aid">ID<strong>{{ iodevice.location.id }}</strong></span> <br />
@@ -49,6 +61,7 @@
 					</a>
 					<a id="overlay-assignments">Zmień lokalizację</a>
 				</div>
+				
 			</div>
 			<div class="accessid">
 				<h3>{% trans %}Access Identifier{% endtrans %}</h3>

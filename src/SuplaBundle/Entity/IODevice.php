@@ -155,7 +155,7 @@ class IODevice
     /** @return Location */
     public function getOriginalLocation()
     {
-    	return $this->original_location;
+    	return $this->originalLocation;
     }
     
     public function getRegDate()

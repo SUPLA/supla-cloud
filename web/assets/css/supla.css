@@ -181,9 +181,9 @@ ul.owl-stage {padding: 0px; list-style-type: none; margin: 0px;}
 .owl-next { right: -60px;}
 .scroll_list_wrapper:hover .owl-prev, .scroll_list_wrapper:hover .owl-next {opacity: 1;}
 .scroll_list_wrapper.channel_list .item {font-size: 12px; line-height: 18px; min-height: 190px}
-
-
+.location-info .item.original {background: rgba(193, 209, 81, 0.75); color: #fff; min-height: 55px; border: none}
 .owl-carousel .owl-item a:active {transform: scale(0.95); background: red!important;}
+.location-info.original .item:after {background: transparent }
 
 
 /* PNOTIFY */
