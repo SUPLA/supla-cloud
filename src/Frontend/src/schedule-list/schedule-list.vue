@@ -40,6 +40,11 @@
                         sortField: 'channel_caption',
                     },
                     {
+                        name: 'schedule.enabled',
+                        title: this.$t('Status'),
+                        callback: 'enabledDisabled'
+                    },
+                    {
                         name: 'device_name',
                         title: this.$t('Device'),
                         sortField: 'device_name',
@@ -75,7 +80,14 @@
         },
         methods: {
             formatDate(date) {
-               return moment(date).format('LLL');
+                return moment(date).format('LLL');
+            },
+            enabledDisabled(enabled) {
+                if (enabled) {
+                    return `<span class="label label-success">${this.$t('ENABLED')}</span>`;
+                } else {
+                    return `<span class="label label-danger">${this.$t('DISABLED')}</span>`;
+                }
             },
             onRowClicked(row) {
                 window.location.href = `${Vue.http.options.root}/schedule/${row.schedule.id}`;
