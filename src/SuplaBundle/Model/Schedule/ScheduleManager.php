@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Model;
+namespace SuplaBundle\Model\Schedule;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -25,7 +25,8 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Model\SchedulePlanners\CompositeSchedulePlanner;
+use SuplaBundle\Model\IODeviceManager;
+use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 
 class ScheduleManager
 {

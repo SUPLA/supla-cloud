@@ -1,8 +1,8 @@
 <?php
-namespace SuplaBundle\Tests\Model\SchedulePlanner;
+namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
-use SuplaBundle\Model\SchedulePlanners\CompositeSchedulePlanner;
-use SuplaBundle\Model\SchedulePlanners\CronExpressionSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 
 class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
     /** @var CompositeSchedulePlanner */

@@ -72,24 +72,24 @@ services:
               container: "@service_container"
               
      schedule_manager:
-         class: SuplaBundle\Model\ScheduleManager
+         class: SuplaBundle\Model\Schedule\ScheduleManager
          arguments:
               doctrine: "@doctrine"
               ioDeviceManager: '@iodevice_manager'
               schedulePlanner: '@schedule_planner.composite'
 
      schedule_planner.composite:
-         class: SuplaBundle\Model\SchedulePlanners\CompositeSchedulePlanner
+         class: SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner
          arguments:
               -
                 - '@schedule_planner.sunrise_sunset'
                 - '@schedule_planner.cron'
 
      schedule_planner.cron:
-         class: SuplaBundle\Model\SchedulePlanners\CronExpressionSchedulePlanner
+         class: SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner
 
      schedule_planner.sunrise_sunset:
-         class: SuplaBundle\Model\SchedulePlanners\SunriseSunsetSchedulePlanner
+         class: SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner
 
      server_list:
          class: SuplaBundle\Supla\ServerList

@@ -1,8 +1,8 @@
 <?php
-namespace SuplaBundle\Tests\Model\SchedulePlanner;
+namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Model\SchedulePlanners\CronExpressionSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 
 class CronExpressionSchedulePlannerTest extends \PHPUnit_Framework_TestCase
 {

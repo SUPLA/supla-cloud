@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Model\SchedulePlanners;
+namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
 use SensioLabs\Security\Exception\RuntimeException;
 use SuplaBundle\Entity\Schedule;

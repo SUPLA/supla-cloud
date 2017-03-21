@@ -22,6 +22,7 @@ namespace SuplaBundle\Model;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 
 class UserManager
 {

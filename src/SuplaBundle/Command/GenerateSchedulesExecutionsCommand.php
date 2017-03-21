@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Command;
 
-use SuplaBundle\Model\ScheduleManager;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;

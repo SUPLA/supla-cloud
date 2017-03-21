@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Tests\Model\SchedulePlanner;
+namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 
 use SuplaBundle\Entity\Schedule;

@@ -1,7 +1,7 @@
 <?php
-namespace SuplaBundle\Tests\Model\SchedulePlanner;
+namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
-use SuplaBundle\Model\SchedulePlanners\SunriseSunsetSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 date_default_timezone_set('UTC');
 
