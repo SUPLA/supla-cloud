@@ -118,6 +118,64 @@ function setItem(save_btn, data_sel, txt_sel, detail_sel, action) {
  	
 }
 
+function selectNewLocation() {
+	
+	var clicked_id = $(this).data('id');
+	$(this).find(':checkbox').prop('checked', true);
+		
+	$(this).parent('.row').find('label').each(function () { 
+		
+		if ( $(this).data('id') != clicked_id ) {
+			$(this).find(':checkbox').prop('checked', false);
+		}
+	});
+
+	$('form[name="_change_location_type"]').find('input[name="selected_id"]').val(clicked_id);
+}
+
+function loadLocationList() {
+	var loc_list = $('.location-list');
+	
+	if ( loc_list.length == 0)
+	  return;
+	
+	//var aid = detail.data('id');
+	
+	loc_list.html('<div class="gmb-loader"><div></div><div></div><div></div></div>');
+	
+	$.ajax( {type: "POST", url: $(loc_list).data('ajax-path') } )
+    .done(function( response ) {      
+    	
+    	if ( response.success ) {
+
+    		loc_list.hide();
+    		loc_list.html(response.html);
+    		loc_list.fadeIn();
+    		
+    		 $('.iodev-change-location label').on('click', selectNewLocation);
+    		
+    		/*
+    		$('[name="tbl-checkall"]').bind('click', function() {
+    			  checkAll($(this));
+    		});
+    		
+    		$( ".overlay-close" ).click(function() {
+    			$( ".overlay" ).removeClass
+    			( 'overlay-open' ); 
+    		});
+    		*/
+    		
+    		
+    	} else {
+    		loc_list.html('');
+    		location.href = location.href;
+    	}
+    	
+    });
+    
+   
+}
+
 $(document).ready(function(){
 	
 	
@@ -132,11 +190,12 @@ $(document).ready(function(){
 	});
 	
 	
-	$( "#overlay-assignments" ).click(function() {
-		 $( ".overlay-assignments" ).addClass('overlay-open');
+	$( "#overlay-changelocation" ).click(function() {
+		loadLocationList();
+		 $( ".overlay-changelocation" ).addClass('overlay-open');
 	});
 	$( ".overlay-close" ).click(function() {
-		$( ".overlay-assignments" ).removeClass( 'overlay-open' );
+		$( ".overlay-changelocation" ).removeClass( 'overlay-open' );
 	});
 	
 	   
@@ -231,5 +290,6 @@ $(document).ready(function(){
 		  $( this ).addClass('active');
 		});
 	  });
+	 
 	  
 	});

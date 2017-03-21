@@ -59,7 +59,7 @@
 					<strong><span class="password_value">{{ iodevice.location.password }}</span></strong><br />
 					{% if iodevice.location.enabled %}<span class="status">{% trans %}Enabled{% endtrans %}</span>{% else %}<span class="status disable">{% trans %}Disabled{% endtrans %}</span>{% endif %}
 					</a>
-					<a id="overlay-assignments">Zmień lokalizację</a>
+					<a id="overlay-changelocation">{% trans %}Change location{% endtrans %}</a>
 				</div>
 				
 			</div>
@@ -138,18 +138,14 @@
 	</form>
 </div>
 
-<!--Zmiana lokalizacji-->
-<div class="overlay overlay-data overlay-assignments">
-	<div class="overlay-title"><h1>Wybierz lokalizację</h1>
-	  <p>Wybierz nową lokalizację dla urządzenia <strong>{{ iodevice.name }}</strong></p></div>
+<!--Change location-->
+<div class="overlay overlay-data overlay-changelocation">
+	<div class="overlay-title"><h1>{% trans %}Wybierz lokalizację{% endtrans %}</h1>
+	  <p>{% trans %}Wybierz nową lokalizację dla urządzenia {% endtrans %}<strong> {{ iodevice.name }}</strong></p></div>
       <div class="overlay-list">
-		  <div class="assign-list"></div>
+		  <div class="location-list" data-ajax-path="{{ path('_iodev_ajax_change_loc', {'id': iodevice.id}) }}"></div>
 	  </div>
-	  <div class="overlay-controls">
-    <div id="assign_type"><div>
-	<button type="button" id="assign_type_cancel" name="_assign_type[cancel]" class="overlay-close cancel">{% trans %}CANCEL{% endtrans %}</button></div>
-	<div><button type="submit" id="assign_type_save" name="_assign_type[save]" class="save pe-7s-check"></button></div></div>
-    </div>
+
 </div>
 
 <div class="cd-panel from-left">

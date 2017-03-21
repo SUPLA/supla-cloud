@@ -285,7 +285,7 @@ class LocationController extends Controller
     
     	return AjaxController::jsonResponse($html !== null, array('html'=>$html));
     }
-    
+        
     /**
      * @Route("/{id}/ajax/getdetails", name="_loc_ajax_getdetails")
      */

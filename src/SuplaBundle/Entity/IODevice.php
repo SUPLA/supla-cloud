@@ -27,6 +27,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Loaction;
 
 /**
  * @ORM\Entity
@@ -150,6 +151,22 @@ class IODevice
     public function getLocation()
     {
     	return $this->location;
+    }
+    
+    public function setLocation(Location $location)
+    {
+    	if ( $this->originalLocation != null
+    		 && $this->originalLocation->getId() == $location->getId()  ) {
+    		 	
+    		 $this->originalLocation = null;
+    		 
+    	} else if ( $this->originalLocation == null ) {
+    		
+    		$this->originalLocation = $this->location;
+    		
+    	}
+    	
+    	$this->location = $location;
     }
     
     /** @return Location */
