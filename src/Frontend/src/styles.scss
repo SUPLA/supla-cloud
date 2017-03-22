@@ -1,0 +1,27 @@
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
+.low-z-index { // fixes some problems with elements appearing incorrectly above the others
+  position: relative;
+  z-index: 1
+}
+
+.modal {
+  color: black !important;
+  h4 {
+    font-size: 2em;
+  }
+  .modal-header, .modal-footer {
+    border: 0;
+  }
+  .modal-footer {
+    a i {
+      vertical-align: middle;
+      font-size: 4em;
+    }
+    .cancel {
+      color: #BBB;
+    }
+  }
+}

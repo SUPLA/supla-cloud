@@ -7,24 +7,19 @@
             {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading"></button-loading>
-        <modal title="Modal Title" :show.sync="!showSchedulesConfirmation">
-            Modal Text
-        </modal>
-        <div class="overlay-delete overlay-data overlay-open"
-            v-if="showSchedulesConfirmation">
-            <div class="dialog">
-                <h1>Harmonogramy</h1>
-                <p>Są i się wyłączą</p>
-                <div class="controls">
-                    <a @click="showSchedulesConfirmation = false"
-                        class="overlay-delete-close cancel">{{ $t('CLOSE') }}</a>
-                    <a @click="disableConfirm()"
-                        class="save">
-                        <i class="pe-7s-check"></i>
-                    </a>
-                </div>
+        <modal title="Istniejące harmonogramy" :show.sync="!showSchedulesConfirmation">
+            Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.
+            <div slot="footer">
+                <a @click="showSchedulesConfirmation = false"
+                    class="cancel">
+                    <i class="pe-7s-close"></i>
+                </a>
+                <a @click="disableConfirm()"
+                    class="confirm">
+                    <i class="pe-7s-check"></i>
+                </a>
             </div>
-        </div>
+        </modal>
     </span>
 </template>
 
