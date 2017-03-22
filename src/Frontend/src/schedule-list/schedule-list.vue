@@ -30,6 +30,10 @@
                 loading: false,
                 columns: [
                     {
+                        name: 'schedule.id',
+                        title: this.$t('ID')
+                    },
+                    {
                         name: 'schedule.caption',
                         title: this.$t('Name'),
                         sortField: 's.caption'
@@ -65,10 +69,14 @@
                         callback: '$t',
                     },
                     {
-                        name: 'schedule.dateStart',
-                        title: this.$t('Start date'),
-                        callback: 'formatDate',
-                        sortField: 's.dateStart'
+                        name: 'futureExecution.plannedTimestamp',
+                        title: this.$t('Next run date'),
+                        callback: 'formatDate'
+                    },
+                    {
+                        name: 'latestExecution',
+                        title: this.$t('Latest execution'),
+                        callback: 'latestExecution'
                     }
                 ],
                 bootstrapStyles: {
@@ -80,7 +88,16 @@
         },
         methods: {
             formatDate(date) {
-                return moment(date).format('LLL');
+                return date ? moment(date).format('LLL') : '-';
+            },
+            latestExecution(execution) {
+                if (execution) {
+                    return `<span class="${execution.failed ? 'text-danger' : 'text-success'}" title="${this.$t(execution.result.caption)}">
+                                ${this.formatDate(execution.resultTimestamp)}
+                            </span>`;
+                } else {
+                    return '-';
+                }
             },
             enabledDisabled(enabled) {
                 if (enabled) {

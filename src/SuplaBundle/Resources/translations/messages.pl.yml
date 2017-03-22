@@ -282,6 +282,8 @@ Hours: Godziny
 Minute: Minuta
 Weekdays: Dni tygodnia
 Are you sure you want to delete the schedule?: Czy na pewno chcesz usunąć ten harmonogram?
+Next run date: Najbliższe wykonanie
+Latest execution: Ostatnie wykonanie
 
 Mondays: Poniedziałki
 Tuesdays: Wtorki
@@ -309,6 +311,7 @@ Shut: Zasłoń
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
 
+Successful: Udane
 Device was unreachable: Urządzenie niedostępne
 Disconnected sensor: Brak czujnika
 Server unreachable: Serwer nieosiągalny
