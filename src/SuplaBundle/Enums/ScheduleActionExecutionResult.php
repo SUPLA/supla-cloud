@@ -3,6 +3,7 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @method static ScheduleActionExecutionResult UNKNOWN()
@@ -30,7 +31,10 @@ final class ScheduleActionExecutionResult extends Enum {
         parent::__construct($value ?: 0);
     }
 
-    public function caption(): string {
+    /**
+     * @Groups({"basic", "flat"})
+     */
+    public function getCaption(): string {
         return self::captions()[$this->getValue()];
     }
 

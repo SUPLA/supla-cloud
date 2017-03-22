@@ -21,6 +21,7 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -63,11 +64,13 @@ class ScheduledExecution {
 
     /**
      * @ORM\Column(name="result_timestamp", type="utcdatetime", nullable=true)
+     * @Groups({"basic", "flat"})
      */
     private $resultTimestamp;
 
     /**
      * @ORM\Column(name="result", type="integer", nullable=true)
+     * @Groups({"basic", "flat"})
      */
     private $result;
 
@@ -80,11 +83,22 @@ class ScheduledExecution {
         return $this->plannedTimestamp;
     }
 
-    public function isFailed() {
+    public function getResultTimestamp() {
+        return $this->resultTimestamp;
+    }
+
+    /**
+     * @Groups({"basic", "flat"})
+     */
+    public function isFailed(): bool {
         return !$this->getResult()->isSuccessful();
     }
 
     public function getResult(): ScheduleActionExecutionResult {
         return new ScheduleActionExecutionResult($this->result);
+    }
+
+    public function getSchedule(): Schedule {
+        return $this->schedule;
     }
 }

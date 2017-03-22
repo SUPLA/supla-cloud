@@ -3,18 +3,19 @@ namespace SuplaBundle\Model\Schedule;
 
 use Assert\Assertion;
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
 
 class ScheduleListQuery {
-    /** @var Registry */
-    private $doctrine;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
     public function __construct(Registry $doctrine) {
-        $this->doctrine = $doctrine;
+        $this->entityManager = $doctrine->getManager();
     }
 
     public function getUserSchedules(User $user, array $sort) {
@@ -29,9 +30,8 @@ class ScheduleListQuery {
     }
 
     private function getQuery():QueryBuilder {
-        /** @var QueryBuilder $query */
-        $queryBuilder = $this->doctrine->getManager()->createQueryBuilder();
-        return $queryBuilder->select('s schedule')
+        return $this->entityManager->createQueryBuilder()
+            ->select('s schedule')
             ->addSelect(['ch.caption channel_caption', 'ch.type channel_type', 'ch.function channel_function'])
             ->addSelect('dev.name device_name')
             ->addSelect('loc.caption location_caption')
@@ -50,10 +50,14 @@ class ScheduleListQuery {
         $queryBuilder->orderBy($sort[0], $sort[1]);
     }
 
-    private function fetchLatestExecutions(array $schedules) {
+    private function fetchLatestExecutions(array &$schedules) {
         $scheduleIds = implode(',', array_map(function ($schedule) { return $schedule['schedule']->getId(); }, $schedules));
+        /** @var EntityManagerInterface $entityManager */
+        $rsm = new ResultSetMappingBuilder($this->entityManager);
+        $rsm->addRootEntityFromClassMetadata(ScheduledExecution::class, 'e');
+
         $latestActionsQuery = <<<QUERY
-            SELECT *
+            SELECT {$rsm->generateSelectClause()}
             FROM supla_scheduled_executions e
             INNER JOIN (
                SELECT id, MAX(result_timestamp)
@@ -64,13 +68,16 @@ class ScheduleListQuery {
             ) AS t
             ON t.id = e.id;
 QUERY;
-        // TODO native query?
-        $stmt = $this->doctrine->getManager()->getConnection()->prepare($latestActionsQuery);
-        $stmt->execute();
-        $latestExecutions = $stmt->fetchAll();
-        $latestResultBySchedule = [];
+
+        $query = $this->entityManager->createNativeQuery($latestActionsQuery, $rsm);
+        /** @var ScheduledExecution[] $latestExecutions */
+        $latestExecutions = $query->getResult();
+        $latestExecutionsMap = [];
         foreach ($latestExecutions as $execution) {
-//            $latestResultBySchedule
+            $latestExecutionsMap[$execution->getSchedule()->getId()] = $execution;
+        }
+        foreach ($schedules as &$schedule) {
+            $schedule['latestExecution'] = $latestExecutionsMap[$schedule['schedule']->getId()] ?? null;
         }
     }
 }
