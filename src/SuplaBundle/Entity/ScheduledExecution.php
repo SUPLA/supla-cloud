@@ -44,6 +44,7 @@ class ScheduledExecution {
 
     /**
      * @ORM\Column(name="planned_timestamp", type="utcdatetime", nullable=true)
+     * @Groups({"basic", "flat"})
      */
     private $plannedTimestamp;
 

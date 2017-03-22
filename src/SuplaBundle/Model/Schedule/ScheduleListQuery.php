@@ -25,7 +25,8 @@ class ScheduleListQuery {
             ->setParameter('user', $user)
             ->getQuery();
         $schedules = $query->getResult();
-        $this->fetchLatestExecutions($schedules);
+        $this->fetchMostPastExecutions($schedules);
+        $this->fetchMostFutureExecutions($schedules);
         return $schedules;
     }
 
@@ -50,34 +51,52 @@ class ScheduleListQuery {
         $queryBuilder->orderBy($sort[0], $sort[1]);
     }
 
-    private function fetchLatestExecutions(array &$schedules) {
-        $scheduleIds = implode(',', array_map(function ($schedule) { return $schedule['schedule']->getId(); }, $schedules));
-        /** @var EntityManagerInterface $entityManager */
-        $rsm = new ResultSetMappingBuilder($this->entityManager);
-        $rsm->addRootEntityFromClassMetadata(ScheduledExecution::class, 'e');
-
-        $latestActionsQuery = <<<QUERY
-            SELECT {$rsm->generateSelectClause()}
+    private function fetchMostFutureExecutions(array &$schedules) {
+        $query = <<<QUERY
+            SELECT %COLUMNS%
             FROM supla_scheduled_executions e
             INNER JOIN (
-               SELECT id, MAX(result_timestamp)
-                FROM supla_scheduled_executions
-                WHERE schedule_id IN($scheduleIds)
-                AND result_timestamp IS NOT NULL
-                GROUP BY schedule_id
+               SELECT id, MIN(planned_timestamp)
+               FROM supla_scheduled_executions
+               WHERE schedule_id IN(%SCHEDULE_IDS%)
+               AND result_timestamp IS NULL
+               GROUP BY schedule_id
             ) AS t
             ON t.id = e.id;
 QUERY;
+        $this->fetchExecutions($schedules, $query, 'futureExecution');
+    }
 
-        $query = $this->entityManager->createNativeQuery($latestActionsQuery, $rsm);
+    private function fetchMostPastExecutions(array &$schedules) {
+        $query = <<<QUERY
+            SELECT %COLUMNS%
+            FROM supla_scheduled_executions e
+            INNER JOIN (
+               SELECT id, MAX(result_timestamp)
+               FROM supla_scheduled_executions
+               WHERE schedule_id IN(%SCHEDULE_IDS%)
+               AND result_timestamp IS NOT NULL
+               GROUP BY schedule_id
+            ) AS t
+            ON t.id = e.id;
+QUERY;
+        $this->fetchExecutions($schedules, $query, 'latestExecution');
+    }
+
+    private function fetchExecutions(array &$schedules, string $query, string $resultKey) {
+        $scheduleIds = implode(',', array_map(function ($schedule) { return $schedule['schedule']->getId(); }, $schedules));
+        $rsm = new ResultSetMappingBuilder($this->entityManager);
+        $rsm->addRootEntityFromClassMetadata(ScheduledExecution::class, 'e');
+        $executionsQuery = str_replace(['%COLUMNS%', '%SCHEDULE_IDS%'], [$rsm->generateSelectClause(), $scheduleIds], $query);
+        $query = $this->entityManager->createNativeQuery($executionsQuery, $rsm);
         /** @var ScheduledExecution[] $latestExecutions */
-        $latestExecutions = $query->getResult();
-        $latestExecutionsMap = [];
-        foreach ($latestExecutions as $execution) {
-            $latestExecutionsMap[$execution->getSchedule()->getId()] = $execution;
+        $executions = $query->getResult();
+        $executionsMap = [];
+        foreach ($executions as $execution) {
+            $executionsMap[$execution->getSchedule()->getId()] = $execution;
         }
         foreach ($schedules as &$schedule) {
-            $schedule['latestExecution'] = $latestExecutionsMap[$schedule['schedule']->getId()] ?? null;
+            $schedule[$resultKey] = $executionsMap[$schedule['schedule']->getId()] ?? null;
         }
     }
 }
