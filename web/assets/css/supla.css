@@ -740,3 +740,4 @@ div.user-account dt a:hover {background: #00D151; color: #fff;}
     border: solid 1px rgba(255,255,255,.5);-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; 
 }
 .no-margin-top{ margin-top: 0 !important; }
+.low-z-index { position: relative; z-index: 1} /* fixes some problems with elements appearing incorrectly above the others */
