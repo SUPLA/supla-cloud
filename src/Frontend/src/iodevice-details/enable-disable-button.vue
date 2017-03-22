@@ -2,20 +2,20 @@
     <span>
         <a :class="'btn btn-default ' + (device.enabled ? 'btn-enable' : 'btn-disable')"
             @click="toggleEnabled()"
-            v-show="!loading">
+            v-show="!loading && !showSchedulesConfirmation">
             <strong class="clearfix">{{ $t(device.enabled ? 'ENABLED' : 'DISABLED') }}</strong>
             {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
-        <button-loading v-if="loading"></button-loading>
-        <modal title="Istniejące harmonogramy" :show.sync="!showSchedulesConfirmation">
+        <button-loading v-if="loading || showSchedulesConfirmation"></button-loading>
+        <modal title="Istniejące harmonogramy"
+            :show.sync="showSchedulesConfirmation">
             Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.
             <div slot="footer">
                 <a @click="showSchedulesConfirmation = false"
                     class="cancel">
                     <i class="pe-7s-close"></i>
                 </a>
-                <a @click="disableConfirm()"
-                    class="confirm">
+                <a class="confirm">
                     <i class="pe-7s-check"></i>
                 </a>
             </div>
