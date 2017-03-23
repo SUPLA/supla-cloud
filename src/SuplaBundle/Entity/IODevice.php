@@ -69,7 +69,13 @@ class IODevice
      * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
      */
     private $originalLocation;
-    
+
+    /**
+     * @var IODeviceChannel[]
+     * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="iodevice")
+     */
+    private $channels;
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="iodevices")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
@@ -179,7 +185,12 @@ class IODevice
     {
     	return $this->originalLocation;
     }
-    
+
+    /** @return IODeviceChannel[] */
+    public function getChannels(): array {
+        return $this->channels;
+    }
+
     public function getRegDate()
     {
     	return $this->regDate;

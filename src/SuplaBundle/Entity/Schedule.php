@@ -56,7 +56,7 @@ class Schedule {
     private $timeExpression;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannel")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
      * @Constraints\NotNull
      * @Groups({"basic"})

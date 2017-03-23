@@ -61,6 +61,12 @@ class IODeviceChannel
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
+
+    /**
+     * @var Schedule[]
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel")
+     */
+    private $schedules;
     
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
@@ -135,7 +141,12 @@ class IODeviceChannel
     {
     	return $this->user;
     }
-    
+
+    /** @return Schedule[] */
+    public function getSchedules(): array {
+        return $this->schedules;
+    }
+
     public function getFunction()
     {
     	return $this->function;

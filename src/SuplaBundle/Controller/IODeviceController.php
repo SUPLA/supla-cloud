@@ -20,7 +20,10 @@
 namespace SuplaBundle\Controller;
 
 
+use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -37,7 +40,7 @@ use SuplaBundle\Entity\Loaction;
 /**
  * @Route("/iodev")
  */
-class IODeviceController extends Controller
+class IODeviceController extends AbstractController
 {
 
 	private function user_reconnect() {
@@ -383,6 +386,13 @@ class IODeviceController extends Controller
     public function ajaxSetEnabled(IODevice $device, Request $request) {
         $data = $request->request->all();
         if (isset($data['enabled'])) {
+            if (!$data['enabled'] && !isset($data['confirm'])) {
+                foreach ($device->getChannels() as $channel) {
+                    if (count($channel->getSchedules())) {
+                        return $this->jsonResponse($channel->getSchedules())->setStatusCode(409);
+                    }
+                }
+            }
             $device->setEnabled($data['enabled']);
         }
         $this->getDoctrine()->getManager()->persist($device);
