@@ -16,7 +16,6 @@
     "moment": "2.17.1",
     "spectrum-colorpicker": "1.8.0",
     "vue": "2.1.10",
-    "vue-bootstrap-modal": "0.1.13",
     "vue-i18n": "5.0.2",
     "vue-resource": "1.2.0",
     "vuetable-2": "1.3.0",

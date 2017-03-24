@@ -7,8 +7,10 @@
             {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading || showSchedulesConfirmation"></button-loading>
-        <modal title="Istniejące harmonogramy"
-            :show.sync="showSchedulesConfirmation">
+        <modal v-if="showSchedulesConfirmation"
+            @confirm="toggleEnabled(true)"
+            @cancel="showSchedulesConfirmation = false">
+            <h4 slot="header">Istniejące harmonogramy</h4>
             Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane:
             <ul>
                 <li v-for="schedule in conflictingSchedules">
@@ -17,16 +19,6 @@
                 </li>
             </ul>
             Czy na pewno chcesz wyłączyć to urządzenie?
-            <div slot="footer">
-                <a @click="showSchedulesConfirmation = false"
-                    class="cancel">
-                    <i class="pe-7s-close"></i>
-                </a>
-                <a class="confirm"
-                    @click="toggleEnabled(true)">
-                    <i class="pe-7s-check"></i>
-                </a>
-            </div>
         </modal>
     </span>
 </template>
@@ -34,7 +26,7 @@
 <script>
     import ButtonLoading from "./button-loading.vue";
     import {mapState, mapActions} from "vuex";
-    import Modal from "vue-bootstrap-modal";
+    import Modal from "./modal.vue";
 
     export default {
         components: {ButtonLoading, Modal},
@@ -42,7 +34,7 @@
             return {
                 loading: false,
                 showSchedulesConfirmation: false,
-                conflictingSchedules: undefined
+                conflictingSchedules: []
             };
         },
         methods: {

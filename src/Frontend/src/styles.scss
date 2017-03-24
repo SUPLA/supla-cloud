@@ -6,22 +6,3 @@
   position: relative;
   z-index: 1
 }
-
-.modal {
-  color: black !important;
-  h4 {
-    font-size: 2em;
-  }
-  .modal-header, .modal-footer {
-    border: 0;
-  }
-  .modal-footer {
-    a i {
-      vertical-align: middle;
-      font-size: 4em;
-    }
-    .cancel {
-      color: #BBB;
-    }
-  }
-}
