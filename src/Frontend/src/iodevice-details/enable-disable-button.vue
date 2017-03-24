@@ -7,7 +7,7 @@
             {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading || showSchedulesConfirmation"></button-loading>
-        <modal v-if="showSchedulesConfirmation"
+        <confirm-modal v-if="showSchedulesConfirmation"
             @confirm="toggleEnabled(true)"
             @cancel="showSchedulesConfirmation = false">
             <h4 slot="header">Istniejące harmonogramy</h4>
@@ -19,17 +19,16 @@
                 </li>
             </ul>
             Czy na pewno chcesz wyłączyć to urządzenie?
-        </modal>
+        </confirm-modal>
     </span>
 </template>
 
 <script>
     import ButtonLoading from "./button-loading.vue";
     import {mapState, mapActions} from "vuex";
-    import Modal from "./modal.vue";
 
     export default {
-        components: {ButtonLoading, Modal},
+        components: {ButtonLoading},
         data() {
             return {
                 loading: false,
