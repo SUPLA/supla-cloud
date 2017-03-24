@@ -19,365 +19,333 @@
 
 namespace SuplaBundle\Controller;
 
-
-use Assert\Assertion;
-use Assert\InvalidArgumentException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\IODeviceChannel;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaBundle\Supla\SuplaConst;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Form\Type\IODeviceType;
+use SuplaBundle\Entity\Loaction;
+use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
 use SuplaBundle\Supla\ServerCtrl;
+use SuplaBundle\Supla\SuplaConst;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use SuplaBundle\Form\Type\ChangeLocationType;
-use SuplaBundle\Entity\Loaction;
 
 /**
  * @Route("/iodev")
  */
-class IODeviceController extends AbstractController
-{
+class IODeviceController extends AbstractController {
 
-	private function user_reconnect() {
-		$user = $this->get('security.token_storage')->getToken()->getUser();
-		(new ServerCtrl())->reconnect($user->getId());
-	}
+    private function user_reconnect() {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        (new ServerCtrl())->reconnect($user->getId());
+    }
 
-	private function getIODeviceById($id)
-	{
-		$iodev_man = $this->get('iodevice_manager');
-		return $iodev_man->ioDeviceById($id);
-	}
+    private function getIODeviceById($id) {
+        $iodev_man = $this->get('iodevice_manager');
+        return $iodev_man->ioDeviceById($id);
+    }
 
-	private function getChannelById($id)
-	{
-		$iodev_man = $this->get('iodevice_manager');
-		return $iodev_man->channelById($id);
-	}
+    private function getChannelById($id) {
+        $iodev_man = $this->get('iodevice_manager');
+        return $iodev_man->channelById($id);
+    }
 
     /**
      * @Route("/", name="_iodev_list")
      */
-    public function listAction()
-    {
-    	$user = $this->get('security.token_storage')->getToken()->getUser();
-    	return $this->render('SuplaBundle:IODevice:list.html.twig', array('iodevices' => $user->getIODevices()));
+    public function listAction() {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        return $this->render('SuplaBundle:IODevice:list.html.twig', ['iodevices' => $user->getIODevices()]);
     }
-
 
     /**
      * @Route("/{id}/view", name="_iodev_item")
      */
-    public function itemAction($id)
-    {
+    public function itemAction($id) {
 
-    	$iodev = $this->getIODeviceById($id);
+        $iodev = $this->getIODeviceById($id);
 
-    	if ( $iodev === null )
-    		return $this->redirectToRoute("_iodev_list");
+        if ($iodev === null)
+            return $this->redirectToRoute("_iodev_list");
 
-    	$dev_man = $this->get('iodevice_manager');
+        $dev_man = $this->get('iodevice_manager');
 
-    	$loc = $iodev->getLocation();
+        $loc = $iodev->getLocation();
 
-    	$loc_name = 'Id '.$loc->getId();
+        $loc_name = 'Id ' . $loc->getId();
 
-    	if ( strlen($loc->getCaption()) > 0 )
-    		$loc_name.=" [".$loc->getCaption()."]";
+        if (strlen($loc->getCaption()) > 0)
+            $loc_name .= " [" . $loc->getCaption() . "]";
 
-    	$aid_enabled = false;
+        $aid_enabled = false;
 
-    	for($a=0;$a<$iodev->getLocation()->getAccessIds()->count();$a++) {
-    		$aid = $iodev->getLocation()->getAccessIds()->get($a);
-    		if ( $aid->getEnabled() ) {
-    			$aid_enabled = true;
-    			break;
-    		}
-    	}
+        for ($a = 0; $a < $iodev->getLocation()->getAccessIds()->count(); $a++) {
+            $aid = $iodev->getLocation()->getAccessIds()->get($a);
+            if ($aid->getEnabled()) {
+                $aid_enabled = true;
+                break;
+            }
+        }
 
-    	return $this->render('SuplaBundle:IODevice:iodevice.html.twig',
-    			array('iodevice' => $iodev,
-    				  'location_name' => $loc_name,
-    				  'channels' => $dev_man->channelsToArray($dev_man->getChannels($iodev)),
-    				  'aid_enabled' => $aid_enabled
-    			)
-    			);
-
+        return $this->render('SuplaBundle:IODevice:iodevice.html.twig',
+            ['iodevice' => $iodev,
+                'location_name' => $loc_name,
+                'channels' => $dev_man->channelsToArray($dev_man->getChannels($iodev)),
+                'aid_enabled' => $aid_enabled,
+            ]
+        );
     }
-
 
     /**
      * @Route("/{id}/delete", name="_iodev_item_delete")
      */
-    public function itemDeleteAction($id)
-    {
-    	$iodev = $this->getIODeviceById($id);
+    public function itemDeleteAction($id) {
+        $iodev = $this->getIODeviceById($id);
 
-    	if ( $iodev === null )
-    		return $this->redirectToRoute("_iodev_list");
+        if ($iodev === null)
+            return $this->redirectToRoute("_iodev_list");
 
-    	$dev_man = $this->get('iodevice_manager');
-    	$m = $this->get('doctrine')->getManager();
+        $dev_man = $this->get('iodevice_manager');
+        $m = $this->get('doctrine')->getManager();
 
-    	$channels = $dev_man->getChannels($iodev);
+        $channels = $dev_man->getChannels($iodev);
 
+        foreach ($channels as $channel) {
 
-    	foreach ($channels as $channel) {
+            switch ($channel->getType()) {
 
-    		switch($channel->getType()) {
+                case SuplaConst::TYPE_SENSORNO:
+                case SuplaConst::TYPE_SENSORNC:
 
-    			case SuplaConst::TYPE_SENSORNO:
-    			case SuplaConst::TYPE_SENSORNC:
+                    if ($channel->getParam1() != 0) {
 
-    				if ( $channel->getParam1() != 0 ) {
+                        $related_channel = $this->getChannelById($channel->getParam1());
 
-    					$related_channel = $this->getChannelById($channel->getParam1());
+                        if ($related_channel != null
+                            && $related_channel->getFunction() != SuplaConst::FNC_NONE
+                            && $related_channel->getParam2() == $channel->getId()
+                        )
 
-    					if ( $related_channel != null
-    							&& $related_channel->getFunction() != SuplaConst::FNC_NONE
-    							&& $related_channel->getParam2() == $channel->getId() )
+                            $related_channel->setParam2(0);
+                    }
 
-    						$related_channel->setParam2(0);
-    				}
+                case SuplaConst::TYPE_RELAY:
+                case SuplaConst::TYPE_RELAYHFD4:
+                case SuplaConst::TYPE_RELAYG5LA1A:
+                case SuplaConst::TYPE_2XRELAYG5LA1A:
 
-    			case SuplaConst::TYPE_RELAY:
-    			case SuplaConst::TYPE_RELAYHFD4:
-    			case SuplaConst::TYPE_RELAYG5LA1A:
-    			case SuplaConst::TYPE_2XRELAYG5LA1A:
+                    if ($channel->getParam2() != 0) {
+                        $sensor = $this->getChannelById($channel->getParam2());
+                        if ($sensor !== null) {
+                            $sensor->setParam1(0);
+                        }
+                    }
+            }
 
-    				if ( $channel->getParam2() != 0 ) {
-    					$sensor = $this->getChannelById($channel->getParam2());
-    					if ( $sensor !== null ) {
-    						$sensor->setParam1(0);
-    					}
+            $m->remove($channel);
+        }
 
-    				}
+        $m->remove($iodev);
+        $m->flush();
 
-    		}
+        $this->user_reconnect();
 
-    		$m->remove($channel);
-    	}
-
-    	$m->remove($iodev);
-    	$m->flush();
-
-    	$this->user_reconnect();
-
-    	$this->get('session')->getFlashBag()->add('warning', array('title' => 'Information', 'message' => 'I/O Device has been deleted'));
-    	return $this->redirectToRoute("_iodev_list");
+        $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'I/O Device has been deleted']);
+        return $this->redirectToRoute("_iodev_list");
     }
 
     /**
      * @Route("/{devid}/{id}/edit", name="_iodev_channel_item_edit")
      */
-    public function channelItemEditAction(Request $request, $devid, $id)
-    {
+    public function channelItemEditAction(Request $request, $devid, $id) {
 
-    	$channel = $this->getChannelById($id);
+        $channel = $this->getChannelById($id);
 
-    	if ( $channel === null || $channel->getIoDevice()->getId() != $devid )
-    		return $this->redirectToRoute("_iodev_list");
+        if ($channel === null || $channel->getIoDevice()->getId() != $devid)
+            return $this->redirectToRoute("_iodev_list");
 
-    	$dev_man = $this->get('iodevice_manager');
+        $dev_man = $this->get('iodevice_manager');
 
-    	$form = $this->createForm(IODeviceChannelType::class,
-    			$channel,
-    			array('cancel_url'=>$this->generateUrl('_iodev_item', array('id' => $devid))));
+        $form = $this->createForm(IODeviceChannelType::class,
+            $channel,
+            ['cancel_url' => $this->generateUrl('_iodev_item', ['id' => $devid])]);
 
-    	$old_function = $channel->getFunction();
-    	$old_param1 = $channel->getParam1();
-    	$old_param2 = $channel->getParam2();
+        $old_function = $channel->getFunction();
+        $old_param1 = $channel->getParam1();
+        $old_param2 = $channel->getParam2();
 
-    	$form->handleRequest($request);
+        $form->handleRequest($request);
 
-    	if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-    		switch($channel->getType()) {
+            switch ($channel->getType()) {
 
-    			case SuplaConst::TYPE_SENSORNO:
-    			case SuplaConst::TYPE_SENSORNC:
+                case SuplaConst::TYPE_SENSORNO:
+                case SuplaConst::TYPE_SENSORNC:
 
-    				if (  $channel->getFunction() == SuplaConst::FNC_NONE
-    						|| $old_param1 != $channel->getParam1() ) {
+                    if ($channel->getFunction() == SuplaConst::FNC_NONE
+                        || $old_param1 != $channel->getParam1()
+                    ) {
 
-    							if ( $old_param1 != 0 ) {
+                        if ($old_param1 != 0) {
 
-    								$related_channel = $this->getChannelById($old_param1);
+                            $related_channel = $this->getChannelById($old_param1);
 
-    								if ( $related_channel != null
-    									 && $related_channel->getFunction() != SuplaConst::FNC_NONE
-    									 && $related_channel->getParam2() == $channel->getId() )
+                            if ($related_channel != null
+                                && $related_channel->getFunction() != SuplaConst::FNC_NONE
+                                && $related_channel->getParam2() == $channel->getId()
+                            )
 
-    								$related_channel->setParam2(0);
+                                $related_channel->setParam2(0);
+                        }
+                    };
 
-    							}
+                    if (($channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GATEWAY
+                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GATE
+                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR
+                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_DOOR
+                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER)
+                        && $old_param1 != $channel->getParam1()
+                        && $channel->getParam1() != 0
+                    ) {
 
-    						};
+                        $related_channel = $this->getChannelById($channel->getParam1());
 
-    				if ( ( $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GATEWAY
-    						|| $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GATE
-    						|| $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR
-    						|| $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_DOOR
-    						|| $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER  )
-    					 && $old_param1 != $channel->getParam1()
-						 && $channel->getParam1() != 0  ) {
+                        if ($related_channel != null
+                            && $related_channel->getFunction() != SuplaConst::FNC_NONE
+                        )
 
-						 	$related_channel = $this->getChannelById($channel->getParam1());
+                            $related_channel->setParam2($channel->getId());
+                    }
 
-						 	if ( $related_channel != null
-						 		 && $related_channel->getFunction() != SuplaConst::FNC_NONE )
+                    break;
 
-						 		$related_channel->setParam2($channel->getId());
+                case SuplaConst::TYPE_RELAY:
+                case SuplaConst::TYPE_RELAYHFD4:
+                case SuplaConst::TYPE_RELAYG5LA1A:
+                case SuplaConst::TYPE_2XRELAYG5LA1A:
 
-						 }
+                    if ($channel->getFunction() == SuplaConst::FNC_NONE
+                        || $old_param2 != $channel->getParam2()
+                    ) {
 
-    				break;
+                        if ($old_param2 != 0) {
+                            $related_sensor = $this->getChannelById($old_param2);
 
-    			case SuplaConst::TYPE_RELAY:
-				case SuplaConst::TYPE_RELAYHFD4:
-				case SuplaConst::TYPE_RELAYG5LA1A:
-				case SuplaConst::TYPE_2XRELAYG5LA1A:
+                            if ($related_sensor !== null)
+                                $related_sensor->setParam1(0);
+                        }
+                    };
 
+                    if ($channel->getFunction() != SuplaConst::FNC_NONE
+                        && $old_param2 != $channel->getParam2()
+                        && $channel->getParam2() != 0
+                    ) {
 
-					if (  $channel->getFunction() == SuplaConst::FNC_NONE
-						  || $old_param2 != $channel->getParam2() ) {
+                        $related_sensor = $this->getChannelById($channel->getParam2());
+                        $related_sensor->setParam1($channel->getId());
+                    }
 
-					      	if ( $old_param2 != 0 ) {
-					      		$related_sensor = $this->getChannelById($old_param2);
+                    break;
+            }
 
-					      		if ( $related_sensor !== null )
-					      		    $related_sensor->setParam1(0);
-					      	}
+            $this->get('doctrine')->getManager()->flush();
+            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
 
-					};
+            $this->user_reconnect();
 
-					if ( $channel->getFunction() != SuplaConst::FNC_NONE
-						 && $old_param2 != $channel->getParam2()
-						 && $channel->getParam2() != 0 ) {
+            return $this->redirectToRoute("_iodev_item", ['id' => $devid]);
+        }
 
-						 	$related_sensor = $this->getChannelById($channel->getParam2());
-						 	$related_sensor->setParam1($channel->getId());
-					}
+        $channelType = $channel->getType();
 
-					break;
-
-
-    		}
-
-
-    		$this->get('doctrine')->getManager()->flush();
-    		$this->get('session')->getFlashBag()->add('success', array('title' => 'Success', 'message' => 'Data saved!'));
-
-    		$this->user_reconnect();
-
-    		return $this->redirectToRoute("_iodev_item", array('id' => $devid));
-    	}
-
-    	$channelType = $channel->getType();
-
-    	return $this->render('SuplaBundle:IODevice:channeledit.html.twig',
-    			array('channel' => $channel,
-    				  'channel_type' => $dev_man->channelTypeToString($channel->getType()),
-    				  'channel_function' => $channel->getFunction(),
-    				  'channel_function_name' => $dev_man->channelFunctionToString($channel->getFunction()),
-    				  'form' => $form->createView(),
-    				  'show_sensorstate' => ( $channelType == SuplaConst::TYPE_SENSORNO
-    				  		                  || $channelType == SuplaConst::TYPE_SENSORNC ) ? true : false,
-    				  'show_temperature' => $channelType == SuplaConst::TYPE_THERMOMETERDS18B20 ? true : false,
-    				  'show_temphumidity' => ( $channelType == SuplaConst::TYPE_DHT11
-    				  		                   || $channelType == SuplaConst::TYPE_DHT21
-    				  		                   || $channelType == SuplaConst::TYPE_DHT22
-    				  		                   || $channelType == SuplaConst::TYPE_AM2301
-    				  		                   || $channelType == SuplaConst::TYPE_AM2302 ) ? true : false,
-    				  'show_distance' => $channelType == SuplaConst::TYPE_DISTANCESENSOR ? true : false,
-    			)
-    	);
-
-
+        return $this->render('SuplaBundle:IODevice:channeledit.html.twig',
+            ['channel' => $channel,
+                'channel_type' => $dev_man->channelTypeToString($channel->getType()),
+                'channel_function' => $channel->getFunction(),
+                'channel_function_name' => $dev_man->channelFunctionToString($channel->getFunction()),
+                'form' => $form->createView(),
+                'show_sensorstate' => ($channelType == SuplaConst::TYPE_SENSORNO
+                    || $channelType == SuplaConst::TYPE_SENSORNC) ? true : false,
+                'show_temperature' => $channelType == SuplaConst::TYPE_THERMOMETERDS18B20 ? true : false,
+                'show_temphumidity' => ($channelType == SuplaConst::TYPE_DHT11
+                    || $channelType == SuplaConst::TYPE_DHT21
+                    || $channelType == SuplaConst::TYPE_DHT22
+                    || $channelType == SuplaConst::TYPE_AM2301
+                    || $channelType == SuplaConst::TYPE_AM2302) ? true : false,
+                'show_distance' => $channelType == SuplaConst::TYPE_DISTANCESENSOR ? true : false,
+            ]
+        );
     }
 
     /**
      * @Route("/{devid}/{id}/csv", name="_iodev_channel_item_csv")
      */
-    public function channelItemGetCSV(Request $request, $devid, $id)
-    {
+    public function channelItemGetCSV(Request $request, $devid, $id) {
 
-    	$channel = $this->getChannelById($id);
+        $channel = $this->getChannelById($id);
 
-    	if ( $channel === null || $channel->getIoDevice()->getId() != $devid )
-    		return $this->redirectToRoute("_iodev_list");
+        if ($channel === null || $channel->getIoDevice()->getId() != $devid)
+            return $this->redirectToRoute("_iodev_list");
 
+        $iodev_man = $this->get('iodevice_manager');
+        $file = $iodev_man->channelGetCSV($channel, "measurement_" . intval($id));
 
-    	$iodev_man = $this->get('iodevice_manager');
-    	$file = $iodev_man->channelGetCSV($channel, "measurement_".intval($id));
+        if ($file !== false) {
 
-    	if ( $file !== FALSE ) {
+            return new StreamedResponse(
+                function () use ($file) {
+                    readfile($file);
+                    unlink($file);
+                }, 200, ['Content-Type' => 'application/zip',
+                    'Content-Disposition' => 'attachment; filename="measurement_' . intval($id) . '.zip"',
+                ]
+            );
+        }
 
-    		return new StreamedResponse(
-    				function () use ($file) {
-    					readfile($file);
-    					unlink($file);
-    				}, 200, array('Content-Type' => 'application/zip',
-    						'Content-Disposition' => 'attachment; filename="measurement_'.intval($id).'.zip"'
-    				)
-    		);
+        $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Error creating file']);
 
-
-    	}
-
-    	$this->get('session')->getFlashBag()->add('error', array('title' => 'Error', 'message' => 'Error creating file'));
-
-    	return $this->redirectToRoute("_iodev_channel_item_edit", array('devid' => $devid, 'id' => $id));
+        return $this->redirectToRoute("_iodev_channel_item_edit", ['devid' => $devid, 'id' => $id]);
     }
 
     /**
      * @Route("/{id}/change_location", name="_iodev_change_loc")
      */
-    public function changeLocationAction(Request $request, $id)
-    {
-    	$iodev = $this->getIODeviceById($id);
+    public function changeLocationAction(Request $request, $id) {
+        $iodev = $this->getIODeviceById($id);
 
-    	if ( $iodev != null ) {
+        if ($iodev != null) {
 
-    		$form = $this->createForm(ChangeLocationType::class, null, array());
-    		$form->handleRequest($request);
+            $form = $this->createForm(ChangeLocationType::class, null, []);
+            $form->handleRequest($request);
 
-    		if ( $form->isSubmitted()
-    			 && $form->isValid()
-    			 && ($new_id = intval(@$request->request->get('selected_id')) ) != $iodev->getLocation()->getId() ) {
+            if ($form->isSubmitted()
+                && $form->isValid()
+                && ($new_id = intval(@$request->request->get('selected_id'))) != $iodev->getLocation()->getId()
+            ) {
 
-    			$loc_man = $this->get('location_manager');
-    			$new_location = $loc_man->locationById($new_id);
+                $loc_man = $this->get('location_manager');
+                $new_location = $loc_man->locationById($new_id);
 
-    			if ( $new_location !== null ) {
-    				$iodev->setLocation($new_location);
+                if ($new_location !== null) {
+                    $iodev->setLocation($new_location);
 
-    				$this->get('doctrine')->getManager()->flush();
-    				$this->get('session')->getFlashBag()->add('success', array('title' => 'Success', 'message' => 'Location has been changed'));
+                    $this->get('doctrine')->getManager()->flush();
+                    $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Location has been changed']);
 
-    				$this->user_reconnect();
-    			}
-    		}
+                    $this->user_reconnect();
+                }
+            }
+        }
 
-
-    	}
-
-    	return $this->redirectToRoute("_iodev_item", array('id' => $id));
+        return $this->redirectToRoute("_iodev_item", ['id' => $id]);
     }
 
-
-    private function ajaxItemEdit(IODevice $iodev, $message, $value)
-    {
-    	$result = AjaxController::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $iodev, $message, $value);
-    	$this->user_reconnect();
-    	return $result;
+    private function ajaxItemEdit(IODevice $iodev, $message, $value) {
+        $result = AjaxController::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $iodev, $message, $value);
+        $this->user_reconnect();
+        return $result;
     }
-
 
     /**
      * @Route("/{device}", methods={"PUT"})
@@ -386,13 +354,13 @@ class IODeviceController extends AbstractController
     public function ajaxSetEnabled(IODevice $device, Request $request) {
         $data = $request->request->all();
         if (isset($data['enabled'])) {
-            if (!$data['enabled'] && !isset($data['confirm'])) {
-                foreach ($device->getChannels() as $channel) {
-                    if (count($channel->getSchedules())) {
-                        return $this->jsonResponse($channel->getSchedules())->setStatusCode(409);
-                    }
+            if (!$data['enabled'] && !($data['confirm'] ?? false)) {
+                $enabledSchedules = $this->get('schedule_manager')->findEnabledSchedulesForDevice($device);
+                if (count($enabledSchedules)) {
+                    return $this->jsonResponse($enabledSchedules)->setStatusCode(409);
                 }
             }
+            $this->get('schedule_manager')->disableSchedulesForDevice($device);
             $device->setEnabled($data['enabled']);
         }
         $this->getDoctrine()->getManager()->persist($device);
@@ -400,64 +368,58 @@ class IODeviceController extends AbstractController
         return $this->jsonResponse($device);
     }
 
-
     /**
      * @Route("/{id}/ajax/setcomment", name="_iodev_ajax_setcomment")
      */
-    public function ajaxSetCaption(Request $request, $id)
-    {
-    	$iodev = $this->getIODeviceById($id);
+    public function ajaxSetCaption(Request $request, $id) {
+        $iodev = $this->getIODeviceById($id);
 
-    	if ( $iodev !== null ) {
-    		$data = json_decode($request->getContent());
-    		$iodev->setComment($data->value);
-    	}
+        if ($iodev !== null) {
+            $data = json_decode($request->getContent());
+            $iodev->setComment($data->value);
+        }
 
-    	return $this->ajaxItemEdit($iodev,
-    			'Comment has been modified',
-    			null
-    	);
+        return $this->ajaxItemEdit($iodev,
+            'Comment has been modified',
+            null
+        );
     }
 
     /**
      * @Route("/ajax/getfuncparams/{channel_id}/{function}", name="_iodev_ajax_getfuncparams")
      */
-    public function ajaxGetfuncparamsAction($channel_id, $function)
-    {
+    public function ajaxGetfuncparamsAction($channel_id, $function) {
 
-    	$dev_man = $this->get('iodevice_manager');
-    	$html = $dev_man->channelFunctionParamsHtmlTemplate($channel_id, $function);
+        $dev_man = $this->get('iodevice_manager');
+        $html = $dev_man->channelFunctionParamsHtmlTemplate($channel_id, $function);
 
-    	return AjaxController::jsonResponse($html !== null, array('html'=>$html));
+        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
 
     /**
      * @Route("/{id}/ajax/change_loc", name="_iodev_ajax_change_loc")
      */
-    public function ajaxChangeLocGetList(Request $request, $id)
-    {
-    	$html = null;
+    public function ajaxChangeLocGetList(Request $request, $id) {
+        $html = null;
 
-    	$user = $this->get('security.token_storage')->getToken()->getUser();
-    	$iodev = $this->getIODeviceById($id);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $iodev = $this->getIODeviceById($id);
 
-    	if ( $user !== null && $iodev !== null ) {
+        if ($user !== null && $iodev !== null) {
 
-    		$form = $this->createForm(ChangeLocationType::class,
-    				null,
-    				array('action'=>$this->generateUrl('_iodev_change_loc', array('id'=>$id))
-    				));
+            $form = $this->createForm(ChangeLocationType::class,
+                null,
+                ['action' => $this->generateUrl('_iodev_change_loc', ['id' => $id]),
+                ]);
 
-    		$html = $this->get('templating')->render('SuplaBundle:IODevice:changelocation.html.twig',
-    				array('form' => $form->createView(),
-    						'locations' => $user->getLocations(),
-    						'selected_id' => $iodev->getLocation() !== null ?  $iodev->getLocation()->getId() : 0,
-    				));
+            $html = $this->get('templating')->render('SuplaBundle:IODevice:changelocation.html.twig',
+                ['form' => $form->createView(),
+                    'locations' => $user->getLocations(),
+                    'selected_id' => $iodev->getLocation() !== null ? $iodev->getLocation()->getId() : 0,
+                ]);
+        }
 
-    	}
-
-
-    	return AjaxController::jsonResponse($html !== null, array('html'=>$html));
+        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
 
 }

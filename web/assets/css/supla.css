@@ -282,8 +282,8 @@ body.device-details .navbar {margin-bottom: 0px; border-bottom-color: rgba(0,0,0
 .location-info .item {max-width: 270px; margin: 0 auto; text-align: left;}
 .location-info .item.enable {background: rgba(255,255,255,0.0);margin-top:8px;}
 .location a#overlay-changelocation {display: inline-block; color: #fff; margin-top: 10px;}
-.device-info ul li {border-bottom: solid 1px rgba(255,255,255,0.4); line-height: 34px; padding-left: 5px;}
-.device-info ul li:last-child {border-bottom: none; position: relative; padding: 3px 0 0 0;}
+.device-info ul.device-details li {border-bottom: solid 1px rgba(255,255,255,0.4); line-height: 34px; padding-left: 5px;}
+.device-info ul.device-details li:last-child {border-bottom: none; position: relative; padding: 3px 0 0 0;}
 .device-info ul li .miniform {width: 320px; position: relative;}
 .device-info ul li .miniform textarea {height: 70px; width: 225px; border-radius: 4px 0 0 4px; border: solid 1px transparent; background: transparent;resize: none; padding: 3px 4px; transition: all 0.3s; line-height: 18px;}
 .device-info ul li .miniform textarea::-webkit-input-placeholder { color: #fff;}

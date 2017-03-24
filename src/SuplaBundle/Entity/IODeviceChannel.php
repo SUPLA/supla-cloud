@@ -21,6 +21,7 @@
 namespace SuplaBundle\Entity;
 
 
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use SuplaBundle\Validator\Constraints as SuplaAssert;
@@ -142,8 +143,8 @@ class IODeviceChannel
     	return $this->user;
     }
 
-    /** @return Schedule[] */
-    public function getSchedules(): array {
+    /** @return Collection|Schedule[] */
+    public function getSchedules(): Collection {
         return $this->schedules;
     }
 

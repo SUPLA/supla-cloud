@@ -21,6 +21,7 @@ namespace SuplaBundle\Controller;
 
 use Assert\Assert;
 use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -139,9 +140,11 @@ class ScheduleController extends AbstractController {
             if (isset($data['disable'])) {
                 $this->get('schedule_manager')->disable($schedule);
             } else if (isset($data['enable'])) {
-                $this->get('schedule_manager')->enable($schedule);
-                if (!$schedule->getEnabled()) {
-                    $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Schedule cannot be enabled']);
+                try {
+                    $this->get('schedule_manager')->enable($schedule);
+                    Assertion::true($schedule->getEnabled(), 'Schedule cannot be enabled');
+                } catch (InvalidArgumentException $e) {
+                    $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => $e->getMessage()]);
                 }
             } else if (isset($data['delete'])) {
                 $this->get('schedule_manager')->delete($schedule);

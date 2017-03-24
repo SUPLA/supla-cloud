@@ -7,8 +7,8 @@ export const mutations = {
 };
 
 export const actions = {
-    toggleEnabled({commit, state}) {
-        return Vue.http.put(`iodev/${state.device.id}`, {enabled: !state.device.enabled})
+    toggleEnabled({commit, state}, confirm) {
+        return Vue.http.put(`iodev/${state.device.id}`, {enabled: !state.device.enabled, confirm: confirm})
             .then(() => commit('setEnabled', !state.device.enabled));
     }
 };

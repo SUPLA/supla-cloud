@@ -20,6 +20,7 @@
 namespace SuplaBundle\Entity;
 
 
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -186,9 +187,14 @@ class IODevice
     	return $this->originalLocation;
     }
 
-    /** @return IODeviceChannel[] */
-    public function getChannels(): array {
+    /** @return Collection|IODeviceChannel[] */
+    public function getChannels(): Collection {
         return $this->channels;
+    }
+
+    /** @return User */
+    public function getUser() {
+        return $this->user;
     }
 
     public function getRegDate()

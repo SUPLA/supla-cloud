@@ -9,13 +9,21 @@
         <button-loading v-if="loading || showSchedulesConfirmation"></button-loading>
         <modal title="Istniejące harmonogramy"
             :show.sync="showSchedulesConfirmation">
-            Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.
+            Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane:
+            <ul>
+                <li v-for="schedule in conflictingSchedules">
+                    {{ $t('Schedule') }} ID{{ schedule.id }}
+                    <span class="small">{{ schedule.caption }}</span>
+                </li>
+            </ul>
+            Czy na pewno chcesz wyłączyć to urządzenie?
             <div slot="footer">
                 <a @click="showSchedulesConfirmation = false"
                     class="cancel">
                     <i class="pe-7s-close"></i>
                 </a>
-                <a class="confirm">
+                <a class="confirm"
+                    @click="toggleEnabled(true)">
                     <i class="pe-7s-check"></i>
                 </a>
             </div>
@@ -33,14 +41,21 @@
         data() {
             return {
                 loading: false,
-                showSchedulesConfirmation: false
+                showSchedulesConfirmation: false,
+                conflictingSchedules: undefined
             };
         },
         methods: {
-            toggleEnabled() {
+            toggleEnabled(confirm = false) {
                 this.loading = true;
-                this.$store.dispatch('toggleEnabled')
-                    .catch(() => this.showSchedulesConfirmation = true)
+                this.showSchedulesConfirmation = false;
+                this.$store.dispatch('toggleEnabled', confirm)
+                    .catch(({body, status}) => {
+                        if (status == 409) {
+                            this.conflictingSchedules = body;
+                            this.showSchedulesConfirmation = true;
+                        }
+                    })
                     .finally(() => this.loading = false);
             }
         },
