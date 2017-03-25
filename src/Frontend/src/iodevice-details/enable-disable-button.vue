@@ -10,15 +10,15 @@
         <confirm-modal v-if="showSchedulesConfirmation"
             @confirm="toggleEnabled(true)"
             @cancel="showSchedulesConfirmation = false">
-            <h4 slot="header">Istniejące harmonogramy</h4>
-            Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane:
+            <h4 slot="header">{{ $t('Existing schedules') }}</h4>
+            {{ $t('Turning this device off will result in disabling all schedules that use it.') }}
             <ul>
                 <li v-for="schedule in conflictingSchedules">
                     {{ $t('Schedule') }} ID{{ schedule.id }}
                     <span class="small">{{ schedule.caption }}</span>
                 </li>
             </ul>
-            Czy na pewno chcesz wyłączyć to urządzenie?
+            {{ $t('Are you sure you want to disable this device?') }}
         </confirm-modal>
     </span>
 </template>
