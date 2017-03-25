@@ -74,10 +74,10 @@ function getDetailId() {
 }
 
 function fadeToUrl(url) {
-    $('#block').fadeOut(300, function () {
+    if (url) {
         window.location = url;
-    })
-    return false;
+    }
+    $('#block').fadeOut(300);
 }
 
 function checkChannelState(state_class, value_id, ajax_action, timeout) {
@@ -567,8 +567,7 @@ function detectIE() {
         });
 
         $('.nav-link').click(function () {
-            fadeToUrl($(this).attr('href'));
-            return false;
+            fadeToUrl();
         });
 
         /*
