@@ -353,19 +353,27 @@ class IODeviceController extends AbstractController {
      */
     public function ajaxSetEnabled(IODevice $device, Request $request) {
         $data = $request->request->all();
-        if (isset($data['enabled'])) {
-            if (!$data['enabled'] && !($data['confirm'] ?? false)) {
-                $enabledSchedules = $this->get('schedule_manager')->findEnabledSchedulesForDevice($device);
-                if (count($enabledSchedules)) {
-                    return $this->jsonResponse($enabledSchedules)->setStatusCode(409);
+        return $this->getDoctrine()->getManager()->transactional(function () use ($device, $data) {
+            if (isset($data['enabled'])) {
+                $scheduleManager = $this->get('schedule_manager');
+                $schedules = $scheduleManager->findSchedulesForDevice($device);
+                if (!$data['enabled'] && !($data['confirm'] ?? false)) {
+                    $enabledSchedules = $scheduleManager->onlyEnabled($schedules);
+                    if (count($enabledSchedules)) {
+                        return $this->jsonResponse($enabledSchedules)->setStatusCode(409);
+                    }
                 }
+                $device->setEnabled($data['enabled']);
+                if (!$device->getEnabled()) {
+                    $this->get('schedule_manager')->disableSchedulesForDevice($device);
+                }
+                return $this->jsonResponse([
+                        'device' => $device,
+                        'schedules' => $schedules,
+                    ]
+                );
             }
-            $this->get('schedule_manager')->disableSchedulesForDevice($device);
-            $device->setEnabled($data['enabled']);
-        }
-        $this->getDoctrine()->getManager()->persist($device);
-        $this->getDoctrine()->getManager()->flush();
-        return $this->jsonResponse($device);
+        });
     }
 
     /**

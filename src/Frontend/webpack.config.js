@@ -3,8 +3,8 @@ var webpack = require('webpack')
 
 var entries = {
     'iodevice-details': './src/iodevice-details/iodevice-details.js',
-    'schedule-form': './src/schedule-form/schedule-form.js',
-    'schedule-list': './src/schedule-list/schedule-list.js',
+    'schedule-form': './src/schedules/schedule-form/schedule-form.js',
+    'schedule-list': './src/schedules/schedule-list/schedule-list.js',
     'user-account': './src/user-account/user-account.js',
     'commons': './src/common.js'
 };

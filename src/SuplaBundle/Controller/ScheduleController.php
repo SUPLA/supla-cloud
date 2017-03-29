@@ -30,13 +30,14 @@ use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\ScheduleListQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/schedule")
  */
 class ScheduleController extends AbstractController {
     /**
-     * @Route("/", name="_schedule_list")
+     * @Route("/", name="_schedule_list", methods={"GET"})
      * @Template
      */
     public function scheduleListAction(Request $request) {
@@ -162,5 +163,22 @@ class ScheduleController extends AbstractController {
         } else {
             return $data;
         }
+    }
+
+    /**
+     * @Route("", methods={"PATCH"})
+     */
+    public function schedulesEditAction(Request $request) {
+        $data = $request->request->all();
+        $this->getDoctrine()->getManager()->transactional(function () use ($data) {
+            if (isset($data['enable'])) {
+                foreach ($this->getUser()->getSchedules() as $schedule) {
+                    if (in_array($schedule->getId(), $data['enable']) && !$schedule->getEnabled()) {
+                        $this->get('schedule_manager')->enable($schedule);
+                    }
+                }
+            }
+        });
+        return new Response(null, 204);
     }
 }

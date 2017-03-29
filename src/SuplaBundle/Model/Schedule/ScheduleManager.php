@@ -173,19 +173,23 @@ class ScheduleManager {
     }
 
     /** @return Schedule[] */
-    public function findEnabledSchedulesForDevice(IODevice $device): array {
-        $enabledSchedules = [];
+    public function findSchedulesForDevice(IODevice $device): array {
+        $schedules = [];
         foreach ($device->getChannels() as $channel) {
-            $enabledSchedulesForChannel = array_filter($channel->getSchedules()->toArray(), function (Schedule $schedule) {
-                return $schedule->getEnabled();
-            });
-            $enabledSchedules = array_merge($enabledSchedules, $enabledSchedulesForChannel);
+            $schedules = array_merge($schedules, $channel->getSchedules()->toArray());
         }
-        return $enabledSchedules;
+        return $schedules;
+    }
+
+    /** @return Schedule[] */
+    public function onlyEnabled(array $schedules): array {
+        return array_filter($schedules, function (Schedule $schedule) {
+            return $schedule->getEnabled();
+        });
     }
 
     public function disableSchedulesForDevice(IODevice $device) {
-        foreach ($this->findEnabledSchedulesForDevice($device) as $schedule) {
+        foreach ($this->onlyEnabled($this->findSchedulesForDevice($device)) as $schedule) {
             $this->disable($schedule);
         }
     }
