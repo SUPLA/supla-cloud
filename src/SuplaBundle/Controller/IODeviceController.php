@@ -249,6 +249,12 @@ class IODeviceController extends AbstractController {
                     break;
             }
 
+            if ($old_function != $channel->getFunction()) {
+                foreach ($channel->getSchedules() as $schedule) {
+                    $this->get('schedule_manager')->delete($schedule);
+                }
+            }
+
             $this->get('doctrine')->getManager()->flush();
             $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
 

@@ -31,6 +31,22 @@
 				<div class="detail-item"><span>{% trans %}Channel No{% endtrans %}</span> <strong>{{ channel.channelnumber }}</strong></div>
 				<div class="detail-item"><span>{% trans %}Type{% endtrans %}</span> <strong>{{ channel_type }}</strong></div>
 				{{ form_start(form) }}
+				{% if channel.schedules.count > 0 %}
+				<div class="alert alert-warning" style="margin: 5px 0">
+					<strong>{{ 'Existing schedules'|trans }}.</strong>
+					{% trans %}If you change the function of the channel, the following schedules will be removed{% endtrans %}:
+					<ul>
+						{% for schedule in channel.schedules %}
+						<li>
+							<a href="{{ path('_schedule_details', {'schedule': schedule.id}) }}">
+								{{ 'Schedule'|trans }} ID{{ schedule.id }}
+								<span class="small">{{ schedule.caption }}</span>
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
 				{{ form_row(form.channel)  }}
 				{{ form_row(form.caption)  }}
 				

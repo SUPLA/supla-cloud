@@ -65,7 +65,7 @@ class IODeviceChannel
 
     /**
      * @var Schedule[]
-     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel")
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
      */
     private $schedules;
     

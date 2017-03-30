@@ -338,3 +338,4 @@ The device is disabled: Urządzenie jest wyłączone
 Existing schedules: Istniejące harmonogramy
 Turning this device off will result in disabling all schedules that use it.: Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
+If you change the function of the channel, the following schedules will be removed: Jeśli zmienisz funkcję tego kanału, harmonogramy przypisane do niego zostaną usunięte
