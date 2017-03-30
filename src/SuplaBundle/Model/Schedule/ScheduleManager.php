@@ -17,10 +17,12 @@
 
 namespace SuplaBundle\Model\Schedule;
 
+use Assert\Assertion;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
@@ -28,8 +30,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 
-class ScheduleManager
-{
+class ScheduleManager {
     /** @var Registry */
     private $doctrine;
     /** @var EntityManagerInterface */
@@ -41,8 +42,7 @@ class ScheduleManager
     /** @var CompositeSchedulePlanner */
     private $schedulePlanner;
 
-    public function __construct($doctrine, IODeviceManager $ioDeviceManager, CompositeSchedulePlanner $schedulePlanner)
-    {
+    public function __construct($doctrine, IODeviceManager $ioDeviceManager, CompositeSchedulePlanner $schedulePlanner) {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
         $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');
@@ -51,8 +51,7 @@ class ScheduleManager
     }
 
     /** @return IODeviceChannel[] */
-    public function getSchedulableChannels(User $user)
-    {
+    public function getSchedulableChannels(User $user) {
         $schedulableFunctions = $this->getFunctionsThatCanBeScheduled();
         $channels = $this->doctrine->getRepository('SuplaBundle:IODeviceChannel')->findBy(['user' => $user]);
         $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
@@ -62,15 +61,14 @@ class ScheduleManager
     }
 
     /** @return IODeviceChannel[] */
-    private function sortByFunctionNameAndCaption(array $schedulableChannels)
-    {
+    private function sortByFunctionNameAndCaption(array $schedulableChannels) {
         $slugify = new Slugify();
         $channelsList = [];
         foreach ($schedulableChannels as $channel) {
             $sortKey = $slugify->slugify(implode(' ', [
                 $this->ioDeviceManager->channelFunctionToString($channel->getFunction()),
                 $channel->getCaption() ? $channel->getCaption() : 'zzzzzz', // Default zzzzz caption places the items without caption at the end. Lame, but works :-D
-                $channel->getId()
+                $channel->getId(),
             ]));
             $channelsList[$sortKey] = $channel;
         }
@@ -78,13 +76,11 @@ class ScheduleManager
         return array_values($channelsList);
     }
 
-    private function getFunctionsThatCanBeScheduled()
-    {
+    private function getFunctionsThatCanBeScheduled() {
         return array_keys($this->ioDeviceManager->functionActionMap());
     }
 
-    public function generateScheduledExecutions(Schedule $schedule, $until = '+5days')
-    {
+    public function generateScheduledExecutions(Schedule $schedule, $until = '+5days') {
         $nextRunDates = $this->getNextRunDates($schedule, $until);
         foreach ($nextRunDates as $nextRunDate) {
             $this->entityManager->persist(new ScheduledExecution($schedule, $nextRunDate));
@@ -101,8 +97,7 @@ class ScheduleManager
         $this->entityManager->flush();
     }
 
-    public function getNextRunDates(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX, $ignoreExisting = false)
-    {
+    public function getNextRunDates(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX, $ignoreExisting = false) {
         $userTimezone = $schedule->getUserTimezone();
         if ($schedule->getDateEnd()) {
             $schedule->getDateEnd()->setTimezone($userTimezone);
@@ -120,8 +115,7 @@ class ScheduleManager
         return $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
     }
 
-    public function findClosestExecutions(Schedule $schedule, $contextSize = 3)
-    {
+    public function findClosestExecutions(Schedule $schedule, $contextSize = 3) {
         $criteria = new \Doctrine\Common\Collections\Criteria();
         $now = $this->getNow();
         $criteria
@@ -139,12 +133,11 @@ class ScheduleManager
         $inPast = $this->scheduledExecutionsRepository->matching($criteria)->toArray();
         return [
             'past' => array_reverse($inPast),
-            'future' => $inFuture
+            'future' => $inFuture,
         ];
     }
 
-    public function disable(Schedule $schedule)
-    {
+    public function disable(Schedule $schedule) {
         $schedule->setEnabled(false);
         $this->deleteScheduledExecutions($schedule);
         $schedule->setNextCalculationDate($this->getNow());
@@ -152,8 +145,7 @@ class ScheduleManager
         $this->entityManager->flush();
     }
 
-    public function deleteScheduledExecutions(Schedule $schedule)
-    {
+    public function deleteScheduledExecutions(Schedule $schedule) {
         $this->entityManager->createQueryBuilder()
             ->delete('SuplaBundle:ScheduledExecution', 's')
             ->where('s.schedule = :schedule')
@@ -163,27 +155,46 @@ class ScheduleManager
             ->execute();
     }
 
-    public function enable(Schedule $schedule)
-    {
+    public function enable(Schedule $schedule) {
+        Assertion::true($schedule->getChannel()->getIoDevice()->getEnabled(), 'The device is disabled');
         $schedule->setEnabled(true);
         $this->generateScheduledExecutions($schedule, '+2days');
     }
 
-    public function recalculateScheduledExecutions(Schedule $schedule)
-    {
+    public function recalculateScheduledExecutions(Schedule $schedule) {
         $this->disable($schedule);
         $this->enable($schedule);
     }
 
-    public function delete(Schedule $schedule)
-    {
+    public function delete(Schedule $schedule) {
         $this->deleteScheduledExecutions($schedule);
         $this->entityManager->remove($schedule);
         $this->entityManager->flush();
     }
 
-    private function getNow()
-    {
+    /** @return Schedule[] */
+    public function findSchedulesForDevice(IODevice $device): array {
+        $schedules = [];
+        foreach ($device->getChannels() as $channel) {
+            $schedules = array_merge($schedules, $channel->getSchedules()->toArray());
+        }
+        return $schedules;
+    }
+
+    /** @return Schedule[] */
+    public function onlyEnabled(array $schedules): array {
+        return array_filter($schedules, function (Schedule $schedule) {
+            return $schedule->getEnabled();
+        });
+    }
+
+    public function disableSchedulesForDevice(IODevice $device) {
+        foreach ($this->onlyEnabled($this->findSchedulesForDevice($device)) as $schedule) {
+            $this->disable($schedule);
+        }
+    }
+
+    private function getNow() {
         return new \DateTime('now', new \DateTimeZone('UTC'));
     }
 }

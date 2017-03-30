@@ -21,6 +21,7 @@ namespace SuplaBundle\Controller;
 
 use Assert\Assert;
 use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -29,13 +30,14 @@ use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\ScheduleListQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/schedule")
  */
 class ScheduleController extends AbstractController {
     /**
-     * @Route("/", name="_schedule_list")
+     * @Route("/", name="_schedule_list", methods={"GET"})
      * @Template
      */
     public function scheduleListAction(Request $request) {
@@ -139,9 +141,11 @@ class ScheduleController extends AbstractController {
             if (isset($data['disable'])) {
                 $this->get('schedule_manager')->disable($schedule);
             } else if (isset($data['enable'])) {
-                $this->get('schedule_manager')->enable($schedule);
-                if (!$schedule->getEnabled()) {
-                    $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Schedule cannot be enabled']);
+                try {
+                    $this->get('schedule_manager')->enable($schedule);
+                    Assertion::true($schedule->getEnabled(), 'Schedule cannot be enabled');
+                } catch (InvalidArgumentException $e) {
+                    $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => $e->getMessage()]);
                 }
             } else if (isset($data['delete'])) {
                 $this->get('schedule_manager')->delete($schedule);
@@ -159,5 +163,22 @@ class ScheduleController extends AbstractController {
         } else {
             return $data;
         }
+    }
+
+    /**
+     * @Route("", methods={"PATCH"})
+     */
+    public function schedulesEditAction(Request $request) {
+        $data = $request->request->all();
+        $this->getDoctrine()->getManager()->transactional(function () use ($data) {
+            if (isset($data['enable'])) {
+                foreach ($this->getUser()->getSchedules() as $schedule) {
+                    if (in_array($schedule->getId(), $data['enable']) && !$schedule->getEnabled()) {
+                        $this->get('schedule_manager')->enable($schedule);
+                    }
+                }
+            }
+        });
+        return new Response(null, 204);
     }
 }

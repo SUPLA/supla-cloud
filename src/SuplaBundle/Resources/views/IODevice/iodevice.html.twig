@@ -1,6 +1,7 @@
 {% extends 'SuplaBundle::layout.html.twig' %}
 
 {% block content %}
+	<script>window.DEVICE = {{ {id: iodevice.id, enabled: iodevice.enabled, name: iodevice.name}|json_encode|raw }};</script>
 <div class="device-wrapper animated fadeIn" id="iodevice-detail" data-id="{{iodevice.id}}" data-item-path="{{ path('_iodev_item', {'id': iodevice.id}) }}">
 	<div class="container">
 	<a href="#0" class="cd-btn"><i class="pe-7s-help1"></i></a>
@@ -16,7 +17,7 @@
 			<div class="device">
 				<h3>{% trans %}Device{% endtrans %}</h3>
 				<div class="device-info">
-					<ul class="list-unstyled">
+					<ul class="list-unstyled device-details">
 						<li><strong>{{ iodevice.name }}</strong></li>
 						<li>GUID <strong>{{ iodevice.guidstring }}</strong></li>
 						<li>{% trans %}Registred{% endtrans %} <strong>{{ iodevice.regdate|date("d.m.Y H:i") }}</strong></li>
@@ -28,10 +29,7 @@
 					</ul>
 					
 					<br />
-				<div data-preloader="set-enabled-pl" class="btn btn-default btn-enable" {%if iodevice.enabled == false%}style="display: none;"{%endif%}><strong>{% trans %}ENABLED{% endtrans %}</strong><br >{% trans %}CLICK TO DISABLE{% endtrans %}</div>
-				<div data-preloader="set-enabled-pl" class="btn btn-default btn-disable" {%if iodevice.enabled == true%}style="display: none;"{%endif%}><strong>{% trans %}DISABLED{% endtrans %}</strong><br >{% trans %}CLICK TO ENABLE{% endtrans %}</div> 
-				<div class="btn btn-load btn-big" id="set-enabled-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
-						
+					<enable-disable-button></enable-disable-button>
 					<div class="iodev_connection_state" data-id="{{ iodevice.id }}"><span class="unknown">unknown</span></div>
 					<div class="btn btn-default btn-trash" id="overlay-delete">{% trans %}DELETE{% endtrans %}</div>
 				</div>
@@ -88,7 +86,7 @@
 </div>
 
 
-<div class="container margin-top-30 ">
+<div class="container margin-top-30 low-z-index">
     <h1 class="title">{% trans %}Channels{% endtrans %}
 		<div class="pull-right filter-container">
 			<div id="filters" class="btn-group">
@@ -103,7 +101,7 @@
 		</div>
 	
 	</h1>
-</div>
+
 
 <div class="channels">
 	{% for  channel in channels %}
@@ -125,7 +123,7 @@
 	   </a>
 	 {% endfor %}
 </div>
-
+</div>
 
 <div class="overlay-delete overlay-data">
 	<div class="dialog">
@@ -157,4 +155,8 @@
 	</div> <!-- cd-panel -->
             
 <script src="{{ asset('assets/js/iodev_item.js') }}"></script>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ asset('assets/dist/iodevice-details.js', 'webpack') }}"></script>
 {% endblock %}

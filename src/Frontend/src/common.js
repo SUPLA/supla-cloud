@@ -6,6 +6,8 @@ import VueI18N from 'vue-i18n'
 import VueResource from 'vue-resource'
 import * as translations from './translations';
 import 'moment-timezone';
+import 'style-loader!css-loader!sass-loader!./styles.scss';
+import './common/common-components';
 
 Vue.use(Vuex);
 Vue.use(VueI18N);

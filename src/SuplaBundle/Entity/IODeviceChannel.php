@@ -21,6 +21,7 @@
 namespace SuplaBundle\Entity;
 
 
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use SuplaBundle\Validator\Constraints as SuplaAssert;
@@ -61,6 +62,12 @@ class IODeviceChannel
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
+
+    /**
+     * @var Schedule[]
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
+     */
+    private $schedules;
     
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
@@ -135,7 +142,12 @@ class IODeviceChannel
     {
     	return $this->user;
     }
-    
+
+    /** @return Collection|Schedule[] */
+    public function getSchedules(): Collection {
+        return $this->schedules;
+    }
+
     public function getFunction()
     {
     	return $this->function;

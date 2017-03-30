@@ -1,0 +1,8 @@
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
+.low-z-index { // fixes some problems with elements appearing incorrectly above the others
+  position: relative;
+  z-index: 1
+}

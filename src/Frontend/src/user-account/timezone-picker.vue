@@ -16,7 +16,6 @@
     import "bootstrap-chosen/bootstrap-chosen.css";
 
     export default {
-        name: 'app',
         props: ['timezone'],
         mounted() {
             Vue.nextTick(() => $(this.$refs.dropdown).chosen({search_contains: true}).change((e) => {

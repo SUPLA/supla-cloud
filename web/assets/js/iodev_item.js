@@ -26,58 +26,6 @@ function getAjaxUrl(itempath, fnc) {
 }
 
 
-
-function setEnabled(src_sel, dst_sel, detail_sel, enabled) {
-	
-	
-	if ( $(src_sel) == undefined
-		  || $(dst_sel) == undefined
-		  || $(detail_sel) == undefined )
-		return;
-	
-	 var id = $(detail_sel).data('id');
-
-	 if ( id == undefined 
-	      || id.length == 0 
-	      || id == 0 )
-		 return;
-	
-	 $(src_sel).hide();
-     
-     var pl = $(src_sel).data('preloader');
-     pl = $('#'+pl);
-     pl.show();
-     
-
- 	$.ajax( {type: "POST", url: getAjaxUrl($(detail_sel).data('item-path'), 'setenabled/'+enabled) } )
-     .done(function( response ) {      
-     	
-     	if ( response.success ) {
-     		
-     		
- 
-    	    pl.hide();
-   		    $(dst_sel).show();
-     		
-     		
-     	} else {
-     		
-             if ( pl.length != 0 )
-             	pl.hide();
-             
-             $(src_sel).show();
-     	}
-     	
-     	new PNotify({
-                title: response.flash.title,
-                text: response.flash.message,
-                type: response.flash.type
-     	});
-     	
-     });
-	
-}
-
 function setItem(save_btn, data_sel, txt_sel, detail_sel, action) {
 	
   	 var id = $(detail_sel).data('id');
@@ -191,16 +139,7 @@ $(document).ready(function(){
 		$( ".overlay-changelocation" ).removeClass( 'overlay-open' );
 	});
 	
-	   
-    
-    $(".btn-enable").click(function() {  	
-    	setEnabled('.btn-enable', '.btn-disable', getDetailId(), '0');
-    });
-    
-    $(".btn-disable").click(function() {
-    	setEnabled('.btn-disable', '.btn-enable', getDetailId(), '1');
-    });
-    
+
     $("#caption-save").click(function() {
     	setItem($(this), '#caption', '.caption_value', getDetailId(), 'setcaption');
     });

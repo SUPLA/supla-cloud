@@ -20,6 +20,8 @@
 namespace SuplaBundle\Entity;
 
 
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -41,6 +43,7 @@ class IODevice
 	 * @ORM\Id
 	 * @ORM\Column(name="id", type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic", "flat"})
 	 */
 	private $id;
 	
@@ -52,6 +55,7 @@ class IODevice
     /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
+     * @Groups({"basic", "flat"})
      */
     private $name;
 
@@ -66,7 +70,13 @@ class IODevice
      * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
      */
     private $originalLocation;
-    
+
+    /**
+     * @var IODeviceChannel[]
+     * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="iodevice")
+     */
+    private $channels;
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="iodevices")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
@@ -75,12 +85,14 @@ class IODevice
     
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @Groups({"basic", "flat"})
      */
     private $enabled;
     
     /**
      * @ORM\Column(name="comment", type="string", length=200, nullable=true)
      * @Assert\Length(max=200)
+     * @Groups({"basic", "flat"})
      */
     private $comment;
     
@@ -174,7 +186,17 @@ class IODevice
     {
     	return $this->originalLocation;
     }
-    
+
+    /** @return Collection|IODeviceChannel[] */
+    public function getChannels(): Collection {
+        return $this->channels;
+    }
+
+    /** @return User */
+    public function getUser() {
+        return $this->user;
+    }
+
     public function getRegDate()
     {
     	return $this->regDate;
