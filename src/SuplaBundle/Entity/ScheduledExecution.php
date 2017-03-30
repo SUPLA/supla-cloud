@@ -80,7 +80,7 @@ class ScheduledExecution {
         $this->plannedTimestamp = $plannedTimestamp;
     }
 
-    public function getPlannedTimestamp() {
+    public function getPlannedTimestamp(): \DateTime {
         return $this->plannedTimestamp;
     }
 
