@@ -339,3 +339,6 @@ Existing schedules: Istniejące harmonogramy
 Turning this device off will result in disabling all schedules that use it.: Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 If you change the function of the channel, the following schedules will be removed: Jeśli zmienisz funkcję tego kanału, harmonogramy przypisane do niego zostaną usunięte
+Please select the schedules that should also be enabled.: Zaznacz harmonogramy, które także powinny zostać włączone.
+You have no devices that can be scheduled: Nie masz żadnych urządzeń, które można dodać do harmonogramu
+You will be redirected back to the schedules list now.: Zostaniesz teraz przekierowany do listy harmonogramów

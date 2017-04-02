@@ -1,4 +1,6 @@
 import Vue from "vue";
-import ConfirmModal from "./confirm-modal.vue";
+import Modal from "./modal.vue";
+import ModalConfirm from "./modal-confirm.vue";
 
-Vue.component('confirmModal', ConfirmModal);
+Vue.component('modal', Modal);
+Vue.component('modalConfirm', ModalConfirm);

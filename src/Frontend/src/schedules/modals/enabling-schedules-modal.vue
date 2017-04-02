@@ -1,7 +1,7 @@
 <template>
-    <confirm-modal @confirm="enableSchedules()"
-        @cancel="$emit('cancel')">
-        <h4 slot="header">{{ $t('Existing schedules') }}</h4>
+    <modal-confirm @confirm="enableSchedules()"
+        @cancel="$emit('cancel')"
+        :header="$t('Existing schedules')">
         {{ $t('Please select the schedules that should also be enabled.') }}
         <ul>
             <li v-for="schedule in schedules">
@@ -16,7 +16,7 @@
                 </div>
             </li>
         </ul>
-    </confirm-modal>
+    </modal-confirm>
 </template>
 
 <script>

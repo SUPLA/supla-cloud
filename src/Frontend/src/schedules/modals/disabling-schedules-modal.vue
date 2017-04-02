@@ -1,7 +1,7 @@
 <template>
-    <confirm-modal @confirm="$emit('confirm')"
-        @cancel="$emit('cancel')">
-        <h4 slot="header">{{ $t('Existing schedules') }}</h4>
+    <modal-confirm @confirm="$emit('confirm')"
+        @cancel="$emit('cancel')"
+        :header="$t('Existing schedules')">
         {{ $t(message) }}
         <ul>
             <li v-for="schedule in schedules">
@@ -10,7 +10,7 @@
             </li>
         </ul>
         {{ $t('Are you sure you want to disable this device?') }}
-    </confirm-modal>
+    </modal-confirm>
 </template>
 
 <script>

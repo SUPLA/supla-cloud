@@ -30,10 +30,16 @@
                 </span>
             </div>
         </div>
+        <modal v-if="userChannels === undefined"
+            class="modal-warning"
+            @close="goToSchedulesList()"
+            :header="$t('You have no devices that can be scheduled')">
+            {{ $t('You will be redirected back to the schedules list now.') }}
+        </modal>
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import Vue from "vue";
     import {mapState} from "vuex";
     import moment from "moment";
@@ -41,6 +47,7 @@
     import "bootstrap-chosen/bootstrap-chosen.css";
     import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage.vue";
+    import {withBaseUrl} from "../../../common/filters";
 
     export default {
         name: 'schedule-form-action-chooser',
@@ -54,17 +61,24 @@
         },
         mounted() {
             this.$http.get('account/schedulable-channels').then(({body}) => {
-                this.userChannels = body.userChannels;
-                this.channelFunctionMap = body.channelFunctionMap;
-                this.actionCaptions = body.actionCaptions;
-                Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
-                    this.channel = e.currentTarget.value;
-                }));
+                if (body.userChannels.length) {
+                    this.userChannels = body.userChannels;
+                    this.channelFunctionMap = body.channelFunctionMap;
+                    this.actionCaptions = body.actionCaptions;
+                    Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
+                        this.channel = e.currentTarget.value;
+                    }));
+                } else {
+                    this.userChannels = undefined;
+                }
             });
         },
         methods: {
             channelTitle(channel) {
                 return (channel.caption || channel.functionName) + ` (${channel.device.location.caption} / ${channel.device.name})`;
+            },
+            goToSchedulesList() {
+                window.location.assign(withBaseUrl('schedule'));
             }
         },
         computed: {

@@ -7,9 +7,7 @@
                 <div class="modal-container">
 
                     <div class="modal-header">
-                        <slot name="header">
-                            {{ $t('Are you sure?') }}
-                        </slot>
+                        <h4>{{ header }}</h4>
                     </div>
 
                     <div class="modal-body">
@@ -18,12 +16,7 @@
 
                     <div class="modal-footer">
                         <slot name="footer">
-                            <a @click="$emit('cancel')"
-                                class="cancel">
-                                <i class="pe-7s-close"></i>
-                            </a>
-                            <a class="confirm"
-                                @click="$emit('confirm')">
+                            <a @click="$emit('close')">
                                 <i class="pe-7s-check"></i>
                             </a>
                         </slot>
@@ -35,7 +28,9 @@
 </template>
 
 <script>
-    export default {};
+    export default {
+        props: ['header']
+    };
 </script>
 
 <style lang="scss"
@@ -100,9 +95,19 @@
                 vertical-align: middle;
                 font-size: 4em;
             }
-            .cancel {
-                color: #BBB;
+        }
+    }
+
+    @mixin modal-variant($type, $color) {
+        .modal-#{$type} {
+            h4 {
+                color: $color;
+            }
+            .modal-footer a {
+                color: $color;
             }
         }
     }
+
+    @include modal-variant(warning, #d6cb25);
 </style>
