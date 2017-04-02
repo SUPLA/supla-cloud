@@ -23,6 +23,7 @@
 
 <script type="text/babel">
     import Vue from 'vue';
+    import {withBaseUrl} from "../../common/filters";
     export default {
         name: 'schedule-list',
         data() {
@@ -107,7 +108,7 @@
                 }
             },
             onRowClicked(row) {
-                window.location.href = `${Vue.http.options.root}/schedule/${row.schedule.id}`;
+                window.location.href = withBaseUrl(`/schedule/${row.schedule.id}`);
             }
         }
     };

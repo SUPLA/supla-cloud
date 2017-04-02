@@ -8,6 +8,7 @@ import * as translations from './translations';
 import 'moment-timezone';
 import 'style-loader!css-loader!sass-loader!./styles.scss';
 import './common/common-components';
+import './common/filters';
 
 Vue.use(Vuex);
 Vue.use(VueI18N);

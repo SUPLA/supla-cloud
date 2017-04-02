@@ -1,4 +1,5 @@
 import Vue from "vue";
+import {withBaseUrl} from "../../common/filters";
 
 export const mutations = {
     changeScheduleMode (state, newScheduleMode) {
@@ -111,7 +112,7 @@ export const actions = {
             promise = Vue.http.post('schedule/create', state);
         }
         promise
-            .then(({body: schedule}) => window.location.href = Vue.http.options.root + '/schedule/' + schedule.id)
+            .then(({body: schedule}) => window.location.href = withBaseUrl(`/schedule/${schedule.id}`))
             .catch(() => commit('submitFailed'));
     },
 
