@@ -48,6 +48,7 @@ h1 {
 	text-transform: capitalize;
 	letter-spacing: -3px;
 	margin: 10px 0;
+	position: relative;
 	-webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
     -webkit-animation-fill-mode: both;
