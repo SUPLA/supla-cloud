@@ -7,25 +7,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class AjaxExceptionHandler implements EventSubscriberInterface
-{
+class AjaxExceptionHandler implements EventSubscriberInterface {
     private $isDebug;
 
-    public function __construct($isDebug)
-    {
+    public function __construct($isDebug) {
         $this->isDebug = $isDebug;
     }
 
-    public function onException(GetResponseForExceptionEvent $event)
-    {
+    public function onException(GetResponseForExceptionEvent $event) {
         if (in_array('application/json', $event->getRequest()->getAcceptableContentTypes())) {
             $errorResponse = $this->createErrorResponse($event->getException());
             $event->setResponse($errorResponse);
         }
     }
 
-    public function createErrorResponse(\Exception $e)
-    {
+    public function createErrorResponse(\Exception $e) {
         if ($e instanceof InvalidArgumentException) {
             return new JsonResponse([
                 'status' => 400,
@@ -39,9 +35,7 @@ class AjaxExceptionHandler implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
-    {
+    public static function getSubscribedEvents() {
         return [KernelEvents::EXCEPTION => 'onException'];
     }
 }
-

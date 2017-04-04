@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/Form/Type/AssignType.php
 
@@ -20,40 +20,34 @@
 namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AssignType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('cancel', ButtonType::class, array(
-    			'label' => 'Cancel',
-    			'attr' => array('class' => 'overlay-close cancel'),
-    	))
-    	->add('save', SubmitType::class, array('label' => ' ',
-    			'attr' => array('class' => 'save pe-7s-check')
-    	));
-    	
-    	if ( $options['action'] != '' )
-    		$builder->setAction($options['action']);
-    	
-    } 
+class AssignType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('cancel', ButtonType::class, [
+            'label' => 'Cancel',
+            'attr' => ['class' => 'overlay-close cancel'],
+        ])
+            ->add('save', SubmitType::class, ['label' => ' ',
+                'attr' => ['class' => 'save pe-7s-check'],
+            ]);
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-        	'cancel_url' => '',
-        	'action' => ''
-        ));
+        if ($options['action'] != '') {
+            $builder->setAction($options['action']);
+        }
     }
 
-    public function getBlockPrefix()
-    {
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
+            'cancel_url' => '',
+            'action' => '',
+        ]);
+    }
+
+    public function getBlockPrefix() {
         return '_assign_type';
     }
-    
-
 }

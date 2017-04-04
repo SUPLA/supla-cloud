@@ -19,22 +19,19 @@
 
 namespace SuplaBundle\Entity;
 
-
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @UniqueEntity(fields="email", message="Email already exists")
  * @ORM\Table(name="supla_user")
  */
-class User implements AdvancedUserInterface
-{
+class User implements AdvancedUserInterface {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -109,14 +106,12 @@ class User implements AdvancedUserInterface
      */
     private $passwordRequestedAt;
 
-
     private $recaptcha;
 
     /**
      * @ORM\Column(name="timezone", type="string", length=50, nullable=false)
      */
     private $timezone;
-
 
     /**
      * @ORM\Column(name="limit_aid", type="integer")
@@ -141,7 +136,6 @@ class User implements AdvancedUserInterface
      * @Assert\NotBlank()
      */
     private $limitClientApp;
-
 
     /**
      * @ORM\Column(name="limit_schedule", type="integer", options={"default"=10})
@@ -168,8 +162,7 @@ class User implements AdvancedUserInterface
      **/
     private $schedules;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->limitAid = 10;
         $this->limitLoc = 10;
         $this->limitIoDev = 100;
@@ -187,76 +180,63 @@ class User implements AdvancedUserInterface
         $this->timezone = date_default_timezone_get();
     }
 
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->email;
     }
 
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->email = $username;
 
         return $this;
     }
 
-    public function getRecaptcha()
-    {
+    public function getRecaptcha() {
         return $this->recaptcha;
     }
 
-    public function setRecaptcha($recaptcha)
-    {
+    public function setRecaptcha($recaptcha) {
         $this->recaptcha = $recaptcha;
     }
 
-    public function getSalt()
-    {
+    public function getSalt() {
         return $this->salt;
     }
 
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getPassword()
-    {
+    public function getPassword() {
 
         return $this->password;
     }
 
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getPlainPassword()
-    {
+    public function getPlainPassword() {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($password)
-    {
+    public function setPlainPassword($password) {
         $this->plainPassword = $password;
         return $this;
     }
 
-    public function eraseCredentials()
-    {
+    public function eraseCredentials() {
         $this->plainPassword = null;
     }
 
@@ -265,8 +245,7 @@ class User implements AdvancedUserInterface
      *
      * @return \DateTime
      */
-    public function getRegDate()
-    {
+    public function getRegDate() {
         return $this->regDate;
     }
 
@@ -275,25 +254,21 @@ class User implements AdvancedUserInterface
      *
      * @return \DateTime
      */
-    public function getLastLogin()
-    {
+    public function getLastLogin() {
         return $this->lastLogin;
     }
 
-    public function setLastLogin(\DateTime $time)
-    {
+    public function setLastLogin(\DateTime $time) {
         $this->lastLogin = $time;
 
         return $this;
     }
 
-    public function getLastIpv4()
-    {
+    public function getLastIpv4() {
         return long2ip($this->lastIpv4);
     }
 
-    public function setLastIpv4($ipstring)
-    {
+    public function setLastIpv4($ipstring) {
         $this->lastIpv4 = ip2long($ipstring);
     }
 
@@ -302,42 +277,34 @@ class User implements AdvancedUserInterface
      *
      * @return \DateTime
      */
-    public function getCurrentLogin()
-    {
+    public function getCurrentLogin() {
         return $this->currentLogin;
     }
 
-    public function setCurrentLogin(\DateTime $time)
-    {
+    public function setCurrentLogin(\DateTime $time) {
         $this->currentLogin = $time;
 
         return $this;
     }
 
-    public function getCurrentIpv4()
-    {
+    public function getCurrentIpv4() {
         return long2ip($this->currentIpv4);
     }
 
-    public function setCurrentIpv4($ipstring)
-    {
+    public function setCurrentIpv4($ipstring) {
         $this->currentIpv4 = ip2long($ipstring);
     }
 
-    public function moveCurrentLoginToLastLogin()
-    {
+    public function moveCurrentLoginToLastLogin() {
         $this->lastLogin = $this->currentLogin;
         $this->lastIpv4 = $this->currentIpv4;
-
     }
 
-    public function getToken()
-    {
+    public function getToken() {
         return $this->token;
     }
 
-    public function genToken()
-    {
+    public function genToken() {
         $bytes = false;
 
         if (function_exists('openssl_random_pseudo_bytes')) {
@@ -346,7 +313,6 @@ class User implements AdvancedUserInterface
         }
 
         if ($bytes === false) {
-
             $logger = $this->get('logger');
 
             if ($logger !== null) {
@@ -359,14 +325,12 @@ class User implements AdvancedUserInterface
         $this->setToken(rtrim(strtr(base64_encode($bytes), '+/', '-_'), '='));
     }
 
-    public function setToken($token)
-    {
+    public function setToken($token) {
         $this->token = $token;
         return $this;
     }
 
-    public function setPasswordRequestedAt(\DateTime $date = null)
-    {
+    public function setPasswordRequestedAt(\DateTime $date = null) {
         $this->passwordRequestedAt = $date;
 
         return $this;
@@ -377,8 +341,7 @@ class User implements AdvancedUserInterface
      *
      * @return null|\DateTime
      */
-    public function getPasswordRequestedAt()
-    {
+    public function getPasswordRequestedAt() {
         return $this->passwordRequestedAt;
     }
 
@@ -387,16 +350,14 @@ class User implements AdvancedUserInterface
      *
      * @return array The roles
      */
-    public function getRoles()
-    {
+    public function getRoles() {
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles)
-    {
-        $this->roles = array();
+    public function setRoles(array $roles) {
+        $this->roles = [];
 
         foreach ($roles as $role) {
             $this->addRole($role);
@@ -405,91 +366,74 @@ class User implements AdvancedUserInterface
         return $this;
     }
 
-    public function isEnabled()
-    {
+    public function isEnabled() {
         return $this->enabled;
     }
 
-    public function setEnabled($boolean)
-    {
+    public function setEnabled($boolean) {
         $this->enabled = (Boolean)$boolean;
 
         return $this;
     }
 
-    public function isAccountNonExpired()
-    {
+    public function isAccountNonExpired() {
         return true;
     }
 
-    public function isAccountNonLocked()
-    {
+    public function isAccountNonLocked() {
         return true;
     }
 
-    public function isCredentialsNonExpired()
-    {
+    public function isCredentialsNonExpired() {
         return true;
     }
 
-    public function getAccessIDS()
-    {
+    public function getAccessIDS() {
         return $this->accessids;
     }
 
-    public function getLocations()
-    {
+    public function getLocations() {
         return $this->locations;
     }
 
-    public function getIODevices()
-    {
+    public function getIODevices() {
         return $this->iodevices;
     }
 
-    public function getLimitAid()
-    {
+    public function getLimitAid() {
         return $this->limitAid;
     }
 
-    public function getLimitLoc()
-    {
+    public function getLimitLoc() {
         return $this->limitLoc;
     }
 
-    public function getTimezone()
-    {
+    public function getTimezone() {
         return $this->timezone;
     }
 
-    public function setTimezone($timezone)
-    {
+    public function setTimezone($timezone) {
         $this->timezone = $timezone;
     }
 
-    public function getLimitSchedule()
-    {
+    public function getLimitSchedule() {
         return $this->limitSchedule;
     }
 
-    public function setLimitSchedule($limitSchedule)
-    {
+    public function setLimitSchedule($limitSchedule) {
         $this->limitSchedule = $limitSchedule;
     }
 
     /** Schedule[] */
-    public function getSchedules()
-    {
+    public function getSchedules() {
         return $this->schedules;
     }
 
-    public function setSchedules($schedules)
-    {
+    public function setSchedules($schedules) {
         $this->schedules = $schedules;
     }
 
-    public function isLimitScheduleExceeded()
-    {
+    public function isLimitScheduleExceeded() {
         return $this->getLimitSchedule() > 0 && count($this->getSchedules()) >= $this->getLimitSchedule();
     }
 }

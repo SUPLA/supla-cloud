@@ -23,114 +23,107 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+class DefaultController extends Controller {
 
-class DefaultController extends Controller
-{
-	
-	private function _getBaseAidLid(&$aid, &$loc, $aid_enabled, $loc_enabled) {
-		
-		$aid = null;
-		$loc = null;
-		
-		$user = $this->get('security.token_storage')->getToken()->getUser();
-		
-		for($a=0;$a<$user->getAccessIds()->count();$a++)
-			if ( $aid == null
-					&& ( $aid_enabled === false
-							|| $user->getAccessIds()->get($a)->getEnabled() === true ) ) {
-							 
-							$aid = $user->getAccessIds()->get($a);
-							break;
-			}
-		
-		
-		if ( $aid != null ) {
-			
-			for($a=0;$a<$aid->getLocations()->count();$a++)
-				if ( $loc == null
-						&& ( $loc_enabled === false
-								|| $aid->getLocations()->get($a)->getEnabled() === true ) ) {
-								 
-								$loc = $aid->getLocations()->get($a);
-								break;
-				}
-			
-		}
-		
-		return $aid !== null && $loc !== null;
-		
-	}
-	
-	private function getBaseAidLid(&$aid, &$loc) {
-	
-		$aid = null;
-		$loc = null;
-	
-		if ( $this->_getBaseAidLid($aid, $loc, true, true)
-			 || $this->_getBaseAidLid($aid, $loc, true, false) 
-			 || $this->_getBaseAidLid($aid, $loc, false, true)
-			 || $this->_getBaseAidLid($aid, $loc, false, false)  ) {
-			 	
-			return true;
-		};
-		
-		
-		return false;			
-	}
-	
-	/**
-	 * @Route("/page_temp_unavailable", name="_temp_unavailable")
-	 */
-	public function tempUnavailable(Request $request)
-	{
-		 
-		return $this->render(
-				'SuplaBundle:Pages:temp_unavailable.html.twig',
-				array(
-						'locale' => $request->getLocale()
-				)
-		);
-	}
-	
-	/**
-	 * @Route("/", name="_homepage")
-	 */
-    public function indexAction(Request $request)
-    {
-    	
-    	$show_base_settings = false;
-    	$base_server = '';
-    	$base_accessid = '';
-    	$base_accesspwd = '';
-    	$base_locid = '';
-    	$base_locpwd = '';
-    	
-    	$viewed = $this->get('session')->get('hompage_viewed') == '1' ? true : false;
-    	$this->get('session')->set('hompage_viewed', '1');
-    	
-    	$aid = null;
-    	$loc = null;
-    	        
-        if ( $this->getBaseAidLid($aid, $loc) ) {
-        	
-        	$base_accessid = $aid->getId();
-        	$base_accesspwd = $aid->getPassword();
-        	$base_locid = $loc->getId();
-        	$base_locpwd = $loc->getPassword();
-        	$base_server = $this->container->getParameter('supla_server');
-        	$show_base_settings = true;
-        	
+    private function _getBaseAidLid(&$aid, &$loc, $aid_enabled, $loc_enabled) {
+
+        $aid = null;
+        $loc = null;
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        for ($a = 0; $a < $user->getAccessIds()->count(); $a++) {
+            if ($aid == null
+                && ($aid_enabled === false
+                    || $user->getAccessIds()->get($a)->getEnabled() === true)
+            ) {
+                $aid = $user->getAccessIds()->get($a);
+                break;
+            }
         }
-    	
-        return $this->render('SuplaBundle:Default:index.html.twig',
-        		              array('show_base_settings' => $show_base_settings,
-        		              		'base_accessid' => $base_accessid,
-        		                    'base_accesspwd' => $base_accesspwd,
-        		              		'base_locid' => $base_locid,
-        		              		'base_locpwd' => $base_locpwd,
-        		              		'base_server' => $base_server,
-        		              		'homepage_viewed' => $viewed
-        		                    
-        ));
+
+        if ($aid != null) {
+            for ($a = 0; $a < $aid->getLocations()->count(); $a++) {
+                if ($loc == null
+                    && ($loc_enabled === false
+                        || $aid->getLocations()->get($a)->getEnabled() === true)
+                ) {
+                    $loc = $aid->getLocations()->get($a);
+                    break;
+                }
+            }
+        }
+
+        return $aid !== null && $loc !== null;
+    }
+
+    private function getBaseAidLid(&$aid, &$loc) {
+
+        $aid = null;
+        $loc = null;
+
+        if ($this->_getBaseAidLid($aid, $loc, true, true)
+            || $this->_getBaseAidLid($aid, $loc, true, false)
+            || $this->_getBaseAidLid($aid, $loc, false, true)
+            || $this->_getBaseAidLid($aid, $loc, false, false)
+        ) {
+            return true;
+        };
+
+        return false;
+    }
+
+    /**
+     * @Route("/page_temp_unavailable", name="_temp_unavailable")
+     */
+    public function tempUnavailable(Request $request) {
+
+        return $this->render(
+            'SuplaBundle:Pages:temp_unavailable.html.twig',
+            [
+                'locale' => $request->getLocale(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/", name="_homepage")
+     */
+    public function indexAction(Request $request) {
+
+        $show_base_settings = false;
+        $base_server = '';
+        $base_accessid = '';
+        $base_accesspwd = '';
+        $base_locid = '';
+        $base_locpwd = '';
+
+        $viewed = $this->get('session')->get('hompage_viewed') == '1' ? true : false;
+        $this->get('session')->set('hompage_viewed', '1');
+
+        $aid = null;
+        $loc = null;
+
+        if ($this->getBaseAidLid($aid, $loc)) {
+            $base_accessid = $aid->getId();
+            $base_accesspwd = $aid->getPassword();
+            $base_locid = $loc->getId();
+            $base_locpwd = $loc->getPassword();
+            $base_server = $this->container->getParameter('supla_server');
+            $show_base_settings = true;
+        }
+
+        return $this->render(
+            'SuplaBundle:Default:index.html.twig',
+            ['show_base_settings' => $show_base_settings,
+                'base_accessid' => $base_accessid,
+                'base_accesspwd' => $base_accesspwd,
+                'base_locid' => $base_locid,
+                'base_locpwd' => $base_locpwd,
+                'base_server' => $base_server,
+                'homepage_viewed' => $viewed,
+
+            ]
+        );
     }
 }

@@ -19,15 +19,14 @@
 
 namespace SuplaBundle\Entity\OAuth;
 
-use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_oauth_refresh_tokens")
  */
-class RefreshToken extends BaseRefreshToken
-{
+class RefreshToken extends BaseRefreshToken {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

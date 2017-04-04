@@ -17,5 +17,4 @@ abstract class AbstractController extends Controller {
         $serialized = $this->get('serializer')->serialize($responseData, 'json', ['groups' => $serializationGroups]);
         return new JsonResponse($serialized, $status, [], true);
     }
-
 }

@@ -84,7 +84,9 @@ QUERY;
     }
 
     private function fetchExecutions(array &$schedules, string $query, string $resultKey) {
-        $scheduleIds = implode(',', array_map(function ($schedule) { return $schedule['schedule']->getId(); }, $schedules));
+        $scheduleIds = implode(',', array_map(function ($schedule) {
+            return $schedule['schedule']->getId();
+        }, $schedules));
         $rsm = new ResultSetMappingBuilder($this->entityManager);
         $rsm->addRootEntityFromClassMetadata(ScheduledExecution::class, 'e');
         $executionsQuery = str_replace(['%COLUMNS%', '%SCHEDULE_IDS%'], [$rsm->generateSelectClause(), $scheduleIds], $query);

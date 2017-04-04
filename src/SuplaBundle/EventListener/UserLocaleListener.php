@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/EventListener/UserLocaleListener.php
 
@@ -21,26 +21,21 @@ namespace SuplaBundle\EventListener;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
-class UserLocaleListener
-{
+class UserLocaleListener {
     /**
      * @var Session
      */
     private $session;
 
-    public function __construct(Session $session)
-    {
+    public function __construct(Session $session) {
         $this->session = $session;
     }
 
     /**
      * @param InteractiveLoginEvent $event
      */
-    public function onInteractiveLogin(InteractiveLoginEvent $event)
-    {
-      
-            $this->session->set('_locale', 'pl_PL');
+    public function onInteractiveLogin(InteractiveLoginEvent $event) {
 
+        $this->session->set('_locale', 'pl_PL');
     }
 }
-?>

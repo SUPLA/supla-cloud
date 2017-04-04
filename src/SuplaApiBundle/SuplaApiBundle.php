@@ -19,10 +19,7 @@ namespace SuplaApiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuplaApiBundle extends Bundle
-{
-	public function boot()
-	{
-		
-	}
+class SuplaApiBundle extends Bundle {
+    public function boot() {
+    }
 }

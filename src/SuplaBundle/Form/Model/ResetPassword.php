@@ -22,24 +22,20 @@ namespace SuplaBundle\Form\Model;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ResetPassword
-{
+class ResetPassword {
 
-	
-	/**
-	 * @Assert\Length(
-	 *     min = 8,
-	 * )
-	 */
-	protected $newPassword;
-	    
-	function getNewPassword()
-	{
-		return $this->newPassword;
-	}
-	
-	function setNewPassword($newPassword)
-	{
-		$this->newPassword = $newPassword;
-	}
+    /**
+     * @Assert\Length(
+     *     min = 8,
+     * )
+     */
+    protected $newPassword;
+
+    public function getNewPassword() {
+        return $this->newPassword;
+    }
+
+    public function setNewPassword($newPassword) {
+        $this->newPassword = $newPassword;
+    }
 }

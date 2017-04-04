@@ -19,31 +19,26 @@
 
 namespace SuplaBundle\Form\Model\OAuth;
 
+use SuplaBundle\Validator\Constraints as SuplaAssert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use SuplaBundle\Validator\Constraints as SuplaAssert;
 
-class ChangePassword
-{
+class ChangePassword {
 
-	/**
-	 * @Assert\Length(
-	 *     min = 24, 
-	 *     minMessage="The password should be 24 or more characters."
-	 * )
-	 * @Assert\NotBlank(message="Password field cannot be left empty")
-	 */
-	protected $newPassword;
-	
-    
-	function getNewPassword()
-	{
-		return $this->newPassword;
-	}
-	
-	function setNewPassword($newPassword)
-	{
-		$this->newPassword = $newPassword;
-	}
-	
+    /**
+     * @Assert\Length(
+     *     min = 24,
+     *     minMessage="The password should be 24 or more characters."
+     * )
+     * @Assert\NotBlank(message="Password field cannot be left empty")
+     */
+    protected $newPassword;
+
+    function getNewPassword() {
+        return $this->newPassword;
+    }
+
+    function setNewPassword($newPassword) {
+        $this->newPassword = $newPassword;
+    }
 }

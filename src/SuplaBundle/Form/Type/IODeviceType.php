@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/Form/Type/IODeviceType.php
 
@@ -20,41 +20,34 @@
 namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class IODeviceType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('comment', TextareaType::class, array('label' => 'Comment', 'required' => false))
-    	->add('enabled', CheckboxType::class, array('label' => 'Enabled', 'required' => false))
-    	->add('cancel', ButtonType::class, array(
-    			'label' => 'Cancel',
-    			'attr' => array('class' => 'btn btn-default', 'onClick' => "location.href='".$options['cancel_url']."'"),
-    	))
-    	->add('save', SubmitType::class, array('label' => 'Save',
-    			'attr' => array('class' => 'btn btn-default')
-    	));
+class IODeviceType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('comment', TextareaType::class, ['label' => 'Comment', 'required' => false])
+            ->add('enabled', CheckboxType::class, ['label' => 'Enabled', 'required' => false])
+            ->add('cancel', ButtonType::class, [
+                'label' => 'Cancel',
+                'attr' => ['class' => 'btn btn-default', 'onClick' => "location.href='" . $options['cancel_url'] . "'"],
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Save',
+                'attr' => ['class' => 'btn btn-default'],
+            ]);
     }
 
-    
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
             'data_class' => 'SuplaBundle\Entity\IODevice',
-        	'cancel_url' => ''
-        ));
+            'cancel_url' => '',
+        ]);
     }
 
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return '_iodevice_type';
     }
-    
-
 }

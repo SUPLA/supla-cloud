@@ -17,27 +17,21 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-
 namespace SuplaBundle\Entity;
 
-
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Validator\Constraints as SuplaAssert;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use SuplaBundle\Validator\Constraints as SuplaAssert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_dev_channel", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})})
  * @SuplaAssert\Channel
  */
-class IODeviceChannel
-{    
+class IODeviceChannel {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -45,18 +39,18 @@ class IODeviceChannel
      * @Groups({"basic"})
      */
     private $id;
-    
+
     /**
      * @ORM\Column(name="channel_number", type="integer", nullable=false)
      */
     private $channelNumber;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="IODevice")
      * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false)
      */
     private $iodevice;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
@@ -68,79 +62,70 @@ class IODeviceChannel
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
      */
     private $schedules;
-    
+
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
      */
-    private $caption;   
+    private $caption;
 
     /**
      * @ORM\Column(name="type", type="integer", nullable=false)
      */
     private $type;
-    
+
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
      */
-    private $function; 
-    
-    
+    private $function;
+
     /**
      * @ORM\Column(name="flist", type="integer", nullable=true)
      */
     private $funcList;
-    
+
     /**
      * @ORM\Column(name="param1", type="integer", nullable=false)
      */
     private $param1;
-    
-    
+
     /**
      * @ORM\Column(name="param2", type="integer", nullable=false)
      */
     private $param2;
-    
+
     /**
      * @ORM\Column(name="param3", type="integer", nullable=false)
      */
     private $param3;
-    
-    public function getId() 
-    {
-    	return $this->id;
+
+    public function getId() {
+        return $this->id;
     }
-    
-    public function getChannelNumber()
-    {
-    	return $this->channelNumber;
+
+    public function getChannelNumber() {
+        return $this->channelNumber;
     }
-    
-    public function getCaption() 
-    {
-    	return $this->caption;
+
+    public function getCaption() {
+        return $this->caption;
     }
-    
-    public function setCaption($caption)
-    {
-    	$this->caption = $caption;
+
+    public function setCaption($caption) {
+        $this->caption = $caption;
     }
-    
-    public function getType()
-    {
-    	return $this->type;
+
+    public function getType() {
+        return $this->type;
     }
 
     /** @return IODevice */
-    public function getIoDevice() 
-    {
-    	return $this->iodevice;
+    public function getIoDevice() {
+        return $this->iodevice;
     }
-    
-    public function getUser()
-    {
-    	return $this->user;
+
+    public function getUser() {
+        return $this->user;
     }
 
     /** @return Collection|Schedule[] */
@@ -148,58 +133,47 @@ class IODeviceChannel
         return $this->schedules;
     }
 
-    public function getFunction()
-    {
-    	return $this->function;
+    public function getFunction() {
+        return $this->function;
     }
-    
-    public function setFunction($function) 
-    {
-    	$this->function = $function;
+
+    public function setFunction($function) {
+        $this->function = $function;
     }
-    
-    public function getFuncList()
-    {
-    	return $this->funcList;
+
+    public function getFuncList() {
+        return $this->funcList;
     }
-    
-    public function setFuncList($funcList)
-    {
-    	$this->funcList = $funcList;
+
+    public function setFuncList($funcList) {
+        $this->funcList = $funcList;
     }
-    
-    public function getChannel() 
-    {
-    	return $this;
+
+    public function getChannel() {
+        return $this;
     }
-    
-    public function getParam1()
-    {
-    	return $this->param1;
-    }    
-    
-    public function setParam1($param1)
-    {
-    	$this->param1 = $param1;
+
+    public function getParam1() {
+        return $this->param1;
     }
-    
-    public function getParam2()
-    {
-    	return $this->param2;
+
+    public function setParam1($param1) {
+        $this->param1 = $param1;
     }
-    
-    public function setParam2($param2)
-    {
-    	$this->param2 = $param2;
+
+    public function getParam2() {
+        return $this->param2;
     }
-    
-    public function getParam3()
-    {
-    	return $this->param3;
+
+    public function setParam2($param2) {
+        $this->param2 = $param2;
     }
-    
-    public function setParam3($param3)
-    {
-    	$this->param3 = $param3;
+
+    public function getParam3() {
+        return $this->param3;
+    }
+
+    public function setParam3($param3) {
+        $this->param3 = $param3;
     }
 }

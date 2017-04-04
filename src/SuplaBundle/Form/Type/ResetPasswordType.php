@@ -20,40 +20,35 @@
 namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ResetPasswordType extends AbstractType
-{
-	
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('newPassword', RepeatedType::class, array(
+class ResetPasswordType extends AbstractType {
+
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('newPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'invalid_message' => 'The password and its confirm are not the same.',
             'required' => true,
-            'first_options'  => array('label' => ' '),
-            'second_options' => array('label' => ' '),
-        ));
-        
-        $builder->add('save', SubmitType::class, array('label' => 'Save',
-        		'attr' => array('class' => 'btn btn-default')
-        ));
+            'first_options' => ['label' => ' '],
+            'second_options' => ['label' => ' '],
+        ]);
+
+        $builder->add('save', SubmitType::class, ['label' => 'Save',
+            'attr' => ['class' => 'btn btn-default'],
+        ]);
     }
-    
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
+
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
             'data_class' => 'SuplaBundle\Form\Model\ResetPassword',
-        ));
+        ]);
     }
-    
-    public function getBlockPrefix()
-    {
+
+    public function getBlockPrefix() {
         return '_change_password_type';
     }
-    
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -17,47 +17,38 @@
 
 namespace SuplaApiBundle\Controller;
 
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+class ServerController extends RestController {
 
-class ServerController extends RestController
-{
-	    
     /**
      * @Rest\Get("/server-info")
      */
-    public function getServerParamsAction(Request $request)
-    {    	
-    	$dt = new \DateTime();
-    	 
-    	$result = array('address' => $this->container->getParameter('supla_server'),
-    			'time' => $dt,
-    			'timezone' => array('name' => $dt->getTimezone()->getName(),
-    			                    'offset' => $dt->getOffset()),
-    	);
-    	 
-    	return  $this->handleView($this->view(array('data' => $result), Response::HTTP_OK));
-    
+    public function getServerParamsAction(Request $request) {
+        $dt = new \DateTime();
+
+        $result = ['address' => $this->container->getParameter('supla_server'),
+            'time' => $dt,
+            'timezone' => ['name' => $dt->getTimezone()->getName(),
+                'offset' => $dt->getOffset()],
+        ];
+
+        return $this->handleView($this->view(['data' => $result], Response::HTTP_OK));
     }
-    
-    
+
     /**
      * @Rest\Get("/logout/{refreshToken}")
      */
-    public function logoutAction(Request $request, $refreshToken)
-    {
-    	 
-    	$api_man = $this->container->get('api_manager');
-    	 
-    	$ts = $this->container->get('security.token_storage')->getToken();
-    	$api_man->userLogout($ts->getUser(), $ts->getToken(), $refreshToken);
-    
-    	return  $this->handleView($this->view(null, Response::HTTP_OK));
-    
+    public function logoutAction(Request $request, $refreshToken) {
+
+        $api_man = $this->container->get('api_manager');
+
+        $ts = $this->container->get('security.token_storage')->getToken();
+        $api_man->userLogout($ts->getUser(), $ts->getToken(), $refreshToken);
+
+        return $this->handleView($this->view(null, Response::HTTP_OK));
     }
 }
 

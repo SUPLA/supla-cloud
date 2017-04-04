@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/Mailer/Mailer.php
 
@@ -19,118 +19,110 @@
 
 namespace SuplaBundle\Mailer;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Routing\Router as Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class SuplaMailer 
-{
-	protected $router;
-	protected $templating;
-	protected $mailer_from;
-	protected $mailer;
-	protected $email_admin;
-	protected $supla_server;
-	
-	public function __construct($router, $templating, $mailer, $mailer_from, $email_admin, $supla_server)
-	{
-		$this->router = $router;
-		$this->templating = $templating;
-		$this->mailer_from = $mailer_from;
-		$this->mailer = $mailer;
-		$this->email_admin = $email_admin;
-		$this->supla_server = $supla_server;
-	}
-	
-	private function extractSubjectAndBody($template, $params, &$subject) 
-	{
-		if ( $template == '' ) 
-			return '';
-		
-		$template = 'SuplaBundle:Email:'.$template;
-	
-		$body = $this->templating->render($template, $params);
-		
-		if ( $subject !== null ) {	
-			$lines = explode("\n", trim($body));
-			$subject = $lines[0];
-			$body = implode("\n", array_slice($lines, 1));
-		}
-		
-		return $body;		
-	}
-	
-	private function sendEmailMessage($txtTmpl, $htmlTmpl, $fromEmail, $toEmail, $params)
-	{
-		$subject = null;
-		$bodyHtml = $this->extractSubjectAndBody($htmlTmpl, $params, $subject);
-		
-		$subject = '';
-		$bodyTxt = $this->extractSubjectAndBody($txtTmpl, $params, $subject);
-		
-	
-		$message = \Swift_Message::newInstance()
-		->setSubject($subject)
-		->setFrom($fromEmail)
-		->setTo($toEmail);
-		
-		if ( $bodyHtml == '' )
-			$message->setBody($bodyTxt, 'text/plain');
-		else {
-			$message->setBody($bodyHtml, 'text/html');
-			$message->addPart($bodyTxt, 'text/plain');
-		}
-			
-	
-		$this->mailer->send($message);
-	}
-	
-	public function sendConfirmationEmailMessage(UserInterface $user)
-	{
-		$url = $this->router->generate('_account_confirmemail', array('token' => $user->getToken(), true), UrlGeneratorInterface::ABSOLUTE_URL);
-		
-		$this->sendEmailMessage('confirm.txt.twig', 
-				                '', // 'confirm.html.twig'
-				                $this->mailer_from, 
-				                $user->getEmail(),
-				                array(
-			                     	'user' => $user,
-				                    'confirmationUrl' =>  $url
-		                        ));
-	}
-	
-	public function sendResetPasswordEmailMessage(UserInterface $user)
-	{
-		$url = $this->router->generate('_account_reset_passwd', array('token' => $user->getToken(), true), UrlGeneratorInterface::ABSOLUTE_URL);
-	
-		$this->sendEmailMessage('resetpwd.txt.twig',
-				'', // resetpwd.html.twig
-				$this->mailer_from,
-				$user->getEmail(),
-				array(
-						'user' => $user,
-						'confirmationUrl' =>  $url
-				));
-	}
-	
-	public function sendActivationEmailMessage(UserInterface $user)
-	{
+class SuplaMailer {
+    protected $router;
+    protected $templating;
+    protected $mailer_from;
+    protected $mailer;
+    protected $email_admin;
+    protected $supla_server;
 
-		$this->sendEmailMessage('activation.txt.twig',
-				'',
-				$this->mailer_from,
-				$this->email_admin,
-				array(
-						'user' => $user,
-						'supla_server' => $this->supla_server
-				));
-	}
-	
+    public function __construct($router, $templating, $mailer, $mailer_from, $email_admin, $supla_server) {
+        $this->router = $router;
+        $this->templating = $templating;
+        $this->mailer_from = $mailer_from;
+        $this->mailer = $mailer;
+        $this->email_admin = $email_admin;
+        $this->supla_server = $supla_server;
+    }
 
-	public function test() {
+    private function extractSubjectAndBody($template, $params, &$subject) {
+        if ($template == '') {
+            return '';
+        }
 
-	}
+        $template = 'SuplaBundle:Email:' . $template;
+
+        $body = $this->templating->render($template, $params);
+
+        if ($subject !== null) {
+            $lines = explode("\n", trim($body));
+            $subject = $lines[0];
+            $body = implode("\n", array_slice($lines, 1));
+        }
+
+        return $body;
+    }
+
+    private function sendEmailMessage($txtTmpl, $htmlTmpl, $fromEmail, $toEmail, $params) {
+        $subject = null;
+        $bodyHtml = $this->extractSubjectAndBody($htmlTmpl, $params, $subject);
+
+        $subject = '';
+        $bodyTxt = $this->extractSubjectAndBody($txtTmpl, $params, $subject);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($fromEmail)
+            ->setTo($toEmail);
+
+        if ($bodyHtml == '') {
+            $message->setBody($bodyTxt, 'text/plain');
+        } else {
+            $message->setBody($bodyHtml, 'text/html');
+            $message->addPart($bodyTxt, 'text/plain');
+        }
+
+        $this->mailer->send($message);
+    }
+
+    public function sendConfirmationEmailMessage(UserInterface $user) {
+        $url = $this->router->generate('_account_confirmemail', ['token' => $user->getToken(), true], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $this->sendEmailMessage(
+            'confirm.txt.twig',
+            '', // 'confirm.html.twig'
+            $this->mailer_from,
+            $user->getEmail(),
+            [
+                'user' => $user,
+                'confirmationUrl' => $url,
+            ]
+        );
+    }
+
+    public function sendResetPasswordEmailMessage(UserInterface $user) {
+        $url = $this->router->generate('_account_reset_passwd', ['token' => $user->getToken(), true], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $this->sendEmailMessage(
+            'resetpwd.txt.twig',
+            '', // resetpwd.html.twig
+            $this->mailer_from,
+            $user->getEmail(),
+            [
+                'user' => $user,
+                'confirmationUrl' => $url,
+            ]
+        );
+    }
+
+    public function sendActivationEmailMessage(UserInterface $user) {
+
+        $this->sendEmailMessage(
+            'activation.txt.twig',
+            '',
+            $this->mailer_from,
+            $this->email_admin,
+            [
+                'user' => $user,
+                'supla_server' => $this->supla_server,
+            ]
+        );
+    }
+
+    public function test() {
+    }
 }
-
-
-?>

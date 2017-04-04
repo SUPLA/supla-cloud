@@ -67,7 +67,8 @@ class ScheduleManager {
         foreach ($schedulableChannels as $channel) {
             $sortKey = $slugify->slugify(implode(' ', [
                 $this->ioDeviceManager->channelFunctionToString($channel->getFunction()),
-                $channel->getCaption() ? $channel->getCaption() : 'zzzzzz', // Default zzzzz caption places the items without caption at the end. Lame, but works :-D
+                // Default zzzzz caption places the items without caption at the end. Lame, but works :-D
+                $channel->getCaption() ? $channel->getCaption() : 'zzzzzz',
                 $channel->getId(),
             ]));
             $channelsList[$sortKey] = $channel;
@@ -107,7 +108,8 @@ class ScheduleManager {
             $schedule->getDateStart()->setTimestamp(time());
         }
         $dateStart = $schedule->getDateStart();
-        $latestExecution = current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));
+        $latestExecution = current($this->scheduledExecutionsRepository
+            ->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));
         if ($latestExecution && !$ignoreExisting) {
             $dateStart = $latestExecution->getPlannedTimestamp();
         }

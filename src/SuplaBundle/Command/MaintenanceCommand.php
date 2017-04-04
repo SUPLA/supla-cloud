@@ -21,89 +21,82 @@ namespace SuplaBundle\Entity;
 
 namespace SuplaBundle\Command;
 
+use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
+use FOS\OAuthServerBundle\Model\TokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use FOS\OAuthServerBundle\Model\TokenManagerInterface;
-use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
 
-class MaintenanceCommand extends ContainerAwareCommand
-{
-	
-	protected function configure()
-	{
-		$this
-		->setName('supla:maintenance')
-		->setDescription('Maintenance')
-		->addArgument(
-				'period',
-				InputArgument::REQUIRED,
-				'Period?'
-				);
-	}
-	
-	protected function oauthClean($output) {
-		
-		$services = array(
-				'fos_oauth_server.access_token_manager'  => 'Access token',
-				'fos_oauth_server.refresh_token_manager' => 'Refresh token',
-				'fos_oauth_server.auth_code_manager'     => 'Auth code',
-		);
-		
-		foreach ($services as $service => $name) {
-			/** @var $instance TokenManagerInterface */
-			$instance = $this->getContainer()->get($service);
-			if ($instance instanceof TokenManagerInterface || $instance instanceof AuthCodeManagerInterface) {
-				$result = $instance->deleteExpired();
-				$output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $result, $name));
-			}
-		}
-		
-	}
-	
-	protected function usersClean($em, $output) {
+class MaintenanceCommand extends ContainerAwareCommand {
 
-		$rep = $em->getRepository('SuplaBundle:User');
-		
-		$qb = $rep->createQueryBuilder('t');
-		$qb
-		->delete()
-		->where('t.enabled = ?1 AND t.token != ?2 AND t.regDate < ?3')
-		->setParameters(array(1 => 0, 2 => '', 3 => date('Y-m-d',strtotime("-1 day"))));
-		
-		$result = $qb->getQuery()->execute();
-		$output->writeln(sprintf('Removed <info>%d</info> items from <comment>Users</comment> storage.', $result));
-		
-	}
-	
-	protected function temperatureLogClean($em, $output, $entity, $name) {
-		
-		$sql = "DELETE t FROM `".$em->getClassMetadata($entity)->getTableName()."` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
-		
-		$stmt = $em->getConnection()->prepare($sql);
+    protected function configure() {
+        $this
+            ->setName('supla:maintenance')
+            ->setDescription('Maintenance')
+            ->addArgument(
+                'period',
+                InputArgument::REQUIRED,
+                'Period?'
+            );
+    }
+
+    protected function oauthClean($output) {
+
+        $services = [
+            'fos_oauth_server.access_token_manager' => 'Access token',
+            'fos_oauth_server.refresh_token_manager' => 'Refresh token',
+            'fos_oauth_server.auth_code_manager' => 'Auth code',
+        ];
+
+        foreach ($services as $service => $name) {
+            /** @var $instance TokenManagerInterface */
+            $instance = $this->getContainer()->get($service);
+            if ($instance instanceof TokenManagerInterface || $instance instanceof AuthCodeManagerInterface) {
+                $result = $instance->deleteExpired();
+                $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $result, $name));
+            }
+        }
+    }
+
+    protected function usersClean($em, $output) {
+
+        $rep = $em->getRepository('SuplaBundle:User');
+
+        $qb = $rep->createQueryBuilder('t');
+        $qb
+            ->delete()
+            ->where('t.enabled = ?1 AND t.token != ?2 AND t.regDate < ?3')
+            ->setParameters([1 => 0, 2 => '', 3 => date('Y-m-d', strtotime("-1 day"))]);
+
+        $result = $qb->getQuery()->execute();
+        $output->writeln(sprintf('Removed <info>%d</info> items from <comment>Users</comment> storage.', $result));
+    }
+
+    protected function temperatureLogClean($em, $output, $entity, $name) {
+
+        $sql = "DELETE t FROM `" . $em->getClassMetadata($entity)->getTableName() . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
+
+        $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
-        
+
         $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $stmt->rowCount(), $name));
-		
-	}
-	
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$em = $this->getContainer()->get('doctrine')->getManager();
-		
-		switch($input->getArgument('period')) {
-			case 'min':
-				$this->oauthClean($output);
-				break;
-			case 'hour':
-				break;
-			case 'day':
-				$this->usersClean($em, $output);
-				$this->temperatureLogClean($em, $output, 'SuplaBundle:TemperatureLogItem', 'TemperatureLog');
-				$this->temperatureLogClean($em, $output, 'SuplaBundle:TempHumidityLogItem', 'TempHumidityLog');
-				break;
-		}
-		
-	}
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output) {
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
+        switch ($input->getArgument('period')) {
+            case 'min':
+                $this->oauthClean($output);
+                break;
+            case 'hour':
+                break;
+            case 'day':
+                $this->usersClean($em, $output);
+                $this->temperatureLogClean($em, $output, 'SuplaBundle:TemperatureLogItem', 'TemperatureLog');
+                $this->temperatureLogClean($em, $output, 'SuplaBundle:TempHumidityLogItem', 'TempHumidityLog');
+                break;
+        }
+    }
 }

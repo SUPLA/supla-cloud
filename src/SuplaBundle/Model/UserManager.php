@@ -24,137 +24,133 @@ use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 
-class UserManager
-{
+class UserManager {
     /** @var Registry */
-	protected $doctrine;
-	protected $encoder_factory;
-	protected $rep;
-	protected $loc_man;
-	protected $aid_man;
+    protected $doctrine;
+    protected $encoder_factory;
+    protected $rep;
+    protected $loc_man;
+    protected $aid_man;
     /** @var ScheduleManager */
     private $scheduleManager;
 
-	public function __construct($doctrine, $encoder_factory, $accessid_manager, $location_manager, ScheduleManager $scheduleManager)
-	{
-		$this->doctrine = $doctrine;
-		$this->encoder_factory = $encoder_factory;
-		$this->rep = $doctrine->getRepository('SuplaBundle:User');
-		$this->loc_man = $location_manager;
-		$this->aid_man = $accessid_manager;
+    public function __construct($doctrine, $encoder_factory, $accessid_manager, $location_manager, ScheduleManager $scheduleManager) {
+        $this->doctrine = $doctrine;
+        $this->encoder_factory = $encoder_factory;
+        $this->rep = $doctrine->getRepository('SuplaBundle:User');
+        $this->loc_man = $location_manager;
+        $this->aid_man = $accessid_manager;
         $this->scheduleManager = $scheduleManager;
-	}
+    }
 
-	public function Create($user)
-	{
-		$this->setPassword($user->getPlainPassword(), $user);
-		$user->genToken();
+    // @codingStandardsIgnoreStart
+    public function Create($user) {
+        // @codingStandardsIgnoreEnd
+        $this->setPassword($user->getPlainPassword(), $user);
+        $user->genToken();
 
-		$em = $this->doctrine->getManager();
-		$em->persist($user);
-		$em->flush();
-	}
+        $em = $this->doctrine->getManager();
+        $em->persist($user);
+        $em->flush();
+    }
 
-	public function setPassword($password, User $user, $flush = false)
-	{
-		$user->setPlainPassword($password);
-		$encoder = $this->encoder_factory->getEncoder($user);
-		$password = $encoder->encodePassword($password, $user->getSalt());
-		$user->setPassword($password);
+    public function setPassword($password, User $user, $flush = false) {
+        $user->setPlainPassword($password);
+        $encoder = $this->encoder_factory->getEncoder($user);
+        $password = $encoder->encodePassword($password, $user->getSalt());
+        $user->setPassword($password);
 
-		if ( $flush === true ) {
+        if ($flush === true) {
+            $em = $this->doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+    }
 
-			$em = $this->doctrine->getManager();
-			$em->persist($user);
-			$em->flush();
+    public function paswordRequest(User $user) {
+        if ($user->isEnabled() === true) {
+            $user->genToken();
+            $user->setPasswordRequestedAt(new \DateTime());
 
-		}
-	}
+            $em = $this->doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
 
-	public function paswordRequest(User $user)
-	{
-		if ( $user->isEnabled() === true ) {
+            return true;
+        }
 
-			$user->genToken();
-			$user->setPasswordRequestedAt(new \DateTime());
+        return false;
+    }
 
-			$em = $this->doctrine->getManager();
-			$em->persist($user);
-			$em->flush();
+    // @codingStandardsIgnoreStart
+    public function Confirm($token) {
+        // @codingStandardsIgnoreEnd
+        $user = $this->UserByConfirmationToken($token);
 
-			return true;
-		}
+        if ($user !== null) {
+            $this->aid_man->CreateID($user, true);
+            $this->loc_man->CreateLocation($user, true);
 
-		return false;
-	}
+            $user->setToken('');
+            $user->setEnabled(true);
 
-	public function Confirm($token)
-	{
-		$user = $this->UserByConfirmationToken($token);
+            $this->Update($user);
+            return $user;
+        }
 
-		if ( $user !== null ) {
+        return null;
+    }
 
-			$this->aid_man->CreateID($user, true);
-		    $this->loc_man->CreateLocation($user, true);
+    // @codingStandardsIgnoreStart
+    public function Update($user) {
+        // @codingStandardsIgnoreEnd
+        $em = $this->doctrine->getManager();
+        $em->flush();
+    }
 
-		    $user->setToken('');
-			$user->setEnabled(true);
-
-			$this->Update($user);
-			return $user;
-		}
-
-		return null;
-	}
-
-	public function Update($user)
-	{
-		$em = $this->doctrine->getManager();
-		$em->flush();
-	}
-
-
-    public function userByEmail($email)
-    {
+    public function userByEmail($email) {
         return $this->rep->findOneByEmail($email);
     }
 
-    public function userByConfirmationToken($token)
-    {
-        if ( $token === null
-    			|| strlen($token) < 40 ) return null;
-
-        return $this->rep->findOneBy(array('token' => $token, 'enabled' => 0, 'currentLogin' => null, 'lastLogin' => null, 'passwordRequestedAt' => null));
+    public function userByConfirmationToken($token) {
+        if ($token === null || strlen($token) < 40) {
+            return null;
+        }
+        return $this->rep->findOneBy([
+            'token' => $token,
+            'enabled' => 0,
+            'currentLogin' => null,
+            'lastLogin' => null,
+            'passwordRequestedAt' => null,
+        ]);
     }
 
-    public function userByPasswordToken($token)
-    {
-    	if ( $token === null
-    			|| strlen($token) < 40 ) return null;
+    public function userByPasswordToken($token) {
+        if ($token === null || strlen($token) < 40) {
+            return null;
+        }
 
-    	$date = new \DateTime();
-    	$date->sub(new \DateInterval('PT1H'));
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('PT1H'));
 
-    	$qb = $this->rep->createQueryBuilder('u');
+        $qb = $this->rep->createQueryBuilder('u');
 
-    	try {
-    		return $qb->where($qb->expr()->eq('u.token', ':token'))
-    		->andWhere("u.token != ''")
-    		->andWhere("u.token IS NOT NULL")
-    		->andWhere("u.enabled = 1")
-    		->andWhere($qb->expr()->gte('u.passwordRequestedAt', ':date'))
-    		->setParameter('token', $token)
-    		->setParameter('date', $date)
-    		->getQuery()
-    		->getSingleResult();
-    	} catch(\Doctrine\ORM\NoResultException $e) {
-    		return null;
-    	}
-
+        try {
+            return $qb->where($qb->expr()->eq('u.token', ':token'))
+                ->andWhere("u.token != ''")
+                ->andWhere("u.token IS NOT NULL")
+                ->andWhere("u.enabled = 1")
+                ->andWhere($qb->expr()->gte('u.passwordRequestedAt', ':date'))
+                ->setParameter('token', $token)
+                ->setParameter('date', $date)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
     }
 
-    public function updateTimeZone(User $user, \DateTimeZone $timezone)
-    {
+    public function updateTimeZone(User $user, \DateTimeZone $timezone) {
         $currentTimezone = new \DateTimeZone($user->getTimezone());
         $user->setTimezone($timezone->getName());
         $em = $this->doctrine->getManager();

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/EventListener/LocaleListener.php
 
@@ -18,84 +18,73 @@
  */
 namespace SuplaBundle\EventListener;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LocaleListener implements EventSubscriberInterface
-{
+class LocaleListener implements EventSubscriberInterface {
 
-	private $default_locale;
-	private $container;
-	
-	public function __construct($default_locale) 
-	{
-		$this->default_locale = $default_locale;	
-	}
-	
-    public function onKernelRequest(GetResponseEvent $event)
-    {
+    private $default_locale;
+    private $container;
+
+    public function __construct($default_locale) {
+        $this->default_locale = $default_locale;
+    }
+
+    public function onKernelRequest(GetResponseEvent $event) {
         $request = $event->getRequest();
-        
-        
+
         if (!$request->hasPreviousSession()) {
             return;
         }
-        
+
         if ($locale = $request->attributes->get('_locale')) {
-  
             $request->getSession()->set('_locale', $locale);
-            
         } else {
-            
             $locale = $request->getSession()->get('_locale');
-            
-            if ( $locale === null ) {
-            	
-            	$locale = $request->getPreferredLanguage();    
-            	
-            	switch($locale) {
-            		case 'pl_PL':
-            	    case 'pl-PL':
-            		case 'pl':
-            			$locale = 'pl';
-            			break;
-            		case 'ru_RU':
-            		case 'ru-RU':
-            		case 'ru_MD':
-            		case 'ru-MD':
-            		case 'ru_UA':
-            		case 'ru-UA':
-            		case 'ru':
-            			$locale = 'ru';
-            			break;
-            		case 'de-CH':
-            		case 'de_CH':
-            		case 'de-AT':
-            		case 'de_AT':
-            		case 'de-LI':
-            		case 'de_LI':
-            		case 'de-DE':
-            		case 'de_DE':
-            		case 'de':
-            			$locale = 'de';
-            			break;
-            		default:
-            			$locale = 'en';
-            	}
-            	$request->getSession()->set('_locale', $locale);
+
+            if ($locale === null) {
+                $locale = $request->getPreferredLanguage();
+
+                switch ($locale) {
+                    case 'pl_PL':
+                    case 'pl-PL':
+                    case 'pl':
+                        $locale = 'pl';
+                        break;
+                    case 'ru_RU':
+                    case 'ru-RU':
+                    case 'ru_MD':
+                    case 'ru-MD':
+                    case 'ru_UA':
+                    case 'ru-UA':
+                    case 'ru':
+                        $locale = 'ru';
+                        break;
+                    case 'de-CH':
+                    case 'de_CH':
+                    case 'de-AT':
+                    case 'de_AT':
+                    case 'de-LI':
+                    case 'de_LI':
+                    case 'de-DE':
+                    case 'de_DE':
+                    case 'de':
+                        $locale = 'de';
+                        break;
+                    default:
+                        $locale = 'en';
+                }
+                $request->getSession()->set('_locale', $locale);
             }
-  
+
             $request->setLocale($locale);
         }
     }
 
-    public static function getSubscribedEvents()
-    {
-        return array(
-            KernelEvents::REQUEST => array(array('onKernelRequest', 17)),
-        );
+    public static function getSubscribedEvents() {
+        return [
+            KernelEvents::REQUEST => [['onKernelRequest', 17]],
+        ];
     }
 }
-?>

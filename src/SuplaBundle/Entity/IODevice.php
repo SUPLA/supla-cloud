@@ -19,39 +19,34 @@
 
 namespace SuplaBundle\Entity;
 
-
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Loaction;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Loaction;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_iodevice")
  * @UniqueEntity(fields="id", message="IODevice already exists")
  */
-class IODevice
-{    
-	
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
+class IODevice {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"basic", "flat"})
-	 */
-	private $id;
-	
+     */
+    private $id;
+
     /**
      * @ORM\Column(name="guid", type="binary", length=16, nullable=false, unique=true)
      */
     private $guid;
-    
+
     /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
@@ -64,7 +59,7 @@ class IODevice
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
      */
     private $location;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices")
      * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
@@ -82,109 +77,94 @@ class IODevice
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
-    
+
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      * @Groups({"basic", "flat"})
      */
     private $enabled;
-    
+
     /**
      * @ORM\Column(name="comment", type="string", length=200, nullable=true)
      * @Assert\Length(max=200)
      * @Groups({"basic", "flat"})
      */
     private $comment;
-    
+
     /**
      * @ORM\Column(name="reg_date", type="datetime")
      * @Assert\NotBlank()
      */
     private $regDate;
-    
+
     /**
      * @ORM\Column(name="reg_ipv4", type="integer", nullable=true)
      */
     private $regIpv4;
-    
+
     /**
      * @ORM\Column(name="last_connected", type="datetime", nullable=true)
      */
     private $lastConnected;
-    
+
     /**
      * @ORM\Column(name="last_ipv4", type="integer", nullable=true)
      */
     private $lastIpv4;
-    
-    
+
     /**
      * @ORM\Column(name="software_version", type="string", length=10, nullable=false)
      */
     private $softwareVersion;
-    
+
     /**
      * @ORM\Column(name="protocol_version", type="integer", nullable=false)
      */
     private $protocolVersion;
-    
-    
-    public function __construct()
-    {
-    	
+
+    public function __construct() {
     }
-    
-    public function getEnabled()
-    {
-    	return $this->enabled;
+
+    public function getEnabled() {
+        return $this->enabled;
     }
-    
-    public function setEnabled($enabled)
-    {
-    	$this->enabled = $enabled;
+
+    public function setEnabled($enabled) {
+        $this->enabled = $enabled;
     }
-    
-    public function getComment() 
-    {
-    	return $this->comment;
+
+    public function getComment() {
+        return $this->comment;
     }
-    
-    public function setComment($comment) 
-    {
-    	$this->comment = $comment;
+
+    public function setComment($comment) {
+        $this->comment = $comment;
     }
-    
-    public function getName()
-    {
-    	return $this->name;
+
+    public function getName() {
+        return $this->name;
     }
 
     /** @return Location */
-    public function getLocation()
-    {
-    	return $this->location;
+    public function getLocation() {
+        return $this->location;
     }
-    
-    public function setLocation(Location $location)
-    {
-    	if ( $this->originalLocation != null
-    		 && $this->originalLocation->getId() == $location->getId()  ) {
-    		 	
-    		 $this->originalLocation = null;
-    		 
-    	} else if ( $this->originalLocation == null ) {
-    		
-    		$this->originalLocation = $this->location;
-    		
-    	}
-    	
-    	$this->location = $location;
+
+    public function setLocation(Location $location) {
+        if ($this->originalLocation != null
+            && $this->originalLocation->getId() == $location->getId()
+        ) {
+            $this->originalLocation = null;
+        } elseif ($this->originalLocation == null) {
+            $this->originalLocation = $this->location;
+        }
+
+        $this->location = $location;
     }
-    
+
     /** @return Location */
-    public function getOriginalLocation()
-    {
-    	return $this->originalLocation;
+    public function getOriginalLocation() {
+        return $this->originalLocation;
     }
 
     /** @return Collection|IODeviceChannel[] */
@@ -197,61 +177,51 @@ class IODevice
         return $this->user;
     }
 
-    public function getRegDate()
-    {
-    	return $this->regDate;
+    public function getRegDate() {
+        return $this->regDate;
     }
-    
-    public function getRegIpv4()
-    {
-    	return $this->regIpv4;
+
+    public function getRegIpv4() {
+        return $this->regIpv4;
     }
-    
-    public function getLastConnected()
-    {
-    	return $this->lastConnected;
+
+    public function getLastConnected() {
+        return $this->lastConnected;
     }
-    
-    public function getLastIpv4()
-    {
-    	return $this->lastIpv4;
+
+    public function getLastIpv4() {
+        return $this->lastIpv4;
     }
-    
-    public function getId() 
-    {
-    	return $this->id;
+
+    public function getId() {
+        return $this->id;
     }
-    
-    
-    public function getGUID()
-    {
-    	$guid = $this->guid;
-    	
-    	if ( get_resource_type ( $guid ) == 'stream' ) {
-    		$guid = bin2hex(stream_get_contents ($guid, -1, 0));
-    	};
-    	
+
+    public function getGUID() {
+        $guid = $this->guid;
+
+        if (get_resource_type($guid) == 'stream') {
+            $guid = bin2hex(stream_get_contents($guid, -1, 0));
+        };
+
         return $guid;
     }
-    
-    public function getGUIDString() 
-    {
-    	$guid = $this->getGUID();
-    
-    	return strtoupper(substr($guid, 0, 8).'-'
-    			.substr($guid, 8, 4).'-'
-    			.substr($guid, 12, 4).'-'
-    			.substr($guid, 16, 4).'-'
-    			.substr($guid, 20, 12));
+
+    public function getGUIDString() {
+        $guid = $this->getGUID();
+
+        return strtoupper(substr($guid, 0, 8) . '-'
+            . substr($guid, 8, 4) . '-'
+            . substr($guid, 12, 4) . '-'
+            . substr($guid, 16, 4) . '-'
+            . substr($guid, 20, 12));
     }
-    
-    public function getSoftwareVersion()
-    {
-    	return $this->softwareVersion;
+
+    public function getSoftwareVersion() {
+        return $this->softwareVersion;
     }
-    
-    public function getProtocolVersion()
-    {
-    	return $this->protocolVersion;
+
+    public function getProtocolVersion() {
+        return $this->protocolVersion;
     }
 }

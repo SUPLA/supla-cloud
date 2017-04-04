@@ -19,42 +19,37 @@
 
 namespace SuplaBundle\Provider\OAuth;
 
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements UserProviderInterface
-{
-	
-	  protected $api_manager;
+class UserProvider implements UserProviderInterface {
 
-      public function __construct($api_manager){
-      	  $this->api_manager = $api_manager;
-      }
+    protected $api_manager;
 
-      public function loadUserByUsername($username)
-      {
-      	return $this->api_manager->getAPIUserByName($username);
-      }
+    public function __construct($api_manager) {
+        $this->api_manager = $api_manager;
+    }
 
-      public function refreshUser(UserInterface $user)
-      {
-          $class = get_class($user);
-          if (!$this->supportsClass($class)) {
-              throw new UnsupportedUserException(
-                  sprintf(
-                      'Instances of "%s" are not supported.',
-                      $class
-                  )
-              );
-          }
+    public function loadUserByUsername($username) {
+        return $this->api_manager->getAPIUserByName($username);
+    }
 
-          return $this->userRepository->find($user->getId());
-      }
+    public function refreshUser(UserInterface $user) {
+        $class = get_class($user);
+        if (!$this->supportsClass($class)) {
+            throw new UnsupportedUserException(
+                sprintf(
+                    'Instances of "%s" are not supported.',
+                    $class
+                )
+            );
+        }
 
-      public function supportsClass($class)
-      {
-          return $class === 'SuplaBundle\Entity\OAuth\User';
-      }
+        return $this->userRepository->find($user->getId());
+    }
+
+    public function supportsClass($class) {
+        return $class === 'SuplaBundle\Entity\OAuth\User';
+    }
 }

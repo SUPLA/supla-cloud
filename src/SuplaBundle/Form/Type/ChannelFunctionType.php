@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/Form/Type/ChannelFunctionType.php
 
@@ -19,69 +19,54 @@
 
 namespace SuplaBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\DataTransformer\DataTransformerChain;
-use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToArrayTransformer;
-use Symfony\Component\Form\Extension\Core\DataTransformer\ArrayToPartsTransformer;
-use Symfony\Component\Form\FormBuilderInterface;
 use SuplaBundle\Model\IODeviceManager;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChannelFunctionType extends AbstractType
-{
-	
-	private $dev_miodevice_manager;
-	
-	public function __construct(IODeviceManager $iodevice_manager)
-	{
-		$this->iodevice_manager = $iodevice_manager;
-	}
-	
+class ChannelFunctionType extends AbstractType {
 
-	public function configureOptions(OptionsResolver $resolver)
-	{
-		$resolver->setDefaults(array(
-                'data_class' => 'SuplaBundle\Entity\IODeviceChannel',
-            ));
-	}
+    private $dev_miodevice_manager;
 
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
-		$builder->add('function', HiddenType::class);
-		$builder->add('param1', HiddenType::class);
-		$builder->add('param2', HiddenType::class);
-		
-	}
+    public function __construct(IODeviceManager $iodevice_manager) {
+        $this->iodevice_manager = $iodevice_manager;
+    }
 
-	public function buildView(FormView $view, FormInterface $form, array $options)
-	{
-		$channel = $view->vars['value'];
-		
-		$view->vars['selected'] = $this->iodevice_manager->channelFunctionToString($channel->getFunction());
-		
-		$map = $this->iodevice_manager->channelFunctionMap($channel->getType(), $channel->getFuncList());
-		$fnc = array();
-		
-		foreach($map as $f) {
-			$fnc[] = array('id' => $f,
-					       'name' => $this->iodevice_manager->channelFunctionToString($f)
-			);
-		}
-	
-		$view->vars['channel'] = $channel;
-		$view->vars['functions'] = $fnc;
-		$view->vars['function_params'] = $this->iodevice_manager->channelFunctionParamsHtmlTemplate($channel);
-	}
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
+            'data_class' => 'SuplaBundle\Entity\IODeviceChannel',
+        ]);
+    }
 
-	
-	public function getBlockPrefix()
-	{
-		return 'channelfunction';
-	}
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('function', HiddenType::class);
+        $builder->add('param1', HiddenType::class);
+        $builder->add('param2', HiddenType::class);
+    }
 
+    public function buildView(FormView $view, FormInterface $form, array $options) {
+        $channel = $view->vars['value'];
 
+        $view->vars['selected'] = $this->iodevice_manager->channelFunctionToString($channel->getFunction());
+
+        $map = $this->iodevice_manager->channelFunctionMap($channel->getType(), $channel->getFuncList());
+        $fnc = [];
+
+        foreach ($map as $f) {
+            $fnc[] = ['id' => $f,
+                'name' => $this->iodevice_manager->channelFunctionToString($f),
+            ];
+        }
+
+        $view->vars['channel'] = $channel;
+        $view->vars['functions'] = $fnc;
+        $view->vars['function_params'] = $this->iodevice_manager->channelFunctionParamsHtmlTemplate($channel);
+    }
+
+    public function getBlockPrefix() {
+        return 'channelfunction';
+    }
 }

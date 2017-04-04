@@ -20,47 +20,42 @@
 namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
-class ChangePasswordType extends AbstractType
-{
-	
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class ChangePasswordType extends AbstractType {
+
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('oldPassword', PasswordType::class);
-        $builder->add('newPassword', RepeatedType::class, array(
+        $builder->add('newPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'invalid_message' => 'The password fields must match.',
             'required' => true,
-            'first_options'  => array('label' => 'Password'),
-            'second_options' => array('label' => 'Repeat Password'),
-        ));
-        
-        $builder->add('cancel', ButtonType::class, array(
-        		'label' => 'Cancel',
-        		'attr' => array('class' => 'btn btn-default', 'onClick' => "location.href='".$options['cancel_url']."'"),
-        ))
-        ->add('save', SubmitType::class, array('label' => 'Save',
-        		'attr' => array('class' => 'btn btn-default')
-        ));
+            'first_options' => ['label' => 'Password'],
+            'second_options' => ['label' => 'Repeat Password'],
+        ]);
+
+        $builder->add('cancel', ButtonType::class, [
+            'label' => 'Cancel',
+            'attr' => ['class' => 'btn btn-default', 'onClick' => "location.href='" . $options['cancel_url'] . "'"],
+        ])
+            ->add('save', SubmitType::class, ['label' => 'Save',
+                'attr' => ['class' => 'btn btn-default'],
+            ]);
     }
-    
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
+
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
             'data_class' => 'SuplaBundle\Form\Model\ChangePassword',
-        	'cancel_url' => '',
-        ));
+            'cancel_url' => '',
+        ]);
     }
-    
-    public function getBlockPrefix()
-    {
+
+    public function getBlockPrefix() {
         return '_change_password_type';
     }
-    
 }

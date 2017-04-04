@@ -19,80 +19,66 @@
 
 namespace SuplaBundle\Entity;
 
-
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_temphumidity_log", indexes={@ORM\Index(name="channel_id_idx", columns={"channel_id"}), @ORM\Index(name="date_idx", columns={"date"})})
  */
-class TempHumidityLogItem
-{    
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-	
+class TempHumidityLogItem {
     /**
-	 * @ORM\Column(name="channel_id", type="integer")
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="channel_id", type="integer")
      * @Assert\NotBlank()
      */
     private $channel_id;
-    
+
     /**
      * @ORM\Column(name="date", type="datetime")
      * @Assert\NotBlank()
      */
     private $date;
-    
-    
+
     /**
      * @ORM\Column(name="temperature", type="decimal", precision=8, scale=4)
      * @Assert\NotBlank()
      */
     private $temperature;
-    
-    
+
     /**
      * @ORM\Column(name="humidity", type="decimal", precision=8, scale=4)
      * @Assert\NotBlank()
      */
     private $humidity;
-    
-    
-    public function __construct()
-    {	
+
+    public function __construct() {
     }
-    
-    public function getId()
-    {
-    	return $this->id;
+
+    public function getId() {
+        return $this->id;
     }
-    
-    public function getChannelId()
-    {
-    	return $this->channel_id;
+
+    public function getChannelId() {
+        return $this->channel_id;
     }
-    
- 
-    public function getDate() 
-    {
-    	return $this->date;
+
+    public function getDate() {
+        return $this->date;
     }
-   
-    public function getTemperature()
-    {
-    	return $this->temperature;
+
+    public function getTemperature() {
+        return $this->temperature;
     }
-    
-    public function getHumidity()
-    {
-    	return $this->humidity;
+
+    public function getHumidity() {
+        return $this->humidity;
     }
-    
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -17,61 +17,53 @@
 
 namespace SuplaApiBundle\Controller;
 
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+class LocationController extends RestController {
 
-class LocationController extends RestController
-{
-	    
-	protected function getLocations() {
-	
-		$result = array();
-		$parent = $this->getParentUser();
-		
-		if ( $parent !== null ) {
-			
-			foreach($parent->getLocations() as $location) {
-			
-				$iodev = array();
-				$accessids = array();
-			
-				foreach($location->getIoDevices() as $iodevice) {
-					$iodev[] = $iodevice->getId();
-				}
-			
-				foreach($location->getAccessIds() as $accessid) {
-					$accessids[] = $accessid->getId();
-				}
-			
-				$result[] = array(
-						'id' => $location->getId(),
-						'password' => $location->getPassword(),
-						'caption' => $location->getCaption(),
-						'iodevices' => $iodev,
-						'accessids' => $accessids,
-				);
-			}
-		}
-			
+    protected function getLocations() {
 
-		return array('locations' => $result);
-	}
-	
-	
-	/**
-	 * @Rest\Get("/locations")
-	 */
-	public function getLocationsAction(Request $request)
-	{
-		 
-		return  $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
+        $result = [];
+        $parent = $this->getParentUser();
 
-	}
-	
+        if ($parent !== null) {
+
+            foreach ($parent->getLocations() as $location) {
+
+                $iodev = [];
+                $accessids = [];
+
+                foreach ($location->getIoDevices() as $iodevice) {
+                    $iodev[] = $iodevice->getId();
+                }
+
+                foreach ($location->getAccessIds() as $accessid) {
+                    $accessids[] = $accessid->getId();
+                }
+
+                $result[] = [
+                    'id' => $location->getId(),
+                    'password' => $location->getPassword(),
+                    'caption' => $location->getCaption(),
+                    'iodevices' => $iodev,
+                    'accessids' => $accessids,
+                ];
+            }
+        }
+
+        return ['locations' => $result];
+    }
+
+    /**
+     * @Rest\Get("/locations")
+     */
+    public function getLocationsAction(Request $request) {
+
+        return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
+    }
+
 }
 
 ?>

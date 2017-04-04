@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -17,56 +17,47 @@
 
 namespace SuplaApiBundle\Controller;
 
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+class AccessIDController extends RestController {
 
-class AccessIDController extends RestController
-{
-	    	
-	protected function getAccessIDS() {
-	
-		$result = array();
-		$parent = $this->getParentUser();
-			
-		if ( $parent !== null ) {
-			
-			foreach($parent->getAccessIDS() as $aid) {
-			
-				$locations = array();
-			
-				foreach($aid->getLocations() as $location) {
-					$locations[] = $location->getId();
-				}
-			
-				$result[] = array(
-						'id' => $aid->getId(),
-						'password' => $aid->getPassword(),
-						'caption' => $aid->getCaption(),
-						'enabled' => $aid->getEnabled() === true ? true : false,
-						'locations' => $locations,
-				);
-			}
-			
-		}
-			
-		return array('accessids' => $result);
-	}
+    protected function getAccessIDS() {
 
-	
+        $result = [];
+        $parent = $this->getParentUser();
 
-	/**
-	 * @Rest\Get("/accessids")
-	 */
-	public function getAccessidsAction(Request $request)
-	{
-		return  $this->handleView($this->view($this->getAccessIDS(), Response::HTTP_OK));
-	
-	}
-	
+        if ($parent !== null) {
+
+            foreach ($parent->getAccessIDS() as $aid) {
+
+                $locations = [];
+
+                foreach ($aid->getLocations() as $location) {
+                    $locations[] = $location->getId();
+                }
+
+                $result[] = [
+                    'id' => $aid->getId(),
+                    'password' => $aid->getPassword(),
+                    'caption' => $aid->getCaption(),
+                    'enabled' => $aid->getEnabled() === true ? true : false,
+                    'locations' => $locations,
+                ];
+            }
+        }
+
+        return ['accessids' => $result];
+    }
+
+    /**
+     * @Rest\Get("/accessids")
+     */
+    public function getAccessidsAction(Request $request) {
+        return $this->handleView($this->view($this->getAccessIDS(), Response::HTTP_OK));
+    }
+
 }
 
 ?>

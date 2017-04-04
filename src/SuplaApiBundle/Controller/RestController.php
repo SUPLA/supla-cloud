@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -17,45 +17,44 @@
 
 namespace SuplaApiBundle\Controller;
 
-
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Each entity controller must extends this class.
- * 
+ *
  * @abstract
  */
 abstract class RestController extends FOSRestController {
-	
-	private $api_man;
-	private $user;
-	private $parent;
-	
-	public function getApiUser() {
-	
-		if ($this->user === null) {
-			$this->user = $this->container->get('security.token_storage')->getToken()->getUser();
-		}
-		return $this->user;
-	}
-	
-	public function getParentUser() {
-	
-		if ( $this->parent === null
-			 && $this->getUser() !== null ) {
-			$this->parent = $this->getUser()->getParentUser();
-		}
-		return $this->parent;
-	}
-	
-	public function getApiManager() {
-		
-		if ( $this->api_man === null ) {
-			$this->api_man = $this->container->get('api_manager');
-		}
-		
-		return $this->api_man;
-	}	
-	
+
+    private $api_man;
+    private $user;
+    private $parent;
+
+    public function getApiUser() {
+
+        if ($this->user === null) {
+            $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+        }
+        return $this->user;
+    }
+
+    public function getParentUser() {
+
+        if ($this->parent === null
+            && $this->getUser() !== null
+        ) {
+            $this->parent = $this->getUser()->getParentUser();
+        }
+        return $this->parent;
+    }
+
+    public function getApiManager() {
+
+        if ($this->api_man === null) {
+            $this->api_man = $this->container->get('api_manager');
+        }
+
+        return $this->api_man;
+    }
+
 }

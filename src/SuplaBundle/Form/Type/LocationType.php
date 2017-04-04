@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/Form/Type/LocationType.php
 
@@ -20,47 +20,39 @@
 namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class LocationType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('caption', TextType::class, array('label' => 'Caption'))
-    	->add('password', TextType::class, array('label' => 'Password'))
-    	->add('enabled', CheckboxType::class, array('label' => 'Enabled', 'required' => false))
-    	->add('pwd_gen_btn', ButtonType::class, array(
-    			'label' => 'Generate new password',
-    			'attr' => array('class' => 'btn btn-default', 'onClick' => "ajaxPwdGen(4)"),
-    	))
-    	->add('cancel', ButtonType::class, array(
-    			'label' => 'Cancel',
-    			'attr' => array('class' => 'btn btn-default', 'onClick' => "location.href='".$options['cancel_url']."'"),
-    	))
-    	->add('save', SubmitType::class, array('label' => 'Save',
-    			                      'attr' => array('class' => 'btn btn-default')
-    	));
-    	
+class LocationType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('caption', TextType::class, ['label' => 'Caption'])
+            ->add('password', TextType::class, ['label' => 'Password'])
+            ->add('enabled', CheckboxType::class, ['label' => 'Enabled', 'required' => false])
+            ->add('pwd_gen_btn', ButtonType::class, [
+                'label' => 'Generate new password',
+                'attr' => ['class' => 'btn btn-default', 'onClick' => "ajaxPwdGen(4)"],
+            ])
+            ->add('cancel', ButtonType::class, [
+                'label' => 'Cancel',
+                'attr' => ['class' => 'btn btn-default', 'onClick' => "location.href='" . $options['cancel_url'] . "'"],
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Save',
+                'attr' => ['class' => 'btn btn-default'],
+            ]);
     }
 
-    
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
             'data_class' => 'SuplaBundle\Entity\Location',
-        	'cancel_url' => ''
-        ));
+            'cancel_url' => '',
+        ]);
     }
 
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return '_location_type';
     }
-    
-
 }

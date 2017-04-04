@@ -21,68 +21,58 @@ namespace SuplaBundle\Model;
 
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\OAuth\User AS APIUser;
 
-class AccessIdManager 
-{	
-	protected $translator;
-	protected $doctrine;	
-	protected $rep;
-	protected $sec;
-	
-	public function __construct($translator, $doctrine, $security_token)
-	{
-		$this->translator = $translator;
-		$this->doctrine = $doctrine;
-		$this->rep = $doctrine->getRepository('SuplaBundle:AccessID');
-		$this->sec = $security_token;
-	}
-	
-	public function anyIdExists(User $user) 
-	{		
-		return $user !== null && ( $user->getAccessIDS()->count() > 0 || $this->rep->findOneBy(array('user' => $user)) !== null );
-	}
-	
-	public function totalCount(User $user)
-	{
-		$qb = $this->rep->createQueryBuilder('a');
-	
-		return intval($qb->select('count(a.id)')
-				->where($qb->expr()->eq('a.user', ':user'))
-				->setParameter('user', $user->getId())
-				->getQuery()
-				->getSingleScalarResult());
-	}
-	
-	public function createID(User $user, $ifnotexists = false) 
-	{
-		if ( $ifnotexists === false
-			 || $this->anyIdExists($user) === false ) {
-					
-			 $aid = new AccessID($user);
-		
-			 if ( $aid !== null ) {
-			 	
-			 	$aid->setPassword(bin2hex(random_bytes(4)));
-			 	$aid->setCaption($this->translator->trans('Access Identifier')." #".($this->totalCount($user)+1));
-			 	
-			 	return $aid;
-			 }
-		}
-		
-		return null;
-	}
-	
-	public function accessIdById($id)
-	{
-		$user = $this->sec->getToken()->getUser();
-	
-		if ( $user === null )
-			return null;
-	
+class AccessIdManager {
+    protected $translator;
+    protected $doctrine;
+    protected $rep;
+    protected $sec;
 
-		return $this->rep->findOneBy(array('user' => $user, 'id' => $id));
-	}
-	
+    public function __construct($translator, $doctrine, $security_token) {
+        $this->translator = $translator;
+        $this->doctrine = $doctrine;
+        $this->rep = $doctrine->getRepository('SuplaBundle:AccessID');
+        $this->sec = $security_token;
+    }
 
+    public function anyIdExists(User $user) {
+        return $user !== null && ($user->getAccessIDS()->count() > 0 || $this->rep->findOneBy(['user' => $user]) !== null);
+    }
+
+    public function totalCount(User $user) {
+        $qb = $this->rep->createQueryBuilder('a');
+
+        return intval($qb->select('count(a.id)')
+            ->where($qb->expr()->eq('a.user', ':user'))
+            ->setParameter('user', $user->getId())
+            ->getQuery()
+            ->getSingleScalarResult());
+    }
+
+    public function createID(User $user, $ifnotexists = false) {
+        if ($ifnotexists === false
+            || $this->anyIdExists($user) === false
+        ) {
+            $aid = new AccessID($user);
+
+            if ($aid !== null) {
+                $aid->setPassword(bin2hex(random_bytes(4)));
+                $aid->setCaption($this->translator->trans('Access Identifier') . " #" . ($this->totalCount($user) + 1));
+
+                return $aid;
+            }
+        }
+
+        return null;
+    }
+
+    public function accessIdById($id) {
+        $user = $this->sec->getToken()->getUser();
+
+        if ($user === null) {
+            return null;
+        }
+
+        return $this->rep->findOneBy(['user' => $user, 'id' => $id]);
+    }
 }

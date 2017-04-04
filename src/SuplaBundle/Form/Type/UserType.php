@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/Form/Type/UserType.php
 
@@ -20,40 +20,34 @@
 namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class UserType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('email', EmailType::class, array('label' => ' ',
-        		                              'required' => true));
-        $builder->add('plainPassword', RepeatedType::class, array(
-           'required' => true,
-           'first_name'  => 'password',
-           'second_name' => 'confirm',
-           'type'        => PasswordType::class,
-           'first_options'  => array('label' => ' '),
-           'second_options' => array('label' => ' '),
-           'invalid_message' => 'The password and its confirm are not the same.',
-        ));
-    }
-    
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'SuplaBundle\Entity\User'
-        ));
+class UserType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('email', EmailType::class, ['label' => ' ',
+            'required' => true]);
+        $builder->add('plainPassword', RepeatedType::class, [
+            'required' => true,
+            'first_name' => 'password',
+            'second_name' => 'confirm',
+            'type' => PasswordType::class,
+            'first_options' => ['label' => ' '],
+            'second_options' => ['label' => ' '],
+            'invalid_message' => 'The password and its confirm are not the same.',
+        ]);
     }
 
-    public function getBlockPrefix()
-    {
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
+            'data_class' => 'SuplaBundle\Entity\User',
+        ]);
+    }
+
+    public function getBlockPrefix() {
         return '_user_type';
     }
-    
-
 }

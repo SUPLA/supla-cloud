@@ -140,14 +140,14 @@ class ScheduleController extends AbstractController {
             $data = $request->request->all();
             if (isset($data['disable'])) {
                 $this->get('schedule_manager')->disable($schedule);
-            } else if (isset($data['enable'])) {
+            } elseif (isset($data['enable'])) {
                 try {
                     $this->get('schedule_manager')->enable($schedule);
                     Assertion::true($schedule->getEnabled(), 'Schedule cannot be enabled');
                 } catch (InvalidArgumentException $e) {
                     $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => $e->getMessage()]);
                 }
-            } else if (isset($data['delete'])) {
+            } elseif (isset($data['delete'])) {
                 $this->get('schedule_manager')->delete($schedule);
                 $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Schedule has been deleted']);
                 return $this->redirectToRoute("_schedule_list");

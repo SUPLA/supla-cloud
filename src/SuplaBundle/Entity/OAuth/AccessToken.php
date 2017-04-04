@@ -19,15 +19,14 @@
 
 namespace SuplaBundle\Entity\OAuth;
 
-use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_oauth_access_tokens")
  */
-class AccessToken extends BaseAccessToken
-{
+class AccessToken extends BaseAccessToken {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

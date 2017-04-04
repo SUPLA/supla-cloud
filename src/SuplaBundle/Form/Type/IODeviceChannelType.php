@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  src/SuplaBundle/Form/Type/IODeviceType.php
 
@@ -20,40 +20,33 @@
 namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use SuplaBundle\Form\Type\ChannelFunctionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class IODeviceChannelType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('channel', ChannelFunctionType::class, array('label' => 'Function'))        
-    	->add('caption', TextType::class, array('label' => 'Caption', 'required' => false))
-    	->add('cancel', ButtonType::class, array(
-    			'label' => ' ',
-    			'attr' => array('class' => 'back pe-7s-left-arrow', 'onClick' => "fadeToUrl('".$options['cancel_url']."')"),
-    	))
-    	->add('save', SubmitType::class, array('label' => ' ',
-    			'attr' => array('class' => 'save pe-7s-check')
-    	));
+class IODeviceChannelType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('channel', ChannelFunctionType::class, ['label' => 'Function'])
+            ->add('caption', TextType::class, ['label' => 'Caption', 'required' => false])
+            ->add('cancel', ButtonType::class, [
+                'label' => ' ',
+                'attr' => ['class' => 'back pe-7s-left-arrow', 'onClick' => "fadeToUrl('" . $options['cancel_url'] . "')"],
+            ])
+            ->add('save', SubmitType::class, ['label' => ' ',
+                'attr' => ['class' => 'save pe-7s-check'],
+            ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
             'data_class' => 'SuplaBundle\Entity\IODeviceChannel',
-        	'cancel_url' => ''
-        ));
+            'cancel_url' => '',
+        ]);
     }
 
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return '_iodevice_channel_type';
     }
-    
-
 }

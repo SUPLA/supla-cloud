@@ -10,12 +10,10 @@ use Doctrine\DBAL\Types\DateTimeType;
  * Saves datetime always as UTC.
  * http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html
  */
-class UTCDateTimeType extends DateTimeType
-{
+class UTCDateTimeType extends DateTimeType {
     static private $utc = null;
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
-    {
+    public function convertToDatabaseValue($value, AbstractPlatform $platform) {
         if ($value === null) {
             return null;
         }
@@ -26,8 +24,7 @@ class UTCDateTimeType extends DateTimeType
         return $value->format($platform->getDateTimeFormatString());
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
-    {
+    public function convertToPHPValue($value, AbstractPlatform $platform) {
         if ($value === null) {
             return null;
         }

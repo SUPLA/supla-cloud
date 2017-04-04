@@ -19,30 +19,29 @@
 
 namespace SuplaBundle\Entity\OAuth;
 
-use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_oauth_auth_codes")
  */
-class AuthCode extends BaseAuthCode
-{
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	protected $id;
+class AuthCode extends BaseAuthCode {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="Client")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	protected $client;
+    /**
+     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $client;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\User")
-	 */
-	protected $user;
+    /**
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\User")
+     */
+    protected $user;
 }

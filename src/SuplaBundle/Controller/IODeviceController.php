@@ -65,8 +65,9 @@ class IODeviceController extends AbstractController {
 
         $iodev = $this->getIODeviceById($id);
 
-        if ($iodev === null)
+        if ($iodev === null) {
             return $this->redirectToRoute("_iodev_list");
+        }
 
         $dev_man = $this->get('iodevice_manager');
 
@@ -74,8 +75,9 @@ class IODeviceController extends AbstractController {
 
         $loc_name = 'Id ' . $loc->getId();
 
-        if (strlen($loc->getCaption()) > 0)
+        if (strlen($loc->getCaption()) > 0) {
             $loc_name .= " [" . $loc->getCaption() . "]";
+        }
 
         $aid_enabled = false;
 
@@ -87,7 +89,8 @@ class IODeviceController extends AbstractController {
             }
         }
 
-        return $this->render('SuplaBundle:IODevice:iodevice.html.twig',
+        return $this->render(
+            'SuplaBundle:IODevice:iodevice.html.twig',
             ['iodevice' => $iodev,
                 'location_name' => $loc_name,
                 'channels' => $dev_man->channelsToArray($dev_man->getChannels($iodev)),
@@ -102,8 +105,9 @@ class IODeviceController extends AbstractController {
     public function itemDeleteAction($id) {
         $iodev = $this->getIODeviceById($id);
 
-        if ($iodev === null)
+        if ($iodev === null) {
             return $this->redirectToRoute("_iodev_list");
+        }
 
         $dev_man = $this->get('iodevice_manager');
         $m = $this->get('doctrine')->getManager();
@@ -111,29 +115,24 @@ class IODeviceController extends AbstractController {
         $channels = $dev_man->getChannels($iodev);
 
         foreach ($channels as $channel) {
-
             switch ($channel->getType()) {
-
                 case SuplaConst::TYPE_SENSORNO:
                 case SuplaConst::TYPE_SENSORNC:
-
                     if ($channel->getParam1() != 0) {
-
                         $related_channel = $this->getChannelById($channel->getParam1());
 
                         if ($related_channel != null
                             && $related_channel->getFunction() != SuplaConst::FNC_NONE
                             && $related_channel->getParam2() == $channel->getId()
-                        )
-
+                        ) {
                             $related_channel->setParam2(0);
+                        }
                     }
 
                 case SuplaConst::TYPE_RELAY:
                 case SuplaConst::TYPE_RELAYHFD4:
                 case SuplaConst::TYPE_RELAYG5LA1A:
                 case SuplaConst::TYPE_2XRELAYG5LA1A:
-
                     if ($channel->getParam2() != 0) {
                         $sensor = $this->getChannelById($channel->getParam2());
                         if ($sensor !== null) {
@@ -161,14 +160,17 @@ class IODeviceController extends AbstractController {
 
         $channel = $this->getChannelById($id);
 
-        if ($channel === null || $channel->getIoDevice()->getId() != $devid)
+        if ($channel === null || $channel->getIoDevice()->getId() != $devid) {
             return $this->redirectToRoute("_iodev_list");
+        }
 
         $dev_man = $this->get('iodevice_manager');
 
-        $form = $this->createForm(IODeviceChannelType::class,
+        $form = $this->createForm(
+            IODeviceChannelType::class,
             $channel,
-            ['cancel_url' => $this->generateUrl('_iodev_item', ['id' => $devid])]);
+            ['cancel_url' => $this->generateUrl('_iodev_item', ['id' => $devid])]
+        );
 
         $old_function = $channel->getFunction();
         $old_param1 = $channel->getParam1();
@@ -177,26 +179,21 @@ class IODeviceController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             switch ($channel->getType()) {
-
                 case SuplaConst::TYPE_SENSORNO:
                 case SuplaConst::TYPE_SENSORNC:
-
                     if ($channel->getFunction() == SuplaConst::FNC_NONE
                         || $old_param1 != $channel->getParam1()
                     ) {
-
                         if ($old_param1 != 0) {
-
                             $related_channel = $this->getChannelById($old_param1);
 
                             if ($related_channel != null
                                 && $related_channel->getFunction() != SuplaConst::FNC_NONE
                                 && $related_channel->getParam2() == $channel->getId()
-                            )
-
+                            ) {
                                 $related_channel->setParam2(0);
+                            }
                         }
                     };
 
@@ -208,14 +205,13 @@ class IODeviceController extends AbstractController {
                         && $old_param1 != $channel->getParam1()
                         && $channel->getParam1() != 0
                     ) {
-
                         $related_channel = $this->getChannelById($channel->getParam1());
 
                         if ($related_channel != null
                             && $related_channel->getFunction() != SuplaConst::FNC_NONE
-                        )
-
+                        ) {
                             $related_channel->setParam2($channel->getId());
+                        }
                     }
 
                     break;
@@ -224,16 +220,15 @@ class IODeviceController extends AbstractController {
                 case SuplaConst::TYPE_RELAYHFD4:
                 case SuplaConst::TYPE_RELAYG5LA1A:
                 case SuplaConst::TYPE_2XRELAYG5LA1A:
-
                     if ($channel->getFunction() == SuplaConst::FNC_NONE
                         || $old_param2 != $channel->getParam2()
                     ) {
-
                         if ($old_param2 != 0) {
                             $related_sensor = $this->getChannelById($old_param2);
 
-                            if ($related_sensor !== null)
+                            if ($related_sensor !== null) {
                                 $related_sensor->setParam1(0);
+                            }
                         }
                     };
 
@@ -241,7 +236,6 @@ class IODeviceController extends AbstractController {
                         && $old_param2 != $channel->getParam2()
                         && $channel->getParam2() != 0
                     ) {
-
                         $related_sensor = $this->getChannelById($channel->getParam2());
                         $related_sensor->setParam1($channel->getId());
                     }
@@ -265,7 +259,8 @@ class IODeviceController extends AbstractController {
 
         $channelType = $channel->getType();
 
-        return $this->render('SuplaBundle:IODevice:channeledit.html.twig',
+        return $this->render(
+            'SuplaBundle:IODevice:channeledit.html.twig',
             ['channel' => $channel,
                 'channel_type' => $dev_man->channelTypeToString($channel->getType()),
                 'channel_function' => $channel->getFunction(),
@@ -291,19 +286,21 @@ class IODeviceController extends AbstractController {
 
         $channel = $this->getChannelById($id);
 
-        if ($channel === null || $channel->getIoDevice()->getId() != $devid)
+        if ($channel === null || $channel->getIoDevice()->getId() != $devid) {
             return $this->redirectToRoute("_iodev_list");
+        }
 
         $iodev_man = $this->get('iodevice_manager');
         $file = $iodev_man->channelGetCSV($channel, "measurement_" . intval($id));
 
         if ($file !== false) {
-
             return new StreamedResponse(
                 function () use ($file) {
                     readfile($file);
                     unlink($file);
-                }, 200, ['Content-Type' => 'application/zip',
+                },
+                200,
+                ['Content-Type' => 'application/zip',
                     'Content-Disposition' => 'attachment; filename="measurement_' . intval($id) . '.zip"',
                 ]
             );
@@ -321,7 +318,6 @@ class IODeviceController extends AbstractController {
         $iodev = $this->getIODeviceById($id);
 
         if ($iodev != null) {
-
             $form = $this->createForm(ChangeLocationType::class, null, []);
             $form->handleRequest($request);
 
@@ -329,7 +325,6 @@ class IODeviceController extends AbstractController {
                 && $form->isValid()
                 && ($new_id = intval(@$request->request->get('selected_id'))) != $iodev->getLocation()->getId()
             ) {
-
                 $loc_man = $this->get('location_manager');
                 $new_location = $loc_man->locationById($new_id);
 
@@ -376,8 +371,7 @@ class IODeviceController extends AbstractController {
                 return $this->jsonResponse([
                         'device' => $device,
                         'schedules' => $schedules,
-                    ]
-                );
+                    ]);
             }
         });
     }
@@ -393,7 +387,8 @@ class IODeviceController extends AbstractController {
             $iodev->setComment($data->value);
         }
 
-        return $this->ajaxItemEdit($iodev,
+        return $this->ajaxItemEdit(
+            $iodev,
             'Comment has been modified',
             null
         );
@@ -420,20 +415,22 @@ class IODeviceController extends AbstractController {
         $iodev = $this->getIODeviceById($id);
 
         if ($user !== null && $iodev !== null) {
-
-            $form = $this->createForm(ChangeLocationType::class,
+            $form = $this->createForm(
+                ChangeLocationType::class,
                 null,
                 ['action' => $this->generateUrl('_iodev_change_loc', ['id' => $id]),
-                ]);
+                ]
+            );
 
-            $html = $this->get('templating')->render('SuplaBundle:IODevice:changelocation.html.twig',
+            $html = $this->get('templating')->render(
+                'SuplaBundle:IODevice:changelocation.html.twig',
                 ['form' => $form->createView(),
                     'locations' => $user->getLocations(),
                     'selected_id' => $iodev->getLocation() !== null ? $iodev->getLocation()->getId() : 0,
-                ]);
+                ]
+            );
         }
 
         return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
-
 }

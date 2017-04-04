@@ -3,8 +3,7 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
 use SuplaBundle\Entity\Schedule;
 
-interface SchedulePlanner
-{
+interface SchedulePlanner {
     /**
      * Calculates next run date of a given schedule from the specified current date.
      *
@@ -14,7 +13,6 @@ interface SchedulePlanner
      * @throws \RuntimeException if the next run date could not be calculated
      */
     public function calculateNextRunDate(Schedule $schedule, \DateTime $currentDate);
-
 
     /**
      * Checks if it can calculate the next run date for given schedule.

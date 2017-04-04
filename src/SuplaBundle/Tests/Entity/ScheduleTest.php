@@ -32,7 +32,12 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
 
     public function testSettingActionParamsAsArray() {
         $schedule = new Schedule();
-        $schedule->fill(['scheduleMode' => 'hourly', 'timeExpression' => '*', 'action' => ScheduleAction::REVEAL_PARTIALLY, 'actionParam' => ['percentage' => 12]]);
+        $schedule->fill([
+            'scheduleMode' => 'hourly',
+            'timeExpression' => '*',
+            'action' => ScheduleAction::REVEAL_PARTIALLY,
+            'actionParam' => ['percentage' => 12],
+        ]);
         $this->assertEquals('{"percentage":12}', $schedule->getActionParam());
     }
 
