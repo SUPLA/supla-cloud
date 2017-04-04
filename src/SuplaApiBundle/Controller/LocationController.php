@@ -29,9 +29,7 @@ class LocationController extends RestController {
         $parent = $this->getParentUser();
 
         if ($parent !== null) {
-
             foreach ($parent->getLocations() as $location) {
-
                 $iodev = [];
                 $accessids = [];
 
@@ -63,7 +61,4 @@ class LocationController extends RestController {
 
         return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
     }
-
 }
-
-?>

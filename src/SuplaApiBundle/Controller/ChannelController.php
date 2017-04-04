@@ -46,39 +46,42 @@ class ChannelController extends RestController {
 
         $channel = $iodev_man->channelById($channelid, $this->getParentUser());
 
-        if (!($channel instanceof IODeviceChannel))
+        if (!($channel instanceof IODeviceChannel)) {
             throw new HttpException(Response::HTTP_NOT_FOUND);
+        }
 
         if (is_array($functions)
             && !in_array($channel->getFunction(), $functions)
-        )
+        ) {
             throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
+        }
 
         if ($checkConnected === true) {
-
             $connected = false;
 
             $devid = $channel->getIoDevice()->getId();
             $userid = $this->getParentUser()->getId();
 
             if ($channel->getIoDevice()->getEnabled()) {
-
                 $enabled = true;
 
                 $cids = $this->getServerCtrl()->iodevice_connected($userid, [$devid]);
                 $connected = in_array($devid, $cids);
             }
 
-            if ($connected === false)
+            if ($connected === false) {
                 throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+            }
         }
 
         if ($authorize === true) {
-
-            if (true !== $this->getServerCtrl()->oauth_authorize($userid,
-                    $this->container->get('security.token_storage')->getToken()->getToken())
+            if (true !== $this->getServerCtrl()->oauth_authorize(
+                $userid,
+                $this->container->get('security.token_storage')->getToken()->getToken()
             )
+            ) {
                 throw new HttpException(Response::HTTP_UNAUTHORIZED);
+            }
         }
 
         return $channel;
@@ -105,9 +108,11 @@ class ChannelController extends RestController {
             ->setParameter('id', $channelid)
             ->getQuery();
 
-        return $this->handleView($this->view(['count' => $query->getSingleScalarResult(),
-            'record_limit_per_request' => ChannelController::RECORD_LIMIT_PER_REQUEST],
-            Response::HTTP_OK));
+        return $this->handleView($this->view(
+            ['count' => $query->getSingleScalarResult(),
+                'record_limit_per_request' => ChannelController::RECORD_LIMIT_PER_REQUEST],
+            Response::HTTP_OK
+        ));
     }
 
     /**
@@ -120,13 +125,17 @@ class ChannelController extends RestController {
 
     protected function temperatureLogItems($channelid, $offset, $limit) {
 
-        $q = $this->container->get('doctrine')->getManager()->getConnection()->query("SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` FROM `supla_temperature_log` WHERE channel_id = " . intval($channelid, 0) . " LIMIT " . $limit . " OFFSET " . $offset);
+        $q = $this->container->get('doctrine')->getManager()->getConnection()
+            ->query("SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` FROM `supla_temperature_log` WHERE channel_id = "
+                . intval($channelid, 0) . " LIMIT " . $limit . " OFFSET " . $offset);
         return $q->fetchAll();
     }
 
     protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
 
-        $q = $this->container->get('doctrine')->getManager()->getConnection()->query("SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = " . intval($channelid, 0) . " LIMIT " . $limit . " OFFSET " . $offset);
+        $q = $this->container->get('doctrine')->getManager()->getConnection()
+            ->query("SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature`, `humidity` FROM `supla_temphumidity_log` "
+                . "WHERE channel_id = " . intval($channelid, 0) . " LIMIT " . $limit . " OFFSET " . $offset);
         return $q->fetchAll();
     }
 
@@ -139,8 +148,9 @@ class ChannelController extends RestController {
         $offset = intval($offset);
         $limit = intval($limit);
 
-        if ($limit <= 0)
+        if ($limit <= 0) {
             $limit = ChannelController::RECORD_LIMIT_PER_REQUEST;
+        }
 
         if ($th === true) {
             $result = $this->temperatureAndHumidityLogItems($channelid, $offset, $limit);
@@ -189,7 +199,6 @@ class ChannelController extends RestController {
         $userid = $this->getParentUser()->getId();
 
         if ($channel->getIoDevice()->getEnabled()) {
-
             $enabled = true;
 
             $cids = $this->getServerCtrl()->iodevice_connected($userid, [$devid]);
@@ -201,14 +210,11 @@ class ChannelController extends RestController {
         ];
 
         if ($connected) {
-
             $func = $channel->getFunction();
 
             switch ($func) {
-
                 case SuplaConst::FNC_POWERSWITCH:
                 case SuplaConst::FNC_LIGHTSWITCH:
-
                     $value = $this->getServerCtrl()->get_char_value($userid, $devid, $channelid);
                     $result['on'] = $value == '1' ? true : false;
 
@@ -220,7 +226,6 @@ class ChannelController extends RestController {
                 case SuplaConst::FNC_NOLIQUIDSENSOR:
                 case SuplaConst::FNC_OPENINGSENSOR_DOOR:
                 case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
-
                     $value = $this->getServerCtrl()->get_char_value($userid, $devid, $channelid);
                     $result['hi'] = $value == '1' ? true : false;
 
@@ -229,11 +234,9 @@ class ChannelController extends RestController {
                 case SuplaConst::FNC_THERMOMETER:
                 case SuplaConst::FNC_HUMIDITY:
                 case SuplaConst::FNC_HUMIDITYANDTEMPERATURE:
-
                     if ($func == SuplaConst::FNC_THERMOMETER
                         || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
                     ) {
-
                         $value = $this->getServerCtrl()->get_temperature_value($userid, $devid, $channelid);
 
                         if ($value !== false) {
@@ -244,7 +247,6 @@ class ChannelController extends RestController {
                     if ($func == SuplaConst::FNC_HUMIDITY
                         || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
                     ) {
-
                         $value = $this->getServerCtrl()->get_humidity_value($userid, $devid, $channelid);
 
                         if ($value !== false) {
@@ -257,15 +259,12 @@ class ChannelController extends RestController {
                 case SuplaConst::FNC_DIMMER:
                 case SuplaConst::FNC_RGBLIGHTING:
                 case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-
                     $value = $this->getServerCtrl()->get_rgbw_value($userid, $devid, $channelid);
 
                     if ($value !== false) {
-
                         if ($func == SuplaConst::FNC_RGBLIGHTING
                             || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
                         ) {
-
                             $result['color'] = $value['color'];
                             $result['color_brightness'] = $value['color_brightness'];
                         }
@@ -273,7 +272,6 @@ class ChannelController extends RestController {
                         if ($func == SuplaConst::FNC_DIMMER
                             || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
                         ) {
-
                             $result['brightness'] = $value['brightness'];
                         }
                     }
@@ -319,7 +317,6 @@ class ChannelController extends RestController {
             case SuplaConst::FNC_DIMMER:
             case SuplaConst::FNC_RGBLIGHTING:
             case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-
                 $color = intval(@$data->color);
                 $color_brightness = intval(@$data->color_brightness);
                 $brightness = intval(@$data->brightness);
@@ -327,13 +324,11 @@ class ChannelController extends RestController {
                 if ($func == SuplaConst::FNC_RGBLIGHTING
                     || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
                 ) {
-
                     if ($color <= 0
                         || $color > 0xffffff
                         || $color_brightness < 0
                         || $color_brightness > 100
                     ) {
-
                         throw new HttpException(Response::HTTP_BAD_REQUEST);
                     }
                 }
@@ -341,17 +336,16 @@ class ChannelController extends RestController {
                 if ($func == SuplaConst::FNC_DIMMER
                     || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
                 ) {
-
                     if ($brightness < 0
                         || $brightness > 100
                     ) {
-
                         throw new HttpException(Response::HTTP_BAD_REQUEST);
                     }
                 }
 
-                if (false === $this->getServerCtrl()->set_rgbw_value($userid, $devid, $channelid, $color, $color_brightness, $brightness))
+                if (false === $this->getServerCtrl()->set_rgbw_value($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
                     throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+                }
 
                 break;
 
@@ -393,9 +387,9 @@ class ChannelController extends RestController {
             case 'shut':
             case 'reveal':
             case 'stop':
-
-                if ($func == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER)
+                if ($func == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER) {
                     return true;
+                }
 
                 break;
         }
@@ -433,12 +427,10 @@ class ChannelController extends RestController {
                 break;
         }
 
-        if (false === $this->getServerCtrl()->set_char_value($userid, $devid, $channelid, $value))
+        if (false === $this->getServerCtrl()->set_char_value($userid, $devid, $channelid, $value)) {
             throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+        }
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
     }
-
 }
-
-?>

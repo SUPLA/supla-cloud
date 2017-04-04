@@ -34,8 +34,9 @@ class IODeviceController extends RestController {
 
         $iodevice = $iodev_man->ioDeviceById($devid, $this->getParentUser());
 
-        if (!($iodevice instanceof IODevice))
+        if (!($iodevice instanceof IODevice)) {
             throw new HttpException(Response::HTTP_NOT_FOUND);
+        }
 
         return $iodevice;
     }
@@ -46,11 +47,9 @@ class IODeviceController extends RestController {
         $parent = $this->getParentUser();
 
         if ($parent !== null) {
-
             $iodev_man = $this->container->get('iodevice_manager');
 
             foreach ($parent->getIODevices() as $device) {
-
                 $channels = [];
 
                 foreach ($iodev_man->getChannels($device) as $channel) {
@@ -104,7 +103,6 @@ class IODeviceController extends RestController {
         $connected = false;
 
         if ($iodevice->getEnabled()) {
-
             $enabled = true;
             $cids = (new ServerCtrl())->iodevice_connected($this->getParentUser()->getId(), [$devid]);
             $connected = in_array($devid, $cids);
@@ -116,7 +114,4 @@ class IODeviceController extends RestController {
 
         return $this->handleView($this->view($result, Response::HTTP_OK));
     }
-
 }
-
-?>

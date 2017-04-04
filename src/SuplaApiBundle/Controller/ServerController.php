@@ -51,5 +51,3 @@ class ServerController extends RestController {
         return $this->handleView($this->view(null, Response::HTTP_OK));
     }
 }
-
-?>

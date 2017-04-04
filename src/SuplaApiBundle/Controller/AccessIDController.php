@@ -29,9 +29,7 @@ class AccessIDController extends RestController {
         $parent = $this->getParentUser();
 
         if ($parent !== null) {
-
             foreach ($parent->getAccessIDS() as $aid) {
-
                 $locations = [];
 
                 foreach ($aid->getLocations() as $location) {
@@ -57,7 +55,4 @@ class AccessIDController extends RestController {
     public function getAccessidsAction(Request $request) {
         return $this->handleView($this->view($this->getAccessIDS(), Response::HTTP_OK));
     }
-
 }
-
-?>

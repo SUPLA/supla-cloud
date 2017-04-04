@@ -56,5 +56,4 @@ abstract class RestController extends FOSRestController {
 
         return $this->api_man;
     }
-
 }

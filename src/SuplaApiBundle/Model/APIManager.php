@@ -70,7 +70,6 @@ class APIManager {
         $client = $this->oauth_client_rep->findOneBy(['type' => 0, 'parent' => $parent]);
 
         if ($client === null) {
-
             $oauthServer = $this->container->get('fos_oauth_server.server');
 
             $redirectUri = '/';
@@ -93,7 +92,6 @@ class APIManager {
         $user->setPassword($password);
 
         if ($flush === true) {
-
             $em = $this->doctrine->getManager();
             $em->persist($user);
             $em->flush();
@@ -137,14 +135,12 @@ class APIManager {
         $user->setEnabled($enabled);
 
         if ($flush === true) {
-
             $em = $this->doctrine->getManager();
             $em->persist($user);
             $em->flush();
         }
 
         if ($enabled === false) {
-
             $this->deleteTokens($user);
             $this->deleteRefreshTokens($user);
             $this->deleteRefreshTokens($user);
@@ -170,5 +166,4 @@ class APIManager {
 
         $qb->getQuery()->execute();
     }
-
 }
