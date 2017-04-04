@@ -1,12 +1,10 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
+class AppKernel extends Kernel {
+    public function registerBundles() {
         $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
@@ -21,7 +19,7 @@ class AppKernel extends Kernel
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new SuplaBundle\SuplaBundle(),
-        	new SuplaApiBundle\SuplaApiBundle(),
+            new SuplaApiBundle\SuplaApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -34,34 +32,30 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
-    public function getRootDir()
-    {
+    public function getRootDir() {
         return __DIR__;
     }
 
-    public function getCacheDir()
-    {
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+    public function getCacheDir() {
+        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
     }
 
-    public function getLogDir()
-    {
-        return dirname(__DIR__).'/var/logs';
+    public function getLogDir() {
+        return dirname(__DIR__) . '/var/logs';
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
-    {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+    public function registerContainerConfiguration(LoaderInterface $loader) {
+        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
         // optional webpack dev server: https://www.slideshare.net/nachomartin/webpacksf/60
-        $loader->load(function($container) {
+        $loader->load(function ($container) {
             if ($container->getParameter('use_webpack_dev_server')) {
                 $container->loadFromExtension('framework', [
                     'assets' => [
                         'packages' => [
                             'webpack' => [
-                                'base_urls' => ['https://localhost:25787']
-                            ]
-                        ]
+                                'base_urls' => ['https://localhost:25787'],
+                            ],
+                        ],
                     ],
                 ]);
             }
