@@ -57,6 +57,7 @@ export const mutations = {
         try {
             state.actionParam = JSON.parse(schedule.actionParam);
         } catch (e) {
+            // what a pity
         }
         state.caption = schedule.caption;
     }
@@ -118,6 +119,6 @@ export const actions = {
 
     loadScheduleToEdit({commit, dispatch}, schedule) {
         commit('editSchedule', schedule);
-        dispatch('fetchNextRunDates')
+        dispatch('fetchNextRunDates');
     },
 };

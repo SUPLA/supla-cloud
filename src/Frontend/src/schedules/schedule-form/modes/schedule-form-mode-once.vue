@@ -40,5 +40,5 @@
                 this.$store.dispatch('updateTimeExpression', cronExpression);
             }
         }
-    }
+    };
 </script>

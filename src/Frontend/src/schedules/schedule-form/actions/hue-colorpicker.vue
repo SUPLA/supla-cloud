@@ -1,5 +1,7 @@
 <template>
-    <input type="text" class="colorpicker" ref="picker">
+    <input type="text"
+        class="colorpicker"
+        ref="picker">
 </template>
 
 <script type="text/babel">
@@ -29,14 +31,15 @@
             }
         },
         watch: {
-            value(newColor) {
+            value() {
                 $(this.$refs.picker).spectrum('set', this.color);
             }
         }
     };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss"
+    rel="stylesheet/scss">
     .hue-colorpicker {
         .sp-color {
             display: none;

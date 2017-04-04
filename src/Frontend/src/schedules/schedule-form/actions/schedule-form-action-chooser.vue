@@ -41,8 +41,6 @@
 
 <script>
     import Vue from "vue";
-    import {mapState} from "vuex";
-    import moment from "moment";
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
     import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
@@ -57,7 +55,7 @@
                 userChannels: [],
                 channelFunctionMap: {},
                 actionCaptions: {}
-            }
+            };
         },
         mounted() {
             this.$http.get('account/schedulable-channels').then(({body}) => {
@@ -102,7 +100,7 @@
                     return this.$store.state.action;
                 },
                 set(action) {
-                    this.$store.commit('updateAction', action)
+                    this.$store.commit('updateAction', action);
                 }
             },
             actionParam: {
@@ -110,9 +108,9 @@
                     return this.$store.state.actionParam;
                 },
                 set(actionParam) {
-                    this.$store.commit('updateActionParam', actionParam)
+                    this.$store.commit('updateActionParam', actionParam);
                 }
             }
         }
-    }
+    };
 </script>

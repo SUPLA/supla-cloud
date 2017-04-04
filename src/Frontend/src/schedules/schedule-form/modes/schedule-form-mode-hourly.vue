@@ -4,10 +4,14 @@
             <label>{{ $t('Hours') }}</label>
             <div class="row">
                 <div class="col-md-3"
-                     v-for="hour in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]">
-                    <div class="checkbox" style="margin-top: 0">
+                    v-for="hour in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]">
+                    <div class="checkbox"
+                        style="margin-top: 0">
                         <label>
-                            <input type="checkbox" :value="hour" v-model="hours" @change="updateTimeExpression()">
+                            <input type="checkbox"
+                                :value="hour"
+                                v-model="hours"
+                                @change="updateTimeExpression()">
                             <span v-html="prepend0IfLessThan10(hour) + ':' + prepend0IfLessThan10(minute)"></span>
                         </label>
                     </div>
@@ -16,8 +20,13 @@
         </div>
         <div class="form-group">
             <label>{{ $t('Minute') }}</label>
-            <input type="number" class="form-control" step="5" min="0" max="55" v-model="minute"
-                   @change="updateTimeExpression()">
+            <input type="number"
+                class="form-control"
+                step="5"
+                min="0"
+                max="55"
+                v-model="minute"
+                @change="updateTimeExpression()">
         </div>
     </div>
 </template>
@@ -31,11 +40,11 @@
             return {
                 hours: [],
                 minute: 0,
-            }
+            };
         },
         methods: {
             prepend0IfLessThan10(value) {
-                return value < 10 ? '0' + value : value
+                return value < 10 ? '0' + value : value;
             },
             updateTimeExpression() {
                 this.minute = roundTo5(this.minute);
@@ -57,5 +66,5 @@
             this.updateTimeExpression();
         },
         computed: mapState(['timeExpression']),
-    }
+    };
 </script>

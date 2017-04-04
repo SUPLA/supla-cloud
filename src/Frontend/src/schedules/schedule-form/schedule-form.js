@@ -26,4 +26,4 @@ new Vue({
         strict: process.env.NODE_ENV !== 'production'
     }),
     render: h => h(ScheduleForm)
-})
+});
