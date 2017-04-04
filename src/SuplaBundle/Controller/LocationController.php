@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class LocationController extends Controller {
 
-    private function user_reconnect() {
+    private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         (new ServerCtrl())->reconnect($user->getId());
     }
@@ -158,7 +158,10 @@ class LocationController extends Controller {
         if ($loc->getIoDevices()->count() > 0
             || $loc->getIoDevicesByOriginalLocation()->count() > 0
         ) {
-            $this->get('session')->getFlashBag()->add('error', ['title' => 'Stop', 'message' => 'Remove all the associated devices before you delete this location']);
+            $this->get('session')->getFlashBag()->add('error', [
+                'title' => 'Stop',
+                'message' => 'Remove all the associated devices before you delete this location',
+            ]);
             return $this->redirectToRoute("_loc_item", ['id' => $loc->getId()]);
         }
 
@@ -166,7 +169,7 @@ class LocationController extends Controller {
         $m->remove($loc);
         $m->flush();
 
-        $this->user_reconnect();
+        $this->userReconnect();
 
         $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'Location has been deleted']);
         return $this->redirectToRoute("_loc_list");
@@ -218,7 +221,7 @@ class LocationController extends Controller {
                     if ($value == '1') {
                         $aid = $aid_man->accessIdById(intval($key));
                         if ($aid !== null
-                        && $aids->contains($aid) === false
+                            && $aids->contains($aid) === false
                         ) {
                             $aids->add($aid);
                         }
@@ -229,7 +232,7 @@ class LocationController extends Controller {
             $m = $this->get('doctrine')->getManager();
             $m->flush();
 
-            $this->user_reconnect();
+            $this->userReconnect();
 
             $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
 
@@ -294,8 +297,9 @@ class LocationController extends Controller {
     }
 
     private function ajaxItemEdit(Location $loc, $message, $value) {
-        $result = AjaxController::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $loc, $message, $value);
-        $this->user_reconnect();
+        $result = AjaxController
+            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $loc, $message, $value);
+        $this->userReconnect();
         return $result;
     }
 

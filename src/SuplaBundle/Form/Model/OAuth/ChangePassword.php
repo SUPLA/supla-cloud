@@ -34,11 +34,11 @@ class ChangePassword {
      */
     protected $newPassword;
 
-    function getNewPassword() {
+    public function getNewPassword() {
         return $this->newPassword;
     }
 
-    function setNewPassword($newPassword) {
+    public function setNewPassword($newPassword) {
         $this->newPassword = $newPassword;
     }
 }

@@ -24,9 +24,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller {
-
+// @codingStandardsIgnoreStart
     private function _getBaseAidLid(&$aid, &$loc, $aid_enabled, $loc_enabled) {
-
+// @codingStandardsIgnoreEnd
         $aid = null;
         $loc = null;
 

@@ -68,7 +68,7 @@ class AjaxController extends Controller {
         return $result;
     }
 
-    static function itemEdit($validator, $translator, $doctrine, $item, $message, $value) {
+    public static function itemEdit($validator, $translator, $doctrine, $item, $message, $value) {
 
         $success = false;
 

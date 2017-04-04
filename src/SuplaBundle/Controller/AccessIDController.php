@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AccessIDController extends Controller {
 
-    private function user_reconnect() {
+    private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         (new ServerCtrl())->reconnect($user->getId());
     }
@@ -99,7 +99,10 @@ class AccessIDController extends Controller {
         if ($user->getLimitLoc() > 0
             && $aid_man->totalCount($user) >= $user->getLimitAid()
         ) {
-            $this->get('session')->getFlashBag()->add('error', ['title' => 'Stop', 'message' => 'Access identifier limit has been exceeded']);
+            $this->get('session')->getFlashBag()->add('error', [
+                'title' => 'Stop',
+                'message' => 'Access identifier limit has been exceeded'
+            ]);
         } else {
             $aid = $aid_man->createID($user);
 
@@ -107,7 +110,10 @@ class AccessIDController extends Controller {
                 $m = $this->get('doctrine')->getManager();
                 $m->persist($aid);
                 $m->flush();
-                $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'New access identifier has been created']);
+                $this->get('session')->getFlashBag()->add('success', [
+                    'title' => 'Success',
+                    'message' => 'New access identifier has been created'
+                ]);
                 $this->get('session')->set('_aid_details_lastid', $aid->getId());
             } else {
                 $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Unknown error']);
@@ -144,7 +150,7 @@ class AccessIDController extends Controller {
         $m->remove($aid);
         $m->flush();
 
-        $this->user_reconnect();
+        $this->userReconnect();
 
         $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'Access identifier has been deleted']);
         return $this->redirectToRoute("_aid_list");
@@ -207,7 +213,7 @@ class AccessIDController extends Controller {
             $m = $this->get('doctrine')->getManager();
             $m->flush();
 
-            $this->user_reconnect();
+            $this->userReconnect();
 
             $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
         }
@@ -263,8 +269,9 @@ class AccessIDController extends Controller {
     }
 
     private function ajaxItemEdit(AccessID $aid, $message, $value) {
-        $result = AjaxController::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $aid, $message, $value);
-        $this->user_reconnect();
+        $result = AjaxController
+            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $aid, $message, $value);
+        $this->userReconnect();
         return $result;
     }
 

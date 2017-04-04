@@ -35,7 +35,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class IODeviceController extends AbstractController {
 
-    private function user_reconnect() {
+    private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         (new ServerCtrl())->reconnect($user->getId());
     }
@@ -128,7 +128,7 @@ class IODeviceController extends AbstractController {
                             $related_channel->setParam2(0);
                         }
                     }
-
+                    break;
                 case SuplaConst::TYPE_RELAY:
                 case SuplaConst::TYPE_RELAYHFD4:
                 case SuplaConst::TYPE_RELAYG5LA1A:
@@ -147,7 +147,7 @@ class IODeviceController extends AbstractController {
         $m->remove($iodev);
         $m->flush();
 
-        $this->user_reconnect();
+        $this->userReconnect();
 
         $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'I/O Device has been deleted']);
         return $this->redirectToRoute("_iodev_list");
@@ -252,7 +252,7 @@ class IODeviceController extends AbstractController {
             $this->get('doctrine')->getManager()->flush();
             $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
 
-            $this->user_reconnect();
+            $this->userReconnect();
 
             return $this->redirectToRoute("_iodev_item", ['id' => $devid]);
         }
@@ -334,7 +334,7 @@ class IODeviceController extends AbstractController {
                     $this->get('doctrine')->getManager()->flush();
                     $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Location has been changed']);
 
-                    $this->user_reconnect();
+                    $this->userReconnect();
                 }
             }
         }
@@ -343,8 +343,9 @@ class IODeviceController extends AbstractController {
     }
 
     private function ajaxItemEdit(IODevice $iodev, $message, $value) {
-        $result = AjaxController::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $iodev, $message, $value);
-        $this->user_reconnect();
+        $result = AjaxController
+            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $iodev, $message, $value);
+        $this->userReconnect();
         return $result;
     }
 
@@ -369,9 +370,9 @@ class IODeviceController extends AbstractController {
                     $this->get('schedule_manager')->disableSchedulesForDevice($device);
                 }
                 return $this->jsonResponse([
-                        'device' => $device,
-                        'schedules' => $schedules,
-                    ]);
+                    'device' => $device,
+                    'schedules' => $schedules,
+                ]);
             }
         });
     }

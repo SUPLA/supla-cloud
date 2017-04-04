@@ -84,7 +84,10 @@ class AccountController extends Controller {
             $mailer = $this->get('supla_mailer');
             $mailer->sendActivationEmailMessage($user);
 
-            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Account has been activated. You can Sign In now.']);
+            $this->get('session')->getFlashBag()->add('success', [
+                'title' => 'Success',
+                'message' => 'Account has been activated. You can Sign In now.',
+            ]);
         } else {
             $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Token does not exist']);
         }
@@ -299,7 +302,10 @@ class AccountController extends Controller {
             $server = $sl->getAuthServerForUser($request, $username);
 
             if (strlen(@$server) > 0) {
-                AjaxController::remoteRequest('https://' . $server . $this->generateUrl('_account_ajax_forgot_passwd_here'), ['email' => $username, 'locale' => $request->getLocale()]);
+                AjaxController::remoteRequest('https://' . $server . $this->generateUrl('_account_ajax_forgot_passwd_here'), [
+                    'email' => $username,
+                    'locale' => $request->getLocale(),
+                ]);
             }
         }
 

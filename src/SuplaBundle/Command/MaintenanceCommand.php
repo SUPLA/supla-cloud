@@ -17,8 +17,6 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Entity;
-
 namespace SuplaBundle\Command;
 
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
@@ -75,7 +73,8 @@ class MaintenanceCommand extends ContainerAwareCommand {
 
     protected function temperatureLogClean($em, $output, $entity, $name) {
 
-        $sql = "DELETE t FROM `" . $em->getClassMetadata($entity)->getTableName() . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
+        $sql = "DELETE t FROM `" . $em->getClassMetadata($entity)->getTableName()
+            . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
 
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute();
