@@ -60,9 +60,13 @@
         "phpcbf": [
             "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml",
             "phpcbf src/SuplaApiBundle --standard=app/phpcs-rules.xml"
+        ],
+        "webpack": [
+            "cd src/Frontend && npm run build"
         ]
     },
     "config": {
+        "process-timeout": 0,
         "platform": {
             "php": "7.0"
         }
