@@ -1,91 +1,90 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
-    "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
-    "autoload": {
-        "psr-4": { "": "src/" },
-        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+  "name": "SUPLA/supla-cloud",
+  "license": "GPL-2.0+",
+  "type": "project",
+  "description": "SUPLA-CLOUD is a central point joining the executive devices for indirect and direct operation of your household or office appliances and other elements with client applications which you can install on your tablets and smartphones.",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
     },
-    "autoload-dev": {
-        "psr-4": { "Tests\\": "tests/" }
-    },
-    "require": {
-        "php": ">=7.0",
-        "ext-intl" : "*",
-        "ext-mbstring" : "*",
-        "beberlei/assert": "^2.7",
-        "cocur/slugify": "^2.3",
-        "doctrine/orm": "^2.5",
-        "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-cache-bundle": "^1.2",
-        "doctrine/doctrine-migrations-bundle": "^1.2",
-        "excelwebzone/recaptcha-bundle": "^1.4",
-        "friendsofsymfony/oauth-server-bundle": "^1.5",
-        "friendsofsymfony/rest-bundle": "^2.1",
-        "incenteev/composer-parameter-handler": "^2.0",
-        "mtdowling/cron-expression": "^1.1",
-        "myclabs/php-enum": "^1.5",
-        "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^3.0.2",
-        "symfony/monolog-bundle": "^2.8",
-        "symfony/polyfill-apcu": "^1.0",
-        "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/symfony": "3.1.*",
-        "twig/extensions": "^1.4"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "sensio/generator-bundle": "^3.0",
-        "squizlabs/php_codesniffer": "^2.8",
-        "symfony/phpunit-bridge": "^3.0"
-    },
-    "scripts": {
-        "symfony-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ],
-        "post-install-cmd": [
-            "@symfony-scripts"
-        ],
-        "post-update-cmd": [
-            "@symfony-scripts"
-        ],
-        "test": [
-            "phpunit -c app"
-        ],
-        "phpcs": [
-            "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml",
-            "phpcs src/SuplaApiBundle --standard=app/phpcs-rules.xml"
-        ],
-        "phpcbf": [
-            "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml",
-            "phpcbf src/SuplaApiBundle --standard=app/phpcs-rules.xml"
-        ],
-        "webpack": [
-            "cd src/Frontend && npm run build"
-        ]
-    },
-    "config": {
-        "process-timeout": 0,
-        "platform": {
-            "php": "7.0"
-        }
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "3.1-dev"
-        }
+    "classmap": [
+      "app/AppKernel.php",
+      "app/AppCache.php"
+    ]
+  },
+  "require": {
+    "php": ">=7.0",
+    "ext-intl": "*",
+    "ext-mbstring": "*",
+    "beberlei/assert": "^2.7",
+    "cocur/slugify": "^2.3",
+    "doctrine/orm": "^2.5",
+    "doctrine/doctrine-bundle": "^1.6",
+    "doctrine/doctrine-cache-bundle": "^1.2",
+    "doctrine/doctrine-migrations-bundle": "^1.2",
+    "excelwebzone/recaptcha-bundle": "^1.4",
+    "friendsofsymfony/oauth-server-bundle": "^1.5",
+    "friendsofsymfony/rest-bundle": "^2.1",
+    "incenteev/composer-parameter-handler": "^2.0",
+    "mtdowling/cron-expression": "^1.1",
+    "myclabs/php-enum": "^1.5",
+    "sensio/distribution-bundle": "^5.0",
+    "sensio/framework-extra-bundle": "^3.0.2",
+    "symfony/monolog-bundle": "^2.8",
+    "symfony/polyfill-apcu": "^1.0",
+    "symfony/swiftmailer-bundle": "^2.3",
+    "symfony/symfony": "3.1.*",
+    "twig/extensions": "^1.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7",
+    "sensio/generator-bundle": "^3.0",
+    "squizlabs/php_codesniffer": "^2.8",
+    "symfony/phpunit-bridge": "^3.0"
+  },
+  "scripts": {
+    "symfony-scripts": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+    ],
+    "post-install-cmd": [
+      "@symfony-scripts"
+    ],
+    "post-update-cmd": [
+      "@symfony-scripts"
+    ],
+    "test": [
+      "phpunit -c app"
+    ],
+    "phpcs": [
+      "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml",
+      "phpcs src/SuplaApiBundle --standard=app/phpcs-rules.xml"
+    ],
+    "phpcbf": [
+      "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml",
+      "phpcbf src/SuplaApiBundle --standard=app/phpcs-rules.xml"
+    ],
+    "webpack": [
+      "cd src/Frontend && npm run build"
+    ]
+  },
+  "config": {
+    "process-timeout": 0,
+    "platform": {
+      "php": "7.0"
     }
+  },
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-bin-dir": "bin",
+    "symfony-var-dir": "var",
+    "symfony-web-dir": "web",
+    "symfony-tests-dir": "tests",
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    }
+  }
 }
