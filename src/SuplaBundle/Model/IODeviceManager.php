@@ -524,6 +524,7 @@ class IODeviceManager {
                     $tmpl = 'rollershutter';
                     $twig_params = array_merge($twig_params, $this->channelsToTwigParams($this->getUnattachedOPENINGSENSORs(SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER, $channel->getId())));
                     $twig_params['subchannel_selected'] = $this->translator->trans('None');
+                    $twig_params['opening_time'] = $channel->getParam1() / 1000.00;
                     $subchannel_selected = $channel->getParam2();
 
                     break;

@@ -1,5 +1,14 @@
 <div id="channel_function_params">
     
+           
+    <div class="cfp_relay_time" id="cfp_relay_time" data-paramname="param1">
+       <span>{% trans %}Full opening time{% endtrans %}</span>
+       <div class="btn-group" role="group" aria-label="...">
+			<input type="number" step="0.25" id="iodevice_channel_type_sec" name="_iodevice_channel_type_sec" value="{{ opening_time }}">
+       </div>
+       <span>{% trans %}sec.{% endtrans %}</span>
+    </div>
+    
     <div class="cfp_channel">
       <span>{% trans %}Open sensor{% endtrans %}</span>
     

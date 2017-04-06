@@ -242,6 +242,13 @@ class IODeviceController extends AbstractController {
 
                     break;
             }
+            
+            if ( $channel->getFunction() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER
+            		&& ( $channel->getParam1() < 0 
+            			 || $channel->getParam1() > 300000 ) 
+            ) {
+            	$channel->setParam1(0);
+            }
 
             if ($old_function != $channel->getFunction()) {
                 foreach ($channel->getSchedules() as $schedule) {
