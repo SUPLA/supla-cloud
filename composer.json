@@ -52,6 +52,14 @@
         ],
         "post-update-cmd": [
             "@symfony-scripts"
+        ],
+        "phpcs": [
+            "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml",
+            "phpcs src/SuplaApiBundle --standard=app/phpcs-rules.xml"
+        ],
+        "phpcbf": [
+            "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml",
+            "phpcbf src/SuplaApiBundle --standard=app/phpcs-rules.xml"
         ]
     },
     "config": {

@@ -10,8 +10,7 @@ before_script:
   - composer install --no-interaction
   - cd src/Frontend && npm install && cd ../..
 script:
-  - ./vendor/bin/phpcs src/SuplaBundle --standard=app/phpcs-rules.xml
-  - ./vendor/bin/phpcs src/SuplaApiBundle --standard=app/phpcs-rules.xml
+  - composer run-script phpcs
   - ./vendor/bin/phpunit -c app
   - ./src/Frontend/node_modules/.bin/eslint --ext js,vue src/Frontend/src
 notifications:
