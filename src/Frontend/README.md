@@ -21,7 +21,7 @@ to the output directory (`web/assets/dist`).
 ## How to develop the frontend components?
 
 In order to start the webpack dev server with continous building and hot reloads, 
-add the following in you `app/config/parameters.yml`:
+add the following in your `app/config/parameters.yml`:
 
 ```
 use_webpack_dev_server: true

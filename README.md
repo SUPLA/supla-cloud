@@ -1,17 +1,47 @@
 [![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg?maxAge=2592000)](https://github.com/SUPLA/supla-cloud/releases/latest)
 [![Build Status](https://travis-ci.org/SUPLA/supla-cloud.svg?branch=master)](https://travis-ci.org/SUPLA/supla-cloud)
 
- SUPLA CLOUD
- www.supla.org
+ # SUPLA-CLOUD
+ 
+ Your home connected. www.supla.org
+ 
+ <img src="https://www.supla.org/assets/img/app-preview-en.png" height="500">
+ 
+## Installation
 
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 2
- of the License, or (at your option) any later version.
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+In order to run SUPLA-CLOUD, you need to have PHP 7.x and MySQL database.
+
+Download the [release archive](https://github.com/SUPLA/supla-cloud/releases/latest) and extract it to a desired directory on your server.
+
+Adjust the configuration by editing the `app/config/parameters.yml` file.
+
+## Development
+
+Application is written with [Symfony](https://symfony.com/) and [Doctrine](http://www.doctrine-project.org/) on backend. 
+Frontend uses [jQuery](https://jquery.com/) and [Vue.js](https://vuejs.org/).
+
+You need to have [composer](https://getcomposer.org/) and [NodeJS](https://nodejs.org/) installed.
+
+### Downloading dependencies
+```
+composer install
+```
+
+### Download frontend dependencies and building the sources
+```
+composer run-script webpack
+```
+
+### Run webpack dev-server when writing frontend code
+
+Enable application support of webpack dev server in your `app/config/parameters.yml`:
+
+```
+use_webpack_dev_server: true
+```
+
+And then run:
+
+```
+cd src/Frontend && npm run dev
+```
