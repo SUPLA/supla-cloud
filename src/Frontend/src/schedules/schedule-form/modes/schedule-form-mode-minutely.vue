@@ -3,8 +3,14 @@
         <label>{{ $t('Interval') }}</label>
         <div class="input-group">
             <span class="input-group-addon">{{ $t('Every') }}</span>
-            <input type="number" class="form-control" step="5" min="5" max="30" maxlength="2"
-                   v-model="minutes" @change="updateTimeExpression()">
+            <input type="number"
+                class="form-control"
+                step="5"
+                min="5"
+                max="30"
+                maxlength="2"
+                v-model="minutes"
+                @change="updateTimeExpression()">
             <span class="input-group-addon">{{ $t('minutes') }}</span>
         </div>
     </div>
@@ -18,7 +24,7 @@
         data() {
             return {
                 minutes: 5,
-            }
+            };
         },
         methods: {
             updateTimeExpression() {
@@ -39,5 +45,5 @@
             this.updateTimeExpression(true);
         },
         computed: mapState(['timeExpression']),
-    }
+    };
 </script>

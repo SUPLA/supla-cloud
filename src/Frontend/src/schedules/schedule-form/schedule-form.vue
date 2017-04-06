@@ -59,14 +59,14 @@
 </template>
 
 <script type="text/babel">
-    import ScheduleModeChooser from "./schedule-mode-chooser.vue"
-    import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue"
-    import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue"
-    import ScheduleFormModeHourly from "./modes/schedule-form-mode-hourly.vue"
-    import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue"
-    import NextRunDatesPreview from "./next-run-dates-preview.vue"
-    import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue"
-    import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue"
+    import ScheduleModeChooser from "./schedule-mode-chooser.vue";
+    import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue";
+    import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue";
+    import ScheduleFormModeHourly from "./modes/schedule-form-mode-hourly.vue";
+    import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
+    import NextRunDatesPreview from "./next-run-dates-preview.vue";
+    import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue";
+    import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
     import {mapState, mapActions} from "vuex";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
@@ -102,7 +102,7 @@
             ScheduleFormStartEndDate
         },
         methods: mapActions(['submit', 'loadScheduleToEdit'])
-    }
+    };
 </script>
 
 <style>

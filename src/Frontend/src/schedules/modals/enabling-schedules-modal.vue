@@ -27,7 +27,7 @@
         data(){
             return {
                 schedulesToEnable: []
-            }
+            };
         },
         methods: {
             enableSchedules() {
@@ -37,5 +37,5 @@
                 this.$emit('confirm', this.schedulesToEnable);
             }
         }
-    }
+    };
 </script>

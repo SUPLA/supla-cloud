@@ -1,7 +1,10 @@
 <template>
     <span class="timezone-picker">
-        <select data-placeholder="Wybierz strefę czasową" v-model="timezone" ref="dropdown">
-            <option v-for="timezone in availableTimezones" :value="timezone.name">
+        <select data-placeholder="Wybierz strefę czasową"
+            v-model="timezone"
+            ref="dropdown">
+            <option v-for="timezone in availableTimezones"
+                :value="timezone.name">
                 {{ timezone.name }}
                 (UTC{{timezone.offset >= 0 ? '+' : ''}}{{timezone.offset}})
                 {{ timezone.currentTime }}
@@ -14,7 +17,6 @@
     import Vue from "vue";
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
-
     export default {
         props: ['timezone'],
         mounted() {
@@ -33,20 +35,21 @@
                         name: timezone,
                         offset: moment.tz(timezone).utcOffset() / 60,
                         currentTime: moment.tz(timezone).format('H:mm')
-                    }
+                    };
                 }).sort(function (timezone1, timezone2) {
                     if (timezone1.offset == timezone2.offset) {
                         return timezone1.name < timezone2.name ? -1 : 1;
                     } else {
-                        return timezone1.offset - timezone2.offset
+                        return timezone1.offset - timezone2.offset;
                     }
                 });
             }
         }
-    }
+    };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss"
+    rel="stylesheet/scss">
     .timezone-picker {
         select {
             max-width: 100%;

@@ -14,11 +14,11 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../../web/assets/dist'),
         publicPath: '/assets/dist/',
-        filename: '[name].js'
+        filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js'
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            filename: "commons.js",
+            filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js',
             name: "commons"
         }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /pl|ru|de/),
@@ -89,6 +89,19 @@ if (process.env.NODE_ENV === 'production') {
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true
-        })
-    ])
+        }),
+        function () {
+            // https://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
+            this.plugin("done", function (stats) {
+                var hashes = stats.toJson().assetsByChunkName;
+                var hashMap = {};
+                for (var chunkName in hashes) {
+                    hashMap[chunkName + '.js'] = hashes[chunkName][0];
+                }
+                require("fs").writeFileSync(
+                    path.join(__dirname, "../../app/config", "webpack-hashes.json"),
+                    JSON.stringify(hashMap));
+            });
+        }
+    ]);
 }

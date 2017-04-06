@@ -1,5 +1,6 @@
 <template>
-    <modal class="modal-confirm" :header="header">
+    <modal class="modal-confirm"
+        :header="header">
         <slot></slot>
         <div slot="footer">
             <a @click="$emit('cancel')"

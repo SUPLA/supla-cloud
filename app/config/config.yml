@@ -31,7 +31,8 @@ framework:
         enable_annotations: true
     assets:
         packages:
-            webpack: ~
+            webpack:
+              version_strategy: 'supla.assets.versioning.webpack'
         
     
 # RESTful API

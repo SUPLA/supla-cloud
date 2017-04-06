@@ -22,7 +22,6 @@
 </template>
 
 <script type="text/babel">
-    import Vue from 'vue';
     import {withBaseUrl} from "../../common/filters";
     export default {
         name: 'schedule-list',
@@ -85,7 +84,7 @@
                     ascendingIcon: 'glyphicon glyphicon-chevron-up',
                     descendingIcon: 'glyphicon glyphicon-chevron-down',
                 }
-            }
+            };
         },
         methods: {
             formatDate(date) {

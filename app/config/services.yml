@@ -141,3 +141,10 @@ services:
         tags:
           - { name: kernel.event_subscriber }
 
+
+     supla.assets.versioning.webpack:
+        class: SuplaBundle\Twig\WebpackAssetVersionStrategy
+        arguments:
+          - '%use_webpack_dev_server%'
+          - '%kernel.root_dir%/config/webpack-hashes.json'
+        public: false

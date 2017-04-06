@@ -3,24 +3,28 @@
         <div class="col-md-6">
             <div class="form-group">
                 <div class="btn-group btn-group-sm btn-group-justified">
-                    <a class="btn btn-default" @click="hourChooseMode = 'normal'"
-                       :class="{'active btn-success': hourChooseMode == 'normal'}">{{ $t('Chosen hour') }}</a>
-                    <a class="btn btn-default" @click="hourChooseMode = 'sun'"
-                       :class="{'active btn-success': hourChooseMode == 'sun'}">{{ $t('Sunrise / Sunset') }}</a>
+                    <a class="btn btn-default"
+                        @click="hourChooseMode = 'normal'"
+                        :class="{'active btn-success': hourChooseMode == 'normal'}">{{ $t('Chosen hour') }}</a>
+                    <a class="btn btn-default"
+                        @click="hourChooseMode = 'sun'"
+                        :class="{'active btn-success': hourChooseMode == 'sun'}">{{ $t('Sunrise / Sunset') }}</a>
                 </div>
             </div>
             <schedule-form-mode-daily-hour :weekdays="weekdaysCronExpression"
-                                           v-if="hourChooseMode == 'normal'"></schedule-form-mode-daily-hour>
+                v-if="hourChooseMode == 'normal'"></schedule-form-mode-daily-hour>
             <schedule-form-mode-daily-sun :weekdays="weekdaysCronExpression"
-                                          v-if="hourChooseMode == 'sun'"></schedule-form-mode-daily-sun>
+                v-if="hourChooseMode == 'sun'"></schedule-form-mode-daily-sun>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label>{{ $t('Weekdays') }}</label>
                 <div class="checkbox"
-                     v-for="(weekday, index) in ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays']">
+                    v-for="(weekday, index) in ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays']">
                     <label>
-                        <input type="checkbox" :value="index + 1" v-model="weekdays">
+                        <input type="checkbox"
+                            :value="index + 1"
+                            v-model="weekdays">
                         {{ $t(weekday) }}
                     </label>
                 </div>
@@ -41,7 +45,7 @@
             return {
                 hourChooseMode: 'normal',
                 weekdays: []
-            }
+            };
         },
         beforeMount() {
             if (this.timeExpression) {
@@ -64,5 +68,5 @@
             },
             ...mapState(['timeExpression'])
         }
-    }
+    };
 </script>
