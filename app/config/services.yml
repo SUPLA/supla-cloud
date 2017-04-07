@@ -146,5 +146,5 @@ services:
         class: SuplaBundle\Twig\WebpackAssetVersionStrategy
         arguments:
           - '%use_webpack_dev_server%'
-          - '%kernel.root_dir%/config/webpack-hashes.json'
+          - '%kernel.root_dir%/webpack-hashes.php'
         public: false

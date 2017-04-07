@@ -38,7 +38,11 @@ class WebpackAssetVersionStrategy implements VersionStrategyInterface {
 
     private function getWebpackHashes(): array {
         if (!$this->hashes) {
-            $this->hashes = json_decode(file_get_contents($this->hashConfigPath), true);
+            $this->hashes = @include $this->hashConfigPath;
+            if (!$this->hashes) {
+                throw new \RuntimeException("Webpack hashes config could not be found (looking for $this->hashConfigPath). "
+                    . "Have you built frontend code with composer run-script webpack?");
+            }
         }
         return $this->hashes;
     }

@@ -94,13 +94,14 @@ if (process.env.NODE_ENV === 'production') {
             // https://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
             this.plugin("done", function (stats) {
                 var hashes = stats.toJson().assetsByChunkName;
-                var hashMap = {};
+                var phpConfig = "<?php\n/* Hash map generated automatically by running npm run build in src/Frontend directory. */\nreturn [";
                 for (var chunkName in hashes) {
-                    hashMap[chunkName + '.js'] = hashes[chunkName][0];
+                    phpConfig += `"${chunkName}.js"=>"${hashes[chunkName][0]}",`;
                 }
+                phpConfig += "];";
                 require("fs").writeFileSync(
-                    path.join(__dirname, "../../app/config", "webpack-hashes.json"),
-                    JSON.stringify(hashMap));
+                    path.join(__dirname, "../../app", "webpack-hashes.php"),
+                    phpConfig);
             });
         }
     ]);

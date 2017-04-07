@@ -68,6 +68,7 @@
       "phpcbf src/SuplaApiBundle --standard=app/phpcs-rules.xml"
     ],
     "webpack": [
+      "cd src/Frontend && npm install",
       "cd src/Frontend && npm run build"
     ]
   },
