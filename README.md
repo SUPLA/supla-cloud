@@ -1,12 +1,13 @@
-[![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg?maxAge=2592000)](https://github.com/SUPLA/supla-cloud/releases/latest)
-[![Build Status](https://travis-ci.org/SUPLA/supla-cloud.svg?branch=master)](https://travis-ci.org/SUPLA/supla-cloud)
 
  # SUPLA-CLOUD
  
- Your home connected. www.supla.org
- 
- <img src="https://www.supla.org/assets/img/app-preview-en.png" height="500">
- 
+ [![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg?maxAge=2592000)](https://github.com/SUPLA/supla-cloud/releases/latest)
+ [![Build Status](https://travis-ci.org/SUPLA/supla-cloud.svg?branch=master)](https://travis-ci.org/SUPLA/supla-cloud)
+
+Your home connected. www.supla.org
+
+<img src="https://www.supla.org/assets/img/app-preview-en.png" height="500">
+
 ## Installation
 
 In order to run SUPLA-CLOUD, you need to have PHP 7.x and MySQL database.
