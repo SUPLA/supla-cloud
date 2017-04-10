@@ -61,7 +61,7 @@ class IODevice {
     private $location;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices")
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices_ol")
      * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
      */
     private $originalLocation;

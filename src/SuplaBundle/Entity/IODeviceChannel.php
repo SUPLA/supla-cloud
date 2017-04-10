@@ -47,7 +47,7 @@ class IODeviceChannel {
     private $channelNumber;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODevice")
+     * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="channels")
      * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false)
      */
     private $iodevice;
