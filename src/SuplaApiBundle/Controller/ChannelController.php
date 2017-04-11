@@ -419,15 +419,15 @@ class ChannelController extends RestController {
             case 'turn-on':
             case 'open':
             case 'open-close':
-            	$value = 1;
-            	break;
+                $value = 1;
+                break;
             case 'shut':
                 $value = 1;
                 
                 $percent = intval(@$data->percent);
                 
-                if ( $percent >= 0 && $percent <= 100 ) {
-                	$value = 10 + $percent;
+                if ($percent >= 0 && $percent <= 100) {
+                    $value = 10 + $percent;
                 }
                 
                 break;
@@ -436,8 +436,8 @@ class ChannelController extends RestController {
                 
                 $percent = intval(@$data->percent);
                 
-                if ( $percent >= 0 && $percent <= 100 ) {
-                	$value = 110 - $percent;
+                if ($percent >= 0 && $percent <= 100) {
+                    $value = 110 - $percent;
                 }
                 
                 break;
