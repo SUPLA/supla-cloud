@@ -226,7 +226,7 @@ html>body>.ui-pnotify{position:fixed}
 
 /* DEVICES */
 .min-devices {margin-top: 35px; margin-bottom: 60px; }
-.devices, .channels {width: 1170px; margin: 35px auto 60px; padding: 0; -webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn;}
+.devices, .channels {margin: 35px auto 60px; padding: 0; -webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn;}
 .devices .device, body.channel .device, .channels .element-item {background: #ebecef; display: block; width: 280px; margin: 5px; border-radius: 3px; padding: 5px 10px; border: solid 2px transparent; min-height: 240px; position: relative; font-size: 13px;transition: all 0.3s; margin-bottom: 10px;}
 body.channel .device {background: #ebecef;}
 .devices .device:active,  body.channel .device:active, .channels .element-item:active {transform: scale(0.95);}
@@ -243,6 +243,22 @@ body.channel .device {background: #ebecef;}
 .devices .device.more img {width: 70px; height: auto;margin-top:8px;}
 .devices .device.more .name {font-size: 22px; display: inline-block; margin: 10px 0 5px;}
 .devices .device.more p {font-size: 13px; color: #4A4A4A}
+
+@media only screen and (min-width:1180px) and (max-width: 1460px) {
+.devices, .channels {width: 1170px;}
+}
+@media only screen and (min-width:1461px) and (max-width: 1750px) {
+.devices, .channels {width: 1460px;}
+}
+@media only screen and (min-width:1751px) and (max-width: 2040px) {
+.devices, .channels {width: 1750px;}
+}
+@media only screen and (min-width:2041px) and (max-width: 2330px) {
+.devices, .channels {width: 2040px;}
+}
+@media only screen and (min-width:2331px) {
+.devices, .channels {width: 2330px;}
+}
 
 /* DEVICE */
 body.device-details .navbar-holder {margin-bottom: 0px;}
