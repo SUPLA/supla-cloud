@@ -52,13 +52,13 @@
 				<strong>{% if user.lastlogin is null %}{{ user.currentipv4 }}{% else %}{{ user.lastipv4 }}{% endif %}</strong>
 			</dd>
 			<dt>
-				{% trans %}Strefa czasowa{% endtrans %}
+				{% trans %}Timezone{% endtrans %}
 			</dt>
 			<dd>
 				<timezone-picker timezone="{{ app.user.timezone }}"></timezone-picker>
 			</dd>
 			<dt>
-				<a id="overlay-delete">Zmiana hasła</a>
+				<a id="overlay-delete">Change password</a>
 			</dt>
 			<dd>
 			</dd>

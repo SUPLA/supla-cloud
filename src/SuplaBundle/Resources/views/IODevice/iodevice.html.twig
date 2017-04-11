@@ -138,8 +138,8 @@
 
 <!--Change location-->
 <div class="overlay overlay-data overlay-changelocation">
-	<div class="overlay-title"><h1>{% trans %}Wybierz lokalizację{% endtrans %}</h1>
-	  <p>{% trans %}Wybierz nową lokalizację dla urządzenia {% endtrans %}<strong> {{ iodevice.name }}</strong></p></div>
+	<div class="overlay-title"><h1>{% trans %}Choose the location{% endtrans %}</h1>
+	  <p>{% trans %}Choose new device location for the{% endtrans %}<strong> {{ iodevice.name }}</strong></p></div>
       <div class="overlay-list">
 		  <div class="location-list" data-ajax-path="{{ path('_iodev_ajax_change_loc', {'id': iodevice.id}) }}"></div>
 	  </div>

@@ -52,7 +52,7 @@
                                         {% trans %}Edit schedule{% endtrans %}
                                     </a>
                                     <button class="btn btn-danger" name="delete"
-                                            onclick="return confirm('{% trans %}Are you sure you want to delete the schedule?{% endtrans %}')">
+                                            onclick="return confirm('{% trans %}Are you sure you want to delete this schedule?{% endtrans %}')">
                                         {% trans %}Delete schedule{% endtrans %}
                                     </button>
                                 </div>
@@ -61,7 +61,7 @@
                         {% if schedule.channel.function in [20, 30] %}{# if gate #}
                             <div class="form-group">
                                 <div class="alert alert-warning text-center">
-                                    {% trans %}A gate sensor must be available in order to execute the scheduled action.{% endtrans %}
+                                    {% trans %}The gate sensor must function properly in order to execute the scheduled action.{% endtrans %}
                                 </div>
                             </div>
                         {% endif %}

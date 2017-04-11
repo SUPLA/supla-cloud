@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label>{{ $t('Weekdays') }}</label>
+                <label>{{ $t('Days') }}</label>
                 <div class="checkbox"
                     v-for="(weekday, index) in ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays']">
                     <label>

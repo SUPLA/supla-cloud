@@ -37,12 +37,12 @@
 
 		<div class="restapi" id="api-detail" data-id="1" data-item-path="{{ path('_api_settings') }}/view">
 				<h2>RESTful API</h2>
-				<p>Autoryzacja OAuth 2.0</p>
+				<p>{% trans %}OAuth 2.0 Authentication{% endtrans %}</p>
 				
 				<div class="input-group">
 					<input type="text" class="form-control" id="server" value="{{ server }}" readonly>
 					<span class="input-group-btn">
-					   <button class="btn btn-default copy" type="button" data-id="server">copy</button>
+					   <button class="btn btn-default copy" type="button" data-id="server">{% trans %}copy{% endtrans %}</button>
 					</span>
 				</div>
 				<label for="server">{% trans %}Server{% endtrans %}</label>
@@ -50,7 +50,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="token-url" value="{{ token_url }}" readonly>
 					<span class="input-group-btn">
-					   <button class="btn btn-default copy" type="button" data-id="token-url">copy</button>
+					   <button class="btn btn-default copy" type="button" data-id="token-url">{% trans %}copy{% endtrans %}</button>
 					</span>
 				</div>
 				
@@ -58,7 +58,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="clientid" value="{{ client.publicId }}" readonly>
 					<span class="input-group-btn">
-					   <button class="btn btn-default copy" type="button" data-id="clientid">copy</button>
+					   <button class="btn btn-default copy" type="button" data-id="clientid">{% trans %}copy{% endtrans %}</button>
 					</span>
 				</div>
 				<label for="clientid">{% trans %}ClientID{% endtrans %}</label>
@@ -66,7 +66,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="secret" value="{{ client.secret }}" readonly>
 					<span class="input-group-btn">
-					   <button class="btn btn-default copy" type="button" data-id="secret">copy</button>
+					   <button class="btn btn-default copy" type="button" data-id="secret">{% trans %}copy{% endtrans %}</button>
 					</span>
 				</div>
 				<label for="secret">{% trans %}Secret{% endtrans %}</label>
@@ -74,7 +74,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="granttype" value="{{ client.grantType }}" readonly>
 					<span class="input-group-btn">
-					   <button class="btn btn-default copy" type="button" data-id="granttype">copy</button>
+					   <button class="btn btn-default copy" type="button" data-id="granttype">{% trans %}copy{% endtrans %}</button>
 					</span>
 				</div>
 				<label for="granttype">{% trans %}GrantType{% endtrans %}</label>
@@ -82,7 +82,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="username" value="{{ api_user.username }}" readonly>
 					<span class="input-group-btn">
-					   <button class="btn btn-default copy" type="button" data-id="username">copy</button>
+					   <button class="btn btn-default copy" type="button" data-id="username">{% trans %}copy{% endtrans %}</button>
 					</span>
 				</div>
 				<label for="username">{% trans %}Username{% endtrans %}</label>
@@ -123,7 +123,7 @@
 			  <input type="text" class="form-control" id="new-password">
 			  <span class="input-group-btn">
 				<button class="btn btn-default" id="generate-api_pwd" type="button">{% trans %}GENERATE{% endtrans %}</button>
-				<button class="btn btn-default copy" type="button" data-id="new-password">COPY</button>
+				<button class="btn btn-default copy" type="button" data-id="new-password">{% trans %}copy{% endtrans %}</button>
 			  </span>
 			</div>
 			<label for="new-password" class="hidden">{% trans %}New password{% endtrans %}</label>
@@ -143,7 +143,7 @@
 	mySVG.drawsvg('animate');
 	$(function(){
 	$(".terminal").typed({
-	  strings: ["Witam Programisto! Z myślą o Tobie udostępniliśmy interfejs RESTful API dzięki, któremu możesz zintegrować własne rozwiązania IT z SUPLĄ."],
+	  strings: ["{% trans %}Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.{% endtrans %}"],
 	  typeSpeed: 0,
 	  startDelay: 10,
 	});

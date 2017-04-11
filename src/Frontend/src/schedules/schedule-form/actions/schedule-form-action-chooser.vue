@@ -33,7 +33,7 @@
         <modal v-if="userChannels === undefined"
             class="modal-warning"
             @close="goToSchedulesList()"
-            :header="$t('You have no devices that can be scheduled')">
+            :header="$t('You have no devices that can be added to the schedule')">
             {{ $t('You will be redirected back to the schedules list now.') }}
         </modal>
     </div>

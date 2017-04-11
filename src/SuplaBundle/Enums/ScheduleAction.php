@@ -48,9 +48,9 @@ final class ScheduleAction extends Enum {
             self::SHUT => 'Shut',
             self::REVEAL => 'Reveal',
             self::REVEAL_PARTIALLY => 'Reveal partially',
-            self::TURN_ON => 'Turn on',
-            self::TURN_OFF => 'Turn off',
-            self::SET_RGBW_PARAMETERS => 'Set parameters',
+            self::TURN_ON => 'On',
+            self::TURN_OFF => 'Off',
+            self::SET_RGBW_PARAMETERS => 'Adjust parameters',
         ];
     }
 

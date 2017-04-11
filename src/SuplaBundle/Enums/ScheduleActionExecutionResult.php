@@ -40,10 +40,10 @@ final class ScheduleActionExecutionResult extends Enum {
 
     public static function captions(): array {
         return [
-            self::UNKNOWN => 'To be executed',
+            self::UNKNOWN => 'Processing',
             self::SUCCESS => 'Successful',
-            self::DEVICE_UNREACHABLE => 'Device was unreachable',
-            self::NO_SENSOR => 'Disconnected sensor',
+            self::DEVICE_UNREACHABLE => 'Device unavailable',
+            self::NO_SENSOR => 'Sensor disconnected',
             self::EXPIRED => 'Expired',
             self::ZOMBIE => 'Failed (zombie)',
             self::SERVER_UNREACHABLE => 'Server unreachable',

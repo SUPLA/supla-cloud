@@ -66,11 +66,6 @@ $(document).ready(function(){
 		  'specialChars': false,
 		  'onPasswordGenerated': function(generatedPassword) {
 			  $('#new-password').focus();
-			  new PNotify({
-				  type: 'success',
-				  title: 'Gotowe!',
-				  text: 'Nowe hasło zostało wygenerowane.',
-			  });
 		   }
 	  });
 	  

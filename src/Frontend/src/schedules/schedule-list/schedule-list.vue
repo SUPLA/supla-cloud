@@ -75,7 +75,7 @@
                     },
                     {
                         name: 'latestExecution',
-                        title: this.$t('Latest execution'),
+                        title: this.$t('The latest execution'),
                         callback: 'latestExecution'
                     }
                 ],

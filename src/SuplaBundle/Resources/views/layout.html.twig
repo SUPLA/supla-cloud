@@ -178,7 +178,7 @@
 				  <li class="dropdown pull-right">
 						<a class="dropdown-toggle" data-toggle="dropdown"><i class="pe-7s-user"></i><br />Konto<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-					  		<li><a class="nav-link" href="{{ path('_account_view') }}">{{ app.user.email }}<span><br>Przejdź do mojego konta</span></a></li>
+					  		<li><a class="nav-link" href="{{ path('_account_view') }}">{{ app.user.email }}<span><br>{% trans %}Go to your account{% endtrans %}</span></a></li>
 							<li class="divider"></li>
 							<li class="lng_switcher">
 								<a class="lng_switch {% if app.request.locale == 'en' %} active {% endif %}" data-lng="en"><img src={{ asset('assets/img/flags/en.svg') }}></a>
@@ -205,7 +205,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">{% trans %}You will be logged out in a moment{% endtrans %}</h4>
+						<h4 class="modal-title">{% trans %}You will be logged out shortly{% endtrans %}</h4>
 					</div>
 					<div class="modal-body">
 						<p>{% trans %}If you want to stay here, do something!{% endtrans %}</p>

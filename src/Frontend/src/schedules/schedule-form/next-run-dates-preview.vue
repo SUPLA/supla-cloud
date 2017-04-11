@@ -4,13 +4,13 @@
             v-if="fetchingNextRunDates">
             <div class="progress-bar progress-bar-info progress-bar-striped active"
                 style="width: 100%">
-                {{ $t('calculating closest executions') }}...
+                {{ $t('calculating the next available executions') }}...
             </div>
         </div>
         <div class="forum-group"
             v-if="nextRunDates.length > 0"
             :class="{opacity60: fetchingNextRunDates}">
-            <h4>{{ $t('The closest executions') }}</h4>
+            <h4>{{ $t('The next available executions') }}</h4>
             <div class="list-group">
                 <div class="list-group-item"
                     v-for="nextRunDate in humanizedNextRunDates">

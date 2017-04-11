@@ -7,7 +7,7 @@
             {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading || showSchedulesDisablingConfirmation"></button-loading>
-        <disabling-schedules-modal message="Turning this device off will result in disabling all schedules that use it."
+        <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
             v-if="showSchedulesDisablingConfirmation"
             :schedules="schedules"
             @confirm="toggleEnabled(true)"

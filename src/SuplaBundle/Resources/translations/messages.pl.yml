@@ -8,6 +8,7 @@ Disabled: Wyłączone
 Search: Szukaj
 Assigned Locations: Przypisane Lokalizacje
 Password change: Zmiana hasła
+Timezone: Strefa czasowa
 Registration: Rejestracja
 Password Reset: Resetowanie hasła
 Enter new password: Wprowadź nowe hasło
@@ -106,7 +107,7 @@ Lack of Access Identifiers: Brak Identyfikatorów Dostępu
 Change Your Password: Zmiana hasła
 On your computer...: W Twoim komputerze...
 On your smartphone...: W Twoim smartfonie...
-Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (I/O Devices) and smartphone the following data.: Podłączenie Twojego domu lub biura do SUPLI jest proste.<br>Wszystko co musisz zrobić to przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
+Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.: Podłączenie Twojego domu lub biura do SUPLI jest proste. Wszystko co musisz zrobić to <br>przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
 Enter the data below in the settings of your control device (I/O Device).: Poniższe dane wprowadź w ustawieniach Twojego urządzenia sterującego (urządzenie we/wy).
 Enter the data below in your mobile SUPLA application on your smartphone.: Poniższe dane wprowadź w aplikacji mobilnej SUPLA zainstalowanej w Twoim smartfonie.
 Make it work: Spraw by działało
@@ -238,13 +239,19 @@ Humidity sensor: Czujnik wilgotności
 Temperature and humidity sensor: Czujnik temperatury i wilgotności
 RGB lighting: Oświetlenie RGB
 Dimmer and RGB lighting: Ściemniacz i oświetlenie RGB
+Choose new device location for the: Wybierz nową lokalizację dla urządzenia
+Choose the location: Wybierz lokalizację
+Go to your account: Przejdź do swojego konta
 
 Service temporarily unavailable: Usługa tymczasowo niedostępna
 Try again later: Spróbuj ponownie później
 
-
-RESTful API has been enabled: RESTful API has been enabled
-The password should be 24 or more characters.: The password should be 24 or more characters.
+Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Witaj Programisto! Z myślą o Tobie udostępniliśmy interfejs RESTful API dzięki, któremu możesz zintegrować własne rozwiązania IT z SUPLĄ.
+RESTful API has been enabled: RESTful API zostało włączone
+RESTful API has been disabled: RESTful API zostało wyłączone
+The password should be 24 or more characters.: Hasło powinno mieć przynajmniej 24 znaki.
+OAuth 2.0 Authentication: Autoryzacja OAuth 2.0
+copy: kopiuj
 
 Schedule: Harmonogram
 Schedules: Harmonogramy
@@ -269,8 +276,8 @@ Start date: Data rozpoczęcia
 Start hour: Godzina rozpoczęcia
 End date: Data zakończenia
 End hour: Godzina zakończenia
-calculating closest executions: obliczam najbliższe wykonania
-The closest executions: Najbliższe wykonania
+calculating the next available executions: obliczam najbliższe wykonania
+The next available executions: Najbliższe wykonania
 choose the channel: wybierz kanał
 Add: Dodaj
 Date: Data
@@ -280,10 +287,10 @@ Every: Co
 minutes: minut
 Hours: Godziny
 Minute: Minuta
-Weekdays: Dni tygodnia
-Are you sure you want to delete the schedule?: Czy na pewno chcesz usunąć ten harmonogram?
+Days: Dni
+Are you sure you want to delete this schedule?: Czy na pewno chcesz usunąć ten harmonogram?
 Next run date: Najbliższe wykonanie
-Latest execution: Ostatnie wykonanie
+The latest execution: Ostatnie wykonanie
 
 Mondays: Poniedziałki
 Tuesdays: Wtorki
@@ -300,29 +307,29 @@ daily: Cykl dzienny
 
 Close: Zamknij
 Open: Otwórz
-Set parameters: Ustaw parametry
+Adjust parameters: Ustaw parametry
 Brightness: Jasność
 Color brightness: Jasność koloru
 Color: Kolor
 Random: Losowy
-Turn off: Wyłącz
-Turn on: Włącz
+Off: Wyłącz
+On: Włącz
 Shut: Zasłoń
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
 
 Successful: Udane
-Device was unreachable: Urządzenie niedostępne
-Disconnected sensor: Brak czujnika
+Device unavailable: Urządzenie niedostępne
+Sensor disconnected: Brak czujnika
 Server unreachable: Serwer nieosiągalny
 Failed: Nieudane
 Failed (zombie): Nieudane (zombie)
 Cancelled: Anulowane
 Expired: Przeterminowany
-To be executed: W trakcie
-A gate sensor must be available in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
+Processing: W trakcie
+The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 
-You will be logged out in a moment: Za chwilę zostaniesz wylogowany
+You will be logged out shortly: Za chwilę zostaniesz wylogowany
 If you want to stay here, do something!: Jeśli chcesz tu zostać, zrób coś!
 
 Chosen hour: Wybrana godzina
@@ -336,9 +343,9 @@ Sunrise / Sunset: Wschód / Zachód
 
 The device is disabled: Urządzenie jest wyłączone
 Existing schedules: Istniejące harmonogramy
-Turning this device off will result in disabling all schedules that use it.: Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.
+Turning this device off will result in disabling all the associated schedules.: Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 If you change the function of the channel, the following schedules will be removed: Jeśli zmienisz funkcję tego kanału, harmonogramy przypisane do niego zostaną usunięte
 Please select the schedules that should also be enabled.: Zaznacz harmonogramy, które także powinny zostać włączone.
-You have no devices that can be scheduled: Nie masz żadnych urządzeń, które można dodać do harmonogramu
+You have no devices that can be added to the schedule: Nie masz żadnych urządzeń, które można dodać do harmonogramu
 You will be redirected back to the schedules list now.: Zostaniesz teraz przekierowany do listy harmonogramów
