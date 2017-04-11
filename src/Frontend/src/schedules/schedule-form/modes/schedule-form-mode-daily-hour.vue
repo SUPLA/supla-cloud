@@ -30,7 +30,6 @@
         },
         mounted() {
             $(this.$refs.clockpicker).datetimepicker({
-                minDate: 'now',
                 format: 'LT',
                 inline: true,
                 locale: Vue.config.lang,
