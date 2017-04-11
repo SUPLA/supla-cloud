@@ -196,7 +196,9 @@
 	  </div>
         {% endif %}
     {% endblock %}
-	{% block content %}{% endblock %}
+	<div id="block">
+        {% block content %}{% endblock %}
+ 	</div>
 
 	{% if app.user and not app.debug %}
 		<div class="modal fade" id="idleWarningModal" tabindex="-1" role="dialog">
