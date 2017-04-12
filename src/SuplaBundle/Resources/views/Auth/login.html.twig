@@ -41,7 +41,7 @@
 				</form>
 
 				{% if error %}
-					<a href="#sign/1" class="error animated" id="forgotpwd_btn">
+					<a href="{{ path('_auth_login') }}#sign/1" class="error animated" id="forgotpwd_btn">
 
 					<p><strong>{% trans %}Forgot your password ?{% endtrans %}</strong> {% trans %}Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.{% endtrans %}</p>
 					</a>
@@ -79,7 +79,7 @@
 					<p id="forgot-password-step1" style="display: none">{% trans %}Click RESET button when visible{% endtrans %}</p>
 					<p id="forgot-password-step2" style="display: none"><strong>{% trans %}Check your email box{% endtrans %}</strong></p>
 				</div>
-				<a href="#sign" class="back"><i class="pe-7s-left-arrow"></i></a>
+				<a href="{{ path('_auth_login') }}#sign" class="back"><i class="pe-7s-left-arrow"></i></a>
 			</form>
 		</div>
 	</div>
@@ -101,7 +101,7 @@
 			<a class="brand nav-link" href="https://www.supla.org">www.supla.org</a>
 		</div>
 		<div class="col-xs-4 text-right">
-			<a id="forgotpwd_btn" href="#sign/1">{% trans %}Forgot your password ?{% endtrans %}</a>
+			<a href="{{ path('_auth_login') }}#sign/1" id="forgotpwd_btn">{% trans %}Forgot your password ?{% endtrans %}</a>
 		</div>
 	</div>
 </footer>
