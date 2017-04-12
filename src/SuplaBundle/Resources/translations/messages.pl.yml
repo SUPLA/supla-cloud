@@ -240,6 +240,7 @@ Temperature and humidity sensor: Czujnik temperatury i wilgotności
 RGB lighting: Oświetlenie RGB
 Dimmer and RGB lighting: Ściemniacz i oświetlenie RGB
 Choose new device location for the: Wybierz nową lokalizację dla urządzenia
+Change location: Zmień lokalizację
 Choose the location: Wybierz lokalizację
 Go to your account: Przejdź do swojego konta
 
@@ -255,7 +256,7 @@ copy: kopiuj
 
 Schedule: Harmonogram
 Schedules: Harmonogramy
-Create New Schedule: Stwórz nowy harmonogram
+Create New Schedule: Utwórz nowy harmonogram
 No future executions - schedule disabled: Brak zaplanowanych wykonań - harmonogram wyłączony
 Enable schedule: Włącz harmonogram
 Schedule cannot be enabled: Nie udało się włączyć harmonogramu

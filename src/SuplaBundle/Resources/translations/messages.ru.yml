@@ -106,7 +106,6 @@ Lack of Access Identifiers: Нехватает Ключей Доступа
 Change Your Password: Сменить пароль
 On your computer...: На Вашем компьютере...
 On your smartphone...: На Вашем смартфоне...
-Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (I/O Devices) and smartphone the following data.: Подключить ваш дом или офис к SUPLI очень просто.<br>Все, что вам нужно сделать, это переписать на свои устройства управления (входа/выхода) и смартфоны следующие данные.
 Enter the data below in the settings of your control device (I/O Device).: Введите данные ниже в настройки вашего устройства управления (устройство входа/выхода).
 Enter the data below in your mobile SUPLA application on your smartphone.: Введите данные ниже в мобильное приложение SUPLA, установленное на вашем смартфоне.
 Make it work: Заставь работать
@@ -197,7 +196,7 @@ Whoops, that's not an email address!: Не похоже на правильны�
 Supla for devices: Supla для устройств
 Next: Далее
 Get SUPLA on your devices: Загрузи SUPLА на свое устройство
-..and start your adventure with building automation today!: ...и начни творить свою домашнюю автоматику!
+...and start your adventure with building automation today!: ...и начни творить свою домашнюю автоматику!
 Mobile Apps: Мобильное приложение
 Sources available from <strong>GitHub</strong>: Исходный код доступен на <strong>GitHub</strong>
 
@@ -238,3 +237,108 @@ Humidity sensor: Датчик влажности
 Temperature and humidity sensor: Датчик температуры и влажности 
 RGB lighting: Освещение RGB  
 Dimmer and RGB lighting: Диммер и освещение RGB  
+
+Timezone: Часовой пояс
+Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.: Подключить Твой дом или офис к SUPLA очень легко.<br>Для этого Тебе достаточно всего лишь перезаписать в своих устройствах управления (Вход/Выход) и смартфонах нижеприведенные данные. 
+Choose new device location for the: Выбери новую локализацию для устройства
+Change location: Выбери локализацию
+Choose the location: Выбери локализацию
+Go to your account: Перейди в свой аккаунт 
+Service temporarily unavailable: Сервис временно недоступен
+Try again later: Попытайся повторно задать команду
+Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Привет, Программист!  Специально для Тебя мы создали интерфейс RESTfulAPI, благодаря  которому сможешь интегрировать собственные IT -решения с  SUPLA.
+RESTful API has been enabled: RESTful API включен
+RESTful API has been disabled: RESTful API выключен
+The password should be 24 or more characters.: Пароль должен состоять из минимум 24 печатных знаков.
+OAuth 2.0 Authentication: Авторизация OAuth 2.0 
+copy: копировать
+Schedule: График
+Schedules: Графики
+Create New Schedule: Создай новый график
+No future executions - schedule disabled: Нет запланированных исполнений – график выключен
+Enable schedule: Запусти график
+Schedule cannot be enabled: Не получилось запустить график 
+Disable schedule: Выключи график
+Edit schedule: Редактируй график
+Delete schedule: Удали график
+Executions: Реализации
+Action: Акция
+Subject: Субъект
+Mode: Режим
+Schedule has been deleted: Режим устранен
+Schedule mode: Режим графика
+Your timezone: Ваш часовой пояс
+Choose your timezone: Выбери свой часовой пояс
+change: изменить
+When: Когда
+Start date: Дата начала
+Start hour: Время начала
+End date: Дата окончания
+End hour: Время окончания
+calculating the next available executions: вычисляю ближайшие исполнения  
+The next available executions: Ближайшие исполнения
+choose the channel: выбери канал
+Add: Добавь
+Date: Дата
+Hour: Час
+Interval: Интервал
+Every: каждые
+minutes: Минут
+Hours: Часов
+Minute: Минута
+Days: Дней
+Are you sure you want to delete this schedule?: Ты уверен, что хочешь удалить этот график?
+Next run date: Ближайшее исполнение
+The latest execution: Последнее исполнение
+Mondays: Понедельники
+Tuesdays: Вторники
+Wednesdays: Среды
+Thursdays: Четверги
+Fridays: Пятницы
+Saturdays: Субботы
+Sundays: Воскресенья
+once: Одноразовый
+minutely: Ежеминутный цикл
+hourly: Ежечасный цикл
+daily: Дневной цикл
+Close: Закрыть
+Open: Открыть
+Adjust parameters: Задать параметры
+Brightness: Яркость
+Color brightness: Яркость цвета
+Color: Цвет
+Random: Произвольный
+Off: Выключить
+On: Включить
+Shut: Закрыть
+Reveal: Открыть
+Reveal partially: Открыть частично
+Successful: Выполнено успешно
+Device unavailable: Оборудование недоступно
+Sensor disconnected: Нет датчика
+Server unreachable: Соединить с сервером невозможно
+Failed: Не получилось
+Failed (zombie): Не получилось (зомби)
+Cancelled: Аннулировано 	
+Expired: Просрочен
+Processing: В реализации
+The gate sensor must function properly in order to execute the scheduled action.: Чтобы выполнить задачу, датчик открытия ворот должен работать правильно.
+You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
+If you want to stay here, do something!: Если хочешь здесь остаться, сделай что-нибудь!
+Chosen hour: Заданное время
+before: до
+after: после
+sunrise-before: восхода 
+sunset-before: заката
+sunrise-after: восхода 
+sunset-after: заката
+Sunrise / Sunset: Восход/Закат
+The device is disabled: Оборудование выключено
+Existing schedules: Существующие графики
+Turning this device off will result in disabling all the associated schedules.: Выключение этого оборудования приведет  к одновременному выключению графиков, которые с ним соединены.
+Are you sure you want to disable this device?: Ты уверен, что хочешь выключить это оборудование?
+If you change the function of the channel, the following schedules will be removed: Если ты поменяешь задачи данного канала, заданные ему графики будут удалены 
+Please select the schedules that should also be enabled.: Отметь графики, которые тоже должны быть включены.
+You have no devices that can be added to the schedule: У тебя нет никакого оборудования, которое можно добавить к графику 
+You will be redirected back to the schedules list now.: Сейчас ты будешь перенаправлен к списку графиков.
+

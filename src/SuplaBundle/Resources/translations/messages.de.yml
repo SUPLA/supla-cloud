@@ -106,7 +106,6 @@ Lack of Access Identifiers: Keine Zugriffskennungen
 Change Your Password: Kennwort Änderung
 On your computer...: In deinem PC...
 On your smartphone...: In deinem Smartphone...
-Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (I/O Devices) and smartphone the following data.: Der Anschluss Ihres Hauses und Ihres Büros an SUPLI ist sehr einfach.<br>Alles, was Sie machen müssen, ist es, nachfolgende Daten in ihre Steuergeräte  (Eingänge/Ausgänge) sowie in die Smartphone  übertragen.
 Enter the data below in the settings of your control device (I/O Device).: Tragen Sie nachfolgende Daten  in den Einstellungen Ihres Steuergerätes (Eingans-/Ausgangsgerät) ein.
 Enter the data below in your mobile SUPLA application on your smartphone.: Tragen Sie nachfolgende Daten  in der Mobilapplikation SUPLA ein, die auf Ihrer Smartphone installiert ist.
 Make it work: Lass es funktionieren!
@@ -239,3 +238,110 @@ Humidity sensor: Feuchtigkeitssensor
 Temperature and humidity sensor: Temperatur- und Feuchtigkeitssensor
 RGB lighting: RGB- Beleuchtung
 Dimmer and RGB lighting: Helligkeitsregler und RGB-Beleuchtung 
+
+Timezone: Zeitzone
+Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.: Der Anschluss Deines Hauses oder Büros an SUPLI ist sehr einfach. Alles was Du tun musst besteht darin, dass du die unten aufgeführten<br>Daten an die Steuergeräte (Eingang/Ausgang) der Smartfons umschreiben sollst.
+Choose new device location for the: Wähle einen neuen Standort für Dein Gerät aus
+Change location: Wähle den Standort
+Choose the location: Wähle den Standort
+Go to your account: Geh zu deinem Konto
+Service temporarily unavailable: Dienstleistung ist temporär nicht verfügbar
+Try again later: Versuche später nochmals
+Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Willkommen Software Ingenieur! Wir haben im Gedanken an Dich das Interface RESFul API zur Verfügung gestellt, dank dem Du deine eigenen IT Lösungen mit SUPLA integrieren kannst.
+RESTful API has been enabled: RESTful API wurde eingeschaltet
+RESTful API has been disabled: RESTful API wurde ausgeschaltet
+The password should be 24 or more characters.: Das Kennwort sollte mindestens 24 Zeichen haben.
+OAuth 2.0 Authentication: OAuth 2.0 Authorisierung
+copy: Kopiere
+
+Schedule: Harmonogramm
+Schedules: Harmonogramme
+Create New Schedule: Schaffe ein neues Harmnonogramm 
+No future executions - schedule disabled: Keine vorausgeplanten Ausführungen- Harmonogramm ausgeschaltet
+Enable schedule: Schalte das Harmonogramm ein
+Schedule cannot be enabled: Es ist nicht gelungen das Harmonogramm einzuschalten
+Disable schedule: Schalte das Harmonogramm aus
+Edit schedule: Bearbeite das Harmonogramm
+Delete schedule: Entferne das Harmonogramm
+Executions: Ausführungen
+Action: Aktion
+Subject: Subjekt
+Mode: Modus
+Schedule has been deleted: Harmonogramm wurde entfernt
+Schedule mode: Harmonogrammmodus
+Your timezone: Deine Zeitzone
+Choose your timezone: Wähle Deine Zeitzone
+change: Ändere
+When: Wann
+Start date: Beginndatum
+Start hour: Uhrzeitbeginn
+End date: Abschlussdatum
+End hour: Uhrzeitabschluss
+calculating the next available executions: Berechne die nächsten Ausführungen
+The next available executions: die nächsten Ausführungen
+choose the channel: Wähle den Kanal
+Add: Füge hinzu
+Date: Data 	Datum
+Hour: Uhrzeit
+Interval: Intervall (Zeitspanne)
+Every: jeden
+minutes: Minuten
+Hours: Stunden
+Minute: Minute
+Days: Tage
+Are you sure you want to delete this schedule?: Willst Du dieses Harmonogramm bestimmt entfernen?
+Next run date: Nächste Ausführung
+The latest execution: Letzte Ausführung
+Mondays: Montage
+Tuesdays: Dienstage
+Wednesdays: Mittwoche
+Thursdays: Donnerstage
+Fridays: Freitage
+Saturdays: Samstage
+Sundays: Sonntage
+once: einmaliger
+minutely: Minutenzyklus
+hourly: Stundenzyklus
+daily: Tageszyklus
+Close: Schliesse
+Open: Öffne
+Adjust parameters: Stelle Die Paramter ein
+Brightness: Helligkeit
+Color brightness: Helligkeit des Farbtons
+Color: Farbe
+Random: Zufalls-
+Off: AUS
+On: EIN
+Shut: Abdecken
+Reveal: Aufdecken 
+Reveal partially: Decke teilweise auf
+Successful: Erfolgreiche
+Device unavailable: Gerät nicht verfügbar
+Sensor disconnected: Fehlender Sensor
+Server unreachable: Serwer unerreichbar
+Failed: Nicht erfolgreich
+Failed (zombie): Nicht erfolgreich (Zombie)
+Cancelled: Anulliert
+Expired: abgelaufen
+Processing: Im Gang
+The gate sensor must function properly in order to execute the scheduled action.: Zwecks der Ausführung einer Aktion muss der Tor-Öffnungssensor einwandfrei funktionieren.
+You will be logged out shortly: Du wirst gleich ausgeloggt
+If you want to stay here, do something!: Wenn Du hier bleiben willst, tu etwas!
+Chosen hour: Ausgewählte Uhrzeit
+before: Vor
+after: Nach
+sunrise-before: Sonnenaufgang
+sunset-before: Sonnenuntergang
+sunrise-after: Sonnenaufgang
+sunset-after: Sonnenuntergang
+Sunrise / Sunset: Sonnenaufgang/Sonnenuntergang
+The device is disabled: Das Gerät ist ausgeschaltet
+Existing schedules: Bestehende/existierende Harmonogramme
+Turning this device off will result in disabling all the associated schedules.: Das Ausschalten dieses Geräts verursacht auch das Ausschalten von Harmonogrammen, mit denen es in Verbindung steht.
+Are you sure you want to disable this device?: Willst Du dieses Gerät bestimmt ausschalten?
+If you change the function of the channel, the following schedules will be removed: Wenn Du die Funktion dieses Kanals änderst, werden die ihm zugeschriebenen Harmonogramme entfernt
+Please select the schedules that should also be enabled.: Markiere die Harmonogramme, die auch ausgeschaltet werden sollten.
+You have no devices that can be added to the schedule: Du besitzt keine Geräte, die man zum Harmonogramm hinzufügen kann.
+You will be redirected back to the schedules list now.: Du wirst jetzt zur Harmonogrammliste umgeleitet.
+
+

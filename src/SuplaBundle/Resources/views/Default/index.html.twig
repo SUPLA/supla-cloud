@@ -9,7 +9,7 @@
 <div class="col-xs-6 step">
 	<div class="step">
 		<h2>supla-dev</h2>
-		<p>Poniższe dane wprowadź w ustawieniech Twojego urządzenia sterującego (urządzenie we/wy)</p>
+		<p>{% trans %}Enter the data below in the settings of your control device (I/O Device).{% endtrans %}</p>
 		<input type="text" id="password" value="{{ base_server }}" readonly>
 		<label for="password" class="password">{% trans %}Server address{% endtrans %}</label>
 		<input type="text" id="server_address" value="{{ base_locid }}" readonly>
@@ -21,7 +21,7 @@
 <div class="col-xs-6">
 	<div class="step">
 	<h2>supla-client</h2>
-	<p>Poniższe dane wprowadź w aplikacji mobilnej SUPLA zainstalowanej w Twoim smartfonie</p>
+	<p>{% trans %}Enter the data below in your mobile SUPLA application on your smartphone.{% endtrans %}</p>
 		<input type="text" id="server_address" value="{{ base_server }}" readonly>
 		<label for="server_address">{% trans %}Server address{% endtrans %}</label>
 		<input type="text" id="access_identifier" value="{{ base_accessid }}" readonly>
