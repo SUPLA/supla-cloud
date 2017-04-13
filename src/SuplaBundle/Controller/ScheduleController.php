@@ -107,7 +107,9 @@ class ScheduleController extends AbstractController {
         return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule) {
             $this->get('schedule_manager')->deleteScheduledExecutions($schedule);
             $em->persist($schedule);
-            $this->get('schedule_manager')->generateScheduledExecutions($schedule);
+            if ($schedule->getEnabled()) {
+                $this->get('schedule_manager')->generateScheduledExecutions($schedule);
+            }
             return new JsonResponse(['id' => $schedule->getId()]);
         });
     }
