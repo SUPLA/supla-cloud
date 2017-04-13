@@ -678,7 +678,7 @@ body.account svg .st4x {-webkit-animation: fill2 1s;
 	     0% { fill:rgba(255,255,255,0); }
 	    100% { fill: #000; }
 	}
-span.supla-member {position: absolute; top: 216px; left: calc(50% - 262px); display: inline-block;font-family: 'Quicksand', sans-serif;font-size: 15px; font-weight: 400; color:#fff;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 2s;}
+span.supla-member {position: absolute; top: 296px; left: calc(50% - 262px); display: inline-block;font-family: 'Quicksand', sans-serif;font-size: 15px; font-weight: 400; color:#fff;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 2s;}
 div.user-account {position: absolute; top: 332px; left: calc(50% - 250px); width: 500px}
 div.user-account h1 {display: inline-block; text-transform: none; border-bottom: solid 1px rgba(0,0,0,.2); line-height: 80px;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 1.8s; width: 100%;text-overflow: ellipsis;white-space: nowrap; overflow: hidden; font-size: 36px; line-height: 64px;}
 
