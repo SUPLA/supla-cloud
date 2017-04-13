@@ -74,6 +74,11 @@ class ScheduledExecution {
     private $resultTimestamp;
 
     /**
+     * @ORM\Column(name="consumed", type="boolean", nullable=false)
+     */
+    private $consumed = false;
+
+    /**
      * @ORM\Column(name="result", type="integer", nullable=true)
      * @Groups({"basic", "flat"})
      */

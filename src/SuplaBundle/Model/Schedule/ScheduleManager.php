@@ -151,7 +151,7 @@ class ScheduleManager {
         $this->entityManager->createQueryBuilder()
             ->delete('SuplaBundle:ScheduledExecution', 's')
             ->where('s.schedule = :schedule')
-            ->andWhere('s.fetchedTimestamp IS NULL')
+            ->andWhere('s.consumed = 0')
             ->setParameter('schedule', $schedule)
             ->getQuery()
             ->execute();
