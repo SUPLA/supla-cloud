@@ -104,11 +104,13 @@ class ScheduleController extends AbstractController {
     public function editScheduleAction(Schedule $schedule, Request $request) {
         $data = $request->request->all();
         $this->fillSchedule($schedule, $data);
-        return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule) {
+        return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request) {
             $this->get('schedule_manager')->deleteScheduledExecutions($schedule);
             $em->persist($schedule);
             if ($schedule->getEnabled()) {
                 $this->get('schedule_manager')->generateScheduledExecutions($schedule);
+            } else if ($request->get('enable')) {
+                $this->get('schedule_manager')->enable($schedule);
             }
             return new JsonResponse(['id' => $schedule->getId()]);
         });

@@ -42,14 +42,25 @@
                     <div class="well">
                         <h3 class="no-margin-top">{{ $t('Action') }}</h3>
                         <schedule-form-action-chooser></schedule-form-action-chooser>
-                        <div class="text-right">
-                            <button class="btn btn-success btn-lg"
-                                :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates || submitting"
+                        <div class="text-right"
+                            v-if="!submitting">
+                            <button class="btn btn-default btn-lg"
+                                v-if="schedule.enabled === false"
+                                :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
                                 @click="submit()">
-                                <i class="pe-7s-plus"
-                                    v-show="!scheduleId"></i>
-                                {{ $t(scheduleId ? 'Save' : 'Add') }}
+                                <i class="pe-7s-diskette"></i>
+                                {{ $t('Save') }}
                             </button>
+                            <button class="btn btn-success btn-lg"
+                                :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
+                                @click="submit(true)">
+                                <i :class="scheduleId ? 'pe-7s-diskette' : 'pe-7s-plus'"></i>
+                                {{ $t(scheduleId ? (schedule.enabled ? 'Save' : 'Save and enable') : 'Add') }}
+                            </button>
+                        </div>
+                        <div class="text-right"
+                            v-if="submitting">
+                            <button-loading></button-loading>
                         </div>
                     </div>
                 </div>
@@ -67,6 +78,7 @@
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
     import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue";
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
+    import ButtonLoading from "../../iodevice-details/button-loading.vue";
     import {mapState, mapActions} from "vuex";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
@@ -82,7 +94,7 @@
                     this.$store.commit('updateCaption', caption);
                 }
             },
-            ...mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'scheduleId', 'submitting'])
+            ...mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'scheduleId', 'submitting', 'schedule'])
         },
         mounted() {
             if (this.scheduleId) {
@@ -99,7 +111,8 @@
             ScheduleFormModeDaily,
             NextRunDatesPreview,
             ScheduleFormActionChooser,
-            ScheduleFormStartEndDate
+            ScheduleFormStartEndDate,
+            ButtonLoading
         },
         methods: mapActions(['submit', 'loadScheduleToEdit'])
     };

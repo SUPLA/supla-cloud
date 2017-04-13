@@ -48,6 +48,7 @@ export const mutations = {
         state.submitting = false;
     },
     editSchedule(state, schedule) {
+        state.schedule = schedule;
         state.scheduleMode = schedule.mode.value;
         state.timeExpression = schedule.timeExpression;
         state.dateStart = schedule.dateStart;
@@ -104,11 +105,11 @@ export const actions = {
         }
     },
 
-    submit({commit, state}) {
+    submit({commit, state}, enableIfDisabled) {
         commit('submit');
         let promise;
         if (state.scheduleId) {
-            promise = Vue.http.put(`schedule/${state.scheduleId}`, state);
+            promise = Vue.http.put(`schedule/${state.scheduleId}` + (enableIfDisabled ? '?enable=true' : ''), state);
         } else {
             promise = Vue.http.post('schedule/create', state);
         }
