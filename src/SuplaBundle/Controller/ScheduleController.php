@@ -109,7 +109,7 @@ class ScheduleController extends AbstractController {
             $em->persist($schedule);
             if ($schedule->getEnabled()) {
                 $this->get('schedule_manager')->generateScheduledExecutions($schedule);
-            } else if ($request->get('enable')) {
+            } elseif ($request->get('enable')) {
                 $this->get('schedule_manager')->enable($schedule);
             }
             return new JsonResponse(['id' => $schedule->getId()]);
