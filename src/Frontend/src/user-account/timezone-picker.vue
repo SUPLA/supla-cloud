@@ -29,7 +29,7 @@
         computed: {
             availableTimezones() {
                 return moment.tz.names().filter(function (timezone) {
-                    return timezone.match(/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//);
+                    return timezone.match(/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific|UTC)\//);
                 }).map(function (timezone) {
                     return {
                         name: timezone,
