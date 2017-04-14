@@ -138,7 +138,7 @@ class User implements AdvancedUserInterface {
     private $limitClientApp;
 
     /**
-     * @ORM\Column(name="limit_schedule", type="integer", options={"default"=10})
+     * @ORM\Column(name="limit_schedule", type="integer", options={"default"=20})
      */
     private $limitSchedule;
 
@@ -167,7 +167,7 @@ class User implements AdvancedUserInterface {
         $this->limitLoc = 10;
         $this->limitIoDev = 100;
         $this->limitClientApp = 200;
-        $this->limitSchedule = 10;
+        $this->limitSchedule = 20;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
