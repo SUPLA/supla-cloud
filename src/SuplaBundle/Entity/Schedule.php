@@ -29,7 +29,11 @@ use Symfony\Component\Validator\Constraints;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_schedule")
+ * @ORM\Table(name="supla_schedule", indexes={
+ *     @ORM\Index(name="next_calculation_date_idx", columns={"next_calculation_date"}),
+ *     @ORM\Index(name="enabled_idx", columns={"enabled"}),
+ *     @ORM\Index(name="date_start_idx", columns={"date_start"})
+ * })
  * @UniqueEntity(fields="id", message="IODevice already exists")
  */
 class Schedule {

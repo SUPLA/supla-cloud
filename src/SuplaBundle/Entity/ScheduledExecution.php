@@ -28,8 +28,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="supla_scheduled_executions", indexes={
  *     @ORM\Index(name="result_idx", columns={"result"}),
+ *     @ORM\Index(name="result_timestamp_idx", columns={"result_timestamp"}),
  *     @ORM\Index(name="planned_timestamp_idx", columns={"planned_timestamp"}),
- *     @ORM\Index(name="retry_timestamp_idx", columns={"retry_timestamp"})
+ *     @ORM\Index(name="retry_timestamp_idx", columns={"retry_timestamp"}),
+ *     @ORM\Index(name="fetched_timestamp_idx", columns={"fetched_timestamp"}),
+ *     @ORM\Index(name="consumed_idx", columns={"consumed"})
  * })
  */
 class ScheduledExecution {
