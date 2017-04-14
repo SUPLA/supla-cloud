@@ -40,7 +40,7 @@ class Version20170414101854 extends AbstractMigration
         $this->addSql('ALTER TABLE supla_oauth_user ADD CONSTRAINT FK_6C098C52727ACA70 FOREIGN KEY (parent_id) REFERENCES supla_user (id)');
         $this->addSql('ALTER TABLE supla_oauth_user ADD CONSTRAINT FK_6C098C521579A74E FOREIGN KEY (accessId_id) REFERENCES supla_accessid (id)');
         $this->addSql('ALTER TABLE supla_oauth_clients ADD CONSTRAINT FK_4035AD80727ACA70 FOREIGN KEY (parent_id) REFERENCES supla_user (id)');
-        $this->addSql('ALTER TABLE supla_scheduled_executions ADD CONSTRAINT FK_FB21DBDCA40BC2D5 FOREIGN KEY (schedule_id) REFERENCES supla_schedule (id)');
+        $this->addSql('ALTER TABLE supla_scheduled_executions ADD CONSTRAINT FK_FB21DBDCA40BC2D5 FOREIGN KEY (schedule_id) REFERENCES supla_schedule (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_schedule ADD CONSTRAINT FK_323E8ABEA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id)');
         $this->addSql('ALTER TABLE supla_schedule ADD CONSTRAINT FK_323E8ABE72F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id)');
         $this->addSql('ALTER TABLE supla_iodevice ADD original_location_id INT DEFAULT NULL, CHANGE guid guid VARBINARY(16) NOT NULL');
@@ -49,6 +49,8 @@ class Version20170414101854 extends AbstractMigration
         $this->addSql('ALTER TABLE supla_user ADD timezone VARCHAR(50) NOT NULL, ADD limit_schedule INT DEFAULT 20 NOT NULL');
         $this->addSql("UPDATE supla_user SET timezone = '".addslashes ($timezone)."'");
         $this->addSql('ALTER TABLE supla_client CHANGE guid guid VARBINARY(16) NOT NULL');
+        
+        
     }
 
     /**
