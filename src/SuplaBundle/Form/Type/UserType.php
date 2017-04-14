@@ -21,6 +21,7 @@ namespace SuplaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,6 +40,7 @@ class UserType extends AbstractType {
             'second_options' => ['label' => ' '],
             'invalid_message' => 'The password and its confirm are not the same.',
         ]);
+        $builder->add('timezone', HiddenType::class, ['label' => false, 'required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

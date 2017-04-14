@@ -58,7 +58,7 @@ module.exports = {
             'vue$': 'vue/dist/vue.common.js',
             'vuex$': 'vuex/dist/vuex.js',
             'jquery': 'jquery/dist/jquery',
-            'moment-timezone': 'moment-timezone/builds/moment-timezone-with-data-2010-2020',
+            'moment-timezone': 'moment-timezone/builds/moment-timezone-with-data-2012-2022',
         }
     },
     devServer: {

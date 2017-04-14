@@ -132,6 +132,7 @@ class AccountController extends Controller {
         if ($exists === false
             && $form->isValid()
         ) {
+            /** @var Registration $registration */
             $registration = $form->getData();
             $user_manager = $this->get('user_manager');
             $user = $registration->getUser();

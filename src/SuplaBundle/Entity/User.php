@@ -177,7 +177,7 @@ class User implements AdvancedUserInterface {
         $this->passwordRequestedAt = null;
         $this->lastLogin = null;
         $this->enabled = false;
-        $this->timezone = date_default_timezone_get();
+        $this->setTimezone(null);
     }
 
     public function getId() {
@@ -413,7 +413,12 @@ class User implements AdvancedUserInterface {
     }
 
     public function setTimezone($timezone) {
-        $this->timezone = $timezone;
+        try {
+            new \DateTimeZone($timezone);
+            $this->timezone = $timezone;
+        } catch (\Exception $e) {
+            $this->timezone = date_default_timezone_get();
+        }
     }
 
     public function getLimitSchedule() {

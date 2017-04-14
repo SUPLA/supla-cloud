@@ -47,6 +47,7 @@
 	<div class="wrapper">
 		<h1>{% trans %}Create an account{% endtrans %}</h1>
 		{{ form_start(form_ca) }}                        
+					{{ form_widget(form_ca.user.timezone, {'id': 'user-timezone-field' }) }}
 					{{ form_widget(form_ca.user.email, {'attr': {'placeholder': 'Enter your email address'} }) }}
 					{{ form_errors(form_ca.user.email) }}
 					
@@ -94,5 +95,6 @@
 	  play: 12500,
 	  pagination: false,
     });
+	$("#user-timezone-field").val(moment.tz.guess());
   </script>
 {% endblock %}
