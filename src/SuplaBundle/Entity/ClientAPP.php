@@ -44,7 +44,7 @@ class ClientAPP {
 
     /**
      * @ORM\ManyToOne(targetEntity="AccessID", inversedBy="clientApps")
-     * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $accessId;
 

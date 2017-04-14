@@ -49,7 +49,8 @@ class Version20170414101854 extends AbstractMigration
         $this->addSql('ALTER TABLE supla_user ADD timezone VARCHAR(50) NOT NULL, ADD limit_schedule INT DEFAULT 20 NOT NULL');
         $this->addSql("UPDATE supla_user SET timezone = '".addslashes ($timezone)."'");
         $this->addSql('ALTER TABLE supla_client CHANGE guid guid VARBINARY(16) NOT NULL');
-        
+        $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007F4FEA67CF');
+        $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007F4FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id) ON DELETE CASCADE');
         
     }
 
@@ -80,5 +81,7 @@ class Version20170414101854 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_793D49DF142C1A4 ON supla_iodevice');
         $this->addSql('ALTER TABLE supla_iodevice DROP original_location_id, CHANGE guid guid BINARY(16) NOT NULL');
         $this->addSql('ALTER TABLE supla_user DROP timezone, DROP limit_schedule');
+        $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007F4FEA67CF');
+        $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007F4FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id)');
     }
 }
