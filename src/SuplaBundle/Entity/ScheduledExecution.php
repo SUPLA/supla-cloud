@@ -45,7 +45,7 @@ class ScheduledExecution {
 
     /**
      * @ORM\ManyToOne(targetEntity="Schedule")
-     * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $schedule;
 
