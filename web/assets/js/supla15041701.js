@@ -548,8 +548,12 @@ function detectIE() {
 
         });
         
-        $('#iodevice_channel_type_sec').on('change', function() {
-        	$('#iodevice_channel_type_channel_param1').val($(this).val() * 1000);
+        $('#iodevice_channel_type_sec1').on('change', function() {
+        	$('#iodevice_channel_type_channel_param1').val($(this).val() * 10);
+        });
+        
+        $('#iodevice_channel_type_sec2').on('change', function() {
+        	$('#iodevice_channel_type_channel_param3').val($(this).val() * 10);
         });
 
         $('.access_id_list a').on('click', carouselItemClick('aid'));
