@@ -20,6 +20,7 @@ CANCEL: ОТМЕНА
 Are you sure you want to delete?: Точно удалить ?
 Relay switching time: Время переключения<br />реле
 Full opening time: Общее время открытия
+Full closing time: Общее время закрытия
 sec.: сек.
 Download the history of measurement: Скачать историю измерений
 Open sensor : Датчик открытия

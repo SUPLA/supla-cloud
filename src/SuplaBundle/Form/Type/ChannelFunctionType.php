@@ -45,6 +45,7 @@ class ChannelFunctionType extends AbstractType {
         $builder->add('function', HiddenType::class);
         $builder->add('param1', HiddenType::class);
         $builder->add('param2', HiddenType::class);
+        $builder->add('param3', HiddenType::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options) {
