@@ -243,19 +243,19 @@ class IODeviceController extends AbstractController {
                     break;
             }
             
-            if ($channel->getFunction() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER 
+            if ($channel->getFunction() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER
             ) {
-            	if ( $channel->getParam1() < 0
-            			|| $channel->getParam1() > 3000 // 5 min.
-            	) {
-            		$channel->setParam1(0);
-            	}
-            	
-            	if ( $channel->getParam3() < 0
-            			|| $channel->getParam3() > 3000 // 5 min.
-            			) {		
-            		$channel->setParam3(0);
-            	}
+                if ($channel->getParam1() < 0
+                        || $channel->getParam1() > 3000 // 5 min.
+                ) {
+                    $channel->setParam1(0);
+                }
+                
+                if ($channel->getParam3() < 0
+                        || $channel->getParam3() > 3000 // 5 min.
+                        ) {
+                    $channel->setParam3(0);
+                }
             }
 
 
