@@ -56,13 +56,13 @@ class ScheduleListQuery {
             SELECT %COLUMNS%
             FROM supla_scheduled_executions e
             INNER JOIN (
-               SELECT id, MIN(planned_timestamp)
+               SELECT schedule_id, MIN(planned_timestamp) min_timestamp
                FROM supla_scheduled_executions
                WHERE schedule_id IN(%SCHEDULE_IDS%)
                AND result_timestamp IS NULL
                GROUP BY schedule_id
             ) AS t
-            ON t.id = e.id;
+            ON t.schedule_id = e.schedule_id AND t.min_timestamp = e.planned_timestamp;
 QUERY;
         $this->fetchExecutions($schedules, $query, 'futureExecution');
     }
@@ -72,13 +72,13 @@ QUERY;
             SELECT %COLUMNS%
             FROM supla_scheduled_executions e
             INNER JOIN (
-               SELECT id, MAX(result_timestamp)
+               SELECT schedule_id, MAX(result_timestamp) max_timestamp
                FROM supla_scheduled_executions
                WHERE schedule_id IN(%SCHEDULE_IDS%)
                AND result_timestamp IS NOT NULL
                GROUP BY schedule_id
             ) AS t
-            ON t.id = e.id;
+            ON t.schedule_id = e.schedule_id AND t.max_timestamp = e.result_timestamp;
 QUERY;
         $this->fetchExecutions($schedules, $query, 'latestExecution');
     }

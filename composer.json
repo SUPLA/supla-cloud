@@ -16,6 +16,7 @@
     "php": ">=7.0",
     "ext-intl": "*",
     "ext-mbstring": "*",
+    "ext-zip": "*",
     "beberlei/assert": "^2.7",
     "cocur/slugify": "^2.3",
     "doctrine/orm": "^2.5",
