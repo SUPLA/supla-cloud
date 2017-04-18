@@ -1,8 +1,6 @@
 {% extends 'SuplaBundle::empty-layout.html.twig' %}
 {% block content %}
-    <div id="login-page">
-        <router-view></router-view>
-    </div>
+    <div id="login-page"></div>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('assets/dist/login-page.js', 'webpack') }}"></script>

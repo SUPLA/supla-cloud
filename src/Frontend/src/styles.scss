@@ -1,3 +1,7 @@
+body {
+  font-family: "Open Sans", sans-serif !important;
+}
+
 .no-margin-top {
   margin-top: 0 !important;
 }
@@ -5,4 +9,49 @@
 .low-z-index { // fixes some problems with elements appearing incorrectly above the others
   position: relative;
   z-index: 1
+}
+
+input[type=text], input[type=password] {
+  &.form-control {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #CCC;
+    box-shadow: initial;
+  }
+}
+
+.input-group-addon {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid #CCC !important;
+  border-radius: 0 !important;
+}
+
+.btn-green {
+  background: #15B133;
+  color: white;
+  border: 0 !important;
+  border-radius: 2px !important;
+  &:hover {
+    background: lighten(#15B133, 5%);
+    color: white !important;;
+  }
+}
+
+.btn-white {
+  background: white;
+  color: #15B133;
+  border: 1px solid #15B133 !important;
+  border-radius: 2px !important;
+  &:hover {
+    background: #cffdcd;
+    color: #15B133 !important;
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }

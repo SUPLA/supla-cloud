@@ -1,6 +1,6 @@
 <template>
     <div>
-        BOO!
+        REMIND PASSWORD
     </div>
 </template>
 
