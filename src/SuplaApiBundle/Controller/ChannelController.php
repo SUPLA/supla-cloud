@@ -125,13 +125,13 @@ class ChannelController extends RestController {
 
     protected function temperatureLogItems($channelid, $offset, $limit) {
 
-        $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_timestamp, `temperature` FROM `supla_temperature_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
+        $sql = "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` ";
+        $sql .= "FROM `supla_temperature_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
         
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
-        $stmt->bindValue(1, $this->getParentUser()->getTimezone());
-        $stmt->bindValue(2, $channelid, 'integer');
-        $stmt->bindValue(3, $limit, 'integer');
-        $stmt->bindValue(4, $offset, 'integer');
+        $stmt->bindValue(1, $channelid, 'integer');
+        $stmt->bindValue(2, $limit, 'integer');
+        $stmt->bindValue(3, $offset, 'integer');
         $stmt->execute();
         
         return $stmt->fetchAll();
@@ -140,13 +140,13 @@ class ChannelController extends RestController {
     protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
         
         
-        $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_timestamp, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
+        $sql = "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature`, ";
+        $sql .= "`humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
         
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
-        $stmt->bindValue(1, $this->getParentUser()->getTimezone());
-        $stmt->bindValue(2, $channelid, 'integer');
-        $stmt->bindValue(3, $limit, 'integer');
-        $stmt->bindValue(4, $offset, 'integer');
+        $stmt->bindValue(1, $channelid, 'integer');
+        $stmt->bindValue(2, $limit, 'integer');
+        $stmt->bindValue(3, $offset, 'integer');
         $stmt->execute();
         
         return $stmt->fetchAll();

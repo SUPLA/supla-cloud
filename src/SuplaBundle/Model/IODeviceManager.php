@@ -602,21 +602,38 @@ class IODeviceManager {
             $handle = fopen($temp_file, 'w+');
 
             if ($channel->getType() == SuplaConst::TYPE_THERMOMETERDS18B20) {
-                fputcsv($handle, ['Timestamp', 'Date and time (CET)', 'Temperature']);
+                fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature']);
 
-                $results = $this->doctrine->getManager()->getConnection()
-                    ->query("SELECT UNIX_TIMESTAMP(`date`) AS date_ts, `date`, `temperature` FROM `supla_temperature_log` WHERE channel_id = " . intval($channel->getId()));
-
-                while ($row = $results->fetch()) {
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
+                $sql .= "`temperature` ";
+                $sql .= "FROM `supla_temperature_log` WHERE channel_id = ?";
+                
+                $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
+                $stmt->bindValue(1, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(2, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(3, $channel->getId(), 'integer');
+                $stmt->execute();
+                
+                while ($row = $stmt->fetch()) {
                     fputcsv($handle, [$row['date_ts'], $row['date'], $row['temperature']]);
                 }
             } else {
-                fputcsv($handle, ['Timestamp', 'Date and time (CET)', 'Temperature', 'Humidity']);
+                fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature', 'Humidity']);
+                
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
+                $sql .= "`temperature`, `humidity` ";
+                $sql .= "FROM `supla_temphumidity_log` WHERE channel_id = ?";
+                
+                $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
+                $stmt->bindValue(1, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(2, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(3, $channel->getId(), 'integer');
+                $stmt->execute();
 
-                $results = $this->doctrine->getManager()->getConnection()
-                    ->query("SELECT UNIX_TIMESTAMP(`date`) AS date_ts, `date`, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = " . intval($channel->getId()));
 
-                while ($row = $results->fetch()) {
+                while ($row = $stmt->fetch()) {
                     fputcsv($handle, [$row['date_ts'], $row['date'], $row['temperature'], $row['humidity']]);
                 }
             }
