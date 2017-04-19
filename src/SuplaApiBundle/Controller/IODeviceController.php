@@ -102,15 +102,47 @@ class IODeviceController extends RestController {
         $enabled = false;
         $connected = false;
 
+        $iodev_man = $this->container->get('iodevice_manager');
+        
         if ($iodevice->getEnabled()) {
             $enabled = true;
             $cids = (new ServerCtrl())->iodevice_connected($this->getParentUser()->getId(), [$devid]);
             $connected = in_array($devid, $cids);
         }
 
-        $result = ['connected' => $connected,
-            'enabled' => $enabled,
+
+        $channels = [];
+        
+        foreach ($iodev_man->getChannels($iodevice) as $channel) {
+        	$channels[] = [
+        			'id' => $channel->getId(),
+        			'chnnel_number' => $channel->getChannelNumber(),
+        			'caption' => $channel->getCaption(),
+        			'type' => ['name' => SuplaConst::typeStr[$channel->getType()],
+        					'id' => $channel->getType()],
+        			'function' => ['name' => SuplaConst::fncStr[$channel->getFunction()],
+        					'id' => $channel->getFunction()],
+        	];
+        }
+        
+        $result[] = [
+        		'id' => $iodevice->getId(),
+        		'location_id' => $iodevice->getLocation()->getId(),
+        		'enabled' => $enabled,
+        		'connected' => $connected,
+        		'name' => $iodevice->getName(),
+        		'comment' => $iodevice->getComment(),
+        		'registration' => ['date' => $iodevice->getRegDate()->getTimestamp(),
+        				'ip_v4' => long2ip($iodevice->getRegIpv4())],
+        		
+        		'last_connected' => ['date' => $iodevice->getLastConnected()->getTimestamp(),
+        				'ip_v4' => long2ip($iodevice->getLastIpv4())],
+        		'guid' => $iodevice->getGUIDString(),
+        		'software_version' => $iodevice->getSoftwareVersion(),
+        		'protocol_version' => $iodevice->getProtocolVersion(),
+        		'channels' => $channels,
         ];
+
 
         return $this->handleView($this->view($result, Response::HTTP_OK));
     }
