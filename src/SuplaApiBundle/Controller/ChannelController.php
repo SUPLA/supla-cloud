@@ -125,18 +125,31 @@ class ChannelController extends RestController {
 
     protected function temperatureLogItems($channelid, $offset, $limit) {
 
-        $q = $this->container->get('doctrine')->getManager()->getConnection()
-            ->query("SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` FROM `supla_temperature_log` WHERE channel_id = "
-                . intval($channelid, 0) . " LIMIT " . $limit . " OFFSET " . $offset);
-        return $q->fetchAll();
+        $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_timestamp, `temperature` FROM `supla_temperature_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
+        
+        $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
+        $stmt->bindValue(1, $this->getParentUser()->getTimezone());
+        $stmt->bindValue(2, $channelid, 'integer');
+        $stmt->bindValue(3, $limit, 'integer');
+        $stmt->bindValue(4, $offset, 'integer');
+        $stmt->execute();
+        
+        return $stmt->fetchAll();
     }
 
     protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
-
-        $q = $this->container->get('doctrine')->getManager()->getConnection()
-            ->query("SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature`, `humidity` FROM `supla_temphumidity_log` "
-                . "WHERE channel_id = " . intval($channelid, 0) . " LIMIT " . $limit . " OFFSET " . $offset);
-        return $q->fetchAll();
+        
+        
+        $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_timestamp, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
+        
+        $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
+        $stmt->bindValue(1, $this->getParentUser()->getTimezone());
+        $stmt->bindValue(2, $channelid, 'integer');
+        $stmt->bindValue(3, $limit, 'integer');
+        $stmt->bindValue(4, $offset, 'integer');
+        $stmt->execute();
+        
+        return $stmt->fetchAll();
     }
 
     protected function getTempHumidityLogItemsAction($th, $channelid, $offset, $limit) {
