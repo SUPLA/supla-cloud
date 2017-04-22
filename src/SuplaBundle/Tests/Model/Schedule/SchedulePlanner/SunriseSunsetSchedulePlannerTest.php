@@ -59,4 +59,16 @@ class SunriseSunsetSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
             ['2017-03-25 18:21', 'SS0 * * * *', '2017-03-26 18:20', 'Asia/Colombo'], // GMT+5.5
         ];
     }
+
+    // https://github.com/SUPLA/supla-cloud/issues/78
+    public function testNextRunDateIsAlwaysOnTheNextDay() {
+        $schedulePlanner = new SunriseSunsetSchedulePlanner();
+        $schedule = new ScheduleWithTimezone('SS0 * * * *', 'Europe/Warsaw');
+        $format = 'Y-m-d H:i';
+        $startDate = \DateTime::createFromFormat($format, '2017-04-23 15:00', new \DateTimeZone('Europe/Warsaw'));
+        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
+        $this->assertEquals('2017-04-23 19:50', $nextRunDate->format($format));
+        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $nextRunDate);
+        $this->assertEquals('2017-04-24 19:50', $nextRunDate->format($format));
+    }
 }

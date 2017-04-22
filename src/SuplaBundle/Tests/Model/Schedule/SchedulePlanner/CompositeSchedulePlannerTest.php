@@ -3,13 +3,17 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
     /** @var CompositeSchedulePlanner */
     private $planner;
 
     public function setUp() {
-        $this->planner = new CompositeSchedulePlanner([new CronExpressionSchedulePlanner()]);
+        $this->planner = new CompositeSchedulePlanner([
+            new CronExpressionSchedulePlanner(),
+            new SunriseSunsetSchedulePlanner(),
+        ]);
     }
 
     public function testCalculatingRunDatesUntil() {
@@ -69,5 +73,19 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
         $schedule->setTimeExpression('*/5 * * * *');
         $dates = $this->planner->calculateNextRunDatesUntil($schedule, '+5 days');
         $this->assertGreaterThan(1000, count($dates));
+    }
+
+    // https://github.com/SUPLA/supla-cloud/issues/78
+    public function testNextRunDateIsAlwaysOnTheNextDayForSunsetBasedSchedule() {
+        $schedule = new ScheduleWithTimezone('SS0 * * * *', 'Europe/Warsaw');
+        $nextRunDates = $this->planner->calculateNextRunDatesUntil($schedule, '2017-04-24 15:00:00', '2017-04-22 15:00:00');
+        $formattedNextRunDates = array_map(function ($nextRunDate) {
+            return $nextRunDate->format('Y-m-d H:i');
+        }, $nextRunDates);
+        $this->assertEquals([
+            '2017-04-22 19:45',
+            '2017-04-23 19:45',
+            '2017-04-24 19:50',
+        ], $formattedNextRunDates);
     }
 }

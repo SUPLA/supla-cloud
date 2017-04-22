@@ -29,7 +29,6 @@
           <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />
           <option name="CLASS_BRACE_STYLE" value="1" />
           <option name="METHOD_BRACE_STYLE" value="1" />
-          <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
         </codeStyleSettings>
         <codeStyleSettings language="SCSS">
           <indentOptions>
