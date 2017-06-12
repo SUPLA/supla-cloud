@@ -16,3 +16,7 @@ clear_cache.sh
 diff.sh
 phpunit.xml.dist
 .idea/
+
+# Files built by webpack
+app/webpack-hashes.php
+web/assets/dist/
