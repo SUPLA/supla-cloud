@@ -1,31 +1,31 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
-    database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
+  database_driver:  pdo_mysql
+  database_host: 127.0.0.1
+  database_port: ~
+  database_name: supla
+  database_user: root
+  database_password: ~
+  # You should uncomment this if you want use pdo_sqlite
+  # database_path: "%kernel.root_dir%/data.db3"
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-    mailer_port: 465
-    mailer_encryption: ssl
-    mailer_from: ~
-    admin_email: ~
-    supla_server: ~
-    supla_server_list: ~
+  mailer_transport: smtp
+  mailer_host: 127.0.0.1
+  mailer_user: ~
+  mailer_password: ~
+  mailer_port: 465
+  mailer_encryption: ssl
+  mailer_from: ~
+  admin_email: ~
+  supla_server: ~
+  supla_server_list: ~
 
-    ewz_recaptcha_public_key: ~
-    ewz_recaptcha_private_key: ~
+  ewz_recaptcha_public_key: ~
+  ewz_recaptcha_private_key: ~
 
-    locale:            en
+  locale: en
 
-    use_webpack_dev_server: false
+  use_webpack_dev_server: false
 
-    # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+  # A secret key that's used to generate certain security-related tokens
+  secret: ThisTokenIsNotSoSecretChangeIt

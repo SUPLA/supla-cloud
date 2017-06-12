@@ -1,117 +1,81 @@
-# you can read more about security in the related section of the documentation
-# http://symfony.com/doc/current/book/security.html
 security:
-    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
-    encoders:
-        SuplaBundle\Entity\User: md5
-        SuplaBundle\Entity\OAuth\User: md5
-            
-
-    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-
-        
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
-    providers:
-         supla_db_provider:
-            entity:
-                class: SuplaBundle:User
-                property: email        
-                
-                  
-                      
-    # the main part of the security, where you can set up firewalls
-    # for specific sections of your app
-    firewalls:
-    
-    
-        oauth_token:
-            pattern:    ^/oauth/v2/token
-            security:   false
-            
-        api:
-            pattern:    ^/api/
-            fos_oauth:  true
-            stateless:  true
-            anonymous:  false
-          
-        css:
-            pattern:  ^/assets
-            security: false
-        
-        account_register:
-            pattern:  ^/account/register$
-            security: false
-            
-        account_create:
-            pattern:  ^/account/create$
-            security: false
-            
-            
-        account_create_here:
-            pattern:  ^/account/create_here
-            security: false
-    
-        account_checkemail:
-            pattern:  ^/account/checkemail$
-            security: false
-            
-        account_confirmemail:
-            pattern:  ^/account/confirmemail/
-            security: false
-            
-        account_forgot_passwd:
-           pattern:  ^/account/ajax/forgot_passwd
-           security: false
-            
-        account_reset_passwd:
-           pattern:  ^/account/reset_passwd/
-           security: false
-           
-        account_user_exists:
-           pattern:  ^/account/ajax/user_exists
-           security: false
-        
-        auth_server:
-            pattern:  ^/auth/server$
-            security: false
-           
-        ajax_lngset:
-            pattern: ^/ajax/lngset/
-            security: false
-                           
-        login:
-            pattern:  ^/auth/login$
-            security: false
-                   
-        pages:
-           pattern:  ^/page_
-           security: false
-            
-        secured_area:
-            pattern: ^/
-            
-            form_login:
-                login_path: _auth_login
-                check_path: _auth_login_check
-                success_handler: authentication_handler
-
-            logout:
-                path: /auth/logout
-                target: /auth/login
-                
-                           
-                                            
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-    # with these settings you can restrict or allow access for different parts
-    # of your application based on roles, ip, host or methods
-    # http://symfony.com/doc/current/cookbook/security/access_control.html
-    access_control:
-        #- { path: ^/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/api, role: [ IS_AUTHENTICATED_FULLY ], requires_channel: https  }
+  access_control: 
+    - 
+      path: ^/api
+      requires_channel: https
+      role: 
+        - IS_AUTHENTICATED_FULLY
+  encoders: 
+    SuplaBundle\Entity\OAuth\User: md5
+    SuplaBundle\Entity\User: md5
+  firewalls: 
+    account_checkemail: 
+      pattern: ^/account/checkemail$
+      security: false
+    account_confirmemail: 
+      pattern: ^/account/confirmemail/
+      security: false
+    account_create: 
+      pattern: ^/account/create$
+      security: false
+    account_create_here: 
+      pattern: ^/account/create_here
+      security: false
+    account_forgot_passwd: 
+      pattern: ^/account/ajax/forgot_passwd
+      security: false
+    account_register: 
+      pattern: ^/account/register$
+      security: false
+    account_reset_passwd: 
+      pattern: ^/account/reset_passwd/
+      security: false
+    account_user_exists: 
+      pattern: ^/account/ajax/user_exists
+      security: false
+    ajax_lngset: 
+      pattern: ^/ajax/lngset/
+      security: false
+    api: 
+      anonymous: false
+      fos_oauth: true
+      pattern: ^/api/
+      stateless: true
+    auth_server: 
+      pattern: ^/auth/server$
+      security: false
+    css: 
+      pattern: ^/assets
+      security: false
+    dev: 
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+    login: 
+      pattern: ^/auth/login$
+      security: false
+    oauth_token: 
+      pattern: ^/oauth/v2/token
+      security: false
+    pages: 
+      pattern: ^/page_
+      security: false
+    secured_area: 
+      form_login: 
+        check_path: _auth_login_check
+        login_path: _auth_login
+        success_handler: authentication_handler
+      logout: 
+        path: /auth/logout
+        target: /auth/login
+      pattern: ^/
+  providers: 
+    supla_db_provider: 
+      entity: 
+        class: "SuplaBundle:User"
+        property: email
+  role_hierarchy: 
+    ROLE_ADMIN: ROLE_USER
+    ROLE_SUPER_ADMIN: 
+      - ROLE_USER
+      - ROLE_ADMIN
+      - ROLE_ALLOWED_TO_SWITCH
