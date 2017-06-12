@@ -6,8 +6,10 @@ security:
       role: 
         - IS_AUTHENTICATED_FULLY
   encoders: 
-    SuplaApiBundle\Entity\ApiUser: md5
-    SuplaBundle\Entity\User: md5
+    SuplaApiBundle\Entity\ApiUser: bcrypt
+    SuplaBundle\Entity\User: bcrypt
+    legacy_encoder: md5
+  erase_credentials: false # in order to migrate legacy passwords
   firewalls: 
     account_checkemail: 
       pattern: ^/account/checkemail$

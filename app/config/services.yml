@@ -148,3 +148,11 @@ services:
           - '%use_webpack_dev_server%'
           - '%kernel.root_dir%/webpack-hashes.php'
         public: false
+
+     supla.legacy_password_migration_listener:
+        class: SuplaBundle\EventListener\LegacyPasswordMigrationListener
+        tags:
+          - { name: kernel.event_listener, event: security.interactive_login }
+        arguments:
+          - "@security.encoder_factory"
+          - "@doctrine.orm.entity_manager"

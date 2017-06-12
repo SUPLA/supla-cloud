@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields="email", message="Email already exists")
  * @ORM\Table(name="supla_user")
  */
-class User implements AdvancedUserInterface {
+class User implements AdvancedUserInterface, EncoderAwareInterface {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -53,9 +54,14 @@ class User implements AdvancedUserInterface {
     private $email;
 
     /**
-     * @ORM\Column(name="password", type="string", length=64)
+     * @ORM\Column(name="password", type="string", length=64, nullable=true)
      */
     private $password;
+
+    /**
+     * @ORM\Column(name="legacy_password", type="string", length=64, nullable=true)
+     */
+    private $legacyPassword;
 
     /**
      * Plain password. Used for model validation. Must not be persisted.
@@ -217,13 +223,11 @@ class User implements AdvancedUserInterface {
     }
 
     public function getPassword() {
-
-        return $this->password;
+        return null === $this->password ? $this->legacyPassword : $this->password;
     }
 
     public function setPassword($password) {
         $this->password = $password;
-
         return $this;
     }
 
@@ -332,7 +336,6 @@ class User implements AdvancedUserInterface {
 
     public function setPasswordRequestedAt(\DateTime $date = null) {
         $this->passwordRequestedAt = $date;
-
         return $this;
     }
 
@@ -352,7 +355,6 @@ class User implements AdvancedUserInterface {
      */
     public function getRoles() {
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
@@ -440,5 +442,20 @@ class User implements AdvancedUserInterface {
 
     public function isLimitScheduleExceeded() {
         return $this->getLimitSchedule() > 0 && count($this->getSchedules()) >= $this->getLimitSchedule();
+    }
+
+    public function hasLegacyPassword(): bool {
+        return null !== $this->legacyPassword;
+    }
+
+    public function clearLegacyPassword() {
+        $this->legacyPassword = null;
+    }
+
+    public function getEncoderName() {
+        if ($this->hasLegacyPassword()) {
+            return 'legacy_encoder';
+        }
+        return null; // uses the default encoder
     }
 }
