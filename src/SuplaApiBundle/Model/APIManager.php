@@ -70,8 +70,6 @@ class APIManager {
         $client = $this->oauth_client_rep->findOneBy(['type' => 0, 'parent' => $parent]);
 
         if ($client === null) {
-            $oauthServer = $this->container->get('fos_oauth_server.server');
-
             $redirectUri = '/';
 
             $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
