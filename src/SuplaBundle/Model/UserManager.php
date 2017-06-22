@@ -80,9 +80,7 @@ class UserManager {
         return false;
     }
 
-    // @codingStandardsIgnoreStart
-    public function Confirm($token) {
-        // @codingStandardsIgnoreEnd
+    public function confirm($token) {
         $user = $this->UserByConfirmationToken($token);
 
         if ($user !== null) {

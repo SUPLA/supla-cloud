@@ -80,7 +80,7 @@ class AccountController extends Controller {
     public function confirmEmailAction($token) {
         $user_manager = $this->get('user_manager');
 
-        if (($user = $user_manager->Confirm($token)) !== null) {
+        if (($user = $user_manager->confirm($token)) !== null) {
             $mailer = $this->get('supla_mailer');
             $mailer->sendActivationEmailMessage($user);
 

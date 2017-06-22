@@ -12,6 +12,11 @@ framework:
   profiler:
     collect: false
 
+security:
+  firewalls:
+    secured_area:
+      http_basic: ~
+
 swiftmailer:
   disable_delivery: true
 
