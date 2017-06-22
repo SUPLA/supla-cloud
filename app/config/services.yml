@@ -24,9 +24,9 @@ services:
               router: "@router"
               templating: "@templating"
               mailer: "@mailer"
-              mailer_from: %mailer_from%
-              admin_email: %admin_email%
-              supla_server: %supla_server%
+              mailer_from: '%mailer_from%'
+              admin_email: '%admin_email%'
+              supla_server: '%supla_server%'
                                          
      user_manager:
          class: SuplaBundle\Model\UserManager
@@ -96,8 +96,8 @@ services:
          arguments: 
                  router: "@router"
                  user_manager: "@user_manager"
-                 supla_server: %supla_server%
-                 supla_server_list: %supla_server_list%
+                 supla_server: '%supla_server%'
+                 supla_server_list: '%supla_server_list%'
               
         
      authentication_handler:

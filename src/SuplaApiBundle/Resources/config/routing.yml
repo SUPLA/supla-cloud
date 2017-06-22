@@ -1,33 +1,33 @@
 _serverapi:
     type:     rest
-    host:     %supla_server%
+    host:     '%supla_server%'
     prefix:   /api 
     resource: "@SuplaApiBundle/Controller/ServerController.php"
     
     
 _locationapi:
     type:     rest
-    host:     %supla_server%
+    host:     '%supla_server%'
     prefix:   /api 
     resource: "@SuplaApiBundle/Controller/LocationController.php"
     
     
 _accessidapi:
     type:     rest
-    host:     %supla_server%
+    host:     '%supla_server%'
     prefix:   /api 
     resource: "@SuplaApiBundle/Controller/AccessIDController.php"
     
 _iodeviceapi:
     type:     rest
-    host:     %supla_server%
+    host:     '%supla_server%'
     prefix:   /api 
     resource: "@SuplaApiBundle/Controller/IODeviceController.php"
     
     
 _channelapi:
     type:     rest
-    host:     %supla_server%
+    host:     '%supla_server%'
     prefix:   /api 
     resource: "@SuplaApiBundle/Controller/ChannelController.php"
     

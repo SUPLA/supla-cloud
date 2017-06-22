@@ -136,7 +136,7 @@ class AccountController extends Controller {
             $registration = $form->getData();
             $user_manager = $this->get('user_manager');
             $user = $registration->getUser();
-            $user_manager->Create($user);
+            $user_manager->create($user);
 
             $mailer = $this->get('supla_mailer');
             $mailer->sendConfirmationEmailMessage($user);

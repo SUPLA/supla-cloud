@@ -43,9 +43,7 @@ class UserManager {
         $this->scheduleManager = $scheduleManager;
     }
 
-    // @codingStandardsIgnoreStart
-    public function Create($user) {
-        // @codingStandardsIgnoreEnd
+    public function create(User $user) {
         $this->setPassword($user->getPlainPassword(), $user);
         $user->genToken();
 
