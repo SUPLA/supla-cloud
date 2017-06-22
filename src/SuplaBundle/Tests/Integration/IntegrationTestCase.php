@@ -21,8 +21,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->application->setAutoExit(false);
         if (!defined('INTEGRATION_TESTS_BOOTSTRAPPED')) {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
-            $this->executeCommand('doctrine:database:drop --force --if-exists');
-            $this->executeCommand('doctrine:database:create');
+            $this->executeCommand('doctrine:database:create --if-not-exists');
         }
         $this->executeCommand('doctrine:schema:drop --force');
         $this->executeCommand('doctrine:schema:create');

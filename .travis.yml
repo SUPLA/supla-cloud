@@ -4,7 +4,7 @@ php:
 before_install:
   - nvm install 6
 before_script:
-  - mysql -e 'create database supla;' -uroot
+  - mysql -e 'create database supla_test;' -uroot
   - mysql -e "grant all privileges on *.* to 'travis'@'localhost' with grant option;" -uroot
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install --no-interaction
