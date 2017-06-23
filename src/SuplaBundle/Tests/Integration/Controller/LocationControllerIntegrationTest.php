@@ -3,9 +3,12 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\User;
+use SuplaBundle\Tests\Integration\Assertions\ResponseAssertions;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
 class LocationControllerIntegrationTest extends IntegrationTestCase {
+    use ResponseAssertions;
+
     /** @var User */
     private $user;
 
@@ -27,7 +30,7 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
         $client->followRedirects(true);
         $crawler = $client->request('GET', '/loc');
         $response = $client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStatusCode(200, $response);
         $this->assertCount(1, $crawler->filter('.item.new'));
         $this->assertCount(1, $crawler->filter('.item.selected'));
         $locationId = $this->user->getLocations()->first()->getId();
