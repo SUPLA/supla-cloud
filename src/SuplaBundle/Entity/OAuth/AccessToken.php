@@ -41,7 +41,7 @@ class AccessToken extends BaseAccessToken {
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\User")
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\ApiUser")
      */
     protected $user;
 }

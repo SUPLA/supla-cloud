@@ -7,7 +7,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
 class ServerControllerIntegrationTest extends IntegrationTestCase {
-    /** @var \SuplaBundle\Entity\OAuth\User */
+    /** @var \SuplaBundle\Entity\OAuth\ApiUser */
     private $apiUser;
     /** @var Client */
     private $apiClient;

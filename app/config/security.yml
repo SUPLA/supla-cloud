@@ -6,7 +6,7 @@ security:
       role: 
         - IS_AUTHENTICATED_FULLY
   encoders: 
-    SuplaBundle\Entity\OAuth\User: md5
+    SuplaBundle\Entity\OAuth\ApiUser: md5
     SuplaBundle\Entity\User: md5
   firewalls: 
     account_checkemail: 

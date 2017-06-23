@@ -50,6 +50,6 @@ class UserProvider implements UserProviderInterface {
     }
 
     public function supportsClass($class) {
-        return $class === 'SuplaBundle\Entity\OAuth\User';
+        return $class === 'SuplaBundle\Entity\OAuth\ApiUser';
     }
 }

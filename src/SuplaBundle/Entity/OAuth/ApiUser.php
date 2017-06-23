@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="supla_oauth_user")
  */
-class User implements AdvancedUserInterface {
+class ApiUser implements AdvancedUserInterface {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
