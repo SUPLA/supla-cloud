@@ -17,7 +17,7 @@
 
 namespace SuplaApiBundle\Model;
 
-use SuplaBundle\Entity\OAuth\ApiUser as APIUser;
+use SuplaApiBundle\Entity\ApiUser as APIUser;
 use SuplaBundle\Entity\User as ParentUser;
 
 class APIManager {
@@ -34,11 +34,11 @@ class APIManager {
     public function __construct($doctrine, $encoder_factory, $container) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
-        $this->oauth_user_rep = $doctrine->getRepository('SuplaBundle:OAuth\ApiUser');
-        $this->oauth_client_rep = $doctrine->getRepository('SuplaBundle:OAuth\Client');
-        $this->oauth_token_rep = $doctrine->getRepository('SuplaBundle:OAuth\AccessToken');
-        $this->oauth_rtoken_rep = $doctrine->getRepository('SuplaBundle:OAuth\RefreshToken');
-        $this->oauth_code_rep = $doctrine->getRepository('SuplaBundle:OAuth\AuthCode');
+        $this->oauth_user_rep = $doctrine->getRepository('SuplaApiBundle:ApiUser');
+        $this->oauth_client_rep = $doctrine->getRepository('SuplaApiBundle:Client');
+        $this->oauth_token_rep = $doctrine->getRepository('SuplaApiBundle:AccessToken');
+        $this->oauth_rtoken_rep = $doctrine->getRepository('SuplaApiBundle:RefreshToken');
+        $this->oauth_code_rep = $doctrine->getRepository('SuplaApiBundle:AuthCode');
         $this->container = $container;
     }
 

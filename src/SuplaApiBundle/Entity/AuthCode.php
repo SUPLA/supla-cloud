@@ -1,6 +1,6 @@
 <?php
 /*
- src/SuplaBundle/Entity/OAuth/AccessToken.php
+ src/SuplaBundle/Entity/OAuth/Client.php
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -17,16 +17,16 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Entity\OAuth;
+namespace SuplaApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
+use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_oauth_access_tokens")
+ * @ORM\Table(name="supla_oauth_auth_codes")
  */
-class AccessToken extends BaseAccessToken {
+class AuthCode extends BaseAuthCode {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -41,7 +41,7 @@ class AccessToken extends BaseAccessToken {
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\ApiUser")
+     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\ApiUser")
      */
     protected $user;
 }

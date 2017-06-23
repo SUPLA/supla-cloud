@@ -1,6 +1,6 @@
 <?php
 /*
- src/SuplaBundle/Entity/OAuth/Client.php
+ src/SuplaBundle/Entity/OAuth/RefreshToken.php
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -17,16 +17,16 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Entity\OAuth;
+namespace SuplaApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
+use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_oauth_auth_codes")
+ * @ORM\Table(name="supla_oauth_refresh_tokens")
  */
-class AuthCode extends BaseAuthCode {
+class RefreshToken extends BaseRefreshToken {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -41,7 +41,7 @@ class AuthCode extends BaseAuthCode {
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\ApiUser")
+     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\ApiUser")
      */
     protected $user;
 }

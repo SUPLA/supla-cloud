@@ -2,12 +2,12 @@
 
 namespace SuplaApiBundle\Tests\Integration;
 
-use SuplaBundle\Entity\OAuth\Client;
+use SuplaApiBundle\Entity\Client;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
 class ServerControllerIntegrationTest extends IntegrationTestCase {
-    /** @var \SuplaBundle\Entity\OAuth\ApiUser */
+    /** @var \SuplaApiBundle\Entity\ApiUser */
     private $apiUser;
     /** @var Client */
     private $apiClient;
