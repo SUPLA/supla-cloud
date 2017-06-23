@@ -17,14 +17,15 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Provider\OAuth;
+namespace SuplaApiBundle\Provider;
 
+use SuplaApiBundle\Model\APIManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements UserProviderInterface {
-
+class ApiUserProvider implements UserProviderInterface {
+    /** @var APIManager */
     protected $api_manager;
 
     public function __construct($api_manager) {

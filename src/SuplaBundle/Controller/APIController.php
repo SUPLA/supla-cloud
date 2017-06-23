@@ -20,7 +20,7 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\Form\Model\OAuth\ChangePassword;
+use SuplaApiBundle\Form\Model\ChangeApiPassword;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -58,7 +58,7 @@ class APIController extends Controller {
         $translator = $this->get('translator');
         $validator = $this->get('validator');
 
-        $cp = new ChangePassword();
+        $cp = new ChangeApiPassword();
         $cp->setNewPassword(@$data->new_password);
 
         $errors = $validator->validate($cp);

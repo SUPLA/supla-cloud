@@ -17,13 +17,13 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Form\Model\OAuth;
+namespace SuplaApiBundle\Form\Model;
 
 use SuplaBundle\Validator\Constraints as SuplaAssert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ChangePassword {
+class ChangeApiPassword {
 
     /**
      * @Assert\Length(

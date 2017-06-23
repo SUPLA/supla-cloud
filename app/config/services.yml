@@ -38,7 +38,7 @@ services:
               scheduleManager: '@schedule_manager'
               
      oauth_user_provider:
-         class: SuplaBundle\Provider\OAuth\UserProvider
+         class: SuplaApiBundle\Provider\ApiUserProvider
          arguments:
               user_manager: "@api_manager" 
               
