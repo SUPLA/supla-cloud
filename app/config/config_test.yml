@@ -6,11 +6,12 @@ doctrine:
     dbname: supla_test
 
 framework:
-  test: ~
-  session:
-    storage_id: session.storage.mock_file
   profiler:
     collect: false
+  session:
+    storage_id: session.storage.mock_file
+  test: ~
+
 
 security:
   firewalls:
