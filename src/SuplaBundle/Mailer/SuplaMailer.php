@@ -19,6 +19,8 @@
 
 namespace SuplaBundle\Mailer;
 
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -30,7 +32,7 @@ class SuplaMailer {
     protected $email_admin;
     protected $supla_server;
 
-    public function __construct($router, $templating, $mailer, $mailer_from, $email_admin, $supla_server) {
+    public function __construct(Router $router, TwigEngine $templating, \Swift_Mailer $mailer, $mailer_from, $email_admin, $supla_server) {
         $this->router = $router;
         $this->templating = $templating;
         $this->mailer_from = $mailer_from;

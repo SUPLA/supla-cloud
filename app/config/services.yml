@@ -1,158 +1,108 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
-parameters:
-#    parameter_name: value
-
+parameters: ~
 services:
+  _defaults:
+    autowire: true
 
-     app.locale_listener:
-        class: SuplaBundle\EventListener\LocaleListener
-        arguments: ["%kernel.default_locale%"]
-        tags:
-            - { name: kernel.event_subscriber }
-                        
-     form.type.channelfunction:
-        class: SuplaBundle\Form\Type\ChannelFunctionType
-        tags:
-            - { name: form.type, alias: channelfunction }
-        arguments:
-             - "@iodevice_manager"
+  Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
 
-     supla_mailer:
-         class: SuplaBundle\Mailer\SuplaMailer
-         arguments:
-              - "@router"
-              - "@templating"
-              - "@mailer"
-              - '%mailer_from%'
-              - '%admin_email%'
-              - '%supla_server%'
+  accessid_manager:
+    class: SuplaBundle\Model\AccessIdManager
 
-     user_manager:
-         class: SuplaBundle\Model\UserManager
-         arguments:
-              - "@doctrine"
-              - "@security.encoder_factory"
-              - "@accessid_manager"
-              - "@location_manager"
-              - '@schedule_manager'
+  api_manager:
+    class: SuplaApiBundle\Model\APIManager
 
-     oauth_user_provider:
-         class: SuplaApiBundle\Provider\ApiUserProvider
-         arguments:
-              - "@api_manager"
+  app.locale_listener:
+    arguments:
+      - "%kernel.default_locale%"
+    class: SuplaBundle\EventListener\LocaleListener
+    tags:
+      - { name: kernel.event_subscriber }
 
-     accessid_manager:
-         class: SuplaBundle\Model\AccessIdManager
-         arguments:
-              - "@translator"
-              - "@doctrine"
-              - "@security.token_storage"
-              
-     location_manager:
-         class: SuplaBundle\Model\LocationManager
-         arguments:
-              - "@translator"
-              - "@doctrine"
-              - "@security.token_storage"
-              
-     iodevice_manager:
-         class: SuplaBundle\Model\IODeviceManager
-         arguments:
-              - "@translator"
-              - "@doctrine"
-              - "@security.token_storage"
-              - "@templating"
-              
-     api_manager:
-         class: SuplaApiBundle\Model\APIManager
-         arguments:
-              - "@doctrine"
-              - "@security.encoder_factory"
-              - "@service_container"
-              
-     schedule_manager:
-         class: SuplaBundle\Model\Schedule\ScheduleManager
-         arguments:
-              - "@doctrine"
-              - '@iodevice_manager'
-              - '@schedule_planner.composite'
+  authentication_handler:
+    class: SuplaBundle\Handler\AuthHandler
 
-     schedule_planner.composite:
-         class: SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner
-         arguments:
-              -
-                - '@schedule_planner.sunrise_sunset'
-                - '@schedule_planner.cron'
+  form.type.channelfunction:
+    class: SuplaBundle\Form\Type\ChannelFunctionType
+    tags:
+      - { alias: channelfunction, name: form.type }
 
-     schedule_planner.cron:
-         class: SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner
+  iodevice_manager:
+    class: SuplaBundle\Model\IODeviceManager
 
-     schedule_planner.sunrise_sunset:
-         class: SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner
+  location_manager:
+    class: SuplaBundle\Model\LocationManager
 
-     server_list:
-         class: SuplaBundle\Supla\ServerList
-         arguments: 
-                 - "@router"
-                 - "@user_manager"
-                 - '%supla_server%'
-                 - '%supla_server_list%'
-              
-        
-     authentication_handler:
-        class: SuplaBundle\Handler\AuthHandler
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@router"
-         
-               
-     validator.supla.channel:
-        class: SuplaBundle\Validator\Constraints\ChannelValidator
-        tags:
-            - { name: validator.constraint_validator, alias: channel_validator }
-        arguments:
-             - "@iodevice_manager"
-             
-     validator.supla.usernameexists:
-        class: SuplaBundle\Validator\Constraints\UsernameExistsValidator
-        tags:
-            - { name: validator.constraint_validator, alias: username_exists_validator }
-        arguments:
-             - "@user_manager"
-            
+  oauth_user_provider:
+    class: SuplaApiBundle\Provider\ApiUserProvider
 
-     twig.extension.io_device_attributes_to_string:
-        class: SuplaBundle\Twig\IoDeviceAttributesToStringExtension
-        public: false
-        arguments: ["@service_container"]
-        tags:
-            - { name: twig.extension }
-            
-     twig.extension.intl:
-        class: Twig_Extensions_Extension_Intl
-        tags:
-            - { name: twig.extension }
+  schedule_manager:
+    class: SuplaBundle\Model\Schedule\ScheduleManager
 
-     supla.event_listener.ajax_exception_handler:
-        class: SuplaBundle\EventListener\AjaxExceptionHandler
-        arguments:
-          - '%kernel.debug%'
-        tags:
-          - { name: kernel.event_subscriber }
+  schedule_planner.composite:
+    arguments:
+      -
+        - "@schedule_planner.sunrise_sunset"
+        - "@schedule_planner.cron"
+    class: SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner
 
+  schedule_planner.cron:
+    class: SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner
 
-     supla.assets.versioning.webpack:
-        class: SuplaBundle\Twig\WebpackAssetVersionStrategy
-        arguments:
-          - '%use_webpack_dev_server%'
-          - '%kernel.root_dir%/webpack-hashes.php'
-        public: false
+  schedule_planner.sunrise_sunset:
+    class: SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner
 
-     supla.legacy_password_migration_listener:
-        class: SuplaBundle\EventListener\LegacyPasswordMigrationListener
-        tags:
-          - { name: kernel.event_listener, event: security.interactive_login }
-        arguments:
-          - "@security.encoder_factory"
-          - "@doctrine.orm.entity_manager"
+  server_list:
+    class: SuplaBundle\Supla\ServerList
+    arguments:
+      $supla_server: "%supla_server%"
+      $supla_server_list: "%supla_server_list%"
+
+  supla.assets.versioning.webpack:
+    class: SuplaBundle\Twig\WebpackAssetVersionStrategy
+    public: false
+    arguments:
+      - "%use_webpack_dev_server%"
+      - "%kernel.root_dir%/webpack-hashes.php"
+
+  supla.event_listener.ajax_exception_handler:
+    class: SuplaBundle\EventListener\AjaxExceptionHandler
+    arguments:
+      - "%kernel.debug%"
+    tags:
+      - { name: kernel.event_subscriber }
+
+  supla.legacy_password_migration_listener:
+    class: SuplaBundle\EventListener\LegacyPasswordMigrationListener
+    tags:
+      - { event: security.interactive_login, name: kernel.event_listener }
+
+  supla_mailer:
+    class: SuplaBundle\Mailer\SuplaMailer
+    arguments:
+      $mailer_from: "%mailer_from%"
+      $email_admin: "%admin_email%"
+      $supla_server: "%supla_server%"
+
+  twig.extension.intl:
+    class: Twig_Extensions_Extension_Intl
+    tags:
+      - { name: twig.extension }
+
+  twig.extension.io_device_attributes_to_string:
+    class: SuplaBundle\Twig\IoDeviceAttributesToStringExtension
+    public: false
+    tags:
+      - { name: twig.extension }
+
+  user_manager:
+    class: SuplaBundle\Model\UserManager
+
+  validator.supla.channel:
+    class: SuplaBundle\Validator\Constraints\ChannelValidator
+    tags:
+      - { alias: channel_validator, name: validator.constraint_validator }
+
+  validator.supla.usernameexists:
+    class: SuplaBundle\Validator\Constraints\UsernameExistsValidator
+    tags:
+      - { alias: username_exists_validator, name: validator.constraint_validator }

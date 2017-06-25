@@ -23,6 +23,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\Schedule\ScheduleManager;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class UserManager {
     /** @var Registry */
@@ -34,7 +35,8 @@ class UserManager {
     /** @var ScheduleManager */
     private $scheduleManager;
 
-    public function __construct($doctrine, $encoder_factory, $accessid_manager, $location_manager, ScheduleManager $scheduleManager) {
+    public function __construct(Registry $doctrine, EncoderFactory $encoder_factory, AccessIdManager $accessid_manager,
+                                LocationManager $location_manager, ScheduleManager $scheduleManager) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
         $this->rep = $doctrine->getRepository('SuplaBundle:User');

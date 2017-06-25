@@ -20,6 +20,8 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Controller\AjaxController;
+use SuplaBundle\Model\UserManager;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 
 class ServerList {
@@ -28,7 +30,7 @@ class ServerList {
     protected $user_manager = null;
     protected $router = null;
 
-    public function __construct($router, $user_manager, $supla_server, $supla_server_list) {
+    public function __construct(Router $router, UserManager $user_manager, $supla_server, $supla_server_list) {
 
         $this->router = $router;
         $this->user_manager = $user_manager;

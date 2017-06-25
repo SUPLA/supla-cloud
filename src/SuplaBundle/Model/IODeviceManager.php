@@ -21,11 +21,15 @@ namespace SuplaBundle\Model;
 
 // @codingStandardsIgnoreFile
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ScheduleAction;
 use SuplaBundle\Supla\SuplaConst;
+use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Translation\DataCollectorTranslator;
 use ZipArchive;
 
 class IODeviceManager {
@@ -36,7 +40,8 @@ class IODeviceManager {
     protected $sec;
     protected $template;
 
-    public function __construct($translator, $doctrine, $security_token, $template) {
+    public function __construct(DataCollectorTranslator $translator, ManagerRegistry $doctrine, TokenStorage $security_token,
+                                TwigEngine $template) {
         $this->translator = $translator;
         $this->doctrine = $doctrine;
         $this->dev_rep = $doctrine->getRepository('SuplaBundle:IODevice');
@@ -608,30 +613,29 @@ class IODeviceManager {
                 $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
                 $sql .= "`temperature` ";
                 $sql .= "FROM `supla_temperature_log` WHERE channel_id = ?";
-                
-                $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
-                $stmt->bindValue(1, $this->sec->getToken()->getUser()->getTimezone());
-                $stmt->bindValue(2, $this->sec->getToken()->getUser()->getTimezone());
-                $stmt->bindValue(3, $channel->getId(), 'integer');
-                $stmt->execute();
-                
-                while ($row = $stmt->fetch()) {
-                    fputcsv($handle, [$row['date_ts'], $row['date'], $row['temperature']]);
-                }
-            } else {
-                fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature', 'Humidity']);
-                
-                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
-                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
-                $sql .= "`temperature`, `humidity` ";
-                $sql .= "FROM `supla_temphumidity_log` WHERE channel_id = ?";
-                
+
                 $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
                 $stmt->bindValue(1, $this->sec->getToken()->getUser()->getTimezone());
                 $stmt->bindValue(2, $this->sec->getToken()->getUser()->getTimezone());
                 $stmt->bindValue(3, $channel->getId(), 'integer');
                 $stmt->execute();
 
+                while ($row = $stmt->fetch()) {
+                    fputcsv($handle, [$row['date_ts'], $row['date'], $row['temperature']]);
+                }
+            } else {
+                fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature', 'Humidity']);
+
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
+                $sql .= "`temperature`, `humidity` ";
+                $sql .= "FROM `supla_temphumidity_log` WHERE channel_id = ?";
+
+                $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
+                $stmt->bindValue(1, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(2, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(3, $channel->getId(), 'integer');
+                $stmt->execute();
 
                 while ($row = $stmt->fetch()) {
                     fputcsv($handle, [$row['date_ts'], $row['date'], $row['temperature'], $row['humidity']]);

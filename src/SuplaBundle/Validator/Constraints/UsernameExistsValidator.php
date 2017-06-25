@@ -3,6 +3,7 @@
 namespace SuplaBundle\Validator\Constraints;
 
 use SuplaBundle\Entity\User;
+use SuplaBundle\Model\UserManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -10,7 +11,7 @@ class UsernameExistsValidator extends ConstraintValidator {
 
     private $user_manager;
 
-    public function __construct($user_manager) {
+    public function __construct(UserManager $user_manager) {
         $this->user_manager = $user_manager;
     }
 

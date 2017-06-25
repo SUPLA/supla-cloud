@@ -17,8 +17,11 @@
 
 namespace SuplaApiBundle\Model;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaApiBundle\Entity\ApiUser as APIUser;
 use SuplaBundle\Entity\User as ParentUser;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class APIManager {
 
@@ -31,7 +34,7 @@ class APIManager {
     protected $oauth_code_rep;
     protected $container;
 
-    public function __construct($doctrine, $encoder_factory, $container) {
+    public function __construct(ManagerRegistry $doctrine, EncoderFactory $encoder_factory, ContainerInterface $container) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
         $this->oauth_user_rep = $doctrine->getRepository('SuplaApiBundle:ApiUser');

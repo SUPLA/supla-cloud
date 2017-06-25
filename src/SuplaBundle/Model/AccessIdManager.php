@@ -19,8 +19,11 @@
 
 namespace SuplaBundle\Model;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class AccessIdManager {
     protected $translator;
@@ -28,7 +31,7 @@ class AccessIdManager {
     protected $rep;
     protected $sec;
 
-    public function __construct($translator, $doctrine, $security_token) {
+    public function __construct(Translator $translator, ManagerRegistry $doctrine, TokenStorage $security_token) {
         $this->translator = $translator;
         $this->doctrine = $doctrine;
         $this->rep = $doctrine->getRepository('SuplaBundle:AccessID');

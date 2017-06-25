@@ -20,6 +20,7 @@ namespace SuplaBundle\Model\Schedule;
 use Assert\Assertion;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use SuplaBundle\Entity\IODevice;
@@ -42,7 +43,7 @@ class ScheduleManager {
     /** @var CompositeSchedulePlanner */
     private $schedulePlanner;
 
-    public function __construct($doctrine, IODeviceManager $ioDeviceManager, CompositeSchedulePlanner $schedulePlanner) {
+    public function __construct(ManagerRegistry $doctrine, IODeviceManager $ioDeviceManager, CompositeSchedulePlanner $schedulePlanner) {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
         $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');

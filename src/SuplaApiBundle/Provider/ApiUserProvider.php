@@ -28,7 +28,7 @@ class ApiUserProvider implements UserProviderInterface {
     /** @var APIManager */
     protected $api_manager;
 
-    public function __construct($api_manager) {
+    public function __construct(APIManager $api_manager) {
         $this->api_manager = $api_manager;
     }
 
