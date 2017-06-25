@@ -33,7 +33,7 @@ fos_oauth_server:
       access_token_lifetime: 30
       refresh_token_lifetime: 60
       supported_scopes: restapi
-    user_provider: oauth_user_provider
+    storage: supla.api.ouath_storage_with_legacy_password_support
 
 fos_rest:
   routing_loader:

@@ -19,6 +19,7 @@
 
 namespace SuplaApiBundle\Provider;
 
+use SuplaApiBundle\Entity\ApiUser;
 use SuplaApiBundle\Model\APIManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,18 +40,12 @@ class ApiUserProvider implements UserProviderInterface {
     public function refreshUser(UserInterface $user) {
         $class = get_class($user);
         if (!$this->supportsClass($class)) {
-            throw new UnsupportedUserException(
-                sprintf(
-                    'Instances of "%s" are not supported.',
-                    $class
-                )
-            );
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
         }
-
         return $this->userRepository->find($user->getId());
     }
 
     public function supportsClass($class) {
-        return $class === 'SuplaApiBundle\Entity\ApiUser';
+        return $class === ApiUser::class;
     }
 }

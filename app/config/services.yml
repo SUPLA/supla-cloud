@@ -64,6 +64,11 @@ services:
       - "%use_webpack_dev_server%"
       - "%kernel.root_dir%/webpack-hashes.php"
 
+  supla.api.ouath_storage_with_legacy_password_support:
+    class: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport
+    arguments:
+      $userProvider: '@oauth_user_provider'
+
   supla.event_listener.ajax_exception_handler:
     class: SuplaBundle\EventListener\AjaxExceptionHandler
     arguments:
