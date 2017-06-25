@@ -38,8 +38,10 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
         $this->assertNotNull($user);
         $this->assertEquals('supler@supla.org', $user->getEmail());
         $this->assertFalse($user->hasLegacyPassword());
-        $this->assertTrue($this->encoderFactory->getEncoder(User::class)->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
-        $this->assertFalse($this->encoderFactory->getEncoder('legacy_encoder')->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertTrue($this->encoderFactory->getEncoder(User::class)
+            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertFalse($this->encoderFactory->getEncoder('legacy_encoder')
+            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
     }
 
     public function testDoNotMigratePasswordOnAuthFailure() {
@@ -48,8 +50,10 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
         $this->assertNull($user);
         $user = $this->container->get('doctrine')->getRepository('SuplaBundle:User')->find($this->user->getId());
         $this->assertTrue($user->hasLegacyPassword());
-        $this->assertFalse($this->encoderFactory->getEncoder(User::class)->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
-        $this->assertTrue($this->encoderFactory->getEncoder('legacy_encoder')->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertFalse($this->encoderFactory->getEncoder(User::class)
+            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertTrue($this->encoderFactory->getEncoder('legacy_encoder')
+            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
     }
 
     private function authenticate(string $username, string $password): Client {

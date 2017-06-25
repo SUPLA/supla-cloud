@@ -16,67 +16,67 @@ services:
         tags:
             - { name: form.type, alias: channelfunction }
         arguments:
-             iodevice_manager: "@iodevice_manager"   
-           
+             - "@iodevice_manager"
+
      supla_mailer:
-         class: SuplaBundle\Mailer\SuplaMailer        
+         class: SuplaBundle\Mailer\SuplaMailer
          arguments:
-              router: "@router"
-              templating: "@templating"
-              mailer: "@mailer"
-              mailer_from: '%mailer_from%'
-              admin_email: '%admin_email%'
-              supla_server: '%supla_server%'
-                                         
+              - "@router"
+              - "@templating"
+              - "@mailer"
+              - '%mailer_from%'
+              - '%admin_email%'
+              - '%supla_server%'
+
      user_manager:
          class: SuplaBundle\Model\UserManager
          arguments:
-              doctrine: "@doctrine" 
-              encoder_factory: "@security.encoder_factory"
-              accessid_manager: "@accessid_manager"
-              location_manager: "@location_manager"
-              scheduleManager: '@schedule_manager'
-              
+              - "@doctrine"
+              - "@security.encoder_factory"
+              - "@accessid_manager"
+              - "@location_manager"
+              - '@schedule_manager'
+
      oauth_user_provider:
          class: SuplaApiBundle\Provider\ApiUserProvider
          arguments:
-              user_manager: "@api_manager" 
-              
+              - "@api_manager"
+
      accessid_manager:
          class: SuplaBundle\Model\AccessIdManager
          arguments:
-              translator: "@translator"
-              doctrine: "@doctrine" 
-              security_token: "@security.token_storage"
+              - "@translator"
+              - "@doctrine"
+              - "@security.token_storage"
               
      location_manager:
          class: SuplaBundle\Model\LocationManager
          arguments:
-              translator: "@translator"
-              doctrine: "@doctrine" 
-              security_token: "@security.token_storage"
+              - "@translator"
+              - "@doctrine"
+              - "@security.token_storage"
               
      iodevice_manager:
          class: SuplaBundle\Model\IODeviceManager
          arguments:
-              translator: "@translator"
-              doctrine: "@doctrine" 
-              security_token: "@security.token_storage"
-              template: "@templating"
+              - "@translator"
+              - "@doctrine"
+              - "@security.token_storage"
+              - "@templating"
               
      api_manager:
          class: SuplaApiBundle\Model\APIManager
          arguments:
-              doctrine: "@doctrine" 
-              encoder_factory: "@security.encoder_factory"
-              container: "@service_container"
+              - "@doctrine"
+              - "@security.encoder_factory"
+              - "@service_container"
               
      schedule_manager:
          class: SuplaBundle\Model\Schedule\ScheduleManager
          arguments:
-              doctrine: "@doctrine"
-              ioDeviceManager: '@iodevice_manager'
-              schedulePlanner: '@schedule_planner.composite'
+              - "@doctrine"
+              - '@iodevice_manager'
+              - '@schedule_planner.composite'
 
      schedule_planner.composite:
          class: SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner
@@ -94,17 +94,17 @@ services:
      server_list:
          class: SuplaBundle\Supla\ServerList
          arguments: 
-                 router: "@router"
-                 user_manager: "@user_manager"
-                 supla_server: '%supla_server%'
-                 supla_server_list: '%supla_server_list%'
+                 - "@router"
+                 - "@user_manager"
+                 - '%supla_server%'
+                 - '%supla_server_list%'
               
         
      authentication_handler:
         class: SuplaBundle\Handler\AuthHandler
         arguments:
-            entity_manager: "@doctrine.orm.entity_manager"
-            router: "@router"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
          
                
      validator.supla.channel:
@@ -112,14 +112,14 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: channel_validator }
         arguments:
-             iodevice_manager: "@iodevice_manager"     
+             - "@iodevice_manager"
              
      validator.supla.usernameexists:
         class: SuplaBundle\Validator\Constraints\UsernameExistsValidator
         tags:
             - { name: validator.constraint_validator, alias: username_exists_validator }
         arguments:
-             user_manager: "@user_manager"    
+             - "@user_manager"
             
 
      twig.extension.io_device_attributes_to_string:
