@@ -6,7 +6,7 @@
          backupGlobals="false"
          colors="true"
          convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
+         convertNoticesToExceptions="false"
          convertWarningsToExceptions="true"
          strict="true"
          bootstrap="autoload.php">
