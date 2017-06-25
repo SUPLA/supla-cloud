@@ -29,7 +29,7 @@ use SuplaBundle\Enums\ScheduleAction;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Component\Translation\TranslatorInterface;
 use ZipArchive;
 
 class IODeviceManager {
@@ -40,7 +40,7 @@ class IODeviceManager {
     protected $sec;
     protected $template;
 
-    public function __construct(DataCollectorTranslator $translator, ManagerRegistry $doctrine, TokenStorage $security_token,
+    public function __construct(TranslatorInterface $translator, ManagerRegistry $doctrine, TokenStorage $security_token,
                                 TwigEngine $template) {
         $this->translator = $translator;
         $this->doctrine = $doctrine;

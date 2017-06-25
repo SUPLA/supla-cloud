@@ -23,7 +23,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class LocationManager {
     protected $translator;
@@ -31,7 +31,7 @@ class LocationManager {
     protected $rep;
     protected $sec;
 
-    public function __construct(DataCollectorTranslator $translator, ManagerRegistry $doctrine, TokenStorage $security_token) {
+    public function __construct(TranslatorInterface $translator, ManagerRegistry $doctrine, TokenStorage $security_token) {
         $this->translator = $translator;
         $this->doctrine = $doctrine;
         $this->rep = $doctrine->getRepository('SuplaBundle:Location');
