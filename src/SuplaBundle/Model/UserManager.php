@@ -35,8 +35,13 @@ class UserManager {
     /** @var ScheduleManager */
     private $scheduleManager;
 
-    public function __construct(Registry $doctrine, EncoderFactory $encoder_factory, AccessIdManager $accessid_manager,
-                                LocationManager $location_manager, ScheduleManager $scheduleManager) {
+    public function __construct(
+        Registry $doctrine,
+        EncoderFactory $encoder_factory,
+        AccessIdManager $accessid_manager,
+        LocationManager $location_manager,
+        ScheduleManager $scheduleManager
+    ) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
         $this->rep = $doctrine->getRepository('SuplaBundle:User');
