@@ -27,14 +27,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ApiUserProvider implements UserProviderInterface {
     /** @var APIManager */
-    protected $api_manager;
+    protected $apiManager;
 
     public function __construct(APIManager $api_manager) {
-        $this->api_manager = $api_manager;
+        $this->apiManager = $api_manager;
     }
 
     public function loadUserByUsername($username) {
-        return $this->api_manager->getAPIUserByName($username);
+        return $this->apiManager->getAPIUserByName($username);
     }
 
     public function refreshUser(UserInterface $user) {
