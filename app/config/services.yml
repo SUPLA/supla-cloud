@@ -62,7 +62,7 @@ services:
     public: false
     arguments:
       - "%use_webpack_dev_server%"
-      - "%kernel.root_dir%/webpack-hashes.php"
+      - "%webpack_hashes%"
 
   supla.api.ouath_storage_with_legacy_password_support:
     class: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport

@@ -8,6 +8,7 @@
         <option name="HTML_ALIGN_ATTRIBUTES" value="false" />
         <option name="HTML_ELEMENTS_TO_INSERT_NEW_LINE_BEFORE" value="body" />
         <option name="HTML_KEEP_WHITESPACES_INSIDE" value="pre,textarea" />
+        <option name="FORMATTER_TAGS_ENABLED" value="true" />
         <PHPCodeStyleSettings>
           <option name="COMMA_AFTER_LAST_ARRAY_ELEMENT" value="true" />
           <option name="LOWER_CASE_BOOLEAN_CONST" value="true" />

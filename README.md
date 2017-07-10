@@ -28,10 +28,12 @@ You need to have [composer](https://getcomposer.org/) and [NodeJS](https://nodej
 composer install
 ```
 
-### Download frontend dependencies and building the sources
+### Downloading frontend dependencies and building the sources
 ```
 composer run-script webpack
 ```
+
+The above command also generates a config file `app/config/config_dev.yml` required to run the application.
 
 ### Run webpack dev-server when writing frontend code
 

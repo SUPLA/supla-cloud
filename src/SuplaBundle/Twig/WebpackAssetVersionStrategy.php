@@ -7,14 +7,12 @@ use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 class WebpackAssetVersionStrategy implements VersionStrategyInterface {
     /** @var bool */
     private $webpackDevServer;
-    /** @var string */
-    private $hashConfigPath;
     /** @var string[] */
     private $hashes;
 
-    public function __construct(bool $webpackDevServer, string $hashConfigPath) {
+    public function __construct(bool $webpackDevServer, array $hashes) {
         $this->webpackDevServer = $webpackDevServer;
-        $this->hashConfigPath = $hashConfigPath;
+        $this->hashes = $hashes;
     }
 
     public function getVersion($path) {
@@ -32,18 +30,7 @@ class WebpackAssetVersionStrategy implements VersionStrategyInterface {
     }
 
     private function getFilenameWithHash($path) {
-        $filename = basename($path);
-        return $this->getWebpackHashes()[$filename] ?? $filename;
-    }
-
-    private function getWebpackHashes(): array {
-        if (!$this->hashes) {
-            $this->hashes = @include $this->hashConfigPath;
-            if (!$this->hashes) {
-                throw new \RuntimeException("Webpack hashes config could not be found (looking for $this->hashConfigPath). "
-                    . "Have you built frontend code with composer run-script webpack?");
-            }
-        }
-        return $this->hashes;
+        $filename = basename($path, '.js');
+        return $this->hashes[$filename] ?? $filename . '.js';
     }
 }
