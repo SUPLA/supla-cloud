@@ -2,7 +2,7 @@ imports:
   - { resource: parameters.yml }
   - { resource: security.yml }
   - { resource: services.yml }
-  - { resource: config_build.yml }
+  - { resource: config_build.yml, ignore_errors: true }
 
 doctrine:
   dbal:
@@ -84,6 +84,4 @@ twig:
   debug: "%kernel.debug%"
   form_themes:
     - "SuplaBundle:Form:fields.html.twig"
-  globals:
-    application_version: "%application_version%"
   strict_variables: "%kernel.debug%"

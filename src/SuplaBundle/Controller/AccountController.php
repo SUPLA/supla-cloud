@@ -182,7 +182,9 @@ class AccountController extends Controller {
 
         return $this->render(
             'SuplaBundle:Account:view.html.twig',
-            ['user' => $user,
+            [
+                'user' => $user,
+                'version' => $this->getParameter('supla.version'),
             ]
         );
     }
