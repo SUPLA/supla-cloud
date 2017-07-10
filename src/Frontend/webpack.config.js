@@ -94,7 +94,7 @@ if (process.env.NODE_ENV === 'production') {
             // https://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
             this.plugin("done", function (stats) {
                 var hashes = stats.toJson().assetsByChunkName;
-                var phpConfig = "# Config generated automatically by running npm run build in src/Frontend directory.\n\nsupla:\n";
+                var phpConfig = "# Config generated automatically by running composer run-script webpack\n\nsupla:\n";
                 phpConfig += '  version: ' + (require('./package.json').version) + "\n";
                 phpConfig += '  webpack_hashes:\n';
                 for (var chunkName in hashes) {
