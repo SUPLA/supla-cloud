@@ -7,7 +7,7 @@
                 class="form-control"
                 step="5"
                 min="5"
-                max="30"
+                max="300"
                 maxlength="2"
                 v-model="minutes"
                 @change="updateTimeExpression()">
@@ -28,11 +28,7 @@
         },
         methods: {
             updateTimeExpression() {
-                let minutes = Math.min(Math.max(roundTo5(this.minutes), 5), 30);
-                if (minutes == 25) { // cron expression does not understand "every 25 minutes"
-                    minutes = 30;
-                }
-                this.minutes = minutes;
+                this.minutes = Math.min(Math.max(roundTo5(this.minutes), 5), 300);
                 let cronExpression = '*/' + this.minutes + ' * * * *';
                 this.$store.dispatch('updateTimeExpression', cronExpression);
             }

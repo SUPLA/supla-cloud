@@ -58,4 +58,10 @@ class CompositeSchedulePlanner {
         date_default_timezone_set($defaultTimezone);
         return $result;
     }
+
+    public static function roundToClosest5Minutes($dateOrTimestamp, \DateTimeZone $timezone): \DateTime {
+        $timestamp = is_int($dateOrTimestamp) ? $dateOrTimestamp : $dateOrTimestamp->getTimestamp();
+        $timestampRoundTo5Minutes = round($timestamp / 300) * 300;
+        return (new \DateTime('now', $timezone))->setTimestamp($timestampRoundTo5Minutes);
+    }
 }

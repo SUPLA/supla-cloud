@@ -88,4 +88,13 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
             '2017-04-24 19:50',
         ], $formattedNextRunDates);
     }
+
+    public function testMinutesBasedSchedulesAreRelativeToStartTime() {
+        $schedule = new ScheduleWithTimezone();
+        $schedule->setTimeExpression('*/10 * * * *');
+        $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:00:00')->format('Y-m-d H:i'));
+        $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:01:00')->format('Y-m-d H:i'));
+        $this->assertEquals('2017-07-01 15:15', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:05:00')->format('Y-m-d H:i'));
+    }
+
 }
