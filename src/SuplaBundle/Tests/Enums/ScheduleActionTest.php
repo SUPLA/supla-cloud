@@ -30,6 +30,7 @@ class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 0, 'color_brightness' => 0], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 359, 'color_brightness' => 100], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 'random', 'color_brightness' => 100], true],
+            [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 'white', 'color_brightness' => 100], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 0], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 100], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 50, 'hue' => 359, 'color_brightness' => 100], true],
@@ -39,6 +40,7 @@ class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 0, 'color_brightness' => 101], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 0, 'color_brightness' => -1], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 0], false],
+            [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 'black', 'color_brightness' => 100], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => -1], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 101], false],
 

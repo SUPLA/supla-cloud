@@ -19,20 +19,36 @@
         <div :class="hueClass">
             <div class="form-group">
                 <label>{{ $t('Color') }}</label>
-                <div class="clearfix">
-                    <div class="pull-left"
-                        v-show="!randomHue"
-                        style="margin-right: 10px;vertical-align: middle;">
-                        <hue-colorpicker v-model="hue"
-                            @input="onChange()"></hue-colorpicker>
-                    </div>
-                    <div class="checkbox pull-left">
-                        <label>
-                            <input type="checkbox"
-                                v-model="randomHue"
-                                @change="onChange()"> {{ $t('Random') }}
-                        </label>
-                    </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio"
+                            value="choose"
+                            v-model="hueMode"
+                            @change="onChange()">
+                        {{ $t('Choose') }}
+                    </label>
+                </div>
+                <div v-if="hueMode == 'choose'">
+                    <hue-colorpicker v-model="hue"
+                        @input="onChange()"></hue-colorpicker>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio"
+                            value="random"
+                            v-model="hueMode"
+                            @change="onChange()">
+                        {{ $t('Random') }}
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio"
+                            value="white"
+                            v-model="hueMode"
+                            @change="onChange()">
+                        {{ $t('White') }}
+                    </label>
                 </div>
             </div>
         </div>
@@ -65,7 +81,7 @@
         data() {
             return {
                 hue: 0,
-                randomHue: false,
+                hueMode: 'choose',
                 colorBrightness: 0,
                 brightness: 0
             };
@@ -73,7 +89,9 @@
         mounted(){
             if (this.value) {
                 if (this.value.hue == 'random') {
-                    this.randomHue = true;
+                    this.hueMode = 'random';
+                } else if (this.value.hue == 'white') {
+                    this.hueMode = 'white';
                 } else {
                     this.hue = this.value.hue || 0;
                 }
@@ -88,7 +106,7 @@
                     value.brightness = this.brightness;
                 }
                 if (this.hueClass != 'hidden') {
-                    value.hue = this.randomHue ? 'random' : +this.hue;
+                    value.hue = this.hueMode == 'choose' ? +this.hue : (this.hueMode == 'random' ? 'random' : 'white');
                 }
                 if (this.colorBrightnessClass != 'hidden') {
                     value.color_brightness = this.colorBrightness;

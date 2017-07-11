@@ -75,7 +75,7 @@ final class ScheduleAction extends Enum {
         Assertion::between(count($actionParams), 1, 3);
         Assertion::count(array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness'])), count($actionParams));
         if (isset($actionParams['hue'])) {
-            Assertion::true(is_int($actionParams['hue']) || $actionParams['hue'] == 'random');
+            Assertion::true(is_int($actionParams['hue']) || in_array($actionParams['hue'], ['random', 'white']));
             if (is_int($actionParams['hue'])) {
                 Assert::that($actionParams['hue'])->between(0, 359);
             }
