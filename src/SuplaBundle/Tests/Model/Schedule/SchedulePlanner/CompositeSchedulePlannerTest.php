@@ -84,7 +84,7 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
         }, $nextRunDates);
         $this->assertEquals([
             '2017-04-22 19:45',
-            '2017-04-23 19:45',
+            '2017-04-23 19:50',
             '2017-04-24 19:50',
         ], $formattedNextRunDates);
     }

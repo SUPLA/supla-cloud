@@ -39,9 +39,12 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner {
         $nextSun += intval($matches[2]) * 60;
         $nextSunRoundTo5Minutes = round($nextSun / 300) * 300;
         $nextRunDate = (new \DateTime('now', $schedule->getUserTimezone()))->setTimestamp($nextSunRoundTo5Minutes);
-        // PHP sometimes returns past sunset even if we query for midnight of the next day...
-        if ($nextRunDate <= $currentDate) {
+        if ($nextRunDate < $currentDate) {
+            // PHP sometimes returns past sunset even if we query for midnight of the next day...
             $nextRunDate->add(new \DateInterval('P1D'));
+        } elseif ($nextRunDate == $currentDate) {
+            // if it is sunset now, let's calculate for the next day
+            return $this->calculateNextRunDateBasedOnSun($schedule, $nextRunDate->add(new \DateInterval('PT12H')));
         }
         return $nextRunDate;
     }
