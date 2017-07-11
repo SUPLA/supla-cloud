@@ -3,6 +3,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
@@ -11,6 +12,7 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp() {
         $this->planner = new CompositeSchedulePlanner([
+            new IntervalSchedulePlanner(),
             new CronExpressionSchedulePlanner(),
             new SunriseSunsetSchedulePlanner(),
         ]);
@@ -92,9 +94,23 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
     public function testMinutesBasedSchedulesAreRelativeToStartTime() {
         $schedule = new ScheduleWithTimezone();
         $schedule->setTimeExpression('*/10 * * * *');
-        $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:00:00')->format('Y-m-d H:i'));
-        $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:01:00')->format('Y-m-d H:i'));
-        $this->assertEquals('2017-07-01 15:15', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:05:00')->format('Y-m-d H:i'));
+        $format = 'Y-m-d H:i';
+        $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:00:00')->format($format));
+        $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:01:00')->format($format));
+        $this->assertEquals('2017-07-01 15:15', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:05:00')->format($format));
     }
 
+    public function testCalculatingIntervalDatesWithSpecificStartTime() {
+        $schedule = new ScheduleWithTimezone('*/35 * * * *', 'Europe/Warsaw');
+        $runDates = array_map(function (\DateTime $d) {
+            return $d->format(\DateTime::ATOM);
+        }, $this->planner->calculateNextRunDatesUntil($schedule, '2017-01-02 00:00', '2017-01-01 04:33'));
+        $this->assertNotContains('2017-01-01T05:00:00+01:00', $runDates);
+        $this->assertNotContains('2017-01-01T05:05:00+01:00', $runDates);
+        $this->assertNotContains('2017-01-01T00:05:00+01:00', $runDates);
+        $this->assertContains('2017-01-01T05:10:00+01:00', $runDates);
+        $this->assertContains('2017-01-01T05:45:00+01:00', $runDates);
+        $this->assertContains('2017-01-01T23:50:00+01:00', $runDates);
+        $this->assertNotContains('2017-01-02T01:00:00+01:00', $runDates);
+    }
 }

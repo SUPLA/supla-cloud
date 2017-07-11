@@ -41,12 +41,16 @@ services:
   schedule_planner.composite:
     arguments:
       -
+        - "@schedule_planner.interval"
         - "@schedule_planner.sunrise_sunset"
         - "@schedule_planner.cron"
     class: SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner
 
   schedule_planner.cron:
     class: SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner
+
+  schedule_planner.interval:
+    class: SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner
 
   schedule_planner.sunrise_sunset:
     class: SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner

@@ -12,7 +12,7 @@ class IntervalSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
         $schedulePlanner = new IntervalSchedulePlanner();
         $schedule = new ScheduleWithTimezone($cronExpression);
         $format = 'Y-m-d H:i';
-        $startDate = \DateTime::createFromFormat($format, $startDate);
+        $startDate = \DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
         $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
         $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
