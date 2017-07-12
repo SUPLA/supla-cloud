@@ -12,10 +12,7 @@ const routes = [
     {path: '/remind', component: RemindPassword}
 ];
 
-const router = new VueRouter({
-    routes,
-    root: '/auth/login'
-});
+const router = new VueRouter({routes});
 
 const app = new Vue({
     router: router,
