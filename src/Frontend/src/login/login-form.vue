@@ -34,11 +34,19 @@
                 </div>
                 <div class="form-group text-right">
                     <button type="submit"
+                        v-if="!authenticating"
                         class="btn btn-green btn-lg">
                         Zaloguj
                     </button>
+                    <button-loading v-if="authenticating"></button-loading>
                 </div>
             </form>
+            <router-link to="/devices"
+                class="error"
+                v-if="displayError">
+                <strong>{{ $t('Forgot your password?') }}</strong>
+                {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
+            </router-link>
             <div class="additional-buttons">
                 <div class="row additional-buttons">
                     <div class="col-sm-6">
@@ -65,15 +73,21 @@
 </template>
 
 <script>
+    import ButtonLoading from "../common/button-loading.vue";
+
     export default {
+        components: {ButtonLoading},
         data() {
             return {
-                username: '',
-                password: ''
+                authenticating: false,
+                username: $('#login-page').attr('last-username') || '',
+                password: '',
+                displayError: !!$('#login-page').attr('error'),
             };
         },
         methods: {
             findServer() {
+                this.authenticating = true;
                 this.$http.get('auth/servers', {params: {username: this.username}}).then(({body}) => {
                     this.$refs.loginForm.action = body.server + '/auth/login_check';
                     this.$refs.loginForm.submit();
@@ -115,6 +129,15 @@
                 float: left;
                 height: 23px;
             }
+        }
+        .error {
+            display: inline-block;
+            background: #FFE838;
+            padding: 12px 20px;
+            margin-top: 15px;
+            border-radius: 3px;
+            color: black;
+            margin-bottom: 20px;
         }
     }
 </style>

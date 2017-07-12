@@ -1,6 +1,8 @@
 {% extends 'SuplaBundle::empty-layout.html.twig' %}
 {% block content %}
-    <div id="login-page"></div>
+    <div id="login-page"
+            last-username="{{ last_username }}"
+            error="{{ error }}"></div>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('assets/dist/login-page.js', 'webpack') }}"></script>

@@ -13,7 +13,7 @@ Password Reset: Сброс пароля
 Enter new password: Введите новый пароль
 The password should be 8 or more characters.: Пароль должен быть 8 или более символов.
 Account: Учетка
-Forgot your password ?: Не помнишь пароль ?
+Forgot your password?: Не помнишь пароль?
 Server address: Адрес сервера
 Cancel: Отмена
 CANCEL: ОТМЕНА
@@ -189,7 +189,7 @@ Repeat your email: Повторите адрес
 Enter password: Введите пароль
 Enter strong password: Введите сложный пароль
 Repeat password: Повторите пароль
-Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.: Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого <strong>нажмите здесь</strong>.
+Don't worry, you can always reset your password via email. Click here to do so.: Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого нажмите здесь.
 RESET: СБРОС
 Click RESET button when visible: Нажмите на СБРОС как появится
 Check your email box: Проверьте почтовый ящик

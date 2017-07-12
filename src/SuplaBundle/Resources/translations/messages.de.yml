@@ -13,7 +13,7 @@ Password Reset: Kennwort zurücksetzen
 Enter new password: Neues Kennwort eingeben
 The password should be 8 or more characters.: Das Kennwort sollte mindestens 8 Zeichen lang sein.
 Account: Konto
-Forgot your password ?: Kennwort vergessen ?
+Forgot your password?: Kennwort vergessen?
 Server address: Server-Adresse
 Cancel: Abbrechen
 CANCEL: ABBRECHEN
@@ -190,7 +190,7 @@ Repeat your email: Deine E-mail bitte wiederholen
 Enter password: Kennwort eintragen
 Enter strong password: Sicherer Kennwort eintragen
 Repeat password: Kennwort wiederholen
-Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.: Mach dir keine Sorgen. Du kannst dein Kennwort durch das Konto E-mail zurücksetzen. Hier <strong>klicken</strong>, um das zu machen.
+Don't worry, you can always reset your password via email. Click here to do so.: Mach dir keine Sorgen. Du kannst dein Kennwort durch das Konto E-mail zurücksetzen. Hier klicken, um das zu machen.
 RESET: RÜCKSETZEN
 Click RESET button when visible: Die Taste RÜCKSETZEN drücken wenn es auftritt
 Check your email box: Deine E-mail überprüfen

@@ -20,7 +20,7 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -29,6 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AuthController extends AbstractController {
     /**
      * @Route("/login", name="_auth_login")
+     * @Template
      */
     public function loginAction(Request $request) {
         $authenticationUtils = $this->get('security.authentication_utils');
@@ -60,16 +61,11 @@ class AuthController extends AbstractController {
             $step = 1;
         }
 
-        return $this->render(
-            'SuplaBundle:Auth:login.html.twig',
-            [
-                'last_username' => $lastUsername,
-                'step' => $step,
-                'error' => $error,
-                'locale' => $request->getLocale(),
-                'create_url' => $sl->getCreateAccountUrl($request),
-            ]
-        );
+        return [
+            'last_username' => $lastUsername,
+            'error' => !!$error,
+            'create_url' => $sl->getCreateAccountUrl($request),
+        ];
     }
 
     /**
