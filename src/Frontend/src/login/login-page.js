@@ -7,12 +7,15 @@ import RemindPassword from "./remind-password.vue";
 Vue.use(VueRouter);
 
 const routes = [
-    {path: '/', component: LoginForm},
+    {path: '', component: LoginForm},
     {path: '/devices', component: SuplaDevicesSplash},
     {path: '/remind', component: RemindPassword}
 ];
 
-const router = new VueRouter({routes});
+const router = new VueRouter({
+    routes,
+    root: '/auth/login'
+});
 
 const app = new Vue({
     router: router,

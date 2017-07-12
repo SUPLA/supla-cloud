@@ -44,7 +44,7 @@ security:
       pattern: ^/api/
       stateless: true
     auth_server: 
-      pattern: ^/auth/server$
+      pattern: ^/auth/servers$
       security: false
     css: 
       pattern: ^/assets

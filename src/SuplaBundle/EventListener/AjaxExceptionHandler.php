@@ -31,6 +31,7 @@ class AjaxExceptionHandler implements EventSubscriberInterface {
             return new JsonResponse([
                 'status' => 500,
                 'message' => $this->isDebug ? $e->getMessage() : 'Internal server error',
+                'info' => $this->isDebug ? $e->getTraceAsString() : '',
             ], 500);
         }
     }

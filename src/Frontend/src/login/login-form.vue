@@ -5,7 +5,9 @@
                 <img src="assets/img/logo.svg"
                     alt="SUPLA">
             </div>
-            <form>
+            <form @submit.prevent="findServer()"
+                ref="loginForm"
+                method="post">
                 <div class="form-group form-group-lg">
                     <span class="input-group">
                         <span class="input-group-addon">
@@ -13,6 +15,8 @@
                         </span>
                         <input type="text"
                             placeholder="Twój e-mail"
+                            v-model="username"
+                            name="_username"
                             class="form-control">
                     </span>
                 </div>
@@ -23,6 +27,8 @@
                         </span>
                         <input type="password"
                             placeholder="Hasło"
+                            name="_password"
+                            v-model="password"
                             class="form-control">
                     </span>
                 </div>
@@ -59,7 +65,22 @@
 </template>
 
 <script>
-    export default {};
+    export default {
+        data() {
+            return {
+                username: '',
+                password: ''
+            };
+        },
+        methods: {
+            findServer() {
+                this.$http.get('auth/servers', {params: {username: this.username}}).then(({body}) => {
+                    this.$refs.loginForm.action = body.server + '/auth/login_check';
+                    this.$refs.loginForm.submit();
+                });
+            }
+        }
+    };
 </script>
 
 <style lang="scss"
