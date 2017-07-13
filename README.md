@@ -1,7 +1,7 @@
 
  # SUPLA-CLOUD
  
- [![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg?maxAge=2592000)](https://github.com/SUPLA/supla-cloud/releases/latest)
+ [![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg)](https://github.com/SUPLA/supla-cloud/releases/latest)
  [![Build Status](https://travis-ci.org/SUPLA/supla-cloud.svg?branch=master)](https://travis-ci.org/SUPLA/supla-cloud)
 
 Your home connected. www.supla.org
