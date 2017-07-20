@@ -123,6 +123,16 @@
             .input-group-addon > span {
                 font-size: 2em;
             }
+            @-webkit-keyframes autofill {
+                to {
+                    color: #666;
+                    background: transparent;
+                }
+            }
+            input:-webkit-autofill {
+                -webkit-animation-name: autofill;
+                -webkit-animation-fill-mode: both;
+            }
         }
         .additional-buttons {
             .btn img {

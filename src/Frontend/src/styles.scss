@@ -2,6 +2,26 @@ body {
   font-family: "Open Sans", sans-serif !important;
 }
 
+h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 42px;
+  line-height: 42px;
+  font-weight: 300;
+  text-transform: capitalize;
+  letter-spacing: -3px;
+}
+
+a {
+  color: #00D151;
+  transition: all .3s;
+  &:active, &:focus, &:hover {
+    text-decoration: none;
+    color: #606060;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
 .no-margin-top {
   margin-top: 0 !important;
 }
@@ -52,6 +72,8 @@ input[type=text], input[type=password] {
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */
+{
   opacity: 0
 }
