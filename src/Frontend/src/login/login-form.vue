@@ -14,7 +14,7 @@
                             <span class="pe-7s-user"></span>
                         </span>
                         <input type="text"
-                            placeholder="Twój e-mail"
+                            :placeholder="$t('Your email')"
                             v-model="username"
                             name="_username"
                             class="form-control">
@@ -26,7 +26,7 @@
                             <span class="pe-7s-lock"></span>
                         </span>
                         <input type="password"
-                            placeholder="Hasło"
+                            :placeholder="$t('Password')"
                             name="_password"
                             v-model="password"
                             class="form-control">
@@ -36,7 +36,7 @@
                     <button type="submit"
                         v-if="!authenticating"
                         class="btn btn-green btn-lg">
-                        Zaloguj
+                        {{ $t('Sign In') }}
                     </button>
                     <button-loading v-if="authenticating"></button-loading>
                 </div>
@@ -54,7 +54,7 @@
                             <router-link to="/devices"
                                 class="btn btn-white btn-block">
                                 <img src="assets/img/devices.png">
-                                Supla na urządzenia
+                                {{ $t('Supla for devices') }}
                             </router-link>
                         </div>
                     </div>
@@ -63,11 +63,23 @@
                             <a class="btn btn-white btn-block"
                                 href="/auth/create">
                                 <img src="assets/img/user.png">
-                                Utwórz konto
+                                {{ $t('Create an account') }}
                             </a>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="login-footer">
+            <div class="container-fluid">
+                <div class="col-md-4">
+                    <language-selector></language-selector>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a class="brand nav-link"
+                        href="https://www.supla.org">www.supla.org</a>
+                </div>
+                <div class="col-md-4"></div>
             </div>
         </div>
     </div>
@@ -75,9 +87,10 @@
 
 <script>
     import ButtonLoading from "../common/button-loading.vue";
+    import LanguageSelector from "./language-selector.vue";
 
     export default {
-        components: {ButtonLoading},
+        components: {ButtonLoading, LanguageSelector},
         data() {
             return {
                 authenticating: false,
@@ -149,6 +162,22 @@
             border-radius: 3px;
             color: black;
             margin-bottom: 20px;
+        }
+    }
+
+    .login-footer {
+        width: 100%;
+        position: absolute;
+        bottom: 10px;
+        a {
+            font-weight: 400;
+            color: #000;
+            border-radius: 3px;
+            padding: 7px 9px;
+            &:hover {
+                background: rgba(0, 2, 4, 0.08);
+                color: #000;
+            }
         }
     }
 </style>

@@ -33,32 +33,8 @@ class AuthController extends AbstractController {
      */
     public function loginAction() {
         $authenticationUtils = $this->get('security.authentication_utils');
-
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-
-//        $step = @$request->request->get("step");
-//
-//        if (@$step != "2"
-//            && $request->getMethod() == 'POST'
-//            && strlen(@$request->request->get("_username")) > 3
-//        ) {
-//            $step = 2;
-//            $lastUsername = @$request->request->get("_username");
-//
-//            $__locale = @$request->request->get("__locale");
-//
-//            if (in_array($__locale, ['en', 'pl', 'de', 'ru'])) {
-//                $request->getSession()->set('_locale', $__locale);
-//                $request->setLocale($__locale);
-//
-//                $translator = $this->get('translator');
-//                $translator->setLocale($__locale);
-//            }
-//        } else {
-//            $step = 1;
-//        }
-
         return [
             'last_username' => $lastUsername,
             'error' => !!$error,
