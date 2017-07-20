@@ -31,41 +31,46 @@ class AuthController extends AbstractController {
      * @Route("/login", name="_auth_login")
      * @Template
      */
-    public function loginAction(Request $request) {
+    public function loginAction() {
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $sl = $this->get('server_list');
-
-        $step = @$request->request->get("step");
-
-        if (@$step != "2"
-            && $request->getMethod() == 'POST'
-            && strlen(@$request->request->get("_username")) > 3
-        ) {
-            $step = 2;
-            $lastUsername = @$request->request->get("_username");
-
-            $__locale = @$request->request->get("__locale");
-
-            if (in_array($__locale, ['en', 'pl', 'de', 'ru'])) {
-                $request->getSession()->set('_locale', $__locale);
-                $request->setLocale($__locale);
-
-                $translator = $this->get('translator');
-                $translator->setLocale($__locale);
-            }
-        } else {
-            $step = 1;
-        }
+//        $step = @$request->request->get("step");
+//
+//        if (@$step != "2"
+//            && $request->getMethod() == 'POST'
+//            && strlen(@$request->request->get("_username")) > 3
+//        ) {
+//            $step = 2;
+//            $lastUsername = @$request->request->get("_username");
+//
+//            $__locale = @$request->request->get("__locale");
+//
+//            if (in_array($__locale, ['en', 'pl', 'de', 'ru'])) {
+//                $request->getSession()->set('_locale', $__locale);
+//                $request->setLocale($__locale);
+//
+//                $translator = $this->get('translator');
+//                $translator->setLocale($__locale);
+//            }
+//        } else {
+//            $step = 1;
+//        }
 
         return [
             'last_username' => $lastUsername,
             'error' => !!$error,
-            'create_url' => $sl->getCreateAccountUrl($request),
         ];
+    }
+
+    /**
+     * @Route("/create")
+     */
+    public function createAccountRedirectAction(Request $request) {
+        $sl = $this->get('server_list');
+        return $this->redirect($sl->getCreateAccountUrl($request));
     }
 
     /**

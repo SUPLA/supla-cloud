@@ -60,7 +60,8 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <a class="btn btn-white btn-block">
+                            <a class="btn btn-white btn-block"
+                                href="/auth/create">
                                 <img src="assets/img/user.png">
                                 Utwórz konto
                             </a>

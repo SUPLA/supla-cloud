@@ -46,6 +46,9 @@ security:
     auth_server: 
       pattern: ^/auth/servers$
       security: false
+    auth_create:
+      pattern: ^/auth/create
+      security: false
     css: 
       pattern: ^/assets
       security: false
