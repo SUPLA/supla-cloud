@@ -1,19 +1,3 @@
-html.fp-enabled,.fp-enabled body {margin: 0;padding: 0;overflow:hidden;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-font-smoothing: antialiased;background: #FAFBFC;}
-#superContainer {height: 100%;position: relative;-ms-touch-action: none;touch-action: none;}
-.fp-section {position: relative; -webkit-box-sizing: border-box;-moz-box-sizing: border-box; box-sizing: border-box;}
-.fp-slide {float: left;}
-.fp-slide, .fp-slidesContainer {height: 100%;display: block; text-align: center;}
-.fp-slides { z-index:1;height: 100%;overflow: hidden;position: relative; -webkit-transition: all 0.3s ease-out; transition: all 0.3s ease-out;}
-.fp-section.fp-table, .fp-slide.fp-table {display: table;table-layout:fixed;width: 100%;}
-.fp-tableCell {display: table-cell;vertical-align: middle; width: 100%;height: 100%;transition: all 2s ease-in-out;}
-.recovery .fp-tableCell {background: #FFE838;}
-.fp-slidesContainer {float: left;position: relative;}
-.fp-scrollable {overflow: scroll;}
-.fp-notransition {-webkit-transition: none !important;transition: none !important;}
-.fp-auto-height.fp-section,
-.fp-auto-height .fp-slide,
-.fp-auto-height .fp-tableCell{height: auto !important;}
-
 #slides { position: relative; width: 100%; overflow: visible;}
 #slides .slides-container {display: none;}
 .slides-navigation {margin: 0 auto; position: absolute;z-index: 3; top: 46%;width: 100%;}
@@ -45,76 +29,6 @@ footer a{ font-weight: 400; color: #000; border-radius: 3px; padding: 7px 9px;}
 footer a:hover{background: rgba(0, 2, 4, 0.08); color: #000;}
 .section.login {background: #00D151}
 .password-remainder {background: #FFE804;}
-.recovery h2 {max-width: 400px; margin: 0 auto 50px; text-align: left; font-size: 40px;}
-.recovery .forgot-password {position: relative; max-width: 400px; margin: 0 auto;}
-.recovery .forgot-password input[type="email"], .reset-form input[type="password"] {background: transparent; border: none; border-bottom: solid 1px rgba(0,0,0,0.2); width: 100%; line-height: 40px; height: 40px; font-family: "Open Sans",sans-serif;font-weight: 300; padding: 1px 60px 1px 0px; font-size: 20px; margin-bottom: 5px; transition: all 0.25s;}
-.reset-form input[type="password"] { display: block; padding: 1px 0; max-width: 400px; margin: 5px auto 23px;}
-.recovery .forgot-password input[type="email"]:focus, .reset-form input[type="password"]:focus {border-bottom-color: #000;}
-.recovery .forgot-password input[type="email"]::-webkit-input-placeholder, .reset-form input[type="password"]::-webkit-input-placeholder { color: #000;}
-.recovery .forgot-password input[type="email"]:-moz-placeholder, .reset-form input[type="password"]:-moz-placeholder { color:    #000; opacity:  1;}
-.recovery .forgot-password input[type="email"]::-moz-placeholder, .reset-form input[type="password"]::-moz-placeholder {color:    #000; opacity:  1;}
-.recovery .forgot-password input[type="email"]:-ms-input-placeholder, .reset-form input[type="password"]:-ms-input-placeholder {color:    #000;}
-.recovery .forgot-password button, .reset-form button {position: absolute; top: 7px; right: 0px; background: #000; color: #FFE804; border: none; border-radius: 3px; font-size: 13px; padding: 5px 10px; transition: visibility 0s, opacity 0.5s linear; visibility: visible;opacity: 1; text-transform: uppercase;}
-.reset-form button:hover, .reset-form button:active, .reset-form button.active {background: #000; color: #FFE804}
-.reset-form button {position: relative; margin: 15px auto;}
-.recovery .forgot-password  .next {bottom: 14px; font-size: 36px;}
-.recovery .forgot-password p {color: #000; text-align: left; font-size: 13px;}
-.recovery .back {color: #000; font-size: 40px; margin: 50px auto 0; display: inline-block;}
-.recovery .back:hover {color: #15B133;}
-.recovery-form:not( .form-btn-active ) button {visibility: hidden; opacity: 0;  transition: visibility 0s, opacity 0.5s linear;}
-.recovery .btn.btn-load, .recovery .btn.btn-load:hover, .recovery .btn.btn-load:active {position: absolute; top: 7px; right: 0px; border-radius: 3px; background: #000; border-color: #000; padding: 3px 7px;}
-
-
-/* INLINE SPINNER */
-#circleG {display: inline-block; width: 50px;}
-.circleG{background-color: transparent;float:left;height:11px;margin-left:4px;width:10px;animation-name:bounce_circleG;-o-animation-name:bounce_circleG;-ms-animation-name:bounce_circleG;-webkit-animation-name:bounce_circleG;-moz-animation-name:bounce_circleG;animation-duration:1.4575s;-o-animation-duration:1.4575s;-ms-animation-duration:1.4575s;-webkit-animation-duration:1.4575s;-moz-animation-duration:1.4575s;animation-iteration-count:infinite;-o-animation-iteration-count:infinite;-ms-animation-iteration-count:infinite;-webkit-animation-iteration-count:infinite;-moz-animation-iteration-count:infinite;animation-direction:normal;-o-animation-direction:normal;-ms-animation-direction:normal;-webkit-animation-direction:normal ;-moz-animation-direction:normal;border-radius:7px;-o-border-radius:7px;-ms-border-radius:7px;-webkit-border-radius:7px;-moz-border-radius:7px;}
-
-#circleG_1{animation-delay:0.10s;-o-animation-delay:0.10s;-ms-animation-delay:0.10s;-webkit-animation-delay:0.10s;-moz-animation-delay:0.10s;}
-#circleG_2{animation-delay:0.2s;-o-animation-delay:0.2s;-ms-animation-delay:0.2s;-webkit-animation-delay:0.2s;-moz-animation-delay:0.2s;}
-#circleG_3{animation-delay:0.3;-o-animation-delay:0.3s;-ms-animation-delay:0.3s;-webkit-animation-delay:0.3s;-moz-animation-delay:0.3s;}
-
-.recovery .btn.btn-load .circleG {animation-name:bounce_circleG_yellow;}
-
-@keyframes bounce_circleG_yellow{
-	0%{}
-	50%{background-color:#FFE804;}
-	100%{}
-}
-
-@-o-keyframes bounce_circleG_yellow{
-	0%{}
-	50%{background-color:#FFE804;}
-	100%{}
-}
-
-@-ms-keyframes bounce_circleG_yellow{
-	0%{}
-	50%{background-color:#FFE804;}
-	100%{}
-}
-
-@-webkit-keyframes bounce_circleG_yellow{
-	0%{}
-	50%{background-color:#FFE804;}
-	100%{}
-}
-
-@-moz-keyframes bounce_circleG_yellow{
-	0%{}
-	50%{background-color:#FFE804;}
-	100%{}
-}
-
-.error-message {font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 13px;}
-@-webkit-keyframes moveUpFromDown {
-	from { -webkit-transform: translateY(100%); }
-	to { -webkit-transform: translateY(0); }
-}
-
-@keyframes moveUpFromDown {
-	from { -webkit-transform: translateY(100%); transform: tranaslateY(100%); }
-	to { -webkit-transform: translateY(0); transform: translateY(0); }
-}
 
 body.register, body.register_success {background: #00D151; overflow: visible; color: #fff;}
 .create-form {position: absolute;top: 0px; left: 55%; height: 100%;z-index: 50; max-width: 400px; display: table;}

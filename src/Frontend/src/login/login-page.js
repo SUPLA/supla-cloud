@@ -14,7 +14,7 @@ const routes = [
 
 const router = new VueRouter({routes});
 
-const app = new Vue({
+new Vue({
     router: router,
     template: '<transition name="fade"><router-view></router-view></transition>'
-}).$mount('#login-page')
+}).$mount('#login-page');

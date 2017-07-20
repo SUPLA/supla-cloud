@@ -37,5 +37,4 @@ class ScheduleManagerTest extends \PHPUnit_Framework_TestCase {
         $startDate = $this->manager->getNextRunDates($schedule);
         $this->assertGreaterThanOrEqual($currentTimestamp, $startDate->getTimestamp());
     }
-
 }
