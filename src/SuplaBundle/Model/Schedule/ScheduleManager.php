@@ -114,6 +114,9 @@ class ScheduleManager {
         if ($latestExecution && !$ignoreExisting) {
             $dateStart = $latestExecution->getPlannedTimestamp();
         }
+        if ($dateStart->getTimestamp() < time()) {
+            $dateStart->setTimestamp(time());
+        }
         $dateStart->setTimezone($userTimezone);
         return $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
     }

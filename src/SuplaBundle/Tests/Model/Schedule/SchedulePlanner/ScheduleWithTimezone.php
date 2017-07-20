@@ -9,6 +9,7 @@ class ScheduleWithTimezone extends Schedule {
         $user = new User();
         parent::__construct($user);
         $user->setTimezone($timezone);
+        $this->setDateStart(new \DateTime());
         if ($timeSpec) {
             $this->setTimeExpression($timeSpec);
         }
