@@ -66,8 +66,7 @@ class SuplaMailer {
         $subject = '';
         $bodyTxt = $this->extractSubjectAndBody($txtTmpl, $params, $subject);
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
+        $message = (new \Swift_Message($subject))
             ->setFrom($fromEmail)
             ->setTo($toEmail);
 
