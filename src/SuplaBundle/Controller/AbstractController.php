@@ -15,6 +15,12 @@ abstract class AbstractController extends Controller {
             $serializationGroups = [$serializationGroups];
         }
         $serialized = $this->get('serializer')->serialize($responseData, 'json', ['groups' => $serializationGroups]);
-        return new JsonResponse($serialized, $status, [], true);
+        $response = new JsonResponse($serialized, $status, [], true);
+        // prevent caching of JSON responses, see https://github.com/SUPLA/supla-cloud/issues/91
+        $response->headers->addCacheControlDirective('no-cache', true);
+        $response->headers->addCacheControlDirective('max-age', 0);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+        $response->headers->addCacheControlDirective('no-store', true);
+        return $response;
     }
 }
