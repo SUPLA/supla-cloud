@@ -34,7 +34,7 @@ fos_oauth_server:
       access_token_lifetime: 30
       refresh_token_lifetime: 60
       supported_scopes: restapi
-    storage: supla.api.ouath_storage_with_legacy_password_support
+    storage: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport
 
 fos_rest:
   routing_loader:
@@ -44,7 +44,7 @@ framework:
   assets:
     packages:
       webpack:
-        version_strategy: supla.assets.versioning.webpack
+        version_strategy: SuplaBundle\Twig\WebpackAssetVersionStrategy
   csrf_protection: ~
   default_locale: "%locale%"
   form: ~
@@ -66,7 +66,6 @@ framework:
   translator:
     fallbacks: en
   trusted_hosts: ~
-  trusted_proxies: ~
   validation:
     enable_annotations: true
 

@@ -68,7 +68,7 @@ security:
       form_login: 
         check_path: _auth_login_check
         login_path: _auth_login
-        success_handler: authentication_handler
+        success_handler: SuplaBundle\Handler\AuthHandler
         require_previous_session: false
       logout: 
         path: /auth/logout
