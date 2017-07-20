@@ -31,12 +31,15 @@ a {
   z-index: 1
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   &.form-control {
     border: 0;
     border-radius: 0;
     border-bottom: 1px solid #CCC;
     box-shadow: initial;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -63,9 +66,19 @@ input[type=text], input[type=password] {
   color: #15B133;
   border: 1px solid #15B133 !important;
   border-radius: 2px !important;
-  &:hover {
+  &:hover, &:focus, &:active {
     background: #cffdcd;
     color: #15B133 !important;
+  }
+}
+
+.btn-black {
+  background: black;
+  color: white;
+  border-radius: 2px !important;
+  &:hover {
+    background: #444;
+    color: white;
   }
 }
 

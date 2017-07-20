@@ -14,6 +14,7 @@
                             <span class="pe-7s-user"></span>
                         </span>
                         <input type="text"
+                            required
                             :placeholder="$t('Your email')"
                             v-model="username"
                             name="_username"
@@ -26,6 +27,7 @@
                             <span class="pe-7s-lock"></span>
                         </span>
                         <input type="password"
+                            required
                             :placeholder="$t('Password')"
                             name="_password"
                             v-model="password"
@@ -34,14 +36,14 @@
                 </div>
                 <div class="form-group text-right">
                     <button type="submit"
-                        v-if="!authenticating"
+
                         class="btn btn-green btn-lg">
-                        {{ $t('Sign In') }}
+                        <span v-if="!authenticating">{{ $t('Sign In') }}</span>
+                        <button-loading-dots v-else></button-loading-dots>
                     </button>
-                    <button-loading v-if="authenticating"></button-loading>
                 </div>
             </form>
-            <router-link to="/devices"
+            <router-link to="/remind"
                 class="error"
                 v-if="displayError">
                 <strong>{{ $t('Forgot your password?') }}</strong>
@@ -70,27 +72,16 @@
                 </div>
             </div>
         </div>
-        <div class="login-footer">
-            <div class="container-fluid">
-                <div class="col-md-4">
-                    <language-selector></language-selector>
-                </div>
-                <div class="col-md-4 text-center">
-                    <a class="brand nav-link"
-                        href="https://www.supla.org">www.supla.org</a>
-                </div>
-                <div class="col-md-4"></div>
-            </div>
-        </div>
+        <login-footer></login-footer>
     </div>
 </template>
 
 <script>
-    import ButtonLoading from "../common/button-loading.vue";
-    import LanguageSelector from "./language-selector.vue";
+    import ButtonLoadingDots from "../common/button-loading-dots.vue";
+    import LoginFooter from "./login-footer.vue";
 
     export default {
-        components: {ButtonLoading, LanguageSelector},
+        components: {ButtonLoadingDots, LoginFooter},
         data() {
             return {
                 authenticating: false,
@@ -101,11 +92,13 @@
         },
         methods: {
             findServer() {
-                this.authenticating = true;
-                this.$http.get('auth/servers', {params: {username: this.username}}).then(({body}) => {
-                    this.$refs.loginForm.action = body.server + '/auth/login_check';
-                    this.$refs.loginForm.submit();
-                });
+                if (!this.authenticating) {
+                    this.authenticating = true;
+                    this.$http.get('auth/servers', {params: {username: this.username}}).then(({body}) => {
+                        this.$refs.loginForm.action = body.server + '/auth/login_check';
+                        this.$refs.loginForm.submit();
+                    });
+                }
             }
         }
     };
@@ -114,17 +107,22 @@
 <style lang="scss"
     rel="stylesheet/scss">
     .login-form {
+        $height: 500px;
         max-width: 400px;
-        height: 400px;
+        height: $height;
         position: absolute;
         top: 50%;
         left: 50%;
-        margin-top: -200px;
+        margin-top: -$height/2;
         margin-left: -200px;
         @media (max-width: 400px) {
             position: static;
             width: 90%;
             margin: 10px;
+        }
+        @media (max-height: $height) {
+            position: static;
+            margin: 10px auto;
         }
         .logo {
             text-align: center;
@@ -162,22 +160,6 @@
             border-radius: 3px;
             color: black;
             margin-bottom: 20px;
-        }
-    }
-
-    .login-footer {
-        width: 100%;
-        position: absolute;
-        bottom: 10px;
-        a {
-            font-weight: 400;
-            color: #000;
-            border-radius: 3px;
-            padding: 7px 9px;
-            &:hover {
-                background: rgba(0, 2, 4, 0.08);
-                color: #000;
-            }
         }
     }
 </style>
