@@ -1,4 +1,5 @@
 <?php
+
 namespace SuplaBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -12,7 +13,7 @@ class Configuration implements ConfigurationInterface {
         $rootNode
             ->children()
                 ->scalarNode('version')->defaultValue('?.?.?')->end()
-                ->arrayNode('webpack_hashes')->defaultValue([])->useAttributeAsKey('name')->prototype('scalar')->end()
+                ->arrayNode('webpack_hashes')->normalizeKeys(false)->defaultValue([])->useAttributeAsKey('name')->prototype('scalar')->end()
             ->end();
         // @formatter:on
         return $treeBuilder;
