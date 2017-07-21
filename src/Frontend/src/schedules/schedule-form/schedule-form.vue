@@ -78,7 +78,7 @@
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
     import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue";
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
-    import ButtonLoading from "../../iodevice-details/button-loading.vue";
+    import ButtonLoading from "../../common/button-loading.vue";
     import {mapState, mapActions} from "vuex";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';

@@ -44,7 +44,10 @@ security:
       pattern: ^/api/
       stateless: true
     auth_server: 
-      pattern: ^/auth/server$
+      pattern: ^/auth/servers$
+      security: false
+    auth_create:
+      pattern: ^/auth/create
       security: false
     css: 
       pattern: ^/assets
@@ -66,6 +69,7 @@ security:
         check_path: _auth_login_check
         login_path: _auth_login
         success_handler: authentication_handler
+        require_previous_session: false
       logout: 
         path: /auth/logout
         target: /auth/login

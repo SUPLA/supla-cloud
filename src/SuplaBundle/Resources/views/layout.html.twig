@@ -4,19 +4,17 @@
         <meta charset="{{ _charset }}" />
         <meta name="robots" content="noindex,nofollow" />
         <title>SUPLA CLOUD</title>
-		{% if app.user %}
-			<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		{% else %}
-			<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		{% if not app.user %}
 			<link href="{{ asset('assets/css/supla-login.css?v=3') }}" rel="stylesheet" />
 		{% endif %}
-		
+
 		{% block styles %}{% endblock %}
-		
+
 		<link href="{{ asset('assets/css/fonts.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('assets/css/supla15041701.css') }}" rel="stylesheet" />
-		
+
 		<link rel="icon" href="{{ asset('assets/img/icons/favicon.ico') }}" type="image/x-icon" />
 		<link rel="shortcut icon" href="{{ asset('assets/img/icons/favicon.ico') }}" type="image/x-icon" />
 
@@ -25,7 +23,7 @@
 		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla96.png') }}" sizes="96x96" />
 		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla160.png') }}" sizes="160x160" />
 		<link rel="icon" type="image/png" href="{{ asset('assets/img/icons/supla196.png') }}" sizes="196x196" />
-		 
+
 		<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/icons/supla57.png') }}" />
 		<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('assets/img/icons/supla114.png') }}" />
 		<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/img/icons/supla72.png') }}" />
@@ -34,7 +32,7 @@
 		<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/img/icons/supla120.png') }}" />
 		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/icons/supla76.png') }}" />
 		<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/img/icons/supla152.png') }}" />
-		
+
 		<script>
 			window.FRONTEND_CONFIG = {
 				locale: '{{ app.request.locale }}',
@@ -63,15 +61,14 @@
 				<script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
 				<script src="{{ asset('assets/js/jquery.tooltipster.min.js') }}"></script>
 			{% endif %}
-			{% if app.request.get('_route') == '_account_view' or app.request.get('_route') == '_api_settings' %} 
+			{% if app.request.get('_route') == '_account_view' or app.request.get('_route') == '_api_settings' %}
 				<script src="{{ asset('assets/js/jquery.drawsvg.js') }}"></script>
 				<script src="{{ asset('assets/js/typed.js') }}"></script>
 			{% endif %}
-			
-			
+
+
 		{% else %}
 			<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-			<script type="text/javascript" src="{{ asset('assets/js/jquery.fullPage.min.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('assets/js/modernizr.custom.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('assets/js/jquery.add-class-when-email.js') }}"></script>
 			<script type="text/javascript">
@@ -81,7 +78,7 @@
 					});
 					$.fn.fullpage.setMouseWheelScrolling(false);
 					$.fn.fullpage.setAllowScrolling(false);
-					
+
 					$( '.recovery-form' ).addClassWhenEmail(
 					{
 						className:  'form-btn-active',
@@ -91,25 +88,25 @@
 			</script>
         {% endif %}
         <base href="/">
-	
-        
+
+
     </head>
-    <body {% if app.request.get('_route') == '_auth_login' %} class="login" {% endif %} {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %} {% if app.request.get('_route') == '_account_create_here'%} class="register" {% endif %}  {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %} {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %} {% if app.request.get('_route') == '_account_view'%} class="account" {% endif %} {% if app.request.get('_route') == '_api_settings'%} class="api-settings" {% endif %} 
-	{% if homepage_viewed is defined and homepage_viewed == false %} class="first-time" {% endif %} 
+    <body {% if app.request.get('_route') == '_auth_login' %} class="login" {% endif %} {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %} {% if app.request.get('_route') == '_account_create_here'%} class="register" {% endif %}  {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %} {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %} {% if app.request.get('_route') == '_account_view'%} class="account" {% endif %} {% if app.request.get('_route') == '_api_settings'%} class="api-settings" {% endif %}
+	{% if homepage_viewed is defined and homepage_viewed == false %} class="first-time" {% endif %}
 	{% if app.request.get('_route') == '_iodev_channel_item_edit' %} class="channel" {% endif %}>
-    
+
     {% include 'SuplaBundle:Dialogs:flashmsgs.html.twig' %}
-    
+
     {% block content_header %}
-    
+
         {% if app.user %}
-		
+
 		<div class="navbar-holder">
 		<nav class="navbar navbar-default animated">
         	<div class="container">
 				<ul class="nav navbar-nav navbar-center">
 				  <li class="pull-left"><a href="https://www.supla.org" target="_blank">
-				  
+
 				  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 
 	 viewBox="-1 0.2 56.5 59.8" style="enable-background:new -1 0.2 56.5 59.8;" xml:space="preserve">
@@ -174,7 +171,7 @@
 				  <li {% if app.request.get('_route') == '_loc_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_loc_list') }}"><i class="pe-7s-home"></i><br /> {% trans %}Locations{% endtrans %}</a></li>
 				  <li {% if app.request.get('_route') == '_aid_list' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_aid_list') }}"><i class="pe-7s-key"></i><br /> {% trans %}Access Identifiers{% endtrans %}</a></li>
 				  <li {% if app.request.get('_route') starts with '_schedule' %} class="active" {% endif %}><a class="nav-link" href="{{ path('_schedule_list') }}"><i class="pe-7s-clock"></i><br />{% trans %}Schedules{% endtrans %}</a></li>
-				  
+
 				  <li class="dropdown pull-right">
 						<a class="dropdown-toggle" data-toggle="dropdown"><i class="pe-7s-user"></i><br />{% trans %}Account{% endtrans %}<span class="caret"></span></a>
 						<ul class="dropdown-menu">

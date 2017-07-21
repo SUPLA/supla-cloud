@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="{{ _charset }}">
+    <title>SUPLA CLOUD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext"
+            rel="stylesheet"
+            type="text/css">
+
+    <link href="{{ asset('assets/css/fonts.css') }}"
+            rel="stylesheet">
+    <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}"
+            rel="stylesheet">
+
+    {% block styles %}{% endblock %}
+
+    <link rel="icon"
+            href="{{ asset('assets/img/icons/favicon.ico') }}"
+            type="image/x-icon"/>
+    <link rel="shortcut icon"
+            href="{{ asset('assets/img/icons/favicon.ico') }}"
+            type="image/x-icon"/>
+    {% for iconSize in [16, 32, 96, 160, 196] %}
+        <link rel="icon"
+                type="image/png"
+                href="{{ asset('assets/img/icons/supla' ~ iconSize ~ '.png') }}"
+                sizes="{{ iconSize }}x{{ iconSize }}">
+    {% endfor %}
+    {% for iconSize in [57, 60, 72, 76, 114, 120, 144, 152] %}
+        <link rel="apple-touch-icon"
+                sizes="{{ iconSize }}x{{ iconSize }}"
+                href="{{ asset('assets/img/icons/supla' ~ iconSize ~ '.png') }}">
+    {% endfor %}
+    <script>
+        window.FRONTEND_CONFIG = {
+            locale: '{{ app.request.locale }}',
+            baseUrl: '{{ path('_homepage')[:-1] }}',
+            timezone: '{{ app.user ? app.user.timezone : '' }}'
+        };
+    </script>
+    <base href="/">
+</head>
+<body>
+{% block content %}{% endblock %}
+<script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
+<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -13,7 +13,7 @@ Password Reset: Сброс пароля
 Enter new password: Введите новый пароль
 The password should be 8 or more characters.: Пароль должен быть 8 или более символов.
 Account: Учетка
-Forgot your password ?: Не помнишь пароль ?
+Forgot your password?: Не помнишь пароль?
 Server address: Адрес сервера
 Cancel: Отмена
 CANCEL: ОТМЕНА
@@ -183,13 +183,14 @@ Password field cannot be left empty: Пароль не может быть пу�
 Current password is incorrect: Введенный пароль неправилен
 Password has been changed!: Пароль изменен!
 Create an account: Создать учетку
+Your email: Введите почту
 Enter your email: Введите почту
 Enter your email address: Введите адрес почты
 Repeat your email: Повторите адрес
 Enter password: Введите пароль
 Enter strong password: Введите сложный пароль
 Repeat password: Повторите пароль
-Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.: Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого <strong>нажмите здесь</strong>.
+Don't worry, you can always reset your password via email. Click here to do so.: Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого нажмите здесь.
 RESET: СБРОС
 Click RESET button when visible: Нажмите на СБРОС как появится
 Check your email box: Проверьте почтовый ящик
@@ -201,7 +202,7 @@ Next: Далее
 Get SUPLA on your devices: Загрузи SUPLА на свое устройство
 ...and start your adventure with building automation today!: ...и начни творить свою домашнюю автоматику!
 Mobile Apps: Мобильное приложение
-Sources available from <strong>GitHub</strong>: Исходный код доступен на <strong>GitHub</strong>
+Sources available from: Исходный код доступен на
 
 Input: Вход
 Output: Выход

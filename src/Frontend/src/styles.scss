@@ -1,3 +1,27 @@
+body {
+  font-family: "Open Sans", sans-serif !important;
+}
+
+h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 42px;
+  line-height: 42px;
+  font-weight: 300;
+  text-transform: capitalize;
+  letter-spacing: -3px;
+}
+
+a {
+  color: #00D151;
+  transition: all .3s;
+  &:active, &:focus, &:hover {
+    text-decoration: none;
+    color: #606060;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
 .no-margin-top {
   margin-top: 0 !important;
 }
@@ -5,4 +29,64 @@
 .low-z-index { // fixes some problems with elements appearing incorrectly above the others
   position: relative;
   z-index: 1
+}
+
+input[type=text], input[type=password], input[type=email] {
+  &.form-control {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #CCC;
+    box-shadow: initial;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.input-group-addon {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid #CCC !important;
+  border-radius: 0 !important;
+}
+
+.btn-green {
+  background: #15B133;
+  color: white;
+  border: 0 !important;
+  border-radius: 2px !important;
+  &:hover {
+    background: lighten(#15B133, 5%);
+    color: white !important;;
+  }
+}
+
+.btn-white {
+  background: white;
+  color: #15B133;
+  border: 1px solid #15B133 !important;
+  border-radius: 2px !important;
+  &:hover, &:focus, &:active {
+    background: #cffdcd;
+    color: #15B133 !important;
+  }
+}
+
+.btn-black {
+  background: black;
+  color: white;
+  border-radius: 2px !important;
+  &:hover {
+    background: #444;
+    color: white;
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */
+{
+  opacity: 0
 }

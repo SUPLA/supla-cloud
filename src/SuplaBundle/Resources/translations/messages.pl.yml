@@ -14,7 +14,7 @@ Password Reset: Resetowanie hasła
 Enter new password: Wprowadź nowe hasło
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
 Account: Konto
-Forgot your password ?: Nie pamiętasz hasła ?
+Forgot your password?: Nie pamiętasz hasła?
 Server address: Adres serwera
 Cancel: Anuluj
 CANCEL: ANULUJ
@@ -186,13 +186,14 @@ Password field cannot be left empty: Hasło nie może być puste
 Current password is incorrect: Aktualne hasło jest niepoprawne
 Password has been changed!: Hasło zostało zmienione!
 Create an account: Utwórz konto
+Your email: Twój email
 Enter your email: Wprowadź Twój email
 Enter your email address: Wprowadź Twój adres email
 Repeat your email: Powtórz email
 Enter password: Wprowadź hasło
 Enter strong password: Wprowadź silne hasło
 Repeat password: Powtórz hasło
-Don't worry, you can always reset your password via email. <strong>Click here</strong> to do so.: Nie martw się. Zawsze możesz zresetować hasło za pośrednictwem Twojej poczty email. <strong>Kliknij tutaj</strong> aby to zrobić.
+Don't worry, you can always reset your password via email. Click here to do so.: Nie martw się. Zawsze możesz zresetować hasło za pośrednictwem Twojej poczty email. Kliknij tutaj aby to zrobić.
 RESET: RESETUJ
 Click RESET button when visible: Kliknij przycisk RESETUJ kiedy sie pojawi
 Check your email box: Sprawdź swoją skrzynkę email
@@ -204,7 +205,7 @@ Next: Dalej
 Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
 ...and start your adventure with building automation today!: ...i rozpocznij przygodę z inteligentnymi budynkami już dzisiaj!
 Mobile Apps: Aplikacje mobilne
-Sources available from <strong>GitHub</strong>: Źródła dostępne w <strong>GitHub</strong>
+Sources available from: Źródła dostępne w
 
 Input: Wejście
 Output: Wyjście

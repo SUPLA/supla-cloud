@@ -1,5 +1,5 @@
 <template>
-    <div class="btn btn-load">
+    <div class="button-loading-dots">
         <div>
             <div></div>
             <div></div>
@@ -10,21 +10,18 @@
 
 <style lang="scss"
     rel="stylesheet/scss">
-    .btn-load {
-        border-color: #fff;
-        height: 44px;
-        padding: 12px 20px 0;
+    .button-loading-dots {
         cursor: no-drop;
         > div {
             display: inline-block;
             width: 50px;
             > div {
-                background-color: transparent;
+                opacity: 0;
                 float: left;
                 height: 11px;
                 margin-left: 4px;
                 width: 10px;
-                animation: 1.5s bounce_circleG infinite;
+                animation: 1.5s supla-loading-dots infinite;
                 border-radius: 7px;
                 &:nth-child(2) {
                     animation-delay: .1s;
@@ -36,11 +33,22 @@
         }
     }
 
-    @keyframes bounce_circleG {
+    @mixin loading-dots-color($color) {
+        .button-loading-dots > div > div {
+            background-color: $color;
+        }
+    }
+
+    @include loading-dots-color(#00D151);
+    .btn-black, .btn-green, .btn-enable {
+        @include loading-dots-color(white);
+    }
+
+    @keyframes supla-loading-dots {
         0% {
         }
         50% {
-            background-color: #00D151;
+            opacity: 1;
         }
         100% {
         }

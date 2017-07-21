@@ -106,58 +106,42 @@ class ServerList {
     }
 
     public function getAuthServerForUser(Request $request, $username) {
-
         $result = null;
-        $err = false;
+        if (strlen($username) > 3 && $this->servers != null) {
+            foreach ($this->servers as $svr) {
+                if ($svr['address'] === $this->server) {
+                    $user = $this->user_manager->userByEmail($username);
 
-        if (strlen(@$username) > 3) {
-            if ($this->servers === null) {
-                $server = $request->getHost();
+                    if ($user != null) {
+                        $result = $svr['address'];
+                        break;
+                    }
+                } else {
+                    $rr = AjaxController::remoteRequest(
+                        'https://' . $svr['address'] . $this->router->generate('_account_ajax_user_exists'),
+                        ["username" => $username]
+                    );
 
-                if ($request->getPort() != 443) {
-                    $server .= ":" . $request->getPort();
-                }
-
-                return $server;
-            }
-
-            if ($this->servers != null) {
-                foreach ($this->servers as $svr) {
-                    if ($svr['address'] === $this->server) {
-                        $user = $this->user_manager->userByEmail($username);
-
-                        if ($user != null) {
+                    if ($rr != null
+                        && $rr !== false
+                        && @$rr->success == true
+                    ) {
+                        if (@$rr->exists == true) {
                             $result = $svr['address'];
                             break;
                         }
                     } else {
-                        $rr = AjaxController::remoteRequest(
-                            'https://' . $svr['address'] . $this->router->generate('_account_ajax_user_exists'),
-                            ["username" => $username]
-                        );
-
-                        if ($rr != null
-                            && $rr !== false
-                            && @$rr->success == true
-                        ) {
-                            if (@$rr->exists == true) {
-                                $result = $svr['address'];
-                                break;
-                            }
-                        } else {
-                            $err = true;
-                        }
+                        // TODO LOG
                     }
                 }
             }
-
-            if ($err === false
-                && $result === null
-            ) {
-                $result = $request->getHost();
+        }
+        if (!$result) {
+            $result = 'https://' . $request->getHost();
+            if ($request->getPort() != 443) {
+                $result .= ":" . $request->getPort();
             }
         }
-
         return $result;
     }
 

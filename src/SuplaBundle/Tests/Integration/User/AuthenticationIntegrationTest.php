@@ -36,13 +36,12 @@ class AuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->authenticate('supler@supla.org', 'supla321');
         $user = $this->getAuthenticatedUser($client);
         $this->assertNull($user);
-        $this->assertCount(1, $client->getCrawler()->filter('form#login'));
+        $this->assertCount(1, $client->getCrawler()->filter('#login-page'));
     }
 
     private function authenticate(string $username, string $password): Client {
         $client = self::createClient();
         $client->followRedirects();
-        $client->request('GET', '/auth/login');
         $client->request('POST', '/auth/login_check', [
             '_username' => $username,
             '_password' => $password,
