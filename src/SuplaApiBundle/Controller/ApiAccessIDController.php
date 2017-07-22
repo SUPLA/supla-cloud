@@ -21,7 +21,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AccessIDController extends RestController {
+class ApiAccessIDController extends RestController {
 
     protected function getAccessIDS() {
 

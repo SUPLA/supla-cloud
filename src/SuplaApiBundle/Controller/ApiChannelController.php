@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class ChannelController extends RestController {
+class ApiChannelController extends RestController {
 
     const RECORD_LIMIT_PER_REQUEST = 5000;
     private $svrCtrl = null;
@@ -110,7 +110,7 @@ class ChannelController extends RestController {
 
         return $this->handleView($this->view(
             ['count' => $query->getSingleScalarResult(),
-                'record_limit_per_request' => ChannelController::RECORD_LIMIT_PER_REQUEST],
+                'record_limit_per_request' => ApiChannelController::RECORD_LIMIT_PER_REQUEST],
             Response::HTTP_OK
         ));
     }
@@ -162,7 +162,7 @@ class ChannelController extends RestController {
         $limit = intval($limit);
 
         if ($limit <= 0) {
-            $limit = ChannelController::RECORD_LIMIT_PER_REQUEST;
+            $limit = ApiChannelController::RECORD_LIMIT_PER_REQUEST;
         }
 
         if ($th === true) {

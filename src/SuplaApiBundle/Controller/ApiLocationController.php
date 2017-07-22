@@ -21,7 +21,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LocationController extends RestController {
+class ApiLocationController extends RestController {
 
     protected function getLocations() {
 

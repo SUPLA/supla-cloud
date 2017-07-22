@@ -21,7 +21,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ServerController extends RestController {
+class ApiServerController extends RestController {
 
     /**
      * @Rest\Get("/server-info")
