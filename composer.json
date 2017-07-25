@@ -71,6 +71,11 @@
     "webpack": [
       "cd src/Frontend && npm install",
       "cd src/Frontend && npm run build"
+    ],
+    "release": [
+      "composer install --no-dev --optimize-autoloader",
+      "composer run-script webpack",
+      "cd src/Frontend && npm run release"
     ]
   },
   "config": {
