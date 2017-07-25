@@ -16,6 +16,10 @@ clear_cache.sh
 diff.sh
 phpunit.xml.dist
 .idea/
+*.log
+release/
+*.tar.gz
+*.zip
 
 # Files built by webpack
 app/config/config_build.yml
