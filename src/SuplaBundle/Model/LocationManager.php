@@ -53,18 +53,12 @@ class LocationManager {
     }
 
     public function createLocation(User $user, $ifnotexists = false) {
-        if ($ifnotexists === false
-            || $this->anyLocationExists($user) === false
-        ) {
+        if ($ifnotexists === false || $this->anyLocationExists($user) === false) {
             $loc = new Location($user);
-
-            if ($loc !== null) {
-                $loc->setPassword(bin2hex(random_bytes(2)));
-                $loc->setCaption($this->translator->trans('Location') . " #" . ($this->totalCount($user) + 1));
-                return $loc;
-            }
+            $loc->setPassword(bin2hex(random_bytes(2)));
+            $loc->setCaption($this->translator->trans('Location') . " #" . ($this->totalCount($user) + 1));
+            return $loc;
         }
-
         return null;
     }
 

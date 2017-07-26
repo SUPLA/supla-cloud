@@ -3,28 +3,25 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\User;
-use SuplaBundle\Tests\Integration\Assertions\ResponseAssertions;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
 class LocationControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
+    use UserFixtures;
 
     /** @var User */
     private $user;
 
     protected function setUp() {
-        $userManager = $this->container->get('user_manager');
-        $this->user = new User();
-        $this->user->setEmail('supler@supla.org');
-        $userManager->create($this->user);
-        $userManager->setPassword('supla123', $this->user, true);
-        $userManager->confirm($this->user->getToken());
-        $this->container->get('location_manager')->createLocation($this->user);
+        $this->user = $this->createConfirmedUser();
+        $this->createLocation($this->user);
     }
 
     public function testGetLocationList() {
         $client = self::createClient([], [
-            'PHP_AUTH_USER' => 'supler@supla.org',
+            'PHP_AUTH_USER' => $this->user->getEmail(),
             'PHP_AUTH_PW' => 'supla123',
         ]);
         $client->followRedirects(true);

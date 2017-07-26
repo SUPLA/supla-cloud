@@ -1,6 +1,6 @@
 <?php
 
-namespace SuplaBundle\Tests\Integration\Assertions;
+namespace SuplaBundle\Tests\Integration\Traits;
 
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;

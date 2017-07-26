@@ -3,25 +3,19 @@
 namespace SuplaApiBundle\Tests\Integration;
 
 use SuplaApiBundle\Entity\Client;
+use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
-class ServerControllerIntegrationTest extends IntegrationTestCase {
-    /** @var \SuplaApiBundle\Entity\ApiUser */
-    private $apiUser;
-    /** @var Client */
-    private $apiClient;
+class ApiServerControllerIntegrationTest extends IntegrationTestCase {
+    use SuplaApiHelper;
+
+    /** @var User */
+    private $user;
 
     protected function setUp() {
-        $userManager = $this->container->get('user_manager');
-        $user = new User();
-        $user->setEmail('john@supla.org');
-        $userManager->create($user);
-        $apiManager = $this->container->get('api_manager');
-        $this->apiUser = $apiManager->getAPIUser($user);
-        $this->apiUser->setEnabled(true);
-        $apiManager->setPassword('123', $this->apiUser, true);
-        $this->apiClient = $apiManager->getClient($user);
+        $this->user = $this->createConfirmedUserWithApiAccess();
     }
 
     public function testGettingServerInfoWithoutAuthentication() {

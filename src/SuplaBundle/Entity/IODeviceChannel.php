@@ -88,17 +88,17 @@ class IODeviceChannel {
     /**
      * @ORM\Column(name="param1", type="integer", nullable=false)
      */
-    private $param1;
+    private $param1 = '';
 
     /**
      * @ORM\Column(name="param2", type="integer", nullable=false)
      */
-    private $param2;
+    private $param2 = '';
 
     /**
      * @ORM\Column(name="param3", type="integer", nullable=false)
      */
-    private $param3;
+    private $param3 = '';
 
     public function getId() {
         return $this->id;
