@@ -25,7 +25,6 @@ use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 
 /**
  * @Route("/ajax")
@@ -54,8 +53,8 @@ class AjaxController extends Controller {
         // -----------
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string)]);
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data_string)]);
 
         $cresult = curl_exec($ch);
 
@@ -123,8 +122,7 @@ class AjaxController extends Controller {
         $len = (int)($len / 2);
 
         if ($len > 0) {
-            $generator = new SecureRandom();
-            $pwd = bin2hex($generator->nextBytes($len));
+            $pwd = bin2hex(random_bytes($len));
             $success = true;
         }
 
