@@ -17,6 +17,7 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\IODeviceManager;
@@ -71,9 +72,9 @@ class ApiChannelController extends RestController {
 
         if ($authorize === true) {
             if (true !== $this->suplaServer->oauthAuthorize(
-                $userid,
-                $this->container->get('security.token_storage')->getToken()->getToken()
-            )
+                    $userid,
+                    $this->container->get('security.token_storage')->getToken()->getToken()
+                )
             ) {
                 throw new HttpException(Response::HTTP_UNAUTHORIZED);
             }
@@ -402,7 +403,7 @@ class ApiChannelController extends RestController {
                 break;
         }
 
-        throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
+        Assertion::false(true, 'Invalid action.');
     }
 
     /**
