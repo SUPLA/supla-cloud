@@ -49,9 +49,7 @@ class ApiChannelController extends RestController {
             throw new HttpException(Response::HTTP_NOT_FOUND);
         }
 
-        if (is_array($functions)
-            && !in_array($channel->getFunction(), $functions)
-        ) {
+        if (is_array($functions) && !in_array($channel->getFunction(), $functions)) {
             throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
         }
 
@@ -62,8 +60,6 @@ class ApiChannelController extends RestController {
             $userid = $this->getParentUser()->getId();
 
             if ($channel->getIoDevice()->getEnabled()) {
-                $enabled = true;
-
                 $cids = $this->suplaServer->checkDevicesConnection($userid, [$devid]);
                 $connected = in_array($devid, $cids);
             }
@@ -422,8 +418,6 @@ class ApiChannelController extends RestController {
 
         $func = $channel->getFunction();
         $this->checkPatchAllowed($action, $func);
-
-        $ctrlResult = false;
 
         $value = 0;
 

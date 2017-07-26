@@ -17,7 +17,7 @@ trait ResponseAssertions {
         $message = "Response status $actualStatus isn't %s: $fullStatusLine. Response content: \n" . $clientResponse->getContent();
         if (is_int($expectedStatus)) {
             Assert::assertEquals($expectedStatus, $actualStatus, sprintf($message, $expectedStatus));
-        } elseif (preg_match('/^[1-5]xx$/', $expectedStatus)) {
+        } elseif (preg_match('/^[1-5]xx$/i', $expectedStatus)) {
             $firstDigit = intval($expectedStatus[0]);
             Assert::assertEquals($firstDigit, floor($actualStatus / 100), sprintf($message, $expectedStatus));
         } elseif ($expectedStatus === false) {

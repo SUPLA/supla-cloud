@@ -40,9 +40,7 @@ abstract class RestController extends FOSRestController {
 
     public function getParentUser() {
 
-        if ($this->parent === null
-            && $this->getUser() !== null
-        ) {
+        if (!$this->parent && $this->getUser() !== null) {
             $this->parent = $this->getUser()->getParentUser();
         }
         return $this->parent;

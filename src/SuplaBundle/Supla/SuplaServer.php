@@ -98,9 +98,7 @@ abstract class SuplaServer {
         ) {
             $result = $this->command("SET-" . $type . "-VALUE:" . $userId . "," . $deviceId . "," . $channelId . "," . $value);
 
-            if ($result !== false
-                && preg_match("/^OK:/", $result) === 1
-            ) {
+            if ($result && preg_match("/^OK:/", $result) === 1) {
                 return true;
             }
         }

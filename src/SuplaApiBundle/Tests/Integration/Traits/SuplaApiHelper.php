@@ -2,9 +2,11 @@
 
 namespace SuplaApiBundle\Tests\Integration\Traits;
 
+use Assert\Assertion;
 use Psr\Container\ContainerInterface;
 use SuplaApiBundle\Entity\ApiUser;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\Client;
 
@@ -51,5 +53,13 @@ trait SuplaApiHelper {
         $client = self::createClient([], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token, 'HTTPS' => true]);
         $client->followRedirects();
         return $client;
+    }
+
+    public function getSuplaServerCommands(Client $client): array {
+        $profile = $client->getProfile();
+        Assertion::isObject($profile, 'There is no profile available. Have you enabled it with $client->enableProfiler()?');
+        /** @var SuplaServerMockCommandsCollector $suplaCommandsCollector */
+        $suplaCommandsCollector = $profile->getCollector(SuplaServerMockCommandsCollector::NAME);
+        return $suplaCommandsCollector->getCommands();
     }
 }

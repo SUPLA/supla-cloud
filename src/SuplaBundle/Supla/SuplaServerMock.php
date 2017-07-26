@@ -21,6 +21,10 @@ class SuplaServerMock extends SuplaServer {
         return true;
     }
 
+    public function oauthAuthorize($userId, $accessToken) {
+        return true;
+    }
+
     protected function command($cmd) {
         $this->commandsCollector->addCommand($cmd);
         return $this->tryToHandleCommand($cmd);
@@ -28,9 +32,9 @@ class SuplaServerMock extends SuplaServer {
 
     private function tryToHandleCommand($cmd) {
         if (preg_match('#^IS-IODEV-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
-            if (rand(0, 5) != 3) { // simulate device connected in 80% cases
-                return "CONNECTED:$match[2]\n";
-            }
+            return "CONNECTED:$match[2]\n";
+        } elseif (preg_match('#^SET-CHAR-VALUE:.+$#', $cmd, $match)) {
+            return 'OK:HURRA';
         }
         return false;
     }

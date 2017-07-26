@@ -3,8 +3,8 @@
 namespace SuplaBundle\Tests\Integration\User;
 
 use SuplaBundle\Entity\User;
-use SuplaBundle\Tests\Integration\Assertions\ResponseAssertions;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 class AuthenticationIntegrationTest extends IntegrationTestCase {

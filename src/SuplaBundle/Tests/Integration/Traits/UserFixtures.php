@@ -34,8 +34,18 @@ trait UserFixtures {
 
     protected function createDeviceSonoff(Location $location): IODevice {
         return $this->createDevice($location, [
-            SuplaConst::TYPE_RELAY => ChannelFunction::LIGHTSWITCH,
-            SuplaConst::TYPE_THERMOMETERDS18B20 => ChannelFunction::THERMOMETER,
+            [SuplaConst::TYPE_RELAY, ChannelFunction::LIGHTSWITCH],
+            [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+        ]);
+    }
+
+    protected function createDeviceFull(Location $location): IODevice {
+        return $this->createDevice($location, [
+            [SuplaConst::TYPE_RELAY, ChannelFunction::LIGHTSWITCH],
+            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
+            [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ]);
     }
 
@@ -54,17 +64,16 @@ trait UserFixtures {
         $fieldSetter->call($device, 'user', $location->getUser());
         $this->getEntityManager()->persist($device);
 
-        $channelNumber = 0;
-        foreach ($channelTypes as $channelType => $channelFunction) {
+        foreach ($channelTypes as $channelNumber => $channelData) {
             $channel = new IODeviceChannel();
             $fieldSetter->call($channel, 'iodevice', $device);
             $fieldSetter->call($channel, 'user', $location->getUser());
-            $fieldSetter->call($channel, 'type', $channelType);
-            $fieldSetter->call($channel, 'function', $channelFunction);
+            $fieldSetter->call($channel, 'type', $channelData[0]);
+            $fieldSetter->call($channel, 'function', $channelData[1]);
             $fieldSetter->call($channel, 'channelNumber', $channelNumber++);
             $this->getEntityManager()->persist($channel);
+            $this->getEntityManager()->flush();
         }
-        $this->getEntityManager()->flush();
         $this->getEntityManager()->refresh($device);
         return $device;
     }
