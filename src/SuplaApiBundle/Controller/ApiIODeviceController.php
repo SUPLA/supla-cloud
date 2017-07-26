@@ -19,7 +19,7 @@ namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Supla\ServerCtrl;
+use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,7 +106,7 @@ class ApiIODeviceController extends RestController {
         
         if ($iodevice->getEnabled()) {
             $enabled = true;
-            $cids = (new ServerCtrl())->iodevice_connected($this->getParentUser()->getId(), [$devid]);
+            $cids = (new SuplaServerReal())->iodevice_connected($this->getParentUser()->getId(), [$devid]);
             $connected = in_array($devid, $cids);
         }
 

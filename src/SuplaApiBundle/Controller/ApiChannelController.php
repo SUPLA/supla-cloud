@@ -19,7 +19,7 @@ namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Supla\ServerCtrl;
+use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +33,7 @@ class ApiChannelController extends RestController {
     protected function getServerCtrl() {
 
         if ($this->svrCtrl === null) {
-            $this->svrCtrl = new ServerCtrl();
+            $this->svrCtrl = new SuplaServerReal();
         }
 
         return $this->svrCtrl;

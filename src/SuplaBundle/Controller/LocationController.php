@@ -22,7 +22,7 @@ namespace SuplaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Form\Type\AssignType;
-use SuplaBundle\Supla\ServerCtrl;
+use SuplaBundle\Supla\SuplaServerReal;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,7 +33,7 @@ class LocationController extends Controller {
 
     private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        (new ServerCtrl())->reconnect($user->getId());
+        (new SuplaServerReal())->reconnect($user->getId());
     }
 
     private function getLocationById($id) {

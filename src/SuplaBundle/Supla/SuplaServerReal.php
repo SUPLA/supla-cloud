@@ -19,7 +19,7 @@
 // @codingStandardsIgnoreFile
 namespace SuplaBundle\Supla;
 
-class ServerCtrl {
+class SuplaServerReal {
     private $socket = false;
 
     function __destruct() {

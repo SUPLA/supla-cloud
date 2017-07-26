@@ -20,7 +20,7 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\Supla\ServerCtrl;
+use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -134,7 +134,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlSensorStateAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new ServerCtrl())->get_double_value($user->getId(), $iodevice_id, $channel_id);
+        $value = (new SuplaServerReal())->get_double_value($user->getId(), $iodevice_id, $channel_id);
 
         $dev_man = $this->get('iodevice_manager');
         $channel = $dev_man->channelById($channel_id);
@@ -153,7 +153,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlTempValAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new ServerCtrl())->get_temperature_value($user->getId(), $iodevice_id, $channel_id);
+        $value = (new SuplaServerReal())->get_temperature_value($user->getId(), $iodevice_id, $channel_id);
         return AjaxController::jsonResponse(true, ['value' => $value === false || $value < -273 ? '-' : number_format($value, 1)]);
     }
 
@@ -162,7 +162,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlHumidityValAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new ServerCtrl())->get_humidity_value($user->getId(), $iodevice_id, $channel_id);
+        $value = (new SuplaServerReal())->get_humidity_value($user->getId(), $iodevice_id, $channel_id);
         return AjaxController::jsonResponse(true, ['value' => $value === false || $value < 0 ? '-' : number_format($value, 1)]);
     }
 
@@ -171,7 +171,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlDistanceValAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new ServerCtrl())->get_distance_value($user->getId(), $iodevice_id, $channel_id);
+        $value = (new SuplaServerReal())->get_distance_value($user->getId(), $iodevice_id, $channel_id);
 
         if ($value === false || $value < 0) {
             $value = "-";
@@ -211,7 +211,7 @@ class AjaxController extends Controller {
             $ids = array_unique($data->devids);
             unset($data);
 
-            $cids = (new ServerCtrl())->iodevice_connected($user->getId(), $ids);
+            $cids = (new SuplaServerReal())->iodevice_connected($user->getId(), $ids);
 
             foreach ($ids as $id) {
                 $result[$id] = in_array($id, $cids) ? ['state' => 1, 'txt' => $c] : ['state' => 0, 'txt' => $d];
