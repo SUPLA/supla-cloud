@@ -19,32 +19,31 @@ namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Supla\SuplaServerReal;
+use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiChannelController extends RestController {
+    use SuplaServerAware;
 
     const RECORD_LIMIT_PER_REQUEST = 5000;
-    private $svrCtrl = null;
+    /**
+     * @var IODeviceManager
+     */
+    private $deviceManager;
 
-    protected function getServerCtrl() {
-
-        if ($this->svrCtrl === null) {
-            $this->svrCtrl = new SuplaServerReal();
-        }
-
-        return $this->svrCtrl;
+    public function __construct(IODeviceManager $deviceManager) {
+        $this->deviceManager = $deviceManager;
     }
 
     protected function channelById($channelid, $functions = null, $checkConnected = false, $authorize = false) {
 
         $channelid = intval($channelid);
-        $iodev_man = $this->container->get('iodevice_manager');
 
-        $channel = $iodev_man->channelById($channelid, $this->getParentUser());
+        $channel = $this->deviceManager->channelById($channelid, $this->getParentUser());
 
         if (!($channel instanceof IODeviceChannel)) {
             throw new HttpException(Response::HTTP_NOT_FOUND);
@@ -65,7 +64,7 @@ class ApiChannelController extends RestController {
             if ($channel->getIoDevice()->getEnabled()) {
                 $enabled = true;
 
-                $cids = $this->getServerCtrl()->checkDevicesConnection($userid, [$devid]);
+                $cids = $this->suplaServer->checkDevicesConnection($userid, [$devid]);
                 $connected = in_array($devid, $cids);
             }
 
@@ -75,7 +74,7 @@ class ApiChannelController extends RestController {
         }
 
         if ($authorize === true) {
-            if (true !== $this->getServerCtrl()->oauthAuthorize(
+            if (true !== $this->suplaServer->oauthAuthorize(
                 $userid,
                 $this->container->get('security.token_storage')->getToken()->getToken()
             )
@@ -127,28 +126,28 @@ class ApiChannelController extends RestController {
 
         $sql = "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` ";
         $sql .= "FROM `supla_temperature_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
-        
+
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
         $stmt->bindValue(2, $limit, 'integer');
         $stmt->bindValue(3, $offset, 'integer');
         $stmt->execute();
-        
+
         return $stmt->fetchAll();
     }
 
     protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
-        
-        
+
+
         $sql = "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature`, ";
         $sql .= "`humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
-        
+
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
         $stmt->bindValue(2, $limit, 'integer');
         $stmt->bindValue(3, $offset, 'integer');
         $stmt->execute();
-        
+
         return $stmt->fetchAll();
     }
 
@@ -214,7 +213,7 @@ class ApiChannelController extends RestController {
         if ($channel->getIoDevice()->getEnabled()) {
             $enabled = true;
 
-            $cids = $this->getServerCtrl()->checkDevicesConnection($userid, [$devid]);
+            $cids = $this->suplaServer->checkDevicesConnection($userid, [$devid]);
             $connected = in_array($devid, $cids);
         }
 
@@ -228,7 +227,7 @@ class ApiChannelController extends RestController {
             switch ($func) {
                 case SuplaConst::FNC_POWERSWITCH:
                 case SuplaConst::FNC_LIGHTSWITCH:
-                    $value = $this->getServerCtrl()->getCharValue($userid, $devid, $channelid);
+                    $value = $this->suplaServer->getCharValue($userid, $devid, $channelid);
                     $result['on'] = $value == '1' ? true : false;
 
                     break;
@@ -239,7 +238,7 @@ class ApiChannelController extends RestController {
                 case SuplaConst::FNC_NOLIQUIDSENSOR:
                 case SuplaConst::FNC_OPENINGSENSOR_DOOR:
                 case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
-                    $value = $this->getServerCtrl()->getCharValue($userid, $devid, $channelid);
+                    $value = $this->suplaServer->getCharValue($userid, $devid, $channelid);
                     $result['hi'] = $value == '1' ? true : false;
 
                     break;
@@ -250,7 +249,7 @@ class ApiChannelController extends RestController {
                     if ($func == SuplaConst::FNC_THERMOMETER
                         || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
                     ) {
-                        $value = $this->getServerCtrl()->getTemperatureValue($userid, $devid, $channelid);
+                        $value = $this->suplaServer->getTemperatureValue($userid, $devid, $channelid);
 
                         if ($value !== false) {
                             $result['temperature'] = $value;
@@ -260,7 +259,7 @@ class ApiChannelController extends RestController {
                     if ($func == SuplaConst::FNC_HUMIDITY
                         || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
                     ) {
-                        $value = $this->getServerCtrl()->getHumidityValue($userid, $devid, $channelid);
+                        $value = $this->suplaServer->getHumidityValue($userid, $devid, $channelid);
 
                         if ($value !== false) {
                             $result['humidity'] = $value;
@@ -272,7 +271,7 @@ class ApiChannelController extends RestController {
                 case SuplaConst::FNC_DIMMER:
                 case SuplaConst::FNC_RGBLIGHTING:
                 case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-                    $value = $this->getServerCtrl()->getRgbwValue($userid, $devid, $channelid);
+                    $value = $this->suplaServer->getRgbwValue($userid, $devid, $channelid);
 
                     if ($value !== false) {
                         if ($func == SuplaConst::FNC_RGBLIGHTING
@@ -292,7 +291,7 @@ class ApiChannelController extends RestController {
                     break;
 
                 case SuplaConst::FNC_DISTANCESENSOR:
-                    $value = $this->getServerCtrl()->getDistanceValue($userid, $devid, $channelid);
+                    $value = $this->suplaServer->getDistanceValue($userid, $devid, $channelid);
 
                     if ($value !== false) {
                         $result['distance'] = $value;
@@ -301,7 +300,7 @@ class ApiChannelController extends RestController {
                     break;
 
                 case SuplaConst::FNC_DEPTHSENSOR:
-                    $value = $$this->getServerCtrl()->get_distance_value($userid, $devid, $channelid);
+                    $value = $this->suplaServer->getDistanceValue($userid, $devid, $channelid);
 
                     if ($value !== false) {
                         $result['depth'] = $value;
@@ -356,7 +355,7 @@ class ApiChannelController extends RestController {
                     }
                 }
 
-                if (false === $this->getServerCtrl()->setRgbwValue($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
+                if (false === $this->suplaServer->setRgbwValue($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
                     throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
                 }
 
@@ -436,27 +435,27 @@ class ApiChannelController extends RestController {
                 break;
             case 'shut':
                 $value = 1;
-                
+
                 $percent = intval(@$data->percent);
-                
+
                 if ($percent >= 0 && $percent <= 100) {
                     $value = 10 + $percent;
                 }
-                
+
                 break;
             case 'reveal':
                 $value = 2;
-                
+
                 $percent = intval(@$data->percent);
-                
+
                 if ($percent >= 0 && $percent <= 100) {
                     $value = 110 - $percent;
                 }
-                
+
                 break;
         }
 
-        if (false === $this->getServerCtrl()->setCharValue($userid, $devid, $channelid, $value)) {
+        if (false === $this->suplaServer->setCharValue($userid, $devid, $channelid, $value)) {
             throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
