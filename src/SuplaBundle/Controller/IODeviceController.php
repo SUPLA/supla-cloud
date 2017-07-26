@@ -22,11 +22,10 @@ namespace SuplaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\Loaction;
 use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
-use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Supla\SuplaServerReal;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -242,22 +241,21 @@ class IODeviceController extends AbstractController {
 
                     break;
             }
-            
+
             if ($channel->getFunction() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER
             ) {
                 if ($channel->getParam1() < 0
-                        || $channel->getParam1() > 3000 // 5 min.
+                    || $channel->getParam1() > 3000 // 5 min.
                 ) {
                     $channel->setParam1(0);
                 }
-                
+
                 if ($channel->getParam3() < 0
-                        || $channel->getParam3() > 3000 // 5 min.
-                        ) {
+                    || $channel->getParam3() > 3000 // 5 min.
+                ) {
                     $channel->setParam3(0);
                 }
             }
-
 
             if ($old_function != $channel->getFunction()) {
                 foreach ($channel->getSchedules() as $schedule) {

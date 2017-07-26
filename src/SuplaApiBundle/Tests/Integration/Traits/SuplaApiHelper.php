@@ -48,7 +48,7 @@ trait SuplaApiHelper {
     protected function createAuthenticatedClient(User $user, string $password = '123'): Client {
         $token = $this->authenticateApiUser($user, $password);
         /** @var Client $client */
-        $client = self::createClient([], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token]);
+        $client = self::createClient([], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token, 'HTTPS' => true]);
         $client->followRedirects();
         return $client;
     }
