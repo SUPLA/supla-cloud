@@ -26,7 +26,7 @@ abstract class SuplaServer {
 
     abstract protected function disconnect();
 
-    abstract protected function command($cmd);
+    abstract protected function command($command);
 
     public function oauthAuthorize($userId, $accessToken) {
         $result = false;
@@ -87,17 +87,9 @@ abstract class SuplaServer {
         return false;
     }
 
-    private function setValue($type, $userId, $deviceId, $channelId, $value) {
-        $userId = intval($userId, 0);
-        $deviceId = intval($deviceId, 0);
-        $channelId = intval($channelId, 0);
-        if ($userId != 0
-            && $deviceId != 0
-            && $channelId != 0
-            && $this->connect() !== false
-        ) {
-            $result = $this->command("SET-" . $type . "-VALUE:" . $userId . "," . $deviceId . "," . $channelId . "," . $value);
-
+    private function setValue(string $type, int $userId, int $deviceId, int $channelId, $value) {
+        if ($userId && $deviceId && $channelId && $this->connect()) {
+            $result = $this->command("SET-$type-VALUE:$userId,$deviceId,$channelId,$value");
             if ($result && preg_match("/^OK:/", $result) === 1) {
                 return true;
             }
@@ -155,7 +147,7 @@ abstract class SuplaServer {
         return false;
     }
 
-    public function setCharValue($userId, $deviceId, $channelId, $char) {
+    public function setCharValue(int $userId, int $deviceId, int $channelId, $char) {
         $char = intval($char, 0);
         if ($char < 0 || $char > 255) {
             $char = 0;

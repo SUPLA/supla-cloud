@@ -53,9 +53,9 @@ class SuplaServerReal extends SuplaServer {
         }
     }
 
-    protected function command($cmd) {
+    protected function command($command) {
         if ($this->socket) {
-            fwrite($this->socket, $cmd . "\n");
+            fwrite($this->socket, $command . "\n");
             $result = fread($this->socket, 4096);
             return $result;
         }

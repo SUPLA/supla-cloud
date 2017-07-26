@@ -3,9 +3,9 @@
 namespace SuplaBundle\Tests\Integration\User;
 
 use SuplaBundle\Entity\User;
-use SuplaBundle\Tests\Integration\Assertions\ResponseAssertions;
-use SuplaBundle\Tests\Integration\Fixtures\UserFixtures;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 

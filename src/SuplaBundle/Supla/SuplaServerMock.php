@@ -25,9 +25,9 @@ class SuplaServerMock extends SuplaServer {
         return true;
     }
 
-    protected function command($cmd) {
-        $this->commandsCollector->addCommand($cmd);
-        return $this->tryToHandleCommand($cmd);
+    protected function command($command) {
+        $this->commandsCollector->addCommand($command);
+        return $this->tryToHandleCommand($command);
     }
 
     private function tryToHandleCommand($cmd) {

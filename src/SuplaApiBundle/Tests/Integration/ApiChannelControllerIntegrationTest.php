@@ -45,7 +45,7 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
         $request = array_merge(['action' => $action], $additionalRequest);
         $client->request('PATCH', '/api/channels/' . $deviceId, [], [], [], json_encode($request));
         $response = $client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains($expectedCommand, $commands);
     }
@@ -64,9 +64,16 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
         ];
     }
 
-    public function testTryingToExecuteInvalidAction() {
+    public function testTryingToExecuteActionInvalidForChannel() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $response = $client->getResponse();
+        $this->assertStatusCode('4xx', $response);
+    }
+
+    public function testTryingToExecuteInvalidAction() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'unicorn'])));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }

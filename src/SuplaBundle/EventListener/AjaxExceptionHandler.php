@@ -1,4 +1,5 @@
 <?php
+
 namespace SuplaBundle\EventListener;
 
 use Assert\InvalidArgumentException;
@@ -15,7 +16,8 @@ class AjaxExceptionHandler implements EventSubscriberInterface {
     }
 
     public function onException(GetResponseForExceptionEvent $event) {
-        if (in_array('application/json', $event->getRequest()->getAcceptableContentTypes())) {
+        $request = $event->getRequest();
+        if ($request->get('_format') == 'json' || in_array('application/json', $request->getAcceptableContentTypes())) {
             $errorResponse = $this->createErrorResponse($event->getException());
             $event->setResponse($errorResponse);
         }
