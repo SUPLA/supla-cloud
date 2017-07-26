@@ -1,0 +1,43 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+        <span class="icon"
+                style="fill: white">{{ include('@Supla/Supla/logo.svg') }}</span>
+        <span class="sf-toolbar-status">{{ collector.commands|length }}</span>
+    {% endset %}
+
+    {% if collector.commands|length %}
+        {% set text %}
+            <div class="sf-toolbar-info-piece">
+                <ul>
+                    {% for command in collector.commands %}
+                        <li>{{ command }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endset %}
+    {% endif %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': true }) }}
+{% endblock %}
+
+{% block menu %}
+    {# This left-hand menu appears when using the full-screen profiler. #}
+    <span class="label">
+        <span class="icon">{{ include('@Supla/Supla/logo.svg') }}</span>
+        <strong>SUPLA-Server</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {# Optional, for showing the most details. #}
+    <h2>Commands sent to SUPLA-Server</h2>
+    <table>
+        {% for command in collector.commands %}
+            <tr>
+                <td>{{ command }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

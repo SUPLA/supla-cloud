@@ -18,6 +18,9 @@ security:
     secured_area:
       http_basic: ~
 
+services:
+  SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+
 swiftmailer:
   disable_delivery: true
 

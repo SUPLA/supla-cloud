@@ -20,6 +20,7 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,6 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @Route("/ajax")
  */
 class AjaxController extends Controller {
+    use SuplaServerAware;
 
     public static function jsonResponse($success, $result = []) {
         $result['success'] = $success;
@@ -211,7 +213,7 @@ class AjaxController extends Controller {
             $ids = array_unique($data->devids);
             unset($data);
 
-            $cids = (new SuplaServerReal())->checkDevicesConnection($user->getId(), $ids);
+            $cids = $this->suplaServer->checkDevicesConnection($user->getId(), $ids);
 
             foreach ($ids as $id) {
                 $result[$id] = in_array($id, $cids) ? ['state' => 1, 'txt' => $c] : ['state' => 0, 'txt' => $d];

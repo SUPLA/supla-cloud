@@ -34,6 +34,8 @@ services:
 
   SuplaApiBundle\Model\APIManager: ~
 
+  SuplaBundle\Supla\:
+    resource: '../../src/SuplaBundle/Supla'
   SuplaBundle\Supla\ServerList:
     $supla_server: "%supla_server%"
     $supla_server_list: "%supla_server_list%"

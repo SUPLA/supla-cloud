@@ -23,3 +23,6 @@ monolog:
       level: debug
     console:
       type: console
+
+services:
+  SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerReal'
