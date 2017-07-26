@@ -65,6 +65,7 @@ trait UserFixtures {
             $this->getEntityManager()->persist($channel);
         }
         $this->getEntityManager()->flush();
+        $this->getEntityManager()->refresh($device);
         return $device;
     }
 
