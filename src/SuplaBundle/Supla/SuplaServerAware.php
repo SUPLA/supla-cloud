@@ -7,7 +7,7 @@ trait SuplaServerAware {
     protected $suplaServer;
 
     /** @required */
-    public function setSuplaServer(SuplaServer $suplaServer): void {
+    public function setSuplaServer(SuplaServer $suplaServer) {
         $this->suplaServer = $suplaServer;
     }
 }

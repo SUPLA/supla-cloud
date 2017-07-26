@@ -15,7 +15,7 @@ class SuplaServerMockCommandsCollector extends DataCollector {
     public function collect(Request $request, Response $response, \Exception $exception = null) {
     }
 
-    public function addCommand(string $command): void {
+    public function addCommand(string $command) {
         $this->data['commands'][] = $command;
     }
 
