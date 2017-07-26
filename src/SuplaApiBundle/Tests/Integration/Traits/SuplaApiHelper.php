@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use SuplaApiBundle\Entity\ApiUser;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
+use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * @property ContainerInterface $container
@@ -42,5 +43,13 @@ trait SuplaApiHelper {
     protected function getApiUser(User $user): ApiUser {
         $apiManager = $this->container->get('api_manager');
         return $apiManager->getAPIUser($user);
+    }
+
+    protected function createAuthenticatedClient(User $user, string $password = '123'): Client {
+        $token = $this->authenticateApiUser($user, $password);
+        /** @var Client $client */
+        $client = self::createClient([], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token]);
+        $client->followRedirects();
+        return $client;
     }
 }
