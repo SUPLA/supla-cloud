@@ -105,12 +105,13 @@ class AccountController extends Controller {
         $form->handleRequest($request);
 
         $sl = $this->get('server_list');
+        $remote_server= '';
 
         if ($form->isValid()) {
             $username = $form->getData()->getUser()->getUsername();
 
             for ($n = 0; $n < 4; $n++) {
-                $exists = $sl->userExists($username);
+                $exists = $sl->userExists($username, $remote_server);
 
                 if ($exists === false) {
                     usleep(1000000);
@@ -123,6 +124,9 @@ class AccountController extends Controller {
         }
 
         if ($exists === null) {
+            $mailer = $this->get('supla_mailer');
+            $mailer->sendServiceUnavailableMessage('createAction - remote server: '.$remote_server);
+            
             return $this->redirectToRoute("_temp_unavailable");
         } elseif ($exists === true) {
             $translator = $this->get('translator');

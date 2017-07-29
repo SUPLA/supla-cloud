@@ -124,6 +124,20 @@ class SuplaMailer {
         );
     }
 
+    public function sendServiceUnavailableMessage($detail) {
+        
+        $this->sendEmailMessage(
+            'service_unavailable.txt.twig',
+            '',
+            $this->mailer_from,
+            $this->email_admin,
+            [
+                        'detail' => $detail,
+                        'supla_server' => $this->supla_server,
+                ]
+        );
+    }
+    
     public function test() {
     }
 }

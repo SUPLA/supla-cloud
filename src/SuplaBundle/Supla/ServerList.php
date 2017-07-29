@@ -67,7 +67,7 @@ class ServerList {
         return false;
     }
 
-    public function userExists($username) {
+    public function userExists($username, &$remote_server) {
 
         if (strlen(@$username) == 0) {
             return false;
@@ -93,10 +93,12 @@ class ServerList {
                         && @$rr->success == true
                     ) {
                         if (@$rr->exists == true) {
+                            $remote_server = $svr['address'];
                             return true;
                         }
                     } else {
                         $err = true;
+                        $remote_server = $svr['address'];
                     }
                 }
             }
