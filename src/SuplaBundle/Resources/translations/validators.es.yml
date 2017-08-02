@@ -1,0 +1,7 @@
+# src/SuplaBundle/Resources/translations/validators.es.yml
+
+
+The password and its confirm are not the same: La contraseña y su confirmación no coinciden.
+The password and its confirm are not the same.: La contraseña y su confirmación no coinciden.
+The password and its repeat are not the same.: La contraseña y su repetición no coinciden.
+Email already exists: Esta dirección de correo electrónico ya existe
