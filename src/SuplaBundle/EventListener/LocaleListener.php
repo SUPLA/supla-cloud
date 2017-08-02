@@ -41,9 +41,13 @@ class LocaleListener implements EventSubscriberInterface {
         if ($locale = $request->attributes->get('_locale')) {
             $request->getSession()->set('_locale', $locale);
         } else {
+        	
+        	$locale = $request->getSession()->get('_locale');
+        	
             if ($locale === null) {
-                $locale =  strtolower(preg_replace('/-/', '_', $request->getPreferredLanguage()));
 
+            	$locale =  strtolower(preg_replace('/-/', '_', $request->getPreferredLanguage()));
+                
                 if (preg_match('/^pl_?.*/', $locale)) {
                     $locale = 'pl';
                 } elseif (preg_match('/^ru_?.*/', $locale)) {
