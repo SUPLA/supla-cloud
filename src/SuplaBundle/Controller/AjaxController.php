@@ -102,7 +102,7 @@ class AjaxController extends Controller {
     public function lngsetAction(Request $request, $_loc) {
         $result = false;
 
-        if (in_array($_loc, ['en', 'pl', 'de', 'ru'])) {
+        if (in_array($_loc, ['en', 'pl', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) {
             $request->getSession()->set('_locale', $_loc);
             $result = true;
         }

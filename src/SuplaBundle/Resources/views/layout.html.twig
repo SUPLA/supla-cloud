@@ -183,6 +183,12 @@
 								<a class="lng_switch {% if app.request.locale == 'ru' %} active {% endif %}" data-lng="ru"><img src={{ asset('assets/img/flags/ru.svg') }}></a>
 								<a class="lng_switch {% if app.request.locale == 'de' %} active {% endif %}" data-lng="de"><img src={{ asset('assets/img/flags/de.svg') }}></a>
 							</li>
+							<li class="lng_switcher">
+								<a class="lng_switch {% if app.request.locale == 'it' %} active {% endif %}" data-lng="it"><img src={{ asset('assets/img/flags/it.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'pt' %} active {% endif %}" data-lng="pt"><img src={{ asset('assets/img/flags/pt.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'es' %} active {% endif %}" data-lng="es"><img src={{ asset('assets/img/flags/es.svg') }}></a>
+								<a class="lng_switch {% if app.request.locale == 'fr' %} active {% endif %}" data-lng="fr"><img src={{ asset('assets/img/flags/fr.svg') }}></a>
+							</li>
 							<li class="divider"></li>
 							<li class="bottom"><a class="nav-link" href="{{ path('_api_settings') }}">{% trans %}RESTful API{% endtrans %}</a><a id="logout" href="{{ path('_auth_logout') }}">{% trans %}Sign Out{% endtrans %}</a></li>
 						</ul>

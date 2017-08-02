@@ -162,7 +162,7 @@ class AccountController extends Controller {
      * @Route("/create_here/{locale}", name="_account_create_here_lc")
      */
     public function createActionHereLC(Request $request, $locale) {
-        if (in_array(@$locale, ['en', 'pl', 'de', 'ru'])) {
+    	if (in_array(@$locale, ['en', 'pl', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) {
             $request->getSession()->set('_locale', $locale);
             $request->setLocale($locale);
         }
@@ -281,7 +281,7 @@ class AccountController extends Controller {
 
         $data = json_decode($request->getContent());
 
-        if (in_array(@$data->locale, ['en', 'pl', 'de', 'ru'])) {
+        if (in_array(@$data->locale, ['en', 'pl', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) {
             $request->getSession()->set('_locale', $data->locale);
             $request->setLocale($data->locale);
         }
