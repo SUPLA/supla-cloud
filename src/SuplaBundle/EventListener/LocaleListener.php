@@ -41,44 +41,26 @@ class LocaleListener implements EventSubscriberInterface {
         if ($locale = $request->attributes->get('_locale')) {
             $request->getSession()->set('_locale', $locale);
         } else {
-        
             if ($locale === null) {
-            	
-            	$locale =  strtolower(preg_replace ('/-/', '_', $request->getPreferredLanguage()));
+                $locale =  strtolower(preg_replace('/-/', '_', $request->getPreferredLanguage()));
 
-            	if ( preg_match('/^pl_?.*/', $locale) ) {
-            		
-            		$locale = 'pl';
-            		
-            	} else if ( preg_match('/^ru_?.*/', $locale) ) {
-          
-            		$locale = 'ru';
-            		
-            	} else if ( preg_match('/^de_?.*/', $locale) ) {
-            		
-            		$locale = 'de';
-            		
-            	} else if ( preg_match('/^es_?.*/', $locale) ) {
-            		
-            		$locale = 'es';
-            		
-            	} else if ( preg_match('/^fr_?.*/', $locale) ) {
-            		
-            		$locale = 'fr';
-            		
-            	} else if ( preg_match('/^pt_?.*/', $locale) ) {
-            		
-            		$locale = 'pt';
-            		
-            	} else if ( preg_match('/^it_?.*/', $locale) ) {
-            		
-            		$locale = 'it';
-            		
-            	} else {
-            		
-            		$locale = 'en';
-            		
-            	}
+                if (preg_match('/^pl_?.*/', $locale)) {
+                    $locale = 'pl';
+                } elseif (preg_match('/^ru_?.*/', $locale)) {
+                    $locale = 'ru';
+                } elseif (preg_match('/^de_?.*/', $locale)) {
+                    $locale = 'de';
+                } elseif (preg_match('/^es_?.*/', $locale)) {
+                    $locale = 'es';
+                } elseif (preg_match('/^fr_?.*/', $locale)) {
+                    $locale = 'fr';
+                } elseif (preg_match('/^pt_?.*/', $locale)) {
+                    $locale = 'pt';
+                } elseif (preg_match('/^it_?.*/', $locale)) {
+                    $locale = 'it';
+                } else {
+                    $locale = 'en';
+                }
 
                 $request->getSession()->set('_locale', $locale);
             }
