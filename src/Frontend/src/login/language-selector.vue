@@ -6,6 +6,10 @@
             <option value="pl">Polski</option>
             <option value="ru">Русский</option>
             <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
         </select>
     </div>
 </template>
