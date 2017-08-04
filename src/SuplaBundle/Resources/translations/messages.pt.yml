@@ -1,0 +1,361 @@
+# src/SuplaBundle/Resources/translations/messages.pt.yml
+
+Hi: Olá
+Delete: Suprimir
+Caption: Denominação
+Enabled: Ligado
+Disabled: Desligado
+Search: Procurar
+Assigned Locations: Localizações atribuídas
+Password change: Alterar a senha
+Timezone: Fuso horário
+Registration: Registar
+Password Reset: Redefinir a senha
+Enter new password: Introduzir uma nova senha
+The password should be 8 or more characters.: A senha deve ter pelo menos 8 caráteres.
+Account: Conta
+Forgot your password?: Esqueceu a sua senha?
+Server address: Endereço do servidor
+Cancel: Cancelar
+CANCEL: CANCELAR
+Are you sure you want to delete?: Deseja mesmo apagar?
+Relay switching time: Tempo de ligação do<br /> relé
+Full opening time: Tempo inteiro da abertura
+Full closing time: Tempo inteiro do fecho
+sec.: s.
+Download the history of measurement: Carregar a história das medições
+Open sensor: Sensor da abertura
+None: Falta
+Channel for the sensor: Sensor do canal
+Channel: Canal
+Channel No: Número do canal
+Channel properties: Propriedades do canal
+Device: Dispositivo
+Access Identifier: Identificador do Acesso
+Location Identifier: Identificador da Localização
+Type: Tipo 
+Number: Número
+I/O: Entrada/Saída
+Function: Função
+Name: Nome
+Location: Localização
+Locations: Localização
+No Locations assigned: Falta de localizações atribuídas
+Location has been changed: Localização foi alterada
+Lack of Locations: Falta de localizações
+SoftVer: SoftVer
+All: Tudo
+Electric: Elétrica
+Doors, Gates: Portas, Portões
+Roller shutters: Estores
+Liquid, Temp: Líquido, Temperatura
+Sensors: Sensores
+No function: Falta de funções
+Connected: Ligado
+Disconnected: Desligado
+unknown: desconhecido
+Comment: Comentário
+Channels: Canais
+I/O Devices: Dispositivos de I/O
+Assigned Access Identifiers: Identificadores do Acesso atribuídos
+Start Here: Iniciar aqui
+Sign In: Fazer login
+Sign Out: Sair
+Generate new password: Criar uma nova senha
+Password: Senha
+Confirm Password: Confirmar a senha
+SAVE: GRAVAR
+GENERATE: GERAR
+ENABLED: WLIGADO
+CLICK TO DISABLE: CLIQUE PARA DESLIGAR
+DISABLED: DESLIGADO
+CLICK TO ENABLE: CLIQUE PARA LIGAR
+DELETE: APAGAR
+Assign Locations: Atribuir Localizações
+Confirm if you want to remove Access Identifier: Confirme se quer mesmo apagar o Identificador do Acesso
+Confirm if you want to remove Location: Confirme se quer mesmo apagar a Localização
+Further connection with this Identifier will be impossible: Não será possível continuar a ligar através este identificador 
+Choose locations to be assigned to Access Identifier: Selecione Localizações que serão atribuídas a este Identificador do Acesso
+Access Identifiers: Identificadores do acesso 
+Create New Access Identifier: Criar um novo Identificador do Acesso 
+No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Falta de localizações que possam ser atribuídas a este Identificador do Acesso.<br />Passe para a Localização e crie pelo menos uma.
+No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Falta de Identificadores do Acesso que possam ser atribuídos a esta localização.<br />Passe para os Identificadores do Acesso e crie pelo menos um.  
+You will no longer be able to connect the i/o devices to this Location: Não será possível continuar a ligar os dispositivos de entrada/saída a esta localização 
+Create New Location: Criar uma nova localização 
+Assign Access Identifiers: Atribuir os Identificadores do Acesso
+Languages: Línguas
+No I/O Devices: Falta de Dispositivos de I/O
+Choose Access Identifiers to be assigned to this Location: Selecione os Identificadores do Acesso que serão atribuídos a esta Localização
+Are you sure?: Tem certeza?
+Lighting: Iluminação
+Temperature: Temperatura
+Doors and gates: Portas e portões
+Home appliances: Eletrónico de consumo
+And more: E muito mais
+From anywhere: Desde cada sítio
+With SUPLA you can operate the lights in your home or office: Com SUPLA pode pilotar a iluminação da sua casa ou do seu escritório
+...you can monitor temperature: ...pode controlar a temperatura
+...open gateways, gates or doors: ...abrir uma porta ou um portão
+...open and shut roller shutters: ...fechar ou abrir estores
+...or control home appliances: ...ou comandar os seus eletrodomésticos e aparelhos de rádio e televisão
+All the above and many more can be done from your phone or tablet: Faça tudo isto e muito mais usando o seu smartphone ou tablet
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA é disponível sempre e por toda a parte. Não se preocupe mais quando esquecer desligar a luz.
+Registred: Registado
+Last connection: Última ligação
+Confirm if you want to remove <strong>%devname%</strong> device: Confirme se quer mesmo suprimir o dispositivo <strong>%devname%</strong>
+All Your I/O Devices: Todos os seus dispositivos de I/O
+Please select function for this channel: Selecione uma função para este canal
+No Access Identifiers assigned: Falta de Identificadores do Acesso atribuídos 
+Lack of Access Identifiers: Falta de Identificadores do Acesso
+Change Your Password: Alterar a senha
+On your computer...: No seu computador...
+On your smartphone...: No seu smartphone...
+Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.: Ligar a sua casa ou o seu escritório a SUPLA é muito simples.<br>Basta copiar os dados abaixo para os seus dispositivos de comando (entrada/saída) e smartphones.
+Enter the data below in the settings of your control device (I/O Device).: Introduza os dados abaixo nas configurações do seu dispositivo de comando (dispositivo de I/O).
+Enter the data below in your mobile SUPLA application on your smartphone.: Introduza os dados abaixo na aplicação móvel SUPLA instalada no seu smartphone.
+Make it work: Faça com que funcione
+You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Não é possível ligar os Dispositivos de entrada/saída antes de atribuir pelo menos um Identificador do Acesso a uma Localização 
+Install SUPLA on your smartphone.: Instale SUPLA no seu smartphone.
+Open SUPLA app.: Ligue a aplicação.
+Fill in the fields with settings provided above.: Introduza os dados acima nas configurações.
+Tap <strong>Done</strong> and wait until the app connects.: Carregue no botão <strong>Pronto</strong> e aguarde até a aplicação se conectar.
+Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Carregue os <a href="https://www.supla.org/download">cartões SD</a> para Raspberry PI. 
+Transfer downloaded image onto the SD Card.: Mova uma imagem carregada para o cartão SD.
+Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Abra um ficheiro <strong>boot\location.txt</strong>. Copie e cole as configurações acima.
+Done.: Pronto.
+For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Para mais detalhes consulte <a href="https://www.supla.org">www.supla.org</a>
+Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Carregue <a href="https://www.supla.org/download">firmware</a> e faça o upload no microcontrolador
+Turn the device on: Ligue o dispositivo
+Press and hold the P1 button for 5 sec. (Default GPIO2): Carregue mantendo o botão P1 por pelo menos 5 s. (por defeito GPIO2)
+Connect the computer to WiFi called SUPLA-ESP8266: Conecte o computador à rede WiFi com o nome SUPLA-ESP8266
+Go to http://192.168.4.1: Abra o site http://192.168.4.1
+Enter location settings provided above: Introduza as configurações da localização acima
+Enter access data to your WiFi: Introduza os dados de acesso à sua rede WiFi
+Click "Save": Clique "Save"
+Restart the device or press the P1 button: Reinicie o dispositivo ou carregue no botão P1
+
+Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Carregue a <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">biblioteca</a> SuplaDevice para Arduino
+Run Arduino IDE: Inicie Arduino IDE
+Click Sketch -> Include library -> Add .ZIP Library: Clique Esboço -> Juntar biblioteca -> Juntar biblioteca .ZIP
+Open one of the examples. File -> Examples -> SuplaDevice: Abra um dos exemplos. Ficheiro -> Exemplos -> SuplaDevice
+Complete the code (GUID, Server, Location ID, Location Password): Complete o código (GUID, Servidor, ID da localização, Senha da localização)
+Upload program to Arduino: Faça o upload do programa para Arduino
+
+Previous login: Login anterior
+From IP: Desde o endereço IP
+Current Password: Senha atual
+New password: Nova senha
+Change Password: Alterar a senha
+Coming soon: Disponível em breve
+Develop your own building automation: O seu próprio edifício inteligente
+Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.: Baseando-se na eletrónica disponível, SUPLA permite-lhe construir módulos simples que servem para comandar e controlar os elementos da automática construtiva. Graças a SUPLA pode comandar a iluminação, ligar/desligar os eletrodomésticos, de rádio e televisão, abrir/fechar portas e portões ou controlar a temperatura dos quartos. Tudo isso pode fazer com um só toque do dedo.
+SUPLA everywhere!: SUPLA por toda a parte!
+One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!.: Um dos objetivos básicos do projeto são a simplicidade e a disponibilidade. SUPLA permite com um só dedo ligar a luz ou abrir um portão quando quiser entrar nas suas instalações. SUPLA é disponível em qualquer lugar onde tiver acesso a Internet e um smartphone ou um tablet. SUPLA é desenvolvida enquanto Software de Código Aberto ou Equipamento de Código Aberto. Assim também você pode desenvolver este projeto!
+Free of charge and open!: Aberta e grátis!
+Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!: Normalmente os sistemas de automática construtiva disponíveis no mercado são muito complexos, fechados e caros. Em muitos casos requerem uma instalação já em curso da construção de um edifício. SUPLA é simples, aberta e grátis. Permite construir os elementos de execução baseando-se nas plataformas RaspberryPI, Arduino ou ESP8266 e combiná-los usando a rede LAN e WiFi. Junte-se ao projeto e construa a sua própria versão do sistema da automática construtiva!
+
+#inside php code
+Data saved: Os dados foram gravados
+Save: Gravar
+Save and enable: Gravar e ligar
+Location limit has been exceeded: Excedeu um limite de localizações
+Success: Sucesso
+New location has been created: Um nova localização foi criada
+Error: Erro
+Location has been deleted: A localização foi suprimida
+Data saved!: Os dados foram gravados!
+Access identifier limit has been exceeded: Excedeu um limite de identificadores do acesso
+New access identifier has been created: Um novo identificador do acesso foi criado
+Information: Informação
+Access identifier has been deleted: Identificador do acesso foi suprimido
+I/O Device has been deleted: Um dispositivo de I/O foi suprimido
+Account has been activated. You can Sign In now.: A conta foi ativada. Pode fazer o seu login
+Unknown error: Erro indefinido
+Token does not exist: O token não existe
+Access identifier has been enabled: Identificador do Acesso foi ligado
+Access identifier has been disabled: Identificador do Acesso foi desligado
+Caption has been changed: A denominação foi alterada
+Password has been changed: A senha foi alterada
+Location has been enabled: A localização foi ligada
+Location has been disabled: A localização foi desligada
+Remove all the associated devices before you delete this location: Suprima os dispositivos associados antes de suprimir a localização
+Comment has been modified: O comentário foi alterado
+I/O Device has been disabled: Dispositivo de I/O foi desligado
+I/O Device has been enabled: Dispositivo de I/O foi ligado
+Password field cannot be left empty: O campo da senha não pode estar vazio
+Current password is incorrect: A senha atual é errada
+Password has been changed!: A senha foi alterada!
+Create an account: Crie uma conta
+Your email: O seu endereço email
+Enter your email: Introduza o seu endereço email
+Enter your email address: Introduza o seu endereço email
+Repeat your email: Repita o seu email
+Enter password: Introduza a senha
+Enter strong password: Introduza uma senha mais forte
+Repeat password: Repita a senha
+Don't worry, you can always reset your password via email. Click here to do so.: Não se preocupe. Sempre pode redefinir a sua senha através do seu correio eletrónico. Clique aqui para o fazer.
+RESET: REDEFINIR
+Click RESET button when visible: Clique o botão REDEFINIR quando aparecer
+Check your email box: Veja o seu correio eletrónico
+Please fill the field before continuing: Complete este campo antes de continuar
+Please fill a valid email address: Introduza o endereço email correto
+Whoops, that's not an email address!: Ai! O endereço email é errado
+Supla for devices: Supla para os dispositivos
+Next: Continuar
+Get SUPLA on your devices: Carregue SUPLA para o seu dispositivo
+...and start your adventure with building automation today!: ...e comece uma aventura com edifícios inteligentes já hoje!
+Mobile Apps: Aplicações móveis
+Sources available from: Fontes disponíveis em 
+
+Input: Entrada 
+Output: Saída
+Sensor (normal open): Sensor (normalmente aberto)
+Sensor (normal closed): Sensor (normalmente fechado)
+Relay: Relé
+HFD4 Relay: Relé HFD4
+G5LA1A Relay: Relé G5LA1A
+G5LA1A Relay x2: Relé 2xG5LA1A
+DS18B20 Thermometer: Termómetro DS18B20
+DHT11 Temperature & Humidity Sensor: Sensor da temperatura e da humidade DHT11
+DHT21 Temperature & Humidity Sensor: Sensor da temperatura e da humidade DHT21
+DHT22 Temperature & Humidity Sensor: Sensor da temperatura e da humidade DHT22
+AM2301 Temperature & Humidity Sensor: Sensor da temperatura e da humidade AM2301
+AM2302 Temperature & Humidity Sensor: Sensor da temperatura e da humidade AM2302
+Dimmer: Controlador da luz
+RGB led controller: Controlador da iluminação RGB
+Dimmer & RGB led controller: Controlador da luz e da iluminação RGB
+Distance sensor: Sensor da distância
+Depth sensor: Sensor da profundidade
+Thermometer: Termómetro
+Gateway lock operation: Abrir um portão
+Gate operation: Abrir/fechar um portão de entrada
+Garage door operation: OAbrir/fechar um portão de garagem
+Door lock operation: Abrir uma porta
+Roller shutter operation: Abrir e fechar estores
+Gateway opening sensor: Sensor da abertura do portão
+Gate opening sensor: Sensor da abertura do portão de entrada
+Garage door opening sensor: Sensor da abertura do portão de garagem
+Door opening sensor: Sensor da abertura da porta
+Roller shutter opening sensor: Sensor da abertura dos estores
+No liquid sensor: Sensor da falta do líquido
+On/Off switch: Interruptor da alimentação
+Light switch: Interruptor da luz
+Humidity sensor: Sensor da humidade
+Temperature and humidity sensor: Sensor da temperatura e humidade
+RGB lighting: Iluminação RGB
+Dimmer and RGB lighting: Controlador da luz e iluminação RGB
+Choose new device location for the: Selecione uma nova localização para o dispositivo
+Original location: Localização de origem
+Change location: Alterar a localização
+Choose the location: Selecionar uma localização
+Go to your account: Passe para a sua conta
+
+Service temporarily unavailable: Serviço temporariamente indisponível
+Try again later: Tente novamente mais tarde
+
+Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Seja bem-vindo, Programista! Ao pensar em si disponibilizámos uma interface RESTful API para poder integrar as suas próprias soluções informáticas com SUPLA.
+RESTful API has been enabled: RESTful API foi ligado
+RESTful API has been disabled: RESTful API foi desligado
+The password should be 24 or more characters.: A senha deveria conter pelo menos 24 caráteres.
+OAuth 2.0 Authentication: Autorização OAuth 2.0
+copy: copiar
+
+Schedule: Agenda
+Schedules: Agenda
+Create New Schedule: Crie uma nova agenda
+No future executions - schedule disabled: Falta de execuções planeadas – agenda ligada
+Enable schedule: Ligue a agenda
+Schedule cannot be enabled: Falha ao ativar a agenda
+Disable schedule: Desligue a agenda
+Edit schedule: Edite a agenda
+Delete schedule: Suprima a agenda
+Executions: Execuções
+Action: Ação
+Subject: Sujeito
+Mode: Modo
+Schedule has been deleted: A agenda foi suprimida
+Schedule mode: Modo de agenda
+Your timezone: O seu fuso horário
+Choose your timezone: Selecione o seu fuso horário
+change: zlterar
+When: Quando
+Start date: Data de início
+Start hour: Hora de início
+End date: Data de término
+End hour: Hora de término
+calculating the next available executions: a calcular as próximas execuções
+The next available executions: Próximas execuções
+choose the channel: selecione um canal
+Add: Juntar
+Date: Data
+Hour: Hora
+Interval: Intervalo
+Every: Cada
+minutes: minutos
+Hours: Horas
+Minute: Minuto
+Days: Dias
+Are you sure you want to delete this schedule?: Deseja mesmo suprimir esta agenda?
+Next run date: Próxima execução
+The latest execution: Última execução
+
+Mondays: Segundas
+Tuesdays: Terças
+Wednesdays: Quartas
+Thursdays: Quintas
+Fridays: Sextas
+Saturdays: Sábados
+Sundays: Domingos
+
+once: Pontual
+minutely: Ciclo de minutos
+hourly: Ciclo horário
+daily: Ciclo diário
+
+Close: Fechar
+Open: Abrir
+Adjust parameters: Configurar parâmetros
+Brightness: Clareza
+Color brightness: Clareza da cor
+Color: Cor
+Random: Randômico
+Off: Desligar
+On: Ligar
+Shut: Esconder
+Reveal: Revelar
+Reveal partially: Revelar parcialmente
+
+Successful: Sucedido
+Device unavailable: Dispositivo indisponível
+Sensor disconnected: Falta do sensor
+Server unreachable: Servidor indisponível
+Failed: Falhado
+Failed (zombie): Falhado (zombie)
+Cancelled: Anulado
+Expired: Vencido
+Processing: Em curso
+The gate sensor must function properly in order to execute the scheduled action.: Para executar uma ação o sensor da abertura do portão tem de funcionar corretamente.
+
+You will be logged out shortly: Será desligado dentro de um momento
+If you want to stay here, do something!: Se quiser ficar aqui, faça alguma coisa!
+
+Chosen hour: Hora selecionada
+before: antes
+after: após
+sunrise-before: nascer do sol
+sunset-before: pôr-do-sol
+sunrise-after: nascer do sol
+sunset-after: pôr-do-sol
+Sunrise / Sunset: Nascer do sol / Pôr-do-sol
+
+The device is disabled: O dispositivo está desligado
+Existing schedules: Agendas existentes
+Turning this device off will result in disabling all the associated schedules.: Desligar este dispositivo fará com que as agendas associadas fiquem desligadas igualmente.
+Are you sure you want to disable this device?: Deseja mesmo desligar o dispositivo?
+If you change the function of the channel, the following schedules will be removed: Se alterar a função deste canal, as agendas associadas serão suprimidas
+Please select the schedules that should also be enabled.: Marque as agendas que também deveriam ser ligadas.
+You have no devices that can be added to the schedule: Não tem nenhuns dispositivos para juntar à agenda
+You will be redirected back to the schedules list now.: Será emcaminhado para a lista de agendas
+
+Choose: Selecione
+White: Branco
