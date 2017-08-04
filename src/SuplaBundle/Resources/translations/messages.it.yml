@@ -1,7 +1,7 @@
 # src/SuplaBundle/Resources/translations/messages.it.yml
 
 Hi: Ciao
-Delete: Cancella
+Delete: Elimina
 Caption: Titolo
 Enabled: Abilitato
 Disabled: Disabilitato
@@ -18,7 +18,7 @@ Forgot your password?: Hai dimenticato la password?
 Server address: Indirizzo del server
 Cancel: Annulla 
 CANCEL: ANNULLA
-Are you sure you want to delete?: Sei sicuro di voler cancellare?
+Are you sure you want to delete?: Sei sicuro di voler eliminare?
 Relay switching time: Tempo di commutazione<br /> del relè
 Full opening time: Tempo totale di apertura 
 Full closing time: Tempo totale di chiusura
@@ -70,7 +70,7 @@ ENABLED: ABILITATO
 CLICK TO DISABLE: CLICCA PER DISABILITARE 
 DISABLED: DISABILITATO 
 CLICK TO ENABLE: CLICCA PER ABILITARE 
-DELETE: CANCELLA
+DELETE: ELIMINA
 Assign Locations: Assegna le Localizzazioni
 Confirm if you want to remove Access Identifier: Conferma se vuoi rimuovere l’Identificatore dell’Accesso
 Confirm if you want to remove Location: Conferma se vuoi rimuovere la Localizzazione
