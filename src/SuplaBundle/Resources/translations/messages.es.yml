@@ -2,7 +2,7 @@
 
 Hi: Hola
 Delete: Eliminar
-Caption: Firma
+Caption: Título
 Enabled: Activado
 Disabled: Desactivado
 Search: Buscar
@@ -174,7 +174,7 @@ Unknown error: Error desconocido
 Token does not exist: Token no existe
 Access identifier has been enabled: Se ha activado el Identificador de Acceso
 Access identifier has been disabled: Se ha desactivado el Identificador de Acceso
-Caption has been changed: Se ha cambiado la firma
+Caption has been changed: Se ha cambiado la título
 Password has been changed: Se ha cambiado la contraseña
 Location has been enabled: Se ha activado la localización
 Location has been disabled: Se ha desactivado la localización
