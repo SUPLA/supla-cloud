@@ -2,9 +2,11 @@ import Vue from "vue";
 import Vuex from "vuex";
 import ScheduleForm from "./schedule-form.vue";
 import {actions, mutations} from "./schedule-form-store";
+import {i18n} from "../../translations";
 
 new Vue({
     el: '#schedule-form',
+    i18n,
     store: new Vuex.Store({
         state: {
             caption: '',

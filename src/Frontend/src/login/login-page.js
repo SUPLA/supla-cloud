@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import LoginForm from "./login-form.vue";
 import SuplaDevicesSplash from "./supla-devices-splash.vue";
 import RemindPassword from "./remind-password.vue";
+import {i18n} from "../translations";
 
 Vue.use(VueRouter);
 
@@ -16,5 +17,6 @@ const router = new VueRouter({routes});
 
 new Vue({
     router: router,
+    i18n,
     template: '<transition name="fade"><router-view></router-view></transition>'
 }).$mount('#login-page');

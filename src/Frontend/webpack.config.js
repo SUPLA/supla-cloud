@@ -1,13 +1,13 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
-var entries = {
+const entries = {
     'iodevice-details': './src/iodevice-details/iodevice-details.js',
     'login-page': './src/login/login-page.js',
     'schedule-form': './src/schedules/schedule-form/schedule-form.js',
     'schedule-list': './src/schedules/schedule-list/schedule-list.js',
     'user-account': './src/user-account/user-account.js',
-    'commons': './src/common.js'
+    'commons': './src/common.js',
 };
 
 module.exports = {
