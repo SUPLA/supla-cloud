@@ -12,7 +12,7 @@ const entries = {
 };
 
 glob.sync('../SuplaBundle/Resources/translations/messages.*.yml').forEach(translation => {
-    const basename = path.basename(translation, '.yml');
+    const basename = path.basename(translation, '.yml').replace('.', '-');
     entries[`translations/${basename}`] = 'expose-loader?SUPLA_TRANSLATIONS!json-loader!yaml-loader!' + translation;
 });
 
