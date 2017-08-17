@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const glob = require('glob');
 
 const entries = {
     'iodevice-details': './src/iodevice-details/iodevice-details.js',
@@ -9,6 +10,11 @@ const entries = {
     'user-account': './src/user-account/user-account.js',
     'commons': './src/common.js',
 };
+
+glob.sync('../SuplaBundle/Resources/translations/messages.*.yml').forEach(translation => {
+    const basename = path.basename(translation, '.yml');
+    entries[`translations/${basename}`] = 'expose-loader?SUPLA_TRANSLATIONS!json-loader!yaml-loader!' + translation;
+});
 
 module.exports = {
     entry: entries,

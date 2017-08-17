@@ -24,7 +24,7 @@
             };
         },
         mounted() {
-            this.locale = Vue.config.lang;
+            this.locale = Vue.config.external.locale;
         },
         methods: {
             updateLocale() {

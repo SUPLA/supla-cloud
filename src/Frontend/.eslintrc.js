@@ -8,6 +8,7 @@ module.exports = {
     "globals": {
         $: true,
         moment: true,
+        SUPLA_TRANSLATIONS: true,
     },
     "parserOptions": {
         "sourceType": "module",
