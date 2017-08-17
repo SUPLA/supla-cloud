@@ -26,7 +26,7 @@
                     <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
                 </span>
                 <span v-if="possibleAction == 80 && action == possibleAction">
-                    <rgbw-parameters-setter v-model="actionParam"></rgbw-parameters-setter>
+                    <rgbw-parameters-setter v-model="actionParam" :channel-function="chosenChannel.function"></rgbw-parameters-setter>
                 </span>
             </div>
         </div>
@@ -90,7 +90,7 @@
                 },
                 set(channel) {
                     this.$store.commit('updateChannel', channel);
-                    if (this.channelFunctionMap[channel].length == 1) {
+                    if (channel && this.channelFunctionMap[channel].length == 1) {
                         this.action = this.channelFunctionMap[channel][0];
                     }
                 }
