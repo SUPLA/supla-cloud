@@ -34,7 +34,8 @@ class WebpackAssetVersionStrategy implements VersionStrategyInterface {
     }
 
     private function getFilenameWithHash($path) {
-        $filename = basename($path, '.js');
-        return $this->hashes[$filename] ?? $filename . '.js';
+        preg_match('#.*assets/dist/(.+)\.js$#', $path, $match);
+        $filename = $match[1] ?? $path;
+        return basename($this->hashes[$filename]) ?? $path;
     }
 }
