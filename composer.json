@@ -60,9 +60,10 @@
     "test": [
       "phpunit -c app"
     ],
-    "phpcs": [
+    "lint": [
       "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml",
-      "phpcs src/SuplaApiBundle --standard=app/phpcs-rules.xml"
+      "phpcs src/SuplaApiBundle --standard=app/phpcs-rules.xml",
+      "cd src/Frontend && npm run lint -s"
     ],
     "phpcbf": [
       "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml",
