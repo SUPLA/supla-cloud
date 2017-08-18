@@ -71,11 +71,8 @@ class ApiChannelController extends RestController {
         }
 
         if ($authorize === true) {
-            if (true !== $this->suplaServer->oauthAuthorize(
-                    $userid,
-                    $this->container->get('security.token_storage')->getToken()->getToken()
-                )
-            ) {
+            $token = $this->container->get('security.token_storage')->getToken()->getToken();
+            if (true !== $this->suplaServer->oauthAuthorize($userid, $token)) {
                 throw new HttpException(Response::HTTP_UNAUTHORIZED);
             }
         }
