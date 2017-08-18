@@ -20,9 +20,9 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -154,6 +154,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $accessids;
 
     /**
+     * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="user", cascade={"persist"})
+     **/
+    private $clientApps;
+
+    /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"})
      **/
     private $locations;
@@ -188,6 +193,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
         $this->schedules = new ArrayCollection();
+        $this->clientApps = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
@@ -402,6 +408,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function getAccessIDS() {
         return $this->accessids;
+    }
+
+    /** @return Collection|ClientApp[] */
+    public function getClientApps() {
+        return $this->clientApps;
     }
 
     public function getLocations() {

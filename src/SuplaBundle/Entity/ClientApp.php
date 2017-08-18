@@ -47,6 +47,12 @@ class ClientApp {
     private $accessId;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="clientApps")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     */
+    private $user;
+
+    /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
      */
