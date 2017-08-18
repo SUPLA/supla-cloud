@@ -1,25 +1,4 @@
-_serverapi:
-  type:     rest
-  prefix:   /api
-  resource: "@SuplaApiBundle/Controller/ServerController.php"
-
-_locationapi:
-  type:     rest
-  prefix:   /api
-  resource: "@SuplaApiBundle/Controller/LocationController.php"
-
-_accessidapi:
-  type:     rest
-  prefix:   /api
-  resource: "@SuplaApiBundle/Controller/AccessIDController.php"
-
-_iodeviceapi:
-  type:     rest
-  prefix:   /api
-  resource: "@SuplaApiBundle/Controller/IODeviceController.php"
-
-_channelapi:
-  type:     rest
-  prefix:   /api
-  resource: "@SuplaApiBundle/Controller/ChannelController.php"
-
+supla_api:
+  type: rest
+  prefix: /api
+  resource: "@SuplaApiBundle/Controller"
