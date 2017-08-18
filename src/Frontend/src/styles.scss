@@ -90,3 +90,66 @@ input[type=text], input[type=password], input[type=email] {
 {
   opacity: 0
 }
+
+nav.navbar-top {
+  &, .navbar-header {
+    min-height: 80px;
+    background: white;
+  }
+  .navbar-brand {
+    padding-top: 20px;
+    width: 160px;
+    font-size: 2em;
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+    svg {
+      max-width: 45px;
+      vertical-align: middle;
+    }
+  }
+  .nav > li > a {
+    text-align: center;
+    i {
+      font-size: 2em;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 10px;
+    }
+  }
+  .account-dropdown {
+    .dropdown-menu {
+      border-top-left-radius: 4px;
+    }
+    &, a {
+      text-align: center;
+    }
+    .username {
+      display: block;
+      text-align: center;
+      font-size: 1.3em;
+      font-family: 'Quicksand', sans-serif;
+    }
+    .flags {
+      text-align: center;
+      a {
+        display: inline-block;
+        padding: 3px;
+      }
+      img {
+        display: block;
+        width: 36px;
+        height: 36px;
+        border: solid 2px #E3E4E5;
+        border-radius: 100%;
+        transition: all .2s ease-in-out;
+      }
+    }
+    .btn-group {
+      margin: 0;
+      padding: 0;
+      .btn {
+        border: 0;
+      }
+    }
+  }
+}
