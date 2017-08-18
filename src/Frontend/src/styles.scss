@@ -14,6 +14,7 @@ h1 {
 a {
   color: #00D151;
   transition: all .3s;
+  cursor: pointer;
   &:active, &:focus, &:hover {
     text-decoration: none;
     color: #606060;

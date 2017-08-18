@@ -36,5 +36,4 @@ class ClientAppController extends AbstractController {
             return [];
         }
     }
-
 }

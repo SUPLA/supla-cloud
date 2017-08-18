@@ -1,6 +1,16 @@
 {% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
 {% block content %}
     <div class="container">
-        <h1>Aplikacje klienckie</h1>
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="pull-left">
+                    {% trans %}Client apps{% endtrans %}
+                </h1>
+            </div>
+        </div>
+        <div id="client-apps"></div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('assets/dist/client-apps.js', 'webpack') }}"></script>
 {% endblock %}

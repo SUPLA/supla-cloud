@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const glob = require('glob');
 
 const entries = {
+    'client-apps': './src/client-apps/client-apps.js',
     'iodevice-details': './src/iodevice-details/iodevice-details.js',
     'login-page': './src/login/login-page.js',
     'schedule-form': './src/schedules/schedule-form/schedule-form.js',
