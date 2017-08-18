@@ -1,11 +1,8 @@
 <template>
     <div>
-        <div class="progress"
+        <div class="text-center"
             v-if="fetchingNextRunDates">
-            <div class="progress-bar progress-bar-info progress-bar-striped active"
-                style="width: 100%">
-                {{ $t('calculating the next available executions') }}...
-            </div>
+            <button-loading-dots></button-loading-dots>
         </div>
         <div class="forum-group"
             v-if="nextRunDates.length > 0"
@@ -27,9 +24,11 @@
 <script type="text/babel">
     import {mapState} from "vuex";
     import moment from "moment";
+    import ButtonLoadingDots from "../../common/button-loading-dots.vue";
 
     export default {
         name: 'next-run-dates-preview',
+        components: {ButtonLoadingDots},
         computed: {
             humanizedNextRunDates() {
                 return this.nextRunDates.map(function (dateString) {

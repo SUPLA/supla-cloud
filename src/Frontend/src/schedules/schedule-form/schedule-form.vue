@@ -1,11 +1,7 @@
 <template>
     <div>
-        <div class="progress"
-            v-if="scheduleId && !channel">
-            <div class="progress-bar progress-bar-success progress-bar-striped active"
-                style="width: 100%"></div>
-        </div>
-        <div v-if="!scheduleId || channel">
+        <loading-dots v-if="scheduleId && !channel"></loading-dots>
+        <div v-else>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
@@ -79,6 +75,7 @@
     import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue";
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
     import ButtonLoading from "../../common/button-loading.vue";
+    import LoadingDots from "../../common/loader-dots.vue";
     import {mapState, mapActions} from "vuex";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
@@ -112,7 +109,8 @@
             NextRunDatesPreview,
             ScheduleFormActionChooser,
             ScheduleFormStartEndDate,
-            ButtonLoading
+            ButtonLoading,
+            LoadingDots
         },
         methods: mapActions(['submit', 'loadScheduleToEdit'])
     };

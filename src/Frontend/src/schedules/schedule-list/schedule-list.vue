@@ -3,10 +3,7 @@
         <div class="col-xs-12">
             <div :class="['schedule-list-wrapper', {loading: loading}]">
                 <div class="loader">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success progress-bar-striped active"
-                            style="width: 100%"></div>
-                    </div>
+                    <loading-dots></loading-dots>
                 </div>
                 <vuetable
                     api-url="schedule/"
@@ -23,8 +20,10 @@
 
 <script type="text/babel">
     import {withBaseUrl} from "../../common/filters";
+    import LoadingDots from "../../common/loader-dots.vue";
     export default {
         name: 'schedule-list',
+        components: {LoadingDots},
         data() {
             return {
                 loading: false,
