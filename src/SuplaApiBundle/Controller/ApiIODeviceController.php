@@ -106,7 +106,7 @@ class ApiIODeviceController extends RestController {
         
         if ($iodevice->getEnabled()) {
             $enabled = true;
-            $cids = (new SuplaServerReal())->iodevice_connected($this->getParentUser()->getId(), [$devid]);
+            $cids = (new SuplaServerReal())->checkDevicesConnection($this->getParentUser()->getId(), [$devid]);
             $connected = in_array($devid, $cids);
         }
 

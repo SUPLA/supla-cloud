@@ -65,7 +65,7 @@ class ApiChannelController extends RestController {
             if ($channel->getIoDevice()->getEnabled()) {
                 $enabled = true;
 
-                $cids = $this->getServerCtrl()->iodevice_connected($userid, [$devid]);
+                $cids = $this->getServerCtrl()->checkDevicesConnection($userid, [$devid]);
                 $connected = in_array($devid, $cids);
             }
 
@@ -75,7 +75,7 @@ class ApiChannelController extends RestController {
         }
 
         if ($authorize === true) {
-            if (true !== $this->getServerCtrl()->oauth_authorize(
+            if (true !== $this->getServerCtrl()->oauthAuthorize(
                 $userid,
                 $this->container->get('security.token_storage')->getToken()->getToken()
             )
@@ -214,7 +214,7 @@ class ApiChannelController extends RestController {
         if ($channel->getIoDevice()->getEnabled()) {
             $enabled = true;
 
-            $cids = $this->getServerCtrl()->iodevice_connected($userid, [$devid]);
+            $cids = $this->getServerCtrl()->checkDevicesConnection($userid, [$devid]);
             $connected = in_array($devid, $cids);
         }
 
@@ -228,7 +228,7 @@ class ApiChannelController extends RestController {
             switch ($func) {
                 case SuplaConst::FNC_POWERSWITCH:
                 case SuplaConst::FNC_LIGHTSWITCH:
-                    $value = $this->getServerCtrl()->get_char_value($userid, $devid, $channelid);
+                    $value = $this->getServerCtrl()->getCharValue($userid, $devid, $channelid);
                     $result['on'] = $value == '1' ? true : false;
 
                     break;
@@ -239,7 +239,7 @@ class ApiChannelController extends RestController {
                 case SuplaConst::FNC_NOLIQUIDSENSOR:
                 case SuplaConst::FNC_OPENINGSENSOR_DOOR:
                 case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
-                    $value = $this->getServerCtrl()->get_char_value($userid, $devid, $channelid);
+                    $value = $this->getServerCtrl()->getCharValue($userid, $devid, $channelid);
                     $result['hi'] = $value == '1' ? true : false;
 
                     break;
@@ -250,7 +250,7 @@ class ApiChannelController extends RestController {
                     if ($func == SuplaConst::FNC_THERMOMETER
                         || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
                     ) {
-                        $value = $this->getServerCtrl()->get_temperature_value($userid, $devid, $channelid);
+                        $value = $this->getServerCtrl()->getTemperatureValue($userid, $devid, $channelid);
 
                         if ($value !== false) {
                             $result['temperature'] = $value;
@@ -260,7 +260,7 @@ class ApiChannelController extends RestController {
                     if ($func == SuplaConst::FNC_HUMIDITY
                         || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
                     ) {
-                        $value = $this->getServerCtrl()->get_humidity_value($userid, $devid, $channelid);
+                        $value = $this->getServerCtrl()->getHumidityValue($userid, $devid, $channelid);
 
                         if ($value !== false) {
                             $result['humidity'] = $value;
@@ -272,7 +272,7 @@ class ApiChannelController extends RestController {
                 case SuplaConst::FNC_DIMMER:
                 case SuplaConst::FNC_RGBLIGHTING:
                 case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-                    $value = $this->getServerCtrl()->get_rgbw_value($userid, $devid, $channelid);
+                    $value = $this->getServerCtrl()->getRgbwValue($userid, $devid, $channelid);
 
                     if ($value !== false) {
                         if ($func == SuplaConst::FNC_RGBLIGHTING
@@ -292,7 +292,7 @@ class ApiChannelController extends RestController {
                     break;
 
                 case SuplaConst::FNC_DISTANCESENSOR:
-                    $value = $this->getServerCtrl()->get_distance_value($userid, $devid, $channelid);
+                    $value = $this->getServerCtrl()->getDistanceValue($userid, $devid, $channelid);
 
                     if ($value !== false) {
                         $result['distance'] = $value;
@@ -356,7 +356,7 @@ class ApiChannelController extends RestController {
                     }
                 }
 
-                if (false === $this->getServerCtrl()->set_rgbw_value($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
+                if (false === $this->getServerCtrl()->setRgbwValue($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
                     throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
                 }
 
@@ -456,7 +456,7 @@ class ApiChannelController extends RestController {
                 break;
         }
 
-        if (false === $this->getServerCtrl()->set_char_value($userid, $devid, $channelid, $value)) {
+        if (false === $this->getServerCtrl()->setCharValue($userid, $devid, $channelid, $value)) {
             throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
