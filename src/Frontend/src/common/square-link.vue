@@ -1,5 +1,5 @@
 <template>
-    <div class="square-link">
+    <div class="square-link" @click="$emit('click')">
         <slot></slot>
     </div>
 </template>
@@ -17,6 +17,10 @@
         color: white;
         padding: 5px 10px;
         margin: 4px 5px 0 4px;
+        &.yellow {
+            background: #ffe836;
+            color: black;
+        }
         dl {
             margin-bottom: 0;
             dd, dt {
