@@ -1,7 +1,5 @@
 <?php
 /*
- src/SuplaBundle/Entity/ClientAPP.php
-
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -27,9 +25,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_client", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CLIENTAPP", columns={"id","guid"})})
- * @UniqueEntity(fields="id", message="ClientAPP already exists")
+ * @UniqueEntity(fields="id", message="ClientApp already exists")
  */
-class ClientAPP {
+class ClientApp {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")

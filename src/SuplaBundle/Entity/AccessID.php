@@ -66,7 +66,7 @@ class AccessID {
     private $locations;
 
     /**
-     * @ORM\OneToMany(targetEntity="ClientAPP", mappedBy="accessId")
+     * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="accessId")
      **/
     private $clientApps;
 
