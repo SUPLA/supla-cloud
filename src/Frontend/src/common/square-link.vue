@@ -14,7 +14,7 @@
         position: relative;
         display: block;
         background: #00D151;
-        min-height: 240px;
+        min-height: 260px;
         color: white;
         padding: 5px 10px;
         margin: 4px 5px 0 4px;

@@ -21,15 +21,15 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Form\Type\AssignType;
 use SuplaBundle\Supla\SuplaServerReal;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/aid")
  */
-class AccessIDController extends Controller {
+class AccessIDController extends AbstractController {
 
     private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
@@ -61,32 +61,36 @@ class AccessIDController extends Controller {
      * @Route("/", name="_aid_list")
      */
     public function listAction() {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $details = '';
+        /** @var User $user */
+        $user = $this->getUser();
 
-        $id = intval($this->get('session')->get('_aid_details_lastid'));
+        if ($this->expectsJsonResponse()) {
+            return $this->jsonResponse($user->getAccessIDS());
+        } else {
+            $details = '';
 
-        if ($this->getAccessIdById($id) === null
-            && $user->getAccessIDS()->count() > 0
-        ) {
-            $id = $user->getAccessIDS()->get($user->getAccessIDS()->count() - 1)->getId();
-        }
+            $id = intval($this->get('session')->get('_aid_details_lastid'));
 
-        if ($id !== null && $id !== 0) {
-            $details = $this->getAccessIdDetails($id);
-
-            if ($details === null) {
-                $details = '';
+            if ($this->getAccessIdById($id) === null && $user->getAccessIDS()->count() > 0) {
+                $id = $user->getAccessIDS()->get($user->getAccessIDS()->count() - 1)->getId();
             }
-        }
 
-        return $this->render(
-            'SuplaBundle:AccessID:aidlist.html.twig',
-            ['accessids' => $user->getAccessIds(),
-                'aid_selected' => $id === null ? 0 : $id,
-                'details' => $details,
-            ]
-        );
+            if ($id !== null && $id !== 0) {
+                $details = $this->getAccessIdDetails($id);
+
+                if ($details === null) {
+                    $details = '';
+                }
+            }
+
+            return $this->render(
+                'SuplaBundle:AccessID:aidlist.html.twig',
+                ['accessids' => $user->getAccessIds(),
+                    'aid_selected' => $id === null ? 0 : $id,
+                    'details' => $details,
+                ]
+            );
+        }
     }
 
     /**
@@ -101,7 +105,7 @@ class AccessIDController extends Controller {
         ) {
             $this->get('session')->getFlashBag()->add('error', [
                 'title' => 'Stop',
-                'message' => 'Access identifier limit has been exceeded'
+                'message' => 'Access identifier limit has been exceeded',
             ]);
         } else {
             $aid = $aid_man->createID($user);
@@ -112,7 +116,7 @@ class AccessIDController extends Controller {
                 $m->flush();
                 $this->get('session')->getFlashBag()->add('success', [
                     'title' => 'Success',
-                    'message' => 'New access identifier has been created'
+                    'message' => 'New access identifier has been created',
                 ]);
                 $this->get('session')->set('_aid_details_lastid', $aid->getId());
             } else {
@@ -202,7 +206,7 @@ class AccessIDController extends Controller {
                     if ($value == '1') {
                         $loc = $loc_man->locationById(intval($key));
                         if ($loc !== null
-                        && $locs->contains($loc) === false
+                            && $locs->contains($loc) === false
                         ) {
                             $loc->getAccessIds()->add($aid);
                         }

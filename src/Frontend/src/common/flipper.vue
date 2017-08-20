@@ -26,7 +26,7 @@
         }
         &, .front, .back {
             width: 100%;
-            height: 240px;
+            height: 260px;
         }
         .flipper {
             transition: 0.6s;

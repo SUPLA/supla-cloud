@@ -5,7 +5,7 @@
             <div class="col-lg-4 col-md-6 col"
                 v-for="app in clientApps">
                 <flipper :flipped="app.editing">
-                    <square-link class="clearfix"
+                    <square-link class="clearfix pointer"
                         slot="front"
                         @click="app.editing = true">
                         <h3>{{app.name}}</h3>
@@ -31,32 +31,46 @@
                     </square-link>
                     <square-link class="yellow"
                         slot="back">
-                        <div class="form-group">
-                            <label>Nazwa</label>
-                            <input type="text"
-                                class="form-control"
-                                v-model="app.name">
-                        </div>
+                        <form @submit.prevent="updateClientApp(app)">
+                            <div class="form-group">
+                                <label>Nazwa</label>
+                                <input type="text"
+                                    class="form-control"
+                                    v-model="app.name">
+                            </div>
 
-                        <div class="form-group">
-                            <label>Identyfikator dostępu</label>
-                            <select class="form-control"></select>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"
-                                    v-model="app.enabled">
-                                Aktywne?</label>
-                        </div>
-                        <div class="form-group text-right">
-                            <button class="btn btn-danger btn-sm pull-left">Usuń</button>
-                            <button class="btn btn-default btn-sm"
-                                @click="app.editing = false">Anuluj
-                            </button>
-                            <button class="btn btn-green btn-sm"
-                                @click="app.editing = false">OK
-                            </button>
-                        </div>
+                            <div class="form-group">
+                                <label>Identyfikator dostępu</label>
+                                <select class="form-control"
+                                    v-model="app.accessId.id">
+                                    <option v-for="accessId in accessIds"
+                                        :value="accessId.id">{{ accessId.caption }}
+                                    </option>
+                                </select>
+                            </div>
+                            <switches v-model="app.enabled"
+                                type-bold="true"
+                                color="green"
+                                emit-on-mount="false"
+                                :text-enabled="$t('Enabled')"
+                                :text-disabled="$t('Disabled')"></switches>
+                            <div class="form-group text-right">
+                                <button type="button"
+                                    :disabled="saving"
+                                    class="btn btn-danger btn-sm pull-left">Usuń
+                                </button>
+                                <button type="button"
+                                    :disabled="saving"
+                                    class="btn btn-default btn-sm"
+                                    @click="app.editing = false">Anuluj
+                                </button>
+                                <button class="btn btn-green btn-sm"
+                                    :disabled="saving">
+                                    <button-loading-dots v-if="saving"></button-loading-dots>
+                                    <span v-else>OK</span>
+                                </button>
+                            </div>
+                        </form>
                     </square-link>
                 </flipper>
             </div>
@@ -76,12 +90,16 @@
     import LoaderDots from "../common/loader-dots.vue";
     import SquareLink from "../common/square-link.vue";
     import Flipper from "../common/flipper.vue";
+    import ButtonLoadingDots from "../common/button-loading-dots.vue";
+    import Switches from "vue-switches";
 
     export default {
-        components: {LoaderDots, SquareLink, Flipper},
+        components: {LoaderDots, SquareLink, Flipper, Switches, ButtonLoadingDots},
         data() {
             return {
                 clientApps: undefined,
+                accessIds: undefined,
+                saving: false,
             };
         },
         mounted() {
@@ -89,6 +107,14 @@
                 body.forEach((app) => app.editing = false);
                 this.clientApps = body;
             });
+            this.$http.get('aid').then(({body}) => {
+                this.accessIds = body;
+            });
+        },
+        methods: {
+            updateClientApp(app) {
+                this.saving = true;
+            }
         }
     };
 </script>
