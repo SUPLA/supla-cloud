@@ -24,7 +24,7 @@
                         <div class="separator"></div>
                         <dl>
                             <dd>Identyfikator dostępu</dd>
-                            <dt>{{ app.accessId.caption }} </dt>
+                            <dt>{{ app.accessId.caption }}</dt>
                         </dl>
                         <span class="label square-link-label"
                             :class="app.enabled ? 'label-success' : 'label-danger'">{{ app.enabled ? 'Aktywne' : 'Nieaktywne' }}</span>

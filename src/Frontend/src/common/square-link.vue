@@ -1,5 +1,6 @@
 <template>
-    <div class="square-link" @click="$emit('click')">
+    <div class="square-link"
+        @click="$emit('click')">
         <slot></slot>
     </div>
 </template>
@@ -17,6 +18,11 @@
         color: white;
         padding: 5px 10px;
         margin: 4px 5px 0 4px;
+        h3, h4 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         &.yellow {
             background: #ffe836;
             color: black;
