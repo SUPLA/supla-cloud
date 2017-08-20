@@ -2,7 +2,7 @@
     <div>
         <div v-if="this.clientApps"
             class="row">
-            <div class="col-lg-4 col"
+            <div class="col-lg-4 col-md-6 col"
                 v-for="app in clientApps">
                 <flipper :flipped="app.editing">
                     <square-link class="clearfix"
@@ -11,9 +11,13 @@
                         <h3>{{app.name}}</h3>
                         <dl>
                             <dd>Zarejestrowano</dd>
-                            <dt>{{ app.regDate | moment("LLL") }} z adresu {{ app.regIpv4 | intToIp }}</dt>
+                            <dt>{{ app.regDate | moment("LLL") }}</dt>
+                            <dd style="padding-left: 48px">z adresu</dd>
+                            <dt>{{ app.regIpv4 | intToIp }}</dt>
                             <dd>Ostatnia aktywność</dd>
-                            <dt>{{ app.lastAccessDate | moment("LLL") }} z adresu {{ app.lastAccessIpv4 | intToIp }}</dt>
+                            <dt>{{ app.lastAccessDate | moment("LLL") }}</dt>
+                            <dd style="padding-left: 73px">z adresu</dd>
+                            <dt>{{ app.lastAccessIpv4 | intToIp}}</dt>
                             <dd>Wersja oprogramowania / protokołu</dd>
                             <dt>{{ app.softwareVersion }} / {{ app.protocolVersion }} </dt>
                         </dl>
@@ -22,7 +26,8 @@
                             <dd>Identyfikator dostępu</dd>
                             <dt>{{ app.accessId.caption }} </dt>
                         </dl>
-                        <span class="badge pull-right">{{ app.enabled ? 'Aktywne' : 'Nieaktywne' }}</span>
+                        <span class="label square-link-label"
+                            :class="app.enabled ? 'label-success' : 'label-danger'">{{ app.enabled ? 'Aktywne' : 'Nieaktywne' }}</span>
                     </square-link>
                     <square-link class="yellow"
                         slot="back">

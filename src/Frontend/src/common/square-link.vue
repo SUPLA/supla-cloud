@@ -36,6 +36,11 @@
             display: block;
             margin: 8px 0;
         }
+        .square-link-label {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
         /*&:hover, &:active, &.selected {
             margin-top: 0;
             box-shadow: 0 4px 3px rgba(0, 0, 0, .6);

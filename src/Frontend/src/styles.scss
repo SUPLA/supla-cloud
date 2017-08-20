@@ -154,3 +154,14 @@ nav.navbar-top {
     }
   }
 }
+
+.label {
+  font-family: 'Quicksand', sans-serif;
+  text-transform: uppercase;
+  font-size: .9em;
+  line-height: initial;
+  &.label-success {
+    background: #00D151;
+    border: 1px solid white;
+  }
+}
