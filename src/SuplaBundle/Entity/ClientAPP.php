@@ -93,5 +93,4 @@ class ClientAPP {
      * @ORM\Column(name="auth_key", type="string", length=64, nullable=true)
      */
     private $authKey;
-    
 }
