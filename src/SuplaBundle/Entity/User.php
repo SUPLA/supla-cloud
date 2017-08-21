@@ -167,6 +167,16 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"})
      **/
     private $schedules;
+    
+    /**
+     * @ORM\Column(name="iodevice_reg_enabled", type="datetime", nullable=true)
+     */
+    private $ioDeviceRegistrationEnabled;
+    
+    /**
+     * @ORM\Column(name="client_reg_enabled", type="datetime", nullable=true)
+     */
+    private $clientRegistrationEnabled;
 
     public function __construct() {
         $this->limitAid = 10;
