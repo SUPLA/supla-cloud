@@ -121,6 +121,11 @@ class IODevice {
      * @ORM\Column(name="protocol_version", type="integer", nullable=false)
      */
     private $protocolVersion;
+    
+    /**
+     * @ORM\Column(name="auth_key", type="string", length=64, nullable=true)
+     */
+    private $authKey;
 
     public function getEnabled() {
         return $this->enabled;
