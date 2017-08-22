@@ -14,7 +14,6 @@ Vue.use(VueI18N);
 Vue.use(VueResource);
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
-Vue.config.missingHandler = (lang, key) => key;
 Vue.http.options.root = Vue.config.external.baseUrl || '';
 
 moment.locale(Vue.config.external.locale);

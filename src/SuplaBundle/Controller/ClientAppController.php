@@ -25,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/client-apps")
@@ -66,6 +67,18 @@ class ClientAppController extends AbstractController {
             }
             $entityManager->persist($clientApp);
             return $this->jsonResponse($clientApp);
+        });
+    }
+
+    /**
+     * @Route("/{clientApp}")
+     * @Method("DELETE")
+     * @Security("user == clientApp.getUser()")
+     */
+    public function deleteAction(ClientApp $clientApp) {
+        return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {
+            $entityManager->remove($clientApp);
+            return new Response('', 204);
         });
     }
 }

@@ -4,7 +4,9 @@
             class="row">
             <div class="col-lg-4 col-md-6 col"
                 v-for="app in clientApps">
-                <client-app-tile :app="app" :access-ids="accessIds"></client-app-tile>
+                <client-app-tile :app="app"
+                    :access-ids="accessIds"
+                    @delete="removeClientFromList(app)"></client-app-tile>
             </div>
         </div>
         <loader-dots v-else></loader-dots>
@@ -38,6 +40,11 @@
             this.$http.get('aid').then(({body}) => {
                 this.accessIds = body;
             });
+        },
+        methods: {
+            removeClientFromList(app) {
+                this.clientApps.splice(this.clientApps.indexOf(app), 1);
+            }
         }
     };
 </script>
