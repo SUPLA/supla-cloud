@@ -58,6 +58,7 @@ class ClientApp {
     /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
+     * @Assert\NotBlank
      * @Groups({"basic", "flat"})
      */
     private $name;
@@ -117,12 +118,24 @@ class ClientApp {
         return $this->accessId;
     }
 
+    public function setAccessId(AccessID $accessId) {
+        $this->accessId = $accessId;
+    }
+
     public function getName(): string {
         return $this->name;
     }
 
+    public function setName(string $name) {
+        $this->name = $name;
+    }
+
     public function getEnabled(): bool {
         return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled) {
+        $this->enabled = $enabled;
     }
 
     public function getRegIpv4() {
@@ -147,5 +160,9 @@ class ClientApp {
 
     public function getProtocolVersion() {
         return $this->protocolVersion;
+    }
+
+    public function getUser(): User {
+        return $this->user;
     }
 }

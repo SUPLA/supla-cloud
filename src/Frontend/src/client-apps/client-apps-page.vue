@@ -1,78 +1,10 @@
 <template>
     <div>
-        <div v-if="this.clientApps"
+        <div v-if="clientApps"
             class="row">
             <div class="col-lg-4 col-md-6 col"
                 v-for="app in clientApps">
-                <flipper :flipped="app.editing">
-                    <square-link class="clearfix pointer"
-                        slot="front"
-                        @click="editApp(app)">
-                        <h3>{{app.name}}</h3>
-                        <dl>
-                            <dd>Zarejestrowano</dd>
-                            <dt>{{ app.regDate | moment("LLL") }}</dt>
-                            <dd style="padding-left: 48px">z adresu</dd>
-                            <dt>{{ app.regIpv4 | intToIp }}</dt>
-                            <dd>Ostatnia aktywność</dd>
-                            <dt>{{ app.lastAccessDate | moment("LLL") }}</dt>
-                            <dd style="padding-left: 73px">z adresu</dd>
-                            <dt>{{ app.lastAccessIpv4 | intToIp}}</dt>
-                            <dd>Wersja oprogramowania / protokołu</dd>
-                            <dt>{{ app.softwareVersion }} / {{ app.protocolVersion }} </dt>
-                        </dl>
-                        <div class="separator"></div>
-                        <dl>
-                            <dd>Identyfikator dostępu</dd>
-                            <dt>{{ app.accessId.caption }}</dt>
-                        </dl>
-                        <span class="label square-link-label"
-                            :class="app.enabled ? 'label-success' : 'label-danger'">{{ app.enabled ? 'Aktywne' : 'Nieaktywne' }}</span>
-                    </square-link>
-                    <square-link class="yellow"
-                        slot="back">
-                        <form @submit.prevent="updateClientApp(app)">
-                            <div class="form-group">
-                                <label>Nazwa</label>
-                                <input type="text"
-                                    class="form-control"
-                                    v-model="app.name">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Identyfikator dostępu</label>
-                                <select class="form-control"
-                                    v-model="app.accessId.id">
-                                    <option v-for="accessId in accessIds"
-                                        :value="accessId.id">{{ accessId.caption }}
-                                    </option>
-                                </select>
-                            </div>
-                            <switches v-model="app.enabled"
-                                type-bold="true"
-                                color="green"
-                                emit-on-mount="false"
-                                :text-enabled="$t('Enabled')"
-                                :text-disabled="$t('Disabled')"></switches>
-                            <div class="form-group text-right">
-                                <button type="button"
-                                    :disabled="saving"
-                                    class="btn btn-danger btn-sm pull-left">Usuń
-                                </button>
-                                <button type="button"
-                                    :disabled="saving"
-                                    class="btn btn-default btn-sm"
-                                    @click="cancelEdit(app)">Anuluj
-                                </button>
-                                <button class="btn btn-green btn-sm"
-                                    :disabled="saving">
-                                    <button-loading-dots v-if="saving"></button-loading-dots>
-                                    <span v-else>OK</span>
-                                </button>
-                            </div>
-                        </form>
-                    </square-link>
-                </flipper>
+                <client-app-tile :app="app" :access-ids="accessIds"></client-app-tile>
             </div>
         </div>
         <loader-dots v-else></loader-dots>
@@ -88,19 +20,14 @@
 
 <script>
     import LoaderDots from "../common/loader-dots.vue";
-    import SquareLink from "../common/square-link.vue";
-    import Flipper from "../common/flipper.vue";
-    import ButtonLoadingDots from "../common/button-loading-dots.vue";
-    import Switches from "vue-switches";
-    import Vue from "vue";
+    import ClientAppTile from "./client-app-tile.vue";
 
     export default {
-        components: {LoaderDots, SquareLink, Flipper, Switches, ButtonLoadingDots},
+        components: {LoaderDots, ClientAppTile},
         data() {
             return {
                 clientApps: undefined,
                 accessIds: undefined,
-                saving: false,
             };
         },
         mounted() {
@@ -111,20 +38,6 @@
             this.$http.get('aid').then(({body}) => {
                 this.accessIds = body;
             });
-        },
-        methods: {
-            editApp(app) {
-                app.previousData = Vue.util.extend({}, app);
-                app.editing = true;
-            },
-            cancelEdit(app) {
-                const previousData = app.previousData;
-                delete app.previousData;
-                Vue.util.extend(app, previousData);
-            },
-            updateClientApp(app) {
-                this.saving = true;
-            }
         }
     };
 </script>

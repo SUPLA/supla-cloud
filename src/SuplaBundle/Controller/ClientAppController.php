@@ -17,13 +17,21 @@
 
 namespace SuplaBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Model\Transactional;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/client-apps")
  */
 class ClientAppController extends AbstractController {
+    use Transactional;
+
     /**
      * @Route("/", methods={"GET"})
      * @Template
@@ -35,5 +43,29 @@ class ClientAppController extends AbstractController {
         } else {
             return [];
         }
+    }
+
+    /**
+     * @Route("/{clientApp}")
+     * @Method("PUT")
+     * @Security("user == clientApp.getUser()")
+     */
+    public function editAction(ClientApp $clientApp, Request $request) {
+        return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp, $request) {
+            $data = $request->request->all();
+            $clientApp->setName($data['name'] ?? '');
+            $clientApp->setEnabled($data['enabled'] ?? false);
+            $desiredAccessId = ($data['accessId'] ?? [])['id'] ?? 0;
+            if ($desiredAccessId && $clientApp->getAccessId()->getId() != $desiredAccessId) {
+                foreach ($this->getUser()->getAccessIDS() as $accessID) {
+                    if ($accessID->getId() == $desiredAccessId) {
+                        $clientApp->setAccessId($accessID);
+                        break;
+                    }
+                }
+            }
+            $entityManager->persist($clientApp);
+            return $this->jsonResponse($clientApp);
+        });
     }
 }
