@@ -125,7 +125,7 @@ class ClientApp {
         return $this->enabled;
     }
 
-    public function getRegIpv4(){
+    public function getRegIpv4() {
         return $this->regIpv4;
     }
 

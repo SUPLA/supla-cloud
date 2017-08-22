@@ -7,6 +7,8 @@ use Doctrine\DBAL\Schema\Schema;
 
 /**
  * Add user_id column to supla_client.
+ * Add auth_key to supla_client and supla_iodevice.
+ * Add iodevice_reg_enabled and client_reg_enabled to supla_user.
  */
 class Version20170818114139 extends AbstractMigration {
     public function up(Schema $schema) {
@@ -15,6 +17,9 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_client CHANGE COLUMN user_id user_id INT NOT NULL');
         $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007FA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id)');
         $this->addSql('CREATE INDEX IDX_5430007FA76ED395 ON supla_client (user_id)');
+        $this->addSql('ALTER TABLE supla_client ADD auth_key VARCHAR(64) DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_iodevice ADD auth_key VARCHAR(64) DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_user ADD iodevice_reg_enabled DATETIME DEFAULT NULL, ADD client_reg_enabled DATETIME DEFAULT NULL');
     }
 
     /**
@@ -24,5 +29,9 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007FA76ED395');
         $this->addSql('DROP INDEX IDX_5430007FA76ED395 ON supla_client');
         $this->addSql('ALTER TABLE supla_client DROP user_id');
+        $this->addSql('ALTER TABLE supla_client DROP auth_key');
+        $this->addSql('ALTER TABLE supla_iodevice DROP auth_key');
+        $this->addSql('ALTER TABLE supla_user DROP iodevice_reg_enabled');
+        $this->addSql('ALTER TABLE supla_user DROP client_reg_enabled');
     }
 }
