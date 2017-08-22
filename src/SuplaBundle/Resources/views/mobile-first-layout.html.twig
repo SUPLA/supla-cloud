@@ -40,6 +40,12 @@
                             {% trans %}I/O Devices{% endtrans %}
                         </a>
                     </li>
+                    <li {% if app.request.get('_route') == '_client_apps_list' or app.request.get('_route') == '_client_apps_list' %} class="active" {% endif %}>
+                        <a href="{{ path('_client_apps_list') }}">
+                            <i class="hidden-sm hidden-xs pe-7s-phone"></i>
+                            {% trans %}Client Apps{% endtrans %}
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route') == '_loc_list' %} class="active" {% endif %}>
                         <a href="{{ path('_loc_list') }}"><i class="hidden-sm hidden-xs pe-7s-home"></i>{% trans %}Locations{% endtrans %}
                         </a>

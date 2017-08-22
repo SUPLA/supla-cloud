@@ -120,6 +120,18 @@ nav.navbar-top {
       margin: 0 auto;
       margin-bottom: 10px;
     }
+    &:hover {
+      background: #e9fff2;
+    }
+  }
+  .nav > li.active > a {
+    background: #00D151;
+    border-bottom-color: #00D151;
+    color: white;
+    &:hover {
+      background: lighten(#00D151, 5%);
+      color: white;
+    }
   }
   .account-dropdown {
     .dropdown-menu {

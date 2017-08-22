@@ -34,7 +34,7 @@ class ClientAppController extends AbstractController {
     use Transactional;
 
     /**
-     * @Route("/", methods={"GET"})
+     * @Route("/", methods={"GET"}, name="_client_apps_list")
      * @Template
      */
     public function clientAppsListAction() {
