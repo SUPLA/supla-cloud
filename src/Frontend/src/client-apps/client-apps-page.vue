@@ -7,7 +7,7 @@
                 <flipper :flipped="app.editing">
                     <square-link class="clearfix pointer"
                         slot="front"
-                        @click="app.editing = true">
+                        @click="editApp(app)">
                         <h3>{{app.name}}</h3>
                         <dl>
                             <dd>Zarejestrowano</dd>
@@ -62,7 +62,7 @@
                                 <button type="button"
                                     :disabled="saving"
                                     class="btn btn-default btn-sm"
-                                    @click="app.editing = false">Anuluj
+                                    @click="cancelEdit(app)">Anuluj
                                 </button>
                                 <button class="btn btn-green btn-sm"
                                     :disabled="saving">
@@ -92,6 +92,7 @@
     import Flipper from "../common/flipper.vue";
     import ButtonLoadingDots from "../common/button-loading-dots.vue";
     import Switches from "vue-switches";
+    import Vue from "vue";
 
     export default {
         components: {LoaderDots, SquareLink, Flipper, Switches, ButtonLoadingDots},
@@ -112,6 +113,15 @@
             });
         },
         methods: {
+            editApp(app) {
+                app.previousData = Vue.util.extend({}, app);
+                app.editing = true;
+            },
+            cancelEdit(app) {
+                const previousData = app.previousData;
+                delete app.previousData;
+                Vue.util.extend(app, previousData);
+            },
             updateClientApp(app) {
                 this.saving = true;
             }
