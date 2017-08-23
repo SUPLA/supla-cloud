@@ -9,15 +9,42 @@
                 <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
             </div>
         </div>
+        <div class="container text-right">
+            <div class="btn-group btn-group-filters">
+                <button :class="'btn btn-black btn-outline ' + (enabledFilter === undefined ? 'active' : '')"
+                    @click="enabledFilter = undefined">Wszystko
+                </button>
+                <button :class="'btn btn-black btn-outline ' + (enabledFilter === true ? 'active' : '')"
+                    @click="enabledFilter = true">Włączone
+                </button>
+                <button :class="'btn btn-black btn-outline ' + (enabledFilter === false ? 'active' : '')"
+                    @click="enabledFilter = false">Wyłączone
+                </button>
+            </div>
+            <div class="btn-group btn-group-filters">
+                <button :class="'btn btn-black btn-outline ' + (sort == 'az' ? 'active' : '')"
+                    @click="sort = 'az'">A-Z
+                </button>
+                <button :class="'btn btn-black btn-outline ' + (sort == 'lastAccess' ? 'active' : '')"
+                    @click="sort = 'lastAccess'">Ostatnie połączenie
+                </button>
+            </div>
+            <div class="btn-group btn-group-filters">
+                <button class="btn btn-black btn-outline active">Wszystko</button>
+                <button class="btn btn-black btn-outline">Aktywne</button>
+                <button class="btn btn-black btn-outline">Bezczynne</button>
+            </div>
+        </div>
         <div class="container-fluid">
-            <div v-if="clientApps"
-                class="square-links-grid row">
-                <div v-for="app in clientApps" class="col-lg-3 col-md-4 col-sm-6">
+            <transition-group v-if="clientApps" name="square-links-grid" tag="div" class="row square-links-grid">
+                <div v-for="app in filteredClientApps"
+                    :key="app.id"
+                    class="col-lg-3 col-md-4 col-sm-6">
                     <client-app-tile :app="app"
                         :access-ids="accessIds"
                         @delete="removeClientFromList(app)"></client-app-tile>
                 </div>
-            </div>
+            </transition-group>
             <loader-dots v-else></loader-dots>
         </div>
     </div>
@@ -27,25 +54,26 @@
     .square-links-grid {
         > div {
             padding: 7px;
+            transition: all .3s ease-out;
         }
     }
-    /*.square-links-grid {*/
-        /*display: grid;*/
-        /*grid-column-gap: 10px;*/
-        /*grid-row-gap: 10px;*/
-        /*@media only screen and (min-width: 700px) {*/
-            /*grid-template-columns: repeat(2, 1fr);*/
-        /*}*/
-        /*@media only screen and (min-width: 1000px) {*/
-            /*grid-template-columns: repeat(3, 1fr);*/
-        /*}*/
-        /*@media only screen and (min-width: 1300px) {*/
-            /*grid-template-columns: repeat(4, 1fr);*/
-        /*}*/
-        /*@media only screen and (min-width: 1600px) {*/
-            /*grid-template-columns: repeat(5, 1fr);*/
-        /*}*/
-    /*}*/
+
+    .square-links-grid-enter, .square-links-grid-leave-to /* .list-leave-active below version 2.1.8 */ {
+        opacity: 0;
+        transform: scale(0.01);
+    }
+
+    .square-links-grid-leave-active {
+        position: absolute;
+    }
+
+    .btn-group-filters {
+        opacity: .6;
+        transition: opacity .2s;
+        &:hover {
+            opacity: 1;
+        }
+    }
 </style>
 
 
@@ -61,6 +89,8 @@
                 clientApps: undefined,
                 accessIds: undefined,
                 timer: null,
+                enabledFilter: undefined,
+                sort: 'az'
             };
         },
         mounted() {
@@ -77,6 +107,20 @@
                 this.accessIds = body;
             });
 
+        },
+        computed: {
+            filteredClientApps() {
+                let apps = this.clientApps;
+                if (this.enabledFilter !== undefined) {
+                    apps = apps.filter(app => app.enabled == this.enabledFilter);
+                }
+                if (this.sort == 'az') {
+                    apps = apps.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
+                } else if (this.sort == 'lastAccess') {
+                    apps = apps.sort((a1, a2) => moment(a1.lastAccessDate).isBefore(moment(a2.lastAccessDate)) ? 1 : -1);
+                }
+                return apps;
+            }
         },
         methods: {
             fetchConnectedClientApps() {
