@@ -36,7 +36,8 @@
             </div>
         </div>
         <div class="container-fluid">
-            <transition-group v-if="clientApps" name="square-links-grid" tag="div" class="row square-links-grid">
+            <square-links-grid v-if="clientApps"
+                class="row">
                 <div v-for="app in filteredClientApps"
                     :key="app.id"
                     class="col-lg-3 col-md-4 col-sm-6">
@@ -44,29 +45,13 @@
                         :access-ids="accessIds"
                         @delete="removeClientFromList(app)"></client-app-tile>
                 </div>
-            </transition-group>
+            </square-links-grid>
             <loader-dots v-else></loader-dots>
         </div>
     </div>
 </template>
 
 <style lang="scss">
-    .square-links-grid {
-        > div {
-            padding: 7px;
-            transition: all .3s ease-out;
-        }
-    }
-
-    .square-links-grid-enter, .square-links-grid-leave-to /* .list-leave-active below version 2.1.8 */ {
-        opacity: 0;
-        transform: scale(0.01);
-    }
-
-    .square-links-grid-leave-active {
-        position: absolute;
-    }
-
     .btn-group-filters {
         opacity: .6;
         transition: opacity .2s;
@@ -79,11 +64,12 @@
 
 <script>
     import LoaderDots from "../common/loader-dots.vue";
+    import SquareLinksGrid from "../common/square-links-grid.vue";
     import ClientAppTile from "./client-app-tile.vue";
     import ClientAppsRegistrationButton from "./client-apps-registration-button.vue";
 
     export default {
-        components: {LoaderDots, ClientAppTile, ClientAppsRegistrationButton},
+        components: {LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid},
         data() {
             return {
                 clientApps: undefined,
