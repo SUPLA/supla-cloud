@@ -3,12 +3,15 @@ body {
 }
 
 h1 {
-  font-family: 'Quicksand', sans-serif;
   font-size: 42px;
   line-height: 42px;
   font-weight: 300;
   text-transform: capitalize;
   letter-spacing: -3px;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Quicksand', sans-serif;
 }
 
 a {

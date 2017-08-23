@@ -33,6 +33,7 @@
         }
         dl {
             margin-bottom: 0;
+            font-size: .95em;
             dd, dt {
                 display: inline;
             }
