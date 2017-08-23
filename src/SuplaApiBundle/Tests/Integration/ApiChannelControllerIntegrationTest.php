@@ -24,7 +24,7 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingChannelInfo() {
-        $client = $this->createAuthenticatedClient($this->user);
+        $client = $this->createAuthenticatedApiClient($this->user);
         $client->enableProfiler();
         $channel = $this->device->getChannels()[0];
         $client->request('GET', '/api/channels/' . $channel->getId());
@@ -40,7 +40,7 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
      * @dataProvider changingChannelStateDataProvider
      */
     public function testChangingChannelState(int $deviceId, string $action, string $expectedCommand, array $additionalRequest = []) {
-        $client = $this->createAuthenticatedClient($this->user);
+        $client = $this->createAuthenticatedApiClient($this->user);
         $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
         $client->request('PATCH', '/api/channels/' . $deviceId, [], [], [], json_encode($request));
@@ -65,14 +65,14 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testTryingToExecuteActionInvalidForChannel() {
-        $client = $this->createAuthenticatedClient($this->user);
+        $client = $this->createAuthenticatedApiClient($this->user);
         $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'open'])));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }
 
     public function testTryingToExecuteInvalidAction() {
-        $client = $this->createAuthenticatedClient($this->user);
+        $client = $this->createAuthenticatedApiClient($this->user);
         $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'unicorn'])));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);

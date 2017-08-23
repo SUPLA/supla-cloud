@@ -27,7 +27,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingServerInfo() {
-        $client = $this->createAuthenticatedClient($this->user);
+        $client = $this->createAuthenticatedApiClient($this->user);
         $client->request('GET', '/api/server-info');
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
