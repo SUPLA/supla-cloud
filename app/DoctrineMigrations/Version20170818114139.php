@@ -23,6 +23,10 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007F4FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id) ON DELETE SET NULL');
         $this->addSql('ALTER TABLE supla_iodevice ADD auth_key VARCHAR(64) DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_user ADD iodevice_reg_enabled DATETIME DEFAULT NULL, ADD client_reg_enabled DATETIME DEFAULT NULL');
+        $this->addSql('DROP INDEX UNIQUE_CLIENTAPP ON supla_client');
+        $this->addSql('CREATE UNIQUE INDEX UNIQUE_CLIENTAPP ON supla_client (guid)');
+        $this->addSql('CREATE INDEX client_reg_enabled_idx ON supla_user (client_reg_enabled)');
+        $this->addSql('CREATE INDEX iodevice_reg_enabled_idx ON supla_user (iodevice_reg_enabled)');
     }
 
     /**
@@ -31,6 +35,8 @@ class Version20170818114139 extends AbstractMigration {
     public function down(Schema $schema) {
         $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007FA76ED395');
         $this->addSql('DROP INDEX IDX_5430007FA76ED395 ON supla_client');
+        $this->addSql('DROP INDEX client_reg_enabled_idx ON supla_user');
+        $this->addSql('DROP INDEX iodevice_reg_enabled_idx ON supla_user');
         $this->addSql('ALTER TABLE supla_client DROP user_id');
         $this->addSql('ALTER TABLE supla_client DROP auth_key');
         $this->addSql('ALTER TABLE supla_iodevice DROP auth_key');

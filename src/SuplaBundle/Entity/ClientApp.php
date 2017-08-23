@@ -18,15 +18,14 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_client", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CLIENTAPP", columns={"id","guid"})})
- * @UniqueEntity(fields="id", message="ClientApp already exists")
+ * @ORM\Table(name="supla_client", uniqueConstraints={@UniqueConstraint(name="UNIQUE_CLIENTAPP", columns={"guid"})})
  */
 class ClientApp {
     /**

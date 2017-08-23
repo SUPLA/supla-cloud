@@ -23,7 +23,6 @@ use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ScheduleAction;
 use SuplaBundle\Enums\ScheduleMode;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
 
@@ -34,7 +33,6 @@ use Symfony\Component\Validator\Constraints;
  *     @ORM\Index(name="enabled_idx", columns={"enabled"}),
  *     @ORM\Index(name="date_start_idx", columns={"date_start"})
  * })
- * @UniqueEntity(fields="id", message="IODevice already exists")
  */
 class Schedule {
     /**

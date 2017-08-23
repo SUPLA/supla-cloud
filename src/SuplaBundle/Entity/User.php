@@ -31,7 +31,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @UniqueEntity(fields="email", message="Email already exists")
- * @ORM\Table(name="supla_user")
+ * @ORM\Table(name="supla_user", indexes={
+ *     @ORM\Index(name="client_reg_enabled_idx", columns={"client_reg_enabled"}),
+ *     @ORM\Index(name="iodevice_reg_enabled_idx", columns={"iodevice_reg_enabled"})
+ * })
  */
 class User implements AdvancedUserInterface, EncoderAwareInterface {
     /**
