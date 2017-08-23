@@ -37,7 +37,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         return $output->fetch();
     }
 
-    protected function createAuthenticatedClient($username = 'supler@supla.org', $password = 'supla123'): Client {
+    protected function createAuthenticatedClient($username = 'supler@supla.org', string $password = 'supla123'): Client {
         $client = self::createClient([], [
             'PHP_AUTH_USER' => $username,
             'PHP_AUTH_PW' => $password,
