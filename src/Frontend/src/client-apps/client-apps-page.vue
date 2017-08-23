@@ -4,7 +4,8 @@
             <div class="pull-right">
                 <client-apps-registration-button></client-apps-registration-button>
             </div>
-            <h1>{{ $t('Client Apps') }}</h1>
+            <h1 class="no-margin-top">{{ $t('Client Apps') }}</h1>
+            <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
         </div>
         <div v-if="clientApps"
             class="row">
