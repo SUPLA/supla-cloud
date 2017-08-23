@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Supla;
 
+use SuplaBundle\Entity\ClientApp;
+
 abstract class SuplaServer {
     public function __destruct() {
         $this->disconnect();
@@ -58,6 +60,23 @@ abstract class SuplaServer {
         return $result;
     }
 
+    private function isClientAppConnected(ClientApp $clientApp): bool {
+        return !!(rand() % 2); // TODO
+    }
+
+    /**
+     * @param ClientApp[] $clientApps
+     * @return ClientApp[] connected client apps
+     */
+    public function getOnlyConnectedClientApps(array $clientApps): array {
+        if ($this->connect() !== false) {
+            return array_values(array_filter($clientApps, function (ClientApp $clientApp) {
+                return $this->isClientAppConnected($clientApp);
+            }));
+        }
+        return [];
+    }
+
     public function reconnect($userId) {
         $userId = intval($userId);
         if ($userId != 0 && $this->connect() !== false) {
@@ -65,6 +84,10 @@ abstract class SuplaServer {
             return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
         }
         return false;
+    }
+
+    public function clientReconnect(ClientApp $clientApp) {
+        return $this->reconnect($clientApp->getUser()->getId()); // TODO
     }
 
     private function getRawValue($type, $userId, $deviceId, $channelId) {

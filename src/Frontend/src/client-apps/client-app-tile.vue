@@ -22,8 +22,13 @@
                     <dd>Identyfikator dostępu</dd>
                     <dt>{{ app.accessId ? app.accessId.caption : 'brak' }}</dt>
                 </dl>
-                <span class="label square-link-label"
-                    :class="app.enabled ? 'label-success' : 'label-grey'">{{ app.enabled ? $t('Enabled') : $t('Disabled') }}</span>
+                <div class="square-link-label">
+                    <span class="label"
+                        v-if="app.connected != undefined"
+                        :class="app.connected ? 'label-success' : 'label-grey'">{{ app.connected ? $t('Active') : $t('Idle') }}</span>
+                    <span class="label"
+                        :class="app.enabled ? 'label-success' : 'label-grey'">{{ app.enabled ? $t('Enabled') : $t('Disabled') }}</span>
+                </div>
             </square-link>
             <square-link class="yellow"
                 slot="back">

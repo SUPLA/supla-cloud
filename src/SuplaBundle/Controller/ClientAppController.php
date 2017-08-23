@@ -39,9 +39,12 @@ class ClientAppController extends AbstractController {
      * @Route("/", methods={"GET"}, name="_client_apps_list")
      * @Template
      */
-    public function clientAppsListAction() {
+    public function clientAppsListAction(Request $request) {
         if ($this->expectsJsonResponse()) {
-            $clientApps = $this->getUser()->getClientApps();
+            $clientApps = $this->getUser()->getClientApps()->toArray();
+            if ($request->get('onlyConnected', false)) {
+                $clientApps = $this->suplaServer->getOnlyConnectedClientApps($clientApps);
+            }
             return $this->jsonResponse($clientApps);
         } else {
             return [];
@@ -75,7 +78,7 @@ class ClientAppController extends AbstractController {
             }
             $entityManager->persist($clientApp);
             if ($reloadClient) {
-                $this->suplaServer->reconnect($this->getUser()->getId());
+                $this->suplaServer->clientReconnect($clientApp);
             }
             return $this->jsonResponse($clientApp);
         });

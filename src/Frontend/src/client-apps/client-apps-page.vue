@@ -38,21 +38,37 @@
             return {
                 clientApps: undefined,
                 accessIds: undefined,
+                timer: null,
             };
         },
         mounted() {
             this.$http.get('client-apps').then(({body}) => {
-                body.forEach((app) => app.editing = false);
+                body.forEach(app => {
+                    app.editing = false;
+                    app.connected = undefined;
+                });
                 this.clientApps = body;
+                this.fetchConnectedClientApps();
+                this.timer = setInterval(this.fetchConnectedClientApps, 7000);
             });
             this.$http.get('aid').then(({body}) => {
                 this.accessIds = body;
             });
+
         },
         methods: {
+            fetchConnectedClientApps() {
+                this.$http.get('client-apps?onlyConnected=true').then(({body}) => {
+                    const connectedIds = body.map(app => app.id);
+                    this.clientApps.forEach(app => app.connected = connectedIds.indexOf(app.id) >= 0);
+                });
+            },
             removeClientFromList(app) {
                 this.clientApps.splice(this.clientApps.indexOf(app), 1);
             }
+        },
+        beforeDestroy() {
+            clearInterval(this.timer);
         }
     };
 </script>
