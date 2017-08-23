@@ -89,7 +89,7 @@ class ClientAppController extends AbstractController {
      * @Method("DELETE")
      * @Security("user == clientApp.getUser()")
      */
-    public function deleteAction(ClientApp $clientApp) {
+    public function deleteAction(ClientApp $clientApp): Response {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {
             $entityManager->remove($clientApp);
             return new Response('', 204);

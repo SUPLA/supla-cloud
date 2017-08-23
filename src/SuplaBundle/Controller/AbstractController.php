@@ -12,7 +12,8 @@ abstract class AbstractController extends Controller {
         return in_array('application/json', $request->getAcceptableContentTypes());
     }
 
-    protected function jsonResponse($responseData, $serializationGroups = 'basic', int $status = 200): JsonResponse {
+    /** @return JsonResponse */
+    protected function jsonResponse($responseData, $serializationGroups = 'basic', int $status = 200) {
         if (!is_array($serializationGroups)) {
             $serializationGroups = [$serializationGroups];
         }
