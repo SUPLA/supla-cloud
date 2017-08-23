@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div class="clearfix">
+            <div class="pull-right">
+                <client-apps-registration-button></client-apps-registration-button>
+            </div>
+            <h1>{{ $t('Client Apps') }}</h1>
+        </div>
         <div v-if="clientApps"
             class="row">
             <div class="col-lg-4 col-md-6 col"
@@ -23,9 +29,10 @@
 <script>
     import LoaderDots from "../common/loader-dots.vue";
     import ClientAppTile from "./client-app-tile.vue";
+    import ClientAppsRegistrationButton from "./client-apps-registration-button.vue";
 
     export default {
-        components: {LoaderDots, ClientAppTile},
+        components: {LoaderDots, ClientAppTile, ClientAppsRegistrationButton},
         data() {
             return {
                 clientApps: undefined,

@@ -1,6 +1,8 @@
 <?php
+
 namespace SuplaBundle\Controller;
 
+use SuplaBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -23,4 +25,10 @@ abstract class AbstractController extends Controller {
         $response->headers->addCacheControlDirective('no-store', true);
         return $response;
     }
+
+    /** @return User */
+    protected function getUser() {
+        return parent::getUser();
+    }
+
 }

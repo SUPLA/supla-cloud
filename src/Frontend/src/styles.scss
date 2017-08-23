@@ -23,6 +23,10 @@ a {
   }
 }
 
+* {
+  outline-color: lime !important;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -55,35 +59,51 @@ input[type=text], input[type=password], input[type=email] {
   border-radius: 0 !important;
 }
 
-.btn-green {
-  background: #15B133;
-  color: white;
-  border: 0 !important;
-  border-radius: 2px !important;
-  &:hover {
-    background: lighten(#15B133, 5%);
-    color: white !important;;
-  }
-}
-
-.btn-white {
-  background: white;
-  color: #15B133;
-  border: 1px solid #15B133 !important;
-  border-radius: 2px !important;
-  &:hover, &:focus, &:active {
-    background: #cffdcd;
-    color: #15B133 !important;
-  }
-}
-
-.btn-black {
-  background: black;
-  color: white;
-  border-radius: 2px !important;
-  &:hover {
-    background: #444;
+.btn {
+  &-green {
+    background: #15B133;
     color: white;
+    border: 1px #15B133 solid !important;
+    border-radius: 2px !important;
+    &:hover {
+      background: lighten(#15B133, 5%);
+      color: white !important;
+      .text-muted {
+        color: #EEE;
+      }
+    }
+  }
+  &-white {
+    background: white;
+    color: #15B133;
+    border: 1px solid #15B133 !important;
+    border-radius: 2px !important;
+    &:hover, &:focus, &:active {
+      background: #cffdcd;
+      color: #15B133 !important;
+    }
+  }
+  &-black {
+    background: black;
+    color: white;
+    border-radius: 2px !important;
+    border: 1px solid black;
+    &:hover {
+      background: #444;
+      color: white;
+    }
+  }
+  &-outline {
+    background: transparent;
+    &.btn-green {
+      color: #15B133;
+    }
+    &.btn-black {
+      color: black;
+      &:hover {
+        color: white;
+      }
+    }
   }
 }
 
@@ -120,8 +140,8 @@ nav.navbar-top {
       margin: 0 auto;
       margin-bottom: 10px;
     }
-    &:hover {
-      background: #e9fff2;
+    &:hover, &:focus {
+      color: #00D151;
     }
   }
   .nav > li.active > a {
@@ -179,6 +199,9 @@ nav.navbar-top {
   &.label-success {
     background: #00D151;
     border: 1px solid white;
+  }
+  &.label-grey {
+    background: #333;
   }
 }
 

@@ -19,6 +19,7 @@
 
 namespace SuplaBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -28,7 +29,7 @@ use SuplaBundle\Form\Model\Registration;
 use SuplaBundle\Form\Model\ResetPassword;
 use SuplaBundle\Form\Type\RegistrationType;
 use SuplaBundle\Form\Type\ResetPasswordType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SuplaBundle\Model\Transactional;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 /**
  * @Route("/account")
  */
-class AccountController extends Controller {
+class AccountController extends AbstractController {
+    use Transactional;
 
     /**
      * @Route("/register", name="_account_register")
@@ -386,5 +388,31 @@ class AccountController extends Controller {
             'actionCaptions' => ScheduleAction::captions(),
             'channelFunctionMap' => $channelToFunctionsMap,
         ]);
+    }
+
+    /**
+     * @Route("/current")
+     * @Method("GET")
+     */
+    public function getUserAction() {
+        return $this->jsonResponse($this->getUser());
+    }
+
+    /**
+     * @Route("/current")
+     * @Method("PATCH")
+     */
+    public function patchUserAction(Request $request) {
+        $data = $request->request->all();
+        return $this->transactional(function (EntityManagerInterface $em) use ($data) {
+            $user = $this->getUser();
+            if ($data['action'] == 'enableClientRegistration') {
+                $user->enableClientRegistration(86400);
+            } else if ($data['action'] == 'disableClientRegistration') {
+                $user->disableClientRegistration();
+            }
+            $em->persist($user);
+            return $this->jsonResponse($user);
+        });
     }
 }

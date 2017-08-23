@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -37,6 +38,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic", "flat"})
      */
     private $id;
 
@@ -50,6 +52,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @Assert\NotBlank()
      * @Assert\Email()
      * @Assert\Length(max=255)
+     * @Groups({"basic", "flat"})
      */
     private $email;
 
@@ -172,14 +175,15 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"})
      **/
     private $schedules;
-    
+
     /**
-     * @ORM\Column(name="iodevice_reg_enabled", type="datetime", nullable=true)
+     * @ORM\Column(name="iodevice_reg_enabled", type="utcdatetime", nullable=true)
      */
     private $ioDeviceRegistrationEnabled;
-    
+
     /**
-     * @ORM\Column(name="client_reg_enabled", type="datetime", nullable=true)
+     * @ORM\Column(name="client_reg_enabled", type="utcdatetime", nullable=true)
+     * @Groups({"basic", "flat"})
      */
     private $clientRegistrationEnabled;
 
@@ -463,6 +467,25 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function isLimitScheduleExceeded() {
         return $this->getLimitSchedule() > 0 && count($this->getSchedules()) >= $this->getLimitSchedule();
+    }
+
+    /** @return \DateTime|null */
+    public function getClientRegistrationEnabled() {
+        if ($this->clientRegistrationEnabled) {
+            $now = new \DateTime();
+            if($now->getTimestamp() > $this->clientRegistrationEnabled->getTimestamp()) {
+                $this->clientRegistrationEnabled = null;
+            }
+        }
+        return $this->clientRegistrationEnabled;
+    }
+
+    public function enableClientRegistration(int $forHowLongInSeconds) {
+        $this->clientRegistrationEnabled = new \DateTime('@' . (time() + $forHowLongInSeconds));
+    }
+
+    public function disableClientRegistration() {
+        $this->clientRegistrationEnabled = null;
     }
 
     public function hasLegacyPassword(): bool {

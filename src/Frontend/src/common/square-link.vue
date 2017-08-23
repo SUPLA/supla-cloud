@@ -27,6 +27,10 @@
             background: #ffe836;
             color: black;
         }
+        &.grey {
+            background: #eaeaea;
+            color: black;
+        }
         dl {
             margin-bottom: 0;
             dd, dt {

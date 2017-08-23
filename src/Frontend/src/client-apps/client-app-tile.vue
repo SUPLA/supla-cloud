@@ -1,7 +1,7 @@
 <template>
     <div>
         <flipper :flipped="!!editingModel">
-            <square-link class="clearfix pointer"
+            <square-link :class="'clearfix pointer ' + (app.enabled ? 'green' : 'grey')"
                 slot="front"
                 @click="edit()">
                 <h3>{{app.name}}</h3>
@@ -23,7 +23,7 @@
                     <dt>{{ app.accessId.caption }}</dt>
                 </dl>
                 <span class="label square-link-label"
-                    :class="app.enabled ? 'label-success' : 'label-danger'">{{ app.enabled ? 'Aktywne' : 'Nieaktywne' }}</span>
+                    :class="app.enabled ? 'label-success' : 'label-grey'">{{ app.enabled ? $t('Enabled') : $t('Disabled') }}</span>
             </square-link>
             <square-link class="yellow"
                 slot="back">
