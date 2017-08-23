@@ -473,7 +473,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     public function getClientRegistrationEnabled() {
         if ($this->clientRegistrationEnabled) {
             $now = new \DateTime();
-            if($now->getTimestamp() > $this->clientRegistrationEnabled->getTimestamp()) {
+            if ($now->getTimestamp() > $this->clientRegistrationEnabled->getTimestamp()) {
                 $this->clientRegistrationEnabled = null;
             }
         }

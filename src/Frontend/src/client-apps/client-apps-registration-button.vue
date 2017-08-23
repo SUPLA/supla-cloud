@@ -2,8 +2,7 @@
     <div>
         <button :class="'btn btn-outline btn-' + (enabledUntil ? 'green' : 'black')"
             @click="toggle()"
-            :disabled="saving"
-            :title="enabledUntilCalendar">
+            :disabled="saving">
             <table class="table">
                 <tr>
                     <td>
@@ -13,7 +12,7 @@
                     </td>
                     <td>
                         Rejestracja klientów: <span class="big">{{ enabledUntil ? 'AKTYWNA' : 'NIEAKTYWNA' }}</span>
-                        <div v-if="enabledUntil">jeszcze przez {{ enabledUntil | moment('from', true) }}</div>
+                        <div v-if="enabledUntil">wygaśnie: {{ enabledUntilCalendar }}</div>
                         <div class="small text-muted">kliknij, by {{ enabledUntil ? 'wyłączyć' : 'włączyć' }}</div>
                     </td>
                 </tr>

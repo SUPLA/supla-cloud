@@ -408,7 +408,7 @@ class AccountController extends AbstractController {
             $user = $this->getUser();
             if ($data['action'] == 'enableClientRegistration') {
                 $user->enableClientRegistration(86400);
-            } else if ($data['action'] == 'disableClientRegistration') {
+            } elseif ($data['action'] == 'disableClientRegistration') {
                 $user->disableClientRegistration();
             }
             $em->persist($user);

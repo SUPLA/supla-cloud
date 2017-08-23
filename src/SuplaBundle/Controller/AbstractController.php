@@ -30,5 +30,4 @@ abstract class AbstractController extends Controller {
     protected function getUser() {
         return parent::getUser();
     }
-
 }
