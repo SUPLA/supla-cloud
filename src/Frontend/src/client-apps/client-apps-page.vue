@@ -1,29 +1,51 @@
 <template>
     <div>
-        <div class="clearfix">
-            <div class="pull-right">
-                <client-apps-registration-button></client-apps-registration-button>
-            </div>
-            <h1 class="no-margin-top">{{ $t('Client Apps') }}</h1>
-            <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
-        </div>
-        <div v-if="clientApps"
-            class="row">
-            <div class="col-lg-4 col-md-6 col"
-                v-for="app in clientApps">
-                <client-app-tile :app="app"
-                    :access-ids="accessIds"
-                    @delete="removeClientFromList(app)"></client-app-tile>
+        <div class="container">
+            <div class="clearfix">
+                <div class="pull-right">
+                    <client-apps-registration-button></client-apps-registration-button>
+                </div>
+                <h1 class="no-margin-top">{{ $t('Client Apps') }}</h1>
+                <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
             </div>
         </div>
-        <loader-dots v-else></loader-dots>
+        <div class="container-fluid">
+            <div v-if="clientApps"
+                class="square-links-grid row">
+                <div v-for="app in clientApps" class="col-lg-3 col-md-4 col-sm-6">
+                    <client-app-tile :app="app"
+                        :access-ids="accessIds"
+                        @delete="removeClientFromList(app)"></client-app-tile>
+                </div>
+            </div>
+            <loader-dots v-else></loader-dots>
+        </div>
     </div>
 </template>
 
-<style scoped>
-    .col {
-        padding: 10px 5px;
+<style lang="scss">
+    .square-links-grid {
+        > div {
+            padding: 7px;
+        }
     }
+    /*.square-links-grid {*/
+        /*display: grid;*/
+        /*grid-column-gap: 10px;*/
+        /*grid-row-gap: 10px;*/
+        /*@media only screen and (min-width: 700px) {*/
+            /*grid-template-columns: repeat(2, 1fr);*/
+        /*}*/
+        /*@media only screen and (min-width: 1000px) {*/
+            /*grid-template-columns: repeat(3, 1fr);*/
+        /*}*/
+        /*@media only screen and (min-width: 1300px) {*/
+            /*grid-template-columns: repeat(4, 1fr);*/
+        /*}*/
+        /*@media only screen and (min-width: 1600px) {*/
+            /*grid-template-columns: repeat(5, 1fr);*/
+        /*}*/
+    /*}*/
 </style>
 
 

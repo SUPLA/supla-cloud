@@ -17,7 +17,7 @@
         min-height: 260px;
         color: white;
         padding: 5px 10px;
-        margin: 4px 5px 0 4px;
+        border-radius: 3px;
         h3, h4 {
             white-space: nowrap;
             overflow: hidden;

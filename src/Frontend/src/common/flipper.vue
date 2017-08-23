@@ -1,5 +1,6 @@
 <template>
-    <div class="flip-container" :class="{flipped: flipped}">
+    <div class="flip-container"
+        :class="{flipped: flipped}">
         <div class="flipper">
             <div class="front">
                 <slot name="front"></slot>
@@ -21,8 +22,14 @@
 <style lang="scss">
     .flip-container {
         perspective: 1000px;
-        &.flipped .flipper {
-            transform: rotateY(180deg);
+        transform-style: preserve-3d;
+        &.flipped {
+            .back {
+                transform: rotateY(0deg);
+            }
+            .front {
+                transform: rotateY(180deg);
+            }
         }
         &, .front, .back {
             width: 100%;
@@ -35,6 +42,8 @@
         }
         .front, .back {
             backface-visibility: hidden;
+            transition: 0.6s;
+            transform-style: preserve-3d;
             position: absolute;
             top: 0;
             left: 0;
@@ -44,7 +53,7 @@
             transform: rotateY(0deg);
         }
         .back {
-            transform: rotateY(180deg);
+            transform: rotateY(-180deg);
         }
     }
 </style>
