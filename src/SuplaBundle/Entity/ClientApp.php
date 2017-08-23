@@ -66,7 +66,7 @@ class ClientApp {
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      * @Groups({"basic", "flat"})
      */
-    private $enabled;
+    private $enabled = false;
 
     /**
      * @ORM\Column(name="reg_ipv4", type="integer", nullable=true)

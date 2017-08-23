@@ -36,7 +36,7 @@ class ClientAppController extends AbstractController {
     use SuplaServerAware;
 
     /**
-     * @Route("/", methods={"GET"}, name="_client_apps_list")
+     * @Route("", methods={"GET"}, name="_client_apps_list")
      * @Template
      */
     public function clientAppsListAction(Request $request) {
