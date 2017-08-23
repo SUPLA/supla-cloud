@@ -32,13 +32,7 @@
                 sizes="{{ iconSize }}x{{ iconSize }}"
                 href="{{ asset('assets/img/icons/supla' ~ iconSize ~ '.png') }}">
     {% endfor %}
-    <script>
-        window.FRONTEND_CONFIG = {
-            locale: '{{ app.request.locale }}',
-            baseUrl: '{{ path('_homepage')[:-1] }}',
-            timezone: '{{ app.user ? app.user.timezone : '' }}'
-        };
-    </script>
+    {% include '@Supla/frontend-config.html.twig' %}
     <base href="/">
 </head>
 <body>
