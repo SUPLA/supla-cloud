@@ -33,11 +33,11 @@
                 href="{{ asset('assets/img/icons/supla' ~ iconSize ~ '.png') }}">
     {% endfor %}
     {% include '@Supla/frontend-config.html.twig' %}
+    <script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
     <base href="/">
 </head>
 <body>
 {% block body %}{% endblock %}
-<script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
 <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 {% block scripts %}{% endblock %}
