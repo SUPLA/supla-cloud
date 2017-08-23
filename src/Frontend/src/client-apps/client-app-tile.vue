@@ -20,7 +20,7 @@
                 <div class="separator"></div>
                 <dl>
                     <dd>Identyfikator dostępu</dd>
-                    <dt>{{ app.accessId.caption }}</dt>
+                    <dt>{{ app.accessId ? app.accessId.caption : 'brak' }}</dt>
                 </dl>
                 <span class="label square-link-label"
                     :class="app.enabled ? 'label-success' : 'label-grey'">{{ app.enabled ? $t('Enabled') : $t('Disabled') }}</span>
@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label>Identyfikator dostępu</label>
                         <select class="form-control"
-                            v-model="editingModel.accessId.id">
+                            v-model="editingModel.accessIdId">
                             <option v-for="accessId in accessIds"
                                 :value="accessId.id">{{ accessId.caption }}
                             </option>
@@ -103,6 +103,7 @@
         methods: {
             edit() {
                 this.editingModel = Vue.util.extend({}, this.app);
+                this.editingModel.accessIdId = this.app.accessId ? this.app.accessId.id : null;
             },
             cancelEdit() {
                 this.editingModel = null;

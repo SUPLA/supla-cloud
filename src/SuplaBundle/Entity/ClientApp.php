@@ -44,7 +44,7 @@ class ClientApp {
 
     /**
      * @ORM\ManyToOne(targetEntity="AccessID", inversedBy="clientApps")
-     * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Groups({"basic"})
      */
     private $accessId;
@@ -114,7 +114,8 @@ class ClientApp {
         return $this->id;
     }
 
-    public function getAccessId(): AccessID {
+    /** @return AccessID|null */
+    public function getAccessId() {
         return $this->accessId;
     }
 

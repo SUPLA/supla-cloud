@@ -11,7 +11,8 @@
                             :class="enabledUntil ? 'pe-7s-simple-check' : 'pe-7s-close-circle'"></i>
                     </td>
                     <td>
-                        Rejestracja klientów: <span class="big">{{ enabledUntil ? 'AKTYWNA' : 'NIEAKTYWNA' }}</span>
+                        <span v-if="saving">Rejestracja klientów</span>
+                        <span v-else>Rejestracja klientów: <span class="big">{{ enabledUntil ? 'AKTYWNA' : 'NIEAKTYWNA' }}</span></span>
                         <div v-if="enabledUntil">wygaśnie: {{ enabledUntilCalendar }}</div>
                         <div class="small text-muted">kliknij, by {{ enabledUntil ? 'wyłączyć' : 'włączyć' }}</div>
                     </td>

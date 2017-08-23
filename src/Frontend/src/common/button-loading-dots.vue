@@ -44,6 +44,14 @@
         @include loading-dots-color(white);
     }
 
+    .btn-black.btn-outline {
+        @include loading-dots-color(black);
+    }
+
+    .btn-green.btn-outline:not(:hover) {
+        @include loading-dots-color(#00D151);
+    }
+
     @keyframes supla-loading-dots {
         0% {
         }
