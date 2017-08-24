@@ -90,7 +90,7 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#hidden-source-map';
+    module.exports.devtool = undefined;
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
@@ -115,7 +115,7 @@ if (process.env.NODE_ENV === 'production') {
                 phpConfig += '  version: ' + (require('./package.json').version) + "\n";
                 phpConfig += '  webpack_hashes:\n';
                 for (var chunkName in hashes) {
-                    phpConfig += `    ${chunkName}: "${hashes[chunkName][0]}"\n`;
+                    phpConfig += `    ${chunkName}: "${hashes[chunkName]}"\n`;
                 }
                 require("fs").writeFileSync(
                     path.join(__dirname, "../../app/config", "config_build.yml"),
