@@ -23,8 +23,9 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007F4FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id) ON DELETE SET NULL');
         $this->addSql('ALTER TABLE supla_iodevice ADD auth_key VARCHAR(64) DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_user ADD iodevice_reg_enabled DATETIME DEFAULT NULL, ADD client_reg_enabled DATETIME DEFAULT NULL');
+        $this->addSql('DELETE c1 FROM supla_client c1, supla_client c2 WHERE c1.id < c2.id AND c1.guid = c2.guid');
         $this->addSql('DROP INDEX UNIQUE_CLIENTAPP ON supla_client');
-        $this->addSql('CREATE UNIQUE INDEX UNIQUE_CLIENTAPP ON supla_client (guid)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQUE_CLIENTAPP ON supla_client (user_id, guid)');
         $this->addSql('CREATE INDEX client_reg_enabled_idx ON supla_user (client_reg_enabled)');
         $this->addSql('CREATE INDEX iodevice_reg_enabled_idx ON supla_user (iodevice_reg_enabled)');
     }
