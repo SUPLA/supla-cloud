@@ -8,11 +8,11 @@
                 <dl>
                     <dd>Zarejestrowano</dd>
                     <dt>{{ app.regDate | moment("LLL") }}</dt>
-                    <dd style="padding-left: 48px">z adresu</dd>
+                    <dd style="padding-left: 44px">z adresu</dd>
                     <dt>{{ app.regIpv4 | intToIp }}</dt>
                     <dd>Ostatnie połączenie</dd>
                     <dt>{{ app.lastAccessDate | moment("LLL") }}</dt>
-                    <dd style="padding-left: 73px">z adresu</dd>
+                    <dd style="padding-left: 69px">z adresu</dd>
                     <dt>{{ app.lastAccessIpv4 | intToIp}}</dt>
                     <dd>Wersja oprogramowania / protokołu</dd>
                     <dt>{{ app.softwareVersion }} / {{ app.protocolVersion }} </dt>

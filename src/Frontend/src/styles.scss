@@ -76,16 +76,17 @@ input[type=text], input[type=password], input[type=email] {
     &:hover {
       background: lighten(#15B133, 5%);
       color: white !important;
-      .text-muted {
-        color: #EEE;
-      }
+
     }
+  }
+  .text-muted {
+    color: inherit;
+    opacity: .8;
   }
   &-white {
     background: white;
     color: #15B133;
     border: 1px solid #15B133 !important;
-    border-radius: 2px !important;
     &:hover, &:focus, &:active {
       background: #cffdcd;
       color: #15B133 !important;
@@ -94,10 +95,22 @@ input[type=text], input[type=password], input[type=email] {
   &-black {
     background: black;
     color: white;
-    border-radius: 2px !important;
     border: 1px solid black;
     &:hover {
       background: #444;
+      color: white;
+    }
+  }
+  &-yellow {
+    background: #ffe836;
+    color: black;
+    border: 1px solid #ffe836;
+  }
+  &-orange {
+    background: #f60;
+    border: 1px solid #f60;
+    &:hover {
+      background: #f50;
       color: white;
     }
   }
@@ -105,6 +118,12 @@ input[type=text], input[type=password], input[type=email] {
     background: transparent;
     &.btn-green {
       color: #15B133;
+    }
+    &.btn-orange {
+      color: #f60;
+      &:hover {
+        color: white !important;
+      }
     }
     &.btn-black {
       color: black;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button :class="'btn btn-outline btn-' + (enabledUntil ? 'green' : 'black')"
+        <button :class="'btn btn-outline btn-' + (enabledUntil ? 'green' : 'orange')"
             @click="toggle()"
             :disabled="saving">
             <table class="table">
@@ -8,7 +8,7 @@
                     <td>
                         <button-loading-dots v-if="saving"></button-loading-dots>
                         <i v-else
-                            :class="enabledUntil ? 'pe-7s-simple-check' : 'pe-7s-close-circle'"></i>
+                            :class="enabledUntil ? 'pe-7s-power' : 'pe-7s-close-circle'"></i>
                     </td>
                     <td>
                         <span v-if="saving">Rejestracja klientów</span>

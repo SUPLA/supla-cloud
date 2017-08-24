@@ -40,7 +40,7 @@
     }
 
     @include loading-dots-color(#00D151);
-    .btn-black, .btn-green, .btn-enable {
+    .btn-black, .btn-green, .btn-enable, .btn-orange {
         @include loading-dots-color(white);
     }
 
@@ -50,6 +50,10 @@
 
     .btn-green.btn-outline:not(:hover) {
         @include loading-dots-color(#00D151);
+    }
+
+    .btn-orange.btn-outline:not(:hover) {
+        @include loading-dots-color(#f60);
     }
 
     @keyframes supla-loading-dots {
