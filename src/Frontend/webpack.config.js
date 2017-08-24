@@ -12,7 +12,11 @@ const entries = {
     'commons': './src/common.js',
 };
 
+const availableTranslations = [];
+
 glob.sync('../SuplaBundle/Resources/translations/messages.*.yml').forEach(translation => {
+    const language = path.basename(translation, '.yml').split('.').pop();
+    availableTranslations.push(language);
     const basename = path.basename(translation, '.yml').replace('.', '-');
     entries[`translations/${basename}`] = 'expose-loader?SUPLA_TRANSLATIONS!json-loader!yaml-loader!' + translation;
 });
@@ -29,7 +33,7 @@ module.exports = {
             filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js',
             name: "commons"
         }),
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /pl|ru|de/),
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, new RegExp(availableTranslations.join('|'))),
     ],
     module: {
         rules: [

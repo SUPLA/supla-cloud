@@ -71,24 +71,16 @@
                         </li>
                         <li class="divider"></li>
                         <li class="flags">
-                            <a class="lng_switch {% if app.request.locale == 'en' %} active {% endif %}"
-                                    data-lng="en"><img src={{ asset('assets/img/flags/en.svg') }}></a>
-                            <a class="lng_switch {% if app.request.locale == 'pl' %} active {% endif %}"
-                                    data-lng="pl"><img src={{ asset('assets/img/flags/pl.svg') }}></a>
-                            <a class="lng_switch {% if app.request.locale == 'ru' %} active {% endif %}"
-                                    data-lng="ru"><img src={{ asset('assets/img/flags/ru.svg') }}></a>
-                            <a class="lng_switch {% if app.request.locale == 'de' %} active {% endif %}"
-                                    data-lng="de"><img src={{ asset('assets/img/flags/de.svg') }}></a>
+                            {% for lng in ['en', 'pl', 'ru', 'de'] %}
+                                <a class="lng_switch {% if app.request.locale == lng %} active {% endif %}"
+                                        onclick="switchToLanguage('{{ lng }}')"><img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}></a>
+                            {% endfor %}
                         </li>
                         <li class="flags">
-                            <a class="lng_switch {% if app.request.locale == 'it' %} active {% endif %}"
-                                    data-lng="it"><img src={{ asset('assets/img/flags/it.svg') }}></a>
-                            <a class="lng_switch {% if app.request.locale == 'pt' %} active {% endif %}"
-                                    data-lng="pt"><img src={{ asset('assets/img/flags/pt.svg') }}></a>
-                            <a class="lng_switch {% if app.request.locale == 'es' %} active {% endif %}"
-                                    data-lng="es"><img src={{ asset('assets/img/flags/es.svg') }}></a>
-                            <a class="lng_switch {% if app.request.locale == 'fr' %} active {% endif %}"
-                                    data-lng="fr"><img src={{ asset('assets/img/flags/fr.svg') }}></a>
+                            {% for lng in ['it', 'pt', 'es', 'fr'] %}
+                                <a class="lng_switch {% if app.request.locale == lng %} active {% endif %}"
+                                        onclick="switchToLanguage('{{ lng }}')"><img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}></a>
+                            {% endfor %}
                         </li>
                         <li class="divider"></li>
                         <li class="bottom">
@@ -105,3 +97,16 @@
         </div>
     </div>
 </nav>
+
+<script>
+    function switchToLanguage(lng) {
+        $.ajax({type: "POST", url: '/ajax/lngset/' + lng})
+            .done(function () {
+                window.location.reload();
+            });
+    }
+
+    $("nav a:not(.dropdown-toggle)").click(function () {
+        $('.main-content').fadeOut(300);
+    });
+</script>

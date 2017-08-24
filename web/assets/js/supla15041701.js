@@ -51,14 +51,7 @@ function ajaxPwdGen(len) {
 
 }
 
-function switchToLanguage(lng) {
 
-    $.ajax({type: "POST", url: '/ajax/lngset/' + lng})
-        .done(function (response) {
-            fadeToUrl(window.location.pathname + window.location.search);
-        });
-
-}
 
 function getDetailId() {
     if ($('#accessid-detail').length != 0)
@@ -71,13 +64,6 @@ function getDetailId() {
         return '#api-detail';
     
     return '#unknown'
-}
-
-function fadeToUrl(url) {
-    if (url) {
-        window.location = url;
-    }
-    $('#block').fadeOut(300);
 }
 
 function checkChannelState(state_class, value_id, ajax_action, timeout) {
@@ -357,14 +343,6 @@ function detectIE() {
             $("#hello").fadeIn(600).delay(300).fadeOut(600);
         }
 
-        $('SELECT#lngSelector').on('change', function (e) {
-            switchToLanguage($(this).val());
-        });
-
-        $('.lng_switch').on('click', function (e) {
-            switchToLanguage($(this).data('lng'));
-        });
-
         $('#change_pwd_btn').on('click', function (e) {
 
             $.ajax({
@@ -572,10 +550,6 @@ function detectIE() {
                 $('.cd-panel').removeClass('is-visible');
                 event.preventDefault();
             }
-        });
-
-        $('.nav-link').click(function () {
-            fadeToUrl();
         });
 
         /*

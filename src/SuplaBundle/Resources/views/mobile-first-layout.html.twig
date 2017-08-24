@@ -1,7 +1,9 @@
 {% extends 'SuplaBundle::empty-layout.html.twig' %}
 {% block body %}
     {{ include('@Supla/navbar.html.twig') }}
-    {% block content %}{% endblock %}
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('assets/dist/login-page.js', 'webpack') }}"></script>
