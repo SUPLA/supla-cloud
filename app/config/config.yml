@@ -69,6 +69,12 @@ framework:
   validation:
     enable_annotations: true
 
+supla:
+  clients_registration:
+    registration_active_time:
+      initial: 604800 # 1 week
+      manual: 86400 # 24 hours
+
 swiftmailer:
   encryption: "%mailer_encryption%"
   host: "%mailer_host%"

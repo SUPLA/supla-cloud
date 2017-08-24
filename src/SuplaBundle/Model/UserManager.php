@@ -34,13 +34,18 @@ class UserManager {
     protected $aid_man;
     /** @var ScheduleManager */
     private $scheduleManager;
+    /**
+     * @var int
+     */
+    private $defaultClientRegistrationTime;
 
     public function __construct(
         Registry $doctrine,
         EncoderFactory $encoder_factory,
         AccessIdManager $accessid_manager,
         LocationManager $location_manager,
-        ScheduleManager $scheduleManager
+        ScheduleManager $scheduleManager,
+        int $defaultClientRegistrationTime
     ) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
@@ -48,6 +53,7 @@ class UserManager {
         $this->loc_man = $location_manager;
         $this->aid_man = $accessid_manager;
         $this->scheduleManager = $scheduleManager;
+        $this->defaultClientRegistrationTime = $defaultClientRegistrationTime;
     }
 
     public function create(User $user) {
@@ -96,7 +102,7 @@ class UserManager {
 
             $user->setToken('');
             $user->setEnabled(true);
-            $user->enableClientRegistration(86400 * 7);
+            $user->enableClientRegistration($this->defaultClientRegistrationTime);
 
             $this->Update($user);
             return $user;

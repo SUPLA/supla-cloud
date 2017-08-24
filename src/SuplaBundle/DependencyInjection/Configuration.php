@@ -13,7 +13,13 @@ class Configuration implements ConfigurationInterface {
         $rootNode
             ->children()
                 ->scalarNode('version')->defaultValue('?.?.?')->end()
-                ->arrayNode('webpack_hashes')->normalizeKeys(false)->defaultValue([])->useAttributeAsKey('name')->prototype('scalar')->end()
+                ->arrayNode('webpack_hashes')->normalizeKeys(false)->defaultValue([])->useAttributeAsKey('name')->prototype('scalar')->end()->end()
+                ->arrayNode('clients_registration')->children()
+                    ->arrayNode('registration_active_time')->children()
+                        ->integerNode('initial')->defaultValue(86400 * 7)->end()
+                        ->integerNode('manual')->defaultFalse(86400)->end()
+                    ->end()
+                ->end()
             ->end();
         // @formatter:on
         return $treeBuilder;

@@ -407,7 +407,8 @@ class AccountController extends AbstractController {
         return $this->transactional(function (EntityManagerInterface $em) use ($data) {
             $user = $this->getUser();
             if ($data['action'] == 'enableClientRegistration') {
-                $user->enableClientRegistration(86400);
+                $enableForTime = $this->container->getParameter('supla.clients_registration.registration_active_time.manual');
+                $user->enableClientRegistration($enableForTime);
             } elseif ($data['action'] == 'disableClientRegistration') {
                 $user->disableClientRegistration();
             }

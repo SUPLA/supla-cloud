@@ -35,6 +35,9 @@ services:
   SuplaBundle\Model\:
     resource: '../../src/SuplaBundle/Model'
 
+  SuplaBundle\Model\UserManager:
+    $defaultClientRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
+
   SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner:
     $planners:
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner'

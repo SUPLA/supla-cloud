@@ -1,4 +1,5 @@
 <?php
+
 namespace SuplaBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,5 +9,13 @@ class SuplaExtension extends ConfigurableExtension {
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container) {
         $container->setParameter('supla.version', $mergedConfig['version']);
         $container->setParameter('supla.webpack_hashes', $mergedConfig['webpack_hashes']);
+        $container->setParameter(
+            'supla.clients_registration.registration_active_time.initial',
+            $mergedConfig['clients_registration']['registration_active_time']['initial']
+        );
+        $container->setParameter(
+            'supla.clients_registration.registration_active_time.manual',
+            $mergedConfig['clients_registration']['registration_active_time']['manual']
+        );
     }
 }
