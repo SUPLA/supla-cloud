@@ -53,12 +53,17 @@ nav.navbar-top {
       a {
         display: inline-block;
         padding: 3px;
+        &.active {
+          img {
+            border-color: $supla-green;
+          }
+        }
       }
       img {
         display: block;
         width: 36px;
         height: 36px;
-        border: solid 2px $supla-grey;
+        border: solid 2px $supla-grey-light;
         border-radius: 100%;
         transition: all .2s ease-in-out;
       }

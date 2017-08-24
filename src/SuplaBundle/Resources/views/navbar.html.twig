@@ -72,13 +72,13 @@
                         <li class="divider"></li>
                         <li class="flags">
                             {% for lng in ['en', 'pl', 'ru', 'de'] %}
-                                <a class="lng_switch {% if app.request.locale == lng %} active {% endif %}"
+                                <a {% if app.request.locale == lng %}class="active"{% endif %}
                                         onclick="switchToLanguage('{{ lng }}')"><img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}></a>
                             {% endfor %}
                         </li>
                         <li class="flags">
                             {% for lng in ['it', 'pt', 'es', 'fr'] %}
-                                <a class="lng_switch {% if app.request.locale == lng %} active {% endif %}"
+                                <a {% if app.request.locale == lng %}class="active"{% endif %}
                                         onclick="switchToLanguage('{{ lng }}')"><img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}></a>
                             {% endfor %}
                         </li>

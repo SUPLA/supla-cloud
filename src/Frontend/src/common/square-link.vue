@@ -30,7 +30,7 @@
             color: $supla-black;
         }
         &.grey {
-            background: $supla-grey;
+            background: $supla-grey-light;
             color: $supla-black;
         }
         dl {

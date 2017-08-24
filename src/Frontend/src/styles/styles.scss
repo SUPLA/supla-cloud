@@ -27,7 +27,7 @@ a {
   cursor: pointer;
   &:active, &:focus, &:hover {
     text-decoration: none;
-    color: #606060;
+    color: $supla-grey-dark;
     outline: none;
     box-shadow: none;
   }
@@ -54,7 +54,7 @@ input[type=text], input[type=password], input[type=email] {
   &.form-control {
     border: 0;
     border-radius: 0;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid $supla-grey-light;
     box-shadow: initial;
     background: transparent;
     padding-left: 0;
@@ -65,7 +65,7 @@ input[type=text], input[type=password], input[type=email] {
 .input-group-addon {
   background: transparent !important;
   border: 0 !important;
-  border-bottom: 1px solid #CCC !important;
+  border-bottom: 1px solid $supla-grey-light !important;
   border-radius: 0 !important;
 }
 
@@ -88,7 +88,7 @@ input[type=text], input[type=password], input[type=email] {
     border: 1px solid white;
   }
   &.label-grey {
-    background: #333;
+    background: $supla-grey-dark;
   }
 }
 

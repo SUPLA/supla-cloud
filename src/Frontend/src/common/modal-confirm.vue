@@ -33,7 +33,7 @@
     .modal-confirm {
         .modal-footer {
             .cancel {
-                color: $supla-grey;
+                color: $supla-grey-light;
             }
         }
     }

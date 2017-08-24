@@ -115,9 +115,3 @@
         methods: mapActions(['submit', 'loadScheduleToEdit'])
     };
 </script>
-
-<style>
-    .no-margin-top {
-        margin-top: 0 !important;
-    }
-</style>

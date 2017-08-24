@@ -112,8 +112,7 @@
     };
 </script>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
     // source: https://github.com/ratiw/vue-table/wiki/Loading-Animation
     .schedule-list-wrapper {
         position: relative;
