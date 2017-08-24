@@ -9,13 +9,17 @@
                 <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
             </div>
         </div>
-        <div class="container text-right">
+        <div class="container text-right grid-filters">
             <btn-filters v-model="filters.sort"
                 :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}]"></btn-filters>
             <btn-filters v-model="filters.enabled"
                 :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
             <btn-filters v-model="filters.connected"
                 :filters="[{label: $t('All'), value: undefined}, {label: $t('Active'), value: true}, {label: $t('Idle'), value: false}]"></btn-filters>
+            <input type="text"
+                class="form-control"
+                v-model="filters.search"
+                :placeholder="$t('Search')">
         </div>
         <div class="container-fluid">
             <square-links-grid v-if="clientApps && filteredClientApps.length">
@@ -26,7 +30,8 @@
                         @delete="removeClientFromList(app)"></client-app-tile>
                 </div>
             </square-links-grid>
-            <div v-else-if="clientApps" class="text-center">
+            <div v-else-if="clientApps"
+                class="text-center">
                 <h3><i class="pe-7s-paint-bucket"></i></h3>
                 <h2>Pusto!</h2>
             </div>
@@ -36,11 +41,20 @@
 </template>
 
 <style lang="scss">
-    .btn-group-filters {
-        opacity: .6;
-        transition: opacity .2s;
-        &:hover {
-            opacity: 1;
+    .grid-filters {
+        ::-webkit-input-placeholder {
+            text-align: center;
+        }
+        ::-moz-placeholder {
+            text-align: center;
+        }
+        :-ms-input-placeholder {
+            text-align: center;
+        }
+        input[type=text] {
+            max-width: 150px;
+            float: right;
+            margin-left: 5px;
         }
     }
 </style>
@@ -63,7 +77,8 @@
                 filters: {
                     sort: 'az',
                     enabled: undefined,
-                    connected: undefined
+                    connected: undefined,
+                    search: '',
                 }
             };
         },
@@ -90,6 +105,9 @@
                 }
                 if (this.filters.connected !== undefined) {
                     apps = apps.filter(app => app.connected == this.filters.connected);
+                }
+                if (this.filters.search) {
+                    apps = apps.filter(app => app.name.toLowerCase().indexOf(this.filters.search.toLowerCase()) >= 0);
                 }
                 if (this.filters.sort == 'az') {
                     apps = apps.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
