@@ -1,0 +1,100 @@
+@import "./variables";
+
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
+body {
+  font-family: $supla-font-default;
+}
+
+h1 {
+  font-size: 42px;
+  line-height: 42px;
+  font-weight: 300;
+  text-transform: capitalize;
+  letter-spacing: -3px;
+}
+
+h1, h2, h3, h4 {
+  font-family: $supla-font-special;
+}
+
+a {
+  color: $supla-green;
+  transition: all .3s;
+  cursor: pointer;
+  &:active, &:focus, &:hover {
+    text-decoration: none;
+    color: #606060;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+* {
+  outline-color: $supla-green !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
+.low-z-index { // fixes some problems with elements appearing incorrectly above the others
+  position: relative;
+  z-index: 1
+}
+
+input[type=text], input[type=password], input[type=email] {
+  &.form-control {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #CCC;
+    box-shadow: initial;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.input-group-addon {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid #CCC !important;
+  border-radius: 0 !important;
+}
+
+.fade {
+  &-enter-active, &-leave-active {
+    transition: opacity .5s
+  }
+  &-enter, &-leave-to {
+    opacity: 0
+  }
+}
+
+.label {
+  font-family: $supla-font-special;
+  text-transform: uppercase;
+  font-size: .9em;
+  line-height: initial;
+  &.label-success {
+    background: $supla-green;
+    border: 1px solid white;
+  }
+  &.label-grey {
+    background: #333;
+  }
+}
+
+.vue-switcher input {
+  height: initial !important;
+}
+
+@import "./buttons";
+@import "./navbar";

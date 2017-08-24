@@ -10,10 +10,12 @@
 </script>
 
 <style lang="scss">
+    @import "../styles/variables";
+
     .square-link {
         position: relative;
         display: block;
-        background: #00D151;
+        background: $supla-green;
         min-height: 260px;
         color: white;
         padding: 5px 10px;
@@ -24,11 +26,11 @@
             text-overflow: ellipsis;
         }
         &.yellow {
-            background: #ffe836;
+            background: $supla-yellow;
             color: black;
         }
         &.grey {
-            background: #eaeaea;
+            background: $supla-grey;
             color: black;
         }
         dl {
