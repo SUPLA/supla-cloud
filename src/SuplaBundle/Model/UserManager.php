@@ -96,6 +96,7 @@ class UserManager {
 
             $user->setToken('');
             $user->setEnabled(true);
+            $user->enableClientRegistration(86400 * 7);
 
             $this->Update($user);
             return $user;
