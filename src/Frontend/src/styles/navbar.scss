@@ -16,22 +16,24 @@ nav.navbar-top {
     }
   }
   .navbar-brand {
-    @media only screen and (min-width: 992px) {
-      padding-top: 20px;
-    }
-    @media only screen and (max-width: 768px) {
-      padding-top: 6px;
-      svg {
-        max-height: 40px;
-      }
-    }
     width: 160px;
     font-size: 2em;
     color: $supla-black;
     font-family: $supla-font-special;
     svg {
-      max-width: 45px;
+      width: 45px;
+      height: 45px;
       vertical-align: text-top;
+    }
+    @media only screen and (min-width: 992px) {
+      padding-top: 20px;
+    }
+    @include on-xs-and-down {
+      padding-top: 6px;
+      svg {
+        width: 40px;
+        height: 40px;
+      }
     }
   }
   .nav > li {
@@ -53,13 +55,15 @@ nav.navbar-top {
   .nav > li.active, .nav > li.open {
     background: $supla-green;
     border-bottom-color: $supla-green;
-    > a {
+    > a, > a:hover {
       border-bottom-color: $supla-green;
       background: transparent;
       color: $supla-white;
-      &:hover {
-        background: transparent;
-        color: $supla-white;
+    }
+    @include on-xs-and-down {
+      background: transparent;
+      > a, > a:hover {
+        background: $supla-green;
       }
     }
   }

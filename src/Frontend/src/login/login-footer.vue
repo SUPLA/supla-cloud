@@ -40,6 +40,7 @@
                 padding-top: 5px;
                 text-align: center !important;
             }
+        }
         a {
             font-weight: 400;
             color: $supla-black;
@@ -51,5 +52,4 @@
             }
         }
     }
-}
 </style>

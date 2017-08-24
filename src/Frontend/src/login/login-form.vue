@@ -135,6 +135,7 @@
             margin-bottom: 20px;
             img {
                 width: 150px;
+                height: 150px;
             }
         }
         form {
