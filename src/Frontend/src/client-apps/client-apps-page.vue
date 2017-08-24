@@ -36,11 +36,9 @@
             </div>
         </div>
         <div class="container-fluid">
-            <square-links-grid v-if="clientApps"
-                class="row">
+            <square-links-grid v-if="clientApps">
                 <div v-for="app in filteredClientApps"
-                    :key="app.id"
-                    class="col-lg-3 col-md-4 col-sm-6">
+                    :key="app.id">
                     <client-app-tile :app="app"
                         :access-ids="accessIds"
                         @delete="removeClientFromList(app)"></client-app-tile>

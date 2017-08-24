@@ -1,3 +1,8 @@
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
 body {
   font-family: "Open Sans", sans-serif !important;
 }
@@ -27,7 +32,7 @@ a {
 }
 
 * {
-  outline-color: lime !important;
+  outline-color: #00D151 !important;
 }
 
 .pointer {
@@ -103,6 +108,7 @@ input[type=text], input[type=password], input[type=email] {
     }
     &.btn-black {
       color: black;
+      outline-color: black !important;
       &:hover {
         color: white;
       }
