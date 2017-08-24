@@ -42,9 +42,7 @@ class LocationController extends Controller {
     }
 
     private function getLocationDetails($id) {
-
         $loc = $this->getLocationById($id);
-
         if ($loc !== null) {
             return $this->get('templating')->render(
                 'SuplaBundle:Location:locdetails.html.twig',
@@ -60,7 +58,7 @@ class LocationController extends Controller {
     }
 
     /**
-     * @Route("/", name="_loc_list")
+     * @Route("", name="_loc_list")
      */
     public function listAction() {
 

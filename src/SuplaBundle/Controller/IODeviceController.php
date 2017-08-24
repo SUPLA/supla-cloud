@@ -50,7 +50,7 @@ class IODeviceController extends AbstractController {
     }
 
     /**
-     * @Route("/", name="_iodev_list")
+     * @Route("", name="_iodev_list")
      */
     public function listAction() {
         $user = $this->get('security.token_storage')->getToken()->getUser();

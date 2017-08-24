@@ -37,7 +37,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ScheduleController extends AbstractController {
     /**
-     * @Route("/", name="_schedule_list", methods={"GET"})
+     * @Route("", name="_schedule_list", methods={"GET"})
      * @Template
      */
     public function scheduleListAction(Request $request) {

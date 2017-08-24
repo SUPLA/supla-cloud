@@ -42,9 +42,7 @@ class AccessIDController extends AbstractController {
     }
 
     private function getAccessIdDetails($id) {
-
         $aid = $this->getAccessIdById($id);
-
         if ($aid !== null) {
             return $this->get('templating')->render(
                 'SuplaBundle:AccessID:aiddetails.html.twig',
@@ -58,7 +56,7 @@ class AccessIDController extends AbstractController {
     }
 
     /**
-     * @Route("/", name="_aid_list")
+     * @Route("", name="_aid_list")
      */
     public function listAction() {
         /** @var User $user */
