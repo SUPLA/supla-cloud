@@ -27,12 +27,13 @@
     };
 </script>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
+    @import "../styles/variables";
+
     .modal-confirm {
         .modal-footer {
             .cancel {
-                color: #BBB;
+                color: $supla-grey;
             }
         }
     }

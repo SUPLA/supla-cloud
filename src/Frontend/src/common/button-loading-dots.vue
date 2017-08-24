@@ -8,8 +8,9 @@
     </div>
 </template>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
+    @import "../styles/variables";
+
     .button-loading-dots {
         cursor: no-drop;
         > div {
@@ -39,21 +40,21 @@
         }
     }
 
-    @include loading-dots-color(#00D151);
+    @include loading-dots-color($supla-green);
     .btn-black, .btn-green, .btn-enable, .btn-orange {
-        @include loading-dots-color(white);
+        @include loading-dots-color($supla-white);
     }
 
     .btn-black.btn-outline {
-        @include loading-dots-color(black);
+        @include loading-dots-color($supla-black);
     }
 
     .btn-green.btn-outline:not(:hover) {
-        @include loading-dots-color(#00D151);
+        @include loading-dots-color($supla-green);
     }
 
     .btn-orange.btn-outline:not(:hover) {
-        @include loading-dots-color(#f60);
+        @include loading-dots-color($supla-orange);
     }
 
     @keyframes supla-loading-dots {

@@ -34,7 +34,10 @@
     };
 </script>
 
-<style scoped>
+<style scoped
+    lang="scss">
+    @import "../styles/variables";
+
     select {
         padding: 0px 7px;
         margin: 0;
@@ -46,14 +49,13 @@
         -moz-appearance: none;
         appearance: none;
         cursor: pointer;
-        color: #000;
+        color: $supla-black;
         border: solid 1px rgba(0, 2, 4, 0.15);
         width: 150px;
         height: 32px !important;
         line-height: 32px;
-    }
-
-    select::-ms-expand {
-        display: none;
+        &::-ms-expand {
+            display: none;
+        }
     }
 </style>

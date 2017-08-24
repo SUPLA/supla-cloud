@@ -64,10 +64,11 @@
 </script>
 
 <style scoped
-    lang="scss"
-    rel="stylesheet/scss">
+    lang="scss">
+    @import "../styles/variables";
+
     .bg {
-        background: #FFE838;
+        background: $supla-yellow;
         position: fixed;
         width: 100%;
         height: 100%;
@@ -91,13 +92,13 @@
             margin: 10px;
         }
         input {
-            border-color: black;
-            color: black;
+            border-color: $supla-black;
+            color: $supla-black;
         }
     }
 
     .back {
         font-size: 40px;
-        color: black;
+        color: $supla-black;
     }
 </style>

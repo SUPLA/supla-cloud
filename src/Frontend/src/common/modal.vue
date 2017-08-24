@@ -33,8 +33,9 @@
     };
 </script>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
+    @import "../styles/variables";
+
     .modal-mask {
         position: fixed;
         z-index: 9998;
@@ -85,7 +86,7 @@
         color: black !important;
         h4 {
             font-size: 2em;
-            color: #00D151;
+            color: $supla-green;
         }
         .modal-header, .modal-footer {
             border: 0;

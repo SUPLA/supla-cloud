@@ -26,8 +26,9 @@
     };
 </script>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
+    @import "../styles/variables";
+
     .login-footer {
         width: 100%;
         position: absolute;
@@ -37,12 +38,12 @@
         }
         a {
             font-weight: 400;
-            color: #000;
+            color: $supla-black;
             border-radius: 3px;
             padding: 7px 9px;
             &:hover {
                 background: rgba(0, 2, 4, 0.08);
-                color: #000;
+                color: $supla-black;
             }
         }
     }

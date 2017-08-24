@@ -7,6 +7,8 @@
 </template>
 
 <style lang="scss">
+    @import "../styles/variables";
+
     .loader-dots {
         font-size: 0;
         display: block;
@@ -15,7 +17,7 @@
         margin: 100px auto;
         div {
             background: none;
-            border: solid 2px #000;
+            border: solid 2px $supla-black;
             width: 25px;
             height: 25px;
             border-radius: 30px;

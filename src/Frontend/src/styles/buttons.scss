@@ -1,12 +1,12 @@
 .btn {
   &-green {
-    background: #15B133;
-    color: white;
-    border: 1px #15B133 solid !important;
+    background: $supla-green;
+    color: $supla-white;
+    border: 1px $supla-green solid !important;
     border-radius: 2px !important;
     &:hover {
-      background: lighten(#15B133, 5%);
-      color: white !important;
+      background: darken($supla-green, 5%);
+      color: $supla-white !important;
 
     }
   }
@@ -15,22 +15,21 @@
     opacity: .8;
   }
   &-white {
-    background: white;
-    color: #15B133;
-    border: 1px solid #15B133 !important;
+    background: $supla-white;
+    color: $supla-green;
+    border: 1px solid $supla-green !important;
     &:hover, &:focus, &:active {
-      background: #cffdcd;
-      color: #15B133 !important;
+      background: darken($supla-white, 5%);
     }
   }
   &-black {
     background: $supla-black;
     outline-color: $supla-black !important;
-    color: white;
-    border: 1px solid black;
+    color: $supla-white;
+    border: 1px solid $supla-black;
     &:hover {
       background: lighten($supla-black, 10%);
-      color: white;
+      color: $supla-white;
     }
   }
   &-yellow {
@@ -39,32 +38,33 @@
     border: 1px solid $supla-yellow;
   }
   &-orange {
-    background: #f60;
-    border: 1px solid #f60;
+    background: $supla-orange;
+    border: 1px solid $supla-orange;
     &:hover {
-      background: #f50;
-      color: white;
+      background: $supla-orange;
+      color: $supla-white;
     }
   }
   &-outline {
     background: transparent;
     &.btn-green {
-      color: #15B133;
+      color: $supla-green;
     }
     &.btn-orange {
-      color: #f60;
+      color: $supla-orange;
       &:hover {
-        color: white !important;
+        color: $supla-white !important;
       }
     }
     &.btn-black {
       color: $supla-black;
       &:hover {
-        color: white;
+        color: $supla-white;
+        background: lighten($supla-black, 30%);
       }
       &.active {
-        background: #333;
-        color: white;
+        background: lighten($supla-black, 10%);
+        color: $supla-white;
       }
     }
   }

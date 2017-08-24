@@ -36,9 +36,10 @@
                 </div>
                 <div class="form-group text-right">
                     <button type="submit"
-
                         class="btn btn-green btn-lg">
-                        <span v-if="!authenticating">{{ $t('Sign In') }}</span>
+                        <span v-if="!authenticating">
+                            {{ $t('Sign In') }}
+                        </span>
                         <button-loading-dots v-else></button-loading-dots>
                     </button>
                 </div>
@@ -104,8 +105,9 @@
     };
 </script>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
+    @import "../styles/variables";
+
     .login-form {
         $height: 500px;
         max-width: 400px;
@@ -154,11 +156,11 @@
         }
         .error {
             display: inline-block;
-            background: #FFE838;
+            background: $supla-yellow;
             padding: 12px 20px;
             margin-top: 15px;
             border-radius: 3px;
-            color: black;
+            color: $supla-black;
             margin-bottom: 20px;
         }
     }

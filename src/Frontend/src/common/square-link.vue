@@ -27,11 +27,11 @@
         }
         &.yellow {
             background: $supla-yellow;
-            color: black;
+            color: $supla-black;
         }
         &.grey {
             background: $supla-grey;
-            color: black;
+            color: $supla-black;
         }
         dl {
             margin-bottom: 0;
@@ -62,7 +62,7 @@
             transform: scale(0.95);
         }*/
         &.selected {
-            border: 2px solid black;
+            border: 2px solid $supla-black;
             &:after {
                 content: '';
                 position: absolute;

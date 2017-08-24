@@ -21,7 +21,6 @@
                     width: 100% / $i;
                 }
             }
-
         }
         &-enter, &-leave-to {
             opacity: 0;

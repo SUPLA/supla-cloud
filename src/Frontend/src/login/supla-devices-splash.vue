@@ -81,8 +81,9 @@
     export default {};
 </script>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
+    @import "../styles/variables";
+
     .supla-devices-preview {
         padding-top: 110px;
         max-width: 800px;
@@ -94,11 +95,11 @@
                 display: block;
                 width: 180px;
                 padding: 10px 12px;
-                border: solid 2px #15B133;
+                border: solid 2px $supla-green;
                 border-radius: 5px;
                 text-align: center;
                 &:hover {
-                    color: #15B133;
+                    color: $supla-green;
                     background: rgba(41, 175, 36, 0.08)
                 }
                 &[href]:active {
@@ -125,8 +126,8 @@
                         font-weight: 600;
                         text-transform: uppercase;
                         text-align: center;
-                        background: #FFE838;
-                        color: #000;
+                        background: $supla-yellow;
+                        color: $supla-black;
                         transform: rotate(39deg);
                         width: 300px;
                         left: -58px;
@@ -147,7 +148,7 @@
         text-align: center;
         a {
             display: inline-block;
-            background: black;
+            background: $supla-black;
             width: 350px;
             border-radius: 3px;
             color: white;
