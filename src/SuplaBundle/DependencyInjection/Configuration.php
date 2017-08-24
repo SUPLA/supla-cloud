@@ -9,6 +9,7 @@ class Configuration implements ConfigurationInterface {
     public function getConfigTreeBuilder() {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('supla');
+        // @codingStandardsIgnoreStart
         // @formatter:off because indentation makes config structure way clearer
         $rootNode
             ->children()
@@ -22,6 +23,7 @@ class Configuration implements ConfigurationInterface {
                 ->end()
             ->end();
         // @formatter:on
+        // @codingStandardsIgnoreEnd
         return $treeBuilder;
     }
 }
