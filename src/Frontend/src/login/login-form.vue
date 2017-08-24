@@ -13,8 +13,10 @@
                         <span class="input-group-addon">
                             <span class="pe-7s-user"></span>
                         </span>
-                        <input type="text"
+                        <input type="email"
                             required
+                            autocorrect="off"
+                            autocapitalize="none"
                             :placeholder="$t('Your email')"
                             v-model="username"
                             name="_username"

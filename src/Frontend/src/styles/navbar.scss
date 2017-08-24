@@ -1,38 +1,66 @@
 nav.navbar-top {
-  &, .navbar-header {
-    min-height: 80px;
+  @media only screen and (min-width: 768px) {
+    .navbar-collapse {
+      display: flex !important;
+      > .nav {
+        flex: 1;
+        display: flex;
+        > li {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
   }
   .navbar-brand {
-    padding-top: 20px;
+    @media only screen and (min-width: 992px) {
+      padding-top: 20px;
+    }
+    @media only screen and (max-width: 768px) {
+      padding-top: 6px;
+      svg {
+        max-height: 40px;
+      }
+    }
     width: 160px;
     font-size: 2em;
-    color: black;
+    color: $supla-black;
     font-family: $supla-font-special;
     svg {
       max-width: 45px;
-      vertical-align: middle;
+      vertical-align: text-top;
     }
   }
-  .nav > li > a {
-    text-align: center;
-    font-size: 12px;
-    i {
-      font-size: 2em;
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 10px;
-    }
-    &:hover, &:focus {
-      color: $supla-green;
+  .nav > li {
+    transition: all .3s;
+    > a {
+      text-align: center;
+      font-size: 12px;
+      i {
+        font-size: 2em;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 10px;
+      }
+      &:hover, &:focus {
+        color: $supla-green;
+      }
     }
   }
-  .nav > li.active > a {
+  .nav > li.active, .nav > li.open {
     background: $supla-green;
     border-bottom-color: $supla-green;
-    color: white;
-    &:hover {
-      background: lighten($supla-green, 5%);
-      color: white;
+    > a {
+      border-bottom-color: $supla-green;
+      background: transparent;
+      color: $supla-white;
+      &:hover {
+        background: transparent;
+        color: $supla-white;
+      }
     }
   }
   .account-dropdown {
