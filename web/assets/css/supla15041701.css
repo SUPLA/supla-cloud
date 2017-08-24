@@ -230,7 +230,6 @@ body.channel .device {background: #ebecef;}
 }
 
 /* DEVICE */
-body.device-details .navbar-holder {margin-bottom: 0px;}
 body.device-details .navbar {margin-bottom: 0px; border-bottom-color: rgba(0,0,0,0.1);}
 .device-wrapper {background: #00D151; width: 100%; color: #fff; min-height: 300px; padding-bottom: 35px; margin-bottom: 30px; position: relative; animation-name: fadeIn; animation-delay: 0s; margin-top: -2px;}
 .device-wrapper .cd-btn {color: #fff; font-size: 34px; position: absolute; top: 50px;}
@@ -286,7 +285,7 @@ body.device-details .navbar {margin-bottom: 0px; border-bottom-color: rgba(0,0,0
 .infobar {width: 40%; float: left; animation-name: fadeIn; animation-delay: 0s; z-index: 3!important;}
 .pictogram { z-index: 2!important; backface-visibility: hidden;}
 
-body.channel .navbar-holder {margin-bottom: 0px;}
+body.channel .navbar-default {margin-bottom: 0px;}
 body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: visible;}
 .infobar{ background: #F0F1F4; padding: 62px 30px 30px; }
 .infobar h1 {font-family: "Quicksand",sans-serif; font-size: 26px; line-height: 30px;font-weight: 400; letter-spacing: 0px;text-transform: uppercase;}
@@ -574,6 +573,7 @@ body.api-settings .navbar-default .navbar-nav > li > a:hover, body.api-settings 
 body.account .navbar-default .navbar-nav > li > a:hover, body.account .navbar-default .navbar-nav > li > a:focus, body.account .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, body.account .navbar-default .navbar-nav > .open > a:focus {
     background-color: rgba(255,255,255,.2); color: #fff!important
 }
+body.account .navbar-default .navbar-header a, body.api-settings .navbar-default .navbar-header a { color: white; fill: white; }
 
 
 .restapi {margin: 30px 0;}
@@ -588,8 +588,8 @@ body.account .navbar-default .navbar-nav > li > a:hover, body.account .navbar-de
 .restapi input.form-control::-moz-selection {background: #FFE836; color: #000;}
 
 /* ACCOUNT */
-body.account .navbar-holder {margin-bottom: 0px}
-body.account svg {display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto;}
+body.account .navbar-default {margin-bottom: 0px}
+body.account .main-content svg {display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto;}
 body.account svg .st1x {-webkit-animation: fill 1s;
 	       -moz-animation: fill 1s forwards;
 	        -ms-animation: fill 1s forwards;
@@ -648,7 +648,7 @@ body.account svg .st4x {-webkit-animation: fill2 1s;
 	     0% { fill:rgba(255,255,255,0); }
 	    100% { fill: #000; }
 	}
-span.supla-member {position: absolute; top: 296px; left: calc(50% - 266px); display: inline-block;font-family: 'Quicksand', sans-serif;font-size: 15px; font-weight: 400; color:#fff;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 2s;}
+span.supla-member {position: absolute; top: 302px; left: calc(50% - 266px); display: inline-block;font-family: 'Quicksand', sans-serif;font-size: 15px; font-weight: 400; color:#fff;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 2s;}
 div.user-account {position: absolute; top: 332px; left: calc(50% - 250px); width: 500px}
 div.user-account h1 {display: inline-block; text-transform: none; border-bottom: solid 1px rgba(0,0,0,.2); line-height: 80px;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 1.8s; width: 100%;text-overflow: ellipsis;white-space: nowrap; overflow: hidden; font-size: 36px; line-height: 64px;}
 
