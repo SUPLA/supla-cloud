@@ -3,22 +3,24 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Model\UserManager;
+use SuplaBundle\Entity\Location;
 
-class UsersFixture extends SuplaFixture {
-    const ORDER = 0;
+class LocationsFixture extends SuplaFixture {
+    const ORDER = UsersFixture::ORDER + 1;
 
-    const USER_SUPLER = 'userSupler';
+    const LOCATION_BEDROOM = 'locationSypialnia';
+    const LOCATION_OUTSIDE = 'locationNa zewnątrz';
+    const LOCATION_GARAGE = 'locationGaraż';
 
     public function load(ObjectManager $manager) {
-        /** @var UserManager $userManager */
-        $userManager = $this->container->get('user_manager');
-        $user = new User();
-        $user->setEmail('supler@supla.org');
-        $userManager->create($user);
-        $userManager->setPassword('supla123', $user, true);
-        $userManager->confirm($user->getToken());
-        $this->addReference(self::USER_SUPLER, $user);
+        $user = $this->getReference(UsersFixture::USER);
+        foreach (['Sypialnia', 'Na zewnątrz', 'Garaż'] as $caption) {
+            /** @var Location $location */
+            $location = $this->container->get('location_manager')->createLocation($user);
+            $location->setCaption($caption);
+            $manager->persist($location);
+            $this->setReference('location' . $caption, $location);
+        }
+        $manager->flush();
     }
 }
