@@ -1,14 +1,14 @@
 <template>
     <div class="login-footer">
         <div class="container-fluid">
-            <div class="col-xs-4">
+            <div class="col-sm-4">
                 <language-selector></language-selector>
             </div>
-            <div class="col-xs-4 text-center">
+            <div class="col-sm-4 text-center">
                 <a class="brand nav-link"
                     href="https://www.supla.org">www.supla.org</a>
             </div>
-            <div class="col-xs-4 text-right">
+            <div class="col-sm-4 text-right">
                 <router-link to="/remind"
                     class="brand nav-link">
                     {{ $t('Forgot your password?') }}
@@ -28,14 +28,18 @@
 
 <style lang="scss">
     @import "../styles/variables";
+    @import "../styles/mixins";
 
     .login-footer {
         width: 100%;
         position: absolute;
         bottom: 5px;
-        @media (max-height: 500px) {
+        @include on-and-down(500px) {
             position: static;
-        }
+            .col-sm-4 {
+                padding-top: 5px;
+                text-align: center !important;
+            }
         a {
             font-weight: 400;
             color: $supla-black;
@@ -47,4 +51,5 @@
             }
         }
     }
+}
 </style>

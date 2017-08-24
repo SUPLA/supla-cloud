@@ -109,6 +109,7 @@
 
 <style lang="scss">
     @import "../styles/variables";
+    @import "../styles/mixins";
 
     .login-form {
         $height: 500px;
@@ -119,10 +120,11 @@
         left: 50%;
         margin-top: -$height/2;
         margin-left: -200px;
-        @media (max-width: 400px) {
+        @include on-and-down(500px){
             position: static;
             width: 90%;
-            margin: 10px;
+            margin: 10px auto;
+            height: auto;
         }
         @media (max-height: $height) {
             position: static;
