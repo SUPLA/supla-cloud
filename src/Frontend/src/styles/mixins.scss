@@ -1,0 +1,11 @@
+@mixin on-and-down($size) {
+  @media only screen and (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin on-xs-and-down {
+  @include on-and-down(768px) {
+    @content;
+  }
+}

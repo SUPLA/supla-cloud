@@ -2,14 +2,16 @@
     <div>
         <div class="container">
             <div class="clearfix">
-                <div class="pull-right">
+                <div class="client-apps-headers">
+                    <h1 class="no-margin-top">{{ $t('Client Apps') }}</h1>
+                    <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
+                </div>
+                <div class="client-apps-registration-button">
                     <client-apps-registration-button></client-apps-registration-button>
                 </div>
-                <h1 class="no-margin-top">{{ $t('Client Apps') }}</h1>
-                <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
             </div>
         </div>
-        <div class="container text-right grid-filters">
+        <div class="container grid-filters">
             <btn-filters v-model="filters.sort"
                 :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}]"></btn-filters>
             <btn-filters v-model="filters.enabled"
@@ -41,7 +43,10 @@
 </template>
 
 <style lang="scss">
+    @import "../styles/mixins";
+
     .grid-filters {
+        text-align: right;
         ::-webkit-input-placeholder {
             text-align: center;
         }
@@ -58,6 +63,24 @@
         }
         > * {
             margin-bottom: 5px;
+        }
+        @include on-xs-and-down {
+            text-align: center;
+            margin: 5px 0;
+        }
+    }
+
+    .client-apps-headers {
+        float: left;
+    }
+
+    .client-apps-registration-button {
+        float: right;
+        @include on-xs-and-down {
+            float: none;
+            clear: both;
+            margin: 5px auto;
+            text-align: center;
         }
     }
 </style>
