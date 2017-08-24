@@ -112,6 +112,7 @@ function clearLocalConfigFiles() {
         'release/app/config/parameters.yml',
         'release/app/config/parameters.yml.travis',
         'release/app/config/routing_dev.yml',
+        'release/src/DeveloperBundle',
         'release/src/*/Tests',
         'release/web/app_dev.php',
         'release/web/assets/**/*.map',
