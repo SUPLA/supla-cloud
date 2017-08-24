@@ -10,33 +10,15 @@
             </div>
         </div>
         <div class="container text-right">
-            <div class="btn-group btn-group-filters">
-                <button :class="'btn btn-black btn-outline ' + (enabledFilter === undefined ? 'active' : '')"
-                    @click="enabledFilter = undefined">Wszystko
-                </button>
-                <button :class="'btn btn-black btn-outline ' + (enabledFilter === true ? 'active' : '')"
-                    @click="enabledFilter = true">Włączone
-                </button>
-                <button :class="'btn btn-black btn-outline ' + (enabledFilter === false ? 'active' : '')"
-                    @click="enabledFilter = false">Wyłączone
-                </button>
-            </div>
-            <div class="btn-group btn-group-filters">
-                <button :class="'btn btn-black btn-outline ' + (sort == 'az' ? 'active' : '')"
-                    @click="sort = 'az'">A-Z
-                </button>
-                <button :class="'btn btn-black btn-outline ' + (sort == 'lastAccess' ? 'active' : '')"
-                    @click="sort = 'lastAccess'">Ostatnie połączenie
-                </button>
-            </div>
-            <div class="btn-group btn-group-filters">
-                <button class="btn btn-black btn-outline active">Wszystko</button>
-                <button class="btn btn-black btn-outline">Aktywne</button>
-                <button class="btn btn-black btn-outline">Bezczynne</button>
-            </div>
+            <btn-filters v-model="filters.sort"
+                :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}]"></btn-filters>
+            <btn-filters v-model="filters.enabled"
+                :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
+            <btn-filters v-model="filters.connected"
+                :filters="[{label: $t('All'), value: undefined}, {label: $t('Active'), value: true}, {label: $t('Idle'), value: false}]"></btn-filters>
         </div>
         <div class="container-fluid">
-            <square-links-grid v-if="clientApps">
+            <square-links-grid v-if="clientApps && filteredClientApps.length">
                 <div v-for="app in filteredClientApps"
                     :key="app.id">
                     <client-app-tile :app="app"
@@ -44,6 +26,10 @@
                         @delete="removeClientFromList(app)"></client-app-tile>
                 </div>
             </square-links-grid>
+            <div v-else-if="clientApps" class="text-center">
+                <h3><i class="pe-7s-paint-bucket"></i></h3>
+                <h2>Pusto!</h2>
+            </div>
             <loader-dots v-else></loader-dots>
         </div>
     </div>
@@ -61,20 +47,24 @@
 
 
 <script>
+    import BtnFilters from "../common/btn-filters.vue";
     import LoaderDots from "../common/loader-dots.vue";
     import SquareLinksGrid from "../common/square-links-grid.vue";
     import ClientAppTile from "./client-app-tile.vue";
     import ClientAppsRegistrationButton from "./client-apps-registration-button.vue";
 
     export default {
-        components: {LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid},
+        components: {BtnFilters, LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid},
         data() {
             return {
                 clientApps: undefined,
                 accessIds: undefined,
                 timer: null,
-                enabledFilter: undefined,
-                sort: 'az'
+                filters: {
+                    sort: 'az',
+                    enabled: undefined,
+                    connected: undefined
+                }
             };
         },
         mounted() {
@@ -95,13 +85,16 @@
         computed: {
             filteredClientApps() {
                 let apps = this.clientApps;
-                if (this.enabledFilter !== undefined) {
-                    apps = apps.filter(app => app.enabled == this.enabledFilter);
+                if (this.filters.enabled !== undefined) {
+                    apps = apps.filter(app => app.enabled == this.filters.enabled);
                 }
-                if (this.sort == 'az') {
+                if (this.filters.connected !== undefined) {
+                    apps = apps.filter(app => app.connected == this.filters.connected);
+                }
+                if (this.filters.sort == 'az') {
                     apps = apps.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
-                } else if (this.sort == 'lastAccess') {
-                    apps = apps.sort((a1, a2) => moment(a1.lastAccessDate).isBefore(moment(a2.lastAccessDate)) ? 1 : -1);
+                } else if (this.filters.sort == 'lastAccess') {
+                    apps = apps.sort((a1, a2) => moment(a2.lastAccessDate).diff(moment(a1.lastAccessDate)));
                 }
                 return apps;
             }
