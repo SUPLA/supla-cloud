@@ -20,10 +20,10 @@
 </template>
 
 <script>
-    import ButtonLoading from "../common/button-loading.vue";
+    import ButtonLoading from "../../common/button-loading.vue";
     import {mapState} from "vuex";
-    import DisablingSchedulesModal from "../schedules/modals/disabling-schedules-modal.vue";
-    import EnablingSchedulesModal from "../schedules/modals/enabling-schedules-modal.vue";
+    import DisablingSchedulesModal from "../../schedules/modals/disabling-schedules-modal.vue";
+    import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal.vue";
 
     export default {
         components: {ButtonLoading, DisablingSchedulesModal, EnablingSchedulesModal},

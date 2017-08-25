@@ -3,14 +3,13 @@ const webpack = require('webpack');
 const glob = require('glob');
 
 const entries = {
-    'client-apps': './src/client-apps/client-apps.js',
-    'iodevice-details': './src/iodevice-details/iodevice-details.js',
-    'login-page': './src/login/login-page.js',
-    'schedule-form': './src/schedules/schedule-form/schedule-form.js',
-    'schedule-list': './src/schedules/schedule-list/schedule-list.js',
-    'user-account': './src/user-account/user-account.js',
     'commons': './src/common.js',
 };
+
+glob.sync('src/**/*-page.js').forEach(page => {
+    const entryName = path.basename(page, '.js');
+    entries[entryName] = path.resolve(__dirname, page);
+});
 
 const availableTranslations = [];
 
@@ -71,6 +70,7 @@ module.exports = {
             'vuex$': 'vuex/dist/vuex.js',
             'jquery': 'jquery/dist/jquery',
             'moment-timezone': 'moment-timezone/builds/moment-timezone-with-data-2012-2022',
+            'src': path.resolve(__dirname, 'src'),
         }
     },
     devServer: {

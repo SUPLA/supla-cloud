@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import {actions, mutations} from "./iodevice-details-store";
 import EnableDisableButton from "./enable-disable-button.vue";
-import {i18n} from "../translations";
+import {i18n} from "../../translations";
 
 new Vue({
     el: '#iodevice-detail',
