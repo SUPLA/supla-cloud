@@ -10,10 +10,6 @@
 
     }
   }
-  .text-muted {
-    color: inherit;
-    opacity: .8;
-  }
   &-white {
     background: $supla-white;
     color: $supla-green;
@@ -49,6 +45,7 @@
   &-orange {
     background: $supla-orange;
     border: 1px solid $supla-orange;
+    outline-color: $supla-orange !important;
     &:hover {
       background: $supla-orange;
       color: $supla-white;
@@ -76,5 +73,12 @@
         color: $supla-white;
       }
     }
+  }
+  .text-muted {
+    color: inherit;
+    opacity: .8;
+  }
+  &.active {
+    box-shadow: none;
   }
 }
