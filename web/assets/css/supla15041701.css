@@ -9,21 +9,6 @@ html,body{min-width: 1100px; width: auto!important; width: 1100px; height:100%; 
 }
 body.noactive {overflow: hidden}
 
-h1 {
-	font-family: 'Quicksand', sans-serif;
-	font-size: 42px;
-	line-height: 42px;
-	font-weight: 300;
-	text-transform: capitalize;
-	letter-spacing: -3px;
-	margin: 10px 0;
-	position: relative;
-	-webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-	animation-name: fadeIn;
-}
 h1 strong {font-weight: 400;}
 h1.big {font-size: 72px; line-height: 72px; letter-spacing: -6px; animation-name: fadeIn; animation-delay: 0s; margin-bottom: 25px}
 body.first-time h1.big {animation-delay: .1s;}

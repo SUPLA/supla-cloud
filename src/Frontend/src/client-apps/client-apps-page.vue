@@ -3,7 +3,7 @@
         <div class="container">
             <div class="clearfix">
                 <div class="client-apps-headers">
-                    <h1 class="no-margin-top">{{ $t('Client Apps') }}</h1>
+                    <h1>{{ $t('Client Apps') }}</h1>
                     <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
                 </div>
                 <div class="client-apps-registration-button">

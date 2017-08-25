@@ -1,9 +1,9 @@
 {% extends 'SuplaBundle::layout.html.twig' %}
 {% block content %}
-    <div class="container margin-top-30">
+    <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="title">
+                <h1>
                     {% trans %}Schedule{% endtrans %} ID{{ schedule.id }}
                     {% if schedule.caption %}
                         <span class="small">{{ schedule.caption }}</span>
