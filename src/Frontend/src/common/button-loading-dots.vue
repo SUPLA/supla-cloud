@@ -45,7 +45,7 @@
         @include loading-dots-color($supla-white);
     }
 
-    .btn-black.btn-outline {
+    .btn-black.btn-outline, .btn-grey {
         @include loading-dots-color($supla-black);
     }
 

@@ -32,6 +32,15 @@
       color: $supla-white;
     }
   }
+  &-grey {
+    background: $supla-grey-light;
+    outline-color: $supla-grey-dark !important;
+    color: $supla-black;
+    border: 1px solid $supla-grey-dark;
+    &:hover {
+      background: darken($supla-grey-light, 5%);
+    }
+  }
   &-yellow {
     background: $supla-yellow;
     color: $supla-black;

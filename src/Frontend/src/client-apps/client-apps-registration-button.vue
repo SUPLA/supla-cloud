@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button :class="'btn btn-outline btn-' + (enabledUntil ? 'green' : 'orange')"
+        <button :class="'btn btn-outline btn-' + (enabledUntil ? 'orange' : 'grey')"
             @click="toggle()"
             :disabled="saving">
             <table class="table">
