@@ -24,7 +24,8 @@
                 :placeholder="$t('Search')">
         </div>
         <div class="container-fluid">
-            <square-links-grid v-if="clientApps && filteredClientApps.length">
+            <square-links-grid v-if="clientApps && filteredClientApps.length"
+                class="square-links-height-240">
                 <div v-for="app in filteredClientApps"
                     :key="app.id">
                     <client-app-tile :app="app"

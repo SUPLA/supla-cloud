@@ -33,7 +33,8 @@
         }
         &, .front, .back {
             width: 100%;
-            height: 260px;
+            // height of the flipper is set in square-link
+            /*height: 240px;*/
         }
         .flipper {
             transition: 0.6s;

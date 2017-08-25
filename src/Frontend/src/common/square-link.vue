@@ -16,7 +16,6 @@
         position: relative;
         display: block;
         background: $supla-green;
-        min-height: 260px;
         color: white;
         padding: 5px 10px;
         border-radius: 3px;
@@ -79,4 +78,19 @@
             }
         }
     }
+
+    @mixin square-link-height($height) {
+        .square-links-height-#{$height} {
+            .square-link {
+                height: $height + px;
+            }
+            .flip-container {
+                &, .front, .back {
+                    height: $height + px;
+                }
+            }
+        }
+    }
+
+    @include square-link-height(240);
 </style>

@@ -6,20 +6,19 @@
                 @click="edit()">
                 <h3>{{app.name}}</h3>
                 <dl>
-                    <dd>Zarejestrowano</dd>
-                    <dt>{{ app.regDate | moment("LLL") }}</dt>
-                    <dd style="padding-left: 44px">z adresu</dd>
-                    <dt>{{ app.regIpv4 | intToIp }}</dt>
+                    <dd>{{ app.softwareVersion }} / {{ app.protocolVersion }}</dd>
+                    <dt></dt>
+                </dl>
+                <div class="separator invisible"></div>
+                <dl>
                     <dd>Ostatnie połączenie</dd>
                     <dt>{{ app.lastAccessDate | moment("LLL") }}</dt>
-                    <dd style="padding-left: 69px">z adresu</dd>
+                    <dd>z adresu</dd>
                     <dt>{{ app.lastAccessIpv4 | intToIp}}</dt>
-                    <dd>Wersja oprogramowania / protokołu</dd>
-                    <dt>{{ app.softwareVersion }} / {{ app.protocolVersion }} </dt>
                 </dl>
-                <div class="separator"></div>
+                <div class="separator invisible"></div>
                 <dl>
-                    <dd>Identyfikator dostępu</dd>
+                    <dd>ID dostępu</dd>
                     <dt>{{ app.accessId ? app.accessId.caption : 'brak' }}</dt>
                 </dl>
                 <div class="square-link-label">

@@ -14,8 +14,8 @@
             padding: 7px;
             transition: all .3s ease-out;
             width: 100%;
-            $minimumWidthOfOneSquare: 350px;
-            @for $i from 2 through 7 {
+            $minimumWidthOfOneSquare: 265px;
+            @for $i from 2 through 10 {
                 $breakpoint: $i * $minimumWidthOfOneSquare;
                 @media only screen and (min-width: $breakpoint) {
                     width: 100% / $i;
