@@ -1,0 +1,46 @@
+.ui-pnotify-container {
+  background: $supla-white;
+  padding: 20px;
+  &, .ui-pnotify-title {
+    font-weight: 300;
+  }
+  .ui-pnotify-title {
+    text-transform: uppercase;
+  }
+  .ui-pnotify-title, .ui-pnotify-icon {
+    font-size: 26px;
+  }
+  &.brighttheme {
+    &-success {
+      color: $supla-green;
+    }
+    &-notice {
+      color: $supla-orange;
+    }
+    &-error {
+      background: $supla-yellow;
+    }
+  }
+  .brighttheme {
+    &-icon-error {
+      font-family: 'Pe-icon-7-stroke';
+      line-height: 1;
+    }
+    &-icon-error:before {
+      content: "\e67b"; // pe-7s-attention TODO
+    }
+  }
+  .ui-pnotify-closer {
+    outline: none !important;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    > span {
+      font-family: 'Pe-icon-7-stroke';
+      font-size: 30px;
+      &:before {
+        content: "\e680"; // pe-7s-close
+      }
+    }
+  }
+}

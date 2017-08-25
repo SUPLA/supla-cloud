@@ -5,9 +5,9 @@ import Vuex from "vuex";
 import VueI18N from "vue-i18n";
 import VueResource from "vue-resource";
 import "moment-timezone";
-import "style-loader!css-loader!sass-loader!./styles/styles.scss";
 import "./common/common-components";
 import "./common/filters";
+import "style-loader!css-loader!sass-loader!./styles/styles.scss";
 
 Vue.use(Vuex);
 Vue.use(VueI18N);

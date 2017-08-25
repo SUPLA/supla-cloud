@@ -8,7 +8,7 @@
                     <td>
                         <button-loading-dots v-if="saving"></button-loading-dots>
                         <i v-else
-                            :class="enabledUntil ? 'pe-7s-power' : 'pe-7s-close-circle'"></i>
+                            :class="enabledUntil ? 'pe-7s-attention' : 'pe-7s-close-circle'"></i>
                     </td>
                     <td>
                         <span v-if="saving">Rejestracja klientów</span>

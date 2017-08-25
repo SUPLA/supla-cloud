@@ -18,6 +18,7 @@
     "jquery": "2.1.4",
     "moment": "2.18.1",
     "moment-timezone": "0.5.13",
+    "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
     "vue": "2.4.2",
     "vue-i18n": "7.1.1",

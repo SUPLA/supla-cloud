@@ -91,6 +91,7 @@
     import Switches from "vue-switches";
     import Vue from "vue";
     import ClientAppDeleteConfirmModal from "./client-app-delete-confirm-modal.vue";
+    import {successNotification, warningNotification} from "../common/notifier";
 
     export default {
         props: ['app', 'accessIds'],
@@ -115,6 +116,7 @@
                 this.$http.put(`client-apps/${this.app.id}`, this.editingModel)
                     .then(({body}) => Vue.util.extend(this.app, body))
                     .then(() => this.editingModel = null)
+                    .then(() => successNotification(this.$t('Success'), this.$t('Data saved')))
                     .finally(() => this.saving = false);
             },
             deleteClient() {
@@ -122,6 +124,7 @@
                 this.$http.delete(`client-apps/${this.app.id}`)
                     .then(() => this.editingModel = null)
                     .then(() => this.deleteConfirm = false)
+                    .then(() => warningNotification(this.$t('Information'), this.$t('Client app has been deleted')))
                     .then(() => this.$emit('delete'))
                     .finally(() => this.saving = false);
             }

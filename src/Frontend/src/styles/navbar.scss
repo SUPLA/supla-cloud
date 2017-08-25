@@ -55,14 +55,14 @@ nav.navbar-top {
   .nav > li.active, .nav > li.open {
     background: $supla-green;
     border-bottom-color: $supla-green;
-    > a, > a:hover {
+    > a, > a:hover, > a:focus {
       border-bottom-color: $supla-green;
       background: transparent;
       color: $supla-white;
     }
     @include on-xs-and-down {
       background: transparent;
-      > a, > a:hover {
+      > a, > a:hover, > a:focus {
         background: $supla-green;
       }
     }
