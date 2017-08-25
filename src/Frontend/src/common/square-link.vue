@@ -52,6 +52,11 @@
             position: absolute;
             right: 10px;
             bottom: 10px;
+            font-size: 12px;
+            line-height: 12px;
+            .label {
+                border: 0;
+            }
         }
         /*&:hover, &:active, &.selected {
             margin-top: 0;

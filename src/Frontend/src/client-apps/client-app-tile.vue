@@ -14,7 +14,7 @@
                     <dd>Ostatnie połączenie</dd>
                     <dt>{{ app.lastAccessDate | moment("LLL") }}</dt>
                     <dd>z adresu</dd>
-                    <dt>{{ app.lastAccessIpv4 | intToIp}}</dt>
+                    <dt>{{ app.lastAccessIpv4 | intToIp }}</dt>
                 </dl>
                 <div class="separator invisible"></div>
                 <dl>
@@ -25,8 +25,6 @@
                     <span class="label"
                         v-if="app.connected != undefined"
                         :class="app.connected ? 'label-success' : 'label-grey'">{{ app.connected ? $t('Active') : $t('Idle') }}</span>
-                    <span class="label"
-                        :class="app.enabled ? 'label-success' : 'label-grey'">{{ app.enabled ? $t('Enabled') : $t('Disabled') }}</span>
                 </div>
             </square-link>
             <square-link class="yellow"
