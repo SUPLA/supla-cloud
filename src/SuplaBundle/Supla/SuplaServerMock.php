@@ -32,7 +32,7 @@ class SuplaServerMock extends SuplaServer {
 
     private function tryToHandleCommand($cmd) {
         if (preg_match('#^IS-IODEV-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
-            return "CONNECTED:$match[2]\n";
+            return (rand() % 2) ? "CONNECTED:$match[2]\n" : 'NO';
         } elseif (preg_match('#^SET-CHAR-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         }

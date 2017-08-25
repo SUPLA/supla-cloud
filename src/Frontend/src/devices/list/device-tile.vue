@@ -17,15 +17,19 @@
                 <div class="separator"></div>
                 {{ device.comment }}
             </div>
+            <div class="square-link-label">
+                <device-connection-status-label :device="device"></device-connection-status-label>
+            </div>
         </a>
     </square-link>
 </template>
 
 <script>
     import SquareLink from "src/common/square-link.vue";
+    import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
 
     export default {
         props: ['device'],
-        components: {SquareLink},
+        components: {SquareLink, DeviceConnectionStatusLabel},
     };
 </script>

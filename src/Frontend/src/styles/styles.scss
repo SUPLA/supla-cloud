@@ -84,6 +84,9 @@ input[type=text], input[type=password], input[type=email] {
   text-transform: uppercase;
   font-size: .9em;
   line-height: initial;
+  &.label-danger {
+    background: #FF3939;
+  }
   &.label-success {
     background: $supla-green;
     border: 1px solid white;

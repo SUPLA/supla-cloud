@@ -1,0 +1,26 @@
+<template>
+    <span :class="'label ' + (connected ? 'label-success' : 'label-danger')"
+        v-if="connected !== undefined">
+        {{ $t(connected ? 'Connected' : 'Disconnected') }}
+    </span>
+</template>
+
+<script>
+    import deviceConnectionMonitor from "../device-connection-monitor";
+
+    export default {
+        props: ['device'],
+        data() {
+            return {
+                connected: undefined,
+                callback: (newState) => this.connected = newState,
+            };
+        },
+        mounted() {
+            deviceConnectionMonitor.register(this.device, this.callback);
+        },
+        beforeDestroy() {
+            deviceConnectionMonitor.unregister(this.device, this.callback);
+        }
+    };
+</script>
