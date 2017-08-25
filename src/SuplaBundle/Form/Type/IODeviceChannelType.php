@@ -32,7 +32,7 @@ class IODeviceChannelType extends AbstractType {
             ->add('caption', TextType::class, ['label' => 'Caption', 'required' => false])
             ->add('cancel', ButtonType::class, [
                 'label' => ' ',
-                'attr' => ['class' => 'back pe-7s-left-arrow', 'onClick' => "fadeToUrl('" . $options['cancel_url'] . "')"],
+                'attr' => ['class' => 'back pe-7s-left-arrow', 'onClick' => "window.location.href = '" . $options['cancel_url'] . "'"],
             ])
             ->add('save', SubmitType::class, ['label' => ' ',
                 'attr' => ['class' => 'save pe-7s-check'],

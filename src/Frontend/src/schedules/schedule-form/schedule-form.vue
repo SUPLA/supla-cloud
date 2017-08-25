@@ -40,14 +40,14 @@
                         <schedule-form-action-chooser></schedule-form-action-chooser>
                         <div class="text-right"
                             v-if="!submitting">
-                            <button class="btn btn-default btn-lg"
+                            <button class="btn btn-white btn-lg"
                                 v-if="schedule.enabled === false"
                                 :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
                                 @click="submit()">
                                 <i class="pe-7s-diskette"></i>
                                 {{ $t('Save') }}
                             </button>
-                            <button class="btn btn-success btn-lg"
+                            <button class="btn btn-green btn-lg"
                                 :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
                                 @click="submit(true)">
                                 <i :class="scheduleId ? 'pe-7s-diskette' : 'pe-7s-plus'"></i>

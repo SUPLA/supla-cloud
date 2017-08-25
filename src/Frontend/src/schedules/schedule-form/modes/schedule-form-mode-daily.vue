@@ -4,10 +4,10 @@
             <div class="btn-group btn-group-sm btn-group-justified">
                 <a class="btn btn-default"
                     @click="hourChooseMode = 'normal'"
-                    :class="{'active btn-success': hourChooseMode == 'normal'}">{{ $t('Chosen hour') }}</a>
+                    :class="{'active btn-green': hourChooseMode == 'normal'}">{{ $t('Chosen hour') }}</a>
                 <a class="btn btn-default"
                     @click="hourChooseMode = 'sun'"
-                    :class="{'active btn-success': hourChooseMode == 'sun'}">{{ $t('Sunrise / Sunset') }}</a>
+                    :class="{'active btn-green': hourChooseMode == 'sun'}">{{ $t('Sunrise / Sunset') }}</a>
             </div>
         </div>
         <div class="row">

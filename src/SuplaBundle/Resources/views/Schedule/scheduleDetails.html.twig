@@ -41,21 +41,21 @@
                                     method="post">
                                 <div class="btn-group">
                                     {% if schedule.enabled %}
-                                        <button class="btn btn-default"
+                                        <button class="btn btn-white"
                                                 name="disable">
                                             {% trans %}Disable schedule{% endtrans %}
                                         </button>
                                     {% else %}
-                                        <button class="btn btn-success"
+                                        <button class="btn btn-green"
                                                 name="enable">
                                             {% trans %}Enable schedule{% endtrans %}
                                         </button>
                                     {% endif %}
-                                    <a class="btn btn-default"
+                                    <a class="btn btn-white"
                                             href="{{ path('_schedule_edit', {'schedule': schedule.id}) }}">
                                         {% trans %}Edit schedule{% endtrans %}
                                     </a>
-                                    <button class="btn btn-danger"
+                                    <button class="btn btn-orange"
                                             name="delete"
                                             onclick="return confirm('{% trans %}Are you sure you want to delete this schedule?{% endtrans %}')">
                                         {% trans %}Delete schedule{% endtrans %}

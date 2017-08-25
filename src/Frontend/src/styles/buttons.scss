@@ -7,7 +7,10 @@
     &:hover {
       background: darken($supla-green, 5%);
       color: $supla-white !important;
-
+    }
+    &.active, &:focus {
+      background: darken($supla-green, 5%) !important;
+      color: $supla-white;
     }
   }
   &-white {
@@ -46,6 +49,7 @@
     background: $supla-orange;
     border: 1px solid $supla-orange;
     outline-color: $supla-orange !important;
+    color: $supla-white;
     &:hover {
       background: $supla-orange;
       color: $supla-white;

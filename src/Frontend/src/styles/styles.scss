@@ -97,6 +97,10 @@ input[type=text], input[type=password], input[type=email] {
   height: initial !important;
 }
 
+[class^="pe-7s-"], [class*=" pe-7s-"] {
+  outline: none !important;
+}
+
 @import "./buttons";
 @import "./navbar";
 @import "./notifications";
