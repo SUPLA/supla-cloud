@@ -7,7 +7,8 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --https --hot --output-public-path https://localhost:25787/assets/dist",
     "build": "rm -fr ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules",
     "lint": "eslint --ext js,vue src",
-    "release": "node scripts/release.js"
+    "release": "node scripts/release.js",
+    "webpack-stats": "cross-env NODE_ENV=production webpack --json > stats.json"
   },
   "dependencies": {
     "babel-runtime": "6.23.0",

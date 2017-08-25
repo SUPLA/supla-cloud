@@ -33,7 +33,7 @@ module.exports = {
             filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js',
             name: "commons"
         }),
-        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, new RegExp('(' + availableTranslations.join('|') + ')\\.')),
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, new RegExp(availableTranslations.join('|'))),
     ],
     module: {
         rules: [
