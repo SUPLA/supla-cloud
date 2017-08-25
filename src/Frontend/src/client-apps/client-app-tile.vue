@@ -22,9 +22,7 @@
                     <dt>{{ app.accessId ? app.accessId.caption : 'brak' }}</dt>
                 </dl>
                 <div class="square-link-label">
-                    <span class="label"
-                        v-if="app.connected != undefined"
-                        :class="app.connected ? 'label-success' : 'label-grey'">{{ app.connected ? $t('Active') : $t('Idle') }}</span>
+                    <client-app-connection-status-label :app="app"></client-app-connection-status-label>
                 </div>
             </square-link>
             <square-link class="yellow"
@@ -91,11 +89,12 @@
     import Switches from "vue-switches";
     import Vue from "vue";
     import ClientAppDeleteConfirmModal from "./client-app-delete-confirm-modal.vue";
+    import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
     import {successNotification, warningNotification} from "../common/notifier";
 
     export default {
         props: ['app', 'accessIds'],
-        components: {SquareLink, Flipper, Switches, ButtonLoadingDots, ClientAppDeleteConfirmModal},
+        components: {SquareLink, Flipper, Switches, ButtonLoadingDots, ClientAppDeleteConfirmModal, ClientAppConnectionStatusLabel},
         data() {
             return {
                 saving: false,

@@ -39,36 +39,18 @@
             <h2>Pusto!</h2>
         </div>
         <loader-dots v-else></loader-dots>
+        <div class="hidden"
+            v-if="clientApps">
+            <!--prevents filtered-out items from receiving status updates-->
+            <client-app-connection-status-label :app="app"
+                :key="app.id"
+                v-for="app in clientApps"></client-app-connection-status-label>
+        </div>
     </div>
 </template>
 
 <style lang="scss">
     @import "../styles/mixins";
-
-    .grid-filters {
-        text-align: right;
-        ::-webkit-input-placeholder {
-            text-align: center;
-        }
-        ::-moz-placeholder {
-            text-align: center;
-        }
-        :-ms-input-placeholder {
-            text-align: center;
-        }
-        input[type=text] {
-            max-width: 150px;
-            display: inline-block;
-            margin-left: 5px;
-        }
-        > * {
-            margin-bottom: 5px;
-        }
-        @include on-xs-and-down {
-            text-align: center;
-            margin: 5px 0;
-        }
-    }
 
     .client-apps-headers {
         float: left;
@@ -92,14 +74,14 @@
     import SquareLinksGrid from "../common/square-links-grid.vue";
     import ClientAppTile from "./client-app-tile.vue";
     import ClientAppsRegistrationButton from "./client-apps-registration-button.vue";
+    import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
 
     export default {
-        components: {BtnFilters, LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid},
+        components: {BtnFilters, LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid, ClientAppConnectionStatusLabel},
         data() {
             return {
                 clientApps: undefined,
                 accessIds: undefined,
-                timer: null,
                 filters: {
                     sort: 'az',
                     enabled: undefined,
@@ -109,19 +91,8 @@
             };
         },
         mounted() {
-            this.$http.get('client-apps').then(({body}) => {
-                body.forEach(app => {
-                    app.editing = false;
-                    app.connected = undefined;
-                });
-                this.clientApps = body;
-                this.fetchConnectedClientApps();
-                this.timer = setInterval(this.fetchConnectedClientApps, 7000);
-            });
-            this.$http.get('aid').then(({body}) => {
-                this.accessIds = body;
-            });
-
+            this.$http.get('client-apps').then(({body}) => this.clientApps = body);
+            this.$http.get('aid').then(({body}) => this.accessIds = body);
         },
         computed: {
             filteredClientApps() {
@@ -144,18 +115,9 @@
             }
         },
         methods: {
-            fetchConnectedClientApps() {
-                this.$http.get('client-apps?onlyConnected=true').then(({body}) => {
-                    const connectedIds = body.map(app => app.id);
-                    this.clientApps.forEach(app => app.connected = connectedIds.indexOf(app.id) >= 0);
-                });
-            },
             removeClientFromList(app) {
                 this.clientApps.splice(this.clientApps.indexOf(app), 1);
             }
-        },
-        beforeDestroy() {
-            clearInterval(this.timer);
         }
     };
 </script>
