@@ -21,7 +21,12 @@
         border-radius: 3px;
         border: 2px solid $supla-green;
         transition: all .3s;
-
+        > a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: inherit;
+        }
         h3, h4 {
             white-space: nowrap;
             overflow: hidden;

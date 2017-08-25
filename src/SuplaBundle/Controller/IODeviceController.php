@@ -21,6 +21,7 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
@@ -51,10 +52,15 @@ class IODeviceController extends AbstractController {
 
     /**
      * @Route("", name="_iodev_list")
+     * @Template
      */
     public function listAction() {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        return $this->render('SuplaBundle:IODevice:list.html.twig', ['iodevices' => $user->getIODevices()]);
+        if ($this->expectsJsonResponse()) {
+            $user = $this->getUser();
+            return $this->jsonResponse($user->getIODevices());
+        } else {
+            return [];
+        }
     }
 
     /**

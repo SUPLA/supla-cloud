@@ -21,6 +21,7 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -32,6 +33,7 @@ class Location {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic", "flat"})
      */
     private $id;
 
@@ -46,11 +48,13 @@ class Location {
      * @ORM\Column(name="caption", type="string", length=100, nullable=false)
      * @Assert\NotBlank()
      * @Assert\Length(min=1, max=100)
+     * @Groups({"basic", "flat"})
      */
     private $caption;
 
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @Groups({"basic", "flat"})
      */
     private $enabled;
 

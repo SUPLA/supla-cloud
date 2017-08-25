@@ -1,5 +1,7 @@
-{% extends 'SuplaBundle::layout.html.twig' %}
+{% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
 {% block content %}
+	<div id="devices-list"></div>
+	{#
 <div class="container">
     <h1>{% trans %}I/O Devices{% endtrans %}<a href="#0" class="cd-btn"><i class="pe-7s-help1"></i></a>
 		<div class="pull-right filter-container">
@@ -50,6 +52,9 @@
 			</div> <!-- cd-panel-content -->
 		</div> <!-- cd-panel-container -->
 </div> <!-- cd-panel -->
+#}
 
-
+{% endblock %}
+{% block scripts %}
+	<script src="{{ asset('assets/dist/devices-list-page.js', 'webpack') }}"></script>
 {% endblock %}
