@@ -19,6 +19,9 @@
         color: white;
         padding: 5px 10px;
         border-radius: 3px;
+        border: 2px solid $supla-green;
+        transition: all .3s;
+
         h3, h4 {
             white-space: nowrap;
             overflow: hidden;
@@ -27,10 +30,15 @@
         &.yellow {
             background: $supla-yellow;
             color: $supla-black;
+            border-color: $supla-yellow !important;
         }
         &.grey {
             background: $supla-grey-light;
             color: $supla-black;
+            border-color: $supla-grey-light;
+        }
+        &:hover {
+            border-color: $supla-black;
         }
         dl {
             margin-bottom: 0;
