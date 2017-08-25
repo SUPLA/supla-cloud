@@ -23,23 +23,22 @@
                 v-model="filters.search"
                 :placeholder="$t('Search')">
         </div>
-        <div class="container-fluid">
-            <square-links-grid v-if="clientApps && filteredClientApps.length"
-                class="square-links-height-240">
-                <div v-for="app in filteredClientApps"
-                    :key="app.id">
-                    <client-app-tile :app="app"
-                        :access-ids="accessIds"
-                        @delete="removeClientFromList(app)"></client-app-tile>
-                </div>
-            </square-links-grid>
-            <div v-else-if="clientApps"
-                class="text-center">
-                <h3><i class="pe-7s-paint-bucket"></i></h3>
-                <h2>Pusto!</h2>
+        <square-links-grid v-if="clientApps && filteredClientApps.length"
+            :count="filteredClientApps.length"
+            class="square-links-height-240">
+            <div v-for="app in filteredClientApps"
+                :key="app.id">
+                <client-app-tile :app="app"
+                    :access-ids="accessIds"
+                    @delete="removeClientFromList(app)"></client-app-tile>
             </div>
-            <loader-dots v-else></loader-dots>
+        </square-links-grid>
+        <div v-else-if="clientApps"
+            class="text-center">
+            <h3><i class="pe-7s-paint-bucket"></i></h3>
+            <h2>Pusto!</h2>
         </div>
+        <loader-dots v-else></loader-dots>
     </div>
 </template>
 
