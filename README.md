@@ -28,6 +28,16 @@ You need to have [composer](https://getcomposer.org/) and [NodeJS](https://nodej
 composer install
 ```
 
+### Populating database with sample data
+
+Once you download dev dependencies, you may run the following command to
+drop, create the database and populate it with sample data.
+
+```
+php bin/console supla:dev:dropAndLoadFixtures -e dev
+```
+The user created by the fixtures is `user@supla.org` and the password is `pass`.
+
 ### Downloading frontend dependencies and building the sources
 ```
 composer run-script webpack
