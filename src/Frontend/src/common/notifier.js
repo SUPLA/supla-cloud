@@ -5,18 +5,18 @@ import "pnotify/dist/pnotify.mobile";
 import "pnotify/dist/pnotify.mobile.css";
 import "pnotify/dist/pnotify.css";
 
-function showNotification(title, text, type, icon) {
-    return new PNotify({title, text, type, icon});
+function showNotification(title, text, type) {
+    return new PNotify({title, text, type});
 }
 
 export function successNotification(title, text = '') {
-    return showNotification(title, text, 'success', 'pe-7s-simple-check');
+    return showNotification(title, text, 'success');
 }
 
 export function warningNotification(title, text = '') {
-    return showNotification(title, text, 'notice', 'pe-7s-close-circle');
+    return showNotification(title, text, 'notice');
 }
 
 export function errorNotification(title, text = '') {
-    return showNotification(title, text, 'error', 'pe-7s-attention');
+    return showNotification(title, text, 'error');
 }

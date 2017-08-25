@@ -22,12 +22,18 @@
     }
   }
   .brighttheme {
-    &-icon-error {
+    &-icon-error, &-icon-success, &-icon-notice {
       font-family: 'Pe-icon-7-stroke';
       line-height: 1;
     }
     &-icon-error:before {
-      content: "\e67b"; // pe-7s-attention TODO
+      content: "\e67b"; // pe-7s-attention
+    }
+    &-icon-success:before {
+      content: "\e700"; // pe-7s-simple-check
+    }
+    &-icon-notice:before {
+      content: "\e681"; // pe-7s-close-circle
     }
   }
   .ui-pnotify-closer {
