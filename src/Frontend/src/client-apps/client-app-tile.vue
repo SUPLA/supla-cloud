@@ -12,7 +12,7 @@
                 <div class="separator invisible"></div>
                 <dl>
                     <dd>Ostatnie połączenie</dd>
-                    <dt>{{ app.lastAccessDate | moment("LLL") }}</dt>
+                    <dt>{{ app.lastAccessDate | moment("LT L") }}</dt>
                     <dd>z adresu</dd>
                     <dt>{{ app.lastAccessIpv4 | intToIp }}</dt>
                 </dl>
