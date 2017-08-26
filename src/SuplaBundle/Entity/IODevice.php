@@ -153,14 +153,6 @@ class IODevice {
     }
 
     public function setLocation(Location $location) {
-        if ($this->originalLocation != null
-            && $this->originalLocation->getId() == $location->getId()
-        ) {
-            $this->originalLocation = null;
-        } elseif ($this->originalLocation == null) {
-            $this->originalLocation = $this->location;
-        }
-
         $this->location = $location;
     }
 
