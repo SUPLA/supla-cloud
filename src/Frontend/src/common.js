@@ -1,4 +1,5 @@
 import "expose-loader?jQuery!expose-loader?$!jquery";
+import "turn-off-tv/jquery.turn-off-tv";
 import "expose-loader?moment!moment";
 import Vue from "vue";
 import Vuex from "vuex";
