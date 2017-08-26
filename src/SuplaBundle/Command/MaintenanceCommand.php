@@ -70,6 +70,24 @@ class MaintenanceCommand extends ContainerAwareCommand {
         $result = $qb->getQuery()->execute();
         $output->writeln(sprintf('Removed <info>%d</info> items from <comment>Users</comment> storage.', $result));
     }
+    
+    protected function regDatesClean($em, $scope, $output) {
+        
+        $field = $scope == 'client' ? 'clientRegistrationEnabled' : 'ioDeviceRegistrationEnabled';
+        $now = new \DateTime(null, new \DateTimeZone("UTC"));
+        
+        $rep = $em->getRepository('SuplaBundle:User');
+        
+        $qb = $rep->createQueryBuilder('t');
+        $qb
+        ->update('SuplaBundle:User', 'u')
+        ->set('u.'.$field, '?1')
+        ->where('u.'.$field.' IS NOT NULL AND u.'.$field.' < ?2')
+        ->setParameters([1 => null, 2 => $now]);
+
+        $result = $qb->getQuery()->execute();
+        $output->writeln(sprintf(($scope == 'client' ? 'Client' : 'I/O Device').' registration expiration date - cleared: <info>%d</info>', $result));
+    }
 
     protected function temperatureLogClean($em, $output, $entity, $name) {
 
@@ -88,6 +106,8 @@ class MaintenanceCommand extends ContainerAwareCommand {
         switch ($input->getArgument('period')) {
             case 'min':
                 $this->oauthClean($output);
+                $this->regDatesClean($em, 'client', $output);
+                $this->regDatesClean($em, 'iodevice', $output);
                 break;
             case 'hour':
                 break;
