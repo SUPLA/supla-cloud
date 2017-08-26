@@ -9,8 +9,6 @@
 
 <script>
     // idea based on http://stackoverflow.com/a/4029518/878514
-    import Modal from "src/common/modal.vue";
-
     const LOGOUT_AFTER_IDLE_MINUTES = 15;
 
     export default {
