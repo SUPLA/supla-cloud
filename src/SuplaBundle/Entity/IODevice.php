@@ -98,7 +98,7 @@ class IODevice {
     private $regDate;
 
     /**
-     * @ORM\Column(name="reg_ipv4", type="integer", nullable=true)
+     * @ORM\Column(name="reg_ipv4", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $regIpv4;
 
@@ -113,7 +113,7 @@ class IODevice {
     private $lastIpv4;
 
     /**
-     * @ORM\Column(name="software_version", type="string", length=10, nullable=false)
+     * @ORM\Column(name="software_version", type="string", length=10, nullable=false, options={"unsigned"=true})
      */
     private $softwareVersion;
 
@@ -153,14 +153,6 @@ class IODevice {
     }
 
     public function setLocation(Location $location) {
-        if ($this->originalLocation != null
-            && $this->originalLocation->getId() == $location->getId()
-        ) {
-            $this->originalLocation = null;
-        } elseif ($this->originalLocation == null) {
-            $this->originalLocation = $this->location;
-        }
-
         $this->location = $location;
     }
 

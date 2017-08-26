@@ -37,7 +37,7 @@
 			<div class="location">
 				<h3>{% trans %}Location{% endtrans %}</h3>
 						
-				{% if iodevice.originalLocation %}
+				{% if (iodevice.originalLocation) and (iodevice.originalLocation != iodevice.location) %}
 				
 				<div class="location-info original">
 					<a href="{{ path('_loc_item', {'id': iodevice.originalLocation.id}) }}" class="item nav-link original">
