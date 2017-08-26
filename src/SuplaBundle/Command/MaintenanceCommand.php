@@ -86,7 +86,10 @@ class MaintenanceCommand extends ContainerAwareCommand {
         ->setParameters([1 => null, 2 => $now]);
 
         $result = $qb->getQuery()->execute();
-        $output->writeln(sprintf(($scope == 'client' ? 'Client' : 'I/O Device').' registration expiration date - cleared: <info>%d</info>', $result));
+        $output->writeln(sprintf(
+            ($scope == 'client' ? 'Client' : 'I/O Device').' registration expiration date - cleared: <info>%d</info>',
+            $result
+        ));
     }
 
     protected function temperatureLogClean($em, $output, $entity, $name) {
