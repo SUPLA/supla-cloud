@@ -2,6 +2,16 @@
     <div>
         <div class="container">
             <h1>{{ $t('I/O Devices') }}</h1>
+            <div class="grid-filters">
+                <btn-filters v-model="filters.enabled"
+                    :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
+                <btn-filters v-model="filters.connected"
+                    :filters="[{label: $t('All'), value: undefined}, {label: $t('Connected'), value: true}, {label: $t('Disconnected'), value: false}]"></btn-filters>
+                <input type="text"
+                    class="form-control"
+                    v-model="filters.search"
+                    :placeholder="$t('Search')">
+            </div>
         </div>
         <square-links-grid v-if="devices && filteredDevices.length"
             :count="filteredDevices.length"
@@ -17,6 +27,13 @@
             <h2>Pusto!</h2>
         </div>
         <loader-dots v-else></loader-dots>
+        <div class="hidden"
+            v-if="devices">
+            <!--allow filtered-out items to still receive status updates-->
+            <device-connection-status-label :device="device"
+                :key="device.id"
+                v-for="device in devices"></device-connection-status-label>
+        </div>
     </div>
 </template>
 
@@ -25,9 +42,10 @@
     import LoaderDots from "src/common/loader-dots.vue";
     import SquareLinksGrid from "src/common/square-links-grid.vue";
     import DeviceTile from "./device-tile.vue";
+    import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
 
     export default {
-        components: {BtnFilters, LoaderDots, SquareLinksGrid, DeviceTile},
+        components: {BtnFilters, LoaderDots, SquareLinksGrid, DeviceTile, DeviceConnectionStatusLabel},
         data() {
             return {
                 devices: undefined,
@@ -45,32 +63,28 @@
                     app.connected = undefined;
                 });
                 this.devices = body;
-//                this.fetchConnectedClientApps();
-//                this.timer = setInterval(this.fetchConnectedClientApps, 7000);
             });
         },
         computed: {
             filteredDevices() {
-                return this.devices;
-                let apps = this.clientApps;
+                let devices = this.devices;
                 if (this.filters.enabled !== undefined) {
-                    apps = apps.filter(app => app.enabled == this.filters.enabled);
+                    devices = devices.filter(device => device.enabled == this.filters.enabled);
                 }
                 if (this.filters.connected !== undefined) {
-                    apps = apps.filter(app => app.connected == this.filters.connected);
+                    devices = devices.filter(device => device.connected == this.filters.connected);
                 }
                 if (this.filters.search) {
-                    apps = apps.filter(app => app.name.toLowerCase().indexOf(this.filters.search.toLowerCase()) >= 0);
+                    devices = devices.filter(device => this.deviceSearchString(device).indexOf(this.filters.search.toLowerCase()) >= 0);
                 }
-                if (this.filters.sort == 'az') {
-                    apps = apps.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
-                } else if (this.filters.sort == 'lastAccess') {
-                    apps = apps.sort((a1, a2) => moment(a2.lastAccessDate).diff(moment(a1.lastAccessDate)));
-                }
-                return apps;
+                return devices;
             }
         },
         methods: {
+            deviceSearchString(device) {
+                let search = device.name + (device.comment || '');
+                return search.toLowerCase();
+            },
             fetchConnectedClientApps() {
                 this.$http.get('client-apps?onlyConnected=true').then(({body}) => {
                     const connectedIds = body.map(app => app.id);

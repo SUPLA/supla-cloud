@@ -13,7 +13,7 @@
         data() {
             return {
                 connected: undefined,
-                callback: (newState) => this.connected = newState,
+                callback: (newState) => this.connected = this.$set(this.device, 'connected', newState),
             };
         },
         mounted() {

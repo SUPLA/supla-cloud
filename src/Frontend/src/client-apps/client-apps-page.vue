@@ -41,7 +41,7 @@
         <loader-dots v-else></loader-dots>
         <div class="hidden"
             v-if="clientApps">
-            <!--prevents filtered-out items from receiving status updates-->
+            <!--allow filtered-out items to still receive status updates-->
             <client-app-connection-status-label :app="app"
                 :key="app.id"
                 v-for="app in clientApps"></client-app-connection-status-label>
