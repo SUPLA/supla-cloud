@@ -28,6 +28,7 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('CREATE UNIQUE INDEX UNIQUE_CLIENTAPP ON supla_client (user_id, guid)');
         $this->addSql('CREATE INDEX client_reg_enabled_idx ON supla_user (client_reg_enabled)');
         $this->addSql('CREATE INDEX iodevice_reg_enabled_idx ON supla_user (iodevice_reg_enabled)');
+        $this->addSql('UPDATE supla_iodevice SET original_location_id = location_id WHERE IFNULL(original_location_id, 0) = 0');
     }
 
     /**
@@ -43,5 +44,6 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_iodevice DROP auth_key');
         $this->addSql('ALTER TABLE supla_user DROP iodevice_reg_enabled');
         $this->addSql('ALTER TABLE supla_user DROP client_reg_enabled');
+        $this->addSql('UPDATE supla_iodevice SET original_location_id = NULL WHERE location_id = original_location_id');
     }
 }
