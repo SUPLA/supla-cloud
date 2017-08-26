@@ -24,10 +24,19 @@
             <div v-for="possibleDevice in possibleDevices"
                 :key="'possible' + possibleDevice.title"
                 v-if="showPossibleDevices">
-                <square-link class="grey">
+                <square-link class="grey possible-device">
                     <a href="https://www.supla.org"
-                        target="_blank">
-                        <h3>{{ $t(possibleDevice.title) }}</h3>
+                        target="_blank"
+                        class="valign-center">
+                        <span>
+                            <i v-if="possibleDevice.icon"
+                                :class="possibleDevice.icon"></i>
+                            <img v-else
+                                :src="'/assets/img/' + possibleDevice.image"
+                                :alt="$t(possibleDevice.title)">
+                            <h3>{{ $t(possibleDevice.title) }}</h3>
+                            <p>{{ $t(possibleDevice.description) }}</p>
+                        </span>
                     </a>
                 </square-link>
             </div>
@@ -129,3 +138,22 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../../styles/variables";
+
+    .possible-device a {
+        text-align: center;
+        img {
+            width: 70px;
+            height: auto;
+            margin-top: 8px;
+        }
+        i {
+            font-size: 70px;
+        }
+        p {
+            color: $supla-grey-dark;
+        }
+    }
+</style>

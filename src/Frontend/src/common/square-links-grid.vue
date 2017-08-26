@@ -51,31 +51,6 @@
             }
         }
     }
-
-    .grid-filters {
-        text-align: right;
-        ::-webkit-input-placeholder {
-            text-align: center;
-        }
-        ::-moz-placeholder {
-            text-align: center;
-        }
-        :-ms-input-placeholder {
-            text-align: center;
-        }
-        input[type=text] {
-            max-width: 150px;
-            display: inline-block;
-            margin-left: 5px;
-        }
-        > * {
-            margin-bottom: 5px;
-        }
-        @include on-xs-and-down {
-            text-align: center;
-            margin: 5px 0;
-        }
-    }
 </style>
 
 <script>

@@ -26,6 +26,13 @@
             width: 100%;
             height: 100%;
             color: inherit;
+            &.valign-center {
+                display: table;
+                > * {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+            }
         }
         h3, h4 {
             white-space: nowrap;
