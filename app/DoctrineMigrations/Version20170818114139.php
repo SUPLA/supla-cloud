@@ -57,7 +57,13 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_iodevice CHANGE last_ipv4 last_ipv4 INT UNSIGNED DEFAULT NULL');
         $this->addSql('UPDATE supla_iodevice SET last_ipv4 = last_ipv4_tmp');
         $this->addSql('ALTER TABLE supla_iodevice DROP last_ipv4_tmp');
-                
+                 
+        $this->addSql('UPDATE supla_client SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
+        $this->addSql('UPDATE supla_client SET last_access_ipv4 = ( ((last_access_ipv4 & 0xFF) << 24) | ((last_access_ipv4 & 0xFF00) << 8) | ((last_access_ipv4 & 0xFF0000) >> 8) | ((last_access_ipv4 & 0xFF000000) >> 24) )');
+       
+        $this->addSql('UPDATE supla_iodevice SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
+        $this->addSql('UPDATE supla_iodevice SET last_ipv4 = ( ((last_ipv4 & 0xFF) << 24) | ((last_ipv4 & 0xFF00) << 8) | ((last_ipv4 & 0xFF0000) >> 8) | ((last_ipv4 & 0xFF000000) >> 24) )');
+        
     }
 
     /**
@@ -78,5 +84,12 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_client CHANGE last_access_ipv4 last_access_ipv4 INT DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_iodevice CHANGE reg_ipv4 reg_ipv4 INT DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_iodevice CHANGE last_access_ipv4 last_access_ipv4 INT DEFAULT NULL');
+        
+        $this->addSql('UPDATE supla_client SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
+        $this->addSql('UPDATE supla_client SET last_access_ipv4 = ( ((last_access_ipv4 & 0xFF) << 24) | ((last_access_ipv4 & 0xFF00) << 8) | ((last_access_ipv4 & 0xFF0000) >> 8) | ((last_access_ipv4 & 0xFF000000) >> 24) )');
+        
+        $this->addSql('UPDATE supla_iodevice SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
+        $this->addSql('UPDATE supla_iodevice SET last_ipv4 = ( ((last_ipv4 & 0xFF) << 24) | ((last_ipv4 & 0xFF00) << 8) | ((last_ipv4 & 0xFF0000) >> 8) | ((last_ipv4 & 0xFF000000) >> 24) )');
+        
     }
 }
