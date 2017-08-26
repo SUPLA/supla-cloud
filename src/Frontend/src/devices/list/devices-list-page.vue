@@ -19,7 +19,6 @@
             <div v-for="device in filteredDevices"
                 :key="device.id">
                 <device-tile :device="device"></device-tile>
-
             </div>
             <div v-for="possibleDevice in possibleDevices"
                 :key="'possible' + possibleDevice.title"

@@ -1,6 +1,7 @@
 <template>
     <square-link :class="'clearfix pointer ' + (device.enabled ? 'green' : 'grey')">
-        <a :href="'iodev/' + device.id + '/view'">
+        <a :href="'iodev/' + device.id + '/view'"
+            v-fade-out-link>
             <h3>{{ device.name }}</h3>
             <dl>
                 <dd>{{ device.guid }}</dd>

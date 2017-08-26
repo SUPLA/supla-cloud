@@ -10,6 +10,7 @@ import VueResource from "vue-resource";
 import RespnseErrorInterceptor from "./common/response-error-interceptor";
 import "moment-timezone";
 import "./common/common-components";
+import "./common/common-directives";
 import "./common/filters";
 import "style-loader!css-loader!sass-loader!./styles/styles.scss";
 
