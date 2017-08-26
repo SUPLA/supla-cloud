@@ -100,28 +100,12 @@
 {% endblock %}
 <div class="main-content">
     {% block content %}{% endblock %}
+    {% if app.user and not app.debug %}
+        <idle-logout></idle-logout>
+    {% endif %}
 </div>
 
-{% if app.user and not app.debug %}
-    <div class="modal fade" id="idleWarningModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">{% trans %}You will be logged out shortly{% endtrans %}</h4>
-                </div>
-                <div class="modal-body">
-                    <p>{% trans %}If you want to stay here, do something!{% endtrans %}</p>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success progress-bar-striped active"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="{{ asset('assets/js/idle-logout.js') }}"></script>
-{% endif %}
-
 {% block scripts %}{% endblock %}
+<script src="{{ asset('assets/dist/whole-page.js', 'webpack') }}"></script>
 </body>
 </html>

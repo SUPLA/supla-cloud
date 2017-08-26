@@ -3,5 +3,8 @@
     {{ include('@Supla/navbar.html.twig') }}
     <div class="main-content">
         {% block content %}{% endblock %}
+        {% if app.user and not app.debug %}
+            <idle-logout></idle-logout>
+        {% endif %}
     </div>
 {% endblock %}

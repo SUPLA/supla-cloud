@@ -39,6 +39,7 @@
 <body>
 {% block body %}{% endblock %}
 <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
+<script src="{{ asset('assets/dist/whole-page.js', 'webpack') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 {% block scripts %}{% endblock %}
 </body>
