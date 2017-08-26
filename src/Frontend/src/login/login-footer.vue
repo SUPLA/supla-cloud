@@ -41,6 +41,13 @@
                 text-align: center !important;
             }
         }
+        @media (max-height: 500px) {
+            position: static;
+            .col-sm-4 {
+                padding-top: 5px;
+                text-align: center !important;
+            }
+        }
         a {
             font-weight: 400;
             color: $supla-black;

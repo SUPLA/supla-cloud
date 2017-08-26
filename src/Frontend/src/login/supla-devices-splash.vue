@@ -9,24 +9,23 @@
                 <div class="col-xs-12">
                     <h4>{{ $t('Mobile Apps') }}</h4>
                 </div>
-                <div class="col-xs-3">
-                    <a href="https://itunes.apple.com/us/app/supla/id996384706"
-                        class="nav-link">
+                <div class="col-sm-3">
+                    <a href="https://itunes.apple.com/us/app/supla/id996384706">
                         <img src="/assets/img/apple.svg">iOS (iPhone)
                     </a>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3">
                     <a>
                         <div class="coming-soon"><span>{{ $t('Coming Soon') }}</span></div>
                         <img src="/assets/img/apple.svg">iOS (iPad)
                     </a>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3">
                     <a href="https://play.google.com/store/apps/details?id=org.supla.android">
                         <img src="assets/img/android.svg">Android
                     </a>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3">
                     <a>
                         <div class="coming-soon"><span>{{ $t('Coming Soon') }}</span></div>
                         <img src="assets/img/windows.svg">Windows Phone
@@ -35,21 +34,18 @@
                 <div class="col-xs-12">
                     <h4>{{ $t('I/O Devices') }}</h4>
                 </div>
-                <div class="col-xs-3">
-                    <a href="https://www.supla.org/download"
-                        class="nav-link">
+                <div class="col-sm-3">
+                    <a href="https://www.supla.org/download">
                         <img src="assets/img/raspberrypi.svg">Raspberry
                     </a>
                 </div>
-                <div class="col-xs-3">
-                    <a href="https://www.supla.org/download"
-                        class="nav-link">
+                <div class="col-sm-3">
+                    <a href="https://www.supla.org/download">
                         <img src="assets/img/esp8266.svg">ESP8266
                     </a>
                 </div>
-                <div class="col-xs-3">
-                    <a href="https://www.supla.org/download"
-                        class="nav-link">
+                <div class="col-sm-3">
+                    <a href="https://www.supla.org/download">
                         <img src="assets/img/arduino.svg">Arduino
                     </a>
                 </div>
@@ -64,8 +60,7 @@
             </div>
         </div>
         <div class="github">
-            <a href="https://github.com/SUPLA"
-                class="row nav-link">
+            <a href="https://github.com/SUPLA">
                 <div class="col-xs-3">
                     <img src="assets/img/github.svg">
                 </div>
@@ -91,13 +86,17 @@
             padding-top: 10px;
         }
         .app-links {
+            text-align: center;
             a {
-                display: block;
-                width: 180px;
+                display: inline-block;
+                width: 186px;
+                height: 154px;
                 padding: 10px 12px;
                 border: solid 2px $supla-green;
                 border-radius: 5px;
                 text-align: center;
+                position: relative;
+                margin-bottom: 10px;
                 &:hover {
                     color: $supla-green;
                     background: rgba(41, 175, 36, 0.08)
@@ -115,7 +114,7 @@
                     position: absolute;
                     background: rgba(255, 255, 255, 0.6);
                     top: 0;
-                    left: 14px;
+                    left: 0;
                     width: 182px;
                     height: 150px;
                     border-radius: 5px;

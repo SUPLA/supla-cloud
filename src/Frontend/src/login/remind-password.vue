@@ -86,7 +86,12 @@
         left: 50%;
         margin-top: -$height/2;
         margin-left: -200px;
-        @media (max-width: 400px) {
+        @media (max-width: 500px) {
+            position: static;
+            width: 90%;
+            margin: 10px;
+        }
+        @media (max-height: 500px) {
             position: static;
             width: 90%;
             margin: 10px;
