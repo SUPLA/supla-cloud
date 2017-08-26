@@ -29,6 +29,35 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('CREATE INDEX client_reg_enabled_idx ON supla_user (client_reg_enabled)');
         $this->addSql('CREATE INDEX iodevice_reg_enabled_idx ON supla_user (iodevice_reg_enabled)');
         $this->addSql('UPDATE supla_iodevice SET original_location_id = location_id WHERE IFNULL(original_location_id, 0) = 0');
+        
+        $this->addSql('ALTER TABLE supla_client ADD reg_ipv4_tmp INT UNSIGNED');
+        $this->addSql('UPDATE supla_client SET reg_ipv4_tmp = reg_ipv4 WHERE reg_ipv4 >= 0');
+        $this->addSql('UPDATE supla_client SET reg_ipv4_tmp = CONVERT(reg_ipv4 & 0x00000000FFFFFFFF, UNSIGNED INT)  WHERE reg_ipv4 < 0');
+        $this->addSql('ALTER TABLE supla_client CHANGE reg_ipv4 reg_ipv4 INT UNSIGNED DEFAULT NULL');
+        $this->addSql('UPDATE supla_client SET reg_ipv4 = reg_ipv4_tmp');
+        $this->addSql('ALTER TABLE supla_client DROP reg_ipv4_tmp');
+        
+        $this->addSql('ALTER TABLE supla_client ADD last_access_ipv4_tmp INT UNSIGNED');
+        $this->addSql('UPDATE supla_client SET last_access_ipv4_tmp = last_access_ipv4 WHERE last_access_ipv4 >= 0');
+        $this->addSql('UPDATE supla_client SET last_access_ipv4_tmp = CONVERT(last_access_ipv4 & 0x00000000FFFFFFFF, UNSIGNED INT)  WHERE last_access_ipv4 < 0');
+        $this->addSql('ALTER TABLE supla_client CHANGE last_access_ipv4 last_access_ipv4 INT UNSIGNED DEFAULT NULL');
+        $this->addSql('UPDATE supla_client SET last_access_ipv4 = last_access_ipv4_tmp');
+        $this->addSql('ALTER TABLE supla_client DROP last_access_ipv4_tmp');
+        
+        $this->addSql('ALTER TABLE supla_iodevice ADD reg_ipv4_tmp  INT UNSIGNED');
+        $this->addSql('UPDATE supla_iodevice SET reg_ipv4_tmp = reg_ipv4 WHERE reg_ipv4 >= 0');
+        $this->addSql('UPDATE supla_iodevice SET reg_ipv4_tmp = CONVERT(reg_ipv4 & 0x00000000FFFFFFFF, UNSIGNED INT)  WHERE reg_ipv4 < 0');
+        $this->addSql(' ALTER TABLE supla_iodevice CHANGE reg_ipv4 reg_ipv4 INT UNSIGNED DEFAULT NULL');
+        $this->addSql('UPDATE supla_iodevice SET reg_ipv4 = reg_ipv4_tmp');
+        $this->addSql('ALTER TABLE supla_iodevice DROP reg_ipv4_tmp');
+        
+        $this->addSql('ALTER TABLE supla_iodevice ADD last_ipv4_tmp INT UNSIGNED');
+        $this->addSql('UPDATE supla_iodevice SET last_ipv4_tmp = last_ipv4 WHERE last_ipv4 >= 0');
+        $this->addSql('UPDATE supla_iodevice SET last_ipv4_tmp = CONVERT(last_ipv4 & 0x00000000FFFFFFFF, UNSIGNED INT)  WHERE last_ipv4 < 0');
+        $this->addSql('ALTER TABLE supla_iodevice CHANGE last_ipv4 last_ipv4 INT UNSIGNED DEFAULT NULL');
+        $this->addSql('UPDATE supla_iodevice SET last_ipv4 = last_ipv4_tmp');
+        $this->addSql('ALTER TABLE supla_iodevice DROP last_ipv4_tmp');
+                
     }
 
     /**
@@ -45,5 +74,9 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_user DROP iodevice_reg_enabled');
         $this->addSql('ALTER TABLE supla_user DROP client_reg_enabled');
         $this->addSql('UPDATE supla_iodevice SET original_location_id = NULL WHERE location_id = original_location_id');
+        $this->addSql('ALTER TABLE supla_client CHANGE reg_ipv4 reg_ipv4 INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_client CHANGE last_access_ipv4 last_access_ipv4 INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_iodevice CHANGE reg_ipv4 reg_ipv4 INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_iodevice CHANGE last_access_ipv4 last_access_ipv4 INT DEFAULT NULL');
     }
 }
