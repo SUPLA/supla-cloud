@@ -8,7 +8,7 @@ before_script:
   - mysql -e "grant all privileges on *.* to 'travis'@'localhost' with grant option;" -uroot
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install --no-interaction
-  - cd src/Frontend && npm install && npm prune && npm run build && cd ../..
+  - cd src/Frontend && npm prune && npm install  && npm run build && cd ../..
 script:
   - composer run-script lint
   - ./vendor/bin/phpunit -c app
