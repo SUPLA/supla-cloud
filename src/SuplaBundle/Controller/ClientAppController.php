@@ -91,6 +91,7 @@ class ClientAppController extends AbstractController {
      */
     public function deleteAction(ClientApp $clientApp): Response {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {
+        	$this->suplaServer->clientReconnect($clientApp);
             $entityManager->remove($clientApp);
             return new Response('', 204);
         });
