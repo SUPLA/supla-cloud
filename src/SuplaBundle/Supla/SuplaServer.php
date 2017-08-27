@@ -87,21 +87,22 @@ abstract class SuplaServer {
     }
 
     public function reconnect($userId) {
-    	$userId = intval($userId);
-    	if ($userId != 0 && $this->connect() !== false) {
-    		$result = $this->command("USER-RECONNECT:" . $userId);
-    		return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
-    	}
-    	return false;
+        $userId = intval($userId);
+        if ($userId != 0 && $this->connect() !== false) {
+            $result = $this->command("USER-RECONNECT:" . $userId);
+            return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
+        }
+        return false;
     }
 
-    public function clientReconnect(ClientApp $clientApp) {       
-        if ( $clientApp == null )
-        	return false;
+    public function clientReconnect(ClientApp $clientApp) {
+        if ($clientApp == null) {
+            return false;
+        }
         
         if ($this->connect() !== false) {
-        	$result = $this->command("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
-        	return $result !== false && preg_match("/^OK:" . $clientApp->getId(). "\n/", $result) === 1 ? true : false;
+            $result = $this->command("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
+            return $result !== false && preg_match("/^OK:" . $clientApp->getId(). "\n/", $result) === 1 ? true : false;
         }
         return false;
     }
