@@ -38,30 +38,38 @@ abstract class SuplaServer {
         return $result !== false && preg_match("/^AUTH_OK:" . $userId . "\n/", $result) === 1 ? true : false;
     }
 
-    private function isDeviceConnected(int $userId, int $deviceId): bool {
-        $deviceId = intval($deviceId);
-        if ($userId == 0 || $deviceId == 0) {
+    private function isConnected(int $userId, int $id, $what = 'iodev'): bool {
+        $userId = intval($userId);
+        $id= intval($id);
+        
+        if ($userId == 0 || $id == 0) {
             return false;
         }
-        $result = $this->command("IS-IODEV-CONNECTED:" . $userId . "," . $deviceId);
-        return $result !== false && preg_match("/^CONNECTED:" . $deviceId . "\n/", $result) === 1 ? true : false;
+        
+        switch ($what) {
+            case 'client':
+                $what = 'CLIENT';
+                break;
+            default:
+                $what = 'IODEV';
+                break;
+        }
+        
+        $result = $this->command("IS-" . $what . "-CONNECTED:" . $userId . "," . $id);
+        return $result !== false && preg_match("/^CONNECTED:" . $id. "\n/", $result) === 1 ? true : false;
     }
 
     public function checkDevicesConnection(int $userId, array $ids) {
         $result = [];
         if ($userId != 0 && $this->connect() !== false) {
             foreach ($ids as $id) {
-                if ($this->isDeviceConnected($userId, $id) === true) {
+                if ($this->isConnected($userId, $id) === true) {
                     $result[] = $id;
                 }
             }
             $this->disconnect();
         }
         return $result;
-    }
-
-    private function isClientAppConnected(ClientApp $clientApp): bool {
-        return !!(rand() % 2); // TODO
     }
 
     /**
@@ -71,23 +79,31 @@ abstract class SuplaServer {
     public function getOnlyConnectedClientApps(array $clientApps): array {
         if ($this->connect() !== false) {
             return array_values(array_filter($clientApps, function (ClientApp $clientApp) {
-                return $this->isClientAppConnected($clientApp);
+                
+                return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
             }));
         }
         return [];
     }
 
     public function reconnect($userId) {
-        $userId = intval($userId);
-        if ($userId != 0 && $this->connect() !== false) {
-            $result = $this->command("USER-RECONNECT:" . $userId);
-            return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
-        }
-        return false;
+    	$userId = intval($userId);
+    	if ($userId != 0 && $this->connect() !== false) {
+    		$result = $this->command("USER-RECONNECT:" . $userId);
+    		return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
+    	}
+    	return false;
     }
 
-    public function clientReconnect(ClientApp $clientApp) {
-        return $this->reconnect($clientApp->getUser()->getId()); // TODO
+    public function clientReconnect(ClientApp $clientApp) {       
+        if ( $clientApp == null )
+        	return false;
+        
+        if ($this->connect() !== false) {
+        	$result = $this->command("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
+        	return $result !== false && preg_match("/^OK:" . $clientApp->getId(). "\n/", $result) === 1 ? true : false;
+        }
+        return false;
     }
 
     private function getRawValue($type, $userId, $deviceId, $channelId) {
