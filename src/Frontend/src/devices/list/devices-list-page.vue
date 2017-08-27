@@ -1,9 +1,11 @@
 <template>
     <div>
         <div class="container">
-            <h1>{{ $t('I/O Devices') }}</h1>
-            <devices-registration-button field="ioDeviceRegistrationEnabled"
-                caption="Registration of new I/O devices"></devices-registration-button>
+            <div class="clearfix left-right-float">
+                <h1>{{ $t('I/O Devices') }}</h1>
+                <devices-registration-button field="ioDevicesRegistrationEnabled"
+                    caption="Registration of new I/O devices"></devices-registration-button>
+            </div>
             <div class="grid-filters">
                 <btn-filters v-model="filters.enabled"
                     :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -68,7 +70,15 @@
     import DevicesRegistrationButton from "./devices-registration-button.vue";
 
     export default {
-        components: {BtnFilters, LoaderDots, SquareLinksGrid, DeviceTile, DeviceConnectionStatusLabel, SquareLink, DevicesRegistrationButton},
+        components: {
+            BtnFilters,
+            LoaderDots,
+            SquareLinksGrid,
+            DeviceTile,
+            DeviceConnectionStatusLabel,
+            SquareLink,
+            DevicesRegistrationButton
+        },
         data() {
             return {
                 devices: undefined,

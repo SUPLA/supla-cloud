@@ -17,5 +17,13 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.clients_registration.registration_active_time.manual',
             $mergedConfig['clients_registration']['registration_active_time']['manual']
         );
+        $container->setParameter(
+            'supla.io_devices_registration.registration_active_time.initial',
+            $mergedConfig['io_devices_registration']['registration_active_time']['initial']
+        );
+        $container->setParameter(
+            'supla.io_devices_registration.registration_active_time.manual',
+            $mergedConfig['io_devices_registration']['registration_active_time']['manual']
+        );
     }
 }

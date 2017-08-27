@@ -14,7 +14,9 @@
                         <span v-if="saving">{{ $t(caption) }}</span>
                         <span v-else>{{ $t(caption) }}: <span class="big">{{ enabledUntil ? 'AKTYWNA' : 'NIEAKTYWNA' }}</span></span>
                         <div v-if="enabledUntil">{{ $t('will expire') }} : {{ enabledUntilCalendar }}</div>
-                        <div class="small text-muted">{{ $t(enabledUntil ? 'CLICK TO DISABLE' : 'CLICK TO ENABLE') }}</div>
+                        <div class="small text-muted"
+                            v-if="!saving">{{ $t(enabledUntil ? 'CLICK TO DISABLE' : 'CLICK TO ENABLE') }}
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -53,7 +55,7 @@
 
 <script>
     import Switches from "vue-switches";
-    import ButtonLoadingDots from "../common/button-loading-dots.vue";
+    import ButtonLoadingDots from "src/common/button-loading-dots.vue";
 
     export default {
         props: ['field', 'caption'],
@@ -75,7 +77,7 @@
         methods: {
             toggle() {
                 this.saving = true;
-                this.$http.patch('account/current', {action: 'change:' + this.field, value: !!this.enabledUntil})
+                this.$http.patch('account/current', {action: 'change:' + this.field, enable: !this.enabledUntil})
                     .then(({body}) => this.enabledUntil = body[this.field])
                     .finally(() => this.saving = false);
             },

@@ -73,7 +73,7 @@ class MaintenanceCommand extends ContainerAwareCommand {
     
     protected function regDatesClean($em, $scope, $output) {
         
-        $field = $scope == 'client' ? 'clientRegistrationEnabled' : 'ioDeviceRegistrationEnabled';
+        $field = $scope == 'client' ? 'clientsRegistrationEnabled' : 'ioDevicesRegistrationEnabled';
         $now = new \DateTime(null, new \DateTimeZone("UTC"));
         
         $rep = $em->getRepository('SuplaBundle:User');

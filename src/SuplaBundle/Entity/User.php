@@ -181,14 +181,15 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="iodevice_reg_enabled", type="utcdatetime", nullable=true)
+     * @Groups({"basic", "flat"})
      */
-    private $ioDeviceRegistrationEnabled;
+    private $ioDevicesRegistrationEnabled;
 
     /**
      * @ORM\Column(name="client_reg_enabled", type="utcdatetime", nullable=true)
      * @Groups({"basic", "flat"})
      */
-    private $clientRegistrationEnabled;
+    private $clientsRegistrationEnabled;
 
     public function __construct() {
         $this->limitAid = 10;
@@ -473,22 +474,41 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     }
 
     /** @return \DateTime|null */
-    public function getClientRegistrationEnabled() {
-        if ($this->clientRegistrationEnabled) {
+    public function getClientsRegistrationEnabled() {
+        if ($this->clientsRegistrationEnabled) {
             $now = new \DateTime();
-            if ($now->getTimestamp() > $this->clientRegistrationEnabled->getTimestamp()) {
-                $this->clientRegistrationEnabled = null;
+            if ($now->getTimestamp() > $this->clientsRegistrationEnabled->getTimestamp()) {
+                $this->clientsRegistrationEnabled = null;
             }
         }
-        return $this->clientRegistrationEnabled;
+        return $this->clientsRegistrationEnabled;
     }
 
-    public function enableClientRegistration(int $forHowLongInSeconds) {
-        $this->clientRegistrationEnabled = new \DateTime('@' . (time() + $forHowLongInSeconds));
+    public function enableClientsRegistration(int $forHowLongInSeconds) {
+        $this->clientsRegistrationEnabled = new \DateTime('@' . (time() + $forHowLongInSeconds));
     }
 
-    public function disableClientRegistration() {
-        $this->clientRegistrationEnabled = null;
+    public function disableClientsRegistration() {
+        $this->clientsRegistrationEnabled = null;
+    }
+
+    /** @return \DateTime|null */
+    public function getIoDevicesRegistrationEnabled() {
+        if ($this->ioDevicesRegistrationEnabled) {
+            $now = new \DateTime();
+            if ($now->getTimestamp() > $this->ioDevicesRegistrationEnabled->getTimestamp()) {
+                $this->ioDevicesRegistrationEnabled = null;
+            }
+        }
+        return $this->ioDevicesRegistrationEnabled;
+    }
+
+    public function enableIoDevicesRegistration(int $forHowLongInSeconds) {
+        $this->ioDevicesRegistrationEnabled = new \DateTime('@' . (time() + $forHowLongInSeconds));
+    }
+
+    public function disableIoDevicesRegistration() {
+        $this->ioDevicesRegistrationEnabled = null;
     }
 
     public function hasLegacyPassword(): bool {

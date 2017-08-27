@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="container">
-            <div class="clearfix">
-                <div class="client-apps-headers">
+            <div class="clearfix left-right-float">
+                <div>
                     <h1>{{ $t('Client Apps') }}</h1>
                     <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
                 </div>
-                <div class="client-apps-registration-button">
-                    <devices-registration-button field="clientRegistrationEnabled"
+                <div>
+                    <devices-registration-button field="clientsRegistrationEnabled"
                         caption="Registration of new clients"></devices-registration-button>
                 </div>
             </div>
@@ -50,25 +50,6 @@
     </div>
 </template>
 
-<style lang="scss">
-    @import "../styles/mixins";
-
-    .client-apps-headers {
-        float: left;
-    }
-
-    .client-apps-registration-button {
-        float: right;
-        @include on-xs-and-down {
-            float: none;
-            clear: both;
-            margin: 5px auto;
-            text-align: center;
-        }
-    }
-</style>
-
-
 <script>
     import BtnFilters from "../common/btn-filters.vue";
     import LoaderDots from "../common/loader-dots.vue";
@@ -78,7 +59,7 @@
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
 
     export default {
-        components: {BtnFilters, LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid, DevicesConnectionStatusLabel},
+        components: {BtnFilters, LoaderDots, ClientAppTile, DevicesRegistrationButton, SquareLinksGrid, ClientAppConnectionStatusLabel},
         data() {
             return {
                 clientApps: undefined,

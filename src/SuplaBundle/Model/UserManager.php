@@ -34,10 +34,9 @@ class UserManager {
     protected $aid_man;
     /** @var ScheduleManager */
     private $scheduleManager;
-    /**
-     * @var int
-     */
-    private $defaultClientRegistrationTime;
+
+    private $defaultClientsRegistrationTime;
+    private $defaultIoDevicesRegistrationTime;
 
     public function __construct(
         Registry $doctrine,
@@ -45,7 +44,8 @@ class UserManager {
         AccessIdManager $accessid_manager,
         LocationManager $location_manager,
         ScheduleManager $scheduleManager,
-        int $defaultClientRegistrationTime
+        int $defaultClientsRegistrationTime,
+        int $defaultIoDevicesRegistrationTime
     ) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
@@ -53,7 +53,8 @@ class UserManager {
         $this->loc_man = $location_manager;
         $this->aid_man = $accessid_manager;
         $this->scheduleManager = $scheduleManager;
-        $this->defaultClientRegistrationTime = $defaultClientRegistrationTime;
+        $this->defaultClientsRegistrationTime = $defaultClientsRegistrationTime;
+        $this->defaultIoDevicesRegistrationTime = $defaultIoDevicesRegistrationTime;
     }
 
     public function create(User $user) {
@@ -102,7 +103,8 @@ class UserManager {
 
             $user->setToken('');
             $user->setEnabled(true);
-            $user->enableClientRegistration($this->defaultClientRegistrationTime);
+            $user->enableClientsRegistration($this->defaultClientsRegistrationTime);
+            $user->enableIoDevicesRegistration($this->defaultClientsRegistrationTime);
 
             $this->Update($user);
             return $user;

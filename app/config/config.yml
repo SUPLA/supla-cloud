@@ -74,6 +74,10 @@ supla:
     registration_active_time:
       initial: 604800 # 1 week
       manual: 86400 # 24 hours
+  io_devices_registration:
+    registration_active_time:
+      initial: 604800 # 1 week
+      manual: 86400 # 24 hours
 
 swiftmailer:
   encryption: "%mailer_encryption%"

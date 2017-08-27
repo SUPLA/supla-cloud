@@ -406,11 +406,22 @@ class AccountController extends AbstractController {
         $data = $request->request->all();
         return $this->transactional(function (EntityManagerInterface $em) use ($data) {
             $user = $this->getUser();
-            if ($data['action'] == 'enableClientRegistration') {
-                $enableForTime = $this->container->getParameter('supla.clients_registration.registration_active_time.manual');
-                $user->enableClientRegistration($enableForTime);
-            } elseif ($data['action'] == 'disableClientRegistration') {
-                $user->disableClientRegistration();
+            if ($data['action'] == 'change:clientsRegistrationEnabled') {
+                $enable = $data['enable'] ?? false;
+                if ($enable) {
+                    $enableForTime = $this->container->getParameter('supla.clients_registration.registration_active_time.manual');
+                    $user->enableClientsRegistration($enableForTime);
+                } else {
+                    $user->disableClientsRegistration();
+                }
+            } elseif ($data['action'] == 'change:ioDevicesRegistrationEnabled') {
+                $enable = $data['enable'] ?? false;
+                if ($enable) {
+                    $enableForTime = $this->container->getParameter('supla.io_devices_registration.registration_active_time.manual');
+                    $user->enableIoDevicesRegistration($enableForTime);
+                } else {
+                    $user->disableIoDevicesRegistration();
+                }
             }
             $em->persist($user);
             return $this->jsonResponse($user);

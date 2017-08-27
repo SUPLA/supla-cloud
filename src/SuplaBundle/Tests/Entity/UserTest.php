@@ -26,21 +26,21 @@ class UserTest extends \PHPUnit_Framework_TestCase {
     public function testEnablingClientAppRegistration() {
         $user = new User();
         $now = new \DateTime();
-        $user->enableClientRegistration(600);
-        $this->assertNotNull($user->getClientRegistrationEnabled());
-        $this->assertGreaterThanOrEqual($now->getTimestamp(), $user->getClientRegistrationEnabled()->getTimestamp() - 600);
+        $user->enableClientsRegistration(600);
+        $this->assertNotNull($user->getClientsRegistrationEnabled());
+        $this->assertGreaterThanOrEqual($now->getTimestamp(), $user->getClientsRegistrationEnabled()->getTimestamp() - 600);
     }
 
     public function testDisablingClientAppRegistration() {
         $user = new User();
-        $user->enableClientRegistration(600);
-        $user->disableClientRegistration();
-        $this->assertNull($user->getClientRegistrationEnabled());
+        $user->enableClientsRegistration(600);
+        $user->disableClientsRegistration();
+        $this->assertNull($user->getClientsRegistrationEnabled());
     }
 
-    public function testReturnsClientRegistrationNullIfTimeHasPassed() {
+    public function testReturnsClientsRegistrationNullIfTimeHasPassed() {
         $user = new User();
-        AnyFieldSetter::set($user, 'clientRegistrationEnabled', new \DateTime('-1second'));
-        $this->assertNull($user->getClientRegistrationEnabled());
+        AnyFieldSetter::set($user, 'clientsRegistrationEnabled', new \DateTime('-1second'));
+        $this->assertNull($user->getClientsRegistrationEnabled());
     }
 }

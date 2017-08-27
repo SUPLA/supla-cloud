@@ -129,6 +129,21 @@ input[type=text], input[type=password], input[type=email] {
   }
 }
 
+.left-right-float {
+  > :first-child {
+    float: left;
+  }
+  > :last-child {
+    float: right;
+    @include on-xs-and-down {
+      float: none;
+      clear: both;
+      margin: 5px auto;
+      text-align: center;
+    }
+  }
+}
+
 @import "./buttons";
 @import "./navbar";
 @import "./notifications";

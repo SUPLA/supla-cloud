@@ -19,8 +19,14 @@ class Configuration implements ConfigurationInterface {
                     ->arrayNode('registration_active_time')->children()
                         ->integerNode('initial')->defaultValue(86400 * 7)->end()
                         ->integerNode('manual')->defaultFalse(86400)->end()
-                    ->end()
-                ->end()
+                    ->end()->end()
+                ->end()->end()
+                ->arrayNode('io_devices_registration')->children()
+                    ->arrayNode('registration_active_time')->children()
+                        ->integerNode('initial')->defaultValue(86400 * 7)->end()
+                        ->integerNode('manual')->defaultFalse(86400)->end()
+                    ->end()->end()
+                ->end()->end()
             ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd
