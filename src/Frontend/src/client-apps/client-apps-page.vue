@@ -7,7 +7,8 @@
                     <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
                 </div>
                 <div class="client-apps-registration-button">
-                    <client-apps-registration-button></client-apps-registration-button>
+                    <devices-registration-button field="clientRegistrationEnabled"
+                        caption="Registration of new clients"></devices-registration-button>
                 </div>
             </div>
         </div>
@@ -73,11 +74,11 @@
     import LoaderDots from "../common/loader-dots.vue";
     import SquareLinksGrid from "../common/square-links-grid.vue";
     import ClientAppTile from "./client-app-tile.vue";
-    import ClientAppsRegistrationButton from "./client-apps-registration-button.vue";
+    import DevicesRegistrationButton from "src/devices/list/devices-registration-button.vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
 
     export default {
-        components: {BtnFilters, LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid, ClientAppConnectionStatusLabel},
+        components: {BtnFilters, LoaderDots, ClientAppTile, ClientAppsRegistrationButton, SquareLinksGrid, DevicesConnectionStatusLabel},
         data() {
             return {
                 clientApps: undefined,

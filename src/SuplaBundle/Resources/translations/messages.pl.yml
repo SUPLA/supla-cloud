@@ -370,3 +370,5 @@ Error when communicating the server. Try again in a while.: Wystąpił problem w
 Loading: Ładowanie
 if it takes too long, check if the JS scripts area loaded correctly: jeśli to trwa zbyt długo, sprawdź czy skrypty JS są ładowane poprawnie
 SUPLA-Cloud will not work without Javascript: SUPLA-Cloud nie będzie działać bez włączonego Javascript
+will expire: wygaśnie
+Registration of new clients: Rejestracja klientów

@@ -2,6 +2,8 @@
     <div>
         <div class="container">
             <h1>{{ $t('I/O Devices') }}</h1>
+            <devices-registration-button field="ioDeviceRegistrationEnabled"
+                caption="Registration of new I/O devices"></devices-registration-button>
             <div class="grid-filters">
                 <btn-filters v-model="filters.enabled"
                     :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -63,9 +65,10 @@
     import DeviceTile from "./device-tile.vue";
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
     import SquareLink from "src/common/square-link.vue";
+    import DevicesRegistrationButton from "./devices-registration-button.vue";
 
     export default {
-        components: {BtnFilters, LoaderDots, SquareLinksGrid, DeviceTile, DeviceConnectionStatusLabel, SquareLink},
+        components: {BtnFilters, LoaderDots, SquareLinksGrid, DeviceTile, DeviceConnectionStatusLabel, SquareLink, DevicesRegistrationButton},
         data() {
             return {
                 devices: undefined,

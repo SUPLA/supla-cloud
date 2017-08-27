@@ -11,10 +11,10 @@
                             :class="enabledUntil ? 'pe-7s-attention' : 'pe-7s-close-circle'"></i>
                     </td>
                     <td>
-                        <span v-if="saving">Rejestracja klientów</span>
-                        <span v-else>Rejestracja klientów: <span class="big">{{ enabledUntil ? 'AKTYWNA' : 'NIEAKTYWNA' }}</span></span>
-                        <div v-if="enabledUntil">wygaśnie: {{ enabledUntilCalendar }}</div>
-                        <div class="small text-muted">kliknij, by {{ enabledUntil ? 'wyłączyć' : 'włączyć' }}</div>
+                        <span v-if="saving">{{ $t(caption) }}</span>
+                        <span v-else>{{ $t(caption) }}: <span class="big">{{ enabledUntil ? 'AKTYWNA' : 'NIEAKTYWNA' }}</span></span>
+                        <div v-if="enabledUntil">{{ $t('will expire') }} : {{ enabledUntilCalendar }}</div>
+                        <div class="small text-muted">{{ $t(enabledUntil ? 'CLICK TO DISABLE' : 'CLICK TO ENABLE') }}</div>
                     </td>
                 </tr>
             </table>
@@ -56,6 +56,7 @@
     import ButtonLoadingDots from "../common/button-loading-dots.vue";
 
     export default {
+        props: ['field', 'caption'],
         components: {Switches, ButtonLoadingDots},
         data() {
             return {
@@ -74,20 +75,14 @@
         methods: {
             toggle() {
                 this.saving = true;
-                let promise;
-                if (this.enabledUntil) {
-                    promise = this.$http.patch('account/current', {action: 'disableClientRegistration'});
-                } else {
-                    promise = this.$http.patch('account/current', {action: 'enableClientRegistration'});
-                }
-                promise
-                    .then(({body}) => this.enabledUntil = body.clientRegistrationEnabled)
+                this.$http.patch('account/current', {action: 'change:' + this.field, value: !!this.enabledUntil})
+                    .then(({body}) => this.enabledUntil = body[this.field])
                     .finally(() => this.saving = false);
             },
             loadUserInfo() {
                 this.saving = true;
                 this.$http.get('account/current')
-                    .then(({body}) => this.enabledUntil = body.clientRegistrationEnabled)
+                    .then(({body}) => this.enabledUntil = body[this.field])
                     .finally(() => this.saving = false);
             }
         }
