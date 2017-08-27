@@ -22,17 +22,14 @@ class IODevicesControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGetDevicesList() {
-        $client = self::createClient([], [
-            'PHP_AUTH_USER' => $this->user->getEmail(),
-            'PHP_AUTH_PW' => 'supla123',
-        ]);
-        $client->followRedirects(true);
-        $crawler = $client->request('GET', '/iodev');
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/iodev');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertCount(1, $crawler->filter('.device.enabled'));
+        $body = json_decode($response->getContent(), true);
+        $this->assertCount(1, $body);
         $deviceId = $this->user->getIODevices()->first()->getId();
-        $this->assertCount(1, $crawler->filter("a[data-id=$deviceId]"));
+        $this->assertEquals($deviceId, $body[0]['id']);
     }
 
     public function testGetDeviceDetails() {
