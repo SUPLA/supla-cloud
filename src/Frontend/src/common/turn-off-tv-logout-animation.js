@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  * jQuery turnOffTV
  * Version 1.0
