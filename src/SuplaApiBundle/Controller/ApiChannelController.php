@@ -47,11 +47,11 @@ class ApiChannelController extends RestController {
         $channel = $this->deviceManager->channelById($channelid, $this->getParentUser());
 
         if (!($channel instanceof IODeviceChannel)) {
-            throw new HttpException(Response::HTTP_NOT_FOUND);
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'The device could not be found');
         }
 
         if (is_array($functions) && !in_array($channel->getFunction(), $functions)) {
-            throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
+            throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED, 'The requested function is not available on this device');
         }
 
         if ($checkConnected === true) {
@@ -66,14 +66,14 @@ class ApiChannelController extends RestController {
             }
 
             if ($connected === false) {
-                throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+                throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE, 'The requested device is not connected');
             }
         }
 
         if ($authorize === true) {
             $token = $this->container->get('security.token_storage')->getToken()->getToken();
             if (true !== $this->suplaServer->oauthAuthorize($userid, $token)) {
-                throw new HttpException(Response::HTTP_UNAUTHORIZED);
+                throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Supla server has rejected the authorization token');
             }
         }
 
