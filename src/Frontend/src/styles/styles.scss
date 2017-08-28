@@ -8,6 +8,33 @@ html {
 
 body {
   font-family: $supla-font-default;
+  color: $supla-black;
+  background: #FAFBFC;
+  font-weight: 400;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+::selection {
+  background: $supla-green;
+  color: $supla-white;
+}
+
+::-moz-selection {
+  background: $supla-green;
+  color: $supla-white;
+}
+
+// disable autofill yellow color in Chrome
+@-webkit-keyframes autofill {
+  to {
+    color: #666;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
 }
 
 h1 {
@@ -51,23 +78,17 @@ a {
   z-index: 1
 }
 
-input[type=text], input[type=password], input[type=email] {
-  &.form-control {
-    border: 0;
-    border-radius: 0;
-    border-bottom: 1px solid $supla-grey-light;
-    box-shadow: initial;
-    background: transparent;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
 .input-group-addon {
   background: transparent !important;
   border: 0 !important;
   border-bottom: 1px solid $supla-grey-light !important;
   border-radius: 0 !important;
+}
+
+input[type=text], input[type=password], input[type=email] {
+  &.form-control {
+    box-shadow: initial;
+  }
 }
 
 .fade {

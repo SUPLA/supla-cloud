@@ -35,7 +35,7 @@
     <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
     <base href="/">
 </head>
-<body>
+<body class="{{ app.request.get('_route') }}">
 {% block body %}{% endblock %}
 {% block scripts %}{% endblock %}
 </body>

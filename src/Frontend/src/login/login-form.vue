@@ -111,6 +111,10 @@
     @import "../styles/variables";
     @import "../styles/mixins";
 
+    body._auth_login {
+        background: $supla-white;
+    }
+
     .login-form {
         $height: 500px;
         max-width: 400px;
@@ -142,15 +146,16 @@
             .input-group-addon > span {
                 font-size: 2em;
             }
-            @-webkit-keyframes autofill {
-                to {
-                    color: #666;
-                    background: transparent;
-                }
-            }
-            input:-webkit-autofill {
-                -webkit-animation-name: autofill;
-                -webkit-animation-fill-mode: both;
+        }
+        input[type=text], input[type=password], input[type=email] {
+            &.form-control {
+                border: 0;
+                border-radius: 0;
+                border-bottom: 1px solid $supla-grey-light;
+                box-shadow: initial;
+                background: transparent;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
         .additional-buttons {
