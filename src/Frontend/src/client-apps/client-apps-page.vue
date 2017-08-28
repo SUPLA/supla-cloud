@@ -60,6 +60,7 @@
     import ClientAppTile from "./client-app-tile.vue";
     import DevicesRegistrationButton from "src/devices/list/devices-registration-button.vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
+    import latinize from "latinize";
 
     export default {
         components: {BtnFilters, LoaderDots, ClientAppTile, DevicesRegistrationButton, SquareLinksGrid, ClientAppConnectionStatusLabel},
@@ -91,7 +92,7 @@
                     apps = apps.filter(app => app.connected == this.filters.connected);
                 }
                 if (this.filters.search) {
-                    apps = apps.filter(app => app.searchString.indexOf(this.filters.search.toLowerCase()) >= 0);
+                    apps = apps.filter(app => app.searchString.indexOf(latinize(this.filters.search).toLowerCase()) >= 0);
                 }
                 if (this.filters.sort == 'az') {
                     apps = apps.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
@@ -106,7 +107,7 @@
                 for (let app of this.clientApps) {
                     const ref = this.$refs['app-tile-' + app.id];
                     if (ref && ref.length) {
-                        this.$set(app, 'searchString', ref[0].innerText.toLowerCase());
+                        this.$set(app, 'searchString', latinize(ref[0].innerText).toLowerCase());
                     }
                 }
             },

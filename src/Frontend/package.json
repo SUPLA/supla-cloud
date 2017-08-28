@@ -17,6 +17,7 @@
     "chosen-js": "1.6.2",
     "eonasdan-bootstrap-datetimepicker": "4.17.47",
     "jquery": "2.1.4",
+    "latinize": "0.4.0",
     "moment": "2.18.1",
     "moment-timezone": "0.5.13",
     "pnotify": "3.2.1",

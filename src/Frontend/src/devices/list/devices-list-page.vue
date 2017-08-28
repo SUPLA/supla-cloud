@@ -70,6 +70,7 @@
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
     import SquareLink from "src/common/square-link.vue";
     import DevicesRegistrationButton from "./devices-registration-button.vue";
+    import latinize from "latinize";
 
     export default {
         components: {
@@ -112,7 +113,6 @@
             this.$http.get('iodev')
                 .then(({body}) => this.devices = body)
                 .then(() => Vue.nextTick(() => this.calculateSearchStrings()));
-            });
         },
         computed: {
             filteredDevices() {
@@ -124,7 +124,7 @@
                     devices = devices.filter(device => device.connected == this.filters.connected);
                 }
                 if (this.filters.search) {
-                    devices = devices.filter(device => device.searchString.indexOf(this.filters.search.toLowerCase()) >= 0);
+                    devices = devices.filter(device => device.searchString.indexOf(latinize(this.filters.search).toLowerCase()) >= 0);
                 }
                 return devices;
             },
@@ -134,11 +134,11 @@
             }
         },
         methods: {
-            calculateDevicesSearchStrings() {
+            calculateSearchStrings() {
                 for (let device of this.devices) {
                     const ref = this.$refs['device-tile-' + device.id];
                     if (ref && ref.length) {
-                        this.$set(device, 'searchString', ref[0].innerText.toLowerCase());
+                        this.$set(device, 'searchString', latinize(ref[0].innerText).toLowerCase());
                     }
                 }
             },
