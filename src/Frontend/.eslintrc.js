@@ -10,6 +10,7 @@ module.exports = {
         moment: true,
         SUPLA_TRANSLATIONS: true,
     },
+    "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module",
         "ecmaFeatures": {
