@@ -537,8 +537,6 @@ function detectIE() {
         $('.access_id_list a').on('click', carouselItemClick('aid'));
         $('.location_list a').on('click', carouselItemClick('loc'));
 
-        $('#logout').turnOffTV();
-
         //open the lateral panel
         $('.cd-btn').on('click', function (event) {
             event.preventDefault();
