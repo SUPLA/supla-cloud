@@ -45,7 +45,7 @@ class ScheduleController extends AbstractController {
             $query = new ScheduleListQuery($this->getDoctrine());
             $sort = explode('|', $request->get('sort', ''));
             $schedules = $query->getUserSchedules($this->getUser(), $sort);
-            return $this->jsonResponse(['data' => $schedules, 'flat']);
+            return $this->jsonResponse($schedules);
         } else {
             return [];
         }

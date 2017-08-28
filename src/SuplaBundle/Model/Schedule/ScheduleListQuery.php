@@ -1,4 +1,5 @@
 <?php
+
 namespace SuplaBundle\Model\Schedule;
 
 use Assert\Assertion;
@@ -25,12 +26,14 @@ class ScheduleListQuery {
             ->setParameter('user', $user)
             ->getQuery();
         $schedules = $query->getResult();
-        $this->fetchMostPastExecutions($schedules);
-        $this->fetchMostFutureExecutions($schedules);
+        if ($schedules) {
+            $this->fetchMostPastExecutions($schedules);
+            $this->fetchMostFutureExecutions($schedules);
+        }
         return $schedules;
     }
 
-    private function getQuery():QueryBuilder {
+    private function getQuery(): QueryBuilder {
         return $this->entityManager->createQueryBuilder()
             ->select('s schedule')
             ->addSelect(['ch.caption channel_caption', 'ch.type channel_type', 'ch.function channel_function'])

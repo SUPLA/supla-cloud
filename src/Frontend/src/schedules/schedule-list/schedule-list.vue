@@ -7,6 +7,9 @@
                 </div>
                 <vuetable
                     api-url="schedule/"
+                    data-path=""
+                    pagination-path=""
+                    :no-data-template="$t('Empty!')"
                     :css="bootstrapStyles"
                     :fields="columns"
                     @vuetable:loading="loading = true"
