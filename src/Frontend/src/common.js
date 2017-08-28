@@ -1,5 +1,7 @@
 import "expose-loader?jQuery!expose-loader?$!jquery";
 import "expose-loader?moment!moment";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 import "./common/turn-off-tv-logout-animation";
 import Vue from "vue";
 import Vuex from "vuex";

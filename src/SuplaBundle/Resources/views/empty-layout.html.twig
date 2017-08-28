@@ -10,8 +10,6 @@
 
     <link href="{{ asset('assets/css/fonts.css') }}"
             rel="stylesheet">
-    <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}"
-            rel="stylesheet">
 
     {% block styles %}{% endblock %}
 
@@ -40,7 +38,6 @@
 {% block body %}{% endblock %}
 <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
 <script src="{{ asset('assets/dist/whole-page.js', 'webpack') }}"></script>
-<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

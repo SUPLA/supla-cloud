@@ -367,3 +367,6 @@ Active: Aktywne
 Idle: Bezczyne
 Client app has been deleted: Urządzenie zostało usunięte
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
+Loading: Ładowanie
+if it takes too long, check if the JS scripts area loaded correctly: jeśli to trwa zbyt długo, sprawdź czy skrypty JS są ładowane poprawnie
+SUPLA-Cloud will not work without Javascript: SUPLA-Cloud nie będzie działać bez włączonego Javascript
