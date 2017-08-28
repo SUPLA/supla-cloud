@@ -91,14 +91,17 @@
 	</div>
 </footer>
 
-
-<script src="{{ asset('assets/js/jquery.superslides.js') }}" type="text/javascript" charset="utf-8"></script>
-  <script>
-    $('#slides').superslides({
-      animation: 'fade',
-	  play: 12500,
-	  pagination: false,
-    });
-	$("#user-timezone-field").val(moment.tz.guess());
-  </script>
+{% endblock %}
+{% block scripts %}
+	<script src="{{ asset('assets/js/jquery.superslides.js') }}" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(document).ready(function() {
+            $('#slides').superslides({
+                animation: 'fade',
+                play: 12500,
+                pagination: false,
+            });
+            $("#user-timezone-field").val(moment.tz.guess());
+        });
+	</script>
 {% endblock %}
