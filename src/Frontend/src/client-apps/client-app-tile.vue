@@ -116,6 +116,7 @@
                     .then(({body}) => Vue.util.extend(this.app, body))
                     .then(() => this.editingModel = null)
                     .then(() => successNotification(this.$t('Success'), this.$t('Data saved')))
+                    .then(() => this.$emit('change'))
                     .finally(() => this.saving = false);
             },
             deleteClient() {

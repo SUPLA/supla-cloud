@@ -26,11 +26,13 @@
         </div>
         <square-links-grid v-if="clientApps && filteredClientApps.length"
             :count="filteredClientApps.length"
-            class="square-links-height-240">
+            class="square-links-height-250">
             <div v-for="app in filteredClientApps"
-                :key="app.id">
+                :key="app.id"
+                :ref="'app-tile-' + app.id">
                 <client-app-tile :app="app"
                     :access-ids="accessIds"
+                    @change="calculateSearchStrings()"
                     @delete="removeClientFromList(app)"></client-app-tile>
             </div>
         </square-links-grid>
@@ -51,6 +53,7 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import BtnFilters from "../common/btn-filters.vue";
     import LoaderDots from "../common/loader-dots.vue";
     import SquareLinksGrid from "../common/square-links-grid.vue";
@@ -73,7 +76,9 @@
             };
         },
         mounted() {
-            this.$http.get('client-apps').then(({body}) => this.clientApps = body);
+            this.$http.get('client-apps')
+                .then(({body}) => this.clientApps = body)
+                .then(() => Vue.nextTick(this.calculateSearchStrings()))
             this.$http.get('aid').then(({body}) => this.accessIds = body);
         },
         computed: {
@@ -86,7 +91,7 @@
                     apps = apps.filter(app => app.connected == this.filters.connected);
                 }
                 if (this.filters.search) {
-                    apps = apps.filter(app => app.name.toLowerCase().indexOf(this.filters.search.toLowerCase()) >= 0);
+                    apps = apps.filter(app => app.searchString.indexOf(this.filters.search.toLowerCase()) >= 0);
                 }
                 if (this.filters.sort == 'az') {
                     apps = apps.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
@@ -97,6 +102,14 @@
             }
         },
         methods: {
+            calculateSearchStrings() {
+                for (let app of this.clientApps) {
+                    const ref = this.$refs['app-tile-' + app.id];
+                    if (ref && ref.length) {
+                        this.$set(app, 'searchString', ref[0].innerText.toLowerCase());
+                    }
+                }
+            },
             removeClientFromList(app) {
                 this.clientApps.splice(this.clientApps.indexOf(app), 1);
             }

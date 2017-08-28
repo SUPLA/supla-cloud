@@ -109,12 +109,9 @@
             };
         },
         mounted() {
-            this.$http.get('iodev').then(({body}) => {
-                body.forEach(app => {
-                    app.connected = undefined;
-                });
-                this.devices = body;
-                Vue.nextTick(() => this.calculateDevicesSearchStrings());
+            this.$http.get('iodev')
+                .then(({body}) => this.devices = body)
+                .then(() => Vue.nextTick(() => this.calculateSearchStrings()));
             });
         },
         computed: {
