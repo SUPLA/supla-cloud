@@ -1,10 +1,10 @@
 <template>
     <span>
-        <a :class="'btn btn-default ' + (device.enabled ? 'btn-enable' : 'btn-disable')"
+        <a :class="'btn btn-default ' + (isEnabled ? 'btn-enable' : 'btn-disable')"
             @click="toggleEnabled()"
             v-show="!loading && !showSchedulesDisablingConfirmation">
-            <strong class="clearfix">{{ $t(device.enabled ? 'ENABLED' : 'DISABLED') }}</strong>
-            {{ $t('CLICK TO ' + (device.enabled ? 'DISABLE' : 'ENABLE')) }}
+            <strong class="clearfix">{{ $t(isEnabled ? 'ENABLED' : 'DISABLED') }}</strong>
+            {{ $t('CLICK TO ' + (isEnabled ? 'DISABLE' : 'ENABLE')) }}
         </a>
         <button-loading v-if="loading || showSchedulesDisablingConfirmation"></button-loading>
         <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
@@ -21,27 +21,18 @@
 
 <script>
     import ButtonLoading from "../../common/button-loading.vue";
-    import {mapState} from "vuex";
     import DisablingSchedulesModal from "../../schedules/modals/disabling-schedules-modal.vue";
     import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal.vue";
-    import Vuex from "vuex";
-    import {actions, mutations} from "./iodevice-details-store";
 
     export default {
+        props: ['deviceId', 'enabled'],
         components: {ButtonLoading, DisablingSchedulesModal, EnablingSchedulesModal},
-        store: new Vuex.Store({
-            state: {
-                device: window.DEVICE
-            },
-            mutations: mutations,
-            actions: actions,
-            strict: process.env.NODE_ENV !== 'production'
-        }),
         data() {
             return {
                 loading: false,
                 showSchedulesDisablingConfirmation: false,
                 showSchedulesEnablingConfirmation: false,
+                isEnabled: this.enabled,
                 schedules: []
             };
         },
@@ -50,9 +41,10 @@
                 this.loading = true;
                 this.showSchedulesEnablingConfirmation = false;
                 this.showSchedulesDisablingConfirmation = false;
-                this.$store.dispatch('toggleEnabled', confirm)
+                this.$http.put(`iodev/${this.deviceId}`, {enabled: !this.isEnabled, confirm}, {skipErrorHandler: true})
                     .then(({body}) => {
-                        if (this.device.enabled && body.schedules && body.schedules.length) {
+                        this.isEnabled = !this.isEnabled;
+                        if (this.isEnabled && body.schedules && body.schedules.length) {
                             this.schedules = body.schedules;
                             this.showSchedulesEnablingConfirmation = true;
                         }
@@ -65,7 +57,6 @@
                     })
                     .finally(() => this.loading = false);
             }
-        },
-        computed: mapState(['device'])
+        }
     };
 </script>
