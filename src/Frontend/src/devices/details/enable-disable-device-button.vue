@@ -24,9 +24,19 @@
     import {mapState} from "vuex";
     import DisablingSchedulesModal from "../../schedules/modals/disabling-schedules-modal.vue";
     import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal.vue";
+    import Vuex from "vuex";
+    import {actions, mutations} from "./iodevice-details-store";
 
     export default {
         components: {ButtonLoading, DisablingSchedulesModal, EnablingSchedulesModal},
+        store: new Vuex.Store({
+            state: {
+                device: window.DEVICE
+            },
+            mutations: mutations,
+            actions: actions,
+            strict: process.env.NODE_ENV !== 'production'
+        }),
         data() {
             return {
                 loading: false,

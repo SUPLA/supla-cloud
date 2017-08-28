@@ -29,7 +29,7 @@
 					</ul>
 					
 					<br />
-					<enable-disable-button></enable-disable-button>
+					<enable-disable-device-button></enable-disable-device-button>
 					<div class="iodev_connection_state" data-id="{{ iodevice.id }}"><span class="unknown">unknown</span></div>
 					<div class="btn btn-default btn-trash" id="overlay-delete">{% trans %}DELETE{% endtrans %}</div>
 				</div>
@@ -154,8 +154,4 @@
 	</div> <!-- cd-panel -->
             
 <script src="{{ asset('assets/js/iodev_item.js') }}"></script>
-{% endblock %}
-
-{% block scripts %}
-	<script src="{{ asset('assets/dist/iodevice-details-page.js', 'webpack') }}"></script>
 {% endblock %}

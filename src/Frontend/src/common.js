@@ -38,11 +38,15 @@ moment.tz.setDefault(Vue.config.external.timezone);
     };
 })();
 
-const IdleLogout = () => import("./whole-page/idle-logout.vue");
-const DevicesListPage = () => import("./devices/list/devices-list-page.vue");
-const ScheduleList = () => import("./schedules/schedule-list/schedule-list.vue");
-const ScheduleForm = () => import("./schedules/schedule-form/schedule-form.vue");
-const ClientAppsPage = () => import("./client-apps/client-apps-page.vue");
+const components = {
+    ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),
+    DevicesListPage: () => import("./devices/list/devices-list-page.vue"),
+    EnableDisableDeviceButton: () => import("./devices/details/enable-disable-device-button.vue"),
+    IdleLogout: () => import("./common/idle-logout.vue"),
+    ScheduleForm: () => import("./schedules/schedule-form/schedule-form.vue"),
+    ScheduleList: () => import("./schedules/schedule-list/schedule-list.vue"),
+    TimezonePicker: () => import("./user-account/timezone-picker.vue"),
+};
 
 $(document).ready(() => {
     const i18n = new VueI18N({
@@ -52,6 +56,6 @@ $(document).ready(() => {
     new Vue({
         el: '.main-content',
         i18n,
-        components: {IdleLogout, DevicesListPage, ScheduleList, ScheduleForm, ClientAppsPage}
+        components,
     });
 });
