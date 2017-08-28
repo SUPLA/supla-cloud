@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import LoginForm from "./login-form.vue";
 import SuplaDevicesSplash from "./supla-devices-splash.vue";
 import RemindPassword from "./remind-password.vue";
-import {i18n} from "../translations";
+import VueI18N from "vue-i18n";
 
 Vue.use(VueRouter);
 
@@ -14,6 +14,11 @@ const routes = [
 ];
 
 const router = new VueRouter({routes});
+
+const i18n = new VueI18N({
+    locale: 'SUPLA_TRANSLATIONS',
+    messages: {SUPLA_TRANSLATIONS},
+});
 
 new Vue({
     router: router,
