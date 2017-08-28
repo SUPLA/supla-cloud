@@ -17,7 +17,7 @@
                     :placeholder="$t('Search')">
             </div>
         </div>
-        <square-links-grid v-if="devices && filteredDevices.length"
+        <square-links-grid v-if="devices && filteredDevices.length || (showPossibleDevices && !devices.length)"
             :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)"
             class="square-links-height-240">
             <div v-for="device in filteredDevices"
