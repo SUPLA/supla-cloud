@@ -40,12 +40,12 @@ abstract class SuplaServer {
 
     private function isConnected(int $userId, int $id, $what = 'iodev'): bool {
         $userId = intval($userId);
-        $id= intval($id);
-        
+        $id = intval($id);
+
         if ($userId == 0 || $id == 0) {
             return false;
         }
-        
+
         switch ($what) {
             case 'client':
                 $what = 'CLIENT';
@@ -54,9 +54,9 @@ abstract class SuplaServer {
                 $what = 'IODEV';
                 break;
         }
-        
+
         $result = $this->command("IS-" . $what . "-CONNECTED:" . $userId . "," . $id);
-        return $result !== false && preg_match("/^CONNECTED:" . $id. "\n/", $result) === 1 ? true : false;
+        return $result !== false && preg_match("/^CONNECTED:" . $id . "\n/", $result) === 1 ? true : false;
     }
 
     public function checkDevicesConnection(int $userId, array $ids) {
@@ -79,7 +79,6 @@ abstract class SuplaServer {
     public function getOnlyConnectedClientApps(array $clientApps): array {
         if ($this->connect() !== false) {
             return array_values(array_filter($clientApps, function (ClientApp $clientApp) {
-                
                 return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
             }));
         }
@@ -96,13 +95,9 @@ abstract class SuplaServer {
     }
 
     public function clientReconnect(ClientApp $clientApp) {
-        if ($clientApp == null) {
-            return false;
-        }
-        
         if ($this->connect() !== false) {
             $result = $this->command("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
-            return $result !== false && preg_match("/^OK:" . $clientApp->getId(). "\n/", $result) === 1 ? true : false;
+            return $result !== false && preg_match("/^OK:" . $clientApp->getId() . "\n/", $result) === 1 ? true : false;
         }
         return false;
     }

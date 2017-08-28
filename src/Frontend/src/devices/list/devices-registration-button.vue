@@ -12,7 +12,7 @@
                     </td>
                     <td>
                         <span v-if="saving">{{ $t(caption) }}</span>
-                        <span v-else>{{ $t(caption) }}: <span class="big">{{ enabledUntil ? 'AKTYWNA' : 'NIEAKTYWNA' }}</span></span>
+                        <span v-else>{{ $t(caption) }}: <span class="big">{{ $t(enabledUntil ? 'ACTIVE' : 'INACTIVE') }}</span></span>
                         <div v-if="enabledUntil">{{ $t('will expire') }} : {{ enabledUntilCalendar }}</div>
                         <div class="small text-muted"
                             v-if="!saving">{{ $t(enabledUntil ? 'CLICK TO DISABLE' : 'CLICK TO ENABLE') }}

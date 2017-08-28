@@ -11,15 +11,15 @@
                 </dl>
                 <div class="separator invisible"></div>
                 <dl>
-                    <dd>Ostatnie połączenie</dd>
+                    <dd>{{ $t('Last access') }}</dd>
                     <dt>{{ app.lastAccessDate | moment("LT L") }}</dt>
-                    <dd>z adresu</dd>
+                    <dd>{{ $t('from address') }}</dd>
                     <dt>{{ app.lastAccessIpv4 | intToIp }}</dt>
                 </dl>
                 <div class="separator invisible"></div>
                 <dl>
-                    <dd>ID dostępu</dd>
-                    <dt>{{ app.accessId ? app.accessId.caption : 'brak' }}</dt>
+                    <dd>{{ $t('Access ID') }}</dd>
+                    <dt>{{ app.accessId ? app.accessId.caption : $t('None') }}</dt>
                 </dl>
                 <div class="square-link-label">
                     <client-app-connection-status-label :app="app"></client-app-connection-status-label>
@@ -30,18 +30,18 @@
                 <form @submit.prevent="save()"
                     v-if="editingModel">
                     <div class="form-group">
-                        <label>Nazwa</label>
+                        <label>{{ $t('Name') }}</label>
                         <input type="text"
                             class="form-control"
                             v-model="editingModel.name">
                     </div>
 
                     <div class="form-group">
-                        <label>Identyfikator dostępu</label>
+                        <label>{{ $t('Access Identifier') }}</label>
                         <select class="form-control"
                             v-model="editingModel.accessIdId">
                             <option v-for="accessId in accessIds"
-                                :value="accessId.id">{{ accessId.caption }}
+                                :value="accessId.id">ID{{accessId.id}} {{ accessId.caption }}
                             </option>
                         </select>
                     </div>
@@ -55,12 +55,14 @@
                         <button type="button"
                             :disabled="saving"
                             @click="deleteConfirm = true"
-                            class="btn btn-danger btn-sm pull-left">Usuń
+                            class="btn btn-danger btn-sm pull-left">
+                            {{ $t('Delete') }}
                         </button>
                         <button type="button"
                             :disabled="saving"
                             class="btn btn-default btn-sm"
-                            @click="cancelEdit()">Anuluj
+                            @click="cancelEdit()">
+                            {{ $t('Cancel') }}
                         </button>
                         <button class="btn btn-green btn-sm"
                             :disabled="saving">
@@ -88,13 +90,12 @@
     import ButtonLoadingDots from "../common/button-loading-dots.vue";
     import Switches from "vue-switches";
     import Vue from "vue";
-    import ClientAppDeleteConfirmModal from "./client-app-delete-confirm-modal.vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
     import {successNotification, warningNotification} from "../common/notifier";
 
     export default {
         props: ['app', 'accessIds'],
-        components: {SquareLink, Flipper, Switches, ButtonLoadingDots, ClientAppDeleteConfirmModal, ClientAppConnectionStatusLabel},
+        components: {SquareLink, Flipper, Switches, ButtonLoadingDots, ClientAppConnectionStatusLabel},
         data() {
             return {
                 saving: false,
