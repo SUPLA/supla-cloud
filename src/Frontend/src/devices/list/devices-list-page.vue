@@ -21,7 +21,8 @@
             :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)"
             class="square-links-height-240">
             <div v-for="device in filteredDevices"
-                :key="device.id">
+                :key="device.id"
+                :ref="'device-tile-' + device.id">
                 <device-tile :device="device"></device-tile>
             </div>
             <div v-for="possibleDevice in possibleDevices"
@@ -61,6 +62,7 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import BtnFilters from "src/common/btn-filters.vue";
     import LoaderDots from "src/common/loader-dots.vue";
     import SquareLinksGrid from "src/common/square-links-grid.vue";
@@ -112,6 +114,7 @@
                     app.connected = undefined;
                 });
                 this.devices = body;
+                Vue.nextTick(() => this.calculateDevicesSearchStrings());
             });
         },
         computed: {
@@ -124,7 +127,7 @@
                     devices = devices.filter(device => device.connected == this.filters.connected);
                 }
                 if (this.filters.search) {
-                    devices = devices.filter(device => this.deviceSearchString(device).indexOf(this.filters.search.toLowerCase()) >= 0);
+                    devices = devices.filter(device => device.searchString.indexOf(this.filters.search.toLowerCase()) >= 0);
                 }
                 return devices;
             },
@@ -134,9 +137,13 @@
             }
         },
         methods: {
-            deviceSearchString(device) {
-                let search = device.name + (device.comment || '');
-                return search.toLowerCase();
+            calculateDevicesSearchStrings() {
+                for (let device of this.devices) {
+                    const ref = this.$refs['device-tile-' + device.id];
+                    if (ref && ref.length) {
+                        this.$set(device, 'searchString', ref[0].innerText.toLowerCase());
+                    }
+                }
             },
             fetchConnectedClientApps() {
                 this.$http.get('client-apps?onlyConnected=true').then(({body}) => {
