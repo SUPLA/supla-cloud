@@ -35,3 +35,19 @@ moment.tz.setDefault(Vue.config.external.timezone);
         return Date.now() + offset;
     };
 })();
+
+const IdleLogout = () => import("./whole-page/idle-logout.vue");
+const DevicesListPage = () => import("./devices/list/devices-list-page.vue");
+const ScheduleList = () => import("./schedules/schedule-list/schedule-list.vue");
+
+$(document).ready(() => {
+    const i18n = new VueI18N({
+        locale: 'SUPLA_TRANSLATIONS',
+        messages: {SUPLA_TRANSLATIONS},
+    });
+    new Vue({
+        el: '.main-content',
+        i18n,
+        components: {IdleLogout, DevicesListPage, ScheduleList}
+    });
+});

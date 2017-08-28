@@ -32,12 +32,11 @@
     {% endfor %}
     {% include '@Supla/frontend-config.html.twig' %}
     <script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
+    <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
     <base href="/">
 </head>
 <body>
 {% block body %}{% endblock %}
-<script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
-<script src="{{ asset('assets/dist/whole-page.js', 'webpack') }}"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

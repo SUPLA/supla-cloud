@@ -20,10 +20,12 @@
 
 <script type="text/babel">
     import {withBaseUrl} from "../../common/filters";
-    import LoadingDots from "../../common/loader-dots.vue";
+    import LoadingDots from "../../common/loader-dots.vue"
+    import Vuetable from "vuetable-2/src/components/Vuetable.vue";
+
     export default {
         name: 'schedule-list',
-        components: {LoadingDots},
+        components: {LoadingDots, Vuetable},
         data() {
             return {
                 loading: false,

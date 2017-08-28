@@ -1,7 +1,4 @@
 {% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
 {% block content %}
-    <div id="devices-list"></div>
-{% endblock %}
-{% block scripts %}
-    <script src="{{ asset('assets/dist/devices-list-page.js', 'webpack') }}"></script>
+    <devices-list-page></devices-list-page>
 {% endblock %}
