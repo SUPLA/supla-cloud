@@ -13,19 +13,20 @@
 
     $gridGap: 14px;
     $minimumWidthOfOneSquare: 265px;
-    $maximumSquaresInRow: 6;
+    $maximumSupportedScreenWidth: 1675px;
+    $maximumSquaresInRow: floor($maximumSupportedScreenWidth / $minimumWidthOfOneSquare);
 
     .square-links-grid-container {
         transition: all .3s;
         padding: 0 $gridGap/2;
         margin: 0 auto;
 
-        // Here comes one of the most mournful line in the whole SUPLA codebase.
+        // Here comes one of the most mournful lines in the whole SUPLA codebase.
         // It prevents the square grid to occupy the whole available space.
         // It has to be there in order to be consistent with indolent and clumsy locations and access identifiers views.
         // But brace yourself. The day will inevitably come.
         // This line will be eventually wiped out and all unicorns will throw rainbows everywhere out of their joy.
-        max-width: 1675px;
+        max-width: $maximumSupportedScreenWidth;
     }
 
     .square-links-grid {
