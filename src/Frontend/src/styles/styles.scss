@@ -129,16 +129,17 @@ input[type=text], input[type=password], input[type=email] {
   }
 }
 
-.left-right-float {
+.left-right-header {
   > :first-child {
     float: left;
   }
   > :last-child {
     float: right;
+    margin-top: 20px;
+    margin-bottom: 10px;
     @include on-xs-and-down {
       float: none;
       clear: both;
-      margin: 5px auto;
       text-align: center;
     }
   }

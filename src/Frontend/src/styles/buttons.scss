@@ -1,4 +1,5 @@
 .btn {
+  transition: all .2s;
   &-green {
     background: $supla-green;
     color: $supla-white;

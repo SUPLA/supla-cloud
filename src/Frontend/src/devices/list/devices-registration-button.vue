@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button :class="'btn btn-outline btn-' + (enabledUntil ? 'orange' : 'grey')"
+        <button :class="'devices-registration-button btn btn-outline btn-' + (enabledUntil ? 'orange' : 'grey')"
             @click="toggle()"
             :disabled="saving">
             <table class="table">
@@ -26,30 +26,25 @@
 </template>
 
 <style lang="scss">
-    .btn {
-        transition: all .2s;
-    }
-
-    .table {
-        margin: 0;
-    }
-
-    i {
-        font-size: 3em;
-        margin-right: 10px;
-    }
-
-    label {
-        vertical-align: super;
-        margin: 0;
-    }
-
-    .vue-switcher {
-        vertical-align: text-top;
-    }
-
-    .help-block {
-        font-size: .7em;
+    .devices-registration-button {
+        min-height: 62px;
+        .table {
+            margin: 0;
+        }
+        i {
+            font-size: 3em;
+            margin-right: 10px;
+        }
+        label {
+            vertical-align: super;
+            margin: 0;
+        }
+        .vue-switcher {
+            vertical-align: text-top;
+        }
+        .help-block {
+            font-size: .7em;
+        }
     }
 </style>
 

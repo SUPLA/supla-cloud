@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <div class="clearfix left-right-float">
+            <div class="clearfix left-right-header">
                 <h1>{{ $t('I/O Devices') }}</h1>
                 <devices-registration-button field="ioDevicesRegistrationEnabled"
                     caption="Registration of new I/O devices"></devices-registration-button>

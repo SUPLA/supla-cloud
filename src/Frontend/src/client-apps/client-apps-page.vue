@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <div class="clearfix left-right-float">
+            <div class="clearfix left-right-header">
                 <div>
                     <h1>{{ $t('Client Apps') }}</h1>
                     <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
