@@ -36,11 +36,7 @@
                     @delete="removeClientFromList(app)"></client-app-tile>
             </div>
         </square-links-grid>
-        <div v-else-if="clientApps"
-            class="text-center">
-            <h3><i class="pe-7s-paint-bucket"></i></h3>
-            <h2>Pusto!</h2>
-        </div>
+        <empty-list-placeholder v-else-if="clientApps"></empty-list-placeholder>
         <loader-dots v-else></loader-dots>
         <div class="hidden"
             v-if="clientApps">
@@ -61,9 +57,18 @@
     import DevicesRegistrationButton from "src/devices/list/devices-registration-button.vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
     import latinize from "latinize";
+    import EmptyListPlaceholder from "src/devices/list/empty-list-placeholder.vue";
 
     export default {
-        components: {BtnFilters, LoaderDots, ClientAppTile, DevicesRegistrationButton, SquareLinksGrid, ClientAppConnectionStatusLabel},
+        components: {
+            BtnFilters,
+            ClientAppConnectionStatusLabel,
+            ClientAppTile,
+            DevicesRegistrationButton,
+            EmptyListPlaceholder,
+            LoaderDots,
+            SquareLinksGrid,
+        },
         data() {
             return {
                 clientApps: undefined,

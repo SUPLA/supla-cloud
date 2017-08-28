@@ -45,11 +45,7 @@
                 </square-link>
             </div>
         </square-links-grid>
-        <div v-else-if="devices"
-            class="text-center">
-            <h3><i class="pe-7s-paint-bucket"></i></h3>
-            <h2>Pusto!</h2>
-        </div>
+        <empty-list-placeholder v-else-if="devices"></empty-list-placeholder>
         <loader-dots v-else></loader-dots>
         <div class="hidden"
             v-if="devices">
@@ -71,16 +67,18 @@
     import SquareLink from "src/common/square-link.vue";
     import DevicesRegistrationButton from "./devices-registration-button.vue";
     import latinize from "latinize";
+    import EmptyListPlaceholder from "./empty-list-placeholder.vue";
 
     export default {
         components: {
             BtnFilters,
+            DeviceConnectionStatusLabel,
+            DevicesRegistrationButton,
+            DeviceTile,
+            EmptyListPlaceholder,
             LoaderDots,
             SquareLinksGrid,
-            DeviceTile,
-            DeviceConnectionStatusLabel,
             SquareLink,
-            DevicesRegistrationButton
         },
         data() {
             return {
