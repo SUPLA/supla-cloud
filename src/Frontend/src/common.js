@@ -6,6 +6,7 @@ import "./common/turn-off-tv-logout-animation";
 import Vue from "vue";
 import Vuex from "vuex";
 import VueI18N from "vue-i18n";
+import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
 import RespnseErrorInterceptor from "./common/response-error-interceptor";
 import "moment-timezone";
@@ -16,6 +17,7 @@ import "style-loader!css-loader!sass-loader!./styles/styles.scss";
 
 Vue.use(Vuex);
 Vue.use(VueI18N);
+Vue.use(VueMoment);
 Vue.use(VueResource);
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
@@ -39,6 +41,8 @@ moment.tz.setDefault(Vue.config.external.timezone);
 const IdleLogout = () => import("./whole-page/idle-logout.vue");
 const DevicesListPage = () => import("./devices/list/devices-list-page.vue");
 const ScheduleList = () => import("./schedules/schedule-list/schedule-list.vue");
+const ScheduleForm = () => import("./schedules/schedule-form/schedule-form.vue");
+const ClientAppsPage = () => import("./client-apps/client-apps-page.vue");
 
 $(document).ready(() => {
     const i18n = new VueI18N({
@@ -48,6 +52,6 @@ $(document).ready(() => {
     new Vue({
         el: '.main-content',
         i18n,
-        components: {IdleLogout, DevicesListPage, ScheduleList}
+        components: {IdleLogout, DevicesListPage, ScheduleList, ScheduleForm, ClientAppsPage}
     });
 });

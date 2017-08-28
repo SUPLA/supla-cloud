@@ -79,9 +79,31 @@
     import {mapState, mapActions} from "vuex";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+    import {actions, mutations} from "./schedule-form-store";
+    import Vuex from "vuex";
 
     export default {
         name: 'schedule-form',
+        props: ['scheduleId'],
+        store: new Vuex.Store({
+            state: {
+                caption: '',
+                scheduleMode: 'once',
+                timeExpression: '',
+                dateStart: moment().format(),
+                dateEnd: '',
+                fetchingNextRunDates: false,
+                nextRunDates: [],
+                channel: undefined,
+                action: undefined,
+                actionParam: undefined,
+                submitting: false,
+                schedule: {},
+            },
+            mutations: mutations,
+            actions: actions,
+            strict: process.env.NODE_ENV !== 'production'
+        }),
         computed: {
             caption: {
                 get() {
@@ -91,7 +113,7 @@
                     this.$store.commit('updateCaption', caption);
                 }
             },
-            ...mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'scheduleId', 'submitting', 'schedule'])
+            ...mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'submitting', 'schedule'])
         },
         mounted() {
             if (this.scheduleId) {

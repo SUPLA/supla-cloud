@@ -108,8 +108,8 @@ export const actions = {
     submit({commit, state}, enableIfDisabled) {
         commit('submit');
         let promise;
-        if (state.scheduleId) {
-            promise = Vue.http.put(`schedule/${state.scheduleId}` + (enableIfDisabled ? '?enable=true' : ''), state);
+        if (state.schedule.id) {
+            promise = Vue.http.put(`schedule/${state.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), state);
         } else {
             promise = Vue.http.post('schedule/create', state);
         }

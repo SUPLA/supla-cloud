@@ -4,12 +4,8 @@ const glob = require('glob');
 
 const entries = {
     'commons': './src/common.js',
+    'login-page': './src/login/login-page.js'
 };
-
-// glob.sync('src/**/*-page.js').forEach(page => {
-//     const entryName = path.basename(page, '.js');
-//     entries[entryName] = path.resolve(__dirname, page);
-// });
 
 const availableTranslations = [];
 

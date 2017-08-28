@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1">
+                <h1>
                     {% if schedule is defined %}
                         {% trans %}Edit schedule{% endtrans %} ID{{ schedule.id }}
                         {% if schedule.caption %}
@@ -15,11 +15,6 @@
                 </h1>
             </div>
         </div>
-        <div class="row margin-top-20"
-             id="schedule-form"{% if schedule is defined %} schedule-id="{{ schedule.id }}"{% endif %}></div>
+        <schedule-form{% if schedule is defined %} schedule-id="{{ schedule.id }}"{% endif %}></schedule-form>
     </div>
-{% endblock %}
-
-{% block scripts %}
-    <script src="{{ asset('assets/dist/schedule-form-page.js', 'webpack') }}"></script>
 {% endblock %}
