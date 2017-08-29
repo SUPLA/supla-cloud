@@ -13,7 +13,7 @@
                 <dl>
                     <dd>{{ $t('Last access') }}</dd>
                     <dt>{{ app.lastAccessDate | moment("LT L") }}</dt>
-                    <dd>{{ $t('from address') }}</dd>
+                    <dd>{{ $t('from the IP') }}</dd>
                     <dt>{{ app.lastAccessIpv4 | intToIp }}</dt>
                 </dl>
                 <div class="separator invisible"></div>
@@ -78,8 +78,7 @@
             @cancel="deleteConfirm = false"
             :header="$t('Are you sure you want to delete this client?')"
             :loading="saving">
-            <p>{{ $t('Deleting the client will automatically log it out.') }}</p>
-            <p>{{ $t('Further registration will be required to use this device again.') }}</p>
+            <p>{{ $t('The client will be automatically logged out when deleted.') }}</p>
         </modal-confirm>
     </div>
 </template>
@@ -125,7 +124,7 @@
                 this.$http.delete(`client-apps/${this.app.id}`)
                     .then(() => this.editingModel = null)
                     .then(() => this.deleteConfirm = false)
-                    .then(() => warningNotification(this.$t('Information'), this.$t('Client app has been deleted')))
+                    .then(() => warningNotification(this.$t('Information'), this.$t('Client\'s app has been deleted')))
                     .then(() => this.$emit('delete'))
                     .finally(() => this.saving = false);
             }

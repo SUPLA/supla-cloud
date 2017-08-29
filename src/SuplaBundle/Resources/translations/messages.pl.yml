@@ -361,24 +361,23 @@ Choose: Wybierz
 White: Biały
 
 Smartphones: Smartfony
-Client Apps: Aplikacje klienckie
-smartphones, tables, etc.: smartfony, tablety itp.
+Client's Apps: Aplikacje klienckie
+smartphones, tablets, etc.: smartfony, tablety itp.
 Active: Aktywne
 Idle: Bezczyne
-Client app has been deleted: Aplikacja kliencka została usunięta
+Client's app has been deleted: Aplikacja kliencka została usunięta
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
 Loading: Ładowanie
-if it takes too long, check if the JS scripts area loaded correctly: jeśli to trwa zbyt długo, sprawdź czy skrypty JS są ładowane poprawnie
+if it takes too long, check if the JS scripts are loaded correctly: jeśli to trwa zbyt długo, sprawdź czy skrypty JS są ładowane poprawnie
 SUPLA-Cloud will not work without Javascript: SUPLA-Cloud nie będzie działać bez włączonego Javascript
 will expire: wygaśnie
 Registration of new clients: Rejestracja klientów
 Registration of new I/O devices: Rejestracja urządzeń
 Empty!: Pusto!
 Last access: Ostatnie połączenie
-from address: z adresu
+from the IP: z adresu
 Access ID: ID dostępu
 Are you sure you want to delete this client?: Czy na pewno chcesz usunąć tę aplikację kliencką?
-Deleting the client will automatically log it out.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
-Further registration will be required to use this device again.: Aby ponownie użyć tego samego klienta, konieczna będzie ponowna rejstracja.
+The client will be automatically logged out when deleted.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
 ACTIVE: AKTYWNA
 INACTIVE: NIEAKTYWNA

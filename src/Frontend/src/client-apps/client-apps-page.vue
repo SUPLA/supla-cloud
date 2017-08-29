@@ -3,8 +3,8 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1>{{ $t('Client Apps') }}</h1>
-                    <h4 class="text-muted">{{ $t('smartphones, tables, etc.') }}</h4>
+                    <h1>{{ $t('Client\'s Apps') }}</h1>
+                    <h4 class="text-muted">{{ $t('smartphones, tablets, etc.') }}</h4>
                 </div>
                 <div>
                     <devices-registration-button field="clientsRegistrationEnabled"
