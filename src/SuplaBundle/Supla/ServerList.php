@@ -118,7 +118,10 @@ class ServerList {
         }
         
         $user = $this->user_manager->userByEmail($username);
-        $result = $user === null ? $this->autodiscover->findServer($username) : $this->server;
+        
+        if ($user !== null) {
+            $result = $this->autodiscover->findServer($username);
+        }
 
         if (!$result && $this->servers != null) {
             foreach ($this->servers as $svr) {
