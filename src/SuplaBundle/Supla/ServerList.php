@@ -31,7 +31,13 @@ class ServerList {
     protected $router = null;
     protected $autodiscover = null;
 
-    public function __construct(Router $router, UserManager $user_manager, SuplaAutodiscover $autodiscover, $supla_server, $supla_server_list) {
+    public function __construct(
+        Router $router,
+        UserManager $user_manager,
+        SuplaAutodiscover $autodiscover,
+        $supla_server,
+        $supla_server_list
+    ) {
 
         $this->router = $router;
         $this->user_manager = $user_manager;
@@ -112,14 +118,21 @@ class ServerList {
     public function getAuthServerForUser(Request $request, $username) {
         $result = false;
         $err = false;
-        
+
         if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
             return $result;
+        }
+        
+        $local = $request->getHost();
+        if ($request->getPort() != 443) {
+            $local.= ":" . $local->getPort();
         }
         
         $user = $this->user_manager->userByEmail($username);
         
         if ($user !== null) {
+            $result = $local;
+        } else {
             $result = $this->autodiscover->findServer($username);
         }
 
@@ -147,16 +160,14 @@ class ServerList {
         }
         
         if ($err) {
-            return null;
+            return false;
         }
         
         if (!$result) {
-            $result = 'https://' . $request->getHost();
-            if ($request->getPort() != 443) {
-                $result .= ":" . $request->getPort();
-            }
+            $result = $local;
         }
-        return $result ? $result : !!$result;
+        
+        return 'https://' . $result;
     }
 
     public function getCreateAccountUrl(Request $request) {
