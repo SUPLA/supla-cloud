@@ -159,7 +159,7 @@ class ServerList {
             }
         }
         
-        if ($err) {
+        if ($err && !$result) {
             return false;
         }
         
