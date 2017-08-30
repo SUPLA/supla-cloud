@@ -310,8 +310,8 @@ class AccountController extends AbstractController {
             $sl = $this->get('server_list');
             $server = $sl->getAuthServerForUser($request, $username);
 
-            if (strlen(@$server) > 0) {
-                AjaxController::remoteRequest('https://' . $server . $this->generateUrl('_account_ajax_forgot_passwd_here'), [
+            if ($server) {
+                AjaxController::remoteRequest( $server . $this->generateUrl('_account_ajax_forgot_passwd_here'), [
                     'email' => $username,
                     'locale' => $request->getLocale(),
                 ]);
