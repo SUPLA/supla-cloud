@@ -9,3 +9,4 @@ services:
   user_manager: '@SuplaBundle\Model\UserManager'
   server_list: '@SuplaBundle\Supla\ServerList'
   supla_mailer: '@SuplaBundle\Mailer\SuplaMailer'
+  supla_autodiscover: '@SuplaBundle\Supla\SuplaAutodiscover'

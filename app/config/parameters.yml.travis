@@ -19,6 +19,7 @@ parameters:
   admin_email: ~
   supla_server: ~
   supla_server_list: ~
+  supla_autodiscover_server: ~
 
   ewz_recaptcha_public_key: ~
   ewz_recaptcha_private_key: ~
