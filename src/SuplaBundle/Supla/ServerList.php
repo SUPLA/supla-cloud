@@ -29,13 +29,15 @@ class ServerList {
     protected $servers = null;
     protected $user_manager = null;
     protected $router = null;
+    protected $autodiscover = null;
 
-    public function __construct(Router $router, UserManager $user_manager, $supla_server, $supla_server_list) {
+    public function __construct(Router $router, UserManager $user_manager, SuplaAutodiscover $autodiscover, $supla_server, $supla_server_list) {
 
         $this->router = $router;
         $this->user_manager = $user_manager;
         $this->server = $supla_server;
         $this->servers = $supla_server_list;
+        $this->autodiscover = $autodiscover;
 
         if (count(@$servers) > 1) {
             for ($a = 0; $a < count($servers); $a++) {
@@ -108,17 +110,19 @@ class ServerList {
     }
 
     public function getAuthServerForUser(Request $request, $username) {
-        $result = null;
-        if (strlen($username) > 3 && $this->servers != null) {
-            foreach ($this->servers as $svr) {
-                if ($svr['address'] === $this->server) {
-                    $user = $this->user_manager->userByEmail($username);
+        $result = false;
+        $err = false;
+        
+        if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            return $result;
+        }
+        
+        $user = $this->user_manager->userByEmail($username);
+        $result = $user === null ? $this->autodiscover->findServer($username) : $this->server;
 
-                    if ($user != null) {
-                        $result = $svr['address'];
-                        break;
-                    }
-                } else {
+        if (!$result && $this->servers != null) {
+            foreach ($this->servers as $svr) {
+                if ($svr['address'] !== $this->server) {
                     $rr = AjaxController::remoteRequest(
                         'https://' . $svr['address'] . $this->router->generate('_account_ajax_user_exists'),
                         ["username" => $username]
@@ -133,18 +137,23 @@ class ServerList {
                             break;
                         }
                     } else {
-                        // TODO LOG
+                        $err = true;
                     }
                 }
             }
         }
+        
+        if ($err) {
+            return null;
+        }
+        
         if (!$result) {
             $result = 'https://' . $request->getHost();
             if ($request->getPort() != 443) {
                 $result .= ":" . $request->getPort();
             }
         }
-        return $result;
+        return $result ? $result : !!$result;
     }
 
     public function getCreateAccountUrl(Request $request) {
