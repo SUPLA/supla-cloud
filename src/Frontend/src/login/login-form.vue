@@ -106,7 +106,6 @@
                             this.$refs.loginForm.action = body.server + '/auth/login_check';
                             this.$refs.loginForm.submit();
                         }
-
                     });
                 }
             }

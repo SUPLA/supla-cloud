@@ -8,7 +8,7 @@ import Vuex from "vuex";
 import VueI18N from "vue-i18n";
 import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
-import RespnseErrorInterceptor from "./common/response-error-interceptor";
+import ResponseErrorInterceptor from "./common/response-error-interceptor";
 import "moment-timezone";
 import "./common/common-components";
 import "./common/common-directives";
@@ -22,8 +22,6 @@ Vue.use(VueResource);
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
 Vue.http.options.root = Vue.config.external.baseUrl || '';
-
-Vue.http.interceptors.push(RespnseErrorInterceptor);
 
 moment.locale(Vue.config.external.locale);
 moment.tz.setDefault(Vue.config.external.timezone);
@@ -53,9 +51,10 @@ $(document).ready(() => {
         locale: 'SUPLA_TRANSLATIONS',
         messages: {SUPLA_TRANSLATIONS},
     });
-    new Vue({
+    const app = new Vue({
         el: '.main-content',
         i18n,
         components,
     });
+    Vue.http.interceptors.push(ResponseErrorInterceptor(app));
 });
