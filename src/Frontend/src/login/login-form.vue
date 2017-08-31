@@ -99,8 +99,8 @@
                 if (!this.authenticating) {
                     this.authenticating = true;
                     this.$http.get('auth/servers', {params: {username: this.username}}).then(({body}) => {
-                        if ( !body.server ) {
-                            errorNotification(SUPLA_TRANSLATIONS['Information'], SUPLA_TRANSLATIONS['Sign in temporarily unavailable. Please try again later.']);
+                        if (!body.server) {
+                            errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             this.authenticating = false;
                         } else {
                             this.$refs.loginForm.action = body.server + '/auth/login_check';
@@ -131,7 +131,7 @@
         left: 50%;
         margin-top: -$height/2;
         margin-left: -200px;
-        @include on-and-down(500px){
+        @include on-and-down(500px) {
             position: static;
             width: 90%;
             margin: 10px auto;
