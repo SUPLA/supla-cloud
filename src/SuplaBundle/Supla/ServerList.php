@@ -88,8 +88,8 @@ class ServerList {
             return true;
         }
         
-        if ( $this->autodiscover->findServer($username) ) {
-        	return true;
+        if ($this->autodiscover->findServer($username)) {
+            return true;
         }
 
         if ($this->servers != null) {

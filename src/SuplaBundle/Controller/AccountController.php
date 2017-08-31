@@ -36,7 +36,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-
 /**
  * @Route("/account")
  */
@@ -92,7 +91,6 @@ class AccountController extends AbstractController {
                 'title' => 'Success',
                 'message' => 'Account has been activated. You can Sign In now.',
             ]);
-            
         } else {
             $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Token does not exist']);
         }
