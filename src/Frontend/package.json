@@ -22,6 +22,7 @@
     "moment-timezone": "0.5.13",
     "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
+    "vivus": "0.4.2",
     "vue": "2.4.2",
     "vue-i18n": "7.1.1",
     "vue-moment": "2.0.2",

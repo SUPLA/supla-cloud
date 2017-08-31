@@ -1,101 +1,77 @@
 {% extends 'SuplaBundle::layout.html.twig' %}
 
 {% block content %}
+    <animated-svg id="user-account-bg"
+            file="{{ asset('assets/img/user-account-bg.svg') }}"></animated-svg>
 
+    <span class="supla-member">supla cloud {{ version }}</span>
+    <div class="user-account"
+            id="user-account">
+        <h1>{{ user.email }}</h1>
 
-<svg version="1.1" id="user-account-bg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 610 593.8" style="enable-background:new 0 0 610 593.8;" xml:space="preserve">
-
-<style type="text/css">
-	.st0x{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
-	.st1x{fill:none;stroke:#FAFBFC;stroke-width:2;stroke-miterlimit:10;}
-	.st2x{fill:#00D151;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
-	.st3x{fill:none;stroke:#FAFBFC;stroke-width:2;stroke-miterlimit:10;}
-	.st4x{stroke:#000000;stroke-width:2;stroke-miterlimit:10;fill:none}
-</style>
-
-<path id="XMLID_48_" class="st0x" d="M593.4,203.5H350.5L265.1,0H153l85.4,203.5H16.8c-5.5,0-10,4.5-10,10v362.5c0,5.5,4.5,10,10,10
-	h576.6c5.5,0,10-4.5,10-10V213.5C603.4,208,598.9,203.5,593.4,203.5z M370.2,240.7H240c-2.8,0-5.1-2.3-5.1-5.1
-	c0-2.8,2.3-5.1,5.1-5.1h130.1c2.8,0,5.1,2.3,5.1,5.1C375.3,238.4,373,240.7,370.2,240.7z"/>
-<path id="XMLID_4_" class="st1x" d="M581.4,568.8H28.6c-1.7,0-3-1.3-3-3V261.1c0-1.7,1.3-3,3-3h552.9c1.7,0,3,1.3,3,3v304.7
-	C584.4,567.5,583.1,568.8,581.4,568.8z"/>
-
-<path id="XMLID_49_" class="st2x" d="M345.7,0L249,230.5c0.4,1.4,1.7,2.4,3.2,2.4H358c1.5,0,2.8-1,3.2-2.4h0L457.8,0H345.7z"/>
-<line id="XMLID_2_" class="st3x" x1="51.3" y1="413.5" x2="553.3" y2="413.5"/>
-<path id="XMLID_6_" class="st4x" d="M151.7,241.7H36.5c-6,0-11-4.9-11-11v0c0-6,4.9-11,11-11h115.2c6,0,11,4.9,11,11v0
-	C162.7,236.8,157.7,241.7,151.7,241.7z"/>
-
-<g id="XMLID_3_"></g>
-<g id="XMLID_5_"></g>
-<g id="XMLID_7_"></g>
-<g id="XMLID_8_"></g>
-<g id="XMLID_9_"></g>
-<g id="XMLID_10_"></g>
-
-</svg>
-
-<span class="supla-member">supla cloud {{ version }}</span>
-<div class="user-account" id="user-account">
-		<h1>{{ user.email }}</h1>
-		
-		<dl>
-			<dt>
-				{% trans %}Previous login{% endtrans %}
-			</dt>
-			<dd>
-				<strong>{% if user.lastlogin is null %}{{ user.currentlogin|date("Y-m-d H:i:s") }}{% else %}{{ user.lastlogin|date("Y-m-d H:i:s") }}{% endif %}</strong>
-			</dd>
-			<dt>
-				{% trans %}From IP{% endtrans %}
-			</dt>
-			<dd>
-				<strong>{% if user.lastlogin is null %}{{ user.currentipv4 }}{% else %}{{ user.lastipv4 }}{% endif %}</strong>
-			</dd>
-			<dt>
-				{% trans %}Timezone{% endtrans %}
-			</dt>
-			<dd>
-				<timezone-picker timezone="{{ app.user.timezone }}"></timezone-picker>
-			</dd>
-			<dt>
-				<a id="overlay-delete">{% trans %}Change Password{% endtrans %}</a>
-			</dt>
-			<dd>
-			</dd>
-		</dl> 
-</div>
+        <dl>
+            <dt>
+                {% trans %}Previous login{% endtrans %}
+            </dt>
+            <dd>
+                <strong>{% if user.lastlogin is null %}{{ user.currentlogin|date("Y-m-d H:i:s") }}{% else %}{{ user.lastlogin|date("Y-m-d H:i:s") }}{% endif %}</strong>
+            </dd>
+            <dt>
+                {% trans %}From IP{% endtrans %}
+            </dt>
+            <dd>
+                <strong>{% if user.lastlogin is null %}{{ user.currentipv4 }}{% else %}{{ user.lastipv4 }}{% endif %}</strong>
+            </dd>
+            <dt>
+                {% trans %}Timezone{% endtrans %}
+            </dt>
+            <dd>
+                <timezone-picker timezone="{{ app.user.timezone }}"></timezone-picker>
+            </dd>
+            <dt>
+                <a id="overlay-delete">{% trans %}Change Password{% endtrans %}</a>
+            </dt>
+            <dd>
+            </dd>
+        </dl>
+    </div>
 
 
 
-<div id="change_pwd_dialog" class="overlay-delete overlay-data">
-	<div class="dialog">
-		<h1>{% trans %}Change Password{% endtrans %}</h1>
-		<div class="password-form">
-		  <div class="form-group">
-			<input type="password" class="form-control" id="old-password">
-			<label for="old-password">{% trans %}Current Password{% endtrans %}</label>
-		  </div>
-		  <div class="form-group">
-			<input type="password" class="form-control" id="new-password">
-			<label for="new-password">{% trans %}New password{% endtrans %}</label>
-		  </div>
-		  <div class="form-group">
-			<input type="password" class="form-control" id="confirm-password">
-			<label for="confirm-password">{% trans %}Confirm Password{% endtrans %}</label>
-		  </div>
-		</div>
-		<div class="controls">
-			<a class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
-			<a data-path="{{ path('_account_view') }}" id="change_pwd_btn" class="save green"><i class="pe-7s-check"></i></a></div>
-		</div>
-	</form>
-</div>
+    <div id="change_pwd_dialog"
+            class="overlay-delete overlay-data">
+        <div class="dialog">
+            <h1>{% trans %}Change Password{% endtrans %}</h1>
+            <div class="password-form">
+                <div class="form-group">
+                    <input type="password"
+                            class="form-control"
+                            id="old-password">
+                    <label for="old-password">{% trans %}Current Password{% endtrans %}</label>
+                </div>
+                <div class="form-group">
+                    <input type="password"
+                            class="form-control"
+                            id="new-password">
+                    <label for="new-password">{% trans %}New password{% endtrans %}</label>
+                </div>
+                <div class="form-group">
+                    <input type="password"
+                            class="form-control"
+                            id="confirm-password">
+                    <label for="confirm-password">{% trans %}Confirm Password{% endtrans %}</label>
+                </div>
+            </div>
+            <div class="controls">
+                <a class="overlay-delete-close cancel">{% trans %}CANCEL{% endtrans %}</a>
+                <a data-path="{{ path('_account_view') }}"
+                        id="change_pwd_btn"
+                        class="save green"><i class="pe-7s-check"></i></a></div>
+        </div>
+        </form>
+    </div>
 
-<script src="{{ asset('assets/js/details.js') }}"></script>
-<script>
-    var mySVG = $('#user-account-bg').drawsvg({
-    duration: 1500
-    });
-    mySVG.drawsvg('animate');
-</script>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('assets/js/details.js') }}"></script>
 {% endblock %}

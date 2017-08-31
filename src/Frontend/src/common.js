@@ -37,13 +37,14 @@ moment.tz.setDefault(Vue.config.external.timezone);
 })();
 
 const components = {
+    AnimatedSvg: () => import("./account-details/animated-svg.vue"),
     ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),
     DevicesListPage: () => import("./devices/list/devices-list-page.vue"),
     EnableDisableDeviceButton: () => import("./devices/details/enable-disable-device-button.vue"),
     IdleLogout: () => import("./common/idle-logout.vue"),
     ScheduleForm: () => import("./schedules/schedule-form/schedule-form.vue"),
     ScheduleList: () => import("./schedules/schedule-list/schedule-list.vue"),
-    TimezonePicker: () => import("./user-account/timezone-picker.vue"),
+    TimezonePicker: () => import("./account-details/timezone-picker.vue"),
 };
 
 $(document).ready(() => {
