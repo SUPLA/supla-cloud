@@ -87,6 +87,10 @@ class ServerList {
         if ($user != null) {
             return true;
         }
+        
+        if ( $this->autodiscover->findServer($username) ) {
+        	return true;
+        }
 
         if ($this->servers != null) {
             foreach ($this->servers as $svr) {
