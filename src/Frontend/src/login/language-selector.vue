@@ -28,7 +28,7 @@
         },
         methods: {
             updateLocale() {
-                this.$http.put('ajax/lngset/' + this.locale).then(() => window.location.reload());
+                window.location.assign('?lang=' + this.locale);
             }
         }
     };

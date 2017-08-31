@@ -99,20 +99,6 @@ class AjaxController extends Controller {
     }
 
     /**
-     * @Route("/lngset/{_loc}", name="_ajaxlngset")
-     */
-    public function lngsetAction(Request $request, $_loc) {
-        $result = false;
-
-        if (in_array($_loc, ['en', 'pl', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) {
-            $request->getSession()->set('_locale', $_loc);
-            $result = true;
-        }
-
-        return AjaxController::jsonResponse($result);
-    }
-
-    /**
      * @Route("/pwdgen/{len}", name="_ajax_pwdgen")
      */
     public function pwdgenAction($len) {

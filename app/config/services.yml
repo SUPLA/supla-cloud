@@ -11,10 +11,7 @@ services:
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
 
   SuplaBundle\EventListener\LocaleListener:
-    arguments:
-      - "%kernel.default_locale%"
-    tags:
-      - { name: kernel.event_subscriber }
+    - "%kernel.default_locale%"
 
   SuplaBundle\Handler\AuthHandler: ~
 

@@ -1,7 +1,5 @@
 <?php
 /*
- src/SuplaBundle/EventListener/LocaleListener.php
-
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -16,64 +14,61 @@
  along with this program; if not, write to the Free Software
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace SuplaBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class LocaleListener implements EventSubscriberInterface {
+    private $defaultLocale;
 
-    private $default_locale;
-    private $container;
+    const SESSION_LOCALE_KEY = '_locale';
 
-    public function __construct($default_locale) {
-        $this->default_locale = $default_locale;
+    public function __construct($defaultLocale) {
+        $this->defaultLocale = $defaultLocale;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
         $request = $event->getRequest();
 
-        if (!$request->hasPreviousSession()) {
-            return;
-        }
-
-        if ($locale = $request->attributes->get('_locale')) {
-            $request->getSession()->set('_locale', $locale);
-        } else {
-            $locale = $request->getSession()->get('_locale');
-            
-            if ($locale === null) {
-                $locale =  strtolower(preg_replace('/-/', '_', $request->getPreferredLanguage()));
-                
-                if (preg_match('/^pl_?.*/', $locale)) {
-                    $locale = 'pl';
-                } elseif (preg_match('/^ru_?.*/', $locale)) {
-                    $locale = 'ru';
-                } elseif (preg_match('/^de_?.*/', $locale)) {
-                    $locale = 'de';
-                } elseif (preg_match('/^es_?.*/', $locale)) {
-                    $locale = 'es';
-                } elseif (preg_match('/^fr_?.*/', $locale)) {
-                    $locale = 'fr';
-                } elseif (preg_match('/^pt_?.*/', $locale)) {
-                    $locale = 'pt';
-                } elseif (preg_match('/^it_?.*/', $locale)) {
-                    $locale = 'it';
-                } else {
-                    $locale = 'en';
-                }
-
-                $request->getSession()->set('_locale', $locale);
+        if ($desiredLocale = $request->get('lang')) {
+            $this->rememberLocale($request, $desiredLocale);
+            if ($request->getMethod() == 'GET') {
+                $uriWithoutLang = rtrim(str_replace('lang=' . $desiredLocale, '', $request->getUri()), '?');
+                $event->setResponse(new RedirectResponse($uriWithoutLang));
+                return;
             }
-
-            $request->setLocale($locale);
         }
+
+        if (!$this->hasRememberedLocale($request)) {
+            $desiredLocale = strtolower(substr($request->getPreferredLanguage(), 0, 2));
+            $this->rememberLocale($request, $desiredLocale);
+        }
+
+        $request->setLocale($this->getRememberedLocale($request));
+    }
+
+    private function rememberLocale(Request $request, string $locale) {
+        if (in_array($locale, ['pl', 'ru', 'de', 'es', 'fr', 'pt', 'it', 'en'])) { // TODO autodiscover them?
+            $request->getSession()->set(self::SESSION_LOCALE_KEY, $locale);
+        }
+    }
+
+    private function hasRememberedLocale(Request $request): bool {
+        return $request->getSession()->has(self::SESSION_LOCALE_KEY);
+    }
+
+    private function getRememberedLocale(Request $request): string {
+        return $request->getSession()->get(self::SESSION_LOCALE_KEY, $this->defaultLocale);
     }
 
     public static function getSubscribedEvents() {
         return [
-            KernelEvents::REQUEST => [['onKernelRequest', 17]],
+            KernelEvents::REQUEST => [['onKernelRequest', 15]],
         ];
     }
 }

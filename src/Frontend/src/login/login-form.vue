@@ -83,6 +83,7 @@
     import ButtonLoadingDots from "../common/button-loading-dots.vue";
     import LoginFooter from "./login-footer.vue";
     import {errorNotification} from "../common/notifier";
+    import Vue from "vue";
 
     export default {
         components: {ButtonLoadingDots, LoginFooter},
@@ -103,7 +104,7 @@
                             errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             this.authenticating = false;
                         } else {
-                            this.$refs.loginForm.action = body.server + '/auth/login_check';
+                            this.$refs.loginForm.action = body.server + '/auth/login_check?lang=' + Vue.config.external.locale;
                             this.$refs.loginForm.submit();
                         }
                     });

@@ -35,10 +35,7 @@ security:
     account_user_exists: 
       pattern: ^/account/ajax/user_exists
       security: false
-    ajax_lngset: 
-      pattern: ^/ajax/lngset/
-      security: false
-    api: 
+    api:
       anonymous: false
       fos_oauth: true
       pattern: ^/api/

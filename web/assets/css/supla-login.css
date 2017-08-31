@@ -45,6 +45,7 @@ body.register, body.register_success {background: #00D151; overflow: visible; co
 body.register footer a, body.register_success footer a {color: #fff; border: solid 1px transparent;}
 body.register footer a:hover, body.register_success footer a:hover {background: none; border: solid 1px rgba(255,255,255,0.5);}
 body.register footer select {color: #fff; border: solid 1px rgba(255,255,255,0.5);}
+body.register footer select option {color: black; }
 body.register_success .message {padding-top: 17%;}
 body.register_success .message i {font-size: 200px; display: inline-block;  margin-bottom: 40px; animation-name: fadeInUp; animation-delay: 0.2s;}
 body.register_success .message h1 {animation-name: fadeInUp; animation-delay: 0.8s;}

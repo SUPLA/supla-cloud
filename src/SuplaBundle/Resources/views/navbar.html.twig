@@ -65,13 +65,15 @@
                         <li class="flags">
                             {% for lng in ['en', 'pl', 'ru', 'de'] %}
                                 <a {% if app.request.locale == lng %}class="active"{% endif %}
-                                        onclick="switchToLanguage('{{ lng }}')"><img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}></a>
+                                        href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}?lang={{ lng }}">
+                                    <img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}>
+                                </a>
                             {% endfor %}
                         </li>
                         <li class="flags">
                             {% for lng in ['it', 'pt', 'es', 'fr'] %}
                                 <a {% if app.request.locale == lng %}class="active"{% endif %}
-                                        onclick="switchToLanguage('{{ lng }}')"><img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}></a>
+                                        href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}?lang={{ lng }}"><img src={{ asset('assets/img/flags/' ~ lng ~ '.svg') }}></a>
                             {% endfor %}
                         </li>
                         <li class="divider"></li>
@@ -92,13 +94,6 @@
 </nav>
 
 <script>
-    function switchToLanguage(lng) {
-        $.ajax({type: "POST", url: '/ajax/lngset/' + lng})
-            .done(function () {
-                window.location.reload();
-            });
-    }
-
     $("nav a:not(.dropdown-toggle)").click(function () {
         $('.main-content').fadeOut(300);
     });
