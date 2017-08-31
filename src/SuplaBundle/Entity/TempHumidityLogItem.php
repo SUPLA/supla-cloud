@@ -43,7 +43,7 @@ class TempHumidityLogItem {
     private $channel_id;
 
     /**
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="utcdatetime")
      * @Assert\NotBlank()
      */
     private $date;

@@ -94,7 +94,7 @@ class IODevice {
     private $comment;
 
     /**
-     * @ORM\Column(name="reg_date", type="datetime")
+     * @ORM\Column(name="reg_date", type="utcdatetime")
      * @Assert\NotBlank()
      */
     private $regDate;
@@ -105,7 +105,7 @@ class IODevice {
     private $regIpv4;
 
     /**
-     * @ORM\Column(name="last_connected", type="datetime", nullable=true)
+     * @ORM\Column(name="last_connected", type="utcdatetime", nullable=true)
      */
     private $lastConnected;
 

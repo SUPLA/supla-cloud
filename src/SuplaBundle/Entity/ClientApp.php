@@ -75,7 +75,7 @@ class ClientApp {
     private $regIpv4;
 
     /**
-     * @ORM\Column(name="reg_date", type="datetime")
+     * @ORM\Column(name="reg_date", type="utcdatetime")
      * @Groups({"basic", "flat"})
      */
     private $regDate;
@@ -87,7 +87,7 @@ class ClientApp {
     private $lastAccessIpv4;
 
     /**
-     * @ORM\Column(name="last_access_date", type="datetime")
+     * @ORM\Column(name="last_access_date", type="utcdatetime")
      * @Groups({"basic", "flat"})
      */
     private $lastAccessDate;
