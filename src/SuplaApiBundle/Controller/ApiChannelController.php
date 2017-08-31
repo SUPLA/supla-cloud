@@ -118,7 +118,7 @@ class ApiChannelController extends RestController {
 
     protected function temperatureLogItems($channelid, $offset, $limit) {
 
-        $sql = "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature` ";
+        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, 'UTC', 'SYSTEM')) AS date_timestamp, `temperature` ";
         $sql .= "FROM `supla_temperature_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
 
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
@@ -133,7 +133,7 @@ class ApiChannelController extends RestController {
     protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
 
 
-        $sql = "SELECT UNIX_TIMESTAMP(`date`) AS date_timestamp, `temperature`, ";
+        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, 'UTC', 'SYSTEM')) AS date_timestamp, `temperature`, ";
         $sql .= "`humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
 
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
