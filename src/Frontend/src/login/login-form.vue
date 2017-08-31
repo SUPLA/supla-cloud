@@ -82,7 +82,7 @@
 <script>
     import ButtonLoadingDots from "../common/button-loading-dots.vue";
     import LoginFooter from "./login-footer.vue";
-    import {withBaseUrl} from "../common/filters";
+    import {errorNotification} from "../common/notifier";
 
     export default {
         components: {ButtonLoadingDots, LoginFooter},
@@ -100,7 +100,8 @@
                     this.authenticating = true;
                     this.$http.get('auth/servers', {params: {username: this.username}}).then(({body}) => {
                         if ( !body.server ) {
-                            window.location.href = withBaseUrl(`/page_temp_unavailable`);
+                            errorNotification(SUPLA_TRANSLATIONS['Information'], SUPLA_TRANSLATIONS['Sign in temporarily unavailable. Please try again later.']);
+                            this.authenticating = false;
                         } else {
                             this.$refs.loginForm.action = body.server + '/auth/login_check';
                             this.$refs.loginForm.submit();
