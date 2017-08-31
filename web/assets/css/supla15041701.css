@@ -536,18 +536,10 @@ div.user-account dt a:hover {background: #00D151; color: #fff;}
 
 /* RESTAPI */
 .restapi-wrapper {width: 980px; margin: 0 auto;}
-.restapi-wrapper .restapi { width: 480px; position: absolute; top: 40px; left: 130px;}
+.restapi-wrapper .restapi { width: 480px; position: absolute; top: 40px; left: 140px;}
 .restapi-wrapper .restapi p a {color: #fff}
-.restapi-wrapper .terminal {position: absolute; top: 108px; left: 515px; display: block; width: 388px; height: 348px;color: #00D151;font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace; font-size: 16px; padding: 10px}
+.restapi-wrapper .terminal {position: absolute; top: 99px; left: 506px; display: block; width: 407px; height: 366px;color: #00D151;background:black;font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace; font-size: 16px; padding: 10px}
 .typed-cursor {display: none}
-.api-settings .st2x {-webkit-animation: fill2 1s;
-	       -moz-animation: fill2 1s forwards;
-	        -ms-animation: fill2 1s forwards;
-	         -o-animation: fill2 1s forwards;
-	            animation: fill2 1s forwards;
-	   animation-delay: 2.3s;
-	   -webkit-animation-fill-mode: forwards;
-    	   animation-fill-mode: forwards;}
 .restapi-wrapper .btn.btn-enable {border: solid 1px rgba(255,255,255,.5)}
 .restapi-wrapper .btn {
     border: solid 1px rgba(255,255,255,.5);-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; 
