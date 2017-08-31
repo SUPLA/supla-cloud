@@ -83,13 +83,13 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $enabled;
 
     /**
-     * @ORM\Column(name="reg_date", type="datetime")
+     * @ORM\Column(name="reg_date", type="utcdatetime")
      * @Assert\NotBlank()
      */
     private $regDate;
 
     /**
-     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     * @ORM\Column(name="last_login", type="utcdatetime", nullable=true)
      */
     private $lastLogin;
 
@@ -99,7 +99,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $lastIpv4;
 
     /**
-     * @ORM\Column(name="current_login", type="datetime", nullable=true)
+     * @ORM\Column(name="current_login", type="utcdatetime", nullable=true)
      */
     private $currentLogin;
 
@@ -114,7 +114,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $token;
 
     /**
-     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+     * @ORM\Column(name="password_requested_at", type="utcdatetime", nullable=true)
      */
     private $passwordRequestedAt;
 
