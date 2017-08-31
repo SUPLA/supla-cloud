@@ -64,6 +64,8 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('UPDATE supla_iodevice SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
         $this->addSql('UPDATE supla_iodevice SET last_ipv4 = ( ((last_ipv4 & 0xFF) << 24) | ((last_ipv4 & 0xFF00) << 8) | ((last_ipv4 & 0xFF0000) >> 8) | ((last_ipv4 & 0xFF000000) >> 24) )');
         
+        $this->addSql('UPDATE `supla_temperature_log` SET date = CONVERT_TZ(date, \'SYSTEM\', \'UTC\')');
+        $this->addSql('UPDATE `supla_temphumidity_log` SET date = CONVERT_TZ(date, \'SYSTEM\', \'UTC\')');
     }
 
     /**
@@ -90,6 +92,8 @@ class Version20170818114139 extends AbstractMigration {
         
         $this->addSql('UPDATE supla_iodevice SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
         $this->addSql('UPDATE supla_iodevice SET last_ipv4 = ( ((last_ipv4 & 0xFF) << 24) | ((last_ipv4 & 0xFF00) << 8) | ((last_ipv4 & 0xFF0000) >> 8) | ((last_ipv4 & 0xFF000000) >> 24) )');
-        
+     
+        $this->addSql('UPDATE `supla_temperature_log` SET date = CONVERT_TZ(date, \'UTC\', \'SYSTEM\')');
+        $this->addSql('UPDATE `supla_temphumidity_log` SET date = CONVERT_TZ(date, \'UTC\', \'SYSTEM\')');
     }
 }
