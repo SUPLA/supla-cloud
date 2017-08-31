@@ -16,6 +16,7 @@
  */
 
 namespace SuplaBundle\Supla;
+use SuplaBundle\Entity\User;
 
 class SuplaAutodiscover {
 
@@ -61,7 +62,7 @@ class SuplaAutodiscover {
         return null;
     }
     
-    public function registerUser($username) {
-        $this->remoteRequest('/users', ['email' => $username]);
+    public function registerUser(User $user) {
+    	$this->remoteRequest('/users', ['email' => $user->getUsername()]);
     }
 }

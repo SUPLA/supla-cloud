@@ -30,10 +30,12 @@ use SuplaBundle\Form\Model\ResetPassword;
 use SuplaBundle\Form\Type\RegistrationType;
 use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
 
 /**
  * @Route("/account")
@@ -90,6 +92,7 @@ class AccountController extends AbstractController {
                 'title' => 'Success',
                 'message' => 'Account has been activated. You can Sign In now.',
             ]);
+            
         } else {
             $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Token does not exist']);
         }
@@ -149,6 +152,9 @@ class AccountController extends AbstractController {
 
             $this->container->get('session')->set('_registration_email', $user->getEmail());
 
+            $autodiscover = $this->get('supla_autodiscover');
+            $autodiscover->registerUser($user);
+            
             return $this->redirectToRoute("_account_checkemail");
         }
 
