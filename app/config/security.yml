@@ -1,84 +1,44 @@
 security:
-  access_control: 
-    - 
-      path: ^/api
-      requires_channel: https
-      role: 
-        - IS_AUTHENTICATED_FULLY
   encoders: 
     SuplaApiBundle\Entity\ApiUser: bcrypt
     SuplaBundle\Entity\User: bcrypt
     legacy_encoder: md5
   erase_credentials: false # in order to migrate legacy passwords
-  firewalls: 
-    account_checkemail: 
-      pattern: ^/account/checkemail$
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
-    account_confirmemail: 
-      pattern: ^/account/confirmemail/
-      security: false
-    account_create: 
-      pattern: ^/account/create$
-      security: false
-    account_create_here: 
-      pattern: ^/account/create_here
-      security: false
-    account_forgot_passwd: 
-      pattern: ^/account/ajax/forgot_passwd
-      security: false
-    account_register: 
-      pattern: ^/account/register$
-      security: false
-    account_reset_passwd: 
-      pattern: ^/account/reset_passwd/
-      security: false
-    account_user_exists: 
-      pattern: ^/account/ajax/user_exists
-      security: false
+
     api:
       anonymous: false
       fos_oauth: true
       pattern: ^/api/
       stateless: true
-    auth_server: 
-      pattern: ^/auth/servers$
-      security: false
-    auth_create:
-      pattern: ^/auth/create
-      security: false
-    css: 
-      pattern: ^/assets
-      security: false
-    dev: 
-      pattern: ^/(_(profiler|wdt)|css|images|js)/
-      security: false
-    login: 
-      pattern: ^/auth/login$
-      security: false
-    oauth_token: 
-      pattern: ^/oauth/v2/token
-      security: false
-    pages: 
-      pattern: ^/page_
-      security: false
-    secured_area: 
-      form_login: 
-        check_path: _auth_login_check
+
+    main:
+      anonymous: true
+      form_login:
+        check_path: _auth_login
         login_path: _auth_login
         success_handler: SuplaBundle\Handler\AuthHandler
         require_previous_session: false
-      logout: 
+      logout:
         path: /auth/logout
         target: /auth/login
-      pattern: ^/
-  providers: 
+
+  access_control:
+    -
+      path: ^/(auth|(account/(create|check|confirm|register|reset|ajax/(forgot|user_exists)))|oauth/v2/token)
+      role: [IS_AUTHENTICATED_ANONYMOUSLY]
+      requires_channel: https
+    -
+      path: ^/
+      role: [IS_AUTHENTICATED_FULLY]
+      requires_channel: https
+
+  providers:
     supla_db_provider: 
       entity: 
         class: "SuplaBundle:User"
         property: email
-  role_hierarchy: 
-    ROLE_ADMIN: ROLE_USER
-    ROLE_SUPER_ADMIN: 
-      - ROLE_USER
-      - ROLE_ADMIN
-      - ROLE_ALLOWED_TO_SWITCH

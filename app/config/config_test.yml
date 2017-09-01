@@ -15,7 +15,7 @@ framework:
 
 security:
   firewalls:
-    secured_area:
+    main:
       http_basic: ~
 
 services:

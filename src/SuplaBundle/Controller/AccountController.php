@@ -47,6 +47,9 @@ class AccountController extends AbstractController {
      * @Route("/register", name="_account_register")
      */
     public function registerAction(Request $request) {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
         $registration = new Registration();
         $form = $this->createForm(RegistrationType::class, $registration, [
             'action' => $this->generateUrl('_account_create_here'),
@@ -103,7 +106,9 @@ class AccountController extends AbstractController {
      * @Route("/create_here", name="_account_create_here")
      */
     public function createActionHere(Request $request) {
-
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
         $form = $this->createForm(RegistrationType::class, new Registration(), ['language' => $request->getLocale()]);
 
         $form->handleRequest($request);
@@ -181,6 +186,9 @@ class AccountController extends AbstractController {
      * @Route("/create", name="_account_create")
      */
     public function createAction(Request $request) {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
         $sl = $this->get('server_list');
         return $this->redirect($sl->getCreateAccountUrl($request));
     }

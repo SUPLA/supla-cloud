@@ -21,6 +21,7 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -32,6 +33,9 @@ class AuthController extends AbstractController {
      * @Template
      */
     public function loginAction() {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -45,22 +49,11 @@ class AuthController extends AbstractController {
      * @Route("/create")
      */
     public function createAccountRedirectAction(Request $request) {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
         $sl = $this->get('server_list');
         return $this->redirect($sl->getCreateAccountUrl($request));
-    }
-
-    /**
-     * @Route("/login_check", name="_auth_login_check")
-     */
-    public function securityCheckAction() {
-        // The security layer will intercept this request
-    }
-
-    /**
-     * @Route("/logout", name="_auth_logout")
-     */
-    public function logoutAction() {
-        // The security layer will intercept this request
     }
 
     /**

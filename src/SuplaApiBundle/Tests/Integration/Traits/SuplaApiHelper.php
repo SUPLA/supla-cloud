@@ -30,7 +30,7 @@ trait SuplaApiHelper {
         $apiManager = $this->container->get('api_manager');
         $apiUser = $this->getApiUser($user);
         $apiClient = $apiManager->getClient($user);
-        $client = self::createClient();
+        $client = self::createClient([], ['HTTPS' => true]);
         $client->request('POST', '/oauth/v2/token', [
             'client_id' => $apiClient->getPublicId(),
             'client_secret' => $apiClient->getSecret(),
