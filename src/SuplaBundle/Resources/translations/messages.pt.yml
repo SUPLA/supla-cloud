@@ -359,3 +359,26 @@ You will be redirected back to the schedules list now.: Será emcaminhado para a
 
 Choose: Selecione
 White: Branco
+
+Smartphones: Smartphones
+Client's Apps: Aplicações clientes
+smartphones, tablets, etc.: smartphones, tablets, etc.
+Active: Ativos
+Idle: Inativos
+Client's app has been deleted: Aplicação cliente foi suprimida
+Error when communicating the server. Try again in a while.: Surgiu um erro durante a ligação ao servidor. Tente novamente mais tarde.
+Loading: A carregar
+if it takes too long, check if the JS scripts are loaded correctly: se demora demasiado tempo, verifique se os scripts de JS são carregados corretamente
+SUPLA-Cloud will not work without Javascript: SUPLA-Cloud não funciona sem Javascript ligado
+will expire: expirará
+Registration of new clients: Registo de clientes
+Registration of new I/O devices: Registo de dispositivos
+Empty!: Vazio!
+Last access: Última ligação
+from the IP: a partir do endereço
+Access ID: ID do acesso
+Are you sure you want to delete this client?: Deseja mesmo suprimir esta aplicação cliente?
+The client will be automatically logged out when deleted.: Suprimir um cliente conduz à desligação imediata dele.
+ACTIVE: ATIVA
+INACTIVE: INATIVA
+Sign in temporarily unavailable. Please try again later.: Login temporário indisponível. Tente novamente mais tarde.
