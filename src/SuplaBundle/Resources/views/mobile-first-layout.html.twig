@@ -1,7 +1,7 @@
 {% extends 'SuplaBundle::empty-layout.html.twig' %}
 {% block body %}
     {% include 'SuplaBundle:Dialogs:flashmsgs.html.twig' %}
-    {% include 'SuplaBundle:navbar.html.twig' %}
+    {{ include('@Supla/navbar.html.twig') }}
     <div class="main-content">
         {% block content %}{% endblock %}
         {% if app.user and not app.debug %}
