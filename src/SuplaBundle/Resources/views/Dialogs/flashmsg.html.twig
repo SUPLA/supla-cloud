@@ -1,9 +1,7 @@
-           {% for flashMessage in app.session.flashbag.get(msgtype) %}        
-           
-               new PNotify({
-                    title: '{{ flashMessage.title | trans }}',
-                    text: '{{ flashMessage.message | trans }}',
-                    type: '{% if msgtype == 'warning' %}{% else %}{{ msgtype }}{% endif %}'
-               });
-
-           {% endfor %}
+{% for flashMessage in app.session.flashbag.get(msgtype) %}
+    new PNotify({
+        title: '{{ flashMessage.title | trans }}',
+        text: '{{ flashMessage.message | trans }}',
+        type: '{% if msgtype == 'warning' %}{% else %}{{ msgtype }}{% endif %}'
+    });
+{% endfor %}

@@ -1,11 +1,10 @@
-
-    <script>
-       (function($) {
-          $(document).ready(function() {
-              {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'success' } %}
-              {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'info' } %}
-              {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'error' } %}
-              {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'warning' } %}
-          });
-       })(jQuery);
-    </script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'success' } %}
+            {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'info' } %}
+            {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'error' } %}
+            {% include 'SuplaBundle:Dialogs:flashmsg.html.twig' with { 'msgtype': 'warning' } %}
+        });
+    })(jQuery);
+</script>
