@@ -74,19 +74,6 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/page_temp_unavailable", name="_temp_unavailable")
-     */
-    public function tempUnavailable(Request $request) {
-
-        return $this->render(
-            'SuplaBundle:Pages:temp_unavailable.html.twig',
-            [
-                'locale' => $request->getLocale(),
-            ]
-        );
-    }
-
-    /**
      * @Route("", name="_homepage")
      */
     public function indexAction(Request $request) {
