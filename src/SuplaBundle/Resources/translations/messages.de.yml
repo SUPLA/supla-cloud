@@ -351,3 +351,27 @@ You will be redirected back to the schedules list now.: Du wirst jetzt zur Harmo
 
 Choose: Wählen
 White: Weiß
+
+Smartphones: Smartphones
+Client's Apps: Client-Anwendungen
+smartphones, tablets, etc.: smartphones, Tablets usw
+Active: Aktiv
+Idle: Untätig
+Client's app has been deleted: Die Client-Anwendung wurde gelöscht
+Error when communicating the server. Try again in a while.: Es gab ein Problem beim Kommunizieren mit dem Server. Bitte versuchen Sie es noch einmal.
+Loading: Laden
+if it takes too long, check if the JS scripts are loaded correctly: Wenn das zu lange dauert, prüfen Sie, ob die JS-Skripts korrekt geladen sind.
+SUPLA-Cloud will not work without Javascript: SUPLA-Cloud funktioniert nicht ohne aktiviertes Javascript.
+will expire: es erlischt
+Registration of new clients: Registrierung der Client-Anwendungen
+Registration of new I/O devices: Geräteregistrierung
+Empty!: Leer!
+Last access: Die letzte Verbindung
+from the IP: aus der IP
+Access ID: Zugangs-ID
+Are you sure you want to delete this client?: Sind Sie sicher, dass Sie diese Client-Anwendung löschen möchten?
+The client will be automatically logged out when deleted.: Das Löschen von Client- Anwendung  führt zum sofortigen Logout.
+ACTIVE: AKTIV
+INACTIVE: INAKTIV
+Sign in temporarily unavailable. Please try again later.: Login ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später noch einmal.
+
