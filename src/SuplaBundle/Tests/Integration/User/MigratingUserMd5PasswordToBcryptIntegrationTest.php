@@ -60,7 +60,7 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
         $client = self::createClient();
         $client->followRedirects();
         $client->request('GET', '/auth/login');
-        $client->request('POST', '/auth/login_check', [
+        $client->request('POST', '/auth/login', [
             '_username' => $username,
             '_password' => $password,
         ]);

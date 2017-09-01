@@ -42,7 +42,7 @@ class AuthenticationIntegrationTest extends IntegrationTestCase {
     private function authenticate(string $username, string $password): Client {
         $client = self::createClient();
         $client->followRedirects();
-        $client->request('POST', '/auth/login_check', [
+        $client->request('POST', '/auth/login', [
             '_username' => $username,
             '_password' => $password,
         ]);
