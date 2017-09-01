@@ -169,7 +169,7 @@ class AccountController extends AbstractController {
      * @Route("/create_here/{locale}", name="_account_create_here_lc")
      */
     public function createActionHereLC(Request $request, $locale) {
-    	if (LocaleListener::localeAllowed(@$locale)) {
+        if (LocaleListener::localeAllowed(@$locale)) {
             $request->getSession()->set('_locale', $locale);
             $request->setLocale($locale);
         }
