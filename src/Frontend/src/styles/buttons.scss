@@ -79,6 +79,9 @@
       }
     }
   }
+  &-wrapped {
+    white-space: normal !important;
+  }
   .text-muted {
     color: inherit;
     opacity: .8;

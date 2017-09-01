@@ -52,27 +52,17 @@
                 <strong>{{ $t('Forgot your password?') }}</strong>
                 {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
-            <div class="additional-buttons">
-                <div class="row additional-buttons">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <router-link to="/devices"
-                                class="btn btn-white btn-block">
-                                <img src="assets/img/devices.png">
-                                {{ $t('Supla for devices') }}
-                            </router-link>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <a class="btn btn-white btn-block"
-                                href="/auth/create">
-                                <img src="assets/img/user.png">
-                                {{ $t('Create an account') }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="additional-buttons form-group">
+                <router-link to="/devices"
+                    class="btn btn-white btn-wrapped">
+                    <img src="assets/img/devices.png">
+                    {{ $t('Supla for devices') }}
+                </router-link>
+                <a class="btn btn-white btn-wrapped"
+                    href="/auth/create">
+                    <img src="assets/img/user.png">
+                    {{ $t('Create an account') }}
+                </a>
             </div>
         </div>
         <login-footer></login-footer>
@@ -166,9 +156,19 @@
             }
         }
         .additional-buttons {
-            .btn img {
-                float: left;
-                height: 23px;
+            display: flex;
+            justify-content: space-between;
+            > .btn {
+                flex: 1;
+                max-width: 48%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                    float: left;
+                    height: 23px;
+                    margin-right: 5px;
+                }
             }
         }
         .error {
