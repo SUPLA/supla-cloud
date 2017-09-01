@@ -66,6 +66,8 @@ class Version20170818114139 extends AbstractMigration {
         
         $this->addSql('UPDATE `supla_temperature_log` SET date = CONVERT_TZ(date, \'SYSTEM\', \'UTC\')');
         $this->addSql('UPDATE `supla_temphumidity_log` SET date = CONVERT_TZ(date, \'SYSTEM\', \'UTC\')');
+        
+        $this->addSql('UPDATE `supla_user` SET `iodevice_reg_enabled` = UTC_TIMESTAMP() + INTERVAL 1 DAY,`client_reg_enabled` = UTC_TIMESTAMP() + INTERVAL 1 DAY');
     }
 
     /**
