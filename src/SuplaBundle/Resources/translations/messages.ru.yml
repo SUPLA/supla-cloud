@@ -349,3 +349,26 @@ You will be redirected back to the schedules list now.: Сейчас ты буд
 
 Choose: выберите
 White: белый
+
+Smartphones: Смартфоны
+Client's Apps: Клиентские приложения
+smartphones, tablets, etc.: смартфоны, планшеты и т.д.
+Active: Активные
+Idle: Бездействующие
+Client's app has been deleted: Клиентское приложение было удалено
+Error when communicating the server. Try again in a while.: Произошла ошибка во время связи с сервером. Повторите попытку позже.
+Loading: Зарядка
+if it takes too long, check if the JS scripts are loaded correctly: если это длится слишком долго, проверьте, загружаются ли скрипты JS правильно
+SUPLA-Cloud will not work without Javascript: SUPLA-Cloud не будет работать без включенного Javascript
+will expire: Истечет
+Registration of new clients: Регистрация клиентов
+Registration of new I/O devices: Регистрация устройств
+Empty!: Пусто!
+Last access: Последний звонок
+from the IP: с адреса
+Access ID: ID доступа
+Are you sure you want to delete this client?: Вы уверены, что хотите удалить это клиентское приложение?
+The client will be automatically logged out when deleted.: Удаление клиента приведет к его немедленному выходу из системы.
+ACTIVE: АКТИВНА
+INACTIVE: НЕАКТИВНА
+Sign in temporarily unavailable. Please try again later.: Вход временно недоступен. Повторите попытку позже.
