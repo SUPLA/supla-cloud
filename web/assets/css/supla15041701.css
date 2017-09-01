@@ -343,7 +343,7 @@ body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: v
 .overlay .overlay-controls .cancel:hover, .overlay-delete .dialog .cancel:hover, .infobar .buttons .back:hover, .overlay-delete .dialog .controls .cancel:hover {color: #00D151}
 .infobar .buttons .back {position: absolute; left: 100px; margin-top: -7px; font-size: 46px;}
 .overlay .overlay-controls .cancel:active, .overlay-delete .dialog .cancel:active, .infobar .buttons .back:active {transform: scale(0.95);}
-.overlay-delete .dialog .cancel {position: absolute; left: calc(50% - 100px);}
+.overlay-delete .dialog .cancel {position: absolute; left: calc(45% - 100px);}
 .overlay .overlay-controls .save , .overlay-delete .dialog .controls .save, .infobar .buttons .save{display: inline-block; color: #00D151; background: transparent; border: none; font-size: 70px; line-height: 70px; transition: all .3s ease-in-out;}
 .overlay .overlay-controls .save:active, .overlay-delete .dialog .controls .save:active, .infobar .buttons .save:active {transform: scale(0.95);}
 .overlay-data { opacity: 0; visibility: hidden; webkit-transition: opacity 0.5s; transition: opacity 0.5s; visibility: 0s 0.5s; transition: opacity 0.5s, visibility 0s 0.5s;}
