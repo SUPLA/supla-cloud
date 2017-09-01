@@ -31,6 +31,10 @@ class LocaleListener implements EventSubscriberInterface {
     public function __construct($defaultLocale) {
         $this->defaultLocale = $defaultLocale;
     }
+    
+    public static function localeAllowed($locale) {
+    	return ($locale && in_array($locale, ['en', 'pl', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) ? $locale : false;
+    }
 
     public function onKernelRequest(GetResponseEvent $event) {
         $request = $event->getRequest();
@@ -53,7 +57,7 @@ class LocaleListener implements EventSubscriberInterface {
     }
 
     private function rememberLocale(Request $request, string $locale) {
-        if (in_array($locale, ['pl', 'ru', 'de', 'es', 'fr', 'pt', 'it', 'en'])) { // TODO autodiscover them?
+    	if (LocaleListener::localeAllowed($locale)) { // TODO autodiscover them?
             $request->getSession()->set(self::SESSION_LOCALE_KEY, $locale);
         }
     }

@@ -31,6 +31,7 @@ use SuplaBundle\Form\Type\RegistrationType;
 use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use SuplaBundle\EventListener\LocaleListener;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -168,7 +169,7 @@ class AccountController extends AbstractController {
      * @Route("/create_here/{locale}", name="_account_create_here_lc")
      */
     public function createActionHereLC(Request $request, $locale) {
-        if (in_array(@$locale, ['en', 'pl', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) {
+    	if (LocaleListener::localeAllowed(@$locale)) {
             $request->getSession()->set('_locale', $locale);
             $request->setLocale($locale);
         }
@@ -287,7 +288,7 @@ class AccountController extends AbstractController {
 
         $data = json_decode($request->getContent());
 
-        if (in_array(@$data->locale, ['en', 'pl', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) {
+        if (LocaleListener::localeAllowed(@$data->locale)) {
             $request->getSession()->set('_locale', $data->locale);
             $request->setLocale($data->locale);
         }
