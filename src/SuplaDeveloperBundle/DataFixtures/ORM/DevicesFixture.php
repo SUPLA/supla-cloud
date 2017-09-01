@@ -55,6 +55,7 @@ class DevicesFixture extends SuplaFixture {
             'name' => $name,
             'guid' => rand(0, 9999999),
             'regDate' => new \DateTime(),
+            'lastConnected' => new \DateTime(),
             'regIpv4' => rand(0, 9999999),
             'softwareVersion' => '2.' . rand(0, 50),
             'protocolVersion' => '2.' . rand(0, 50),
