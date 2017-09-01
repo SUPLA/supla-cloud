@@ -104,7 +104,7 @@
                             errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             this.authenticating = false;
                         } else {
-                            this.$refs.loginForm.action = body.server + '/auth/login?lang=' + Vue.config.external.locale;
+                            this.$refs.loginForm.action = body.server + '/auth/login_check?lang=' + Vue.config.external.locale;
                             this.$refs.loginForm.submit();
                         }
                     });

@@ -115,8 +115,25 @@ class ApiUser implements AdvancedUserInterface {
         $this->plainPassword = null;
     }
 
+    /**
+     * Returns the user roles
+     *
+     * @return array The roles
+     */
     public function getRoles() {
-        return ['RESTAPI_USER'];
+        $roles[] = 'RESTAPI_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles) {
+        $this->roles = [];
+
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+
+        return $this;
     }
 
     public function isEnabled() {

@@ -372,8 +372,24 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->passwordRequestedAt;
     }
 
+    /**
+     * Returns the user roles
+     *
+     * @return array The roles
+     */
     public function getRoles() {
-        return ['ROLE_USER'];
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles) {
+        $this->roles = [];
+
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+
+        return $this;
     }
 
     public function isEnabled() {
