@@ -400,7 +400,7 @@ class ApiChannelController extends RestController {
                 break;
         }
 
-        Assertion::false(true, 'Invalid action.');
+        throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED, 'Invalid action.');
     }
 
     /**
