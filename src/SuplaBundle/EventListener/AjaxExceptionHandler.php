@@ -17,7 +17,8 @@ class AjaxExceptionHandler implements EventSubscriberInterface {
 
     public function onException(GetResponseForExceptionEvent $event) {
         $request = $event->getRequest();
-        if ($request->get('_format') == 'json' || in_array('application/json', $request->getAcceptableContentTypes())) {
+        if (!preg_match('/^(\/app_dev\.php)?\/api\//', $request->getRequestUri())
+            && ($request->get('_format') == 'json' || in_array('application/json', $request->getAcceptableContentTypes()))) {
             $errorResponse = $this->createErrorResponse($event->getException());
             $event->setResponse($errorResponse);
         }
