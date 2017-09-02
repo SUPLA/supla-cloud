@@ -39,7 +39,7 @@ class ApiServerController extends RestController {
     }
 
     /**
-     * @Rest\Get("/logout/{refreshToken}")
+     * @Rest\Get("/logout/{refreshToken}" name="api_logout")
      */
     public function logoutAction(Request $request, $refreshToken) {
 
