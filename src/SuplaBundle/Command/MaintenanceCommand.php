@@ -58,12 +58,15 @@ class MaintenanceCommand extends ContainerAwareCommand {
     protected function usersClean($em, $output) {
 
         $rep = $em->getRepository('SuplaBundle:User');
+        
+        $now = new \DateTime(null, new \DateTimeZone("UTC"));
+        $now->sub(new \DateInterval('PT24H'));
 
         $qb = $rep->createQueryBuilder('t');
         $qb
             ->delete()
             ->where('t.enabled = ?1 AND t.token != ?2 AND t.regDate < ?3')
-            ->setParameters([1 => 0, 2 => '', 3 => date('Y-m-d', strtotime("-1 day"))]);
+            ->setParameters([1 => 0, 2 => '', 3 => $now->format('Y-m-d')]);
 
         $result = $qb->getQuery()->execute();
         $output->writeln(sprintf('Removed <info>%d</info> items from <comment>Users</comment> storage.', $result));
