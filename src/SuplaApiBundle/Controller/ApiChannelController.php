@@ -47,7 +47,7 @@ class ApiChannelController extends RestController {
         $channel = $this->deviceManager->channelById($channelid, $this->getParentUser());
 
         if (!($channel instanceof IODeviceChannel)) {
-            throw new HttpException(Response::HTTP_NOT_FOUND, 'The device could not be found');
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'The device channel could not be found');
         }
 
         if (is_array($functions) && !in_array($channel->getFunction(), $functions)) {
