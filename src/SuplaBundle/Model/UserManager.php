@@ -141,6 +141,7 @@ class UserManager {
         }
 
         $date = new \DateTime();
+        $date->setTimeZone(new \DateTimeZone('UTC'));
         $date->sub(new \DateInterval('PT1H'));
 
         $qb = $this->rep->createQueryBuilder('u');
