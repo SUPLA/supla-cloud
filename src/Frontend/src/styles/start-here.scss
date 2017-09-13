@@ -20,7 +20,7 @@
       border-bottom-left-radius: $bottom-radius;
       border-bottom-right-radius: $bottom-radius;
       h2 {
-        margin-top: -30px;
+        margin-top: -35px;
         @include on-and-up(500px) { margin-top: -30px; }
         @include on-and-up(560px) { margin-top: -25px; }
         @include on-and-up(600px) { margin-top: -20px; }
