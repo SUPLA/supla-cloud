@@ -32,15 +32,22 @@ class AjaxExceptionHandler implements EventSubscriberInterface {
 
     public function onException(GetResponseForExceptionEvent $event) {
         $request = $event->getRequest();
-        if (!preg_match('/^(\/app_dev\.php)?\/api\//', $request->getRequestUri())
-            && ($request->get('_format') == 'json' || in_array('application/json', $request->getAcceptableContentTypes()))) {
-            $errorResponse = $this->createErrorResponse($event->getException());
+        
+        $api = preg_match('/^(\/app_dev\.php)?\/api\//', $request->getRequestUri());
+        
+        if ($api || $request->get('_format') == 'json' || in_array('application/json', $request->getAcceptableContentTypes())) {
+            $errorResponse = $this->createErrorResponse($event->getException(), $api);
             $event->setResponse($errorResponse);
         }
     }
-
-    public function createErrorResponse(\Exception $e) {
-        if ($e instanceof InvalidArgumentException) {
+    
+    public function createErrorResponse(\Exception $e, $api) {
+    	if ( $api ) {
+    		return new JsonResponse([
+    				'status' => $e->getStatusCode(),
+    				'message' => $e->getMessage(),
+    		], $e->getStatusCode());
+    	} else if ($e instanceof InvalidArgumentException) {
             return new JsonResponse([
                 'status' => 400,
                 'message' => $e->getMessage(),
