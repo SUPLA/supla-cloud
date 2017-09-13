@@ -75,7 +75,12 @@
 
 
 </head>
-<body {% if app.request.get('_route') == '_auth_login' %} class="login" {% endif %} {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %} {% if app.request.get('_route') == '_account_create_here'%} class="register" {% endif %}  {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %} {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %} {% if app.request.get('_route') == '_account_view'%} class="account" {% endif %} {% if app.request.get('_route') == '_api_settings'%} class="api-settings" {% endif %}
+<body {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %}
+        {% if app.request.get('_route') == '_account_create_here'%} class="register" {% endif %}
+        {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %}
+        {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %}
+        {% if app.request.get('_route') == '_account_view'%} class="account" {% endif %}
+        {% if app.request.get('_route') == '_api_settings'%} class="api-settings" {% endif %}
         {% if homepage_viewed is defined and homepage_viewed == false %} class="first-time" {% endif %}
         {% if app.request.get('_route') == '_iodev_channel_item_edit' %} class="channel" {% endif %}>
 
@@ -87,7 +92,7 @@
         {{ include('@Supla/navbar.html.twig') }}
     {% endif %}
 {% endblock %}
-<div class="main-content">
+<div {% if app.request.get('_route') != '_account_create_here'%} class="main-content" {% endif %}>
     {% block content %}{% endblock %}
     {% if app.user and not app.debug %}
         <idle-logout></idle-logout>

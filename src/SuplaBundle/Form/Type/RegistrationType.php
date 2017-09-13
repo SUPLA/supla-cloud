@@ -38,6 +38,7 @@ class RegistrationType extends AbstractType {
                         'theme' => 'clean',
                         'type' => 'image',
                         'size' => 'normal',
+                        'defer' => true,
                     ],
                 ],
             ]

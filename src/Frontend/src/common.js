@@ -49,14 +49,16 @@ const components = {
 };
 
 $(document).ready(() => {
-    const i18n = new VueI18N({
-        locale: 'SUPLA_TRANSLATIONS',
-        messages: {SUPLA_TRANSLATIONS},
-    });
-    const app = new Vue({
-        el: '.main-content',
-        i18n,
-        components,
-    });
-    Vue.http.interceptors.push(ResponseErrorInterceptor(app));
+    if ($('.main-content').length) {
+        const i18n = new VueI18N({
+            locale: 'SUPLA_TRANSLATIONS',
+            messages: {SUPLA_TRANSLATIONS},
+        });
+        const app = new Vue({
+            el: '.main-content',
+            i18n,
+            components,
+        });
+        Vue.http.interceptors.push(ResponseErrorInterceptor(app));
+    }
 });
