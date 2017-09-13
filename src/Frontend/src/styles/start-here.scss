@@ -1,0 +1,63 @@
+.start-here {
+  @include on-and-up(992px) { margin-top: 50px; }
+  h1 {
+    font-size: 72px;
+    line-height: 72px;
+    letter-spacing: -6px;
+    margin-bottom: 25px
+  }
+  .step {
+    margin-top: 20px;
+    .roof {
+      height: 110px;
+      overflow: hidden;
+    }
+    .basement {
+      $bottom-radius: 15px;
+      background: $supla-yellow;
+      padding: 20px;
+      padding-top: 0;
+      border-bottom-left-radius: $bottom-radius;
+      border-bottom-right-radius: $bottom-radius;
+      h2 {
+        margin-top: -30px;
+        @include on-and-up(500px) { margin-top: -30px; }
+        @include on-and-up(560px) { margin-top: -25px; }
+        @include on-and-up(600px) { margin-top: -20px; }
+        @include on-and-up(670px) { margin-top: 0; }
+        @include on-and-up(992px) { margin-top: -30px; }
+        @include on-and-up(1200px) { margin-top: -20px; }
+        text-align: center;
+      }
+      input[type="text"] {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(0, 2, 4, .25);
+        width: calc(100% + 40px);
+        line-height: 36px;
+        padding: 0 20px;
+        margin-left: -20px;
+        margin-top: 8px;
+        font-size: 16px;
+      }
+      label {
+        font-size: 13px;
+        font-weight: 400;
+        color: rgba(0, 2, 4, .6);
+        line-height: 26px;
+      }
+    }
+    &:last-child {
+      .basement {
+        background: $supla-green;
+        color: white;
+        input[type=text] {
+          border-color: rgba(255, 255, 255, .8);
+        }
+        label {
+          color: rgba(255, 255, 255, .9);
+        }
+      }
+    }
+  }
+}

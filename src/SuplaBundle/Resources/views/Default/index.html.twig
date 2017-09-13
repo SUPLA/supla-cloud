@@ -1,57 +1,66 @@
-{% extends 'SuplaBundle::layout.html.twig' %}
+{% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
 {% block content %}
-<div class="container margin-top-50 ">
-
-
-<h1 class="big animated">{% trans %}Start Here{% endtrans %}</h1>
-<p class="intro animated">{% trans %}Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.{% endtrans %}</p>
-<div class="row instruction">
-<div class="col-xs-6 step">
-	<div class="step">
-		<h2>supla-dev</h2>
-		<p>{% trans %}Enter the data below in the settings of your control device (I/O Device).{% endtrans %}</p>
-		<input type="text" id="password" value="{{ base_server }}" readonly>
-		<label for="password" class="password">{% trans %}Server address{% endtrans %}</label>
-		<input type="text" id="server_address" value="{{ base_locid }}" readonly>
-		<label for="server_address">{% trans %}Location Identifier{% endtrans %}</label>
-		<input type="text" id="access_identifier" value="{{ base_locpwd }}" readonly>
-		<label for="access_identifier">{% trans %}Password{% endtrans %}</label>
-	</div>
-</div>
-<div class="col-xs-6">
-	<div class="step">
-	<h2>supla-client</h2>
-	<p>{% trans %}Enter the data below in your mobile SUPLA application on your smartphone.{% endtrans %}</p>
-		<input type="text" id="server_address" value="{{ base_server }}" readonly>
-		<label for="server_address">{% trans %}Server address{% endtrans %}</label>
-		<input type="text" id="access_identifier" value="{{ base_accessid }}" readonly>
-		<label for="access_identifier">{% trans %}Access Identifier{% endtrans %}</label>
-		<input type="text" id="password" value="{{ base_accesspwd }}" readonly>
-		<label for="password" class="password">{% trans %}Password{% endtrans %}</label>
-	</div>
-</div>
-</div>
-
-
-<script type='text/javascript'>
-  $(document).ready(function() {
-  
-	  $('[data-toggle="btns"] .btn').on('click', function(){
-		  var $this = $(this);
-		  $this.parent().find('.active').removeClass('active');
-		  $this.addClass('active');
-	  });
-	  
-	  if ( $('#cft').hasClass( 'cft' ) ) {
-	      setTimeout(
-		      function() {
-		      		$('#cft').removeClass( 'cft' )  
-		      }, 
-		  5500);
-	  };
-	  
-
-  });        
-</script>
+    <div class="container start-here">
+        <h1 class="big animated">{% trans %}Start Here{% endtrans %}</h1>
+        <p class="intro animated">
+            {#@formatter:off#}
+            {% trans %}Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.{% endtrans %}
+            {#@formatter:on#}
+        </p>
+        <div class="row">
+            <div class="col-md-6 step">
+                <div class="roof">
+                    <img src="/assets/img/step-1.svg"
+                            alt="">
+                </div>
+                <div class="basement">
+                    <h2>supla-dev</h2>
+                    <p>{% trans %}Enter the data below in the settings of your control device (I/O Device).{% endtrans %}</p>
+                    <input type="text"
+                            id="password"
+                            value="{{ base_server }}"
+                            readonly>
+                    <label for="password"
+                            class="password">{% trans %}Server address{% endtrans %}</label>
+                    <input type="text"
+                            id="server_address"
+                            value="{{ base_locid }}"
+                            readonly>
+                    <label for="server_address">{% trans %}Location Identifier{% endtrans %}</label>
+                    <input type="text"
+                            id="access_identifier"
+                            value="{{ base_locpwd }}"
+                            readonly>
+                    <label for="access_identifier">{% trans %}Password{% endtrans %}</label>
+                </div>
+            </div>
+            <div class="col-md-6 step">
+                <div class="roof">
+                    <img src="/assets/img/step-2.svg"
+                            alt="">
+                </div>
+                <div class="basement">
+                    <h2>supla-client</h2>
+                    <p>{% trans %}Enter the data below in your mobile SUPLA application on your smartphone.{% endtrans %}</p>
+                    <input type="text"
+                            id="server_address"
+                            value="{{ base_server }}"
+                            readonly>
+                    <label for="server_address">{% trans %}Server address{% endtrans %}</label>
+                    <input type="text"
+                            id="access_identifier"
+                            value="{{ base_accessid }}"
+                            readonly>
+                    <label for="access_identifier">{% trans %}Access Identifier{% endtrans %}</label>
+                    <input type="text"
+                            id="password"
+                            value="{{ base_accesspwd }}"
+                            readonly>
+                    <label for="password"
+                            class="password">{% trans %}Password{% endtrans %}</label>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

@@ -1,8 +1,6 @@
 body.noactive {overflow: hidden}
 
 h1 strong {font-weight: 400;}
-h1.big {font-size: 72px; line-height: 72px; letter-spacing: -6px; animation-name: fadeIn; animation-delay: 0s; margin-bottom: 25px}
-body.first-time h1.big {animation-delay: .1s;}
 h1 .filter-container {position: relative;}
 h1 .filter-container .btn-group {float: left; margin-right: 10px;}
 .sys-select, .phone-app-btns {display: inline-block; margin: 10px 0 15px; animation-name: fadeIn; animation-delay: 0s;}
@@ -55,8 +53,6 @@ a:hover, a:active, a:focus {text-decoration: none; color: #606060; outline: none
 .table a i.pe-7s-more  {font-size: 24px; line-height: 18px; margin-left: 3px;}
 
 p { color: #333; font-size: 14px; line-height: 23px}
-p.intro {animation-name: fadeIn; animation-delay: 0s}
-body.first-time p.intro {animation-delay: .3s}
 strong {font-weight: 600;}
 .margin-top-20 {margin-top: 20px;}
 .margin-top-30 {margin-top: 30px;}
@@ -79,18 +75,6 @@ span.unknown { font-family: 'Quicksand', sans-serif; font-size: 11px; line-heigh
 .row .half {display: inline-block; float: left; width: 49%;}
 .row .one-third {display: block; width: 40%; float: left}
 .row .two-third {display: block; width: 59%; float: left}
-
-/* DEFAULT */
-.instruction > .col-xs-6:nth-child(1) {padding: 30px 8px 30px 0px;}
-.instruction > .col-xs-6:nth-child(2) {padding: 30px 0px 30px 8px;}
-.instruction > .col-xs-6 > .step {background:url(/assets/img/step-1.svg) no-repeat; background-size: 100% auto; padding: 70px 20px 30px 20px; border-radius: 20px; color: #000;}
-.instruction > .col-xs-6:nth-child(2) > .step {background:url(/assets/img/step-2.svg) no-repeat; background-size: 100% auto; padding: 70px 20px 30px 20px; border-radius: 20px; color: #fff;}
-.instruction > .col-xs-6 > .step h2 {text-align: center; margin-bottom: 15px;}
-.instruction > .col-xs-6 > .step p {color: inherit; min-height: 40px;margin: 5px 0;}
-.instruction > .col-xs-6:nth-child(1) > .step input[type="text"] {background: transparent;border: none; border-bottom: solid 1px rgba(0,2,4,.25);width: calc(100% + 40px); margin-left: -20px; line-height: 36px; padding: 0 20px; margin-top: 8px; font-size: 16px;}
-.instruction > .col-xs-6:nth-child(2) > .step input[type="text"] {background: transparent;border: none; border-bottom: solid 1px rgba(255,255,255,.8);width: calc(100% + 40px); margin-left: -20px; line-height: 36px; padding: 0 20px; margin-top: 8px; font-size: 16px;}
-.instruction > .col-xs-6 > .step label {font-size: 13px; font-weight: 400; color: rgba(0,2,4,.6); line-height: 26px;}
-.instruction > .col-xs-6:nth-child(2) > .step label {font-size: 13px; font-weight: 400; color: rgba(255,255,255,.9); line-height: 24px;}
 
 /* OWL CAROUSEL */
 .owl-carousel .owl-wrapper:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;}
