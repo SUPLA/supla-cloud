@@ -114,6 +114,7 @@
 
     .login-form {
         $height: 500px;
+        width: 90%;
         max-width: 400px;
         height: $height;
         position: absolute;
@@ -123,7 +124,6 @@
         margin-left: -200px;
         @include on-and-down(500px) {
             position: static;
-            width: 90%;
             margin: 10px auto;
             height: auto;
         }

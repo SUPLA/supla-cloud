@@ -49,13 +49,13 @@ const components = {
 };
 
 $(document).ready(() => {
-    if ($('.main-content').length) {
+    if ($('.vue-container').length) {
         const i18n = new VueI18N({
             locale: 'SUPLA_TRANSLATIONS',
             messages: {SUPLA_TRANSLATIONS},
         });
         const app = new Vue({
-            el: '.main-content',
+            el: '.vue-container',
             i18n,
             components,
         });

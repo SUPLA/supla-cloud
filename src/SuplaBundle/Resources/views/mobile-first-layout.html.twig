@@ -2,7 +2,7 @@
 {% block body %}
     {% include 'SuplaBundle:Dialogs:flashmsgs.html.twig' %}
     {{ include('@Supla/navbar.html.twig') }}
-    <div class="main-content">
+    <div class="main-content vue-container">
         {% block content %}{% endblock %}
         {% if app.user and not app.debug %}
             <idle-logout></idle-logout>

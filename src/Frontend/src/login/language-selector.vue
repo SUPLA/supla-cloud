@@ -57,5 +57,8 @@
         &::-ms-expand {
             display: none;
         }
+        option {
+            color: $supla-black !important;
+        }
     }
 </style>
