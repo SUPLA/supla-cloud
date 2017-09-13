@@ -35,7 +35,7 @@ class ApiIODeviceController extends RestController {
         $iodevice = $iodev_man->ioDeviceById($devid, $this->getParentUser());
 
         if (!($iodevice instanceof IODevice)) {
-            throw new HttpException(Response::HTTP_NOT_FOUND);
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'The device could not be found');
         }
 
         return $iodevice;
