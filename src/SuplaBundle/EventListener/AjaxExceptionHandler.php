@@ -42,12 +42,12 @@ class AjaxExceptionHandler implements EventSubscriberInterface {
     }
     
     public function createErrorResponse(\Exception $e, $api) {
-    	if ( $api ) {
-    		return new JsonResponse([
-    				'status' => $e->getStatusCode(),
-    				'message' => $e->getMessage(),
-    		], $e->getStatusCode());
-    	} else if ($e instanceof InvalidArgumentException) {
+        if ($api) {
+            return new JsonResponse([
+                    'status' => $e->getStatusCode(),
+                    'message' => $e->getMessage(),
+            ], $e->getStatusCode());
+        } elseif ($e instanceof InvalidArgumentException) {
             return new JsonResponse([
                 'status' => 400,
                 'message' => $e->getMessage(),
