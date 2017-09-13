@@ -51,7 +51,7 @@ class ApiChannelController extends RestController {
         }
 
         if (is_array($functions) && !in_array($channel->getFunction(), $functions)) {
-            throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED, 'The requested function is not available on this device');
+        	throw new HttpException(Response::HTTP_BAD_REQUEST, 'The requested function is not available on this device');
         }
 
         if ($checkConnected === true) {
@@ -356,7 +356,7 @@ class ApiChannelController extends RestController {
                 break;
 
             default:
-                throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED);
+            	throw new HttpException(Response::HTTP_BAD_REQUEST, 'Invalid action.');
         }
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
@@ -400,7 +400,7 @@ class ApiChannelController extends RestController {
                 break;
         }
 
-        throw new HttpException(Response::HTTP_METHOD_NOT_ALLOWED, 'Invalid action.');
+        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Invalid action.');
     }
 
     /**
