@@ -28,7 +28,7 @@
         },
         methods: {
             updateLocale() {
-                window.location.assign('?lang=' + this.locale);
+                window.location.assign(window.location.href + '?lang=' + this.locale);
             }
         }
     };

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -322,10 +323,11 @@ class AccountController extends AbstractController {
             $server = $sl->getAuthServerForUser($request, $username);
 
             if ($server) {
-                AjaxController::remoteRequest($server . $this->generateUrl('_account_ajax_forgot_passwd_here'), [
+                $result = AjaxController::remoteRequest($server . $this->generateUrl('_account_ajax_forgot_passwd_here'), [
                     'email' => $username,
                     'locale' => $request->getLocale(),
                 ]);
+                Assertion::true($result !== false, 'Could not reset the password.');
             }
         }
 

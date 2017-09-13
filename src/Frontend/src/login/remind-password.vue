@@ -22,6 +22,7 @@
             </div>
 
             <p v-if="sent"><strong>{{ $t('Check your email box') }}</strong></p>
+            <p v-else-if="sentProblem"><strong>{{ $t('Could not reset the password. Try again in a while.') }}</strong></p>
 
             <div class="col-xs-12 text-center">
                 <router-link to="/"
@@ -46,17 +47,19 @@
                 loading: false,
                 email: '',
                 sent: false,
+                sentProblem: false
             };
         },
         methods: {
             remind() {
                 if (!this.loading) {
                     this.loading = true;
+                    this.sent = this.sentProblem = false;
                     this.$http.post('account/ajax/forgot_passwd', {email: this.email}).then(() => {
-                        this.loading = false;
                         this.email = '';
                         this.sent = true;
-                    });
+                    }).catch(() => this.sentProblem = true)
+                        .finally(() => this.loading = false);
                 }
             }
         }
