@@ -82,7 +82,7 @@ final class ScheduleAction extends Enum {
 
     private function validateActionParamForRevealPartially($actionParams) {
         Assert::that($actionParams)->count(1)->keyExists('percentage');
-        Assert::that($actionParams['percentage'])->integer()->between(0, 100);
+        Assert::that($actionParams['percentage'])->numeric()->between(0, 100);
     }
 
     private function validateActionParamForRgbwParameters($actionParams) {
@@ -90,15 +90,15 @@ final class ScheduleAction extends Enum {
         Assertion::between(count($actionParams), 1, 3);
         Assertion::count(array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness'])), count($actionParams));
         if (isset($actionParams['hue'])) {
-            Assertion::true(is_int($actionParams['hue']) || in_array($actionParams['hue'], ['random', 'white']));
-            if (is_int($actionParams['hue'])) {
+            Assertion::true(is_numeric($actionParams['hue']) || in_array($actionParams['hue'], ['random', 'white']));
+            if (is_numeric($actionParams['hue'])) {
                 Assert::that($actionParams['hue'])->between(0, 359);
             }
             Assertion::keyExists($actionParams, 'color_brightness');
-            Assert::that($actionParams['color_brightness'])->integer()->between(0, 100);
+            Assert::that($actionParams['color_brightness'])->numeric()->between(0, 100);
         }
         if (isset($actionParams['brightness'])) {
-            Assert::that($actionParams['brightness'])->integer()->between(0, 100);
+            Assert::that($actionParams['brightness'])->numeric()->between(0, 100);
         }
     }
 }

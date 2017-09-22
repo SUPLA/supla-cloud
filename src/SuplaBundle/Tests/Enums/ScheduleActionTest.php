@@ -36,6 +36,7 @@ class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
             [ScheduleAction::REVEAL_PARTIALLY(), ['percentage' => 0], true],
             [ScheduleAction::REVEAL_PARTIALLY(), ['percentage' => 50], true],
             [ScheduleAction::REVEAL_PARTIALLY(), ['percentage' => 100], true],
+            [ScheduleAction::REVEAL_PARTIALLY(), ['percentage' => '100'], true],
             [ScheduleAction::REVEAL_PARTIALLY(), ['percentage' => -1], false],
             [ScheduleAction::REVEAL_PARTIALLY(), ['percentage' => 101], false],
             [ScheduleAction::REVEAL_PARTIALLY(), ['percentage2' => 50], false],
@@ -50,6 +51,7 @@ class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 0], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 100], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 50, 'hue' => 359, 'color_brightness' => 100], true],
+            [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => '50', 'hue' => '359', 'color_brightness' => '100'], true],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['blabla' => 50, 'hue' => 359, 'color_brightness' => 100], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 360, 'color_brightness' => 100], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => -1, 'color_brightness' => 100], false],
@@ -59,6 +61,7 @@ class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['hue' => 'black', 'color_brightness' => 100], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => -1], false],
             [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 101], false],
+            [ScheduleAction::SET_RGBW_PARAMETERS(), ['brightness' => 'ala'], false],
 
             [ScheduleAction::CLOSE(), null, true],
             [ScheduleAction::CLOSE(), [], false],
