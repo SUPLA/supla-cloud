@@ -186,12 +186,13 @@ class Schedule {
         return $this->actionParam;
     }
 
+    /** @param array|null */
     public function setActionParam($actionParam) {
-        $this->getAction()->validateActionParam($actionParam);
-        if ($actionParam) {
-            $actionParam = json_encode($actionParam);
+        $params = $this->getAction()->validateActionParam($actionParam);
+        if ($params) {
+            $params = json_encode($params);
         }
-        $this->actionParam = $actionParam;
+        $this->actionParam = $params;
     }
 
     public function getMode(): ScheduleMode {

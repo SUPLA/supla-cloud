@@ -77,12 +77,15 @@ final class ScheduleAction extends Enum {
                 return $this->validateActionParamForRgbwParameters($actionParams);
             default:
                 Assertion::null($actionParams, "Action {$this->getKey()} is not expected to have an action parameters.");
+                return null;
         }
     }
 
     private function validateActionParamForRevealPartially($actionParams) {
         Assert::that($actionParams)->count(1)->keyExists('percentage');
         Assert::that($actionParams['percentage'])->numeric()->between(0, 100);
+        $actionParams['percentage'] = intval($actionParams['percentage']);
+        return $actionParams;
     }
 
     private function validateActionParamForRgbwParameters($actionParams) {
@@ -93,12 +96,16 @@ final class ScheduleAction extends Enum {
             Assertion::true(is_numeric($actionParams['hue']) || in_array($actionParams['hue'], ['random', 'white']));
             if (is_numeric($actionParams['hue'])) {
                 Assert::that($actionParams['hue'])->between(0, 359);
+                $actionParams['hue'] = intval($actionParams['hue']);
             }
             Assertion::keyExists($actionParams, 'color_brightness');
             Assert::that($actionParams['color_brightness'])->numeric()->between(0, 100);
+            $actionParams['color_brightness'] = intval($actionParams['color_brightness']);
         }
         if (isset($actionParams['brightness'])) {
             Assert::that($actionParams['brightness'])->numeric()->between(0, 100);
+            $actionParams['brightness'] = intval($actionParams['brightness']);
         }
+        return $actionParams;
     }
 }

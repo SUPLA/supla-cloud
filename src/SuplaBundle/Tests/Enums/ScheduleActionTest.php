@@ -75,4 +75,12 @@ class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
             'Have you forgot to add a caption for the new ScheduleAction value?'
         );
     }
+
+    public function testConvertsNumericActionParamsToInts() {
+        $params = ['brightness' => '50', 'hue' => '359', 'color_brightness' => '100'];
+        $params = ScheduleAction::SET_RGBW_PARAMETERS()->validateActionParam($params);
+        $this->assertSame(50, $params['brightness']);
+        $this->assertSame(359, $params['hue']);
+        $this->assertSame(100, $params['color_brightness']);
+    }
 }
