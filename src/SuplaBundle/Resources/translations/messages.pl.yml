@@ -382,3 +382,15 @@ The client will be automatically logged out when deleted.: Usunięcie klienta sp
 ACTIVE: AKTYWNA
 INACTIVE: NIEAKTYWNA
 Sign in temporarily unavailable. Please try again later.: Logowanie tymczasowo niedostępne. Spróbuj ponownie później.
+
+Temperature Sensor: Czujnik temperatury
+Humidity Sensor: Czujnik wilgotności
+Temperature & Humidity Sensor: Czujnik temperatury i wilgotności
+Mail sensor:  Czujnik poczty
+Wind sensor: Czujnik wiatru
+Pressure sensor: Czujnik ciśnienia
+Rain sensor: Czujnik deszczu
+Weight sensor: Waga
+Weather Station: Stacja pogodowa
+Window opening sensor: Czujnik otwarcia okna
+Staircase timer: Automat schodowy
