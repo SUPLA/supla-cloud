@@ -52,6 +52,7 @@ class SuplaConst {
     const BIT_RELAYFNC_CONTROLLINGTHEROLLERSHUTTER = 0x00000010;
     const BIT_RELAYFNC_POWERSWITCH = 0x00000020;
     const BIT_RELAYFNC_LIGHTSWITCH = 0x00000040;
+    const BIT_RELAYFUNC_STAIRCASETIMER = 0x00000080;
 
     const FNC_NONE = 0;
     const FNC_CONTROLLINGTHEGATEWAYLOCK = 10;
@@ -82,6 +83,7 @@ class SuplaConst {
     const FNC_RAINSENSOR = 270;
     const FNC_WEIGHTSENSOR = 280;
     const FNC_WEATHER_STATION = 290;
+    const FNC_STAIRCASETIMER = 300;
     
     // @codingStandardsIgnoreStart
 
@@ -121,6 +123,7 @@ class SuplaConst {
         0x00000010 => 'BIT_RELAYFNC_CONTROLLINGTHEROLLERSHUTTER',
         0x00000020 => 'BIT_RELAYFNC_POWERSWITCH',
         0x00000040 => 'BIT_RELAYFNC_LIGHTSWITCH',
+    	0x00000080 => 'BIT_RELAYFNC_STAIRCASETIMER',
     ];
 
     const fncStr = [
@@ -153,6 +156,7 @@ class SuplaConst {
     	270 => 'FNC_RAINSENSOR',
     	280 => 'FNC_WEIGHTSENSOR',
     	290 => 'FNC_WEATHER_STATION',
+    	300 => 'FNC_STAIRCASETIMER', 
     ];
 
     // @codingStandardsIgnoreEnd
