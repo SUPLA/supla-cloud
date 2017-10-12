@@ -97,6 +97,11 @@ class IODeviceChannel {
      * @ORM\Column(name="param3", type="integer", nullable=false)
      */
     private $param3 = '';
+    
+    /**
+     * @ORM\Column(name="alt_icon", type="integer", nullable=true)
+     */
+    private $altIcon = '';
 
     public function getId() {
         return $this->id;
@@ -174,5 +179,13 @@ class IODeviceChannel {
 
     public function setParam3($param3) {
         $this->param3 = $param3;
+    }
+    
+    public function getAltIcon() {
+    	return $this->altIcon;
+    }
+    
+    public function setAltIcon($altIcon) {
+    	$this->altIcon = $altIcon;
     }
 }
