@@ -83,7 +83,6 @@ class SuplaConst {
     const FNC_RAINSENSOR = 270;
     const FNC_WEIGHTSENSOR = 280;
     const FNC_WEATHER_STATION = 290;
-    const FNC_STAIRCASETIMER = 300;
     
     // @codingStandardsIgnoreStart
 
@@ -156,7 +155,6 @@ class SuplaConst {
     	270 => 'FNC_RAINSENSOR',
     	280 => 'FNC_WEIGHTSENSOR',
     	290 => 'FNC_WEATHER_STATION',
-    	300 => 'FNC_STAIRCASETIMER', 
     ];
 
     // @codingStandardsIgnoreEnd
