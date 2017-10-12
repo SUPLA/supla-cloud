@@ -32,6 +32,15 @@ class SuplaConst {
     const TYPE_DHT22 = 3020;
     const TYPE_AM2301 = 3032;
     const TYPE_AM2302 = 3030;
+    const TYPE_THERMOMETER = 3034;
+    const TYPE_HUMIDITYSENSOR = 3036;
+    const TYPE_MAILSENSOR = 3038;
+    const TYPE_WINDSENSOR = 3040;
+    const TYPE_PRESSURESENSOR = 3042;
+    const TYPE_RAINSENSOR = 3044;
+    const TYPE_WEIGHTSENSOR = 3048;
+    const TYPE_WEATHER_STATION = 3100;
+    
     const TYPE_DIMMER = 4000;
     const TYPE_RGBLEDCONTROLLER = 4010;
     const TYPE_DIMMERANDRGBLED = 4020;
@@ -66,7 +75,14 @@ class SuplaConst {
     const FNC_DIMMERANDRGBLIGHTING = 200;
     const FNC_DEPTHSENSOR = 210;
     const FNC_DISTANCESENSOR = 220;
-
+    const FNC_OPENINGSENSOR_WINDOW = 230;
+    const FNC_MAILSENSOR = 240;
+    const FNC_WINDSENSOR = 250;
+    const FNC_PRESSURESENSOR = 260;
+    const FNC_RAINSENSOR = 270;
+    const FNC_WEIGHTSENSOR = 280;
+    const FNC_WEATHER_STATION = 290;
+    
     // @codingStandardsIgnoreStart
 
     const typeStr = [
@@ -84,6 +100,14 @@ class SuplaConst {
         3020 => 'TYPE_DHT22',
         3032 => 'TYPE_AM2301',
         3030 => 'TYPE_AM2302',
+    	3034 => 'TYPE_THERMOMETER',
+    	3036 => 'TYPE_HUMIDITYSENSOR',
+    	3038 => 'TYPE_MAILSENSOR',
+    	3040 => 'TYPE_WINDSENSOR',
+    	3042 => 'TYPE_PRESSURESENSOR',
+    	3044 => 'TYPE_RAINSENSOR',
+    	3048 => 'TYPE_WEIGHTSENSOR',
+    	3100 => 'TYPE_WEATHER_STATION',
         4000 => 'TYPE_DIMMER',
         4010 => 'TYPE_RGBLEDCONTROLLER',
         4020 => 'TYPE_DIMMERANDRGBLED',
@@ -122,6 +146,13 @@ class SuplaConst {
         200 => 'FNC_DIMMERANDRGBLIGHTING',
         210 => 'FNC_DEPTHSENSOR',
         220 => 'FNC_DISTANCESENSOR',
+    	230 => 'FNC_OPENINGSENSOR_WINDOW',
+    	240 => 'FNC_MAILSENSOR',
+    	250 => 'FNC_WINDSENSOR',
+    	260 => 'FNC_PRESSURESENSOR',
+    	270 => 'FNC_RAINSENSOR',
+    	280 => 'FNC_WEIGHTSENSOR',
+    	290 => 'FNC_WEATHER_STATION',
     ];
 
     // @codingStandardsIgnoreEnd
