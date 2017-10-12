@@ -182,10 +182,10 @@ class IODeviceChannel {
     }
     
     public function getAltIcon() {
-    	return $this->altIcon;
+        return $this->altIcon;
     }
     
     public function setAltIcon($altIcon) {
-    	$this->altIcon = $altIcon;
+        $this->altIcon = $altIcon;
     }
 }
