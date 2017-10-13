@@ -47,7 +47,7 @@ class IODeviceChannelGroup {
     private $user;
     
     /**
-     * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", mappedBy="channelGroups", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="IODeviceChannel", mappedBy="channelGroups", cascade={"persist"})
      */
     private $channels;
 
