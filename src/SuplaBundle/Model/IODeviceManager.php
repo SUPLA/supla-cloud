@@ -603,6 +603,11 @@ class IODeviceManager {
                     $subchannel_selected = $channel->getParam2();
 
                     break;
+                    
+                case SuplaConst::FNC_STAIRCASETIMER:
+                	$tmpl = 'staircasetimer';
+                	$twig_params['relay_time'] = $channel->getParam1() / 10.00;                	
+                	break;
 
                 case SuplaConst::FNC_OPENINGSENSOR_GATEWAY:
                 case SuplaConst::FNC_OPENINGSENSOR_GATE:
