@@ -176,6 +176,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"})
      **/
     private $schedules;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="user", cascade={"persist"})
+     **/
+    private $channelGroups;
 
     /**
      * @ORM\Column(name="iodevice_reg_enabled", type="utcdatetime", nullable=true)

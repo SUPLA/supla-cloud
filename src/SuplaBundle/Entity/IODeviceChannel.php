@@ -61,7 +61,7 @@ class IODeviceChannel {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
      */
     private $schedules;
-
+    
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
@@ -102,6 +102,21 @@ class IODeviceChannel {
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
      */
     private $altIcon = '';
+    
+    /**
+     * @ORM\Column(name="hidden", type="boolean", nullable=false)
+     * @Groups({"basic", "flat"})
+     */
+    private $hidden = false;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", inversedBy="channels", cascade={"persist"})
+     * @ORM\JoinTable(name="supla_rel_cg",
+     * joinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
+     */
+    private $channelGroups;
 
     public function getId() {
         return $this->id;
@@ -187,5 +202,18 @@ class IODeviceChannel {
     
     public function setAltIcon($altIcon) {
         $this->altIcon = $altIcon;
+    }
+    
+    public function getHidden() {
+        return $this->hidden;
+    }
+    
+    public function setHidden($hidden) {
+        $this->hidden = $hidden;
+    }
+    
+    /** @return Collection|IODeviceChannelGroup[] */
+    public function getChannelGroups(): Collection {
+        return $this->channelGroups;
     }
 }
