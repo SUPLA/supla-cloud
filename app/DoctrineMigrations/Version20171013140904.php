@@ -24,6 +24,7 @@ class Version20171013140904 extends AbstractMigration
         $this->addSql('ALTER TABLE supla_rel_cg ADD CONSTRAINT FK_BE981CD7FE54D947 FOREIGN KEY (group_id) REFERENCES supla_dev_channel_group (id)');
         $this->addSql('ALTER TABLE supla_dev_channel_group ADD CONSTRAINT FK_6B2EFCE5A76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id)');
         $this->addSql('ALTER TABLE supla_dev_channel ADD alt_icon INT DEFAULT NULL, ADD hidden TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE supla_client ADD caption VARCHAR(100) DEFAULT NULL, CHANGE reg_date reg_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime)\', CHANGE last_access_date last_access_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime)\'');
         
         $this->addSql("DROP VIEW IF EXISTS `supla_v_client_channel`");
         $this->addSql("CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_client_channel`  AS  select `c`.`id` AS `id`,`c`.`type` AS `type`,`c`.`func` AS `func`,`c`.`param1` AS `param1`,`c`.`param2` AS `param2`,`c`.`caption` AS `caption`,`c`.`param3` AS `param3`,`c`.`user_id` AS `user_id`,`c`.`channel_number` AS `channel_number`,`c`.`iodevice_id` AS `iodevice_id`,"
@@ -58,6 +59,7 @@ class Version20171013140904 extends AbstractMigration
         $this->addSql('DROP TABLE supla_rel_cg');
         $this->addSql('DROP TABLE supla_dev_channel_group');
         $this->addSql('ALTER TABLE supla_dev_channel DROP alt_icon, DROP hidden');
+        $this->addSql('ALTER TABLE supla_client DROP caption, CHANGE reg_date reg_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime)\', CHANGE last_access_date last_access_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime)\'');
         
         $this->addSql("DROP VIEW IF EXISTS `supla_v_client_channel`");
         $this->addSql("CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_client_channel`  AS  select `c`.`id` AS `id`,`c`.`type` AS `type`,`c`.`func` AS `func`,`c`.`param1` AS `param1`,`c`.`param2` AS `param2`,`c`.`caption` AS `caption`,`c`.`param3` AS `param3`,`c`.`user_id` AS `user_id`,`c`.`channel_number` AS `channel_number`,`c`.`iodevice_id` AS `iodevice_id`,"

@@ -108,6 +108,12 @@ class ClientApp {
      * @ORM\Column(name="auth_key", type="string", length=64, nullable=true)
      */
     private $authKey;
+    
+    /**
+     * @ORM\Column(name="caption", type="string", length=100, nullable=true)
+     * @Assert\Length(max=100)
+     */
+    private $caption;
 
     public function getId(): int {
         return $this->id;
@@ -164,5 +170,13 @@ class ClientApp {
 
     public function getUser(): User {
         return $this->user;
+    }
+    
+    public function getCaption() {
+    	return $this->caption;
+    }
+    
+    public function setCaption($caption) {
+    	$this->caption = $caption;
     }
 }
