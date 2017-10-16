@@ -173,10 +173,10 @@ class ClientApp {
     }
     
     public function getCaption() {
-    	return $this->caption;
+        return $this->caption;
     }
     
     public function setCaption($caption) {
-    	$this->caption = $caption;
+        $this->caption = $caption;
     }
 }
