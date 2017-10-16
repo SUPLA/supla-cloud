@@ -92,7 +92,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $lastLogin;
 
     /**
-     * @ORM\Column(name="last_ipv4", type="integer", nullable=true)
+     * @ORM\Column(name="last_ipv4", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $lastIpv4;
 
@@ -102,7 +102,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $currentLogin;
 
     /**
-     * @ORM\Column(name="current_ipv4", type="integer", nullable=true)
+     * @ORM\Column(name="current_ipv4", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $currentIpv4;
 

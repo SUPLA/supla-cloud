@@ -30,6 +30,20 @@ class Version20171013140904 extends AbstractMigration
         		     ."`cl`.`id` AS `client_id`,`r`.`location_id` AS `location_id`,IFNULL(`c`.`alt_icon`, 0) AS `alt_icon`,`d`.`protocol_version` AS `protocol_version` from (((((`supla_dev_channel` `c` join `supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) join `supla_location` `l` on((`l`.`id` = `d`.`location_id`))) join `supla_rel_aidloc` `r` on((`r`.`location_id` = `l`.`id`))) join `supla_accessid` "
         		     ."`a` on((`a`.`id` = `r`.`access_id`))) join `supla_client` `cl` on((`cl`.`access_id` = `r`.`access_id`))) where ((`c`.`func` is not null) and (`c`.`func` <> 0) and (`d`.`enabled` = 1) and (`l`.`enabled` = 1) and (`a`.`enabled` = 1))");
         
+        $this->addSql('ALTER TABLE supla_user ADD last_ipv4_tmp  INT UNSIGNED');
+        $this->addSql('UPDATE supla_user SET last_ipv4_tmp = last_ipv4 WHERE last_ipv4 >= 0');
+        $this->addSql('UPDATE supla_user SET last_ipv4_tmp = CONVERT(last_ipv4 & 0x00000000FFFFFFFF, UNSIGNED INT)  WHERE last_ipv4 < 0');
+        $this->addSql('ALTER TABLE supla_user CHANGE last_ipv4 last_ipv4 INT UNSIGNED DEFAULT NULL');
+        $this->addSql('UPDATE supla_user SET last_ipv4 = last_ipv4_tmp');
+        $this->addSql('ALTER TABLE supla_user DROP last_ipv4_tmp');
+        
+        
+        $this->addSql('ALTER TABLE supla_user ADD current_ipv4_tmp  INT UNSIGNED');
+        $this->addSql('UPDATE supla_user SET current_ipv4_tmp = current_ipv4 WHERE current_ipv4 >= 0');
+        $this->addSql('UPDATE supla_user SET current_ipv4_tmp = CONVERT(current_ipv4 & 0x00000000FFFFFFFF, UNSIGNED INT)  WHERE current_ipv4 < 0');
+        $this->addSql('ALTER TABLE supla_user CHANGE current_ipv4 current_ipv4 INT UNSIGNED DEFAULT NULL');
+        $this->addSql('UPDATE supla_user SET current_ipv4 = current_ipv4_tmp');
+        $this->addSql('ALTER TABLE supla_user DROP current_ipv4_tmp');
     }
 
     /**
@@ -50,5 +64,7 @@ class Version20171013140904 extends AbstractMigration
         		     ."`cl`.`id` AS `client_id`,`r`.`location_id` AS `location_id` from (((((`supla_dev_channel` `c` join `supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) join `supla_location` `l` on((`l`.`id` = `d`.`location_id`))) join `supla_rel_aidloc` `r` on((`r`.`location_id` = `l`.`id`))) join `supla_accessid` `a` on((`a`.`id` = `r`.`access_id`))) join `supla_client` `cl` on((`cl`.`access_id` = `r`.`access_id`))) "
         		     ."where ((`c`.`func` is not null) and (`c`.`func` <> 0) and (`d`.`enabled` = 1) and (`l`.`enabled` = 1) and (`a`.`enabled` = 1))");
         
+        $this->addSql('ALTER TABLE supla_user CHANGE last_ipv4 last_ipv4 INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_user CHANGE current_ipv4 current_ipv4 INT DEFAULT NULL');
     }
 }
