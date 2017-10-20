@@ -127,7 +127,7 @@ class ServerList {
         
         $local = $request->getHost();
         if ($request->getPort() != 443) {
-        	$local.= ":" . $request->getPort();
+            $local.= ":" . $request->getPort();
         }
         
         $user = $this->user_manager->userByEmail($username);
