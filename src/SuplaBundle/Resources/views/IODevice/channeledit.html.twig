@@ -1,6 +1,7 @@
 {% extends 'SuplaBundle::layout.html.twig' %}
 
 {% block content %}
+<script src="{{ asset('assets/dist/channel-icon-selector.js', 'webpack') }}"></script>
 <div class="container full-height">
 	<div class="row full-height">
 	
@@ -65,7 +66,7 @@
 		
 		<div class="pictogram">
 		
-		    <div id="pictogram_group">
+		    <div id="pictogram_group" data-imgpath="{{ asset('assets/img/functions/') }}">
 			<div id="pictogram_no-function" class="no-function" {% if channel.function != '0' %}style="display:none"{% endif %}>
 				<i class="pe-7s-close-circle"></i>
 				<h2>{% trans %}No function{% endtrans %}</h2>
@@ -121,8 +122,11 @@
 			</div>
 			
 			<div id="pictogram_standard" class="standard-function-icon" {% if (channel.function == '0' or channel.function == '40' or channel.function == '42' or channel.function == '45' or channel.function == '210' or channel.function == '220') %}style="display:none"{% endif %}>
-				<img src={{ asset('assets/img/functions/') }}{{ channel.function }}.svg>
+				<img src={{ asset('assets/img/functions/') }}{{ channel.iconFilename }}>
 			</div>
+			
+			<a name="overlay-changeicon"{% if alticon_max == 0 %} style="display: none;"{% endif %}>{% trans %}Change icon{% endtrans %}</a>
+			
 			</div>
 
 		</div>
@@ -131,4 +135,27 @@
 	
 	</div>
 </div>
+
+<div class="overlay-changeicon" data-selected=0>
+<div class="overlay overlay-data">
+   <div class="overlay-title">
+      <h1>{% trans %}Select icon{% endtrans %}</h1>
+   </div>
+   <div class="overlay-list">
+      <div class="icon-list" style="display: block;">
+         <div class="channel-change-icon">
+               <div id="channel-icons" class="channel-icons">                  
+               </div>
+               <div class="overlay-controls">
+                  <div id="change_icon_type">
+                     <div><button type="button" id="change_icon_cancel" name="change_icon_cancel" class="overlay-close cancel">Anuluj</button></div>
+                     <div><button type="submit" id="change_icon_save" name="change_icon_save" class="save pe-7s-check"> </button></div>
+                  </div>
+               </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+ 
 {% endblock %}

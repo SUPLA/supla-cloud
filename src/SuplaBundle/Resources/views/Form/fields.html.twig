@@ -4,7 +4,7 @@
     <div class="channel_function_select">
         <div class="f-panel f-panel-default">
            <div class="f-panel-heading">
-               <div class="dropdown" id="channel_function_select" data-channel_id="{{ channel.id }}" data-prefix="{{ id }}_">
+               <div class="dropdown" id="channel_function_select" data-channel_id="{{ channel.id }}" data-alticonmax={{ alticon_max }} data-prefix="{{ id }}_">
                	   <span>{% trans %}Function{% endtrans %}</span>
                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                      <span id="function_name">{{ selected }}</span>
@@ -13,7 +13,7 @@
                
                    <ul class="dropdown-menu function-select" aria-labelledby="dropdownMenu1">
                       {% for fnc in functions %}
-                      <li><a data-id="{{ fnc.id }}">{{ fnc.name }}</a></li>
+                      <li><a data-id="{{ fnc.id }}" data-alticonmax={{ fnc.alticon_max }}>{{ fnc.name }}</a></li>
                       {% endfor %}
                    </ul>
                </div>
@@ -27,9 +27,11 @@
         {{ form_widget(child) }}
         {% endfor %}
     </div>
-            
+		            
     {% endspaceless %}
+
 {% endblock %}
+
 
 {% block form_errors %}
     {% spaceless %}

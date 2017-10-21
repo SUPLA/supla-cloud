@@ -271,6 +271,10 @@ class IODeviceController extends AbstractController {
                     $this->get('schedule_manager')->delete($schedule);
                 }
             }
+            
+            if ($dev_man->channelFunctionAltIconMax($channel->getFunction()) < $channel->getAltIcon()) {
+                $channel->setAltIcon(0);
+            }
 
             $this->get('doctrine')->getManager()->flush();
             $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
@@ -288,6 +292,7 @@ class IODeviceController extends AbstractController {
                 'channel_type' => $dev_man->channelTypeToString($channel->getType()),
                 'channel_function' => $channel->getFunction(),
                 'channel_function_name' => $dev_man->channelFunctionToString($channel->getFunction()),
+                'alticon_max' =>  $dev_man->channelFunctionAltIconMax($channel->getFunction()),
                 'form' => $form->createView(),
                 'show_sensorstate' => ($channelType == SuplaConst::TYPE_SENSORNO
                     || $channelType == SuplaConst::TYPE_SENSORNC) ? true : false,

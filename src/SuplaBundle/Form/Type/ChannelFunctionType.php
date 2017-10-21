@@ -44,6 +44,7 @@ class ChannelFunctionType extends AbstractType {
         $builder->add('param1', HiddenType::class);
         $builder->add('param2', HiddenType::class);
         $builder->add('param3', HiddenType::class);
+        $builder->add('altIcon', HiddenType::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options) {
@@ -57,11 +58,13 @@ class ChannelFunctionType extends AbstractType {
         foreach ($map as $f) {
             $fnc[] = ['id' => $f,
                 'name' => $this->iodevice_manager->channelFunctionToString($f),
+                    'alticon_max' => $this->iodevice_manager->channelFunctionAltIconMax($f),
             ];
         }
 
         $view->vars['channel'] = $channel;
         $view->vars['functions'] = $fnc;
+        $view->vars['alticon_max'] = $this->iodevice_manager->channelFunctionAltIconMax($channel->getFunction());
         $view->vars['function_params'] = $this->iodevice_manager->channelFunctionParamsHtmlTemplate($channel);
     }
 

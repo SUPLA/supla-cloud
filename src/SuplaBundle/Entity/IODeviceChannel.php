@@ -101,7 +101,7 @@ class IODeviceChannel {
     /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
      */
-    private $altIcon = '';
+    private $altIcon = 0;
     
     /**
      * @ORM\Column(name="hidden", type="boolean", nullable=false)
@@ -197,11 +197,19 @@ class IODeviceChannel {
     }
     
     public function getAltIcon() {
-        return $this->altIcon;
+        return intval($this->altIcon);
     }
     
     public function setAltIcon($altIcon) {
         $this->altIcon = $altIcon;
+    }
+    
+    public function getIconSuffix() {
+        return ($this->getAltIcon() > 0 ? '_'.$this->getAltIcon() : '') . '.svg';
+    }
+    
+    public function getIconFilename() {
+        return $this->getFunction().$this->getIconSuffix();
     }
     
     public function getHidden() {

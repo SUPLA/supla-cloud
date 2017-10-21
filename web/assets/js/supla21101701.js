@@ -259,6 +259,83 @@ function detectIE() {
     return false;
 }
 
+function newIconSelected() {
+
+		var n = $(this).data('number');
+		$('.overlay-changeicon').data('selected', n);
+		$(this).find(':checkbox').prop('checked', true);
+			
+		$(this).parent('.row').parent('.channel-icons').find('.row').each(function () {
+			
+			$(this).find('label').each(function () { 
+				if ( $(this).data('number') != n ) {
+					$(this).find(':checkbox').prop('checked', false);
+				}
+			});
+			
+		});
+		
+}
+
+function changeIconClick() {
+	
+	var sel = $('#channel_function_select');
+	
+	var datafield = sel.data('prefix') + 'altIcon';
+	var functionfield = sel.data('prefix') + 'function';
+	var alticon_max = sel.data('alticonmax');
+	
+	var val = $('#'+datafield).val();
+	var fnc = $('#'+functionfield).val();
+	
+	var overlay = $('.overlay-changeicon .overlay');
+	var rows = $('.overlay-changeicon #channel-icons');
+	
+	var row = '<div class="row">';
+	var fn_suffix = '';
+	
+	for(a=0;a<=alticon_max;a++) {
+		
+		if ( a > 0 ) {
+			
+			if (a % 3 == 0 ) {
+				row += '</div><div class="row">';
+			};
+			
+			fn_suffix = '_'+a;
+		}
+
+		
+		row+='<label class="col-xs-4" data-number="'+a+'"><input type="checkbox" name="icon['+a+']" '+ (val==a ? 'checked' : '') +'>';
+		row+='<div class="item enabled "><img src="/assets/img/functions/'+fnc+fn_suffix+'.svg"></div>';
+		row+='</label>';
+	}
+	
+	row+='</div>';
+	
+	rows.html(row);
+	$('.channel .channel-change-icon label').on('click', newIconSelected);
+	
+	overlay.addClass('overlay-open');
+}
+
+function changeIconCancel() {
+	$('.overlay-changeicon .overlay').removeClass('overlay-open');
+}
+
+function changeIconSave() {
+	var datafield = '#' + $('#channel_function_select').data('prefix') + 'altIcon';
+	$(datafield).val($('.overlay-changeicon').data('selected'));
+	$( "button[type=submit]" ).trigger( "click" );
+}
+
+function changeIconInit() {
+
+    $('.channel a[name="overlay-changeicon"]').on('click', changeIconClick);
+    $('.channel #change_icon_cancel').on('click', changeIconCancel);
+    $('.channel #change_icon_save').on('click', changeIconSave);
+}
+
 (function ($) {
 
     var openSubChannelSelectClickHandler = function (e) {
@@ -429,6 +506,7 @@ function detectIE() {
             var pictogram_std = $("#pictogram_standard");
             var pictogram_depth = $("#pictogram_depth_sensor");
             var pictogram_distance = $("#pictogram_distance_sensor");
+            var change_icon = $("a[name='overlay-changeicon']");
 
             var form = csel.closest("form");
 
@@ -441,17 +519,20 @@ function detectIE() {
             csel.addClass("disable");
             cparam.addClass("disable");
 
+            change_icon.fadeOut();
             pictogram.fadeOut();
 
             $('#' + csel.data('prefix') + 'function').val(0);
             $('#' + csel.data('prefix') + 'param1').val(0);
             $('#' + csel.data('prefix') + 'param2').val(0);
             $('#' + csel.data('prefix') + 'param3').val(0);
-
+            $('#' + csel.data('prefix') + 'altIcon').val(0);
+            
             var fname = csel.find('#function_name');
             fname.text($(this).text());
 
             var function_id = $(this).data('id');
+            var alticon_max = $(this).data('alticonmax');
 
             $.ajax({type: "POST", url: '/iodev/ajax/getfuncparams/' + csel.data('channel_id') + '/' + function_id})
                 .done(function (response) {
@@ -503,7 +584,7 @@ function detectIE() {
                             var img = pictogram_std.find('img');
 
                             if (img != undefined && img.length != 0) {
-                                img.attr('src', img.attr('src').replace(/\/\d+\.svg$/, "/" + function_id + ".svg"));
+                            	img.attr('src', pictogram.data('imgpath') + function_id + ".svg");
                                 pictogram_std.show();
                             }
 
@@ -512,8 +593,15 @@ function detectIE() {
                         $('#' + csel.data('prefix') + 'function').val(function_id);
                         pictogram.hide();
                         pictogram.fadeIn();
+                        
+                        if ( alticon_max > 0 ) {
+                        	change_icon.fadeIn();
+                        }
+                        
                     }
-
+                    
+                    csel.attr('data-alticonmax', alticon_max);
+                    csel.data('alticonmax', alticon_max);
                     csel.removeClass("disable");
                     cparam.removeClass("disable");
                     form.find('button[type="submit"]').each(function (index, element) {
@@ -571,6 +659,9 @@ function detectIE() {
         checkChannelState('depth_state', 'depth_value', 'serverctrl-distanceval', 5000);
         checkChannelState('distance_state', 'distance_value', 'serverctrl-distanceval', 5000);
         checkConnectionState(5000);
+        
+        
+        changeIconInit();        
 
     });
 })(jQuery);

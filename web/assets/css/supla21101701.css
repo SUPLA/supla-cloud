@@ -200,7 +200,18 @@ body.device-details .navbar {margin-bottom: 0px; border-bottom-color: rgba(0,0,0
 /* CHANNEL */ 
 .pictogram, .device-list {width: 30%; float: left; position: relative;}
 .infobar {width: 40%; float: left; animation-name: fadeIn; animation-delay: 0s; z-index: 3!important;}
-.pictogram { z-index: 2!important; backface-visibility: hidden;}
+.pictogram { z-index: 2!important; backface-visibility: hidden; text-align: center;}
+
+#.overlay-changeicon .overlay .row .col-xs-4 {min-height: 175px;}
+#.overlay-changeicon .overlay label { position:relative; cursor:pointer; transition: all .1s ease-in-out;}
+#.overlay-changeicon .overlay label:active {transform: scale(0.98);}
+#.overlay-changeicon .overlay label [type="checkbox"] {position: absolute; bottom: 10px; left: 10px; display: none;}
+#.coverlay-changeicon .overlay [type="checkbox"] + div.item { display:inline-block; width: 100%; height: 170px; padding: 5px 10px; background: #ebecef; border-radius: 3px; font-size: 13px; border: solid 2px transparent; cursor: pointer; transition: all .2s ease-in-out; margin-bottom: 4px;position: relative;	box-shadow: 0 1px 2px rgba(0,0,0,.2);}
+#.overlay-changeicon .overlay [type="checkbox"] + div.item:hover { margin-top: -6px; box-shadow: 0 4px 3px rgba(0,0,0,.6);}
+.overlay-changeicon .overlay [type="checkbox"] + div.item.enabled {color: #fff; background: #ebecef;}
+#.overlay-changeicon .overlay :checked + div.item{ border: solid 2px #000}
+#.coverlay-changeicon .overlay :checked + div.item:after, .scroll_list .item.selected:after, .location-info .item:after {content:''; position: absolute; width: 52px; height: 52px; background: url(/assets/img/checked.svg); top: -1px; right: -1px;border-top-right-radius: 3px;transition: all .2s ease-in-out;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 0s;}
+.overlay-changeicon img { width: 150px; margin: auto; display: block }
 
 body.channel .navbar-default {margin-bottom: 0px;}
 body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: visible;}

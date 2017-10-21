@@ -340,19 +340,15 @@ class IODeviceManager {
 
         return $this->translator->trans($result);
     }
-
-    public function FunctionIsOpeningSensor($func) {
-
-        switch ($func) {
-            case SuplaConst::FNC_OPENINGSENSOR_GATEWAY:
-            case SuplaConst::FNC_OPENINGSENSOR_GATE:
-            case SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR:
-            case SuplaConst::FNC_OPENINGSENSOR_DOOR:
-            case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
-                return true;
-        }
-
-        return false;
+    
+    public function channelFunctionAltIconMax($func) {
+    	
+    	switch ($func) {
+    		case SuplaConst::FNC_LIGHTSWITCH:
+    			return 1;
+    	}
+    	
+    	return 0;
     }
 
     public function channelIoToString($type) {
@@ -482,7 +478,7 @@ class IODeviceManager {
                 'type' => $this->channelTypeToString($channel->getType()),
                 'function' => $this->channelFunctionToString($channel->getFunction()),
                 'function_id' => $channel->getFunction(),
-                'function_is_openingsensor' => $this->FunctionIsOpeningSensor($channel->getFunction()),
+            	'icon_filename' => $channel->getIconFileName(),
                 'caption' => $channel->getCaption(),
             ];
 
