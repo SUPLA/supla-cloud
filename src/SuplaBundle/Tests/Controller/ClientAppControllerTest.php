@@ -70,7 +70,7 @@ class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testUpdatingClientAppCaption() {
-        $request = new Request([], ['name' => 'New Caption']);
+        $request = new Request([], ['caption' => 'New Caption']);
         $clientApp = new ClientApp();
         $this->suplaServer->expects($this->never())->method('clientReconnect');
         $this->controller->editAction($clientApp, $request);
