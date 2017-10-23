@@ -344,6 +344,8 @@ class IODeviceManager {
     public function channelFunctionAltIconMax($func) {
     	
     	switch ($func) {
+    		case SuplaConst::FNC_POWERSWITCH:
+    			return 4;
     		case SuplaConst::FNC_LIGHTSWITCH:
     			return 1;
     	}
