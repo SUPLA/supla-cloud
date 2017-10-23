@@ -174,7 +174,7 @@ class ClientApp {
     }
     
     public function getCaption(): string {
-    	return empty($this->caption) ? $this->getName() : $this->caption;
+        return empty($this->caption) ? $this->getName() : $this->caption;
     }
     
     public function setCaption(string $caption) {
