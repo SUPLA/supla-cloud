@@ -69,12 +69,12 @@ class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($clientApps[2], $response[1]);
     }
 
-    public function testUpdatingClientAppName() {
-        $request = new Request([], ['name' => 'New Name']);
+    public function testUpdatingClientAppCaption() {
+        $request = new Request([], ['name' => 'New Caption']);
         $clientApp = new ClientApp();
         $this->suplaServer->expects($this->never())->method('clientReconnect');
         $this->controller->editAction($clientApp, $request);
-        $this->assertEquals('New Name', $clientApp->getName());
+        $this->assertEquals('New Caption', $clientApp->getCaption());
     }
 
     public function testReconnectingClientWhenEnabling() {
