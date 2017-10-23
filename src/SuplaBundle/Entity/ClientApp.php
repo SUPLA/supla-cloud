@@ -111,6 +111,7 @@ class ClientApp {
     
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
+     * @Groups({"basic", "flat"})
      * @Assert\Length(max=100)
      */
     private $caption;
@@ -172,11 +173,11 @@ class ClientApp {
         return $this->user;
     }
     
-    public function getCaption() {
-        return $this->caption;
+    public function getCaption(): string {
+    	return empty($this->caption) ? $this->getName() : $this->caption;
     }
     
-    public function setCaption($caption) {
+    public function setCaption(string $caption) {
         $this->caption = $caption;
     }
 }

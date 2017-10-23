@@ -59,7 +59,7 @@ class ClientAppController extends AbstractController {
     public function editAction(ClientApp $clientApp, Request $request) {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp, $request) {
             $data = $request->request->all();
-            $clientApp->setName($data['name'] ?? '');
+            $clientApp->setCaption($data['caption'] ?? '');
             $reloadClient = false;
             $desiredEnabled = $data['enabled'] ?? false;
             if ($desiredEnabled != $clientApp->getEnabled()) {

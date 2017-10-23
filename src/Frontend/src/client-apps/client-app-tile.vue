@@ -4,8 +4,9 @@
             <square-link :class="'clearfix pointer ' + (app.enabled ? 'green' : 'grey')"
                 slot="front"
                 @click="edit()">
-                <h3>{{app.name}}</h3>
+                <h3>{{app.caption}}</h3>
                 <dl>
+                    <dd v-if="app.caption != app.name">{{ app.name }} / </dd>
                     <dd>{{ app.softwareVersion }} / {{ app.protocolVersion }}</dd>
                     <dt></dt>
                 </dl>
@@ -33,7 +34,7 @@
                         <label>{{ $t('Name') }}</label>
                         <input type="text"
                             class="form-control"
-                            v-model="editingModel.name">
+                            v-model="editingModel.caption">
                     </div>
 
                     <div class="form-group">
