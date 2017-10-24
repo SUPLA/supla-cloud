@@ -348,6 +348,8 @@ class IODeviceManager {
     			return 4;
     		case SuplaConst::FNC_LIGHTSWITCH:
     			return 1;
+    		case SuplaConst::FNC_OPENINGSENSOR_GATE:
+    			return 1;
     	}
     	
     	return 0;
