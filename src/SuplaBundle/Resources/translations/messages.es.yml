@@ -382,3 +382,17 @@ The client will be automatically logged out when deleted.: Eliminar un cliente d
 ACTIVE: ACTIVA	
 INACTIVE: INACTIVA
 Sign in temporarily unavailable. Please try again later.: Iniciar sesión no está disponible temporalmente. Vuelve a intentarlo más tarde.
+
+Temperature Sensor: Sensor de temperatura
+Humidity Sensor: Sensor de humedad
+Temperature & Humidity Sensor: Sensor de temperatura y humedad
+Mail sensor:  Sensor de correo
+Wind sensor: Sensor de viento
+Pressure sensor: Sensor de presión atmosférica
+Rain sensor: CSensor de lluvia
+Weight sensor: Peso
+Weather Station: Estación meteorológica
+Window opening sensor: Dectector de apertura de ventanas
+Staircase timer: Automático de escalera
+Change icon: Cambiar icono
+Select icon: Elegir icono

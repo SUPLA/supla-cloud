@@ -372,3 +372,18 @@ The client will be automatically logged out when deleted.: Удаление кл
 ACTIVE: АКТИВНА
 INACTIVE: НЕАКТИВНА
 Sign in temporarily unavailable. Please try again later.: Вход временно недоступен. Повторите попытку позже.
+
+Temperature Sensor: Датчик температуры
+Humidity Sensor: Датчик влажности
+Temperature & Humidity Sensor: Датчик температуры и влажности
+Mail sensor:  Сигнализатор наличия почты
+Wind sensor: Датчик ветра
+Pressure sensor: Датчик давления
+Rain sensor: Датчик дождя
+Weight sensor: Весы
+Weather Station: Метеостанция
+Window opening sensor: Датчик открытия окна
+Staircase timer: Лестничный автомат
+Change icon: Сменить значок
+Select icon: Выбрать значок
+
