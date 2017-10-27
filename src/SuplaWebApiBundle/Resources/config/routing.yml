@@ -3,9 +3,11 @@ supla_api_oauth:
   prefix: /api
   resource: "@SuplaWebApiBundle/Controller"
   name_prefix: api_
+  condition: "request.attributes.get('version') && request.attributes.get('version') != 'v1'"
 
 supla_api_web:
   type: rest
   prefix: /web-api
   resource: "@SuplaWebApiBundle/Controller"
   name_prefix: webapi_
+  condition: "request.attributes.get('version') && request.attributes.get('version') != 'v1'"

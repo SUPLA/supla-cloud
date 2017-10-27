@@ -2,4 +2,4 @@ supla_api:
   type: rest
   prefix: /api
   resource: "@SuplaApiBundle/Controller"
-  condition: "request.attributes.get('version') == 'v1'"
+  condition: "!request.attributes.get('version') || request.attributes.get('version') == 'v1'"
