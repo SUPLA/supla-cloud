@@ -405,14 +405,6 @@ class AccountController extends AbstractController {
 
     /**
      * @Route("/current")
-     * @Method("GET")
-     */
-    public function getUserAction() {
-        return $this->jsonResponse($this->getUser());
-    }
-
-    /**
-     * @Route("/current")
      * @Method("PATCH")
      */
     public function patchUserAction(Request $request) {

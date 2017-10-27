@@ -25,7 +25,7 @@
     "doctrine/doctrine-migrations-bundle": "^1.2",
     "excelwebzone/recaptcha-bundle": "^1.4",
     "friendsofsymfony/oauth-server-bundle": "^1.5",
-    "friendsofsymfony/rest-bundle": "^2.1",
+    "friendsofsymfony/rest-bundle": "^2.2",
     "incenteev/composer-parameter-handler": "^2.0",
     "mtdowling/cron-expression": "^1.1",
     "myclabs/php-enum": "^1.5",

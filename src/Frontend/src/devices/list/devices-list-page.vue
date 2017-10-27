@@ -108,7 +108,7 @@
             };
         },
         mounted() {
-            this.$http.get('iodev')
+            this.$http.get('iodevices')
                 .then(({body}) => this.devices = body)
                 .then(() => Vue.nextTick(() => this.calculateSearchStrings()));
         },

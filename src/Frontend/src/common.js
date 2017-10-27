@@ -20,7 +20,8 @@ Vue.use(VueMoment);
 Vue.use(VueResource);
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
-Vue.http.options.root = Vue.config.external.baseUrl || '';
+Vue.http.options.root = (Vue.config.external.baseUrl || '') + '/web-api';
+Vue.http.headers.common['X-Accept-Version'] = 'v2';
 
 moment.locale(Vue.config.external.locale);
 moment.tz.setDefault(Vue.config.external.timezone);

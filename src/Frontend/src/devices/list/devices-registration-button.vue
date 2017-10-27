@@ -72,13 +72,13 @@
         methods: {
             toggle() {
                 this.saving = true;
-                this.$http.patch('account/current', {action: 'change:' + this.field, enable: !this.enabledUntil})
+                this.$http.patch('users/current', {action: 'change:' + this.field, enable: !this.enabledUntil})
                     .then(({body}) => this.enabledUntil = body[this.field])
                     .finally(() => this.saving = false);
             },
             loadUserInfo() {
                 this.saving = true;
-                this.$http.get('account/current')
+                this.$http.get('users/current')
                     .then(({body}) => this.enabledUntil = body[this.field])
                     .finally(() => this.saving = false);
             }
