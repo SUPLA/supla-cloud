@@ -20,6 +20,15 @@ namespace SuplaWebApiBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 
 class ApiUserController extends FOSRestController {
+    /**
+     * @api {get} /users/current Current user
+     * @apiDescription Get the currently authenticated user
+     * @apiGroup Users
+     * @apiSuccess {Number}   id       User ID
+     * @apiSuccess {String}   email    User email address
+     * @apiSuccess {Boolean}   ioDevicesRegistrationEnabled  Whether the registration of new IO Devices is enabled or not.
+     * @apiSuccess {Boolean}   clientsRegistrationEnabled  Whether the registration of new clients is enabled or not.
+     */
     public function currentUserAction() {
         return $this->view($this->getUser(), 200);
     }

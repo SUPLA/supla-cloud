@@ -4,6 +4,7 @@
   "version": "2.1.5",
   "private": true,
   "scripts": {
+    "apidocs": "apidoc -i ../SuplaWebApiBundle/Controller -o ../../apidocs",
     "build": "rm -fr ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --output-public-path http://localhost:25787/assets/dist",
     "lint": "eslint --ext js,vue src",
@@ -33,6 +34,7 @@
     "vuex": "2.3.1"
   },
   "devDependencies": {
+    "apidoc": "0.17.6",
     "async": "2.5.0",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
@@ -64,5 +66,9 @@
     "webpack": "3.3.0",
     "webpack-dev-server": "2.5.1",
     "yaml-loader": "0.5.0"
+  },
+  "apidoc": {
+    "title": "SUPLA REST API Documentation",
+    "url" : "/api"
   }
 }
