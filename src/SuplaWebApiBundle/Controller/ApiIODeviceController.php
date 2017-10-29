@@ -19,6 +19,7 @@ namespace SuplaWebApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @api {ENTITY} IODevice IODevice
@@ -48,7 +49,7 @@ use FOS\RestBundle\Controller\FOSRestController;
  */
 
 /**
- * @Rest\Version("v2")
+ * @Rest\Version({"2.1", "2.2"})
  */
 class ApiIODeviceController extends FOSRestController {
     /**
@@ -65,7 +66,7 @@ class ApiIODeviceController extends FOSRestController {
      * @apiVersion 2.1.3
      * @apiSuccess {[IODevice[]](#api-Entities-EntityIodevice)} - List of IO devices
      */
-    public function getIodevicesAction() {
+    public function getIodevicesAction(Request $request) {
         $user = $this->getUser();
         return $this->view($user->getIODevices(), 200);
     }
