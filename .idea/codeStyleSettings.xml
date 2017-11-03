@@ -18,6 +18,7 @@
           <option name="COMMA_AFTER_LAST_ARRAY_ELEMENT" value="true" />
           <option name="LOWER_CASE_BOOLEAN_CONST" value="true" />
           <option name="LOWER_CASE_NULL_CONST" value="true" />
+          <option name="KEEP_BLANK_LINES_AFTER_LBRACE" value="1" />
           <option name="FORCE_SHORT_DECLARATION_ARRAY_STYLE" value="true" />
         </PHPCodeStyleSettings>
         <codeStyleSettings language="HTML">
@@ -32,6 +33,7 @@
           <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
           <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
           <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />
+          <option name="BLANK_LINES_BEFORE_PACKAGE" value="0" />
           <option name="CLASS_BRACE_STYLE" value="1" />
           <option name="METHOD_BRACE_STYLE" value="1" />
         </codeStyleSettings>

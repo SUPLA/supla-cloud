@@ -8,6 +8,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class IgnoreApiDocsAnnotationsPass implements CompilerPassInterface {
     public function process(ContainerBuilder $container) {
+        self::ignore();
+    }
+
+    public static function ignore() {
         AnnotationReader::addGlobalIgnoredName('api');
         AnnotationReader::addGlobalIgnoredName('apiDefine');
         AnnotationReader::addGlobalIgnoredName('apiDeprecated');

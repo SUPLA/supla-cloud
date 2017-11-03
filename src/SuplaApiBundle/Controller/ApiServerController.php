@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,29 +17,40 @@
 
 namespace SuplaApiBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Version;
+use SuplaApiBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiServerController extends RestController {
-
     /**
-     * @Rest\Get("/server-info")
+     * @Get("/server-info")
      */
-    public function getServerParamsAction(Request $request) {
+    public function getServerInfoAction(Request $request) {
         $dt = new \DateTime();
-
-        $result = ['address' => $this->container->getParameter('supla_server'),
+        $result = [
+            'address' => $this->container->getParameter('supla_server'),
             'time' => $dt,
-            'timezone' => ['name' => $dt->getTimezone()->getName(),
-                'offset' => $dt->getOffset()],
+            'timezone' => [
+                'name' => $dt->getTimezone()->getName(),
+                'offset' => $dt->getOffset(),
+            ],
         ];
-
-        return $this->handleView($this->view(['data' => $result], Response::HTTP_OK));
+        if (ApiVersions::v2_2()->isRequestedEqualOrGreaterThan($request)) {
+            $user = $this->getParentUser();
+            $result['username'] = $user->getUsername();
+            $result['cloud_version'] = $this->container->getParameter('supla.version');
+            $result['api_version'] = ApiVersions::fromRequest($request)->getValue();
+            $result['supported_api_versions'] = array_values(array_unique(ApiVersions::toArray()));
+        } else {
+            $result = ['data' => $result];
+        }
+        return $this->view($result, Response::HTTP_OK);
     }
 
     /**
-     * @Rest\Get("/logout/{refreshToken}", name="api_logout")
+     * @Get("/logout/{refreshToken}", name="api_logout")
      */
     public function logoutAction(Request $request, $refreshToken) {
 
@@ -48,6 +59,6 @@ class ApiServerController extends RestController {
         $ts = $this->container->get('security.token_storage')->getToken();
         $api_man->userLogout($ts->getUser(), $ts->getToken(), $refreshToken);
 
-        return $this->handleView($this->view(null, Response::HTTP_OK));
+        return $this->view(null, Response::HTTP_OK);
     }
 }
