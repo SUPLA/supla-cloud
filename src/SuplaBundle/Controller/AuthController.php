@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -52,15 +52,5 @@ class AuthController extends AbstractController {
         }
         $sl = $this->get('server_list');
         return $this->redirect($sl->getCreateAccountUrl($request));
-    }
-
-    /**
-     * @Route("/servers", name="_auth_server")
-     */
-    public function authServer(Request $request) {
-        $username = $request->get('username', '');
-        $serverList = $this->get('server_list');
-        $server = $serverList->getAuthServerForUser($request, $username);
-        return $this->jsonResponse(['server' => $server]);
     }
 }

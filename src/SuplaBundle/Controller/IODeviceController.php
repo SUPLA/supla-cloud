@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -53,12 +53,7 @@ class IODeviceController extends AbstractController {
      * @Template
      */
     public function listAction() {
-        if ($this->expectsJsonResponse()) {
-            $user = $this->getUser();
-            return $this->jsonResponse($user->getIODevices());
-        } else {
-            return [];
-        }
+        return [];
     }
 
     /**
@@ -248,8 +243,8 @@ class IODeviceController extends AbstractController {
 
             if ($channel->getFunction() == SuplaConst::FNC_STAIRCASETIMER) {
                 if ($channel->getParam1() < 0
-                                || $channel->getParam1() > 360000 // 60 min.
-                                ) {
+                    || $channel->getParam1() > 360000 // 60 min.
+                ) {
                     $channel->setParam1(0);
                 }
             } elseif ($channel->getFunction() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER) {
@@ -271,7 +266,7 @@ class IODeviceController extends AbstractController {
                     $this->get('schedule_manager')->delete($schedule);
                 }
             }
-            
+
             if ($dev_man->channelFunctionAltIconMax($channel->getFunction()) < $channel->getAltIcon()) {
                 $channel->setAltIcon(0);
             }
@@ -292,7 +287,7 @@ class IODeviceController extends AbstractController {
                 'channel_type' => $dev_man->channelTypeToString($channel->getType()),
                 'channel_function' => $channel->getFunction(),
                 'channel_function_name' => $dev_man->channelFunctionToString($channel->getFunction()),
-                'alticon_max' =>  $dev_man->channelFunctionAltIconMax($channel->getFunction()),
+                'alticon_max' => $dev_man->channelFunctionAltIconMax($channel->getFunction()),
                 'form' => $form->createView(),
                 'show_sensorstate' => ($channelType == SuplaConst::TYPE_SENSORNO
                     || $channelType == SuplaConst::TYPE_SENSORNC) ? true : false,

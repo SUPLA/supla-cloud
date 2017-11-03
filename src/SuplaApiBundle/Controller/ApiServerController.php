@@ -47,8 +47,7 @@ class ApiServerController extends RestController {
      * {"address":"supla.org","time":"2017-11-03T10:47:29+01:00","timezone":{"name":"Europe/Berlin","offset":3600},
      * "username":"supler@supla.org","cloudVersion":"2.2.2","apiVersion":"2.2.0","supportedApiVersions":["2.0.0","2.1.0","2.2.0"]}
      */
-    /**
-     * @Get("/server-info") */
+    /** @Get("/server-info") */
     public function getServerInfoAction(Request $request) {
         $dt = new \DateTime();
         $result = [

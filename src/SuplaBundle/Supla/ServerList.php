@@ -201,6 +201,6 @@ class ServerList {
             }
         }
 
-        return 'https://' . $request->getHost() . $this->router->generate('_temp_unavailable');
+        return $request->getScheme() . '://' . $request->getHost() . $this->router->generate('_temp_unavailable');
     }
 }

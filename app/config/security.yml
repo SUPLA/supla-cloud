@@ -32,7 +32,7 @@ security:
 
   access_control:
     -
-      path: ^/(auth|(account/(create|check|confirm|register|reset|ajax/(forgot|user_exists)))|oauth/v2/token)
+      path: ^/(auth|(account/(create|check|confirm|register|reset|ajax/(forgot|user_exists)))|oauth/v2/token|web-api/auth-servers)
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
     -

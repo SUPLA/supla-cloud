@@ -89,7 +89,7 @@
             findServer() {
                 if (!this.authenticating) {
                     this.authenticating = true;
-                    this.$http.get('auth/servers', {params: {username: this.username}}).then(({body}) => {
+                    this.$http.get('auth-servers', {params: {username: this.username}}).then(({body}) => {
                         if (!body.server) {
                             errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             this.authenticating = false;

@@ -17,28 +17,23 @@
 
 namespace SuplaApiBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use SuplaBundle\Supla\ServerList;
+use Symfony\Component\HttpFoundation\Request;
 
-class ApiUserController extends FOSRestController {
-
+class ApiAuthController extends FOSRestController {
+    /** @var ServerList */
     private $serverList;
 
     public function __construct(ServerList $serverList) {
         $this->serverList = $serverList;
     }
 
-    /**
-     * @api {get} /users/current Current user
-     * @apiDescription Get the currently authenticated user
-     * @apiGroup Users
-     * @apiVersion 2.2.0
-     * @apiSuccess {Number} id User ID
-     * @apiSuccess {String} email User email address
-     * @apiSuccess {Boolean} ioDevicesRegistrationEnabled Whether the registration of new IO Devices is enabled or not.
-     * @apiSuccess {Boolean} clientsRegistrationEnabled Whether the registration of new clients is enabled or not.
-     */
-    public function currentUserAction() {
-        return $this->view($this->getUser(), 200);
+    /** @Get("/auth-servers") */
+    public function authServersAction(Request $request) {
+        $username = $request->get('username', '');
+        $server = $this->serverList->getAuthServerForUser($request, $username);
+        return $this->view(['server' => $server]);
     }
 }
