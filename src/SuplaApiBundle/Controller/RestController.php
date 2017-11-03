@@ -50,7 +50,7 @@ abstract class RestController extends FOSRestController {
     protected function setSerializationGroups(View $view, Request $request, array $allowedGroups): Context {
         $context = new Context();
         $include = $request->get('include', '');
-        $requestedGroups = array_map('trim', explode(',', $include));
+        $requestedGroups = array_filter(array_map('trim', explode(',', $include)));
         $filteredGroups = array_intersect($requestedGroups, $allowedGroups);
         if (count($filteredGroups) < count($requestedGroups)) {
             $notSupported = implode(', ', array_diff($requestedGroups, $filteredGroups));
