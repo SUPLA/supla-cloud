@@ -18,7 +18,6 @@
 namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Version;
 use SuplaApiBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +37,7 @@ class ApiServerController extends RestController {
             ],
         ];
         if (ApiVersions::v2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $user = $this->getParentUser();
+            $user = $this->getUser();
             $result['username'] = $user->getUsername();
             $result['cloud_version'] = $this->container->getParameter('supla.version');
             $result['api_version'] = ApiVersions::fromRequest($request)->getValue();

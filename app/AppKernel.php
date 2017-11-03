@@ -19,7 +19,6 @@ class AppKernel extends Kernel {
             new FOS\RestBundle\FOSRestBundle(),
             new SuplaBundle\SuplaBundle(),
             new SuplaApiBundle\SuplaApiBundle(),
-            new SuplaWebApiBundle\SuplaWebApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

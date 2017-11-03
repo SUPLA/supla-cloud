@@ -21,10 +21,12 @@ use SuplaApiBundle\Entity\Client;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
 class ApiServerControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
+    use ResponseAssertions;
 
     /** @var User */
     private $user;
@@ -41,7 +43,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(401, $response->getStatusCode());
     }
 
-    public function testGettingServerInfo() {
+    public function testGettingServerInfoAsOauthUser() {
         $client = $this->createAuthenticatedApiClient($this->user);
         $client->request('GET', '/api/server-info');
         $response = $client->getResponse();
@@ -52,11 +54,33 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse(property_exists($content->data, 'username')); // added in v2.2
     }
 
-    public function testGettingServerInfoForVersion2_2() {
+    public function testGettingServerInfoAsWebUser() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/web-api/server-info');
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent());
+        $this->assertEquals($this->container->getParameter('supla_server'), $content->data->address);
+        $this->assertNotEmpty($content->data->time);
+        $this->assertFalse(property_exists($content->data, 'username')); // added in v2.2
+    }
+
+    public function testGettingServerInfoAsOauthUserForVersion2_2() {
         $client = $this->createAuthenticatedApiClient($this->user);
         $client->request('GET', '/api/server-info', [], [], ['HTTP_X_ACCEPT_VERSION' => '2.2']);
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent());
+        $this->assertEquals($this->container->getParameter('supla_server'), $content->address);
+        $this->assertEquals('supler@supla.org', $content->username);
+        $this->assertNotEmpty($content->time);
+    }
+
+    public function testGettingServerInfoAsWebUserForVersion2_2() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/web-api/server-info', [], [], ['HTTP_X_ACCEPT_VERSION' => '2.2']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
         $this->assertEquals($this->container->getParameter('supla_server'), $content->address);
         $this->assertEquals('supler@supla.org', $content->username);

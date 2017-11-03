@@ -1,4 +1,11 @@
-supla_api:
+supla_api_oauth:
   type: rest
   prefix: /api
   resource: "@SuplaApiBundle/Controller"
+  name_prefix: api_
+
+supla_api_web:
+  type: rest
+  prefix: /web-api
+  resource: "@SuplaApiBundle/Controller"
+  name_prefix: webapi_

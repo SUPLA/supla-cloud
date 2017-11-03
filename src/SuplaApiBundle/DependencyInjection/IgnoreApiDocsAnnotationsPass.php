@@ -1,6 +1,6 @@
 <?php
 
-namespace SuplaWebApiBundle\DependencyInjection;
+namespace SuplaApiBundle\DependencyInjection;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

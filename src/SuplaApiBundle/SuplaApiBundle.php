@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,9 +17,12 @@
 
 namespace SuplaApiBundle;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SuplaApiBundle extends Bundle {
-    public function boot() {
+    public function build(ContainerBuilder $container) {
+        parent::build($container);
+        $container->addCompilerPass(new IgnoreApiDocsAnnotationsPass());
     }
 }

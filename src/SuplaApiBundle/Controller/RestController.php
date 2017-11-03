@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -18,40 +18,27 @@
 namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use SuplaApiBundle\Entity\ApiUser;
+use SuplaBundle\Entity\User;
 
 /**
  * Each entity controller must extends this class.
- *
- * @abstract
  */
 abstract class RestController extends FOSRestController {
-
-    private $api_man;
-    private $user;
-    private $parent;
-
-    public function getApiUser() {
-
-        if ($this->user === null) {
-            $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
-        }
-        return $this->user;
-    }
-
+    /** @deprecated use getUser() */
     public function getParentUser() {
-
-        if (!$this->parent && $this->getUser() !== null) {
-            $this->parent = $this->getUser()->getParentUser();
-        }
-        return $this->parent;
+        return $this->getUser();
     }
 
-    public function getApiManager() {
-
-        if ($this->api_man === null) {
-            $this->api_man = $this->container->get('api_manager');
+    /**
+     * @return null|User
+     */
+    protected function getUser() {
+        $user = parent::getUser();
+        if ($user instanceof ApiUser) {
+            return $user->getParentUser();
+        } else {
+            return $user;
         }
-
-        return $this->api_man;
     }
 }
