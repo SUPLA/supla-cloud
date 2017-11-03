@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -85,7 +85,7 @@ class ServerList {
         if ($user != null) {
             return true;
         }
-        
+
         if ($this->autodiscover->findServer($username)) {
             return true;
         }
@@ -124,14 +124,14 @@ class ServerList {
         if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
             return $result;
         }
-        
+
         $local = $request->getHost();
         if ($request->getPort() != 443) {
             $local.= ":" . $request->getPort();
         }
-        
+
         $user = $this->user_manager->userByEmail($username);
-        
+
         if ($user !== null) {
             $result = $local;
         } else {
@@ -160,22 +160,22 @@ class ServerList {
                 }
             }
         }
-        
+
         if ($err && !$result) {
             return false;
         }
-        
+
         if (!$result) {
             $result = $local;
         }
-        
+
         return 'https://' . $result;
     }
 
     public function getCreateAccountUrl(Request $request) {
 
         if (count(@$this->servers) < 2) {
-            return 'https://' . $request->getHost()
+            return $request->getScheme() . '://' . $request->getHost()
             . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
         }
 

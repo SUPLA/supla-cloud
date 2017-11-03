@@ -20,6 +20,7 @@ doctrine:
     auto_mapping: true
 
 ewz_recaptcha:
+  enabled: "%recaptcha_enabled%"
   private_key: "%ewz_recaptcha_private_key%"
   public_key: "%ewz_recaptcha_public_key%"
 

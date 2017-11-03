@@ -22,6 +22,7 @@ parameters:
   supla_server_list: ~
   supla_autodiscover_server: ~
 
+  recaptcha_enabled: true
   ewz_recaptcha_public_key: ~
   ewz_recaptcha_private_key: ~
 
