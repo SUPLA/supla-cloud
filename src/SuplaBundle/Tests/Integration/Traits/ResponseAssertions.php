@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -29,7 +29,8 @@ trait ResponseAssertions {
     protected function assertStatusCode($expectedStatus, Response $clientResponse) {
         $actualStatus = $clientResponse->getStatusCode();
         $fullStatusLine = $this->getResponseStatusLine($clientResponse);
-        $message = "Response status $actualStatus isn't %s: $fullStatusLine. Response content: \n" . $clientResponse->getContent();
+        $message = "Response status $actualStatus isn't %s: $fullStatusLine. Response content: \n"
+            . str_replace('%', 'p', $clientResponse->getContent());
         if (is_int($expectedStatus)) {
             Assert::assertEquals($expectedStatus, $actualStatus, sprintf($message, $expectedStatus));
         } elseif (preg_match('/^[1-5]xx$/i', $expectedStatus)) {

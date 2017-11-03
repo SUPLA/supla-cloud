@@ -1,9 +1,8 @@
 security:
-  encoders: 
-    SuplaApiBundle\Entity\ApiUser: 
-            algorithm:            bcrypt
-            cost:                 4
-            
+  encoders:
+    SuplaApiBundle\Entity\ApiUser:
+      algorithm: bcrypt
+      cost: 4
     SuplaBundle\Entity\User: bcrypt
     legacy_encoder: md5
   erase_credentials: false # in order to migrate legacy passwords
@@ -21,6 +20,7 @@ security:
 
     main:
       anonymous: true
+      entry_point: SuplaApiBundle\DependencyInjection\WebApiAuthenticationEntryPoint
       form_login:
         check_path: _auth_login
         login_path: _auth_login
@@ -41,7 +41,7 @@ security:
       requires_channel: '%supla_protocol%'
 
   providers:
-    supla_db_provider: 
-      entity: 
+    supla_db_provider:
+      entity:
         class: "SuplaBundle:User"
         property: email

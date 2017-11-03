@@ -29,6 +29,9 @@ services:
     resource: '../../src/SuplaApiBundle/Controller'
     public: true
 
+  SuplaApiBundle\DependencyInjection\WebApiAuthenticationEntryPoint:
+    $loginPath: '_auth_login'
+
   SuplaBundle\Model\:
     resource: '../../src/SuplaBundle/Model'
 
