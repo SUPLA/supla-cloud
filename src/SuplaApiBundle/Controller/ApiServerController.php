@@ -22,7 +22,31 @@ use SuplaApiBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @apiDefine Error401
+ * @apiError 401 Unauthorized. Please authenticate in API with OAuth.
+ */
 class ApiServerController extends RestController {
+    /**
+     * @api {get} /server-info Server Info
+     * @apiDescription Get server info.
+     * @apiGroup Server
+     * @apiVersion 2.2.0
+     * @apiUse Error401
+     * @apiSuccess {string} address URL address of the server
+     * @apiSuccess {time} time Current server time
+     * @apiSuccess {object} timezone Current server timezone
+     * @apiSuccess {string} timezone.name Current server timezone name
+     * @apiSuccess {int} timezone.offset Current server timezone offset in minutes
+     * @apiSuccess {string} username Current user's username
+     * @apiSuccess {string} cloudVersion The version of the SUPLA Cloud
+     * @apiSuccess {string} apiVersion The requsted version of SUPLA Cloud API
+     * @apiSuccess {string[]} supportedApiVersions List of SUPLA Cloud API versions that is supported by the server and can be chosen with
+     * `X-Accept-Version` header
+     * @apiSuccessExample Success
+     * {"address":"supla.org","time":"2017-11-03T10:47:29+01:00","timezone":{"name":"Europe/Berlin","offset":3600},
+     * "username":"supler@supla.org","cloudVersion":"2.2.2","apiVersion":"2.2","supportedApiVersions":["2.0","2.1","2.2"]}
+     */
     /**
      * @Get("/server-info")
      */
@@ -39,9 +63,9 @@ class ApiServerController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $user = $this->getUser();
             $result['username'] = $user->getUsername();
-            $result['cloud_version'] = $this->container->getParameter('supla.version');
-            $result['api_version'] = ApiVersions::fromRequest($request)->getValue();
-            $result['supported_api_versions'] = array_values(array_unique(ApiVersions::toArray()));
+            $result['cloudVersion'] = $this->container->getParameter('supla.version');
+            $result['apiVersion'] = ApiVersions::fromRequest($request)->getValue();
+            $result['supportedApiVersions'] = array_values(array_unique(ApiVersions::toArray()));
         } else {
             $result = ['data' => $result];
         }

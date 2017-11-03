@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @method static ApiVersions V2_0()
  * @method static ApiVersions V2_1()
  * @method static ApiVersions V2_2()
+ * @method static ApiVersions DEFAULT()
  */
 class ApiVersions extends Enum {
     const V2_0 = '2.0';
@@ -30,7 +31,8 @@ class ApiVersions extends Enum {
             $actualVersion = self::DEFAULT;
         }
         if (!self::isValid($actualVersion)) {
-            throw new HttpException(Response::HTTP_BAD_REQUEST,
+            throw new HttpException(
+                Response::HTTP_BAD_REQUEST,
                 "Invalid API version requested: $actualVersion. Supported versions: "
                 . implode(', ', array_unique(self::toArray()))
             );
