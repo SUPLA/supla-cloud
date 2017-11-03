@@ -38,7 +38,7 @@ class ApiVersionsTest extends \PHPUnit_Framework_TestCase {
     public function testExceptionIfInvalidVersion() {
         $this->expectExceptionMessage('Invalid API version');
         $this->expectExceptionMessage('ala');
-        $this->expectExceptionMessage('2.2');
+        $this->expectExceptionMessage('2.2.0');
         ApiVersions::fromRequest($this->requestMock('ala'));
     }
 
@@ -46,6 +46,13 @@ class ApiVersionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.2')));
         $this->assertTrue(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.1')));
         $this->assertFalse(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.0')));
+    }
+
+    public function testObtainingVersionFromString() {
+        $this->assertEquals(ApiVersions::V2_2(), ApiVersions::fromString('2.2'));
+        $this->assertEquals(ApiVersions::V2_2(), ApiVersions::fromString('v2.2'));
+        $this->assertEquals(ApiVersions::V2_2(), ApiVersions::fromString('2.2.0'));
+        $this->assertEquals(ApiVersions::V2_2(), ApiVersions::fromString('v2.2.0'));
     }
 
     private function requestMock(string $version): Request {
