@@ -53,6 +53,9 @@ DirectoryIndex app.php
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
+    RewriteRule ^api-docs/?$ api-docs/index.html [L]
+    RewriteRule ^api-docs - [L]
+
     # Rewrite all other queries to the front controller.
     RewriteRule ^ %{ENV:BASE}/app.php [L]
 </IfModule>

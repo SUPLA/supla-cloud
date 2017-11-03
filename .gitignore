@@ -24,3 +24,4 @@ release/
 # Files built by webpack
 app/config/config_build.yml
 web/assets/dist/
+web/api-docs/

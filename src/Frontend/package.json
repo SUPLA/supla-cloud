@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "apidocs": "apidoc -i ../SuplaApiBundle/Controller -i ../SuplaApiBundle/Resources/old-docs -o ../../apidocs",
-    "build": "rm -fr ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules",
+    "build": "rm -fr ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules && npm run apidocs",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --output-public-path http://localhost:25787/assets/dist",
     "lint": "eslint --ext js,vue src",
     "release": "node scripts/release.js",
