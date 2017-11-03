@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -31,7 +31,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     private $application;
 
     public function prepareIntegrationTest() {
-        $client = self::createClient();
+        $client = self::createClient(['debug' => false]);
         $this->container = $client->getContainer();
         $kernel = $client->getKernel();
         $this->application = new Application($kernel);
@@ -53,7 +53,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function createAuthenticatedClient($username = 'supler@supla.org', string $password = 'supla123'): Client {
-        $client = self::createClient([], [
+        $client = self::createClient(['debug' => false], [
             'PHP_AUTH_USER' => $username,
             'PHP_AUTH_PW' => $password,
             'HTTPS' => true,

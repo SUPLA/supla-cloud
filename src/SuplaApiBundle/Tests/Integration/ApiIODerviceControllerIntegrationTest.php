@@ -78,8 +78,10 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/web-api/iodevices?include=turtles,channels,unicorns', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
-        $this->assertStatusCode(400, $response); // TODO exception
+        $this->assertStatusCode(400, $response);
         $content = json_decode($response->getContent());
-
+        $this->assertContains('turtles', $content->message);
+        $this->assertContains('unicorns', $content->message);
+        $this->assertNotContains('channels', $content->message);
     }
 }
