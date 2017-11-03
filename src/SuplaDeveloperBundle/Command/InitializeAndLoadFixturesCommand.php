@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -31,6 +31,7 @@ class InitializeAndLoadFixturesCommand extends Command {
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
+        $this->runCommand('doctrine:database:create', ['--if-not-exists' => true, '--no-interaction' => true], $output);
         $this->runCommand('doctrine:schema:drop', ['--force' => true, '--no-interaction' => true], $output);
         $this->runCommand('doctrine:schema:create', ['--no-interaction' => true], $output);
         $this->runCommand('doctrine:fixtures:load', ['--no-interaction' => true, '--append' => true], $output);
