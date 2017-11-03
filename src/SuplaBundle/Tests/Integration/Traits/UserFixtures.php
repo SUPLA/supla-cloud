@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -72,6 +72,7 @@ trait UserFixtures {
         $device = new IODevice();
         $fieldSetter->call($device, 'guid', rand(0, 9999999));
         $fieldSetter->call($device, 'regDate', new \DateTime());
+        $fieldSetter->call($device, 'lastConnected', new \DateTime());
         $fieldSetter->call($device, 'regIpv4', rand(0, 9999999));
         $fieldSetter->call($device, 'softwareVersion', '2.' . rand(0, 50));
         $fieldSetter->call($device, 'protocolVersion', '2.' . rand(0, 50));

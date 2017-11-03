@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -21,6 +21,16 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @api {ENTITY} Location Location
+ * @apiGroup Entities
+ * @apiVersion 2.2.0
+ * @apiParam {Number} id Location ID
+ * @apiParam {String} caption Custom location caption (user entered).
+ * @apiParam {Boolean} enabled Whether the location is enabled or not.
+ * @apiParamExample {json} Example Location
+ * {"id": 123, "caption": "My Location", "enabled": true}
+ */
 class ApiLocationController extends RestController {
 
     protected function getLocations() {

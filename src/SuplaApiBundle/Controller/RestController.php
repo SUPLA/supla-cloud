@@ -17,9 +17,14 @@
 
 namespace SuplaApiBundle\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\View\View;
 use SuplaApiBundle\Entity\ApiUser;
 use SuplaBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Each entity controller must extends this class.
@@ -40,5 +45,20 @@ abstract class RestController extends FOSRestController {
         } else {
             return $user;
         }
+    }
+
+    protected function setSerializationGroups(View $view, Request $request, array $allowedGroups): Context {
+        $context = new Context();
+        $include = $request->get('include', '');
+        $requestedGroups = array_map('trim', explode(',', $include));
+        $filteredGroups = array_intersect($requestedGroups, $allowedGroups);
+        if (count($filteredGroups) < count($requestedGroups)) {
+            $notSupported = implode(', ', array_diff($requestedGroups, $filteredGroups));
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'The following includes are not supported: ' . $notSupported);
+        }
+        $filteredGroups[] = 'basic';
+        $context->setGroups(array_unique($filteredGroups));
+        $view->setContext($context);
+        return $context;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -18,6 +18,8 @@
 namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\View;
+use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
@@ -25,6 +27,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/**
+ * @api {ENTITY} IODevice IODevice
+ * @apiGroup Entities
+ * @apiVersion 2.2.0
+ * @apiParam {Number} id IO Device ID
+ * @apiParam {String} guid IO Device GUID
+ * @apiParam {String} name IO Device name
+ * @apiParam {[Location](#api-Entities-EntityLocation)} location IO Device Location
+ * @apiParam {Boolean} enabled Whether the IO Device is enabled or not.
+ * @apiParam {String} comment Custom IO Device comment (user entered).
+ * @apiParam {String} softwareVersion The version of a firmware installed in the IO device.
+ * @apiParamExample {json} Example IO Device
+ * {"id": 123, "guid": "22ca8686bfa31a2ae5f55a7f60009e14", "location":{"id": 123, "caption": "My Location", "enabled": true},
+ * "enabled": true, "comment": "My IO Device", "softwareVersion": "2.5.3"}
+ */
 class ApiIODeviceController extends RestController {
 
     protected function ioDeviceById($devid) {
@@ -41,56 +58,65 @@ class ApiIODeviceController extends RestController {
         return $iodevice;
     }
 
-    protected function getIODevices() {
-
-        $result = [];
-        $parent = $this->getParentUser();
-
-        if ($parent !== null) {
-            $iodev_man = $this->container->get('iodevice_manager');
-
-            foreach ($parent->getIODevices() as $device) {
-                $channels = [];
-
-                foreach ($iodev_man->getChannels($device) as $channel) {
-                    $channels[] = [
-                        'id' => $channel->getId(),
-                        'chnnel_number' => $channel->getChannelNumber(),
-                        'caption' => $channel->getCaption(),
-                        'type' => ['name' => SuplaConst::typeStr[$channel->getType()],
-                            'id' => $channel->getType()],
-                        'function' => ['name' => SuplaConst::fncStr[$channel->getFunction()],
-                            'id' => $channel->getFunction()],
-                    ];
-                }
-
-                $result[] = [
-                    'id' => $device->getId(),
-                    'location_id' => $device->getLocation()->getId(),
-                    'enabled' => $device->getEnabled(),
-                    'name' => $device->getName(),
-                    'comment' => $device->getComment(),
-                    'registration' => ['date' => $device->getRegDate()->getTimestamp(),
-                        'ip_v4' => long2ip($device->getRegIpv4())],
-
-                    'last_connected' => ['date' => $device->getLastConnected()->getTimestamp(),
-                        'ip_v4' => long2ip($device->getLastIpv4())],
-                    'guid' => $device->getGUIDString(),
-                    'software_version' => $device->getSoftwareVersion(),
-                    'protocol_version' => $device->getProtocolVersion(),
-                    'channels' => $channels,
-                ];
-            }
-        }
-
-        return ['iodevices' => $result];
-    }
 
     /**
-     * @Rest\Get("/iodevices")
+     * @api {get} /iodevices List
+     * @apiDescription Get list of devices without their state.
+     * @apiGroup IODevices
+     * @apiVersion 2.2.0
+     * @apiSuccess {[IODevice[]](#api-Entities-EntityIodevice)} - List of IO devices
      */
-    public function getIOdevicesAction(Request $request) {
-        return $this->handleView($this->view($this->getIODevices(), Response::HTTP_OK));
+    public function getIodevicesAction(Request $request) {
+        $result = [];
+        $user = $this->getUser();
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            $result = $user->getIODevices();
+        } else {
+            if ($user !== null) {
+                $iodev_man = $this->container->get('iodevice_manager');
+                foreach ($user->getIODevices() as $device) {
+                    $channels = [];
+                    foreach ($iodev_man->getChannels($device) as $channel) {
+                        $channels[] = [
+                            'id' => $channel->getId(),
+                            'chnnel_number' => $channel->getChannelNumber(),
+                            'caption' => $channel->getCaption(),
+                            'type' => [
+                                'name' => SuplaConst::typeStr[$channel->getType()],
+                                'id' => $channel->getType(),
+                            ],
+                            'function' => [
+                                'name' => SuplaConst::fncStr[$channel->getFunction()],
+                                'id' => $channel->getFunction(),
+                            ],
+                        ];
+                    }
+                    $result[] = [
+                        'id' => $device->getId(),
+                        'location_id' => $device->getLocation()->getId(),
+                        'enabled' => $device->getEnabled(),
+                        'name' => $device->getName(),
+                        'comment' => $device->getComment(),
+                        'registration' => [
+                            'date' => $device->getRegDate()->getTimestamp(),
+                            'ip_v4' => long2ip($device->getRegIpv4()),
+                        ],
+                        'last_connected' => [
+                            'date' => $device->getLastConnected()->getTimestamp(),
+                            'ip_v4' => long2ip($device->getLastIpv4()),
+                        ],
+                        'guid' => $device->getGUIDString(),
+                        'software_version' => $device->getSoftwareVersion(),
+                        'protocol_version' => $device->getProtocolVersion(),
+                        'channels' => $channels,
+                    ];
+                }
+            }
+            $result = ['iodevices' => $result];
+        }
+        $view = $this->view($result, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['channels']);
+        return $view;
     }
 
     /**
@@ -103,46 +129,44 @@ class ApiIODeviceController extends RestController {
         $connected = false;
 
         $iodev_man = $this->container->get('iodevice_manager');
-        
+
         if ($iodevice->getEnabled()) {
             $enabled = true;
             $cids = (new SuplaServerReal())->checkDevicesConnection($this->getParentUser()->getId(), [$devid]);
             $connected = in_array($devid, $cids);
         }
 
-
         $channels = [];
-        
+
         foreach ($iodev_man->getChannels($iodevice) as $channel) {
             $channels[] = [
-                    'id' => $channel->getId(),
-                    'chnnel_number' => $channel->getChannelNumber(),
-                    'caption' => $channel->getCaption(),
-                    'type' => ['name' => SuplaConst::typeStr[$channel->getType()],
-                            'id' => $channel->getType()],
-                    'function' => ['name' => SuplaConst::fncStr[$channel->getFunction()],
-                            'id' => $channel->getFunction()],
+                'id' => $channel->getId(),
+                'chnnel_number' => $channel->getChannelNumber(),
+                'caption' => $channel->getCaption(),
+                'type' => ['name' => SuplaConst::typeStr[$channel->getType()],
+                    'id' => $channel->getType()],
+                'function' => ['name' => SuplaConst::fncStr[$channel->getFunction()],
+                    'id' => $channel->getFunction()],
             ];
         }
-        
-        $result[] = [
-                'id' => $iodevice->getId(),
-                'location_id' => $iodevice->getLocation()->getId(),
-                'enabled' => $enabled,
-                'connected' => $connected,
-                'name' => $iodevice->getName(),
-                'comment' => $iodevice->getComment(),
-                'registration' => ['date' => $iodevice->getRegDate()->getTimestamp(),
-                        'ip_v4' => long2ip($iodevice->getRegIpv4())],
-                
-                'last_connected' => ['date' => $iodevice->getLastConnected()->getTimestamp(),
-                        'ip_v4' => long2ip($iodevice->getLastIpv4())],
-                'guid' => $iodevice->getGUIDString(),
-                'software_version' => $iodevice->getSoftwareVersion(),
-                'protocol_version' => $iodevice->getProtocolVersion(),
-                'channels' => $channels,
-        ];
 
+        $result[] = [
+            'id' => $iodevice->getId(),
+            'location_id' => $iodevice->getLocation()->getId(),
+            'enabled' => $enabled,
+            'connected' => $connected,
+            'name' => $iodevice->getName(),
+            'comment' => $iodevice->getComment(),
+            'registration' => ['date' => $iodevice->getRegDate()->getTimestamp(),
+                'ip_v4' => long2ip($iodevice->getRegIpv4())],
+
+            'last_connected' => ['date' => $iodevice->getLastConnected()->getTimestamp(),
+                'ip_v4' => long2ip($iodevice->getLastIpv4())],
+            'guid' => $iodevice->getGUIDString(),
+            'software_version' => $iodevice->getSoftwareVersion(),
+            'protocol_version' => $iodevice->getProtocolVersion(),
+            'channels' => $channels,
+        ];
 
         return $this->handleView($this->view($result, Response::HTTP_OK));
     }
