@@ -36,7 +36,7 @@ class ApiServerController extends RestController {
                 'offset' => $dt->getOffset(),
             ],
         ];
-        if (ApiVersions::v2_2()->isRequestedEqualOrGreaterThan($request)) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $user = $this->getUser();
             $result['username'] = $user->getUsername();
             $result['cloud_version'] = $this->container->getParameter('supla.version');

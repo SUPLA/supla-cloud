@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApiVersionsTest extends \PHPUnit_Framework_TestCase {
     public function testExtractingVersionFromRequest() {
-        $this->assertEquals(ApiVersions::v2_2(), ApiVersions::fromRequest($this->requestMock('2.2')));
+        $this->assertEquals(ApiVersions::V2_2(), ApiVersions::fromRequest($this->requestMock('2.2')));
     }
 
     public function testDefaultVersionIfParam() {
@@ -43,9 +43,9 @@ class ApiVersionsTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testIsRequestedEqualOrGreaterThan() {
-        $this->assertTrue(ApiVersions::v2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.2')));
-        $this->assertTrue(ApiVersions::v2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.1')));
-        $this->assertFalse(ApiVersions::v2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.0')));
+        $this->assertTrue(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.2')));
+        $this->assertTrue(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.1')));
+        $this->assertFalse(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.0')));
     }
 
     private function requestMock(string $version): Request {

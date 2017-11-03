@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -20,6 +20,7 @@ namespace SuplaApiBundle\Tests\Integration\Traits;
 use Assert\Assertion;
 use Psr\Container\ContainerInterface;
 use SuplaApiBundle\Entity\ApiUser;
+use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
@@ -76,5 +77,9 @@ trait SuplaApiHelper {
         /** @var SuplaServerMockCommandsCollector $suplaCommandsCollector */
         $suplaCommandsCollector = $profile->getCollector(SuplaServerMockCommandsCollector::NAME);
         return $suplaCommandsCollector->getCommands();
+    }
+
+    public function versionHeader(ApiVersions $version): array {
+        return ['HTTP_X_ACCEPT_VERSION' => $version->getValue()];
     }
 }

@@ -66,9 +66,9 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse(property_exists($content->data, 'username')); // added in v2.2
     }
 
-    public function testGettingServerInfoAsOauthUserForVersion2_2() {
+    public function testGettingServerInfoAsOauthUserForVersion22() {
         $client = $this->createAuthenticatedApiClient($this->user);
-        $client->request('GET', '/api/server-info', [], [], ['HTTP_X_ACCEPT_VERSION' => ApiVersions::v2_2]);
+        $client->request('GET', '/api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $content = json_decode($response->getContent());
@@ -77,9 +77,9 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEmpty($content->time);
     }
 
-    public function testGettingServerInfoAsWebUserForVersion2_2() {
+    public function testGettingServerInfoAsWebUserForVersion22() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/server-info', [], [], ['HTTP_X_ACCEPT_VERSION' => ApiVersions::v2_2]);
+        $client->request('GET', '/web-api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
