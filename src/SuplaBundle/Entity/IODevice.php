@@ -42,7 +42,6 @@ class IODevice {
 
     /**
      * @ORM\Column(name="guid", type="binary", length=16, nullable=false, unique=true)
-     * @Groups({"basic"})
      */
     private $guid;
 
@@ -208,7 +207,10 @@ class IODevice {
         return $guid;
     }
 
-    public function getGUIDString() {
+    /**
+     * @Groups({"basic"})
+     */
+    public function getGUIDString(): string {
         $guid = $this->getGUID();
 
         return strtoupper(substr($guid, 0, 8) . '-'

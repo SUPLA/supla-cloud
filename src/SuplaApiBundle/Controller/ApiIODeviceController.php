@@ -21,6 +21,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\View;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Model\IODeviceManager;
+use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,21 +45,23 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * "enabled": true, "comment": "My IO Device", "softwareVersion": "2.5.3"}
  */
 class ApiIODeviceController extends RestController {
+    use SuplaServerAware;
+
+    /** @var IODeviceManager */
+    private $ioDeviceManager;
+
+    public function __construct(IODeviceManager $ioDeviceManager) {
+        $this->ioDeviceManager = $ioDeviceManager;
+    }
 
     protected function ioDeviceById($devid) {
-
         $devid = intval($devid, 0);
-        $iodev_man = $this->container->get('iodevice_manager');
-
-        $iodevice = $iodev_man->ioDeviceById($devid, $this->getParentUser());
-
+        $iodevice = $this->ioDeviceManager->ioDeviceById($devid, $this->getUser());
         if (!($iodevice instanceof IODevice)) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'The device could not be found');
         }
-
         return $iodevice;
     }
-
 
     /**
      * @api {get} /iodevices List
@@ -91,10 +95,9 @@ class ApiIODeviceController extends RestController {
             $result = $user->getIODevices();
         } else {
             if ($user !== null) {
-                $iodev_man = $this->container->get('iodevice_manager');
                 foreach ($user->getIODevices() as $device) {
                     $channels = [];
-                    foreach ($iodev_man->getChannels($device) as $channel) {
+                    foreach ($this->ioDeviceManager->getChannels($device) as $channel) {
                         $channels[] = [
                             'id' => $channel->getId(),
                             'chnnel_number' => $channel->getChannelNumber(),
@@ -146,25 +149,27 @@ class ApiIODeviceController extends RestController {
         $enabled = false;
         $connected = false;
 
-        $iodev_man = $this->container->get('iodevice_manager');
-
         if ($iodevice->getEnabled()) {
             $enabled = true;
-            $cids = (new SuplaServerReal())->checkDevicesConnection($this->getParentUser()->getId(), [$devid]);
+            $cids = $this->suplaServer->checkDevicesConnection($this->getUser()->getId(), [$devid]);
             $connected = in_array($devid, $cids);
         }
 
         $channels = [];
 
-        foreach ($iodev_man->getChannels($iodevice) as $channel) {
+        foreach ($this->ioDeviceManager->getChannels($iodevice) as $channel) {
             $channels[] = [
                 'id' => $channel->getId(),
                 'chnnel_number' => $channel->getChannelNumber(),
                 'caption' => $channel->getCaption(),
-                'type' => ['name' => SuplaConst::typeStr[$channel->getType()],
-                    'id' => $channel->getType()],
-                'function' => ['name' => SuplaConst::fncStr[$channel->getFunction()],
-                    'id' => $channel->getFunction()],
+                'type' => [
+                    'name' => SuplaConst::typeStr[$channel->getType()],
+                    'id' => $channel->getType(),
+                ],
+                'function' => [
+                    'name' => SuplaConst::fncStr[$channel->getFunction()],
+                    'id' => $channel->getFunction(),
+                ],
             ];
         }
 
@@ -175,17 +180,20 @@ class ApiIODeviceController extends RestController {
             'connected' => $connected,
             'name' => $iodevice->getName(),
             'comment' => $iodevice->getComment(),
-            'registration' => ['date' => $iodevice->getRegDate()->getTimestamp(),
-                'ip_v4' => long2ip($iodevice->getRegIpv4())],
-
-            'last_connected' => ['date' => $iodevice->getLastConnected()->getTimestamp(),
-                'ip_v4' => long2ip($iodevice->getLastIpv4())],
+            'registration' => [
+                'date' => $iodevice->getRegDate()->getTimestamp(),
+                'ip_v4' => long2ip($iodevice->getRegIpv4()),
+            ],
+            'last_connected' => [
+                'date' => $iodevice->getLastConnected()->getTimestamp(),
+                'ip_v4' => long2ip($iodevice->getLastIpv4()),
+            ],
             'guid' => $iodevice->getGUIDString(),
             'software_version' => $iodevice->getSoftwareVersion(),
             'protocol_version' => $iodevice->getProtocolVersion(),
             'channels' => $channels,
         ];
 
-        return $this->handleView($this->view($result, Response::HTTP_OK));
+        return $this->view($result, Response::HTTP_OK);
     }
 }
