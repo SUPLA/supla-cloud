@@ -59,6 +59,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $content);
         $this->assertEquals($this->device->getId(), $content[0]->id);
         $this->assertEquals($this->device->getSoftwareVersion(), $content[0]->softwareVersion);
+        $this->assertFalse(property_exists($content[0], 'location'));
         $this->assertFalse(property_exists($content[0], 'channels'));
     }
 
@@ -70,8 +71,22 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent());
         $this->assertCount(1, $content);
         $this->assertEquals($this->device->getId(), $content[0]->id);
+        $this->assertFalse(property_exists($content[0], 'location'));
         $this->assertTrue(property_exists($content[0], 'channels'));
         $this->assertCount(5, $content[0]->channels);
+    }
+
+    public function testGettingDevicesWithLocationAndOriginalLocation22() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/web-api/iodevices?include=location,originalLocation', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent());
+        $this->assertCount(1, $content);
+        $this->assertEquals($this->device->getId(), $content[0]->id);
+        $this->assertTrue(property_exists($content[0], 'location'));
+        $this->assertTrue(property_exists($content[0], 'originalLocation'));
+        $this->assertFalse(property_exists($content[0], 'channels'));
     }
 
     public function testPassingWrongIncludeParam() {

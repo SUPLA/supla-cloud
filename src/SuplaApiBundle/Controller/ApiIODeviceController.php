@@ -64,7 +64,25 @@ class ApiIODeviceController extends RestController {
      * @apiDescription Get list of devices without their state.
      * @apiGroup IODevices
      * @apiVersion 2.2.0
-     * @apiSuccess {[IODevice[]](#api-Entities-EntityIodevice)} - List of IO devices
+     * @apiParam {string} include Comma-separated list of what to fetch for every IODevice.
+     * Available options: `channels`, `location`, `originalLocation`.
+     * @apiParamExample {GET} GET param to fetch IODevices' channels and location
+     * include=channels,location
+     * @apiSuccessExample Success
+     * [{"id":1,"guid":"34393534343239","name":"ZAMEL-ROW-01","enabled":true,"comment":"Light","regDate":"2017-11-05T10:04:49+00:00",
+     * "regIpv4":2909766,"lastConnected":"2017-11-05T10:04:49+00:00","lastIpv4":2909766,"softwareVersion":"2.26"}]
+     * @apiSuccessExample Success with include=channels
+     * [{"id":1,"guid":"33353535383237","name":null,"channels":[
+     * {"id":1,"channelNumber":0,"caption":null,"type":2900,"function":140,"hidden":false},
+     * {"id":2,"channelNumber":1,"caption":null,"type":2900,"function":90,"hidden":false}],
+     * "enabled":true,"comment":null,"regDate":"2017-11-05T10:09:21+00:00","regIpv4":7280408,"lastConnected":"2017-11-05T10:09:21+00:00",
+     * "lastIpv4":null,"softwareVersion":"2.4"}]
+     * @apiSuccessExample Success with include=location,originalLocation
+     * [{"id":1,"guid":"36343639393438","name":null,
+     * "location":{"caption":"Location #2","id":2,"enabled":true},
+     * "originalLocation":{"caption":"Location #1","id":1,"enabled":true},
+     * "enabled":true,"comment":null,"regDate":"2017-11-05T10:22:04+00:00","regIpv4":3202987,
+     * "lastConnected":"2017-11-05T10:22:04+00:00","lastIpv4":null,"softwareVersion":"2.6"}]
      */
     public function getIodevicesAction(Request $request) {
         $result = [];
@@ -115,7 +133,7 @@ class ApiIODeviceController extends RestController {
             $result = ['iodevices' => $result];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels']);
+        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation']);
         return $view;
     }
 

@@ -23,7 +23,6 @@ services:
     public: false
     tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
 
-
 swiftmailer:
   disable_delivery: true
 

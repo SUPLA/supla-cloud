@@ -36,33 +36,34 @@ class IODevice {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $id;
 
     /**
      * @ORM\Column(name="guid", type="binary", length=16, nullable=false, unique=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $guid;
 
     /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
-     * @Groups({"basic"})
+     * @Groups({"location"})
      */
     private $location;
 
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices_ol")
      * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
+     * @Groups({"originalLocation"})
      */
     private $originalLocation;
 
@@ -81,41 +82,45 @@ class IODevice {
 
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $enabled = true;
 
     /**
      * @ORM\Column(name="comment", type="string", length=200, nullable=true)
      * @Assert\Length(max=200)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $comment;
 
     /**
      * @ORM\Column(name="reg_date", type="utcdatetime")
      * @Assert\NotBlank()
+     * @Groups({"basic"})
      */
     private $regDate;
 
     /**
      * @ORM\Column(name="reg_ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @Groups({"basic"})
      */
     private $regIpv4;
 
     /**
      * @ORM\Column(name="last_connected", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
      */
     private $lastConnected;
 
     /**
      * @ORM\Column(name="last_ipv4", type="integer", nullable=true)
+     * @Groups({"basic"})
      */
     private $lastIpv4;
 
     /**
      * @ORM\Column(name="software_version", type="string", length=10, nullable=false, options={"unsigned"=true})
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $softwareVersion;
 
