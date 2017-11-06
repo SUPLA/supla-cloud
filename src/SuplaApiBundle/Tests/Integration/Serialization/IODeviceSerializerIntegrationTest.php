@@ -15,14 +15,13 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration;
+namespace SuplaApiBundle\Tests\Integration\Serializer;
 
-use JMS\Serializer\Serializer;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
@@ -50,6 +49,16 @@ class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
         $deviceJson = json_decode($serializedDevice, true);
         $this->assertEquals($this->device->getId(), $deviceJson['id']);
         $this->assertTrue(isset($deviceJson['location']));
+        $this->assertFalse(isset($deviceJson['connected']));
+    }
+
+    public function testSeralizingIODeviceWithConnectedStatus() {
+//        $this->container->get('security.token_storage')->setToken(new UsernamePasswordToken($this->user->getUsername(), null, 'main'));
+        $this->container->get('security.token_storage')->setToken(new UsernamePasswordToken($this->user->getUsername(), null, 'main'));
+        $serializedDevice = $this->container->get('serializer')->serialize($this->device, 'json', ['groups' => ['basic', 'connected']]);
+        $deviceJson = json_decode($serializedDevice, true);
+        $this->assertEquals($this->device->getId(), $deviceJson['id']);
+        $this->assertTrue(isset($deviceJson['connected']));
     }
 
 }

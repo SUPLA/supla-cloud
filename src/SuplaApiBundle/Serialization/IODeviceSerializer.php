@@ -17,6 +17,8 @@
 
 namespace SuplaApiBundle\Serialization;
 
+use Assert\Assertion;
+use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -27,6 +29,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class IODeviceSerializer extends ObjectNormalizer {
     use SuplaServerAware;
+    use CurrentUserAware;
 
     public function __construct(
         ClassMetadataFactoryInterface $classMetadataFactory = null,
@@ -37,10 +40,16 @@ class IODeviceSerializer extends ObjectNormalizer {
         parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
     }
 
+    /**
+     * @param IODevice $ioDevice
+     * @inheritdoc
+     */
     public function normalize($ioDevice, $format = null, array $context = []) {
         $normalized = parent::normalize($ioDevice, $format, $context);
-        if (isset($normalized['connected'])) {
-            $normalized['connected'] = $this->isDeviceConnected($ioDevice);
+        if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
+            if (in_array('connected', $context[self::GROUPS])) {
+                $normalized['connected'] = $this->isDeviceConnected($ioDevice);
+            }
         }
         return $normalized;
     }
@@ -49,7 +58,13 @@ class IODeviceSerializer extends ObjectNormalizer {
         return $entity instanceof IODevice;
     }
 
-    private function isDeviceConnected($ioDevice) {
-        return false;
+    private function isDeviceConnected(IODevice $ioDevice): bool {
+        if (!$ioDevice->getEnabled()) {
+            return false;
+        }
+        $user = $this->getCurrentUser();
+        Assertion::notNull($user, 'User not authenticated');
+        $connectedIds = $this->suplaServer->checkDevicesConnection($user->getId(), [$ioDevice->getId()]);
+        return in_array($ioDevice->getId(), $connectedIds);
     }
 }
