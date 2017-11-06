@@ -18,13 +18,11 @@
 namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\View;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Model\IODeviceManager;
-use SuplaBundle\Supla\SuplaServerAware;
-use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -69,7 +67,7 @@ class ApiIODeviceController extends RestController {
      * @apiGroup IODevices
      * @apiVersion 2.2.0
      * @apiParam {string} include Comma-separated list of what to fetch for every IODevice.
-     * Available options: `channels`, `location`, `originalLocation`.
+     * Available options: `channels`, `connected`, `location`, `originalLocation`.
      * @apiParamExample {GET} GET param to fetch IODevices' channels and location
      * include=channels,location
      * @apiSuccessExample Success
@@ -136,7 +134,7 @@ class ApiIODeviceController extends RestController {
             $result = ['iodevices' => $result];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation']);
+        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected']);
         return $view;
     }
 

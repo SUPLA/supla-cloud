@@ -87,6 +87,21 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue(property_exists($content[0], 'location'));
         $this->assertTrue(property_exists($content[0], 'originalLocation'));
         $this->assertFalse(property_exists($content[0], 'channels'));
+        $this->assertFalse(property_exists($content[0], 'connected'));
+    }
+
+    public function testGettingDevicesWithConnectedStatus22() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/web-api/iodevices?include=connected', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent());
+        $this->assertCount(1, $content);
+        $this->assertEquals($this->device->getId(), $content[0]->id);
+        $this->assertFalse(property_exists($content[0], 'location'));
+        $this->assertFalse(property_exists($content[0], 'originalLocation'));
+        $this->assertFalse(property_exists($content[0], 'channels'));
+        $this->assertTrue(property_exists($content[0], 'connected'));
     }
 
     public function testPassingWrongIncludeParam() {
