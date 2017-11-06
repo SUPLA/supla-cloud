@@ -25,21 +25,6 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @api {ENTITY} IODevice IODevice
- * @apiGroup Entities
- * @apiVersion 2.2.0
- * @apiParam {Number} id IO Device ID
- * @apiParam {String} guid IO Device GUID
- * @apiParam {String} name IO Device name
- * @apiParam {[Location](#api-Entities-EntityLocation)} location IO Device Location
- * @apiParam {Boolean} enabled Whether the IO Device is enabled or not.
- * @apiParam {String} comment Custom IO Device comment (user entered).
- * @apiParam {String} softwareVersion The version of a firmware installed in the IO device.
- * @apiParamExample {json} Example IO Device
- * {"id": 123, "guid": "22ca8686bfa31a2ae5f55a7f60009e14", "location":{"id": 123, "caption": "My Location", "enabled": true},
- * "enabled": true, "comment": "My IO Device", "softwareVersion": "2.5.3"}
- */
 class ApiIODeviceController extends RestController {
     use SuplaServerAware;
 
