@@ -21,40 +21,4 @@ Adjust the configuration by editing the `app/config/parameters.yml` file.
 Application is written with [Symfony](https://symfony.com/) and [Doctrine](http://www.doctrine-project.org/) on backend. 
 Frontend uses [jQuery](https://jquery.com/) and [Vue.js](https://vuejs.org/).
 
-You need to have [composer](https://getcomposer.org/) and [NodeJS](https://nodejs.org/) installed.
-
-### Downloading dependencies
-```
-composer install
-```
-
-### Populating database with sample data
-
-Once you download dev dependencies, you may run the following command to
-drop, create the database and populate it with sample data.
-
-```
-php bin/console supla:dev:dropAndLoadFixtures -e dev
-```
-The user created by the fixtures is `user@supla.org` and the password is `pass`.
-
-### Downloading frontend dependencies and building the sources
-```
-composer run-script webpack
-```
-
-The above command also generates a config file `app/config/config_dev.yml` required to run the application.
-
-### Run webpack dev-server when writing frontend code
-
-Enable application support of webpack dev server in your `app/config/parameters.yml`:
-
-```
-use_webpack_dev_server: true
-```
-
-And then run:
-
-```
-cd src/Frontend && npm run dev
-```
+See [how to install the SUPLA Cloud for development](https://github.com/SUPLA/supla-cloud/blob/master/Development.md).
