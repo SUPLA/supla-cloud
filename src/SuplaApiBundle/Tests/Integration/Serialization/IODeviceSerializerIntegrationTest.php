@@ -24,7 +24,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 
-class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
+class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
     /** @var User */

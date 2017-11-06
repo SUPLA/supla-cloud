@@ -9,6 +9,7 @@ services:
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
+  Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
 
   SuplaBundle\EventListener\LocaleListener:
     - "%kernel.default_locale%"
@@ -71,6 +72,9 @@ services:
       - "%kernel.debug%"
     tags:
       - { name: kernel.event_subscriber }
+
+  SuplaApiBundle\Serialization\:
+    resource: '../../src/SuplaApiBundle/Serialization'
 
   SuplaApiBundle\EventListener\IODeviceConnectedSerializationListener:
     tags:
