@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -176,7 +176,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"})
      **/
     private $schedules;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="user", cascade={"persist"})
      **/
@@ -414,6 +414,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->locations;
     }
 
+    /** @return IODevice[] */
     public function getIODevices() {
         return $this->iodevices;
     }

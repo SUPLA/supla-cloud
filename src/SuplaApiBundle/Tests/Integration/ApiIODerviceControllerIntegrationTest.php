@@ -34,7 +34,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
     private $device;
 
     protected function setUp() {
-        $this->user = $this->createConfirmedUser();
+        $this->user = $this->createConfirmedUserWithApiAccess();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDeviceFull($location);
     }
@@ -113,5 +113,38 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('turtles', $content->message);
         $this->assertContains('unicorns', $content->message);
         $this->assertNotContains('channels', $content->message);
+    }
+
+    public function testGettingDevicesDetails() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/web-api/iodevices/' . $this->device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = current(json_decode($response->getContent(), true));
+        $this->assertEquals($this->device->getId(), $content['id']);
+    }
+
+    public function testGettingDevicesDetailsAsApiUser() {
+        $client = $this->createAuthenticatedApiClient($this->user);
+        $client->request('GET', '/api/iodevices/' . $this->device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = current(json_decode($response->getContent(), true));
+        $this->assertEquals($this->device->getId(), $content['id']);
+    }
+
+    public function test404OnGettingInvalidIoDevice() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/web-api/iodevices/123245');
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+    }
+
+    public function test403OnGettingDeviceOfAnotherUser() {
+        $user = $this->createConfirmedUser('another@supla.org');
+        $client = $this->createAuthenticatedClient($user->getUsername());
+        $client->request('GET', '/web-api/iodevices/' . $this->device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(403, $response);
     }
 }
