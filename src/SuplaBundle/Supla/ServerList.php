@@ -28,13 +28,15 @@ class ServerList {
     protected $user_manager = null;
     protected $router = null;
     protected $autodiscover = null;
+    private $suplaProtocol;
 
     public function __construct(
         Router $router,
         UserManager $user_manager,
         SuplaAutodiscover $autodiscover,
         $supla_server,
-        $supla_server_list
+        $supla_server_list,
+        $suplaProtocol
     ) {
 
         $this->router = $router;
@@ -42,6 +44,7 @@ class ServerList {
         $this->server = $supla_server;
         $this->servers = $supla_server_list;
         $this->autodiscover = $autodiscover;
+        $this->suplaProtocol = $suplaProtocol;
 
         if (count(@$servers) > 1) {
             for ($a = 0; $a < count($servers); $a++) {
@@ -120,6 +123,7 @@ class ServerList {
     public function getAuthServerForUser(Request $request, $username) {
         $result = false;
         $err = false;
+        $protocol = 'https';
 
         if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
             return $result;
@@ -127,13 +131,14 @@ class ServerList {
 
         $local = $request->getHost();
         if ($request->getPort() != 443) {
-            $local.= ":" . $request->getPort();
+            $local .= ":" . $request->getPort();
         }
 
         $user = $this->user_manager->userByEmail($username);
 
         if ($user !== null) {
             $result = $local;
+            $protocol = $this->suplaProtocol;
         } else {
             $result = $this->autodiscover->findServer($username);
         }
@@ -167,16 +172,17 @@ class ServerList {
 
         if (!$result) {
             $result = $local;
+            $protocol = $this->suplaProtocol;
         }
 
-        return 'https://' . $result;
+        return $protocol . '://' . $result;
     }
 
     public function getCreateAccountUrl(Request $request) {
 
         if (count(@$this->servers) < 2) {
             return $request->getScheme() . '://' . $request->getHost()
-            . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
+                . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
         }
 
         $avil = [];
@@ -191,7 +197,7 @@ class ServerList {
 
             if (strlen(@$server['address']) > 0) {
                 return 'https://' . $server['address']
-                . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
+                    . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
             }
         }
 

@@ -46,13 +46,14 @@ services:
 
   SuplaBundle\Supla\:
     resource: '../../src/SuplaBundle/Supla'
-    
+
   SuplaBundle\Supla\SuplaAutodiscover:
     $server: "%supla_autodiscover_server%"
-    
+
   SuplaBundle\Supla\ServerList:
     $supla_server: "%supla_server%"
     $supla_server_list: "%supla_server_list%"
+    $suplaProtocol: "%supla_protocol%"
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
     arguments:
