@@ -70,6 +70,9 @@ framework:
   validation:
     enable_annotations: true
 
+parameters:
+  supla_protocol: https
+
 supla:
   clients_registration:
     registration_active_time:

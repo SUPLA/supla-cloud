@@ -1,5 +1,5 @@
 imports:
-  - { resource: config_dev.yml }
+  - { resource: config.yml }
 
 doctrine:
   dbal:
@@ -12,7 +12,6 @@ framework:
     storage_id: session.storage.mock_file
   test: ~
 
-
 security:
   firewalls:
     main:
@@ -20,6 +19,10 @@ security:
 
 services:
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+  SuplaBundle\Supla\SuplaServerMockCommandsCollector:
+    public: false
+    tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
+
 
 swiftmailer:
   disable_delivery: true

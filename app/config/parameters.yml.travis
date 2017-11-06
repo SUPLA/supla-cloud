@@ -18,7 +18,6 @@ parameters:
   mailer_from: ~
   admin_email: ~
   supla_server: ~
-  supla_protocol: https
   supla_server_list: ~
   supla_autodiscover_server: ~
 
