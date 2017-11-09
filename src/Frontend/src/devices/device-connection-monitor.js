@@ -2,17 +2,19 @@ import {ClientAppConnectionMonitor} from "../client-apps/client-app-connection-m
 
 class DeviceConnectionMonitor extends ClientAppConnectionMonitor {
     updateKnownStates(deviceIds) {
-        return this.$http().post('ajax/serverctrl-connstate', {devids: deviceIds}).then(({body}) => {
-            if (body.states) {
-                for (let deviceId of deviceIds) {
-                    const state = body.states[+deviceId];
-                    if (state) {
-                        const connected = !!state.state;
-                        if (this.knownStates[deviceId] !== connected) {
-                            this.knownStates[deviceId] = connected;
-                            for (let callback of (this.callbacks[+deviceId] || [])) {
-                                callback(connected);
-                            }
+        const endpoint = deviceIds.length > 1 ? 'iodevices' : 'iodevices/' + deviceIds[0];
+        return this.$http().get(endpoint + '?include=connected').then(({body: deviceStates}) => {
+            if (!Array.isArray(deviceStates)) {
+                deviceStates = [deviceStates];
+            }
+            for (let deviceId of deviceIds) {
+                const state = deviceStates.find(device => device.id == deviceId);
+                if (state) {
+                    const connected = state.connected;
+                    if (this.knownStates[deviceId] !== connected) {
+                        this.knownStates[deviceId] = connected;
+                        for (let callback of (this.callbacks[+deviceId] || [])) {
+                            callback(connected);
                         }
                     }
                 }
