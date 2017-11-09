@@ -117,7 +117,7 @@
         },
         mounted() {
             if (this.scheduleId) {
-                this.$http.get('schedule/' + this.scheduleId).then(({body}) => {
+                this.$http.get('schedules/' + this.scheduleId).then(({body}) => {
                     this.loadScheduleToEdit(body.schedule);
                 });
             }

@@ -17,7 +17,10 @@
 
 namespace SuplaApiBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ScheduleAction;
 use SuplaBundle\Supla\ServerList;
 
 class ApiUserController extends FOSRestController {
@@ -40,5 +43,38 @@ class ApiUserController extends FOSRestController {
      */
     public function currentUserAction() {
         return $this->view($this->getUser(), 200);
+    }
+
+    /**
+     * @Rest\Get("users/current/schedulable-channels")
+     */
+    public function getUserSchedulableChannelsAction() {
+        $ioDeviceManager = $this->get('iodevice_manager');
+        $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
+        $channelToFunctionsMap = [];
+        foreach ($schedulableChannels as $channel) {
+            $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
+        }
+        return $this->view([
+            'userChannels' => array_map(function (IODeviceChannel $channel) use ($ioDeviceManager) {
+                return [
+                    'id' => $channel->getId(),
+                    'function' => $channel->getFunction(),
+                    'functionName' => $ioDeviceManager->channelFunctionToString($channel->getFunction()),
+                    'type' => $channel->getType(),
+                    'caption' => $channel->getCaption(),
+                    'device' => [
+                        'id' => $channel->getIoDevice()->getId(),
+                        'name' => $channel->getIoDevice()->getName(),
+                        'location' => [
+                            'id' => $channel->getIoDevice()->getLocation()->getId(),
+                            'caption' => $channel->getIoDevice()->getLocation()->getCaption(),
+                        ],
+                    ],
+                ];
+            }, $schedulableChannels),
+            'actionCaptions' => ScheduleAction::captions(),
+            'channelFunctionMap' => $channelToFunctionsMap,
+        ]);
     }
 }

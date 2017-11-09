@@ -6,7 +6,7 @@
                     <loading-dots></loading-dots>
                 </div>
                 <vuetable
-                    api-url="schedule/"
+                    api-url="web-api/schedules/"
                     data-path=""
                     pagination-path=""
                     :no-data-template="$t('Empty!')"
@@ -111,7 +111,7 @@
                 }
             },
             onRowClicked(row) {
-                window.location.href = withBaseUrl(`/schedule/${row.schedule.id}`);
+                window.location.href = withBaseUrl(`/schedules/${row.schedule.id}`);
             }
         }
     };

@@ -58,7 +58,7 @@
             };
         },
         mounted() {
-            this.$http.get('account/schedulable-channels').then(({body}) => {
+            this.$http.get('users/current/schedulable-channels').then(({body}) => {
                 if (body.userChannels.length) {
                     this.userChannels = body.userChannels;
                     this.channelFunctionMap = body.channelFunctionMap;

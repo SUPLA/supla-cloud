@@ -92,9 +92,9 @@ export const actions = {
                     dateStart: state.dateStart,
                     dateEnd: state.dateEnd
                 };
-                Vue.http.post('schedule/next-run-dates', query)
-                    .then(({body}) => {
-                        commit('updateNextRunDates', body.nextRunDates);
+                Vue.http.post('schedules/next-run-dates', query)
+                    .then(({body: nextRunDates}) => {
+                        commit('updateNextRunDates', nextRunDates);
                         if (query.timeExpression != state.timeExpression || query.dateStart != state.dateStart || query.dateEnd != state.dateEnd) {
                             dispatch('fetchNextRunDates');
                         }
@@ -109,12 +109,12 @@ export const actions = {
         commit('submit');
         let promise;
         if (state.schedule.id) {
-            promise = Vue.http.put(`schedule/${state.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), state);
+            promise = Vue.http.put(`schedules/${state.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), state);
         } else {
-            promise = Vue.http.post('schedule/create', state);
+            promise = Vue.http.post('schedules', state);
         }
         promise
-            .then(({body: schedule}) => window.location.href = withBaseUrl(`/schedule/${schedule.id}`))
+            .then(({body: schedule}) => window.location.href = withBaseUrl(`/schedules/${schedule.id}`))
             .catch(() => commit('submitFailed'));
     },
 

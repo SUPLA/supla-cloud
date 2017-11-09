@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -21,16 +21,13 @@ use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Form\Model\ChangePassword;
 use SuplaBundle\Form\Model\Registration;
 use SuplaBundle\Form\Model\ResetPassword;
 use SuplaBundle\Form\Type\RegistrationType;
 use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
-use SuplaBundle\Supla\SuplaAutodiscover;
-use SuplaBundle\EventListener\LocaleListener;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -157,7 +154,7 @@ class AccountController extends AbstractController {
 
             $autodiscover = $this->get('supla_autodiscover');
             $autodiscover->registerUser($user);
-            
+
             return $this->redirectToRoute("_account_checkemail");
         }
 
@@ -367,40 +364,6 @@ class AccountController extends AbstractController {
         } catch (\Exception $e) {
             throw new BadRequestHttpException();
         }
-    }
-
-    /**
-     * @Route("/schedulable-channels")
-     * @Method("GET")
-     */
-    public function getSchedulableChannels() {
-        $ioDeviceManager = $this->get('iodevice_manager');
-        $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
-        $channelToFunctionsMap = [];
-        foreach ($schedulableChannels as $channel) {
-            $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
-        }
-        return new JsonResponse([
-            'userChannels' => array_map(function (IODeviceChannel $channel) use ($ioDeviceManager) {
-                return [
-                    'id' => $channel->getId(),
-                    'function' => $channel->getFunction(),
-                    'functionName' => $ioDeviceManager->channelFunctionToString($channel->getFunction()),
-                    'type' => $channel->getType(),
-                    'caption' => $channel->getCaption(),
-                    'device' => [
-                        'id' => $channel->getIoDevice()->getId(),
-                        'name' => $channel->getIoDevice()->getName(),
-                        'location' => [
-                            'id' => $channel->getIoDevice()->getLocation()->getId(),
-                            'caption' => $channel->getIoDevice()->getLocation()->getCaption(),
-                        ],
-                    ],
-                ];
-            }, $schedulableChannels),
-            'actionCaptions' => ScheduleAction::captions(),
-            'channelFunctionMap' => $channelToFunctionsMap,
-        ]);
     }
 
     /**
