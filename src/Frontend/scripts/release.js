@@ -100,7 +100,6 @@ function createRequiredDirectories() {
 function copySingleRequiredFiles() {
     fs.copySync('src/.htaccess', 'release/src/.htaccess');
     fs.copySync('README.md', 'release/README.md');
-    fs.copySync('var/bootstrap.php.cache', 'release/var/bootstrap.php.cache');
     fs.copySync('var/SymfonyRequirements.php', 'release/var/SymfonyRequirements.php');
 }
 

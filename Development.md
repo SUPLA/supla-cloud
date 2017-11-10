@@ -43,6 +43,7 @@ uses mock of supla-server by default.
       (pay attention to the SUPLA Cloud path)
       ```
       <VirtualHost *:80>
+          SetEnv APPLICATION_ENV development
           DocumentRoot /var/www/supla-cloud/web
           ServerName supla.dev
       </VirtualHost>
@@ -52,6 +53,7 @@ uses mock of supla-server by default.
       (pay attention to the SUPLA Cloud path)
       ```
       <VirtualHost *:80>
+          SetEnv APPLICATION_ENV development
           DocumentRoot "C:/xampp/htdocs/supla-cloud/web"
           ServerName supla.dev
       </VirtualHost>
@@ -76,4 +78,4 @@ uses mock of supla-server by default.
 2. Tell us you are willing to help with the issue in comments.
 3. Fix the issue on a separate branch on your fork.
 4. Make a Pull Request with your work.
-5. Become a [conributor](https://github.com/SUPLA/supla-cloud/graphs/contributors) of SUPLA project!
+5. Become a [contributor](https://github.com/SUPLA/supla-cloud/graphs/contributors) of SUPLA project!
