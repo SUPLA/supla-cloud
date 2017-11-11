@@ -43,7 +43,7 @@ uses mock of supla-server by default.
       (pay attention to the SUPLA Cloud path)
       ```
       <VirtualHost *:80>
-          SetEnv APPLICATION_ENV development
+          SetEnv APPLICATION_ENV dev
           DocumentRoot /var/www/supla-cloud/web
           ServerName supla.dev
       </VirtualHost>
@@ -53,7 +53,7 @@ uses mock of supla-server by default.
       (pay attention to the SUPLA Cloud path)
       ```
       <VirtualHost *:80>
-          SetEnv APPLICATION_ENV development
+          SetEnv APPLICATION_ENV dev
           DocumentRoot "C:/xampp/htdocs/supla-cloud/web"
           ServerName supla.dev
       </VirtualHost>
