@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -37,7 +37,7 @@ class Schedule {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $id;
 
@@ -59,14 +59,14 @@ class Schedule {
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
      * @Constraints\NotNull
-     * @Groups({"basic"})
+     * @Groups({"channel", "iodevice", "location"})
      */
     private $channel;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
      * @Constraints\NotNull
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $action;
 
@@ -78,26 +78,26 @@ class Schedule {
 
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $mode;
 
     /**
      * @ORM\Column(name="date_start", type="utcdatetime", nullable=false)
      * @Constraints\NotNull()
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $dateStart;
 
     /**
      * @ORM\Column(name="date_end", type="utcdatetime", nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $dateEnd;
 
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     protected $enabled = true;
 
@@ -109,7 +109,7 @@ class Schedule {
     /**
      * @ORM\Column(name="caption", type="string", length=255, nullable=true)
      * @Constraints\Length(max=255)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $caption;
 

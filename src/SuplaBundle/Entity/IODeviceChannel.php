@@ -19,6 +19,7 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use SuplaBundle\Validator\Constraints as SuplaAssert;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -48,6 +49,7 @@ class IODeviceChannel {
     /**
      * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="channels")
      * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false)
+     * @Serializer\Groups({"iodevice", "location"})
      */
     private $iodevice;
 
@@ -109,7 +111,7 @@ class IODeviceChannel {
 
     /**
      * @ORM\Column(name="hidden", type="boolean", nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $hidden = false;
 

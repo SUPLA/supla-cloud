@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -121,7 +121,7 @@ class ScheduleManager {
         return $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
     }
 
-    public function findClosestExecutions(Schedule $schedule, $contextSize = 3) {
+    public function findClosestExecutions(Schedule $schedule, $contextSize = 3): array {
         $criteria = new \Doctrine\Common\Collections\Criteria();
         $now = $this->getNow();
         $criteria

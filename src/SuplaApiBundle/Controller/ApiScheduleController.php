@@ -27,6 +27,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiScheduleController extends RestController {
+    /**
+     * @api {get} /schedules List
+     * @apiDescription Get list of schedules.
+     * @apiGroup Schedules
+     * @apiVersion 2.2.0
+     * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
+     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`.
+     * @apiParamExample {GET} GET param to fetch IODevice's channels and location
+     * include=channel,closestExecutions
+     */
     public function getSchedulesAction(Request $request) {
         $query = new ScheduleListQuery($this->getDoctrine());
         $sort = explode('|', $request->get('sort', ''));
@@ -35,11 +45,22 @@ class ApiScheduleController extends RestController {
     }
 
     /**
+     * @api {get} /schedules/{id} Details
+     * @apiDescription Get details of schedule with `{id}` identifier.
+     * @apiGroup Schedules
+     * @apiVersion 2.2.0
+     * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
+     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`.
+     * @apiParamExample {GET} GET param to fetch IODevice's channels and location
+     * include=channel,closestExecutions
+     */
+    /**
      * @Security("user == schedule.getUser() || user.getParentUser() == schedule.getUser()")
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
-        // TODO include=closestExecutions
-        return $this->view($schedule, Response::HTTP_OK);
+        $view = $this->view($schedule, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions']);
+        return $view;
     }
 
     public function postScheduleAction(Request $request) {

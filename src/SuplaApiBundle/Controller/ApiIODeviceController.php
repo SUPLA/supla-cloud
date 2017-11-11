@@ -30,7 +30,7 @@ class ApiIODeviceController extends RestController {
 
     /**
      * @api {get} /iodevices List
-     * @apiDescription Get list of devices without their state.
+     * @apiDescription Get list of devices.
      * @apiGroup IODevices
      * @apiVersion 2.2.0
      * @apiParam {string} include Comma-separated list of what to fetch for every IODevice.
