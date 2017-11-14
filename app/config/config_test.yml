@@ -22,6 +22,14 @@ services:
   SuplaBundle\Supla\SuplaServerMockCommandsCollector:
     public: false
     tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
+  test.client:
+    class: SuplaBundle\Tests\Integration\TestClient
+    shared: false
+    arguments:
+      - '@kernel'
+      - '%test.client.parameters%'
+      - '@test.client.history'
+      - '@test.client.cookiejar'
 
 swiftmailer:
   disable_delivery: true

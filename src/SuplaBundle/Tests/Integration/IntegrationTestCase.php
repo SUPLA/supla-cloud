@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Tests\Integration;
 
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
@@ -52,7 +51,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         return $output->fetch();
     }
 
-    protected function createAuthenticatedClient($username = 'supler@supla.org', string $password = 'supla123'): Client {
+    protected function createAuthenticatedClient($username = 'supler@supla.org', string $password = 'supla123'): TestClient {
         $client = self::createClient([], [
             'PHP_AUTH_USER' => $username,
             'PHP_AUTH_PW' => $password,

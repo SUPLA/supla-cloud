@@ -38,6 +38,8 @@ fos_oauth_server:
     storage: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport
 
 fos_rest:
+  body_converter:
+    enabled: true
   routing_loader:
     default_format: json
   serializer:
@@ -63,6 +65,7 @@ framework:
   serializer:
     enable_annotations: true
     enabled: true
+    name_converter: SuplaApiBundle\Serialization\NoopNameConverter
   session:
     cookie_lifetime: 0
     handler_id: ~
@@ -77,6 +80,9 @@ framework:
 
 parameters:
   supla_protocol: https
+
+sensio_framework_extra:
+  request: { converters: true }
 
 supla:
   clients_registration:

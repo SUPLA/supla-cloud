@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration;
+namespace SuplaApiBundle\Tests\Integration\Controller;
 
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;

@@ -23,6 +23,7 @@ use SuplaApiBundle\Entity\ApiUser;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
+use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\Client;
 
@@ -63,7 +64,7 @@ trait SuplaApiHelper {
         return $apiManager->getAPIUser($user);
     }
 
-    protected function createAuthenticatedApiClient(User $user, string $password = '123'): Client {
+    protected function createAuthenticatedApiClient(User $user, string $password = '123'): TestClient {
         $token = $this->authenticateApiUser($user, $password);
         /** @var Client $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token, 'HTTPS' => true]);
