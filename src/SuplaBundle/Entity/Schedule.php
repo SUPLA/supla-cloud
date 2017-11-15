@@ -167,7 +167,8 @@ class Schedule {
         return $this->channel;
     }
 
-    public function setChannel(IODeviceChannel $channel) {
+    /** @param IODeviceChannel|null $channel */
+    public function setChannel($channel) {
         $this->channel = $channel;
     }
 

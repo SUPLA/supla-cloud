@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiScheduleController extends RestController {
     /**
+     * @apiIgnore
      * @api {get} /schedules List
      * @apiDescription Get list of schedules.
      * @apiGroup Schedules
@@ -45,6 +46,7 @@ class ApiScheduleController extends RestController {
     }
 
     /**
+     * @apiIgnore
      * @api {get} /schedules/{id} Details
      * @apiDescription Get details of schedule with `{id}` identifier.
      * @apiGroup Schedules
