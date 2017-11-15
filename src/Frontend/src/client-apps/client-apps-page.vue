@@ -85,7 +85,7 @@
             this.$http.get('client-apps')
                 .then(({body}) => this.clientApps = body)
                 .then(() => Vue.nextTick(this.calculateSearchStrings()));
-            this.$http.get('aid').then(({body}) => this.accessIds = body);
+            this.$http.get('accessids').then(({body}) => this.accessIds = body);
         },
         computed: {
             filteredClientApps() {

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -32,7 +32,7 @@ class ClientApp {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $id;
 
@@ -44,7 +44,7 @@ class ClientApp {
     /**
      * @ORM\ManyToOne(targetEntity="AccessID", inversedBy="clientApps")
      * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @Groups({"basic"})
+     * @Groups({"accessId"})
      */
     private $accessId;
 
@@ -58,37 +58,37 @@ class ClientApp {
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
      * @Assert\NotBlank
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $name;
 
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $enabled = false;
 
     /**
      * @ORM\Column(name="reg_ipv4", type="integer", nullable=true, options={"unsigned"=true})
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $regIpv4;
 
     /**
      * @ORM\Column(name="reg_date", type="utcdatetime")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $regDate;
 
     /**
      * @ORM\Column(name="last_access_ipv4", type="integer", nullable=true, options={"unsigned"=true})
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $lastAccessIpv4;
 
     /**
      * @ORM\Column(name="last_access_date", type="utcdatetime")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $lastAccessDate;
 
@@ -100,7 +100,7 @@ class ClientApp {
 
     /**
      * @ORM\Column(name="protocol_version", type="integer", nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $protocolVersion;
 
@@ -108,10 +108,10 @@ class ClientApp {
      * @ORM\Column(name="auth_key", type="string", length=64, nullable=true)
      */
     private $authKey;
-    
+
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      * @Assert\Length(max=100)
      */
     private $caption;
@@ -172,11 +172,11 @@ class ClientApp {
     public function getUser(): User {
         return $this->user;
     }
-    
+
     public function getCaption(): string {
         return empty($this->caption) ? $this->getName() : $this->caption;
     }
-    
+
     public function setCaption(string $caption) {
         $this->caption = $caption;
     }

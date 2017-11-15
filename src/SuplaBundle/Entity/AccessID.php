@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -31,7 +31,7 @@ class AccessID {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $id;
 
@@ -46,13 +46,13 @@ class AccessID {
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Assert\NotBlank()
      * @Assert\Length(min=1, max=100)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $caption;
 
     /**
      * @ORM\Column(name="enabled", type="boolean",  nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $enabled;
 

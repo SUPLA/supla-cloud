@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,7 +17,7 @@
 
 namespace SuplaApiBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations as Rest;
+use SuplaApiBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -49,10 +49,11 @@ class ApiAccessIDController extends RestController {
         return ['accessids' => $result];
     }
 
-    /**
-     * @Rest\Get("/accessids")
-     */
     public function getAccessidsAction(Request $request) {
-        return $this->handleView($this->view($this->getAccessIDS(), Response::HTTP_OK));
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            return $this->view($this->getUser()->getAccessIDS());
+        } else {
+            return $this->view($this->getAccessIDS(), Response::HTTP_OK);
+        }
     }
 }

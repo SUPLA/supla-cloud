@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -60,33 +60,29 @@ class AccessIDController extends AbstractController {
         /** @var User $user */
         $user = $this->getUser();
 
-        if ($this->expectsJsonResponse()) {
-            return $this->jsonResponse($user->getAccessIDS());
-        } else {
-            $details = '';
+        $details = '';
 
-            $id = intval($this->get('session')->get('_aid_details_lastid'));
+        $id = intval($this->get('session')->get('_aid_details_lastid'));
 
-            if ($this->getAccessIdById($id) === null && $user->getAccessIDS()->count() > 0) {
-                $id = $user->getAccessIDS()->get($user->getAccessIDS()->count() - 1)->getId();
-            }
-
-            if ($id !== null && $id !== 0) {
-                $details = $this->getAccessIdDetails($id);
-
-                if ($details === null) {
-                    $details = '';
-                }
-            }
-
-            return $this->render(
-                'SuplaBundle:AccessID:aidlist.html.twig',
-                ['accessids' => $user->getAccessIds(),
-                    'aid_selected' => $id === null ? 0 : $id,
-                    'details' => $details,
-                ]
-            );
+        if ($this->getAccessIdById($id) === null && $user->getAccessIDS()->count() > 0) {
+            $id = $user->getAccessIDS()->get($user->getAccessIDS()->count() - 1)->getId();
         }
+
+        if ($id !== null && $id !== 0) {
+            $details = $this->getAccessIdDetails($id);
+
+            if ($details === null) {
+                $details = '';
+            }
+        }
+
+        return $this->render(
+            'SuplaBundle:AccessID:aidlist.html.twig',
+            ['accessids' => $user->getAccessIds(),
+                'aid_selected' => $id === null ? 0 : $id,
+                'details' => $details,
+            ]
+        );
     }
 
     /**
