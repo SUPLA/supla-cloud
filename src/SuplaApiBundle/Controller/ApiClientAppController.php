@@ -36,7 +36,7 @@ class ApiClientAppController extends RestController {
     public function getClientAppsAction(Request $request) {
         $clientApps = $this->getUser()->getClientApps();
         $view = $this->view($clientApps, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['accessId', 'connected']); // TODO
+        $this->setSerializationGroups($view, $request, ['accessId', 'connected']);
         return $view;
     }
 

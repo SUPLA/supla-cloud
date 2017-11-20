@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,10 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
-use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Enums\ScheduleAction;
-use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
 
@@ -35,7 +32,7 @@ class IODeviceChannelGroup {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $id;
 
@@ -45,7 +42,7 @@ class IODeviceChannelGroup {
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="IODeviceChannel", mappedBy="channelGroups", cascade={"persist"})
      */
@@ -53,18 +50,17 @@ class IODeviceChannelGroup {
 
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     protected $enabled = true;
 
     /**
      * @ORM\Column(name="caption", type="string", length=255, nullable=true)
      * @Constraints\Length(max=255)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $caption;
-    
-    
+
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
      */

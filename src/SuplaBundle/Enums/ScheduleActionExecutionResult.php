@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -47,7 +47,7 @@ final class ScheduleActionExecutionResult extends Enum {
     }
 
     /**
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     public function getCaption(): string {
         return self::captions()[$this->getValue()];

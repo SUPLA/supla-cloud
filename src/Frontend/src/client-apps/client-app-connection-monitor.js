@@ -46,14 +46,16 @@ export class ClientAppConnectionMonitor {
     }
 
     updateKnownStates(clientAppIds) {
-        return this.fetching = this.$http().get('client-apps?onlyConnected=true').then(({body}) => {
-            const connectedIds = body.map(app => +app.id);
+        return this.fetching = this.$http().get('client-apps?include=connected').then(({body: clientApps}) => {
             for (let clientAppId of clientAppIds) {
-                const connected = connectedIds.indexOf(+clientAppId) >= 0;
-                if (this.knownStates[clientAppId] !== connected) {
-                    this.knownStates[clientAppId] = connected;
-                    for (let callback of (this.callbacks[+clientAppId] || [])) {
-                        callback(connected);
+                const state = clientApps.find(clientApp => clientApp.id == clientAppId);
+                if (state) {
+                    const connected = state.connected;
+                    if (this.knownStates[clientAppId] !== connected) {
+                        this.knownStates[clientAppId] = connected;
+                        for (let callback of (this.callbacks[+clientAppId] || [])) {
+                            callback(connected);
+                        }
                     }
                 }
             }

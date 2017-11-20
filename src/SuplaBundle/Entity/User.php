@@ -39,7 +39,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $id;
 
@@ -53,7 +53,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @Assert\NotBlank()
      * @Assert\Email()
      * @Assert\Length(max=255)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $email;
 
@@ -184,13 +184,13 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="iodevice_reg_enabled", type="utcdatetime", nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $ioDevicesRegistrationEnabled;
 
     /**
      * @ORM\Column(name="client_reg_enabled", type="utcdatetime", nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $clientsRegistrationEnabled;
 

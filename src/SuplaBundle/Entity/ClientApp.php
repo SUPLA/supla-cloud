@@ -94,7 +94,7 @@ class ClientApp {
 
     /**
      * @ORM\Column(name="software_version", type="string", length=20, nullable=false)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $softwareVersion;
 

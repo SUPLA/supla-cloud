@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -46,8 +46,8 @@ class SuplaServerMock extends SuplaServer {
     }
 
     private function tryToHandleCommand($cmd) {
-        if (preg_match('#^IS-IODEV-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
-            return "CONNECTED:$match[2]\n";
+        if (preg_match('#^IS-(IODEV|CLIENT)-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
+            return "CONNECTED:$match[3]\n";
         } elseif (preg_match('#^SET-CHAR-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         }

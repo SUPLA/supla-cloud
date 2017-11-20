@@ -31,7 +31,7 @@ class Location {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $id;
 

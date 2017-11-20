@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -20,7 +20,6 @@ namespace SuplaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -49,7 +48,7 @@ class ScheduledExecution {
 
     /**
      * @ORM\Column(name="planned_timestamp", type="utcdatetime", nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $plannedTimestamp;
 
@@ -70,7 +69,7 @@ class ScheduledExecution {
 
     /**
      * @ORM\Column(name="result_timestamp", type="utcdatetime", nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $resultTimestamp;
 
@@ -81,7 +80,7 @@ class ScheduledExecution {
 
     /**
      * @ORM\Column(name="result", type="integer", nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $result;
 
@@ -99,7 +98,7 @@ class ScheduledExecution {
     }
 
     /**
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     public function isFailed(): bool {
         return !$this->getResult()->isSuccessful();

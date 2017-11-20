@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -72,17 +72,11 @@ abstract class SuplaServer {
         return $result;
     }
 
-    /**
-     * @param ClientApp[] $clientApps
-     * @return ClientApp[] connected client apps
-     */
-    public function getOnlyConnectedClientApps(array $clientApps): array {
+    public function isClientAppConnected(ClientApp $clientApp): bool {
         if ($this->connect() !== false) {
-            return array_values(array_filter($clientApps, function (ClientApp $clientApp) {
-                return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
-            }));
+            return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
         }
-        return [];
+        return false;
     }
 
     public function reconnect($userId) {
