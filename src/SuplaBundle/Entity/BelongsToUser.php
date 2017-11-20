@@ -12,7 +12,7 @@ trait BelongsToUser {
         if ($me) {
             if ($me instanceof User) {
                 return $me->getId() == $this->getUser()->getId();
-            } else if ($me instanceof ApiUser) {
+            } elseif ($me instanceof ApiUser) {
                 return $me->getParentUser()->getId() == $this->getUser()->getId();
             }
         }
