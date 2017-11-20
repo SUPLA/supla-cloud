@@ -101,7 +101,7 @@ class ApiIODeviceController extends RestController {
             $result = ['iodevices' => $result];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected']);
+        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules']);
         return $view;
     }
 
@@ -172,7 +172,35 @@ class ApiIODeviceController extends RestController {
         }
 
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected']);
+        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules']);
         return $view;
+    }
+
+    /**
+     * @Security("ioDevice.belongsToUser(user)")
+     */
+    public function putIodeviceAction(Request $request, IODevice $ioDevice) {
+        $data = $request->request->all();
+        return $this->getDoctrine()->getManager()->transactional(function () use ($request, $ioDevice, $data) {
+            if (isset($data['enabled'])) {
+                $scheduleManager = $this->get('schedule_manager');
+                $schedules = $scheduleManager->findSchedulesForDevice($ioDevice);
+                if (!$data['enabled'] && !($data['confirm'] ?? false)) {
+                    $enabledSchedules = $scheduleManager->onlyEnabled($schedules);
+                    if (count($enabledSchedules)) {
+                        $view = $this->view($ioDevice, Response::HTTP_CONFLICT);
+                        $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
+                        return $view;
+                    }
+                }
+                $ioDevice->setEnabled($data['enabled']);
+                if (!$ioDevice->getEnabled()) {
+                    $this->get('schedule_manager')->disableSchedulesForDevice($ioDevice);
+                }
+            }
+            $view = $this->view($ioDevice, Response::HTTP_OK);
+            $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
+            return $view;
+        });
     }
 }

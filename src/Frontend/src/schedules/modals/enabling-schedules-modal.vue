@@ -32,7 +32,7 @@
         methods: {
             enableSchedules() {
                 if (this.schedulesToEnable.length > 0) {
-                    Vue.http.patch('schedule', {enable: this.schedulesToEnable});
+                    Vue.http.patch('schedules', {enable: this.schedulesToEnable});
                 }
                 this.$emit('confirm', this.schedulesToEnable);
             }

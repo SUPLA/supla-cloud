@@ -41,7 +41,7 @@
                 this.loading = true;
                 this.showSchedulesEnablingConfirmation = false;
                 this.showSchedulesDisablingConfirmation = false;
-                this.$http.put(`iodev/${this.deviceId}`, {enabled: !this.isEnabled, confirm}, {skipErrorHandler: true})
+                this.$http.put(`iodevices/${this.deviceId}`, {enabled: !this.isEnabled, confirm}, {skipErrorHandler: true})
                     .then(({body}) => {
                         this.isEnabled = !this.isEnabled;
                         if (this.isEnabled && body.schedules && body.schedules.length) {
@@ -51,7 +51,7 @@
                     })
                     .catch(({body, status}) => {
                         if (status == 409) {
-                            this.schedules = body;
+                            this.schedules = body.schedules.filter(schedule => schedule.enabled);
                             this.showSchedulesDisablingConfirmation = true;
                         }
                     })

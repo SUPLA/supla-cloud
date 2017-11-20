@@ -18,7 +18,6 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Form\Type\ChangeLocationType;
@@ -370,34 +369,6 @@ class IODeviceController extends AbstractController {
             ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $iodev, $message, $value);
         $this->userReconnect();
         return $result;
-    }
-
-    /**
-     * @Route("/{device}", methods={"PUT"})
-     * @Security("user == device.getUser()")
-     */
-    public function ajaxSetEnabled(IODevice $device, Request $request) {
-        $data = $request->request->all();
-        return $this->getDoctrine()->getManager()->transactional(function () use ($device, $data) {
-            if (isset($data['enabled'])) {
-                $scheduleManager = $this->get('schedule_manager');
-                $schedules = $scheduleManager->findSchedulesForDevice($device);
-                if (!$data['enabled'] && !($data['confirm'] ?? false)) {
-                    $enabledSchedules = $scheduleManager->onlyEnabled($schedules);
-                    if (count($enabledSchedules)) {
-                        return $this->jsonResponse($enabledSchedules)->setStatusCode(409);
-                    }
-                }
-                $device->setEnabled($data['enabled']);
-                if (!$device->getEnabled()) {
-                    $this->get('schedule_manager')->disableSchedulesForDevice($device);
-                }
-                return $this->jsonResponse([
-                    'device' => $device,
-                    'schedules' => $schedules,
-                ]);
-            }
-        });
     }
 
     /**

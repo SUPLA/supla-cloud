@@ -42,10 +42,11 @@ abstract class RestController extends FOSRestController {
         return $this->getCurrentUser();
     }
 
-    protected function setSerializationGroups(View $view, Request $request, array $allowedGroups): Context {
+    protected function setSerializationGroups(View $view, Request $request, array $allowedGroups, array $extraGroups = []): Context {
         $context = new Context();
         $include = $request->get('include', '');
         $requestedGroups = array_filter(array_map('trim', explode(',', $include)));
+        $requestedGroups = array_values(array_unique(array_merge($requestedGroups, $extraGroups)));
         $filteredGroups = array_intersect($requestedGroups, $allowedGroups);
         if (count($filteredGroups) < count($requestedGroups)) {
             $notSupported = implode(', ', array_diff($requestedGroups, $filteredGroups));

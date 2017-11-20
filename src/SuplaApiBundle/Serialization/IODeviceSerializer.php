@@ -20,24 +20,33 @@ namespace SuplaApiBundle\Serialization;
 use Assert\Assertion;
 use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class IODeviceSerializer extends ObjectNormalizer {
+class IODeviceSerializer extends ObjectNormalizer implements NormalizerAwareInterface {
     use SuplaServerAware;
     use CurrentUserAware;
+    use NormalizerAwareTrait;
+
+    /** @var ScheduleManager */
+    private $scheduleManager;
 
     public function __construct(
         ClassMetadataFactoryInterface $classMetadataFactory = null,
         NameConverterInterface $nameConverter = null,
         PropertyAccessorInterface $propertyAccessor = null,
-        PropertyTypeExtractorInterface $propertyTypeExtractor = null
+        PropertyTypeExtractorInterface $propertyTypeExtractor = null,
+        ScheduleManager $scheduleManager
     ) {
         parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        $this->scheduleManager = $scheduleManager;
     }
 
     /**
@@ -49,6 +58,9 @@ class IODeviceSerializer extends ObjectNormalizer {
         if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
             if (in_array('connected', $context[self::GROUPS])) {
                 $normalized['connected'] = $this->isDeviceConnected($ioDevice);
+            }
+            if (in_array('schedules', $context[self::GROUPS])) {
+                $normalized['schedules'] = $this->findSchedulesForDevice($ioDevice, $format, $context);
             }
         }
         return $normalized;
@@ -66,5 +78,10 @@ class IODeviceSerializer extends ObjectNormalizer {
         Assertion::notNull($user, 'User not authenticated');
         $connectedIds = $this->suplaServer->checkDevicesConnection($user->getId(), [$ioDevice->getId()]);
         return in_array($ioDevice->getId(), $connectedIds);
+    }
+
+    private function findSchedulesForDevice(IODevice $ioDevice, $format = null, array $context = []): array {
+        $schedules = $this->scheduleManager->findSchedulesForDevice($ioDevice);
+        return $this->normalizer->normalize($schedules, $format, $context);
     }
 }

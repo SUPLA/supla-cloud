@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -22,10 +22,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class AbstractController extends Controller {
-    protected function expectsJsonResponse(): bool {
-        $request = $this->container->get('request_stack')->getCurrentRequest();
-        return in_array('application/json', $request->getAcceptableContentTypes());
-    }
 
     /** @return JsonResponse */
     protected function jsonResponse($responseData, $serializationGroups = 'basic', int $status = 200) {
