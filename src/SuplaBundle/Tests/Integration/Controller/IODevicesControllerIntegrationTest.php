@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -34,17 +34,6 @@ class IODevicesControllerIntegrationTest extends IntegrationTestCase {
         $location = $this->createLocation($this->user);
         $this->createDeviceSonoff($location);
         $this->getEntityManager()->refresh($this->user);
-    }
-
-    public function testGetDevicesList() {
-        $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/iodev');
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $body = json_decode($response->getContent(), true);
-        $this->assertCount(1, $body);
-        $deviceId = $this->user->getIODevices()->first()->getId();
-        $this->assertEquals($deviceId, $body[0]['id']);
     }
 
     public function testGetDeviceDetails() {
