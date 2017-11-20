@@ -116,7 +116,7 @@ class ApiIODeviceController extends RestController {
      * include=channels,location
      */
     /**
-     * @Security("user == ioDevice.getUser() || user.getParentUser() == ioDevice.getUser()")
+     * @Security("ioDevice.belongsToUser(user)")
      */
     public function getIodeviceAction(Request $request, IODevice $ioDevice) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {

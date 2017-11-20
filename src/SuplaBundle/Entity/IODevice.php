@@ -31,6 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields="id", message="IODevice already exists")
  */
 class IODevice {
+    use BelongsToUser;
 
     /**
      * @ORM\Id

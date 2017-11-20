@@ -33,6 +33,8 @@ use Symfony\Component\Validator\Constraints;
  * })
  */
 class Schedule {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")

@@ -57,7 +57,7 @@ class ApiScheduleController extends RestController {
      * include=channel,closestExecutions
      */
     /**
-     * @Security("user == schedule.getUser() || user.getParentUser() == schedule.getUser()")
+     * @Security("schedule.belongsToUser(user)")
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
         $view = $this->view($schedule, Response::HTTP_OK);

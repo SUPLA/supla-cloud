@@ -24,12 +24,11 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiAccessIDController extends RestController {
 
     protected function getAccessIDS() {
-
         $result = [];
-        $parent = $this->getParentUser();
+        $user = $this->getUser();
 
-        if ($parent !== null) {
-            foreach ($parent->getAccessIDS() as $aid) {
+        if ($user !== null) {
+            foreach ($user->getAccessIDS() as $aid) {
                 $locations = [];
 
                 foreach ($aid->getLocations() as $location) {
