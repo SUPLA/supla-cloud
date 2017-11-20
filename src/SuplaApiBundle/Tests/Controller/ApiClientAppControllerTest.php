@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -15,17 +15,19 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Controller;
+namespace SuplaApiBundle\Tests\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\View\View;
+use SuplaApiBundle\Controller\ApiClientAppController;
 use SuplaBundle\Controller\ClientAppController;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\HttpFoundation\Request;
 
-class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
+class ApiClientAppControllerTest extends \PHPUnit_Framework_TestCase {
     /** @var  EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $entityManager;
     /** @var ClientAppController|\PHPUnit_Framework_MockObject_MockObject */
@@ -34,8 +36,8 @@ class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
     private $suplaServer;
 
     protected function setUp() {
-        $this->controller = $this->getMockBuilder(ClientAppController::class)
-            ->setMethods(['getUser', 'expectsJsonResponse', 'jsonResponse'])
+        $this->controller = $this->getMockBuilder(ApiClientAppController::class)
+            ->setMethods(['getUser'])
             ->getMock();
         $this->suplaServer = $this->createMock(SuplaServer::class);
         $this->controller->setSuplaServer($this->suplaServer);
@@ -49,31 +51,35 @@ class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
     public function testDeletingClientApp() {
         $clientApp = new ClientApp();
         $this->entityManager->expects($this->once())->method('remove')->with($clientApp);
-        $response = $this->controller->deleteAction($clientApp);
+        $response = $this->controller->deleteClientAppAction($clientApp);
         $this->assertEquals(204, $response->getStatusCode());
     }
 
-    public function testGettingOnlyConnectedClientApps() {
+    public function testClientAppsWithConnectedGroup() {
         $user = $this->createMock(User::class);
         $this->controller->method('getUser')->willReturn($user);
-        $this->controller->method('expectsJsonResponse')->willReturn(true);
-        $this->controller->method('jsonResponse')->willReturnArgument(0);
         $clientApps = [new ClientApp(), new ClientApp(), new ClientApp()];
         $user->method('getClientApps')->willReturn(new ArrayCollection($clientApps));
         $request = $this->createMock(Request::class);
-        $request->method('get')->with('onlyConnected')->willReturn(true);
-        $this->suplaServer->method('getOnlyConnectedClientApps')->willReturn([$clientApps[0], $clientApps[2]]);
-        $response = $this->controller->clientAppsListAction($request);
-        $this->assertCount(2, $response);
-        $this->assertSame($clientApps[0], $response[0]);
-        $this->assertSame($clientApps[2], $response[1]);
+        $request->method('get')->with('include')->willReturn('connected');
+        $this->suplaServer->method('isClientAppConnected')->with($clientApps[0])->willReturn(true);
+        $this->suplaServer->method('isClientAppConnected')->with($clientApps[1])->willReturn(false);
+        $this->suplaServer->method('isClientAppConnected')->with($clientApps[2])->willReturn(true);
+        /** @var View $response */
+        $response = $this->controller->getClientAppsAction($request);
+        $this->assertContains('basic', $response->getContext()->getGroups());
+        $this->assertContains('connected', $response->getContext()->getGroups());
+        $this->assertCount(3, $response->getData());
+        $this->assertContains($clientApps[0], $response->getData());
+        $this->assertContains($clientApps[1], $response->getData());
+        $this->assertContains($clientApps[2], $response->getData());
     }
 
     public function testUpdatingClientAppCaption() {
         $request = new Request([], ['caption' => 'New Caption']);
         $clientApp = new ClientApp();
         $this->suplaServer->expects($this->never())->method('clientReconnect');
-        $this->controller->editAction($clientApp, $request);
+        $this->controller->putClientAppAction($request, $clientApp);
         $this->assertEquals('New Caption', $clientApp->getCaption());
     }
 
@@ -81,7 +87,7 @@ class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
         $request = new Request([], ['enabled' => true]);
         $clientApp = new ClientApp();
         $this->suplaServer->expects($this->once())->method('clientReconnect');
-        $this->controller->editAction($clientApp, $request);
+        $this->controller->putClientAppAction($request, $clientApp);
         $this->assertTrue($clientApp->getEnabled());
     }
 
@@ -90,7 +96,7 @@ class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
         $clientApp = new ClientApp();
         $clientApp->setEnabled(true);
         $this->suplaServer->expects($this->never())->method('clientReconnect');
-        $this->controller->editAction($clientApp, $request);
+        $this->controller->putClientAppAction($request, $clientApp);
         $this->assertTrue($clientApp->getEnabled());
     }
 }
