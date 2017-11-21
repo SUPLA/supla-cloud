@@ -120,6 +120,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="timezone", type="string", length=50, nullable=false)
+     * @Groups({"basic"})
      */
     private $timezone;
 

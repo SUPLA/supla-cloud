@@ -17,13 +17,14 @@
     import Vue from "vue";
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
+
     export default {
         props: ['timezone'],
         mounted() {
             Vue.nextTick(() => $(this.$refs.dropdown).chosen({search_contains: true}).change((e) => {
                 let timezone = e.currentTarget.value;
                 moment.tz.setDefault(timezone);
-                this.$http.put('account/user-timezone', {timezone});
+                this.$http.patch('users/current', {timezone, action: 'change:userTimezone'});
             }));
         },
         computed: {

@@ -84,7 +84,7 @@ class ApiUserController extends FOSRestController {
         ]);
     }
 
-    public function patchUserAction(Request $request) {
+    public function patchUsersCurrentAction(Request $request) {
         $data = $request->request->all();
         $user = $this->transactional(function (EntityManagerInterface $em) use ($data) {
             $user = $this->getUser();
