@@ -6,7 +6,7 @@
             navigation-prev-label="&lt;"
             :per-page-custom="[[1024, 4], [768, 3], [600, 2], [400, 1]]">
             <slide>
-                <square-link :class="'clearfix pointer lift-up black ' + (selectedChannelGroup == channelGroup ? ' selected' : '')">
+                <square-link :class="'clearfix pointer lift-up black'">
                 </square-link>
             </slide>
             <slide v-for="channelGroup in channelGroups"
