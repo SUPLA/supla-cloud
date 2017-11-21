@@ -4,16 +4,24 @@
             :pagination-enabled="false"
             navigation-next-label="&gt;"
             navigation-prev-label="&lt;"
-            :per-page-custom="[[1024, 4]]">
+            :per-page-custom="[[1024, 4], [768, 3], [600, 2], [400, 1]]">
+            <slide>
+                <square-link :class="'clearfix pointer lift-up black ' + (selectedChannelGroup == channelGroup ? ' selected' : '')">
+                </square-link>
+            </slide>
             <slide v-for="channelGroup in channelGroups"
                 :key="channelGroup.id">
                 <square-link :class="'clearfix pointer lift-up ' + (channelGroup.enabled ? 'green' : 'grey') + (selectedChannelGroup == channelGroup ? ' selected' : '')">
                     <a @click="onChannelGroupClick(channelGroup)">
-                        <h3>{{ channelGroup.caption }}</h3>
+                        <h2>ID<strong>{{ channelGroup.id }} </strong></h2>
                         <dl>
                             <dd>{{ $t('Channels no') }}</dd>
                             <dt>{{ channelGroup.channels.length }}</dt>
                         </dl>
+                        <div v-if="channelGroup.caption">
+                            <div class="separator"></div>
+                            {{ channelGroup.caption }}
+                        </div>
                     </a>
                 </square-link>
             </slide>
@@ -63,6 +71,9 @@
         }
         .VueCarousel-slide {
             padding: 5px;
+        }
+        h2 {
+            margin-top: 3px;
         }
     }
 </style>
