@@ -411,6 +411,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->clientApps;
     }
 
+    /** @return Collection|IODeviceChannelGroup[] */
+    public function getChannelGroups() {
+        return $this->channelGroups;
+    }
+
     public function getLocations() {
         return $this->locations;
     }

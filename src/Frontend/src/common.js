@@ -38,6 +38,7 @@ moment.tz.setDefault(Vue.config.external.timezone);
 
 const components = {
     AnimatedSvg: () => import("./account-details/animated-svg.vue"),
+    ChannelGroupsPage: () => import("./channel-groups/channel-groups-page.vue"),
     ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),
     DevicesListPage: () => import("./devices/list/devices-list-page.vue"),
     EnableDisableDeviceButton: () => import("./devices/details/enable-disable-device-button.vue"),

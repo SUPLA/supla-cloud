@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
@@ -45,6 +46,7 @@ class IODeviceChannelGroup {
 
     /**
      * @ORM\ManyToMany(targetEntity="IODeviceChannel", mappedBy="channelGroups", cascade={"persist"})
+     * @Groups({"channels"})
      */
     private $channels;
 
@@ -66,56 +68,36 @@ class IODeviceChannelGroup {
      */
     private $function;
 
-    public function __construct(User $user = null, array $data = []) {
+    public function __construct(User $user = null) {
         $this->user = $user;
-        if (count($data)) {
-            $this->fill($data);
-        }
     }
 
-    public function fill(array $data) {
-        $this->setCaption($data['caption'] ?? null);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId() {
+    public function getId(): int {
         return $this->id;
     }
 
-    /**
-     * @return User
-     */
-    public function getUser() {
+    public function getUser(): User {
         return $this->user;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEnabled() {
+    public function getEnabled(): bool {
         return $this->enabled;
     }
 
-    /**
-     * @param mixed $enabled
-     */
-    public function setEnabled($enabled) {
+    public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCaption() {
         return $this->caption;
     }
 
-    /**
-     * @param mixed $caption
-     */
-    public function setCaption($caption) {
+    public function setCaption(string $caption) {
         $this->caption = $caption;
+    }
+
+    /** @return Collection|IODeviceChannel[] */
+    public function getChannels() {
+        return $this->channels;
     }
 }

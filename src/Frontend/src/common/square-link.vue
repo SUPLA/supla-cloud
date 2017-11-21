@@ -98,6 +98,14 @@
                 animation-name: fadeIn;
             }
         }
+        &.lift-up {
+            transition: all .2s;
+            top: 0;
+            &:hover, &.selected {
+                top: -3px;
+                box-shadow: 0 4px 3px rgba(0, 0, 0, .6);
+            }
+        }
     }
 
     @mixin square-link-height($height) {
@@ -113,6 +121,7 @@
         }
     }
 
+    @include square-link-height(160);
     @include square-link-height(240);
     @include square-link-height(250);
 </style>

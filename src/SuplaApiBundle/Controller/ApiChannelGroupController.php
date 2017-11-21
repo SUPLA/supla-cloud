@@ -15,20 +15,20 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Controller;
+namespace SuplaApiBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @Route("/client-apps")
- */
-class ClientAppController extends AbstractController {
+class ApiChannelGroupController extends RestController {
     /**
-     * @Route("", methods={"GET"}, name="_client_apps_list")
-     * @Template
+     * @Rest\Get("/channel-groups")
      */
-    public function clientAppsListAction() {
-        return [];
+    public function getChannelGroupsAction(Request $request) {
+        $channelGroups = $this->getUser()->getChannelGroups();
+        $view = $this->view($channelGroups, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['channels']);
+        return $view;
     }
 }

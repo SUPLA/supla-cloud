@@ -21,11 +21,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("/client-apps")
+ * @Route("/channel-groups")
  */
-class ClientAppController extends AbstractController {
+class ChannelGroupController extends AbstractController {
     /**
-     * @Route("", methods={"GET"}, name="_client_apps_list")
+     * @Route("", methods={"GET"}, name="_channel_groups_list")
      * @Template
      */
     public function clientAppsListAction() {
