@@ -17,8 +17,11 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Validator\Constraints as SuplaAssert;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -51,7 +54,7 @@ class IODeviceChannel {
     private $iodevice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="channels")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
@@ -130,8 +133,8 @@ class IODeviceChannel {
         $this->caption = $caption;
     }
 
-    public function getType() {
-        return $this->type;
+    public function getType(): ChannelType {
+        return new ChannelType($this->type);
     }
 
     /** @return IODevice */
@@ -148,20 +151,23 @@ class IODeviceChannel {
         return $this->schedules;
     }
 
-    public function getFunction() {
-        return $this->function;
+    public function getFunction(): ChannelFunction {
+        return new ChannelFunction($this->function);
     }
 
+    /** @param $function ChannelFunction|int */
     public function setFunction($function) {
+        if ($function instanceof ChannelFunction) {
+            $function = $function->getValue();
+        } else {
+            $function = intval($function);
+        }
+        Assertion::true(ChannelFunction::isValid($function), "Not valid channel function: " . $function);
         $this->function = $function;
     }
 
     public function getFuncList() {
         return $this->funcList;
-    }
-
-    public function setFuncList($funcList) {
-        $this->funcList = $funcList;
     }
 
     public function getChannel() {
@@ -201,11 +207,11 @@ class IODeviceChannel {
     }
     
     public function getIconSuffix() {
-        return ($this->getAltIcon() > 0 ? '_'.$this->getAltIcon() : '') . '.svg';
+        return ($this->getAltIcon() > 0 ? '_' . $this->getAltIcon() : '') . '.svg';
     }
     
     public function getIconFilename() {
-        return $this->getFunction().$this->getIconSuffix();
+        return $this->getFunction() . $this->getIconSuffix();
     }
     
     public function getHidden() {

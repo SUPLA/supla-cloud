@@ -18,6 +18,7 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @method static ChannelType SENSORNO()
@@ -72,4 +73,71 @@ final class ChannelType extends Enum {
     const DIMMER = 4000;
     const RGBLEDCONTROLLER = 4010;
     const DIMMERANDRGBLED = 4020;
+
+    /** @Groups({"basic"}) */
+    public function getId(): int {
+        return $this->value;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getName(): string {
+        return $this->getKey();
+    }
+
+    /** @Groups({"basic"}) */
+    public function getCaption(): string {
+        return self::captions()[$this->value] ?? 'None';
+    }
+
+    /** @Groups({"basic"}) */
+    public function isOutput(): bool {
+        return in_array($this->value, self::outputTypes());
+    }
+
+    /** @return int[] */
+    public static function outputTypes(): array {
+        return [
+            self::DIMMER,
+            self::RGBLEDCONTROLLER,
+            self::DIMMERANDRGBLED,
+            self::RELAY,
+            self::RELAYG5LA1A,
+            self::RELAY2XG5LA1A,
+            self::RELAYHFD4,
+        ];
+    }
+
+    /** @return int[] */
+    public static function inputTypes(): array {
+        return array_diff(self::toArray(), self::outputTypes());
+    }
+
+    public static function captions(): array {
+        return [
+            self::SENSORNO => 'Sensor (normal open)',
+            self::SENSORNC => 'Sensor (normal closed)',
+            self::RELAY => 'Relay',
+            self::RELAYHFD4 => 'HFD4 Relay',
+            self::RELAYG5LA1A => 'G5LA1A Relay',
+            self::RELAY2XG5LA1A => 'G5LA1A Relay x2',
+            self::THERMOMETERDS18B20 => 'DS18B20 Thermometer',
+            self::DHT11 => 'DHT11 Temperature & Humidity Sensor',
+            self::DHT21 => 'DHT21 Temperature & Humidity Sensor',
+            self::DHT22 => 'DHT22 Temperature & Humidity Sensor',
+            self::AM2301 => 'AM2301 Temperature & Humidity Sensor',
+            self::AM2302 => 'AM2302 Temperature & Humidity Sensor',
+            self::THERMOMETER => 'Temperature sensor',
+            self::HUMIDITYSENSOR => 'Humidity sensor',
+            self::HUMIDITYANDTEMPSENSOR => 'Temperature & Humidity sensor',
+            self::WINDSENSOR => 'Wind sensor',
+            self::PRESSURESENSOR => 'Pressure sensor',
+            self::RAINSENSOR => 'Rain sensor',
+            self::WEIGHTSENSOR => 'Weight sensor',
+            self::WEATHER_STATION => 'Weather Station',
+            self::DIMMER => 'Dimmer',
+            self::RGBLEDCONTROLLER => 'RGB led controller',
+            self::DIMMERANDRGBLED => 'Dimmer & RGB led controller',
+            self::DISTANCESENSOR => 'Distance sensor',
+        ];
+    }
 }

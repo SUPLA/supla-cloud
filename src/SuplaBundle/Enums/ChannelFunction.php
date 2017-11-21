@@ -85,8 +85,13 @@ final class ChannelFunction extends Enum {
     const STAIRCASETIMER = 300;
 
     /** @Groups({"basic"}) */
-    public function getId(): string {
+    public function getId(): int {
         return $this->value;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getName(): string {
+        return $this->getKey();
     }
 
     /** @Groups({"basic"}) */
@@ -101,16 +106,16 @@ final class ChannelFunction extends Enum {
 
     public static function actions(): array {
         return [
-            self::CONTROLLINGTHEGATEWAYLOCK => [ChannelFunctionAction::OPEN],
-            self::CONTROLLINGTHEDOORLOCK => [ChannelFunctionAction::OPEN],
-            self::CONTROLLINGTHEGATE => [ChannelFunctionAction::OPEN, ChannelFunctionAction::CLOSE],
-            self::CONTROLLINGTHEGARAGEDOOR => [ChannelFunctionAction::OPEN, ChannelFunctionAction::CLOSE],
-            self::CONTROLLINGTHEROLLERSHUTTER => [ChannelFunctionAction::SHUT, ChannelFunctionAction::REVEAL, ChannelFunctionAction::REVEAL_PARTIALLY],
-            self::POWERSWITCH => [ChannelFunctionAction::TURN_ON, ChannelFunctionAction::TURN_OFF],
-            self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON, ChannelFunctionAction::TURN_OFF],
-            self::DIMMER => [ChannelFunctionAction::SET_RGBW_PARAMETERS],
-            self::RGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS],
-            self::DIMMERANDRGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS],
+            self::CONTROLLINGTHEGATEWAYLOCK => [ChannelFunctionAction::OPEN()],
+            self::CONTROLLINGTHEDOORLOCK => [ChannelFunctionAction::OPEN()],
+            self::CONTROLLINGTHEGATE => [ChannelFunctionAction::OPEN(), ChannelFunctionAction::CLOSE()],
+            self::CONTROLLINGTHEGARAGEDOOR => [ChannelFunctionAction::OPEN(), ChannelFunctionAction::CLOSE()],
+            self::CONTROLLINGTHEROLLERSHUTTER => [ChannelFunctionAction::SHUT(), ChannelFunctionAction::REVEAL(), ChannelFunctionAction::REVEAL_PARTIALLY()],
+            self::POWERSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
+            self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
+            self::DIMMER => [ChannelFunctionAction::SET_RGBW_PARAMETERS()],
+            self::RGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS()],
+            self::DIMMERANDRGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS()],
         ];
     }
 

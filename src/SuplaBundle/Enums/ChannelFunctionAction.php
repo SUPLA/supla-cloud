@@ -45,8 +45,15 @@ final class ChannelFunctionAction extends Enum {
     /**
      * @Groups({"basic"})
      */
-    public function getValue() {
-        return parent::getValue();
+    public function getId(): int {
+        return $this->value;
+    }
+
+    /**
+     * @Groups({"basic"})
+     */
+    public function getName(): string {
+        return $this->getKey();
     }
 
     /**

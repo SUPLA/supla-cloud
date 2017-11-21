@@ -20,6 +20,7 @@ namespace SuplaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
 use SuplaBundle\Supla\SuplaConst;
@@ -170,17 +171,17 @@ class IODeviceController extends AbstractController {
             ['cancel_url' => $this->generateUrl('_iodev_item', ['id' => $devid])]
         );
 
-        $old_function = $channel->getFunction();
+        $old_function = $channel->getFunction()->getId();
         $old_param1 = $channel->getParam1();
         $old_param2 = $channel->getParam2();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            switch ($channel->getType()) {
+            switch ($channel->getType()->getId()) {
                 case SuplaConst::TYPE_SENSORNO:
                 case SuplaConst::TYPE_SENSORNC:
-                    if ($channel->getFunction() == SuplaConst::FNC_NONE
+                    if ($channel->getFunction()->getId() == SuplaConst::FNC_NONE
                         || $old_param1 != $channel->getParam1()
                     ) {
                         if ($old_param1 != 0) {
@@ -195,11 +196,11 @@ class IODeviceController extends AbstractController {
                         }
                     };
 
-                    if (($channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GATEWAY
-                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GATE
-                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR
-                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_DOOR
-                            || $channel->getFunction() == SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER)
+                    if (($channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GATEWAY
+                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GATE
+                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR
+                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_DOOR
+                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER)
                         && $old_param1 != $channel->getParam1()
                         && $channel->getParam1() != 0
                     ) {
@@ -218,7 +219,7 @@ class IODeviceController extends AbstractController {
                 case SuplaConst::TYPE_RELAYHFD4:
                 case SuplaConst::TYPE_RELAYG5LA1A:
                 case SuplaConst::TYPE_RELAY2XG5LA1A:
-                    if ($channel->getFunction() == SuplaConst::FNC_NONE
+                    if ($channel->getFunction()->getId() == SuplaConst::FNC_NONE
                         || $old_param2 != $channel->getParam2()
                     ) {
                         if ($old_param2 != 0) {
@@ -230,7 +231,7 @@ class IODeviceController extends AbstractController {
                         }
                     };
 
-                    if ($channel->getFunction() != SuplaConst::FNC_NONE
+                    if ($channel->getFunction()->getId() != SuplaConst::FNC_NONE
                         && $old_param2 != $channel->getParam2()
                         && $channel->getParam2() != 0
                     ) {
@@ -241,13 +242,13 @@ class IODeviceController extends AbstractController {
                     break;
             }
 
-            if ($channel->getFunction() == SuplaConst::FNC_STAIRCASETIMER) {
+            if ($channel->getFunction()->getId() == SuplaConst::FNC_STAIRCASETIMER) {
                 if ($channel->getParam1() < 0
                     || $channel->getParam1() > 360000 // 60 min.
                 ) {
                     $channel->setParam1(0);
                 }
-            } elseif ($channel->getFunction() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER) {
+            } elseif ($channel->getFunction()->getId() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER) {
                 if ($channel->getParam1() < 0
                     || $channel->getParam1() > 3000 // 5 min.
                 ) {
@@ -261,13 +262,13 @@ class IODeviceController extends AbstractController {
                 }
             }
 
-            if ($old_function != $channel->getFunction()) {
+            if ($old_function != $channel->getFunction()->getId()) {
                 foreach ($channel->getSchedules() as $schedule) {
                     $this->get('schedule_manager')->delete($schedule);
                 }
             }
 
-            if ($dev_man->channelFunctionAltIconMax($channel->getFunction()) < $channel->getAltIcon()) {
+            if ($dev_man->channelFunctionAltIconMax($channel->getFunction()->getId()) < $channel->getAltIcon()) {
                 $channel->setAltIcon(0);
             }
 
@@ -289,15 +290,11 @@ class IODeviceController extends AbstractController {
                 'channel_function_name' => $dev_man->channelFunctionToString($channel->getFunction()),
                 'alticon_max' => $dev_man->channelFunctionAltIconMax($channel->getFunction()),
                 'form' => $form->createView(),
-                'show_sensorstate' => ($channelType == SuplaConst::TYPE_SENSORNO
-                    || $channelType == SuplaConst::TYPE_SENSORNC) ? true : false,
-                'show_temperature' => $channelType == SuplaConst::TYPE_THERMOMETERDS18B20 ? true : false,
-                'show_temphumidity' => ($channelType == SuplaConst::TYPE_DHT11
-                    || $channelType == SuplaConst::TYPE_DHT21
-                    || $channelType == SuplaConst::TYPE_DHT22
-                    || $channelType == SuplaConst::TYPE_AM2301
-                    || $channelType == SuplaConst::TYPE_AM2302) ? true : false,
-                'show_distance' => $channelType == SuplaConst::TYPE_DISTANCESENSOR ? true : false,
+                'show_sensorstate' => in_array($channelType->getId(), [ChannelType::SENSORNO, ChannelType::SENSORNC]) ? true : false,
+                'show_temperature' => $channelType->getId() == ChannelType::THERMOMETERDS18B20 ? true : false,
+                'show_temphumidity' => in_array($channelType->getId(), [
+                    ChannelType::DHT11, ChannelType::DHT21, ChannelType::DHT22, ChannelType::AM2301, ChannelType::AM2302]) ? true : false,
+                'show_distance' => $channelType->getId() == ChannelType::DISTANCESENSOR ? true : false,
             ]
         );
     }

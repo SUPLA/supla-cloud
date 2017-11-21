@@ -17,8 +17,12 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Assert\Assertion;
+use Doctrine\Common\Collections\Criteria;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -40,9 +44,24 @@ class ApiChannelController extends RestController {
     }
 
     public function getChannelsAction(Request $request) {
-        $ioDevices = $this->getUser()->getIODevices();
-        $view = $this->view($channelGroups, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels']);
+        $criteria = Criteria::create();
+        if (($function = $request->get('function')) !== null) {
+            $criteria->andWhere(Criteria::expr()->in('function', explode(',', $function)));
+        }
+        if (($io = $request->get('io')) !== null) {
+            Assertion::inArray($io, ['input', 'output']);
+            $criteria->andWhere(Criteria::expr()->in('type', $io == 'output' ? ChannelType::outputTypes() : ChannelType::inputTypes()));
+        }
+        if (($hasFunction = $request->get('hasFunction')) !== null) {
+            if ($hasFunction) {
+                $criteria->andWhere(Criteria::expr()->neq('function', ChannelFunction::NONE));
+            } else {
+                $criteria->andWhere(Criteria::expr()->eq('function', ChannelFunction::NONE));
+            }
+        }
+        $channels = $this->getUser()->getChannels()->matching($criteria);
+        $view = $this->view($channels, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['iodevice', 'location']);
         return $view;
     }
 

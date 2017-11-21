@@ -24,6 +24,7 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -119,6 +120,10 @@ class IODeviceManager {
             return $map;
         }
 
+        if ($type instanceof ChannelType) {
+            $type = $type->getValue();
+        }
+
         if ($type == SuplaConst::TYPE_RELAY) {
             $fnc = [0];
 
@@ -165,142 +170,44 @@ class IODeviceManager {
     }
 
     public function channelTypeToString($type) {
-        $result = 'Unknown';
-
-        switch ($type) {
-            case SuplaConst::TYPE_SENSORNO:
-                $result = 'Sensor (normal open)';
-                break;
-            case SuplaConst::TYPE_SENSORNC:
-                $result = 'Sensor (normal closed)';
-                break;
-            case SuplaConst::TYPE_RELAY:
-                $result = 'Relay';
-                break;
-            case SuplaConst::TYPE_RELAYHFD4:
-                $result = 'HFD4 Relay';
-                break;
-            case SuplaConst::TYPE_RELAYG5LA1A:
-                $result = 'G5LA1A Relay';
-                break;
-            case SuplaConst::TYPE_RELAY2XG5LA1A:
-                $result = 'G5LA1A Relay x2';
-                break;
-            case SuplaConst::TYPE_THERMOMETERDS18B20:
-                $result = 'DS18B20 Thermometer';
-                break;
-            case SuplaConst::TYPE_DHT11:
-                $result = 'DHT11 Temperature & Humidity Sensor';
-                break;
-            case SuplaConst::TYPE_DHT21:
-                $result = 'DHT21 Temperature & Humidity Sensor';
-                break;
-            case SuplaConst::TYPE_DHT22:
-                $result = 'DHT22 Temperature & Humidity Sensor';
-                break;
-            case SuplaConst::TYPE_AM2301:
-                $result = 'AM2301 Temperature & Humidity Sensor';
-                break;
-            case SuplaConst::TYPE_AM2302:
-                $result = 'AM2302 Temperature & Humidity Sensor';
-                break;
-            case SuplaConst::TYPE_THERMOMETER:
-                $result = 'Temperature sensor';
-                break;
-            case SuplaConst::TYPE_HUMIDITYSENSOR:
-                $result = 'Humidity sensor';
-                break;
-            case SuplaConst::TYPE_HUMIDITYANDTEMPSENSOR:
-                $result = 'Temperature & Humidity sensor';
-                break;
-            case SuplaConst::TYPE_WINDSENSOR:
-                $result = 'Wind sensor';
-                break;
-            case SuplaConst::TYPE_PRESSURESENSOR:
-                $result = 'Pressure sensor';
-                break;
-            case SuplaConst::TYPE_RAINSENSOR:
-                $result = 'Rain sensor';
-                break;
-            case SuplaConst::TYPE_WEIGHTSENSOR:
-                $result = 'Weight sensor';
-                break;
-            case SuplaConst::TYPE_WEATHER_STATION:
-                $result = 'Weather Station';
-                break;
-            case SuplaConst::TYPE_DIMMER:
-                $result = 'Dimmer';
-                break;
-            case SuplaConst::TYPE_RGBLEDCONTROLLER:
-                $result = 'RGB led controller';
-                break;
-            case SuplaConst::TYPE_DIMMERANDRGBLED:
-                $result = 'Dimmer & RGB led controller';
-                break;
-            case SuplaConst::TYPE_DISTANCESENSOR:
-                $result = 'Distance sensor';
-                break;
+        if (!($type instanceof ChannelType)) {
+            $type = new ChannelType(intval($type));
         }
-
+        $result = $type->getCaption();
         return $this->translator->trans($result);
     }
 
     /** @deprecated */
     public function channelFunctionToString($func) {
-        $result = (new ChannelFunction($func))->getCaption();
+        if (!($func instanceof ChannelFunction)) {
+            $func = new ChannelFunction(intval($func));
+        }
+        $result = $func->getCaption();
         return $this->translator->trans($result);
     }
 
     public function channelFunctionAltIconMax($func) {
-
+        if ($func instanceof ChannelFunction) {
+            $func = $func->getValue();
+        }
         switch ($func) {
-            case SuplaConst::FNC_POWERSWITCH:
+            case ChannelFunction::POWERSWITCH:
                 return 4;
-            case SuplaConst::FNC_LIGHTSWITCH:
+            case ChannelFunction::LIGHTSWITCH:
                 return 1;
-            case SuplaConst::FNC_CONTROLLINGTHEGATE:
+            case ChannelFunction::CONTROLLINGTHEGATE:
                 return 2;
-            case SuplaConst::FNC_OPENINGSENSOR_GATE:
+            case ChannelFunction::OPENINGSENSOR_GATE:
                 return 2;
         }
-
         return 0;
     }
 
     public function channelIoToString($type) {
         $result = 'Unknown';
-
-        switch ($type) {
-            case SuplaConst::TYPE_THERMOMETERDS18B20:
-            case SuplaConst::TYPE_DHT11:
-            case SuplaConst::TYPE_DHT21:
-            case SuplaConst::TYPE_DHT22:
-            case SuplaConst::TYPE_AM2301:
-            case SuplaConst::TYPE_AM2302:
-            case SuplaConst::TYPE_SENSORNO:
-            case SuplaConst::TYPE_SENSORNC:
-            case SuplaConst::TYPE_THERMOMETER:
-            case SuplaConst::TYPE_HUMIDITYSENSOR:
-            case SuplaConst::TYPE_HUMIDITYANDTEMPSENSOR:
-            case SuplaConst::TYPE_WINDSENSOR:
-            case SuplaConst::TYPE_PRESSURESENSOR:
-            case SuplaConst::TYPE_RAINSENSOR:
-            case SuplaConst::TYPE_WEIGHTSENSOR:
-            case SuplaConst::TYPE_WEATHER_STATION:
-            case SuplaConst::TYPE_DISTANCESENSOR:
-                $result = 'Input';
-                break;
-            case SuplaConst::TYPE_DIMMER:
-            case SuplaConst::TYPE_RGBLEDCONTROLLER:
-            case SuplaConst::TYPE_DIMMERANDRGBLED:
-            case SuplaConst::TYPE_RELAY:
-            case SuplaConst::TYPE_RELAYG5LA1A:
-            case SuplaConst::TYPE_RELAY2XG5LA1A:
-            case SuplaConst::TYPE_RELAYHFD4:
-                $result = 'Output';
-                break;
+        if (ChannelType::isValid($type)) {
+            $result = (new ChannelType($type))->isOutput() ? 'Output' : 'Input';
         }
-
         return $this->translator->trans($result);
     }
 
@@ -308,11 +215,9 @@ class IODeviceManager {
         if ($user === null) {
             $user = $this->sec->getToken()->getUser();
         }
-
         if ($user === null) {
             return null;
         }
-
         return $this->dev_rep->findOneBy(['user' => $user, 'id' => intval($id)]);
     }
 
@@ -435,6 +340,10 @@ class IODeviceManager {
             $tmpl = 'none';
             $subchannel_selected = null;
             $twig_params = ['channel' => $channel];
+
+            if ($function instanceof ChannelFunction) {
+                $function = $function->getValue();
+            }
 
             switch ($function) {
                 case SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK:

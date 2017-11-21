@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -37,7 +37,7 @@ class ChannelValidator extends ConstraintValidator {
         if ($channel instanceof IODeviceChannel) {
             $f = $this->iodevice_manager->channelFunctionMap($channel->getType(), $channel->getFuncList());
 
-            if (!is_array($f) || !in_array($channel->getFunction(), $f)) {
+            if (!is_array($f) || !in_array($channel->getFunction()->getId(), $f)) {
                 $msg = $constraint->config_message;
             }
         } else {

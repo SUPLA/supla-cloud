@@ -19,6 +19,7 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
@@ -162,6 +163,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="user", cascade={"persist"})
      **/
     private $clientApps;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\IODeviceChannel", mappedBy="user", cascade={"persist"})
+     **/
+    private $channels;
 
     /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"})
@@ -409,6 +415,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     /** @return Collection|ClientApp[] */
     public function getClientApps() {
         return $this->clientApps;
+    }
+
+    /** @return Collection|Selectable|IODeviceChannel[] */
+    public function getChannels() {
+        return $this->channels;
     }
 
     /** @return Collection|IODeviceChannelGroup[] */
