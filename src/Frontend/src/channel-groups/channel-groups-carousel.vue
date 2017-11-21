@@ -6,8 +6,9 @@
             navigation-prev-label="&lt;"
             :per-page-custom="[[1024, 4], [768, 3], [600, 2], [400, 1]]">
             <slide>
-                <square-link :class="'clearfix pointer lift-up black'">
-                    <a class="valign-center text-center">
+                <square-link :class="'clearfix pointer lift-up black ' + (selectedChannelGroup == newChannelGroup ? ' selected' : '')">
+                    <a class="valign-center text-center"
+                        @click="onChannelGroupClick(newChannelGroup)">
                         <span>
                             <i class="pe-7s-plus"></i><br>
                             {{ $t('Create new channel group') }}
@@ -44,13 +45,14 @@
         props: ['channelGroups'],
         data() {
             return {
-                selectedChannelGroup: undefined
+                selectedChannelGroup: undefined,
+                newChannelGroup: {}
             };
         },
         methods: {
             onChannelGroupClick(channelGroup) {
                 this.selectedChannelGroup = channelGroup;
-                this.$emit('select', channelGroup);
+                this.$emit('select', channelGroup == this.newChannelGroup ? {} : channelGroup);
             }
         }
     };

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -29,6 +29,10 @@ use SuplaBundle\Tests\AnyFieldSetter;
 class DevicesFixture extends SuplaFixture {
     const ORDER = LocationsFixture::ORDER + 1;
 
+    const DEVICE_SONOFF = 'deviceSonoff';
+    const DEVICE_FULL = 'deviceFull';
+    const DEVICE_RGB = 'deviceRgb';
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -44,7 +48,7 @@ class DevicesFixture extends SuplaFixture {
         return $this->createDevice('SONOFF-DS', $location, [
             [SuplaConst::TYPE_RELAY, ChannelFunction::LIGHTSWITCH],
             [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
-        ]);
+        ], self::DEVICE_SONOFF);
     }
 
     protected function createDeviceFull(Location $location): IODevice {
@@ -54,17 +58,17 @@ class DevicesFixture extends SuplaFixture {
             [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEGATE],
             [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
-        ]);
+        ], self::DEVICE_FULL);
     }
 
     protected function createDeviceRgb(Location $location): IODevice {
         return $this->createDevice('RGB-801', $location, [
             [SuplaConst::TYPE_RGBLEDCONTROLLER, ChannelFunction::DIMMERANDRGBLIGHTING],
             [SuplaConst::TYPE_RGBLEDCONTROLLER, ChannelFunction::RGBLIGHTING],
-        ]);
+        ], self::DEVICE_RGB);
     }
 
-    private function createDevice(string $name, Location $location, array $channelTypes): IODevice {
+    private function createDevice(string $name, Location $location, array $channelTypes, string $registerAs): IODevice {
         $device = new IODevice();
         AnyFieldSetter::set($device, [
             'name' => $name,
@@ -91,6 +95,7 @@ class DevicesFixture extends SuplaFixture {
             $this->entityManager->flush();
         }
         $this->entityManager->refresh($device);
+        $this->setReference($registerAs, $device);
         return $device;
     }
 }

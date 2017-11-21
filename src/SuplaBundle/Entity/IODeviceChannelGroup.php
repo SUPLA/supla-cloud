@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -45,7 +46,17 @@ class IODeviceChannelGroup {
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IODeviceChannel", mappedBy="channelGroups", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDeviceChannelGroups")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
+     * @Groups({"location"})
+     */
+    private $location;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="IODeviceChannel", inversedBy="channelGroups", cascade={"persist"})
+     * @ORM\JoinTable(name="supla_rel_cg", joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")}
+     * )
      * @Groups({"channels"})
      */
     private $channels;
@@ -68,8 +79,15 @@ class IODeviceChannelGroup {
      */
     private $function;
 
-    public function __construct(User $user = null) {
+    /**
+     * @param User $user
+     * @param IODeviceChannel[] $channels
+     */
+    public function __construct(User $user = null, Location $location = null, array $channels = []) {
         $this->user = $user;
+        $this->location = $location;
+        $this->function = $channels[0]->getFunction();
+        $this->channels = new ArrayCollection($channels);
     }
 
     public function getId(): int {

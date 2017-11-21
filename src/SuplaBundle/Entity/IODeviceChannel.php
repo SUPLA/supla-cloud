@@ -110,11 +110,7 @@ class IODeviceChannel {
     private $hidden = false;
     
     /**
-     * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", inversedBy="channels", cascade={"persist"})
-     * @ORM\JoinTable(name="supla_rel_cg",
-     * joinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")},
-     * inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
-     * )
+     * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", mappedBy="channels", cascade={"persist"})
      */
     private $channelGroups;
 

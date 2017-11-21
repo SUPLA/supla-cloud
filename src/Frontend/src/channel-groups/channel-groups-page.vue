@@ -14,7 +14,8 @@
                     </div>
                     <channel-groups-carousel :channel-groups="filteredChannelGroups"
                         @select="channelGroupChanged"></channel-groups-carousel>
-                    {{ channelGroup ? channelGroup.id : 'nie ma' }}
+                    <channel-group-form v-if="channelGroup"
+                        :channel-group="channelGroup"></channel-group-form>
                 </div>
                 <loader-dots v-else></loader-dots>
             </div>
@@ -24,13 +25,14 @@
 
 <script>
     import BtnFilters from "src/common/btn-filters.vue";
+    import ChannelGroupForm from "./channel-group-form.vue";
     import ChannelGroupsCarousel from "./channel-groups-carousel.vue";
     import LoaderDots from "../common/loader-dots.vue";
     import latinize from "latinize";
     import Vue from "vue";
 
     export default {
-        components: {BtnFilters, ChannelGroupsCarousel, LoaderDots},
+        components: {BtnFilters, ChannelGroupForm, ChannelGroupsCarousel, LoaderDots},
         data() {
             return {
                 channelGroup: undefined,

@@ -77,6 +77,11 @@ class Location {
     private $ioDevices;
 
     /**
+     * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="location")
+     **/
+    private $ioDeviceChannelGroups;
+
+    /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="originalLocation")
      **/
     private $ioDevices_ol;
