@@ -20,8 +20,6 @@ namespace SuplaApiBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,12 +67,12 @@ class ApiIODeviceController extends RestController {
                             'chnnel_number' => $channel->getChannelNumber(),
                             'caption' => $channel->getCaption(),
                             'type' => [
-                                'name' => 'TYPE_' . (new ChannelType($channel->getType()))->getKey(),
-                                'id' => $channel->getType(),
+                                'name' => 'TYPE_' . $channel->getType()->getName(),
+                                'id' => $channel->getType()->getId(),
                             ],
                             'function' => [
-                                'name' => 'FNC_' . (new ChannelFunction($channel->getFunction()))->getKey(),
-                                'id' => $channel->getFunction(),
+                                'name' => 'FNC_' . $channel->getFunction()->getName(),
+                                'id' => $channel->getFunction()->getId(),
                             ],
                         ];
                     }
@@ -140,12 +138,12 @@ class ApiIODeviceController extends RestController {
                     'chnnel_number' => $channel->getChannelNumber(),
                     'caption' => $channel->getCaption(),
                     'type' => [
-                        'name' => 'TYPE_' . (new ChannelType($channel->getType()))->getKey(),
-                        'id' => $channel->getType(),
+                        'name' => 'TYPE_' . $channel->getType()->getName(),
+                        'id' => $channel->getType()->getId(),
                     ],
                     'function' => [
-                        'name' => 'FNC_' . (new ChannelFunction($channel->getFunction()))->getKey(),
-                        'id' => $channel->getFunction(),
+                        'name' => 'FNC_' . $channel->getFunction()->getName(),
+                        'id' => $channel->getFunction()->getId(),
                     ],
                 ];
             }

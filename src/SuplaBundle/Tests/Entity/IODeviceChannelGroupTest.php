@@ -23,7 +23,6 @@ use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Supla\SuplaConst;
 
 class IODeviceChannelGroupTest extends \PHPUnit_Framework_TestCase {
     /** @var User */
@@ -40,8 +39,8 @@ class IODeviceChannelGroupTest extends \PHPUnit_Framework_TestCase {
     public function testDeterminingGroupFunction() {
         $channel1 = $this->createMock(IODeviceChannel::class);
         $channel2 = $this->createMock(IODeviceChannel::class);
-        $channel1->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE);
-        $channel2->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE);
+        $channel1->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
+        $channel2->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
         $group = new IODeviceChannelGroup($this->user, $this->location, [$channel1, $channel2]);
         $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATE(), $group->getFunction());
     }
@@ -49,8 +48,8 @@ class IODeviceChannelGroupTest extends \PHPUnit_Framework_TestCase {
     public function testSettingChannels() {
         $channel1 = $this->createMock(IODeviceChannel::class);
         $channel2 = $this->createMock(IODeviceChannel::class);
-        $channel1->method('getFunction')->willReturn(SuplaConst::FNC_CONTROLLINGTHEGATE);
-        $channel2->method('getFunction')->willReturn(SuplaConst::FNC_CONTROLLINGTHEGATE);
+        $channel1->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
+        $channel2->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
         $group = new IODeviceChannelGroup($this->user, $this->location, [$channel1, $channel2]);
         $this->assertEquals([$channel1, $channel2], $group->getChannels()->toArray());
     }
@@ -63,16 +62,9 @@ class IODeviceChannelGroupTest extends \PHPUnit_Framework_TestCase {
         $this->expectException(InvalidArgumentException::class);
         $channel1 = $this->createMock(IODeviceChannel::class);
         $channel2 = $this->createMock(IODeviceChannel::class);
-        $channel1->method('getFunction')->willReturn(SuplaConst::FNC_CONTROLLINGTHEGATE);
-        $channel2->method('getFunction')->willReturn(SuplaConst::FNC_CONTROLLINGTHEDOORLOCK);
+        $channel1->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
+        $channel2->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEDOORLOCK());
         new IODeviceChannelGroup($this->user, $this->location, [$channel1, $channel2]);
-    }
-
-    public function testForbidsSettingInvalidFunction() {
-        $this->expectException(InvalidArgumentException::class);
-        $channel1 = $this->createMock(IODeviceChannel::class);
-        $channel1->method('getFunction')->willReturn(666);
-        new IODeviceChannelGroup($this->user, $this->location, [$channel1]);
     }
 
     public function testForbidsSettingEmptyChannels() {

@@ -132,11 +132,10 @@ class IODeviceChannelGroup {
         Assertion::notEmpty($channels);
         Assertion::allIsInstanceOf($channels, IODeviceChannel::class);
         if (!$this->function) {
-            $this->function = $channels[0]->getFunction();
-            Assertion::true(ChannelFunction::isValid($this->function), 'Unknown function: ' . $this->function);
+            $this->function = $channels[0]->getFunction()->getId();
         }
         Assertion::allSatisfy($channels, function (IODeviceChannel $channel) {
-            return $channel->getFunction() === $this->function;
+            return $channel->getFunction()->getId() === $this->function;
         }, 'All channels of this group must have function equal to ' . $this->function);
         $this->channels->clear();
         foreach ($channels as $channel) {
