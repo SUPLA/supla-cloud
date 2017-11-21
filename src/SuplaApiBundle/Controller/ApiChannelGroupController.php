@@ -17,11 +17,17 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiChannelGroupController extends RestController {
+    use Transactional;
+
     /**
      * @Rest\Get("/channel-groups")
      */
@@ -30,5 +36,16 @@ class ApiChannelGroupController extends RestController {
         $view = $this->view($channelGroups, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['channels']);
         return $view;
+    }
+
+    /**
+     * @Rest\Post("/channel-groups")
+     * @ParamConverter("channelGroup", converter="fos_rest.request_body")
+     */
+    public function postChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
+            $em->persist($channelGroup);
+            return $this->view($channelGroup, Response::HTTP_CREATED);
+        });
     }
 }
