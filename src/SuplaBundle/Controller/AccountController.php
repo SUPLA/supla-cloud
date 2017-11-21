@@ -18,8 +18,6 @@
 namespace SuplaBundle\Controller;
 
 use Assert\Assertion;
-use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Form\Model\ChangePassword;
@@ -29,9 +27,7 @@ use SuplaBundle\Form\Type\RegistrationType;
 use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * @Route("/account")
@@ -348,51 +344,5 @@ class AccountController extends AbstractController {
         };
 
         return AjaxController::jsonResponse($exists !== null, ['exists' => $exists]);
-    }
-
-    /**
-     * @Route("/user-timezone")
-     * @Method("PUT")
-     */
-    public function updateUserTimezoneAction(Request $request) {
-        $data = $request->request->all();
-        try {
-            $timezone = new \DateTimeZone($data['timezone']);
-            $userManager = $this->get('user_manager');
-            $userManager->updateTimeZone($this->getUser(), $timezone);
-            return new JsonResponse(true);
-        } catch (\Exception $e) {
-            throw new BadRequestHttpException();
-        }
-    }
-
-    /**
-     * @Route("/current")
-     * @Method("PATCH")
-     */
-    public function patchUserAction(Request $request) {
-        $data = $request->request->all();
-        return $this->transactional(function (EntityManagerInterface $em) use ($data) {
-            $user = $this->getUser();
-            if ($data['action'] == 'change:clientsRegistrationEnabled') {
-                $enable = $data['enable'] ?? false;
-                if ($enable) {
-                    $enableForTime = $this->container->getParameter('supla.clients_registration.registration_active_time.manual');
-                    $user->enableClientsRegistration($enableForTime);
-                } else {
-                    $user->disableClientsRegistration();
-                }
-            } elseif ($data['action'] == 'change:ioDevicesRegistrationEnabled') {
-                $enable = $data['enable'] ?? false;
-                if ($enable) {
-                    $enableForTime = $this->container->getParameter('supla.io_devices_registration.registration_active_time.manual');
-                    $user->enableIoDevicesRegistration($enableForTime);
-                } else {
-                    $user->disableIoDevicesRegistration();
-                }
-            }
-            $em->persist($user);
-            return $this->jsonResponse($user);
-        });
     }
 }

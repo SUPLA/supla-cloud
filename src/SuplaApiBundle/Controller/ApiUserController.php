@@ -17,13 +17,19 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\ServerList;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiUserController extends FOSRestController {
+    use Transactional;
 
     private $serverList;
 
@@ -42,7 +48,7 @@ class ApiUserController extends FOSRestController {
      * @apiSuccess {Boolean} clientsRegistrationEnabled Whether the registration of new clients is enabled or not.
      */
     public function currentUserAction() {
-        return $this->view($this->getUser(), 200);
+        return $this->view($this->getUser(), Response::HTTP_OK);
     }
 
     /**
@@ -76,5 +82,40 @@ class ApiUserController extends FOSRestController {
             'actionCaptions' => ScheduleAction::captions(),
             'channelFunctionMap' => $channelToFunctionsMap,
         ]);
+    }
+
+    public function patchUserAction(Request $request) {
+        $data = $request->request->all();
+        $user = $this->transactional(function (EntityManagerInterface $em) use ($data) {
+            $user = $this->getUser();
+            if ($data['action'] == 'change:clientsRegistrationEnabled') {
+                $enable = $data['enable'] ?? false;
+                if ($enable) {
+                    $enableForTime = $this->container->getParameter('supla.clients_registration.registration_active_time.manual');
+                    $user->enableClientsRegistration($enableForTime);
+                } else {
+                    $user->disableClientsRegistration();
+                }
+            } elseif ($data['action'] == 'change:ioDevicesRegistrationEnabled') {
+                $enable = $data['enable'] ?? false;
+                if ($enable) {
+                    $enableForTime = $this->container->getParameter('supla.io_devices_registration.registration_active_time.manual');
+                    $user->enableIoDevicesRegistration($enableForTime);
+                } else {
+                    $user->disableIoDevicesRegistration();
+                }
+            } elseif ($data['action'] == 'change:userTimezone') {
+                try {
+                    $timezone = new \DateTimeZone($data['timezone']);
+                    $userManager = $this->get('user_manager');
+                    $userManager->updateTimeZone($this->getUser(), $timezone);
+                } catch (\Exception $e) {
+                    throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
+                }
+            }
+            $em->persist($user);
+            return $user;
+        });
+        return $this->view($user, Response::HTTP_OK);
     }
 }
