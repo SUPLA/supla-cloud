@@ -10,12 +10,6 @@
 </template>
 
 <script>
-    import BtnFilters from "src/common/btn-filters.vue";
-    import ChannelGroupsCarousel from "./channel-groups-carousel.vue";
-    import LoaderDots from "../common/loader-dots.vue";
-    import latinize from "latinize";
-    import Vue from "vue";
-
     export default {
         props: ['channelGroup'],
         methods: {

@@ -75,7 +75,7 @@ class ApiChannelController extends RestController {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'The device channel could not be found');
         }
 
-        if (is_array($functions) && !in_array($channel->getFunction(), $functions)) {
+        if (is_array($functions) && !in_array($channel->getFunction()->getId(), $functions)) {
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'The requested function is not available on this device');
         }
 
@@ -240,7 +240,7 @@ class ApiChannelController extends RestController {
         ];
 
         if ($connected) {
-            $func = $channel->getFunction();
+            $func = $channel->getFunction()->getId();
 
             switch ($func) {
                 case SuplaConst::FNC_POWERSWITCH:
@@ -341,7 +341,7 @@ class ApiChannelController extends RestController {
         $devid = $channel->getIoDevice()->getId();
         $userid = $this->getParentUser()->getId();
 
-        $func = $channel->getFunction();
+        $func = $channel->getFunction()->getId();
 
         switch ($func) {
             case SuplaConst::FNC_DIMMER:
@@ -438,7 +438,7 @@ class ApiChannelController extends RestController {
         $userid = $this->getParentUser()->getId();
         $action = @$data->action;
 
-        $func = $channel->getFunction();
+        $func = $channel->getFunction()->getId();
         $this->checkPatchAllowed($action, $func);
 
         $value = 0;
