@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,9 +56,9 @@ class IODeviceChannelGroup {
     /**
      * @ORM\ManyToMany(targetEntity="IODeviceChannel", inversedBy="channelGroups", cascade={"persist"})
      * @ORM\JoinTable(name="supla_rel_cg", joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
-     * inverseJoinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")}
-     * )
+     * inverseJoinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")} )
      * @Groups({"channels"})
+     * @var Collection|IODeviceChannel[]
      */
     private $channels;
 
@@ -76,18 +77,20 @@ class IODeviceChannelGroup {
 
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $function;
 
-    /**
-     * @param User $user
-     * @param IODeviceChannel[] $channels
-     */
+    /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
-        $this->user = $user;
-        $this->location = $location;
-        $this->function = $channels[0]->getFunction();
-        $this->channels = new ArrayCollection($channels);
+        $this->channels = new ArrayCollection();
+        if (count($channels)) {
+            Assertion::notNull($user);
+            Assertion::notNull($location);
+            $this->user = $user;
+            $this->location = $location;
+            $this->setChannels($channels);
+        }
     }
 
     public function getId(): int {
@@ -117,5 +120,25 @@ class IODeviceChannelGroup {
     /** @return Collection|IODeviceChannel[] */
     public function getChannels() {
         return $this->channels;
+    }
+
+    public function getFunction(): int {
+        return $this->function;
+    }
+
+    /** @param IODeviceChannel[] $channels */
+    public function setChannels(array $channels) {
+        Assertion::notEmpty($channels);
+        Assertion::allIsInstanceOf($channels, IODeviceChannel::class);
+        if (!$this->function) {
+            $this->function = $channels[0]->getFunction();
+        }
+        Assertion::allSatisfy($channels, function (IODeviceChannel $channel) {
+            return $channel->getFunction() === $this->getFunction();
+        }, 'All channels of this group must have function equal to ' . $this->getFunction());
+        $this->channels->clear();
+        foreach ($channels as $channel) {
+            $this->channels->add($channel);
+        }
     }
 }
