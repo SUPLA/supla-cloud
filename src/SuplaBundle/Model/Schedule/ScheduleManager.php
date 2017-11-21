@@ -28,6 +28,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\TimeProvider;
@@ -83,7 +84,7 @@ class ScheduleManager {
     }
 
     private function getFunctionsThatCanBeScheduled() {
-        return array_keys($this->ioDeviceManager->functionActionMap());
+        return array_keys(ChannelFunction::actions());
     }
 
     public function generateScheduledExecutions(Schedule $schedule, $until = '+5days') {

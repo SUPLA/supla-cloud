@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -18,7 +18,40 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+/**
+ * @method static ChannelFunction NONE()
+ * @method static ChannelFunction CONTROLLINGTHEGATEWAYLOCK()
+ * @method static ChannelFunction CONTROLLINGTHEGATE()
+ * @method static ChannelFunction CONTROLLINGTHEGARAGEDOOR()
+ * @method static ChannelFunction THERMOMETER()
+ * @method static ChannelFunction HUMIDITY()
+ * @method static ChannelFunction HUMIDITYANDTEMPERATURE()
+ * @method static ChannelFunction OPENINGSENSOR_GATEWAY()
+ * @method static ChannelFunction OPENINGSENSOR_GATE()
+ * @method static ChannelFunction OPENINGSENSOR_GARAGEDOOR()
+ * @method static ChannelFunction NOLIQUIDSENSOR()
+ * @method static ChannelFunction CONTROLLINGTHEDOORLOCK()
+ * @method static ChannelFunction OPENINGSENSOR_DOOR()
+ * @method static ChannelFunction CONTROLLINGTHEROLLERSHUTTER()
+ * @method static ChannelFunction OPENINGSENSOR_ROLLERSHUTTER()
+ * @method static ChannelFunction POWERSWITCH()
+ * @method static ChannelFunction LIGHTSWITCH()
+ * @method static ChannelFunction DIMMER()
+ * @method static ChannelFunction RGBLIGHTING()
+ * @method static ChannelFunction DIMMERANDRGBLIGHTING()
+ * @method static ChannelFunction DEPTHSENSOR()
+ * @method static ChannelFunction DISTANCESENSOR()
+ * @method static ChannelFunction OPENINGSENSOR_WINDOW()
+ * @method static ChannelFunction MAILSENSOR()
+ * @method static ChannelFunction WINDSENSOR()
+ * @method static ChannelFunction PRESSURESENSOR()
+ * @method static ChannelFunction RAINSENSOR()
+ * @method static ChannelFunction WEIGHTSENSOR()
+ * @method static ChannelFunction WEATHER_STATION()
+ * @method static ChannelFunction STAIRCASETIMER()
+ */
 final class ChannelFunction extends Enum {
     const NONE = 0;
     const CONTROLLINGTHEGATEWAYLOCK = 10;
@@ -42,4 +75,76 @@ final class ChannelFunction extends Enum {
     const DIMMERANDRGBLIGHTING = 200;
     const DEPTHSENSOR = 210;
     const DISTANCESENSOR = 220;
+    const OPENINGSENSOR_WINDOW = 230;
+    const MAILSENSOR = 240;
+    const WINDSENSOR = 250;
+    const PRESSURESENSOR = 260;
+    const RAINSENSOR = 270;
+    const WEIGHTSENSOR = 280;
+    const WEATHER_STATION = 290;
+    const STAIRCASETIMER = 300;
+
+    /** @Groups({"basic"}) */
+    public function getId(): string {
+        return $this->value;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getCaption(): string {
+        return self::captions()[$this->value] ?? 'None';
+    }
+
+    /** @Groups({"basic"}) */
+    public function getPossibleActions(): array {
+        return self::actions()[$this->getValue()] ?? [];
+    }
+
+    public static function actions(): array {
+        return [
+            self::CONTROLLINGTHEGATEWAYLOCK => [ScheduleAction::OPEN],
+            self::CONTROLLINGTHEDOORLOCK => [ScheduleAction::OPEN],
+            self::CONTROLLINGTHEGATE => [ScheduleAction::OPEN, ScheduleAction::CLOSE],
+            self::CONTROLLINGTHEGARAGEDOOR => [ScheduleAction::OPEN, ScheduleAction::CLOSE],
+            self::CONTROLLINGTHEROLLERSHUTTER => [ScheduleAction::SHUT, ScheduleAction::REVEAL, ScheduleAction::REVEAL_PARTIALLY],
+            self::POWERSWITCH => [ScheduleAction::TURN_ON, ScheduleAction::TURN_OFF],
+            self::LIGHTSWITCH => [ScheduleAction::TURN_ON, ScheduleAction::TURN_OFF],
+            self::DIMMER => [ScheduleAction::SET_RGBW_PARAMETERS],
+            self::RGBLIGHTING => [ScheduleAction::SET_RGBW_PARAMETERS],
+            self::DIMMERANDRGBLIGHTING => [ScheduleAction::SET_RGBW_PARAMETERS],
+        ];
+    }
+
+    private static function captions(): array {
+        return [
+            self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation',
+            self::CONTROLLINGTHEGATE => 'Gate operation',
+            self::CONTROLLINGTHEGARAGEDOOR => 'Garage door operation',
+            self::THERMOMETER => 'Thermometer',
+            self::OPENINGSENSOR_GATEWAY => 'Gateway opening sensor',
+            self::OPENINGSENSOR_GATE => 'Gate opening sensor',
+            self::OPENINGSENSOR_GARAGEDOOR => 'Garage door opening sensor',
+            self::NOLIQUIDSENSOR => 'No liquid sensor',
+            self::CONTROLLINGTHEDOORLOCK => 'Door lock operation',
+            self::OPENINGSENSOR_DOOR => 'Door opening sensor',
+            self::CONTROLLINGTHEROLLERSHUTTER => 'Roller shutter operation',
+            self::OPENINGSENSOR_ROLLERSHUTTER => 'Roller shutter opening sensor',
+            self::POWERSWITCH => 'On/Off switch',
+            self::LIGHTSWITCH => 'Light switch',
+            self::HUMIDITY => 'Humidity sensor',
+            self::HUMIDITYANDTEMPERATURE => 'Temperature and humidity sensor',
+            self::DIMMER => 'Dimmer',
+            self::RGBLIGHTING => 'RGB lighting',
+            self::DIMMERANDRGBLIGHTING => 'Dimmer and RGB lighting',
+            self::DISTANCESENSOR => 'Distance sensor',
+            self::DEPTHSENSOR => 'Depth sensor',
+            self::OPENINGSENSOR_WINDOW => 'Window opening sensor',
+            self::MAILSENSOR => 'Mail sensor',
+            self::WINDSENSOR => 'Wind sensor',
+            self::PRESSURESENSOR => 'Pressure sensor',
+            self::RAINSENSOR => 'Rain sensor',
+            self::WEIGHTSENSOR => 'Weight sensor',
+            self::WEATHER_STATION => 'Weather Station',
+            self::STAIRCASETIMER => 'Staircase timer',
+        ];
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -23,7 +23,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -55,8 +55,8 @@ class IODeviceManager {
             SuplaConst::FNC_OPENINGSENSOR_DOOR,
             SuplaConst::FNC_NOLIQUIDSENSOR,
             SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER,
-        	SuplaConst::FNC_OPENINGSENSOR_WINDOW,
-        	SuplaConst::FNC_MAILSENSOR,
+            SuplaConst::FNC_OPENINGSENSOR_WINDOW,
+            SuplaConst::FNC_MAILSENSOR,
         ];
 
         $map[SuplaConst::TYPE_SENSORNC] = $map[SuplaConst::TYPE_SENSORNO];
@@ -105,7 +105,7 @@ class IODeviceManager {
         $map[SuplaConst::TYPE_DISTANCESENSOR] = ['0', SuplaConst::FNC_DEPTHSENSOR,
             SuplaConst::FNC_DISTANCESENSOR,
         ];
-        
+
         $map[SuplaConst::TYPE_THERMOMETER] = ['0', SuplaConst::FNC_THERMOMETER];
         $map[SuplaConst::TYPE_HUMIDITYSENSOR] = ['0', SuplaConst::FNC_HUMIDITY];
         $map[SuplaConst::TYPE_HUMIDITYANDTEMPSENSOR] = ['0', SuplaConst::FNC_HUMIDITYANDTEMPERATURE];
@@ -114,7 +114,7 @@ class IODeviceManager {
         $map[SuplaConst::TYPE_RAINSENSOR] = ['0', SuplaConst::FNC_RAINSENSOR];
         $map[SuplaConst::TYPE_WEIGHTSENSOR] = ['0', SuplaConst::FNC_WEIGHTSENSOR];
         $map[SuplaConst::TYPE_WEATHER_STATION] = ['0', SuplaConst::FNC_WEATHER_STATION];
-        
+
         if ($type === null) {
             return $map;
         }
@@ -152,9 +152,9 @@ class IODeviceManager {
                 if ($flist & SuplaConst::BIT_RELAYFNC_LIGHTSWITCH) {
                     $fnc[] = SuplaConst::FNC_LIGHTSWITCH;
                 }
-                
+
                 if ($flist & SuplaConst::BIT_RELAYFNC_STAIRCASETIMER) {
-                	$fnc[] = SuplaConst::FNC_STAIRCASETIMER;
+                    $fnc[] = SuplaConst::FNC_STAIRCASETIMER;
                 }
             }
 
@@ -205,29 +205,29 @@ class IODeviceManager {
                 $result = 'AM2302 Temperature & Humidity Sensor';
                 break;
             case SuplaConst::TYPE_THERMOMETER:
-            	$result = 'Temperature sensor';
-            	break;
+                $result = 'Temperature sensor';
+                break;
             case SuplaConst::TYPE_HUMIDITYSENSOR:
-            	$result = 'Humidity sensor';
-            	break;
+                $result = 'Humidity sensor';
+                break;
             case SuplaConst::TYPE_HUMIDITYANDTEMPSENSOR:
-            	$result = 'Temperature & Humidity sensor';
-            	break;
+                $result = 'Temperature & Humidity sensor';
+                break;
             case SuplaConst::TYPE_WINDSENSOR:
-            	$result = 'Wind sensor';
-            	break;
+                $result = 'Wind sensor';
+                break;
             case SuplaConst::TYPE_PRESSURESENSOR:
-            	$result = 'Pressure sensor';
-            	break;
+                $result = 'Pressure sensor';
+                break;
             case SuplaConst::TYPE_RAINSENSOR:
-            	$result = 'Rain sensor';
-            	break;
+                $result = 'Rain sensor';
+                break;
             case SuplaConst::TYPE_WEIGHTSENSOR:
-            	$result = 'Weight sensor';
-            	break;
+                $result = 'Weight sensor';
+                break;
             case SuplaConst::TYPE_WEATHER_STATION:
-            	$result = 'Weather Station';
-            	break;
+                $result = 'Weather Station';
+                break;
             case SuplaConst::TYPE_DIMMER:
                 $result = 'Dimmer';
                 break;
@@ -245,116 +245,26 @@ class IODeviceManager {
         return $this->translator->trans($result);
     }
 
+    /** @deprecated */
     public function channelFunctionToString($func) {
-        $result = 'None';
-
-        switch ($func) {
-            case SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK:
-                $result = 'Gateway lock operation';
-                break;
-            case SuplaConst::FNC_CONTROLLINGTHEGATE:
-                $result = 'Gate operation';
-                break;
-            case SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR:
-                $result = 'Garage door operation';
-                break;
-            case SuplaConst::FNC_THERMOMETER:
-                $result = 'Thermometer';
-                break;
-            case SuplaConst::FNC_OPENINGSENSOR_GATEWAY:
-                $result = 'Gateway opening sensor';
-                break;
-            case SuplaConst::FNC_OPENINGSENSOR_GATE:
-                $result = 'Gate opening sensor';
-                break;
-            case SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR:
-                $result = 'Garage door opening sensor';
-                break;
-            case SuplaConst::FNC_NOLIQUIDSENSOR:
-                $result = 'No liquid sensor';
-                break;
-            case SuplaConst::FNC_CONTROLLINGTHEDOORLOCK:
-                $result = 'Door lock operation';
-                break;
-            case SuplaConst::FNC_OPENINGSENSOR_DOOR:
-                $result = 'Door opening sensor';
-                break;
-            case SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER:
-                $result = 'Roller shutter operation';
-                break;
-            case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
-                $result = 'Roller shutter opening sensor';
-                break;
-            case SuplaConst::FNC_POWERSWITCH:
-                $result = 'On/Off switch';
-                break;
-            case SuplaConst::FNC_LIGHTSWITCH:
-                $result = 'Light switch';
-                break;
-            case SuplaConst::FNC_HUMIDITY:
-                $result = 'Humidity sensor';
-                break;
-            case SuplaConst::FNC_HUMIDITYANDTEMPERATURE:
-                $result = 'Temperature and humidity sensor';
-                break;
-            case SuplaConst::FNC_DIMMER:
-                $result = 'Dimmer';
-                break;
-            case SuplaConst::FNC_RGBLIGHTING:
-                $result = 'RGB lighting';
-                break;
-            case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-                $result = 'Dimmer and RGB lighting';
-                break;
-            case SuplaConst::FNC_DISTANCESENSOR:
-                $result = 'Distance sensor';
-                break;
-            case SuplaConst::FNC_DEPTHSENSOR:
-                $result = 'Depth sensor';
-                break;
-            case SuplaConst::FNC_OPENINGSENSOR_WINDOW:
-            	$result = 'Window opening sensor';
-            	break;
-            case SuplaConst::FNC_MAILSENSOR:
-            	$result = 'Mail sensor';
-            	break;
-            case SuplaConst::FNC_WINDSENSOR:
-            	$result = 'Wind sensor';
-            	break;
-            case SuplaConst::FNC_PRESSURESENSOR:
-            	$result = 'Pressure sensor';
-            	break;
-            case SuplaConst::FNC_RAINSENSOR:
-            	$result = 'Rain sensor';
-            	break;
-            case SuplaConst::FNC_WEIGHTSENSOR:
-            	$result = 'Weight sensor';
-            	break;
-            case SuplaConst::FNC_WEATHER_STATION:
-            	$result = 'Weather Station';
-            	break;
-            case SuplaConst::FNC_STAIRCASETIMER:
-            	$result = 'Staircase timer';
-            	break;
-        }
-
+        $result = (new ChannelFunction($func))->getCaption();
         return $this->translator->trans($result);
     }
-    
+
     public function channelFunctionAltIconMax($func) {
-    	
-    	switch ($func) {
-    		case SuplaConst::FNC_POWERSWITCH:
-    			return 4;
-    		case SuplaConst::FNC_LIGHTSWITCH:
-    			return 1;
-    		case SuplaConst::FNC_CONTROLLINGTHEGATE:
-    			return 2;
-    		case SuplaConst::FNC_OPENINGSENSOR_GATE:
-    			return 2;
-    	}
-    	
-    	return 0;
+
+        switch ($func) {
+            case SuplaConst::FNC_POWERSWITCH:
+                return 4;
+            case SuplaConst::FNC_LIGHTSWITCH:
+                return 1;
+            case SuplaConst::FNC_CONTROLLINGTHEGATE:
+                return 2;
+            case SuplaConst::FNC_OPENINGSENSOR_GATE:
+                return 2;
+        }
+
+        return 0;
     }
 
     public function channelIoToString($type) {
@@ -392,21 +302,6 @@ class IODeviceManager {
         }
 
         return $this->translator->trans($result);
-    }
-
-    public function functionActionMap() {
-        return [
-            SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK => [ScheduleAction::OPEN],
-            SuplaConst::FNC_CONTROLLINGTHEDOORLOCK => [ScheduleAction::OPEN],
-            SuplaConst::FNC_CONTROLLINGTHEGATE => [ScheduleAction::OPEN, ScheduleAction::CLOSE],
-            SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR => [ScheduleAction::OPEN, ScheduleAction::CLOSE],
-            SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER => [ScheduleAction::SHUT, ScheduleAction::REVEAL, ScheduleAction::REVEAL_PARTIALLY],
-            SuplaConst::FNC_POWERSWITCH => [ScheduleAction::TURN_ON, ScheduleAction::TURN_OFF],
-            SuplaConst::FNC_LIGHTSWITCH => [ScheduleAction::TURN_ON, ScheduleAction::TURN_OFF],
-            SuplaConst::FNC_DIMMER => [ScheduleAction::SET_RGBW_PARAMETERS],
-            SuplaConst::FNC_RGBLIGHTING => [ScheduleAction::SET_RGBW_PARAMETERS],
-            SuplaConst::FNC_DIMMERANDRGBLIGHTING => [ScheduleAction::SET_RGBW_PARAMETERS],
-        ];
     }
 
     public function ioDeviceById($id, $user = null) {
@@ -484,7 +379,7 @@ class IODeviceManager {
                 'type' => $this->channelTypeToString($channel->getType()),
                 'function' => $this->channelFunctionToString($channel->getFunction()),
                 'function_id' => $channel->getFunction(),
-            	'icon_filename' => $channel->getIconFileName(),
+                'icon_filename' => $channel->getIconFileName(),
                 'caption' => $channel->getCaption(),
             ];
 
@@ -605,11 +500,11 @@ class IODeviceManager {
                     $subchannel_selected = $channel->getParam2();
 
                     break;
-                    
+
                 case SuplaConst::FNC_STAIRCASETIMER:
-                	$tmpl = 'staircasetimer';
-                	$twig_params['relay_time'] = $channel->getParam1() / 10.00;                	
-                	break;
+                    $tmpl = 'staircasetimer';
+                    $twig_params['relay_time'] = $channel->getParam1() / 10.00;
+                    break;
 
                 case SuplaConst::FNC_OPENINGSENSOR_GATEWAY:
                 case SuplaConst::FNC_OPENINGSENSOR_GATE:
@@ -673,7 +568,7 @@ class IODeviceManager {
             && $channel->getType() != SuplaConst::TYPE_DHT22
             && $channel->getType() != SuplaConst::TYPE_AM2301
             && $channel->getType() != SuplaConst::TYPE_AM2302
-        	&& $channel->getType() != SuplaConst::TYPE_THERMOMETER
+            && $channel->getType() != SuplaConst::TYPE_THERMOMETER
             && $channel->getType() != SuplaConst::TYPE_HUMIDITYSENSOR
             && $channel->getType() != SuplaConst::TYPE_HUMIDITYANDTEMPSENSOR
         ) {
@@ -686,7 +581,7 @@ class IODeviceManager {
             $handle = fopen($temp_file, 'w+');
 
             if ($channel->getType() == SuplaConst::TYPE_THERMOMETERDS18B20
-            		|| $channel->getType() == SuplaConst::TYPE_THERMOMETER) {
+                || $channel->getType() == SuplaConst::TYPE_THERMOMETER) {
                 fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature']);
 
                 $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";

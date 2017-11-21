@@ -22,6 +22,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ScheduleAction;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\ServerList;
@@ -59,7 +60,7 @@ class ApiUserController extends FOSRestController {
         $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
         $channelToFunctionsMap = [];
         foreach ($schedulableChannels as $channel) {
-            $channelToFunctionsMap[$channel->getId()] = $ioDeviceManager->functionActionMap()[$channel->getFunction()];
+            $channelToFunctionsMap[$channel->getId()] = (new ChannelFunction($channel->getFunction()))->getPossibleActions();
         }
         return $this->view([
             'userChannels' => array_map(function (IODeviceChannel $channel) use ($ioDeviceManager) {

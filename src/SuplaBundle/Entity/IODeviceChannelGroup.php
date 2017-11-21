@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
 
@@ -122,8 +123,8 @@ class IODeviceChannelGroup {
         return $this->channels;
     }
 
-    public function getFunction(): int {
-        return $this->function;
+    public function getFunction(): ChannelFunction {
+        return new ChannelFunction($this->function);
     }
 
     /** @param IODeviceChannel[] $channels */
@@ -132,10 +133,11 @@ class IODeviceChannelGroup {
         Assertion::allIsInstanceOf($channels, IODeviceChannel::class);
         if (!$this->function) {
             $this->function = $channels[0]->getFunction();
+            Assertion::true(ChannelFunction::isValid($this->function), 'Unknown function: ' . $this->function);
         }
         Assertion::allSatisfy($channels, function (IODeviceChannel $channel) {
-            return $channel->getFunction() === $this->getFunction();
-        }, 'All channels of this group must have function equal to ' . $this->getFunction());
+            return $channel->getFunction() === $this->function;
+        }, 'All channels of this group must have function equal to ' . $this->function);
         $this->channels->clear();
         foreach ($channels as $channel) {
             $this->channels->add($channel);

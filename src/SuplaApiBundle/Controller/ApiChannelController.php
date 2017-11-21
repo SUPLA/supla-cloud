@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,7 +17,6 @@
 
 namespace SuplaApiBundle\Controller;
 
-use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\IODeviceManager;
@@ -38,6 +37,13 @@ class ApiChannelController extends RestController {
 
     public function __construct(IODeviceManager $deviceManager) {
         $this->deviceManager = $deviceManager;
+    }
+
+    public function getChannelsAction(Request $request) {
+        $ioDevices = $this->getUser()->getIODevices();
+        $view = $this->view($channelGroups, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['channels']);
+        return $view;
     }
 
     protected function channelById($channelid, $functions = null, $checkConnected = false, $authorize = false) {
@@ -131,7 +137,6 @@ class ApiChannelController extends RestController {
     }
 
     protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
-
 
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, `temperature`, ";
         $sql .= "`humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";

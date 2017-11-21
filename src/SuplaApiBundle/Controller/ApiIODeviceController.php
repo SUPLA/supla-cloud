@@ -20,6 +20,7 @@ namespace SuplaApiBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,7 +73,7 @@ class ApiIODeviceController extends RestController {
                                 'id' => $channel->getType(),
                             ],
                             'function' => [
-                                'name' => SuplaConst::fncStr[$channel->getFunction()],
+                                'name' => (new ChannelFunction($channel->getFunction()))->getKey(),
                                 'id' => $channel->getFunction(),
                             ],
                         ];
@@ -143,7 +144,7 @@ class ApiIODeviceController extends RestController {
                         'id' => $channel->getType(),
                     ],
                     'function' => [
-                        'name' => SuplaConst::fncStr[$channel->getFunction()],
+                        'name' => (new ChannelFunction($channel->getFunction()))->getKey(),
                         'id' => $channel->getFunction(),
                     ],
                 ];
