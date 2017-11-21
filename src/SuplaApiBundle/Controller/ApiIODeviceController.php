@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,11 +69,11 @@ class ApiIODeviceController extends RestController {
                             'chnnel_number' => $channel->getChannelNumber(),
                             'caption' => $channel->getCaption(),
                             'type' => [
-                                'name' => SuplaConst::typeStr[$channel->getType()],
+                                'name' => 'TYPE_' . (new ChannelType($channel->getType()))->getKey(),
                                 'id' => $channel->getType(),
                             ],
                             'function' => [
-                                'name' => (new ChannelFunction($channel->getFunction()))->getKey(),
+                                'name' => 'FNC_' . (new ChannelFunction($channel->getFunction()))->getKey(),
                                 'id' => $channel->getFunction(),
                             ],
                         ];
@@ -140,11 +140,11 @@ class ApiIODeviceController extends RestController {
                     'chnnel_number' => $channel->getChannelNumber(),
                     'caption' => $channel->getCaption(),
                     'type' => [
-                        'name' => SuplaConst::typeStr[$channel->getType()],
+                        'name' => 'TYPE_' . (new ChannelType($channel->getType()))->getKey(),
                         'id' => $channel->getType(),
                     ],
                     'function' => [
-                        'name' => (new ChannelFunction($channel->getFunction()))->getKey(),
+                        'name' => 'FNC_' . (new ChannelFunction($channel->getFunction()))->getKey(),
                         'id' => $channel->getFunction(),
                     ],
                 ];

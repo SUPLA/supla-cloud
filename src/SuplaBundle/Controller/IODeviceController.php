@@ -130,7 +130,7 @@ class IODeviceController extends AbstractController {
                 case SuplaConst::TYPE_RELAY:
                 case SuplaConst::TYPE_RELAYHFD4:
                 case SuplaConst::TYPE_RELAYG5LA1A:
-                case SuplaConst::TYPE_2XRELAYG5LA1A:
+                case SuplaConst::TYPE_RELAY2XG5LA1A:
                     if ($channel->getParam2() != 0) {
                         $sensor = $this->getChannelById($channel->getParam2());
                         if ($sensor !== null) {
@@ -217,7 +217,7 @@ class IODeviceController extends AbstractController {
                 case SuplaConst::TYPE_RELAY:
                 case SuplaConst::TYPE_RELAYHFD4:
                 case SuplaConst::TYPE_RELAYG5LA1A:
-                case SuplaConst::TYPE_2XRELAYG5LA1A:
+                case SuplaConst::TYPE_RELAY2XG5LA1A:
                     if ($channel->getFunction() == SuplaConst::FNC_NONE
                         || $old_param2 != $channel->getParam2()
                     ) {

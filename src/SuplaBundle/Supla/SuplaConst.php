@@ -18,34 +18,38 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 
+/**
+ * @deprecated use finer-graned enums
+ */
 class SuplaConst {
-    const TYPE_SENSORNO = 1000;
-    const TYPE_SENSORNC = 1010;
-    const TYPE_DISTANCESENSOR = 1020;
-    const TYPE_CALLBUTTON = 1500;
-    const TYPE_RELAYHFD4 = 2000;
-    const TYPE_RELAYG5LA1A = 2010;
-    const TYPE_2XRELAYG5LA1A = 2020;
-    const TYPE_RELAY = 2900;
-    const TYPE_THERMOMETERDS18B20 = 3000;
-    const TYPE_DHT11 = 3010;
-    const TYPE_DHT21 = 3022;
-    const TYPE_DHT22 = 3020;
-    const TYPE_AM2301 = 3032;
-    const TYPE_AM2302 = 3030;
-    const TYPE_THERMOMETER = 3034;
-    const TYPE_HUMIDITYSENSOR = 3036;
-    const TYPE_HUMIDITYANDTEMPSENSOR = 3038;
-    const TYPE_WINDSENSOR = 3042;
-    const TYPE_PRESSURESENSOR = 3044;
-    const TYPE_RAINSENSOR = 3048;
-    const TYPE_WEIGHTSENSOR = 3050;
-    const TYPE_WEATHER_STATION = 3100;
+    const TYPE_SENSORNO = ChannelType::SENSORNO;
+    const TYPE_SENSORNC = ChannelType::SENSORNC;
+    const TYPE_DISTANCESENSOR = ChannelType::DISTANCESENSOR;
+    const TYPE_CALLBUTTON = ChannelType::CALLBUTTON;
+    const TYPE_RELAYHFD4 = ChannelType::RELAYHFD4;
+    const TYPE_RELAYG5LA1A = ChannelType::RELAYG5LA1A;
+    const TYPE_RELAY2XG5LA1A = ChannelType::RELAY2XG5LA1A;
+    const TYPE_RELAY = ChannelType::RELAY;
+    const TYPE_THERMOMETERDS18B20 = ChannelType::THERMOMETERDS18B20;
+    const TYPE_DHT11 = ChannelType::DHT11;
+    const TYPE_DHT21 = ChannelType::DHT21;
+    const TYPE_DHT22 = ChannelType::DHT22;
+    const TYPE_AM2301 = ChannelType::AM2301;
+    const TYPE_AM2302 = ChannelType::AM2302;
+    const TYPE_THERMOMETER = ChannelType::THERMOMETER;
+    const TYPE_HUMIDITYSENSOR = ChannelType::HUMIDITYSENSOR;
+    const TYPE_HUMIDITYANDTEMPSENSOR = ChannelType::HUMIDITYANDTEMPSENSOR;
+    const TYPE_WINDSENSOR = ChannelType::WINDSENSOR;
+    const TYPE_PRESSURESENSOR = ChannelType::PRESSURESENSOR;
+    const TYPE_RAINSENSOR = ChannelType::RAINSENSOR;
+    const TYPE_WEIGHTSENSOR = ChannelType::WEIGHTSENSOR;
+    const TYPE_WEATHER_STATION = ChannelType::WEATHER_STATION;
 
-    const TYPE_DIMMER = 4000;
-    const TYPE_RGBLEDCONTROLLER = 4010;
-    const TYPE_DIMMERANDRGBLED = 4020;
+    const TYPE_DIMMER = ChannelType::DIMMER;
+    const TYPE_RGBLEDCONTROLLER = ChannelType::RGBLEDCONTROLLER;
+    const TYPE_DIMMERANDRGBLED = ChannelType::DIMMERANDRGBLED;
 
     const BIT_RELAYFNC_CONTROLLINGTHEGATEWAYLOCK = 0x00000001;
     const BIT_RELAYFNC_CONTROLLINGTHEGATE = 0x00000002;
@@ -88,34 +92,6 @@ class SuplaConst {
     const FNC_STAIRCASETIMER = ChannelFunction::STAIRCASETIMER;
 
     // @codingStandardsIgnoreStart
-
-    const typeStr = [
-        1000 => 'TYPE_SENSORNO',
-        1010 => 'TYPE_SENSORNC',
-        1020 => 'TYPE_DISTANCESENSOR',
-        1500 => 'TYPE_CALLBUTTON',
-        2000 => 'TYPE_RELAYHFD4',
-        2010 => 'TYPE_RELAYG5LA1A',
-        2020 => 'TYPE_2XRELAYG5LA1A',
-        2900 => 'TYPE_RELAY',
-        3000 => 'TYPE_THERMOMETERDS18B20',
-        3010 => 'TYPE_DHT11',
-        3022 => 'TYPE_DHT21',
-        3020 => 'TYPE_DHT22',
-        3032 => 'TYPE_AM2301',
-        3030 => 'TYPE_AM2302',
-        3034 => 'TYPE_THERMOMETER',
-        3036 => 'TYPE_HUMIDITYSENSOR',
-        3038 => 'TYPE_HUMIDITYANDTEMPSENSOR',
-        3042 => 'TYPE_WINDSENSOR',
-        3044 => 'TYPE_PRESSURESENSOR',
-        3048 => 'TYPE_RAINSENSOR',
-        3050 => 'TYPE_WEIGHTSENSOR',
-        3100 => 'TYPE_WEATHER_STATION',
-        4000 => 'TYPE_DIMMER',
-        4010 => 'TYPE_RGBLEDCONTROLLER',
-        4020 => 'TYPE_DIMMERANDRGBLED',
-    ];
 
     const bitStr = [
         0x00000001 => 'BIT_RELAYFNC_CONTROLLINGTHEGATEWAYLOCK',

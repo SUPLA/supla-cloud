@@ -75,7 +75,7 @@ class IODeviceManager {
             SuplaConst::FNC_LIGHTSWITCH,
         ];
 
-        $map[SuplaConst::TYPE_2XRELAYG5LA1A] = ['0', SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
+        $map[SuplaConst::TYPE_RELAY2XG5LA1A] = ['0', SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
             SuplaConst::FNC_CONTROLLINGTHEGATE,
             SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR,
             SuplaConst::FNC_CONTROLLINGTHEDOORLOCK,
@@ -183,7 +183,7 @@ class IODeviceManager {
             case SuplaConst::TYPE_RELAYG5LA1A:
                 $result = 'G5LA1A Relay';
                 break;
-            case SuplaConst::TYPE_2XRELAYG5LA1A:
+            case SuplaConst::TYPE_RELAY2XG5LA1A:
                 $result = 'G5LA1A Relay x2';
                 break;
             case SuplaConst::TYPE_THERMOMETERDS18B20:
@@ -295,7 +295,7 @@ class IODeviceManager {
             case SuplaConst::TYPE_DIMMERANDRGBLED:
             case SuplaConst::TYPE_RELAY:
             case SuplaConst::TYPE_RELAYG5LA1A:
-            case SuplaConst::TYPE_2XRELAYG5LA1A:
+            case SuplaConst::TYPE_RELAY2XG5LA1A:
             case SuplaConst::TYPE_RELAYHFD4:
                 $result = 'Output';
                 break;
@@ -362,7 +362,7 @@ class IODeviceManager {
 
         return $this->channel_rep->findBy(
             ['user' => $user,
-                'type' => [SuplaConst::TYPE_RELAY, SuplaConst::TYPE_RELAYHFD4, SuplaConst::TYPE_RELAYG5LA1A, SuplaConst::TYPE_2XRELAYG5LA1A],
+                'type' => [SuplaConst::TYPE_RELAY, SuplaConst::TYPE_RELAYHFD4, SuplaConst::TYPE_RELAYG5LA1A, SuplaConst::TYPE_RELAY2XG5LA1A],
                 'function' => $func,
                 'param2' => [0, $include],
                 'param3' => 0]
