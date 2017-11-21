@@ -23,7 +23,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,7 +80,7 @@ class ApiUserController extends FOSRestController {
                     ],
                 ];
             }, $schedulableChannels),
-            'actionCaptions' => ScheduleAction::captions(),
+            'actionCaptions' => ChannelFunctionAction::captions(),
             'channelFunctionMap' => $channelToFunctionsMap,
         ]);
     }

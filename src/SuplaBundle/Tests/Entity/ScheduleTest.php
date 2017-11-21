@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
 use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testSettingTheCronExpression() {
@@ -43,7 +43,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testRequiresActionParamsForRgbLighting() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['scheduleMode' => 'hourly', 'timeExpression' => '*', 'action' => ScheduleAction::SET_RGBW_PARAMETERS]);
+        $schedule->fill(['scheduleMode' => 'hourly', 'timeExpression' => '*', 'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
     }
 
     public function testSettingActionParamsAsArray() {
@@ -51,7 +51,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
         $schedule->fill([
             'scheduleMode' => 'hourly',
             'timeExpression' => '*',
-            'action' => ScheduleAction::REVEAL_PARTIALLY,
+            'action' => ChannelFunctionAction::REVEAL_PARTIALLY,
             'actionParam' => ['percentage' => 12],
         ]);
         $this->assertEquals('{"percentage":12}', $schedule->getActionParam());

@@ -19,7 +19,7 @@ namespace SuplaBundle\Entity;
 
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
@@ -125,7 +125,7 @@ class Schedule {
     public function fill(array $data) {
         Assert::that($data)->notEmptyKey('timeExpression');
         $this->setTimeExpression($data['timeExpression']);
-        $this->setAction(new ScheduleAction($data['action'] ?? ScheduleAction::TURN_ON));
+        $this->setAction(new ChannelFunctionAction($data['action'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
         $this->setChannel($data['channel'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
@@ -174,11 +174,11 @@ class Schedule {
         $this->channel = $channel;
     }
 
-    public function getAction(): ScheduleAction {
-        return new ScheduleAction($this->action);
+    public function getAction(): ChannelFunctionAction {
+        return new ChannelFunctionAction($this->action);
     }
 
-    public function setAction(ScheduleAction $action) {
+    public function setAction(ChannelFunctionAction $action) {
         $this->action = $action->getValue();
     }
 

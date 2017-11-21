@@ -23,16 +23,16 @@ use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @method static ScheduleAction OPEN()
- * @method static ScheduleAction CLOSE()
- * @method static ScheduleAction SHUT()
- * @method static ScheduleAction REVEAL()
- * @method static ScheduleAction REVEAL_PARTIALLY()
- * @method static ScheduleAction TURN_ON()
- * @method static ScheduleAction TURN_OFF()
- * @method static ScheduleAction SET_RGBW_PARAMETERS()
+ * @method static ChannelFunctionAction OPEN()
+ * @method static ChannelFunctionAction CLOSE()
+ * @method static ChannelFunctionAction SHUT()
+ * @method static ChannelFunctionAction REVEAL()
+ * @method static ChannelFunctionAction REVEAL_PARTIALLY()
+ * @method static ChannelFunctionAction TURN_ON()
+ * @method static ChannelFunctionAction TURN_OFF()
+ * @method static ChannelFunctionAction SET_RGBW_PARAMETERS()
  */
-final class ScheduleAction extends Enum {
+final class ChannelFunctionAction extends Enum {
     const OPEN = 10;
     const CLOSE = 20;
     const SHUT = 30;

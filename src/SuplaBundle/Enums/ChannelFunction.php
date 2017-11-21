@@ -101,16 +101,16 @@ final class ChannelFunction extends Enum {
 
     public static function actions(): array {
         return [
-            self::CONTROLLINGTHEGATEWAYLOCK => [ScheduleAction::OPEN],
-            self::CONTROLLINGTHEDOORLOCK => [ScheduleAction::OPEN],
-            self::CONTROLLINGTHEGATE => [ScheduleAction::OPEN, ScheduleAction::CLOSE],
-            self::CONTROLLINGTHEGARAGEDOOR => [ScheduleAction::OPEN, ScheduleAction::CLOSE],
-            self::CONTROLLINGTHEROLLERSHUTTER => [ScheduleAction::SHUT, ScheduleAction::REVEAL, ScheduleAction::REVEAL_PARTIALLY],
-            self::POWERSWITCH => [ScheduleAction::TURN_ON, ScheduleAction::TURN_OFF],
-            self::LIGHTSWITCH => [ScheduleAction::TURN_ON, ScheduleAction::TURN_OFF],
-            self::DIMMER => [ScheduleAction::SET_RGBW_PARAMETERS],
-            self::RGBLIGHTING => [ScheduleAction::SET_RGBW_PARAMETERS],
-            self::DIMMERANDRGBLIGHTING => [ScheduleAction::SET_RGBW_PARAMETERS],
+            self::CONTROLLINGTHEGATEWAYLOCK => [ChannelFunctionAction::OPEN],
+            self::CONTROLLINGTHEDOORLOCK => [ChannelFunctionAction::OPEN],
+            self::CONTROLLINGTHEGATE => [ChannelFunctionAction::OPEN, ChannelFunctionAction::CLOSE],
+            self::CONTROLLINGTHEGARAGEDOOR => [ChannelFunctionAction::OPEN, ChannelFunctionAction::CLOSE],
+            self::CONTROLLINGTHEROLLERSHUTTER => [ChannelFunctionAction::SHUT, ChannelFunctionAction::REVEAL, ChannelFunctionAction::REVEAL_PARTIALLY],
+            self::POWERSWITCH => [ChannelFunctionAction::TURN_ON, ChannelFunctionAction::TURN_OFF],
+            self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON, ChannelFunctionAction::TURN_OFF],
+            self::DIMMER => [ChannelFunctionAction::SET_RGBW_PARAMETERS],
+            self::RGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS],
+            self::DIMMERANDRGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS],
         ];
     }
 

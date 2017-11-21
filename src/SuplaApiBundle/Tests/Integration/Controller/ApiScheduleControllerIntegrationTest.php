@@ -21,7 +21,7 @@ use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -47,7 +47,7 @@ class ApiScheduleControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/web-api/schedules', [
             'channel' => $this->device->getChannels()[0]->getId(),
-            'action' => ScheduleAction::TURN_ON,
+            'action' => ChannelFunctionAction::TURN_ON,
             'scheduleMode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
         ]);
