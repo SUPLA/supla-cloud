@@ -69,7 +69,7 @@
   },
   "apidoc": {
     "title": "SUPLA REST API Documentation",
-    "url" : "/api",
+    "url": "/api",
     "version": "2.2.0"
   }
 }
