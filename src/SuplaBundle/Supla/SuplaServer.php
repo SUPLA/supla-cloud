@@ -204,4 +204,9 @@ abstract class SuplaServer {
 
         return $this->setValue('RGBW', $userId, $deviceId, $channelId, $color . ',' . $colorBrightness . ',' . $brightness);
     }
+
+    public function isAlive(): bool {
+        // TODO @pzygmunt
+        return true;
+    }
 }

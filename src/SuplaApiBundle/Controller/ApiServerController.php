@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,6 +28,8 @@ use Symfony\Component\HttpFoundation\Response;
  * @apiError 401 Unauthorized. Please authenticate in API with OAuth.
  */
 class ApiServerController extends RestController {
+    use SuplaServerAware;
+
     /**
      * @api {get} /server-info Server Info
      * @apiDescription Get server info.
@@ -81,5 +84,15 @@ class ApiServerController extends RestController {
         $api_man->userLogout($ts->getUser(), $ts->getToken(), $refreshToken);
 
         return $this->view(null, Response::HTTP_OK);
+    }
+
+    /** @Get("/server-status") */
+    public function getServerStatusAction() {
+        $alive = $this->suplaServer->isAlive();
+        if ($alive) {
+            return $this->view(['status' => 'OK'], Response::HTTP_OK);
+        } else {
+            return $this->view(['status' => 'DOWN'], Response::HTTP_SERVICE_UNAVAILABLE);
+        }
     }
 }
