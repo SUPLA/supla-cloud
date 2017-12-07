@@ -45,7 +45,7 @@ uses mock of supla-server by default.
       <VirtualHost *:80>
           SetEnv APPLICATION_ENV dev
           DocumentRoot /var/www/supla-cloud/web
-          ServerName supla.dev
+          ServerName supla.local
       </VirtualHost>
       ```
       then, enable the configuration with `a2ensite supla-dev` and restart the Apache `service apache2 restart`
@@ -55,12 +55,12 @@ uses mock of supla-server by default.
       <VirtualHost *:80>
           SetEnv APPLICATION_ENV dev
           DocumentRoot "C:/xampp/htdocs/supla-cloud/web"
-          ServerName supla.dev
+          ServerName supla.local
       </VirtualHost>
       ```
       Restart Apache with XAMPP Control Panel.
-11. Add a `127.0.0.1 supla.dev` line in `/etc/hosts` on Unix or `C:\Windows\System32\drivers\etc\hosts` on Windows
-    so the `http://supla.dev` address points at your localhost.
+11. Add a `127.0.0.1 supla.local` line in `/etc/hosts` on Unix or `C:\Windows\System32\drivers\etc\hosts` on Windows
+    so the `http://supla.local` address points at your localhost.
 
 
 ## Development
@@ -69,7 +69,7 @@ uses mock of supla-server by default.
     ```
     cd src/Frontend && npm run dev
     ```
-2. Enter http://supla.dev to see the application.
+2. Enter http://supla.local to see the application.
 3. Login with `user@supla.org` and `pass` (this is a sample account).
 
 ## Contributing
