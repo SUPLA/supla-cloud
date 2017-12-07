@@ -20,7 +20,10 @@ Vue.use(VueMoment);
 Vue.use(VueResource);
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
-Vue.http.options.root = (Vue.config.external.baseUrl || '') + '/web-api';
+if (!Vue.config.external.baseUrl) {
+    Vue.config.external.baseUrl = '';
+}
+Vue.http.options.root = Vue.config.external.baseUrl + '/web-api';
 Vue.http.headers.common['X-Accept-Version'] = '2.2.0';
 
 moment.locale(Vue.config.external.locale);

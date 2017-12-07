@@ -1,0 +1,57 @@
+<template>
+    <square-link :class="'clearfix pointer ' + (channel.enabled ? 'green' : 'grey')">
+        <a>
+            <channel-icon :channel="channel"
+                width="100"></channel-icon>
+            <h3>{{ $t(channel.function.caption) }}</h3>
+            <!--<dl>-->
+            <!--<dd>{{ channel.guid }}</dd>-->
+            <!--<dt></dt>-->
+            <!--</dl>-->
+            <!--<div class="separator invisible"></div>-->
+            <dl>
+                <dd>{{ $t('Device') }}</dd>
+                <dt>{{ $t(channel.device) }}</dt>
+                <dd>{{ $t('Type') }}</dd>
+                <dt>{{ $t(channel.type.caption) }}</dt>
+                <!--<dd>{{ $t('Location') }}</dd>-->
+                <!--<dt>ID{{channel.location.id}} {{ channel.location.caption }}</dt>-->
+            </dl>
+            <div v-if="channel.caption">
+                <div class="separator"></div>
+                {{ channel.caption }}
+            </div>
+            <!--<div class="square-link-label">-->
+            <!--<device-connection-status-label :device="device"></device-connection-status-label>-->
+            <!--</div>-->
+        </a>
+        <!--
+    <a class="element-item nav-link {{ channel.function_id }} {% if channel.function_id == '0' %} none {% endif %}" href="{{ path('_iodev_channel_item_edit', {'devid': iodevice.id, 'id': channel.id}) }}">
+
+            <img src={{ asset('assets/img/functions/') }}{{ channel.icon_filename }}>
+
+			<h3>{{ channel.function }}</h3>
+			<div class="detials">
+				{% trans %}Channel{% endtrans %} <strong> {{ channel.number }}</strong> ({{channel.io}})<br />
+				{% trans %}Type{% endtrans %} <strong>{{ channel.type }}</strong>
+			</div>
+
+			{% if channel.caption is not empty %}
+				<div class="caption">
+				{{ channel.caption }}
+				</div>
+			{% endif %}
+	   </a>
+	   -->
+    </square-link>
+</template>
+
+<script>
+    import SquareLink from "src/common/square-link.vue";
+    import ChannelIcon from "./channel-icon.vue";
+
+    export default {
+        props: ['channel'],
+        components: {ChannelIcon, SquareLink},
+    };
+</script>

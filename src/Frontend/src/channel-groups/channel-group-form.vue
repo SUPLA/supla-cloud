@@ -11,15 +11,25 @@
             {{ channelGroup.channels }}
             <button type="submit">Zapisz</button>
         </form>
+        <square-links-grid v-if="channelGroup.channels"
+            :count="channelGroup.channels.length"
+            class="square-links-height-240">
+            <div v-for="channel in channelGroup.channels"
+                :key="channel.id">
+                <channel-tile :channel="channel"></channel-tile>
+            </div>
+        </square-links-grid>
     </div>
 </template>
 
 <script>
     import ChannelsDropdown from "src/devices/channels-dropdown.vue";
+    import SquareLinksGrid from "src/common/square-links-grid.vue";
+    import ChannelTile from "./channel-tile.vue";
 
     export default {
         props: ['channelGroup'],
-        components: {ChannelsDropdown},
+        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid},
         data() {
             return {
                 newChannel: undefined,

@@ -50,7 +50,10 @@ abstract class RestController extends FOSRestController {
         $filteredGroups = array_intersect($requestedGroups, $allowedGroups);
         if (count($filteredGroups) < count($requestedGroups)) {
             $notSupported = implode(', ', array_diff($requestedGroups, $filteredGroups));
-            throw new HttpException(Response::HTTP_BAD_REQUEST, 'The following includes are not supported: ' . $notSupported);
+            $supported = implode(', ', $allowedGroups);
+            throw new HttpException(
+                Response::HTTP_BAD_REQUEST,
+                vsprintf('The following includes are not supported: %s. Available: %s.', [$notSupported, $supported]));
         }
         $filteredGroups[] = 'basic';
         $context->setGroups(array_unique($filteredGroups));
