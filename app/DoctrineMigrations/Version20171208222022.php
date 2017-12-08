@@ -2,15 +2,28 @@
 
 namespace Application\Migrations;
 
+use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Add possibly missing procedures and views to the database.
  */
-class Version20171208222022 extends AbstractMigration {
+class Version20171208222022 extends AbstractMigration implements ContainerAwareInterface {
+    use ContainerAwareTrait;
+
     public function up(Schema $schema) {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->createSuplaServerViews();
+        $this->createSuplaServerProcedures();
+    }
+
+    public function down(Schema $schema) {
+    }
+
+    private function createSuplaServerViews() {
         $this->addSql(<<<VIEW
         CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW IF NOT EXISTS `supla_v_client` AS  
         SELECT `c`.`id` AS `id`,`c`.`access_id` AS `access_id`,`c`.`guid` AS `guid`,`c`.`name` AS `name`,`c`.`reg_ipv4` AS `reg_ipv4`,
@@ -48,7 +61,7 @@ VIEW
 VIEW
         );
         $this->addSql(<<<VIEW
-        CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_device_location` AS
+        CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW IF NOT EXISTS`supla_v_device_location` AS
         SELECT `l`.`id` AS `id`,`l`.`user_id` AS `user_id`,cast(`l`.`enabled` as unsigned) AS `enabled`,`u`.`limit_iodev` AS `limit_iodev`,
                `l`.`password` AS `password`
         FROM (`supla_location` `l` JOIN `supla_user` `u` ON((`u`.`id` = `l`.`user_id`)));
@@ -56,6 +69,60 @@ VIEW
         );
     }
 
-    public function down(Schema $schema) {
+    private function createSuplaServerProcedures() {
+        if (!$this->procedureExists('supla_on_channeladded')) {
+            $this->addSql(<<<PROCEDURE
+            CREATE PROCEDURE `supla_on_channeladded`(IN `_device_id` INT, IN `_channel_id` INT) NO SQL
+            BEGIN
+                SET @type = NULL;
+                SELECT type INTO @type FROM supla_dev_channel WHERE `func` = 0 AND id = _channel_id;
+                IF @type = 3000 THEN
+                    UPDATE supla_dev_channel SET `func` = 40 WHERE id = _channel_id;
+                END IF;
+            END;
+PROCEDURE
+            );
+        }
+        if (!$this->procedureExists('supla_on_newdevice')) {
+            $this->addSql(<<<PROCEDURE
+            CREATE PROCEDURE `supla_on_newdevice`(IN `_device_id` INT) MODIFIES SQL DATA
+            BEGIN
+            END;
+PROCEDURE
+            );
+        }
+        if (!$this->procedureExists('supla_get_device_firmware_url')) {
+            $this->addSql(<<<PROCEDURE
+            CREATE PROCEDURE `supla_get_device_firmware_url`(IN `device_id` INT, IN `platform` TINYINT, IN `fparam1` INT, IN `fparam2` INT, IN `fparam3` INT, IN `fparam4` INT, OUT `protocols` TINYINT, OUT `host` VARCHAR(100), OUT `port` INT, OUT `path` VARCHAR(100))
+                NO SQL
+            BEGIN
+                SET @protocols = 0;
+                SET @host = '';
+                SET @port = 0;
+                SET @path = '';
+                
+                SET @fparam1 = fparam1;
+                SET @fparam2 = fparam2;
+                SET @platform = platform;
+                SET @device_id = device_id;
+                
+                INSERT INTO `esp_update_log`(`date`, `device_id`, `platform`, `fparam1`, `fparam2`, `fparam3`, `fparam4`) VALUES (NOW(),device_id,platform,fparam1,fparam2,fparam3,fparam4);
+                
+                SELECT u.`protocols`, u.`host`, u.`port`, u.`path` INTO @protocols, @host, @port, @path FROM supla_iodevice AS d, esp_update AS u WHERE d.id = @device_id AND u.`platform` = @platform AND u.`fparam1` = @fparam1 AND u.`fparam2` = @fparam2 AND u.`device_name` = d.name AND u.`latest_software_version` != d.`software_version` AND ( u.`device_id` = 0 OR u.`device_id` = device_id ) LIMIT 1;
+                
+                SET protocols = @protocols;
+                SET host = @host;
+                SET port = @port;
+                SET path = @path;
+            END;
+PROCEDURE
+            );
+        }
+    }
+
+    private function procedureExists(string $name): bool {
+        /** @var Connection $connection */
+        $connection = $this->container->get('doctrine.orm.entity_manager')->getConnection();
+        return !!$connection->fetchColumn('SELECT COUNT(*) FROM information_schema.routines WHERE routine_type="PROCEDURE" AND routine_schema=DATABASE() AND routine_name="' . $name . '"');
     }
 }
