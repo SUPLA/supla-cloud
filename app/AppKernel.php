@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel {
@@ -49,7 +50,8 @@ class AppKernel extends Kernel {
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
         // optional webpack dev server: https://www.slideshare.net/nachomartin/webpacksf/60
         $loader->load(function ($container) {
-            if ($container->getParameter('use_webpack_dev_server')) {
+            /** @var ContainerInterface $container */
+            if ($container->hasParameter('use_webpack_dev_server') && $container->getParameter('use_webpack_dev_server')) {
                 $protocol = $container->getParameter('supla_protocol');
                 $container->loadFromExtension('framework', [
                     'assets' => [
