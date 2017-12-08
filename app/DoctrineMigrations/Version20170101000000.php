@@ -1,8 +1,26 @@
-DROP PROCEDURE IF EXISTS `SUPLA_INITIAL_STRUCTURE`;
-CREATE PROCEDURE `SUPLA_INITIAL_STRUCTURE`()
-BEGIN
-  SELECT @table_exists := COUNT(1) AS table_exists FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'supla_user';
-  IF @table_exists = 0 THEN
+<?php
+
+namespace Application\Migrations;
+
+use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+
+/**
+ * Initial DB structure from SUPLA-Cloud v1.1.0.
+ */
+class Version20170101000000 extends AbstractMigration implements ContainerAwareInterface {
+    use ContainerAwareTrait;
+
+    public function up(Schema $schema) {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $connection = $this->container->get('doctrine.orm.entity_manager')->getConnection();
+        $userTableExists = !!$connection->fetchColumn('SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = "supla_user";');
+
+        if (!$userTableExists) {
+            $this->addSql(<<<INITIAL_SCHEMA
     CREATE TABLE supla_accessid (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, password VARCHAR(32) NOT NULL, caption VARCHAR(100) DEFAULT NULL, enabled TINYINT(1) NOT NULL, INDEX IDX_A5549B6CA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
     CREATE TABLE supla_client (id INT AUTO_INCREMENT NOT NULL, access_id INT NOT NULL, guid BINARY(16) NOT NULL, name VARCHAR(100) DEFAULT NULL, enabled TINYINT(1) NOT NULL, reg_ipv4 INT UNSIGNED NOT NULL, reg_date DATETIME NOT NULL, last_access_ipv4 INT UNSIGNED NOT NULL, last_access_date DATETIME NOT NULL, software_version VARCHAR(20) NOT NULL, protocol_version INT NOT NULL, INDEX IDX_5430007F4FEA67CF (access_id), UNIQUE INDEX UNIQUE_CLIENTAPP (id, guid), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
     CREATE TABLE supla_iodevice (id INT AUTO_INCREMENT NOT NULL, location_id INT NOT NULL, user_id INT NOT NULL, guid BINARY(16) NOT NULL, name VARCHAR(100) DEFAULT NULL, enabled TINYINT(1) NOT NULL, comment VARCHAR(200) DEFAULT NULL, reg_date DATETIME NOT NULL, reg_ipv4 INT UNSIGNED NOT NULL, last_connected DATETIME DEFAULT NULL, last_ipv4 INT DEFAULT NULL, software_version VARCHAR(10) NOT NULL, protocol_version INT NOT NULL, UNIQUE INDEX UNIQ_793D49D2B6FCFB2 (guid), INDEX IDX_793D49D64D218E (location_id), INDEX IDX_793D49DA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
@@ -21,8 +39,12 @@ BEGIN
     ALTER TABLE supla_location ADD CONSTRAINT FK_3698128EA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id);
     ALTER TABLE supla_rel_aidloc ADD CONSTRAINT FK_2B15904164D218E FOREIGN KEY (location_id) REFERENCES supla_location (id);
     ALTER TABLE supla_rel_aidloc ADD CONSTRAINT FK_2B1590414FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id);
-  END IF;
-END;
+INITIAL_SCHEMA
+            );
+        }
+    }
 
-CALL `SUPLA_INITIAL_STRUCTURE`();
-DROP PROCEDURE IF EXISTS `SUPLA_INITIAL_STRUCTURE`;
+    public function down(Schema $schema) {
+        // There's no way back.
+    }
+}
