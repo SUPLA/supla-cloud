@@ -47,6 +47,9 @@ services:
   SuplaBundle\Supla\:
     resource: '../../src/SuplaBundle/Supla'
 
+  SuplaBundle\Supla\SuplaServerReal:
+    $socketPath: '%supla_server_socket%'
+
   SuplaBundle\Supla\SuplaAutodiscover:
     $server: "%supla_autodiscover_server%"
 
