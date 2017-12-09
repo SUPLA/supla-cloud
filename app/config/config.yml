@@ -72,6 +72,7 @@ framework:
 
 parameters:
   supla_protocol: https
+  supla_server_socket: /tmp/supla-server-ctrl.sock
   use_webpack_dev_server: false
 
 supla:

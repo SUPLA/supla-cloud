@@ -18,7 +18,6 @@ parameters:
   supla_server: ~
   supla_server_list: ~
   supla_autodiscover_server: ~
-  supla_server_socket: /tmp/supla-server-ctrl.sock
 
   recaptcha_enabled: false
   ewz_recaptcha_public_key: ~
