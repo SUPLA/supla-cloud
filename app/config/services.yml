@@ -21,6 +21,9 @@ services:
 
   SuplaApiBundle\Provider\ApiUserProvider: ~
 
+  SuplaBundle\Command\:
+    resource: '../../src/SuplaBundle/Command'
+
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'
     public: true
