@@ -104,7 +104,7 @@ class IODeviceChannel {
     private $altIcon = 0;
     
     /**
-     * @ORM\Column(name="hidden", type="boolean", nullable=false)
+     * @ORM\Column(name="hidden", type="boolean", nullable=false, options={"default"=0})
      * @Groups({"basic", "flat"})
      */
     private $hidden = false;

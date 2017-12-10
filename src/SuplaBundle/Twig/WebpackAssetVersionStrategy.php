@@ -28,7 +28,7 @@ class WebpackAssetVersionStrategy implements VersionStrategyInterface {
 
     public function __construct(bool $webpackDevServer, array $hashes) {
         $this->webpackDevServer = $webpackDevServer;
-        if (count($hashes) === 0) {
+        if (count($hashes) === 0 && php_sapi_name() !== 'cli') {
             throw new \RuntimeException('Invalid frontend configuration. '
                 . 'Please build the frontend code with the following command: composer run-script webpack');
         }
