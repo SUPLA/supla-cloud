@@ -21,17 +21,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Form\Type\AssignType;
-use SuplaBundle\Supla\SuplaServerReal;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/aid")
  */
 class AccessIDController extends AbstractController {
+    use SuplaServerAware;
 
     private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        (new SuplaServerReal())->reconnect($user->getId());
+        $this->suplaServer->reconnect($user->getId());
     }
 
     private function getAccessIdById($id) {

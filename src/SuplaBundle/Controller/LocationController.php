@@ -20,7 +20,7 @@ namespace SuplaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Form\Type\AssignType;
-use SuplaBundle\Supla\SuplaServerReal;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,10 +28,11 @@ use Symfony\Component\HttpFoundation\Request;
  * @Route("/loc")
  */
 class LocationController extends Controller {
+    use SuplaServerAware;
 
     private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        (new SuplaServerReal())->reconnect($user->getId());
+        $this->suplaServer->reconnect($user->getId());
     }
 
     private function getLocationById($id) {

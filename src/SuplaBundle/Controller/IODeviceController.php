@@ -24,7 +24,7 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
 use SuplaBundle\Supla\SuplaConst;
-use SuplaBundle\Supla\SuplaServerReal;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -32,10 +32,11 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  * @Route("/iodev")
  */
 class IODeviceController extends AbstractController {
+    use SuplaServerAware;
 
     private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        (new SuplaServerReal())->reconnect($user->getId());
+        $this->suplaServer->reconnect($user->getId());
     }
 
     private function getIODeviceById($id) {
