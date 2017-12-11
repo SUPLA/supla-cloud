@@ -3,20 +3,15 @@ namespace SuplaBundle\Command;
 
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
-use Symfony\Component\Console\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
-class CreateConfirmedUserCommand extends Command {
+class CreateConfirmedUserCommand extends ContainerAwareCommand {
     /** @var UserManager */
     private $userManager;
-
-    public function __construct(UserManager $userManager) {
-        parent::__construct();
-        $this->userManager = $userManager;
-    }
 
     protected function configure() {
         $this
@@ -27,6 +22,9 @@ class CreateConfirmedUserCommand extends Command {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        if (!$this->userManager) {
+            $this->userManager = $this->getContainer()->get('user_manager');
+        }
         $helper = $this->getHelper('question');
         $username = $input->getArgument('username');
         if (!$username) {
