@@ -6,10 +6,14 @@ use SuplaBundle\Model\UserManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
 class CreateConfirmedUserCommand extends ContainerAwareCommand {
+    const USERNAME_EXISTS_CODE = 123;
+    const MIN_PASSWORD_LENGTH = 4;
+
     /** @var UserManager */
     private $userManager;
 
@@ -18,6 +22,7 @@ class CreateConfirmedUserCommand extends ContainerAwareCommand {
             ->setName('supla:create-confirmed-user')
             ->addArgument('username', InputArgument::OPTIONAL)
             ->addArgument('password', InputArgument::OPTIONAL)
+            ->addOption('if-not-exists', null, InputOption::VALUE_NONE, 'Don\'t throw an exception if no migration is available (CI).')
             ->setDescription('Create a confirmed user account.');
     }
 
@@ -30,7 +35,16 @@ class CreateConfirmedUserCommand extends ContainerAwareCommand {
         if (!$username) {
             $username = $helper->ask($input, $output, $this->usernameQuestion());
         } else {
-            $username = $this->validateUsername($username);
+            try {
+                $username = $this->validateUsername($username);
+            } catch (\RuntimeException $e) {
+                if ($e->getCode() == self::USERNAME_EXISTS_CODE && $input->getOption('if-not-exists')) {
+                    $output->writeln("User $username already exists.");
+                    return;
+                } else {
+                    throw $e;
+                }
+            }
         }
         $password = $input->getArgument('password');
         if (!$password) {
@@ -38,8 +52,10 @@ class CreateConfirmedUserCommand extends ContainerAwareCommand {
         } else {
             $password = $this->validatePassword($password);
         }
-        $this->createConfirmedUser($username, $password);
-        $output->writeln("New account has been created.");
+        if ($username && $password) {
+            $this->createConfirmedUser($username, $password);
+            $output->writeln("New account has been created.");
+        }
     }
 
     private function usernameQuestion(): Question {
@@ -54,7 +70,7 @@ class CreateConfirmedUserCommand extends ContainerAwareCommand {
         }
         $username = trim($username);
         if ($this->userManager->userByEmail($username)) {
-            throw new \RuntimeException("User already exists! Choose different e-mail address.");
+            throw new \RuntimeException("User already exists! Choose different e-mail address.", self::USERNAME_EXISTS_CODE);
         }
         return $username;
     }
@@ -68,8 +84,8 @@ class CreateConfirmedUserCommand extends ContainerAwareCommand {
     }
 
     public function validatePassword($password): string {
-        if (!is_string($password) || strlen($password) < 8) {
-            throw new \RuntimeException('Password too short (min 8 characters).');
+        if (!is_string($password) || strlen($password) < self::MIN_PASSWORD_LENGTH) {
+            throw new \RuntimeException('Password too short (min ' . self::MIN_PASSWORD_LENGTH . ' characters).');
         }
         return $password;
     }
