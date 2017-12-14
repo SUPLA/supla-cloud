@@ -16,7 +16,7 @@ class DispatchCyclicTasksCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->getApplication()->setAutoExit(false);
         $minute = intval(date('H')) * 60 + intval(date('i'));
-        if ($minute % 3600) { // every six hours
+        if (($minute % 3600) == 0) { // every six hours
             $this->getApplication()->run(new StringInput('supla:generate-schedules-executions'), $output);
         }
     }
