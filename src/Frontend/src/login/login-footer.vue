@@ -5,6 +5,7 @@
                 <language-selector></language-selector>
             </div>
             <div class="col-sm-4 text-center">
+                <span class="text-muted">SUPLA Cloud v{{ version }}</span>
                 <a class="brand nav-link"
                     href="https://www.supla.org">www.supla.org</a>
             </div>
@@ -22,7 +23,12 @@
     import LanguageSelector from "./language-selector.vue";
 
     export default {
-        components: {LanguageSelector}
+        components: {LanguageSelector},
+        data() {
+            return {
+                version: $('#login-page').attr('version') || ''
+            };
+        }
     };
 </script>
 
