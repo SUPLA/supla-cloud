@@ -22,6 +22,9 @@ services:
 
   SuplaApiBundle\Provider\ApiUserProvider: ~
 
+  SuplaBundle\Command\:
+    resource: '../../src/SuplaBundle/Command'
+
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'
     public: true
@@ -50,6 +53,9 @@ services:
 
   SuplaBundle\Supla\:
     resource: '../../src/SuplaBundle/Supla'
+
+  SuplaBundle\Supla\SuplaServerReal:
+    $socketPath: '%supla_server_socket%'
 
   SuplaBundle\Supla\SuplaAutodiscover:
     $server: "%supla_autodiscover_server%"

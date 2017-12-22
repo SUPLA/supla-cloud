@@ -31,7 +31,7 @@ class SuplaServerReal extends SuplaServer {
 
         $old_er = error_reporting();
         error_reporting($old_er ^ E_WARNING);
-        $this->socket = stream_socket_client('unix:///tmp/supla-server-ctrl.sock', $errno, $errstr);
+        $this->socket = stream_socket_client('unix://' . $this->socketPath, $errno, $errstr);
         error_reporting($old_er);
 
         if (!$this->socket) {

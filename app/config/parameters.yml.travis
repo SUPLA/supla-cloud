@@ -25,7 +25,5 @@ parameters:
 
   locale: en
 
-  use_webpack_dev_server: false
-
   # A secret key that's used to generate certain security-related tokens
   secret: ThisTokenIsNotSoSecretChangeIt

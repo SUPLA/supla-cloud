@@ -8,22 +8,16 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170414101854 extends AbstractMigration
-{
-    /**
-     * @param Schema $schema
-     */
-    public function up(Schema $schema)
-    {
-        // this up() migration is auto-generated, please modify it to your needs
+class Version20170414101854 extends AbstractMigration {
+    public function up(Schema $schema) {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $timezone = date_default_timezone_get();
-        
-        if ( strlen($timezone) == 0 ) {
-        	$timezone = "UTC";
+
+        if (strlen($timezone) == 0) {
+            $timezone = "UTC";
         }
-        
+
         $this->addSql('CREATE TABLE supla_oauth_refresh_tokens (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, user_id INT DEFAULT NULL, token VARCHAR(255) NOT NULL, expires_at INT DEFAULT NULL, scope VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_B809538C5F37A13B (token), INDEX IDX_B809538C19EB6921 (client_id), INDEX IDX_B809538CA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE supla_oauth_auth_codes (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, user_id INT DEFAULT NULL, token VARCHAR(255) NOT NULL, redirect_uri LONGTEXT NOT NULL, expires_at INT DEFAULT NULL, scope VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_48E00E5D5F37A13B (token), INDEX IDX_48E00E5D19EB6921 (client_id), INDEX IDX_48E00E5DA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE supla_oauth_access_tokens (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, user_id INT DEFAULT NULL, token VARCHAR(255) NOT NULL, expires_at INT DEFAULT NULL, scope VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_2402564B5F37A13B (token), INDEX IDX_2402564B19EB6921 (client_id), INDEX IDX_2402564BA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -47,18 +41,13 @@ class Version20170414101854 extends AbstractMigration
         $this->addSql('ALTER TABLE supla_iodevice ADD CONSTRAINT FK_793D49DF142C1A4 FOREIGN KEY (original_location_id) REFERENCES supla_location (id)');
         $this->addSql('CREATE INDEX IDX_793D49DF142C1A4 ON supla_iodevice (original_location_id)');
         $this->addSql('ALTER TABLE supla_user ADD timezone VARCHAR(50) NOT NULL, ADD limit_schedule INT DEFAULT 20 NOT NULL');
-        $this->addSql("UPDATE supla_user SET timezone = '".addslashes ($timezone)."'");
+        $this->addSql("UPDATE supla_user SET timezone = '" . addslashes($timezone) . "'");
         $this->addSql('ALTER TABLE supla_client CHANGE guid guid VARBINARY(16) NOT NULL');
         $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007F4FEA67CF');
         $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007F4FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id) ON DELETE CASCADE');
-        
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function down(Schema $schema)
-    {
+    public function down(Schema $schema) {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 

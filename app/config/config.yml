@@ -15,6 +15,7 @@ doctrine:
     types:
       utcdatetime: SuplaBundle\Model\UTCDateTimeType
     user: "%database_user%"
+    server_version: 5.5
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
     auto_mapping: true
@@ -80,6 +81,8 @@ framework:
 
 parameters:
   supla_protocol: https
+  supla_server_socket: /tmp/supla-server-ctrl.sock
+  use_webpack_dev_server: false
 
 sensio_framework_extra:
   request: { converters: true }

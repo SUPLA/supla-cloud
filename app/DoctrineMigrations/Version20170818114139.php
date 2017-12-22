@@ -70,9 +70,6 @@ class Version20170818114139 extends AbstractMigration {
         $this->addSql('UPDATE `supla_user` SET `iodevice_reg_enabled` = UTC_TIMESTAMP() + INTERVAL 1 DAY,`client_reg_enabled` = UTC_TIMESTAMP() + INTERVAL 1 DAY');
     }
 
-    /**
-     * @param Schema $schema
-     */
     public function down(Schema $schema) {
         $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007FA76ED395');
         $this->addSql('DROP INDEX IDX_5430007FA76ED395 ON supla_client');

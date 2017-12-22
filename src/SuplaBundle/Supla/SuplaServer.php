@@ -20,6 +20,13 @@ namespace SuplaBundle\Supla;
 use SuplaBundle\Entity\ClientApp;
 
 abstract class SuplaServer {
+    /** @var string */
+    protected $socketPath;
+
+    public function __construct(string $socketPath) {
+        $this->socketPath = $socketPath;
+    }
+
     public function __destruct() {
         $this->disconnect();
     }

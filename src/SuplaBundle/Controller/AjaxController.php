@@ -18,9 +18,8 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\Supla\SuplaServerAware;
-use SuplaBundle\Supla\SuplaServerReal;
 use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -120,7 +119,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlSensorStateAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new SuplaServerReal())->getDoubleValue($user->getId(), $iodevice_id, $channel_id);
+        $value = $this->suplaServer->getDoubleValue($user->getId(), $iodevice_id, $channel_id);
 
         $dev_man = $this->get('iodevice_manager');
         $channel = $dev_man->channelById($channel_id);
@@ -139,7 +138,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlTempValAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new SuplaServerReal())->getTemperatureValue($user->getId(), $iodevice_id, $channel_id);
+        $value = $this->suplaServer->getTemperatureValue($user->getId(), $iodevice_id, $channel_id);
         return AjaxController::jsonResponse(true, ['value' => $value === false || $value < -273 ? '-' : number_format($value, 1)]);
     }
 
@@ -148,7 +147,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlHumidityValAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new SuplaServerReal())->getHumidityValue($user->getId(), $iodevice_id, $channel_id);
+        $value = $this->suplaServer->getHumidityValue($user->getId(), $iodevice_id, $channel_id);
         return AjaxController::jsonResponse(true, ['value' => $value === false || $value < 0 ? '-' : number_format($value, 1)]);
     }
 
@@ -157,7 +156,7 @@ class AjaxController extends Controller {
      */
     public function serverctrlDistanceValAction($iodevice_id, $channel_id) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = (new SuplaServerReal())->getDistanceValue($user->getId(), $iodevice_id, $channel_id);
+        $value = $this->suplaServer->getDistanceValue($user->getId(), $iodevice_id, $channel_id);
 
         if ($value === false || $value < 0) {
             $value = "-";

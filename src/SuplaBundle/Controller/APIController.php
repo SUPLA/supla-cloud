@@ -43,7 +43,7 @@ class APIController extends Controller {
                 'client' => $client,
                 'api_user' => $api_user,
                 'token_url' => $url,
-                'server' => $this->container->getParameter('supla_scheme') . '://' . $this->container->getParameter('supla_server'),
+                'server' => $this->container->getParameter('supla_protocol') . '://' . $this->container->getParameter('supla_server'),
             ]
         );
     }

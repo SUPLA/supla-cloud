@@ -19,7 +19,6 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -40,6 +39,7 @@ class AuthController extends AbstractController {
         return [
             'last_username' => $lastUsername,
             'error' => !!$error,
+            'version' => $this->getParameter('supla.version'),
         ];
     }
 

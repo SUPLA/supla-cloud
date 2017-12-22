@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
-
+ 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -41,14 +41,12 @@ class IODeviceChannel {
 
     /**
      * @ORM\Column(name="channel_number", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $channelNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="channels")
      * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false)
-     * @Groups({"iodevice", "location"})
      */
     private $iodevice;
 
@@ -63,23 +61,20 @@ class IODeviceChannel {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
      */
     private $schedules;
-
+    
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
-     * @Groups({"basic"})
      */
     private $caption;
 
     /**
      * @ORM\Column(name="type", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $type;
 
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $function;
 
@@ -102,18 +97,18 @@ class IODeviceChannel {
      * @ORM\Column(name="param3", type="integer", nullable=false)
      */
     private $param3 = '';
-
+    
     /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
      */
     private $altIcon = 0;
-
+    
     /**
-     * @ORM\Column(name="hidden", type="boolean", nullable=false)
+     * @ORM\Column(name="hidden", type="boolean", nullable=false, options={"default"=0})
      * @Groups({"basic"})
      */
     private $hidden = false;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", inversedBy="channels", cascade={"persist"})
      * @ORM\JoinTable(name="supla_rel_cg",
@@ -200,31 +195,31 @@ class IODeviceChannel {
     public function setParam3($param3) {
         $this->param3 = $param3;
     }
-
+    
     public function getAltIcon() {
         return intval($this->altIcon);
     }
-
+    
     public function setAltIcon($altIcon) {
         $this->altIcon = $altIcon;
     }
-
+    
     public function getIconSuffix() {
         return ($this->getAltIcon() > 0 ? '_'.$this->getAltIcon() : '') . '.svg';
     }
-
+    
     public function getIconFilename() {
         return $this->getFunction().$this->getIconSuffix();
     }
-
+    
     public function getHidden() {
         return $this->hidden;
     }
-
+    
     public function setHidden($hidden) {
         $this->hidden = $hidden;
     }
-
+    
     /** @return Collection|IODeviceChannelGroup[] */
     public function getChannelGroups(): Collection {
         return $this->channelGroups;

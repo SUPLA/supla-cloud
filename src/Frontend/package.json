@@ -1,7 +1,7 @@
 {
   "name": "SUPLA-CLOUD",
   "description": "",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "private": true,
   "scripts": {
     "apidocs": "apidoc -i ../SuplaApiBundle/Controller -i ../SuplaApiBundle/Resources/old-docs -o ../../apidocs",

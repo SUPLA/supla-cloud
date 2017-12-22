@@ -24,7 +24,6 @@ uses mock of supla-server by default.
     1. `database_*` - configuration of your database connection
     1. `supla_server` - set it to `supla.dev` 
     1. `recaptcha_enabled` - set it to `false`
-    1. `use_webpack_dev_server` - set it to `true`
     
    You can leave the defaults for all of the other settings. If you made a mistake,
    you can fix it by editing the `app/config/parameters.yml` file.
