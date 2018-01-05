@@ -13,7 +13,7 @@ class TestTimeProvider extends TimeProvider {
     public function setTimestamp($time) {
         if (is_string($time)) {
             $this->timestamp = strtotime($time);
-        } else if (is_int($time)) {
+        } elseif (is_int($time)) {
             $this->timestamp = $time;
         } else {
             throw new \InvalidArgumentException('Unsupported time spec: ' . $time);
