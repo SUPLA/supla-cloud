@@ -44,12 +44,14 @@ class IODeviceChannel {
 
     /**
      * @ORM\Column(name="channel_number", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $channelNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="channels")
      * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false)
+     * @Groups({"iodevice"})
      */
     private $iodevice;
 
@@ -64,10 +66,11 @@ class IODeviceChannel {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
      */
     private $schedules;
-    
+
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
+     * @Groups({"basic"})
      */
     private $caption;
 
@@ -100,18 +103,19 @@ class IODeviceChannel {
      * @ORM\Column(name="param3", type="integer", nullable=false)
      */
     private $param3 = '';
-    
+
     /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
+     * @Groups({"basic"})
      */
     private $altIcon = 0;
-    
+
     /**
      * @ORM\Column(name="hidden", type="boolean", nullable=false, options={"default"=0})
      * @Groups({"basic"})
      */
     private $hidden = false;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", mappedBy="channels", cascade={"persist"})
      */
@@ -133,6 +137,7 @@ class IODeviceChannel {
         $this->caption = $caption;
     }
 
+    /** @Groups({"basic"}) */
     public function getType(): ChannelType {
         return new ChannelType($this->type);
     }
@@ -151,6 +156,7 @@ class IODeviceChannel {
         return $this->schedules;
     }
 
+    /** @Groups({"basic"}) */
     public function getFunction(): ChannelFunction {
         return new ChannelFunction($this->function);
     }
@@ -170,6 +176,7 @@ class IODeviceChannel {
         return $this->funcList;
     }
 
+    /** @deprecated ridiculous */
     public function getChannel() {
         return $this;
     }
@@ -197,31 +204,31 @@ class IODeviceChannel {
     public function setParam3($param3) {
         $this->param3 = $param3;
     }
-    
+
     public function getAltIcon() {
         return intval($this->altIcon);
     }
-    
+
     public function setAltIcon($altIcon) {
         $this->altIcon = $altIcon;
     }
-    
+
     public function getIconSuffix() {
         return ($this->getAltIcon() > 0 ? '_' . $this->getAltIcon() : '') . '.svg';
     }
-    
+
     public function getIconFilename() {
         return $this->getFunction() . $this->getIconSuffix();
     }
-    
+
     public function getHidden() {
         return $this->hidden;
     }
-    
+
     public function setHidden($hidden) {
         $this->hidden = $hidden;
     }
-    
+
     /** @return Collection|IODeviceChannelGroup[] */
     public function getChannelGroups(): Collection {
         return $this->channelGroups;

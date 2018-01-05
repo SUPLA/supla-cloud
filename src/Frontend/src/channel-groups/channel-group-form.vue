@@ -37,7 +37,9 @@
         },
         methods: {
             saveChannelGroup() {
-                this.$http.post('channel-groups', this.channelGroup);
+                const toSend = $.extend({}, this.channelGroup);
+                toSend.function = toSend.function.id;
+                this.$http.post('channel-groups', {channelGroup: toSend});
             },
             addChannel() {
                 if (this.newChannel) {
