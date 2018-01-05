@@ -221,14 +221,14 @@ class Schedule {
     }
 
     /**
-     * @return mixed
+     * @return \DateTime|null
      */
     public function getDateEnd() {
         return $this->dateEnd;
     }
 
     /**
-     * @param mixed $dateEnd
+     * @param \DateTime|null $dateEnd
      */
     public function setDateEnd($dateEnd) {
         $this->dateEnd = $dateEnd;

@@ -20,6 +20,7 @@ namespace SuplaBundle\Command;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,7 +47,8 @@ class GenerateSchedulesExecutionsCommand extends ContainerAwareCommand {
         $criteria = new \Doctrine\Common\Collections\Criteria();
         $criteria
             ->where($criteria->expr()->eq('enabled', true))
-            ->andWhere($criteria->expr()->lte('nextCalculationDate', $now));
+            ->andWhere($criteria->expr()->lte('nextCalculationDate', $now))
+            ->andWhere($criteria->expr()->neq('mode', ScheduleMode::ONCE));
         $schedules = $scheduleRepo->matching($criteria);
         $output->writeln('Schedules to regenerate: ' . count($schedules));
         $expired = 0;

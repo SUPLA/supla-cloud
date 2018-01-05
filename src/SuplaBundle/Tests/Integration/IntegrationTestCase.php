@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration;
 
+use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
@@ -59,5 +60,9 @@ abstract class IntegrationTestCase extends WebTestCase {
             'HTTP_Accept' => 'application/json',
         ]);
         return $client;
+    }
+
+    protected function getDoctrine(): RegistryInterface {
+        return $this->container->get('doctrine');
     }
 }

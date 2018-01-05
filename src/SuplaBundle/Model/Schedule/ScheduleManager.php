@@ -30,6 +30,7 @@ use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
+use SuplaBundle\Model\TimeProvider;
 
 class ScheduleManager {
     /** @var Registry */
@@ -42,6 +43,8 @@ class ScheduleManager {
     private $ioDeviceManager;
     /** @var CompositeSchedulePlanner */
     private $schedulePlanner;
+    /** @var TimeProvider */
+    private $timeProvider;
 
     public function __construct(ManagerRegistry $doctrine, IODeviceManager $ioDeviceManager, CompositeSchedulePlanner $schedulePlanner) {
         $this->doctrine = $doctrine;
@@ -49,6 +52,7 @@ class ScheduleManager {
         $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');
         $this->ioDeviceManager = $ioDeviceManager;
         $this->schedulePlanner = $schedulePlanner;
+        $this->timeProvider = new TimeProvider();
     }
 
     /** @return IODeviceChannel[] */
@@ -93,7 +97,10 @@ class ScheduleManager {
             $nextCalculationDate->sub(new \DateInterval('P2D')); // the oldest scheduled execution minus 2 days
             $schedule->setNextCalculationDate($nextCalculationDate);
         } else {
-            $this->disable($schedule);
+            $latestExecution = $this->findLatestExecution($schedule);
+            if (!$latestExecution || $latestExecution->getPlannedTimestamp()->getTimestamp() < $this->timeProvider->getTimestamp()) {
+                $this->disable($schedule);
+            }
         }
         $this->entityManager->persist($schedule);
         $this->entityManager->flush();
@@ -105,20 +112,32 @@ class ScheduleManager {
             $schedule->getDateEnd()->setTimezone($userTimezone);
             $until = min($schedule->getDateEnd()->getTimestamp(), strtotime($until));
         }
-        if ($schedule->getDateStart()->getTimestamp() < time()) {
-            $schedule->getDateStart()->setTimestamp(time());
+        $time = $this->timeProvider->getTimestamp();
+        if ($schedule->getDateStart()->getTimestamp() < $time) {
+            $schedule->getDateStart()->setTimestamp($time);
         }
         $dateStart = $schedule->getDateStart();
-        $latestExecution = current($this->scheduledExecutionsRepository
-            ->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));
+        $latestExecution = $this->findLatestExecution($schedule);
         if ($latestExecution && !$ignoreExisting) {
-            $dateStart = $latestExecution->getPlannedTimestamp();
+            $dateStart = clone $latestExecution->getPlannedTimestamp();
         }
-        if ($dateStart->getTimestamp() < time()) {
-            $dateStart->setTimestamp(time());
+        if ($dateStart->getTimestamp() < $time) {
+            $dateStart->setTimestamp($time);
         }
         $dateStart->setTimezone($userTimezone);
-        return $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
+        $nextRunDates = $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
+        if ($schedule->getDateEnd()) {
+            return array_filter($nextRunDates, function (\DateTime $date) use ($schedule) {
+                return $date->getTimestamp() <= $schedule->getDateEnd()->getTimestamp();
+            });
+        } else {
+            return $nextRunDates;
+        }
+    }
+
+    /** @return ScheduledExecution|null */
+    private function findLatestExecution(Schedule $schedule) {
+        return current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));
     }
 
     public function findClosestExecutions(Schedule $schedule, $contextSize = 3): array {
