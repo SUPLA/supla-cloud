@@ -21,17 +21,22 @@
         border-radius: 3px;
         border: 2px solid $supla-green;
         transition: all .3s;
-        > a {
+        > a, > .valign-center {
             display: block;
             width: 100%;
             height: 100%;
             color: inherit;
-            &.valign-center {
-                display: table;
-                > * {
-                    display: table-cell;
-                    vertical-align: middle;
-                }
+        }
+        > .valign-center {
+            display: table;
+            > * {
+                display: table-cell;
+                vertical-align: middle;
+            }
+            i {
+                font-size: 6em;
+                display: block;
+                margin-bottom: 15px;
             }
         }
         h3, h4 {
@@ -83,7 +88,7 @@
                 border: 0;
             }
         }
-        &:active {
+        &:active:not(.not-transform) {
             transform: scale(0.95);
         }
         &.selected {

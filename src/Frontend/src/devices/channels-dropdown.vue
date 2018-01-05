@@ -1,22 +1,45 @@
 <template>
-    <select class="form-control"
-        ref="dropdown"
-        :data-placeholder="$t('choose the channel')"
-        v-model="chosenChannelId">
-        <option v-for="channel in channelsForDropdown"
-            :value="channel.id">
-            {{ channelTitle(channel) }}
-        </option>
-    </select>
+    <div>
+        <div class="select-loader"
+            v-if="!channels">
+            <button-loading-dots></button-loading-dots>
+        </div>
+        <select class="form-control"
+            :disabled="!channels"
+            ref="dropdown"
+            :data-placeholder="$t('choose the channel')"
+            v-model="chosenChannelId">
+            <option v-for="channel in channelsForDropdown"
+                :value="channel.id">
+                {{ channelTitle(channel) }}
+            </option>
+        </select>
+    </div>
 </template>
+
+<style lang="scss">
+    .select-loader {
+        position: relative;
+        text-align: center;
+        .button-loading-dots {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            margin-left: -25px;
+            z-index: 20;
+        }
+    }
+</style>
 
 <script>
     import Vue from "vue";
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
+    import ButtonLoadingDots from "../common/button-loading-dots.vue";
 
     export default {
         props: ['params', 'value', 'hiddenChannels'],
+        components: {ButtonLoadingDots},
         data() {
             return {
                 channels: undefined,
@@ -59,12 +82,15 @@
                 if (!this.channels) {
                     return [];
                 }
+                let channels = [];
                 if (this.hiddenChannels && this.hiddenChannels.length) {
                     const hiddenIds = this.hiddenChannels.map(channel => channel.id || channel);
-                    return this.channels.filter(channel => hiddenIds.indexOf(channel.id) < 0);
+                    channels = this.channels.filter(channel => hiddenIds.indexOf(channel.id) < 0);
                 } else {
-                    return this.channels;
+                    channels = this.channels;
                 }
+                this.$emit('update', channels);
+                return channels;
             }
         },
         watch: {

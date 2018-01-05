@@ -55,4 +55,10 @@
             transform: translate3d(0, 0, 0);
         }
     }
+
+    .black {
+        .loader-dots div {
+            border-color: $supla-white;
+        }
+    }
 </style>

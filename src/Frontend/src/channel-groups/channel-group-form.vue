@@ -1,22 +1,72 @@
 <template>
     <div>
         <h2>{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
-        <form @submit.prevent="saveChannelGroup()">
+        <!--<form @submit.prevent="saveChannelGroup()">-->
+        <div class="form-group">
+            <label>Group name</label>
             <input type="text"
+                class="form-control"
                 v-model="channelGroup.caption">
-            <channels-dropdown :params="'include=iodevice,location&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
-                v-model="newChannel"
-                @input="addChannel()"
-                :hidden-channels="channelGroup.channels"></channels-dropdown>
-            {{ channelGroup.channels }}
-            <button type="submit">Zapisz</button>
-        </form>
+        </div>
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<button type="submit">Zapisz</button>-->
+        <!--</form>-->
         <square-links-grid v-if="channelGroup.channels"
-            :count="channelGroup.channels.length"
+            :count="channelGroup.channels.length + 1"
             class="square-links-height-240">
+            <div key="new">
+                <flipper :flipped="!!addingNewChannel">
+                    <square-link class="clearfix pointer black"
+                        slot="front">
+                        <a class="valign-center text-center"
+                            @click="addingNewChannel = true">
+                            <span>
+                                <i class="pe-7s-plus"></i>
+                                {{ $t('Add new channel to this group') }}
+                            </span>
+                        </a>
+                    </square-link>
+                    <square-link class="clearfix pointer black not-transform"
+                        slot="back">
+                        <span class="valign-center text-center">
+                            <span>
+                                <form @submit.prevent="addChannel()"
+                                    v-show="!channelsToChoose || channelsToChoose.length !== 0">
+                                    <div class="form-group">
+                                        <channels-dropdown :params="'include=iodevice,location&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
+                                            v-model="newChannel"
+                                            @update="channelsToChoose = $event"
+                                            :hidden-channels="channelGroup.channels"></channels-dropdown>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-default pull-left"
+                                            type="button"
+                                            @click="addingNewChannel = false">
+                                            Cancel
+                                        </button>
+                                        <button class="btn btn-green pull-right"
+                                            :disabled="!newChannel"
+                                            type="submit">
+                                            Add
+                                        </button>
+                                    </div>
+                                </form>
+                                <div v-show="channelsToChoose && channelsToChoose.length === 0">
+                                    <i class="pe-7s-paint-bucket"></i>
+                                    {{ $t('There are no more channels you can add to this group') }}
+                                </div>
+                            </span>
+                        </span>
+                    </square-link>
+                </flipper>
+            </div>
             <div v-for="channel in channelGroup.channels"
                 :key="channel.id">
-                <channel-tile :channel="channel"></channel-tile>
+                <channel-tile :channel="channel"
+                    @remove="channelGroup.channels.splice(channelGroup.channels.indexOf(channel), 1)"></channel-tile>
             </div>
         </square-links-grid>
     </div>
@@ -25,15 +75,24 @@
 <script>
     import ChannelsDropdown from "src/devices/channels-dropdown.vue";
     import SquareLinksGrid from "src/common/square-links-grid.vue";
+    import SquareLink from "src/common/square-link.vue";
     import ChannelTile from "./channel-tile.vue";
+    import Flipper from "../common/flipper.vue";
 
     export default {
         props: ['channelGroup'],
-        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid},
+        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper},
         data() {
             return {
                 newChannel: undefined,
+                addingNewChannel: false,
+                channelsToChoose: undefined,
             };
+        },
+        mounted() {
+            if (!this.channelGroup.channels) {
+                this.$set(this.channelGroup, 'channels', []);
+            }
         },
         methods: {
             saveChannelGroup() {
@@ -43,14 +102,12 @@
             },
             addChannel() {
                 if (this.newChannel) {
-                    if (!this.channelGroup.channels) {
-                        this.$set(this.channelGroup, 'channels', []);
-                    }
                     this.channelGroup.channels.push(this.newChannel);
                     if (this.channelGroup.channels.length == 1 && !this.channelGroup.function) {
                         this.channelGroup.function = this.newChannel.function;
                     }
                     this.newChannel = undefined;
+                    this.addingNewChannel = false;
                 }
             }
         }

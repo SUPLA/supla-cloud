@@ -10,7 +10,7 @@
                     <a class="valign-center text-center"
                         @click="onChannelGroupClick(newChannelGroup)">
                         <span>
-                            <i class="pe-7s-plus"></i><br>
+                            <i class="pe-7s-plus"></i>
                             {{ $t('Create new channel group') }}
                         </span>
                     </a>
