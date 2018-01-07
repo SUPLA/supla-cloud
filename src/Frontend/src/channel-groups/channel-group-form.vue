@@ -2,6 +2,7 @@
     <div>
         <h2>{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
         <!--<form @submit.prevent="saveChannelGroup()">-->
+        <button @click="deleteGroup()">usuń</button>
         <div class="form-group">
             <label>Group name</label>
             <input type="text"
@@ -98,6 +99,9 @@
         methods: {
             saveChannelGroup() {
                 this.$http.post('channel-groups', this.channelGroup);
+            },
+            deleteGroup() {
+                this.$http.delete('channel-groups/' + this.channelGroup.id);
             },
             addChannel() {
                 if (this.newChannel) {

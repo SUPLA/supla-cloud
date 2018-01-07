@@ -25,6 +25,9 @@ class IODeviceChannelGroupParamConverter implements ParamConverterInterface {
 
     public function apply(Request $request, ParamConverter $configuration) {
         $paramName = $configuration->getName();
+        if ($request->get($paramName)) {
+            return false;
+        }
         $user = $this->getCurrentUserOrThrow();
         $data = $request->request->all();
         $channelIds = $data['channelIds'] ?? [];
@@ -34,6 +37,7 @@ class IODeviceChannelGroupParamConverter implements ParamConverterInterface {
             return $this->channelRepository->findForUser($user, $channelId);
         }, $channelIds);
         $channelGroup = new IODeviceChannelGroup($user, $user->getLocations()[0], $channels);
+        $channelGroup->setCaption($data['caption'] ?? '');
         $request->attributes->set($paramName, $channelGroup);
         return true;
     }

@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,10 +41,21 @@ class ApiChannelGroupController extends RestController {
     /**
      * @Rest\Post("/channel-groups")
      */
-    public function postChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
+    public function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
             return $this->view($channelGroup, Response::HTTP_CREATED);
+        });
+    }
+
+    /**
+     * @Rest\Delete("/channel-groups/{channelGroup}")
+     * @Security("user == channelGroup.getUser()")
+     */
+    public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
+            $em->remove($channelGroup);
+            return new Response('', Response::HTTP_NO_CONTENT);
         });
     }
 }
