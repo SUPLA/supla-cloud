@@ -79,6 +79,10 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  SuplaApiBundle\ParamConverter\:
+    resource: '../../src/SuplaApiBundle/ParamConverter'
+    tags: [{ name: request.param_converter }]
+
   SuplaApiBundle\Serialization\:
     resource: '../../src/SuplaApiBundle/Serialization'
 

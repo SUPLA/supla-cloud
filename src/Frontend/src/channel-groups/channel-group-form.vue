@@ -69,6 +69,7 @@
                     @remove="channelGroup.channels.splice(channelGroup.channels.indexOf(channel), 1)"></channel-tile>
             </div>
         </square-links-grid>
+        <button @click="saveChannelGroup()">zapisz</button>
     </div>
 </template>
 

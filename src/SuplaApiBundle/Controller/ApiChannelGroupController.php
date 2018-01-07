@@ -19,7 +19,6 @@ namespace SuplaApiBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +39,6 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Post("/channel-groups")
-     * @ParamConverter("channelGroup", converter="fos_rest.request_body")
      */
     public function postChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {

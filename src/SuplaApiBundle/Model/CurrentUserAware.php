@@ -17,6 +17,7 @@
 
 namespace SuplaApiBundle\Model;
 
+use Assert\Assertion;
 use SuplaApiBundle\Entity\ApiUser;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -43,5 +44,11 @@ trait CurrentUserAware {
         } else {
             return $user;
         }
+    }
+
+    protected function getCurrentUserOrThrow() {
+        $user = $this->getCurrentUser();
+        Assertion::notNull($user, 'You must be authenticated to use this endpoint.');
+        return $user;
     }
 }

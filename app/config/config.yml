@@ -39,8 +39,6 @@ fos_oauth_server:
     storage: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport
 
 fos_rest:
-  body_converter:
-    enabled: true
   routing_loader:
     default_format: json
   serializer:
