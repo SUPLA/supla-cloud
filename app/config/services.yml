@@ -107,3 +107,11 @@ services:
   SuplaBundle\Validator\Constraints\UsernameExistsValidator:
     tags:
       - { alias: username_exists_validator, name: validator.constraint_validator }
+
+  SuplaBundle\Repository\LocationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Location]
+
+  SuplaBundle\Repository\IODeviceChannelRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\IODeviceChannel]

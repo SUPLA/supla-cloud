@@ -1,4 +1,4 @@
-import {errorNotification} from "./notifier";
+import {errorNotification} from "../notifier";
 
 export default function (vue) {
     return function (request, next) {

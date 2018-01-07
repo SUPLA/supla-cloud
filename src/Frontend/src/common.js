@@ -7,7 +7,8 @@ import Vuex from "vuex";
 import VueI18N from "vue-i18n";
 import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
-import ResponseErrorInterceptor from "./common/response-error-interceptor";
+import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
+import * as requestTransformers from "./common/http/transformers";
 import "moment-timezone";
 import "./common/common-components";
 import "./common/common-directives";
@@ -64,5 +65,8 @@ $(document).ready(() => {
             components,
         });
         Vue.http.interceptors.push(ResponseErrorInterceptor(app));
+        for (let transformer in requestTransformers) {
+            Vue.http.interceptors.push(requestTransformers[transformer]);
+        }
     }
 });

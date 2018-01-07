@@ -17,14 +17,14 @@
 
 namespace SuplaApiBundle\Serialization;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class IODeviceChannelSerializer extends ObjectNormalizer {
+class IODeviceChannelGroupSerializer extends ObjectNormalizer {
 
     public function __construct(
         ClassMetadataFactoryInterface $classMetadataFactory = null,
@@ -36,18 +36,26 @@ class IODeviceChannelSerializer extends ObjectNormalizer {
     }
 
     /**
-     * @param IODeviceChannel $channel
+     * @param IODeviceChannelGroup $group
      * @inheritdoc
      */
-    public function normalize($channel, $format = null, array $context = []) {
-        $normalized = parent::normalize($channel, $format, $context);
-        $normalized['deviceId'] = $channel->getIoDevice()->getId();
-        $normalized['functionId'] = $channel->getFunction()->getId();
-        $normalized['typeId'] = $channel->getType()->getId();
+    public function normalize($group, $format = null, array $context = []) {
+        $normalized = parent::normalize($group, $format, $context);
+        $normalized['locationId'] = $group->getLocation()->getId();
+        $normalized['channelIds'] = $this->toIds($group->getChannels());
+        $normalized['functionId'] = $group->getFunction()->getId();
         return $normalized;
     }
 
+    private function toIds($collection): array {
+        $ids = [];
+        foreach ($collection as $item) {
+            $ids[] = $item->getId();
+        }
+        return $ids;
+    }
+
     public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof IODeviceChannel;
+        return $entity instanceof IODeviceChannelGroup;
     }
 }

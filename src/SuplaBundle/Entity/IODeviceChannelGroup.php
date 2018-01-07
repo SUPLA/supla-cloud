@@ -102,6 +102,10 @@ class IODeviceChannelGroup {
         return $this->user;
     }
 
+    public function getLocation(): Location {
+        return $this->location;
+    }
+
     public function getEnabled(): bool {
         return $this->enabled;
     }
