@@ -8,19 +8,19 @@
                 <h3>{{ $t(channel.function.caption) }}</h3>
                 <dl>
                     <dd>{{ $t('Device') }}</dd>
-                    <dt>{{ $t(channel.device) }}</dt>
+                    <dt>{{ $t(channel.iodevice.name) }}</dt>
                     <dd>{{ $t('Type') }}</dd>
                     <dt>{{ $t(channel.type.caption) }}</dt>
-                    <!--<dd>{{ $t('Location') }}</dd>-->
-                    <!--<dt>ID{{channel.location.id}} {{ channel.location.caption }}</dt>-->
+                    <dd>{{ $t('Location') }}</dd>
+                    <dt>ID{{channel.iodevice.location.id}} {{ channel.iodevice.location.caption }}</dt>
                 </dl>
                 <div v-if="channel.caption">
                     <div class="separator"></div>
                     {{ channel.caption }}
                 </div>
-                <!--<div class="square-link-label">-->
-                <!--<device-connection-status-label :device="channel.device"></device-connection-status-label>-->
-                <!--</div>-->
+                <div class="square-link-label">
+                    <device-connection-status-label :device="channel.iodevice"></device-connection-status-label>
+                </div>
             </a>
             <!--
         <a class="element-item nav-link {{ channel.function_id }} {% if channel.function_id == '0' %} none {% endif %}" href="{{ path('_iodev_channel_item_edit', {'devid': iodevice.id, 'id': channel.id}) }}">
@@ -45,7 +45,17 @@
             slot="back">
             <a class="valign-center text-center"
                 @click="flipped = false">
-                <span>
+                <span class="channel-buttons">
+                    <a class="btn btn-default"
+                        @click.stop=""
+                        :href="`/iodev/${channel.iodeviceId}/${channel.id}/edit` | withBaseUrl">
+                        Go to channel details
+                    </a>
+                    <a class="btn btn-default"
+                        @click.stop=""
+                        :href="`/iodev/${channel.iodeviceId}/view` | withBaseUrl">
+                        Go to I/O device details
+                    </a>
                     <button class="btn btn-danger"
                         @click.stop="$emit('remove')">
                         Remove
@@ -72,3 +82,9 @@
         }
     };
 </script>
+
+<style>
+    .channel-buttons .btn {
+        margin-bottom: 5px;
+    }
+</style>
