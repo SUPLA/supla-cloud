@@ -65,6 +65,7 @@ framework:
     enable_annotations: true
     enabled: true
     name_converter: SuplaApiBundle\Serialization\NoopNameConverter
+    circular_reference_handler: SuplaApiBundle\Serialization\ObjectIdCircularReferenceHandler
   session:
     cookie_lifetime: 0
     handler_id: ~

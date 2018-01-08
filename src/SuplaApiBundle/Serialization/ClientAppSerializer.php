@@ -21,24 +21,10 @@ use Assert\Assertion;
 use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Supla\SuplaServerAware;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class ClientAppSerializer extends ObjectNormalizer {
+class ClientAppSerializer extends AbstractSerializer {
     use SuplaServerAware;
     use CurrentUserAware;
-
-    public function __construct(
-        ClassMetadataFactoryInterface $classMetadataFactory = null,
-        NameConverterInterface $nameConverter = null,
-        PropertyAccessorInterface $propertyAccessor = null,
-        PropertyTypeExtractorInterface $propertyTypeExtractor = null
-    ) {
-        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
-    }
 
     /**
      * @param ClientApp $clientApp

@@ -22,15 +22,10 @@ use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class IODeviceSerializer extends ObjectNormalizer implements NormalizerAwareInterface {
+class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareInterface {
     use SuplaServerAware;
     use CurrentUserAware;
     use NormalizerAwareTrait;
@@ -38,14 +33,7 @@ class IODeviceSerializer extends ObjectNormalizer implements NormalizerAwareInte
     /** @var ScheduleManager */
     private $scheduleManager;
 
-    public function __construct(
-        ClassMetadataFactoryInterface $classMetadataFactory = null,
-        NameConverterInterface $nameConverter = null,
-        PropertyAccessorInterface $propertyAccessor = null,
-        PropertyTypeExtractorInterface $propertyTypeExtractor = null,
-        ScheduleManager $scheduleManager
-    ) {
-        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    public function __construct(ScheduleManager $scheduleManager) {
         $this->scheduleManager = $scheduleManager;
     }
 

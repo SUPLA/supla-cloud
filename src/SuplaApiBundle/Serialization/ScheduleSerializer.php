@@ -21,27 +21,15 @@ use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class ScheduleSerializer extends ObjectNormalizer {
+class ScheduleSerializer extends AbstractSerializer {
     use SuplaServerAware;
     use CurrentUserAware;
 
     /** @var ScheduleManager */
     private $scheduleManager;
 
-    public function __construct(
-        ClassMetadataFactoryInterface $classMetadataFactory = null,
-        NameConverterInterface $nameConverter = null,
-        PropertyAccessorInterface $propertyAccessor = null,
-        PropertyTypeExtractorInterface $propertyTypeExtractor = null,
-        ScheduleManager $scheduleManager
-    ) {
-        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    public function __construct(ScheduleManager $scheduleManager) {
         $this->scheduleManager = $scheduleManager;
     }
 

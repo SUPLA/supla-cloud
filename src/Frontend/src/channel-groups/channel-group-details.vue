@@ -100,7 +100,23 @@
                 channelGroup: {}
             };
         },
+        mounted() {
+            this.initForModel();
+        },
         methods: {
+            initForModel() {
+                this.loading = false;
+                this.channelGroup = $.extend(true, {}, this.model);
+                if (this.channelGroup.id) {
+                    this.loading = true;
+                    this.$http.get(`channel-groups/${this.channelGroup.id}?include=channels,iodevice,location`)
+                        .then(response => this.channelGroup = response.body)
+                        .finally(() => this.loading = false);
+                }
+                else if (!this.channelGroup.channels) {
+                    this.$set(this.channelGroup, 'channels', []);
+                }
+            },
             saveChannelGroup() {
                 if (this.channelGroup.channels.length) {
                     const toSend = Vue.util.extend({}, this.channelGroup);
@@ -141,11 +157,7 @@
         },
         watch: {
             model() {
-                this.loading = false;
-                this.channelGroup = $.extend(true, {}, this.model);
-                if (!this.channelGroup.channels) {
-                    this.$set(this.channelGroup, 'channels', []);
-                }
+                this.initForModel();
             }
         }
     };

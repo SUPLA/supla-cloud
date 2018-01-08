@@ -26,7 +26,7 @@
                         <h2>ID<strong>{{ channelGroup.id }} </strong></h2>
                         <dl>
                             <dd>{{ $t('Channels no') }}</dd>
-                            <dt>{{ channelGroup.channels.length }}</dt>
+                            <dt>{{ channelGroup.channelIds.length }}</dt>
                         </dl>
                         <div v-if="channelGroup.caption">
                             <div class="separator"></div>

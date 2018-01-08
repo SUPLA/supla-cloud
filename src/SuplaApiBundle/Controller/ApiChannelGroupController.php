@@ -39,9 +39,20 @@ class ApiChannelGroupController extends RestController {
     }
 
     /**
+     * @Rest\Get("/channel-groups/{channelGroup}")
+     * @Security("user == channelGroup.getUser()")
+     */
+    public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
+        $view = $this->view($channelGroup, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location']);
+        return $view;
+    }
+
+    /**
      * @Rest\Post("/channel-groups")
      */
-    public function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
+    public
+    function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
             return $this->view($channelGroup, Response::HTTP_CREATED);
@@ -51,7 +62,8 @@ class ApiChannelGroupController extends RestController {
     /**
      * @Rest\Put("/channel-groups/{channelGroup}")
      */
-    public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated) {
+    public
+    function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
             $channelGroup->setCaption($updated->getCaption());
             $channelGroup->setChannels($updated->getChannels());
@@ -66,7 +78,8 @@ class ApiChannelGroupController extends RestController {
      * @Rest\Delete("/channel-groups/{channelGroup}")
      * @Security("user == channelGroup.getUser()")
      */
-    public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
+    public
+    function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->remove($channelGroup);
             return new Response('', Response::HTTP_NO_CONTENT);

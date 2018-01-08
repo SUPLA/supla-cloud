@@ -18,22 +18,8 @@
 namespace SuplaApiBundle\Serialization;
 
 use SuplaBundle\Entity\IODeviceChannel;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class IODeviceChannelSerializer extends ObjectNormalizer {
-
-    public function __construct(
-        ClassMetadataFactoryInterface $classMetadataFactory = null,
-        NameConverterInterface $nameConverter = null,
-        PropertyAccessorInterface $propertyAccessor = null,
-        PropertyTypeExtractorInterface $propertyTypeExtractor = null
-    ) {
-        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
-    }
+class IODeviceChannelSerializer extends AbstractSerializer {
 
     /**
      * @param IODeviceChannel $channel
@@ -41,9 +27,11 @@ class IODeviceChannelSerializer extends ObjectNormalizer {
      */
     public function normalize($channel, $format = null, array $context = []) {
         $normalized = parent::normalize($channel, $format, $context);
-        $normalized['deviceId'] = $channel->getIoDevice()->getId();
-        $normalized['functionId'] = $channel->getFunction()->getId();
-        $normalized['typeId'] = $channel->getType()->getId();
+        if (is_array($normalized)) {
+            $normalized['deviceId'] = $channel->getIoDevice()->getId();
+            $normalized['functionId'] = $channel->getFunction()->getId();
+            $normalized['typeId'] = $channel->getType()->getId();
+        }
         return $normalized;
     }
 

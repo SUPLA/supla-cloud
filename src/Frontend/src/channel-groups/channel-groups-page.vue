@@ -59,7 +59,7 @@
             },
         },
         mounted() {
-            this.$http.get('channel-groups?include=channels')
+            this.$http.get('channel-groups')
                 .then(({body}) => this.channelGroups = body)
                 .then(() => Vue.nextTick(() => this.calculateSearchStrings()));
         },
@@ -69,7 +69,7 @@
             },
             calculateSearchStrings() {
                 for (let group of this.channelGroups) {
-                    const searchString = [group.id, group.caption, group.channels.length].join(' ');
+                    const searchString = [group.id, group.caption, group.channelIds.length].join(' ');
                     this.$set(group, 'searchString', latinize(searchString).toLowerCase());
                 }
             },
