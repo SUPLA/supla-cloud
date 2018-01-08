@@ -52,6 +52,7 @@
 <style lang="scss">
     .loading-cover {
         position: relative;
+        min-height: 150px;
         &.is-loading {
             .loading-content {
                 opacity: .4;

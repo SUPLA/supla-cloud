@@ -1,5 +1,5 @@
 <template>
-    <div class="dots-route">
+    <div :class="'dots-route ' + (shown ? 'shown' : '')">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
@@ -16,11 +16,13 @@
 
     .dots-route {
         clear: both;
-        width: 100%  * ($noOfDots - 1) / $noOfDots;
+        $wholeWidth: 100%  * ($noOfDots - 1) / $noOfDots;
+        width: 0;
         height: $width - 1px;
-        margin: $dotRadius/2 auto;
+        margin: $dotRadius/2 (100%-$wholeWidth)/2;
         background: $color;
         position: relative;
+        transition: width .3s ease-in;
         .dot {
             border: $width solid $color;
             width: $dotRadius;
@@ -40,10 +42,21 @@
                 left: 100%;
             }
         }
+        &.shown {
+            width: $wholeWidth;
+        }
     }
 </style>
 
 <script>
-
-    export default {};
+    export default {
+        data() {
+            return {
+                shown: false,
+            };
+        },
+        mounted() {
+            setTimeout(() => this.shown = true);
+        }
+    };
 </script>

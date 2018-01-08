@@ -4,7 +4,7 @@
             slot="front">
             <a @click="flipped = true">
                 <function-icon :model="channel"
-                    width="100"></function-icon>
+                    width="90"></function-icon>
                 <h3>{{ $t(channel.function.caption) }}</h3>
                 <dl>
                     <dd>{{ $t('Device') }}</dd>
