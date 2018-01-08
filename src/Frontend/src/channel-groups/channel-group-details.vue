@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <loader-dots v-if="loading"></loader-dots>
+    <loading-cover :loading="loading">
         <h2>{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
         <!--<form @submit.prevent="saveChannelGroup()">-->
         <button @click="deleteGroup()">usuń</button>
@@ -75,7 +74,7 @@
                     @remove="channelGroup.channels.splice(channelGroup.channels.indexOf(channel), 1)"></channel-tile>
             </div>
         </square-links-grid>
-    </div>
+    </loading-cover>
 </template>
 
 <script>
@@ -86,11 +85,11 @@
     import Flipper from "../common/flipper.vue";
     import Vue from "vue";
     import FunctionIcon from "./function-icon.vue";
-    import LoaderDots from "../common/loader-dots.vue";
+    import LoadingCover from "./loading-cover.vue";
 
     export default {
         props: ['model'],
-        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon, LoaderDots},
+        components: {LoadingCover, ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon},
         data() {
             return {
                 newChannel: undefined,

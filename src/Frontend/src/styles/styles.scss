@@ -9,7 +9,7 @@ html {
 body {
   font-family: $supla-font-default;
   color: $supla-black;
-  background: #FAFBFC;
+  background: #fafbfc;
   font-weight: 400;
   -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -106,7 +106,7 @@ input[type=text], input[type=password], input[type=email] {
   font-size: .9em;
   line-height: initial;
   &.label-danger {
-    background: #FF3939;
+    background: #ff3939;
   }
   &.label-success {
     background: $supla-green;
