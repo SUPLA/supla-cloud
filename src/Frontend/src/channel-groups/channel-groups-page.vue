@@ -12,13 +12,18 @@
                             v-model="filters.search"
                             :placeholder="$t('Search')">
                     </div>
-                    <channel-groups-carousel :channel-groups="filteredChannelGroups"
-                        :channel-group="channelGroup"
-                        @select="channelGroupChanged"></channel-groups-carousel>
+                    <div class="form-group">
+                        <channel-groups-carousel :channel-groups="filteredChannelGroups"
+                            :channel-group="channelGroup"
+                            @select="channelGroupChanged">
+                        </channel-groups-carousel>
+                    </div>
                     <channel-group-details v-if="channelGroup"
                         :model="channelGroup"
                         @delete="onGroupDeleted()"
-                        @add="onGroupAdded($event)"></channel-group-details>
+                        @add="onGroupAdded($event)"
+                        @update="onGroupUpdated($event)">
+                    </channel-group-details>
                 </div>
                 <loader-dots v-else></loader-dots>
             </div>
@@ -76,6 +81,10 @@
             onGroupAdded(channelGroup) {
                 this.channelGroups.push(channelGroup);
                 this.channelGroup = channelGroup;
+            },
+            onGroupUpdated(channelGroup) {
+                const cg = this.channelGroups.find(c => channelGroup.id == c.id);
+                $.extend(cg, channelGroup);
             },
             onGroupDeleted() {
                 this.channelGroups.splice(this.channelGroups.indexOf(this.channelGroup), 1);

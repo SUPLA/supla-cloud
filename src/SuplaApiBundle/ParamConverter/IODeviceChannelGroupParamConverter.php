@@ -38,6 +38,12 @@ class IODeviceChannelGroupParamConverter implements ParamConverterInterface {
         }, $channelIds);
         $channelGroup = new IODeviceChannelGroup($user, $user->getLocations()[0], $channels);
         $channelGroup->setCaption($data['caption'] ?? '');
+        if (isset($data['hidden'])) {
+            $channelGroup->setHidden(boolval($data['hidden']));
+        }
+        if (isset($data['enabled'])) {
+            $channelGroup->setEnabled(boolval($data['enabled']));
+        }
         $request->attributes->set($paramName, $channelGroup);
         return true;
     }

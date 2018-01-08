@@ -1,4 +1,4 @@
-export function channelGroupPost(request, next) {
+export function channelGroupTransformer(request, next) {
     if (request.url.startsWith('channel-groups')) {
         if (request.body) {
             if (request.body.channels) {
@@ -7,6 +7,10 @@ export function channelGroupPost(request, next) {
             }
             if (request.body.function) {
                 delete request.body.function;
+            }
+            if (request.body.location) {
+                request.body.locationId = request.body.location.id;
+                delete request.body.location;
             }
         }
     }

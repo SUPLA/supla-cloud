@@ -67,7 +67,13 @@ class IODeviceChannelGroup {
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      * @Groups({"basic"})
      */
-    protected $enabled = true;
+    private $enabled = true;
+
+    /**
+     * @ORM\Column(name="hidden", type="boolean", nullable=false, options={"default"=0})
+     * @Groups({"basic"})
+     */
+    private $hidden = false;
 
     /**
      * @ORM\Column(name="caption", type="string", length=255, nullable=true)
@@ -78,7 +84,7 @@ class IODeviceChannelGroup {
 
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
-     * @Groups({"basic"})
+     * @Groups({"function"})
      */
     private $function;
 
@@ -118,6 +124,14 @@ class IODeviceChannelGroup {
         $this->enabled = $enabled;
     }
 
+    public function getHidden(): bool {
+        return $this->hidden;
+    }
+
+    public function setHidden(bool $hidden) {
+        $this->hidden = $hidden;
+    }
+
     public function getCaption() {
         return $this->caption;
     }
@@ -136,7 +150,7 @@ class IODeviceChannelGroup {
     }
 
     /** @param IODeviceChannel[] $channels */
-    public function setChannels(array $channels) {
+    public function setChannels($channels) {
         Assertion::notEmpty($channels);
         Assertion::allIsInstanceOf($channels, IODeviceChannel::class);
         if (!$this->function) {

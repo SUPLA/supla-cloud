@@ -61,7 +61,7 @@ class ApiChannelController extends RestController {
         }
         $channels = $this->getUser()->getChannels()->matching($criteria);
         $view = $this->view($channels, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['iodevice', 'location']);
+        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function', 'type']);
         return $view;
     }
 

@@ -1,8 +1,22 @@
 <template>
     <loading-cover :loading="loading">
-        <h2>{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
         <!--<form @submit.prevent="saveChannelGroup()">-->
-        <button @click="deleteGroup()">usuń</button>
+        <div class="btn-group pull-right"
+            v-if="!isNewGroup">
+            <button class="btn btn-default"
+                @click="toggleHidden()">
+                {{ $t(channelGroup.hidden ? 'Show in clients' : 'Hide in clients') }}
+            </button>
+            <button class="btn btn-default"
+                @click="toggleEnabled()">
+                {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
+            </button>
+            <button class="btn btn-danger"
+                @click="deleteGroup()">
+                {{ $t('Delete') }}
+            </button>
+        </div>
+        <h2 class="no-margin-top">{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
         <function-icon :model="channelGroup"
             width="100"></function-icon>
         <div class="form-group">
@@ -129,6 +143,7 @@
                     } else {
                         this.$http
                             .put('channel-groups/' + this.channelGroup.id, toSend)
+                            .then(response => this.$emit('update', response.body))
                             .finally(() => this.loading = false);
                     }
                 }
@@ -147,6 +162,14 @@
                     this.addingNewChannel = false;
                     this.saveChannelGroup();
                 }
+            },
+            toggleHidden() {
+                this.channelGroup.hidden = !this.channelGroup.hidden;
+                this.saveChannelGroup();
+            },
+            toggleEnabled() {
+                this.channelGroup.enabled = !this.channelGroup.enabled;
+                this.saveChannelGroup();
             }
         },
         computed: {

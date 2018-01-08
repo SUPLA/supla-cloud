@@ -76,11 +76,13 @@ class IODeviceChannel {
 
     /**
      * @ORM\Column(name="type", type="integer", nullable=false)
+     * @Groups({"type"})
      */
     private $type;
 
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
+     * @Groups({"function"})
      */
     private $function;
 
@@ -137,7 +139,6 @@ class IODeviceChannel {
         $this->caption = $caption;
     }
 
-    /** @Groups({"basic"}) */
     public function getType(): ChannelType {
         return new ChannelType($this->type);
     }
@@ -156,7 +157,6 @@ class IODeviceChannel {
         return $this->schedules;
     }
 
-    /** @Groups({"basic"}) */
     public function getFunction(): ChannelFunction {
         return new ChannelFunction($this->function);
     }
