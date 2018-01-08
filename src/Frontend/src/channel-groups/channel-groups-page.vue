@@ -15,10 +15,10 @@
                     <channel-groups-carousel :channel-groups="filteredChannelGroups"
                         :channel-group="channelGroup"
                         @select="channelGroupChanged"></channel-groups-carousel>
-                    <channel-group-form v-if="channelGroup"
-                        :channel-group="channelGroup"
+                    <channel-group-details v-if="channelGroup"
+                        :model="channelGroup"
                         @delete="onGroupDeleted()"
-                        @add="onGroupAdded($event)"></channel-group-form>
+                        @add="onGroupAdded($event)"></channel-group-details>
                 </div>
                 <loader-dots v-else></loader-dots>
             </div>
@@ -28,14 +28,14 @@
 
 <script>
     import BtnFilters from "src/common/btn-filters.vue";
-    import ChannelGroupForm from "./channel-group-form.vue";
+    import ChannelGroupDetails from "./channel-group-details.vue";
     import ChannelGroupsCarousel from "./channel-groups-carousel.vue";
     import LoaderDots from "../common/loader-dots.vue";
     import latinize from "latinize";
     import Vue from "vue";
 
     export default {
-        components: {BtnFilters, ChannelGroupForm, ChannelGroupsCarousel, LoaderDots},
+        components: {BtnFilters, ChannelGroupDetails, ChannelGroupsCarousel, LoaderDots},
         data() {
             return {
                 channelGroup: undefined,

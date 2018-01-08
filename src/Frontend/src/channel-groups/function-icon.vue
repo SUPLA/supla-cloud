@@ -8,10 +8,21 @@
 
 <script>
     export default {
-        props: ['channel', 'function', 'width'],
+        props: ['model', 'width'],
         computed: {
             functionId() {
-                return this.function ? (this.function.id || this.function) : this.channel.function.id;
+                if (this.model) {
+                    if (this.model.functionId) {
+                        return this.model.functionId;
+                    } else if (this.model.function) {
+                        return this.model.function.id;
+                    } else if (this.model.id) {
+                        return this.model.id;
+                    } else if (Number.isInteger(this.model)) {
+                        return this.model;
+                    }
+                }
+                return false;
             }
         }
     };

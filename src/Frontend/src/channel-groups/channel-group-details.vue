@@ -1,9 +1,10 @@
 <template>
     <div>
+        <loader-dots v-if="loading"></loader-dots>
         <h2>{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
         <!--<form @submit.prevent="saveChannelGroup()">-->
         <button @click="deleteGroup()">usuń</button>
-        <function-icon :channel="channelGroup"
+        <function-icon :model="channelGroup"
             width="100"></function-icon>
         <div class="form-group">
             <label>Group name</label>
@@ -85,26 +86,25 @@
     import Flipper from "../common/flipper.vue";
     import Vue from "vue";
     import FunctionIcon from "./function-icon.vue";
+    import LoaderDots from "../common/loader-dots.vue";
 
     export default {
-        props: ['channelGroup'],
-        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon},
+        props: ['model'],
+        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon, LoaderDots},
         data() {
             return {
                 newChannel: undefined,
                 addingNewChannel: false,
                 channelsToChoose: undefined,
+                loading: false,
+                channelGroup: {}
             };
-        },
-        mounted() {
-            if (!this.channelGroup.channels) {
-                this.$set(this.channelGroup, 'channels', []);
-            }
         },
         methods: {
             saveChannelGroup() {
                 if (this.channelGroup.channels.length) {
                     const toSend = Vue.util.extend({}, this.channelGroup);
+                    this.loading = true;
                     if (this.isNewGroup) {
                         this.$http.post('channel-groups', toSend).then(response => {
                             const newGroup = response.body;
@@ -112,11 +112,14 @@
                             this.$emit('add', newGroup);
                         });
                     } else {
-                        this.$http.put('channel-groups/' + this.channelGroup.id, toSend);
+                        this.$http
+                            .put('channel-groups/' + this.channelGroup.id, toSend)
+                            .finally(() => this.loading = false);
                     }
                 }
             },
             deleteGroup() {
+                this.loading = true;
                 this.$http.delete('channel-groups/' + this.channelGroup.id).then(() => this.$emit('delete'));
             },
             addChannel() {
@@ -134,6 +137,15 @@
         computed: {
             isNewGroup() {
                 return !this.channelGroup.id;
+            }
+        },
+        watch: {
+            model() {
+                this.loading = false;
+                this.channelGroup = $.extend(true, {}, this.model);
+                if (!this.channelGroup.channels) {
+                    this.$set(this.channelGroup, 'channels', []);
+                }
             }
         }
     };

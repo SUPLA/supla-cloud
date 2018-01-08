@@ -3,14 +3,9 @@
         <square-link :class="'clearfix pointer ' + (channel.enabled ? 'green' : 'grey')"
             slot="front">
             <a @click="flipped = true">
-                <function-icon :channel="channel"
+                <function-icon :model="channel"
                     width="100"></function-icon>
                 <h3>{{ $t(channel.function.caption) }}</h3>
-                <!--<dl>-->
-                <!--<dd>{{ channel.guid }}</dd>-->
-                <!--<dt></dt>-->
-                <!--</dl>-->
-                <!--<div class="separator invisible"></div>-->
                 <dl>
                     <dd>{{ $t('Device') }}</dd>
                     <dt>{{ $t(channel.device) }}</dt>
@@ -24,7 +19,7 @@
                     {{ channel.caption }}
                 </div>
                 <!--<div class="square-link-label">-->
-                <!--<device-connection-status-label :device="device"></device-connection-status-label>-->
+                <!--<device-connection-status-label :device="channel.device"></device-connection-status-label>-->
                 <!--</div>-->
             </a>
             <!--
@@ -65,10 +60,11 @@
     import SquareLink from "src/common/square-link.vue";
     import FunctionIcon from "./function-icon.vue";
     import Flipper from "../common/flipper.vue";
+    import DeviceConnectionStatusLabel from "../devices/list/device-connection-status-label.vue";
 
     export default {
         props: ['channel'],
-        components: {FunctionIcon, SquareLink, Flipper},
+        components: {FunctionIcon, SquareLink, Flipper, DeviceConnectionStatusLabel},
         data() {
             return {
                 flipped: false,
