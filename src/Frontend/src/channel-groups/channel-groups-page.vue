@@ -13,9 +13,12 @@
                             :placeholder="$t('Search')">
                     </div>
                     <channel-groups-carousel :channel-groups="filteredChannelGroups"
+                        :channel-group="channelGroup"
                         @select="channelGroupChanged"></channel-groups-carousel>
                     <channel-group-form v-if="channelGroup"
-                        :channel-group="channelGroup"></channel-group-form>
+                        :channel-group="channelGroup"
+                        @delete="onGroupDeleted()"
+                        @add="onGroupAdded($event)"></channel-group-form>
                 </div>
                 <loader-dots v-else></loader-dots>
             </div>
@@ -70,6 +73,14 @@
                     this.$set(group, 'searchString', latinize(searchString).toLowerCase());
                 }
             },
+            onGroupAdded(channelGroup) {
+                this.channelGroups.push(channelGroup);
+                this.channelGroup = channelGroup;
+            },
+            onGroupDeleted() {
+                this.channelGroups.splice(this.channelGroups.indexOf(this.channelGroup), 1);
+                this.channelGroup = undefined;
+            }
         }
     };
 </script>

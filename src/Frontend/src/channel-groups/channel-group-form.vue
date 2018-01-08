@@ -3,10 +3,13 @@
         <h2>{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
         <!--<form @submit.prevent="saveChannelGroup()">-->
         <button @click="deleteGroup()">usuń</button>
+        <function-icon :channel="channelGroup"
+            width="100"></function-icon>
         <div class="form-group">
             <label>Group name</label>
             <input type="text"
                 class="form-control"
+                @change="saveChannelGroup()"
                 v-model="channelGroup.caption">
         </div>
         <!--<div class="row">-->
@@ -26,7 +29,8 @@
                             @click="addingNewChannel = true">
                             <span>
                                 <i class="pe-7s-plus"></i>
-                                {{ $t('Add new channel to this group') }}
+                                <span v-if="isNewGroup">{{ $t('Add the first channel to save the group') }}</span>
+                                <span v-else>{{ $t('Add new channel to this group') }}</span>
                             </span>
                         </a>
                     </square-link>
@@ -70,7 +74,6 @@
                     @remove="channelGroup.channels.splice(channelGroup.channels.indexOf(channel), 1)"></channel-tile>
             </div>
         </square-links-grid>
-        <button @click="saveChannelGroup()">zapisz</button>
     </div>
 </template>
 
@@ -80,10 +83,12 @@
     import SquareLink from "src/common/square-link.vue";
     import ChannelTile from "./channel-tile.vue";
     import Flipper from "../common/flipper.vue";
+    import Vue from "vue";
+    import FunctionIcon from "./function-icon.vue";
 
     export default {
         props: ['channelGroup'],
-        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper},
+        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon},
         data() {
             return {
                 newChannel: undefined,
@@ -98,10 +103,21 @@
         },
         methods: {
             saveChannelGroup() {
-                this.$http.post('channel-groups', this.channelGroup);
+                if (this.channelGroup.channels.length) {
+                    const toSend = Vue.util.extend({}, this.channelGroup);
+                    if (this.isNewGroup) {
+                        this.$http.post('channel-groups', toSend).then(response => {
+                            const newGroup = response.body;
+                            newGroup.channels = this.channelGroup.channels;
+                            this.$emit('add', newGroup);
+                        });
+                    } else {
+                        this.$http.put('channel-groups/' + this.channelGroup.id, toSend);
+                    }
+                }
             },
             deleteGroup() {
-                this.$http.delete('channel-groups/' + this.channelGroup.id);
+                this.$http.delete('channel-groups/' + this.channelGroup.id).then(() => this.$emit('delete'));
             },
             addChannel() {
                 if (this.newChannel) {
@@ -111,7 +127,13 @@
                     }
                     this.newChannel = undefined;
                     this.addingNewChannel = false;
+                    this.saveChannelGroup();
                 }
+            }
+        },
+        computed: {
+            isNewGroup() {
+                return !this.channelGroup.id;
             }
         }
     };

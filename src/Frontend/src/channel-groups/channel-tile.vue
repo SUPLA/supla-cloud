@@ -3,8 +3,8 @@
         <square-link :class="'clearfix pointer ' + (channel.enabled ? 'green' : 'grey')"
             slot="front">
             <a @click="flipped = true">
-                <channel-icon :channel="channel"
-                    width="100"></channel-icon>
+                <function-icon :channel="channel"
+                    width="100"></function-icon>
                 <h3>{{ $t(channel.function.caption) }}</h3>
                 <!--<dl>-->
                 <!--<dd>{{ channel.guid }}</dd>-->
@@ -63,12 +63,12 @@
 
 <script>
     import SquareLink from "src/common/square-link.vue";
-    import ChannelIcon from "./channel-icon.vue";
+    import FunctionIcon from "./function-icon.vue";
     import Flipper from "../common/flipper.vue";
 
     export default {
         props: ['channel'],
-        components: {ChannelIcon, SquareLink, Flipper},
+        components: {FunctionIcon, SquareLink, Flipper},
         data() {
             return {
                 flipped: false,

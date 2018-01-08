@@ -49,6 +49,20 @@ class ApiChannelGroupController extends RestController {
     }
 
     /**
+     * @Rest\Put("/channel-groups/{channelGroup}")
+     */
+    public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
+            $channelGroup->setCaption($updated->getCaption());
+            $channelGroup->setChannels($updated->getChannels());
+            $channelGroup->setEnabled($updated->getEnabled());
+            $channelGroup->setLocation($updated->getLocation());
+            $em->persist($channelGroup);
+            return $this->view($channelGroup, Response::HTTP_CREATED);
+        });
+    }
+
+    /**
      * @Rest\Delete("/channel-groups/{channelGroup}")
      * @Security("user == channelGroup.getUser()")
      */

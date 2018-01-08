@@ -4,7 +4,8 @@
             :pagination-enabled="false"
             navigation-next-label="&gt;"
             navigation-prev-label="&lt;"
-            :per-page-custom="[[1024, 4], [768, 3], [600, 2], [400, 1]]">
+            :per-page-custom="[[1024, 4], [768, 3], [600, 2], [400, 1]]"
+            ref="carousel">
             <slide>
                 <square-link :class="'clearfix pointer lift-up black ' + (selectedChannelGroup == newChannelGroup ? ' selected' : '')">
                     <a class="valign-center text-center"
@@ -20,6 +21,8 @@
                 :key="channelGroup.id">
                 <square-link :class="'clearfix pointer lift-up ' + (channelGroup.enabled ? 'green' : 'grey') + (selectedChannelGroup == channelGroup ? ' selected' : '')">
                     <a @click="onChannelGroupClick(channelGroup)">
+                        <function-icon :channel="channelGroup"
+                            width="50"></function-icon>
                         <h2>ID<strong>{{ channelGroup.id }} </strong></h2>
                         <dl>
                             <dd>{{ $t('Channels no') }}</dd>
@@ -39,10 +42,12 @@
 <script>
     import {Carousel, Slide} from 'vue-carousel';
     import SquareLink from "src/common/square-link.vue";
+    import Vue from "vue";
+    import FunctionIcon from "./function-icon.vue";
 
     export default {
-        components: {Carousel, Slide, SquareLink},
-        props: ['channelGroups'],
+        components: {FunctionIcon, Carousel, Slide, SquareLink},
+        props: ['channelGroups', 'channelGroup'],
         data() {
             return {
                 selectedChannelGroup: undefined,
@@ -53,6 +58,16 @@
             onChannelGroupClick(channelGroup) {
                 this.selectedChannelGroup = channelGroup;
                 this.$emit('select', channelGroup == this.newChannelGroup ? {} : channelGroup);
+            }
+        },
+        watch: {
+            channelGroup() {
+                if (this.selectedChannelGroup != this.channelGroup && (!this.channelGroup || this.channelGroup.id)) {
+                    this.selectedChannelGroup = this.channelGroup;
+                    if (this.channelGroup) {
+                        Vue.nextTick(() => this.$refs.carousel.goToPage(this.$refs.carousel.pageCount - 1));
+                    }
+                }
             }
         }
     };
