@@ -34,7 +34,7 @@ class ApiChannelGroupController extends RestController {
     public function getChannelGroupsAction(Request $request) {
         $channelGroups = $this->getUser()->getChannelGroups();
         $view = $this->view($channelGroups, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'function']);
+        $this->setSerializationGroups($view, $request, ['channels', 'function', 'type']);
         return $view;
     }
 
@@ -44,7 +44,7 @@ class ApiChannelGroupController extends RestController {
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location', 'function']);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location', 'function', 'type']);
         return $view;
     }
 

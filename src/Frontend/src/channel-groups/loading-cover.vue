@@ -1,5 +1,5 @@
 <template>
-    <div :class="'loading-cover' + (loading ? ' is-loading' : '')">
+    <div :class="'loading-cover' + (isLoading ? ' is-loading' : '')">
         <div class="loading">
             <loader-dots></loader-dots>
         </div>
@@ -13,8 +13,39 @@
     import LoaderDots from "../common/loader-dots.vue";
 
     export default {
-        props: ['loading'],
+        props: {
+            loading: {
+                type: Boolean,
+                default: false
+            },
+            debounce: {
+                default: 300,
+                type: Number
+            }
+        },
         components: {LoaderDots},
+        data() {
+            return {
+                timeout: undefined,
+                isLoading: false,
+            };
+        },
+        watch: {
+            loading() {
+                if (this.loading && !this.timeout) {
+                    this.timeout = setTimeout(() => {
+                        this.isLoading = true;
+                        this.timeout = undefined;
+                    }, this.debounce);
+                } else if (!this.loading) {
+                    if (this.timeout) {
+                        clearTimeout(this.timeout);
+                        this.timeout = undefined;
+                    }
+                    this.isLoading = false;
+                }
+            }
+        }
     };
 </script>
 
@@ -28,6 +59,9 @@
             .loading {
                 display: block;
             }
+        }
+        .loading-content {
+            transition: opacity .3s;
         }
         .loading {
             display: none;

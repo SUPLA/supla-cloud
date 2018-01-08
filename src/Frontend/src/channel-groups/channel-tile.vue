@@ -22,24 +22,6 @@
                     <device-connection-status-label :device="channel.iodevice"></device-connection-status-label>
                 </div>
             </a>
-            <!--
-        <a class="element-item nav-link {{ channel.function_id }} {% if channel.function_id == '0' %} none {% endif %}" href="{{ path('_iodev_channel_item_edit', {'devid': iodevice.id, 'id': channel.id}) }}">
-
-                <img src={{ asset('assets/img/functions/') }}{{ channel.icon_filename }}>
-
-                <h3>{{ channel.function }}</h3>
-                <div class="detials">
-                    {% trans %}Channel{% endtrans %} <strong> {{ channel.number }}</strong> ({{channel.io}})<br />
-                    {% trans %}Type{% endtrans %} <strong>{{ channel.type }}</strong>
-                </div>
-
-                {% if channel.caption is not empty %}
-                    <div class="caption">
-                    {{ channel.caption }}
-                    </div>
-                {% endif %}
-           </a>
-           -->
         </square-link>
         <square-link :class="'clearfix pointer not-transform ' + (channel.enabled ? 'green' : 'grey')"
             slot="back">
@@ -57,7 +39,8 @@
                         Go to I/O device details
                     </a>
                     <button class="btn btn-danger"
-                        @click.stop="$emit('remove')">
+                        @click.stop="$emit('remove')"
+                        :disabled="!removable">
                         Remove
                     </button>
                 </span>
@@ -73,7 +56,7 @@
     import DeviceConnectionStatusLabel from "../devices/list/device-connection-status-label.vue";
 
     export default {
-        props: ['channel'],
+        props: ['channel', 'removable'],
         components: {FunctionIcon, SquareLink, Flipper, DeviceConnectionStatusLabel},
         data() {
             return {

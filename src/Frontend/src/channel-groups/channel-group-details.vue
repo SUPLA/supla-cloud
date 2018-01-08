@@ -1,6 +1,5 @@
 <template>
     <loading-cover :loading="loading">
-        <!--<form @submit.prevent="saveChannelGroup()">-->
         <div class="btn-group pull-right"
             v-if="!isNewGroup">
             <button class="btn btn-default"
@@ -12,7 +11,7 @@
                 {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
             </button>
             <button class="btn btn-danger"
-                @click="deleteGroup()">
+                @click="deleteConfirm = true">
                 {{ $t('Delete') }}
             </button>
         </div>
@@ -26,12 +25,6 @@
                 @change="saveChannelGroup()"
                 v-model="channelGroup.caption">
         </div>
-        <!--<div class="row">-->
-        <!--<div class="col-sm-6">-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<button type="submit">Zapisz</button>-->
-        <!--</form>-->
         <square-links-grid v-if="channelGroup.channels"
             :count="channelGroup.channels.length + 1"
             class="square-links-height-240">
@@ -55,7 +48,7 @@
                                 <form @submit.prevent="addChannel()"
                                     v-show="!channelsToChoose || channelsToChoose.length !== 0">
                                     <div class="form-group">
-                                        <channels-dropdown :params="'include=iodevice,location&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
+                                        <channels-dropdown :params="'include=iodevice,location,function,type&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
                                             v-model="newChannel"
                                             @update="channelsToChoose = $event"
                                             :hidden-channels="channelGroup.channels"></channels-dropdown>
@@ -85,9 +78,16 @@
             <div v-for="channel in channelGroup.channels"
                 :key="channel.id">
                 <channel-tile :channel="channel"
+                    :removable="channelGroup.channels.length > 1"
                     @remove="channelGroup.channels.splice(channelGroup.channels.indexOf(channel), 1)"></channel-tile>
             </div>
         </square-links-grid>
+        <modal-confirm v-if="deleteConfirm"
+            @confirm="deleteGroup()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure you want to delete this channel group?')"
+            :loading="loading">
+        </modal-confirm>
     </loading-cover>
 </template>
 
@@ -110,7 +110,8 @@
                 addingNewChannel: false,
                 channelsToChoose: undefined,
                 loading: false,
-                channelGroup: {}
+                channelGroup: {},
+                deleteConfirm: false
             };
         },
         mounted() {
@@ -122,7 +123,7 @@
                 this.channelGroup = $.extend(true, {}, this.model);
                 if (this.channelGroup.id) {
                     this.loading = true;
-                    this.$http.get(`channel-groups/${this.channelGroup.id}?include=channels,iodevice,location`)
+                    this.$http.get(`channel-groups/${this.channelGroup.id}?include=channels,iodevice,location,function,type`)
                         .then(response => this.channelGroup = response.body)
                         .finally(() => this.loading = false);
                 }
