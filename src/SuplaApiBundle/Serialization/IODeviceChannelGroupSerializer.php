@@ -18,18 +18,29 @@
 namespace SuplaApiBundle\Serialization;
 
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class IODeviceChannelGroupSerializer extends AbstractSerializer {
+class IODeviceChannelGroupSerializer extends AbstractSerializer implements NormalizerAwareInterface {
+    use NormalizerAwareTrait;
 
     /**
      * @param IODeviceChannelGroup $group
      * @inheritdoc
      */
     public function normalize($group, $format = null, array $context = []) {
+        $fetchChannels = in_array('channels', $context[self::GROUPS]);
+        if ($fetchChannels) {
+            // this prevents from fetching IODevice's channels recursively
+            $context[self::GROUPS] = array_diff($context[self::GROUPS], ['channels']);
+        }
         $normalized = parent::normalize($group, $format, $context);
         $normalized['locationId'] = $group->getLocation()->getId();
         $normalized['channelIds'] = $this->toIds($group->getChannels());
         $normalized['functionId'] = $group->getFunction()->getId();
+        if ($fetchChannels) {
+            $normalized['channels'] = $this->normalizer->normalize($group->getChannels(), $format, $context);
+        }
         return $normalized;
     }
 
