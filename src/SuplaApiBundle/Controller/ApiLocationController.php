@@ -18,6 +18,7 @@
 namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use SuplaApiBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -58,7 +59,13 @@ class ApiLocationController extends RestController {
      * @Rest\Get("/locations")
      */
     public function getLocationsAction(Request $request) {
-
-        return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            $locations = $this->getUser()->getLocations();
+            $view = $this->view($locations, Response::HTTP_OK);
+//            $this->setSerializationGroups($view, $request, ['accessId', 'connected']);
+            return $view;
+        } else {
+            return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
+        }
     }
 }

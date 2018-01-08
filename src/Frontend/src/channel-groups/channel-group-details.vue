@@ -25,6 +25,14 @@
                 @change="saveChannelGroup()"
                 v-model="channelGroup.caption">
         </div>
+        <div class="form-group">
+            <label>Location</label>
+            <a @click="chooseLocation = true">zmień</a>
+            <location-chooser v-if="chooseLocation"
+                :current-location="channelGroup.location"
+                @confirm="onLocationChange($event)"
+                @cancel="chooseLocation = false"></location-chooser>
+        </div>
         <square-links-grid v-if="channelGroup.channels"
             :count="channelGroup.channels.length + 1"
             class="square-links-height-240">
@@ -99,11 +107,11 @@
     import Flipper from "../common/flipper.vue";
     import Vue from "vue";
     import FunctionIcon from "./function-icon.vue";
-    import LoadingCover from "./loading-cover.vue";
+    import LocationChooser from "./location-chooser.vue";
 
     export default {
         props: ['model'],
-        components: {LoadingCover, ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon},
+        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon, LocationChooser},
         data() {
             return {
                 newChannel: undefined,
@@ -111,7 +119,8 @@
                 channelsToChoose: undefined,
                 loading: false,
                 channelGroup: {},
-                deleteConfirm: false
+                deleteConfirm: false,
+                chooseLocation: false
             };
         },
         mounted() {
@@ -170,6 +179,11 @@
             },
             toggleEnabled() {
                 this.channelGroup.enabled = !this.channelGroup.enabled;
+                this.saveChannelGroup();
+            },
+            onLocationChange(location) {
+                this.channelGroup.location = location;
+                this.chooseLocation = false;
                 this.saveChannelGroup();
             }
         },

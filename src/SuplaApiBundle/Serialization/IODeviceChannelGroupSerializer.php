@@ -44,14 +44,6 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         return $normalized;
     }
 
-    private function toIds($collection): array {
-        $ids = [];
-        foreach ($collection as $item) {
-            $ids[] = $item->getId();
-        }
-        return $ids;
-    }
-
     public function supportsNormalization($entity, $format = null) {
         return $entity instanceof IODeviceChannelGroup;
     }

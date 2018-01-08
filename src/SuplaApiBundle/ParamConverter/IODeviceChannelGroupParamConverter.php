@@ -36,7 +36,12 @@ class IODeviceChannelGroupParamConverter implements ParamConverterInterface {
         $channels = array_map(function ($channelId) use ($user) {
             return $this->channelRepository->findForUser($user, $channelId);
         }, $channelIds);
-        $channelGroup = new IODeviceChannelGroup($user, $user->getLocations()[0], $channels);
+        if (isset($data['locationId']) && $data['locationId']) {
+            $location = $this->locationRepository->findForUser($user, $data['locationId']);
+        } else {
+            $location = $user->getLocations()[0];
+        }
+        $channelGroup = new IODeviceChannelGroup($user, $location, $channels);
         $channelGroup->setCaption($data['caption'] ?? '');
         if (isset($data['hidden'])) {
             $channelGroup->setHidden(boolval($data['hidden']));

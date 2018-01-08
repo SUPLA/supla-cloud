@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import LoaderDots from "../common/loader-dots.vue";
+    import LoaderDots from "./loader-dots.vue";
 
     export default {
         props: {

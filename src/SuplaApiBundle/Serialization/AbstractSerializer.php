@@ -41,4 +41,12 @@ abstract class AbstractSerializer extends ObjectNormalizer {
     public function setCircularReferenceHandlerDependency(ObjectIdCircularReferenceHandler $handler) {
         return $this->setCircularReferenceHandler($handler);
     }
+
+    protected function toIds($collection): array {
+        $ids = [];
+        foreach ($collection as $item) {
+            $ids[] = $item->getId();
+        }
+        return $ids;
+    }
 }
