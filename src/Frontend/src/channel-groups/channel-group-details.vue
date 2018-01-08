@@ -16,23 +16,52 @@
             </button>
         </div>
         <h2 class="no-margin-top">{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
-        <function-icon :model="channelGroup"
-            width="100"></function-icon>
-        <div class="form-group">
-            <label>Group name</label>
-            <input type="text"
-                class="form-control"
-                @change="saveChannelGroup()"
-                v-model="channelGroup.caption">
+
+        <div class="row hidden-xs">
+            <div class="col-xs-12">
+                <dots-route></dots-route>
+            </div>
         </div>
         <div class="form-group">
-            <label>Location</label>
-            <a @click="chooseLocation = true">zmień</a>
-            <location-chooser v-if="chooseLocation"
-                :current-location="channelGroup.location"
-                @confirm="onLocationChange($event)"
-                @cancel="chooseLocation = false"></location-chooser>
+            <div class="row text-center">
+                <div class="col-sm-4">
+                    <h3>{{ $t('Details') }}</h3>
+                    <dl class="text-left">
+                        <dd>{{ $t('Caption') }}</dd>
+                        <dt>{{ channelGroup.caption }}</dt>
+                    </dl>
+                    <!--<input type="text"-->
+                    <!--class="form-control"-->
+                    <!--@change="saveChannelGroup()"-->
+                    <!--v-model="channelGroup.caption">-->
+                </div>
+                <div class="col-sm-4">
+                    <h3>{{ $t('Location') }}</h3>
+                    <square-link :class="channelGroup.location.enabled ? '' : 'grey'"
+                        v-if="channelGroup.location">
+                        <a @click="chooseLocation = true">
+                            <location-tile-content :location="channelGroup.location"></location-tile-content>
+                        </a>
+                    </square-link>
+                    <button class="btn btn-default"
+                        v-else-if="isNewGroup"
+                        @click="chooseLocation = true">{{ $t('choose') }}
+                    </button>
+                    <location-chooser v-if="chooseLocation"
+                        :current-location="channelGroup.location"
+                        @confirm="onLocationChange($event)"
+                        @cancel="chooseLocation = false"></location-chooser>
+                </div>
+                <div class="col-sm-4"
+                    v-if="channelGroup.function">
+                    <h3>{{ $t('Function') }}</h3>
+                    <function-icon :model="channelGroup"
+                        width="100"></function-icon>
+                    <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                </div>
+            </div>
         </div>
+
         <square-links-grid v-if="channelGroup.channels"
             :count="channelGroup.channels.length + 1"
             class="square-links-height-240">
@@ -108,10 +137,22 @@
     import Vue from "vue";
     import FunctionIcon from "./function-icon.vue";
     import LocationChooser from "./location-chooser.vue";
+    import DotsRoute from "./dots-route.vue";
+    import LocationTileContent from "./location-tile-content.vue";
 
     export default {
         props: ['model'],
-        components: {ChannelsDropdown, ChannelTile, SquareLinksGrid, SquareLink, Flipper, FunctionIcon, LocationChooser},
+        components: {
+            ChannelsDropdown,
+            ChannelTile,
+            SquareLinksGrid,
+            SquareLink,
+            Flipper,
+            FunctionIcon,
+            LocationChooser,
+            DotsRoute,
+            LocationTileContent
+        },
         data() {
             return {
                 newChannel: undefined,

@@ -39,6 +39,9 @@
                 margin-bottom: 15px;
             }
         }
+        h2 {
+            margin-top: 3px;
+        }
         h3, h4 {
             white-space: nowrap;
             overflow: hidden;

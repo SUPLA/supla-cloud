@@ -12,20 +12,7 @@
                     :key="location.id">
                     <square-link :class="'clearfix pointer lift-up ' + (location.enabled ? '' : 'grey ') + (selectedLocation.id == location.id ? 'selected' : '')">
                         <a @click="selectedLocation = location">
-                            <h2>ID<strong>{{ location.id }} </strong></h2>
-                            <dl>
-                                <dd>{{ $t('Devices no') }}</dd>
-                                <dt>{{ location.iodeviceIds.length }}</dt>
-                            </dl>
-                            <div v-if="location.caption">
-                                <div class="separator"></div>
-                                {{ location.caption }}
-                            </div>
-                            <div class="square-link-label">
-                                <span :class="'label label-' + (location.enabled ? 'success' : 'grey')">
-                                    {{ $t(location.enabled ? 'Enabled' : 'Disabled') }}
-                                </span>
-                            </div>
+                            <location-tile-content :location="location"></location-tile-content>
                         </a>
                     </square-link>
                 </slide>
@@ -47,9 +34,10 @@
 <script>
     import SquareLink from "src/common/square-link.vue";
     import {Carousel, Slide} from 'vue-carousel';
+    import LocationTileContent from "./location-tile-content.vue";
 
     export default {
-        components: {Carousel, Slide, SquareLink},
+        components: {Carousel, Slide, SquareLink, LocationTileContent},
         props: ['currentLocation'],
         data() {
             return {
@@ -96,9 +84,6 @@
         }
         .VueCarousel-slide {
             padding: 5px;
-        }
-        h2 {
-            margin-top: 3px;
         }
 
         .modal-footer {
