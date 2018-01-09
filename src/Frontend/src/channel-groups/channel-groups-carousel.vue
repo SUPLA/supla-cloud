@@ -21,9 +21,12 @@
                 :key="channelGroup.id">
                 <square-link :class="'clearfix pointer lift-up ' + (channelGroup.enabled ? 'green' : 'grey') + (selectedChannelGroup == channelGroup ? ' selected' : '')">
                     <a @click="onChannelGroupClick(channelGroup)">
-                        <function-icon :model="channelGroup"
-                            width="50"></function-icon>
-                        <h2>ID<strong>{{ channelGroup.id }} </strong></h2>
+                        <div class="clearfix">
+                            <h2 class="pull-left">ID<strong>{{ channelGroup.id }} </strong></h2>
+                            <function-icon :model="channelGroup"
+                                class="pull-right"
+                                width="60"></function-icon>
+                        </div>
                         <dl>
                             <dd>{{ $t('Channels no') }}</dd>
                             <dt>{{ channelGroup.channelIds.length }}</dt>

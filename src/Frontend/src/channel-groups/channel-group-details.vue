@@ -28,14 +28,17 @@
                 <div class="row text-center">
                     <div class="col-sm-4">
                         <h3>{{ $t('Details') }}</h3>
-                        <dl class="text-left">
-                            <dd>{{ $t('Caption') }}</dd>
-                            <dt>{{ channelGroup.caption }}</dt>
-                        </dl>
-                        <!--<input type="text"-->
-                        <!--class="form-control"-->
-                        <!--@change="saveChannelGroup()"-->
-                        <!--v-model="channelGroup.caption">-->
+                        <div class="hover-editable text-left">
+                            <dl>
+                                <dd>{{ $t('Caption') }}</dd>
+                                <dt>
+                                    <input type="text"
+                                        class="form-control"
+                                        @change="saveChannelGroup()"
+                                        v-model="channelGroup.caption">
+                                </dt>
+                            </dl>
+                        </div>
                     </div>
                     <div class="col-sm-4">
                         <h3>{{ $t('Location') }}</h3>
@@ -192,3 +195,37 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../styles/variables";
+
+    .hover-editable {
+        .form-control {
+            border-color: transparent;
+            box-shadow: none;
+            transition: border-color .3s;
+        }
+        &:hover, .form-control {
+            .form-control, &:active, &:focus {
+                border-color: $supla-grey-dark;
+            }
+        }
+        dl {
+            margin-bottom: 0;
+            font-size: .95em;
+            dd, dt {
+                display: inline-block;
+            }
+            dt:after {
+                display: block;
+                content: ' ';
+            }
+            dt {
+                width: calc(100% - 105px);
+            }
+            dd {
+                width: 100px;
+            }
+        }
+    }
+</style>
