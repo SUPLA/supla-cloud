@@ -17,36 +17,37 @@
                     :placeholder="$t('Search')">
             </div>
         </div>
-        <square-links-grid v-if="devices && filteredDevices.length || (showPossibleDevices && !devices.length)"
-            :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)"
-            class="square-links-height-240">
-            <div v-for="device in filteredDevices"
-                :key="device.id"
-                :ref="'device-tile-' + device.id">
-                <device-tile :device="device"></device-tile>
-            </div>
-            <div v-for="possibleDevice in possibleDevices"
-                :key="'possible' + possibleDevice.title"
-                v-if="showPossibleDevices">
-                <square-link class="grey possible-device">
-                    <a href="https://www.supla.org"
-                        target="_blank"
-                        class="valign-center">
-                        <span>
-                            <i v-if="possibleDevice.icon"
-                                :class="possibleDevice.icon"></i>
-                            <img v-else
-                                :src="'/assets/img/' + possibleDevice.image"
-                                :alt="$t(possibleDevice.title)">
-                            <h3>{{ $t(possibleDevice.title) }}</h3>
-                            <p>{{ $t(possibleDevice.description) }}</p>
-                        </span>
-                    </a>
-                </square-link>
-            </div>
-        </square-links-grid>
-        <empty-list-placeholder v-else-if="devices"></empty-list-placeholder>
-        <loader-dots v-else></loader-dots>
+        <loading-cover :loading="!devices">
+            <square-links-grid v-if="devices && filteredDevices.length || (showPossibleDevices && !devices.length)"
+                :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)"
+                class="square-links-height-240">
+                <div v-for="device in filteredDevices"
+                    :key="device.id"
+                    :ref="'device-tile-' + device.id">
+                    <device-tile :device="device"></device-tile>
+                </div>
+                <div v-for="possibleDevice in possibleDevices"
+                    :key="'possible' + possibleDevice.title"
+                    v-if="showPossibleDevices">
+                    <square-link class="grey possible-device">
+                        <a href="https://www.supla.org"
+                            target="_blank"
+                            class="valign-center">
+                            <span>
+                                <i v-if="possibleDevice.icon"
+                                    :class="possibleDevice.icon"></i>
+                                <img v-else
+                                    :src="'/assets/img/' + possibleDevice.image"
+                                    :alt="$t(possibleDevice.title)">
+                                <h3>{{ $t(possibleDevice.title) }}</h3>
+                                <p>{{ $t(possibleDevice.description) }}</p>
+                            </span>
+                        </a>
+                    </square-link>
+                </div>
+            </square-links-grid>
+            <empty-list-placeholder v-else-if="devices"></empty-list-placeholder>
+        </loading-cover>
         <div class="hidden"
             v-if="devices">
             <!--allow filtered-out items to still receive status updates-->
@@ -60,11 +61,8 @@
 <script>
     import Vue from "vue";
     import BtnFilters from "src/common/btn-filters.vue";
-    import LoaderDots from "src/common/loader-dots.vue";
-    import SquareLinksGrid from "src/common/square-links-grid.vue";
     import DeviceTile from "./device-tile.vue";
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
-    import SquareLink from "src/common/square-link.vue";
     import DevicesRegistrationButton from "./devices-registration-button.vue";
     import latinize from "latinize";
     import EmptyListPlaceholder from "./empty-list-placeholder.vue";
@@ -76,9 +74,6 @@
             DevicesRegistrationButton,
             DeviceTile,
             EmptyListPlaceholder,
-            LoaderDots,
-            SquareLinksGrid,
-            SquareLink,
         },
         data() {
             return {

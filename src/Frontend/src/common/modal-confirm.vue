@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "./button-loading-dots.vue";
+    import ButtonLoadingDots from "./gui/loaders/button-loading-dots.vue";
 
     export default {
         props: ['header', 'loading'],

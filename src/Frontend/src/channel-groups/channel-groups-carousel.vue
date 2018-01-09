@@ -41,12 +41,11 @@
 
 <script>
     import {Carousel, Slide} from 'vue-carousel';
-    import SquareLink from "src/common/square-link.vue";
     import Vue from "vue";
     import FunctionIcon from "./function-icon.vue";
 
     export default {
-        components: {FunctionIcon, Carousel, Slide, SquareLink},
+        components: {FunctionIcon, Carousel, Slide},
         props: ['channelGroups', 'channelGroup'],
         data() {
             return {

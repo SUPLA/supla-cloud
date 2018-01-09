@@ -9,7 +9,7 @@
 </template>
 
 <style lang="scss">
-    @import "../styles/mixins";
+    @import "../../styles/mixins";
 
     $gridGap: 14px;
     $minimumWidthOfOneSquare: 265px;

@@ -74,13 +74,12 @@
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
     import ScheduleFormActionChooser from "./actions/schedule-form-action-chooser.vue";
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
-    import ButtonLoading from "../../common/button-loading.vue";
-    import LoadingDots from "../../common/loader-dots.vue";
-    import {mapState, mapActions} from "vuex";
+    import ButtonLoading from "../../common/gui/loaders/button-loading.vue";
+    import LoadingDots from "../../common/gui/loaders/loader-dots.vue";
+    import Vuex, {mapActions, mapState} from "vuex";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import {actions, mutations} from "./schedule-form-store";
-    import Vuex from "vuex";
 
     export default {
         name: 'schedule-form',

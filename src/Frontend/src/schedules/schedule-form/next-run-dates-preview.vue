@@ -24,7 +24,7 @@
 <script type="text/babel">
     import {mapState} from "vuex";
     import moment from "moment";
-    import ButtonLoadingDots from "../../common/button-loading-dots.vue";
+    import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
 
     export default {
         name: 'next-run-dates-preview',

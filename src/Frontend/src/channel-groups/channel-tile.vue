@@ -50,14 +50,12 @@
 </template>
 
 <script>
-    import SquareLink from "src/common/square-link.vue";
     import FunctionIcon from "./function-icon.vue";
-    import Flipper from "../common/flipper.vue";
     import DeviceConnectionStatusLabel from "../devices/list/device-connection-status-label.vue";
 
     export default {
         props: ['channel', 'removable'],
-        components: {FunctionIcon, SquareLink, Flipper, DeviceConnectionStatusLabel},
+        components: {FunctionIcon, DeviceConnectionStatusLabel},
         data() {
             return {
                 flipped: false,

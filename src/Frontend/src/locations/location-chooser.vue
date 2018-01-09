@@ -32,12 +32,11 @@
 </template>
 
 <script>
-    import SquareLink from "src/common/square-link.vue";
     import {Carousel, Slide} from 'vue-carousel';
     import LocationTileContent from "./location-tile-content.vue";
 
     export default {
-        components: {Carousel, Slide, SquareLink, LocationTileContent},
+        components: {Carousel, Slide, LocationTileContent},
         props: ['currentLocation'],
         data() {
             return {

@@ -70,7 +70,7 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../common/button-loading-dots.vue";
+    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import LoginFooter from "./login-footer.vue";
     import {errorNotification} from "../common/notifier";
     import Vue from "vue";

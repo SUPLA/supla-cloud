@@ -35,7 +35,7 @@
     import Vue from "vue";
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
-    import ButtonLoadingDots from "../common/button-loading-dots.vue";
+    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
 
     export default {
         props: ['params', 'value', 'hiddenChannels'],

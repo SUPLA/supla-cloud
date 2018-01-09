@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>{{ $t('Channel groups') }}</h1>
-                <div v-if="channelGroups">
+                <loading-cover :loading="!channelGroups">
                     <div class="grid-filters">
                         <btn-filters v-model="filters.enabled"
                             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -24,8 +24,7 @@
                         @add="onGroupAdded($event)"
                         @update="onGroupUpdated($event)">
                     </channel-group-details>
-                </div>
-                <loader-dots v-else></loader-dots>
+                </loading-cover>
             </div>
         </div>
     </div>
@@ -35,12 +34,11 @@
     import BtnFilters from "src/common/btn-filters.vue";
     import ChannelGroupDetails from "./channel-group-details.vue";
     import ChannelGroupsCarousel from "./channel-groups-carousel.vue";
-    import LoaderDots from "../common/loader-dots.vue";
     import latinize from "latinize";
     import Vue from "vue";
 
     export default {
-        components: {BtnFilters, ChannelGroupDetails, ChannelGroupsCarousel, LoaderDots},
+        components: {BtnFilters, ChannelGroupDetails, ChannelGroupsCarousel},
         data() {
             return {
                 channelGroup: undefined,

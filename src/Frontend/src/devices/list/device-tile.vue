@@ -26,11 +26,10 @@
 </template>
 
 <script>
-    import SquareLink from "src/common/square-link.vue";
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
 
     export default {
         props: ['device'],
-        components: {SquareLink, DeviceConnectionStatusLabel},
+        components: {DeviceConnectionStatusLabel},
     };
 </script>

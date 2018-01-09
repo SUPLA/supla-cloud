@@ -1,5 +1,5 @@
 <template>
-    <loading-cover :loading="loading || !channelGroup"
+    <loading-cover :loading="loading"
         class="channel-group-details">
         <div v-if="channelGroup">
             <div class="btn-group pull-right"
@@ -52,14 +52,20 @@
                         <location-chooser v-if="chooseLocation"
                             :current-location="channelGroup.location"
                             @confirm="onLocationChange($event)"
-                            @cancel="chooseLocation = false"></location-chooser>
+                            @cancel="chooseLocation = false"
+                            class="text-left"></location-chooser>
                     </div>
-                    <div class="col-sm-4"
-                        v-if="channelGroup.function">
+                    <div class="col-sm-4">
                         <h3>{{ $t('Function') }}</h3>
-                        <function-icon :model="channelGroup"
-                            width="100"></function-icon>
-                        <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                        <div v-if="channelGroup.function">
+                            <function-icon :model="channelGroup"
+                                width="100"></function-icon>
+                            <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                        </div>
+                        <div v-else-if="isNewGroup">
+                            <i class="pe-7s-help1"
+                                style="font-size: 3em"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,24 +139,18 @@
 
 <script>
     import ChannelsDropdown from "src/devices/channels-dropdown.vue";
-    import SquareLinksGrid from "src/common/square-links-grid.vue";
-    import SquareLink from "src/common/square-link.vue";
     import ChannelTile from "./channel-tile.vue";
-    import Flipper from "../common/flipper.vue";
     import Vue from "vue";
     import FunctionIcon from "./function-icon.vue";
-    import LocationChooser from "./location-chooser.vue";
-    import DotsRoute from "./dots-route.vue";
-    import LocationTileContent from "./location-tile-content.vue";
+    import LocationChooser from "../locations/location-chooser.vue";
+    import DotsRoute from "../common/gui/dots-route.vue";
+    import LocationTileContent from "../locations/location-tile-content.vue";
 
     export default {
         props: ['model'],
         components: {
             ChannelsDropdown,
             ChannelTile,
-            SquareLinksGrid,
-            SquareLink,
-            Flipper,
             FunctionIcon,
             LocationChooser,
             DotsRoute,
@@ -162,7 +162,7 @@
                 addingNewChannel: false,
                 channelsToChoose: undefined,
                 loading: false,
-                channelGroup: {},
+                channelGroup: undefined,
                 deleteConfirm: false,
                 chooseLocation: false
             };
@@ -172,13 +172,11 @@
         },
         methods: {
             initForModel() {
-                this.loading = false;
-                if (!this.isNewGroup) {
-                    this.channelGroup = undefined;
-                }
                 if (this.model.id) {
+                    this.loading = true;
                     this.$http.get(`channel-groups/${this.model.id}?include=channels,iodevice,location,function,type`)
-                        .then(response => this.channelGroup = response.body);
+                        .then(response => this.channelGroup = response.body)
+                        .finally(() => this.loading = false);
                 }
                 else {
                     this.channelGroup = $.extend(true, {}, this.model);
@@ -213,9 +211,6 @@
             addChannel() {
                 if (this.newChannel) {
                     this.channelGroup.channels.push(this.newChannel);
-                    if (this.channelGroup.channels.length == 1 && !this.channelGroup.function) {
-                        this.channelGroup.function = this.newChannel.function;
-                    }
                     this.newChannel = undefined;
                     this.addingNewChannel = false;
                     this.saveChannelGroup();
@@ -247,9 +242,3 @@
         }
     };
 </script>
-
-<style>
-    .channel-group-details {
-        min-height: 500px;
-    }
-</style>

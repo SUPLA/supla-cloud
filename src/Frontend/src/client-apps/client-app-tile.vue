@@ -85,9 +85,7 @@
 </template>
 
 <script>
-    import SquareLink from "../common/square-link.vue";
-    import Flipper from "../common/flipper.vue";
-    import ButtonLoadingDots from "../common/button-loading-dots.vue";
+    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import Switches from "vue-switches";
     import Vue from "vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
@@ -95,7 +93,7 @@
 
     export default {
         props: ['app', 'accessIds'],
-        components: {SquareLink, Flipper, Switches, ButtonLoadingDots, ClientAppConnectionStatusLabel},
+        components: {Switches, ButtonLoadingDots, ClientAppConnectionStatusLabel},
         data() {
             return {
                 saving: false,

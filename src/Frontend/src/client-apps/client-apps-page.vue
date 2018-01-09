@@ -51,8 +51,7 @@
 <script>
     import Vue from "vue";
     import BtnFilters from "../common/btn-filters.vue";
-    import LoaderDots from "../common/loader-dots.vue";
-    import SquareLinksGrid from "../common/square-links-grid.vue";
+    import LoaderDots from "../common/gui/loaders/loader-dots.vue";
     import ClientAppTile from "./client-app-tile.vue";
     import DevicesRegistrationButton from "src/devices/list/devices-registration-button.vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
@@ -67,7 +66,6 @@
             DevicesRegistrationButton,
             EmptyListPlaceholder,
             LoaderDots,
-            SquareLinksGrid,
         },
         data() {
             return {

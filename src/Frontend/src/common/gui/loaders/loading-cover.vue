@@ -30,8 +30,11 @@
                 isLoading: false,
             };
         },
-        watch: {
-            loading() {
+        mounted() {
+            this.loadingChanged();
+        },
+        methods: {
+            loadingChanged() {
                 if (this.loading && !this.timeout) {
                     this.timeout = setTimeout(() => {
                         this.isLoading = true;
@@ -44,6 +47,11 @@
                     }
                     this.isLoading = false;
                 }
+            }
+        },
+        watch: {
+            loading() {
+                this.loadingChanged();
             }
         }
     };

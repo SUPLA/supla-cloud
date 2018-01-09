@@ -38,7 +38,7 @@
 
 <script>
     import LoginFooter from "./login-footer.vue";
-    import ButtonLoadingDots from "../common/button-loading-dots.vue";
+    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
 
     export default {
         components: {LoginFooter, ButtonLoadingDots},

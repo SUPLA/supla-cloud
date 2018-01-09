@@ -50,7 +50,7 @@
 
 <script>
     import Switches from "vue-switches";
-    import ButtonLoadingDots from "src/common/button-loading-dots.vue";
+    import ButtonLoadingDots from "src/common/gui/loaders/button-loading-dots.vue";
 
     export default {
         props: ['field', 'caption'],

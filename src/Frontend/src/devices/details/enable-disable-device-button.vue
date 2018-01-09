@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import ButtonLoading from "../../common/button-loading.vue";
+    import ButtonLoading from "../../common/gui/loaders/button-loading.vue";
     import DisablingSchedulesModal from "../../schedules/modals/disabling-schedules-modal.vue";
     import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal.vue";
 

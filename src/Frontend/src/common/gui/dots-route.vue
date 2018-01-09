@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @import "../../styles/variables";
 
     $noOfDots: 3;
     $color: $supla-black;
