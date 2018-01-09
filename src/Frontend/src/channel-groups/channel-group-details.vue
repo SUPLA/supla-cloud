@@ -1,99 +1,101 @@
 <template>
     <loading-cover :loading="loading"
         class="channel-group-details">
-        <div v-if="channelGroup">
-            <div class="btn-group pull-right"
-                v-if="!isNewGroup">
-                <button class="btn btn-default"
-                    @click="toggleHidden()">
-                    {{ $t(channelGroup.hidden ? 'Show in clients' : 'Hide in clients') }}
-                </button>
-                <button class="btn btn-default"
-                    @click="toggleEnabled()">
-                    {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
-                </button>
-                <button class="btn btn-danger"
-                    @click="deleteConfirm = true">
-                    {{ $t('Delete') }}
-                </button>
-            </div>
-            <h2 class="no-margin-top">{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
+        <div class="container">
+            <div v-if="channelGroup">
+                <div class="btn-group pull-right"
+                    v-if="!isNewGroup">
+                    <button class="btn btn-default"
+                        @click="toggleHidden()">
+                        {{ $t(channelGroup.hidden ? 'Show in clients' : 'Hide in clients') }}
+                    </button>
+                    <button class="btn btn-default"
+                        @click="toggleEnabled()">
+                        {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
+                    </button>
+                    <button class="btn btn-danger"
+                        @click="deleteConfirm = true">
+                        {{ $t('Delete') }}
+                    </button>
+                </div>
+                <h2 class="no-margin-top">{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
 
-            <div class="row hidden-xs">
-                <div class="col-xs-12">
-                    <dots-route></dots-route>
+                <div class="row hidden-xs">
+                    <div class="col-xs-12">
+                        <dots-route></dots-route>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row text-center">
+                        <div class="col-sm-4">
+                            <h3>{{ $t('Details') }}</h3>
+                            <div class="hover-editable text-left">
+                                <dl>
+                                    <dd>{{ $t('Caption') }}</dd>
+                                    <dt>
+                                        <input type="text"
+                                            class="form-control"
+                                            @change="saveChannelGroup()"
+                                            v-model="channelGroup.caption">
+                                    </dt>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3>{{ $t('Location') }}</h3>
+                            <square-link :class="'text-left ' + (channelGroup.location.enabled ? '' : 'grey')"
+                                v-if="channelGroup.location">
+                                <a @click="chooseLocation = true">
+                                    <location-tile-content :location="channelGroup.location"></location-tile-content>
+                                </a>
+                            </square-link>
+                            <button class="btn btn-default"
+                                v-else-if="isNewGroup"
+                                @click="chooseLocation = true">{{ $t('choose') }}
+                            </button>
+                            <location-chooser v-if="chooseLocation"
+                                :current-location="channelGroup.location"
+                                @confirm="onLocationChange($event)"
+                                @cancel="chooseLocation = false"
+                                class="text-left"></location-chooser>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3>{{ $t('Function') }}</h3>
+                            <div v-if="channelGroup.function">
+                                <function-icon :model="channelGroup"
+                                    width="100"></function-icon>
+                                <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                            </div>
+                            <div v-else-if="isNewGroup">
+                                <i class="pe-7s-help1"
+                                    style="font-size: 3em"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="row text-center">
-                    <div class="col-sm-4">
-                        <h3>{{ $t('Details') }}</h3>
-                        <div class="hover-editable text-left">
-                            <dl>
-                                <dd>{{ $t('Caption') }}</dd>
-                                <dt>
-                                    <input type="text"
-                                        class="form-control"
-                                        @change="saveChannelGroup()"
-                                        v-model="channelGroup.caption">
-                                </dt>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <h3>{{ $t('Location') }}</h3>
-                        <square-link :class="'text-left ' + (channelGroup.location.enabled ? '' : 'grey')"
-                            v-if="channelGroup.location">
-                            <a @click="chooseLocation = true">
-                                <location-tile-content :location="channelGroup.location"></location-tile-content>
-                            </a>
-                        </square-link>
-                        <button class="btn btn-default"
-                            v-else-if="isNewGroup"
-                            @click="chooseLocation = true">{{ $t('choose') }}
-                        </button>
-                        <location-chooser v-if="chooseLocation"
-                            :current-location="channelGroup.location"
-                            @confirm="onLocationChange($event)"
-                            @cancel="chooseLocation = false"
-                            class="text-left"></location-chooser>
-                    </div>
-                    <div class="col-sm-4">
-                        <h3>{{ $t('Function') }}</h3>
-                        <div v-if="channelGroup.function">
-                            <function-icon :model="channelGroup"
-                                width="100"></function-icon>
-                            <h4>{{ $t(channelGroup.function.caption) }}</h4>
-                        </div>
-                        <div v-else-if="isNewGroup">
-                            <i class="pe-7s-help1"
-                                style="font-size: 3em"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <square-links-grid v-if="channelGroup.channels"
-                :count="channelGroup.channels.length + 1"
-                class="square-links-height-240">
-                <div key="new">
-                    <channel-group-new-channel-chooser :channel-group="channelGroup"
-                        @add="saveChannelGroup()"></channel-group-new-channel-chooser>
-                </div>
-                <div v-for="channel in channelGroup.channels"
-                    :key="channel.id">
-                    <channel-group-channel-tile :channel="channel"
-                        :removable="channelGroup.channels.length > 1"
-                        @remove="removeChannel(channel)"></channel-group-channel-tile>
-                </div>
-            </square-links-grid>
-            <modal-confirm v-if="deleteConfirm"
-                @confirm="deleteGroup()"
-                @cancel="deleteConfirm = false"
-                :header="$t('Are you sure you want to delete this channel group?')"
-                :loading="loading">
-            </modal-confirm>
         </div>
+
+        <square-links-grid v-if="channelGroup.channels"
+            :count="channelGroup.channels.length + 1"
+            class="square-links-height-240">
+            <div key="new">
+                <channel-group-new-channel-chooser :channel-group="channelGroup"
+                    @add="saveChannelGroup()"></channel-group-new-channel-chooser>
+            </div>
+            <div v-for="channel in channelGroup.channels"
+                :key="channel.id">
+                <channel-group-channel-tile :channel="channel"
+                    :removable="channelGroup.channels.length > 1"
+                    @remove="removeChannel(channel)"></channel-group-channel-tile>
+            </div>
+        </square-links-grid>
+        <modal-confirm v-if="deleteConfirm"
+            @confirm="deleteGroup()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure you want to delete this channel group?')"
+            :loading="loading">
+        </modal-confirm>
     </loading-cover>
 </template>
 

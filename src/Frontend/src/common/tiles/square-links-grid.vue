@@ -1,5 +1,5 @@
 <template>
-    <div :class="'square-links-grid-container ' + (count <= 4 ? 'square-links-grid-container-narrow' : '')">
+    <div :class="'square-links-grid-container clearfix ' + (count <= 4 ? 'square-links-grid-container-narrow' : '')">
         <transition-group name="square-links-grid"
             tag="div"
             class="square-links-grid">
