@@ -74,57 +74,14 @@
                 :count="channelGroup.channels.length + 1"
                 class="square-links-height-240">
                 <div key="new">
-                    <flipper :flipped="!!addingNewChannel">
-                        <square-link class="clearfix pointer black"
-                            slot="front">
-                            <a class="valign-center text-center"
-                                @click="addingNewChannel = true">
-                                <span>
-                                    <i class="pe-7s-plus"></i>
-                                    <span v-if="isNewGroup">{{ $t('Add the first channel to save the group') }}</span>
-                                    <span v-else>{{ $t('Add new channel to this group') }}</span>
-                                </span>
-                            </a>
-                        </square-link>
-                        <square-link class="clearfix pointer black not-transform"
-                            slot="back">
-                            <span class="valign-center text-center">
-                                <span>
-                                    <form @submit.prevent="addChannel()"
-                                        v-show="!channelsToChoose || channelsToChoose.length !== 0">
-                                        <div class="form-group">
-                                            <channels-dropdown :params="'include=iodevice,location,function,type&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
-                                                v-model="newChannel"
-                                                @update="channelsToChoose = $event"
-                                                :hidden-channels="channelGroup.channels"></channels-dropdown>
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-default pull-left"
-                                                type="button"
-                                                @click="addingNewChannel = false">
-                                                Cancel
-                                            </button>
-                                            <button class="btn btn-green pull-right"
-                                                :disabled="!newChannel"
-                                                type="submit">
-                                                Add
-                                            </button>
-                                        </div>
-                                    </form>
-                                    <div v-show="channelsToChoose && channelsToChoose.length === 0">
-                                        <i class="pe-7s-paint-bucket"></i>
-                                        {{ $t('There are no more channels you can add to this group') }}
-                                    </div>
-                                </span>
-                            </span>
-                        </square-link>
-                    </flipper>
+                    <channel-group-new-channel-chooser :channel-group="channelGroup"
+                        @add="saveChannelGroup()"></channel-group-new-channel-chooser>
                 </div>
                 <div v-for="channel in channelGroup.channels"
                     :key="channel.id">
-                    <channel-tile :channel="channel"
+                    <channel-group-channel-tile :channel="channel"
                         :removable="channelGroup.channels.length > 1"
-                        @remove="channelGroup.channels.splice(channelGroup.channels.indexOf(channel), 1)"></channel-tile>
+                        @remove="removeChannel(channel)"></channel-group-channel-tile>
                 </div>
             </square-links-grid>
             <modal-confirm v-if="deleteConfirm"
@@ -138,19 +95,19 @@
 </template>
 
 <script>
-    import ChannelsDropdown from "src/devices/channels-dropdown.vue";
-    import ChannelTile from "./channel-tile.vue";
     import Vue from "vue";
     import FunctionIcon from "./function-icon.vue";
     import LocationChooser from "../locations/location-chooser.vue";
     import DotsRoute from "../common/gui/dots-route.vue";
     import LocationTileContent from "../locations/location-tile-content.vue";
+    import ChannelGroupNewChannelChooser from "./channel-group-new-channel-chooser.vue";
+    import ChannelGroupChannelTile from "./channel-group-channel-tile";
 
     export default {
         props: ['model'],
         components: {
-            ChannelsDropdown,
-            ChannelTile,
+            ChannelGroupChannelTile,
+            ChannelGroupNewChannelChooser,
             FunctionIcon,
             LocationChooser,
             DotsRoute,
@@ -158,9 +115,6 @@
         },
         data() {
             return {
-                newChannel: undefined,
-                addingNewChannel: false,
-                channelsToChoose: undefined,
                 loading: false,
                 channelGroup: undefined,
                 deleteConfirm: false,
@@ -203,18 +157,14 @@
                     }
                 }
             },
+            removeChannel(channel) {
+                this.channelGroup.channels.splice(this.channelGroup.channels.indexOf(channel), 1);
+                this.saveChannelGroup();
+            },
             deleteGroup() {
                 this.loading = true;
                 this.$http.delete('channel-groups/' + this.channelGroup.id).then(() => this.$emit('delete'));
                 this.channelGroup = undefined;
-            },
-            addChannel() {
-                if (this.newChannel) {
-                    this.channelGroup.channels.push(this.newChannel);
-                    this.newChannel = undefined;
-                    this.addingNewChannel = false;
-                    this.saveChannelGroup();
-                }
             },
             toggleHidden() {
                 this.channelGroup.hidden = !this.channelGroup.hidden;

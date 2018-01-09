@@ -54,6 +54,7 @@ module.exports = {
         ]
     },
     resolve: {
+        extensions: ['.js', '.vue'],
         alias: {
             'vue$': 'vue/dist/vue.common.js',
             'vuex$': 'vuex/dist/vuex.js',
@@ -76,7 +77,7 @@ module.exports = {
         hints: false
     },
     devtool: '#eval-source-map'
-}
+};
 
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = undefined;
