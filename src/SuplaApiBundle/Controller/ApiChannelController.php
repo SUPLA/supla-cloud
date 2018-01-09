@@ -20,6 +20,8 @@ namespace SuplaApiBundle\Controller;
 use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
@@ -216,119 +218,123 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Rest\Get("/channels/{channelid}")
+     * @Rest\Get("/channels/{channel}")
+     * @Security("user == channel.getUser()")
      */
-    public function getChannelAction(Request $request, $channelid) {
+    public function getChannelAction(Request $request, IODeviceChannel $channel) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            $view = $this->view($channel, Response::HTTP_OK);
+            $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function', 'type', 'connected', 'state']);
+            return $view;
+        } else {
+            $enabled = false;
+            $connected = false;
 
-        $channel = $this->channelById($channelid);
+            $devid = $channel->getIoDevice()->getId();
+            $userid = $this->getParentUser()->getId();
 
-        $enabled = false;
-        $connected = false;
+            if ($channel->getIoDevice()->getEnabled()) {
+                $enabled = true;
 
-        $devid = $channel->getIoDevice()->getId();
-        $userid = $this->getParentUser()->getId();
-
-        if ($channel->getIoDevice()->getEnabled()) {
-            $enabled = true;
-
-            $cids = $this->suplaServer->checkDevicesConnection($userid, [$devid]);
-            $connected = in_array($devid, $cids);
-        }
-
-        $result = ['connected' => $connected,
-            'enabled' => $enabled,
-        ];
-
-        if ($connected) {
-            $func = $channel->getFunction()->getId();
-
-            switch ($func) {
-                case SuplaConst::FNC_POWERSWITCH:
-                case SuplaConst::FNC_LIGHTSWITCH:
-                    $value = $this->suplaServer->getCharValue($userid, $devid, $channelid);
-                    $result['on'] = $value == '1' ? true : false;
-
-                    break;
-
-                case SuplaConst::FNC_OPENINGSENSOR_GATEWAY:
-                case SuplaConst::FNC_OPENINGSENSOR_GATE:
-                case SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR:
-                case SuplaConst::FNC_NOLIQUIDSENSOR:
-                case SuplaConst::FNC_OPENINGSENSOR_DOOR:
-                case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
-                    $value = $this->suplaServer->getCharValue($userid, $devid, $channelid);
-                    $result['hi'] = $value == '1' ? true : false;
-
-                    break;
-
-                case SuplaConst::FNC_THERMOMETER:
-                case SuplaConst::FNC_HUMIDITY:
-                case SuplaConst::FNC_HUMIDITYANDTEMPERATURE:
-                    if ($func == SuplaConst::FNC_THERMOMETER
-                        || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
-                    ) {
-                        $value = $this->suplaServer->getTemperatureValue($userid, $devid, $channelid);
-
-                        if ($value !== false) {
-                            $result['temperature'] = $value;
-                        }
-                    }
-
-                    if ($func == SuplaConst::FNC_HUMIDITY
-                        || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
-                    ) {
-                        $value = $this->suplaServer->getHumidityValue($userid, $devid, $channelid);
-
-                        if ($value !== false) {
-                            $result['humidity'] = $value;
-                        }
-                    }
-
-                    break;
-
-                case SuplaConst::FNC_DIMMER:
-                case SuplaConst::FNC_RGBLIGHTING:
-                case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-                    $value = $this->suplaServer->getRgbwValue($userid, $devid, $channelid);
-
-                    if ($value !== false) {
-                        if ($func == SuplaConst::FNC_RGBLIGHTING
-                            || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
-                        ) {
-                            $result['color'] = $value['color'];
-                            $result['color_brightness'] = $value['color_brightness'];
-                        }
-
-                        if ($func == SuplaConst::FNC_DIMMER
-                            || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
-                        ) {
-                            $result['brightness'] = $value['brightness'];
-                        }
-                    }
-
-                    break;
-
-                case SuplaConst::FNC_DISTANCESENSOR:
-                    $value = $this->suplaServer->getDistanceValue($userid, $devid, $channelid);
-
-                    if ($value !== false) {
-                        $result['distance'] = $value;
-                    }
-
-                    break;
-
-                case SuplaConst::FNC_DEPTHSENSOR:
-                    $value = $this->suplaServer->getDistanceValue($userid, $devid, $channelid);
-
-                    if ($value !== false) {
-                        $result['depth'] = $value;
-                    }
-
-                    break;
+                $cids = $this->suplaServer->checkDevicesConnection($userid, [$devid]);
+                $connected = in_array($devid, $cids);
             }
-        }
 
-        return $this->handleView($this->view($result, Response::HTTP_OK));
+            $result = ['connected' => $connected,
+                'enabled' => $enabled,
+            ];
+
+            if ($connected) {
+                $func = $channel->getFunction()->getId();
+
+                switch ($func) {
+                    case SuplaConst::FNC_POWERSWITCH:
+                    case SuplaConst::FNC_LIGHTSWITCH:
+                        $value = $this->suplaServer->getCharValue($userid, $devid, $channelid);
+                        $result['on'] = $value == '1' ? true : false;
+
+                        break;
+
+                    case SuplaConst::FNC_OPENINGSENSOR_GATEWAY:
+                    case SuplaConst::FNC_OPENINGSENSOR_GATE:
+                    case SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR:
+                    case SuplaConst::FNC_NOLIQUIDSENSOR:
+                    case SuplaConst::FNC_OPENINGSENSOR_DOOR:
+                    case SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER:
+                        $value = $this->suplaServer->getCharValue($userid, $devid, $channelid);
+                        $result['hi'] = $value == '1' ? true : false;
+
+                        break;
+
+                    case SuplaConst::FNC_THERMOMETER:
+                    case SuplaConst::FNC_HUMIDITY:
+                    case SuplaConst::FNC_HUMIDITYANDTEMPERATURE:
+                        if ($func == SuplaConst::FNC_THERMOMETER
+                            || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
+                        ) {
+                            $value = $this->suplaServer->getTemperatureValue($userid, $devid, $channelid);
+
+                            if ($value !== false) {
+                                $result['temperature'] = $value;
+                            }
+                        }
+
+                        if ($func == SuplaConst::FNC_HUMIDITY
+                            || $func == SuplaConst::FNC_HUMIDITYANDTEMPERATURE
+                        ) {
+                            $value = $this->suplaServer->getHumidityValue($userid, $devid, $channelid);
+
+                            if ($value !== false) {
+                                $result['humidity'] = $value;
+                            }
+                        }
+
+                        break;
+
+                    case SuplaConst::FNC_DIMMER:
+                    case SuplaConst::FNC_RGBLIGHTING:
+                    case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
+                        $value = $this->suplaServer->getRgbwValue($userid, $devid, $channelid);
+
+                        if ($value !== false) {
+                            if ($func == SuplaConst::FNC_RGBLIGHTING
+                                || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
+                            ) {
+                                $result['color'] = $value['color'];
+                                $result['color_brightness'] = $value['color_brightness'];
+                            }
+
+                            if ($func == SuplaConst::FNC_DIMMER
+                                || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
+                            ) {
+                                $result['brightness'] = $value['brightness'];
+                            }
+                        }
+
+                        break;
+
+                    case SuplaConst::FNC_DISTANCESENSOR:
+                        $value = $this->suplaServer->getDistanceValue($userid, $devid, $channelid);
+
+                        if ($value !== false) {
+                            $result['distance'] = $value;
+                        }
+
+                        break;
+
+                    case SuplaConst::FNC_DEPTHSENSOR:
+                        $value = $this->suplaServer->getDistanceValue($userid, $devid, $channelid);
+
+                        if ($value !== false) {
+                            $result['depth'] = $value;
+                        }
+
+                        break;
+                }
+            }
+
+            return $this->handleView($this->view($result, Response::HTTP_OK));
+        }
     }
 
     /**

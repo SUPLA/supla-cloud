@@ -15,26 +15,21 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Serialization;
+namespace SuplaBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\IODeviceChannel;
 
-class IODeviceChannelSerializer extends AbstractSerializer {
+/**
+ * @Route("/channels")
+ */
+class IODeviceChannelController extends AbstractController {
     /**
-     * @param IODeviceChannel $channel
-     * @inheritdoc
+     * @Route("/{channel}")
+     * @Template
      */
-    public function normalize($channel, $format = null, array $context = []) {
-        $normalized = parent::normalize($channel, $format, $context);
-        if (is_array($normalized)) {
-            $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
-            $normalized['functionId'] = $channel->getFunction()->getId();
-            $normalized['typeId'] = $channel->getType()->getId();
-        }
-        return $normalized;
-    }
-
-    public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof IODeviceChannel;
+    public function channelDetailsAction(IODeviceChannel $channel) {
+        return ['channel' => $channel];
     }
 }

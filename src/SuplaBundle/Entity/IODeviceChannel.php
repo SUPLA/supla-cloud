@@ -88,11 +88,13 @@ class IODeviceChannel {
 
     /**
      * @ORM\Column(name="flist", type="integer", nullable=true)
+     * @Groups({"basic"})
      */
     private $funcList;
 
     /**
      * @ORM\Column(name="param1", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $param1 = '';
 
