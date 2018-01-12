@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Model;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Enums\ScheduleAction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -130,7 +130,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
 
     private function createSchedule($data): Schedule {
         $schedule = new Schedule($this->channel->getIoDevice()->getUser(), array_merge([
-            'action' => ScheduleAction::TURN_ON,
+            'action' => ChannelFunctionAction::TURN_ON,
             'channel' => $this->channel,
         ], $data));
         $em = $this->getDoctrine()->getManager();

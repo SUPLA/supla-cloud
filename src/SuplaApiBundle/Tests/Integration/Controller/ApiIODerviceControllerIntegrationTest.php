@@ -110,9 +110,8 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $content = json_decode($response->getContent());
-        $this->assertContains('turtles', $content->message);
+        $this->assertContains('not supported: turtles', $content->message);
         $this->assertContains('unicorns', $content->message);
-        $this->assertNotContains('channels', $content->message);
     }
 
     public function testGettingDevicesDetails() {
