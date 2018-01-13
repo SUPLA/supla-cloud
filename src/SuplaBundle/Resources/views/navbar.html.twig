@@ -43,16 +43,36 @@
                         {% trans %}Access Identifiers{% endtrans %}
                     </a>
                 </li>
-                <li {% if app.request.get('_route') starts with '_schedule' %} class="active" {% endif %}>
-                    <a href="{{ path('_schedule_list') }}">
-                        <i class="hidden-sm hidden-xs pe-7s-clock"></i>
-                        {% trans %}Schedules{% endtrans %}
+
+                <li class="dropdown {% if app.request.get('_route') starts with '_schedule' or app.request.get('_route') starts with '_channel_groups' %}active{% endif %}">
+                    <a class="dropdown-toggle"
+                            data-toggle="dropdown">
+                        <i class="hidden-sm hidden-xs pe-7s-config"></i>
+                        {% trans %}Automation{% endtrans %}
+                        <span class="caret"></span>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li {% if app.request.get('_route') starts with '_schedule' %} class="active" {% endif %}>
+                            <a href="{{ path('_schedule_list') }}">
+                                <i class="hidden-sm hidden-xs pe-7s-clock"></i>
+                                {% trans %}Schedules{% endtrans %}
+                            </a>
+                        </li>
+                        <li {% if app.request.get('_route') starts with '_channel_groups' %} class="active" {% endif %}>
+                            <a href="{{ path('_channel_groups_list') }}">
+                                <i class="hidden-sm hidden-xs pe-7s-keypad"></i>
+                                {% trans %}Channel groups{% endtrans %}
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="dropdown account-dropdown">
                     <a class="dropdown-toggle"
-                            data-toggle="dropdown"><i class="hidden-sm hidden-xs pe-7s-user"></i>{% trans %}Account{% endtrans %}
-                        <span class="caret"></span></a>
+                            data-toggle="dropdown">
+                        <i class="hidden-sm hidden-xs pe-7s-user"></i>
+                        {% trans %}Account{% endtrans %}
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="{{ path('_account_view') }}"

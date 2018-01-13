@@ -53,7 +53,7 @@ nav.navbar-top {
       }
     }
   }
-  .nav > li.active, .nav > li.open {
+  .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
     background: $supla-green;
     border-bottom-color: $supla-green;
     > a, > a:hover, > a:focus {
