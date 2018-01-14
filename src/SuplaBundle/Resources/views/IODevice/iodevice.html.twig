@@ -1,5 +1,7 @@
 {% extends 'SuplaBundle::layout.html.twig' %}
 
+{% set page_title = 'Device'|trans ~ ' ID' ~ iodevice.id %}
+
 {% block content %}
 <div class="device-wrapper animated fadeIn" id="iodevice-detail" data-id="{{iodevice.id}}" data-item-path="{{ path('_iodev_item', {'id': iodevice.id}) }}">
 	<div class="container">

@@ -1,4 +1,7 @@
 {% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
+
+{% set page_title = schedule is defined ? 'Edit schedule'|trans ~ ' ID' ~ schedule.id : 'Create New Schedule'|trans %}
+
 {% block content %}
     <div class="container">
         <div class="row">
