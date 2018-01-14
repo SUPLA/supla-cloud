@@ -21,22 +21,29 @@ class Version20180113234138 extends AbstractMigration {
     private function createRequiredTables() {
         $this->addSql(<<<TABLE
         CREATE TABLE IF NOT EXISTS `esp_update` (
-          `id` int(11) NOT NULL,
-          `device_id` int(11) NOT NULL,
-          `device_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-          `platform` tinyint(4) NOT NULL,
-          `latest_software_version` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-          `fparam1` int(11) NOT NULL,
-          `fparam2` int(11) NOT NULL,
-          `protocols` tinyint(4) NOT NULL,
-          `host` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-          `port` int(11) NOT NULL,
-          `path` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+            `id` INT(11) NOT NULL,
+            `device_id` INT(11) NOT NULL,
+            `device_name` VARCHAR(100) NOT NULL COLLATE 'utf8_unicode_ci',
+            `platform` TINYINT(4) NOT NULL,
+            `latest_software_version` VARCHAR(10) NOT NULL COLLATE 'utf8_unicode_ci',
+            `fparam1` INT(11) NOT NULL,
+            `fparam2` INT(11) NOT NULL,
+            `protocols` TINYINT(4) NOT NULL,
+            `host` VARCHAR(100) NOT NULL COLLATE 'utf8_unicode_ci',
+            `port` INT(11) NOT NULL,
+            `path` VARCHAR(100) NOT NULL COLLATE 'utf8_unicode_ci',
+            PRIMARY KEY (`id`),
+            INDEX `device_name` (`device_name`),
+            INDEX `latest_software_version` (`latest_software_version`),
+            INDEX `fparam1` (`fparam1`),
+            INDEX `fparam2` (`fparam2`),
+            INDEX `platform` (`platform`),
+            INDEX `device_id` (`device_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 TABLE
         );
         $this->addSql(<<<TABLE
-        CREATE TABLE `esp_update_log` (
+        CREATE TABLE IF NOT EXISTS `esp_update_log` (
           `date` datetime NOT NULL,
           `device_id` int(11) NOT NULL,
           `platform` tinyint(4) NOT NULL,
@@ -46,17 +53,6 @@ TABLE
           `fparam4` int(11) NOT NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 TABLE
-        );
-        $this->addSql(<<<INDEXES
-        ALTER TABLE `esp_update`
-          ADD PRIMARY KEY (`id`),
-          ADD KEY `device_name` (`device_name`),
-          ADD KEY `latest_software_version` (`latest_software_version`),
-          ADD KEY `fparam1` (`fparam1`),
-          ADD KEY `fparam2` (`fparam2`),
-          ADD KEY `platform` (`platform`),
-          ADD KEY `device_id` (`device_id`);
-INDEXES
         );
     }
 }
