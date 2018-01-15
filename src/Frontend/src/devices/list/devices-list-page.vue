@@ -7,6 +7,8 @@
                     caption="Registration of new I/O devices"></devices-registration-button>
             </div>
             <div class="grid-filters">
+                <btn-filters v-model="filters.sort"
+                  :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'},  {label: $t('Location'), value: 'location'}]"></btn-filters>
                 <btn-filters v-model="filters.enabled"
                     :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
                 <btn-filters v-model="filters.connected"
@@ -79,6 +81,7 @@
             return {
                 devices: undefined,
                 filters: {
+                    sort: 'az',
                     enabled: undefined,
                     connected: undefined,
                     search: '',
@@ -118,6 +121,13 @@
                 }
                 if (this.filters.search) {
                     devices = devices.filter(device => device.searchString.indexOf(latinize(this.filters.search).toLowerCase()) >= 0);
+                }
+                if (this.filters.sort == 'az') {
+                    devices = devices.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
+                } else if (this.filters.sort == 'lastAccess') {
+                    devices = devices.sort((a1, a2) => moment(a2.lastConnected).diff(moment(a1.lastConnected)));
+                } else if (this.filters.sort == 'location') {
+                    devices = devices.sort((a1, a2) => a1.location.caption.toLowerCase() < a2.location.caption.toLowerCase() ? -1 : 1);
                 }
                 return devices;
             },
