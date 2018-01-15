@@ -1,5 +1,7 @@
 {% extends 'SuplaBundle::layout.html.twig' %}
- 
+
+{% set page_title = 'Password Reset'|trans %}
+
 {% block content %}
     <h1>{% trans %}Access Identifiers{% endtrans %} <input id="livefilter-input" class="pull-right" type="text" placeholder="Search"></h1>
 	<button class="example-show" data-direction="left">left</button>
@@ -22,7 +24,7 @@
              </ul>
              </div>
 		<div class="container">
-        <div class="details" id="details">           
+        <div class="details" id="details">
      </div>
 </div>
            
