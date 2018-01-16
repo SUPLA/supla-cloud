@@ -13,6 +13,9 @@ export const mutations = {
     updateCaption(state, caption) {
         state.caption = caption;
     },
+    updateRetry(state, retry) {
+        state.retry = retry;
+    },
     updateDateStart(state, date) {
         state.dateStart = date ? date.format() : moment().format();
     },
@@ -61,6 +64,7 @@ export const mutations = {
             // what a pity
         }
         state.caption = schedule.caption;
+        state.retry = schedule.retry;
     }
 };
 

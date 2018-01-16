@@ -37,6 +37,13 @@
                             <h4>{{ 'End date'|trans }}</h4>
                             {{ schedule.dateEnd|localizeddate('full', 'medium', app.request.locale, app.user.timezone ) }}
                         {% endif %}
+
+                        <h4>{{ 'Retry when fail'|trans }}</h4>
+                        {% if schedule.retry %}
+                            <span class="label label-success">{{ 'ENABLED'|trans }}</span>
+                        {% else %}
+                            <span class="label label-warning">{{ 'DISABLED'|trans }}</span>
+                        {% endif %}
                     </div>
                     <div class="col-md-6">
                         <div class="form-group text-right">

@@ -32,6 +32,13 @@
                             <schedule-form-start-end-date></schedule-form-start-end-date>
                         </div>
                         <next-run-dates-preview></next-run-dates-preview>
+                        <switches v-model="retry"
+                            :label="$t('Retry when fail')"
+                            type-bold="true"
+                            color="green"
+                            emit-on-mount="false"
+                            :text-enabled="$t('Enabled')"
+                            :text-disabled="$t('Disabled')"></switches>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -80,6 +87,7 @@
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import {actions, mutations} from "./schedule-form-store";
+    import Switches from "vue-switches";
 
     export default {
         name: 'schedule-form',
@@ -93,6 +101,7 @@
                 dateEnd: '',
                 fetchingNextRunDates: false,
                 nextRunDates: [],
+                retry: true,
                 channel: undefined,
                 action: undefined,
                 actionParam: undefined,
@@ -112,12 +121,20 @@
                     this.$store.commit('updateCaption', caption);
                 }
             },
+            retry: {
+                get() {
+                    return this.$store.state.retry;
+                },
+                set(retry) {
+                    this.$store.commit('updateRetry', retry);
+                }
+            },
             ...mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'submitting', 'schedule'])
         },
         mounted() {
             if (this.scheduleId) {
-                this.$http.get('schedules/' + this.scheduleId).then(({body}) => {
-                    this.loadScheduleToEdit(body.schedule);
+                this.$http.get('schedules/' + this.scheduleId, {params:  {include: 'channel'}}).then(({body}) => {
+                    this.loadScheduleToEdit(body);
                 });
             }
         },
@@ -131,7 +148,8 @@
             ScheduleFormActionChooser,
             ScheduleFormStartEndDate,
             ButtonLoading,
-            LoadingDots
+            LoadingDots,
+            Switches
         },
         methods: mapActions(['submit', 'loadScheduleToEdit'])
     };
