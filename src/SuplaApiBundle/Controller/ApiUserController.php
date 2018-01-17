@@ -24,6 +24,7 @@ use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,17 +57,18 @@ class ApiUserController extends FOSRestController {
      * @Rest\Get("users/current/schedulable-channels")
      */
     public function getUserSchedulableChannelsAction() {
+        /** @var IODeviceManager $ioDeviceManager */
         $ioDeviceManager = $this->get('iodevice_manager');
         $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
         $channelToFunctionsMap = [];
         foreach ($schedulableChannels as $channel) {
-            $channelToFunctionsMap[$channel->getId()] = (new ChannelFunction($channel->getFunction()))->getPossibleActions();
+            $channelToFunctionsMap[$channel->getId()] = (new ChannelFunction($channel->getFunction()->getId()))->getPossibleActions();
         }
         return $this->view([
             'userChannels' => array_map(function (IODeviceChannel $channel) use ($ioDeviceManager) {
                 return [
                     'id' => $channel->getId(),
-                    'function' => $channel->getFunction(),
+                    'function' => $channel->getFunction()->getId(),
                     'functionName' => $ioDeviceManager->channelFunctionToString($channel->getFunction()),
                     'type' => $channel->getType(),
                     'caption' => $channel->getCaption(),

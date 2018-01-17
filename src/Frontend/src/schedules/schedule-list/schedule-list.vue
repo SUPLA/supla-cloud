@@ -81,6 +81,11 @@
                         name: 'latestExecution',
                         title: this.$t('The latest execution'),
                         callback: 'latestExecution'
+                    },
+                    {
+                        name: 'schedule.retry',
+                        title: this.$t('Retry when fail'),
+                        callback: 'showState'
                     }
                 ],
                 bootstrapStyles: {
@@ -93,6 +98,13 @@
         methods: {
             formatDate(date) {
                 return date ? moment(date).format('LLL') : '-';
+            },
+            showState(state) {
+                if (state) {
+                    return `<span class="label label-success">${this.$t('ENABLED')}</span>`;
+                } else {
+                    return `<span class="label label-warning">${this.$t('DISABLED')}</span>`;
+                }
             },
             latestExecution(execution) {
                 if (execution) {

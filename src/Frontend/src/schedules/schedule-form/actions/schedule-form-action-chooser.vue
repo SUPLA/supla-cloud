@@ -17,15 +17,15 @@
                 <div class="radio">
                     <label>
                         <input type="radio"
-                            :value="possibleAction"
+                            :value="possibleAction.id"
                             v-model="action">
-                        {{ $t(actionCaptions[possibleAction]) }}
+                        {{ $t(possibleAction.caption) }}
                     </label>
                 </div>
-                <span v-if="possibleAction == 50 && action == possibleAction">
+                <span v-if="possibleAction.id == 50 && action == possibleAction.id">
                     <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
                 </span>
-                <span v-if="possibleAction == 80 && action == possibleAction">
+                <span v-if="possibleAction.id == 80 && action == possibleAction.id">
                     <rgbw-parameters-setter v-model="actionParam" :channel-function="chosenChannel.function"></rgbw-parameters-setter>
                 </span>
             </div>
@@ -53,8 +53,7 @@
         data() {
             return {
                 userChannels: [],
-                channelFunctionMap: {},
-                actionCaptions: {}
+                channelFunctionMap: {}
             };
         },
         mounted() {
@@ -62,7 +61,6 @@
                 if (body.userChannels.length) {
                     this.userChannels = body.userChannels;
                     this.channelFunctionMap = body.channelFunctionMap;
-                    this.actionCaptions = body.actionCaptions;
                     Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
                         this.channel = e.currentTarget.value;
                     }));
@@ -76,7 +74,7 @@
                 return (channel.caption || channel.functionName) + ` (${channel.device.location.caption} / ${channel.device.name})`;
             },
             goToSchedulesList() {
-                window.location.assign(withBaseUrl('schedule'));
+                window.location.assign(withBaseUrl('schedules'));
             }
         },
         computed: {

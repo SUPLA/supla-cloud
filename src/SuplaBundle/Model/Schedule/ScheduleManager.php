@@ -61,7 +61,7 @@ class ScheduleManager {
         $schedulableFunctions = $this->getFunctionsThatCanBeScheduled();
         $channels = $this->doctrine->getRepository('SuplaBundle:IODeviceChannel')->findBy(['user' => $user]);
         $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
-            return in_array($channel->getFunction(), $schedulableFunctions);
+            return in_array($channel->getFunction()->getId(), $schedulableFunctions);
         });
         return $this->sortByFunctionNameAndCaption($schedulableChannels);
     }

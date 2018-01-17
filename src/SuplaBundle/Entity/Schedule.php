@@ -115,6 +115,12 @@ class Schedule {
      */
     private $caption;
 
+    /**
+     * @ORM\Column(name="retry", type="boolean", nullable=false, options={"default" : 1})
+     * @Groups({"basic"})
+     */
+    protected $retry = true;
+
     public function __construct(User $user = null, array $data = []) {
         $this->user = $user;
         if (count($data)) {
@@ -132,6 +138,7 @@ class Schedule {
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['scheduleMode']));
         $this->setCaption($data['caption'] ?? null);
+        $this->setRetry($data['retry'] ?? true);
     }
 
     /**
@@ -276,5 +283,13 @@ class Schedule {
     /** @return \DateTimeZone */
     public function getUserTimezone() {
         return new \DateTimeZone($this->getUser()->getTimezone());
+    }
+
+    public function getRetry(): bool {
+        return $this->retry;
+    }
+
+    public function setRetry(bool $retry) {
+        $this->retry = $retry;
     }
 }
