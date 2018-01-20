@@ -23,7 +23,8 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\RelayFunctionBits;
 use SuplaBundle\Tests\AnyFieldSetter;
 
 class DevicesFixture extends SuplaFixture {
@@ -46,25 +47,32 @@ class DevicesFixture extends SuplaFixture {
 
     protected function createDeviceSonoff(Location $location): IODevice {
         return $this->createDevice('SONOFF-DS', $location, [
-            [SuplaConst::TYPE_RELAY, ChannelFunction::LIGHTSWITCH],
-            [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, RelayFunctionBits::LIGHTSWITCH | RelayFunctionBits::POWERSWITCH],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ], self::DEVICE_SONOFF);
     }
 
     protected function createDeviceFull(Location $location): IODevice {
+        $controllingBits =
+            RelayFunctionBits::CONTROLLINGTHEDOORLOCK |
+            RelayFunctionBits::CONTROLLINGTHEGARAGEDOOR |
+            RelayFunctionBits::CONTROLLINGTHEGATE |
+            RelayFunctionBits::CONTROLLINGTHEGATEWAYLOCK;
         return $this->createDevice('UNI-MODULE', $location, [
-            [SuplaConst::TYPE_RELAY, ChannelFunction::LIGHTSWITCH],
-            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
-            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEGATE],
-            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
-            [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, RelayFunctionBits::LIGHTSWITCH | RelayFunctionBits::POWERSWITCH],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, $controllingBits],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, $controllingBits],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, RelayFunctionBits::CONTROLLINGTHEROLLERSHUTTER],
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
+            [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ], self::DEVICE_FULL);
     }
 
     protected function createDeviceRgb(Location $location): IODevice {
         return $this->createDevice('RGB-801', $location, [
-            [SuplaConst::TYPE_RGBLEDCONTROLLER, ChannelFunction::DIMMERANDRGBLIGHTING],
-            [SuplaConst::TYPE_RGBLEDCONTROLLER, ChannelFunction::RGBLIGHTING],
+            [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::RGBLEDCONTROLLER, ChannelFunction::RGBLIGHTING],
         ], self::DEVICE_RGB);
     }
 
@@ -89,6 +97,7 @@ class DevicesFixture extends SuplaFixture {
                 'user' => $location->getUser(),
                 'type' => $channelData[0],
                 'function' => $channelData[1],
+                'funcList' => $channelData[2] ?? null,
                 'channelNumber' => $channelNumber++,
             ]);
             $this->entityManager->persist($channel);

@@ -207,7 +207,7 @@ class IODeviceController extends AbstractController {
                         $related_channel = $this->getChannelById($channel->getParam1());
 
                         if ($related_channel != null
-                            && $related_channel->getFunction() != SuplaConst::FNC_NONE
+                            && $related_channel->getFunction()->getValue() != SuplaConst::FNC_NONE
                         ) {
                             $related_channel->setParam2($channel->getId());
                         }

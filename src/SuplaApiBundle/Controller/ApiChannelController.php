@@ -224,7 +224,11 @@ class ApiChannelController extends RestController {
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $view = $this->view($channel, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function', 'type', 'connected', 'state']);
+            $this->setSerializationGroups(
+                $view,
+                $request,
+                ['iodevice', 'location', 'function', 'type', 'connected', 'state', 'supportedFunctions']
+            );
             return $view;
         } else {
             $enabled = false;

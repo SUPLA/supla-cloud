@@ -18,6 +18,7 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -102,6 +103,19 @@ final class ChannelFunction extends Enum {
     /** @Groups({"basic"}) */
     public function getPossibleActions(): array {
         return self::actions()[$this->getValue()] ?? [];
+    }
+
+    /**
+     * @param IODeviceChannel $channel
+     * @return ChannelFunction[]
+     */
+    public static function forChannel(IODeviceChannel $channel): array {
+        $type = $channel->getType();
+        if ($type->equals(ChannelType::RELAY())) {
+            return RelayFunctionBits::getSupportedFunctions($channel->getFuncList());
+        } else {
+            return ChannelType::functions()[$type->getValue()];
+        }
     }
 
     public static function actions(): array {

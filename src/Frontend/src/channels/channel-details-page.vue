@@ -43,7 +43,7 @@
             };
         },
         mounted() {
-            this.$http.get(`channels/${this.channelId}?include=iodevice,location,type,function`).then(response => {
+            this.$http.get(`channels/${this.channelId}?include=iodevice,location,type,function,supportedFunctions`).then(response => {
                 this.channel = response.body;
             });
         },

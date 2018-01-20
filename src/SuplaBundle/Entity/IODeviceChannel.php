@@ -22,6 +22,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\RelayFunctionBits;
 use SuplaBundle\Validator\Constraints as SuplaAssert;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -176,8 +177,20 @@ class IODeviceChannel {
         $this->function = $function;
     }
 
-    public function getFuncList() {
-        return $this->funcList;
+    /**
+     * @see RelayFunctionBits
+     * @return int
+     */
+    public function getFuncList(): int {
+        return $this->funcList ?: 0;
+    }
+
+    /**
+     * @Groups({"supportedFunctions"})
+     * @return ChannelFunction
+     */
+    public function getSupportedFunctions(): array {
+        return ChannelFunction::forChannel($this);
     }
 
     /** @deprecated ridiculous */
