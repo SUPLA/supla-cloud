@@ -34,6 +34,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @SuplaAssert\Channel
  */
 class IODeviceChannel {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")

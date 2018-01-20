@@ -219,7 +219,7 @@ class ApiChannelController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}")
-     * @Security("user == channel.getUser()")
+     * @Security("channel.belongsToUser(user)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
