@@ -96,7 +96,7 @@ final class ChannelFunction extends Enum {
 
     /** @Groups({"basic"}) */
     public function getCaption(): string {
-        return self::captions()[$this->value] ?? 'None';
+        return self::captions()[$this->value] ?? 'Unknown';
     }
 
     /** @Groups({"basic"}) */
@@ -123,8 +123,9 @@ final class ChannelFunction extends Enum {
         ];
     }
 
-    private static function captions(): array {
+    public static function captions(): array {
         return [
+            self::NONE => 'None',
             self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation',
             self::CONTROLLINGTHEGATE => 'Gate operation',
             self::CONTROLLINGTHEGARAGEDOOR => 'Garage door operation',

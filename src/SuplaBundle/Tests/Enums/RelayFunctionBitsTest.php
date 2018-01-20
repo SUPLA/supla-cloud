@@ -46,4 +46,13 @@ class RelayFunctionBitsTest extends \PHPUnit_Framework_TestCase {
             ]],
         ];
     }
+
+    public function testEveryBitIsExclusive() {
+        $bitsSum = 0;
+        foreach (RelayFunctionBits::values() as $bit) {
+            $newBitsSum = $bitsSum | $bit->getValue();
+            $this->assertNotEquals($newBitsSum, $bitsSum, 'Non exclusive detected on ' . $bit->getKey());
+            $bitsSum = $newBitsSum;
+        }
+    }
 }
