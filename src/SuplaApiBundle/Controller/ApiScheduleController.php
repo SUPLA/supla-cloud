@@ -76,7 +76,7 @@ class ApiScheduleController extends RestController {
     }
 
     /**
-     * @Security("user == schedule.getUser() || user.getParentUser() == schedule.getUser()")
+     * @Security("schedule.belongsToUser(user)")
      */
     public function putScheduleAction(Request $request, Schedule $schedule) {
         $data = $request->request->all();

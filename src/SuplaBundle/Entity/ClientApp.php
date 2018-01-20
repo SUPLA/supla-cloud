@@ -28,6 +28,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="supla_client", uniqueConstraints={@UniqueConstraint(name="UNIQUE_CLIENTAPP", columns={"user_id", "guid"})})
  */
 class ClientApp {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")

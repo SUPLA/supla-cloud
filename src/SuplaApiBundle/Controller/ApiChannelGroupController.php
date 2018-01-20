@@ -40,7 +40,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Get("/channel-groups/{channelGroup}")
-     * @Security("user == channelGroup.getUser()")
+     * @Security("channelGroup.belongsToUser(user)")
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
@@ -75,7 +75,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Delete("/channel-groups/{channelGroup}")
-     * @Security("user == channelGroup.getUser()")
+     * @Security("channelGroup.belongsToUser(user)")
      */
     public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {

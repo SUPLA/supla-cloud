@@ -42,7 +42,7 @@ class ApiClientAppController extends RestController {
 
     /**
      * @Rest\Put("/client-apps/{clientApp}")
-     * @Security("user == clientApp.getUser()")
+     * @Security("clientApp.belongsToUser(user)")
      */
     public function putClientAppAction(Request $request, ClientApp $clientApp) {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp, $request) {
@@ -74,7 +74,7 @@ class ApiClientAppController extends RestController {
 
     /**
      * @Rest\Delete("/client-apps/{clientApp}")
-     * @Security("user == clientApp.getUser()")
+     * @Security("clientApp.belongsToUser(user)")
      */
     public function deleteClientAppAction(ClientApp $clientApp): Response {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {

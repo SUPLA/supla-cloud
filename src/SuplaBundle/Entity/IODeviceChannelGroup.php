@@ -32,6 +32,8 @@ use Symfony\Component\Validator\Constraints;
  * })
  */
 class IODeviceChannelGroup {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
