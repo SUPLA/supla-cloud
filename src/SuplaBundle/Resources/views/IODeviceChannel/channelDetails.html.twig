@@ -1,4 +1,5 @@
 {% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
+{% set page_title = 'Channel'|trans ~ ' ID' ~ channel.id %}
 {% block content %}
     <channel-details-page channel-id="{{ channel.id }}"></channel-details-page>
 {% endblock %}

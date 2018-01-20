@@ -108,7 +108,7 @@
 
 <script>
     import Vue from "vue";
-    import FunctionIcon from "./function-icon.vue";
+    import FunctionIcon from "../channels/function-icon.vue";
     import LocationChooser from "../locations/location-chooser.vue";
     import DotsRoute from "../common/gui/dots-route.vue";
     import LocationTileContent from "../locations/location-tile-content.vue";

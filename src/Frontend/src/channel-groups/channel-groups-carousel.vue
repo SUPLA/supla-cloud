@@ -45,7 +45,7 @@
 <script>
     import {Carousel, Slide} from 'vue-carousel';
     import Vue from "vue";
-    import FunctionIcon from "./function-icon.vue";
+    import FunctionIcon from "../channels/function-icon.vue";
 
     export default {
         components: {FunctionIcon, Carousel, Slide},

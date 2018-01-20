@@ -50,7 +50,7 @@
 </template>
 
 <script>
-    import FunctionIcon from "./function-icon.vue";
+    import FunctionIcon from "../channels/function-icon.vue";
     import DeviceConnectionStatusLabel from "../devices/list/device-connection-status-label.vue";
 
     export default {
