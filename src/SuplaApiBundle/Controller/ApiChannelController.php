@@ -229,7 +229,7 @@ class ApiChannelController extends RestController {
         } else {
             $enabled = false;
             $connected = false;
-
+            $channelid = $channel->getId();
             $devid = $channel->getIoDevice()->getId();
             $userid = $this->getParentUser()->getId();
 
