@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Enums;
 use Assert\InvalidArgumentException;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class ScheduleActionTest extends \PHPUnit_Framework_TestCase {
+class ChannelFunctionActionTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider validatingActionParamsProvider
      */

@@ -140,4 +140,63 @@ final class ChannelType extends Enum {
             self::DISTANCESENSOR => 'Distance sensor',
         ];
     }
+
+    public static function functions(): array {
+        $map = [
+            self::SENSORNO => [
+                ChannelFunction::OPENINGSENSOR_GATEWAY(),
+                ChannelFunction::OPENINGSENSOR_GATE(),
+                ChannelFunction::OPENINGSENSOR_GARAGEDOOR(),
+                ChannelFunction::OPENINGSENSOR_DOOR(),
+                ChannelFunction::NOLIQUIDSENSOR(),
+                ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(),
+                ChannelFunction::OPENINGSENSOR_WINDOW(),
+                ChannelFunction::MAILSENSOR(),
+            ],
+            self::RELAYHFD4 => [
+                ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
+                ChannelFunction::CONTROLLINGTHEGATE(),
+                ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+                ChannelFunction::CONTROLLINGTHEDOORLOCK(),
+            ],
+            self::RELAYG5LA1A => [
+                ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
+                ChannelFunction::CONTROLLINGTHEGATE(),
+                ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+                ChannelFunction::CONTROLLINGTHEDOORLOCK(),
+                ChannelFunction::POWERSWITCH(),
+                ChannelFunction::LIGHTSWITCH(),
+            ],
+            self::RELAY2XG5LA1A => [
+                ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
+                ChannelFunction::CONTROLLINGTHEGATE(),
+                ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+                ChannelFunction::CONTROLLINGTHEDOORLOCK(),
+                ChannelFunction::POWERSWITCH(),
+                ChannelFunction::LIGHTSWITCH(),
+                ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+            ],
+            self::THERMOMETERDS18B20 => [ChannelFunction::THERMOMETER()],
+            self::DIMMER => [ChannelFunction::DIMMER()],
+            self::RGBLEDCONTROLLER => [ChannelFunction::RGBLIGHTING()],
+            self::DIMMERANDRGBLED => [ChannelFunction::DIMMERANDRGBLIGHTING()],
+            self::DISTANCESENSOR => [
+                ChannelFunction::DEPTHSENSOR(),
+                ChannelFunction::DISTANCESENSOR(),
+            ],
+            self::THERMOMETER => [ChannelFunction::THERMOMETER()],
+            self::HUMIDITYSENSOR => [ChannelFunction::HUMIDITY()],
+            self::HUMIDITYANDTEMPSENSOR => [ChannelFunction::HUMIDITYANDTEMPERATURE()],
+            self::WINDSENSOR => [ChannelFunction::WINDSENSOR()],
+            self::PRESSURESENSOR => [ChannelFunction::PRESSURESENSOR()],
+            self::RAINSENSOR => [ChannelFunction::RAINSENSOR()],
+            self::WEIGHTSENSOR => [ChannelFunction::WEIGHTSENSOR()],
+            self::WEATHER_STATION => [ChannelFunction::WEATHER_STATION()],
+        ];
+        $map[self::SENSORNC] = $map[self::SENSORNO];
+        foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
+            $map[$humidityAndTemperatureType] = $map[self::HUMIDITYANDTEMPSENSOR];
+        }
+        return $map;
+    }
 }

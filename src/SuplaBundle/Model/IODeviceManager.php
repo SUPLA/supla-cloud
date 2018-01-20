@@ -25,6 +25,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\RelayFunctionBits;
 use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -49,72 +50,15 @@ class IODeviceManager {
         $this->template = $template;
     }
 
+    /** @deprecated */
     public function channelFunctionMap($type = null, $flist = null) {
-        $map[SuplaConst::TYPE_SENSORNO] = ['0', SuplaConst::FNC_OPENINGSENSOR_GATEWAY,
-            SuplaConst::FNC_OPENINGSENSOR_GATE,
-            SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR,
-            SuplaConst::FNC_OPENINGSENSOR_DOOR,
-            SuplaConst::FNC_NOLIQUIDSENSOR,
-            SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER,
-            SuplaConst::FNC_OPENINGSENSOR_WINDOW,
-            SuplaConst::FNC_MAILSENSOR,
-        ];
-
-        $map[SuplaConst::TYPE_SENSORNC] = $map[SuplaConst::TYPE_SENSORNO];
-
-        $map[SuplaConst::TYPE_RELAYHFD4] = ['0', SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
-            SuplaConst::FNC_CONTROLLINGTHEGATE,
-            SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR,
-            SuplaConst::FNC_CONTROLLINGTHEDOORLOCK,
-        ];
-
-        $map[SuplaConst::TYPE_RELAYG5LA1A] = ['0', SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
-            SuplaConst::FNC_CONTROLLINGTHEGATE,
-            SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR,
-            SuplaConst::FNC_CONTROLLINGTHEDOORLOCK,
-            SuplaConst::FNC_POWERSWITCH,
-            SuplaConst::FNC_LIGHTSWITCH,
-        ];
-
-        $map[SuplaConst::TYPE_RELAY2XG5LA1A] = ['0', SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK,
-            SuplaConst::FNC_CONTROLLINGTHEGATE,
-            SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR,
-            SuplaConst::FNC_CONTROLLINGTHEDOORLOCK,
-            SuplaConst::FNC_POWERSWITCH,
-            SuplaConst::FNC_LIGHTSWITCH,
-            SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER,
-        ];
-
-        $map[SuplaConst::TYPE_THERMOMETERDS18B20] = ['0', SuplaConst::FNC_THERMOMETER];
-
-        $map[SuplaConst::TYPE_DHT11] = ['0', SuplaConst::FNC_HUMIDITYANDTEMPERATURE];
-
-        $map[SuplaConst::TYPE_DHT21] = $map[SuplaConst::TYPE_DHT11];
-
-        $map[SuplaConst::TYPE_DHT22] = $map[SuplaConst::TYPE_DHT11];
-
-        $map[SuplaConst::TYPE_AM2301] = $map[SuplaConst::TYPE_DHT11];
-
-        $map[SuplaConst::TYPE_AM2302] = $map[SuplaConst::TYPE_DHT11];
-
-        $map[SuplaConst::TYPE_DIMMER] = ['0', SuplaConst::FNC_DIMMER];
-
-        $map[SuplaConst::TYPE_RGBLEDCONTROLLER] = ['0', SuplaConst::FNC_RGBLIGHTING];
-
-        $map[SuplaConst::TYPE_DIMMERANDRGBLED] = ['0', SuplaConst::FNC_DIMMERANDRGBLIGHTING];
-
-        $map[SuplaConst::TYPE_DISTANCESENSOR] = ['0', SuplaConst::FNC_DEPTHSENSOR,
-            SuplaConst::FNC_DISTANCESENSOR,
-        ];
-
-        $map[SuplaConst::TYPE_THERMOMETER] = ['0', SuplaConst::FNC_THERMOMETER];
-        $map[SuplaConst::TYPE_HUMIDITYSENSOR] = ['0', SuplaConst::FNC_HUMIDITY];
-        $map[SuplaConst::TYPE_HUMIDITYANDTEMPSENSOR] = ['0', SuplaConst::FNC_HUMIDITYANDTEMPERATURE];
-        $map[SuplaConst::TYPE_WINDSENSOR] = ['0', SuplaConst::FNC_WINDSENSOR];
-        $map[SuplaConst::TYPE_PRESSURESENSOR] = ['0', SuplaConst::FNC_PRESSURESENSOR];
-        $map[SuplaConst::TYPE_RAINSENSOR] = ['0', SuplaConst::FNC_RAINSENSOR];
-        $map[SuplaConst::TYPE_WEIGHTSENSOR] = ['0', SuplaConst::FNC_WEIGHTSENSOR];
-        $map[SuplaConst::TYPE_WEATHER_STATION] = ['0', SuplaConst::FNC_WEATHER_STATION];
+        $map = [];
+        foreach (ChannelType::functions() as $typeId => $functions) {
+            $map[$typeId] = array_map(function (ChannelFunction $function) {
+                return $function->getValue();
+            }, $functions);
+            array_unshift($map[$typeId], '0');
+        }
 
         if ($type === null) {
             return $map;
@@ -127,40 +71,11 @@ class IODeviceManager {
         if ($type == SuplaConst::TYPE_RELAY) {
             $fnc = [0];
 
-            if ($flist !== null
-                && is_int($flist)
-            ) {
-                if ($flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEGATEWAYLOCK) {
-                    $fnc[] = SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK;
-                }
-
-                if ($flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEGATE) {
-                    $fnc[] = SuplaConst::FNC_CONTROLLINGTHEGATE;
-                }
-
-                if ($flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEGARAGEDOOR) {
-                    $fnc[] = SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR;
-                }
-
-                if ($flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEDOORLOCK) {
-                    $fnc[] = SuplaConst::FNC_CONTROLLINGTHEDOORLOCK;
-                }
-
-                if ($flist & SuplaConst::BIT_RELAYFNC_CONTROLLINGTHEROLLERSHUTTER) {
-                    $fnc[] = SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER;
-                }
-
-                if ($flist & SuplaConst::BIT_RELAYFNC_POWERSWITCH) {
-                    $fnc[] = SuplaConst::FNC_POWERSWITCH;
-                }
-
-                if ($flist & SuplaConst::BIT_RELAYFNC_LIGHTSWITCH) {
-                    $fnc[] = SuplaConst::FNC_LIGHTSWITCH;
-                }
-
-                if ($flist & SuplaConst::BIT_RELAYFNC_STAIRCASETIMER) {
-                    $fnc[] = SuplaConst::FNC_STAIRCASETIMER;
-                }
+            if ($flist !== null && is_int($flist)) {
+                $supportedFunctions = array_map(function (ChannelFunction $function) {
+                    return $function->getValue();
+                }, RelayFunctionBits::getSupportedFunctions($flist));
+                $fnc = array_merge($fnc, $supportedFunctions);
             }
 
             return $fnc;
