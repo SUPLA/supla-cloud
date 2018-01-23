@@ -50,7 +50,8 @@
                                 </div>
                                 <h4 class="text-center"
                                     v-else>{{ $t(channel.function.caption) }}</h4>
-                                <channel-params-form :channel="channel"></channel-params-form>
+                                <channel-params-form :channel="channel"
+                                    @change="updateChannel()"></channel-params-form>
                             </div>
                         </div>
                         <div class="col-sm-4">

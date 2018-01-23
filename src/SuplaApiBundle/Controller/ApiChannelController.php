@@ -51,7 +51,10 @@ class ApiChannelController extends RestController {
     public function getChannelsAction(Request $request) {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
-            $criteria->andWhere(Criteria::expr()->in('function', explode(',', $function)));
+            $functionIds = array_map(function ($fnc) {
+                return ChannelFunction::isValidKey($fnc) ? ChannelFunction::$fnc()->getValue() : (new ChannelFunction($fnc))->getValue();
+            }, explode(',', $function));
+            $criteria->andWhere(Criteria::expr()->in('function', $functionIds));
         }
         if (($io = $request->get('io')) !== null) {
             Assertion::inArray($io, ['input', 'output']);
@@ -349,6 +352,9 @@ class ApiChannelController extends RestController {
     public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $channel->setFunction($updatedChannel->getFunction());
+            $channel->setParam1($updatedChannel->getParam1());
+            $channel->setParam2($updatedChannel->getParam2());
+            $channel->setParam3($updatedChannel->getParam3());
             return $this->transactional(function (EntityManagerInterface $em) use ($channel) {
                 $em->persist($channel);
                 return $this->view($channel, Response::HTTP_OK);

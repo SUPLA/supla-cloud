@@ -168,26 +168,28 @@ input[type=text], input[type=password], input[type=email] {
 
 .hover-editable {
   @include on-md-and-up {
-    .form-control, .dropdown .btn {
-      border-color: transparent;
-      box-shadow: none;
-      transition: border-color .3s;
-      background-color: transparent;
-    }
-    .dropdown .caret {
-      visibility: hidden;
-    }
-    &:hover, .form-control {
-      .form-control, .btn {
-        &, &:active, &:focus {
-          border-color: $supla-grey-dark;
-          background-color: white;
-        }
+    &:not(:hover) {
+      .form-control, .dropdown .btn {
+        border-color: transparent;
+        box-shadow: none;
+        transition: border-color .3s;
+        background-color: transparent;
       }
       .dropdown .caret {
-        visibility: visible;
+        visibility: hidden;
       }
     }
+    //&:hover, .form-control {
+    //  .form-control, .btn {
+    //    &, &:active, &:focus {
+    //      border-color: $supla-grey-dark;
+    //      background-color: white;
+    //    }
+    //  }
+    //  .dropdown .caret {
+    //    visibility: visible;
+    //  }
+    //}
   }
   dl {
     margin-bottom: 0;

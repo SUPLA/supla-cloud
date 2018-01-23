@@ -103,11 +103,13 @@ class IODeviceChannel {
 
     /**
      * @ORM\Column(name="param2", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $param2 = '';
 
     /**
      * @ORM\Column(name="param3", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $param3 = '';
 
