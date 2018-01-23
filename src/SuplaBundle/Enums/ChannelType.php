@@ -138,6 +138,7 @@ final class ChannelType extends Enum {
             self::RGBLEDCONTROLLER => 'RGB led controller',
             self::DIMMERANDRGBLED => 'Dimmer & RGB led controller',
             self::DISTANCESENSOR => 'Distance sensor',
+            self::CALLBUTTON => 'Distance sensor',
         ];
     }
 
@@ -192,6 +193,7 @@ final class ChannelType extends Enum {
             self::RAINSENSOR => [ChannelFunction::RAINSENSOR()],
             self::WEIGHTSENSOR => [ChannelFunction::WEIGHTSENSOR()],
             self::WEATHER_STATION => [ChannelFunction::WEATHER_STATION()],
+            self::CALLBUTTON => [],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {

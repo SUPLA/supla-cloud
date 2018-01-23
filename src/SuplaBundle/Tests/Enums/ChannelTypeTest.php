@@ -21,16 +21,15 @@ use SuplaBundle\Enums\ChannelType;
 
 class ChannelTypeTest extends \PHPUnit_Framework_TestCase {
     public function testEveryTypeHasFunctions() {
-        $this->markTestSkipped('Needs info from @pzygmunt on CALLTYPE');
         $diff = array_map(function (ChannelType $type) {
             return $type->getKey();
         }, array_diff(ChannelType::values(), array_keys(ChannelType::functions())));
+        $diff = array_diff($diff, [ChannelType::RELAY()->getKey()]); // relays have functions incorporated into RelayFunctionBits enum
         $this->assertEmpty($diff, 'Have you forgotten to add a functions definition for the new ChannelType value? Missing: '
             . implode(', ', $diff));
     }
 
     public function testEveryTypeHasCaption() {
-        $this->markTestSkipped('Needs info from @pzygmunt on CALLTYPE');
         $diff = array_map(function (ChannelType $type) {
             return $type->getKey();
         }, array_diff(ChannelType::values(), array_keys(ChannelType::captions())));

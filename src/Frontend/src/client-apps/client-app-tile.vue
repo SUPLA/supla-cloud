@@ -49,7 +49,7 @@
                     <switches v-model="editingModel.enabled"
                         type-bold="true"
                         color="green"
-                        emit-on-mount="false"
+                        :emit-on-mount="false"
                         :text-enabled="$t('Enabled')"
                         :text-disabled="$t('Disabled')"></switches>
                     <div class="form-group text-right">

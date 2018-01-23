@@ -36,9 +36,7 @@
                             :label="$t('Retry when fail')"
                             type-bold="true"
                             color="green"
-                            emit-on-mount="false"
-                            :text-enabled="$t('Enabled')"
-                            :text-disabled="$t('Disabled')"></switches>
+                            :emit-on-mount="false"></switches>
                     </div>
                 </div>
                 <div class="col-md-6">

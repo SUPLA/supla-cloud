@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Controller;
 
 use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
@@ -26,6 +27,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\IODeviceManager;
+use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +36,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiChannelController extends RestController {
     use SuplaServerAware;
+    use Transactional;
 
     const RECORD_LIMIT_PER_REQUEST = 5000;
     /**
@@ -218,7 +221,6 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Rest\Get("/channels/{channel}")
      * @Security("channel.belongsToUser(user)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
@@ -342,58 +344,67 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Rest\Put("/channels/{channelid}")
+     * @Security("channel.belongsToUser(user)")
      */
-    public function putChannelsAction(Request $request, $channelid) {
-        $channel = $this->channelById($channelid, null, true, true);
-        $data = json_decode($request->getContent());
+    public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            $channel->setFunction($updatedChannel->getFunction());
+            return $this->transactional(function (EntityManagerInterface $em) use ($channel) {
+                $em->persist($channel);
+                return $this->view($channel, Response::HTTP_OK);
+            });
+        } else {
+            $channelid = $channel->getId();
+            $channel = $this->channelById($channelid, null, true, true);
+            $data = json_decode($request->getContent());
 
-        $devid = $channel->getIoDevice()->getId();
-        $userid = $this->getParentUser()->getId();
+            $devid = $channel->getIoDevice()->getId();
+            $userid = $this->getParentUser()->getId();
 
-        $func = $channel->getFunction()->getId();
+            $func = $channel->getFunction()->getId();
 
-        switch ($func) {
-            case SuplaConst::FNC_DIMMER:
-            case SuplaConst::FNC_RGBLIGHTING:
-            case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-                $color = intval(@$data->color);
-                $color_brightness = intval(@$data->color_brightness);
-                $brightness = intval(@$data->brightness);
+            switch ($func) {
+                case SuplaConst::FNC_DIMMER:
+                case SuplaConst::FNC_RGBLIGHTING:
+                case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
+                    $color = intval(@$data->color);
+                    $color_brightness = intval(@$data->color_brightness);
+                    $brightness = intval(@$data->brightness);
 
-                if ($func == SuplaConst::FNC_RGBLIGHTING
-                    || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
-                ) {
-                    if ($color <= 0
-                        || $color > 0xffffff
-                        || $color_brightness < 0
-                        || $color_brightness > 100
+                    if ($func == SuplaConst::FNC_RGBLIGHTING
+                        || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
                     ) {
-                        throw new HttpException(Response::HTTP_BAD_REQUEST);
+                        if ($color <= 0
+                            || $color > 0xffffff
+                            || $color_brightness < 0
+                            || $color_brightness > 100
+                        ) {
+                            throw new HttpException(Response::HTTP_BAD_REQUEST);
+                        }
                     }
-                }
 
-                if ($func == SuplaConst::FNC_DIMMER
-                    || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
-                ) {
-                    if ($brightness < 0
-                        || $brightness > 100
+                    if ($func == SuplaConst::FNC_DIMMER
+                        || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
                     ) {
-                        throw new HttpException(Response::HTTP_BAD_REQUEST);
+                        if ($brightness < 0
+                            || $brightness > 100
+                        ) {
+                            throw new HttpException(Response::HTTP_BAD_REQUEST);
+                        }
                     }
-                }
 
-                if (false === $this->suplaServer->setRgbwValue($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
-                    throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
-                }
+                    if (false === $this->suplaServer->setRgbwValue($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
+                        throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
+                    }
 
-                break;
+                    break;
 
-            default:
-                throw new HttpException(Response::HTTP_BAD_REQUEST, 'Invalid action.');
+                default:
+                    throw new HttpException(Response::HTTP_BAD_REQUEST, 'Invalid action.');
+            }
+
+            return $this->handleView($this->view(null, Response::HTTP_OK));
         }
-
-        return $this->handleView($this->view(null, Response::HTTP_OK));
     }
 
     private function checkPatchAllowed($action, $func) {

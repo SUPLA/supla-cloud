@@ -2,7 +2,7 @@
     <span class="channel-icon">
         <img :src="'/assets/img/functions/' + functionId + '.svg' | withBaseUrl"
             :width="width"
-            v-if="functionId">
+            v-if="functionId !== undefined">
     </span>
 </template>
 
@@ -22,7 +22,7 @@
                         return this.model;
                     }
                 }
-                return false;
+                return 0;
             }
         }
     };
