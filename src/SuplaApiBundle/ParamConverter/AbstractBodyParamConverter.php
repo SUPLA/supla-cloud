@@ -14,7 +14,7 @@ abstract class AbstractBodyParamConverter implements ParamConverterInterface {
             return false;
         }
         $data = $request->request->all();
-        $entity = $this->convert($data, $configuration);
+        $entity = $this->convert($data);
         $request->attributes->set($paramName, $entity);
         return true;
     }
@@ -25,5 +25,5 @@ abstract class AbstractBodyParamConverter implements ParamConverterInterface {
 
     abstract public function getConvertedClass(): string;
 
-    abstract public function convert(array $requestData, ParamConverter $configuration);
+    abstract public function convert(array $requestData);
 }

@@ -1,7 +1,6 @@
 <?php
 namespace SuplaApiBundle\ParamConverter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SuplaBundle\Entity\IODeviceChannel;
 
 class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
@@ -9,7 +8,7 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
         return IODeviceChannel::class;
     }
 
-    public function convert(array $requestData, ParamConverter $configuration) {
+    public function convert(array $requestData) {
         $channel = new IODeviceChannel();
         $function = $requestData['function'] ?? 0;
         if (is_array($function)) {

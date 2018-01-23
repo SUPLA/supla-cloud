@@ -207,16 +207,21 @@
 
 <style lang="scss">
     @import "../styles/variables";
+    @import "../styles/mixins";
 
     .hover-editable {
-        .form-control {
-            border-color: transparent;
-            box-shadow: none;
-            transition: border-color .3s;
-        }
-        &:hover, .form-control {
-            .form-control, &:active, &:focus {
-                border-color: $supla-grey-dark;
+        @include on-md-and-up {
+            .form-control {
+                border-color: transparent;
+                box-shadow: none;
+                transition: border-color .3s;
+                background-color: transparent;
+            }
+            &:hover, .form-control {
+                .form-control, &:active, &:focus {
+                    border-color: $supla-grey-dark;
+                    background-color: white;
+                }
             }
         }
         dl {

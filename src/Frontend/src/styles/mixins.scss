@@ -16,6 +16,12 @@
   }
 }
 
+@mixin on-md-and-up {
+  @include on-and-up(996px) {
+    @content;
+  }
+}
+
 @mixin on-lg-and-up {
   @include on-and-up(1200px) {
     @content;
