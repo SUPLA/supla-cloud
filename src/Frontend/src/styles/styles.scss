@@ -166,6 +166,48 @@ input[type=text], input[type=password], input[type=email] {
   }
 }
 
+.hover-editable {
+  @include on-md-and-up {
+    .form-control, .dropdown .btn {
+      border-color: transparent;
+      box-shadow: none;
+      transition: border-color .3s;
+      background-color: transparent;
+    }
+    .dropdown .caret {
+      visibility: hidden;
+    }
+    &:hover, .form-control {
+      .form-control, .btn {
+        &, &:active, &:focus {
+          border-color: $supla-grey-dark;
+          background-color: white;
+        }
+      }
+      .dropdown .caret {
+        visibility: visible;
+      }
+    }
+  }
+  dl {
+    margin-bottom: 0;
+    font-size: .95em;
+    dd, dt {
+      display: inline-block;
+    }
+    dt:after {
+      display: block;
+      content: ' ';
+    }
+    dt {
+      width: calc(100% - 105px);
+    }
+    dd {
+      width: 100px;
+    }
+  }
+}
+
 @import "./buttons";
 @import "./carousel";
 @import "./navbar";

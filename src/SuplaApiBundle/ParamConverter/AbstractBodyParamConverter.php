@@ -3,7 +3,6 @@ namespace SuplaApiBundle\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
-use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractBodyParamConverter implements ParamConverterInterface {
@@ -20,7 +19,7 @@ abstract class AbstractBodyParamConverter implements ParamConverterInterface {
     }
 
     final public function supports(ParamConverter $configuration) {
-        return $configuration->getClass() == IODeviceChannel::class;
+        return $configuration->getClass() === $this->getConvertedClass();
     }
 
     abstract public function getConvertedClass(): string;

@@ -30,16 +30,34 @@
                             <h3>{{ $t('Function') }}</h3>
                             <function-icon :model="channel.function"
                                 width="100"></function-icon>
-                            <h4>{{ $t(channel.function.caption) }}</h4>
-                            <select v-model="channel.function"
-                                v-if="channel.enabled && channel.supportedFunctions.length > 1"
-                                @change="updateChannel()"
-                                class="form-control">
-                                <option v-for="fnc in channel.supportedFunctions"
-                                    :value="fnc">
-                                    {{ $t(fnc.caption) }}
-                                </option>
-                            </select>
+                            <div class="hover-editable text-left">
+                                <div class="form-group"
+                                    v-if="channel.supportedFunctions.length > 1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
+                                            type="button"
+                                            data-toggle="dropdown">
+                                            <h4>{{ $t(channel.function.caption) }}</h4>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li v-for="fnc in channel.supportedFunctions">
+                                                <a @click="channel.function = fnc updateChannel()"
+                                                    v-show="channel.function.id != fnc.id">{{ $t(fnc.caption) }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <h4 class="text-center"
+                                    v-else>{{ $t(channel.function.caption) }}</h4>
+                                <channel-params-form :channel="channel"></channel-params-form>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3>{{ $t('Location') }}</h3>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3>{{ $t('State') }}</h3>
                         </div>
                     </div>
                 </div>
@@ -53,10 +71,14 @@
     import DotsRoute from "../common/gui/dots-route.vue";
     import FunctionIcon from "./function-icon";
     import Switches from "vue-switches";
+    import ChannelParamsForm from "./params/channel-params-form";
 
     export default {
         props: ['channelId'],
-        components: {DotsRoute, FunctionIcon, Switches},
+        components: {
+            ChannelParamsForm,
+            DotsRoute, FunctionIcon, Switches
+        },
         data() {
             return {
                 channel: undefined,
@@ -90,7 +112,15 @@
             },
             deviceTitle() {
                 return deviceTitle(this.channel.iodevice, this);
-            }
+            },
+
         }
     };
 </script>
+
+<style lang="scss">
+    .dropdown h4 {
+        margin: 0;
+        display: inline-block;
+    }
+</style>
