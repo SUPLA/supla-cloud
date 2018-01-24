@@ -14,7 +14,7 @@
       color: $supla-white;
     }
   }
-  &-white {
+  &-white, &-default {
     background: $supla-white;
     color: $supla-green;
     border: 1px solid $supla-green !important;
@@ -45,6 +45,11 @@
     background: $supla-yellow;
     color: $supla-black;
     border: 1px solid $supla-yellow;
+  }
+  &-red, &-danger {
+    background: $supla-red;
+    color: $supla-white;
+    border: 1px solid $supla-red;
   }
   &-orange {
     background: $supla-orange;
@@ -88,5 +93,15 @@
   }
   &.active {
     box-shadow: none;
+  }
+}
+
+.btn-toolbar {
+  .btn { margin-bottom: 5px; }
+  @include on-xs-and-down {
+    text-align: center;
+    .btn {
+      float: initial;
+    }
   }
 }

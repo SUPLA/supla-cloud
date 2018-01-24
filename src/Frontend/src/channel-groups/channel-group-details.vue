@@ -2,27 +2,26 @@
     <loading-cover :loading="loading"
         class="channel-group-details">
         <div v-if="channelGroup">
-            <div class="container"
-            >
+            <div class="container">
                 <div class="clearfix left-right-header">
                     <h2 class="no-margin-top">
                         {{ $t(channelGroup.id ? 'Channel group' : 'New channel group') }}
                         {{ channelGroup.id ? 'ID'+ channelGroup.id : '' }}
                     </h2>
-                    <div class="btn-group"
+                    <div class="btn-toolbar no-margin-top"
                         v-if="!isNewGroup">
-                        <button class="btn btn-default"
+                        <a class="btn btn-default"
                             @click="toggleHidden()">
                             {{ $t(channelGroup.hidden ? 'Show in clients' : 'Hide in clients') }}
-                        </button>
-                        <button class="btn btn-default"
+                        </a>
+                        <a class="btn btn-default"
                             @click="toggleEnabled()">
                             {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
-                        </button>
-                        <button class="btn btn-danger"
+                        </a>
+                        <a class="btn btn-danger"
                             @click="deleteConfirm = true">
                             {{ $t('Delete') }}
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -97,6 +96,7 @@
                 </div>
             </square-links-grid>
             <modal-confirm v-if="deleteConfirm"
+                class="modal-warning"
                 @confirm="deleteGroup()"
                 @cancel="deleteConfirm = false"
                 :header="$t('Are you sure you want to delete this channel group?')"

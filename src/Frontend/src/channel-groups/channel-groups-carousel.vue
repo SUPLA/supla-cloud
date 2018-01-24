@@ -6,7 +6,7 @@
             navigation-prev-label="&lt;"
             :per-page-custom="[[1024, 4], [768, 3], [600, 2], [10, 1]]"
             ref="carousel">
-            <slide>
+            <slide v-if="showNewButton">
                 <square-link :class="'clearfix pointer lift-up black ' + (selectedChannelGroup == newChannelGroup ? ' selected' : '')">
                     <a class="valign-center text-center"
                         @click="onChannelGroupClick(newChannelGroup)">
@@ -49,7 +49,7 @@
 
     export default {
         components: {FunctionIcon, Carousel, Slide},
-        props: ['channelGroups', 'channelGroup'],
+        props: ['channelGroups', 'channelGroup', 'showNewButton'],
         data() {
             return {
                 selectedChannelGroup: undefined,

@@ -15,6 +15,7 @@
                         </div>
                         <div class="form-group">
                             <channel-groups-carousel :channel-groups="filteredChannelGroups"
+                                :show-new-button="filteredChannelGroups.length == channelGroups.length"
                                 :channel-group="channelGroup"
                                 @select="channelGroupChanged">
                             </channel-groups-carousel>

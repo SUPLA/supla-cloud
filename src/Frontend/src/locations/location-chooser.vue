@@ -6,7 +6,7 @@
                 :pagination-enabled="false"
                 navigation-next-label="&gt;"
                 navigation-prev-label="&lt;"
-                :per-page-custom="[[1024, 4], [768, 3], [600, 2], [10, 1]]"
+                :per-page-custom="[[1024, 4], [768, 3], [600, 2], [100, 1]]"
                 ref="carousel">
                 <slide v-for="location in locations"
                     :key="location.id">
