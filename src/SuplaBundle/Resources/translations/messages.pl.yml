@@ -398,6 +398,24 @@ Change icon: Zmień ikonę
 Select icon: Wybierz ikonę
 
 Automation: Automatyka
+Channel group: Grupa kanałów
 Channel groups: Grupy kanałów
+Show in clients: Pokaż w urządzeniach klienckich
+Hide in clients: Ukryj w urządzeniach klienckich
+Disable: Wyłącz
+Enable: Włącz
+Create new channel group: Dodaj nową grupę kanałów
+Channels no: Liczba kanałów
+Details: Szczegóły
+Devices no: Liczba urządzeń
+Add new channel to this group: Dodaj nowy kanał do grupy
+Remove: Usuń
+Go to channel details: Przejdź do szczegółów kanału
+Go to I/O device details: Przejdź do szczegółów urządzenia
+Choose a location: Wybierz lokalizację
+There are no more channels you can add to this group: Nie ma innych kanałów, które można by dodać do tej grupy
+New channel group: Nowa grupa kanałów
+Add the first channel to determine channel group's function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
+choose: wybierz
 
 Retry when fail: Powtórz gdy niewykonane

@@ -6,7 +6,8 @@
                 @click="addingNewChannel = true">
                 <span>
                     <i class="pe-7s-plus"></i>
-                    <span v-if="!channelGroup.id">{{ $t('Add the first channel to save the group') }}</span>
+                    <span v-if="!channelGroup.id">{{ $t('Add the first channel to determine channel group\'s function and save it')
+                        }}</span>
                     <span v-else>{{ $t('Add new channel to this group') }}</span>
                 </span>
             </a>
@@ -28,12 +29,12 @@
                             <button class="btn btn-default pull-left"
                                 type="button"
                                 @click="addingNewChannel = false">
-                                Cancel
+                                {{ $t('Cancel') }}
                             </button>
                             <button class="btn btn-green pull-right"
                                 :disabled="!newChannel"
                                 type="submit">
-                                Add
+                                {{ $t('Add') }}
                             </button>
                         </div>
                     </form>

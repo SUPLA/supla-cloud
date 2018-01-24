@@ -8,7 +8,7 @@
                 <h3>{{ $t(channel.function.caption) }}</h3>
                 <dl>
                     <dd>{{ $t('Device') }}</dd>
-                    <dt>{{ $t(channel.iodevice.name) }}</dt>
+                    <dt>{{ channel.iodevice.name }}</dt>
                     <dd>{{ $t('Type') }}</dd>
                     <dt>{{ $t(channel.type.caption) }}</dt>
                     <dd>{{ $t('Location') }}</dd>
@@ -31,18 +31,18 @@
                     <a class="btn btn-default"
                         @click.stop=""
                         :href="`/iodev/${channel.iodeviceId}/${channel.id}/edit` | withBaseUrl">
-                        Go to channel details
+                        {{ $t('Go to channel details') }}
                     </a>
                     <a class="btn btn-default"
                         @click.stop=""
                         :href="`/iodev/${channel.iodeviceId}/view` | withBaseUrl">
-                        Go to I/O device details
+                        {{ $t('Go to I/O device details') }}
                     </a>
-                    <button class="btn btn-danger"
+                    <a class="btn btn-danger"
                         @click.stop="$emit('remove')"
                         :disabled="!removable">
-                        Remove
-                    </button>
+                        {{ $t('Remove') }}
+                    </a>
                 </span>
             </a>
         </square-link>
@@ -67,5 +67,6 @@
 <style>
     .channel-buttons .btn {
         margin-bottom: 5px;
+        display: block;
     }
 </style>

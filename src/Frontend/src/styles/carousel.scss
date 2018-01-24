@@ -1,0 +1,46 @@
+.VueCarousel {
+  .VueCarousel-navigation {
+    min-height: 25px;
+  }
+  .VueCarousel-navigation-button {
+    background: black;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: white !important;
+    text-align: center;
+    font-size: 2em;
+    line-height: 1.1em;
+    font-family: 'Quicksand';
+    &.VueCarousel-navigation-prev {
+      left: -5px;
+    }
+    &.VueCarousel-navigation-next {
+      right: -5px;
+    }
+    @include on-xs-and-down {
+      position: static !important;
+      top: initial;
+      height: 25px;
+      width: 25px;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent;
+      color: $supla-grey-dark !important;
+      transform: none !important;
+      &.VueCarousel-navigation-prev {
+        float: left;
+      }
+      &.VueCarousel-navigation-next {
+        float: right;
+      }
+    }
+  }
+
+  .VueCarousel-slide {
+    padding: 5px;
+  }
+  h2 {
+    margin-top: 3px;
+  }
+}

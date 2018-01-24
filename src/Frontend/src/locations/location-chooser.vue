@@ -1,12 +1,12 @@
 <template>
     <modal class="modal-location-chooser"
-        :header="$t('Chose a location')">
+        :header="$t('Choose a location')">
         <loading-cover :loading="!locations">
             <carousel :navigation-enabled="true"
                 :pagination-enabled="false"
                 navigation-next-label="&gt;"
                 navigation-prev-label="&lt;"
-                :per-page-custom="[[1024, 4], [768, 3], [600, 2], [400, 1]]"
+                :per-page-custom="[[1024, 4], [768, 3], [600, 2], [10, 1]]"
                 ref="carousel">
                 <slide v-for="location in locations"
                     :key="location.id">
@@ -64,27 +64,6 @@
         .modal-container {
             max-width: initial;
         }
-        .VueCarousel-navigation-button {
-            background: black;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            color: white !important;
-            text-align: center;
-            font-size: 2em;
-            line-height: 1.1em;
-            font-family: 'Quicksand';
-            &.VueCarousel-navigation-prev {
-                left: -5px;
-            }
-            &.VueCarousel-navigation-next {
-                right: -5px;
-            }
-        }
-        .VueCarousel-slide {
-            padding: 5px;
-        }
-
         .modal-footer {
             .cancel {
                 color: $supla-grey-light;

@@ -1,24 +1,31 @@
 <template>
     <loading-cover :loading="loading"
         class="channel-group-details">
-        <div class="container">
-            <div v-if="channelGroup">
-                <div class="btn-group pull-right"
-                    v-if="!isNewGroup">
-                    <button class="btn btn-default"
-                        @click="toggleHidden()">
-                        {{ $t(channelGroup.hidden ? 'Show in clients' : 'Hide in clients') }}
-                    </button>
-                    <button class="btn btn-default"
-                        @click="toggleEnabled()">
-                        {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
-                    </button>
-                    <button class="btn btn-danger"
-                        @click="deleteConfirm = true">
-                        {{ $t('Delete') }}
-                    </button>
+        <div v-if="channelGroup">
+            <div class="container"
+            >
+                <div class="clearfix left-right-header">
+                    <h2 class="no-margin-top">
+                        {{ $t(channelGroup.id ? 'Channel group' : 'New channel group') }}
+                        {{ channelGroup.id ? 'ID'+ channelGroup.id : '' }}
+                    </h2>
+                    <div class="btn-group"
+                        v-if="!isNewGroup">
+                        <button class="btn btn-default"
+                            @click="toggleHidden()">
+                            {{ $t(channelGroup.hidden ? 'Show in clients' : 'Hide in clients') }}
+                        </button>
+                        <button class="btn btn-default"
+                            @click="toggleEnabled()">
+                            {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
+                        </button>
+                        <button class="btn btn-danger"
+                            @click="deleteConfirm = true">
+                            {{ $t('Delete') }}
+                        </button>
+                    </div>
                 </div>
-                <h2 class="no-margin-top">{{ $t(channelGroup.id ? 'Channel group ID' + channelGroup.id : 'New channel group') }}</h2>
+
 
                 <div class="row hidden-xs">
                     <div class="col-xs-12">
@@ -74,28 +81,28 @@
                     </div>
                 </div>
             </div>
+            <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
+            <square-links-grid v-if="channelGroup.channels"
+                :count="channelGroup.channels.length + 1"
+                class="square-links-height-240">
+                <div key="new">
+                    <channel-group-new-channel-chooser :channel-group="channelGroup"
+                        @add="saveChannelGroup()"></channel-group-new-channel-chooser>
+                </div>
+                <div v-for="channel in channelGroup.channels"
+                    :key="channel.id">
+                    <channel-group-channel-tile :channel="channel"
+                        :removable="channelGroup.channels.length > 1"
+                        @remove="removeChannel(channel)"></channel-group-channel-tile>
+                </div>
+            </square-links-grid>
+            <modal-confirm v-if="deleteConfirm"
+                @confirm="deleteGroup()"
+                @cancel="deleteConfirm = false"
+                :header="$t('Are you sure you want to delete this channel group?')"
+                :loading="loading">
+            </modal-confirm>
         </div>
-
-        <square-links-grid v-if="channelGroup.channels"
-            :count="channelGroup.channels.length + 1"
-            class="square-links-height-240">
-            <div key="new">
-                <channel-group-new-channel-chooser :channel-group="channelGroup"
-                    @add="saveChannelGroup()"></channel-group-new-channel-chooser>
-            </div>
-            <div v-for="channel in channelGroup.channels"
-                :key="channel.id">
-                <channel-group-channel-tile :channel="channel"
-                    :removable="channelGroup.channels.length > 1"
-                    @remove="removeChannel(channel)"></channel-group-channel-tile>
-            </div>
-        </square-links-grid>
-        <modal-confirm v-if="deleteConfirm"
-            @confirm="deleteGroup()"
-            @cancel="deleteConfirm = false"
-            :header="$t('Are you sure you want to delete this channel group?')"
-            :loading="loading">
-        </modal-confirm>
     </loading-cover>
 </template>
 

@@ -4,7 +4,7 @@
             :pagination-enabled="false"
             navigation-next-label="&gt;"
             navigation-prev-label="&lt;"
-            :per-page-custom="[[1024, 4], [768, 3], [600, 2], [400, 1]]"
+            :per-page-custom="[[1024, 4], [768, 3], [600, 2], [10, 1]]"
             ref="carousel">
             <slide>
                 <square-link :class="'clearfix pointer lift-up black ' + (selectedChannelGroup == newChannelGroup ? ' selected' : '')">
@@ -74,31 +74,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    .channel-groups-carousel {
-        .VueCarousel-navigation-button {
-            background: black;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            color: white !important;
-            text-align: center;
-            font-size: 2em;
-            line-height: 1.1em;
-            font-family: 'Quicksand';
-            &.VueCarousel-navigation-prev {
-                left: -5px;
-            }
-            &.VueCarousel-navigation-next {
-                right: -5px;
-            }
-        }
-        .VueCarousel-slide {
-            padding: 5px;
-        }
-        h2 {
-            margin-top: 3px;
-        }
-    }
-</style>
