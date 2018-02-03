@@ -3,7 +3,6 @@
         <loading-cover :loading="!channel || loading">
             <div class="container"
                 v-if="channel">
-
                 <a :href="`/iodev/${channel.iodeviceId}/view` | withBaseUrl">&laquo; {{ deviceTitle }}</a>
                 <div class="clearfix left-right-header">
                     <h1>{{ channelTitle }}</h1>
@@ -56,6 +55,8 @@
                         </div>
                         <div class="col-sm-4">
                             <h3>{{ $t('Location') }}</h3>
+                            <square-location-chooser v-model="channel.location"
+                                @input="onLocationChange($event)"></square-location-chooser>
                         </div>
                         <div class="col-sm-4">
                             <h3>{{ $t('State') }}</h3>
@@ -73,10 +74,12 @@
     import FunctionIcon from "./function-icon";
     import Switches from "vue-switches";
     import ChannelParamsForm from "./params/channel-params-form";
+    import SquareLocationChooser from "../locations/square-location-chooser";
 
     export default {
         props: ['channelId'],
         components: {
+            SquareLocationChooser,
             ChannelParamsForm,
             DotsRoute, FunctionIcon, Switches
         },
@@ -105,6 +108,10 @@
                 this.loading = true;
                 this.$http.put(`channels/${this.channelId}`, this.channel)
                     .finally(() => this.loading = false);
+            },
+            onLocationChange(location) {
+                this.$set(this.channel, 'location', location);
+                this.updateChannel();
             }
         },
         computed: {

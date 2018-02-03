@@ -8,7 +8,7 @@
             <dt>
                 <channels-dropdown :params="'include=iodevice,location,function&function=' + relatedChannelFunction"
                     v-model="relatedChannel"
-                    @input="channel.param2 = relatedChannel ? relatedChannel.id : 0 $emit('change')"></channels-dropdown>
+                    @input="relatedChannelChanged()"></channels-dropdown>
             </dt>
         </dl>
     </div>
@@ -32,6 +32,12 @@
         mounted() {
             if (this.channel.param2) {
                 this.$http.get(`channels/${this.channel.param2}`).then(response => this.relatedChannel = response.body);
+            }
+        },
+        methods: {
+            relatedChannelChanged() {
+                this.channel.param2 = this.relatedChannel ? this.relatedChannel.id : 0;
+                this.$emit('change');
             }
         }
     };

@@ -28,6 +28,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         $normalized = parent::normalize($channel, $format, $context);
         if (is_array($normalized)) {
             $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
+            $normalized['locationId'] = $channel->getLocation()->getId();
             $normalized['functionId'] = $channel->getFunction()->getId();
             $normalized['typeId'] = $channel->getType()->getId();
         }

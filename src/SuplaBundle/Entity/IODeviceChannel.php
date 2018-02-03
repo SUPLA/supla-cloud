@@ -71,6 +71,13 @@ class IODeviceChannel {
     private $schedules;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDeviceChannels")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=true)
+     * @Groups({"location"})
+     */
+    private $location;
+
+    /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Assert\Length(max=100)
      * @Groups({"basic"})
@@ -157,6 +164,17 @@ class IODeviceChannel {
 
     public function getUser() {
         return $this->user;
+    }
+
+    public function getLocation(): Location {
+        return $this->location ?: $this->getIoDevice()->getLocation();
+    }
+
+    /**
+     * @param mixed $location
+     */
+    public function setLocation(Location $location) {
+        $this->location = $location;
     }
 
     /** @return Collection|Schedule[] */

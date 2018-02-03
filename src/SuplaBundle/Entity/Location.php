@@ -73,17 +73,22 @@ class Location {
 
     /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="location")
-     **/
+     */
     private $ioDevices;
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="location")
-     **/
+     */
     private $ioDeviceChannelGroups;
 
     /**
+     * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="location")
+     */
+    private $ioDeviceChannels;
+
+    /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="originalLocation")
-     **/
+     */
     private $ioDevices_ol;
 
     public function __construct(User $user) {

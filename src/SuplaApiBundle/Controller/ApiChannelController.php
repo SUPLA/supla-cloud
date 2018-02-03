@@ -52,7 +52,7 @@ class ApiChannelController extends RestController {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
             $functionIds = array_map(function ($fnc) {
-                return ChannelFunction::isValidKey($fnc) ? ChannelFunction::$fnc()->getValue() : (new ChannelFunction($fnc))->getValue();
+                return ChannelFunction::isValidKey($fnc) ? ChannelFunction::$fnc()->getValue() : (new ChannelFunction((int)$fnc))->getValue();
             }, explode(',', $function));
             $criteria->andWhere(Criteria::expr()->in('function', $functionIds));
         }
@@ -358,6 +358,9 @@ class ApiChannelController extends RestController {
                 $channel->setParam1($updatedChannel->getParam1());
                 $channel->setParam2($updatedChannel->getParam2());
                 $channel->setParam3($updatedChannel->getParam3());
+            }
+            if ($updatedChannel->getLocation()) {
+                $channel->setLocation($updatedChannel->getLocation());
             }
             return $this->transactional(function (EntityManagerInterface $em) use ($channel) {
                 $em->persist($channel);
