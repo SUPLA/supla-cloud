@@ -49,21 +49,8 @@
                         </div>
                         <div class="col-sm-4">
                             <h3>{{ $t('Location') }}</h3>
-                            <square-link :class="'text-left ' + (channelGroup.location.enabled ? '' : 'grey')"
-                                v-if="channelGroup.location">
-                                <a @click="chooseLocation = true">
-                                    <location-tile-content :location="channelGroup.location"></location-tile-content>
-                                </a>
-                            </square-link>
-                            <button class="btn btn-default"
-                                v-else-if="isNewGroup"
-                                @click="chooseLocation = true">{{ $t('choose') }}
-                            </button>
-                            <location-chooser v-if="chooseLocation"
-                                :current-location="channelGroup.location"
-                                @confirm="onLocationChange($event)"
-                                @cancel="chooseLocation = false"
-                                class="text-left"></location-chooser>
+                            <square-location-chooser v-model="channelGroup.location"
+                                @input="onLocationChange($event)"></square-location-chooser>
                         </div>
                         <div class="col-sm-4">
                             <h3>{{ $t('Function') }}</h3>
@@ -109,28 +96,27 @@
 <script>
     import Vue from "vue";
     import FunctionIcon from "../channels/function-icon.vue";
-    import LocationChooser from "../locations/location-chooser.vue";
     import DotsRoute from "../common/gui/dots-route.vue";
     import LocationTileContent from "../locations/location-tile-content.vue";
     import ChannelGroupNewChannelChooser from "./channel-group-new-channel-chooser.vue";
     import ChannelGroupChannelTile from "./channel-group-channel-tile";
+    import SquareLocationChooser from "../locations/square-location-chooser";
 
     export default {
         props: ['model'],
         components: {
             ChannelGroupChannelTile,
             ChannelGroupNewChannelChooser,
-            FunctionIcon,
-            LocationChooser,
             DotsRoute,
-            LocationTileContent
+            FunctionIcon,
+            LocationTileContent,
+            SquareLocationChooser,
         },
         data() {
             return {
                 loading: false,
                 channelGroup: undefined,
-                deleteConfirm: false,
-                chooseLocation: false
+                deleteConfirm: false
             };
         },
         mounted() {
@@ -187,8 +173,7 @@
                 this.saveChannelGroup();
             },
             onLocationChange(location) {
-                this.channelGroup.location = location;
-                this.chooseLocation = false;
+                this.$set(this.channelGroup, 'location', location);
                 this.saveChannelGroup();
             }
         },
