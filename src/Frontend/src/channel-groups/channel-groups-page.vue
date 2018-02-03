@@ -5,20 +5,22 @@
                 <div class="col-xs-12">
                     <h1>{{ $t('Channel groups') }}</h1>
                     <loading-cover :loading="!channelGroups">
-                        <div class="grid-filters">
-                            <btn-filters v-model="filters.enabled"
-                                :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
-                            <input type="text"
-                                class="form-control"
-                                v-model="filters.search"
-                                :placeholder="$t('Search')">
-                        </div>
-                        <div class="form-group">
-                            <channel-groups-carousel :channel-groups="filteredChannelGroups"
-                                :show-new-button="filteredChannelGroups.length == channelGroups.length"
-                                :channel-group="channelGroup"
-                                @select="channelGroupChanged">
-                            </channel-groups-carousel>
+                        <div v-if="channelGroups">
+                            <div class="grid-filters">
+                                <btn-filters v-model="filters.enabled"
+                                    :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
+                                <input type="text"
+                                    class="form-control"
+                                    v-model="filters.search"
+                                    :placeholder="$t('Search')">
+                            </div>
+                            <div class="form-group">
+                                <channel-groups-carousel :channel-groups="filteredChannelGroups"
+                                    :show-new-button="filteredChannelGroups.length == channelGroups.length"
+                                    :channel-group="channelGroup"
+                                    @select="channelGroupChanged">
+                                </channel-groups-carousel>
+                            </div>
                         </div>
                     </loading-cover>
                 </div>
