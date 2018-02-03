@@ -9,6 +9,7 @@
             ref="dropdown"
             :data-placeholder="$t('choose the channel')"
             v-model="chosenChannelId">
+            <option value="0">{{ $t('None') }}</option>
             <option v-for="channel in channelsForDropdown"
                 :value="channel.id">
                 {{ channelTitle(channel) }}
@@ -36,6 +37,7 @@
     import "chosen-js";
     import "bootstrap-chosen/bootstrap-chosen.css";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import {channelTitle} from "../common/filters";
 
     export default {
         props: ['params', 'value', 'hiddenChannels'],
@@ -62,7 +64,7 @@
                 });
             },
             channelTitle(channel) {
-                return (channel.caption || this.$t(channel.function.caption)) + ` (${channel.iodevice.location.caption} / ${channel.iodevice.name})`;
+                return channelTitle(channel, this, true);
             },
             channelChanged() {
                 if (this.chosenChannelId) {

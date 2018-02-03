@@ -105,6 +105,21 @@ final class ChannelFunction extends Enum {
         return self::actions()[$this->getValue()] ?? [];
     }
 
+    /** @Groups({"basic"}) */
+    public function getAvailableParams(): array {
+        $params = self::availableParams();
+        return [
+            1 => $params[1][$this->value] ?? [],
+            2 => $params[2][$this->value] ?? [],
+            3 => $params[3][$this->value] ?? [],
+        ];
+    }
+
+    public function isValidParam(int $value, int $paramNumber): bool {
+        $params = $this->getAvailableParams()[$paramNumber];
+        return !count($params) || in_array($value, $params);
+    }
+
     /**
      * @param IODeviceChannel $channel
      * @return ChannelFunction[]
@@ -170,5 +185,51 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => 'Weather Station',
             self::STAIRCASETIMER => 'Staircase timer',
         ];
+    }
+
+    public static function availableParams() {
+        return [
+            1 => [
+                self::CONTROLLINGTHEGATEWAYLOCK => [500, 1000, 2000, 4000, 6000, 8000, 10000],
+                self::CONTROLLINGTHEGATE => [500, 1000, 2000],
+                self::CONTROLLINGTHEGARAGEDOOR => [500, 1000, 2000],
+//            self::THERMOMETER => 'Thermometer',
+//            self::OPENINGSENSOR_GATEWAY => 'Gateway opening sensor',
+//            self::OPENINGSENSOR_GATE => 'Gate opening sensor',
+//            self::OPENINGSENSOR_GARAGEDOOR => 'Garage door opening sensor',
+//            self::NOLIQUIDSENSOR => 'No liquid sensor',
+                self::CONTROLLINGTHEDOORLOCK => [500, 1000, 2000, 4000, 6000, 8000, 10000],
+//            self::OPENINGSENSOR_DOOR => 'Door opening sensor',
+//            self::CONTROLLINGTHEROLLERSHUTTER => 'Roller shutter operation',
+//            self::OPENINGSENSOR_ROLLERSHUTTER => 'Roller shutter opening sensor',
+//            self::POWERSWITCH => 'On/Off switch',
+//            self::LIGHTSWITCH => 'Light switch',
+//            self::HUMIDITY => 'Humidity sensor',
+//            self::HUMIDITYANDTEMPERATURE => 'Temperature and humidity sensor',
+//            self::DIMMER => 'Dimmer',
+//            self::RGBLIGHTING => 'RGB lighting',
+//            self::DIMMERANDRGBLIGHTING => 'Dimmer and RGB lighting',
+//            self::DISTANCESENSOR => 'Distance sensor',
+//            self::DEPTHSENSOR => 'Depth sensor',
+//            self::OPENINGSENSOR_WINDOW => 'Window opening sensor',
+//            self::MAILSENSOR => 'Mail sensor',
+//            self::WINDSENSOR => 'Wind sensor',
+//            self::PRESSURESENSOR => 'Pressure sensor',
+//            self::RAINSENSOR => 'Rain sensor',
+//            self::WEIGHTSENSOR => 'Weight sensor',
+//            self::WEATHER_STATION => 'Weather Station',
+//            self::STAIRCASETIMER => 'Staircase timer',
+            ],
+            2 => [],
+            3 => [],
+        ];
+    }
+
+    public static function availableParams2(): array {
+        return [];
+    }
+
+    public static function availableParams3(): array {
+        return [];
     }
 }

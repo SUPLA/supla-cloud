@@ -17,7 +17,8 @@ function intToIp(int) {
 }
 
 export function channelTitle(channel, vue, withDevice = false) {
-    return (channel.caption || vue.$t(channel.function.caption)) + (withDevice ? ' (' + deviceTitle(channel.iodevice) + ')' : '');
+    return `ID${channel.id} ` + (channel.caption || vue.$t(channel.function.caption))
+        + (withDevice ? ' (' + deviceTitle(channel.iodevice) + ')' : '');
 }
 
 export function deviceTitle(device) {

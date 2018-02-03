@@ -27,4 +27,15 @@ class ChannelFunctionTest extends \PHPUnit_Framework_TestCase {
         $this->assertEmpty($diff, 'Have you forgotten to add a caption for the new ChannelFunction value? Missing: '
             . implode(', ', $diff));
     }
+
+    public function testGetAvailableParams() {
+        $params = ChannelFunction::NONE()->getAvailableParams();
+        $this->assertEquals([1 => [], 2 => [], 3 => []], $params);
+    }
+
+    public function testIsValidParam() {
+        $this->assertTrue(ChannelFunction::CONTROLLINGTHEGATE()->isValidParam(500, 1));
+        $this->assertFalse(ChannelFunction::CONTROLLINGTHEGATE()->isValidParam(550, 1));
+        $this->assertTrue(ChannelFunction::CONTROLLINGTHEGATE()->isValidParam(550, 2));
+    }
 }

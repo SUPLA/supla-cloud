@@ -351,10 +351,14 @@ class ApiChannelController extends RestController {
      */
     public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $channel->setFunction($updatedChannel->getFunction());
-            $channel->setParam1($updatedChannel->getParam1());
-            $channel->setParam2($updatedChannel->getParam2());
-            $channel->setParam3($updatedChannel->getParam3());
+            $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
+            if ($functionHasBeenChanged) {
+                $channel->setFunction($updatedChannel->getFunction());
+            } else {
+                $channel->setParam1($updatedChannel->getParam1());
+                $channel->setParam2($updatedChannel->getParam2());
+                $channel->setParam3($updatedChannel->getParam3());
+            }
             return $this->transactional(function (EntityManagerInterface $em) use ($channel) {
                 $em->persist($channel);
                 return $this->view($channel, Response::HTTP_OK);

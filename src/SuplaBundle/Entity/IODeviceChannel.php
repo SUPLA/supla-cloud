@@ -99,19 +99,19 @@ class IODeviceChannel {
      * @ORM\Column(name="param1", type="integer", nullable=false)
      * @Groups({"basic"})
      */
-    private $param1 = '';
+    private $param1 = 0;
 
     /**
      * @ORM\Column(name="param2", type="integer", nullable=false)
      * @Groups({"basic"})
      */
-    private $param2 = '';
+    private $param2 = 0;
 
     /**
      * @ORM\Column(name="param3", type="integer", nullable=false)
      * @Groups({"basic"})
      */
-    private $param3 = '';
+    private $param3 = 0;
 
     /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
@@ -177,6 +177,9 @@ class IODeviceChannel {
         }
         Assertion::true(ChannelFunction::isValid($function), "Not valid channel function: " . $function);
         $this->function = $function;
+        $this->param1 = current($this->getFunction()->getAvailableParams()[1]) ?: 0;
+        $this->param2 = current($this->getFunction()->getAvailableParams()[2]) ?: 0;
+        $this->param3 = current($this->getFunction()->getAvailableParams()[3]) ?: 0;
     }
 
     /**
@@ -200,27 +203,30 @@ class IODeviceChannel {
         return $this;
     }
 
-    public function getParam1() {
+    public function getParam1(): int {
         return $this->param1;
     }
 
-    public function setParam1($param1) {
+    public function setParam1(int $param1) {
+        Assertion::true($this->getFunction()->isValidParam($param1, 1));
         $this->param1 = $param1;
     }
 
-    public function getParam2() {
+    public function getParam2(): int {
         return $this->param2;
     }
 
-    public function setParam2($param2) {
+    public function setParam2(int $param2) {
+        Assertion::true($this->getFunction()->isValidParam($param2, 2));
         $this->param2 = $param2;
     }
 
-    public function getParam3() {
+    public function getParam3(): int {
         return $this->param3;
     }
 
-    public function setParam3($param3) {
+    public function setParam3(int $param3) {
+        Assertion::true($this->getFunction()->isValidParam($param3, 3));
         $this->param3 = $param3;
     }
 
