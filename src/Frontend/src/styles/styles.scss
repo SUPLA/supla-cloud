@@ -166,36 +166,34 @@ input[type=text], input[type=password], input[type=email] {
   }
 }
 
+.chosen-container.chosen-container-single .chosen-single {
+  border: 1px solid $supla-green;
+  color: $supla-green;
+  box-shadow: none;
+}
+
 .hover-editable {
   @include on-md-and-up {
     &:not(:hover) {
-      .form-control, .dropdown .btn {
+      .form-control, .dropdown .btn, .chosen-container .chosen-single {
+        color: $supla-black;
         border-color: transparent;
         box-shadow: none;
         transition: border-color .3s;
         background-color: transparent;
       }
-      .dropdown .caret {
+      .dropdown .caret, .chosen-single > div > b {
         visibility: hidden;
       }
     }
-    //&:hover, .form-control {
-    //  .form-control, .btn {
-    //    &, &:active, &:focus {
-    //      border-color: $supla-grey-dark;
-    //      background-color: white;
-    //    }
-    //  }
-    //  .dropdown .caret {
-    //    visibility: visible;
-    //  }
-    //}
   }
   dl {
     margin-bottom: 0;
     font-size: .95em;
     dd, dt {
       display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 4px;
     }
     dt:after {
       display: block;
@@ -207,6 +205,9 @@ input[type=text], input[type=password], input[type=email] {
     dd {
       width: 100px;
     }
+  }
+  .form-control {
+    border: 1px solid $supla-green;
   }
 }
 

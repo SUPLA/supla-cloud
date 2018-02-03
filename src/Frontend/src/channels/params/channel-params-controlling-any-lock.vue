@@ -5,7 +5,8 @@
             :times="channel.function.availableParams[1]"></channel-opening-time-selector>
         <dl>
             <dd>{{ $t('Open sensor') }}</dd>
-            <dt>
+            <dt class="text-center"
+                style="font-weight: normal">
                 <channels-dropdown :params="'include=iodevice,location,function&function=' + relatedChannelFunction"
                     v-model="relatedChannel"
                     @input="relatedChannelChanged()"></channels-dropdown>

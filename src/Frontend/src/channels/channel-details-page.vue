@@ -49,6 +49,15 @@
                                 </div>
                                 <h4 class="text-center"
                                     v-else>{{ $t(channel.function.caption) }}</h4>
+                                <dl>
+                                    <dd>{{ $t('Caption') }}</dd>
+                                    <dt>
+                                        <input type="text"
+                                            class="form-control text-center"
+                                            @change="updateChannel()"
+                                            v-model="channel.caption">
+                                    </dt>
+                                </dl>
                                 <channel-params-form :channel="channel"
                                     @change="updateChannel()"></channel-params-form>
                             </div>

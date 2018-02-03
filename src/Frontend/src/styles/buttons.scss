@@ -17,8 +17,9 @@
   &-white, &-default {
     background: $supla-white;
     color: $supla-green;
-    border: 1px solid $supla-green !important;
+    border: 1px solid $supla-green;
     &:hover, &:focus, &:active {
+      border: 1px solid $supla-green;
       background: darken($supla-white, 5%);
     }
   }
