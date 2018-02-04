@@ -72,6 +72,7 @@
                                 width="100"></function-icon>
                             <channel-alternative-icon-chooser :channel="channel"
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
+                            <channel-state-table :channel="channel"></channel-state-table>
                         </div>
                     </div>
                 </div>
@@ -89,10 +90,12 @@
     import SquareLocationChooser from "../locations/square-location-chooser";
     import Vue from "vue";
     import ChannelAlternativeIconChooser from "./channel-alternative-icon-chooser";
+    import ChannelStateTable from "./channel-state-table";
 
     export default {
         props: ['channelId'],
         components: {
+            ChannelStateTable,
             ChannelAlternativeIconChooser,
             SquareLocationChooser,
             ChannelParamsForm,

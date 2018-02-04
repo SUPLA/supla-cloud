@@ -151,9 +151,6 @@
                     this.clientApps.forEach(app => app.connected = connectedIds.indexOf(app.id) >= 0);
                 });
             }
-        },
-        beforeDestroy() {
-            clearInterval(this.timer);
         }
     };
 </script>
