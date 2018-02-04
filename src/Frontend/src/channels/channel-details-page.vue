@@ -27,11 +27,6 @@
                     <div class="row text-center">
                         <div class="col-sm-4">
                             <h3>{{ $t('Function') }}</h3>
-                            <channel-alternative-icon-chooser :channel="channel"
-                                @change="updateChannel()"></channel-alternative-icon-chooser>
-                            <function-icon :model="channel.function"
-                                :alternative="channel.altIcon"
-                                width="100"></function-icon>
                             <div class="hover-editable text-left">
                                 <div class="form-group"
                                     v-if="channel.supportedFunctions.length > 1">
@@ -72,6 +67,11 @@
                         </div>
                         <div class="col-sm-4">
                             <h3>{{ $t('State') }}</h3>
+                            <function-icon :model="channel.function"
+                                :alternative="channel.altIcon"
+                                width="100"></function-icon>
+                            <channel-alternative-icon-chooser :channel="channel"
+                                @change="updateChannel()"></channel-alternative-icon-chooser>
                         </div>
                     </div>
                 </div>

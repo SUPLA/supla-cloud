@@ -3,7 +3,7 @@
         <a @click="choosing = true"
             v-if="channel.function.maxAlternativeIconIndex > 0"
             class="btn btn-link">
-            <i class="pe-7s-settings"></i>
+            {{ $t('Change icon') }}
         </a>
         <modal class="modal-location-chooser"
             :header="$t('Select icon')"
