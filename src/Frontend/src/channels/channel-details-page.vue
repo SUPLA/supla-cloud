@@ -27,7 +27,10 @@
                     <div class="row text-center">
                         <div class="col-sm-4">
                             <h3>{{ $t('Function') }}</h3>
+                            <channel-alternative-icon-chooser :channel="channel"
+                                @change="updateChannel()"></channel-alternative-icon-chooser>
                             <function-icon :model="channel.function"
+                                :alternative="channel.altIcon"
                                 width="100"></function-icon>
                             <div class="hover-editable text-left">
                                 <div class="form-group"
@@ -84,10 +87,13 @@
     import Switches from "vue-switches";
     import ChannelParamsForm from "./params/channel-params-form";
     import SquareLocationChooser from "../locations/square-location-chooser";
+    import Vue from "vue";
+    import ChannelAlternativeIconChooser from "./channel-alternative-icon-chooser";
 
     export default {
         props: ['channelId'],
         components: {
+            ChannelAlternativeIconChooser,
             SquareLocationChooser,
             ChannelParamsForm,
             DotsRoute, FunctionIcon, Switches
@@ -116,6 +122,7 @@
             updateChannel() {
                 this.loading = true;
                 this.$http.put(`channels/${this.channelId}`, this.channel)
+                    .then(response => Vue.extend(this.channel, response.body))
                     .finally(() => this.loading = false);
             },
             onLocationChange(location) {

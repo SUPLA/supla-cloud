@@ -198,6 +198,7 @@ class IODeviceChannel {
         $this->param1 = current($this->getFunction()->getAvailableParams()[1]) ?: 0;
         $this->param2 = current($this->getFunction()->getAvailableParams()[2]) ?: 0;
         $this->param3 = current($this->getFunction()->getAvailableParams()[3]) ?: 0;
+        $this->altIcon = 0;
     }
 
     /**

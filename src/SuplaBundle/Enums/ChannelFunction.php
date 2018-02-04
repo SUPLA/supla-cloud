@@ -133,6 +133,11 @@ final class ChannelFunction extends Enum {
         }
     }
 
+    /** @Groups({"basic"}) */
+    public function getMaxAlternativeIconIndex(): int {
+        return self::maxAlternativeIconIndexes()[$this->getValue()] ?? 0;
+    }
+
     public static function actions(): array {
         return [
             self::CONTROLLINGTHEGATEWAYLOCK => [ChannelFunctionAction::OPEN()],
@@ -193,43 +198,19 @@ final class ChannelFunction extends Enum {
                 self::CONTROLLINGTHEGATEWAYLOCK => [500, 1000, 2000, 4000, 6000, 8000, 10000],
                 self::CONTROLLINGTHEGATE => [500, 1000, 2000],
                 self::CONTROLLINGTHEGARAGEDOOR => [500, 1000, 2000],
-//            self::THERMOMETER => 'Thermometer',
-//            self::OPENINGSENSOR_GATEWAY => 'Gateway opening sensor',
-//            self::OPENINGSENSOR_GATE => 'Gate opening sensor',
-//            self::OPENINGSENSOR_GARAGEDOOR => 'Garage door opening sensor',
-//            self::NOLIQUIDSENSOR => 'No liquid sensor',
                 self::CONTROLLINGTHEDOORLOCK => [500, 1000, 2000, 4000, 6000, 8000, 10000],
-//            self::OPENINGSENSOR_DOOR => 'Door opening sensor',
-//            self::CONTROLLINGTHEROLLERSHUTTER => 'Roller shutter operation',
-//            self::OPENINGSENSOR_ROLLERSHUTTER => 'Roller shutter opening sensor',
-//            self::POWERSWITCH => 'On/Off switch',
-//            self::LIGHTSWITCH => 'Light switch',
-//            self::HUMIDITY => 'Humidity sensor',
-//            self::HUMIDITYANDTEMPERATURE => 'Temperature and humidity sensor',
-//            self::DIMMER => 'Dimmer',
-//            self::RGBLIGHTING => 'RGB lighting',
-//            self::DIMMERANDRGBLIGHTING => 'Dimmer and RGB lighting',
-//            self::DISTANCESENSOR => 'Distance sensor',
-//            self::DEPTHSENSOR => 'Depth sensor',
-//            self::OPENINGSENSOR_WINDOW => 'Window opening sensor',
-//            self::MAILSENSOR => 'Mail sensor',
-//            self::WINDSENSOR => 'Wind sensor',
-//            self::PRESSURESENSOR => 'Pressure sensor',
-//            self::RAINSENSOR => 'Rain sensor',
-//            self::WEIGHTSENSOR => 'Weight sensor',
-//            self::WEATHER_STATION => 'Weather Station',
-//            self::STAIRCASETIMER => 'Staircase timer',
             ],
             2 => [],
             3 => [],
         ];
     }
 
-    public static function availableParams2(): array {
-        return [];
-    }
-
-    public static function availableParams3(): array {
-        return [];
+    public static function maxAlternativeIconIndexes(): array {
+        return [
+            self::POWERSWITCH => 4,
+            self::LIGHTSWITCH => 1,
+            self::CONTROLLINGTHEGATE => 2,
+            self::OPENINGSENSOR_GATE => 2,
+        ];
     }
 }

@@ -101,21 +101,12 @@ class IODeviceManager {
         return $this->translator->trans($result);
     }
 
+    /** @deprecated */
     public function channelFunctionAltIconMax($func) {
         if ($func instanceof ChannelFunction) {
             $func = $func->getValue();
         }
-        switch ($func) {
-            case ChannelFunction::POWERSWITCH:
-                return 4;
-            case ChannelFunction::LIGHTSWITCH:
-                return 1;
-            case ChannelFunction::CONTROLLINGTHEGATE:
-                return 2;
-            case ChannelFunction::OPENINGSENSOR_GATE:
-                return 2;
-        }
-        return 0;
+        return (new ChannelFunction((int)$func))->getMaxAlternativeIconIndex();
     }
 
     public function channelIoToString($type) {

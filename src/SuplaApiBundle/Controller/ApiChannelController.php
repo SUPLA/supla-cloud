@@ -358,14 +358,15 @@ class ApiChannelController extends RestController {
                 $channel->setParam1($updatedChannel->getParam1());
                 $channel->setParam2($updatedChannel->getParam2());
                 $channel->setParam3($updatedChannel->getParam3());
+                $channel->setAltIcon($updatedChannel->getAltIcon());
             }
             if ($updatedChannel->getLocation()) {
                 $channel->setLocation($updatedChannel->getLocation());
             }
             $channel->setCaption($updatedChannel->getCaption());
-            return $this->transactional(function (EntityManagerInterface $em) use ($channel) {
+            return $this->transactional(function (EntityManagerInterface $em) use ($request, $channel) {
                 $em->persist($channel);
-                return $this->view($channel, Response::HTTP_OK);
+                return $this->getChannelAction($request, $channel);
             });
         } else {
             $channelid = $channel->getId();

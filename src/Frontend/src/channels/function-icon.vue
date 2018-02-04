@@ -1,6 +1,6 @@
 <template>
     <span class="channel-icon">
-        <img :src="'/assets/img/functions/' + functionId + '.svg' | withBaseUrl"
+        <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + '.svg' | withBaseUrl"
             :width="width"
             v-if="functionId !== undefined">
     </span>
@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        props: ['model', 'width'],
+        props: ['model', 'width', 'alternative'],
         computed: {
             functionId() {
                 if (this.model) {
@@ -23,6 +23,17 @@
                     }
                 }
                 return 0;
+            },
+            alternativeSuffix() {
+                if (this.alternative !== undefined) {
+                    return this.alternative ? `_${this.alternative}` : '';
+                }
+                if (this.model) {
+                    if (this.model.altIcon > 0) {
+                        return `_${this.model.altIcon}`;
+                    }
+                }
+                return '';
             }
         }
     };
