@@ -48,7 +48,7 @@ trait CurrentUserAware {
 
     protected function getCurrentUserOrThrow() {
         $user = $this->getCurrentUser();
-        Assertion::notNull($user, 'You must be authenticated to use this endpoint.');
+        Assertion::notNull($user, 'You must be authenticated to perform this action.');
         return $user;
     }
 }

@@ -26,6 +26,7 @@ use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * @property ContainerInterface $container
@@ -41,6 +42,11 @@ trait SuplaApiHelper {
         $apiManager->setPassword($password, $apiUser, true);
         $apiManager->getClient($user);
         return $user;
+    }
+
+    protected function simulateAuthentication(User $user) {
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $this->container->get('security.token_storage')->setToken($token);
     }
 
     protected function authenticateApiUser(User $user, string $password = '123') {

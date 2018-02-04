@@ -24,7 +24,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Supla\SuplaConst;
+use SuplaBundle\Enums\ChannelType;
 
 /**
  * @property ContainerInterface $container
@@ -49,22 +49,22 @@ trait UserFixtures {
 
     protected function createDeviceSonoff(Location $location): IODevice {
         return $this->createDevice($location, [
-            [SuplaConst::TYPE_RELAY, ChannelFunction::LIGHTSWITCH],
-            [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ]);
     }
 
     protected function createDeviceFull(Location $location): IODevice {
         return $this->createDevice($location, [
-            [SuplaConst::TYPE_RELAY, ChannelFunction::LIGHTSWITCH],
-            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
-            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEGATE],
-            [SuplaConst::TYPE_RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
-            [SuplaConst::TYPE_THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ]);
     }
 
-    private function createDevice(Location $location, array $channelTypes): IODevice {
+    protected function createDevice(Location $location, array $channelTypes): IODevice {
         $fieldSetter = function ($field, $type) {
             $this->{$field} = $type;
         };
