@@ -97,6 +97,8 @@
                 }
                 this.colorBrightness = this.value.color_brightness || 0;
                 this.brightness = this.value.brightness || 0;
+
+                this.onChange();
             }
         },
         methods: {
