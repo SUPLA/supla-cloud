@@ -23,6 +23,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
@@ -39,13 +40,15 @@ class ApiChannelController extends RestController {
     use Transactional;
 
     const RECORD_LIMIT_PER_REQUEST = 5000;
-    /**
-     * @var IODeviceManager
-     */
-    private $deviceManager;
 
-    public function __construct(IODeviceManager $deviceManager) {
+    /** @var IODeviceManager */
+    private $deviceManager;
+    /** @var ChannelParamsUpdater */
+    private $channelParamsUpdater;
+
+    public function __construct(IODeviceManager $deviceManager, ChannelParamsUpdater $channelParamsUpdater) {
         $this->deviceManager = $deviceManager;
+        $this->channelParamsUpdater = $channelParamsUpdater;
     }
 
     public function getChannelsAction(Request $request) {
@@ -355,15 +358,13 @@ class ApiChannelController extends RestController {
             if ($functionHasBeenChanged) {
                 $channel->setFunction($updatedChannel->getFunction());
             } else {
-                $channel->setParam1($updatedChannel->getParam1());
-                $channel->setParam2($updatedChannel->getParam2());
-                $channel->setParam3($updatedChannel->getParam3());
                 $channel->setAltIcon($updatedChannel->getAltIcon());
             }
             if ($updatedChannel->getLocation()) {
                 $channel->setLocation($updatedChannel->getLocation());
             }
             $channel->setCaption($updatedChannel->getCaption());
+            $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
             return $this->transactional(function (EntityManagerInterface $em) use ($request, $channel) {
                 $em->persist($channel);
                 return $this->getChannelAction($request, $channel);

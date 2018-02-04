@@ -195,9 +195,7 @@ class IODeviceChannel {
         }
         Assertion::true(ChannelFunction::isValid($function), "Not valid channel function: " . $function);
         $this->function = $function;
-        $this->param1 = current($this->getFunction()->getAvailableParams()[1]) ?: 0;
-        $this->param2 = current($this->getFunction()->getAvailableParams()[2]) ?: 0;
-        $this->param3 = current($this->getFunction()->getAvailableParams()[3]) ?: 0;
+        $this->param1 = $this->param2 = $this->param3 = 0;
         $this->altIcon = 0;
     }
 
@@ -227,7 +225,6 @@ class IODeviceChannel {
     }
 
     public function setParam1(int $param1) {
-        Assertion::true($this->getFunction()->isValidParam($param1, 1));
         $this->param1 = $param1;
     }
 
@@ -236,7 +233,6 @@ class IODeviceChannel {
     }
 
     public function setParam2(int $param2) {
-        Assertion::true($this->getFunction()->isValidParam($param2, 2));
         $this->param2 = $param2;
     }
 
@@ -245,7 +241,6 @@ class IODeviceChannel {
     }
 
     public function setParam3(int $param3) {
-        Assertion::true($this->getFunction()->isValidParam($param3, 3));
         $this->param3 = $param3;
     }
 

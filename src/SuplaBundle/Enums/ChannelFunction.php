@@ -105,21 +105,6 @@ final class ChannelFunction extends Enum {
         return self::actions()[$this->getValue()] ?? [];
     }
 
-    /** @Groups({"basic"}) */
-    public function getAvailableParams(): array {
-        $params = self::availableParams();
-        return [
-            1 => $params[1][$this->value] ?? [],
-            2 => $params[2][$this->value] ?? [],
-            3 => $params[3][$this->value] ?? [],
-        ];
-    }
-
-    public function isValidParam(int $value, int $paramNumber): bool {
-        $params = $this->getAvailableParams()[$paramNumber];
-        return !count($params) || in_array($value, $params);
-    }
-
     /**
      * @param IODeviceChannel $channel
      * @return ChannelFunction[]
@@ -189,19 +174,6 @@ final class ChannelFunction extends Enum {
             self::WEIGHTSENSOR => 'Weight sensor',
             self::WEATHER_STATION => 'Weather Station',
             self::STAIRCASETIMER => 'Staircase timer',
-        ];
-    }
-
-    public static function availableParams() {
-        return [
-            1 => [
-                self::CONTROLLINGTHEGATEWAYLOCK => [500, 1000, 2000, 4000, 6000, 8000, 10000],
-                self::CONTROLLINGTHEGATE => [500, 1000, 2000],
-                self::CONTROLLINGTHEGARAGEDOOR => [500, 1000, 2000],
-                self::CONTROLLINGTHEDOORLOCK => [500, 1000, 2000, 4000, 6000, 8000, 10000],
-            ],
-            2 => [],
-            3 => [],
         ];
     }
 

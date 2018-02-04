@@ -18,6 +18,7 @@
 namespace SuplaApiBundle;
 
 use SuplaApiBundle\DependencyInjection\IgnoreApiDocsAnnotationsPass;
+use SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdaterCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -30,5 +31,6 @@ class SuplaApiBundle extends Bundle {
     public function build(ContainerBuilder $container) {
         parent::build($container);
         $container->addCompilerPass(new IgnoreApiDocsAnnotationsPass());
+        $container->addCompilerPass(new ChannelParamsUpdaterCompilerPass());
     }
 }

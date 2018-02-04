@@ -24,13 +24,13 @@
             };
         },
         mounted() {
-            if (this.channel.param2) {
-                this.$http.get(`channels/${this.channel.param2}`).then(response => this.relatedChannel = response.body);
+            if (this.channel.param1) {
+                this.$http.get(`channels/${this.channel.param1}`).then(response => this.relatedChannel = response.body);
             }
         },
         methods: {
             relatedChannelChanged() {
-                this.channel.param2 = this.relatedChannel ? this.relatedChannel.id : 0;
+                this.channel.param1 = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');
             }
         }

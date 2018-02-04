@@ -7,6 +7,12 @@ services:
     autoconfigure: true
     public: false
 
+  _instanceof:
+    SuplaApiBundle\ParamConverter\AbstractBodyParamConverter:
+      tags: [request.param_converter]
+    SuplaApiBundle\ParamConverter\ChannelParamsUpdater\SingleChannelParamsUpdater:
+      tags: [supla.channel_params_updater]
+
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
@@ -81,7 +87,6 @@ services:
 
   SuplaApiBundle\ParamConverter\:
     resource: '../../src/SuplaApiBundle/ParamConverter'
-    tags: [{ name: request.param_converter }]
 
   SuplaApiBundle\Serialization\:
     resource: '../../src/SuplaApiBundle/Serialization'

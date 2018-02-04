@@ -2,7 +2,7 @@
     <div>
         <channel-opening-time-selector v-model="channel.param1"
             @input="$emit('change')"
-            :times="channel.function.availableParams[1]"></channel-opening-time-selector>
+            :times="times"></channel-opening-time-selector>
         <dl>
             <dd>{{ $t('Open sensor') }}</dd>
             <dt class="text-center"
@@ -24,7 +24,7 @@
             ChannelsDropdown,
             ChannelOpeningTimeSelector
         },
-        props: ['channel', 'relatedChannelFunction'],
+        props: ['channel', 'times', 'relatedChannelFunction'],
         data() {
             return {
                 relatedChannel: undefined,
