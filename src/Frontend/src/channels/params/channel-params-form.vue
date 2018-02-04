@@ -12,6 +12,9 @@
     import ChannelParamsControllingthegaragedoor from "./channel-params-controllingthegaragedoor";
     import ChannelParamsControllingthedoorlock from "./channel-params-controllingthedoorlock";
     import ChannelParamsOpeningsensorGate from "./channel-params-openingsensor-gate";
+    import ChannelParamsOpeningsensorGateway from "./channel-params-openingsensor-gateway";
+    import ChannelParamsOpeningsensorDoor from "./channel-params-openingsensor-door";
+    import ChannelParamsOpeningsensorGaragedoor from "./channel-params-openingsensor-garagedoor";
 
     export default {
         props: ['channel'],
@@ -22,6 +25,9 @@
             ChannelParamsControllingthegate,
             ChannelParamsControllingthegatewaylock,
             ChannelParamsOpeningsensorGate,
+            ChannelParamsOpeningsensorGateway,
+            ChannelParamsOpeningsensorDoor,
+            ChannelParamsOpeningsensorGaragedoor,
         },
         computed: {
             additionalChannelParamsComponent() {
