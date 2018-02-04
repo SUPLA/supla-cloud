@@ -77,6 +77,7 @@
                     </div>
                 </div>
             </div>
+            <channel-details-tabs :channel="channel"></channel-details-tabs>
         </loading-cover>
     </div>
 </template>
@@ -91,10 +92,12 @@
     import Vue from "vue";
     import ChannelAlternativeIconChooser from "./channel-alternative-icon-chooser";
     import ChannelStateTable from "./channel-state-table";
+    import ChannelDetailsTabs from "./channel-details-tabs";
 
     export default {
         props: ['channelId'],
         components: {
+            ChannelDetailsTabs,
             ChannelStateTable,
             ChannelAlternativeIconChooser,
             SquareLocationChooser,

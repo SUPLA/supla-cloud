@@ -26,7 +26,8 @@
                     <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
                 </span>
                 <span v-if="possibleAction.id == 80 && action == possibleAction.id">
-                    <rgbw-parameters-setter v-model="actionParam" :channel-function="chosenChannel.function"></rgbw-parameters-setter>
+                    <rgbw-parameters-setter v-model="actionParam"
+                        :channel-function="chosenChannel.function"></rgbw-parameters-setter>
                 </span>
             </div>
         </div>
@@ -71,7 +72,8 @@
         },
         methods: {
             channelTitle(channel) {
-                return (channel.caption || channel.functionName) + ` (${channel.device.location.caption} / ${channel.device.name})`;
+                return `ID${channel.id} ` + (channel.caption || channel.functionName)
+                    + ` (${channel.device.location.caption} / ${channel.device.name})`;
             },
             goToSchedulesList() {
                 window.location.assign(withBaseUrl('schedules'));

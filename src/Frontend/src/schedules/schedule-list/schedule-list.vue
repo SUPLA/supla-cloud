@@ -6,7 +6,7 @@
                     <loading-dots></loading-dots>
                 </div>
                 <vuetable
-                    api-url="web-api/schedules/"
+                    :api-url="'web-api/schedules?channelId=' + (channelId || 0)"
                     data-path=""
                     pagination-path=""
                     :no-data-template="$t('Empty!')"
@@ -29,6 +29,7 @@
     export default {
         name: 'schedule-list',
         components: {LoadingDots, Vuetable},
+        props: ['channelId'],
         data() {
             return {
                 loading: false,
