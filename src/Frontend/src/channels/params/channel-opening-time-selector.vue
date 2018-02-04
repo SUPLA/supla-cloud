@@ -6,7 +6,7 @@
                 v-if="times.length < 5">
                 <div v-for="time in times"
                     class="btn-group">
-                    <button :class="'btn btn-default ' + (value == time ? 'btn-green' : '')"
+                    <button :class="'btn ' + (value == time ? 'btn-green' : 'btn-default')"
                         @click="$emit('input', time)">
                         {{ timeInSeconds(time) }}
                     </button>
