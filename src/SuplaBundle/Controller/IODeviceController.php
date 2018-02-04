@@ -19,7 +19,9 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
@@ -33,6 +35,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class IODeviceController extends AbstractController {
     use SuplaServerAware;
+
+    /** @var ChannelParamsUpdater */
+    private $channelParamsUpdater;
+
+    public function __construct(ChannelParamsUpdater $channelParamsUpdater) {
+        $this->channelParamsUpdater = $channelParamsUpdater;
+    }
 
     private function userReconnect() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
@@ -114,32 +123,8 @@ class IODeviceController extends AbstractController {
         $channels = $dev_man->getChannels($iodev);
 
         foreach ($channels as $channel) {
-            switch ($channel->getType()) {
-                case SuplaConst::TYPE_SENSORNO:
-                case SuplaConst::TYPE_SENSORNC:
-                    if ($channel->getParam1() != 0) {
-                        $related_channel = $this->getChannelById($channel->getParam1());
-
-                        if ($related_channel != null
-                            && $related_channel->getFunction() != SuplaConst::FNC_NONE
-                            && $related_channel->getParam2() == $channel->getId()
-                        ) {
-                            $related_channel->setParam2(0);
-                        }
-                    }
-                    break;
-                case SuplaConst::TYPE_RELAY:
-                case SuplaConst::TYPE_RELAYHFD4:
-                case SuplaConst::TYPE_RELAYG5LA1A:
-                case SuplaConst::TYPE_RELAY2XG5LA1A:
-                    if ($channel->getParam2() != 0) {
-                        $sensor = $this->getChannelById($channel->getParam2());
-                        if ($sensor !== null) {
-                            $sensor->setParam1(0);
-                        }
-                    }
-            }
-
+            // clears all paired channels that are possibly made with the one that is being deleted
+            $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
             $m->remove($channel);
         }
 

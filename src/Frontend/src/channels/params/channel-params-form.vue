@@ -33,7 +33,7 @@
             additionalChannelParamsComponent() {
                 const fncName = changeCase.camelCase(this.channel.function.name);
                 let componentName = 'ChannelParams' + changeCase.upperCaseFirst(fncName);
-                console.log(componentName);
+                // console.log(componentName);
                 if (this.$options.components[componentName]) {
                     return changeCase.headerCase(componentName);
                 } else {
