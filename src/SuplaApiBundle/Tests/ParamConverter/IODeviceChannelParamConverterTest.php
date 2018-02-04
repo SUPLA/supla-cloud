@@ -20,6 +20,7 @@ namespace SuplaApiBundle\Tests\Model;
 use SuplaApiBundle\ParamConverter\IODeviceChannelParamConverter;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Repository\LocationRepository;
 
 class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
     /** @var IODeviceChannelParamConverter */
@@ -27,7 +28,7 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
 
     /** @before */
     public function init() {
-        $this->converter = new IODeviceChannelParamConverter();
+        $this->converter = new IODeviceChannelParamConverter($this->createMock(LocationRepository::class));
     }
 
     public function testFromEmptyArray() {
@@ -36,17 +37,12 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFunctionFromInt() {
-        $channel = $this->converter->convert(['function' => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK]);
+        $channel = $this->converter->convert(['functionId' => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK]);
         $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), $channel->getFunction());
-    }
-
-    public function testFunctionFromArrayWithId() {
-        $channel = $this->converter->convert(['function' => ['id' => ChannelFunction::CONTROLLINGTHEGATE()]]);
-        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATE(), $channel->getFunction());
     }
 
     public function testInvalidFunction() {
         $this->expectException(\InvalidArgumentException::class);
-        $this->converter->convert(['function' => ['id' => -1]]);
+        $this->converter->convert(['functionId' => -1]);
     }
 }

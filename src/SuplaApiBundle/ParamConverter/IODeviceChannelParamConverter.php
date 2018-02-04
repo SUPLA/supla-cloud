@@ -20,7 +20,6 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
     }
 
     public function convert(array $requestData) {
-        $user = $this->getCurrentUserOrThrow();
         $channel = new IODeviceChannel();
         $function = $requestData['functionId'] ?? 0;
         $channel->setFunction($function);
@@ -30,10 +29,9 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
         $channel->setCaption($requestData['caption'] ?? '');
         $channel->setAltIcon($requestData['altIcon'] ?? 0);
         if (isset($requestData['locationId']) && $requestData['locationId']) {
+            $user = $this->getCurrentUserOrThrow();
             $location = $this->locationRepository->findForUser($user, $requestData['locationId']);
             $channel->setLocation($location);
-        } else {
-            $location = $user->getLocations()[0];
         }
         return $channel;
     }

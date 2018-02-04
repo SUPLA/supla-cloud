@@ -55,13 +55,19 @@ class ApiChannelController extends RestController {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
             $functionIds = array_map(function ($fnc) {
-                return ChannelFunction::isValidKey($fnc) ? ChannelFunction::$fnc()->getValue() : (new ChannelFunction((int)$fnc))->getValue();
+                return ChannelFunction::isValidKey($fnc)
+                    ? ChannelFunction::$fnc()->getValue()
+                    : (new ChannelFunction((int)$fnc))->getValue();
             }, explode(',', $function));
             $criteria->andWhere(Criteria::expr()->in('function', $functionIds));
         }
         if (($io = $request->get('io')) !== null) {
             Assertion::inArray($io, ['input', 'output']);
-            $criteria->andWhere(Criteria::expr()->in('type', $io == 'output' ? ChannelType::outputTypes() : ChannelType::inputTypes()));
+            $criteria->andWhere(
+                Criteria::expr()->in('type', $io == 'output'
+                    ? ChannelType::outputTypes()
+                    : ChannelType::inputTypes())
+            );
         }
         if (($hasFunction = $request->get('hasFunction')) !== null) {
             if ($hasFunction) {
