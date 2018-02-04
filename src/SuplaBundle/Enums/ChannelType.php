@@ -142,6 +142,7 @@ final class ChannelType extends Enum {
         ];
     }
 
+    /** @return ChannelFunction[][] */
     public static function functions(): array {
         $map = [
             self::SENSORNO => [

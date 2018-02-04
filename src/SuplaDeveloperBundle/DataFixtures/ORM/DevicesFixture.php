@@ -42,6 +42,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceSonoff($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $manager->flush();
     }
 
@@ -67,6 +68,19 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ], self::DEVICE_FULL);
+    }
+
+    protected function createEveryFunctionDevice(Location $location): IODevice {
+        $functionableTypes = array_filter(ChannelType::values(), function (ChannelType $type) {
+            return count(ChannelType::functions()[$type->getValue()] ?? []);
+        });
+        $channels = array_values(array_map(function (ChannelType $type) {
+            return array_map(function (ChannelFunction $function) use ($type) {
+                return [$type->getValue(), $function->getValue()];
+            }, ChannelType::functions()[$type->getValue()]);
+        }, $functionableTypes));
+        $channels = call_user_func_array('array_merge', $channels);
+        return $this->createDevice('ALL-IN-ONE MEGA DEVICE', $location, $channels, 'megadevice');
     }
 
     protected function createDeviceRgb(Location $location): IODevice {

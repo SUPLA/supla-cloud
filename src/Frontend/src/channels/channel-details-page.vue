@@ -41,7 +41,7 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li v-for="fnc in channel.supportedFunctions">
-                                                <a @click="channel.function = fnc updateChannel()"
+                                                <a @click="onFunctionChange(fnc)"
                                                     v-show="channel.function.id != fnc.id">{{ $t(fnc.caption) }}</a>
                                             </li>
                                         </ul>
@@ -120,6 +120,10 @@
             },
             onLocationChange(location) {
                 this.$set(this.channel, 'location', location);
+                this.updateChannel();
+            },
+            onFunctionChange(fnc) {
+                this.channel.function = fnc;
                 this.updateChannel();
             }
         },
