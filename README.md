@@ -10,11 +10,7 @@ Your home connected. www.supla.org
 
 ## Installation
 
-In order to run SUPLA-CLOUD, you need to have PHP 7.x and MySQL database.
-
-Download the [release archive](https://github.com/SUPLA/supla-cloud/releases/latest) and extract it to a desired directory on your server.
-
-Adjust the configuration by editing the `app/config/parameters.yml` file.
+https://github.com/SUPLA/supla-docker
 
 ## Development
 
