@@ -28,7 +28,7 @@ class CheckDbConnectionCommand extends DoctrineCommand {
                 } else {
                     $output->writeln("Waiting for database connection ($dbConnectionRetries)...");
                     --$dbConnectionRetries;
-                    sleep(3);
+                    sleep(15 - $dbConnectionRetries);
                 }
             }
         } while ($connectionStatus !== 0);
