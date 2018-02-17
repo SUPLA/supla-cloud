@@ -61,20 +61,6 @@ class ServerList {
         }
     }
 
-    public function requestAllowed() {
-
-        $addr = @$_SERVER['REMOTE_ADDR'];
-
-        if ($this->servers != null) {
-            foreach ($this->servers as $server) {
-                if (@$_SERVER['REMOTE_ADDR'] == $server['ip']) {
-                    return true;
-                }
-            }
-        };
-
-        return false;
-    }
 
     public function userExists($username, &$remote_server) {
 
@@ -82,42 +68,18 @@ class ServerList {
             return false;
         }
 
-        $err = false;
         $user = $this->user_manager->userByEmail($username);
 
         if ($user != null) {
             return true;
         }
 
-        if ($this->autodiscover->findServer($username)) {
-            return true;
+        if ($this->autodiscover->enabled()) {
+            $exists = $this->autodiscover->findServer($username);
+            return $exists ? true : $exists;
         }
 
-        if ($this->servers != null) {
-            foreach ($this->servers as $svr) {
-                if ($svr['address'] !== $this->server) {
-                    $rr = AjaxController::remoteRequest(
-                        'https://' . $svr['address'] . $this->router->generate('_account_ajax_user_exists'),
-                        ["username" => $username]
-                    );
-
-                    if ($rr != null
-                        && $rr !== false
-                        && @$rr->success == true
-                    ) {
-                        if (@$rr->exists == true) {
-                            $remote_server = $svr['address'];
-                            return true;
-                        }
-                    } else {
-                        $err = true;
-                        $remote_server = $svr['address'];
-                    }
-                }
-            }
-        }
-
-        return $err === true ? null : false;
+        return false;
     }
 
     public function getAuthServerForUser(Request $request, $username) {
@@ -139,35 +101,11 @@ class ServerList {
         if ($user !== null) {
             $result = $local;
             $protocol = $this->suplaProtocol;
-        } else {
+        } elseif ($this->autodiscover->enabled()) {
             $result = $this->autodiscover->findServer($username);
-        }
-
-        if (!$result && $this->servers != null) {
-            foreach ($this->servers as $svr) {
-                if ($svr['address'] !== $this->server) {
-                    $rr = AjaxController::remoteRequest(
-                        'https://' . $svr['address'] . $this->router->generate('_account_ajax_user_exists'),
-                        ["username" => $username]
-                    );
-
-                    if ($rr != null
-                        && $rr !== false
-                        && @$rr->success == true
-                    ) {
-                        if (@$rr->exists == true) {
-                            $result = $svr['address'];
-                            break;
-                        }
-                    } else {
-                        $err = true;
-                    }
-                }
+            if ($result === null) {
+                return false;
             }
-        }
-
-        if ($err && !$result) {
-            return false;
         }
 
         if (!$result) {

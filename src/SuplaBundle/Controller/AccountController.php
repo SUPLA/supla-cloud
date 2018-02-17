@@ -326,23 +326,4 @@ class AccountController extends AbstractController {
 
         return AjaxController::jsonResponse(true, null);
     }
-
-    /**
-     * @Route("/ajax/user_exists", name="_account_ajax_user_exists")
-     */
-    public function userExists(Request $request) {
-        $exists = null;
-
-        $sl = $this->get('server_list');
-
-        if ($sl->requestAllowed()) {
-            $data = json_decode($request->getContent());
-            $user_manager = $this->get('user_manager');
-            $user = $user_manager->userByEmail(@$data->username);
-
-            $exists = $user !== null ? true : false;
-        };
-
-        return AjaxController::jsonResponse($exists !== null, ['exists' => $exists]);
-    }
 }
