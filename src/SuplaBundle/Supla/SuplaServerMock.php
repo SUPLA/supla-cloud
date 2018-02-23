@@ -51,6 +51,8 @@ class SuplaServerMock extends SuplaServer {
             return "CONNECTED:$match[3]\n";
         } elseif (preg_match('#^SET-CHAR-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
+        } elseif (preg_match('#^GET-CHAR-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
+            return 'VALUE:' . rand(0, 1);
         } elseif (preg_match('#^GET-TEMPERATURE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(-2000, 2000) / 1000);
         } elseif (preg_match('#^GET-((HUMIDITY)|(DOUBLE))-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {

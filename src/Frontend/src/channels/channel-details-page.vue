@@ -69,6 +69,7 @@
                             <h3>{{ $t('State') }}</h3>
                             <function-icon :model="channel.function"
                                 :alternative="channel.altIcon"
+                                :state="channel.state"
                                 width="100"></function-icon>
                             <channel-alternative-icon-chooser :channel="channel"
                                 @change="updateChannel()"></channel-alternative-icon-chooser>

@@ -107,16 +107,10 @@ abstract class SuplaServer {
         $userId = intval($userId, 0);
         $deviceId = intval($deviceId, 0);
         $channelId = intval($channelId, 0);
-        if ($userId != 0
-            && $deviceId != 0
-            && $channelId != 0
-            && $this->connect() !== false
-        ) {
+        if ($userId != 0 && $deviceId != 0 && $channelId != 0 && $this->connect() !== false) {
             $result = $this->command("GET-" . $type . "-VALUE:" . $userId . "," . $deviceId . "," . $channelId);
 
-            if ($result !== false
-                && preg_match("/^VALUE:/", $result) === 1
-            ) {
+            if ($result !== false && preg_match("/^VALUE:/", $result) === 1) {
                 return $result;
             }
         }

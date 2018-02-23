@@ -9,9 +9,9 @@
                     <li :class="currentTab == 'channelGroups' ? 'active' : ''">
                         <a @click="currentTab = 'channelGroups'">{{ $t('Channel groups') }}</a>
                     </li>
-                    <li :class="currentTab == 'temperatureHistory' ? 'active' : ''">
-                        <a @click="currentTab = 'temperatureHistory'">{{ $t('Temperature history') }}</a>
-                    </li>
+                    <!--<li :class="currentTab == 'temperatureHistory' ? 'active' : ''">-->
+                    <!--<a @click="currentTab = 'temperatureHistory'">{{ $t('Temperature history') }}</a>-->
+                    <!--</li>-->
                 </ul>
                 <schedule-list v-if="currentTab == 'schedules'"
                     :channel-id="channel.id"></schedule-list>

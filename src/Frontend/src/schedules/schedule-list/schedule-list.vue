@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-xs-12">
             <div :class="['schedule-list-wrapper', {loading: loading}]">
-                <div class="loader">
+                <div class="loader"
+                    v-if="loading">
                     <loading-dots></loading-dots>
                 </div>
                 <vuetable

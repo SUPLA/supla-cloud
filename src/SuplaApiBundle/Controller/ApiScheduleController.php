@@ -43,8 +43,8 @@ class ApiScheduleController extends RestController {
         $sort = explode('|', $request->get('sort', ''));
         $schedules = $query->getUserSchedules($this->getUser(), $sort);
         if ($channelId = $request->get('channelId')) {
-            $schedules = array_filter($schedules, function ($schedule) {
-                return true;
+            $schedules = array_filter($schedules, function (Schedule $schedule) use ($channelId) {
+                return $schedule->getChannel()->getId() == $channelId;
             });
         }
         return $this->view($schedules, Response::HTTP_OK);
