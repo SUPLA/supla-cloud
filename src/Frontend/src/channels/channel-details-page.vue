@@ -78,7 +78,8 @@
                     </div>
                 </div>
             </div>
-            <channel-details-tabs :channel="channel"></channel-details-tabs>
+            <channel-details-tabs v-if="channel"
+                :channel="channel"></channel-details-tabs>
         </loading-cover>
     </div>
 </template>

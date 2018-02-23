@@ -21,6 +21,7 @@ use Assert\Assert;
 use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
@@ -47,7 +48,17 @@ class ApiScheduleController extends RestController {
      * include=channel,closestExecutions
      */
     public function getSchedulesAction(Request $request) {
-        $query = ScheduleListQuery::create()->filterByUser($this->getUser());
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
+    }
+
+    /**
+     * @Security("channel.belongsToUser(user)")
+     */
+    public function getChannelSchedulesAction(IODeviceChannel $channel, Request $request) {
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByChannel($channel), $request);
+    }
+
+    private function returnSchedules(ScheduleListQuery $query, Request $request) {
         if (count($sort = explode('|', $request->get('sort', ''))) == 2) {
             $query->orderBy($sort[0], $sort[1]);
         }

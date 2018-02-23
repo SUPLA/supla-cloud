@@ -28,7 +28,7 @@ class ScheduleListQuery {
     }
 
     public function orderBy($column, $direction = 'ASC'): ScheduleListQuery {
-        Assertion::inArray($column, ['caption', 'dateStart']);
+        Assertion::inArray($column, ['id', 'caption', 'dateStart']);
         Assertion::inArray(strtolower($direction), ['asc', 'desc']);
         $this->orderBy = [$column => $direction];
         return $this;

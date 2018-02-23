@@ -421,3 +421,5 @@ choose: wybierz
 Are you sure you want to delete this channel group?: Czy na pewno chcesz usunąć tę grupę kanałów?
 
 Retry when fail: Powtórz gdy niewykonane
+Status: Status
+RESTful API: RESTful API

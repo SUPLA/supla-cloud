@@ -6,9 +6,9 @@
                     <li :class="currentTab == 'schedules' ? 'active' : ''">
                         <a @click="currentTab = 'schedules'">{{ $t('Schedules') }}</a>
                     </li>
-                    <li :class="currentTab == 'channelGroups' ? 'active' : ''">
-                        <a @click="currentTab = 'channelGroups'">{{ $t('Channel groups') }}</a>
-                    </li>
+                    <!--<li :class="currentTab == 'channelGroups' ? 'active' : ''">-->
+                        <!--<a @click="currentTab = 'channelGroups'">{{ $t('Channel groups') }}</a>-->
+                    <!--</li>-->
                     <!--<li :class="currentTab == 'temperatureHistory' ? 'active' : ''">-->
                     <!--<a @click="currentTab = 'temperatureHistory'">{{ $t('Temperature history') }}</a>-->
                     <!--</li>-->
