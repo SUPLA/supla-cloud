@@ -18,7 +18,6 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,72 +111,6 @@ class AjaxController extends Controller {
         }
 
         return AjaxController::jsonResponse($success, ["pwd" => $pwd]);
-    }
-
-    /**
-     * @Route("/serverctrl-sensorstate/{iodevice_id}/{channel_id}", name="_ajax_serverctrl-sensorstate")
-     */
-    public function serverctrlSensorStateAction($iodevice_id, $channel_id) {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = $this->suplaServer->getDoubleValue($user->getId(), $iodevice_id, $channel_id);
-
-        $dev_man = $this->get('iodevice_manager');
-        $channel = $dev_man->channelById($channel_id);
-
-        if ($channel !== null
-            && $channel->getType() == SuplaConst::TYPE_SENSORNC
-        ) {
-            $value = $value == '1' ? '0' : '1';
-        }
-
-        return AjaxController::jsonResponse(true, ['value' => $this->get('translator')->trans($value == '1' ? 'Close' : 'Open')]);
-    }
-
-    /**
-     * @Route("/serverctrl-tempval/{iodevice_id}/{channel_id}", name="_ajax_serverctrl-tempval")
-     */
-    public function serverctrlTempValAction($iodevice_id, $channel_id) {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = $this->suplaServer->getTemperatureValue($user->getId(), $iodevice_id, $channel_id);
-        return AjaxController::jsonResponse(true, ['value' => $value === false || $value < -273 ? '-' : number_format($value, 1)]);
-    }
-
-    /**
-     * @Route("/serverctrl-humidityval/{iodevice_id}/{channel_id}", name="_ajax_serverctrl-humiditypval")
-     */
-    public function serverctrlHumidityValAction($iodevice_id, $channel_id) {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = $this->suplaServer->getHumidityValue($user->getId(), $iodevice_id, $channel_id);
-        return AjaxController::jsonResponse(true, ['value' => $value === false || $value < 0 ? '-' : number_format($value, 1)]);
-    }
-
-    /**
-     * @Route("/serverctrl-distanceval/{iodevice_id}/{channel_id}", name="_ajax_serverctrl-distanceval")
-     */
-    public function serverctrlDistanceValAction($iodevice_id, $channel_id) {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $value = $this->suplaServer->getDistanceValue($user->getId(), $iodevice_id, $channel_id);
-
-        if ($value === false || $value < 0) {
-            $value = "-";
-        } else {
-            if ($value >= 1000) {
-                $value = number_format($value / 1000.00, 2) . ' km';
-            } elseif ($value >= 1) {
-                $value = number_format($value, 2) . ' m';
-            } else {
-                $value *= 100;
-
-                if ($value >= 1) {
-                    $value = number_format($value, 1) . ' cm';
-                } else {
-                    $value *= 10;
-                    $value = intval($value) . ' mm';
-                }
-            }
-        }
-
-        return AjaxController::jsonResponse(true, ['value' => $value]);
     }
 
     /**

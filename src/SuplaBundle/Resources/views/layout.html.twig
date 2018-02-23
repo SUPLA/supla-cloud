@@ -81,8 +81,7 @@
         {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %}
         {% if app.request.get('_route') == '_account_view'%} class="account" {% endif %}
         {% if app.request.get('_route') == '_api_settings'%} class="api-settings" {% endif %}
-        {% if homepage_viewed is defined and homepage_viewed == false %} class="first-time" {% endif %}
-        {% if app.request.get('_route') == '_iodev_channel_item_edit' %} class="channel" {% endif %}>
+        {% if homepage_viewed is defined and homepage_viewed == false %} class="first-time" {% endif %}>
 
 {% include 'SuplaBundle:Dialogs:flashmsgs.html.twig' %}
 

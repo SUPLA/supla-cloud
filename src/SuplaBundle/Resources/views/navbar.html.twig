@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse"
                 id="supla-navbar">
             <ul class="nav navbar-nav">
-                <li {% if app.request.get('_route') == '_iodev_list' or app.request.get('_route') == '_iodev_item' or app.request.get('_route') == '_iodev_channel_item_edit' %} class="active" {% endif %}>
+                <li {% if app.request.get('_route') starts with '_iodev' %} class="active" {% endif %}>
                     <a href="{{ path('_iodev_list') }}">
                         <i class="hidden-sm hidden-xs pe-7s-plug"></i>
                         {% trans %}I/O Devices{% endtrans %}

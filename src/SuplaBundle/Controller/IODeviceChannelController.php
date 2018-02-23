@@ -36,7 +36,7 @@ class IODeviceChannelController extends AbstractController {
     }
 
     /**
-     * @Route("/{channel}/csv", name="_iodev_channel_item_csv")
+     * @Route("/{channel}/csv", name="_iodevice_channel_item_csv")
      * @Security("channel.belongsToUser(user)")
      */
     public function channelItemGetCSV(IODeviceChannel $channel) {

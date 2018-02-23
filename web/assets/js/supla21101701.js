@@ -51,8 +51,6 @@ function ajaxPwdGen(len) {
 
 }
 
-
-
 function getDetailId() {
     if ($('#accessid-detail').length != 0)
         return '#accessid-detail';
@@ -66,43 +64,9 @@ function getDetailId() {
     return '#unknown'
 }
 
-function checkChannelState(state_class, value_id, ajax_action, timeout) {
-
-    var channel_state = $("." + state_class);
-    var exists = false;
-
-    $(document).find("." + state_class).each(function (index, element) {
-        $(this).find('#' + value_id).html('<div class="ajax_loader3"></div>');
-
-        exists = true;
-    });
-
-    if (exists == false)
-        return;
-
-    var check_action = function () {
-
-        $.ajax({type: "POST", url: '/ajax/' + ajax_action + '/' + channel_state.data('iodevid') + '/' + channel_state.data('id')})
-            .done(function (response) {
-
-                if (response.success == true) {
-
-                    $(document).find("." + state_class).each(function (index, element) {
-                        $(this).find('#' + value_id).html(response.value);
-                    });
-
-                    setTimeout(check_action, timeout);
-                }
-            });
-
-    }
-
-    check_action();
-}
-
 function htmlConnectionState(state, txt) {
 
-    var c = state == 1 ? 'connected' : 'disconnected'
+    var c = state == 1 ? 'connected' : 'disconnected';
 
     return '<span class="' + c + '">' + txt + '</span>';
 }
@@ -166,7 +130,7 @@ function checkConnectionState(timeout) {
                 }
             })
 
-    }
+    };
 
     check_action();
 
@@ -300,9 +264,8 @@ function changeIconClick() {
 			
 			if (a % 3 == 0 ) {
 				row += '</div><div class="row">';
-			};
-			
-			fn_suffix = '_'+a;
+            }
+            fn_suffix = '_' + a;
 		}
 
 		
@@ -319,61 +282,7 @@ function changeIconClick() {
 	overlay.addClass('overlay-open');
 }
 
-function changeIconCancel() {
-	$('.overlay-changeicon .overlay').removeClass('overlay-open');
-}
-
-function changeIconSave() {
-	var datafield = '#' + $('#channel_function_select').data('prefix') + 'altIcon';
-	$(datafield).val($('.overlay-changeicon').data('selected'));
-	$( "button[type=submit]" ).trigger( "click" );
-}
-
-function changeIconInit() {
-
-    $('.channel a[name="overlay-changeicon"]').on('click', changeIconClick);
-    $('.channel #change_icon_cancel').on('click', changeIconCancel);
-    $('.channel #change_icon_save').on('click', changeIconSave);
-}
-
 (function ($) {
-
-    var openSubChannelSelectClickHandler = function (e) {
-
-        var csel = $("#channel_function_select");
-        var osel = $("#subchannel_select");
-
-        if (csel.length == 0 || osel.length == 0) return;
-
-        var scname = osel.find('#subchannel_name');
-        scname.text($(this).text());
-
-        $('#' + csel.data('prefix') + osel.data('param_id')).val($(this).data('id'));
-    }
-
-    var relayTimeClickHandler = function (e) {
-
-        var csel = $("#channel_function_select");
-        var cfpt = $("#cfp_relay_time");
-
-        if (csel.length == 0 || cfpt.length == 0) return;
-
-        cfpt.find('button#relay_time_select').each(function (index, element) {
-            $(this).removeClass('btn-success');
-            $(this).removeClass('btn-default');
-            $(this).addClass('btn-default');
-        });
-
-        $(this).addClass('btn-success');
-
-        $('#' + csel.data('prefix') + cfpt.data('paramname')).val($(this).data('val'));
-
-    }
-
-    var channelFunctionAssignHandlers = function () {
-        $('#subchannel_select a').on('click', openSubChannelSelectClickHandler);
-        $('button#relay_time_select').on('click', relayTimeClickHandler);
-    }
 
     var carouselItemClick = function (itemType) {
         return function (e) {
@@ -461,7 +370,7 @@ function changeIconInit() {
 
             pl.show();
             $(this).hide();
-            $('#forgot-password-step1').fadeOut()
+            $('#forgot-password-step1').fadeOut();
 
             $.ajax({
                 type: "POST", url: $(this).data('path'), data: JSON.stringify({
@@ -494,134 +403,6 @@ function changeIconInit() {
             }
         });
 
-        $('#channel_function_select a').on('click', function (e) {
-
-            var csel = $("#channel_function_select");
-            var cparam = $("#channel_function_params");
-            var pictogram = $("#pictogram_group");
-            var pictogram_nofunc = $("#pictogram_no-function");
-            var pictogram_temp = $("#pictogram_temperature");
-            var pictogram_humidity = $("#pictogram_humidity");
-            var pictogram_temphumidity = $("#pictogram_temphumidity");
-            var pictogram_std = $("#pictogram_standard");
-            var pictogram_depth = $("#pictogram_depth_sensor");
-            var pictogram_distance = $("#pictogram_distance_sensor");
-            var change_icon = $("a[name='overlay-changeicon']");
-
-            var form = csel.closest("form");
-
-            if (form.length == 0) return;
-
-            form.find('button[type="submit"]').each(function (index, element) {
-                $(this).addClass("disable")
-            });
-
-            csel.addClass("disable");
-            cparam.addClass("disable");
-
-            change_icon.fadeOut();
-            pictogram.fadeOut();
-
-            $('#' + csel.data('prefix') + 'function').val(0);
-            $('#' + csel.data('prefix') + 'param1').val(0);
-            $('#' + csel.data('prefix') + 'param2').val(0);
-            $('#' + csel.data('prefix') + 'param3').val(0);
-            $('#' + csel.data('prefix') + 'altIcon').val(0);
-            
-            var fname = csel.find('#function_name');
-            fname.text($(this).text());
-
-            var function_id = $(this).data('id');
-            var alticon_max = $(this).data('alticonmax');
-
-            $.ajax({type: "POST", url: '/iodev/ajax/getfuncparams/' + csel.data('channel_id') + '/' + function_id})
-                .done(function (response) {
-
-                    if (response.success == true) {
-
-                        cparam.replaceWith(response.html);
-                        cparam = $("#channel_function_params");
-
-                        if (cparam.length != 0) {
-
-                            var dparam1 = cparam.data('default-param1');
-                            var dparam2 = cparam.data('default-param2');
-                            var dparam3 = cparam.data('default-param3');
-
-                            if (dparam1 !== undefined)
-                                $('#' + csel.data('prefix') + 'param1').val(dparam1);
-
-                            if (dparam2 !== undefined)
-                                $('#' + csel.data('prefix') + 'param2').val(dparam2);
-
-                            if (dparam3 !== undefined)
-                                $('#' + csel.data('prefix') + 'param3').val(dparam3);
-
-                        }
-
-                        pictogram_temp.hide();
-                        pictogram_humidity.hide();
-                        pictogram_temphumidity.hide();
-                        pictogram_std.hide();
-                        pictogram_nofunc.hide();
-                        pictogram_depth.hide();
-                        pictogram_distance.hide();
-
-                        if (function_id == 0) {
-                            pictogram_nofunc.show();
-                        } else if (function_id == 40) {
-                            pictogram_temp.show();
-                        } else if (function_id == 42) {
-                            pictogram_humidity.show();
-                        } else if (function_id == 45) {
-                            pictogram_temphumidity.show();
-                        } else if (function_id == 210) {
-                            pictogram_depth.show();
-                        } else if (function_id == 220) {
-                            pictogram_distance.show();
-                        } else {
-
-                            var img = pictogram_std.find('img');
-
-                            if (img != undefined && img.length != 0) {
-                            	img.attr('src', pictogram.data('imgpath') + function_id + ".svg");
-                                pictogram_std.show();
-                            }
-
-                        }
-
-                        $('#' + csel.data('prefix') + 'function').val(function_id);
-                        pictogram.hide();
-                        pictogram.fadeIn();
-                        
-                        if ( alticon_max > 0 ) {
-                        	change_icon.fadeIn();
-                        }
-                        
-                    }
-                    
-                    csel.attr('data-alticonmax', alticon_max);
-                    csel.data('alticonmax', alticon_max);
-                    csel.removeClass("disable");
-                    cparam.removeClass("disable");
-                    form.find('button[type="submit"]').each(function (index, element) {
-                        $(this).removeClass("disable")
-                    });
-
-                    channelFunctionAssignHandlers();
-
-                });
-
-        });
-        
-        $('#iodevice_channel_type_sec1').on('change', function() {
-        	$('#iodevice_channel_type_channel_param1').val($(this).val() * 10);
-        });
-        
-        $('#iodevice_channel_type_sec2').on('change', function() {
-        	$('#iodevice_channel_type_channel_param3').val($(this).val() * 10);
-        });
-
         $('.access_id_list a').on('click', carouselItemClick('aid'));
         $('.location_list a').on('click', carouselItemClick('loc'));
 
@@ -638,30 +419,8 @@ function changeIconInit() {
             }
         });
 
-        /*
-         $('.cd-btn').on('click', function(event){
-         // Scrool fix for Google Chrome
-         setTimeout(
-         function() {
-         var h = $('.cd-panel-content').height();
-         $('.cd-panel-content').height(h);
-         }, 500);
-
-         });
-         */
-
         carouselInit();
 
-        channelFunctionAssignHandlers();
-        checkChannelState('sensor_state', 'sensor_state_value', 'serverctrl-sensorstate', 5000);
-        checkChannelState('thermometer_state', 'temperature_value', 'serverctrl-tempval', 10000);
-        checkChannelState('humidity_state', 'humidity_value', 'serverctrl-humidityval', 10000);
-        checkChannelState('depth_state', 'depth_value', 'serverctrl-distanceval', 5000);
-        checkChannelState('distance_state', 'distance_value', 'serverctrl-distanceval', 5000);
         checkConnectionState(5000);
-        
-        
-        changeIconInit();        
-
     });
 })(jQuery);
