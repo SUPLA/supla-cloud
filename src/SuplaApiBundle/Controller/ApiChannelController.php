@@ -23,7 +23,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
-use SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;

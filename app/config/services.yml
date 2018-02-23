@@ -10,7 +10,7 @@ services:
   _instanceof:
     SuplaApiBundle\ParamConverter\AbstractBodyParamConverter:
       tags: [request.param_converter]
-    SuplaApiBundle\ParamConverter\ChannelParamsUpdater\SingleChannelParamsUpdater:
+    SuplaApiBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
       tags: [supla.channel_params_updater]
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
@@ -55,7 +55,8 @@ services:
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner'
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner'
 
-  SuplaApiBundle\Model\APIManager: ~
+  SuplaApiBundle\Model\:
+    resource: '../../src/SuplaApiBundle/Model'
 
   SuplaBundle\Supla\:
     resource: '../../src/SuplaBundle/Supla'

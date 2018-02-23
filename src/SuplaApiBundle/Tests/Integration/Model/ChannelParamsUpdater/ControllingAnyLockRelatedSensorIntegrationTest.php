@@ -17,7 +17,7 @@
 
 namespace SuplaApiBundle\Tests\Integration;
 
-use SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;

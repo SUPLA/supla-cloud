@@ -1,9 +1,9 @@
 <?php
-namespace SuplaApiBundle\ParamConverter\ChannelParamsUpdater;
+namespace SuplaApiBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
 
-class ControllingTheGarageDoorRelatedSensor extends ControllingAnyLockRelatedSensor {
+class OpeningGarageDoorSensorRelatedChannel extends OpeningAnySensorRelatedChannel {
     public function __construct() {
         parent::__construct(ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), ChannelFunction::OPENINGSENSOR_GARAGEDOOR());
     }

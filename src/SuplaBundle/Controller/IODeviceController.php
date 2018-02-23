@@ -19,7 +19,7 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;

@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class TestContainerPass implements CompilerPassInterface {
     private static $publicInTests = [
-        \SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdater::class,
+        \SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater::class,
     ];
 
     public function process(ContainerBuilder $container) {

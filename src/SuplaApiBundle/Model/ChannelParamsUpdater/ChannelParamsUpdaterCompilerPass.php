@@ -1,5 +1,5 @@
 <?php
-namespace SuplaApiBundle\ParamConverter\ChannelParamsUpdater;
+namespace SuplaApiBundle\Model\ChannelParamsUpdater;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

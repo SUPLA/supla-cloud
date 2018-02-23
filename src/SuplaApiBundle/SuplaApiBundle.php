@@ -18,7 +18,7 @@
 namespace SuplaApiBundle;
 
 use SuplaApiBundle\DependencyInjection\IgnoreApiDocsAnnotationsPass;
-use SuplaApiBundle\ParamConverter\ChannelParamsUpdater\ChannelParamsUpdaterCompilerPass;
+use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdaterCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
