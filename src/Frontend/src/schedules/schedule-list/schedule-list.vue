@@ -24,7 +24,7 @@
 
     export default {
         name: 'schedule-list',
-        components: { Vuetable},
+        components: {Vuetable},
         props: ['channelId'],
         data() {
             return {
@@ -43,12 +43,12 @@
                     {
                         name: 'channel',
                         title: this.$t('Channel'),
-                        callback: 'channelCaption'
+                        callback: this.channelCaption
                     },
                     {
                         name: 'enabled',
                         title: this.$t('Status'),
-                        callback: 'showState'
+                        callback: this.showState
                     },
                     {
                         name: 'mode.value',
@@ -58,22 +58,22 @@
                     {
                         name: 'action.caption',
                         title: this.$t('Action'),
-                        callback: 'showState',
+                        callback: '$t',
                     },
                     {
                         name: 'retry',
                         title: this.$t('Retry when fail'),
-                        callback: 'showState'
+                        callback: this.showState
                     },
                     {
                         name: 'closestExecutions.future.0.plannedTimestamp',
                         title: this.$t('Next run date'),
-                        callback: 'formatDate'
+                        callback: this.formatDate
                     },
                     {
-                        name: 'closestExecutions.past.0',
+                        name: 'closestExecutions.past',
                         title: this.$t('The latest execution'),
-                        callback: 'latestExecution'
+                        callback: (executions) => this.latestExecution(executions)
                     }
                 ].filter(c => !this.channelId || c.name !== 'channel'), // hides "Channel" column when table displayed in context of one
                 bootstrapStyles: {
@@ -97,8 +97,9 @@
             channelCaption(channel) {
                 return channelTitle(channel, this, true);
             },
-            latestExecution(execution) {
-                if (execution) {
+            latestExecution(executions) {
+                if (executions.length) {
+                    const execution = executions[executions.length - 1];
                     return `<span class="${execution.failed ? 'text-danger' : 'text-success'}" title="${this.$t(execution.result.caption)}">
                                 ${this.formatDate(execution.resultTimestamp)}
                             </span>`;

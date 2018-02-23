@@ -25,7 +25,6 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
-use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -156,114 +155,115 @@ class IODeviceController extends AbstractController {
             ['cancel_url' => $this->generateUrl('_iodev_item', ['id' => $devid])]
         );
 
-        $old_function = $channel->getFunction()->getId();
-        $old_param1 = $channel->getParam1();
-        $old_param2 = $channel->getParam2();
-
+//        $old_function = $channel->getFunction()->getId();
+//        $old_param1 = $channel->getParam1();
+//        $old_param2 = $channel->getParam2();
+//
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            switch ($channel->getType()->getId()) {
-                case SuplaConst::TYPE_SENSORNO:
-                case SuplaConst::TYPE_SENSORNC:
-                    if ($channel->getFunction()->getId() == SuplaConst::FNC_NONE
-                        || $old_param1 != $channel->getParam1()
-                    ) {
-                        if ($old_param1 != 0) {
-                            $related_channel = $this->getChannelById($old_param1);
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            switch ($channel->getType()->getId()) {
+//                case SuplaConst::TYPE_SENSORNO:
+//                case SuplaConst::TYPE_SENSORNC:
+//                    if ($channel->getFunction()->getId() == SuplaConst::FNC_NONE
+//                        || $old_param1 != $channel->getParam1()
+//                    ) {
+//                        if ($old_param1 != 0) {
+//                            $related_channel = $this->getChannelById($old_param1);
+//
+//                            if ($related_channel != null
+//                                && $related_channel->getFunction() != SuplaConst::FNC_NONE
+//                                && $related_channel->getParam2() == $channel->getId()
+//                            ) {
+//                                $related_channel->setParam2(0);
+//                            }
+//                        }
+//                    };
+//
+//                    if (($channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GATEWAY
+//                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GATE
+//                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR
+//                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_DOOR
+//                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER)
+//                        && $old_param1 != $channel->getParam1()
+//                        && $channel->getParam1() != 0
+//                    ) {
+//                        $related_channel = $this->getChannelById($channel->getParam1());
+//
+//                        if ($related_channel != null
+//                            && $related_channel->getFunction()->getValue() != SuplaConst::FNC_NONE
+//                        ) {
+//                            $related_channel->setParam2($channel->getId());
+//                        }
+//                    }
+//
+//                    break;
+//
+//                case SuplaConst::TYPE_RELAY:
+//                case SuplaConst::TYPE_RELAYHFD4:
+//                case SuplaConst::TYPE_RELAYG5LA1A:
+//                case SuplaConst::TYPE_RELAY2XG5LA1A:
+//                    if ($channel->getFunction()->getId() == SuplaConst::FNC_NONE
+//                        || $old_param2 != $channel->getParam2()
+//                    ) {
+//                        if ($old_param2 != 0) {
+//                            $related_sensor = $this->getChannelById($old_param2);
+//
+//                            if ($related_sensor !== null) {
+//                                $related_sensor->setParam1(0);
+//                            }
+//                        }
+//                    };
+//
+//                    if ($channel->getFunction()->getId() != SuplaConst::FNC_NONE
+//                        && $old_param2 != $channel->getParam2()
+//                        && $channel->getParam2() != 0
+//                    ) {
+//                        $related_sensor = $this->getChannelById($channel->getParam2());
+//                        $related_sensor->setParam1($channel->getId());
+//                    }
+//
+//                    break;
+//            }
 
-                            if ($related_channel != null
-                                && $related_channel->getFunction() != SuplaConst::FNC_NONE
-                                && $related_channel->getParam2() == $channel->getId()
-                            ) {
-                                $related_channel->setParam2(0);
-                            }
-                        }
-                    };
+//            if ($channel->getFunction()->getId() == SuplaConst::FNC_STAIRCASETIMER) {
+//                if ($channel->getParam1() < 0
+//                    || $channel->getParam1() > 360000 // 60 min.
+//                ) {
+//                    $channel->setParam1(0);
+//                }
+//            } else
+//                if ($channel->getFunction()->getId() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER) {
+//                if ($channel->getParam1() < 0
+//                    || $channel->getParam1() > 3000 // 5 min.
+//                ) {
+//                    $channel->setParam1(0);
+//                }
+//
+//                if ($channel->getParam3() < 0
+//                    || $channel->getParam3() > 3000 // 5 min.
+//                ) {
+//                    $channel->setParam3(0);
+//                }
+//            }
 
-                    if (($channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GATEWAY
-                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GATE
-                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_GARAGEDOOR
-                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_DOOR
-                            || $channel->getFunction()->getId() == SuplaConst::FNC_OPENINGSENSOR_ROLLERSHUTTER)
-                        && $old_param1 != $channel->getParam1()
-                        && $channel->getParam1() != 0
-                    ) {
-                        $related_channel = $this->getChannelById($channel->getParam1());
+//            if ($old_function != $channel->getFunction()->getId()) {
+//                foreach ($channel->getSchedules() as $schedule) {
+//                    $this->get('schedule_manager')->delete($schedule);
+//                }
+//            }
 
-                        if ($related_channel != null
-                            && $related_channel->getFunction()->getValue() != SuplaConst::FNC_NONE
-                        ) {
-                            $related_channel->setParam2($channel->getId());
-                        }
-                    }
+//            if ($dev_man->channelFunctionAltIconMax($channel->getFunction()->getId()) < $channel->getAltIcon()) {
+//                $channel->setAltIcon(0);
+//            }
 
-                    break;
+//            $this->get('doctrine')->getManager()->flush();
+//            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
 
-                case SuplaConst::TYPE_RELAY:
-                case SuplaConst::TYPE_RELAYHFD4:
-                case SuplaConst::TYPE_RELAYG5LA1A:
-                case SuplaConst::TYPE_RELAY2XG5LA1A:
-                    if ($channel->getFunction()->getId() == SuplaConst::FNC_NONE
-                        || $old_param2 != $channel->getParam2()
-                    ) {
-                        if ($old_param2 != 0) {
-                            $related_sensor = $this->getChannelById($old_param2);
-
-                            if ($related_sensor !== null) {
-                                $related_sensor->setParam1(0);
-                            }
-                        }
-                    };
-
-                    if ($channel->getFunction()->getId() != SuplaConst::FNC_NONE
-                        && $old_param2 != $channel->getParam2()
-                        && $channel->getParam2() != 0
-                    ) {
-                        $related_sensor = $this->getChannelById($channel->getParam2());
-                        $related_sensor->setParam1($channel->getId());
-                    }
-
-                    break;
-            }
-
-            if ($channel->getFunction()->getId() == SuplaConst::FNC_STAIRCASETIMER) {
-                if ($channel->getParam1() < 0
-                    || $channel->getParam1() > 360000 // 60 min.
-                ) {
-                    $channel->setParam1(0);
-                }
-            } elseif ($channel->getFunction()->getId() == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER) {
-                if ($channel->getParam1() < 0
-                    || $channel->getParam1() > 3000 // 5 min.
-                ) {
-                    $channel->setParam1(0);
-                }
-
-                if ($channel->getParam3() < 0
-                    || $channel->getParam3() > 3000 // 5 min.
-                ) {
-                    $channel->setParam3(0);
-                }
-            }
-
-            if ($old_function != $channel->getFunction()->getId()) {
-                foreach ($channel->getSchedules() as $schedule) {
-                    $this->get('schedule_manager')->delete($schedule);
-                }
-            }
-
-            if ($dev_man->channelFunctionAltIconMax($channel->getFunction()->getId()) < $channel->getAltIcon()) {
-                $channel->setAltIcon(0);
-            }
-
-            $this->get('doctrine')->getManager()->flush();
-            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
-
-            $this->userReconnect();
-
-            return $this->redirectToRoute("_iodev_item", ['id' => $devid]);
-        }
+//            $this->userReconnect();
+//
+//            return $this->redirectToRoute("_iodev_item", ['id' => $devid]);
+//        }
 
         $channelType = $channel->getType();
 

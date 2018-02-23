@@ -25,7 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
-class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
+class ControllingRoletteShutterTimerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
     /** @var IODevice */
@@ -38,8 +38,7 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
         ]);
         $this->updater = $this->container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($user);
@@ -48,27 +47,16 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
     public function testUpdatingControllingTheDoorLockTime() {
         $channel = $this->device->getChannels()[0];
         $this->assertEquals(0, $channel->getParam1());
+        $this->assertEquals(0, $channel->getParam3());
         $this->updater->updateChannelParams($channel, new IODeviceChannel());
-        $this->assertEquals(500, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(1000));
-        $this->assertEquals(1000, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(-5));
-        $this->assertEquals(500, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(100000));
-        $this->assertEquals(10000, $channel->getParam1());
-    }
-
-    public function testUpdatingControllingTheGateTime() {
-        $channel = $this->device->getChannels()[1];
         $this->assertEquals(0, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, new IODeviceChannel());
-        $this->assertEquals(500, $channel->getParam1());
+        $this->assertEquals(0, $channel->getParam3());
         $this->updater->updateChannelParams($channel, $this->updateDto(1000));
         $this->assertEquals(1000, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(-5));
-        $this->assertEquals(500, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(100000));
-        $this->assertEquals(2000, $channel->getParam1());
+        $this->assertEquals(0, $channel->getParam3());
+        $this->updater->updateChannelParams($channel, $this->updateDto(1000, 0, 3000));
+        $this->assertEquals(1000, $channel->getParam1());
+        $this->assertEquals(3000, $channel->getParam3());
     }
 
     private function updateDto(int $param1 = 0, int $param2 = 0, int $param3 = 0) {

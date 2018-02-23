@@ -76,7 +76,7 @@ class ApiChannelController extends RestController {
                 $criteria->andWhere(Criteria::expr()->eq('function', ChannelFunction::NONE));
             }
         }
-        $channels = $this->getUser()->getChannels()->matching($criteria);
+        $channels = $this->getCurrentUser()->getChannels()->matching($criteria);
         $view = $this->view($channels, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function', 'type']);
         return $view;
@@ -363,6 +363,9 @@ class ApiChannelController extends RestController {
             $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
             if ($functionHasBeenChanged) {
                 $channel->setFunction($updatedChannel->getFunction());
+                foreach ($channel->getSchedules() as $schedule) {
+                    $this->get('schedule_manager')->delete($schedule);
+                }
             } else {
                 $channel->setAltIcon($updatedChannel->getAltIcon());
             }
@@ -373,6 +376,7 @@ class ApiChannelController extends RestController {
             $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
             return $this->transactional(function (EntityManagerInterface $em) use ($request, $channel) {
                 $em->persist($channel);
+                $this->suplaServer->reconnect($this->getCurrentUser()->getId());
                 return $this->getChannelAction($request, $channel);
             });
         } else {

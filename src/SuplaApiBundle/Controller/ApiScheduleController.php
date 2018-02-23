@@ -43,14 +43,25 @@ class ApiScheduleController extends RestController {
      * @apiGroup Schedules
      * @apiVersion 2.2.0
      * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
-     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`.
+     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`, `function`, `type`.
      * @apiParamExample {GET} GET param to fetch IODevice's channels and location
      * include=channel,closestExecutions
      */
     public function getSchedulesAction(Request $request) {
-        return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getCurrentUser()), $request);
     }
 
+    /**
+     * @apiIgnore
+     * @api {get} /channels/{channelId}/schedules List schedules
+     * @apiDescription Get list of schedules for given channel
+     * @apiGroup Channels
+     * @apiVersion 2.2.0
+     * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
+     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`, `function`, `type`.
+     * @apiParamExample {GET} GET param to fetch IODevice's channels and location
+     * include=channel,closestExecutions
+     */
     /**
      * @Security("channel.belongsToUser(user)")
      */
@@ -75,7 +86,7 @@ class ApiScheduleController extends RestController {
      * @apiGroup Schedules
      * @apiVersion 2.2.0
      * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
-     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`.
+     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`, `function`, `type`.
      * @apiParamExample {GET} GET param to fetch IODevice's channels and location
      * include=channel,closestExecutions
      */
@@ -89,9 +100,9 @@ class ApiScheduleController extends RestController {
     }
 
     public function postScheduleAction(Request $request) {
-        Assertion::false($this->getUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
+        Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
         $data = $request->request->all();
-        $schedule = $this->fillSchedule(new Schedule($this->getUser()), $data);
+        $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data);
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
         $this->get('schedule_manager')->generateScheduledExecutions($schedule);
@@ -138,7 +149,7 @@ class ApiScheduleController extends RestController {
         $data = $request->request->all();
         $this->getDoctrine()->getManager()->transactional(function () use ($data) {
             if (isset($data['enable'])) {
-                foreach ($this->getUser()->getSchedules() as $schedule) {
+                foreach ($this->getCurrentUser()->getSchedules() as $schedule) {
                     if (in_array($schedule->getId(), $data['enable']) && !$schedule->getEnabled()) {
                         $this->get('schedule_manager')->enable($schedule);
                     }
@@ -154,7 +165,7 @@ class ApiScheduleController extends RestController {
     public function getNextRunDatesAction(Request $request) {
         Assertion::true($request->isXmlHttpRequest());
         $data = $request->request->all();
-        $temporarySchedule = new Schedule($this->getUser(), $data);
+        $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
         $nextRunDates = $this->get('schedule_manager')->getNextRunDates($temporarySchedule, '+7days', 3);
         return $this->view(array_map(function ($dateTime) {
             return $dateTime->format(\DateTime::ATOM);
