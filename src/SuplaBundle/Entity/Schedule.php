@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ScheduleRepository")
  * @ORM\Table(name="supla_schedule", indexes={
  *     @ORM\Index(name="next_calculation_date_idx", columns={"next_calculation_date"}),
  *     @ORM\Index(name="enabled_idx", columns={"enabled"}),

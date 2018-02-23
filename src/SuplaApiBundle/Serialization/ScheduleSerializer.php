@@ -21,10 +21,13 @@ use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class ScheduleSerializer extends AbstractSerializer {
+class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareInterface {
     use SuplaServerAware;
     use CurrentUserAware;
+    use NormalizerAwareTrait;
 
     /** @var ScheduleManager */
     private $scheduleManager;
@@ -39,9 +42,12 @@ class ScheduleSerializer extends AbstractSerializer {
      */
     public function normalize($schedule, $format = null, array $context = []) {
         $normalized = parent::normalize($schedule, $format, $context);
-        if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
-            if (in_array('closestExecutions', $context[self::GROUPS])) {
-                $normalized['closestExecutions'] = $this->getClosestExecutions($schedule);
+        if (is_array($normalized)) {
+            $normalized['channelId'] = $schedule->getChannel()->getId();
+            if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
+                if (in_array('closestExecutions', $context[self::GROUPS])) {
+                    $normalized['closestExecutions'] = $this->getClosestExecutions($schedule, $format, $context);
+                }
             }
         }
         return $normalized;
@@ -51,7 +57,11 @@ class ScheduleSerializer extends AbstractSerializer {
         return $entity instanceof Schedule;
     }
 
-    private function getClosestExecutions(Schedule $schedule): array {
-        return $this->scheduleManager->findClosestExecutions($schedule);
+    private function getClosestExecutions(Schedule $schedule, $format, array $context): array {
+        $closest = $this->scheduleManager->findClosestExecutions($schedule);
+        return [
+            'past' => $this->normalizer->normalize($closest['past'], $format, $context),
+            'future' => $this->normalizer->normalize($closest['future'], $format, $context),
+        ];
     }
 }

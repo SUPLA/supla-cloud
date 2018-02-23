@@ -7,7 +7,7 @@
                     <loading-dots></loading-dots>
                 </div>
                 <vuetable
-                    :api-url="'web-api/schedules?channelId=' + (channelId || 0)"
+                    :api-url="'web-api' + (channelId ? '/channels/' + channelId : '') + '/schedules?include=channel,function,type,iodevice,location,closestExecutions'"
                     data-path=""
                     pagination-path=""
                     :no-data-template="$t('Empty!')"
@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/babel">
-    import {withBaseUrl} from "../../common/filters";
+    import {channelTitle, withBaseUrl} from "../../common/filters";
     import LoadingDots from "../../common/gui/loaders/loader-dots.vue";
     import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 
@@ -36,58 +36,48 @@
                 loading: false,
                 columns: [
                     {
-                        name: 'schedule.id',
+                        name: 'id',
                         title: this.$t('ID')
                     },
                     {
-                        name: 'schedule.caption',
+                        name: 'caption',
                         title: this.$t('Name'),
-                        sortField: 's.caption'
+                        sortField: 'caption'
                     },
                     {
-                        name: 'channel_caption',
+                        name: 'channel',
                         title: this.$t('Channel'),
-                        sortField: 'channel_caption',
+                        callback: 'channelCaption'
                     },
                     {
-                        name: 'schedule.enabled',
+                        name: 'enabled',
                         title: this.$t('Status'),
                         callback: 'enabledDisabled'
                     },
                     {
-                        name: 'device_name',
-                        title: this.$t('Device'),
-                        sortField: 'device_name',
-                    },
-                    {
-                        name: 'location_caption',
-                        title: this.$t('Location'),
-                        sortField: 'location_caption',
-                    },
-                    {
-                        name: 'schedule.mode.value',
+                        name: 'mode.value',
                         title: this.$t('Schedule mode'),
                         callback: '$t',
                     },
                     {
-                        name: 'schedule.action.caption',
+                        name: 'action.caption',
                         title: this.$t('Action'),
                         callback: '$t',
                     },
                     {
-                        name: 'futureExecution.plannedTimestamp',
+                        name: 'retry',
+                        title: this.$t('Retry when fail'),
+                        callback: 'showState'
+                    },
+                    {
+                        name: 'closestExecutions.future.0.plannedTimestamp',
                         title: this.$t('Next run date'),
                         callback: 'formatDate'
                     },
                     {
-                        name: 'latestExecution',
+                        name: 'closestExecutions.past.0',
                         title: this.$t('The latest execution'),
                         callback: 'latestExecution'
-                    },
-                    {
-                        name: 'schedule.retry',
-                        title: this.$t('Retry when fail'),
-                        callback: 'showState'
                     }
                 ],
                 bootstrapStyles: {
@@ -108,6 +98,9 @@
                     return `<span class="label label-warning">${this.$t('DISABLED')}</span>`;
                 }
             },
+            channelCaption(channel) {
+                return channelTitle(channel, this, true);
+            },
             latestExecution(execution) {
                 if (execution) {
                     return `<span class="${execution.failed ? 'text-danger' : 'text-success'}" title="${this.$t(execution.result.caption)}">
@@ -124,8 +117,8 @@
                     return `<span class="label label-danger">${this.$t('DISABLED')}</span>`;
                 }
             },
-            onRowClicked(row) {
-                window.location.href = withBaseUrl(`/schedules/${row.schedule.id}`);
+            onRowClicked(schedule) {
+                window.location.href = withBaseUrl(`/schedules/${schedule.id}`);
             }
         }
     };

@@ -22,11 +22,19 @@ use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Model\Schedule\ScheduleListQuery;
+use SuplaBundle\Repository\ScheduleListQuery;
+use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiScheduleController extends RestController {
+    /** @var ScheduleRepository */
+    private $scheduleRepository;
+
+    public function __construct(ScheduleRepository $scheduleRepository) {
+        $this->scheduleRepository = $scheduleRepository;
+    }
+
     /**
      * @apiIgnore
      * @api {get} /schedules List
@@ -39,15 +47,14 @@ class ApiScheduleController extends RestController {
      * include=channel,closestExecutions
      */
     public function getSchedulesAction(Request $request) {
-        $query = new ScheduleListQuery($this->getDoctrine());
-        $sort = explode('|', $request->get('sort', ''));
-        $schedules = $query->getUserSchedules($this->getUser(), $sort);
-        if ($channelId = $request->get('channelId')) {
-            $schedules = array_filter($schedules, function (Schedule $schedule) use ($channelId) {
-                return $schedule->getChannel()->getId() == $channelId;
-            });
+        $query = ScheduleListQuery::create()->filterByUser($this->getUser());
+        if (count($sort = explode('|', $request->get('sort', ''))) == 2) {
+            $query->orderBy($sort[0], $sort[1]);
         }
-        return $this->view($schedules, Response::HTTP_OK);
+        $schedules = $this->scheduleRepository->findByQuery($query);
+        $view = $this->view($schedules, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions', 'function', 'type']);
+        return $view;
     }
 
     /**
