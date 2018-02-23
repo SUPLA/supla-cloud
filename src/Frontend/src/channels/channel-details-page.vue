@@ -95,6 +95,7 @@
     import ChannelAlternativeIconChooser from "./channel-alternative-icon-chooser";
     import ChannelStateTable from "./channel-state-table";
     import ChannelDetailsTabs from "./channel-details-tabs";
+    import debounce from "lodash/debounce";
 
     export default {
         props: ['channelId'],
@@ -127,12 +128,12 @@
                 }
                 this.updateChannel();
             },
-            updateChannel() {
+            updateChannel: debounce(function () {
                 this.loading = true;
                 this.$http.put(`channels/${this.channelId}`, this.channel)
                     .then(response => Vue.extend(this.channel, response.body))
                     .finally(() => this.loading = false);
-            },
+            }, 700),
             onLocationChange(location) {
                 this.$set(this.channel, 'location', location);
                 this.updateChannel();

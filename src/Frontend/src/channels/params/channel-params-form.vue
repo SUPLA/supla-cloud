@@ -16,6 +16,7 @@
     import ChannelParamsOpeningsensorGateway from "./channel-params-openingsensor-gateway";
     import ChannelParamsOpeningsensorDoor from "./channel-params-openingsensor-door";
     import ChannelParamsOpeningsensorGaragedoor from "./channel-params-openingsensor-garagedoor";
+    import ChannelParamsOpeningsensorRollershutter from "./channel-params-openingsensor-rollershutter";
 
     export default {
         props: ['channel'],
@@ -28,6 +29,7 @@
             ChannelParamsOpeningsensorGate,
             ChannelParamsOpeningsensorGateway,
             ChannelParamsOpeningsensorDoor,
+            ChannelParamsOpeningsensorRollershutter,
             ChannelParamsOpeningsensorGaragedoor,
             ChannelParamsControllingtherollershutter,
         },
