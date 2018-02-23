@@ -36,7 +36,7 @@
     {% include '@Supla/frontend-config.html.twig' %}
     <script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
     <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
-    <base href="/">
+    <base href="{{ path('_homepage')[:-1] }}">
 </head>
 <body class="{{ app.request.get('_route') }}">
 {% block body %}{% endblock %}
