@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <div class="container"
+        v-if="channel.function.possibleActions.length">
         <div class="row">
             <div class="col-xs-12">
                 <ul class="nav nav-tabs">
@@ -7,7 +8,7 @@
                         <a @click="currentTab = 'schedules'">{{ $t('Schedules') }}</a>
                     </li>
                     <!--<li :class="currentTab == 'channelGroups' ? 'active' : ''">-->
-                        <!--<a @click="currentTab = 'channelGroups'">{{ $t('Channel groups') }}</a>-->
+                    <!--<a @click="currentTab = 'channelGroups'">{{ $t('Channel groups') }}</a>-->
                     <!--</li>-->
                     <!--<li :class="currentTab == 'temperatureHistory' ? 'active' : ''">-->
                     <!--<a @click="currentTab = 'temperatureHistory'">{{ $t('Temperature history') }}</a>-->

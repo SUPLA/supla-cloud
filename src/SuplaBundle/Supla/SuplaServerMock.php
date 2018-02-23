@@ -53,6 +53,15 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         } elseif (preg_match('#^GET-CHAR-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1);
+        } elseif (preg_match('#^GET-RGBW-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
+            $values = [rand(0, 0xFFFFFF), rand(0, 100), rand(0, 100)];
+            if (rand(0, 1)) {
+                $values[1] = 0; // simulate RGB turn off
+            }
+            if (rand(0, 1)) {
+                $values[2] = 0; // simulate DIMMER turn off
+            }
+            return 'VALUE:' . implode(',', $values);
         } elseif (preg_match('#^GET-TEMPERATURE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(-2000, 2000) / 1000);
         } elseif (preg_match('#^GET-((HUMIDITY)|(DOUBLE))-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {

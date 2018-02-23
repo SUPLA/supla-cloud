@@ -20,6 +20,19 @@
             <dd>{{ $t('On') }}</dd>
             <dt>{{ $t(channel.state.on ? 'yes' : 'no') }}</dt>
         </dl>
+        <dl v-if="channel.state.color_brightness">
+            <dd>{{ $t('Color') }}</dd>
+            <dt>
+                <span class="rgb-color-preview"
+                    :style="{'background-color': cssColor(channel.state.color)}"></span>
+            </dt>
+            <dd>{{ $t('Color brightness') }}</dd>
+            <dt>{{channel.state.color_brightness}}%</dt>
+        </dl>
+        <dl v-if="channel.state.brightness">
+            <dd>{{ $t('Brightness') }}</dd>
+            <dt>{{channel.state.brightness}}%</dt>
+        </dl>
     </div>
 </template>
 
@@ -40,6 +53,9 @@
                 this.$http.get(`channels/${this.channel.id}?include=state`).then(({body}) => {
                     this.$set(this.channel, 'state', body.state);
                 });
+            },
+            cssColor(hexStringColor) {
+                return hexStringColor.replace('0x', '#');
             }
         },
         beforeDestroy() {
@@ -47,3 +63,24 @@
         }
     };
 </script>
+
+<style scoped
+    lang="scss">
+    dl {
+        margin-bottom: 0;
+        dd, dt {
+            display: inline;
+        }
+        dt:after {
+            display: block;
+            content: '';
+        }
+    }
+
+    .rgb-color-preview {
+        display: inline-block;
+        height: 10px;
+        width: 40px;
+        border-radius: 5px;
+    }
+</style>

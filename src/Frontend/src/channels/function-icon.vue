@@ -40,6 +40,15 @@
                     if (this.state.hi) {
                         return '-closed';
                     }
+                    if (this.state.on === false) {
+                        return '-off';
+                    }
+                    if (this.state.color_brightness !== undefined && this.state.brightness !== undefined) {
+                        return '-' + (this.state.brightness ? 'on' : 'off') + (this.state.color_brightness ? 'on' : 'off');
+                    }
+                    else if (this.state.color_brightness || this.state.brightness) {
+                        return '-on';
+                    }
                 }
                 return '';
             }

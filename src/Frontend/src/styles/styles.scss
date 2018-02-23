@@ -209,6 +209,9 @@ input[type=text], input[type=password], input[type=email] {
   .form-control {
     border: 1px solid $supla-green;
   }
+  .input-group-addon {
+    border: 0 !important;
+  }
 }
 
 .nav-tabs {
