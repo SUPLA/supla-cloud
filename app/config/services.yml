@@ -12,6 +12,8 @@ services:
       tags: [request.param_converter]
     SuplaApiBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
       tags: [supla.channel_params_updater]
+    SuplaApiBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
+      tags: [supla.channel_state_getter]
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'

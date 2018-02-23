@@ -162,7 +162,7 @@ class IODeviceChannel {
         return $this->iodevice;
     }
 
-    public function getUser() {
+    public function getUser(): User {
         return $this->user;
     }
 

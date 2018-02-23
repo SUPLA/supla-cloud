@@ -136,6 +136,7 @@ final class ChannelFunction extends Enum {
             ],
             self::POWERSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
             self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
+            self::STAIRCASETIMER => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
             self::DIMMER => [ChannelFunctionAction::SET_RGBW_PARAMETERS()],
             self::RGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS()],
             self::DIMMERANDRGBLIGHTING => [ChannelFunctionAction::SET_RGBW_PARAMETERS()],

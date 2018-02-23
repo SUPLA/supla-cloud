@@ -16,10 +16,6 @@
             <dd>{{ $t('Distance') }}</dd>
             <dt>{{ channel.state.distance }}m</dt>
         </dl>
-        <dl v-if="channel.state.on !== undefined">
-            <dd>{{ $t('On') }}</dd>
-            <dt>{{ $t(channel.state.on ? 'yes' : 'no') }}</dt>
-        </dl>
         <dl v-if="channel.state.color_brightness">
             <dd>{{ $t('Color') }}</dd>
             <dt>
