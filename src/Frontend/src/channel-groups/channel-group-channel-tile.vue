@@ -30,7 +30,7 @@
                 <span class="channel-buttons">
                     <a class="btn btn-default"
                         @click.stop=""
-                        :href="`/iodev/${channel.iodeviceId}/${channel.id}/edit` | withBaseUrl">
+                        :href="`/channels/${channel.id}` | withBaseUrl">
                         {{ $t('Go to channel details') }}
                     </a>
                     <a class="btn btn-default"

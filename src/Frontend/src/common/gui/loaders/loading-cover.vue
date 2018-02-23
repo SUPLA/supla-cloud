@@ -62,10 +62,10 @@
         position: relative;
         min-height: 150px;
         &.is-loading {
-            .loading-content {
+            > .loading-content {
                 opacity: .4;
             }
-            .loading {
+            > .loading {
                 display: block;
             }
         }

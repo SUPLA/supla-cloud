@@ -28,7 +28,7 @@
 						<div class="btn btn-load btn-big" id="set-comment-pl" style="display: none;"><div id="circleG"><div id="circleG_1" class="circleG"></div><div id="circleG_2" class="circleG"></div><div id="circleG_3" class="circleG"></div></div></div>
 						</div></li>
 					</ul>
-					
+
 					<br />
 					<enable-disable-device-button device-id="{{ iodevice.id }}" enabled="{{ iodevice.enabled }}"></enable-disable-device-button>
 					<div class="iodev_connection_state" data-id="{{ iodevice.id }}"><span class="unknown">unknown</span></div>
@@ -37,18 +37,18 @@
 			</div>
 			<div class="location">
 				<h3>{% trans %}Location{% endtrans %}</h3>
-						
-				{% if (iodevice.originalLocation) and (iodevice.originalLocation != iodevice.location) %}
-				
-				<div class="location-info original">
+
+                {% if (iodevice.originalLocation) and (iodevice.originalLocation != iodevice.location) %}
+
+					<div class="location-info original">
 					<a href="{{ path('_loc_item', {'id': iodevice.originalLocation.id}) }}" class="item nav-link original">
 					<span class="acaption">{% trans %}Original location{% endtrans %}<br />
 					<strong><span class="caption_value">{{ iodevice.originalLocation.caption }}</span></strong><br />
 					</a>
 				</div>
-				
-				{% endif %}
-						
+
+                {% endif %}
+
 				<div class="location-info">
 					<a href="{{ path('_loc_item', {'id': iodevice.location.id}) }}" class="item nav-link {% if iodevice.location.enabled %}enable{% else %}disabled{% endif %}">
 					<span class="aid">ID<strong>{{ iodevice.location.id }}</strong></span> <br />
@@ -60,7 +60,7 @@
 					</a>
 					<a id="overlay-changelocation">{% trans %}Change location{% endtrans %}</a>
 				</div>
-				
+
 			</div>
 			<div class="accessid">
 				<h3>{% trans %}Access Identifier{% endtrans %}</h3>
@@ -100,23 +100,24 @@
 			  <button class="btn btn-default" data-filter=".0">{% trans %}No function{% endtrans %}</button>
 			</div>
 		</div>
-	
+
 	</h1>
 </div>
 
 <div class="channels">
 	{% for  channel in channels %}
-	   <a class="element-item nav-link {{ channel.function_id }} {% if channel.function_id == '0' %} none {% endif %}" href="{{ path('_iodev_channel_item_edit', {'devid': iodevice.id, 'id': channel.id}) }}">
-	  		
-            <img src={{ asset('assets/img/functions/') }}{{ channel.icon_filename }}>
-			
+		<a class="element-item nav-link {{ channel.function_id }} {% if channel.function_id == '0' %} none {% endif %}"
+				href="{{ path('_iodevice_channel_details', {'channel': channel.id}) }}">
+
+			<img src={{ asset('assets/img/functions/') }}{{ channel.icon_filename }}>
+
 			<h3>{{ channel.function }}</h3>
 			<div class="detials">
 				{% trans %}Channel{% endtrans %} <strong> {{ channel.number }}</strong> ({{channel.io}})<br />
 				{% trans %}Type{% endtrans %} <strong>{{ channel.type }}</strong>
 			</div>
-		 	
-			{% if channel.caption is not empty %}
+
+            {% if channel.caption is not empty %}
 				<div class="caption">
 				{{ channel.caption }}
 				</div>
@@ -153,6 +154,6 @@
 			</div> <!-- cd-panel-content -->
 		</div> <!-- cd-panel-container -->
 	</div> <!-- cd-panel -->
-            
-<script src="{{ asset('assets/js/iodev_item.js') }}"></script>
+
+	<script src="{{ asset('assets/js/iodev_item.js') }}"></script>
 {% endblock %}

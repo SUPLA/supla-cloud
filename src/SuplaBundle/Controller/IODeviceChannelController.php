@@ -26,7 +26,7 @@ use SuplaBundle\Entity\IODeviceChannel;
  */
 class IODeviceChannelController extends AbstractController {
     /**
-     * @Route("/{channel}")
+     * @Route("/{channel}", name="_iodevice_channel_details")
      * @Template
      */
     public function channelDetailsAction(IODeviceChannel $channel) {
