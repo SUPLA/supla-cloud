@@ -168,6 +168,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::CONTROLLINGTHEDOORLOCK(),
                 ChannelFunction::POWERSWITCH(),
                 ChannelFunction::LIGHTSWITCH(),
+                ChannelFunction::STAIRCASETIMER(),
             ],
             self::RELAY2XG5LA1A => [
                 ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
@@ -177,6 +178,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::POWERSWITCH(),
                 ChannelFunction::LIGHTSWITCH(),
                 ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+                ChannelFunction::STAIRCASETIMER(),
             ],
             self::THERMOMETERDS18B20 => [ChannelFunction::THERMOMETER()],
             self::DIMMER => [ChannelFunction::DIMMER()],

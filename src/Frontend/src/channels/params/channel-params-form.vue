@@ -17,6 +17,7 @@
     import ChannelParamsOpeningsensorDoor from "./channel-params-openingsensor-door";
     import ChannelParamsOpeningsensorGaragedoor from "./channel-params-openingsensor-garagedoor";
     import ChannelParamsOpeningsensorRollershutter from "./channel-params-openingsensor-rollershutter";
+    import ChannelParamsStaircasetimer from "./channel-params-staircasetimer";
 
     export default {
         props: ['channel'],
@@ -32,6 +33,7 @@
             ChannelParamsOpeningsensorRollershutter,
             ChannelParamsOpeningsensorGaragedoor,
             ChannelParamsControllingtherollershutter,
+            ChannelParamsStaircasetimer
         },
         computed: {
             additionalChannelParamsComponent() {
