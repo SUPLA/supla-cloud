@@ -1,21 +1,23 @@
 <template>
     <div class="container"
-        v-if="channel.function.possibleActions.length">
+        v-if="availableTabs.length">
         <div class="row">
             <div class="col-xs-12">
-                <ul class="nav nav-tabs">
-                    <li :class="currentTab == 'schedules' ? 'active' : ''">
-                        <a @click="currentTab = 'schedules'">{{ $t('Schedules') }}</a>
-                    </li>
-                    <!--<li :class="currentTab == 'channelGroups' ? 'active' : ''">-->
-                    <!--<a @click="currentTab = 'channelGroups'">{{ $t('Channel groups') }}</a>-->
-                    <!--</li>-->
-                    <!--<li :class="currentTab == 'temperatureHistory' ? 'active' : ''">-->
-                    <!--<a @click="currentTab = 'temperatureHistory'">{{ $t('Temperature history') }}</a>-->
-                    <!--</li>-->
-                </ul>
+                <div class="form-group">
+                    <ul class="nav nav-tabs">
+                        <li :class="currentTab == tabDefinition.id ? 'active' : ''"
+                            v-for="tabDefinition in availableTabs">
+                            <a @click="currentTab = tabDefinition.id">{{ $t(tabDefinition.header) }}</a>
+                        </li>
+                    </ul>
+                </div>
                 <schedule-list v-if="currentTab == 'schedules'"
                     :channel-id="channel.id"></schedule-list>
+                <div v-if="currentTab == 'measurementsHistory'"
+                    class="text-center">
+                    <a :href="'/channels/' + channel.id + '/csv' | withBaseUrl"
+                        class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
+                </div>
             </div>
         </div>
     </div>
@@ -31,8 +33,20 @@
         },
         data() {
             return {
-                currentTab: 'schedules',
+                currentTab: '',
+                availableTabs: []
             };
+        },
+        mounted() {
+            if (this.channel.function.possibleActions.length) {
+                this.availableTabs.push({id: 'schedules', header: 'Schedules'});
+            }
+            if (['THERMOMETER', 'HUMIDITY', 'HUMIDITYANDTEMPERATURE'].indexOf(this.channel.function.name) >= 0) {
+                this.availableTabs.push({id: 'measurementsHistory', header: 'History of measurements'});
+            }
+            if (this.availableTabs.length) {
+                this.currentTab = this.availableTabs[0].id;
+            }
         },
     };
 </script>

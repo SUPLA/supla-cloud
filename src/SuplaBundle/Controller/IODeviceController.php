@@ -27,7 +27,6 @@ use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @Route("/iodev")
@@ -282,38 +281,6 @@ class IODeviceController extends AbstractController {
                 'show_distance' => $channelType->getId() == ChannelType::DISTANCESENSOR ? true : false,
             ]
         );
-    }
-
-    /**
-     * @Route("/{devid}/{id}/csv", name="_iodev_channel_item_csv")
-     */
-    public function channelItemGetCSV(Request $request, $devid, $id) {
-
-        $channel = $this->getChannelById($id);
-
-        if ($channel === null || $channel->getIoDevice()->getId() != $devid) {
-            return $this->redirectToRoute("_iodev_list");
-        }
-
-        $iodev_man = $this->get('iodevice_manager');
-        $file = $iodev_man->channelGetCSV($channel, "measurement_" . intval($id));
-
-        if ($file !== false) {
-            return new StreamedResponse(
-                function () use ($file) {
-                    readfile($file);
-                    unlink($file);
-                },
-                200,
-                ['Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename="measurement_' . intval($id) . '.zip"',
-                ]
-            );
-        }
-
-        $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Error creating file']);
-
-        return $this->redirectToRoute("_iodev_channel_item_edit", ['devid' => $devid, 'id' => $id]);
     }
 
     /**

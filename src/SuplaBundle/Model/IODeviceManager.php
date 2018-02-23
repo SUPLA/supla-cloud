@@ -19,6 +19,7 @@ namespace SuplaBundle\Model;
 
 // @codingStandardsIgnoreFile
 
+use Assert\Assertion;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -375,28 +376,20 @@ class IODeviceManager {
         return null;
     }
 
-    public function channelGetCSV($channel, $zip_filename = false) {
-
-        if ($channel->getType() != SuplaConst::TYPE_THERMOMETERDS18B20
-            && $channel->getType() != SuplaConst::TYPE_DHT11
-            && $channel->getType() != SuplaConst::TYPE_DHT21
-            && $channel->getType() != SuplaConst::TYPE_DHT22
-            && $channel->getType() != SuplaConst::TYPE_AM2301
-            && $channel->getType() != SuplaConst::TYPE_AM2302
-            && $channel->getType() != SuplaConst::TYPE_THERMOMETER
-            && $channel->getType() != SuplaConst::TYPE_HUMIDITYSENSOR
-            && $channel->getType() != SuplaConst::TYPE_HUMIDITYANDTEMPSENSOR
-        ) {
-            return false;
-        }
+    public function channelGetCSV(IODeviceChannel $channel, $zip_filename = false) {
+        Assertion::inArray($channel->getFunction()->getId(), [
+            ChannelFunction::THERMOMETER()->getId(),
+            ChannelFunction::HUMIDITY()->getId(),
+            ChannelFunction::HUMIDITYANDTEMPERATURE()->getId(),
+        ]);
 
         $temp_file = tempnam(sys_get_temp_dir(), 'supla_csv_');
 
         if ($temp_file !== false) {
             $handle = fopen($temp_file, 'w+');
 
-            if ($channel->getType() == SuplaConst::TYPE_THERMOMETERDS18B20
-                || $channel->getType() == SuplaConst::TYPE_THERMOMETER) {
+            if ($channel->getType()->getId() == SuplaConst::TYPE_THERMOMETERDS18B20
+                || $channel->getType()->getId() == SuplaConst::TYPE_THERMOMETER) {
                 fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature']);
 
                 $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
