@@ -76,13 +76,10 @@ class ApiServerController extends RestController {
     /**
      * @Get("/logout/{refreshToken}", name="api_logout")
      */
-    public function logoutAction(Request $request, $refreshToken) {
-
+    public function logoutAction($refreshToken) {
         $api_man = $this->container->get('api_manager');
-
         $ts = $this->container->get('security.token_storage')->getToken();
         $api_man->userLogout($ts->getUser(), $ts->getToken(), $refreshToken);
-
         return $this->view(null, Response::HTTP_OK);
     }
 

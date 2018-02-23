@@ -18,6 +18,7 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\IODeviceChannel;
 
 abstract class SuplaServer {
     /** @var string */
@@ -103,12 +104,10 @@ abstract class SuplaServer {
         return false;
     }
 
-    private function getRawValue($type, $userId, $deviceId, $channelId) {
-        $userId = intval($userId, 0);
-        $deviceId = intval($deviceId, 0);
-        $channelId = intval($channelId, 0);
-        if ($userId != 0 && $deviceId != 0 && $channelId != 0 && $this->connect() !== false) {
-            $result = $this->command("GET-" . $type . "-VALUE:" . $userId . "," . $deviceId . "," . $channelId);
+    private function getRawValue($type, IODeviceChannel $channel) {
+        if ($this->connect() !== false) {
+            $args = [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()];
+            $result = $this->command("GET-" . $type . "-VALUE:" . implode(',', $args));
 
             if ($result !== false && preg_match("/^VALUE:/", $result) === 1) {
                 return $result;
@@ -127,8 +126,8 @@ abstract class SuplaServer {
         return false;
     }
 
-    private function getValue($type, $userId, $deviceId, $channelId) {
-        $result = $this->getRawValue($type, $userId, $deviceId, $channelId);
+    private function getValue($type, IODeviceChannel $channel) {
+        $result = $this->getRawValue($type, $channel);
         if ($result !== false) {
             list($val) = sscanf($result, "VALUE:%f\n");
 
@@ -139,38 +138,27 @@ abstract class SuplaServer {
         return false;
     }
 
-    public function getCharValue($userId, $deviceId, $channelId) {
-        return $this->getValue('CHAR', $userId, $deviceId, $channelId);
+    public function getCharValue(IODeviceChannel $channel) {
+        return $this->getValue('CHAR', $channel);
     }
 
-    public function getDoubleValue($userId, $deviceId, $channelId) {
-        return $this->getValue('DOUBLE', $userId, $deviceId, $channelId);
+    public function getTemperatureValue(IODeviceChannel $channel) {
+        return $this->getValue('TEMPERATURE', $channel);
     }
 
-    public function getTemperatureValue($userId, $deviceId, $channelId) {
-        return $this->getValue('TEMPERATURE', $userId, $deviceId, $channelId);
+    public function getHumidityValue(IODeviceChannel $channel) {
+        return $this->getValue('HUMIDITY', $channel);
     }
 
-    public function getHumidityValue($userId, $deviceId, $channelId) {
-        return $this->getValue('HUMIDITY', $userId, $deviceId, $channelId);
+    public function getDistanceValue(IODeviceChannel $channel) {
+        return $this->getValue('DOUBLE', $channel);
     }
 
-    public function getDistanceValue($userId, $deviceId, $channelId) {
-        return $this->getValue('DOUBLE', $userId, $deviceId, $channelId);
-    }
-
-    public function getDepthValue($userId, $deviceId, $channelId) {
-        return $this->getValue('DOUBLE', $userId, $deviceId, $channelId);
-    }
-
-    public function getRgbwValue($userId, $deviceId, $channelId) {
-        $value = $this->getRawValue('RGBW', $userId, $deviceId, $channelId);
+    public function getRgbwValue(IODeviceChannel $channel) {
+        $value = $this->getRawValue('RGBW', $channel);
         if ($value !== false) {
             list($color, $color_brightness, $brightness) = sscanf($value, "VALUE:%i,%i,%i\n");
-            if (is_numeric($color)
-                && is_numeric($color_brightness)
-                && is_numeric($brightness)
-            ) {
+            if (is_numeric($color) && is_numeric($color_brightness) && is_numeric($brightness)) {
                 return ['color' => sprintf('0x%06X', $color), 'color_brightness' => $color_brightness, 'brightness' => $brightness];
             }
         }

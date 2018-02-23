@@ -9,7 +9,7 @@ class HiLowChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        $value = $this->suplaServer->getCharValue($channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+        $value = $this->suplaServer->getCharValue($channel);
         return ['hi' => $value == '1'];
     }
 

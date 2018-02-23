@@ -9,7 +9,7 @@ class DistanceChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        $value = $this->suplaServer->getDistanceValue($channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+        $value = $this->suplaServer->getDistanceValue($channel);
         if ($value !== false) {
             $key = $channel->getFunction() == ChannelFunction::DISTANCESENSOR() ? 'distance' : 'depth';
             return [$key => $value];

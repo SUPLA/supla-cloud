@@ -9,7 +9,7 @@ class TemperatureChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        $value = $this->suplaServer->getTemperatureValue($channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+        $value = $this->suplaServer->getTemperatureValue($channel);
         if ($value !== false) {
             return ['temperature' => $value];
         } else {

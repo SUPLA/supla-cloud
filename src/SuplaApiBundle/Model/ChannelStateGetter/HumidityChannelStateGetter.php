@@ -9,7 +9,7 @@ class HumidityChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        $value = $this->suplaServer->getHumidityValue($channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+        $value = $this->suplaServer->getHumidityValue($channel);
         if ($value !== false) {
             return ['humidity' => $value];
         } else {

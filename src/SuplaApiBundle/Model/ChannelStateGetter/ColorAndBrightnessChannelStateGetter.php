@@ -9,7 +9,7 @@ class ColorAndBrightnessChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        $value = $this->suplaServer->getRgbwValue($channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+        $value = $this->suplaServer->getRgbwValue($channel);
         $result = [];
         if ($value !== false) {
             if (in_array($channel->getFunction(), [ChannelFunction::RGBLIGHTING(), ChannelFunction::DIMMERANDRGBLIGHTING()])) {
