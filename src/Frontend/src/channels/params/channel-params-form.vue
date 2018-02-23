@@ -7,10 +7,11 @@
 <script>
     import changeCase from "change-case";
     import ChannelParamsNone from "./channel-params-none";
+    import ChannelParamsControllingthedoorlock from "./channel-params-controllingthedoorlock";
     import ChannelParamsControllingthegatewaylock from "./channel-params-controllingthegatewaylock";
     import ChannelParamsControllingthegate from "./channel-params-controllingthegate";
     import ChannelParamsControllingthegaragedoor from "./channel-params-controllingthegaragedoor";
-    import ChannelParamsControllingthedoorlock from "./channel-params-controllingthedoorlock";
+    import ChannelParamsControllingtherollershutter from "./channel-params-controllingtherollershutter";
     import ChannelParamsOpeningsensorGate from "./channel-params-openingsensor-gate";
     import ChannelParamsOpeningsensorGateway from "./channel-params-openingsensor-gateway";
     import ChannelParamsOpeningsensorDoor from "./channel-params-openingsensor-door";
@@ -28,12 +29,13 @@
             ChannelParamsOpeningsensorGateway,
             ChannelParamsOpeningsensorDoor,
             ChannelParamsOpeningsensorGaragedoor,
+            ChannelParamsControllingtherollershutter,
         },
         computed: {
             additionalChannelParamsComponent() {
                 const fncName = changeCase.camelCase(this.channel.function.name);
                 let componentName = 'ChannelParams' + changeCase.upperCaseFirst(fncName);
-                // console.log(componentName);
+                console.log(componentName);
                 if (this.$options.components[componentName]) {
                     return changeCase.headerCase(componentName);
                 } else {
