@@ -6,15 +6,15 @@
                 <a :href="`/iodev/${channel.iodeviceId}/view` | withBaseUrl">&laquo; {{ deviceTitle }}</a>
                 <div class="clearfix left-right-header">
                     <h1>{{ channelTitle }}</h1>
-                    <div>
-                        <switches v-model="channel.enabled"
-                            @input="toggleEnabled()"
-                            type-bold="true"
-                            color="green"
-                            class="pull-right"
-                            :emit-on-mount="false"
-                            :text-enabled="$t('Enabled')"
-                            :text-disabled="$t('Disabled')"></switches>
+                    <div class="hidden-xs">
+                        <transition name="fade">
+                            <button class="btn btn-yellow btn-lg"
+                                v-if="hasPendingChanges"
+                                @click="saveChanges()">
+                                <i class="pe-7s-diskette"></i>
+                                Zapisz zmiany
+                            </button>
+                        </transition>
                     </div>
                 </div>
                 <h4>{{ $t(channel.type.caption) }}</h4>
@@ -28,8 +28,7 @@
                         <div class="col-sm-4">
                             <h3>{{ $t('Function') }}</h3>
                             <div class="hover-editable text-left">
-                                <div class="form-group"
-                                    v-if="channel.supportedFunctions.length > 1">
+                                <div class="form-group">
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
                                             type="button"
@@ -38,15 +37,13 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li v-for="fnc in channel.supportedFunctions">
+                                            <li v-for="fnc in supportedFunctions">
                                                 <a @click="onFunctionChange(fnc)"
                                                     v-show="channel.function.id != fnc.id">{{ $t(fnc.caption) }}</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <h4 class="text-center"
-                                    v-else>{{ $t(channel.function.caption) }}</h4>
                                 <dl>
                                     <dd>{{ $t('Caption') }}</dd>
                                     <dt>
@@ -73,8 +70,19 @@
                                 width="100"></function-icon>
                             <channel-alternative-icon-chooser :channel="channel"
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
-                            <channel-state-table :channel="channel"></channel-state-table>
+                            <channel-state-table :channel="channel"
+                                v-if="!changedFunction"></channel-state-table>
                         </div>
+                    </div>
+                    <div class="form-group visible-xs">
+                        <transition name="fade">
+                            <button class="btn btn-yellow btn-lg btn-block"
+                                v-if="hasPendingChanges"
+                                @click="saveChanges()">
+                                <i class="pe-7s-diskette"></i>
+                                Zapisz zmiany
+                            </button>
+                        </transition>
                     </div>
                 </div>
             </div>
@@ -95,7 +103,6 @@
     import ChannelAlternativeIconChooser from "./channel-alternative-icon-chooser";
     import ChannelStateTable from "./channel-state-table";
     import ChannelDetailsTabs from "./channel-details-tabs";
-    import debounce from "lodash/debounce";
 
     export default {
         props: ['channelId'],
@@ -111,6 +118,8 @@
             return {
                 channel: undefined,
                 loading: false,
+                hasPendingChanges: false,
+                changedFunction: false,
             };
         },
         mounted() {
@@ -120,25 +129,24 @@
             });
         },
         methods: {
-            toggleEnabled() {
-                if (this.channel.enabled && !this.channel.function.id) {
-                    this.$set(this.channel, 'function', this.channel.supportedFunctions[0]);
-                } else if (!this.channel.enabled) {
-                    this.$set(this.channel, 'function', {id: 0, caption: 'None'});
-                }
-                this.updateChannel();
+            updateChannel() {
+                this.hasPendingChanges = true;
             },
-            updateChannel: debounce(function () {
+            saveChanges() {
+                this.hasPendingChanges = false;
+                this.changedFunction = false;
                 this.loading = true;
                 this.$http.put(`channels/${this.channelId}`, this.channel)
                     .then(response => Vue.extend(this.channel, response.body))
                     .finally(() => this.loading = false);
-            }, 700),
+            },
             onLocationChange(location) {
                 this.$set(this.channel, 'location', location);
                 this.updateChannel();
             },
             onFunctionChange(fnc) {
+                this.changedFunction = true;
+                this.channel.state = {};
                 this.channel.function = fnc;
                 this.updateChannel();
             }
@@ -150,6 +158,9 @@
             deviceTitle() {
                 return deviceTitle(this.channel.iodevice, this);
             },
+            supportedFunctions() {
+                return [].concat.apply([{id: 0, caption: 'None'}], this.channel.supportedFunctions);
+            }
 
         }
     };
