@@ -19,7 +19,7 @@ h1 input[type="text"] {
 	font-size: 11px;
 	line-height: 26px;
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 400; 
+    font-weight: 400;
 	color: #000;
 	text-align: left;
 	border: solid 1px #ebecef;
@@ -81,7 +81,8 @@ span.unknown { font-family: 'Quicksand', sans-serif; font-size: 11px; line-heigh
 .owl-carousel{ display: none; position: relative; width: 100%; -ms-touch-action: pan-y;}
 .owl-carousel .owl-wrapper{ display: none; position: relative;}
 .owl-carousel .owl-wrapper-outer{ overflow: hidden; position: relative; width: 100%;}
-.owl-carousel .owl-wrapper-outer.autoHeight{ -webkit-transition: height 500ms ease-in-out; -moz-transition: height 500ms ease-in-out; -ms-transition: height 500ms ease-in-out; -o-transition: height 500ms ease-in-out; transition: height 500ms ease-in-out; }	
+
+.owl-carousel .owl-wrapper-outer.autoHeight { -webkit-transition: height 500ms ease-in-out; -moz-transition: height 500ms ease-in-out; -ms-transition: height 500ms ease-in-out; -o-transition: height 500ms ease-in-out; transition: height 500ms ease-in-out; }
 .owl-carousel .owl-item{ float: left; }
 .owl-controls .owl-page, .owl-controls .owl-buttons div{ cursor: pointer; }
 .owl-controls { -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
@@ -197,105 +198,6 @@ body.device-details .navbar {margin-bottom: 0px; border-bottom-color: rgba(0,0,0
 .channels .element-item.none {background: #FFE836;}
 .channels .element-item.none .caption {color: #000}
 
-/* CHANNEL */ 
-.pictogram, .device-list {width: 30%; float: left; position: relative;}
-.infobar {width: 40%; float: left; animation-name: fadeIn; animation-delay: 0s; z-index: 3!important;}
-.pictogram { z-index: 2!important; backface-visibility: hidden; text-align: center;}
-
-#.overlay-changeicon .overlay .row .col-xs-4 {min-height: 175px;}
-#.overlay-changeicon .overlay label { position:relative; cursor:pointer; transition: all .1s ease-in-out;}
-#.overlay-changeicon .overlay label:active {transform: scale(0.98);}
-#.overlay-changeicon .overlay label [type="checkbox"] {position: absolute; bottom: 10px; left: 10px; display: none;}
-#.coverlay-changeicon .overlay [type="checkbox"] + div.item { display:inline-block; width: 100%; height: 170px; padding: 5px 10px; background: #ebecef; border-radius: 3px; font-size: 13px; border: solid 2px transparent; cursor: pointer; transition: all .2s ease-in-out; margin-bottom: 4px;position: relative;	box-shadow: 0 1px 2px rgba(0,0,0,.2);}
-#.overlay-changeicon .overlay [type="checkbox"] + div.item:hover { margin-top: -6px; box-shadow: 0 4px 3px rgba(0,0,0,.6);}
-.overlay-changeicon .overlay [type="checkbox"] + div.item.enabled {color: #fff; background: #ebecef;}
-#.overlay-changeicon .overlay :checked + div.item{ border: solid 2px #000}
-#.coverlay-changeicon .overlay :checked + div.item:after, .scroll_list .item.selected:after, .location-info .item:after {content:''; position: absolute; width: 52px; height: 52px; background: url(/assets/img/checked.svg); top: -1px; right: -1px;border-top-right-radius: 3px;transition: all .2s ease-in-out;-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; animation-delay: 0s;}
-.overlay-changeicon img { width: 150px; margin: auto; display: block }
-
-body.channel .navbar-default {margin-bottom: 0px;}
-body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: visible;}
-.infobar{ background: #F0F1F4; padding: 62px 30px 30px; }
-.infobar h1 {font-family: "Quicksand",sans-serif; font-size: 26px; line-height: 30px;font-weight: 400; letter-spacing: 0px;text-transform: uppercase;}
-.infobar .sensor_state .open {display: inline-block; padding: 0 10px; margin: 5px 0 5px; background: #00D151; color: #fff; border-radius: 5px; font-family: "Quicksand",sans-serif; font-size: 15px; line-height: 30px; font-weight: 400; letter-spacing: -1px;text-transform: uppercase; animation-name: fadeIn; animation-delay: 0s;}
-.infobar .sensor_state .close {display: inline-block; padding: 0 10px; margin: 5px 0 5px; background: #FF3939; color: #fff; border-radius: 5px; font-family: "Quicksand",sans-serif; font-size: 15px; line-height: 30px; font-weight: 400; letter-spacing: -1px;text-transform: uppercase; animation-name: fadeIn; animation-delay: 0s;}
-.infobar label {display: none;}
-.infobar .detail-item, .infobar .panel-heading, .infobar .cfp_relay_time, .infobar .cfp_channel {line-height: 32px; border-bottom: solid 1px #ddd; white-space: nowrap;}
-.infobar .detail-item span, .infobar .panel-heading span, .infobar .cfp_relay_time span, .infobar .cfp_channel span {display: inline-block; padding-right: 5px;}
-.infobar .detail-item strong {padding-left: 4px}
-
-.infobar .dropdown {display: inline-block; max-width: 255px;}
-.infobar .dropdown .btn.btn-default {max-width: 255px; overflow: hidden; padding: 0px 20px 0px 6px; height: 32px; position: relative; background:#F0F1F4;border-color: #F0F1F4; transition: all 0.3s; border-radius: 3px;}
-.infobar .dropdown .btn.btn-default span {display: inline-block; line-height: 30px; max-width: 235px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600;}
-.infobar .dropdown .btn.btn-default:after {display: inline-block;position: absolute;font-family: Pe-icon-7-stroke;content: "\e688";font-size: 24px; top: -4px; right: 3px; opacity: 0; transition: all 0.3s;}
-.infobar .dropdown .btn.btn-default .caret {display: none;}
-.infobar .btn-group, .infobar .dropdown .btn.btn-default {margin: 1px 6px;}
-.infobar .btn-group .btn {transition: all 0.3s; border-radius: 0px!important;}
-.dropdown-menu.function-select {margin-left: 60px;}
-.infobar #iodevice_channel_type_caption, .infobar #iodevice_channel_type_sec {margin: 2px 0; width: 100%; border-radius: 4px; border: solid 1px #F0F1F4; background: #F0F1F4; padding: 3px 0px; line-height: 26px; font-weight: 600; transition: all 0.3s; border-radius: 3px;}
-.infobar .btn.btn-default.btn-temp {background: transparent; padding: 6px 0; border: solid 1px rgba(255,255,255,.0); margin-top: 18px; font-weight: 600;}
-.infobar #iodevice_channel_type_sec {  width: 80px; }
-
-.infobar:hover .dropdown .btn.btn-default {border-color: #ccc; background-color: #fff}
-.infobar:hover .btn.btn-default.btn-temp {padding: 6px 12px;}
-.infobar:hover .btn.btn-default.btn-temp:hover {border-color: #00D151;background: #E2F4E8;}
-.infobar:hover .btn.btn-default.btn-temp:active {background: #00D151;border-color: #00D151; color: #fff}
-.infobar:hover .dropdown .btn.btn-default:after {opacity: 1;}
-.infobar:hover .dropdown .btn.btn-default:hover {border-color: #00D151; background: #fff;}
-.infobar .dropdown.open .btn.btn-default, .infobar .dropdown.open .btn.btn-default:hover {border-color: #00D151; background: #E2F4E8;}
-.infobar:hover .dropdown .btn.btn-default:hover:after, .infobar .dropdown.open .btn.btn-default:after {opacity: 1;}
-.infobar .btn-group .btn.btn-default {background-color: #F0F1F4; border-color: #F0F1F4;}
-.infobar:hover .btn-group .btn.btn-default {background-color: #fff; border-color: #ccc}
-.infobar .btn-group .btn.btn-default:hover {background-color: #E2F4E8; border-color: #5AD36A}
-.infobar .btn-group .btn.btn-success {border-radius: 4px; z-index: 4;background: #000; border-color: #000; font-weight: 600;}
-.infobar:hover .btn-group .btn.btn-success {border-radius: 0px; background: #00D151; border-color: #00D151; font-weight: 600; z-index: 2;}
-.infobar #iodevice_channel_type_caption {height: 34px;}
-.infobar:hover #iodevice_channel_type_caption, .infobar:hover #iodevice_channel_type_sec {border-color: #CCC; background: #FFF; padding: 3px 8px;}
-#iodevice_channel_type_caption:focus, .infobar:hover #iodevice_channel_type_caption:focus, .infobar:hover #iodevice_channel_type_caption:hover  {border-color: #5AD36A; background: #fff; padding: 3px 8px;}
-
-.infobar .buttons {position: relative; text-align: center; margin-top: 20px;}
-
-.device-list {padding: 40px 15px 0 0;}
-.device-list #deviceitem {width: 295px; min-height: 260px; margin: 6px 0 20px 0;}
-.device-list .devices-link {animation-name: fadeIn; animation-delay: 0.8s;}
-.pictogram .no-function {margin: 46px 10px; padding: 15px 20px 30px; background: #FFE838; text-align: center; border-radius: 3px;}
-.pictogram .no-function i {font-size: 110px;}
-.pictogram .no-function p{font-size: 13px;}
-.pictogram .standard-function-icon img {width: 100%; height: auto; margin-top: 30px; opacity: 0.85; z-index: 2!important}
-.pictogram .standard-function-icon span {text-align: center; display: inline-block; width: 100%; line-height: 140%; font-size: 12px; text-transform: uppercase; font-weight: 600;}
-.pictogram .temperature {position: relative;}
-.pictogram .temperature img{display: block; width: 180px; height: auto; margin: 0 auto;}
-.pictogram .temperature .bottom {position: absolute; width: 50px; height: 50px; background: #000; border-radius: 30px; left: calc(50% - 25px); top: 355px;}
-.pictogram .temperature .line {position: absolute; width: 16px; height: 240px; background: #000; border-radius: 30px; left: calc(50% - 8px); bottom:120px;}
-.pictogram .temperature .thermometer_state { display: inline-block; position: absolute; top: 200px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .temperature .thermometer_state #temperature_value {display: inline-block; margin-right: 5px;}
-
-.pictogram .humidity {position: relative;}
-.pictogram .humidity img {display: block; width: 220px; height: auto; margin-left: 90px; margin-top: 50px;}
-.pictogram .humidity .humidity_state { display: inline-block; position: absolute; top: 100px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .humidity .humidity_state #humidity_value {display: inline-block; margin-right: 5px;}
-
-.pictogram .temphumidity {position: relative;}
-.pictogram .temphumidity img{display: block; width: 320px; height: auto; margin-left: 110px }
-.pictogram .temphumidity .thermometer_state { display: inline-flex; position: absolute; top: 110px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .temphumidity .thermometer_state #thermometer_value {display: inline-block; margin-right: 5px;}
-.pictogram .temphumidity .humidity_state { display: inline-flex; position: absolute; top: 160px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .temphumidity .humidity_state #humidity_value {display: inline-block; margin-right: 5px;}
-
-.pictogram .depth_sensor {position: relative;}
-.pictogram .depth_sensor img{display: block; width: 320px; height: auto; margin-left: 50px }
-.pictogram .depth_sensor .depth_state { display: inline-flex; position: absolute; top: 90px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .depth_sensor .depth_state #depth_value {display: inline-block; margin-right: 5px;}
-.pictogram .depth_sensor .depth_state { display: inline-flex; position: absolute; top: 120px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .depth_sensor .depth_state #depth_value {display: inline-block; margin-right: 5px;}
-
-.pictogram .distance_sensor {position: relative;}
-.pictogram .distance_sensor img{display: block; width: 320px; height: auto; margin-left: 0px }
-.pictogram .distance_sensor .distance_state { display: inline-flex; position: absolute; top: 50px; left: 13px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .distance_sensor .distance_state #depth_value {display: inline-block; margin-right: 5px;}
-.pictogram .distance_sensor .distance_state { display: inline-flex; position: absolute; top: 60px; left: 90px; font-family: "Quicksand",sans-serif; font-size: 30px;}
-.pictogram .distance_sensor .distance_state #distance_value {display: inline-block; margin-right: 5px;}
-
 /* ACCESS IDENTIFIERS */
 #accessid-detail, #details {display: none;}
 .row .info h2, .row .assignments h2 {margin-bottom: 15px;}
@@ -303,7 +205,8 @@ body.channel .full-height, .infobar { height: 100%; min-height:100%; overflow: v
 .row .info ul li.row {width: 100%; padding: 1px 0; border-bottom: solid 1px #ddd; position: relative; line-height: 34px;}
 .row .info ul li.row .col-xs-3, .row .info ul li.row .col-xs-9 {padding: 0px;}
 .row .info ul li.row .col-xs-9 strong {margin-left: 6px;}
-.row .info ul li.row .form-control {box-shadow: none; font-weight: 600; padding: 6px; color: #000} 
+
+.row .info ul li.row .form-control {box-shadow: none; font-weight: 600; padding: 6px; color: #000}
 
 .row .info .form-control, .row .info .form-control + span .btn, .btn.btn-load {border-color: #FAFBFC; background: #FAFBFC;}
 .row .info .form-control + span .btn {color: #FAFBFC}
@@ -497,7 +400,8 @@ body.api-settings .navbar-default, body.account .navbar-default  {background-col
 body.api-settings .navbar-default .navbar-nav > li > a, body.account .navbar-default .navbar-nav > li > a {color: #fff;}
 body.api-settings ul.navbar-center li.pull-left svg .this, body.account ul.navbar-center li.pull-left svg .this {fill: #fff!important;}
 body.api-settings .navbar-default .navbar-nav > li > a:hover, body.account .navbar-default .navbar-nav > li > a:hover {backgound-color: #00D151}
-body.api-settings .navbar-default .navbar-nav > li > a:hover, body.api-settings .navbar-default .navbar-nav > li > a:focus, body.api-settings .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, body.api-settings .navbar-default .navbar-nav > .open > a:focus, 
+
+body.api-settings .navbar-default .navbar-nav > li > a:hover, body.api-settings .navbar-default .navbar-nav > li > a:focus, body.api-settings .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, body.api-settings .navbar-default .navbar-nav > .open > a:focus,
 body.account .navbar-default .navbar-nav > li > a:hover, body.account .navbar-default .navbar-nav > li > a:focus, body.account .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, body.account .navbar-default .navbar-nav > .open > a:focus {
     color: #fff!important
 }
@@ -538,5 +442,5 @@ div.user-account dt a:hover {background: #00D151; color: #fff;}
 .typed-cursor {display: none}
 .restapi-wrapper .btn.btn-enable {border: solid 1px rgba(255,255,255,.5)}
 .restapi-wrapper .btn {
-    border: solid 1px rgba(255,255,255,.5);-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn; 
+    border: solid 1px rgba(255, 255, 255, .5);-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both;animation-fill-mode: both;animation-name: fadeIn;
 }
