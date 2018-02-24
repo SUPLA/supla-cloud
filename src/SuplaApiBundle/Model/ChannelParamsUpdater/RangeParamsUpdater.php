@@ -6,8 +6,8 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 
 abstract class RangeParamsUpdater implements SingleChannelParamsUpdater {
-    /** @var ChannelFunction */
-    private $supportedFunction;
+    /** @var ChannelFunction[] */
+    private $supportedFunctions;
     /** @var int */
     private $min;
     /** @var int */
@@ -15,9 +15,16 @@ abstract class RangeParamsUpdater implements SingleChannelParamsUpdater {
     /** @var int */
     private $paramNo;
 
-    public function __construct(ChannelFunction $supportedFunction, int $min, int $max, int $paramNo = 1) {
+    /**
+     * RangeParamsUpdater constructor.
+     * @param ChannelFunction|ChannelFunction[] $supportedFunctions
+     * @param int $min
+     * @param int $max
+     * @param int $paramNo
+     */
+    public function __construct($supportedFunctions, int $min, int $max, int $paramNo = 1) {
         Assertion::inArray($paramNo, [1, 2, 3]);
-        $this->supportedFunction = $supportedFunction;
+        $this->supportedFunctions = is_array($supportedFunctions) ? $supportedFunctions : [$supportedFunctions];
         $this->min = $min;
         $this->max = $max;
         $this->paramNo = $paramNo;
@@ -33,6 +40,6 @@ abstract class RangeParamsUpdater implements SingleChannelParamsUpdater {
     }
 
     public function supports(IODeviceChannel $channel): bool {
-        return $channel->getFunction() == $this->supportedFunction;
+        return in_array($channel->getFunction(), $this->supportedFunctions);
     }
 }

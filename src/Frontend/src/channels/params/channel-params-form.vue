@@ -18,6 +18,9 @@
     import ChannelParamsOpeningsensorGaragedoor from "./channel-params-openingsensor-garagedoor";
     import ChannelParamsOpeningsensorRollershutter from "./channel-params-openingsensor-rollershutter";
     import ChannelParamsStaircasetimer from "./channel-params-staircasetimer";
+    import ChannelParamsThermometer from "./channel-params-thermometer";
+    import ChannelParamsHumidity from "./channel-params-humidity";
+    import ChannelParamsHumidityandtemperature from "./channel-params-humidityandtemperature";
 
     export default {
         props: ['channel'],
@@ -33,7 +36,10 @@
             ChannelParamsOpeningsensorRollershutter,
             ChannelParamsOpeningsensorGaragedoor,
             ChannelParamsControllingtherollershutter,
-            ChannelParamsStaircasetimer
+            ChannelParamsStaircasetimer,
+            ChannelParamsThermometer,
+            ChannelParamsHumidity,
+            ChannelParamsHumidityandtemperature,
         },
         computed: {
             additionalChannelParamsComponent() {
