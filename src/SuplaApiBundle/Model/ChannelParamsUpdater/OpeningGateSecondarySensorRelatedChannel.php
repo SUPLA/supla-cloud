@@ -15,5 +15,4 @@ class OpeningGateSecondarySensorRelatedChannel extends OpeningAnySensorRelatedCh
         }
         parent::updateChannelParams($channel, $updatedChannel);
     }
-
 }
