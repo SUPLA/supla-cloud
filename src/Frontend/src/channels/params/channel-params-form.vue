@@ -21,6 +21,8 @@
     import ChannelParamsThermometer from "./channel-params-thermometer";
     import ChannelParamsHumidity from "./channel-params-humidity";
     import ChannelParamsHumidityandtemperature from "./channel-params-humidityandtemperature";
+    import ChannelParamsMailsensor from "./channel-params-mailsensor";
+    import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
 
     export default {
         props: ['channel'],
@@ -40,6 +42,8 @@
             ChannelParamsThermometer,
             ChannelParamsHumidity,
             ChannelParamsHumidityandtemperature,
+            ChannelParamsMailsensor,
+            ChannelParamsNoliquidsensor,
         },
         computed: {
             additionalChannelParamsComponent() {
