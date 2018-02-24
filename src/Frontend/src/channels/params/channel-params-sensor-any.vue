@@ -5,10 +5,8 @@
             <dt class="text-center">
                 <switches v-model="invertedSensorLogic"
                     type-bold="true"
-                    color="green"
-                    :emit-on-mount="false"
-                    :text-enabled="$t('Enabled')"
-                    :text-disabled="$t('Disabled')"></switches>
+                    :color="invertedSensorLogic ? 'green' : 'default'"
+                    :emit-on-mount="false"></switches>
             </dt>
         </dl>
     </div>

@@ -59,6 +59,13 @@
                                                 @change="updateChannel()"
                                                 v-model="channel.caption">
                                         </dt>
+                                        <dd>{{ $t('Show in clients') }}</dd>
+                                        <dt class="text-center">
+                                            <switches v-model="shownInClients"
+                                                type-bold="true"
+                                                :color="shownInClients ? 'green' : 'default'"
+                                                :emit-on-mount="false"></switches>
+                                        </dt>
                                     </dl>
                                     <channel-params-form :channel="channel"
                                         @change="updateChannel()"></channel-params-form>
@@ -122,6 +129,7 @@
     import ChannelDetailsTabs from "./channel-details-tabs";
     import ChannelFunctionEditConfirmation from "./channel-function-edit-confirmation";
     import throttle from "lodash/throttle";
+    import Switches from "vue-switches";
 
     export default {
         props: ['channelId'],
@@ -132,7 +140,9 @@
             ChannelAlternativeIconChooser,
             SquareLocationChooser,
             ChannelParamsForm,
-            DotsRoute, FunctionIcon
+            DotsRoute,
+            FunctionIcon,
+            Switches,
         },
         data() {
             return {
@@ -190,6 +200,15 @@
             },
             supportedFunctions() {
                 return [].concat.apply([{id: 0, caption: 'None'}], this.channel.supportedFunctions);
+            },
+            shownInClients: {
+                set(value) {
+                    this.channel.hidden = !value;
+                    this.updateChannel();
+                },
+                get() {
+                    return !this.channel.hidden;
+                }
             }
         }
     };
