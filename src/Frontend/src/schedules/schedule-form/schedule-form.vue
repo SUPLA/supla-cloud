@@ -89,7 +89,7 @@
 
     export default {
         name: 'schedule-form',
-        props: ['scheduleId'],
+        props: ['scheduleId', 'channelId'],
         store: new Vuex.Store({
             state: {
                 caption: '',
@@ -131,9 +131,12 @@
         },
         mounted() {
             if (this.scheduleId) {
-                this.$http.get('schedules/' + this.scheduleId, {params:  {include: 'channel'}}).then(({body}) => {
+                this.$http.get('schedules/' + this.scheduleId, {params: {include: 'channel'}}).then(({body}) => {
                     this.loadScheduleToEdit(body);
                 });
+            }
+            else if (this.channelId) {
+                this.$store.commit('updateChannel', this.channelId);
             }
         },
         components: {

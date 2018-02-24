@@ -11,8 +11,16 @@
                         </li>
                     </ul>
                 </div>
-                <schedule-list v-if="currentTab == 'schedules'"
-                    :channel-id="channel.id"></schedule-list>
+                <div v-if="currentTab == 'schedules'">
+                    <div class="form-group text-right">
+                        <a class="btn btn-green"
+                            :href="'/schedules/new?channelId=' + channel.id | withBaseUrl">
+                            <i class="pe-7s-plus"></i>
+                            {{ $t('Create New Schedule') }}
+                        </a>
+                    </div>
+                    <schedule-list :channel-id="channel.id"></schedule-list>
+                </div>
                 <div v-if="currentTab == 'measurementsHistory'"
                     class="text-center">
                     <a :href="'/channels/' + channel.id + '/csv' | withBaseUrl"

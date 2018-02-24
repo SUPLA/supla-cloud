@@ -143,7 +143,7 @@ class IODeviceChannelGroup {
     }
 
     /** @return Collection|IODeviceChannel[] */
-    public function getChannels() {
+    public function getChannels(): Collection {
         return $this->channels;
     }
 

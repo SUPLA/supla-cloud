@@ -274,10 +274,13 @@ class ApiChannelController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
             if ($functionHasBeenChanged) {
-                $channel->setFunction($updatedChannel->getFunction());
-                foreach ($channel->getSchedules() as $schedule) {
-                    $this->get('schedule_manager')->delete($schedule);
+                if (!$request->get('confirm') && (count($channel->getSchedules()) || count($channel->getChannelGroups()))) {
+                    return $this->view([
+                        'schedules' => $channel->getSchedules(),
+                        'groups' => $channel->getChannelGroups(),
+                    ], Response::HTTP_CONFLICT);
                 }
+                $channel->setFunction($updatedChannel->getFunction());
             } else {
                 $channel->setAltIcon($updatedChannel->getAltIcon());
             }
@@ -286,9 +289,23 @@ class ApiChannelController extends RestController {
             }
             $channel->setCaption($updatedChannel->getCaption());
             $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
-            return $this->transactional(function (EntityManagerInterface $em) use ($request, $channel) {
+            return $this->transactional(function (EntityManagerInterface $em) use ($functionHasBeenChanged, $request, $channel) {
                 $em->persist($channel);
-                $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+                if ($functionHasBeenChanged) {
+                    foreach ($channel->getSchedules() as $schedule) {
+                        $this->get('schedule_manager')->delete($schedule);
+                    }
+                    foreach ($channel->getChannelGroups() as $channelGroup) {
+                        $channelGroup->getChannels()->removeElement($channel);
+                        if ($channelGroup->getChannels()->isEmpty()) {
+                            $em->remove($channelGroup);
+                        } else {
+                            $em->persist($channelGroup);
+                        }
+                    }
+                } else if ($channel->getFunction() != ChannelFunction::NONE()) {
+                    $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+                }
                 return $this->getChannelAction($request, $channel);
             });
         } else {

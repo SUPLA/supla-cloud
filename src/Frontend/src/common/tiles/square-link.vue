@@ -94,6 +94,9 @@
         &:active:not(.not-transform) {
             transform: scale(0.95);
         }
+        .channel-icon {
+            transition: margin-right .3s;
+        }
         &.selected {
             border: 2px solid $supla-black;
             &:after {
@@ -109,6 +112,9 @@
                 animation-duration: 0.5s;
                 animation-fill-mode: both;
                 animation-name: fadeIn;
+            }
+            .channel-icon {
+                margin-right: 20px;
             }
         }
         &.lift-up {

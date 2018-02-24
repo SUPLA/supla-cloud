@@ -41,8 +41,8 @@ class ScheduleController extends AbstractController {
      * @Route("/new", name="_schedule_new")
      * @Template("@Supla/Schedule/scheduleForm.html.twig")
      */
-    public function newScheduleAction() {
-        return [];
+    public function newScheduleAction(Request $request) {
+        return ['channelId' => $request->get('channelId')];
     }
 
     /**

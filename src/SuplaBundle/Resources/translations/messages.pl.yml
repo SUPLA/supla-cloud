@@ -432,3 +432,10 @@ Temperature adjustment: Dostosowanie temperatury
 Secondary open sensor: Pośredni czujnik otwarcia
 Secondary channel for the sensor: Pośredni czujnik dla kanału
 Inverted logic: Odwrócona logika
+
+Are you sure you want to change the channel's function?: Czy na pewno chcesz zmienić funkcję kanału?
+Changing the channel's function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
+The channel will be removed from the following channel groups: Kanał zostanie usunięty z poniższych grup kanałów
+The following schedules will be deleted: Poniższe harmonogramy zostaną usunięte
+Cancel changes: Anuluj zmiany
+Save changes: Zapisz zmiany
