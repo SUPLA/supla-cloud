@@ -15,12 +15,11 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration;
+namespace SuplaApiBundle\Tests\Integration\Model\ChannelParamsUpdater;
 
 use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -64,7 +63,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testSettingOpeningSensorForChannel() {
         $channel = $this->device->getChannels()[0];
-        $this->updater->updateChannelParams($channel, $this->updateDto(0, $this->device->getChannels()[1]->getId()));
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(0, $this->device->getChannels()[1]->getId()));
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals($channel->getId(), $this->device->getChannels()[1]->getParam1());
         $this->assertEquals($this->device->getChannels()[1]->getId(), $this->device->getChannels()[0]->getParam2());
@@ -72,7 +71,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testSettingChannelForOpeningSensor() {
         $sensor = $this->device->getChannels()[1];
-        $this->updater->updateChannelParams($sensor, $this->updateDto($this->device->getChannels()[0]->getId()));
+        $this->updater->updateChannelParams($sensor, new IODeviceChannelWithParams($this->device->getChannels()[0]->getId()));
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());
@@ -80,9 +79,15 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testChangingOpeningSensorForChannelClearsPreviousSelection() {
         // pair 0 & 3
-        $this->updater->updateChannelParams($this->device->getChannels()[0], $this->updateDto(0, $this->device->getChannels()[1]->getId()));
+        $this->updater->updateChannelParams(
+            $this->device->getChannels()[0],
+            new IODeviceChannelWithParams(0, $this->device->getChannels()[1]->getId())
+        );
         // pair 0 & 4
-        $this->updater->updateChannelParams($this->device->getChannels()[0], $this->updateDto(0, $this->device->getChannels()[2]->getId()));
+        $this->updater->updateChannelParams(
+            $this->device->getChannels()[0],
+            new IODeviceChannelWithParams(0, $this->device->getChannels()[2]->getId())
+        );
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals($this->device->getChannels()[2]->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[2]->getParam1());
@@ -92,26 +97,24 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testClearingOpeningSensorForChannelClearsBothConnections() {
         // pair 0 & 3
-        $this->updater->updateChannelParams($this->device->getChannels()[0], $this->updateDto(0, $this->device->getChannels()[1]->getId()));
+        $this->updater->updateChannelParams(
+            $this->device->getChannels()[0],
+            new IODeviceChannelWithParams(0, $this->device->getChannels()[1]->getId())
+        );
         // unpair 0
-        $this->updater->updateChannelParams($this->device->getChannels()[0], $this->updateDto());
+        $this->updater->updateChannelParams($this->device->getChannels()[0], new IODeviceChannelWithParams());
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals(0, $this->device->getChannels()[0]->getParam2());
         $this->assertEquals(0, $this->device->getChannels()[1]->getParam1());
     }
 
     public function testTryingToPairInvalidChannelsIsNotSuccessful() {
-        $this->updater->updateChannelParams($this->device->getChannels()[0], $this->updateDto(0, $this->device->getChannels()[3]->getId()));
+        $this->updater->updateChannelParams(
+            $this->device->getChannels()[0],
+            new IODeviceChannelWithParams(0, $this->device->getChannels()[3]->getId())
+        );
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals(0, $this->device->getChannels()[0]->getParam2());
         $this->assertEquals(0, $this->device->getChannels()[3]->getParam1());
-    }
-
-    private function updateDto(int $param1 = 0, int $param2 = 0, int $param3 = 0) {
-        $updateDto = new IODeviceChannel();
-        $updateDto->setParam1($param1);
-        $updateDto->setParam2($param2);
-        $updateDto->setParam3($param3);
-        return $updateDto;
     }
 }

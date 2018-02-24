@@ -3,7 +3,7 @@ namespace SuplaApiBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
 
-class OpeningGateSensorRelatedChannerl extends OpeningAnySensorRelatedChannel {
+class OpeningGateSensorRelatedChannel extends OpeningAnySensorRelatedChannel {
     public function __construct() {
         parent::__construct(ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::OPENINGSENSOR_GATE());
     }

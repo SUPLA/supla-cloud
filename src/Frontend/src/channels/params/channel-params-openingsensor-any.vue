@@ -24,11 +24,21 @@
             };
         },
         mounted() {
-            if (this.channel.param1) {
-                this.$http.get(`channels/${this.channel.param1}`).then(response => this.relatedChannel = response.body);
+            this.updateRelatedChannel();
+        },
+        watch: {
+            'channel.param1'() {
+                this.updateRelatedChannel();
             }
         },
         methods: {
+            updateRelatedChannel() {
+                if (this.channel.param1) {
+                    this.$http.get(`channels/${this.channel.param1}`).then(response => this.relatedChannel = response.body);
+                } else {
+                    this.relatedChannel = undefined;
+                }
+            },
             relatedChannelChanged() {
                 this.channel.param1 = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');

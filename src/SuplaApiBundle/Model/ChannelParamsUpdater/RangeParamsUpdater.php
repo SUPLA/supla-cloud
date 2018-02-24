@@ -31,12 +31,10 @@ abstract class RangeParamsUpdater implements SingleChannelParamsUpdater {
     }
 
     public function updateChannelParams(IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
-        $getter = "getParam$this->paramNo";
-        $setter = "setParam$this->paramNo";
-        $newValue = $updatedChannel->{$getter}();
+        $newValue = $updatedChannel->getParam($this->paramNo);
         $newValue = max($this->min, $newValue);
         $newValue = min($this->max, $newValue);
-        $channel->{$setter}($newValue);
+        $channel->setParam($this->paramNo, $newValue);
     }
 
     public function supports(IODeviceChannel $channel): bool {

@@ -18,10 +18,21 @@ abstract class ControllingAnyLockRelatedSensor implements SingleChannelParamsUpd
     private $controllingFunction;
     /** @var ChannelFunction */
     protected $sensorFunction;
+    /** @var int */
+    protected $controllingParamNo;
+    /** @var int */
+    protected $sensorParamNo;
 
-    public function __construct(ChannelFunction $controllingFunction, ChannelFunction $sensorFunction) {
+    public function __construct(
+        ChannelFunction $controllingFunction,
+        ChannelFunction $sensorFunction,
+        $controllingParamNo = 2,
+        $sensorParamNo = 1
+    ) {
         $this->controllingFunction = $controllingFunction;
         $this->sensorFunction = $sensorFunction;
+        $this->controllingParamNo = $controllingParamNo;
+        $this->sensorParamNo = $sensorParamNo;
     }
 
     /** @required */
@@ -30,7 +41,7 @@ abstract class ControllingAnyLockRelatedSensor implements SingleChannelParamsUpd
     }
 
     public function updateChannelParams(IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
-        $this->pairControllingAndSensorChannels($channel->getId(), $updatedChannel->getParam2());
+        $this->pairControllingAndSensorChannels($channel->getId(), $updatedChannel->getParam($this->controllingParamNo));
     }
 
     protected function pairControllingAndSensorChannels(int $controllingId, int $sensorId) {
@@ -38,8 +49,8 @@ abstract class ControllingAnyLockRelatedSensor implements SingleChannelParamsUpd
             $user = $this->getCurrentUserOrThrow();
             $controlling = $controllingId ? $this->channelRepository->findForUser($user, $controllingId) : null;
             $sensor = $sensorId ? $this->channelRepository->findForUser($user, $sensorId) : null;
-            $currentSensorId = $controlling ? $controlling->getParam2() : $sensorId;
-            $currentControllingId = $sensor ? $sensor->getParam1() : $controllingId;
+            $currentSensorId = $controlling ? $controlling->getParam($this->controllingParamNo) : $sensorId;
+            $currentControllingId = $sensor ? $sensor->getParam($this->sensorParamNo) : $controllingId;
             if ($controlling && $controlling->getFunction() != $this->controllingFunction) {
                 $controllingId = 0;
             }
@@ -51,20 +62,20 @@ abstract class ControllingAnyLockRelatedSensor implements SingleChannelParamsUpd
             }
             if ($currentSensorId && $currentSensorId != $sensorId) {
                 $currentSensor = $this->channelRepository->findForUser($user, $currentSensorId);
-                $currentSensor->setParam1(0);
+                $currentSensor->setParam($this->sensorParamNo, 0);
                 $em->persist($currentSensor);
             }
             if ($currentControllingId && $currentControllingId != $controllingId) {
                 $currentControlling = $this->channelRepository->findForUser($user, $currentControllingId);
-                $currentControlling->setParam2(0);
+                $currentControlling->setParam($this->controllingParamNo, 0);
                 $em->persist($currentControlling);
             }
             if ($controlling && $currentSensorId != $sensorId) {
-                $controlling->setParam2($sensorId);
+                $controlling->setParam($this->controllingParamNo, $sensorId);
                 $em->persist($controlling);
             }
             if ($sensor && $currentControllingId != $controllingId) {
-                $sensor->setParam1($controllingId);
+                $sensor->setParam($this->sensorParamNo, $controllingId);
                 $em->persist($sensor);
             }
         });

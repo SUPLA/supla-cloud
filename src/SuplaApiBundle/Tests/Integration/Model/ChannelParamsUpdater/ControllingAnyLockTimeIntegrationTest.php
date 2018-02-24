@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration;
+namespace SuplaApiBundle\Tests\Integration\Model\ChannelParamsUpdater;
 
 use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -50,11 +50,11 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0, $channel->getParam1());
         $this->updater->updateChannelParams($channel, new IODeviceChannel());
         $this->assertEquals(500, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(1000));
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(1000));
         $this->assertEquals(1000, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(-5));
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(-5));
         $this->assertEquals(500, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(100000));
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(100000));
         $this->assertEquals(10000, $channel->getParam1());
     }
 
@@ -63,19 +63,11 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0, $channel->getParam1());
         $this->updater->updateChannelParams($channel, new IODeviceChannel());
         $this->assertEquals(500, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(1000));
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(1000));
         $this->assertEquals(1000, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(-5));
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(-5));
         $this->assertEquals(500, $channel->getParam1());
-        $this->updater->updateChannelParams($channel, $this->updateDto(100000));
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(100000));
         $this->assertEquals(2000, $channel->getParam1());
-    }
-
-    private function updateDto(int $param1 = 0, int $param2 = 0, int $param3 = 0) {
-        $updateDto = new IODeviceChannel();
-        $updateDto->setParam1($param1);
-        $updateDto->setParam2($param2);
-        $updateDto->setParam3($param3);
-        return $updateDto;
     }
 }
