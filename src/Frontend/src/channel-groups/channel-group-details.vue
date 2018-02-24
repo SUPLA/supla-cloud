@@ -11,10 +11,6 @@
                     <div class="btn-toolbar no-margin-top"
                         v-if="!isNewGroup">
                         <a class="btn btn-default"
-                            @click="toggleHidden()">
-                            {{ $t(channelGroup.hidden ? 'Show in clients' : 'Hide in clients') }}
-                        </a>
-                        <a class="btn btn-default"
                             @click="toggleEnabled()">
                             {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
                         </a>
@@ -43,6 +39,12 @@
                                             class="form-control"
                                             @change="saveChannelGroup()"
                                             v-model="channelGroup.caption">
+                                    </dt>
+                                    <dd>{{ $t('Show in clients') }}</dd>
+                                    <dt class="text-center">
+                                        <toggler v-model="channelGroup.hidden"
+                                            invert="true"
+                                            @input="saveChannelGroup()"></toggler>
                                     </dt>
                                 </dl>
                             </div>
@@ -101,10 +103,12 @@
     import ChannelGroupNewChannelChooser from "./channel-group-new-channel-chooser.vue";
     import ChannelGroupChannelTile from "./channel-group-channel-tile";
     import SquareLocationChooser from "../locations/square-location-chooser";
+    import Toggler from "../common/gui/toggler";
 
     export default {
         props: ['model'],
         components: {
+            Toggler,
             ChannelGroupChannelTile,
             ChannelGroupNewChannelChooser,
             DotsRoute,
@@ -166,10 +170,6 @@
             },
             toggleHidden() {
                 this.channelGroup.hidden = !this.channelGroup.hidden;
-                this.saveChannelGroup();
-            },
-            toggleEnabled() {
-                this.channelGroup.enabled = !this.channelGroup.enabled;
                 this.saveChannelGroup();
             },
             onLocationChange(location) {

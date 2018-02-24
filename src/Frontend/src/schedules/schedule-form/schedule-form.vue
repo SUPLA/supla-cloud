@@ -32,11 +32,8 @@
                             <schedule-form-start-end-date></schedule-form-start-end-date>
                         </div>
                         <next-run-dates-preview></next-run-dates-preview>
-                        <switches v-model="retry"
-                            :label="$t('Retry when fail')"
-                            type-bold="true"
-                            color="green"
-                            :emit-on-mount="false"></switches>
+                        <toggler v-model="retry"
+                            label="Retry when fail"></toggler>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -85,7 +82,7 @@
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import {actions, mutations} from "./schedule-form-store";
-    import Switches from "vue-switches";
+    import Toggler from "../../common/gui/toggler";
 
     export default {
         name: 'schedule-form',
@@ -150,7 +147,7 @@
             ScheduleFormStartEndDate,
             ButtonLoading,
             LoadingDots,
-            Switches
+            Toggler,
         },
         methods: mapActions(['submit', 'loadScheduleToEdit'])
     };

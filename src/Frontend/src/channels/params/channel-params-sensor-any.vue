@@ -3,20 +3,17 @@
         <dl>
             <dd>{{$t('Inverted logic')}}</dd>
             <dt class="text-center">
-                <switches v-model="invertedSensorLogic"
-                    type-bold="true"
-                    :color="invertedSensorLogic ? 'green' : 'default'"
-                    :emit-on-mount="false"></switches>
+                <toggler v-model="invertedSensorLogic"></toggler>
             </dt>
         </dl>
     </div>
 </template>
 
 <script>
-    import Switches from "vue-switches";
+    import Toggler from "../../common/gui/toggler";
 
     export default {
-        components: {Switches},
+        components: {Toggler},
         props: ['channel'],
         computed: {
             invertedSensorLogic: {

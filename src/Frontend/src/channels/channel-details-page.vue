@@ -61,10 +61,9 @@
                                         </dt>
                                         <dd>{{ $t('Show in clients') }}</dd>
                                         <dt class="text-center">
-                                            <switches v-model="shownInClients"
-                                                type-bold="true"
-                                                :color="shownInClients ? 'green' : 'default'"
-                                                :emit-on-mount="false"></switches>
+                                            <toggler v-model="channel.hidden"
+                                                invert="true"
+                                                @input="updateChannel()"></toggler>
                                         </dt>
                                     </dl>
                                     <channel-params-form :channel="channel"
@@ -129,7 +128,7 @@
     import ChannelDetailsTabs from "./channel-details-tabs";
     import ChannelFunctionEditConfirmation from "./channel-function-edit-confirmation";
     import throttle from "lodash/throttle";
-    import Switches from "vue-switches";
+    import Toggler from "../common/gui/toggler";
 
     export default {
         props: ['channelId'],
@@ -142,7 +141,7 @@
             ChannelParamsForm,
             DotsRoute,
             FunctionIcon,
-            Switches,
+            Toggler,
         },
         data() {
             return {
