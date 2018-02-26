@@ -4,7 +4,7 @@
             v-fade-out-link>
             <h3>{{ device.name }}</h3>
             <dl>
-                <dd>{{ device.guid }}</dd>
+                <dd>{{ device.gUIDString }}</dd>
                 <dt></dt>
             </dl>
             <div class="separator invisible"></div>
