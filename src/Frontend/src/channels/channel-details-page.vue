@@ -72,15 +72,8 @@
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
-                                <div class="form-group">
-                                    <square-location-chooser v-model="channel.location"
-                                        :yellow-mark="channel.iodevice.location.id"
-                                        @input="onLocationChange($event)"></square-location-chooser>
-                                </div>
-                                <p v-if="channel.iodevice.location.id == channel.location.id"
-                                    class="text-muted">
-                                    {{ $t('Channel inherits I/O Device\'s location') }}
-                                </p>
+                                <square-location-chooser v-model="channel.location"
+                                    @input="onLocationChange($event)"></square-location-chooser>
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('State') }}</h3>
