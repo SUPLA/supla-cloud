@@ -171,14 +171,15 @@ class IODeviceChannel {
     }
 
     /**
-     * @param mixed $location
+     * @param Location|null $location
      */
-    public function setLocation(Location $location) {
-        if ($this->iodevice && $this->iodevice->getLocation() == $location) {
-            $this->location = null;
-        } else {
-            $this->location = $location;
-        }
+    public function setLocation($location) {
+        $this->location = $location;
+    }
+
+    /** @Groups({"basic"}) */
+    public function hasInheritedLocation(): bool {
+        return !$this->location;
     }
 
     /** @return Collection|Schedule[] */

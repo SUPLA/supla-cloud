@@ -1,6 +1,6 @@
 <template>
     <div>
-        <square-link :class="'text-left ' + (value.enabled ? '' : 'grey')"
+        <square-link :class="'text-left ' + squareLinkClass + ' ' + (value.enabled ? '' : 'grey')"
             v-if="value">
             <a @click="chooseLocation = true">
                 <location-tile-content :location="value"></location-tile-content>
@@ -25,7 +25,7 @@
 
     export default {
         components: {LocationChooser, LocationTileContent},
-        props: ['value'],
+        props: ['value', 'squareLinkClass'],
         data() {
             return {
                 chooseLocation: false

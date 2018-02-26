@@ -29,7 +29,8 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
         $channel->setCaption($requestData['caption'] ?? '');
         $channel->setAltIcon($requestData['altIcon'] ?? 0);
         $channel->setHidden($requestData['hidden'] ?? false);
-        if (isset($requestData['locationId']) && $requestData['locationId']) {
+        if (isset($requestData['locationId']) && $requestData['locationId']
+            && (!isset($requestData['inheritedLocation']) || !$requestData['inheritedLocation'])) {
             $user = $this->getCurrentUserOrThrow();
             $location = $this->locationRepository->findForUser($user, $requestData['locationId']);
             $channel->setLocation($location);

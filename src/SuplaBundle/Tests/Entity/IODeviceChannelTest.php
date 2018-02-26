@@ -42,9 +42,20 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         $location = $this->createMock(Location::class);
         $channel->setLocation($location);
         $this->assertEquals($location, $channel->getLocation());
+        $this->assertFalse($channel->hasInheritedLocation());
     }
 
-    public function testSettingLocationToDeviceLocationClearsIt() {
+    public function testGettingLocationFromDevice() {
+        $channel = new IODeviceChannel();
+        $location = $this->createMock(Location::class);
+        $ioDevice = $this->createMock(IODevice::class);
+        $ioDevice->method('getLocation')->willReturn($location);
+        EntityUtils::setField($channel, 'iodevice', $ioDevice);
+        $this->assertEquals($location, $channel->getLocation());
+        $this->assertTrue($channel->hasInheritedLocation());
+    }
+
+    public function testSettingTheSameLocationAsDeviceClearsInheritance() {
         $channel = new IODeviceChannel();
         $location = $this->createMock(Location::class);
         $ioDevice = $this->createMock(IODevice::class);
@@ -52,6 +63,6 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         EntityUtils::setField($channel, 'iodevice', $ioDevice);
         $channel->setLocation($location);
         $this->assertEquals($location, $channel->getLocation());
-        $this->assertNull(EntityUtils::getField($channel, 'location'));
+        $this->assertFalse($channel->hasInheritedLocation());
     }
 }

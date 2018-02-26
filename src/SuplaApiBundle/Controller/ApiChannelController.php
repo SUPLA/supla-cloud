@@ -284,7 +284,9 @@ class ApiChannelController extends RestController {
             } else {
                 $channel->setAltIcon($updatedChannel->getAltIcon());
             }
-            if ($updatedChannel->getLocation()) {
+            if ($updatedChannel->hasInheritedLocation()) {
+                $channel->setLocation(null);
+            } else {
                 $channel->setLocation($updatedChannel->getLocation());
             }
             $channel->setCaption($updatedChannel->getCaption());

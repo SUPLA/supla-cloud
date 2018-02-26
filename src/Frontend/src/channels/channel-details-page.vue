@@ -72,8 +72,19 @@
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
-                                <square-location-chooser v-model="channel.location"
-                                    @input="onLocationChange($event)"></square-location-chooser>
+                                <div class="form-group">
+                                    <square-location-chooser v-model="channel.location"
+                                        :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
+                                        @input="onLocationChange($event)"></square-location-chooser>
+                                </div>
+                                <p v-if="channel.inheritedLocation"
+                                    class="text-muted">
+                                    {{ $t('Channel inherits I/O Device\'s location') }}
+                                </p>
+                                <a v-else
+                                    @click="onLocationChange(null)">
+                                    {{ $t('Inherit location from I/O Device') }}
+                                </a>
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('State') }}</h3>
@@ -122,7 +133,6 @@
     import FunctionIcon from "./function-icon";
     import ChannelParamsForm from "./params/channel-params-form";
     import SquareLocationChooser from "../locations/square-location-chooser";
-    import Vue from "vue";
     import ChannelAlternativeIconChooser from "./channel-alternative-icon-chooser";
     import ChannelStateTable from "./channel-state-table";
     import ChannelDetailsTabs from "./channel-details-tabs";
@@ -174,11 +184,15 @@
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
                 this.$http.put(`channels/${this.channelId}` + (confirm ? '?confirm=1' : ''), this.channel, {skipErrorHandler: true})
-                    .then(response => Vue.extend(this.channel, response.body))
+                    .then(response => $.extend(this.channel, response.body))
                     .then(() => this.loading = this.changedFunction = this.hasPendingChanges = false)
                     .catch(response => this.changeFunctionConfirmationObject = response.body);
             }, 1000),
             onLocationChange(location) {
+                this.channel.inheritedLocation = !location;
+                if (!location) {
+                    location = this.channel.iodevice.location;
+                }
                 this.$set(this.channel, 'location', location);
                 this.updateChannel();
             },
