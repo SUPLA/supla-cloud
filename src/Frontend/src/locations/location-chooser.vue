@@ -10,7 +10,7 @@
                 ref="carousel">
                 <slide v-for="location in locations"
                     :key="location.id">
-                    <square-link :class="'clearfix pointer lift-up ' + (location.enabled ? '' : 'grey ') + (selectedLocation.id == location.id ? 'selected' : '')">
+                    <square-link :class="'clearfix pointer lift-up ' + (location.enabled ? '' : 'grey ') + (selectedLocation.id == location.id ? 'selected ' : '') + (yellowMark == location.id ? 'yellow' : '')">
                         <a @click="selectedLocation = location">
                             <location-tile-content :location="location"></location-tile-content>
                         </a>
@@ -37,7 +37,7 @@
 
     export default {
         components: {Carousel, Slide, LocationTileContent},
-        props: ['currentLocation'],
+        props: ['currentLocation', 'yellowMark'],
         data() {
             return {
                 locations: undefined,

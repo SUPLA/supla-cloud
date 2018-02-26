@@ -1,6 +1,6 @@
 <template>
     <div>
-        <square-link :class="'text-left ' + (value.enabled ? '' : 'grey')"
+        <square-link :class="'text-left ' + (value.enabled ? '' : 'grey ') + (yellowMark == value.id ? 'yellow' : '')"
             v-if="value">
             <a @click="chooseLocation = true">
                 <location-tile-content :location="value"></location-tile-content>
@@ -13,6 +13,7 @@
         </button>
         <location-chooser v-if="chooseLocation"
             :current-location="value"
+            :yellow-mark="yellowMark"
             @confirm="onLocationChange($event)"
             @cancel="chooseLocation = false"
             class="text-left"></location-chooser>
@@ -25,7 +26,7 @@
 
     export default {
         components: {LocationChooser, LocationTileContent},
-        props: ['value'],
+        props: ['value', 'yellowMark'],
         data() {
             return {
                 chooseLocation: false
