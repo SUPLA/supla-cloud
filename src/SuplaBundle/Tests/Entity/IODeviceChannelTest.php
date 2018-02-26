@@ -18,7 +18,10 @@
 namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
+use SuplaApiBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Location;
 
 class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
     public function testSettingParams() {
@@ -32,5 +35,23 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         $this->expectException(InvalidArgumentException::class);
         $channel = new IODeviceChannel();
         $channel->setParam(50, 3);
+    }
+
+    public function testSettingLocation() {
+        $channel = new IODeviceChannel();
+        $location = $this->createMock(Location::class);
+        $channel->setLocation($location);
+        $this->assertEquals($location, $channel->getLocation());
+    }
+
+    public function testSettingLocationToDeviceLocationClearsIt() {
+        $channel = new IODeviceChannel();
+        $location = $this->createMock(Location::class);
+        $ioDevice = $this->createMock(IODevice::class);
+        $ioDevice->method('getLocation')->willReturn($location);
+        EntityUtils::setField($channel, 'iodevice', $ioDevice);
+        $channel->setLocation($location);
+        $this->assertEquals($location, $channel->getLocation());
+        $this->assertNull(EntityUtils::getField($channel, 'location'));
     }
 }

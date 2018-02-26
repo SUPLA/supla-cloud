@@ -174,7 +174,11 @@ class IODeviceChannel {
      * @param mixed $location
      */
     public function setLocation(Location $location) {
-        $this->location = $location;
+        if ($this->iodevice && $this->iodevice->getLocation() == $location) {
+            $this->location = null;
+        } else {
+            $this->location = $location;
+        }
     }
 
     /** @return Collection|Schedule[] */
