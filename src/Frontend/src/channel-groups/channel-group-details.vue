@@ -2,80 +2,96 @@
     <loading-cover :loading="loading"
         class="channel-group-details">
         <div v-if="channelGroup">
-            <div class="container">
-                <div class="clearfix left-right-header">
-                    <h2 class="no-margin-top">
-                        {{ $t(channelGroup.id ? 'Channel group' : 'New channel group') }}
-                        {{ channelGroup.id ? 'ID'+ channelGroup.id : '' }}
-                    </h2>
-                    <div class="btn-toolbar no-margin-top"
-                        v-if="!isNewGroup">
-                        <a class="btn btn-default"
-                            @click="toggleEnabled()">
-                            {{ $t(channelGroup.enabled ? 'Disable' : 'Enable') }}
-                        </a>
-                        <a class="btn btn-danger"
-                            @click="deleteConfirm = true">
-                            {{ $t('Delete') }}
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="row hidden-xs">
-                    <div class="col-xs-12">
-                        <dots-route></dots-route>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row text-center">
-                        <div class="col-sm-4">
-                            <h3>{{ $t('Details') }}</h3>
-                            <div class="hover-editable text-left">
-                                <dl>
-                                    <dd>{{ $t('Caption') }}</dd>
-                                    <dt>
-                                        <input type="text"
-                                            class="form-control"
-                                            @change="saveChannelGroup()"
-                                            v-model="channelGroup.caption">
-                                    </dt>
-                                    <dd>{{ $t('Show in clients') }}</dd>
-                                    <dt class="text-center">
-                                        <toggler v-model="channelGroup.hidden"
-                                            invert="true"
-                                            @input="saveChannelGroup()"></toggler>
-                                    </dt>
-                                </dl>
-                            </div>
+            <form @submit.prevent="saveChannelGroup()">
+                <div class="container">
+                    <div class="clearfix left-right-header">
+                        <h2 class="no-margin-top">
+                            {{ $t(channelGroup.id ? 'Channel group' : 'New channel group') }}
+                            {{ channelGroup.id ? 'ID'+ channelGroup.id : '' }}
+                        </h2>
+                        <div class="btn-toolbar no-margin-top"
+                            v-if="hasPendingChanges">
+                            <a class="btn btn-grey"
+                                v-if="hasPendingChanges"
+                                @click="cancelChanges()">
+                                <i class="pe-7s-back"></i>
+                                {{ $t('Cancel changes') }}
+                            </a>
+                            <button class="btn btn-yellow btn-lg"
+                                type="submit">
+                                <i class="pe-7s-diskette"></i>
+                                {{ $t('Save changes') }}
+                            </button>
                         </div>
-                        <div class="col-sm-4">
-                            <h3>{{ $t('Location') }}</h3>
-                            <square-location-chooser v-model="channelGroup.location"
-                                @input="onLocationChange($event)"></square-location-chooser>
+                        <div class="btn-toolbar no-margin-top"
+                            v-else-if="!isNewGroup">
+                            <a class="btn btn-danger"
+                                @click="deleteConfirm = true">
+                                {{ $t('Delete') }}
+                            </a>
                         </div>
-                        <div class="col-sm-4">
-                            <h3>{{ $t('Function') }}</h3>
-                            <div v-if="channelGroup.function">
-                                <function-icon :model="channelGroup"
-                                    width="100"></function-icon>
-                                <h4>{{ $t(channelGroup.function.caption) }}</h4>
-                            </div>
-                            <div v-else-if="isNewGroup">
-                                <i class="pe-7s-help1"
-                                    style="font-size: 3em"></i>
-                            </div>
+                        <div v-else></div>
+                    </div>
+                    <div class="row hidden-xs">
+                        <div class="col-xs-12">
+                            <dots-route></dots-route>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="row text-center">
+                            <div class="col-sm-4">
+                                <h3>{{ $t('Details') }}</h3>
+                                <div class="hover-editable text-left">
+                                    <dl>
+                                        <dd>{{ $t('Enabled') }}</dd>
+                                        <dt class="text-center">
+                                            <toggler v-model="channelGroup.enabled"
+                                                @input="channelGroupChanged()"></toggler>
+                                        </dt>
+                                        <dd>{{ $t('Caption') }}</dd>
+                                        <dt>
+                                            <input type="text"
+                                                class="form-control"
+                                                @change="channelGroupChanged()"
+                                                v-model="channelGroup.caption">
+                                        </dt>
+                                        <dd>{{ $t('Show in clients') }}</dd>
+                                        <dt class="text-center">
+                                            <toggler v-model="channelGroup.hidden"
+                                                invert="true"
+                                                @input="channelGroupChanged()"></toggler>
+                                        </dt>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <h3>{{ $t('Location') }}</h3>
+                                <square-location-chooser v-model="channelGroup.location"
+                                    @input="onLocationChange($event)"></square-location-chooser>
+                            </div>
+                            <div class="col-sm-4">
+                                <h3>{{ $t('Function') }}</h3>
+                                <div v-if="channelGroup.function">
+                                    <function-icon :model="channelGroup"
+                                        width="100"></function-icon>
+                                    <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                                </div>
+                                <div v-else-if="isNewGroup">
+                                    <i class="pe-7s-help1"
+                                        style="font-size: 3em"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
             <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
             <square-links-grid v-if="channelGroup.channels"
                 :count="channelGroup.channels.length + 1"
                 class="square-links-height-240">
                 <div key="new">
                     <channel-group-new-channel-chooser :channel-group="channelGroup"
-                        @add="saveChannelGroup()"></channel-group-new-channel-chooser>
+                        @add="channelGroupChanged()"></channel-group-new-channel-chooser>
                 </div>
                 <div v-for="channel in channelGroup.channels"
                     :key="channel.id">
@@ -120,7 +136,8 @@
             return {
                 loading: false,
                 channelGroup: undefined,
-                deleteConfirm: false
+                deleteConfirm: false,
+                hasPendingChanges: false
             };
         },
         mounted() {
@@ -128,6 +145,7 @@
         },
         methods: {
             initForModel() {
+                this.hasPendingChanges = false;
                 if (this.model.id) {
                     this.loading = true;
                     this.$http.get(`channel-groups/${this.model.id}?include=channels,iodevice,location,function,type`)
@@ -135,47 +153,52 @@
                         .finally(() => this.loading = false);
                 }
                 else {
-                    this.channelGroup = $.extend(true, {}, this.model);
+                    this.channelGroup = $.extend(true, {enabled: true}, this.model);
                     if (!this.channelGroup.channels) {
                         this.$set(this.channelGroup, 'channels', []);
                     }
                 }
             },
-            saveChannelGroup() {
+            channelGroupChanged() {
                 if (this.channelGroup.channels.length) {
-                    const toSend = Vue.util.extend({}, this.channelGroup);
-                    this.loading = true;
+                    this.hasPendingChanges = true;
                     if (this.isNewGroup) {
-                        this.$http.post('channel-groups', toSend).then(response => {
-                            const newGroup = response.body;
-                            newGroup.channels = this.channelGroup.channels;
-                            this.$emit('add', newGroup);
-                        });
-                    } else {
-                        this.$http
-                            .put('channel-groups/' + this.channelGroup.id, toSend)
-                            .then(response => this.$emit('update', response.body))
-                            .finally(() => this.loading = false);
+                        this.saveChannelGroup();
                     }
+                }
+            },
+            saveChannelGroup() {
+                const toSend = Vue.util.extend({}, this.channelGroup);
+                this.loading = true;
+                if (this.isNewGroup) {
+                    this.$http.post('channel-groups', toSend).then(response => {
+                        const newGroup = response.body;
+                        newGroup.channels = this.channelGroup.channels;
+                        this.$emit('add', newGroup);
+                    });
+                } else {
+                    this.$http
+                        .put('channel-groups/' + this.channelGroup.id, toSend)
+                        .then(response => this.$emit('update', response.body))
+                        .finally(() => this.loading = this.hasPendingChanges = false);
                 }
             },
             removeChannel(channel) {
                 this.channelGroup.channels.splice(this.channelGroup.channels.indexOf(channel), 1);
-                this.saveChannelGroup();
+                this.channelGroupChanged();
             },
             deleteGroup() {
                 this.loading = true;
                 this.$http.delete('channel-groups/' + this.channelGroup.id).then(() => this.$emit('delete'));
                 this.channelGroup = undefined;
             },
-            toggleHidden() {
-                this.channelGroup.hidden = !this.channelGroup.hidden;
-                this.saveChannelGroup();
-            },
             onLocationChange(location) {
                 this.$set(this.channelGroup, 'location', location);
-                this.saveChannelGroup();
-            }
+                this.channelGroupChanged();
+            },
+            cancelChanges() {
+                this.initForModel();
+            },
         },
         computed: {
             isNewGroup() {

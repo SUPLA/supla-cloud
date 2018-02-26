@@ -1,6 +1,9 @@
 .VueCarousel {
   .VueCarousel-navigation {
     min-height: 25px;
+    &--disabled {
+      visibility: hidden;
+    }
   }
   .VueCarousel-navigation-button {
     background: black;

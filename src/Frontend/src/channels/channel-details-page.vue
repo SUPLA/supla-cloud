@@ -51,7 +51,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <dl>
+                                    <dl v-if="channel.function.id">
                                         <dd>{{ $t('Caption') }}</dd>
                                         <dt>
                                             <input type="text"
@@ -167,17 +167,17 @@
         },
         methods: {
             fetchChannel() {
+                this.loading = true;
                 this.$http.get(`channels/${this.channelId}?include=iodevice,location,type,function,supportedFunctions`).then(response => {
                     this.channel = response.body;
                     this.$set(this.channel, 'enabled', !!this.channel.function.id);
+                    this.changedFunction = this.hasPendingChanges = this.loading = false;
                 });
             },
             updateChannel() {
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
-                this.changedFunction = this.hasPendingChanges = false;
-                this.channel = undefined;
                 this.fetchChannel();
             },
             saveChanges: throttle(function (confirm = false) {

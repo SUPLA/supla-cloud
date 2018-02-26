@@ -6,7 +6,8 @@
                     <h1>{{ $t('Channel groups') }}</h1>
                     <loading-cover :loading="!channelGroups">
                         <div v-if="channelGroups">
-                            <div class="grid-filters">
+                            <div class="grid-filters"
+                                v-if="channelGroups.length">
                                 <btn-filters v-model="filters.enabled"
                                     :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
                                 <input type="text"
@@ -20,6 +21,7 @@
                                     :channel-group="channelGroup"
                                     @select="channelGroupChanged">
                                 </channel-groups-carousel>
+                                <empty-list-placeholder v-if="channelGroups.length && filteredChannelGroups.length === 0"></empty-list-placeholder>
                             </div>
                         </div>
                     </loading-cover>
@@ -36,14 +38,15 @@
 </template>
 
 <script>
-    import BtnFilters from "src/common/btn-filters.vue";
-    import ChannelGroupDetails from "./channel-group-details.vue";
-    import ChannelGroupsCarousel from "./channel-groups-carousel.vue";
+    import BtnFilters from "src/common/btn-filters";
+    import ChannelGroupDetails from "./channel-group-details";
+    import ChannelGroupsCarousel from "./channel-groups-carousel";
     import latinize from "latinize";
     import Vue from "vue";
+    import EmptyListPlaceholder from "src/devices/list/empty-list-placeholder";
 
     export default {
-        components: {BtnFilters, ChannelGroupDetails, ChannelGroupsCarousel},
+        components: {BtnFilters, ChannelGroupDetails, ChannelGroupsCarousel, EmptyListPlaceholder},
         data() {
             return {
                 channelGroup: undefined,
@@ -84,14 +87,17 @@
             onGroupAdded(channelGroup) {
                 this.channelGroups.push(channelGroup);
                 this.channelGroup = channelGroup;
+                this.calculateSearchStrings();
             },
             onGroupUpdated(channelGroup) {
                 const cg = this.channelGroups.find(c => channelGroup.id == c.id);
                 $.extend(cg, channelGroup);
+                this.calculateSearchStrings();
             },
             onGroupDeleted() {
                 this.channelGroups.splice(this.channelGroups.indexOf(this.channelGroup), 1);
                 this.channelGroup = undefined;
+                this.calculateSearchStrings();
             }
         }
     };

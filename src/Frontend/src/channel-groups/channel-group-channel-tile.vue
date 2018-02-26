@@ -5,7 +5,7 @@
             <a @click="flipped = true">
                 <function-icon :model="channel"
                     width="90"></function-icon>
-                <h3>{{ $t(channel.function.caption) }}</h3>
+                <h3>ID{{ channel.id }} {{ $t(channel.function.caption) }}</h3>
                 <dl>
                     <dd>{{ $t('Device') }}</dd>
                     <dt>{{ channel.iodevice.name }}</dt>

@@ -1,6 +1,6 @@
 <template>
     <switches v-model="model"
-        type-bold="true"
+        :type-bold="bold"
         :label="$t(label)"
         :color="model ? 'green' : 'default'"
         :emit-on-mount="false"></switches>
@@ -10,7 +10,7 @@
     import Switches from "vue-switches";
 
     export default {
-        props: ['value', 'invert', 'label'],
+        props: ['value', 'invert', 'label', 'bold'],
         components: {Switches},
         computed: {
             model: {

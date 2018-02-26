@@ -46,6 +46,7 @@
     background: $supla-yellow;
     color: $supla-black;
     border: 1px solid $supla-yellow;
+    outline-color: $supla-yellow !important;
   }
   &-red, &-danger {
     background: $supla-red;
