@@ -32,6 +32,7 @@
                         </div>
                         <div v-else></div>
                     </div>
+                    <p>Nazwa, hasło, czy włączona</p>
                 </div>
             </form>
             <modal-confirm v-if="deleteConfirm"
@@ -42,14 +43,35 @@
                 :loading="loading">
                 {{ $t('Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {locationId: location.id}) }}
             </modal-confirm>
+            <div class="container">
+                <h2>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h2>
+                <p>Będą tu</p>
+                <h2>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h2>
+                <square-links-carousel
+                    tile="channel-group-tile"
+                    :items="location.channelGroups"></square-links-carousel>
+                <h2>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h2>
+                <square-links-carousel
+                    tile="access-id-tile"
+                    :items="location.accessIds"></square-links-carousel>
+                <h2>{{ $t('Channels') }} (0)</h2>
+                <p>Będą tu</p>
+            </div>
         </div>
     </loading-cover>
 </template>
 
 <script>
     import Vue from "vue";
+    import SquareLinksCarousel from "../common/tiles/square-links-carousel";
+    import AccessIdTile from "src/access-ids/access-id-tile";
+    import ChannelGroupTile from "src/channel-groups/channel-group-tile";
+
+    Vue.component('AccessIdTile', AccessIdTile);
+    Vue.component('ChannelGroupTile', ChannelGroupTile);
 
     export default {
+        components: {SquareLinksCarousel},
         props: ['model'],
         data() {
             return {
@@ -67,7 +89,7 @@
                 this.hasPendingChanges = false;
                 this.loading = true;
                 if (this.model.id) {
-                    this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids`)
+                    this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids,password`)
                         .then(response => this.location = response.body)
                         .finally(() => this.loading = false);
                 } else {
