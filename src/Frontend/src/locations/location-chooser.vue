@@ -5,7 +5,7 @@
             <locations-carousel v-if="locations"
                 :locations="locations"
                 :location="currentLocation"
-                @select="currentLocation = $event"></locations-carousel>
+                @select="selectedLocation = $event"></locations-carousel>
         </loading-cover>
         <div slot="footer">
             <a @click="$emit('cancel')"

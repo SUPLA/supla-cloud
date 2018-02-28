@@ -61,7 +61,7 @@
                     if (this.selectedLocation) {
                         console.log(this.$refs.carousel);
                         const index = this.locations.indexOf(this.selectedLocation);
-                        const desiredPage = Math.floor(index / this.$refs.carousel.currentPerPage) + 1;
+                        const desiredPage = Math.max(0, index - this.$refs.carousel.currentPerPage + 1);
                         Vue.nextTick(() => this.$refs.carousel.goToPage(desiredPage));
                     }
                 }

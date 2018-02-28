@@ -5,7 +5,7 @@
             <a @click="flipped = true">
                 <function-icon :model="channel"
                     width="90"></function-icon>
-                <h3>ID{{ channel.id }} {{ $t(channel.function.caption) }}</h3>
+                <h3 class="no-margin-top">ID{{ channel.id }} {{ $t(channel.function.caption) }}</h3>
                 <dl>
                     <dd>{{ $t('Device') }}</dd>
                     <dt>{{ channel.iodevice.name }}</dt>
@@ -38,11 +38,12 @@
                         :href="`/iodev/${channel.iodeviceId}/view` | withBaseUrl">
                         {{ $t('Go to I/O device details') }}
                     </a>
-                    <a class="btn btn-danger"
+                    <button class="btn btn-danger btn-block"
+                        type="button"
                         @click.stop="$emit('remove')"
                         :disabled="!removable">
                         {{ $t('Remove') }}
-                    </a>
+                    </button>
                 </span>
             </a>
         </square-link>
