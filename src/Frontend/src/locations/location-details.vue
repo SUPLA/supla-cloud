@@ -66,9 +66,13 @@
             initForModel() {
                 this.hasPendingChanges = false;
                 this.loading = true;
-                this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids`)
-                    .then(response => this.location = response.body)
-                    .finally(() => this.loading = false);
+                if (this.model.id) {
+                    this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids`)
+                        .then(response => this.location = response.body)
+                        .finally(() => this.loading = false);
+                } else {
+                    this.$http.post('locations', {}).then(response => this.$emit('add', response.body));
+                }
             },
             saveLocation() {
                 const toSend = Vue.util.extend({}, this.location);
@@ -76,7 +80,6 @@
                 this.$http.put('locations/' + this.location.id, toSend)
                     .then(response => this.$emit('update', response.body))
                     .finally(() => this.loading = this.hasPendingChanges = false);
-
             },
             deleteLocation() {
                 this.loading = true;
