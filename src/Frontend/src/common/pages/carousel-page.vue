@@ -15,19 +15,18 @@
                                     v-model="filters.search"
                                     :placeholder="$t('Search')">
                             </div>
-                            <div class="form-group">
-                                <square-links-carousel
-                                    :tile="tile"
-                                    :items="filteredItems"
-                                    :selected="item"
-                                    @select="itemChanged"
-                                    :new-item-tile="filteredItems.length === items.length ? createNewLabel : ''"></square-links-carousel>
-                            </div>
+                            <square-links-carousel
+                                :tile="tile"
+                                :items="filteredItems"
+                                :selected="item"
+                                @select="itemChanged"
+                                :new-item-tile="filteredItems.length === items.length ? createNewLabel : ''"></square-links-carousel>
                         </div>
                     </loading-cover>
                 </div>
             </div>
         </div>
+        <hr v-if="item">
         <component :is="details"
             v-if="item"
             :model="item"
