@@ -49,6 +49,7 @@ const components = {
     EnableDisableDeviceButton: () => import("./devices/details/enable-disable-device-button.vue"),
     IdleLogout: () => import("./common/idle-logout.vue"),
     LanguageSelector: () => import('./login/language-selector.vue'),
+    LocationsPage: () => import("./locations/locations-page.vue"),
     ScheduleForm: () => import("./schedules/schedule-form/schedule-form.vue"),
     ScheduleList: () => import("./schedules/schedule-list/schedule-list.vue"),
     TimezonePicker: () => import("./account-details/timezone-picker.vue"),

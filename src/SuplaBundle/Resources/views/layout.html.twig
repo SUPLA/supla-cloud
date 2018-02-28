@@ -39,12 +39,12 @@
     <script src="{{ asset('assets/js/supla21101701.js') }}"></script>
 
     {% if app.user %}
-    {% if app.request.get('_route') == '_loc_list' or app.request.get('_route') == '_aid_list' %}
+        {#{% if app.request.get('_route') == '_loc_list' or app.request.get('_route') == '_aid_list' %}#}
         <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.liveFilter.js') }}"></script>
         <script src="{{ asset('assets/js/pGenerator.jquery.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.tooltipster.min.js') }}"></script>
-    {% endif %}
+        {#{% endif %}#}
     {% if app.request.get('_route') == '_iodev_item' %}
         <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.tooltipster.min.js') }}"></script>

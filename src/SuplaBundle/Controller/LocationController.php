@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Form\Type\AssignType;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -25,7 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/loc")
+ * @Route("/locations")
  */
 class LocationController extends Controller {
     use SuplaServerAware;
@@ -58,8 +59,16 @@ class LocationController extends Controller {
 
     /**
      * @Route("", name="_loc_list")
+     * @Template
      */
-    public function listAction() {
+    public function locationsListAction() {
+        return [];
+    }
+
+    /**
+     * @Route("/old")
+     */
+    public function oldListAction() {
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $details = '';

@@ -17,12 +17,23 @@
 
 namespace SuplaApiBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations as Rest;
+use Assert\Assertion;
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaBundle\Model\LocationManager;
+use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiLocationController extends RestController {
+    use Transactional;
+
+    /** @var LocationManager */
+    private $locationManager;
+
+    public function __construct(LocationManager $locationManager) {
+        $this->locationManager = $locationManager;
+    }
 
     protected function getLocations() {
 
@@ -55,9 +66,6 @@ class ApiLocationController extends RestController {
         return ['locations' => $result];
     }
 
-    /**
-     * @Rest\Get("/locations")
-     */
     public function getLocationsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $locations = $this->getUser()->getLocations();
@@ -67,5 +75,18 @@ class ApiLocationController extends RestController {
         } else {
             return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
         }
+    }
+
+    public function postLocationAction() {
+        $user = $this->getUser();
+        $locationsCount = $user->getLocations()->count();
+        Assertion::lessThan($locationsCount, $user->getLimitLoc(), 'You have reached the maximum limit of locations.');
+        return $this->transactional(function (EntityManagerInterface $em) use ($user) {
+            $location = $this->locationManager->createLocation($user);
+            $em->persist($location);
+            $view = $this->view($location, Response::HTTP_CREATED);
+//            $this->setSerializationGroups($view, $request, ['accessId', 'connected']);
+            return $view;
+        });
     }
 }

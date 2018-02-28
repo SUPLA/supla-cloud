@@ -28,7 +28,7 @@ class ChannelGroupController extends AbstractController {
      * @Route("", methods={"GET"}, name="_channel_groups_list")
      * @Template
      */
-    public function clientAppsListAction() {
+    public function channelGroupsListAction() {
         return [];
     }
 }

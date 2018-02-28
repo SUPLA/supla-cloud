@@ -2,21 +2,10 @@
     <modal class="modal-location-chooser"
         :header="$t('Choose a location')">
         <loading-cover :loading="!locations">
-            <carousel :navigation-enabled="true"
-                :pagination-enabled="false"
-                navigation-next-label="&gt;"
-                navigation-prev-label="&lt;"
-                :per-page-custom="[[1024, 4], [768, 3], [600, 2], [100, 1]]"
-                ref="carousel">
-                <slide v-for="location in locations"
-                    :key="location.id">
-                    <square-link :class="'clearfix pointer lift-up ' + (location.enabled ? '' : 'grey ') + (selectedLocation.id == location.id ? 'selected' : '')">
-                        <a @click="selectedLocation = location">
-                            <location-tile-content :location="location"></location-tile-content>
-                        </a>
-                    </square-link>
-                </slide>
-            </carousel>
+            <locations-carousel v-if="locations"
+                :locations="locations"
+                :location="currentLocation"
+                @select="currentLocation = $event"></locations-carousel>
         </loading-cover>
         <div slot="footer">
             <a @click="$emit('cancel')"
@@ -34,9 +23,13 @@
 <script>
     import {Carousel, Slide} from 'vue-carousel';
     import LocationTileContent from "./location-tile-content.vue";
+    import LocationsCarousel from "./locations-carousel";
 
     export default {
-        components: {Carousel, Slide, LocationTileContent},
+        components: {
+            LocationsCarousel,
+            Carousel, Slide, LocationTileContent
+        },
         props: ['currentLocation'],
         data() {
             return {

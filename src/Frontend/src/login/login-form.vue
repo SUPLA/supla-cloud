@@ -91,12 +91,14 @@
                     this.authenticating = true;
                     this.$http.get('auth-servers', {params: {username: this.username}}).then(({body}) => {
                         if (!body.server) {
-                            errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
-                            this.authenticating = false;
+                            throw new Error();
                         } else {
                             this.$refs.loginForm.action = body.server + '/auth/login?lang=' + Vue.config.external.locale;
                             this.$refs.loginForm.submit();
                         }
+                    }).catch(() => {
+                        errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
+                        this.authenticating = false;
                     });
                 }
             }
