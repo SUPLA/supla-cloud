@@ -41,6 +41,7 @@ moment.tz.setDefault(Vue.config.external.timezone);
 })();
 
 const components = {
+    AccessIdsPage: () => import("./access-ids/access-ids-page.vue"),
     AnimatedSvg: () => import("./account-details/animated-svg.vue"),
     ChannelDetailsPage: () => import("./channels/channel-details-page.vue"),
     ChannelGroupsPage: () => import("./channel-groups/channel-groups-page.vue"),

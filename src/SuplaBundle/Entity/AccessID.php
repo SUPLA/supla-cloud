@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,6 +28,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="supla_accessid")
  */
 class AccessID {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -39,6 +42,7 @@ class AccessID {
      * @ORM\Column(name="password", type="string", length=32, nullable=false)
      * @Assert\NotBlank()
      * @Assert\Length(min=8, max=32)
+     * @Groups({"password"})
      */
     private $password;
 
@@ -64,24 +68,23 @@ class AccessID {
 
     /**
      * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds", cascade={"persist"})
+     * @Groups({"locations"})
      */
     private $locations;
 
     /**
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="accessId")
+     * @Groups({"clientApps"})
      **/
     private $clientApps;
 
-    public function __construct(User $user = null) {
-
+    public function __construct(User $user) {
         $this->enabled = true;
         $this->clientApps = new ArrayCollection();
         $this->locations = new ArrayCollection();
 
-        if ($user !== null) {
-            $user->getAccessIDS()->add($this);
-            $this->user = $user;
-        }
+        $user->getAccessIDS()->add($this);
+        $this->user = $user;
     }
 
     public function getPassword() {
@@ -104,7 +107,8 @@ class AccessID {
         return $this->user;
     }
 
-    public function getLocations() {
+    /** @return Location[]|Collection */
+    public function getLocations(): Collection {
         return $this->locations;
     }
 
@@ -118,5 +122,10 @@ class AccessID {
 
     public function setEnabled($enabled) {
         $this->enabled = $enabled;
+    }
+
+    /** @return ClientApp[]|Collection */
+    public function getClientApps(): Collection {
+        return $this->clientApps;
     }
 }

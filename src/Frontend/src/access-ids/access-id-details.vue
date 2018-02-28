@@ -1,13 +1,12 @@
 <template>
-    <loading-cover :loading="loading"
-        class="location-details">
-        <div v-if="location">
-            <form @submit.prevent="saveLocation()">
+    <loading-cover :loading="loading">
+        <div v-if="accessId">
+            <form @submit.prevent="saveAccessId()">
                 <div class="container">
                     <div class="clearfix left-right-header">
                         <h2 class="no-margin-top">
-                            {{ $t('Location') }}
-                            ID{{ location.id }}
+                            {{ $t('Access Identifier') }}
+                            ID{{ accessId.id }}
                         </h2>
                         <div class="btn-toolbar no-margin-top"
                             v-if="hasPendingChanges">
@@ -40,7 +39,7 @@
                 @cancel="deleteConfirm = false"
                 :header="$t('Are you sure?')"
                 :loading="loading">
-                {{ $t('Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {locationId: location.id}) }}
+                {{ $t('Confirm if you want to remove Location ID{accessIdId}. You will no longer be able to connect the i/o devices to this Location.', {accessIdId: accessId.id}) }}
             </modal-confirm>
         </div>
     </loading-cover>
@@ -54,7 +53,7 @@
         data() {
             return {
                 loading: false,
-                location: undefined,
+                accessId: undefined,
                 deleteConfirm: false,
                 hasPendingChanges: false
             };
@@ -67,25 +66,25 @@
                 this.hasPendingChanges = false;
                 this.loading = true;
                 if (this.model.id) {
-                    this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids`)
-                        .then(response => this.location = response.body)
+                    this.$http.get(`accessids/${this.model.id}?include=locations,clientApps,password`)
+                        .then(response => this.accessId = response.body)
                         .finally(() => this.loading = false);
                 } else {
-                    this.$http.post('locations', {}).then(response => this.$emit('add', response.body)).catch(() => this.$emit('delete'));
+                    this.$http.post('accessids', {}).then(response => this.$emit('add', response.body)).catch(() => this.$emit('delete'));
                 }
             },
             saveLocation() {
-                const toSend = Vue.util.extend({}, this.location);
+                const toSend = Vue.util.extend({}, this.accessId);
                 this.loading = true;
-                this.$http.put('locations/' + this.location.id, toSend)
+                this.$http.put('accessids/' + this.accessId.id, toSend)
                     .then(response => this.$emit('update', response.body))
                     .finally(() => this.loading = this.hasPendingChanges = false);
             },
             deleteLocation() {
                 this.loading = true;
-                this.$http.delete('locations/' + this.location.id)
+                this.$http.delete('accessids/' + this.accessId.id)
                     .then(() => this.$emit('delete'))
-                    .then(() => this.location = undefined)
+                    .then(() => this.accessId = undefined)
                     .catch(() => this.loading = false);
             }
         },

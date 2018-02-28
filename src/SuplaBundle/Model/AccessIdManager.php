@@ -51,17 +51,11 @@ class AccessIdManager {
     }
 
     public function createID(User $user, $ifnotexists = false) {
-        if ($ifnotexists === false
-            || $this->anyIdExists($user) === false
-        ) {
+        if ($ifnotexists === false || $this->anyIdExists($user) === false) {
             $aid = new AccessID($user);
-
-            if ($aid !== null) {
-                $aid->setPassword(bin2hex(random_bytes(4)));
-                $aid->setCaption($this->translator->trans('Access Identifier') . " #" . ($this->totalCount($user) + 1));
-
-                return $aid;
-            }
+            $aid->setPassword(bin2hex(random_bytes(4)));
+            $aid->setCaption($this->translator->trans('Access Identifier') . " #" . ($this->totalCount($user) + 1));
+            return $aid;
         }
 
         return null;

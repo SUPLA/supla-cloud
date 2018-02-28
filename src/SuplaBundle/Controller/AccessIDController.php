@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Form\Type\AssignType;
@@ -25,7 +26,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/aid")
+ * @Route("/access-identifiers")
  */
 class AccessIDController extends AbstractController {
     use SuplaServerAware;
@@ -56,6 +57,14 @@ class AccessIDController extends AbstractController {
 
     /**
      * @Route("", name="_aid_list")
+     * @Template()
+     */
+    public function accessIdentifiersListAction() {
+        return [];
+    }
+
+    /**
+     * @Route("/old")
      */
     public function listAction() {
         /** @var User $user */

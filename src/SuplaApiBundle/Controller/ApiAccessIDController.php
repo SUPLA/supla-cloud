@@ -17,11 +17,27 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Assert\Assertion;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Model\AccessIdManager;
+use SuplaBundle\Model\Transactional;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiAccessIDController extends RestController {
+    use Transactional;
+    use SuplaServerAware;
+
+    /** @var AccessIdManager */
+    private $accessIdManager;
+
+    public function __construct(AccessIdManager $accessIdManager) {
+        $this->accessIdManager = $accessIdManager;
+    }
 
     protected function getAccessIDS() {
         $result = [];
@@ -54,5 +70,36 @@ class ApiAccessIDController extends RestController {
         } else {
             return $this->view($this->getAccessIDS(), Response::HTTP_OK);
         }
+    }
+
+    /**
+     * @Security("accessId.belongsToUser(user)")
+     */
+    public function getAccessidAction(Request $request, AccessID $accessId) {
+        $view = $this->view($accessId, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['locations', 'clientApps', 'password']);
+        return $view;
+    }
+
+    public function postAccessidAction(Request $request) {
+        $user = $this->getUser();
+        $accessIdCount = $user->getAccessIDS()->count();
+        Assertion::lessThan($accessIdCount, $user->getLimitAid(), 'Access identifier limit has been exceeded');
+        return $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
+            $aid = $this->accessIdManager->createID($user);
+            $em->persist($aid);
+            return $this->getAccessidAction($request, $aid);
+        });
+    }
+
+    /**
+     * @Security("accessId.belongsToUser(user)")
+     */
+    public function deleteAccessidAction(AccessID $accessId) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($accessId) {
+            $em->remove($accessId);
+            $this->suplaServer->reconnect($this->getUser()->getId());
+            return new Response('', Response::HTTP_NO_CONTENT);
+        });
     }
 }

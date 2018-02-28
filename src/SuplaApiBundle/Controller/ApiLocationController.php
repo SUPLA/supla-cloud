@@ -24,11 +24,13 @@ use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiLocationController extends RestController {
     use Transactional;
+    use SuplaServerAware;
 
     /** @var LocationManager */
     private $locationManager;
@@ -95,7 +97,7 @@ class ApiLocationController extends RestController {
      */
     public function getLocationAction(Request $request, Location $location) {
         $view = $this->view($location, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups']);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']);
         return $view;
     }
 
@@ -108,6 +110,7 @@ class ApiLocationController extends RestController {
         Assertion::count($location->getChannelGroups(), 0, 'Remove all the associated channel groups before you delete this location');
         return $this->transactional(function (EntityManagerInterface $em) use ($location) {
             $em->remove($location);
+            $this->suplaServer->reconnect($this->getUser()->getId());
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }

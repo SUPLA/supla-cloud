@@ -42,6 +42,7 @@ class Location {
      * @ORM\Column(name="password", type="string", length=32, nullable=false)
      * @Assert\NotBlank()
      * @Assert\Length(min=4, max=10)
+     * @Groups({"password"})
      */
     private $password;
 
