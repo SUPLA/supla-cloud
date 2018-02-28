@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,6 +28,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="supla_location")
  */
 class Location {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -68,23 +71,27 @@ class Location {
      * joinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="access_id", referencedColumnName="id")}
      * )
+     * @Groups({"accessids"})
      */
     private $accessIds;
 
     /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="location")
+     * @Groups({"iodevices"})
      */
     private $ioDevices;
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="location")
+     * @Groups({"channelGroups"})
      */
-    private $ioDeviceChannelGroups;
+    private $channelGroups;
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="location")
+     * @Groups({"channels"})
      */
-    private $ioDeviceChannels;
+    private $channels;
 
     /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="originalLocation")
@@ -92,23 +99,22 @@ class Location {
     private $ioDevices_ol;
 
     public function __construct(User $user) {
-
         $this->enabled = true;
         $this->accessIds = new ArrayCollection();
         $this->ioDevices = new ArrayCollection();
         $this->ioDevices_ol = new ArrayCollection();
+        $this->channelGroups = new ArrayCollection();
+        $this->channels = new ArrayCollection();
 
-        if ($user !== null) {
-            $this->user = $user;
+        $this->user = $user;
 
-            if ($user->getAccessIDS()->count() > 0) {
-                $aid = $user->getAccessIDS()->get(0);
+        if ($user->getAccessIDS()->count() > 0) {
+            $aid = $user->getAccessIDS()->get(0);
 
-                if ($aid !== null) {
-                    $this->accessIds->add($aid);
-                    $aid->getLocations()->add($this);
-                    $user->getLocations()->add($this);
-                }
+            if ($aid !== null) {
+                $this->accessIds->add($aid);
+                $aid->getLocations()->add($this);
+                $user->getLocations()->add($this);
             }
         }
     }
@@ -137,16 +143,28 @@ class Location {
         return $this->id;
     }
 
-    public function getIoDevices() {
+    /** @return IODevice[]|Collection */
+    public function getIoDevices(): Collection {
         return $this->ioDevices;
+    }
+
+    /** @return IODeviceChannelGroup[]|Collection */
+    public function getChannelGroups(): Collection {
+        return $this->channelGroups;
+    }
+
+    /** @return IODeviceChannel[]|Collection */
+    public function getChannels(): Collection {
+        return $this->channels;
+    }
+
+    /** @return AccessID[]|Collection */
+    public function getAccessIds(): Collection {
+        return $this->accessIds;
     }
 
     public function getIoDevicesByOriginalLocation() {
         return $this->ioDevices_ol;
-    }
-
-    public function getAccessIds() {
-        return $this->accessIds;
     }
 
     public function getEnabled() {

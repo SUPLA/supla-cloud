@@ -4,6 +4,8 @@
         <dl>
             <dd>{{ $t('Devices no') }}</dd>
             <dt>{{ location.iodeviceIds.length }}</dt>
+            <dd>{{ $t('Channel groups no') }}</dd>
+            <dt>{{ location.channelGroupsIds.length }}</dt>
         </dl>
         <div v-if="location.caption">
             <div class="separator"></div>

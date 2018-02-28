@@ -19,7 +19,9 @@ namespace SuplaApiBundle\Controller;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaBundle\Entity\Location;
 use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,23 +72,43 @@ class ApiLocationController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $locations = $this->getUser()->getLocations();
             $view = $this->view($locations, Response::HTTP_OK);
-//            $this->setSerializationGroups($view, $request, ['accessId', 'connected']);
+            $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups']);
             return $view;
         } else {
             return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
         }
     }
 
-    public function postLocationAction() {
+    public function postLocationAction(Request $request) {
         $user = $this->getUser();
         $locationsCount = $user->getLocations()->count();
-        Assertion::lessThan($locationsCount, $user->getLimitLoc(), 'You have reached the maximum limit of locations.');
-        return $this->transactional(function (EntityManagerInterface $em) use ($user) {
+        Assertion::lessThan($locationsCount, $user->getLimitLoc(), 'Location limit has been exceeded');
+        return $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
             $location = $this->locationManager->createLocation($user);
             $em->persist($location);
-            $view = $this->view($location, Response::HTTP_CREATED);
-//            $this->setSerializationGroups($view, $request, ['accessId', 'connected']);
-            return $view;
+            return $this->getLocationAction($request, $location);
+        });
+    }
+
+    /**
+     * @Security("location.belongsToUser(user)")
+     */
+    public function getLocationAction(Request $request, Location $location) {
+        $view = $this->view($location, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups']);
+        return $view;
+    }
+
+    /**
+     * @Security("location.belongsToUser(user)")
+     */
+    public function deleteLocationAction(Location $location) {
+        Assertion::count($location->getIoDevices(), 0, 'Remove all the associated devices before you delete this location');
+        Assertion::count($location->getChannels(), 0, 'Remove all the associated channels before you delete this location');
+        Assertion::count($location->getChannelGroups(), 0, 'Remove all the associated channel groups before you delete this location');
+        return $this->transactional(function (EntityManagerInterface $em) use ($location) {
+            $em->remove($location);
+            return new Response('', Response::HTTP_NO_CONTENT);
         });
     }
 }

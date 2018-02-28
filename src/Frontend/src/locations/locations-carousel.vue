@@ -59,10 +59,11 @@
                 if (this.selectedLocation != this.location && (!this.location || this.location.id)) {
                     this.selectedLocation = this.locations.find(loc => loc.id == this.location.id);
                     if (this.selectedLocation) {
-                        console.log(this.$refs.carousel);
-                        const index = this.locations.indexOf(this.selectedLocation);
-                        const desiredPage = Math.max(0, index - this.$refs.carousel.currentPerPage + 1);
-                        Vue.nextTick(() => this.$refs.carousel.goToPage(desiredPage));
+                        Vue.nextTick(() => {
+                            const index = this.locations.indexOf(this.selectedLocation);
+                            const desiredPage = Math.max(0, index - this.$refs.carousel.perPage + 1);
+                            this.$refs.carousel.goToPage(desiredPage);
+                        });
                     }
                 }
             }

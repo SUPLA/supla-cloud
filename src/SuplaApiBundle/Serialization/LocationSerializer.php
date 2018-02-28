@@ -27,6 +27,8 @@ class LocationSerializer extends AbstractSerializer {
     public function normalize($location, $format = null, array $context = []) {
         $normalized = parent::normalize($location, $format, $context);
         $normalized['iodeviceIds'] = $this->toIds($location->getIoDevices());
+        $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
+        $normalized['channelsIds'] = $this->toIds($location->getChannels());
         return $normalized;
     }
 

@@ -21,15 +21,11 @@
 </template>
 
 <script>
-    import {Carousel, Slide} from 'vue-carousel';
     import LocationTileContent from "./location-tile-content.vue";
     import LocationsCarousel from "./locations-carousel";
 
     export default {
-        components: {
-            LocationsCarousel,
-            Carousel, Slide, LocationTileContent
-        },
+        components: {LocationsCarousel, LocationTileContent},
         props: ['currentLocation'],
         data() {
             return {

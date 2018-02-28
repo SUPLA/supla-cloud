@@ -50,14 +50,14 @@ class IODeviceChannelGroup {
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDeviceChannelGroups")
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="channelGroups")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
      * @Groups({"location"})
      */
     private $location;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IODeviceChannel", inversedBy="channelGroups", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="IODeviceChannel", inversedBy="channels", cascade={"persist"})
      * @ORM\JoinTable(name="supla_rel_cg", joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")} )
      * @Groups({"channels"})

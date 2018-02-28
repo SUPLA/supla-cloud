@@ -57,9 +57,10 @@ const components = {
 
 $(document).ready(() => {
     if ($('.vue-container').length) {
+        // console.log()
         const i18n = new VueI18N({
             locale: 'SUPLA_TRANSLATIONS',
-            messages: {SUPLA_TRANSLATIONS},
+            messages: {SUPLA_TRANSLATIONS}
         });
         const app = new Vue({
             el: '.vue-container',

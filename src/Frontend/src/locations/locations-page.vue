@@ -28,12 +28,11 @@
                 </div>
             </div>
         </div>
-        <!--<channel-group-details v-if="location"-->
-        <!--:model="location"-->
-        <!--@delete="onLocationDeleted()"-->
-        <!--@add="onLocationAdded($event)"-->
-        <!--@update="onLocationUpdated($event)">-->
-        <!--</channel-group-details>-->
+        <location-details v-if="location"
+            :model="location"
+            @delete="onLocationDeleted()"
+            @update="onLocationUpdated($event)">
+        </location-details>
     </div>
 </template>
 

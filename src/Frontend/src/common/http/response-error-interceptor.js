@@ -5,8 +5,8 @@ export default function (vue) {
         next(function (response) {
             if (!response.ok && !request.skipErrorHandler) {
                 const message = (response.body && response.body.message)
-                    || vue.$t('Error when communicating the server. Try again in a while.');
-                errorNotification(vue.$t('Error'), message);
+                    || 'Error when communicating the server. Try again in a while.';
+                errorNotification(vue.$t('Error'), vue.$t(message));
             }
         });
     };

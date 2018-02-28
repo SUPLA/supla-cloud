@@ -73,14 +73,13 @@ CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
 DELETE: USUŃ
 Assign Locations: Przypisz Lokalizacje
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
-Confirm if you want to remove Location: Potwierdź chęć usunięcia Lokalizacji
 Further connection with this Identifier will be impossible: Dalsze łączenie poprzez ten identyfikator będzie niemożliwe
 Choose locations to be assigned to Access Identifier: Wybierz Lokalizacje, które zostaną przypisane do tego Identyfikatora Dostępu
 Access Identifiers: Identyfikatory dostępu
 Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
 No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Brak lokalizacji, które możesz przypisać do tego<br />  Identyfikatora Dostępu. Przejdź do Lokalizacji i utwórz minimum jedną.
-No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Brak Identyfikatorów Dostępu, które możesz przypisać do tej<br /> lokalizacji. Przejdź do Identyfikatorów Dostępu i utwórz minimum jeden. 
-You will no longer be able to connect the i/o devices to this Location: Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe
+No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Brak Identyfikatorów Dostępu, które możesz przypisać do tej<br /> lokalizacji. Przejdź do Identyfikatorów Dostępu i utwórz minimum jeden.
+Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 Create New Location: Utwórz nową Lokalizację
 Assign Access Identifiers: Przypisz Identyfikatory Dostępu
 Languages: Języki
@@ -440,3 +439,4 @@ Cancel changes: Anuluj zmiany
 Save changes: Zapisz zmiany
 Channel inherits I/O Device's location: Kanał jest przypisany do lokalizacji urządzenia
 Inherit location from I/O Device: Korzystaj z lokalizacji urządzenia
+Channel groups no: Liczba grup kanałów
