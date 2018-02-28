@@ -129,6 +129,7 @@
 
     @mixin square-link-height($height) {
         .square-links-height-#{$height} {
+            min-height: $height + 10px;
             .square-link {
                 height: $height + px;
             }

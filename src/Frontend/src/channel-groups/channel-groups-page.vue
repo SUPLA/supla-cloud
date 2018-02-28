@@ -16,12 +16,12 @@
                                     :placeholder="$t('Search')">
                             </div>
                             <div class="form-group">
-                                <channel-groups-carousel :channel-groups="filteredChannelGroups"
-                                    :show-new-button="filteredChannelGroups.length == channelGroups.length"
-                                    :channel-group="channelGroup"
-                                    @select="channelGroupChanged">
-                                </channel-groups-carousel>
-                                <empty-list-placeholder v-if="channelGroups.length && filteredChannelGroups.length === 0"></empty-list-placeholder>
+                                <square-links-carousel
+                                    tile="channel-group-tile"
+                                    :items="filteredChannelGroups"
+                                    :selected="channelGroup"
+                                    @select="channelGroupChanged"
+                                    :new-item-tile="filteredChannelGroups.length == channelGroups.length ? 'Create new channel group' : ''"></square-links-carousel>
                             </div>
                         </div>
                     </loading-cover>
@@ -40,13 +40,15 @@
 <script>
     import BtnFilters from "src/common/btn-filters";
     import ChannelGroupDetails from "./channel-group-details";
-    import ChannelGroupsCarousel from "./channel-groups-carousel";
     import latinize from "latinize";
     import Vue from "vue";
-    import EmptyListPlaceholder from "src/devices/list/empty-list-placeholder";
+    import SquareLinksCarousel from "../common/tiles/square-links-carousel";
+    import ChannelGroupTile from "./channel-group-tile";
+
+    Vue.component('ChannelGroupTile', ChannelGroupTile);
 
     export default {
-        components: {BtnFilters, ChannelGroupDetails, ChannelGroupsCarousel, EmptyListPlaceholder},
+        components: {SquareLinksCarousel, BtnFilters, ChannelGroupDetails},
         data() {
             return {
                 channelGroup: undefined,

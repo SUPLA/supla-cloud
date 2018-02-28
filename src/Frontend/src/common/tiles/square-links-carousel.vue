@@ -1,7 +1,8 @@
 <template>
     <div class="square-links-carousel square-links-height-160"
         v-if="items">
-        <carousel :navigation-enabled="true"
+        <carousel v-if="newItemTile || items.length > 0"
+            :navigation-enabled="true"
             :pagination-enabled="false"
             navigation-next-label="&gt;"
             navigation-prev-label="&lt;"
@@ -26,15 +27,17 @@
                     :model="item"></component>
             </slide>
         </carousel>
+        <empty-list-placeholder v-else></empty-list-placeholder>
     </div>
 </template>
 
 <script>
     import {Carousel, Slide} from 'vue-carousel';
+    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
     import Vue from "vue";
 
     export default {
-        components: {Carousel, Slide},
+        components: {Carousel, Slide, EmptyListPlaceholder},
         props: ['items', 'selected', 'tile', 'newItemTile'],
         data() {
             return {

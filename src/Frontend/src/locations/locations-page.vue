@@ -22,7 +22,6 @@
                                     :selected="location"
                                     @select="locationChanged"
                                     :new-item-tile="filteredLocations.length === locations.length ? 'Create New Location' : ''"></square-links-carousel>
-                                <empty-list-placeholder v-if="locations.length && filteredLocations.length === 0"></empty-list-placeholder>
                             </div>
                         </div>
                     </loading-cover>
@@ -43,16 +42,12 @@
     import LocationTile from "./location-tile";
     import latinize from "latinize";
     import Vue from "vue";
-    import EmptyListPlaceholder from "src/devices/list/empty-list-placeholder";
     import SquareLinksCarousel from "../common/tiles/square-links-carousel";
 
     Vue.component('LocationTile', LocationTile);
 
     export default {
-        components: {
-            SquareLinksCarousel,
-            BtnFilters, LocationDetails, LocationTile, EmptyListPlaceholder
-        },
+        components: {SquareLinksCarousel, BtnFilters, LocationDetails},
         data() {
             return {
                 location: undefined,

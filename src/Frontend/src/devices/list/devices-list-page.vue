@@ -67,7 +67,7 @@
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
     import DevicesRegistrationButton from "./devices-registration-button.vue";
     import latinize from "latinize";
-    import EmptyListPlaceholder from "./empty-list-placeholder.vue";
+    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
 
     export default {
         components: {
