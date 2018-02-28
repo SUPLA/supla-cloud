@@ -2,10 +2,11 @@
     <modal class="modal-location-chooser"
         :header="$t('Choose a location')">
         <loading-cover :loading="!locations">
-            <locations-carousel v-if="locations"
-                :locations="locations"
-                :location="currentLocation"
-                @select="selectedLocation = $event"></locations-carousel>
+            <square-links-carousel
+                tile="location-tile"
+                :items="locations"
+                :selected="currentLocation"
+                @select="selectedLocation = $event"></square-links-carousel>
         </loading-cover>
         <div slot="footer">
             <a @click="$emit('cancel')"
@@ -21,11 +22,15 @@
 </template>
 
 <script>
-    import LocationTileContent from "./location-tile-content.vue";
-    import LocationsCarousel from "./locations-carousel";
+    import LocationTileContent from "./location-tile-content";
+    import SquareLinksCarousel from "../common/tiles/square-links-carousel";
+    import LocationTile from "./location-tile";
+    import Vue from "vue";
+
+    Vue.component('LocationTile', LocationTile);
 
     export default {
-        components: {LocationsCarousel, LocationTileContent},
+        components: {SquareLinksCarousel, LocationTileContent},
         props: ['currentLocation'],
         data() {
             return {

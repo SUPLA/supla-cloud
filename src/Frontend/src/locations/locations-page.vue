@@ -16,11 +16,12 @@
                                     :placeholder="$t('Search')">
                             </div>
                             <div class="form-group">
-                                <locations-carousel :locations="filteredLocations"
-                                    :show-new-button="filteredLocations.length == locations.length"
-                                    :location="location"
-                                    @select="locationChanged">
-                                </locations-carousel>
+                                <square-links-carousel
+                                    tile="location-tile"
+                                    :items="filteredLocations"
+                                    :selected="location"
+                                    @select="locationChanged"
+                                    :new-item-tile="filteredLocations.length === locations.length ? 'Create New Location' : ''"></square-links-carousel>
                                 <empty-list-placeholder v-if="locations.length && filteredLocations.length === 0"></empty-list-placeholder>
                             </div>
                         </div>
@@ -39,13 +40,19 @@
 <script>
     import BtnFilters from "src/common/btn-filters";
     import LocationDetails from "./location-details";
-    import LocationsCarousel from "./locations-carousel";
+    import LocationTile from "./location-tile";
     import latinize from "latinize";
     import Vue from "vue";
     import EmptyListPlaceholder from "src/devices/list/empty-list-placeholder";
+    import SquareLinksCarousel from "../common/tiles/square-links-carousel";
+
+    Vue.component('LocationTile', LocationTile);
 
     export default {
-        components: {BtnFilters, LocationDetails, LocationsCarousel, EmptyListPlaceholder},
+        components: {
+            SquareLinksCarousel,
+            BtnFilters, LocationDetails, LocationTile, EmptyListPlaceholder
+        },
         data() {
             return {
                 location: undefined,
