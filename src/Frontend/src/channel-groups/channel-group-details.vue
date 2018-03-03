@@ -2,36 +2,12 @@
     <loading-cover :loading="loading"
         class="channel-group-details">
         <div v-if="channelGroup">
-            <form @submit.prevent="saveChannelGroup()">
-                <div class="container">
-                    <div class="clearfix left-right-header">
-                        <h2 class="no-margin-top">
-                            {{ $t(channelGroup.id ? 'Channel group' : 'New channel group') }}
-                            {{ channelGroup.id ? 'ID'+ channelGroup.id : '' }}
-                        </h2>
-                        <div class="btn-toolbar no-margin-top"
-                            v-if="hasPendingChanges">
-                            <a class="btn btn-grey"
-                                v-if="hasPendingChanges"
-                                @click="cancelChanges()">
-                                <i class="pe-7s-back"></i>
-                                {{ $t('Cancel changes') }}
-                            </a>
-                            <button class="btn btn-yellow btn-lg"
-                                type="submit">
-                                <i class="pe-7s-diskette"></i>
-                                {{ $t('Save changes') }}
-                            </button>
-                        </div>
-                        <div class="btn-toolbar no-margin-top"
-                            v-else-if="!isNewGroup">
-                            <a class="btn btn-danger"
-                                @click="deleteConfirm = true">
-                                {{ $t('Delete') }}
-                            </a>
-                        </div>
-                        <div v-else></div>
-                    </div>
+            <div class="container">
+                <pending-changes-page :header="$t(channelGroup.id ? 'Channel group' : 'New channel group') + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
+                    @cancel="cancelChanges()"
+                    @save="saveChannelGroup()"
+                    :deletable="!isNewGroup"
+                    :is-pending="hasPendingChanges && !isNewGroup">
                     <div class="row hidden-xs">
                         <div class="col-xs-12">
                             <dots-route></dots-route>
@@ -83,8 +59,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </pending-changes-page>
+            </div>
             <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
             <square-links-grid v-if="channelGroup.channels"
                 :count="channelGroup.channels.length + 1"
@@ -120,10 +96,12 @@
     import ChannelGroupChannelTile from "./channel-group-channel-tile";
     import SquareLocationChooser from "../locations/square-location-chooser";
     import Toggler from "../common/gui/toggler";
+    import PendingChangesPage from "../common/pages/pending-changes-page";
 
     export default {
         props: ['model'],
         components: {
+            PendingChangesPage,
             Toggler,
             ChannelGroupChannelTile,
             ChannelGroupNewChannelChooser,
