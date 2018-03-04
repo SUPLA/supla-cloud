@@ -7,6 +7,7 @@
             </a>
         </square-link>
         <button class="btn btn-default"
+            type="button"
             v-else
             @click="chooseLocation = true">
             {{ $t('choose') }}

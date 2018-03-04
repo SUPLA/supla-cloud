@@ -45,13 +45,13 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, .5);
-        display: table;
         transition: opacity .3s ease;
     }
 
     .modal-wrapper {
-        display: table-cell;
-        vertical-align: middle;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .modal-container {

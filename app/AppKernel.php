@@ -51,7 +51,7 @@ class AppKernel extends Kernel {
         // optional webpack dev server: https://www.slideshare.net/nachomartin/webpacksf/60
         $loader->load(function ($container) {
             /** @var ContainerInterface $container */
-            if ($container->getParameter('use_webpack_dev_server')) {
+            if ($this->getEnvironment() === 'dev' && $container->getParameter('use_webpack_dev_server')) {
                 $protocol = $container->getParameter('supla_protocol');
                 $container->loadFromExtension('framework', [
                     'assets' => [

@@ -6,7 +6,7 @@
             :pagination-enabled="false"
             navigation-next-label="&gt;"
             navigation-prev-label="&lt;"
-            :per-page-custom="[[1024, 4], [768, 3], [600, 2], [100, 1]]"
+            :per-page-custom="[[1024, 4], [768, 3], [600, 2], [1, 1]]"
             ref="carousel">
             <slide v-if="newItemTile">
                 <square-link :class="'clearfix pointer lift-up black ' + (selectedItem == newItem ? ' selected' : '')">
@@ -50,6 +50,7 @@
         },
         methods: {
             onItemClick(item) {
+                console.log(this.$refs.carousel);
                 this.selectedItem = item;
                 this.$emit('select', item == this.newItem ? {} : item);
             },
@@ -59,7 +60,7 @@
                     if (this.selectedItem) {
                         Vue.nextTick(() => {
                             const index = this.items.indexOf(this.selectedItem);
-                            const desiredPage = Math.max(0, index - this.$refs.carousel.perPage + 1);
+                            const desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, index - this.$refs.carousel.perPage + 2));
                             this.$refs.carousel.goToPage(desiredPage);
                         });
                     }
@@ -76,3 +77,56 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import '../../styles/variables';
+    @import '../../styles/mixins';
+
+    .VueCarousel {
+        .VueCarousel-navigation {
+            &--disabled {
+                visibility: hidden;
+            }
+        }
+        .VueCarousel-navigation-button {
+            background: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white !important;
+            text-align: center;
+            font-size: 2em;
+            line-height: 1.1em;
+            font-family: 'Quicksand';
+            &.VueCarousel-navigation-prev {
+                left: -5px;
+            }
+            &.VueCarousel-navigation-next {
+                right: -5px;
+            }
+            @include on-xs-and-down {
+                position: static !important;
+                top: initial;
+                height: 25px;
+                width: 25px;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: transparent;
+                color: $supla-grey-dark !important;
+                transform: none !important;
+                &.VueCarousel-navigation-prev {
+                    float: left;
+                }
+                &.VueCarousel-navigation-next {
+                    float: right;
+                }
+            }
+        }
+        .VueCarousel-slide {
+            padding: 5px;
+        }
+        h2 {
+            margin-top: 3px;
+        }
+    }
+</style>
