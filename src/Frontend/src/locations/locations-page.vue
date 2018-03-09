@@ -1,5 +1,6 @@
 <template>
     <carousel-page header="Locations"
+        :selected-id="id"
         tile="location-tile"
         details="location-details"
         endpoint="locations"
@@ -16,6 +17,7 @@
     Vue.component('LocationDetails', LocationDetails);
 
     export default {
+        props: ['id'],
         components: {CarouselPage}
     };
 </script>

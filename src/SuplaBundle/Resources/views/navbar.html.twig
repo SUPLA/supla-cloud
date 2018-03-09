@@ -33,11 +33,11 @@
                         {% trans %}Smartphones{% endtrans %}
                     </a>
                 </li>
-                <li {% if app.request.get('_route') == '_loc_list' %} class="active" {% endif %}>
+                <li {% if app.request.get('_route') starts with '_loc_' %} class="active" {% endif %}>
                     <a href="{{ path('_loc_list') }}"><i class="hidden-sm hidden-xs pe-7s-home"></i>{% trans %}Locations{% endtrans %}
                     </a>
                 </li>
-                <li {% if app.request.get('_route') == '_aid_list' %} class="active" {% endif %}>
+                <li {% if app.request.get('_route') starts with '_aid_' %} class="active" {% endif %}>
                     <a href="{{ path('_aid_list') }}">
                         <i class="hidden-sm hidden-xs pe-7s-key"></i>
                         {% trans %}Access Identifiers{% endtrans %}

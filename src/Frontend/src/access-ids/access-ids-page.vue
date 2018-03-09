@@ -1,5 +1,6 @@
 <template>
     <carousel-page header="Access Identifiers"
+        :selected-id="id"
         tile="access-id-tile"
         details="access-id-details"
         endpoint="accessids"
@@ -16,6 +17,7 @@
     Vue.component('AccessIdDetails', AccessIdDetails);
 
     export default {
+        props: ['id'],
         components: {CarouselPage}
     };
 </script>

@@ -44,18 +44,59 @@
                 {{ $t('Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {locationId: location.id}) }}
             </modal-confirm>
             <div class="container">
-                <h2>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h2>
-                <p>Będą tu</p>
-                <h2>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h2>
-                <square-links-carousel
-                    tile="channel-group-tile"
-                    :items="location.channelGroups"></square-links-carousel>
-                <h2>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h2>
-                <square-links-carousel
-                    tile="access-id-tile"
-                    :items="location.accessIds"></square-links-carousel>
-                <h2>{{ $t('Channels') }} (0)</h2>
-                <p>Będą tu</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h2>
+                        <p>Będą tu</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h2>
+                        <table class="table table-hover">
+                            <thead>
+                            <th>ID</th>
+                            <th>{{ $t('Password') }}</th>
+                            <th>{{ $t('Caption') }}</th>
+                            </thead>
+                            <tbody>
+                            <tr v-for="aid in location.accessIds">
+                                <td>{{ aid.id }}</td>
+                                <td>{{ aid.password }}</td>
+                                <td>{{ aid.caption }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h2>
+                        <table class="table table-hover">
+                            <thead>
+                            <th></th>
+                            <th>ID</th>
+                            <th>{{ $t('Caption') }}</th>
+                            <th>{{ $t('Channels no') }}</th>
+                            </thead>
+                            <tbody>
+                            <tr v-for="channelGroup in location.channelGroups">
+                                <td>
+                                    <function-icon :model="channelGroup"
+                                        width="30"></function-icon>
+                                </td>
+                                <td>
+                                    {{ channelGroup.id }}
+                                </td>
+                                <td>{{ channelGroup.caption }}</td>
+                                <td>{{ channelGroup.channelIds.length }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>{{ $t('Channels') }} (0)</h2>
+                        <p>Będą tu</p>
+                    </div>
+                </div>
             </div>
         </div>
     </loading-cover>
@@ -66,12 +107,16 @@
     import SquareLinksCarousel from "../common/tiles/square-links-carousel";
     import AccessIdTile from "src/access-ids/access-id-tile";
     import ChannelGroupTile from "src/channel-groups/channel-group-tile";
+    import FunctionIcon from "../channels/function-icon";
 
     Vue.component('AccessIdTile', AccessIdTile);
     Vue.component('ChannelGroupTile', ChannelGroupTile);
 
     export default {
-        components: {SquareLinksCarousel},
+        components: {
+            FunctionIcon,
+            SquareLinksCarousel
+        },
         props: ['model'],
         data() {
             return {

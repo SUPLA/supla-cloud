@@ -44,7 +44,7 @@
     import Vue from "vue";
 
     export default {
-        props: ['header', 'tile', 'details', 'endpoint', 'createNewLabel'],
+        props: ['header', 'tile', 'details', 'endpoint', 'createNewLabel', 'selectedId'],
         components: {SquareLinksCarousel, BtnFilters},
         data() {
             return {
@@ -70,7 +70,15 @@
         },
         mounted() {
             this.$http.get(this.endpoint)
-                .then(({body}) => this.items = body)
+                .then(({body}) => {
+                    this.items = body;
+                    if (this.selectedId) {
+                        const selected = this.items.find(item => item.id == this.selectedId);
+                        if (selected) {
+                            this.itemChanged(selected);
+                        }
+                    }
+                })
                 .then(() => Vue.nextTick(() => this.calculateSearchStrings()));
         },
         methods: {

@@ -1,5 +1,6 @@
 <template>
     <carousel-page header="Channel groups"
+        :selected-id="id"
         tile="channel-group-tile"
         details="channel-group-details"
         endpoint="channel-groups"
@@ -16,6 +17,7 @@
     Vue.component('ChannelGroupDetails', ChannelGroupDetails);
 
     export default {
+        props: ['id'],
         components: {CarouselPage}
     };
 </script>

@@ -50,7 +50,6 @@
         },
         methods: {
             onItemClick(item) {
-                console.log(this.$refs.carousel);
                 this.selectedItem = item;
                 this.$emit('select', item == this.newItem ? {} : item);
             },

@@ -60,7 +60,15 @@ class AccessIDController extends AbstractController {
      * @Template()
      */
     public function accessIdentifiersListAction() {
-        return [];
+        return ['id' => ''];
+    }
+
+    /**
+     * @Route("/{id}", methods={"GET"}, requirements={"id" = "^\d{1,10}$"}, name="_aid_details")
+     * @Template("@Supla/AccessID/accessIdentifiersList.html.twig");
+     */
+    public function accessIdentifierDetailsAction(int $id) {
+        return ['id' => $id];
     }
 
     /**

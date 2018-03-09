@@ -62,7 +62,15 @@ class LocationController extends Controller {
      * @Template
      */
     public function locationsListAction() {
-        return [];
+        return ['id' => ''];
+    }
+
+    /**
+     * @Route("/{id}", requirements={"id" = "^\d{1,10}$"}, name="_loc_details")
+     * @Template("@Supla/Location/locationsList.html.twig")
+     */
+    public function locationsDetailsAction(int $id) {
+        return ['id' => $id];
     }
 
     /**

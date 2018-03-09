@@ -29,6 +29,14 @@ class ChannelGroupController extends AbstractController {
      * @Template
      */
     public function channelGroupsListAction() {
-        return [];
+        return ['id' => ''];
+    }
+
+    /**
+     * @Route("/{id}", methods={"GET"}, requirements={"id" = "^\d{1,10}$"}, name="_channel_groups_details")
+     * @Template("SuplaBundle:ChannelGroup:channelGroupsList.html.twig");
+     */
+    public function channelGroupDetailsAction(int $id) {
+        return ['id' => $id];
     }
 }
