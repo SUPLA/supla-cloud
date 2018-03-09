@@ -10,7 +10,7 @@ Vue.directive('go-to-link-on-row-click', {
     inserted: function (el) {
         $(el).addClass('pointer');
         el.addEventListener('click', event => {
-            if (!$(event.target).is('a')) {
+            if (!$(event.target).is('a, button')) {
                 const link = $(event.currentTarget).find('a')[0];
                 setTimeout(() => link.click());
             }

@@ -99,7 +99,9 @@
                             <tr v-for="aid in location.accessIds"
                                 v-go-to-link-on-row-click>
                                 <td><a :href="'/access-identifiers/' + aid.id | withBaseUrl">{{ aid.id }}</a></td>
-                                <td>{{ aid.password }}</td>
+                                <td>
+                                    <password-display :password="aid.password"></password-display>
+                                </td>
                                 <td>{{ aid.caption }}</td>
                             </tr>
                             </tbody>
@@ -189,9 +191,11 @@
     import AccessIdChooser from "../access-ids/access-id-chooser";
     import Toggler from "../common/gui/toggler";
     import {channelTitle} from "../common/filters";
+    import PasswordDisplay from "../common/gui/password-display";
 
     export default {
         components: {
+            PasswordDisplay,
             Toggler,
             AccessIdChooser,
             FunctionIcon,
