@@ -96,6 +96,20 @@
                                 <td>{{ channelGroup.channelIds.length }}</td>
                             </tr>
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="4">
+                                    <a @click="assignChannelGroups = true">
+                                        <i class="pe-7s-more"></i>
+                                        {{ $t('Assign channel groups') }}
+                                    </a>
+                                    <channel-group-chooser v-if="assignChannelGroups"
+                                        :selected="location.channelGroups"
+                                        @cancel="assignChannelGroups = false"
+                                        @confirm="updateChannelGroups($event)"></channel-group-chooser>
+                                </th>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <div class="col-sm-6">
@@ -111,16 +125,13 @@
 <script>
     import Vue from "vue";
     import SquareLinksCarousel from "../common/tiles/square-links-carousel";
-    import AccessIdTile from "src/access-ids/access-id-tile";
-    import ChannelGroupTile from "src/channel-groups/channel-group-tile";
     import FunctionIcon from "../channels/function-icon";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
-
-    Vue.component('AccessIdTile', AccessIdTile);
-    Vue.component('ChannelGroupTile', ChannelGroupTile);
+    import ChannelGroupChooser from "../channel-groups/channel-group-chooser";
 
     export default {
         components: {
+            ChannelGroupChooser,
             FunctionIcon,
             SquareLinksCarousel,
             EmptyListPlaceholder
@@ -131,7 +142,8 @@
                 loading: false,
                 location: undefined,
                 deleteConfirm: false,
-                hasPendingChanges: false
+                hasPendingChanges: false,
+                assignChannelGroups: false
             };
         },
         mounted() {
@@ -162,6 +174,11 @@
                     .then(() => this.$emit('delete'))
                     .then(() => this.location = undefined)
                     .catch(() => this.loading = false);
+            },
+            updateChannelGroups(channelGroups) {
+                this.location.channelGroups = channelGroups;
+                this.hasPendingChanges = true;
+                this.assignChannelGroups = false;
             }
         },
         watch: {

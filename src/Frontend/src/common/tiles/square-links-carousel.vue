@@ -9,7 +9,7 @@
             :per-page-custom="[[1024, 4], [768, 3], [600, 2], [1, 1]]"
             ref="carousel">
             <slide v-if="newItemTile">
-                <square-link :class="'clearfix pointer lift-up black ' + (selectedItem == newItem ? ' selected' : '')">
+                <square-link class="clearfix pointer lift-up black">
                     <a class="valign-center text-center"
                         @click="onItemClick(newItem)">
                         <span>
@@ -22,7 +22,7 @@
             <slide v-for="item in items"
                 :key="item.id">
                 <component :is="tile"
-                    :class="selectedItem && selectedItem.id == item.id ? 'selected' : ''"
+                    :class="isSelected(item) ? 'selected' : ''"
                     @click="onItemClick(item)"
                     :model="item"></component>
             </slide>
@@ -41,27 +41,48 @@
         props: ['items', 'selected', 'tile', 'newItemTile'],
         data() {
             return {
-                selectedItem: undefined,
+                selectedIds: [],
                 newItem: {}
             };
         },
         mounted() {
             this.updateSelectedItem();
         },
+        computed: {
+            multiple() {
+                return Array.isArray(this.selected);
+            }
+        },
         methods: {
             onItemClick(item) {
-                this.selectedItem = item;
-                this.$emit('select', item == this.newItem ? {} : item);
+                if (this.multiple) {
+                    if (this.isSelected(item)) {
+                        this.selectedIds.splice(this.selectedIds.indexOf(item.id), 1);
+                    } else {
+                        this.selectedIds.push(item.id);
+                    }
+                } else {
+                    this.selectedIds = [item.id];
+                }
+                const selectedItems = this.items.filter(item => this.isSelected(item));
+                this.$emit('select', item == this.newItem ? {} : (this.multiple ? selectedItems : selectedItems[0]));
+            },
+            isSelected(item) {
+                return this.selectedIds.indexOf(item.id) >= 0;
             },
             updateSelectedItem() {
-                if (this.items && this.selectedItem != this.selected && (!this.selected || this.selected.id)) {
-                    this.selectedItem = this.selected ? this.items.find(item => item.id == this.selected.id) : undefined;
-                    if (this.selectedItem) {
-                        Vue.nextTick(() => {
-                            const index = this.items.indexOf(this.selectedItem);
-                            const desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, index - this.$refs.carousel.perPage + 2));
-                            this.$refs.carousel.goToPage(desiredPage);
-                        });
+                if (this.multiple) {
+                    this.selectedIds = this.selected.map(item => item.id || item);
+                } else {
+                    if (this.items && this.selectedItem != this.selected && (!this.selected || this.selected.id)) {
+                        this.selectedItem = this.selected ? this.items.find(item => item.id == this.selected.id) : undefined;
+                        if (this.selectedItem) {
+                            Vue.nextTick(() => {
+                                const index = this.items.indexOf(this.selectedItem);
+                                const desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, index - this.$refs.carousel.perPage + 2));
+                                this.$refs.carousel.goToPage(desiredPage);
+                            });
+                        }
                     }
                 }
             }
