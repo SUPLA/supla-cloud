@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AccessIdRepository")
  * @ORM\Table(name="supla_accessid")
  */
 class AccessID {

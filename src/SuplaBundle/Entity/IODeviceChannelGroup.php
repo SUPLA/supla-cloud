@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
  * @ORM\Table(name="supla_dev_channel_group", indexes={
  *     @ORM\Index(name="enabled_idx", columns={"enabled"})
  * })

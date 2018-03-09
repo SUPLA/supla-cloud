@@ -51,9 +51,8 @@
                     </div>
                     <div class="col-sm-6">
                         <h2>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h2>
-                        <table class="table table-hover"
-                            v-if="location.accessIds.length">
-                            <thead>
+                        <table class="table table-hover">
+                            <thead v-if="location.accessIds.length">
                             <th>ID</th>
                             <th>{{ $t('Password') }}</th>
                             <th>{{ $t('Caption') }}</th>
@@ -65,8 +64,26 @@
                                 <td>{{ aid.caption }}</td>
                             </tr>
                             </tbody>
+                            <tfoot>
+                            <tr v-if="!location.accessIds.length">
+                                <th colspan="4">
+                                    <empty-list-placeholder></empty-list-placeholder>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <a @click="assignAccessIds = true">
+                                        <i class="pe-7s-more"></i>
+                                        {{ $t('Assign Access Identifiers') }}
+                                    </a>
+                                    <access-id-chooser v-if="assignAccessIds"
+                                        :selected="location.accessIds"
+                                        @cancel="assignAccessIds = false"
+                                        @confirm="updateAccessIds($event)"></access-id-chooser>
+                                </th>
+                            </tr>
+                            </tfoot>
                         </table>
-                        <empty-list-placeholder v-else></empty-list-placeholder>
                     </div>
                 </div>
                 <div class="row">
@@ -96,20 +113,6 @@
                                 <td>{{ channelGroup.channelIds.length }}</td>
                             </tr>
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <th colspan="4">
-                                    <a @click="assignChannelGroups = true">
-                                        <i class="pe-7s-more"></i>
-                                        {{ $t('Assign channel groups') }}
-                                    </a>
-                                    <channel-group-chooser v-if="assignChannelGroups"
-                                        :selected="location.channelGroups"
-                                        @cancel="assignChannelGroups = false"
-                                        @confirm="updateChannelGroups($event)"></channel-group-chooser>
-                                </th>
-                            </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <div class="col-sm-6">
@@ -127,11 +130,11 @@
     import SquareLinksCarousel from "../common/tiles/square-links-carousel";
     import FunctionIcon from "../channels/function-icon";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
-    import ChannelGroupChooser from "../channel-groups/channel-group-chooser";
+    import AccessIdChooser from "../access-ids/access-id-chooser";
 
     export default {
         components: {
-            ChannelGroupChooser,
+            AccessIdChooser,
             FunctionIcon,
             SquareLinksCarousel,
             EmptyListPlaceholder
@@ -143,7 +146,7 @@
                 location: undefined,
                 deleteConfirm: false,
                 hasPendingChanges: false,
-                assignChannelGroups: false
+                assignAccessIds: false
             };
         },
         mounted() {
@@ -175,10 +178,10 @@
                     .then(() => this.location = undefined)
                     .catch(() => this.loading = false);
             },
-            updateChannelGroups(channelGroups) {
-                this.location.channelGroups = channelGroups;
+            updateAccessIds(accessIds) {
+                this.location.accessIds = accessIds;
                 this.hasPendingChanges = true;
-                this.assignChannelGroups = false;
+                this.assignAccessIds = false;
             }
         },
         watch: {

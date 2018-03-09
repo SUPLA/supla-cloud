@@ -116,6 +116,14 @@ services:
     tags:
       - { alias: username_exists_validator, name: validator.constraint_validator }
 
+  SuplaBundle\Repository\AccessIdRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\AccessID]
+
+  SuplaBundle\Repository\ChannelGroupRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\IODeviceChannelGroup]
+
   SuplaBundle\Repository\LocationRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Location]

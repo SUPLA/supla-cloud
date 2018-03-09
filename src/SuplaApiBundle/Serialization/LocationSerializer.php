@@ -29,6 +29,7 @@ class LocationSerializer extends AbstractSerializer {
         $normalized['iodeviceIds'] = $this->toIds($location->getIoDevices());
         $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
         $normalized['channelsIds'] = $this->toIds($location->getChannels());
+        $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
         return $normalized;
     }
 

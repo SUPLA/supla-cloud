@@ -99,7 +99,10 @@ class Location {
      */
     private $ioDevices_ol;
 
-    public function __construct(User $user) {
+    /**
+     * @param User|null $user
+     */
+    public function __construct($user = null) {
         $this->enabled = true;
         $this->accessIds = new ArrayCollection();
         $this->ioDevices = new ArrayCollection();
@@ -107,15 +110,16 @@ class Location {
         $this->channelGroups = new ArrayCollection();
         $this->channels = new ArrayCollection();
 
-        $this->user = $user;
+        if ($user) {
+            $this->user = $user;
+            if ($user->getAccessIDS()->count() > 0) {
+                $aid = $user->getAccessIDS()->get(0);
 
-        if ($user->getAccessIDS()->count() > 0) {
-            $aid = $user->getAccessIDS()->get(0);
-
-            if ($aid !== null) {
-                $this->accessIds->add($aid);
-                $aid->getLocations()->add($this);
-                $user->getLocations()->add($this);
+                if ($aid !== null) {
+                    $this->accessIds->add($aid);
+                    $aid->getLocations()->add($this);
+                    $user->getLocations()->add($this);
+                }
             }
         }
     }

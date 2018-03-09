@@ -45,3 +45,18 @@ export function channelTransformer(request, next) {
     }
     next();
 }
+
+export function locationTransformer(request, next) {
+    if (request.url.startsWith('locations')) {
+        if (request.body && request.body.id) {
+            const toSend = Vue.util.extend({}, request.body);
+            delete toSend.channelGroups;
+            if (toSend.accessIds) {
+                toSend.accessIdsIds = toSend.accessIds.map(aid => aid.id);
+                delete toSend.accessIds;
+            }
+            request.body = toSend;
+        }
+    }
+    next();
+}

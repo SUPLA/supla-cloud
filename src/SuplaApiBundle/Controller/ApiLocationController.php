@@ -114,4 +114,19 @@ class ApiLocationController extends RestController {
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }
+
+    /**
+     * @Security("location.belongsToUser(user)")
+     */
+    public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
+        $location->getAccessIds()->clear();
+        foreach ($updatedLocation->getAccessIds() as $accessId) {
+            $location->getAccessIds()->add($accessId);
+        }
+        return $this->transactional(function (EntityManagerInterface $em) use ($request, $location) {
+            $em->persist($location);
+            $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+            return $this->getLocationAction($request, $location);
+        });
+    }
 }
