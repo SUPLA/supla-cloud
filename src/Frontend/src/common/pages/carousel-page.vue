@@ -6,15 +6,11 @@
                     <h1>{{ $t(header) }}</h1>
                     <loading-cover :loading="!items">
                         <div v-if="items">
-                            <div class="grid-filters"
-                                v-if="items.length">
-                                <btn-filters v-model="filters.enabled"
-                                    :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
-                                <input type="text"
-                                    class="form-control"
-                                    v-model="filters.search"
-                                    :placeholder="$t('Search')">
-                            </div>
+                            <component v-if="filters"
+                                :is="filters"
+                                :items="items"
+                                @filter-function="filterFunction = $event"
+                                @filter="filter()"></component>
                             <square-links-carousel
                                 :tile="tile"
                                 :items="filteredItems"
@@ -40,71 +36,52 @@
 <script>
     import BtnFilters from "src/common/btn-filters";
     import SquareLinksCarousel from "src/common/tiles/square-links-carousel";
-    import latinize from "latinize";
-    import Vue from "vue";
 
     export default {
-        props: ['header', 'tile', 'details', 'endpoint', 'createNewLabel', 'selectedId'],
+        props: ['header', 'tile', 'details', 'filters', 'endpoint', 'createNewLabel', 'selectedId'],
         components: {SquareLinksCarousel, BtnFilters},
         data() {
             return {
                 item: undefined,
                 items: undefined,
-                filters: {
-                    enabled: undefined,
-                    search: '',
-                }
+                filteredItems: undefined,
+                filterFunction: () => true,
             };
-        },
-        computed: {
-            filteredItems() {
-                let items = this.items;
-                if (this.filters.enabled !== undefined) {
-                    items = items.filter(item => item.enabled == this.filters.enabled);
-                }
-                if (this.filters.search) {
-                    items = items.filter(item => item.searchString.indexOf(latinize(this.filters.search).toLowerCase()) >= 0);
-                }
-                return items;
-            },
         },
         mounted() {
             this.$http.get(this.endpoint)
                 .then(({body}) => {
                     this.items = body;
+                    this.filter();
                     if (this.selectedId) {
                         const selected = this.items.find(item => item.id == this.selectedId);
                         if (selected) {
                             this.itemChanged(selected);
                         }
                     }
-                })
-                .then(() => Vue.nextTick(() => this.calculateSearchStrings()));
+                });
         },
         methods: {
             itemChanged(item) {
                 this.item = item;
             },
-            calculateSearchStrings() {
-                for (let item of this.items) {
-                    const searchString = [item.id, item.caption].join(' ');
-                    this.$set(item, 'searchString', latinize(searchString).toLowerCase());
-                }
+            filter() {
+                this.filteredItems = this.items.filter(this.filterFunction);
             },
             onItemAdded(item) {
                 this.items.push(item);
                 this.item = item;
-                this.calculateSearchStrings();
+                this.filter();
             },
             onItemUpdated(item) {
                 const itemToUpdate = this.items.find(c => item.id == c.id);
                 $.extend(itemToUpdate, item);
-                this.calculateSearchStrings();
+                this.filter();
             },
             onItemDeleted() {
                 this.items.splice(this.items.indexOf(this.item), 1);
                 this.item = undefined;
-                this.calculateSearchStrings();
+                this.filter();
             }
         }
     };
