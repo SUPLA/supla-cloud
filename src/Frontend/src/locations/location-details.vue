@@ -65,20 +65,40 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h2>
-                        <p>Będą tu</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <h2>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h2>
-                        <table class="table table-hover">
-                            <thead v-if="location.accessIds.length">
-                            <th>ID</th>
-                            <th>{{ $t('Password') }}</th>
-                            <th>{{ $t('Caption') }}</th>
+                        <h3>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h3>
+                        <table class="table table-hover"
+                            v-if="location.ioDevices.length">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ $t('Name') }}</th>
+                                <th>{{ $t('Comment') }}</th>
+                            </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="aid in location.accessIds">
-                                <td>{{ aid.id }}</td>
+                            <tr v-for="ioDevice in location.ioDevices"
+                                v-go-to-link-on-row-click>
+                                <td><a :href="'/iodev/' + ioDevice.id + '/view' | withBaseUrl">{{ ioDevice.id }}</a></td>
+                                <td>{{ ioDevice.name }}</td>
+                                <td>{{ ioDevice.comment }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h3>
+                        <table class="table table-hover">
+                            <thead v-if="location.accessIds.length">
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ $t('Password') }}</th>
+                                <th>{{ $t('Caption') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="aid in location.accessIds"
+                                v-go-to-link-on-row-click>
+                                <td><a :href="'/access-identifiers/' + aid.id | withBaseUrl">{{ aid.id }}</a></td>
                                 <td>{{ aid.password }}</td>
                                 <td>{{ aid.caption }}</td>
                             </tr>
@@ -107,13 +127,15 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h2>
+                        <h3>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h3>
                         <table class="table table-hover">
                             <thead>
-                            <th></th>
-                            <th>ID</th>
-                            <th>{{ $t('Caption') }}</th>
-                            <th>{{ $t('Channels no') }}</th>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>{{ $t('Caption') }}</th>
+                                <th>{{ $t('Channels no') }}</th>
+                            </tr>
                             </thead>
                             <tbody>
                             <tr v-for="channelGroup in location.channelGroups"
@@ -135,8 +157,23 @@
                         </table>
                     </div>
                     <div class="col-sm-6">
-                        <h2>{{ $t('Channels') }} (0)</h2>
-                        <p>Będą tu</p>
+                        <h3>{{ $t('Channels') }} ({{ location.channelsIds.length }})</h3>
+                        <table class="table table-hover"
+                            v-if="location.channels.length">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ $t('Caption') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="channel in location.channels"
+                                v-go-to-link-on-row-click>
+                                <td><a :href="'/channels/' + channel.id | withBaseUrl">{{ channel.id }}</a></td>
+                                <td>{{ channelTitle(channel) }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -151,6 +188,7 @@
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
     import AccessIdChooser from "../access-ids/access-id-chooser";
     import Toggler from "../common/gui/toggler";
+    import {channelTitle} from "../common/filters";
 
     export default {
         components: {
@@ -178,7 +216,7 @@
                 this.hasPendingChanges = false;
                 this.loading = true;
                 if (this.model.id) {
-                    this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids,password`)
+                    this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids,password,channels`)
                         .then(response => this.location = response.body)
                         .finally(() => this.loading = false);
                 } else {
@@ -206,6 +244,9 @@
             },
             locationChanged() {
                 this.hasPendingChanges = true;
+            },
+            channelTitle(channel) {
+                return channelTitle(channel, this).replace(/^ID[0-9]+ /, '')
             }
         },
         watch: {

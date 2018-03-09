@@ -86,13 +86,13 @@ class IODeviceChannel {
 
     /**
      * @ORM\Column(name="type", type="integer", nullable=false)
-     * @Groups({"type"})
+     * @Groups({"basic"})
      */
     private $type;
 
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
-     * @Groups({"function"})
+     * @Groups({"basic"})
      */
     private $function;
 
