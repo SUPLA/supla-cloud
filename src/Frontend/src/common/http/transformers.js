@@ -51,6 +51,7 @@ export function locationTransformer(request, next) {
         if (request.body && request.body.id) {
             const toSend = Vue.util.extend({}, request.body);
             delete toSend.channelGroups;
+            delete toSend.ioDevices;
             if (toSend.accessIds) {
                 toSend.accessIdsIds = toSend.accessIds.map(aid => aid.id);
                 delete toSend.accessIds;

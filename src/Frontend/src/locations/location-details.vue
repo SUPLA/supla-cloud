@@ -32,7 +32,26 @@
                         </div>
                         <div v-else></div>
                     </div>
-                    <p>Nazwa, hasło, czy włączona</p>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-8">
+                            <div class="hover-editable text-left">
+                                <dl>
+                                    <dd>{{ $t('Enabled') }}</dd>
+                                    <dt class="text-center">
+                                        <toggler v-model="location.enabled"
+                                            @input="locationChanged()"></toggler>
+                                    </dt>
+                                    <dd>{{ $t('Caption') }}</dd>
+                                    <dt>
+                                        <input type="text"
+                                            class="form-control"
+                                            @change="locationChanged()"
+                                            v-model="location.caption">
+                                    </dt>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
             <modal-confirm v-if="deleteConfirm"
@@ -131,9 +150,11 @@
     import FunctionIcon from "../channels/function-icon";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
     import AccessIdChooser from "../access-ids/access-id-chooser";
+    import Toggler from "../common/gui/toggler";
 
     export default {
         components: {
+            Toggler,
             AccessIdChooser,
             FunctionIcon,
             SquareLinksCarousel,
@@ -180,8 +201,11 @@
             },
             updateAccessIds(accessIds) {
                 this.location.accessIds = accessIds;
-                this.hasPendingChanges = true;
+                this.locationChanged();
                 this.assignAccessIds = false;
+            },
+            locationChanged() {
+                this.hasPendingChanges = true;
             }
         },
         watch: {

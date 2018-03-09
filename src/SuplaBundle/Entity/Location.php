@@ -172,11 +172,11 @@ class Location {
         return $this->ioDevices_ol;
     }
 
-    public function getEnabled() {
+    public function getEnabled(): bool {
         return $this->enabled;
     }
 
-    public function setEnabled($enabled) {
+    public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
     }
 }

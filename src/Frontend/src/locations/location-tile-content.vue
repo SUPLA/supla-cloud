@@ -3,9 +3,11 @@
         <h2>ID<strong>{{ location.id }} </strong></h2>
         <dl>
             <dd>{{ $t('Devices no') }}</dd>
-            <dt>{{ location.iodeviceIds.length }}</dt>
+            <dt>{{ location.iodevicesIds.length }}</dt>
             <dd>{{ $t('Channel groups no') }}</dd>
             <dt>{{ location.channelGroupsIds.length }}</dt>
+            <dd>{{ $t('Access identifiers no') }}</dd>
+            <dt>{{ location.accessIdsIds.length }}</dt>
         </dl>
         <div v-if="location.caption">
             <div class="separator"></div>

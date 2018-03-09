@@ -119,6 +119,8 @@ class ApiLocationController extends RestController {
      * @Security("location.belongsToUser(user)")
      */
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
+        $location->setCaption($updatedLocation->getCaption());
+        $location->setEnabled($updatedLocation->getEnabled());
         $location->getAccessIds()->clear();
         foreach ($updatedLocation->getAccessIds() as $accessId) {
             $location->getAccessIds()->add($accessId);

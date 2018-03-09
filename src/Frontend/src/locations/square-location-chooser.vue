@@ -13,7 +13,7 @@
             {{ $t('choose') }}
         </button>
         <location-chooser v-if="chooseLocation"
-            :current-location="value"
+            :selected="value"
             @confirm="onLocationChange($event)"
             @cancel="chooseLocation = false"
             class="text-left"></location-chooser>

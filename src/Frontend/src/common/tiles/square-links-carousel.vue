@@ -73,17 +73,13 @@
             updateSelectedItem() {
                 if (this.multiple) {
                     this.selectedIds = this.selected.map(item => item.id || item);
-                } else {
-                    if (this.items && this.selectedItem != this.selected && (!this.selected || this.selected.id)) {
-                        this.selectedItem = this.selected ? this.items.find(item => item.id == this.selected.id) : undefined;
-                        if (this.selectedItem) {
-                            Vue.nextTick(() => {
-                                const index = this.items.indexOf(this.selectedItem);
-                                const desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, index - this.$refs.carousel.perPage + 2));
-                                this.$refs.carousel.goToPage(desiredPage);
-                            });
-                        }
-                    }
+                } else if (this.selected && !this.isSelected(this.selected)) {
+                    this.selectedIds = [this.selected.id];
+                    Vue.nextTick(() => {
+                        const index = this.items.findIndex(item => this.isSelected(item));
+                        const desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, index - this.$refs.carousel.perPage + 2));
+                        this.$refs.carousel.goToPage(desiredPage);
+                    });
                 }
             }
         },
