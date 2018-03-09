@@ -121,6 +121,9 @@ class ApiLocationController extends RestController {
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
         $location->setCaption($updatedLocation->getCaption());
         $location->setEnabled($updatedLocation->getEnabled());
+        if ($updatedLocation->getPassword()) {
+            $location->setPassword($updatedLocation->getPassword());
+        }
         $location->getAccessIds()->clear();
         foreach ($updatedLocation->getAccessIds() as $accessId) {
             $location->getAccessIds()->add($accessId);

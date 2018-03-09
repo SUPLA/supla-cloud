@@ -25,6 +25,7 @@ class LocationParamConverter extends AbstractBodyParamConverter {
         $user = $this->getCurrentUserOrThrow();
         $location->setEnabled(boolval($requestData['enabled'] ?? false));
         $location->setCaption($requestData['caption'] ?? '');
+        $location->setPassword($requestData['password'] ?? '');
         if (isset($requestData['accessIdsIds'])) {
             Assertion::isArray($requestData['accessIdsIds']);
             foreach ($requestData['accessIdsIds'] as $id) {

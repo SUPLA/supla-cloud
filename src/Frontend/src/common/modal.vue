@@ -16,7 +16,13 @@
 
                     <div class="modal-footer">
                         <slot name="footer">
-                            <a @click="$emit('close')">
+                            <a @click="$emit('cancel')"
+                                class="cancel"
+                                v-if="cancellable">
+                                <i class="pe-7s-close"></i>
+                            </a>
+                            <a @click="$emit('confirm')"
+                                class="confirm">
                                 <i class="pe-7s-check"></i>
                             </a>
                         </slot>
@@ -29,7 +35,7 @@
 
 <script>
     export default {
-        props: ['header']
+        props: ['header', 'cancellable']
     };
 </script>
 
@@ -101,6 +107,12 @@
                 vertical-align: middle;
                 font-size: 4em;
             }
+        }
+    }
+
+    .modal-footer {
+        .cancel {
+            color: $supla-grey-dark;
         }
     }
 

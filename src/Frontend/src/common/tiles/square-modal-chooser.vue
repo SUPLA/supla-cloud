@@ -1,6 +1,9 @@
 <template>
     <modal class="square-modal-chooser"
-        :header="$t(title)">
+        :header="$t(title)"
+        cancellable="true"
+        @cancel="$emit('cancel')"
+        @confirm="$emit('confirm', selectedItems)">
         <loading-cover :loading="!items">
             <square-links-carousel-with-filters
                 :tile="tile"
@@ -9,16 +12,6 @@
                 :selected="selectedItems"
                 @select="selectedItems = $event"></square-links-carousel-with-filters>
         </loading-cover>
-        <div slot="footer">
-            <a @click="$emit('cancel')"
-                class="cancel">
-                <i class="pe-7s-close"></i>
-            </a>
-            <a class="confirm"
-                @click="$emit('confirm', selectedItems)">
-                <i class="pe-7s-check"></i>
-            </a>
-        </div>
     </modal>
 </template>
 
@@ -51,11 +44,6 @@
     .square-modal-chooser {
         .modal-container {
             max-width: initial;
-        }
-        .modal-footer {
-            .cancel {
-                color: $supla-grey-light;
-            }
         }
     }
 </style>

@@ -48,6 +48,12 @@
                                             @change="locationChanged()"
                                             v-model="location.caption">
                                     </dt>
+                                    <dd>{{ $t('Password') }}</dd>
+                                    <dt>
+                                        <password-display :password="location.password"
+                                            editable="true"
+                                            @change="updatePassword($event)"></password-display>
+                                    </dt>
                                 </dl>
                             </div>
                         </div>
@@ -245,6 +251,10 @@
                 this.location.accessIds = accessIds;
                 this.locationChanged();
                 this.assignAccessIds = false;
+            },
+            updatePassword(password) {
+                this.location.password = password;
+                this.locationChanged();
             },
             locationChanged() {
                 this.hasPendingChanges = true;
