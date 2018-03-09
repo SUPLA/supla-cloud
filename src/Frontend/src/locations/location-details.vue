@@ -51,7 +51,8 @@
                     </div>
                     <div class="col-sm-6">
                         <h2>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h2>
-                        <table class="table table-hover">
+                        <table class="table table-hover"
+                            v-if="location.accessIds.length">
                             <thead>
                             <th>ID</th>
                             <th>{{ $t('Password') }}</th>
@@ -65,6 +66,7 @@
                             </tr>
                             </tbody>
                         </table>
+                        <empty-list-placeholder v-else></empty-list-placeholder>
                     </div>
                 </div>
                 <div class="row">
@@ -78,15 +80,19 @@
                             <th>{{ $t('Channels no') }}</th>
                             </thead>
                             <tbody>
-                            <tr v-for="channelGroup in location.channelGroups">
+                            <tr v-for="channelGroup in location.channelGroups"
+                                v-go-to-link-on-row-click>
                                 <td>
                                     <function-icon :model="channelGroup"
                                         width="30"></function-icon>
                                 </td>
                                 <td>
-                                    {{ channelGroup.id }}
+                                    <a :href="'/channel-groups/' + channelGroup.id | withBaseUrl">{{ channelGroup.id }}</a>
                                 </td>
-                                <td>{{ channelGroup.caption }}</td>
+                                <td>
+                                    <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
+                                    <em v-else>{{ $t('None') }}</em>
+                                </td>
                                 <td>{{ channelGroup.channelIds.length }}</td>
                             </tr>
                             </tbody>
@@ -108,6 +114,7 @@
     import AccessIdTile from "src/access-ids/access-id-tile";
     import ChannelGroupTile from "src/channel-groups/channel-group-tile";
     import FunctionIcon from "../channels/function-icon";
+    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
 
     Vue.component('AccessIdTile', AccessIdTile);
     Vue.component('ChannelGroupTile', ChannelGroupTile);
@@ -115,7 +122,8 @@
     export default {
         components: {
             FunctionIcon,
-            SquareLinksCarousel
+            SquareLinksCarousel,
+            EmptyListPlaceholder
         },
         props: ['model'],
         data() {
