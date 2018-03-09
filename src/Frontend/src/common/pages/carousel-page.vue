@@ -6,17 +6,13 @@
                     <h1>{{ $t(header) }}</h1>
                     <loading-cover :loading="!items">
                         <div v-if="items">
-                            <component v-if="filters"
-                                :is="filters"
-                                :items="items"
-                                @filter-function="filterFunction = $event"
-                                @filter="filter()"></component>
-                            <square-links-carousel
+                            <square-links-carousel-with-filters
+                                :filters="filters"
                                 :tile="tile"
-                                :items="filteredItems"
+                                :items="items"
                                 :selected="item"
                                 @select="itemChanged"
-                                :new-item-tile="filteredItems.length === items.length ? createNewLabel : ''"></square-links-carousel>
+                                :new-item-tile="createNewLabel"></square-links-carousel-with-filters>
                         </div>
                     </loading-cover>
                 </div>
@@ -34,25 +30,21 @@
 </template>
 
 <script>
-    import BtnFilters from "src/common/btn-filters";
-    import SquareLinksCarousel from "src/common/tiles/square-links-carousel";
+    import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
 
     export default {
         props: ['header', 'tile', 'details', 'filters', 'endpoint', 'createNewLabel', 'selectedId'],
-        components: {SquareLinksCarousel, BtnFilters},
+        components: {SquareLinksCarouselWithFilters},
         data() {
             return {
                 item: undefined,
-                items: undefined,
-                filteredItems: undefined,
-                filterFunction: () => true,
+                items: undefined
             };
         },
         mounted() {
             this.$http.get(this.endpoint)
                 .then(({body}) => {
                     this.items = body;
-                    this.filter();
                     if (this.selectedId) {
                         const selected = this.items.find(item => item.id == this.selectedId);
                         if (selected) {
@@ -65,23 +57,17 @@
             itemChanged(item) {
                 this.item = item;
             },
-            filter() {
-                this.filteredItems = this.items.filter(this.filterFunction);
-            },
             onItemAdded(item) {
                 this.items.push(item);
                 this.item = item;
-                this.filter();
             },
             onItemUpdated(item) {
                 const itemToUpdate = this.items.find(c => item.id == c.id);
                 $.extend(itemToUpdate, item);
-                this.filter();
             },
             onItemDeleted() {
                 this.items.splice(this.items.indexOf(this.item), 1);
                 this.item = undefined;
-                this.filter();
             }
         }
     };

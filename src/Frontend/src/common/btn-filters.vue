@@ -2,7 +2,8 @@
     <div class="btn-group btn-group-filters">
         <button v-for="filter in filters"
             :class="'btn ' + (chosenFilter === filter.value ? 'active' : '')"
-            @click="setFilter(filter.value)">
+            @click="setFilter(filter.value)"
+            type="button">
             {{ filter.label }}
         </button>
     </div>
