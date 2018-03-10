@@ -26,7 +26,7 @@ class AccessIdSerializer extends AbstractSerializer {
      */
     public function normalize($accessId, $format = null, array $context = []) {
         $normalized = parent::normalize($accessId, $format, $context);
-        $normalized['locationIds'] = $this->toIds($accessId->getLocations());
+        $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
         $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
         return $normalized;
     }

@@ -36,6 +36,88 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3>{{ $t('Locations') }} ({{ accessId.locations.length }})</h3>
+                        <table class="table table-hover">
+                            <thead v-if="accessId.locations.length">
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ $t('Password') }}</th>
+                                <th>{{ $t('Caption') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="location in accessId.locations"
+                                v-go-to-link-on-row-click>
+                                <td><a :href="'/locations/' + location.id | withBaseUrl">{{ location.id }}</a></td>
+                                <td>
+                                    <password-display :password="location.password"></password-display>
+                                </td>
+                                <td>{{ location.caption }}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr v-if="!accessId.locations.length">
+                                <th colspan="4">
+                                    <empty-list-placeholder></empty-list-placeholder>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <a @click="assignLocations = true">
+                                        <i class="pe-7s-more"></i>
+                                        {{ $t('Assign Locations') }}
+                                    </a>
+                                    <location-chooser v-if="assignLocations"
+                                        :selected="accessId.locations"
+                                        @cancel="assignLocations = false"
+                                        @confirm="updateLocations($event)"></location-chooser>
+                                </th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>{{ $t('Client\'s Apps') }} ({{ accessId.clientApps.length }})</h3>
+                        <table class="table table-hover">
+                            <thead v-if="accessId.clientApps.length">
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ $t('Caption') }}</th>
+                                <th>{{ $t('Last access') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="app in accessId.clientApps">
+                                <td>{{ app.id }}</td>
+                                <td>{{ app.caption }}</td>
+                                <td>{{ app.lastAccessDate | moment("LT L") }}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr v-if="!accessId.clientApps.length">
+                                <th colspan="4">
+                                    <empty-list-placeholder></empty-list-placeholder>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <a @click="assignClientApps = true">
+                                        <i class="pe-7s-more"></i>
+                                        {{ $t('Assign Client apps') }}
+                                    </a>
+                                    <client-app-chooser v-if="assignClientApps"
+                                        :selected="accessId.clientApps"
+                                        @cancel="assignClientApps = false"
+                                        @confirm="updateClientApps($event)"></client-app-chooser>
+                                </th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
             </pending-changes-page>
         </div>
 
@@ -55,9 +137,11 @@
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PasswordDisplay from "../common/gui/password-display";
     import Toggler from "../common/gui/toggler";
+    import LocationChooser from "../locations/location-chooser";
 
     export default {
         components: {
+            LocationChooser,
             Toggler,
             PasswordDisplay,
             PendingChangesPage
@@ -68,7 +152,8 @@
                 loading: false,
                 accessId: undefined,
                 deleteConfirm: false,
-                hasPendingChanges: false
+                hasPendingChanges: false,
+                assignLocations: false
             };
         },
         mounted() {
@@ -109,6 +194,11 @@
             updatePassword(password) {
                 this.accessId.password = password;
                 this.accessIdChanged();
+            },
+            updateLocations(locations) {
+                this.accessId.locations = locations;
+                this.accessIdChanged();
+                this.assignLocations = false;
             },
         },
         watch: {

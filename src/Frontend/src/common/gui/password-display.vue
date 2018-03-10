@@ -83,5 +83,8 @@
             display: inline-block;
             margin-left: 5px;
         }
+        .text-monospace {
+            font-family: monospace;
+        }
     }
 </style>
