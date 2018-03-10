@@ -75,7 +75,7 @@ class ApiScheduleController extends RestController {
         }
         $schedules = $this->scheduleRepository->findByQuery($query);
         $view = $this->view($schedules, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions', 'function', 'type']);
+        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions']);
         return $view;
     }
 

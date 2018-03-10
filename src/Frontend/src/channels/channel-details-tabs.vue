@@ -19,7 +19,7 @@
                             {{ $t('Create New Schedule') }}
                         </a>
                     </div>
-                    <schedule-list :channel-id="channel.id"></schedule-list>
+                    <!--<schedule-list :channel-id="channel.id"></schedule-list>-->
                 </div>
                 <div v-if="currentTab == 'measurementsHistory'"
                     class="text-center">
@@ -32,12 +32,12 @@
 </template>
 
 <script>
-    import ScheduleList from "../schedules/schedule-list/schedule-list";
+    // import ScheduleList from "../schedules/schedule-list/schedule-list";
 
     export default {
         props: ['channel'],
         components: {
-            ScheduleList,
+            // ScheduleList,
         },
         data() {
             return {

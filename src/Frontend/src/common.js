@@ -52,7 +52,7 @@ const components = {
     LanguageSelector: () => import('./login/language-selector.vue'),
     LocationsPage: () => import("./locations/locations-page.vue"),
     ScheduleForm: () => import("./schedules/schedule-form/schedule-form.vue"),
-    ScheduleList: () => import("./schedules/schedule-list/schedule-list.vue"),
+    ScheduleListPage: () => import("./schedules/schedule-list/schedule-list-page.vue"),
     TimezonePicker: () => import("./account-details/timezone-picker.vue"),
 };
 

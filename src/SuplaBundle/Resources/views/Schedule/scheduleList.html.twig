@@ -3,20 +3,5 @@
 {% set page_title = 'Schedules'|trans %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                {% if not app.user.isLimitScheduleExceeded %}
-                    <a class="btn btn-green pull-right btn-lg"
-                            href="{{ path('_schedule_new') }}">
-                        <i class="pe-7s-plus"></i>
-                        {% trans %}Create New Schedule{% endtrans %}</a>
-                {% endif %}
-                <h1 class="pull-left">
-                    {% trans %}Schedules{% endtrans %}
-                </h1>
-            </div>
-        </div>
-        <schedule-list></schedule-list>
-    </div>
+    <schedule-list-page></schedule-list-page>
 {% endblock %}
