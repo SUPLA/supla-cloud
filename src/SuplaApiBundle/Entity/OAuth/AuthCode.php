@@ -15,16 +15,16 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Entity;
+namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
+use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_oauth_refresh_tokens")
+ * @ORM\Table(name="supla_oauth_auth_codes")
  */
-class RefreshToken extends BaseRefreshToken {
+class AuthCode extends BaseAuthCode {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -33,13 +33,13 @@ class RefreshToken extends BaseRefreshToken {
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\ManyToOne(targetEntity="ApiClient")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\ApiUser")
+     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\OAuth\ApiUser")
      */
     protected $user;
 }

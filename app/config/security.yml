@@ -1,6 +1,6 @@
 security:
   encoders:
-    SuplaApiBundle\Entity\ApiUser:
+    SuplaApiBundle\Entity\OAuth\ApiUser:
       algorithm: bcrypt
       cost: 4
     SuplaBundle\Entity\User: bcrypt

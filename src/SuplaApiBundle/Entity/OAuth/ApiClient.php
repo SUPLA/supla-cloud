@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Entity;
+namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\Client as BaseClient;
@@ -25,7 +25,7 @@ use SuplaBundle\Entity\User as ParentUser;
  * @ORM\Entity
  * @ORM\Table(name="supla_oauth_clients")
  */
-class Client extends BaseClient {
+class ApiClient extends BaseClient {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

@@ -17,8 +17,6 @@
 
 namespace SuplaApiBundle\Tests\Integration;
 
-use SuplaApiBundle\Entity\ApiUser;
-use SuplaApiBundle\Entity\Client;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -28,7 +26,7 @@ class MigratingMd5ApiUserPasswordsIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var ApiUser */
+    /** @var \SuplaApiBundle\Entity\OAuth\ApiUser */
     private $apiUser;
 
     protected function setUp() {

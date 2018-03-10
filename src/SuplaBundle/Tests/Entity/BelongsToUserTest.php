@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Tests\Entity;
 
-use SuplaApiBundle\Entity\ApiUser;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
@@ -50,13 +49,13 @@ class IODeviceTestTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testTrueIfApiUserMatches() {
-        $apiUser = $this->createMock(ApiUser::class);
+        $apiUser = $this->createMock(\SuplaApiBundle\Entity\OAuth\ApiUser::class);
         $apiUser->method('getParentUser')->willReturn($this->user);
         $this->assertTrue($this->entity->belongsToUser($apiUser));
     }
 
     public function testFalseIfApiUserNotMatches() {
-        $apiUser = $this->createMock(ApiUser::class);
+        $apiUser = $this->createMock(\SuplaApiBundle\Entity\OAuth\ApiUser::class);
         $user2 = $this->createMock(User::class);
         $user2->method('getId')->willReturn(2);
         $apiUser->method('getParentUser')->willReturn($user2);

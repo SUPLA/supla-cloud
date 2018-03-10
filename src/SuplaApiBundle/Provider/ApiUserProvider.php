@@ -17,7 +17,7 @@
 
 namespace SuplaApiBundle\Provider;
 
-use SuplaApiBundle\Entity\ApiUser;
+use SuplaApiBundle\Entity\OAuth\ApiUser;
 use SuplaApiBundle\Model\APIManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;

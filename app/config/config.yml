@@ -26,11 +26,11 @@ ewz_recaptcha:
   public_key: "%ewz_recaptcha_public_key%"
 
 fos_oauth_server:
-  access_token_class: SuplaApiBundle\Entity\AccessToken
-  auth_code_class: SuplaApiBundle\Entity\AuthCode
-  client_class: SuplaApiBundle\Entity\Client
+  access_token_class: SuplaApiBundle\Entity\OAuth\AccessToken
+  auth_code_class: SuplaApiBundle\Entity\OAuth\AuthCode
+  client_class: SuplaApiBundle\Entity\OAuth\ApiClient
   db_driver: orm
-  refresh_token_class: SuplaApiBundle\Entity\RefreshToken
+  refresh_token_class: SuplaApiBundle\Entity\OAuth\RefreshToken
   service:
     options:
       access_token_lifetime: 30

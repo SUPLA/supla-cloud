@@ -18,7 +18,7 @@
 namespace SuplaApiBundle\Model;
 
 use Assert\Assertion;
-use SuplaApiBundle\Entity\ApiUser;
+use SuplaApiBundle\Entity\OAuth\ApiUser;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 

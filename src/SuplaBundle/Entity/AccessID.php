@@ -62,7 +62,7 @@ class AccessID {
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds")
+     * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds", cascade={"persist"})
      * @Groups({"locations"})
      */
     private $locations;

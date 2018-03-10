@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Entity;
 
-use SuplaApiBundle\Entity\ApiUser;
+use SuplaApiBundle\Entity\OAuth\ApiUser;
 
 /**
  * @method User getUser()
@@ -12,7 +12,7 @@ trait BelongsToUser {
         if ($me) {
             if ($me instanceof User) {
                 return $me->getId() == $this->getUser()->getId();
-            } elseif ($me instanceof ApiUser) {
+            } elseif ($me instanceof \SuplaApiBundle\Entity\OAuth\ApiUser) {
                 return $me->getParentUser()->getId() == $this->getUser()->getId();
             }
         }

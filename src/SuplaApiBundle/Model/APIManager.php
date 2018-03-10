@@ -18,7 +18,7 @@
 namespace SuplaApiBundle\Model;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use SuplaApiBundle\Entity\ApiUser as APIUser;
+use SuplaApiBundle\Entity\OAuth\ApiUser as APIUser;
 use SuplaBundle\Entity\User as ParentUser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
@@ -37,11 +37,11 @@ class APIManager {
     public function __construct(ManagerRegistry $doctrine, EncoderFactory $encoder_factory, ContainerInterface $container) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
-        $this->oauth_user_rep = $doctrine->getRepository('SuplaApiBundle:ApiUser');
-        $this->oauth_client_rep = $doctrine->getRepository('SuplaApiBundle:Client');
-        $this->oauth_token_rep = $doctrine->getRepository('SuplaApiBundle:AccessToken');
-        $this->oauth_rtoken_rep = $doctrine->getRepository('SuplaApiBundle:RefreshToken');
-        $this->oauth_code_rep = $doctrine->getRepository('SuplaApiBundle:AuthCode');
+        $this->oauth_user_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\ApiUser');
+        $this->oauth_client_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\ApiClient');
+        $this->oauth_token_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\AccessToken');
+        $this->oauth_rtoken_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\RefreshToken');
+        $this->oauth_code_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\AuthCode');
         $this->container = $container;
     }
 
