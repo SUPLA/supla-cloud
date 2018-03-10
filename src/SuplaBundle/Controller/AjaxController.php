@@ -95,25 +95,6 @@ class AjaxController extends Controller {
     }
 
     /**
-     * @Route("/pwdgen/{len}", name="_ajax_pwdgen")
-     */
-    public function pwdgenAction($len) {
-        $len = intval($len);
-
-        $pwd = '';
-        $success = false;
-
-        $len = (int)($len / 2);
-
-        if ($len > 0) {
-            $pwd = bin2hex(random_bytes($len));
-            $success = true;
-        }
-
-        return AjaxController::jsonResponse($success, ["pwd" => $pwd]);
-    }
-
-    /**
      * @Route("/serverctrl-connstate", name="_ajax_serverctrl-connstate")
      */
     public function serverctrlConnStateAction(Request $request) {

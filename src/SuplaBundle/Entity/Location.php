@@ -163,10 +163,6 @@ class Location {
         return $this->accessIds;
     }
 
-    public function getIoDevicesByOriginalLocation() {
-        return $this->ioDevices_ol;
-    }
-
     public function getEnabled(): bool {
         return $this->enabled;
     }

@@ -43,10 +43,6 @@ class ApiClient extends BaseClient {
      */
     protected $parent;
 
-    private function pwdGen() {
-        return base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-    }
-
     public function __construct() {
         parent::__construct();
         $this->type = 0;

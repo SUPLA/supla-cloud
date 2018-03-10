@@ -41,7 +41,8 @@
                 {% if (iodevice.originalLocation) and (iodevice.originalLocation != iodevice.location) %}
 
 					<div class="location-info original">
-					<a href="{{ path('_loc_item', {'id': iodevice.originalLocation.id}) }}" class="item nav-link original">
+						<a href="{{ path('_loc_details', {'id': iodevice.originalLocation.id}) }}"
+								class="item nav-link original">
 					<span class="acaption">{% trans %}Original location{% endtrans %}<br />
 					<strong><span class="caption_value">{{ iodevice.originalLocation.caption }}</span></strong><br />
 					</a>
@@ -50,7 +51,8 @@
                 {% endif %}
 
 				<div class="location-info">
-					<a href="{{ path('_loc_item', {'id': iodevice.location.id}) }}" class="item nav-link {% if iodevice.location.enabled %}enable{% else %}disabled{% endif %}">
+					<a href="{{ path('_loc_details', {'id': iodevice.location.id}) }}"
+							class="item nav-link {% if iodevice.location.enabled %}enable{% else %}disabled{% endif %}">
 					<span class="aid">ID<strong>{{ iodevice.location.id }}</strong></span> <br />
 					<span class="acaption">{% trans %}Caption{% endtrans %}<br />
 					<strong><span class="caption_value">{{ iodevice.location.caption }}</span></strong><br />
@@ -67,7 +69,7 @@
 					<ul class="aid">
 					  {% for aid in iodevice.location.accessIds %}
 						 <li><a class="supla-tooltip nav-link {%if aid.enabled == false%}disabled{% endif %}" title="
-						 	&lt;a class&#61;&quot;details {%if aid.enabled == true%}enabled{% else %}disabled{% endif %}&quot; href&#61;&quot;{{ path('_aid_item', {'id': aid.id}) }}&quot;&gt;
+						 	&lt;a class&#61;&quot;details {% if aid.enabled == true %}enabled{% else %}disabled{% endif %}&quot; href&#61;&quot;{{ path('_aid_details', {'id': aid.id}) }}&quot;&gt;
 							&lt;span class&#61;&quot;id&quot;&gt;ID&lt;strong&gt;{{ aid.id }}&lt;/strong&gt;  &lt;/span&gt; &lt;br/ &gt;
 							&lt;div class&#61;&quot;details-wrapper&quot;&gt; {% trans %}Caption{% endtrans %} &lt;br/ &gt;
 							&lt;strong&gt;{{ aid.caption }}&lt;/strong&gt;&lt;br/ &gt;
@@ -78,7 +80,9 @@
 							
 							&lt;span class&#61;&quot;status&quot;&gt;{%if aid.enabled == true%}enabled{% else %}disabled{% endif %}&lt;/span&gt;
 							&lt;/a&gt;
-							" href="{{ path('_aid_item', {'id': aid.id}) }}">ID<strong>{{ aid.id }}</strong> {{ aid.caption }}</a></li>
+							"
+									 href="{{ path('_aid_details', {'id': aid.id}) }}">ID<strong>{{ aid.id }}</strong> {{ aid.caption }}</a>
+						 </li>
 					  {% endfor %}
 				    </ul>
 			</div>

@@ -60,14 +60,4 @@ class AccessIdManager {
 
         return null;
     }
-
-    public function accessIdById($id) {
-        $user = $this->sec->getToken()->getUser();
-
-        if ($user === null) {
-            return null;
-        }
-
-        return $this->rep->findOneBy(['user' => $user, 'id' => $id]);
-    }
 }
