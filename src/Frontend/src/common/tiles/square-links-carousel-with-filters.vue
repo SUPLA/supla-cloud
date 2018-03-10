@@ -4,8 +4,10 @@
             :is="filters"
             :items="items"
             @filter-function="filterFunction = $event"
+            @compare-function="compareFunction = $event"
             @filter="filter()"></component>
         <square-links-carousel v-if="filteredItems"
+            :square-links-height="squareLinksHeight"
             :tile="tile"
             :items="filteredItems"
             :selected="selected"
@@ -19,11 +21,12 @@
 
     export default {
         components: {SquareLinksCarousel},
-        props: ['items', 'selected', 'tile', 'newItemTile', 'filters'],
+        props: ['items', 'selected', 'tile', 'newItemTile', 'filters', 'squareLinksHeight'],
         data() {
             return {
                 filteredItems: undefined,
                 filterFunction: () => true,
+                compareFunction: () => -1,
             };
         },
         mounted() {
@@ -32,6 +35,9 @@
         methods: {
             filter() {
                 this.filteredItems = this.items ? this.items.filter(this.filterFunction) : this.items;
+                if (this.filteredItems) {
+                    this.filteredItems = this.filteredItems.sort(this.compareFunction);
+                }
             },
         },
         watch: {

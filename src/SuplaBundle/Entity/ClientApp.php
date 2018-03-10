@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ClientAppRepository")
  * @ORM\Table(name="supla_client", uniqueConstraints={@UniqueConstraint(name="UNIQUE_CLIENTAPP", columns={"user_id", "guid"})})
  */
 class ClientApp {
@@ -127,7 +127,8 @@ class ClientApp {
         return $this->accessId;
     }
 
-    public function setAccessId(AccessID $accessId) {
+    /** @param AccessID|null $accessId */
+    public function setAccessId($accessId) {
         $this->accessId = $accessId;
     }
 

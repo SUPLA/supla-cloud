@@ -4,6 +4,7 @@ namespace SuplaApiBundle\ParamConverter;
 use Assert\Assertion;
 use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Repository\ClientAppRepository;
 use SuplaBundle\Repository\LocationRepository;
 
 class AccessIdParamConverter extends AbstractBodyParamConverter {
@@ -11,13 +12,16 @@ class AccessIdParamConverter extends AbstractBodyParamConverter {
 
     /** @var LocationRepository */
     private $locationRepository;
+    /** @var ClientAppRepository */
+    private $clientAppRepository;
 
     public function getConvertedClass(): string {
         return AccessID::class;
     }
 
-    public function __construct(LocationRepository $locationRepository) {
+    public function __construct(LocationRepository $locationRepository, ClientAppRepository $clientAppRepository) {
         $this->locationRepository = $locationRepository;
+        $this->clientAppRepository = $clientAppRepository;
     }
 
     public function convert(array $requestData) {
@@ -31,6 +35,13 @@ class AccessIdParamConverter extends AbstractBodyParamConverter {
             foreach ($requestData['locationsIds'] as $id) {
                 $location = $this->locationRepository->findForUser($user, $id);
                 $accessId->getLocations()->add($location);
+            }
+        }
+        if (isset($requestData['clientAppsIds'])) {
+            Assertion::isArray($requestData['clientAppsIds']);
+            foreach ($requestData['clientAppsIds'] as $id) {
+                $clientApp = $this->clientAppRepository->findForUser($user, $id);
+                $accessId->getClientApps()->add($clientApp);
             }
         }
         return $accessId;

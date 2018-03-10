@@ -138,9 +138,11 @@
     import PasswordDisplay from "../common/gui/password-display";
     import Toggler from "../common/gui/toggler";
     import LocationChooser from "../locations/location-chooser";
+    import ClientAppChooser from "../client-apps/client-app-chooser";
 
     export default {
         components: {
+            ClientAppChooser,
             LocationChooser,
             Toggler,
             PasswordDisplay,
@@ -153,7 +155,8 @@
                 accessId: undefined,
                 deleteConfirm: false,
                 hasPendingChanges: false,
-                assignLocations: false
+                assignLocations: false,
+                assignClientApps: false,
             };
         },
         mounted() {
@@ -199,6 +202,11 @@
                 this.accessId.locations = locations;
                 this.accessIdChanged();
                 this.assignLocations = false;
+            },
+            updateClientApps(clientApps) {
+                this.accessId.clientApps = clientApps;
+                this.accessIdChanged();
+                this.assignClientApps = false;
             },
         },
         watch: {

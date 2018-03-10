@@ -124,6 +124,10 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\IODeviceChannelGroup]
 
+  SuplaBundle\Repository\ClientAppRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\ClientApp]
+
   SuplaBundle\Repository\LocationRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Location]

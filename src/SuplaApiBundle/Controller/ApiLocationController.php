@@ -126,7 +126,7 @@ class ApiLocationController extends RestController {
             $newPassword = $updatedLocation->getPassword();
             Assertion::minLength($newPassword, 4, 'Location password must be at least 4 characters.');
             Assertion::maxLength($newPassword, 32, 'Location password must be no longer than 32 characters.');
-            $location->setPassword($updatedLocation->getPassword());
+            $location->setPassword($newPassword);
         }
         $location->getAccessIds()->clear();
         foreach ($updatedLocation->getAccessIds() as $accessId) {

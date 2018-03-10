@@ -6,6 +6,7 @@
         @confirm="$emit('confirm', selectedItems)">
         <loading-cover :loading="!items">
             <square-links-carousel-with-filters
+                :square-links-height="squareLinksHeight"
                 :tile="tile"
                 :filters="filters"
                 :items="items"
@@ -20,7 +21,7 @@
 
     export default {
         components: {SquareLinksCarouselWithFilters},
-        props: ['selected', 'title', 'tile', 'filters', 'endpoint'],
+        props: ['selected', 'title', 'tile', 'filters', 'endpoint', 'squareLinksHeight'],
         data() {
             return {
                 items: undefined,

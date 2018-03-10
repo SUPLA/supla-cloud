@@ -62,7 +62,7 @@ class AccessID {
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds")
      * @Groups({"locations"})
      */
     private $locations;
@@ -85,11 +85,11 @@ class AccessID {
         }
     }
 
-    public function getPassword() {
+    public function getPassword(): string {
         return $this->password;
     }
 
-    public function setPassword($password) {
+    public function setPassword(string $password) {
         $this->password = $password;
     }
 
@@ -108,6 +108,18 @@ class AccessID {
     /** @return Location[]|Collection */
     public function getLocations(): Collection {
         return $this->locations;
+    }
+
+    /** @param Location[]|Collection $locations */
+    public function updateLocations($locations) {
+        foreach ($this->getLocations() as $location) {
+            $location->getAccessIds()->removeElement($this);
+        }
+        $this->getLocations()->clear();
+        foreach ($locations as $location) {
+            $this->locations[] = $location;
+            $location->getAccessIds()->add($this);
+        }
     }
 
     public function getId() {

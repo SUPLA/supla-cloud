@@ -107,23 +107,29 @@ class ApiAccessIDController extends RestController {
     /**
      * @Security("accessId.belongsToUser(user)")
      */
-    public function putAccessidAction(Request $request, AccessID $accessId, AccessID $updateAccessId) {
-        $accessId->setCaption($updateAccessId->getCaption());
-        $accessId->setEnabled($updateAccessId->getEnabled());
-        if ($updateAccessId->getPassword()) {
-            $newPassword = $updateAccessId->getPassword();
+    public function putAccessidAction(Request $request, AccessID $accessId, AccessID $updatedAccessId) {
+        $accessId->setCaption($updatedAccessId->getCaption());
+        $accessId->setEnabled($updatedAccessId->getEnabled());
+        if ($updatedAccessId->getPassword()) {
+            $newPassword = $updatedAccessId->getPassword();
             Assertion::minLength($newPassword, 8, 'Access identifier password must be at least 8 characters.');
             Assertion::maxLength($newPassword, 32, 'Access identifier password must be no longer than 32 characters.');
-            $accessId->setPassword($updateAccessId->getPassword());
+            $accessId->setPassword($newPassword);
         }
-        $accessId->getLocations()->clear();
-        foreach ($updateAccessId->getLocations() as $location) {
-            $accessId->getLocations()->add($location);
-        }
-        return $this->transactional(function (EntityManagerInterface $em) use ($request, $accessId) {
+        $this->transactional(function (EntityManagerInterface $em) use ($updatedAccessId, $request, $accessId) {
+            $accessId->updateLocations($updatedAccessId->getLocations());
             $em->persist($accessId);
-            $this->suplaServer->reconnect($this->getCurrentUser()->getId());
-            return $this->getAccessidAction($request, $accessId);
+            foreach ($accessId->getClientApps() as $clientApp) {
+                $clientApp->setAccessId(null);
+                $em->persist($clientApp);
+            }
+            foreach ($updatedAccessId->getClientApps() as $clientApp) {
+                $clientApp->setAccessId($accessId);
+                $em->persist($clientApp);
+            }
         });
+        $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+        $this->getDoctrine()->getManager()->refresh($accessId);
+        return $this->getAccessidAction($request, $accessId);
     }
 }

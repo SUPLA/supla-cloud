@@ -1,5 +1,5 @@
 <template>
-    <div class="square-links-carousel square-links-height-160"
+    <div :class="'square-links-carousel square-links-height-' + (squareLinksHeight || 160)"
         v-if="items">
         <carousel v-if="newItemTile || items.length > 0"
             :navigation-enabled="true"
@@ -38,7 +38,7 @@
 
     export default {
         components: {Carousel, Slide, EmptyListPlaceholder},
-        props: ['items', 'selected', 'tile', 'newItemTile'],
+        props: ['items', 'selected', 'tile', 'newItemTile', 'squareLinksHeight'],
         data() {
             return {
                 selectedIds: [],
