@@ -57,11 +57,14 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <empty-list-placeholder v-else
+                                class="inline"></empty-list-placeholder>
                         </div>
                         <div class="col-sm-6">
                             <h3>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h3>
-                            <table class="table table-hover">
-                                <thead v-if="location.accessIds.length">
+                            <table class="table table-hover"
+                                v-if="location.accessIds.length">
+                                <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>{{ $t('Password') }}</th>
@@ -78,32 +81,22 @@
                                     <td>{{ aid.caption }}</td>
                                 </tr>
                                 </tbody>
-                                <tfoot>
-                                <tr v-if="!location.accessIds.length">
-                                    <th colspan="4">
-                                        <empty-list-placeholder></empty-list-placeholder>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th colspan="4">
-                                        <a @click="assignAccessIds = true">
-                                            <i class="pe-7s-more"></i>
-                                            {{ $t('Assign Access Identifiers') }}
-                                        </a>
-                                        <access-id-chooser v-if="assignAccessIds"
-                                            :selected="location.accessIds"
-                                            @cancel="assignAccessIds = false"
-                                            @confirm="updateAccessIds($event)"></access-id-chooser>
-                                    </th>
-                                </tr>
-                                </tfoot>
                             </table>
+                            <a @click="assignAccessIds = true">
+                                <i class="pe-7s-more"></i>
+                                {{ $t('Assign Access Identifiers') }}
+                            </a>
+                            <access-id-chooser v-if="assignAccessIds"
+                                :selected="location.accessIds"
+                                @cancel="assignAccessIds = false"
+                                @confirm="updateAccessIds($event)"></access-id-chooser>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <h3>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h3>
-                            <table class="table table-hover table-valign-middle">
+                            <table class="table table-hover table-valign-middle"
+                                v-if="location.channelGroups.length">
                                 <thead>
                                 <tr>
                                     <th></th>
@@ -129,6 +122,8 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <empty-list-placeholder v-else
+                                class="inline"></empty-list-placeholder>
                         </div>
                         <div class="col-sm-6">
                             <h3>{{ $t('Channels') }} ({{ location.channelsIds.length }})</h3>
@@ -152,6 +147,8 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <empty-list-placeholder v-else
+                                class="inline"></empty-list-placeholder>
                         </div>
                     </div>
                 </pending-changes-page>

@@ -39,8 +39,9 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <h3>{{ $t('Locations') }} ({{ accessId.locations.length }})</h3>
-                        <table class="table table-hover">
-                            <thead v-if="accessId.locations.length">
+                        <table class="table table-hover"
+                            v-if="accessId.locations.length">
+                            <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>{{ $t('Password') }}</th>
@@ -57,31 +58,21 @@
                                 <td>{{ location.caption }}</td>
                             </tr>
                             </tbody>
-                            <tfoot>
-                            <tr v-if="!accessId.locations.length">
-                                <th colspan="4">
-                                    <empty-list-placeholder></empty-list-placeholder>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th colspan="4">
-                                    <a @click="assignLocations = true">
-                                        <i class="pe-7s-more"></i>
-                                        {{ $t('Assign Locations') }}
-                                    </a>
-                                    <location-chooser v-if="assignLocations"
-                                        :selected="accessId.locations"
-                                        @cancel="assignLocations = false"
-                                        @confirm="updateLocations($event)"></location-chooser>
-                                </th>
-                            </tr>
-                            </tfoot>
                         </table>
+                        <a @click="assignLocations = true">
+                            <i class="pe-7s-more"></i>
+                            {{ $t('Assign Locations') }}
+                        </a>
+                        <location-chooser v-if="assignLocations"
+                            :selected="accessId.locations"
+                            @cancel="assignLocations = false"
+                            @confirm="updateLocations($event)"></location-chooser>
                     </div>
                     <div class="col-sm-6">
                         <h3>{{ $t('Client\'s Apps') }} ({{ accessId.clientApps.length }})</h3>
-                        <table class="table table-hover">
-                            <thead v-if="accessId.clientApps.length">
+                        <table class="table table-hover"
+                            v-if="accessId.clientApps.length">
+                            <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>{{ $t('Caption') }}</th>
@@ -95,29 +86,17 @@
                                 <td>{{ app.lastAccessDate | moment("LT L") }}</td>
                             </tr>
                             </tbody>
-                            <tfoot>
-                            <tr v-if="!accessId.clientApps.length">
-                                <th colspan="4">
-                                    <empty-list-placeholder></empty-list-placeholder>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th colspan="4">
-                                    <a @click="assignClientApps = true">
-                                        <i class="pe-7s-more"></i>
-                                        {{ $t('Assign Client apps') }}
-                                    </a>
-                                    <client-app-chooser v-if="assignClientApps"
-                                        :selected="accessId.clientApps"
-                                        @cancel="assignClientApps = false"
-                                        @confirm="updateClientApps($event)"></client-app-chooser>
-                                </th>
-                            </tr>
-                            </tfoot>
                         </table>
+                        <a @click="assignClientApps = true">
+                            <i class="pe-7s-more"></i>
+                            {{ $t('Assign Client apps') }}
+                        </a>
+                        <client-app-chooser v-if="assignClientApps"
+                            :selected="accessId.clientApps"
+                            @cancel="assignClientApps = false"
+                            @confirm="updateClientApps($event)"></client-app-chooser>
                     </div>
                 </div>
-
             </pending-changes-page>
         </div>
 
@@ -139,6 +118,7 @@
     import Toggler from "../common/gui/toggler";
     import LocationChooser from "../locations/location-chooser";
     import ClientAppChooser from "../client-apps/client-app-chooser";
+    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
 
     export default {
         components: {
@@ -146,7 +126,8 @@
             LocationChooser,
             Toggler,
             PasswordDisplay,
-            PendingChangesPage
+            PendingChangesPage,
+            EmptyListPlaceholder
         },
         props: ['model'],
         data() {

@@ -77,7 +77,11 @@
                     this.selectedIds = [this.selected.id];
                     Vue.nextTick(() => {
                         const index = this.items.findIndex(item => this.isSelected(item));
-                        const desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, index - this.$refs.carousel.perPage + 2));
+                        let desiredPage = index - this.$refs.carousel.perPage + 2;
+                        if (this.newItemTile) {
+                            ++desiredPage;
+                        }
+                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, desiredPage));
                         this.$refs.carousel.goToPage(desiredPage);
                     });
                 }
