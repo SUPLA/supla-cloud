@@ -244,7 +244,7 @@
                 this.hasPendingChanges = true;
             },
             channelTitle(channel) {
-                return channelTitle(channel, this).replace(/^ID[0-9]+ /, '')
+                return channelTitle(channel, this).replace(/^ID[0-9]+ /, '');
             }
         },
         watch: {

@@ -103,4 +103,27 @@ class ApiAccessIDController extends RestController {
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }
+
+    /**
+     * @Security("accessId.belongsToUser(user)")
+     */
+    public function putAccessidAction(Request $request, AccessID $accessId, AccessID $updateAccessId) {
+        $accessId->setCaption($updateAccessId->getCaption());
+        $accessId->setEnabled($updateAccessId->getEnabled());
+        if ($updateAccessId->getPassword()) {
+            $newPassword = $updateAccessId->getPassword();
+            Assertion::minLength($newPassword, 8, 'Access identifier password must be at least 8 characters.');
+            Assertion::maxLength($newPassword, 32, 'Access identifier password must be no longer than 32 characters.');
+            $accessId->setPassword($updateAccessId->getPassword());
+        }
+        $accessId->getLocations()->clear();
+        foreach ($updateAccessId->getLocations() as $location) {
+            $accessId->getLocations()->add($location);
+        }
+        return $this->transactional(function (EntityManagerInterface $em) use ($request, $accessId) {
+            $em->persist($accessId);
+            $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+            return $this->getAccessidAction($request, $accessId);
+        });
+    }
 }

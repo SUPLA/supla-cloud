@@ -9,6 +9,33 @@
                 @delete="deleteConfirm = true"
                 :is-pending="hasPendingChanges">
 
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="hover-editable text-left">
+                            <dl>
+                                <dd>{{ $t('Enabled') }}</dd>
+                                <dt class="text-center">
+                                    <toggler v-model="accessId.enabled"
+                                        @input="accessIdChanged()"></toggler>
+                                </dt>
+                                <dd>{{ $t('Caption') }}</dd>
+                                <dt>
+                                    <input type="text"
+                                        class="form-control"
+                                        @change="accessIdChanged()"
+                                        v-model="accessId.caption">
+                                </dt>
+                                <dd>{{ $t('Password') }}</dd>
+                                <dt>
+                                    <password-display :password="accessId.password"
+                                        editable="true"
+                                        @change="updatePassword($event)"></password-display>
+                                </dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
             </pending-changes-page>
         </div>
 
@@ -26,9 +53,15 @@
 <script>
     import Vue from "vue";
     import PendingChangesPage from "../common/pages/pending-changes-page";
+    import PasswordDisplay from "../common/gui/password-display";
+    import Toggler from "../common/gui/toggler";
 
     export default {
-        components: {PendingChangesPage},
+        components: {
+            Toggler,
+            PasswordDisplay,
+            PendingChangesPage
+        },
         props: ['model'],
         data() {
             return {
@@ -66,7 +99,17 @@
                     .then(() => this.$emit('delete'))
                     .then(() => this.accessId = undefined)
                     .catch(() => this.loading = false);
-            }
+            },
+            accessIdChanged() {
+                this.hasPendingChanges = true;
+            },
+            cancelChanges() {
+                this.initForModel();
+            },
+            updatePassword(password) {
+                this.accessId.password = password;
+                this.accessIdChanged();
+            },
         },
         watch: {
             model() {

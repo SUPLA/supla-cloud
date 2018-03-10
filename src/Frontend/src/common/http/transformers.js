@@ -61,3 +61,18 @@ export function locationTransformer(request, next) {
     }
     next();
 }
+
+export function accessIdTranformer(request, next) {
+    if (request.url.startsWith('accessids')) {
+        if (request.body && request.body.id) {
+            const toSend = Vue.util.extend({}, request.body);
+            delete toSend.clientApps;
+            if (toSend.locations) {
+                toSend.locationsIds = toSend.locations.map(loc => loc.id);
+                delete toSend.locations;
+            }
+            request.body = toSend;
+        }
+    }
+    next();
+}

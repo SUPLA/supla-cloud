@@ -21,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Form\Type\AssignType;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -74,7 +73,7 @@ class AccessIDController extends AbstractController {
     /**
      * @Route("/old")
      */
-    public function listAction() {
+    public function oldlistAction() {
         /** @var User $user */
         $user = $this->getUser();
 
@@ -107,237 +106,237 @@ class AccessIDController extends AbstractController {
      * @Route("/new", name="_aid_new")
      */
     public function newAction() {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $aid_man = $this->get('accessid_manager');
-
-        if ($user->getLimitLoc() > 0
-            && $aid_man->totalCount($user) >= $user->getLimitAid()
-        ) {
-            $this->get('session')->getFlashBag()->add('error', [
-                'title' => 'Stop',
-                'message' => 'Access identifier limit has been exceeded',
-            ]);
-        } else {
-            $aid = $aid_man->createID($user);
-
-            if ($aid !== null) {
-                $m = $this->get('doctrine')->getManager();
-                $m->persist($aid);
-                $m->flush();
-                $this->get('session')->getFlashBag()->add('success', [
-                    'title' => 'Success',
-                    'message' => 'New access identifier has been created',
-                ]);
-                $this->get('session')->set('_aid_details_lastid', $aid->getId());
-            } else {
-                $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Unknown error']);
-            }
-        }
-
-        return $this->redirectToRoute("_aid_list");
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//        $aid_man = $this->get('accessid_manager');
+//
+//        if ($user->getLimitLoc() > 0
+//            && $aid_man->totalCount($user) >= $user->getLimitAid()
+//        ) {
+//            $this->get('session')->getFlashBag()->add('error', [
+//                'title' => 'Stop',
+//                'message' => 'Access identifier limit has been exceeded',
+//            ]);
+//        } else {
+//            $aid = $aid_man->createID($user);
+//
+//            if ($aid !== null) {
+//                $m = $this->get('doctrine')->getManager();
+//                $m->persist($aid);
+//                $m->flush();
+//                $this->get('session')->getFlashBag()->add('success', [
+//                    'title' => 'Success',
+//                    'message' => 'New access identifier has been created',
+//                ]);
+//                $this->get('session')->set('_aid_details_lastid', $aid->getId());
+//            } else {
+//                $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Unknown error']);
+//            }
+//        }
+//
+//        return $this->redirectToRoute("_aid_list");
     }
 
     /**
      * @Route("/{id}/view", name="_aid_item")
      */
     public function itemViewAction(Request $request, $id) {
-        $aid = $this->getAccessIdById($id);
-
-        if ($aid !== null) {
-            $this->get('session')->set('_aid_details_lastid', $aid->getId());
-        }
-
-        return $this->redirectToRoute("_aid_list");
+//        $aid = $this->getAccessIdById($id);
+//
+//        if ($aid !== null) {
+//            $this->get('session')->set('_aid_details_lastid', $aid->getId());
+//        }
+//
+//        return $this->redirectToRoute("_aid_list");
     }
 
     /**
      * @Route("/{id}/delete", name="_aid_item_delete")
      */
     public function itemDeleteAction($id) {
-        $aid = $this->getAccessIdById($id);
-
-        if ($aid === null) {
-            return $this->redirectToRoute("_aid_list");
-        }
-
-        $m = $this->get('doctrine')->getManager();
-        $m->remove($aid);
-        $m->flush();
-
-        $this->userReconnect();
-
-        $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'Access identifier has been deleted']);
-        return $this->redirectToRoute("_aid_list");
+//        $aid = $this->getAccessIdById($id);
+//
+//        if ($aid === null) {
+//            return $this->redirectToRoute("_aid_list");
+//        }
+//
+//        $m = $this->get('doctrine')->getManager();
+//        $m->remove($aid);
+//        $m->flush();
+//
+//        $this->userReconnect();
+//
+//        $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'Access identifier has been deleted']);
+//        return $this->redirectToRoute("_aid_list");
     }
 
     /**
      * @Route("/{id}/assignloc", name="_loc_assignloc")
      */
     public function assignLocAction(Request $request, $id) {
-        $aid = $this->getAccessIdById($id);
-
-        if ($aid === null) {
-            return $this->redirectToRoute("_aid_list");
-        }
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        $form = $this->createForm(
-            AssignType::class,
-            null,
-            ['cancel_url' => $this->generateUrl('_aid_list')]
-        );
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $sel_lid = $request->request->get('lid');
-            $locs = $aid->getLocations();
-
-            $aid_man = $this->get('accessid_manager');
-            $loc_man = $this->get('location_manager');
-
-            // remove
-            foreach ($locs->getKeys() as $key) {
-                $loc = $locs->get($key);
-
-                if ($loc !== null
-                    && (is_array($sel_lid) === false
-                        || array_key_exists($loc->getId(), $sel_lid) == false
-                        || $sel_lid[$loc->getId()] != '1')
-                ) {
-                    $loc->getAccessIds()->removeElement($aid);
-                }
-            }
-
-            // add new
-            if (is_array($sel_lid) === true) {
-                foreach ($sel_lid as $key => $value) {
-                    if ($value == '1') {
-                        $loc = $loc_man->locationById(intval($key));
-                        if ($loc !== null
-                            && $locs->contains($loc) === false
-                        ) {
-                            $loc->getAccessIds()->add($aid);
-                        }
-                    }
-                }
-            }
-
-            $m = $this->get('doctrine')->getManager();
-            $m->flush();
-
-            $this->userReconnect();
-
-            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
-        }
-
-        return $this->redirectToRoute("_aid_list");
+//        $aid = $this->getAccessIdById($id);
+//
+//        if ($aid === null) {
+//            return $this->redirectToRoute("_aid_list");
+//        }
+//
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//
+//        $form = $this->createForm(
+//            AssignType::class,
+//            null,
+//            ['cancel_url' => $this->generateUrl('_aid_list')]
+//        );
+//
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $sel_lid = $request->request->get('lid');
+//            $locs = $aid->getLocations();
+//
+//            $aid_man = $this->get('accessid_manager');
+//            $loc_man = $this->get('location_manager');
+//
+//            // remove
+//            foreach ($locs->getKeys() as $key) {
+//                $loc = $locs->get($key);
+//
+//                if ($loc !== null
+//                    && (is_array($sel_lid) === false
+//                        || array_key_exists($loc->getId(), $sel_lid) == false
+//                        || $sel_lid[$loc->getId()] != '1')
+//                ) {
+//                    $loc->getAccessIds()->removeElement($aid);
+//                }
+//            }
+//
+//            // add new
+//            if (is_array($sel_lid) === true) {
+//                foreach ($sel_lid as $key => $value) {
+//                    if ($value == '1') {
+//                        $loc = $loc_man->locationById(intval($key));
+//                        if ($loc !== null
+//                            && $locs->contains($loc) === false
+//                        ) {
+//                            $loc->getAccessIds()->add($aid);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            $m = $this->get('doctrine')->getManager();
+//            $m->flush();
+//
+//            $this->userReconnect();
+//
+//            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
+//        }
+//
+//        return $this->redirectToRoute("_aid_list");
     }
 
     /**
      * @Route("/{id}/ajax/assign_list", name="_aid_ajax_assign_list")
      */
     public function ajaxAssignLocList(Request $request, $id) {
-        $html = null;
-        $aid = $this->getAccessIdById($id);
-
-        if ($aid !== null) {
-            $user = $this->get('security.token_storage')->getToken()->getUser();
-
-            $form = $this->createForm(
-                AssignType::class,
-                null,
-                ['cancel_url' => $this->generateUrl('_aid_list'),
-                    'action' => $this->generateUrl('_loc_assignloc', ['id' => $aid->getId()]),
-                ]
-            );
-
-            $html = $this->get('templating')->render(
-                'SuplaBundle:AccessID:assignloc.html.twig',
-                ['form' => $form->createView(),
-                    'accessid' => $aid,
-                    'locations' => $user->getLocations(),
-                    'selected' => $aid->getLocations(),
-                ]
-            );
-        }
-
-        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
+//        $html = null;
+//        $aid = $this->getAccessIdById($id);
+//
+//        if ($aid !== null) {
+//            $user = $this->get('security.token_storage')->getToken()->getUser();
+//
+//            $form = $this->createForm(
+//                AssignType::class,
+//                null,
+//                ['cancel_url' => $this->generateUrl('_aid_list'),
+//                    'action' => $this->generateUrl('_loc_assignloc', ['id' => $aid->getId()]),
+//                ]
+//            );
+//
+//            $html = $this->get('templating')->render(
+//                'SuplaBundle:AccessID:assignloc.html.twig',
+//                ['form' => $form->createView(),
+//                    'accessid' => $aid,
+//                    'locations' => $user->getLocations(),
+//                    'selected' => $aid->getLocations(),
+//                ]
+//            );
+//        }
+//
+//        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
 
     /**
      * @Route("/{id}/ajax/getdetails", name="_aid_ajax_getdetails")
      */
     public function ajaxGetDetails(Request $request, $id) {
-        $result = false;
-        $html = null;
-
-        $html = $this->getAccessIdDetails($id);
-
-        if ($html !== null) {
-            $this->get('session')->set('_aid_details_lastid', intval($id));
-        }
-
-        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
+//        $result = false;
+//        $html = null;
+//
+//        $html = $this->getAccessIdDetails($id);
+//
+//        if ($html !== null) {
+//            $this->get('session')->set('_aid_details_lastid', intval($id));
+//        }
+//
+//        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
 
     private function ajaxItemEdit(AccessID $aid, $message, $value) {
-        $result = AjaxController
-            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $aid, $message, $value);
-        $this->userReconnect();
-        return $result;
+//        $result = AjaxController
+//            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $aid, $message, $value);
+//        $this->userReconnect();
+//        return $result;
     }
 
     /**
      * @Route("/{id}/ajax/setenabled/{enabled}", name="_aid_ajax_setenabled")
      */
     public function ajaxSetEnabled(Request $request, $id, $enabled) {
-        $aid = $this->getAccessIdById($id);
-
-        if ($aid !== null) {
-            $aid->setEnabled($enabled == '1');
-        }
-
-        return $this->ajaxItemEdit(
-            $aid,
-            'Access identifier has been ' . ($enabled == '1' ? 'enabled' : 'disabled'),
-            $this->get('translator')->trans($enabled == '1' ? 'Enabled' : 'Disabled')
-        );
+//        $aid = $this->getAccessIdById($id);
+//
+//        if ($aid !== null) {
+//            $aid->setEnabled($enabled == '1');
+//        }
+//
+//        return $this->ajaxItemEdit(
+//            $aid,
+//            'Access identifier has been ' . ($enabled == '1' ? 'enabled' : 'disabled'),
+//            $this->get('translator')->trans($enabled == '1' ? 'Enabled' : 'Disabled')
+//        );
     }
 
     private function ajaxItemSet(Request $request, $id, $caption, $field) {
-
-        $aid = $this->getAccessIdById($id);
-
-        if ($aid !== null) {
-            $data = json_decode($request->getContent());
-
-            if ($caption === true) {
-                $aid->setCaption($data->value);
-            } else {
-                $aid->setPassword($data->value);
-            }
-        }
-
-        return $this->ajaxItemEdit(
-            $aid,
-            $field . ' has been changed',
-            null
-        );
+//
+//        $aid = $this->getAccessIdById($id);
+//
+//        if ($aid !== null) {
+//            $data = json_decode($request->getContent());
+//
+//            if ($caption === true) {
+//                $aid->setCaption($data->value);
+//            } else {
+//                $aid->setPassword($data->value);
+//            }
+//        }
+//
+//        return $this->ajaxItemEdit(
+//            $aid,
+//            $field . ' has been changed',
+//            null
+//        );
     }
 
     /**
      * @Route("/{id}/ajax/setcaption", name="_aid_ajax_setcaption")
      */
     public function ajaxSetCaption(Request $request, $id) {
-        return $this->ajaxItemSet($request, $id, true, 'Caption');
+//        return $this->ajaxItemSet($request, $id, true, 'Caption');
     }
 
     /**
      * @Route("/{id}/ajax/setpwd", name="_aid_ajax_setpwd")
      */
     public function ajaxSetPwd(Request $request, $id) {
-        return $this->ajaxItemSet($request, $id, false, 'Password');
+//        return $this->ajaxItemSet($request, $id, false, 'Password');
     }
 }

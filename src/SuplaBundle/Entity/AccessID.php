@@ -21,7 +21,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AccessIdRepository")
@@ -40,16 +39,12 @@ class AccessID {
 
     /**
      * @ORM\Column(name="password", type="string", length=32, nullable=false)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=8, max=32)
      * @Groups({"password"})
      */
     private $password;
 
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=1, max=100)
      * @Groups({"basic"})
      */
     private $caption;
@@ -78,13 +73,16 @@ class AccessID {
      **/
     private $clientApps;
 
-    public function __construct(User $user) {
+    /** @param User $user */
+    public function __construct($user = null) {
         $this->enabled = true;
         $this->clientApps = new ArrayCollection();
         $this->locations = new ArrayCollection();
 
-        $user->getAccessIDS()->add($this);
-        $this->user = $user;
+        if ($user) {
+            $user->getAccessIDS()->add($this);
+            $this->user = $user;
+        }
     }
 
     public function getPassword() {
