@@ -8,7 +8,7 @@ export function withBaseUrl(url) {
 }
 
 // https://stackoverflow.com/a/8105740/878514
-function intToIp(int) {
+export function intToIp(int) {
     const part1 = int & 255;
     const part2 = ((int >> 8) & 255);
     const part3 = ((int >> 16) & 255);
