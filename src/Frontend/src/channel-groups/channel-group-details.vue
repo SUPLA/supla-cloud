@@ -7,6 +7,7 @@
                     @cancel="cancelChanges()"
                     @save="saveChannelGroup()"
                     :deletable="!isNewGroup"
+                    @delete="deleteConfirm = true"
                     :is-pending="hasPendingChanges && !isNewGroup">
                     <div class="row hidden-xs">
                         <div class="col-xs-12">

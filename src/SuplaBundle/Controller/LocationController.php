@@ -20,7 +20,6 @@ namespace SuplaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\Location;
-use SuplaBundle\Form\Type\AssignType;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -110,262 +109,262 @@ class LocationController extends Controller {
      * @Route("/{id}/view", name="_loc_item")
      */
     public function itemAction($id) {
-        $loc = $this->getLocationById($id);
-
-        if ($aid !== null) {
-            $this->get('session')->set('_loc_details_lastid', $loc->getId());
-        }
-
-        return $this->redirectToRoute("_loc_list");
+//        $loc = $this->getLocationById($id);
+//
+//        if ($aid !== null) {
+//            $this->get('session')->set('_loc_details_lastid', $loc->getId());
+//        }
+//
+//        return $this->redirectToRoute("_loc_list");
     }
 
     /**
      * @Route("/new", name="_loc_new")
      */
     public function newAction() {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $loc_man = $this->get('location_manager');
-
-        if ($user->getLimitLoc() > 0
-            && $loc_man->totalCount($user) >= $user->getLimitLoc()
-        ) {
-            $this->get('session')->getFlashBag()->add('error', ['title' => 'Stop', 'message' => 'Location limit has been exceeded']);
-        } else {
-            $loc = $loc_man->createLocation($user);
-
-            if ($loc !== null) {
-                $m = $this->get('doctrine')->getManager();
-                $m->persist($loc);
-                $m->flush();
-                $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'New location has been created']);
-            } else {
-                $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Unknown error']);
-            }
-        }
-
-        return $this->redirectToRoute("_loc_list");
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//        $loc_man = $this->get('location_manager');
+//
+//        if ($user->getLimitLoc() > 0
+//            && $loc_man->totalCount($user) >= $user->getLimitLoc()
+//        ) {
+//            $this->get('session')->getFlashBag()->add('error', ['title' => 'Stop', 'message' => 'Location limit has been exceeded']);
+//        } else {
+//            $loc = $loc_man->createLocation($user);
+//
+//            if ($loc !== null) {
+//                $m = $this->get('doctrine')->getManager();
+//                $m->persist($loc);
+//                $m->flush();
+//                $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'New location has been created']);
+//            } else {
+//                $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Unknown error']);
+//            }
+//        }
+//
+//        return $this->redirectToRoute("_loc_list");
     }
 
     /**
      * @Route("/{id}/view", name="_loc_item")
      */
     public function itemViewAction(Request $request, $id) {
-        $loc = $this->getLocationById($id);
-
-        if ($loc !== null) {
-            $this->get('session')->set('_loc_details_lastid', $loc->getId());
-        }
-
-        return $this->redirectToRoute("_loc_list");
+//        $loc = $this->getLocationById($id);
+//
+//        if ($loc !== null) {
+//            $this->get('session')->set('_loc_details_lastid', $loc->getId());
+//        }
+//
+//        return $this->redirectToRoute("_loc_list");
     }
 
     /**
      * @Route("/{id}/delete", name="_loc_item_delete")
      */
     public function itemDeleteAction($id) {
-        $loc = $this->getLocationById($id);
-
-        if ($loc === null) {
-            return $this->redirectToRoute("_loc_list");
-        }
-
-        if ($loc->getIoDevices()->count() > 0
-            || $loc->getIoDevicesByOriginalLocation()->count() > 0
-        ) {
-            $this->get('session')->getFlashBag()->add('error', [
-                'title' => 'Stop',
-                'message' => 'Remove all the associated devices before you delete this location',
-            ]);
-            return $this->redirectToRoute("_loc_item", ['id' => $loc->getId()]);
-        }
-
-        $m = $this->get('doctrine')->getManager();
-        $m->remove($loc);
-        $m->flush();
-
-        $this->userReconnect();
-
-        $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'Location has been deleted']);
-        return $this->redirectToRoute("_loc_list");
+//        $loc = $this->getLocationById($id);
+//
+//        if ($loc === null) {
+//            return $this->redirectToRoute("_loc_list");
+//        }
+//
+//        if ($loc->getIoDevices()->count() > 0
+//            || $loc->getIoDevicesByOriginalLocation()->count() > 0
+//        ) {
+//            $this->get('session')->getFlashBag()->add('error', [
+//                'title' => 'Stop',
+//                'message' => 'Remove all the associated devices before you delete this location',
+//            ]);
+//            return $this->redirectToRoute("_loc_item", ['id' => $loc->getId()]);
+//        }
+//
+//        $m = $this->get('doctrine')->getManager();
+//        $m->remove($loc);
+//        $m->flush();
+//
+//        $this->userReconnect();
+//
+//        $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'Location has been deleted']);
+//        return $this->redirectToRoute("_loc_list");
     }
 
     /**
      * @Route("/{id}/assignaid", name="_loc_assignaid")
      */
     public function assignAidAction(Request $request, $id) {
-        $loc = $this->getLocationById($id);
-
-        if ($loc === null) {
-            return $this->redirectToRoute("_loc_list");
-        }
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        $form = $this->createForm(
-            AssignType::class,
-            null,
-            ['cancel_url' => $this->generateUrl('_loc_item', ['id' => $loc->getId()])]
-        );
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $sel_aid = $request->request->get('aid');
-            $aids = $loc->getAccessIds();
-
-            $aid_man = $this->get('accessid_manager');
-            $loc_man = $this->get('location_manager');
-
-            // remove
-            foreach ($aids->getKeys() as $key) {
-                $aid = $aids->get($key);
-
-                if ($aid !== null
-                    && (is_array($sel_aid) === false
-                        || array_key_exists($aid->getId(), $sel_aid) == false
-                        || $sel_aid[$aid->getId()] != '1')
-                ) {
-                    $aids->remove($key);
-                }
-            }
-
-            // add new
-            if (is_array($sel_aid) === true) {
-                foreach ($sel_aid as $key => $value) {
-                    if ($value == '1') {
-                        $aid = $aid_man->accessIdById(intval($key));
-                        if ($aid !== null
-                            && $aids->contains($aid) === false
-                        ) {
-                            $aids->add($aid);
-                        }
-                    }
-                }
-            }
-
-            $m = $this->get('doctrine')->getManager();
-            $m->flush();
-
-            $this->userReconnect();
-
-            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
-
-            return $this->redirectToRoute("_loc_item", ['id' => $loc->getId()]);
-        }
-
-        return $this->render(
-            'SuplaBundle:Location:assignaid.html.twig',
-            ['form' => $form->createView(),
-                'location' => $loc,
-                'accessids' => $user->getAccessIds(),
-                'selected' => $loc->getAccessIds(),
-            ]
-        );
+//        $loc = $this->getLocationById($id);
+//
+//        if ($loc === null) {
+//            return $this->redirectToRoute("_loc_list");
+//        }
+//
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//
+//        $form = $this->createForm(
+//            AssignType::class,
+//            null,
+//            ['cancel_url' => $this->generateUrl('_loc_item', ['id' => $loc->getId()])]
+//        );
+//
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $sel_aid = $request->request->get('aid');
+//            $aids = $loc->getAccessIds();
+//
+//            $aid_man = $this->get('accessid_manager');
+//            $loc_man = $this->get('location_manager');
+//
+//            // remove
+//            foreach ($aids->getKeys() as $key) {
+//                $aid = $aids->get($key);
+//
+//                if ($aid !== null
+//                    && (is_array($sel_aid) === false
+//                        || array_key_exists($aid->getId(), $sel_aid) == false
+//                        || $sel_aid[$aid->getId()] != '1')
+//                ) {
+//                    $aids->remove($key);
+//                }
+//            }
+//
+//            // add new
+//            if (is_array($sel_aid) === true) {
+//                foreach ($sel_aid as $key => $value) {
+//                    if ($value == '1') {
+//                        $aid = $aid_man->accessIdById(intval($key));
+//                        if ($aid !== null
+//                            && $aids->contains($aid) === false
+//                        ) {
+//                            $aids->add($aid);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            $m = $this->get('doctrine')->getManager();
+//            $m->flush();
+//
+//            $this->userReconnect();
+//
+//            $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Data saved!']);
+//
+//            return $this->redirectToRoute("_loc_item", ['id' => $loc->getId()]);
+//        }
+//
+//        return $this->render(
+//            'SuplaBundle:Location:assignaid.html.twig',
+//            ['form' => $form->createView(),
+//                'location' => $loc,
+//                'accessids' => $user->getAccessIds(),
+//                'selected' => $loc->getAccessIds(),
+//            ]
+//        );
     }
 
     /**
      * @Route("/{id}/ajax/assign_list", name="_loc_ajax_assign_list")
      */
     public function ajaxAssignAidList(Request $request, $id) {
-        $html = null;
-        $loc = $this->getLocationById($id);
-
-        if ($loc !== null) {
-            $user = $this->get('security.token_storage')->getToken()->getUser();
-
-            $form = $this->createForm(
-                AssignType::class,
-                null,
-                ['cancel_url' => $this->generateUrl('_loc_list'),
-                    'action' => $this->generateUrl('_loc_assignaid', ['id' => $loc->getId()]),
-                ]
-            );
-
-            $html = $this->get('templating')->render(
-                'SuplaBundle:Location:assignaid.html.twig',
-                ['form' => $form->createView(),
-                    'location' => $loc,
-                    'aids' => $user->getAccessIds(),
-                    'selected' => $loc->getAccessIds(),
-                ]
-            );
-        }
-
-        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
+//        $html = null;
+//        $loc = $this->getLocationById($id);
+//
+//        if ($loc !== null) {
+//            $user = $this->get('security.token_storage')->getToken()->getUser();
+//
+//            $form = $this->createForm(
+//                AssignType::class,
+//                null,
+//                ['cancel_url' => $this->generateUrl('_loc_list'),
+//                    'action' => $this->generateUrl('_loc_assignaid', ['id' => $loc->getId()]),
+//                ]
+//            );
+//
+//            $html = $this->get('templating')->render(
+//                'SuplaBundle:Location:assignaid.html.twig',
+//                ['form' => $form->createView(),
+//                    'location' => $loc,
+//                    'aids' => $user->getAccessIds(),
+//                    'selected' => $loc->getAccessIds(),
+//                ]
+//            );
+//        }
+//
+//        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
 
     /**
      * @Route("/{id}/ajax/getdetails", name="_loc_ajax_getdetails")
      */
     public function ajaxGetDetails(Request $request, $id) {
-        $result = false;
-        $html = null;
-
-        $html = $this->getLocationDetails($id);
-
-        if ($html !== null) {
-            $this->get('session')->set('_loc_details_lastid', intval($id));
-        }
-
-        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
+//        $result = false;
+//        $html = null;
+//
+//        $html = $this->getLocationDetails($id);
+//
+//        if ($html !== null) {
+//            $this->get('session')->set('_loc_details_lastid', intval($id));
+//        }
+//
+//        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
 
     private function ajaxItemEdit(Location $loc, $message, $value) {
-        $result = AjaxController
-            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $loc, $message, $value);
-        $this->userReconnect();
-        return $result;
+//        $result = AjaxController
+//            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $loc, $message, $value);
+//        $this->userReconnect();
+//        return $result;
     }
 
     /**
      * @Route("/{id}/ajax/setenabled/{enabled}", name="_loc_ajax_setenabled")
      */
     public function ajaxSetEnabled(Request $request, $id, $enabled) {
-        $loc = $this->getLocationById($id);
-
-        if ($loc !== null) {
-            $loc->setEnabled($enabled == '1');
-        }
-
-        return $this->ajaxItemEdit(
-            $loc,
-            'Location has been ' . ($enabled == '1' ? 'enabled' : 'disabled'),
-            $this->get('translator')->trans($enabled == '1' ? 'Enabled' : 'Disabled')
-        );
+//        $loc = $this->getLocationById($id);
+//
+//        if ($loc !== null) {
+//            $loc->setEnabled($enabled == '1');
+//        }
+//
+//        return $this->ajaxItemEdit(
+//            $loc,
+//            'Location has been ' . ($enabled == '1' ? 'enabled' : 'disabled'),
+//            $this->get('translator')->trans($enabled == '1' ? 'Enabled' : 'Disabled')
+//        );
     }
 
     private function ajaxItemSet(Request $request, $id, $caption, $field) {
-
-        $loc = $this->getLocationById($id);
-
-        if ($loc !== null) {
-            $data = json_decode($request->getContent());
-
-            if ($caption === true) {
-                $loc->setCaption(@$data->value);
-            } else {
-                $loc->setPassword(@$data->value);
-            }
-        }
-
-        return $this->ajaxItemEdit(
-            $loc,
-            $field . ' has been changed',
-            null
-        );
+//
+//        $loc = $this->getLocationById($id);
+//
+//        if ($loc !== null) {
+//            $data = json_decode($request->getContent());
+//
+//            if ($caption === true) {
+//                $loc->setCaption(@$data->value);
+//            } else {
+//                $loc->setPassword(@$data->value);
+//            }
+//        }
+//
+//        return $this->ajaxItemEdit(
+//            $loc,
+//            $field . ' has been changed',
+//            null
+//        );
     }
 
     /**
      * @Route("/{id}/ajax/setcaption", name="_loc_ajax_setcaption")
      */
     public function ajaxSetCaption(Request $request, $id) {
-        return $this->ajaxItemSet($request, $id, true, 'Caption');
+//        return $this->ajaxItemSet($request, $id, true, 'Caption');
     }
 
     /**
      * @Route("/{id}/ajax/setpwd", name="_loc_ajax_setpwd")
      */
     public function ajaxSetPwd(Request $request, $id) {
-        return $this->ajaxItemSet($request, $id, false, 'Password');
+//        return $this->ajaxItemSet($request, $id, false, 'Password');
     }
 }

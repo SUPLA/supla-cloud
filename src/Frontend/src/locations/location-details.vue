@@ -2,36 +2,13 @@
     <loading-cover :loading="loading"
         class="location-details">
         <div v-if="location">
-            <form @submit.prevent="saveLocation()">
-                <div class="container">
-                    <div class="clearfix left-right-header">
-                        <h2 class="no-margin-top">
-                            {{ $t('Location') }}
-                            ID{{ location.id }}
-                        </h2>
-                        <div class="btn-toolbar no-margin-top"
-                            v-if="hasPendingChanges">
-                            <a class="btn btn-grey"
-                                v-if="hasPendingChanges"
-                                @click="cancelChanges()">
-                                <i class="pe-7s-back"></i>
-                                {{ $t('Cancel changes') }}
-                            </a>
-                            <button class="btn btn-yellow btn-lg"
-                                type="submit">
-                                <i class="pe-7s-diskette"></i>
-                                {{ $t('Save changes') }}
-                            </button>
-                        </div>
-                        <div class="btn-toolbar no-margin-top"
-                            v-else>
-                            <a class="btn btn-danger"
-                                @click="deleteConfirm = true">
-                                {{ $t('Delete') }}
-                            </a>
-                        </div>
-                        <div v-else></div>
-                    </div>
+            <div class="container">
+                <pending-changes-page :header="$t('Location') + ' ID' + location.id"
+                    @cancel="cancelChanges()"
+                    @save="saveLocation()"
+                    @delete="deleteConfirm = true"
+                    deletable="true"
+                    :is-pending="hasPendingChanges">
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-8">
                             <div class="hover-editable text-left">
@@ -58,134 +35,136 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-            <modal-confirm v-if="deleteConfirm"
-                class="modal-warning"
-                @confirm="deleteLocation()"
-                @cancel="deleteConfirm = false"
-                :header="$t('Are you sure?')"
-                :loading="loading">
-                {{ $t('Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {locationId: location.id}) }}
-            </modal-confirm>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h3>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h3>
-                        <table class="table table-hover"
-                            v-if="location.ioDevices.length">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{ $t('Name') }}</th>
-                                <th>{{ $t('Comment') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="ioDevice in location.ioDevices"
-                                v-go-to-link-on-row-click>
-                                <td><a :href="'/iodev/' + ioDevice.id + '/view' | withBaseUrl">{{ ioDevice.id }}</a></td>
-                                <td>{{ ioDevice.name }}</td>
-                                <td>{{ ioDevice.comment }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h3>
+                            <table class="table table-hover"
+                                v-if="location.ioDevices.length">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{{ $t('Name') }}</th>
+                                    <th>{{ $t('Comment') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="ioDevice in location.ioDevices"
+                                    v-go-to-link-on-row-click>
+                                    <td><a :href="'/iodev/' + ioDevice.id + '/view' | withBaseUrl">{{ ioDevice.id }}</a></td>
+                                    <td>{{ ioDevice.name }}</td>
+                                    <td>{{ ioDevice.comment }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h3>
+                            <table class="table table-hover">
+                                <thead v-if="location.accessIds.length">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{{ $t('Password') }}</th>
+                                    <th>{{ $t('Caption') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="aid in location.accessIds"
+                                    v-go-to-link-on-row-click>
+                                    <td><a :href="'/access-identifiers/' + aid.id | withBaseUrl">{{ aid.id }}</a></td>
+                                    <td>
+                                        <password-display :password="aid.password"></password-display>
+                                    </td>
+                                    <td>{{ aid.caption }}</td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr v-if="!location.accessIds.length">
+                                    <th colspan="4">
+                                        <empty-list-placeholder></empty-list-placeholder>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">
+                                        <a @click="assignAccessIds = true">
+                                            <i class="pe-7s-more"></i>
+                                            {{ $t('Assign Access Identifiers') }}
+                                        </a>
+                                        <access-id-chooser v-if="assignAccessIds"
+                                            :selected="location.accessIds"
+                                            @cancel="assignAccessIds = false"
+                                            @confirm="updateAccessIds($event)"></access-id-chooser>
+                                    </th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <h3>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h3>
-                        <table class="table table-hover">
-                            <thead v-if="location.accessIds.length">
-                            <tr>
-                                <th>ID</th>
-                                <th>{{ $t('Password') }}</th>
-                                <th>{{ $t('Caption') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="aid in location.accessIds"
-                                v-go-to-link-on-row-click>
-                                <td><a :href="'/access-identifiers/' + aid.id | withBaseUrl">{{ aid.id }}</a></td>
-                                <td>
-                                    <password-display :password="aid.password"></password-display>
-                                </td>
-                                <td>{{ aid.caption }}</td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr v-if="!location.accessIds.length">
-                                <th colspan="4">
-                                    <empty-list-placeholder></empty-list-placeholder>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th colspan="4">
-                                    <a @click="assignAccessIds = true">
-                                        <i class="pe-7s-more"></i>
-                                        {{ $t('Assign Access Identifiers') }}
-                                    </a>
-                                    <access-id-chooser v-if="assignAccessIds"
-                                        :selected="location.accessIds"
-                                        @cancel="assignAccessIds = false"
-                                        @confirm="updateAccessIds($event)"></access-id-chooser>
-                                </th>
-                            </tr>
-                            </tfoot>
-                        </table>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h3>
+                            <table class="table table-hover table-valign-middle">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>{{ $t('Caption') }}</th>
+                                    <th>{{ $t('Channels no') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="channelGroup in location.channelGroups"
+                                    v-go-to-link-on-row-click>
+                                    <td style="width: 45px">
+                                        <function-icon :model="channelGroup"></function-icon>
+                                    </td>
+                                    <td>
+                                        <a :href="'/channel-groups/' + channelGroup.id | withBaseUrl">{{ channelGroup.id }}</a>
+                                    </td>
+                                    <td>
+                                        <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
+                                        <em v-else>{{ $t('None') }}</em>
+                                    </td>
+                                    <td>{{ channelGroup.channelIds.length }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>{{ $t('Channels') }} ({{ location.channelsIds.length }})</h3>
+                            <table class="table table-hover table-valign-middle"
+                                v-if="location.channels.length">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>{{ $t('Caption') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="channel in location.channels"
+                                    v-go-to-link-on-row-click>
+                                    <td style="width: 45px">
+                                        <function-icon :model="channel"></function-icon>
+                                    </td>
+                                    <td><a :href="'/channels/' + channel.id | withBaseUrl">{{ channel.id }}</a></td>
+                                    <td>{{ channelTitle(channel) }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h3>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h3>
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>{{ $t('Caption') }}</th>
-                                <th>{{ $t('Channels no') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="channelGroup in location.channelGroups"
-                                v-go-to-link-on-row-click>
-                                <td>
-                                    <function-icon :model="channelGroup"
-                                        width="30"></function-icon>
-                                </td>
-                                <td>
-                                    <a :href="'/channel-groups/' + channelGroup.id | withBaseUrl">{{ channelGroup.id }}</a>
-                                </td>
-                                <td>
-                                    <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
-                                    <em v-else>{{ $t('None') }}</em>
-                                </td>
-                                <td>{{ channelGroup.channelIds.length }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-6">
-                        <h3>{{ $t('Channels') }} ({{ location.channelsIds.length }})</h3>
-                        <table class="table table-hover"
-                            v-if="location.channels.length">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{ $t('Caption') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="channel in location.channels"
-                                v-go-to-link-on-row-click>
-                                <td><a :href="'/channels/' + channel.id | withBaseUrl">{{ channel.id }}</a></td>
-                                <td>{{ channelTitle(channel) }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                </pending-changes-page>
             </div>
         </div>
+        <modal-confirm v-if="deleteConfirm"
+            class="modal-warning"
+            @confirm="deleteLocation()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure?')"
+            :loading="loading">
+            {{ $t('Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {locationId: location.id}) }}
+        </modal-confirm>
     </loading-cover>
 </template>
 
@@ -198,9 +177,11 @@
     import Toggler from "../common/gui/toggler";
     import {channelTitle} from "../common/filters";
     import PasswordDisplay from "../common/gui/password-display";
+    import PendingChangesPage from "../common/pages/pending-changes-page";
 
     export default {
         components: {
+            PendingChangesPage,
             PasswordDisplay,
             Toggler,
             AccessIdChooser,
@@ -232,6 +213,9 @@
                 } else {
                     this.$http.post('locations', {}).then(response => this.$emit('add', response.body)).catch(() => this.$emit('delete'));
                 }
+            },
+            cancelChanges() {
+                this.initForModel();
             },
             saveLocation() {
                 const toSend = Vue.util.extend({}, this.location);

@@ -427,7 +427,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->channelGroups;
     }
 
-    public function getLocations() {
+    /** @return Collection|Location[] */
+    public function getLocations(): Collection {
         return $this->locations;
     }
 

@@ -96,6 +96,7 @@ class ApiAccessIDController extends RestController {
      * @Security("accessId.belongsToUser(user)")
      */
     public function deleteAccessidAction(AccessID $accessId) {
+        Assertion::greaterThan($this->getUser()->getAccessIDS()->count(), 1, 'You cannot delete your last access identifier.');
         return $this->transactional(function (EntityManagerInterface $em) use ($accessId) {
             $em->remove($accessId);
             $this->suplaServer->reconnect($this->getUser()->getId());

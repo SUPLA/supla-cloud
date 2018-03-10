@@ -220,6 +220,14 @@ input[type=text], input[type=password], input[type=email] {
   }
 }
 
+table {
+  &.table-valign-middle {
+    td {
+      vertical-align: middle !important;
+    }
+  }
+}
+
 @import "./buttons";
 @import "./navbar";
 @import "./notifications";
