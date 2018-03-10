@@ -32,6 +32,7 @@ class ClientAppSerializer extends AbstractSerializer {
      */
     public function normalize($clientApp, $format = null, array $context = []) {
         $normalized = parent::normalize($clientApp, $format, $context);
+        $normalized['accessIdId'] = $clientApp->getAccessId() ? $clientApp->getAccessId()->getId() : null;
         if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
             if (in_array('connected', $context[self::GROUPS])) {
                 $normalized['connected'] = $this->isClientAppConnected($clientApp);

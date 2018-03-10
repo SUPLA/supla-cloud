@@ -68,7 +68,9 @@ class ApiClientAppController extends RestController {
             if ($reloadClient) {
                 $this->suplaServer->clientReconnect($clientApp);
             }
-            return $this->view($clientApp, Response::HTTP_OK);
+            $view = $this->view($clientApp, Response::HTTP_OK);
+            $this->setSerializationGroups($view, $request, ['accessId', 'connected'], ['accessId']);
+            return $view;
         });
     }
 

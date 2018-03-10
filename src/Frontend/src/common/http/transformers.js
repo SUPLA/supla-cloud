@@ -76,3 +76,14 @@ export function accessIdTranformer(request, next) {
     }
     next();
 }
+
+export function clientAppTransformer(request, next) {
+    if (request.url.startsWith('client-apps')) {
+        if (request.body && request.body.id) {
+            const toSend = Vue.util.extend({}, request.body);
+            delete toSend.accessId;
+            request.body = toSend;
+        }
+    }
+    next();
+}

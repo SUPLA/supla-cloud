@@ -30,10 +30,10 @@
             <div v-for="app in filteredClientApps"
                 :key="app.id"
                 :ref="'app-tile-' + app.id">
-                <client-app-tile :app="app"
+                <client-app-tile-editable :app="app"
                     :access-ids="accessIds"
                     @change="calculateSearchStrings()"
-                    @delete="removeClientFromList(app)"></client-app-tile>
+                    @delete="removeClientFromList(app)"></client-app-tile-editable>
             </div>
         </square-links-grid>
         <empty-list-placeholder v-else-if="clientApps"></empty-list-placeholder>
@@ -52,17 +52,17 @@
     import Vue from "vue";
     import BtnFilters from "../common/btn-filters.vue";
     import LoaderDots from "../common/gui/loaders/loader-dots.vue";
-    import ClientAppTile from "./client-app-tile.vue";
     import DevicesRegistrationButton from "src/devices/list/devices-registration-button.vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
     import latinize from "latinize";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
+    import ClientAppTileEditable from "./client-app-tile-editable";
 
     export default {
         components: {
+            ClientAppTileEditable,
             BtnFilters,
             ClientAppConnectionStatusLabel,
-            ClientAppTile,
             DevicesRegistrationButton,
             EmptyListPlaceholder,
             LoaderDots,
@@ -80,7 +80,7 @@
             };
         },
         mounted() {
-            this.$http.get('client-apps')
+            this.$http.get('client-apps?include=accessId')
                 .then(({body}) => this.clientApps = body)
                 .then(() => Vue.nextTick(this.calculateSearchStrings()));
             this.$http.get('accessids').then(({body}) => this.accessIds = body);
