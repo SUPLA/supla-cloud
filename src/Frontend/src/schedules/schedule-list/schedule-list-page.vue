@@ -3,11 +3,11 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1>{{ $t('Schedules') }}</h1>
+                    <h1 v-if="!channelId">{{ $t('Schedules') }}</h1>
                 </div>
-                <div>
+                <div :class="channelId ? 'no-margin-top' : ''">
                     <a class="btn btn-green btn-lg"
-                        :href="'/schedules/new' | withBaseUrl">
+                        :href="'/schedules/new' + (channelId ? '?channelId=' + channelId : '') | withBaseUrl">
                         <i class="pe-7s-plus"></i>
                         {{ $t('Create New Schedule') }}
                     </a>
@@ -15,19 +15,23 @@
             </div>
         </div>
         <loading-cover :loading="!schedules">
-            <div class="container">
+            <div class="container"
+                v-show="schedules && schedules.length">
                 <schedule-filters @filter-function="filterFunction = $event"
                     @compare-function="compareFunction = $event"
                     @filter="filter()"></schedule-filters>
             </div>
-            <square-links-grid v-if="schedules && schedules.length"
-                :count="filteredSchedules.length"
-                class="square-links-height-250">
-                <div v-for="schedule in filteredSchedules"
-                    :key="schedule.id">
-                    <schedule-tile :model="schedule"></schedule-tile>
-                </div>
-            </square-links-grid>
+            <div v-if="schedules && schedules.length">
+                <square-links-grid v-if="filteredSchedules.length"
+                    :count="filteredSchedules.length"
+                    class="square-links-height-250">
+                    <div v-for="schedule in filteredSchedules"
+                        :key="schedule.id">
+                        <schedule-tile :model="schedule"></schedule-tile>
+                    </div>
+                </square-links-grid>
+                <empty-list-placeholder v-else></empty-list-placeholder>
+            </div>
             <empty-list-placeholder v-else-if="schedules"></empty-list-placeholder>
         </loading-cover>
     </div>
@@ -49,11 +53,14 @@
             };
         },
         mounted() {
-            this.$http.get('schedules?include=channel,iodevice,location,closestExecutions')
-                .then(({body}) => {
-                    this.schedules = body;
-                    this.filter();
-                });
+            let endpoint = 'schedules?include=channel,iodevice,location,closestExecutions';
+            if (this.channelId) {
+                endpoint = `channels/${this.channelId}/${endpoint}`;
+            }
+            this.$http.get(endpoint).then(({body}) => {
+                this.schedules = body;
+                this.filter();
+            });
         },
         methods: {
             filter() {

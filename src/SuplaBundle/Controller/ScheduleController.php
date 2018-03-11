@@ -51,7 +51,7 @@ class ScheduleController extends AbstractController {
      * @Security("user == schedule.getUser()")
      */
     public function scheduleEditAction(Schedule $schedule) {
-        return ['schedule' => $schedule];
+        return ['schedule' => $schedule, 'channelId' => ''];
     }
 
     /**

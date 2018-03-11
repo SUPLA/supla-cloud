@@ -61,7 +61,7 @@
             },
             compare(a1, a2) {
                 if (this.sort == 'az') {
-                    return a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1;
+                    return latinize(a1.name).toLowerCase() < latinize(a2.name).toLowerCase() ? -1 : 1;
                 } else {
                     return moment(a2.lastAccessDate).diff(moment(a1.lastAccessDate));
                 }

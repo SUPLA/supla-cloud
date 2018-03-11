@@ -49,9 +49,17 @@
             },
             compare(a1, a2) {
                 if (this.sort == 'az') {
-                    return a1.caption.toLowerCase() < a2.caption.toLowerCase() ? -1 : 1;
+                    return latinize(a1.caption).toLowerCase() < latinize(a2.caption).toLowerCase() ? -1 : 1;
                 } else {
-                    // return moment(a2.lastAccessDate).diff(moment(a1.lastAccessDate));
+                    const closestA1 = a1.closestExecutions.future[0];
+                    const closestA2 = a2.closestExecutions.future[0];
+                    if (!closestA2) {
+                        return -1;
+                    } else if (!closestA1) {
+                        return 1;
+                    } else {
+                        return moment(closestA1.plannedTimestamp).diff(moment(closestA2.plannedTimestamp));
+                    }
                 }
             }
         }
