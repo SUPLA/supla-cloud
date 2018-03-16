@@ -6,21 +6,12 @@
                 <devices-registration-button field="ioDevicesRegistrationEnabled"
                     caption="Registration of new I/O devices"></devices-registration-button>
             </div>
-            <div class="grid-filters">
-                <btn-filters v-model="filters.sort"
-                  :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'},  {label: $t('Location'), value: 'location'}]"></btn-filters>
-                <btn-filters v-model="filters.enabled"
-                    :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
-                <btn-filters v-model="filters.connected"
-                    :filters="[{label: $t('All'), value: undefined}, {label: $t('Connected'), value: true}, {label: $t('Disconnected'), value: false}]"></btn-filters>
-                <input type="text"
-                    class="form-control"
-                    v-model="filters.search"
-                    :placeholder="$t('Search')">
-            </div>
+            <device-filters @filter-function="filterFunction = $event"
+                @compare-function="compareFunction = $event"
+                @filter="filter()"></device-filters>
         </div>
         <loading-cover :loading="!devices">
-            <square-links-grid v-if="devices && filteredDevices.length || (showPossibleDevices && !devices.length)"
+            <square-links-grid v-if="filteredDevices && filteredDevices.length || (showPossibleDevices && !devices.length)"
                 :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)"
                 class="square-links-height-240">
                 <div v-for="device in filteredDevices"
@@ -61,16 +52,16 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import BtnFilters from "src/common/btn-filters.vue";
     import DeviceTile from "./device-tile.vue";
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
     import DevicesRegistrationButton from "./devices-registration-button.vue";
-    import latinize from "latinize";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
+    import DeviceFilters from "./device-filters";
 
     export default {
         components: {
+            DeviceFilters,
             BtnFilters,
             DeviceConnectionStatusLabel,
             DevicesRegistrationButton,
@@ -80,12 +71,9 @@
         data() {
             return {
                 devices: undefined,
-                filters: {
-                    sort: 'az',
-                    enabled: undefined,
-                    connected: undefined,
-                    search: '',
-                },
+                filteredDevices: [],
+                filterFunction: () => true,
+                compareFunction: () => -1,
                 possibleDevices: [
                     {icon: 'pe-7s-light', title: 'Lighting', description: 'With SUPLA you can operate the lights in your home or office'},
                     {image: 'thermometer.svg', title: 'Temperature', description: '...you can monitor temperature'},
@@ -108,41 +96,18 @@
         mounted() {
             this.$http.get('iodevices?include=location')
                 .then(({body}) => this.devices = body)
-                .then(() => Vue.nextTick(() => this.calculateSearchStrings()));
+                .then(() => this.filter());
         },
         computed: {
-            filteredDevices() {
-                let devices = this.devices;
-                if (this.filters.enabled !== undefined) {
-                    devices = devices.filter(device => device.enabled == this.filters.enabled);
-                }
-                if (this.filters.connected !== undefined) {
-                    devices = devices.filter(device => device.connected == this.filters.connected);
-                }
-                if (this.filters.search) {
-                    devices = devices.filter(device => device.searchString.indexOf(latinize(this.filters.search).toLowerCase()) >= 0);
-                }
-                if (this.filters.sort == 'az') {
-                    devices = devices.sort((a1, a2) => a1.name.toLowerCase() < a2.name.toLowerCase() ? -1 : 1);
-                } else if (this.filters.sort == 'lastAccess') {
-                    devices = devices.sort((a1, a2) => moment(a2.lastConnected).diff(moment(a1.lastConnected)));
-                } else if (this.filters.sort == 'location') {
-                    devices = devices.sort((a1, a2) => a1.location.caption.toLowerCase() < a2.location.caption.toLowerCase() ? -1 : 1);
-                }
-                return devices;
-            },
             showPossibleDevices() {
-                return this.devices && this.devices.length < 3
-                    && this.filters.enabled === undefined && this.filters.connected === undefined && !this.filters.search;
+                return this.devices && this.devices.length < 3 && this.filteredDevices.length === this.devices.length;
             }
         },
         methods: {
-            calculateSearchStrings() {
-                for (let device of this.devices) {
-                    const ref = this.$refs['device-tile-' + device.id];
-                    if (ref && ref.length) {
-                        this.$set(device, 'searchString', latinize(ref[0].innerText).toLowerCase());
-                    }
+            filter() {
+                this.filteredDevices = this.devices ? this.devices.filter(this.filterFunction) : this.devices;
+                if (this.filteredDevices) {
+                    this.filteredDevices = this.filteredDevices.sort(this.compareFunction);
                 }
             },
             fetchConnectedClientApps() {
