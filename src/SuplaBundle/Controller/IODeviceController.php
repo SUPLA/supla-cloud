@@ -27,7 +27,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/iodev")
+ * @Route("/devices")
  */
 class IODeviceController extends AbstractController {
     use SuplaServerAware;
@@ -50,7 +50,15 @@ class IODeviceController extends AbstractController {
     }
 
     /**
-     * @Route("/{id}/view", name="_iodev_item")
+     * @Route("/{id}", requirements={"id" = "^\d{1,10}$"}, name="_iodev_details")
+     * @Template()
+     */
+    public function deviceDetailsAction(int $id) {
+        return ['id' => $id];
+    }
+
+    /**
+     * @Route("/{id}/old", name="_iodev_item")
      */
     public function itemAction($id) {
 

@@ -1,0 +1,7 @@
+{% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
+
+{% set page_title = 'Device'|trans ~ ' ID' ~ id %}
+
+{% block content %}
+    <device-details-page :device-id="{{ id }}"></device-details-page>
+{% endblock %}

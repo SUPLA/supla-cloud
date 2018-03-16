@@ -46,6 +46,14 @@
             width: $wholeWidth;
         }
     }
+
+    .bg-green .dots-route {
+        background: $supla-white;
+        .dot {
+            border: $width solid $supla-white;
+            background: $supla-green;
+        }
+    }
 </style>
 
 <script>
