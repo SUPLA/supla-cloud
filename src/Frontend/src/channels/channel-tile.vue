@@ -1,7 +1,8 @@
 <template>
-    <square-link :class="'clearfix pointer grey'"
+    <square-link :class="`clearfix pointer ${model.functionId == 0 ? 'yellow' : 'grey'}`"
         @click="$emit('click')">
-        <a>
+        <a :href="`/channels/${model.id}` | withBaseUrl"
+            ref="tileLink">
             <function-icon :model="model"
                 width="90"></function-icon>
             <h3 class="no-margin-top">ID{{ model.id }} {{ $t(model.function.caption) }}</h3>
@@ -17,7 +18,8 @@
                 <div class="separator"></div>
                 {{ model.caption }}
             </div>
-            <div class="square-link-label">
+            <div class="square-link-label"
+                v-if="model.functionId != 0">
                 <device-connection-status-label :device="model.iodevice"></device-connection-status-label>
             </div>
         </a>
@@ -29,8 +31,13 @@
     import DeviceConnectionStatusLabel from "../devices/list/device-connection-status-label.vue";
 
     export default {
-        props: ['model'],
-        components: {FunctionIcon, DeviceConnectionStatusLabel}
+        props: ['model', 'noLink'],
+        components: {FunctionIcon, DeviceConnectionStatusLabel},
+        mounted() {
+            if (this.noLink) {
+                this.$refs.tileLink.removeAttribute('href');
+            }
+        }
     };
 </script>
 
