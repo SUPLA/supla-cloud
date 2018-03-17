@@ -3,7 +3,7 @@
         <btn-filters v-model="sort"
             id="channelsFiltersSort"
             @input="$emit('filter')"
-            :filters="[{label: $t('Registred'), value: 'regDate'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
+            :filters="[{label: $t('Registered'), value: 'regDate'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
         <btn-filters v-model="functionality"
             @input="$emit('filter')"
             :filters="[

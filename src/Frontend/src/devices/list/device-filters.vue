@@ -3,7 +3,7 @@
         <btn-filters v-model="sort"
             id="deviceFiltersSort"
             @input="$emit('filter')"
-            :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Registred'), value: 'regDate'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
+            :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Registered'), value: 'regDate'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
