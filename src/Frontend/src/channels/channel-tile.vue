@@ -12,7 +12,7 @@
                 <dd>{{ $t('Type') }}</dd>
                 <dt>{{ $t(model.type.caption) }}</dt>
                 <dd>{{ $t('Location') }}</dd>
-                <dt>ID{{model.iodevice.location.id}} {{ model.iodevice.location.caption }}</dt>
+                <dt>ID{{model.location.id}} {{ model.location.caption }}</dt>
             </dl>
             <div v-if="model.caption">
                 <div class="separator"></div>

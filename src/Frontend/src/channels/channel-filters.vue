@@ -1,5 +1,9 @@
 <template>
     <div class="grid-filters">
+        <btn-filters v-model="sort"
+            id="channelsFiltersSort"
+            @input="$emit('filter')"
+            :filters="[{label: $t('Registred'), value: 'regDate'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
         <btn-filters v-model="functionality"
             @input="$emit('filter')"
             :filters="[
@@ -29,11 +33,12 @@
             return {
                 functionality: '*',
                 search: '',
+                sort: 'regDate'
             };
         },
         mounted() {
             this.$emit('filter-function', (device) => this.matches(device));
-            // this.$emit('compare-function', (a, b) => this.compare(a, b));
+            this.$emit('compare-function', (a, b) => this.compare(a, b));
         },
         methods: {
             matches(channel) {
@@ -41,18 +46,20 @@
                     return false;
                 }
                 if (this.search) {
-                    const searchString = latinize([channel.id, channel.caption].join(' ')).toLowerCase();
+                    const searchString = latinize([channel.id, channel.caption, channel.iodevice.name, this.$t(channel.type.caption),
+                        channel.location.id, channel.location.caption, this.$t(channel.function.caption)].join(' '))
+                        .toLowerCase();
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
                 return true;
             },
             compare(a, b) {
                 if (this.sort === 'lastAccess') {
-                    return moment(b.lastConnected).diff(moment(a.lastConnected));
-                } else if (this.sort === 'location') {
-                    return a.location.caption.toLowerCase() < b.location.caption.toLowerCase() ? -1 : 1;
+                    return moment(b.iodevice.lastConnected).diff(moment(a.iodevice.lastConnected));
+                } else if (this.sort === 'regDate') {
+                    return moment(b.iodevice.regDate).diff(moment(a.iodevice.regDate));
                 } else {
-                    return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+                    return a.location.caption.toLowerCase() < b.location.caption.toLowerCase() ? -1 : 1;
                 }
             }
         }
