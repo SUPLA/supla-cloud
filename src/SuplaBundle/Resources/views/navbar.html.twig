@@ -21,10 +21,10 @@
         <div class="collapse navbar-collapse"
                 id="supla-navbar">
             <ul class="nav navbar-nav">
-                <li {% if app.request.get('_route') starts with '_iodev' %} class="active" {% endif %}>
-                    <a href="{{ path('_iodev_list') }}">
+                <li {% if app.request.get('_route') starts with '_iodev' or app.request.get('_route') starts with '_my_supla' %} class="active" {% endif %}>
+                    <a href="{{ path('_my_supla') }}">
                         <i class="hidden-sm hidden-xs pe-7s-plug"></i>
-                        {% trans %}I/O Devices{% endtrans %}
+                        {% trans %}My SUPLA{% endtrans %}
                     </a>
                 </li>
                 <li {% if app.request.get('_route') == '_client_apps_list' or app.request.get('_route') == '_client_apps_list' %} class="active" {% endif %}>

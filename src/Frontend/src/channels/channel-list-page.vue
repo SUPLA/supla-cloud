@@ -28,10 +28,7 @@
     import ChannelTile from "./channel-tile";
 
     export default {
-        components: {
-            ChannelTile,
-            ChannelFilters
-        },
+        components: {ChannelTile, ChannelFilters},
         props: ['deviceId'],
         data() {
             return {

@@ -18,7 +18,6 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -48,19 +47,6 @@ class IODeviceController extends AbstractController {
     private function getIODeviceById($id) {
         $iodev_man = $this->get('iodevice_manager');
         return $iodev_man->ioDeviceById($id);
-    }
-
-    private function getChannelById($id) {
-        $iodev_man = $this->get('iodevice_manager');
-        return $iodev_man->channelById($id);
-    }
-
-    /**
-     * @Route("", name="_iodev_list")
-     * @Template
-     */
-    public function listAction() {
-        return [];
     }
 
     /**

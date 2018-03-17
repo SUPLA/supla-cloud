@@ -2,7 +2,7 @@
     <div class="grid-filters">
         <btn-filters v-model="sort"
             @input="$emit('filter')"
-            :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'},  {label: $t('Location'), value: 'location'}]"></btn-filters>
+            :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Registred'), value: 'regDate'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -53,7 +53,10 @@
             compare(a, b) {
                 if (this.sort === 'lastAccess') {
                     return moment(b.lastConnected).diff(moment(a.lastConnected));
-                } else if (this.sort === 'location') {
+                } else if (this.sort === 'regDate') {
+                    return moment(b.regDate).diff(moment(a.regDate));
+                }
+                else if (this.sort === 'location') {
                     return a.location.caption.toLowerCase() < b.location.caption.toLowerCase() ? -1 : 1;
                 } else {
                     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;

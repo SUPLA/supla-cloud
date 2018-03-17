@@ -3,9 +3,11 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1>Moja SUPLA</h1>
-                    <btn-filters v-model="listType"
-                        :filters="[{label: $t('Channels'), value: 'channels'}, {label: $t('I/O Devices'), value: 'devices'}]"></btn-filters>
+                    <h1>{{ $t('My SUPLA') }}</h1>
+                    <div class="form-group">
+                        <btn-filters v-model="listType"
+                            :filters="[{label: $t('I/O Devices'), value: 'devices'}, {label: $t('Channels'), value: 'channels'}]"></btn-filters>
+                    </div>
                 </div>
                 <devices-registration-button field="ioDevicesRegistrationEnabled"
                     caption="Registration of new I/O devices"></devices-registration-button>
@@ -31,7 +33,7 @@
         },
         data() {
             return {
-                listType: 'channels'
+                listType: 'devices'
             };
         }
     };
