@@ -4,12 +4,12 @@
             @input="$emit('filter')"
             :filters="[
                 {label: $t('All'), value: '*'},
-                {label: $t('Electric'), value: [130, 140, 180, 190, 200]},
-                {label: $t('Doors, Gates'), value: [10, 20, 30, 50, 60, 70, 90, 100]},
-                {label: $t('Roller shutters'), value: [110, 120]},
-                {label: $t('Liquid, Temp'), value: [40, 42, 45, 80]},
-                {label: $t('Sensors'), value: [50, 60, 70, 80, 100, 120, 210, 220]},
-                {label: $t('No function'), value: [0]}
+                {label: $t('Electric'), value: '130,140,180,190,200'},
+                {label: $t('Doors, Gates'), value: '10,20,30,50,60,70,90,100'},
+                {label: $t('Roller shutters'), value: '110,120'},
+                {label: $t('Liquid, Temp'), value: '40,42,45,80'},
+                {label: $t('Sensors'), value: '50,60,70,80,100,120,210,220'},
+                {label: $t('No function'), value: '0'}
             ]"></btn-filters>
         <input type="text"
             @input="$emit('filter')"
@@ -37,7 +37,7 @@
         },
         methods: {
             matches(channel) {
-                if (this.functionality && this.functionality !== '*' && this.functionality.indexOf(channel.function.id) === -1) {
+                if (this.functionality && this.functionality !== '*' && this.functionality.split(',').indexOf('' + channel.function.id) === -1) {
                     return false;
                 }
                 if (this.search) {

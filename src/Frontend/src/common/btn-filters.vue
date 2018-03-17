@@ -1,11 +1,28 @@
 <template>
-    <div class="btn-group btn-group-filters">
-        <button v-for="filter in filters"
-            :class="'btn ' + (chosenFilter === filter.value ? 'active' : '')"
-            @click="setFilter(filter.value)"
-            type="button">
-            {{ filter.label }}
-        </button>
+    <div class="btn-filters">
+        <div class="btn-group btn-group-filters btn-group-filters-inline">
+            <button v-for="filter in filters"
+                :class="'btn ' + (chosenFilter === filter.value ? 'active' : '')"
+                @click="setFilter(filter.value)"
+                type="button">
+                {{ filter.label }}
+            </button>
+        </div>
+        <div class="btn-group-filters btn-group-filters-dropdown">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown">
+                    {{ chosenFilterLabel }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li v-for="filter in filters">
+                        <a @click="setFilter(filter.value)">{{ filter.label }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,13 +60,22 @@
         computed: {
             localStorageId() {
                 return `btnFilters${this.id}`;
+            },
+            chosenFilterLabel() {
+                const filter = this.filters.find(f => f.value === this.chosenFilter);
+                return filter ? filter.label : '';
             }
         }
     };
 </script>
 
 <style lang="scss">
+    @import "../styles/mixins";
     @import "../styles/variables";
+
+    .btn-filters {
+        display: inline-block;
+    }
 
     .btn-group-filters {
         .btn {
@@ -77,6 +103,17 @@
                     color: $supla-white;
                     background: $supla-black;
                 }
+            }
+        }
+        &-dropdown {
+            display: none;
+        }
+        @include on-xs-and-down {
+            &-dropdown {
+                display: block;
+            }
+            &-inline {
+                display: none;
             }
         }
     }
