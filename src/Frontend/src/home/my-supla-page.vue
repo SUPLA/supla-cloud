@@ -5,7 +5,8 @@
                 <div>
                     <h1>{{ $t('My SUPLA') }}</h1>
                     <div class="form-group">
-                        <btn-filters v-model="listType"
+                        <btn-filters id="mySuplaListType"
+                            v-model="listType"
                             :filters="[{label: $t('I/O Devices'), value: 'devices'}, {label: $t('Channels'), value: 'channels'}]"></btn-filters>
                     </div>
                 </div>

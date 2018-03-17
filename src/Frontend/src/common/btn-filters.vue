@@ -11,19 +11,38 @@
 
 <script>
     export default {
-        props: ['value', 'filters'],
+        props: ['id', 'value', 'filters'],
         data() {
             return {
                 chosenFilter: undefined,
             };
         },
         mounted() {
-            this.setFilter(this.filters[0].value);
+            if (this.id) {
+                const filter = this.$localStorage.get(this.localStorageId);
+                if (filter) {
+                    const index = this.filters.findIndex(f => f.value === filter);
+                    if (index >= 0) {
+                        this.setFilter(filter);
+                    }
+                }
+            }
+            if (!this.chosenFilter) {
+                this.setFilter(this.filters[0].value);
+            }
         },
         methods: {
             setFilter(filter) {
                 this.chosenFilter = filter;
                 this.$emit('input', this.chosenFilter);
+                if (this.id) {
+                    this.$localStorage.set(this.localStorageId, filter);
+                }
+            }
+        },
+        computed: {
+            localStorageId() {
+                return `btnFilters${this.id}`;
             }
         }
     };

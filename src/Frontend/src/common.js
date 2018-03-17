@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
 import Vuex from "vuex";
 import VueI18N from "vue-i18n";
+import VueLocalStorage from 'vue-localstorage';
 import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
@@ -19,6 +20,7 @@ Vue.use(Vuex);
 Vue.use(VueI18N);
 Vue.use(VueMoment);
 Vue.use(VueResource);
+Vue.use(VueLocalStorage);
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
 if (!Vue.config.external.baseUrl) {
