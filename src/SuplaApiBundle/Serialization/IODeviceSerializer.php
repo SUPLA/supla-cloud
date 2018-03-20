@@ -44,7 +44,7 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
     public function normalize($ioDevice, $format = null, array $context = []) {
         $normalized = parent::normalize($ioDevice, $format, $context);
         $normalized['locationId'] = $ioDevice->getLocation()->getId();
-        $normalized['originalLocationId'] = $ioDevice->getOriginalLocation()->getId();
+        $normalized['originalLocationId'] = $ioDevice->getOriginalLocation() ? $ioDevice->getOriginalLocation()->getId() : null;
         $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
         if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
             if (in_array('connected', $context[self::GROUPS])) {
