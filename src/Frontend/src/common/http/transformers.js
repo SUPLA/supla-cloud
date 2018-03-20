@@ -90,3 +90,17 @@ export function clientAppTransformer(request, next) {
     }
     next();
 }
+
+export function iodeviceTranformer(request, next) {
+    if (request.url.startsWith('iodevices')) {
+        if (request.body && request.body.id) {
+            const toSend = Vue.util.extend({}, request.body);
+            if (toSend.location) {
+                toSend.locationId = toSend.location.id;
+                delete toSend.location;
+            }
+            request.body = toSend;
+        }
+    }
+    next();
+}

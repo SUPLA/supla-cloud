@@ -30,29 +30,29 @@
                                         <dd>{{ $t('Last connection') }}</dd>
                                         <dt>{{ this.device.lastconnected | moment("LT L")}}</dt>
                                         <dd>{{ $t('Enabled') }}</dd>
-                                        <dt class="text-center">
+                                        <dt>
                                             <toggler v-model="device.enabled"
                                                 @input="updateDevice()"></toggler>
                                         </dt>
                                         <dd>{{ $t('Comment') }}</dd>
                                         <dt>
                                             <input type="text"
-                                                class="form-control text-center"
+                                                class="form-control"
                                                 @change="updateDevice()"
                                                 v-model="device.comment">
                                         </dt>
-                                        <!--<dd>{{ $t('Show in clients') }}</dd>-->
-                                        <!--<dt class="text-center">-->
-                                        <!--<toggler v-model="channel.hidden"-->
-                                        <!--invert="true"-->
-                                        <!--@input="updateChannel()"></toggler>-->
-                                        <!--</dt>-->
                                     </dl>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
-
+                                <a :href="`/locations/${device.originalLocation.id}` | withBaseUrl"
+                                    class="original-location">
+                                    {{ $t('Original location')}}
+                                    <strong>{{ device.originalLocation.caption }}</strong>
+                                </a>
+                                <square-location-chooser v-model="device.location"
+                                    @input="onLocationChange($event)"></square-location-chooser>
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Access ID') }}</h3>
@@ -94,6 +94,7 @@
     import DeviceConnectionStatusLabel from "../list/device-connection-status-label";
     import DisablingSchedulesModal from "../../schedules/modals/disabling-schedules-modal";
     import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal";
+    import SquareLocationChooser from "../../locations/square-location-chooser";
 
     export default {
         props: ['deviceId'],
@@ -105,6 +106,7 @@
             PendingChangesPage,
             DotsRoute,
             Toggler,
+            SquareLocationChooser,
         },
         data() {
             return {
@@ -123,7 +125,7 @@
         methods: {
             fetchDevice() {
                 this.loading = true;
-                this.$http.get(`iodevices/${this.deviceId}?include=location`).then(response => {
+                this.$http.get(`iodevices/${this.deviceId}?include=location,originalLocation,accessids`).then(response => {
                     this.device = response.body;
                     this.loading = false;
                     this.hasPendingChanges = false;
@@ -154,12 +156,8 @@
                 this.$http.delete(`iodevices/${this.deviceId}`).then(() => window.location.assign(withBaseUrl('me')));
             },
             onLocationChange(location) {
-                this.channel.inheritedLocation = !location;
-                if (!location) {
-                    location = this.channel.iodevice.location;
-                }
-                this.$set(this.channel, 'location', location);
-                this.updateChannel();
+                this.$set(this.device, 'location', location);
+                this.updateDevice();
             }
         },
         computed: {
@@ -178,5 +176,19 @@
         padding: 20px 0 10px;
         color: $supla-white;
         background-color: $supla-green;
+        .square-link {
+            border-color: $supla-black;
+        }
+    }
+
+    .original-location {
+        display: block;
+        padding: 5px;
+        background: rgba(193, 209, 81, 0.75);
+        color: $supla-white;
+        margin-bottom: 10px;
+        strong {
+            display: block;
+        }
     }
 </style>

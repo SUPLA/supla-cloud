@@ -23,6 +23,7 @@ use SuplaApiBundle\Model\ApiVersions;
 use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,9 +35,12 @@ class ApiIODeviceController extends RestController {
 
     /** @var ChannelParamsUpdater */
     private $channelParamsUpdater;
+    /** @var ScheduleManager */
+    private $scheduleManager;
 
-    public function __construct(ChannelParamsUpdater $channelParamsUpdater) {
+    public function __construct(ChannelParamsUpdater $channelParamsUpdater, ScheduleManager $scheduleManager) {
         $this->channelParamsUpdater = $channelParamsUpdater;
+        $this->scheduleManager = $scheduleManager;
     }
 
     /**
@@ -183,32 +187,33 @@ class ApiIODeviceController extends RestController {
         }
 
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules']);
+        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids']);
         return $view;
     }
 
     /**
      * @Security("ioDevice.belongsToUser(user)")
      */
-    public function putIodeviceAction(Request $request, IODevice $ioDevice) {
-        $data = $request->request->all();
-        return $this->getDoctrine()->getManager()->transactional(function () use ($request, $ioDevice, $data) {
-            if (isset($data['enabled'])) {
-                $scheduleManager = $this->get('schedule_manager');
-                $schedules = $scheduleManager->findSchedulesForDevice($ioDevice);
-                if (!$data['enabled'] && !($request->get('confirm', false))) {
-                    $enabledSchedules = $scheduleManager->onlyEnabled($schedules);
+    public function putIodeviceAction(Request $request, IODevice $ioDevice, IODevice $updatedDevice) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
+            $enabledChanged = $ioDevice->getEnabled() != $updatedDevice->getEnabled();
+            if ($enabledChanged) {
+                $schedules = $this->scheduleManager->findSchedulesForDevice($ioDevice);
+                if (!$updatedDevice->getEnabled() && !($request->get('confirm', false))) {
+                    $enabledSchedules = $this->scheduleManager->onlyEnabled($schedules);
                     if (count($enabledSchedules)) {
                         $view = $this->view($ioDevice, Response::HTTP_CONFLICT);
                         $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
                         return $view;
                     }
                 }
-                $ioDevice->setEnabled($data['enabled']);
+                $ioDevice->setEnabled($updatedDevice->getEnabled());
                 if (!$ioDevice->getEnabled()) {
                     $this->get('schedule_manager')->disableSchedulesForDevice($ioDevice);
                 }
             }
+            $ioDevice->setLocation($updatedDevice->getLocation());
+            $ioDevice->setComment($updatedDevice->getComment());
             $view = $this->view($ioDevice, Response::HTTP_OK);
             $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
             return $view;
