@@ -2,7 +2,7 @@
     <switches v-model="model"
         :type-bold="bold"
         :label="$t(label)"
-        :color="model ? 'green' : 'default'"
+        :color="model ? trueColorValue : 'default'"
         :emit-on-mount="false"></switches>
 </template>
 
@@ -10,9 +10,12 @@
     import Switches from "vue-switches";
 
     export default {
-        props: ['value', 'invert', 'label', 'bold'],
+        props: ['value', 'invert', 'label', 'bold', 'trueColor'],
         components: {Switches},
         computed: {
+            trueColorValue() {
+                return this.trueColor || 'green';
+            },
             model: {
                 set(value) {
                     this.$emit('input', this.invert ? !value : value);
@@ -24,3 +27,16 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../../styles/variables";
+
+    .vue-switcher-color--white {
+        div {
+            background-color: $supla-white;
+            &:after {
+                background-color: darken($supla-white, 10%);
+            }
+        }
+    }
+</style>

@@ -21,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,10 +38,10 @@ class IODeviceController extends AbstractController {
         $this->channelParamsUpdater = $channelParamsUpdater;
     }
 
-    private function userReconnect() {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $this->suplaServer->reconnect($user->getId());
-    }
+//    private function userReconnect() {
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//        $this->suplaServer->reconnect($user->getId());
+//    }
 
     private function getIODeviceById($id) {
         $iodev_man = $this->get('iodevice_manager');
@@ -132,84 +131,84 @@ class IODeviceController extends AbstractController {
      * @Route("/{id}/change_location", name="_iodev_change_loc")
      */
     public function changeLocationAction(Request $request, $id) {
-        $iodev = $this->getIODeviceById($id);
-
-        if ($iodev != null) {
-            $form = $this->createForm(ChangeLocationType::class, null, []);
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted()
-                && $form->isValid()
-                && ($new_id = intval(@$request->request->get('selected_id'))) != $iodev->getLocation()->getId()
-            ) {
-                $loc_man = $this->get('location_manager');
-                $new_location = $loc_man->locationById($new_id);
-
-                if ($new_location !== null) {
-                    $iodev->setLocation($new_location);
-
-                    $this->get('doctrine')->getManager()->flush();
-                    $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Location has been changed']);
-
-                    $this->userReconnect();
-                }
-            }
-        }
-
-        return $this->redirectToRoute("_iodev_item", ['id' => $id]);
+//        $iodev = $this->getIODeviceById($id);
+//
+//        if ($iodev != null) {
+//            $form = $this->createForm(ChangeLocationType::class, null, []);
+//            $form->handleRequest($request);
+//
+//            if ($form->isSubmitted()
+//                && $form->isValid()
+//                && ($new_id = intval(@$request->request->get('selected_id'))) != $iodev->getLocation()->getId()
+//            ) {
+//                $loc_man = $this->get('location_manager');
+//                $new_location = $loc_man->locationById($new_id);
+//
+//                if ($new_location !== null) {
+//                    $iodev->setLocation($new_location);
+//
+//                    $this->get('doctrine')->getManager()->flush();
+//                    $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Location has been changed']);
+//
+//                    $this->userReconnect();
+//                }
+//            }
+//        }
+//
+//        return $this->redirectToRoute("_iodev_item", ['id' => $id]);
     }
 
     private function ajaxItemEdit(IODevice $iodev, $message, $value) {
-        $result = AjaxController
-            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $iodev, $message, $value);
-        $this->userReconnect();
-        return $result;
+//        $result = AjaxController
+//            ::itemEdit($this->get('validator'), $this->get('translator'), $this->get('doctrine'), $iodev, $message, $value);
+//        $this->userReconnect();
+//        return $result;
     }
 
     /**
      * @Route("/{id}/ajax/setcomment", name="_iodev_ajax_setcomment")
      */
     public function ajaxSetCaption(Request $request, $id) {
-        $iodev = $this->getIODeviceById($id);
-
-        if ($iodev !== null) {
-            $data = json_decode($request->getContent());
-            $iodev->setComment($data->value);
-        }
-
-        return $this->ajaxItemEdit(
-            $iodev,
-            'Comment has been modified',
-            null
-        );
+//        $iodev = $this->getIODeviceById($id);
+//
+//        if ($iodev !== null) {
+//            $data = json_decode($request->getContent());
+//            $iodev->setComment($data->value);
+//        }
+//
+//        return $this->ajaxItemEdit(
+//            $iodev,
+//            'Comment has been modified',
+//            null
+//        );
     }
 
     /**
      * @Route("/{id}/ajax/change_loc", name="_iodev_ajax_change_loc")
      */
     public function ajaxChangeLocGetList(Request $request, $id) {
-        $html = null;
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $iodev = $this->getIODeviceById($id);
-
-        if ($user !== null && $iodev !== null) {
-            $form = $this->createForm(
-                ChangeLocationType::class,
-                null,
-                ['action' => $this->generateUrl('_iodev_change_loc', ['id' => $id]),
-                ]
-            );
-
-            $html = $this->get('templating')->render(
-                'SuplaBundle:IODevice:changelocation.html.twig',
-                ['form' => $form->createView(),
-                    'locations' => $user->getLocations(),
-                    'selected_id' => $iodev->getLocation() !== null ? $iodev->getLocation()->getId() : 0,
-                ]
-            );
-        }
-
-        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
+//        $html = null;
+//
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//        $iodev = $this->getIODeviceById($id);
+//
+//        if ($user !== null && $iodev !== null) {
+//            $form = $this->createForm(
+//                ChangeLocationType::class,
+//                null,
+//                ['action' => $this->generateUrl('_iodev_change_loc', ['id' => $id]),
+//                ]
+//            );
+//
+//            $html = $this->get('templating')->render(
+//                'SuplaBundle:IODevice:changelocation.html.twig',
+//                ['form' => $form->createView(),
+//                    'locations' => $user->getLocations(),
+//                    'selected_id' => $iodev->getLocation() !== null ? $iodev->getLocation()->getId() : 0,
+//                ]
+//            );
+//        }
+//
+//        return AjaxController::jsonResponse($html !== null, ['html' => $html]);
     }
 }

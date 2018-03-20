@@ -32,6 +32,7 @@
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="device.enabled"
+                                                true-color="white"
                                                 @input="updateDevice()"></toggler>
                                         </dt>
                                         <dd>{{ $t('Comment') }}</dd>
@@ -56,7 +57,13 @@
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Access ID') }}</h3>
-
+                                <div class="list-group">
+                                    <a :href="`/access-identifiers/${aid.id}` | withBaseUrl"
+                                        v-for="aid in device.location.accessIds"
+                                        class="list-group-item">
+                                        ID{{ aid.id }} {{ aid.caption }}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </pending-changes-page>
@@ -178,6 +185,25 @@
         background-color: $supla-green;
         .square-link {
             border-color: $supla-black;
+        }
+        .list-group .list-group-item {
+            background: transparent;
+            color: $supla-white;
+            border-color: $supla-white;
+            &:hover {
+                background: rgba($supla-white, .1);
+            }
+        }
+        .hover-editable {
+            .form-control {
+                color: $supla-white;
+                background: transparent !important;
+            }
+            &:hover {
+                .form-control {
+                    border: 1px solid $supla-white;
+                }
+            }
         }
     }
 
