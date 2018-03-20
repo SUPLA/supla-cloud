@@ -57,7 +57,7 @@ class IODeviceController extends AbstractController {
         $iodev = $this->getIODeviceById($id);
 
         if ($iodev === null) {
-            return $this->redirectToRoute("_iodev_list");
+            return $this->redirectToRoute("_my_supla");
         }
 
         $dev_man = $this->get('iodevice_manager');
@@ -97,7 +97,7 @@ class IODeviceController extends AbstractController {
         $iodev = $this->getIODeviceById($id);
 
         if ($iodev === null) {
-            return $this->redirectToRoute("_iodev_list");
+            return $this->redirectToRoute("_my_supla");
         }
 
         $dev_man = $this->get('iodevice_manager');
@@ -117,7 +117,7 @@ class IODeviceController extends AbstractController {
         $this->userReconnect();
 
         $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'I/O Device has been deleted']);
-        return $this->redirectToRoute("_iodev_list");
+        return $this->redirectToRoute("_my_supla");
     }
 
     /**
