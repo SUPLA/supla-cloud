@@ -45,10 +45,6 @@
         <script src="{{ asset('assets/js/pGenerator.jquery.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.tooltipster.min.js') }}"></script>
         {#{% endif %}#}
-    {% if app.request.get('_route') == '_iodev_item' %}
-        <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
-        <script src="{{ asset('assets/js/jquery.tooltipster.min.js') }}"></script>
-    {% endif %}
 
     {% else %}
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
@@ -75,8 +71,7 @@
 
 
 </head>
-<body {% if app.request.get('_route') == '_iodev_item' %} class="device-details" {% endif %}
-        {% if app.request.get('_route') == '_account_create_here'%} class="register" {% endif %}
+<body {% if app.request.get('_route') == '_account_create_here' %} class="register" {% endif %}
         {% if app.request.get('_route') == '_account_checkemail'%} class="register_success" {% endif %}
         {% if app.request.get('_route') == '_account_reset_passwd'%} class="reset" {% endif %}
         {% if app.request.get('_route') == '_account_view'%} class="account" {% endif %}
