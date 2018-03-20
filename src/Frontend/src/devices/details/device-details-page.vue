@@ -12,7 +12,8 @@
                         :is-pending="hasPendingChanges">
                         <div class="row hidden-xs">
                             <div class="col-xs-12">
-                                <dots-route :dot1-color="device.connected === false ? 'red' : 'green'"></dots-route>
+                                <dots-route :dot1-color="device.connected === false ? 'red' : 'green'"
+                                    :dot3-color="device.location.accessIdsIds.length > 0 ? 'green' : 'red'"></dots-route>
                             </div>
                         </div>
                         <div class="row text-center">
@@ -25,7 +26,7 @@
                                     <dl>
                                         <dd>{{ $t('GUID') }}</dd>
                                         <dt>{{ this.device.gUIDString }}</dt>
-                                        <dd>{{ $t('Registred') }}</dd>
+                                        <dd>{{ $t('Registered') }}</dd>
                                         <dt>{{ this.device.regdate | moment("LT L")}}</dt>
                                         <dd>{{ $t('Last connection') }}</dd>
                                         <dt>{{ this.device.lastconnected | moment("LT L")}}</dt>
@@ -48,7 +49,8 @@
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
                                 <a :href="`/locations/${device.originalLocation.id}` | withBaseUrl"
-                                    class="original-location">
+                                    class="original-location"
+                                    v-if="device.originalLocationId && device.originalLocationId != device.locationId">
                                     {{ $t('Original location')}}
                                     <strong>{{ device.originalLocation.caption }}</strong>
                                 </a>
@@ -57,12 +59,24 @@
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Access ID') }}</h3>
-                                <div class="list-group">
+                                <div class="list-group"
+                                    v-if="device.location.accessIdsIds.length > 0 && device.location.accessIds">
                                     <a :href="`/access-identifiers/${aid.id}` | withBaseUrl"
                                         v-for="aid in device.location.accessIds"
                                         class="list-group-item">
                                         ID{{ aid.id }} {{ aid.caption }}
                                     </a>
+                                </div>
+                                <div class="list-group"
+                                    v-else>
+                                    <div class="list-group-item"
+                                        v-if="device.location.accessIdsIds.length">
+                                        <em>{{ $t('Save changes to see the Access IDs') }}</em>
+                                    </div>
+                                    <div class="list-group-item"
+                                        v-else>
+                                        <em>{{ $t('None') }}</em>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +146,7 @@
         methods: {
             fetchDevice() {
                 this.loading = true;
-                this.$http.get(`iodevices/${this.deviceId}?include=location,originalLocation,accessids`).then(response => {
+                return this.$http.get(`iodevices/${this.deviceId}?include=location,originalLocation,accessids`).then(response => {
                     this.device = response.body;
                     this.loading = false;
                     this.hasPendingChanges = false;
@@ -150,6 +164,11 @@
                 this.$http.put(`iodevices/${this.deviceId}` + (confirm ? '?confirm=1' : ''), this.device, {skipErrorHandler: true})
                     .then(response => $.extend(this.device, response.body))
                     .then(() => this.hasPendingChanges = false)
+                    .then(() => {
+                        if (!this.device.location.accessIds) {
+                            return this.fetchDevice();
+                        }
+                    })
                     .catch(({body, status}) => {
                         if (status == 409) {
                             this.schedules = body.schedules.filter(schedule => schedule.enabled);

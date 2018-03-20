@@ -1,8 +1,8 @@
 <template>
     <div :class="'dots-route ' + (shown ? 'shown' : '')">
         <div :class="'dot dot-' + dot1Color"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <div :class="'dot dot-' + dot2Color"></div>
+        <div :class="'dot dot-' + dot3Color"></div>
     </div>
 </template>
 
@@ -63,7 +63,7 @@
 
 <script>
     export default {
-        props: ['dot1Color'],
+        props: ['dot1Color', 'dot2Color', 'dot3Color'],
         data() {
             return {
                 shown: false,
