@@ -176,7 +176,7 @@ Caption has been changed: Bildunterschrift wurde geändert
 Password has been changed: Kennwort wurde geädert 
 Location has been enabled: Lokalisierung wurde eingeschaltet
 Location has been disabled: Lokalisierung wurde ausgeschaltet
-Remove all the associated devices before you delete this location: Die verbundenen Geräte löschen bevor Sie diese Lokalisierung löschen
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Die verbundenen Geräte löschen bevor Sie diese Lokalisierung löschen
 Comment has been modified: Kommentar wurde geändert
 I/O Device has been disabled: Das E/A Gerät wurde ausgeschaltet
 I/O Device has been enabled: Das E/A Gerät wurde eingeschaltet

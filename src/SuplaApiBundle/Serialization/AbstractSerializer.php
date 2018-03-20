@@ -17,6 +17,7 @@
 
 namespace SuplaApiBundle\Serialization;
 
+use SuplaApiBundle\Entity\EntityUtils;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -43,10 +44,6 @@ abstract class AbstractSerializer extends ObjectNormalizer {
     }
 
     protected function toIds($collection): array {
-        $ids = [];
-        foreach ($collection as $item) {
-            $ids[] = $item->getId();
-        }
-        return $ids;
+        return EntityUtils::mapToIds($collection);
     }
 }

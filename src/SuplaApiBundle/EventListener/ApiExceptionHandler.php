@@ -18,6 +18,7 @@
 namespace SuplaApiBundle\EventListener;
 
 use Assert\InvalidArgumentException;
+use SuplaApiBundle\Exception\ApiExceptionWithDetails;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -57,6 +58,9 @@ class ApiExceptionHandler implements EventSubscriberInterface {
         ];
         if ($this->isDebug) {
             $data['trace'] = $e->getTraceAsString();
+        }
+        if ($e instanceof ApiExceptionWithDetails) {
+            $data['details'] = $e->getDetails();
         }
         return new JsonResponse($data, $status);
     }

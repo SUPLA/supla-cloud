@@ -175,7 +175,7 @@ Caption has been changed: Название изменено
 Password has been changed: Пароль изменен
 Location has been enabled: Область используется
 Location has been disabled: Область неиспользуется
-Remove all the associated devices before you delete this location: Отключите все привязанные устройства перед удалением позиции
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Отключите все привязанные устройства перед удалением позиции
 Comment has been modified: Пояснение изменено
 I/O Device has been disabled: Устройство неипользуется
 I/O Device has been enabled: Устройство используется

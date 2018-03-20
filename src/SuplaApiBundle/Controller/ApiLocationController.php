@@ -20,6 +20,8 @@ namespace SuplaApiBundle\Controller;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaApiBundle\Entity\EntityUtils;
+use SuplaApiBundle\Exception\ApiException;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Model\LocationManager;
@@ -105,16 +107,20 @@ class ApiLocationController extends RestController {
      * @Security("location.belongsToUser(user)")
      */
     public function deleteLocationAction(Location $location) {
-        Assertion::count($location->getIoDevices(), 0, 'Remove all the associated devices before you delete this location');
-        Assertion::count($location->getIoDevicesByOriginalLocation(), 0, 'Remove all devices that use this location as original location');
-        Assertion::count($location->getChannels(), 0, 'Remove all the associated channels before you delete this location');
-        Assertion::count($location->getChannelGroups(), 0, 'Remove all the associated channel groups before you delete this location');
+        $this->ensureNoRelatedEntities($location->getIoDevices(), 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.');
+        $this->ensureNoRelatedEntities($location->getIoDevicesByOriginalLocation(), 'Remove all devices that use this location as original location before deleting it. Ids: {relatedIds}.');
+        $this->ensureNoRelatedEntities($location->getChannels(), 'Remove all the associated channels before you delete this location. Ids: {relatedIds}.');
+        $this->ensureNoRelatedEntities($location->getChannelGroups(), 'Remove all the associated channel groups before you delete this location. Ids: {relatedIds}.');
         Assertion::greaterThan($this->getUser()->getLocations()->count(), 1, 'You cannot delete your last location.');
         return $this->transactional(function (EntityManagerInterface $em) use ($location) {
             $em->remove($location);
             $this->suplaServer->reconnect($this->getUser()->getId());
             return new Response('', Response::HTTP_NO_CONTENT);
         });
+    }
+
+    private function ensureNoRelatedEntities($entities, string $message) {
+        ApiException::throwIf(count($entities), $message, ['relatedIds' => implode(', ', EntityUtils::mapToIds($entities))]);
     }
 
     /**

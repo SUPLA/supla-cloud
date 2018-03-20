@@ -32,4 +32,12 @@ class EntityUtilsTest extends \PHPUnit_Framework_TestCase {
         EntityUtils::setField($entity, 'id', 12);
         $this->assertEquals(12, EntityUtils::getField($entity, 'id'));
     }
+
+    public function testMapToIds() {
+        $entity1 = new IODeviceChannel();
+        $entity2 = new IODeviceChannel();
+        EntityUtils::setField($entity1, 'id', 1);
+        EntityUtils::setField($entity2, 'id', 2);
+        $this->assertEquals([1, 2], EntityUtils::mapToIds([$entity1, $entity2]));
+    }
 }

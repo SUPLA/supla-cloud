@@ -178,7 +178,7 @@ Caption has been changed: A denominação foi alterada
 Password has been changed: A senha foi alterada
 Location has been enabled: A localização foi ligada
 Location has been disabled: A localização foi desligada
-Remove all the associated devices before you delete this location: Suprima os dispositivos associados antes de suprimir a localização
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Suprima os dispositivos associados antes de suprimir a localização
 Comment has been modified: O comentário foi alterado
 I/O Device has been disabled: Dispositivo de I/O foi desligado
 I/O Device has been enabled: Dispositivo de I/O foi ligado

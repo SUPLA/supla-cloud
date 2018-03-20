@@ -178,7 +178,10 @@ Caption has been changed: Podpis został zmieniony
 Password has been changed: Hasło zostało zmienione
 Location has been enabled: Lokalizacja została włączona
 Location has been disabled: Lokalizacja została wyłączona
-Remove all the associated devices before you delete this location: Usuń powiązane urządzenia zanim usuniesz tą lokalizację
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}."
+"Remove all devices that use this location as original location before deleting it. Ids: {relatedIds}.": "Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}."
+"Remove all the associated channels before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}."
+"Remove all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}."
 Comment has been modified: Komentarz został zmieniony
 I/O Device has been disabled: Urządzenie we/wy zostało wyłaczone
 I/O Device has been enabled: Urządzenie we/wy zostało włączone
