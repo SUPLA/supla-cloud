@@ -107,10 +107,22 @@ class ApiLocationController extends RestController {
      * @Security("location.belongsToUser(user)")
      */
     public function deleteLocationAction(Location $location) {
-        $this->ensureNoRelatedEntities($location->getIoDevices(), 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.');
-        $this->ensureNoRelatedEntities($location->getIoDevicesByOriginalLocation(), 'Remove all devices that use this location as original location before deleting it. Ids: {relatedIds}.');
-        $this->ensureNoRelatedEntities($location->getChannels(), 'Remove all the associated channels before you delete this location. Ids: {relatedIds}.');
-        $this->ensureNoRelatedEntities($location->getChannelGroups(), 'Remove all the associated channel groups before you delete this location. Ids: {relatedIds}.');
+        $this->ensureNoRelatedEntities(
+            $location->getIoDevices(),
+            'Remove all the associated devices before you delete this location. Ids: {relatedIds}.'
+        );
+        $this->ensureNoRelatedEntities(
+            $location->getIoDevicesByOriginalLocation(),
+            'Remove all devices that use this location as original location before deleting it. Ids: {relatedIds}.'
+        );
+        $this->ensureNoRelatedEntities(
+            $location->getChannels(),
+            'Remove all the associated channels before you delete this location. Ids: {relatedIds}.'
+        );
+        $this->ensureNoRelatedEntities(
+            $location->getChannelGroups(),
+            'Remove all the associated channel groups before you delete this location. Ids: {relatedIds}.'
+        );
         Assertion::greaterThan($this->getUser()->getLocations()->count(), 1, 'You cannot delete your last location.');
         return $this->transactional(function (EntityManagerInterface $em) use ($location) {
             $em->remove($location);
