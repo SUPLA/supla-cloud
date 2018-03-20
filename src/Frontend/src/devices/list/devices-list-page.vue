@@ -66,7 +66,7 @@
         data() {
             return {
                 devices: undefined,
-                filteredDevices: [],
+                filteredDevices: undefined,
                 filterFunction: () => true,
                 compareFunction: () => -1,
                 possibleDevices: [
@@ -95,7 +95,7 @@
         },
         computed: {
             showPossibleDevices() {
-                return this.devices && this.devices.length < 3 && this.filteredDevices.length === this.devices.length;
+                return this.filteredDevices && this.devices.length < 3 && this.filteredDevices.length === this.devices.length;
             }
         },
         methods: {
