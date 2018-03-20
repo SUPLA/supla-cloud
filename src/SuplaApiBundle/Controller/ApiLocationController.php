@@ -106,6 +106,7 @@ class ApiLocationController extends RestController {
      */
     public function deleteLocationAction(Location $location) {
         Assertion::count($location->getIoDevices(), 0, 'Remove all the associated devices before you delete this location');
+        Assertion::count($location->getIoDevicesByOriginalLocation(), 0, 'Remove all devices that use this location as original location');
         Assertion::count($location->getChannels(), 0, 'Remove all the associated channels before you delete this location');
         Assertion::count($location->getChannelGroups(), 0, 'Remove all the associated channel groups before you delete this location');
         Assertion::greaterThan($this->getUser()->getLocations()->count(), 1, 'You cannot delete your last location.');

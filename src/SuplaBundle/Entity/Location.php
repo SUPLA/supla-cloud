@@ -148,6 +148,11 @@ class Location {
         return $this->ioDevices;
     }
 
+    /** @return IODevice[]|Collection */
+    public function getIoDevicesByOriginalLocation(): Collection {
+        return $this->ioDevices_ol;
+    }
+
     /** @return IODeviceChannelGroup[]|Collection */
     public function getChannelGroups(): Collection {
         return $this->channelGroups;
