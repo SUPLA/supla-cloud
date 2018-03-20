@@ -86,7 +86,7 @@ class ApiChannelController extends RestController {
         }
         $channels = $this->getCurrentUser()->getChannels()->matching($criteria);
         $view = $this->view($channels, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function', 'type']);
+        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function']);
         return $view;
     }
 
@@ -307,7 +307,7 @@ class ApiChannelController extends RestController {
                         }
                     }
                 } elseif ($channel->getFunction() != ChannelFunction::NONE()) {
-                    $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+                    $this->suplaServer->reconnect();
                 }
                 return $this->getChannelAction($request, $channel);
             });

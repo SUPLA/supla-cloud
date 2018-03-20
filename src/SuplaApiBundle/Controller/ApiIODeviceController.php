@@ -17,15 +17,27 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiIODeviceController extends RestController {
     use SuplaServerAware;
+    use Transactional;
+
+    /** @var ChannelParamsUpdater */
+    private $channelParamsUpdater;
+
+    public function __construct(ChannelParamsUpdater $channelParamsUpdater) {
+        $this->channelParamsUpdater = $channelParamsUpdater;
+    }
 
     /**
      * @api {get} /iodevices List
@@ -184,7 +196,7 @@ class ApiIODeviceController extends RestController {
             if (isset($data['enabled'])) {
                 $scheduleManager = $this->get('schedule_manager');
                 $schedules = $scheduleManager->findSchedulesForDevice($ioDevice);
-                if (!$data['enabled'] && !($data['confirm'] ?? false)) {
+                if (!$data['enabled'] && !($request->get('confirm', false))) {
                     $enabledSchedules = $scheduleManager->onlyEnabled($schedules);
                     if (count($enabledSchedules)) {
                         $view = $this->view($ioDevice, Response::HTTP_CONFLICT);
@@ -201,5 +213,31 @@ class ApiIODeviceController extends RestController {
             $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
             return $view;
         });
+    }
+
+    /**
+     * @Security("ioDevice.belongsToUser(user)")
+     */
+    public function deleteIodeviceAction(IODevice $ioDevice) {
+        $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
+            foreach ($ioDevice->getChannels() as $channel) {
+                // clears all paired channels that are possibly made with the one that is being deleted
+                $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
+                $em->remove($channel);
+            }
+            $em->remove($ioDevice);
+        });
+        $this->suplaServer->reconnect();
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Security("ioDevice.belongsToUser(user)")
+     */
+    public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
+        $channels = $ioDevice->getChannels();
+        $view = $this->view($channels, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function']);
+        return $view;
     }
 }

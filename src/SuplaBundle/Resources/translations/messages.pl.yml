@@ -102,7 +102,7 @@ All the above and many more can be done from your phone or tablet: Wszystko to i
 SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło
 Registered: Zarejestrowany
 Last connection: Ostatnie połączenie
-Confirm if you want to remove <strong>%devname%</strong> device: Potwierdź chęć usunięcia urządzenia <strong>%devname%</strong>
+Confirm if you want to remove {deviceName} device: Potwierdź chęć usunięcia urządzenia {deviceName}
 All Your I/O Devices: Wszystkie Twoje Urządzenia We/Wy
 Please select function for this channel: Wybierz funkcję dla tego kanału
 No Access Identifiers assigned: Brak przypisanych Identyfikatorów Dostępu

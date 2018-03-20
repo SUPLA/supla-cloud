@@ -64,6 +64,9 @@
         &.is-loading {
             > .loading-content {
                 opacity: .4;
+                .loading {
+                    display: none;
+                }
             }
             > .loading {
                 display: block;

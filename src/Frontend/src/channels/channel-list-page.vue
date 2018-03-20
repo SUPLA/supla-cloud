@@ -41,7 +41,7 @@
         mounted() {
             let endpoint = 'channels?include=iodevice,location';
             if (this.deviceId) {
-                endpoint = `devices/${this.deviceId}/${endpoint}`;
+                endpoint = `iodevices/${this.deviceId}/${endpoint}`;
             }
             this.$http.get(endpoint).then(({body}) => {
                 this.channels = body;

@@ -17,10 +17,13 @@
 
 namespace SuplaBundle\Supla;
 
+use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODeviceChannel;
 
 abstract class SuplaServer {
+    use CurrentUserAware;
+
     /** @var string */
     protected $socketPath;
 
@@ -87,7 +90,11 @@ abstract class SuplaServer {
         return false;
     }
 
-    public function reconnect($userId) {
+    public function reconnect($userId = null) {
+        if (!$userId) {
+            $user = $this->getCurrentUserOrThrow();
+            $userId = $user->getId();
+        }
         $userId = intval($userId);
         if ($userId != 0 && $this->connect() !== false) {
             $result = $this->command("USER-RECONNECT:" . $userId);

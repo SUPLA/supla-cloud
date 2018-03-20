@@ -18,9 +18,9 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Form\Type\ChangeLocationType;
 use SuplaBundle\Form\Type\IODeviceChannelType;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -102,30 +102,30 @@ class IODeviceController extends AbstractController {
      * @Route("/{id}/delete", name="_iodev_item_delete")
      */
     public function itemDeleteAction($id) {
-        $iodev = $this->getIODeviceById($id);
-
-        if ($iodev === null) {
-            return $this->redirectToRoute("_my_supla");
-        }
-
-        $dev_man = $this->get('iodevice_manager');
-        $m = $this->get('doctrine')->getManager();
-
-        $channels = $dev_man->getChannels($iodev);
-
-        foreach ($channels as $channel) {
-            // clears all paired channels that are possibly made with the one that is being deleted
-            $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
-            $m->remove($channel);
-        }
-
-        $m->remove($iodev);
-        $m->flush();
-
-        $this->userReconnect();
-
-        $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'I/O Device has been deleted']);
-        return $this->redirectToRoute("_my_supla");
+//        $iodev = $this->getIODeviceById($id);
+//
+//        if ($iodev === null) {
+//            return $this->redirectToRoute("_my_supla");
+//        }
+//
+//        $dev_man = $this->get('iodevice_manager');
+//        $m = $this->get('doctrine')->getManager();
+//
+//        $channels = $dev_man->getChannels($iodev);
+//
+//        foreach ($channels as $channel) {
+//            // clears all paired channels that are possibly made with the one that is being deleted
+//            $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
+//            $m->remove($channel);
+//        }
+//
+//        $m->remove($iodev);
+//        $m->flush();
+//
+//        $this->userReconnect();
+//
+//        $this->get('session')->getFlashBag()->add('warning', ['title' => 'Information', 'message' => 'I/O Device has been deleted']);
+//        return $this->redirectToRoute("_my_supla");
     }
 
     /**

@@ -16,7 +16,7 @@
                     </a>
                     <a class="btn btn-default"
                         @click.stop=""
-                        :href="`/iodev/${channel.iodeviceId}/view` | withBaseUrl">
+                        :href="`/devices/${channel.iodeviceId}` | withBaseUrl">
                         {{ $t('Go to I/O device details') }}
                     </a>
                     <button class="btn btn-danger btn-block"
