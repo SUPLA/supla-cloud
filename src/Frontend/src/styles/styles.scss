@@ -9,7 +9,7 @@ html {
 body {
   font-family: $supla-font-default;
   color: $supla-black;
-  background: #fafbfc;
+  background: $supla-bg;
   font-weight: 400;
   -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -216,7 +216,7 @@ input[type=text], input[type=password], input[type=email] {
 
 .nav-tabs {
   li.active a, li.active a:hover {
-    background: #fafbfc;
+    background: $supla-bg;
   }
 }
 

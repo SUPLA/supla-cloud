@@ -1,6 +1,6 @@
 <template>
     <div :class="'dots-route ' + (shown ? 'shown' : '')">
-        <div class="dot"></div>
+        <div :class="'dot dot-' + dot1Color"></div>
         <div class="dot"></div>
         <div class="dot"></div>
     </div>
@@ -30,7 +30,8 @@
             border-radius: $dotRadius;
             position: absolute;
             top: -$dotRadius/2 + ($width - 1px)/2;
-            background: #fafbfc;
+            background: $supla-bg;
+            transition: background-color .3s;
             &:nth-child(1) {
                 left: -$dotRadius;
             }
@@ -54,10 +55,15 @@
             background: $supla-green;
         }
     }
+
+    .dot-red {
+        background: $supla-red !important;
+    }
 </style>
 
 <script>
     export default {
+        props: ['dot1Color'],
         data() {
             return {
                 shown: false,

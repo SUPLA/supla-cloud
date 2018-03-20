@@ -71,6 +71,11 @@
             > .loading {
                 display: block;
             }
+            + * {
+                .loading {
+                    display: none;
+                }
+            }
         }
         .loading-content {
             transition: opacity .3s;

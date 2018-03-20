@@ -1,9 +1,9 @@
 <template>
     <div>
         <loading-cover :loading="!device || loading">
-            <div class="bg-green form-group">
-                <div class="container"
-                    v-if="device">
+            <div class="bg-green form-group"
+                v-if="device">
+                <div class="container">
                     <pending-changes-page :header="deviceTitle"
                         @cancel="cancelChanges()"
                         @save="saveChanges()"
@@ -12,7 +12,7 @@
                         :is-pending="hasPendingChanges">
                         <div class="row hidden-xs">
                             <div class="col-xs-12">
-                                <dots-route></dots-route>
+                                <dots-route :dot1-color="device.connected === false ? 'red' : 'green'"></dots-route>
                             </div>
                         </div>
                         <div class="row text-center">
@@ -69,25 +69,25 @@
                     </pending-changes-page>
                 </div>
             </div>
-            <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
-                v-if="showSchedulesDisablingConfirmation"
-                :schedules="schedules"
-                @confirm="saveChanges(true)"
-                @cancel="showSchedulesDisablingConfirmation = false"></disabling-schedules-modal>
-            <enabling-schedules-modal v-if="showSchedulesEnablingConfirmation"
-                :schedules="schedules"
-                @confirm="showSchedulesEnablingConfirmation = false"
-                @cancel="showSchedulesEnablingConfirmation = false"></enabling-schedules-modal>
-            <channel-list-page :device-id="deviceId"></channel-list-page>
-            <modal-confirm v-if="deleteConfirm"
-                class="modal-warning"
-                @confirm="deleteDevice()"
-                @cancel="deleteConfirm = false"
-                :header="$t('Are you sure?')"
-                :loading="loading">
-                <p>{{ $t('Confirm if you want to remove {deviceName} device', {deviceName: device.name}) }}</p>
-            </modal-confirm>
         </loading-cover>
+        <channel-list-page :device-id="deviceId"></channel-list-page>
+        <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
+            v-if="showSchedulesDisablingConfirmation"
+            :schedules="schedules"
+            @confirm="saveChanges(true)"
+            @cancel="showSchedulesDisablingConfirmation = false"></disabling-schedules-modal>
+        <enabling-schedules-modal v-if="showSchedulesEnablingConfirmation"
+            :schedules="schedules"
+            @confirm="showSchedulesEnablingConfirmation = false"
+            @cancel="showSchedulesEnablingConfirmation = false"></enabling-schedules-modal>
+        <modal-confirm v-if="deleteConfirm"
+            class="modal-warning"
+            @confirm="deleteDevice()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure?')"
+            :loading="loading">
+            <p>{{ $t('Confirm if you want to remove {deviceName} device', {deviceName: device.name}) }}</p>
+        </modal-confirm>
     </div>
 </template>
 
