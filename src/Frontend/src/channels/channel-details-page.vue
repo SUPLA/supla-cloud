@@ -3,7 +3,7 @@
         <loading-cover :loading="!channel || loading">
             <div class="container"
                 v-if="channel">
-                <a :href="`/iodev/${channel.iodeviceId}/view` | withBaseUrl">&laquo; {{ deviceTitle }}</a>
+                <a :href="`/devices/${channel.iodeviceId}` | withBaseUrl">&laquo; {{ deviceTitle }}</a>
                 <pending-changes-page :header="channelTitle"
                     @cancel="cancelChanges()"
                     @save="saveChanges()"

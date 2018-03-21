@@ -51,7 +51,7 @@
                                 <tbody>
                                 <tr v-for="ioDevice in location.ioDevices"
                                     v-go-to-link-on-row-click>
-                                    <td><a :href="'/iodev/' + ioDevice.id + '/view' | withBaseUrl">{{ ioDevice.id }}</a></td>
+                                    <td><a :href="'/devices/' + ioDevice.id | withBaseUrl">{{ ioDevice.id }}</a></td>
                                     <td>{{ ioDevice.name }}</td>
                                     <td>{{ ioDevice.comment }}</td>
                                 </tr>
