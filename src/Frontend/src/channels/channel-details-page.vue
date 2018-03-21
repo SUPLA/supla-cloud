@@ -8,7 +8,7 @@
                     @cancel="cancelChanges()"
                     @save="saveChanges()"
                     :is-pending="hasPendingChanges">
-                    <h4>{{ $t(channel.type.caption) }}</h4>
+                    <h4>{{ $t(channel.type.caption) }}, {{ $t('Channel No') }}: {{ channel.channelNumber }}</h4>
                     <div class="row hidden-xs">
                         <div class="col-xs-12">
                             <dots-route></dots-route>

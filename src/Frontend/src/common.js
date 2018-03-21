@@ -49,7 +49,6 @@ const components = {
     ChannelGroupsPage: () => import("./channel-groups/channel-groups-page.vue"),
     ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),
     MySuplaPage: () => import("./home/my-supla-page"),
-    // DevicesListPage: () => import("./devices/list/devices-list-page.vue"),
     DeviceDetailsPage: () => import("./devices/details/device-details-page"),
     EnableDisableDeviceButton: () => import("./devices/details/enable-disable-device-button.vue"),
     IdleLogout: () => import("./common/idle-logout.vue"),

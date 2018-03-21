@@ -27,16 +27,12 @@ final class EntityUtils {
         return $getter->call($entity, $field);
     }
 
-    public static function mapToFields($entities, string $field): array {
+    public static function mapToIds($entities): array {
         if (!is_array($entities)) {
             $entities = iterator_to_array($entities);
         }
-        return array_values(array_map(function ($entity) use ($field) {
-            return self::getField($entity, $field);
+        return array_values(array_map(function ($entity) {
+            return $entity->getId();
         }, $entities));
-    }
-
-    public static function mapToIds($entities): array {
-        return self::mapToFields($entities, 'id');
     }
 }
