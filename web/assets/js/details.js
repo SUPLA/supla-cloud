@@ -283,22 +283,3 @@ $(document).ready(function(){
     	setItem($(this), '#comment_value', '', getDetailId(), 'setcomment');
     });
   });
-  
- $(function () {
-	 if ( $('.supla-tooltip').length ) {
-		 
-		  $('[data-toggle="tooltip"]').tooltip()
-		  
-		  $('.supla-tooltip').tooltipster({
-			  contentAsHTML: true,
-			  touchDevices: true,
-			  interactive: true,
-			  position: 'left',
-		  });
-		  
-	 }
-	 
-
-  
-  
-});

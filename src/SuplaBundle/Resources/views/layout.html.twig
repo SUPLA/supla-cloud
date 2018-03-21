@@ -39,13 +39,7 @@
     <script src="{{ asset('assets/js/supla21101701.js') }}"></script>
 
     {% if app.user %}
-        {#{% if app.request.get('_route') == '_loc_list' or app.request.get('_route') == '_aid_list' %}#}
-        <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-        <script src="{{ asset('assets/js/jquery.liveFilter.js') }}"></script>
         <script src="{{ asset('assets/js/pGenerator.jquery.js') }}"></script>
-        <script src="{{ asset('assets/js/jquery.tooltipster.min.js') }}"></script>
-        {#{% endif %}#}
-
     {% else %}
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
         <script type="text/javascript" src="{{ asset('assets/js/jquery.fullPage.min.js') }}"></script>
