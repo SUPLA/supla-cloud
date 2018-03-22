@@ -19,6 +19,7 @@
                     </div>
                 </transition>
                 <transition name="fade">
+                    <slot name="buttons"></slot>
                     <div class="btn-toolbar"
                         v-if="!isPending && deletable">
                         <a class="btn btn-danger"
