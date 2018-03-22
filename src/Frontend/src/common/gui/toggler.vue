@@ -3,14 +3,15 @@
         :type-bold="bold"
         :label="$t(label)"
         :color="model ? trueColorValue : 'default'"
-        :emit-on-mount="false"></switches>
+        :emit-on-mount="false"
+        :disabled="disabled"></switches>
 </template>
 
 <script>
     import Switches from "vue-switches";
 
     export default {
-        props: ['value', 'invert', 'label', 'bold', 'trueColor'],
+        props: ['value', 'invert', 'label', 'bold', 'trueColor', 'disabled'],
         components: {Switches},
         computed: {
             trueColorValue() {

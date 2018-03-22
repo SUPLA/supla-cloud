@@ -43,6 +43,7 @@
                                     <dd>{{ $t('Retry when fail') }}</dd>
                                     <dt>
                                         <toggler v-model="schedule.retry"
+                                            :disabled="retryOptionDisabled"
                                             @input="updateSchedule()"></toggler>
                                     </dt>
                                     <dd>{{ $t('Action') }}</dd>
@@ -149,6 +150,9 @@
             displayOpeningSensorWarning() {
                 return this.schedule &&
                     ['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].indexOf(this.schedule.channel.function.name) >= 0;
+            },
+            retryOptionDisabled() {
+                return this.displayOpeningSensorWarning;
             }
         }
     };

@@ -33,13 +33,14 @@
                         </div>
                         <next-run-dates-preview></next-run-dates-preview>
                         <toggler v-model="retry"
+                            v-if="canSetRetry"
                             label="Retry when fail"></toggler>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="well">
                         <h3 class="no-margin-top">{{ $t('Action') }}</h3>
-                        <schedule-form-action-chooser></schedule-form-action-chooser>
+                        <schedule-form-action-chooser @channel-change="canSetRetry = !$event || [20, 30].indexOf($event.function) < 0"></schedule-form-action-chooser>
                         <div class="text-right"
                             v-if="!submitting">
                             <a class="btn btn-white"
@@ -113,6 +114,11 @@
             actions: actions,
             strict: process.env.NODE_ENV !== 'production'
         }),
+        data() {
+            return {
+                canSetRetry: false,
+            };
+        },
         computed: {
             caption: {
                 get() {

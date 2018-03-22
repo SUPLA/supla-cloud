@@ -68,6 +68,7 @@
                 } else {
                     this.userChannels = undefined;
                 }
+                this.$emit('channel-change', this.chosenChannel);
             });
         },
         methods: {
@@ -90,6 +91,7 @@
                 },
                 set(channelId) {
                     this.$store.commit('updateChannel', channelId);
+                    this.$emit('channel-change', this.chosenChannel);
                     if (channelId && this.channelFunctionMap[channelId].length == 1) {
                         this.actionId = this.channelFunctionMap[channelId][0];
                     }

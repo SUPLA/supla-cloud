@@ -19,6 +19,7 @@ namespace SuplaBundle\Entity;
 
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -288,6 +289,12 @@ class Schedule {
     }
 
     public function setRetry(bool $retry) {
+        if ($this->channel) {
+            $alwaysRetryFunctions = [ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::CONTROLLINGTHEGARAGEDOOR()];
+            if (in_array($this->getChannel()->getFunction(), $alwaysRetryFunctions)) {
+                $retry = true;
+            }
+        }
         $this->retry = $retry;
     }
 }
