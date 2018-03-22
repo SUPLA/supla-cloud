@@ -3,7 +3,7 @@ import {withBaseUrl} from "../../common/filters";
 
 export const mutations = {
     changeScheduleMode (state, newScheduleMode) {
-        state.scheduleMode = newScheduleMode;
+        state.mode = newScheduleMode;
         state.nextRunDates = [];
         state.timeExpression = '';
     },
@@ -52,7 +52,7 @@ export const mutations = {
     },
     editSchedule(state, schedule) {
         state.schedule = schedule;
-        state.scheduleMode = schedule.mode.value;
+        state.mode = schedule.mode;
         state.timeExpression = schedule.timeExpression;
         state.dateStart = schedule.dateStart;
         state.dateEnd = schedule.dateEnd;
@@ -91,7 +91,7 @@ export const actions = {
             } else {
                 commit('fetchingNextRunDates');
                 let query = {
-                    scheduleMode: state.scheduleMode,
+                    mode: state.mode,
                     timeExpression: state.timeExpression,
                     dateStart: state.dateStart,
                     dateEnd: state.dateEnd

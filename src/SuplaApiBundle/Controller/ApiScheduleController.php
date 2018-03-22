@@ -134,7 +134,7 @@ class ApiScheduleController extends RestController {
         Assert::that($data)
             ->notEmptyKey('channel')
             ->notEmptyKey('action')
-            ->notEmptyKey('scheduleMode')
+            ->notEmptyKey('mode')
             ->notEmptyKey('timeExpression');
         $channel = $this->get('iodevice_manager')->channelById($data['channel']);
         Assertion::notNull($channel);

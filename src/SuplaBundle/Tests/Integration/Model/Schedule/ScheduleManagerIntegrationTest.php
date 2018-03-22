@@ -56,7 +56,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testCreatedScheduleIsEmpty() {
         $schedule = $this->createSchedule([
             'timeExpression' => '0 0 1 1 * 2088',
-            'scheduleMode' => ScheduleMode::ONCE,
+            'mode' => ScheduleMode::ONCE,
         ]);
         $this->assertGreaterThan(0, $schedule->getId());
         $this->assertNull($schedule->getNextCalculationDate());
@@ -67,7 +67,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testCalculateNextRunDateForOnceSchedule() {
         $schedule = $this->createSchedule([
             'timeExpression' => '0 0 1 1 * 2088',
-            'scheduleMode' => ScheduleMode::ONCE,
+            'mode' => ScheduleMode::ONCE,
         ]);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertNotNull($schedule->getNextCalculationDate());
@@ -82,7 +82,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testDoesNotGenerateRunDateForSchedulesWithPastEndDate() {
         $schedule = $this->createSchedule([
             'timeExpression' => '*/5 * * * *',
-            'scheduleMode' => ScheduleMode::MINUTELY,
+            'mode' => ScheduleMode::MINUTELY,
             'dateEnd' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
         ]);
         $this->scheduleManager->generateScheduledExecutions($schedule);
@@ -93,7 +93,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testDisablesScheduleIfNoMoreExecutions() {
         $schedule = $this->createSchedule([
             'timeExpression' => '*/5 * * * *',
-            'scheduleMode' => ScheduleMode::MINUTELY,
+            'mode' => ScheduleMode::MINUTELY,
             'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
             'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
         ]);
@@ -108,7 +108,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testDoesNotDisableIfThereArePendingExecutionsToExecute() {
         $schedule = $this->createSchedule([
             'timeExpression' => '*/5 * * * *',
-            'scheduleMode' => ScheduleMode::MINUTELY,
+            'mode' => ScheduleMode::MINUTELY,
             'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
             'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
         ]);
@@ -121,7 +121,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testDoesNotDisableFutureOnceSchedule() {
         $schedule = $this->createSchedule([
             'timeExpression' => '0 0 1 1 * 2088',
-            'scheduleMode' => ScheduleMode::MINUTELY,
+            'mode' => ScheduleMode::MINUTELY,
         ]);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->scheduleManager->generateScheduledExecutions($schedule);

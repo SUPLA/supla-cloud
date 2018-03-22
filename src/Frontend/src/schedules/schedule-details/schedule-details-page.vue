@@ -48,7 +48,7 @@
                                     <dd>{{ $t('Action') }}</dd>
                                     <dt>{{ $t(schedule.action.caption) }}</dt>
                                     <dd>{{ $t('Mode') }}</dd>
-                                    <dt>{{ $t(schedule.mode.value) }}</dt>
+                                    <dt>{{ $t(schedule.mode) }}</dt>
                                     <dd>{{ $t('Start date') }}</dd>
                                     <dt>{{ schedule.dateStart | moment('LLL') }}</dt>
                                 </dl>

@@ -10,7 +10,7 @@
                     width="60"></function-icon>
             </div>
             <dl>
-                <dd>{{ $t(model.mode.value) }}</dd>
+                <dd>{{ $t(model.mode) }}</dd>
                 <dt></dt>
                 <dd>{{ scheduleLabel }}</dd>
                 <dt></dt>

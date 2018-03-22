@@ -18,17 +18,17 @@
                 </div>
             </div>
             <div class="row"
-                v-show="scheduleMode">
+                v-show="mode">
                 <div class="col-md-6">
                     <div class="well">
                         <h3 class="no-margin-top">{{ $t('When') }}?</h3>
                         <div class="form-group">
-                            <schedule-form-mode-once v-if="scheduleMode == 'once'"></schedule-form-mode-once>
-                            <schedule-form-mode-minutely v-if="scheduleMode == 'minutely'"></schedule-form-mode-minutely>
-                            <schedule-form-mode-hourly v-if="scheduleMode == 'hourly'"></schedule-form-mode-hourly>
-                            <schedule-form-mode-daily v-if="scheduleMode == 'daily'"></schedule-form-mode-daily>
+                            <schedule-form-mode-once v-if="mode == 'once'"></schedule-form-mode-once>
+                            <schedule-form-mode-minutely v-if="mode == 'minutely'"></schedule-form-mode-minutely>
+                            <schedule-form-mode-hourly v-if="mode == 'hourly'"></schedule-form-mode-hourly>
+                            <schedule-form-mode-daily v-if="mode == 'daily'"></schedule-form-mode-daily>
                         </div>
-                        <div v-if="scheduleMode != 'once'">
+                        <div v-if="mode != 'once'">
                             <schedule-form-start-end-date></schedule-form-start-end-date>
                         </div>
                         <next-run-dates-preview></next-run-dates-preview>
@@ -96,7 +96,7 @@
         store: new Vuex.Store({
             state: {
                 caption: '',
-                scheduleMode: 'once',
+                mode: 'once',
                 timeExpression: '',
                 dateStart: moment().format(),
                 dateEnd: '',
@@ -130,7 +130,7 @@
                     this.$store.commit('updateRetry', retry);
                 }
             },
-            ...mapState(['scheduleMode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'submitting', 'schedule'])
+            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'submitting', 'schedule'])
         },
         mounted() {
             if (this.scheduleId) {

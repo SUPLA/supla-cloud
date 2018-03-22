@@ -36,20 +36,20 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
 
     public function testFillFillsCaption() {
         $schedule = new Schedule();
-        $schedule->fill(['scheduleMode' => 'hourly', 'timeExpression' => '*', 'caption' => 'My Caption']);
+        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'caption' => 'My Caption']);
         $this->assertEquals('My Caption', $schedule->getCaption());
     }
 
     public function testRequiresActionParamsForRgbLighting() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['scheduleMode' => 'hourly', 'timeExpression' => '*', 'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
+        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
     }
 
     public function testSettingActionParamsAsArray() {
         $schedule = new Schedule();
         $schedule->fill([
-            'scheduleMode' => 'hourly',
+            'mode' => 'hourly',
             'timeExpression' => '*',
             'action' => ChannelFunctionAction::REVEAL_PARTIALLY,
             'actionParam' => ['percentage' => 12],
@@ -60,6 +60,6 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testSettingInvalidActionParam() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['scheduleMode' => 'hourly', 'timeExpression' => '*', 'actionParam' => '{"color": 123']);
+        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'actionParam' => '{"color": 123']);
     }
 }

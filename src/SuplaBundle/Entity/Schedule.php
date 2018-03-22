@@ -136,7 +136,7 @@ class Schedule {
         $this->setChannel($data['channel'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
-        $this->setMode(new ScheduleMode($data['scheduleMode']));
+        $this->setMode(new ScheduleMode($data['mode']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
         if (isset($data['enabled'])) {
