@@ -59,11 +59,22 @@
                         </div>
                         <div class="col-sm-4">
                             <h3 class="text-center">{{ $t('Channel') }}</h3>
-                            <channel-tile :model="schedule.channel"></channel-tile>
+                            <div class="form-group">
+                                <channel-tile :model="schedule.channel"></channel-tile>
+                            </div>
+                            <div class="form-group"
+                                v-if="displayOpeningSensorWarning">
+                                <div class="alert alert-warning text-center">
+                                    {{ $t('The gate sensor must function properly in order to execute the scheduled action.') }}
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4">
                             <h3 class="text-center">{{ $t('Executions') }}</h3>
-                            <schedule-executions-display :schedule="schedule"></schedule-executions-display>
+                            <schedule-executions-display :schedule="schedule"
+                                v-if="schedule.enabled"></schedule-executions-display>
+                            <h4 class="text-center"
+                                v-else>{{ $t('No future executions - schedule disabled') }}</h4>
                         </div>
                     </div>
                 </pending-changes-page>
@@ -99,6 +110,12 @@
                 this.schedule = body;
             });
         },
-        methods: {}
+        methods: {},
+        computed: {
+            displayOpeningSensorWarning() {
+                return this.schedule &&
+                    ['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].indexOf(this.schedule.channel.function.name) >= 0;
+            }
+        }
     };
 </script>
