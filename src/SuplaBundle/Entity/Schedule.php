@@ -139,9 +139,6 @@ class Schedule {
         $this->setMode(new ScheduleMode($data['mode']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
-        if (isset($data['enabled'])) {
-            $this->setEnabled($data['enabled']);
-        }
     }
 
     /**

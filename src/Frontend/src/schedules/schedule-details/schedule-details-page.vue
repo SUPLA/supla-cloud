@@ -137,7 +137,8 @@
                 this.loading = true;
                 this.$http.put(`schedules/${this.scheduleId}`, this.schedule)
                     .then(response => $.extend(this.schedule, response.body))
-                    .then(() => this.loading = this.hasPendingChanges = false);
+                    .then(() => this.hasPendingChanges = false)
+                    .finally(() => this.loading = false);
             },
             deleteSchedule() {
                 this.loading = true;

@@ -115,15 +115,16 @@ class ApiScheduleController extends RestController {
     public function putScheduleAction(Request $request, Schedule $schedule) {
         $data = $request->request->all();
         $this->fillSchedule($schedule, $data);
-        return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request) {
+        return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request, $data) {
             $this->get('schedule_manager')->deleteScheduledExecutions($schedule);
             $em->persist($schedule);
+            if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
+                $this->get('schedule_manager')->enable($schedule);
+            } else if ($schedule->getEnabled() && !($data['enabled'] ?? false)) {
+                $this->get('schedule_manager')->disable($schedule);
+            }
             if ($schedule->getEnabled()) {
                 $this->get('schedule_manager')->generateScheduledExecutions($schedule);
-            } elseif ($request->get('enable')) {
-                $this->get('schedule_manager')->enable($schedule);
-            } else {
-                $this->get('schedule_manager')->disable($schedule);
             }
             return $this->view($schedule, Response::HTTP_OK);
         });
