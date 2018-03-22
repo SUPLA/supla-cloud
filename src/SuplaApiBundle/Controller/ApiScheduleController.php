@@ -132,11 +132,11 @@ class ApiScheduleController extends RestController {
     /** @return Schedule */
     private function fillSchedule(Schedule $schedule, array $data) {
         Assert::that($data)
-            ->notEmptyKey('channel')
+            ->notEmptyKey('channelId')
             ->notEmptyKey('action')
             ->notEmptyKey('mode')
             ->notEmptyKey('timeExpression');
-        $channel = $this->get('iodevice_manager')->channelById($data['channel']);
+        $channel = $this->get('iodevice_manager')->channelById($data['channelId']);
         Assertion::notNull($channel);
         $data['channel'] = $channel;
         $schedule->fill($data);

@@ -45,6 +45,7 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
         if (is_array($normalized)) {
             $normalized['channelId'] = $schedule->getChannel()->getId();
             $normalized['mode'] = $schedule->getMode()->getValue();
+            $normalized['actionId'] = $schedule->getAction()->getId();
             if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
                 if (in_array('closestExecutions', $context[self::GROUPS])) {
                     $normalized['closestExecutions'] = $this->getClosestExecutions($schedule, $format, $context);

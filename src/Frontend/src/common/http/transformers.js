@@ -109,8 +109,14 @@ export function scheduleTranformer(request, next) {
     if (request.url.startsWith('schedules')) {
         if (request.body && request.body.id) {
             const toSend = Vue.util.extend({}, request.body);
-            toSend.channel = toSend.channel.id;
-            toSend.action = toSend.action.id;
+            if (toSend.channel) {
+                toSend.channelId = toSend.channel.id;
+                delete toSend.channel;
+            }
+            if (toSend.action) {
+                toSend.actionId = toSend.action.id;
+                delete toSend.action;
+            }
             request.body = toSend;
         }
     }

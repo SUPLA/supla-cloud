@@ -19,6 +19,6 @@
             </div>
         </div>
         <schedule-form{% if schedule is defined %} schedule-id="{{ schedule.id }}"{% endif %}
-                {% if channelId %} channel-id="{{ channelId }}"{% endif %}></schedule-form>
+                {% if channelId %} for-channel-id="{{ channelId }}"{% endif %}></schedule-form>
     </div>
 {% endblock %}

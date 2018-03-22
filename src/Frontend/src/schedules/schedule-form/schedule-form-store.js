@@ -32,8 +32,8 @@ export const mutations = {
     clearNextRunDates(state) {
         state.nextRunDates = [];
     },
-    updateChannel  (state, channel) {
-        state.channel = channel;
+    updateChannel(state, channelId) {
+        state.channelId = channelId;
         state.action = undefined;
         state.actionParam = undefined;
     },
@@ -56,7 +56,7 @@ export const mutations = {
         state.timeExpression = schedule.timeExpression;
         state.dateStart = schedule.dateStart;
         state.dateEnd = schedule.dateEnd;
-        state.channel = schedule.channel.id;
+        state.channelId = schedule.channel.id;
         state.action = schedule.action.id;
         try {
             state.actionParam = JSON.parse(schedule.actionParam);

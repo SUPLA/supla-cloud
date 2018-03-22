@@ -5,15 +5,15 @@
             <select class="form-control"
                 ref="channelsDropdown"
                 :data-placeholder="$t('choose the channel')"
-                v-model="channel">
+                v-model="channelId">
                 <option v-for="channel in userChannels"
                     :value="channel.id">
                     {{ channelTitle(channel) }}
                 </option>
             </select>
         </div>
-        <div v-show="channel">
-            <div v-for="possibleAction in channelFunctionMap[channel]">
+        <div v-show="channelId">
+            <div v-for="possibleAction in channelFunctionMap[channelId]">
                 <div class="radio">
                     <label>
                         <input type="radio"
@@ -63,7 +63,7 @@
                     this.userChannels = body.userChannels;
                     this.channelFunctionMap = body.channelFunctionMap;
                     Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
-                        this.channel = e.currentTarget.value;
+                        this.channelId = e.currentTarget.value;
                     }));
                 } else {
                     this.userChannels = undefined;
@@ -81,17 +81,17 @@
         },
         computed: {
             chosenChannel() {
-                return this.userChannels.filter(c => c.id == this.channel)[0];
+                return this.userChannels.filter(c => c.id == this.channelId)[0];
             },
-            channel: {
+            channelId: {
                 get() {
                     Vue.nextTick(() => $(this.$refs.channelsDropdown).trigger("chosen:updated"));
-                    return this.$store.state.channel;
+                    return this.$store.state.channelId;
                 },
-                set(channel) {
-                    this.$store.commit('updateChannel', channel);
-                    if (channel && this.channelFunctionMap[channel].length == 1) {
-                        this.action = this.channelFunctionMap[channel][0];
+                set(channelId) {
+                    this.$store.commit('updateChannel', channelId);
+                    if (channelId && this.channelFunctionMap[channelId].length == 1) {
+                        this.action = this.channelFunctionMap[channelId][0];
                     }
                 }
             },

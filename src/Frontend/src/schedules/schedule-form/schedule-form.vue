@@ -1,6 +1,6 @@
 <template>
     <div>
-        <loading-dots v-if="scheduleId && !channel"></loading-dots>
+        <loading-dots v-if="scheduleId && !channelId"></loading-dots>
         <div v-else>
             <div class="row">
                 <div class="col-sm-12">
@@ -92,7 +92,7 @@
 
     export default {
         name: 'schedule-form',
-        props: ['scheduleId', 'channelId'],
+        props: ['scheduleId', 'forChannelId'],
         store: new Vuex.Store({
             state: {
                 caption: '',
@@ -103,7 +103,7 @@
                 fetchingNextRunDates: false,
                 nextRunDates: [],
                 retry: true,
-                channel: undefined,
+                channelId: undefined,
                 action: undefined,
                 actionParam: undefined,
                 submitting: false,
@@ -130,7 +130,7 @@
                     this.$store.commit('updateRetry', retry);
                 }
             },
-            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channel', 'action', 'submitting', 'schedule'])
+            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'action', 'submitting', 'schedule'])
         },
         mounted() {
             if (this.scheduleId) {
@@ -138,8 +138,8 @@
                     this.loadScheduleToEdit(body);
                 });
             }
-            else if (this.channelId) {
-                this.$store.commit('updateChannel', this.channelId);
+            else if (this.forChannelId) {
+                this.$store.commit('updateChannel', this.forChannelId);
             }
         },
         components: {
