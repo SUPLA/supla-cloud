@@ -46,7 +46,7 @@ class ApiScheduleControllerIntegrationTest extends IntegrationTestCase {
     public function testCreatingNewSchedule() {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/web-api/schedules', [
-            'channel' => $this->device->getChannels()[0]->getId(),
+            'channelId' => $this->device->getChannels()[0]->getId(),
             'actionId' => ChannelFunctionAction::TURN_ON,
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
