@@ -42,6 +42,12 @@
                         <schedule-form-action-chooser></schedule-form-action-chooser>
                         <div class="text-right"
                             v-if="!submitting">
+                            <a class="btn btn-white"
+                                :href="`/schedules/${schedule.id}` | withBaseUrl"
+                                v-if="schedule.id">
+                                <i class="pe-7s-back-2"></i>
+                                {{ $t('Cancel') }}
+                            </a>
                             <button class="btn btn-white btn-lg"
                                 v-if="schedule.enabled === false"
                                 :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"

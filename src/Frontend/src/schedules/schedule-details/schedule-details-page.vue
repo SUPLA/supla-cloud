@@ -13,7 +13,7 @@
                             {{ $t('Delete') }}
                         </a>
                         <a class="btn btn-default"
-                            @click="$emit('delete')">
+                            :href="'/schedules/edit/' + schedule.id | withBaseUrl">
                             {{ $t('Edit') }}
                         </a>
                     </div>

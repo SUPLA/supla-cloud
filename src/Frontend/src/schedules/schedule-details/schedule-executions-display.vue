@@ -3,7 +3,7 @@
         v-if="executions">
         <li v-for="execution, $index in executions.past"
             :class="'past past' + (executions.past.length - $index) + (execution.failed ? ' failed' : '')">
-            {{ (execution.resultTimestamp || execution.plannedTimestamp) | moment('LLL') }}
+            {{ (execution.resultTimestamp || execution.plannedTimestamp) | moment('LLLL') }}
             <div class="small"
                 v-if="execution.failed">
                 {{ $t(execution.result.caption) }}
@@ -11,7 +11,7 @@
         </li>
         <li :class="'future future' + $index"
             v-for="execution, $index in executions.future">
-            {{ execution.plannedTimestamp|moment('LLL') }}
+            {{ execution.plannedTimestamp|moment('LLLL') }}
         </li>
         <!--{% endfor %}-->
         <!--{% for execution in closestExecutions['future'] %}-->
@@ -72,23 +72,23 @@
         color: #f00;
     }
 
-    .schedule-times .future1 {
+    .schedule-times .future0 {
         opacity: 1;
         font-size: 1.1em;
         font-weight: bold;
     }
 
-    .schedule-times .future2 {
+    .schedule-times .future1 {
         opacity: .9;
         font-size: 1em;
     }
 
-    .schedule-times .future3 {
+    .schedule-times .future2 {
         opacity: .8;
         font-size: .9em;
     }
 
-    .schedule-times .future4 {
+    .schedule-times .future3 {
         opacity: .6;
         font-size: .8em;
     }
