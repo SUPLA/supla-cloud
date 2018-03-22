@@ -43,7 +43,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testRequiresActionParamsForRgbLighting() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
+        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'actionId' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
     }
 
     public function testSettingActionParamsAsArray() {
@@ -51,10 +51,10 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
         $schedule->fill([
             'mode' => 'hourly',
             'timeExpression' => '*',
-            'action' => ChannelFunctionAction::REVEAL_PARTIALLY,
+            'actionId' => ChannelFunctionAction::REVEAL_PARTIALLY,
             'actionParam' => ['percentage' => 12],
         ]);
-        $this->assertEquals('{"percentage":12}', $schedule->getActionParam());
+        $this->assertEquals(['percentage' => 12], $schedule->getActionParam());
     }
 
     public function testSettingInvalidActionParam() {
