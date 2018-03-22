@@ -156,17 +156,13 @@ class Schedule {
         return $this->user;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTimeExpression() {
+    public function getTimeExpression(): string {
         return $this->timeExpression;
     }
 
-    /**
-     * @param mixed $timeExpression
-     */
-    public function setTimeExpression($timeExpression) {
+    public function setTimeExpression(string $timeExpression) {
+        $parts = explode(' ', $timeExpression);
+        Assert::that($parts[0])->notEq('*')->notEq('*/2')->notEq('*/3')->notEq('*/4');
         $this->timeExpression = $timeExpression;
     }
 

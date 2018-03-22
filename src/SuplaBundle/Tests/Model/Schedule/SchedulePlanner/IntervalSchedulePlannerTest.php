@@ -61,11 +61,8 @@ class IntervalSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
 
     public function invalidCronExpressions() {
         return [
-            [null],
             [''],
-            ['*'],
             ['S * * * *'],
-            ['* * * * * * *'],
             ['*/5 2 * * *'],
             ['5 * * * *'],
         ];

@@ -24,8 +24,8 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 class ScheduleTest extends \PHPUnit_Framework_TestCase {
     public function testSettingTheCronExpression() {
         $schedule = new Schedule();
-        $schedule->setTimeExpression('* * * * * *');
-        $this->assertEquals('* * * * * *', $schedule->getTimeExpression());
+        $schedule->setTimeExpression('*/5 * * * * *');
+        $this->assertEquals('*/5 * * * * *', $schedule->getTimeExpression());
     }
 
     public function testFillRequiredTimeExpression() {
@@ -36,7 +36,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
 
     public function testFillFillsCaption() {
         $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'caption' => 'My Caption']);
+        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '6', 'caption' => 'My Caption']);
         $this->assertEquals('My Caption', $schedule->getCaption());
     }
 
@@ -50,7 +50,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
         $schedule = new Schedule();
         $schedule->fill([
             'mode' => 'hourly',
-            'timeExpression' => '*',
+            'timeExpression' => '3',
             'actionId' => ChannelFunctionAction::REVEAL_PARTIALLY,
             'actionParam' => ['percentage' => 12],
         ]);
@@ -61,5 +61,10 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
         $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'actionParam' => '{"color": 123']);
+    }
+
+    public function testSettingTooShortTimeExpression() {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Schedule())->setTimeExpression('* * * * *');
     }
 }
