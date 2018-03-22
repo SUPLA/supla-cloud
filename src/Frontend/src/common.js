@@ -55,6 +55,7 @@ const components = {
     LanguageSelector: () => import('./login/language-selector.vue'),
     LocationsPage: () => import("./locations/locations-page.vue"),
     ScheduleForm: () => import("./schedules/schedule-form/schedule-form.vue"),
+    ScheduleDetailsPage: () => import("./schedules/schedule-details/schedule-details-page"),
     ScheduleListPage: () => import("./schedules/schedule-list/schedule-list-page.vue"),
     TimezonePicker: () => import("./account-details/timezone-picker.vue"),
 };

@@ -59,7 +59,16 @@ class ScheduleController extends AbstractController {
      * @Security("user == schedule.getUser()")
      * @Template()
      */
-    public function scheduleDetailsAction(Schedule $schedule, Request $request) {
+    public function scheduleDetailsAction(Schedule $schedule) {
+        return ['schedule' => $schedule];
+    }
+
+    /**
+     * @Route("/{schedule}/old", name="_schedule_details_old")
+     * @Security("user == schedule.getUser()")
+     * @Template()
+     */
+    public function scheduleDetailsOldAction(Schedule $schedule, Request $request) {
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
             if (isset($data['disable'])) {
