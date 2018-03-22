@@ -19,7 +19,7 @@
         mounted() {
             let datepicker = $(this.$refs.datepicker);
             datepicker.datetimepicker({
-                minDate: 'now',
+                minDate: moment().add(5, 'minute').toDate(),
                 locale: Vue.config.lang,
                 stepping: 5,
                 inline: true,

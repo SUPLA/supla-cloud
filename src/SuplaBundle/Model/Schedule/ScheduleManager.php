@@ -113,17 +113,17 @@ class ScheduleManager {
             $schedule->getDateEnd()->setTimezone($userTimezone);
             $until = min($schedule->getDateEnd()->getTimestamp(), strtotime($until));
         }
-        $time = $this->timeProvider->getTimestamp();
-        if ($schedule->getDateStart()->getTimestamp() < $time) {
-            $schedule->getDateStart()->setTimestamp($time);
+        $closestTime = $this->timeProvider->getTimestamp() + 300;
+        if ($schedule->getDateStart()->getTimestamp() < $closestTime) {
+            $schedule->getDateStart()->setTimestamp($closestTime);
         }
         $dateStart = $schedule->getDateStart();
         $latestExecution = $this->findLatestExecution($schedule);
         if ($latestExecution && !$ignoreExisting) {
             $dateStart = clone $latestExecution->getPlannedTimestamp();
         }
-        if ($dateStart->getTimestamp() < $time) {
-            $dateStart->setTimestamp($time);
+        if ($dateStart->getTimestamp() < $closestTime) {
+            $dateStart->setTimestamp($closestTime);
         }
         $dateStart->setTimezone($userTimezone);
         $nextRunDates = $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
