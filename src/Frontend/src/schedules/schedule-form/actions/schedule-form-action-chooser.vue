@@ -18,14 +18,14 @@
                     <label>
                         <input type="radio"
                             :value="possibleAction.id"
-                            v-model="action">
+                            v-model="actionId">
                         {{ $t(possibleAction.caption) }}
                     </label>
                 </div>
-                <span v-if="possibleAction.id == 50 && action == possibleAction.id">
+                <span v-if="possibleAction.id == 50 && actionId == possibleAction.id">
                     <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
                 </span>
-                <span v-if="possibleAction.id == 80 && action == possibleAction.id">
+                <span v-if="possibleAction.id == 80 && actionId == possibleAction.id">
                     <rgbw-parameters-setter v-model="actionParam"
                         :channel-function="chosenChannel.function"></rgbw-parameters-setter>
                 </span>
@@ -91,16 +91,16 @@
                 set(channelId) {
                     this.$store.commit('updateChannel', channelId);
                     if (channelId && this.channelFunctionMap[channelId].length == 1) {
-                        this.action = this.channelFunctionMap[channelId][0];
+                        this.actionId = this.channelFunctionMap[channelId][0];
                     }
                 }
             },
-            action: {
+            actionId: {
                 get() {
-                    return this.$store.state.action;
+                    return this.$store.state.actionId;
                 },
-                set(action) {
-                    this.$store.commit('updateAction', action);
+                set(actionId) {
+                    this.$store.commit('updateAction', actionId);
                 }
             },
             actionParam: {

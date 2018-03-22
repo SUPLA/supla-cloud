@@ -50,13 +50,13 @@
                             </a>
                             <button class="btn btn-white btn-lg"
                                 v-if="schedule.enabled === false"
-                                :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
+                                :disabled="actionId == undefined || !nextRunDates.length || fetchingNextRunDates"
                                 @click="submit()">
                                 <i class="pe-7s-diskette"></i>
                                 {{ $t('Save') }}
                             </button>
                             <button class="btn btn-green btn-lg"
-                                :disabled="action == undefined || !nextRunDates.length || fetchingNextRunDates"
+                                :disabled="actionId == undefined || !nextRunDates.length || fetchingNextRunDates"
                                 @click="submit(true)">
                                 <i :class="scheduleId ? 'pe-7s-diskette' : 'pe-7s-plus'"></i>
                                 {{ $t(scheduleId ? (schedule.enabled ? 'Save' : 'Save and enable') : 'Add') }}
@@ -104,7 +104,7 @@
                 nextRunDates: [],
                 retry: true,
                 channelId: undefined,
-                action: undefined,
+                actionId: undefined,
                 actionParam: undefined,
                 submitting: false,
                 schedule: {},
@@ -130,7 +130,7 @@
                     this.$store.commit('updateRetry', retry);
                 }
             },
-            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'action', 'submitting', 'schedule'])
+            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'actionId', 'submitting', 'schedule'])
         },
         mounted() {
             if (this.scheduleId) {

@@ -131,7 +131,7 @@ class Schedule {
     public function fill(array $data) {
         Assert::that($data)->notEmptyKey('timeExpression');
         $this->setTimeExpression($data['timeExpression']);
-        $this->setAction(new ChannelFunctionAction($data['action'] ?? ChannelFunctionAction::TURN_ON));
+        $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
         $this->setChannel($data['channel'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
@@ -192,11 +192,9 @@ class Schedule {
         $this->action = $action->getValue();
     }
 
-    /**
-     * @return string
-     */
+    /** @return array|null */
     public function getActionParam() {
-        return $this->actionParam;
+        return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
     }
 
     /** @param array|null */

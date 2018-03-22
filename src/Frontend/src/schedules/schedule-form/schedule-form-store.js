@@ -2,7 +2,7 @@ import Vue from "vue";
 import {withBaseUrl} from "../../common/filters";
 
 export const mutations = {
-    changeScheduleMode (state, newScheduleMode) {
+    changeScheduleMode(state, newScheduleMode) {
         state.mode = newScheduleMode;
         state.nextRunDates = [];
         state.timeExpression = '';
@@ -34,17 +34,17 @@ export const mutations = {
     },
     updateChannel(state, channelId) {
         state.channelId = channelId;
-        state.action = undefined;
+        state.actionId = undefined;
         state.actionParam = undefined;
     },
-    updateAction  (state, action) {
-        state.action = action;
+    updateAction(state, actionId) {
+        state.actionId = actionId;
         state.actionParam = undefined;
     },
-    updateActionParam  (state, actionParam) {
+    updateActionParam(state, actionParam) {
         state.actionParam = actionParam;
     },
-    submit (state) {
+    submit(state) {
         state.submitting = true;
     },
     submitFailed(state) {
@@ -57,12 +57,8 @@ export const mutations = {
         state.dateStart = schedule.dateStart;
         state.dateEnd = schedule.dateEnd;
         state.channelId = schedule.channel.id;
-        state.action = schedule.action.id;
-        try {
-            state.actionParam = JSON.parse(schedule.actionParam);
-        } catch (e) {
-            // what a pity
-        }
+        state.actionId = schedule.action.id;
+        state.actionParam = schedule.actionParam;
         state.caption = schedule.caption;
         state.retry = schedule.retry;
     }

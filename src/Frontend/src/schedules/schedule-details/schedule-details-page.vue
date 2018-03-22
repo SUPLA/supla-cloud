@@ -72,7 +72,8 @@
                         </div>
                         <div class="col-sm-4">
                             <h3 class="text-center">{{ $t('Executions') }}</h3>
-                            <schedule-executions-display :schedule="schedule"></schedule-executions-display>
+                            <schedule-executions-display :schedule="schedule"
+                                v-if="!loading"></schedule-executions-display>
                             <h4 class="text-center"
                                 v-if="!schedule.enabled">{{ $t('No future executions - schedule disabled') }}</h4>
                         </div>

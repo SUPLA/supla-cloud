@@ -11,6 +11,7 @@
                 </div>
             </li>
             <li :class="'future future' + $index"
+                v-if="schedule.enabled"
                 v-for="execution, $index in executions.future">
                 {{ execution.plannedTimestamp|moment('LLLL') }}
             </li>
