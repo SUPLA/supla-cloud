@@ -19,13 +19,15 @@
                     </div>
                 </transition>
                 <transition name="fade">
-                    <slot name="buttons"></slot>
-                    <div class="btn-toolbar"
-                        v-if="!isPending && deletable">
-                        <a class="btn btn-danger"
-                            @click="$emit('delete')">
-                            {{ $t('Delete') }}
-                        </a>
+                    <div v-if="!isPending">
+                        <slot name="buttons"></slot>
+                        <div class="btn-toolbar"
+                            v-if="deletable">
+                            <a class="btn btn-danger"
+                                @click="$emit('delete')">
+                                {{ $t('Delete') }}
+                            </a>
+                        </div>
                     </div>
                 </transition>
             </div>

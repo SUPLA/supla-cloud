@@ -104,3 +104,16 @@ export function iodeviceTranformer(request, next) {
     }
     next();
 }
+
+export function scheduleTranformer(request, next) {
+    if (request.url.startsWith('schedules')) {
+        if (request.body && request.body.id) {
+            const toSend = Vue.util.extend({}, request.body);
+            toSend.channel = toSend.channel.id;
+            toSend.scheduleMode = toSend.mode.value;
+            toSend.action = toSend.action.id;
+            request.body = toSend;
+        }
+    }
+    next();
+}

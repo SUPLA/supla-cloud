@@ -1,15 +1,16 @@
 <template>
     <div>
-        <loading-cover :loading="!schedule">
+        <loading-cover :loading="!schedule || loading">
             <div class="container"
                 v-if="schedule">
                 <pending-changes-page :header="$t('Schedule') + ' ID' + schedule.id"
                     @cancel="cancelChanges()"
-                    @save="saveChanges()">
+                    @save="saveChanges()"
+                    :is-pending="hasPendingChanges">
                     <div class="btn-toolbar"
                         slot="buttons">
                         <a class="btn btn-danger"
-                            @click="$emit('delete')">
+                            @click="deleteConfirm = true">
                             {{ $t('Delete') }}
                         </a>
                         <a class="btn btn-default"
@@ -31,18 +32,18 @@
                                     <dt>
                                         <input type="text"
                                             class="form-control text-center"
-                                            @change="updateChannel()"
+                                            @change="updateSchedule()"
                                             v-model="schedule.caption">
                                     </dt>
                                     <dd>{{ $t('Enabled') }}</dd>
                                     <dt>
                                         <toggler v-model="schedule.enabled"
-                                            @input="updateChannel()"></toggler>
+                                            @input="updateSchedule()"></toggler>
                                     </dt>
                                     <dd>{{ $t('Retry when fail') }}</dd>
                                     <dt>
                                         <toggler v-model="schedule.retry"
-                                            @input="updateChannel()"></toggler>
+                                            @input="updateSchedule()"></toggler>
                                     </dt>
                                     <dd>{{ $t('Action') }}</dd>
                                     <dt>{{ $t(schedule.action.caption) }}</dt>
@@ -71,14 +72,20 @@
                         </div>
                         <div class="col-sm-4">
                             <h3 class="text-center">{{ $t('Executions') }}</h3>
-                            <schedule-executions-display :schedule="schedule"
-                                v-if="schedule.enabled"></schedule-executions-display>
+                            <schedule-executions-display :schedule="schedule"></schedule-executions-display>
                             <h4 class="text-center"
-                                v-else>{{ $t('No future executions - schedule disabled') }}</h4>
+                                v-if="!schedule.enabled">{{ $t('No future executions - schedule disabled') }}</h4>
                         </div>
                     </div>
                 </pending-changes-page>
             </div>
+            <modal-confirm v-if="deleteConfirm"
+                class="modal-warning"
+                @confirm="deleteSchedule()"
+                @cancel="deleteConfirm = false"
+                :header="$t('Are you sure you want to delete this schedule?')"
+                :loading="loading">
+            </modal-confirm>
         </loading-cover>
     </div>
 </template>
@@ -89,6 +96,7 @@
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ScheduleExecutionsDisplay from "./schedule-executions-display";
+    import {withBaseUrl} from "../../common/filters";
 
     export default {
         components: {
@@ -101,16 +109,40 @@
         props: ['scheduleId'],
         data() {
             return {
-                schedule: undefined
+                schedule: undefined,
+                hasPendingChanges: false,
+                loading: false,
+                deleteConfirm: false,
             };
         },
         mounted() {
-            let endpoint = `schedules/${this.scheduleId}?include=channel,iodevice,location`;
-            this.$http.get(endpoint).then(({body}) => {
-                this.schedule = body;
-            });
+            this.fetch();
         },
-        methods: {},
+        methods: {
+            fetch() {
+                this.loading = true;
+                this.$http.get(`schedules/${this.scheduleId}?include=channel,iodevice,location`).then(({body}) => {
+                    this.schedule = body;
+                    this.hasPendingChanges = this.loading = false;
+                });
+            },
+            cancelChanges() {
+                this.fetch();
+            },
+            updateSchedule() {
+                this.hasPendingChanges = true;
+            },
+            saveChanges() {
+                this.loading = true;
+                this.$http.put(`schedules/${this.scheduleId}`, this.schedule)
+                    .then(response => $.extend(this.schedule, response.body))
+                    .then(() => this.loading = this.hasPendingChanges = false);
+            },
+            deleteSchedule() {
+                this.loading = true;
+                this.$http.delete(`schedules/${this.scheduleId}`).then(() => window.location.assign(withBaseUrl('schedules')));
+            }
+        },
         computed: {
             displayOpeningSensorWarning() {
                 return this.schedule &&

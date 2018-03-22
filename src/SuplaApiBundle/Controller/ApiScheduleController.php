@@ -122,6 +122,8 @@ class ApiScheduleController extends RestController {
                 $this->get('schedule_manager')->generateScheduledExecutions($schedule);
             } elseif ($request->get('enable')) {
                 $this->get('schedule_manager')->enable($schedule);
+            } else {
+                $this->get('schedule_manager')->disable($schedule);
             }
             return $this->view($schedule, Response::HTTP_OK);
         });
@@ -157,6 +159,14 @@ class ApiScheduleController extends RestController {
             }
         });
         return $this->view(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Security("schedule.belongsToUser(user)")
+     */
+    public function deleteScheduleAction(Schedule $schedule) {
+        $this->get('schedule_manager')->delete($schedule);
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     /**
