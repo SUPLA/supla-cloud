@@ -17,8 +17,6 @@
 
 namespace SuplaBundle\Controller;
 
-use Assert\Assertion;
-use Assert\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -61,35 +59,5 @@ class ScheduleController extends AbstractController {
      */
     public function scheduleDetailsAction(Schedule $schedule) {
         return ['schedule' => $schedule];
-    }
-
-    /**
-     * @Route("/{schedule}/old", name="_schedule_details_old")
-     * @Security("user == schedule.getUser()")
-     * @Template()
-     */
-    public function scheduleDetailsOldAction(Schedule $schedule, Request $request) {
-        if ($request->isMethod('POST')) {
-            $data = $request->request->all();
-            if (isset($data['disable'])) {
-                $this->get('schedule_manager')->disable($schedule);
-            } elseif (isset($data['enable'])) {
-                try {
-                    $this->get('schedule_manager')->enable($schedule);
-                    Assertion::true($schedule->getEnabled(), 'Schedule cannot be enabled');
-                } catch (InvalidArgumentException $e) {
-                    $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => $e->getMessage()]);
-                }
-            } elseif (isset($data['delete'])) {
-                $this->get('schedule_manager')->delete($schedule);
-                $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Schedule has been deleted']);
-                return $this->redirectToRoute("_schedule_list");
-            }
-            return $this->redirectToRoute("_schedule_details", ['schedule' => $schedule->getId()]);
-        }
-        return [
-            'schedule' => $schedule,
-            'closestExecutions' => $this->get('schedule_manager')->findClosestExecutions($schedule),
-        ];
     }
 }
