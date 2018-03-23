@@ -1,7 +1,8 @@
 <template>
     <form @submit.prevent="$emit('save')">
         <div class="clearfix left-right-header">
-            <h2 class="no-margin-top">{{ header }}</h2>
+            <h2 class="no-margin-top"
+                v-title>{{ header }}</h2>
             <div class="button-container no-margin-top">
                 <transition name="fade">
                     <div class="btn-toolbar"

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>{{ $t(header) }}</h1>
+                    <h1 v-title>{{ $t(header) }}</h1>
                     <loading-cover :loading="!items">
                         <div v-if="items">
                             <square-links-carousel-with-filters
@@ -19,7 +19,8 @@
             </div>
         </div>
         <hr v-if="item">
-        <router-view @add="onItemAdded($event)"
+        <router-view v-if="items"
+            @add="onItemAdded($event)"
             @delete="onItemDeleted()"
             @update="onItemUpdated($event)"></router-view>
     </div>

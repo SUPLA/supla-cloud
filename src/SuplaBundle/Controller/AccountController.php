@@ -19,7 +19,6 @@ namespace SuplaBundle\Controller;
 
 use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Form\Model\ChangePassword;
 use SuplaBundle\Form\Model\Registration;
@@ -184,22 +183,6 @@ class AccountController extends AbstractController {
         }
         $sl = $this->get('server_list');
         return $this->redirect($sl->getCreateAccountUrl($request));
-    }
-
-    /**
-     * @Route("", name="_account_view")
-     * @Template()
-     */
-    public function accountViewAction() {
-        return [];
-    }
-
-    /**
-     * @Route("/api", name="_api_settings")
-     * @Template()
-     */
-    public function accountApiViewAction() {
-        return [];
     }
 
     /**

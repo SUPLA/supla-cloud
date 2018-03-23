@@ -1,5 +1,6 @@
 <template>
-    <div :class="'container api-settings-page ' + (animationFinished ? 'animation-finished' : '')">
+    <div :class="'container api-settings-page ' + (animationFinished ? 'animation-finished' : '')"
+        v-title="'RESTful API'">
         <animated-svg id="api-settings-bg"
             :file="'assets/img/api-settings-account-bg.svg' | withBaseUrl"></animated-svg>
         <div class="terminal">

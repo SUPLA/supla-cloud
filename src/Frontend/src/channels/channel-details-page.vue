@@ -3,7 +3,9 @@
         <loading-cover :loading="!channel || loading">
             <div class="container"
                 v-if="channel">
-                <a :href="`/devices/${channel.iodeviceId}` | withBaseUrl">&laquo; {{ deviceTitle }}</a>
+                <router-link :to="{name: 'device', params: {id: channel.iodeviceId}}">
+                    &laquo; {{ deviceTitle }}
+                </router-link>
                 <pending-changes-page :header="channelTitle"
                     @cancel="cancelChanges()"
                     @save="saveChanges()"

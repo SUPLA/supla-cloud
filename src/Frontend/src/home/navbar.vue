@@ -169,5 +169,119 @@
 </script>
 
 <style lang="scss">
+    @import '../styles/mixins.scss';
+    @import '../styles/variables.scss';
 
+    nav.navbar-top {
+        background: $supla-white;
+        @media only screen and (min-width: 768px) {
+            .navbar-collapse {
+                display: flex !important;
+                > .nav {
+                    flex: 1;
+                    display: flex;
+                    > li {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+        .navbar-brand {
+            width: 160px;
+            font-size: 2em;
+            color: $supla-black;
+            font-family: $supla-font-special;
+            svg {
+                width: 45px;
+                height: 45px;
+                vertical-align: text-top;
+            }
+            @media only screen and (min-width: 992px) {
+                padding-top: 20px;
+            }
+            @include on-xs-and-down {
+                padding-top: 6px;
+                svg {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+        .nav > li {
+            transition: all .3s;
+            > a {
+                text-align: center;
+                font-size: 12px;
+                i {
+                    font-size: 2em;
+                    display: block;
+                    margin: 0 auto;
+                    margin-bottom: 10px;
+                }
+                &:hover, &:focus {
+                    color: $supla-green;
+                }
+            }
+        }
+        .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
+            background: $supla-green;
+            border-bottom-color: $supla-green;
+            > a, > a:hover, > a:focus {
+                border-bottom-color: $supla-green;
+                background: transparent;
+                color: $supla-white;
+            }
+            @include on-xs-and-down {
+                background: transparent;
+                > a, > a:hover, > a:focus {
+                    background: $supla-green;
+                }
+            }
+        }
+        .account-dropdown {
+            .dropdown-menu {
+                border-top-left-radius: 4px;
+            }
+            &, a {
+                text-align: center;
+            }
+            .username {
+                display: block;
+                text-align: center;
+                font-size: 1.3em;
+                font-family: $supla-font-special;
+            }
+            .flags {
+                text-align: center;
+                a {
+                    display: inline-block;
+                    padding: 3px;
+                    &.active {
+                        img {
+                            border-color: $supla-green;
+                        }
+                    }
+                }
+                img {
+                    display: block;
+                    width: 36px;
+                    height: 36px;
+                    border: solid 2px $supla-grey-light;
+                    border-radius: 100%;
+                    transition: all .2s ease-in-out;
+                }
+            }
+            .btn-group {
+                margin: 0;
+                padding: 0;
+                .btn {
+                    border: 0;
+                }
+            }
+        }
+    }
 </style>

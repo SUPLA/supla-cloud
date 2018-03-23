@@ -16,6 +16,7 @@ import "./common/common-components";
 import "./common/common-directives";
 import "./common/filters";
 import "style-loader!css-loader!sass-loader!./styles/styles.scss";
+import routes from "./routes";
 
 Vue.use(Vuex);
 Vue.use(VueI18N);
@@ -44,56 +45,19 @@ moment.tz.setDefault(Vue.config.external.timezone);
     };
 })();
 
-const components = {
-    AccountPage: () => import("./account-details/account-page"),
-    AccessIdsPage: () => import("./access-ids/access-ids-page.vue"),
-    ApiSettingsPage: () => import("./account-details/api-settings-page"),
-    ChannelDetailsPage: () => import("./channels/channel-details-page.vue"),
-    ChannelGroupsPage: () => import("./channel-groups/channel-groups-page.vue"),
-    ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),
-    HomePage: () => import("./home/home-page"),
-    MySuplaPage: () => import("./home/my-supla-page"),
-    Navbar: () => import("./home/navbar"),
-    DeviceDetailsPage: () => import("./devices/details/device-details-page"),
-    IdleLogout: () => import("./common/idle-logout.vue"),
-    LanguageSelector: () => import('./login/language-selector.vue'),
-    LocationsPage: () => import("./locations/locations-page.vue"),
-    ScheduleForm: () => import("./schedules/schedule-form/schedule-form.vue"),
-    ScheduleDetailsPage: () => import("./schedules/schedule-details/schedule-details-page"),
-    ScheduleListPage: () => import("./schedules/schedule-list/schedule-list-page.vue"),
-};
-
-const routes = [
-    {path: '/', component: components.HomePage},
-    {
-        path: '/access-identifiers', component: components.AccessIdsPage, name: "accessIds", children: [
-            {path: ':id', component: () => import("./access-ids/access-id-details"), name: 'accessId', props: true}
-        ]
-    },
-    {path: '/account', component: components.AccountPage},
-    {path: '/api', component: components.ApiSettingsPage},
-    {
-        path: '/channel-groups', component: components.ChannelGroupsPage, name: 'channelGroups', children: [
-            {path: ':id', component: () => import("./channel-groups/channel-group-details"), name: 'channelGroup', props: true}
-        ]
-    },
-    {path: '/channels/:id', component: components.ChannelDetailsPage, name: 'channel', props: true},
-    {path: '/devices/:id', component: components.DeviceDetailsPage, name: 'device', props: true},
-    {
-        path: '/locations', component: components.LocationsPage, name: 'locations', children: [
-            {path: ':id', component: () => import("./locations/location-details"), name: 'location', props: true}
-        ]
-    },
-    {path: '/me', component: components.MySuplaPage},
-    {path: '/schedules', component: components.ScheduleListPage},
-    {path: '/smartphones', component: components.ClientAppsPage},
-];
-
 const router = new VueRouter({
     routes,
     base: Vue.config.external.baseUrl + '/',
     linkActiveClass: 'active',
     mode: 'history',
+});
+
+router.afterEach((to) => {
+    if (to.meta.bodyClass) {
+        document.body.setAttribute('class', to.meta.bodyClass);
+    } else {
+        document.body.removeAttribute('class');
+    }
 });
 
 $(document).ready(() => {
@@ -107,7 +71,6 @@ $(document).ready(() => {
             el: '.vue-container',
             i18n,
             router,
-            components: {Navbar: components.Navbar},
         });
         Vue.http.interceptors.push(ResponseErrorInterceptor(app));
         for (let transformer in requestTransformers) {

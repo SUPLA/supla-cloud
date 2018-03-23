@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="{{ _charset }}">
-    <title>{% if page_title is defined %} {{ page_title }} | {% endif %}SUPLA CLOUD</title>
+    <title>{% if page_title is defined %} {{ page_title }} | {% endif %}SUPLA Cloud</title>
     <meta name="viewport"
             content="width=device-width, initial-scale=1">
     <meta name="theme-color"
@@ -38,7 +38,7 @@
     <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
     <base href="{{ path('_homepage')[:-1] }}/">
 </head>
-<body class="{{ app.request.get('_route') }}">
+<body>
 {% block body %}{% endblock %}
 {% block scripts %}{% endblock %}
 </body>

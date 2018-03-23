@@ -48,12 +48,12 @@
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
-                                <a :href="`/locations/${device.originalLocation.id}` | withBaseUrl"
+                                <router-link :to="{name: 'location', params: device.originalLocation}"
                                     class="original-location"
                                     v-if="device.originalLocationId && device.originalLocationId != device.locationId">
                                     {{ $t('Original location')}}
                                     <strong>{{ device.originalLocation.caption }}</strong>
-                                </a>
+                                </router-link>
                                 <square-location-chooser v-model="device.location"
                                     @input="onLocationChange($event)"></square-location-chooser>
                             </div>
@@ -61,11 +61,12 @@
                                 <h3>{{ $t('Access ID') }}</h3>
                                 <div class="list-group"
                                     v-if="device.location.accessIdsIds.length > 0 && device.location.accessIds">
-                                    <a :href="`/access-identifiers/${aid.id}` | withBaseUrl"
+                                    <router-link :to="{name: 'accessId', params: aid}"
                                         v-for="aid in device.location.accessIds"
-                                        class="list-group-item">
+                                        class="list-group-item"
+                                        :key="aid.id">
                                         ID{{ aid.id }} {{ aid.caption }}
-                                    </a>
+                                    </router-link>
                                 </div>
                                 <div class="list-group"
                                     v-else>
