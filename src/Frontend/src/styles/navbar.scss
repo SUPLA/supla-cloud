@@ -111,13 +111,15 @@ nav.navbar-top {
   }
 }
 
-._account_view nav.navbar-top {
-  background: $supla-green;
-  .navbar-brand {
-    color: $supla-white;
-    fill: $supla-white;
-  }
-  #supla-navbar > .nav > li > a {
-    color: $supla-white;
+._account_view, ._api_settings {
+  nav.navbar-top {
+    background: $supla-green;
+    .navbar-brand {
+      color: $supla-white;
+      fill: $supla-white;
+    }
+    #supla-navbar > .nav > li > a {
+      color: $supla-white;
+    }
   }
 }

@@ -45,6 +45,7 @@ moment.tz.setDefault(Vue.config.external.timezone);
 const components = {
     AccountPage: () => import("./account-details/account-page"),
     AccessIdsPage: () => import("./access-ids/access-ids-page.vue"),
+    ApiSettingsPage: () => import("./account-details/api-settings-page"),
     ChannelDetailsPage: () => import("./channels/channel-details-page.vue"),
     ChannelGroupsPage: () => import("./channel-groups/channel-groups-page.vue"),
     ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),

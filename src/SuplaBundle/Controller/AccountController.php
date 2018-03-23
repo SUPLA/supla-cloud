@@ -195,6 +195,14 @@ class AccountController extends AbstractController {
     }
 
     /**
+     * @Route("/api", name="_api_settings")
+     * @Template()
+     */
+    public function accountApiViewAction() {
+        return [];
+    }
+
+    /**
      * @Route("/reset_passwd/{token}", name="_account_reset_passwd")
      */
     public function resetPasswordAction(Request $request, $token) {

@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class APIController extends Controller {
 
     /**
-     * @Route("/api-settings", name="_api_settings")
+     * @Route("/api-settings")
      */
     public function apiSettingsAction() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
