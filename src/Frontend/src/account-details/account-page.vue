@@ -2,7 +2,7 @@
     <div class="account-page">
         <animated-svg id="user-account-bg"
             :file="'assets/img/user-account-bg.svg' | withBaseUrl"></animated-svg>
-        <div class="user-account-container">
+        <div :class="'user-account-container ' + (animationFinished ? 'animation-finished' : '')">
             <loading-cover :loading="!user">
                 <span class="supla-version">supla cloud {{ version }}</span>
                 <transition name="fade">
@@ -45,10 +45,12 @@
         data() {
             return {
                 user: undefined,
+                animationFinished: false,
                 version: VERSION, // eslint-disable-line no-undef
             };
         },
         mounted() {
+            setTimeout(() => this.animationFinished = true, 2000);
             this.$http.get('users/current').then(response => {
                 this.user = response.body;
             });
@@ -58,6 +60,7 @@
 </script>
 
 <style lang="scss">
+    @import '../styles/mixins';
     @import '../styles/variables';
 
     ._account_view {
@@ -98,6 +101,7 @@
             height: 306px;
             background: $supla-white;
             h1 {
+                margin-top: 0;
                 text-transform: none;
                 border-bottom: solid 1px rgba(0, 0, 0, .2);
                 text-overflow: ellipsis;
@@ -117,6 +121,40 @@
                 margin: 0 0 0 180px;
                 line-height: 25px;
                 color: $supla-green
+            }
+        }
+    }
+
+    @include on-xs-and-down {
+        .account-page {
+            margin-top: 0;
+        }
+        #user-account-bg {
+            display: none;
+        }
+        .user-account-container {
+            padding-top: 0;
+            width: 95%;
+            .user-account {
+                height: auto;
+            }
+        }
+    }
+
+    @include on-xs-and-up {
+        .user-account-container {
+            opacity: 0;
+            transition: opacity .3s;
+            .user-account {
+                opacity: 0;
+                transition: opacity .3s;
+                transition-delay: .4s;
+            }
+            &.animation-finished {
+                opacity: 1;
+                .user-account {
+                    opacity: 1;
+                }
             }
         }
     }
