@@ -105,7 +105,9 @@ class ApiScheduleController extends RestController {
         $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data);
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
-        $this->get('schedule_manager')->generateScheduledExecutions($schedule);
+        if ($schedule->getChannel()->getIoDevice()->getEnabled()) {
+            $this->get('schedule_manager')->enable($schedule);
+        }
         return $this->view($schedule, Response::HTTP_CREATED);
     }
 
@@ -120,7 +122,7 @@ class ApiScheduleController extends RestController {
             $em->persist($schedule);
             if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
                 $this->get('schedule_manager')->enable($schedule);
-            } elseif ($schedule->getEnabled() && !($data['enabled'] ?? false)) {
+            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? false) || !$schedule->getChannel()->getIoDevice()->getEnabled())) {
                 $this->get('schedule_manager')->disable($schedule);
             }
             if ($schedule->getEnabled()) {

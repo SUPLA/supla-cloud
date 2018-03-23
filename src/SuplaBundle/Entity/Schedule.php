@@ -102,7 +102,7 @@ class Schedule {
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      * @Groups({"basic"})
      */
-    protected $enabled = true;
+    protected $enabled = false;
 
     /**
      * @ORM\Column(name="next_calculation_date", type="utcdatetime", nullable=true)
