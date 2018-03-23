@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
 import Vuex from "vuex";
 import VueI18N from "vue-i18n";
+import VueRouter from "vue-router";
 import VueLocalStorage from 'vue-localstorage';
 import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
@@ -20,6 +21,7 @@ Vue.use(Vuex);
 Vue.use(VueI18N);
 Vue.use(VueMoment);
 Vue.use(VueResource);
+Vue.use(VueRouter);
 Vue.use(VueLocalStorage);
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
@@ -49,7 +51,9 @@ const components = {
     ChannelDetailsPage: () => import("./channels/channel-details-page.vue"),
     ChannelGroupsPage: () => import("./channel-groups/channel-groups-page.vue"),
     ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),
+    HomePage: () => import("./home/home-page"),
     MySuplaPage: () => import("./home/my-supla-page"),
+    Navbar: () => import("./home/navbar"),
     DeviceDetailsPage: () => import("./devices/details/device-details-page"),
     IdleLogout: () => import("./common/idle-logout.vue"),
     LanguageSelector: () => import('./login/language-selector.vue'),
@@ -58,6 +62,24 @@ const components = {
     ScheduleDetailsPage: () => import("./schedules/schedule-details/schedule-details-page"),
     ScheduleListPage: () => import("./schedules/schedule-list/schedule-list-page.vue"),
 };
+
+const routes = [
+    {path: '/', component: components.HomePage},
+    {path: '/access-identifiers', component: components.AccessIdsPage},
+    {path: '/account', component: components.AccountPage},
+    {path: '/channel-groups', component: components.ChannelGroupsPage},
+    {path: '/locations', component: components.LocationsPage},
+    {path: '/me', component: components.MySuplaPage},
+    {path: '/schedules', component: components.ScheduleListPage},
+    {path: '/smartphones', component: components.ClientAppsPage},
+];
+
+const router = new VueRouter({
+    routes,
+    base: Vue.config.external.baseUrl + '/',
+    linkActiveClass: 'active',
+    mode: 'history',
+});
 
 $(document).ready(() => {
     if ($('.vue-container').length) {
@@ -69,7 +91,8 @@ $(document).ready(() => {
         const app = new Vue({
             el: '.vue-container',
             i18n,
-            components,
+            router,
+            components: {Navbar: components.Navbar},
         });
         Vue.http.interceptors.push(ResponseErrorInterceptor(app));
         for (let transformer in requestTransformers) {

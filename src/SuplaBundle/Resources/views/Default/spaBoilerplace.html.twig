@@ -1,0 +1,11 @@
+{% extends 'SuplaBundle::empty-layout.html.twig' %}
+
+{% block body %}
+    <div class="main-content vue-container">
+        <navbar></navbar>
+        <router-view></router-view>
+        {% if app.user and not app.debug %}
+            <idle-logout></idle-logout>
+        {% endif %}
+    </div>
+{% endblock %}

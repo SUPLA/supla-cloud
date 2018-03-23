@@ -3,7 +3,7 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1>{{ $t('My SUPLA') }}</h1>
+                    <h1 v-title>{{ $t('My SUPLA') }}</h1>
                     <div class="form-group">
                         <btn-filters id="mySuplaListType"
                             v-model="listType"

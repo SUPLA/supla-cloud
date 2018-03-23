@@ -73,7 +73,15 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("", name="_homepage")
+     * @Route("/", name="_homepage")
+     * @Route("/{suffix}", requirements={"suffix"="^[^(web\-api)|(api)].*"}, methods={"GET"})
+     * @Template()
+     */
+    public function spaBoilerplaceAction(Request $request) {
+    }
+
+    /**
+     * @Route("/homepage", name="_homepage_a")
      */
     public function indexAction(Request $request) {
 
@@ -111,14 +119,6 @@ class DefaultController extends Controller {
 
             ]
         );
-    }
-
-    /**
-     * @Route("me", name="_my_supla")
-     * @Template
-     */
-    public function mySuplaAction() {
-        return [];
     }
 
     /**

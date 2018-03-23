@@ -42,7 +42,7 @@ class LocaleListener implements EventSubscriberInterface {
         if ($desiredLocale = $request->get('lang')) {
             $this->rememberLocale($request, $desiredLocale);
             if ($request->getMethod() == 'GET') {
-                $uriWithoutLang = rtrim(str_replace('lang=' . $desiredLocale, '', $request->getUri()), '?');
+                $uriWithoutLang = rtrim(str_replace('lang=' . $desiredLocale, '', $request->getRequestUri()), '?');
                 $event->setResponse(new RedirectResponse($uriWithoutLang));
                 return;
             }

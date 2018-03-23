@@ -17,3 +17,12 @@ Vue.directive('go-to-link-on-row-click', {
         });
     }
 });
+
+const updatePageTitle = function (title) {
+    document.title = title + ' - SUPLA Cloud';
+};
+
+Vue.directive('title', {
+    inserted: (el, binding) => updatePageTitle(binding.value || el.innerText),
+    update: (el, binding) => updatePageTitle(binding.value || el.innerText),
+});

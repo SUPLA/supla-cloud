@@ -3,7 +3,7 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1>{{ $t('Client\'s Apps') }}</h1>
+                    <h1 v-title>{{ $t('Client\'s Apps') }}</h1>
                     <h4 class="text-muted">{{ $t('smartphones, tablets, etc.') }}</h4>
                 </div>
                 <div>
