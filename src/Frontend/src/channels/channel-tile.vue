@@ -1,8 +1,7 @@
 <template>
     <square-link :class="`clearfix pointer ${model.functionId == 0 ? 'yellow' : 'grey'}`"
         @click="$emit('click')">
-        <a :href="`/channels/${model.id}` | withBaseUrl"
-            ref="tileLink">
+        <router-link :to="linkSpec">
             <function-icon :model="model"
                 width="90"></function-icon>
             <h3 class="no-margin-top">ID{{ model.id }} {{ $t(model.function.caption) }}</h3>
@@ -22,7 +21,7 @@
                 v-if="model.functionId != 0">
                 <device-connection-status-label :device="model.iodevice"></device-connection-status-label>
             </div>
-        </a>
+        </router-link>
     </square-link>
 </template>
 
@@ -33,9 +32,9 @@
     export default {
         props: ['model', 'noLink'],
         components: {FunctionIcon, DeviceConnectionStatusLabel},
-        mounted() {
-            if (this.noLink) {
-                this.$refs.tileLink.removeAttribute('href');
+        computed: {
+            linkSpec() {
+                return this.noLink ? {} : {name: 'channel', params: this.model};
             }
         }
     };

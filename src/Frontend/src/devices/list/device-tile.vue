@@ -1,7 +1,6 @@
 <template>
     <square-link :class="'clearfix pointer ' + (device.enabled ? 'green' : 'grey')">
-        <a :href="'devices/' + device.id"
-            v-fade-out-link>
+        <router-link :to="{name: 'device', params: device}">
             <h3>{{ device.name }}</h3>
             <dl>
                 <dd>{{ device.gUIDString }}</dd>
@@ -21,7 +20,7 @@
             <div class="square-link-label">
                 <device-connection-status-label :device="device"></device-connection-status-label>
             </div>
-        </a>
+        </router-link>
     </square-link>
 </template>
 

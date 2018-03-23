@@ -127,7 +127,7 @@
                 this.hasPendingChanges = false;
                 if (this.model.id) {
                     this.loading = true;
-                    this.$http.get(`channel-groups/${this.model.id}?include=channels,iodevice,location,function,type`)
+                    this.$http.get(`channel-groups/${this.model.id}?include=channels,iodevice,location,function`)
                         .then(response => this.channelGroup = response.body)
                         .finally(() => this.loading = false);
                 }

@@ -108,7 +108,7 @@
     import PendingChangesPage from "../common/pages/pending-changes-page";
 
     export default {
-        props: ['channelId'],
+        props: ['id'],
         components: {
             PendingChangesPage,
             ChannelFunctionEditConfirmation,
@@ -136,7 +136,7 @@
         methods: {
             fetchChannel() {
                 this.loading = true;
-                this.$http.get(`channels/${this.channelId}?include=iodevice,location,type,function,supportedFunctions`).then(response => {
+                this.$http.get(`channels/${this.id}?include=iodevice,location,function,supportedFunctions`).then(response => {
                     this.channel = response.body;
                     this.$set(this.channel, 'enabled', !!this.channel.function.id);
                     this.changedFunction = this.hasPendingChanges = this.loading = false;
@@ -151,7 +151,7 @@
             saveChanges: throttle(function (confirm = false) {
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
-                this.$http.put(`channels/${this.channelId}` + (confirm ? '?confirm=1' : ''), this.channel, {skipErrorHandler: true})
+                this.$http.put(`channels/${this.id}` + (confirm ? '?confirm=1' : ''), this.channel, {skipErrorHandler: true})
                     .then(response => $.extend(this.channel, response.body))
                     .then(() => this.loading = this.changedFunction = this.hasPendingChanges = false)
                     .catch(response => this.changeFunctionConfirmationObject = response.body);

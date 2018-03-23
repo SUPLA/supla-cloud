@@ -23,35 +23,37 @@
                 id="supla-navbar">
                 <ul class="nav navbar-nav">
                     <router-link tag="li"
-                        to="me">
+                        :class="{'active': subIsActive(['/devices', '/channels'])}"
+                        to="/me">
                         <a>
                             <i class="hidden-sm hidden-xs pe-7s-plug"></i>
                             {{ $t('My SUPLA') }}
                         </a>
                     </router-link>
                     <router-link tag="li"
-                        to="smartphones">
+                        to="/smartphones">
                         <a>
                             <i class="hidden-sm hidden-xs pe-7s-phone"></i>
                             {{ $t('Smartphones') }}
                         </a>
                     </router-link>
                     <router-link tag="li"
-                        to="locations">
+                        to="/locations">
                         <a>
                             <i class="hidden-sm hidden-xs pe-7s-home"></i>
                             {{ $t('Locations') }}
                         </a>
                     </router-link>
                     <router-link tag="li"
-                        to="access-identifiers">
+                        to="/access-identifiers">
                         <a>
                             <i class="hidden-sm hidden-xs pe-7s-key"></i>
                             {{ $t('Access Identifiers') }}
                         </a>
                     </router-link>
 
-                    <li class="dropdown {% if app.request.get('_route') starts with '_schedule' or app.request.get('_route') starts with '_channel_groups' %}active{% endif %}">
+                    <li class="dropdown"
+                        :class="{'active': subIsActive(['/schedules', '/channel-groups'])}">
                         <a class="dropdown-toggle"
                             data-toggle="dropdown">
                             <i class="hidden-sm hidden-xs pe-7s-config"></i>
@@ -60,14 +62,14 @@
                         </a>
                         <ul class="dropdown-menu">
                             <router-link tag="li"
-                                to="schedules">
+                                to="/schedules">
                                 <a>
                                     <i class="hidden-sm hidden-xs pe-7s-clock"></i>
                                     {{ $t('Schedules') }}
                                 </a>
                             </router-link>
                             <router-link tag="li"
-                                to="channel-groups">
+                                to="/channel-groups">
                                 <a>
                                     <i class="hidden-sm hidden-xs pe-7s-keypad"></i>
                                     {{ $t('Channel groups') }}
@@ -84,7 +86,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <router-link tag="li"
-                                to="account">
+                                to="/account">
                                 <a class="my-account">
                                     <span class="username"
                                         v-if="user">{{ user.email }}</span>
@@ -95,6 +97,7 @@
                             <li class="flags">
                                 <router-link :to="{query: { lang: flag }}"
                                     v-for="flag in ['en', 'pl', 'ru', 'de']"
+                                    :key="flag"
                                     :class="(currentLocale == flag ? 'active' : '')"
                                     @click.native="reloadPage()">
                                     <img :src="`assets/img/flags/${flag}.svg` | withBaseUrl">
@@ -103,6 +106,7 @@
                             <li class="flags">
                                 <router-link :to="{query: { lang: flag }}"
                                     v-for="flag in ['it', 'pt', 'es', 'fr']"
+                                    :key="flag"
                                     :class="(currentLocale == flag ? 'active' : '')"
                                     @click.native="reloadPage()">
                                     <img :src="`assets/img/flags/${flag}.svg` | withBaseUrl">
@@ -111,7 +115,7 @@
                             <li class="divider"></li>
                             <li class="bottom">
                                 <div class="btn-group btn-group-justified">
-                                    <router-link to="api"
+                                    <router-link to="/api"
                                         class="btn btn-default">
                                         {{ $t('RESTful API') }}
                                     </router-link>
@@ -148,6 +152,12 @@
         methods: {
             reloadPage() {
                 window.location.assign(window.location.toString());
+            },
+            subIsActive(input) {
+                const paths = Array.isArray(input) ? input : [input];
+                return paths.some(path => {
+                    return this.$route.path.indexOf(path) === 0;
+                });
             }
         },
         computed: {

@@ -84,7 +84,7 @@
                 </div>
             </div>
         </loading-cover>
-        <channel-list-page :device-id="deviceId"></channel-list-page>
+        <channel-list-page :device-id="id"></channel-list-page>
         <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
             v-if="showSchedulesDisablingConfirmation"
             :schedules="schedules"
@@ -118,7 +118,7 @@
     import SquareLocationChooser from "../../locations/square-location-chooser";
 
     export default {
-        props: ['deviceId'],
+        props: ['id'],
         components: {
             EnablingSchedulesModal,
             DisablingSchedulesModal,
@@ -146,7 +146,7 @@
         methods: {
             fetchDevice() {
                 this.loading = true;
-                return this.$http.get(`iodevices/${this.deviceId}?include=location,originalLocation,accessids`).then(response => {
+                return this.$http.get(`iodevices/${this.id}?include=location,originalLocation,accessids`).then(response => {
                     this.device = response.body;
                     this.loading = false;
                     this.hasPendingChanges = false;
@@ -161,7 +161,7 @@
             saveChanges: throttle(function (confirm = false) {
                 this.loading = true;
                 this.showSchedulesDisablingConfirmation = this.showSchedulesEnablingConfirmation = false;
-                this.$http.put(`iodevices/${this.deviceId}` + (confirm ? '?confirm=1' : ''), this.device, {skipErrorHandler: true})
+                this.$http.put(`iodevices/${this.id}` + (confirm ? '?confirm=1' : ''), this.device, {skipErrorHandler: true})
                     .then(response => $.extend(this.device, response.body))
                     .then(() => this.hasPendingChanges = false)
                     .then(() => {
@@ -179,7 +179,7 @@
             }, 1000),
             deleteDevice() {
                 this.loading = true;
-                this.$http.delete(`iodevices/${this.deviceId}`).then(() => window.location.assign(withBaseUrl('me')));
+                this.$http.delete(`iodevices/${this.id}`).then(() => window.location.assign(withBaseUrl('me')));
             },
             onLocationChange(location) {
                 this.$set(this.device, 'location', location);
