@@ -1,9 +1,9 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? '' : 'grey ')"
         @click="$emit('click')">
-        <a>
+        <router-link :to="{name: 'location', params: model}">
             <location-tile-content :location="model"></location-tile-content>
-        </a>
+        </router-link>
     </square-link>
 </template>
 

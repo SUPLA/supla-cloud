@@ -129,7 +129,7 @@
             PendingChangesPage,
             EmptyListPlaceholder
         },
-        props: ['model'],
+        props: ['id'],
         data() {
             return {
                 loading: false,
@@ -147,8 +147,8 @@
             initForModel() {
                 this.hasPendingChanges = false;
                 this.loading = true;
-                if (this.model.id) {
-                    this.$http.get(`accessids/${this.model.id}?include=locations,clientApps,password`)
+                if (this.id && this.id != 'new') {
+                    this.$http.get(`accessids/${this.id}?include=locations,clientApps,password`)
                         .then(response => this.accessId = response.body)
                         .finally(() => this.loading = false);
                 } else {
@@ -191,7 +191,7 @@
             },
         },
         watch: {
-            model() {
+            id() {
                 this.initForModel();
             }
         }

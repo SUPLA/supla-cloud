@@ -1,7 +1,7 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? 'green' : 'grey')"
         @click="$emit('click')">
-        <a>
+        <router-link :to="{name: 'channelGroup', params: model}">
             <div class="clearfix">
                 <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
                 <function-icon :model="model"
@@ -16,7 +16,7 @@
                 <div class="separator"></div>
                 {{ model.caption }}
             </div>
-        </a>
+        </router-link>
     </square-link>
 </template>
 

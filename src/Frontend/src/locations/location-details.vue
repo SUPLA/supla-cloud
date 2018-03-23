@@ -186,7 +186,7 @@
             SquareLinksCarousel,
             EmptyListPlaceholder
         },
-        props: ['model'],
+        props: ['id'],
         data() {
             return {
                 loading: false,
@@ -203,8 +203,8 @@
             initForModel() {
                 this.hasPendingChanges = false;
                 this.loading = true;
-                if (this.model.id) {
-                    this.$http.get(`locations/${this.model.id}?include=iodevices,channelGroups,accessids,password,channels`)
+                if (this.id && this.id != 'new') {
+                    this.$http.get(`locations/${this.id}?include=iodevices,channelGroups,accessids,password,channels`)
                         .then(response => this.location = response.body)
                         .finally(() => this.loading = false);
                 } else {
@@ -245,13 +245,9 @@
             }
         },
         watch: {
-            model() {
+            id() {
                 this.initForModel();
             }
         }
     };
 </script>
-
-<style scoped>
-
-</style>

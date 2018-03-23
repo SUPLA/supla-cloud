@@ -1,7 +1,7 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? '' : 'grey ')"
         @click="$emit('click')">
-        <a>
+        <router-link :to="{name: 'accessId', params: model}">
             <span>
                 <h2>ID<strong>{{ model.id }} </strong></h2>
                 <dl>
@@ -20,7 +20,7 @@
                     </span>
                 </div>
             </span>
-        </a>
+        </router-link>
     </square-link>
 </template>
 

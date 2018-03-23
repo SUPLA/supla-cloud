@@ -19,13 +19,9 @@
             </div>
         </div>
         <hr v-if="item">
-        <component :is="details"
-            v-if="item"
-            :model="item"
-            @add="onItemAdded($event)"
+        <router-view @add="onItemAdded($event)"
             @delete="onItemDeleted()"
-            @update="onItemUpdated($event)">
-        </component>
+            @update="onItemUpdated($event)"></router-view>
     </div>
 </template>
 
@@ -33,7 +29,7 @@
     import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
 
     export default {
-        props: ['header', 'tile', 'details', 'filters', 'endpoint', 'createNewLabel', 'selectedId'],
+        props: ['header', 'tile', 'filters', 'endpoint', 'createNewLabel', 'detailsRoute', 'listRoute'],
         components: {SquareLinksCarouselWithFilters},
         data() {
             return {
@@ -45,8 +41,8 @@
             this.$http.get(this.endpoint)
                 .then(({body}) => {
                     this.items = body;
-                    if (this.selectedId) {
-                        const selected = this.items.find(item => item.id == this.selectedId);
+                    if (this.$route.params.id) {
+                        const selected = this.items.find(item => item.id == this.$route.params.id);
                         if (selected) {
                             this.itemChanged(selected);
                         }
@@ -56,10 +52,14 @@
         methods: {
             itemChanged(item) {
                 this.item = item;
+                if (!item.id) {
+                    this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
+                }
             },
             onItemAdded(item) {
                 this.items.push(item);
                 this.item = item;
+                this.$router.push({name: this.detailsRoute, params: item});
             },
             onItemUpdated(item) {
                 const itemToUpdate = this.items.find(c => item.id == c.id);
@@ -68,6 +68,12 @@
             onItemDeleted() {
                 this.items.splice(this.items.indexOf(this.item), 1);
                 this.item = undefined;
+                this.$router.push({name: this.listRouteName});
+            }
+        },
+        computed: {
+            listRouteName() {
+                return this.listRoute || this.detailsRoute + 's';
             }
         }
     };

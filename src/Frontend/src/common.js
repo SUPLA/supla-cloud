@@ -65,13 +65,25 @@ const components = {
 
 const routes = [
     {path: '/', component: components.HomePage},
-    {path: '/access-identifiers', component: components.AccessIdsPage},
+    {
+        path: '/access-identifiers', component: components.AccessIdsPage, name: "accessIds", children: [
+            {path: ':id', component: () => import("./access-ids/access-id-details"), name: 'accessId', props: true}
+        ]
+    },
     {path: '/account', component: components.AccountPage},
     {path: '/api', component: components.ApiSettingsPage},
-    {path: '/channel-groups', component: components.ChannelGroupsPage},
+    {
+        path: '/channel-groups', component: components.ChannelGroupsPage, name: 'channelGroups', children: [
+            {path: ':id', component: () => import("./channel-groups/channel-group-details"), name: 'channelGroup', props: true}
+        ]
+    },
     {path: '/channels/:id', component: components.ChannelDetailsPage, name: 'channel', props: true},
     {path: '/devices/:id', component: components.DeviceDetailsPage, name: 'device', props: true},
-    {path: '/locations', component: components.LocationsPage},
+    {
+        path: '/locations', component: components.LocationsPage, name: 'locations', children: [
+            {path: ':id', component: () => import("./locations/location-details"), name: 'location', props: true}
+        ]
+    },
     {path: '/me', component: components.MySuplaPage},
     {path: '/schedules', component: components.ScheduleListPage},
     {path: '/smartphones', component: components.ClientAppsPage},

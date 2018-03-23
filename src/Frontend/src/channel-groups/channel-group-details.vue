@@ -100,7 +100,7 @@
     import PendingChangesPage from "../common/pages/pending-changes-page";
 
     export default {
-        props: ['model'],
+        props: ['id'],
         components: {
             PendingChangesPage,
             Toggler,
@@ -120,19 +120,19 @@
             };
         },
         mounted() {
-            this.initForModel();
+            this.fetch();
         },
         methods: {
-            initForModel() {
+            fetch() {
                 this.hasPendingChanges = false;
-                if (this.model.id) {
+                if (this.id && this.id != 'new') {
                     this.loading = true;
-                    this.$http.get(`channel-groups/${this.model.id}?include=channels,iodevice,location,function`)
+                    this.$http.get(`channel-groups/${this.id}?include=channels,iodevice,location,function`)
                         .then(response => this.channelGroup = response.body)
                         .finally(() => this.loading = false);
                 }
                 else {
-                    this.channelGroup = $.extend(true, {enabled: true}, this.model);
+                    this.channelGroup = {enabled: true};
                     if (!this.channelGroup.channels) {
                         this.$set(this.channelGroup, 'channels', []);
                     }
@@ -176,7 +176,7 @@
                 this.channelGroupChanged();
             },
             cancelChanges() {
-                this.initForModel();
+                this.fetch();
             },
         },
         computed: {
@@ -185,8 +185,8 @@
             }
         },
         watch: {
-            model() {
-                this.initForModel();
+            id() {
+                this.fetch();
             }
         }
     };
