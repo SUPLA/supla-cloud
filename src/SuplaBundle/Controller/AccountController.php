@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller;
 
 use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Form\Model\ChangePassword;
 use SuplaBundle\Form\Model\Registration;
@@ -186,7 +187,15 @@ class AccountController extends AbstractController {
     }
 
     /**
-     * @Route("/view", name="_account_view")
+     * @Route("", name="_account_view")
+     * @Template()
+     */
+    public function accountViewAction() {
+        return [];
+    }
+
+    /**
+     * @Route("/view")
      */
     public function viewAction() {
         $user = $this->get('security.token_storage')->getToken()->getUser();

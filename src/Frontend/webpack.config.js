@@ -29,6 +29,9 @@ module.exports = {
             name: "commons"
         }),
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, new RegExp(availableTranslations.join('|'))),
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(process.env.npm_package_version)
+        })
     ],
     module: {
         rules: [

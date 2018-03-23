@@ -110,3 +110,13 @@ nav.navbar-top {
     }
   }
 }
+
+._account_view nav.navbar-top {
+  background: $supla-green;
+  .navbar-brand {
+    color: $supla-white;
+  }
+  #supla-navbar > .nav > li > a {
+    color: $supla-white;
+  }
+}
