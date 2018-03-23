@@ -1,5 +1,5 @@
 <template>
-    <div :class="'api-settings-page ' + (animationFinished ? 'animation-finished' : '')">
+    <div :class="'container api-settings-page ' + (animationFinished ? 'animation-finished' : '')">
         <animated-svg id="api-settings-bg"
             :file="'assets/img/api-settings-account-bg.svg' | withBaseUrl"></animated-svg>
         <div class="terminal">
@@ -17,16 +17,16 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default copy"
                             type="button"
-                            data-id="server">{{ $t('copy') }}
+                            v-clipboard:copy="'blabla'">
+                            {{ $t('copy') }}
                         </button>
                     </span>
                 </div>
-                <label for="server">Server</label>
+                <label>Server</label>
 
                 <div class="input-group">
                     <input type="text"
                         class="form-control"
-                        id="token-url"
                         value="asdasdf"
                         readonly>
                     <span class="input-group-btn">
@@ -35,7 +35,77 @@
                             data-id="token-url">{{ $t('copy') }}</button>
                     </span>
                 </div>
-                <label for="token-url">Token URL</label>
+                <label>Token URL</label>
+
+                <div class="input-group">
+                    <input type="text"
+                        class="form-control"
+                        value="asdasdf"
+                        readonly>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default copy"
+                            type="button"
+                            data-id="token-url">{{ $t('copy') }}
+                        </button>
+                    </span>
+                </div>
+                <label>ClientID</label>
+
+                <div class="input-group">
+                    <input type="text"
+                        class="form-control"
+                        value="asdasdf"
+                        readonly>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default copy"
+                            type="button"
+                            data-id="token-url">{{ $t('copy') }}
+                        </button>
+                    </span>
+                </div>
+                <label>Secret</label>
+
+                <div class="input-group">
+                    <input type="text"
+                        class="form-control"
+                        value="asdasdf"
+                        readonly>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default copy"
+                            type="button"
+                            data-id="token-url">{{ $t('copy') }}
+                        </button>
+                    </span>
+                </div>
+                <label>GrantType</label>
+
+                <div class="input-group">
+                    <input type="text"
+                        class="form-control"
+                        value="asdasdf"
+                        readonly>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default copy"
+                            type="button"
+                            data-id="token-url">{{ $t('copy') }}
+                        </button>
+                    </span>
+                </div>
+                <label>Username</label>
+
+                <div class="input-group">
+                    <input type="text"
+                        class="form-control"
+                        value="asdasdf"
+                        readonly>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default copy"
+                            type="button"
+                            data-id="token-url">{{ $t('copy') }}
+                        </button>
+                    </span>
+                </div>
+                <label>Password</label>
             </div>
 
         </div>
@@ -44,8 +114,10 @@
 
 <script type="text/babel">
     import AnimatedSvg from "./animated-svg";
-    import TimezonePicker from "./timezone-picker";
-    import AccountPasswordChangeModal from "./account-password-change-modal";
+    import Vue from "vue";
+    import VueClipboard from 'vue-clipboard2';
+
+    Vue.use(VueClipboard);
 
     export default {
         components: {
@@ -93,8 +165,15 @@
                 background: transparent;
                 border: 0;
                 padding: 0;
+                color: $supla-white;
+            }
+            label {
+                opacity: .9;
+                font-weight: normal;
             }
             .input-group {
+                border-bottom: 1px solid $supla-white;
+                padding-bottom: 3px;
                 .btn {
                     border-radius: 5px;
                     text-transform: uppercase;
@@ -112,17 +191,22 @@
                 opacity: 0;
                 transition: opacity .5s;
                 position: absolute;
-                top: 169px;
-                left: 551px;
+                top: 163px;
+                left: 549px;
                 display: block;
-                width: 407px;
-                height: 366px;
+                width: 395px;
+                height: 356px;
             }
             .settings {
                 position: absolute;
                 top: 60px;
                 left: 45px;
                 width: 481px;
+                .inputs {
+                    label {
+                        margin-top: 5px;
+                    }
+                }
             }
             &.animation-finished {
                 .terminal {
