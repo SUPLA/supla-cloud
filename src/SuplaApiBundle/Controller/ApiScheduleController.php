@@ -122,7 +122,7 @@ class ApiScheduleController extends RestController {
             $em->persist($schedule);
             if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
                 $this->get('schedule_manager')->enable($schedule);
-            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? false) || !$schedule->getChannel()->getIoDevice()->getEnabled())) {
+            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true) || !$schedule->getChannel()->getIoDevice()->getEnabled())) {
                 $this->get('schedule_manager')->disable($schedule);
             }
             if ($schedule->getEnabled()) {
