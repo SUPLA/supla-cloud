@@ -39,5 +39,17 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
         $this->userManager->create($user);
         $this->assertNotNull($user);
         $this->assertGreaterThan(0, $user->getId());
+        return $user;
     }
+
+    public function testCheckingPasswordValidity() {
+        $user = $this->testCreatingUser();
+        $this->userManager->setPassword('ala', $user, true);
+        $this->assertTrue($this->userManager->isPasswordValid($user, 'ala'));
+        $this->assertFalse($this->userManager->isPasswordValid($user, 'Ala'));
+        $this->assertFalse($this->userManager->isPasswordValid($user, 'ala '));
+        $this->assertFalse($this->userManager->isPasswordValid($user, 'ola'));
+    }
+
+
 }

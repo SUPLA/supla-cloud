@@ -77,6 +77,11 @@ class UserManager {
         }
     }
 
+    public function isPasswordValid(User $user, string $password): bool {
+        $encoder = $this->encoder_factory->getEncoder($user);
+        return $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
+    }
+
     public function paswordRequest(User $user) {
         if ($user->isEnabled() === true) {
             $user->genToken();

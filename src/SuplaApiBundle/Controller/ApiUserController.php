@@ -17,6 +17,7 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -26,6 +27,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Model\UserManager;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,9 +36,12 @@ class ApiUserController extends FOSRestController {
     use Transactional;
 
     private $serverList;
+    /** @var UserManager */
+    private $userManager;
 
-    public function __construct(ServerList $serverList) {
+    public function __construct(ServerList $serverList, UserManager $userManager) {
         $this->serverList = $serverList;
+        $this->userManager = $userManager;
     }
 
     /**
@@ -110,11 +115,16 @@ class ApiUserController extends FOSRestController {
             } elseif ($data['action'] == 'change:userTimezone') {
                 try {
                     $timezone = new \DateTimeZone($data['timezone']);
-                    $userManager = $this->get('user_manager');
-                    $userManager->updateTimeZone($this->getUser(), $timezone);
+                    $this->userManager->updateTimeZone($this->getUser(), $timezone);
                 } catch (\Exception $e) {
                     throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
                 }
+            } elseif ($data['action'] == 'change:password') {
+                $newPassword = $data['newPassword'] ?? '';
+                $oldPassword = $data['oldPassword'] ?? '';
+                Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect');
+                Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
+                $this->userManager->setPassword($newPassword, $user);
             }
             $em->persist($user);
             return $user;

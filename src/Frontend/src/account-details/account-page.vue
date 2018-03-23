@@ -25,7 +25,11 @@
                                 <timezone-picker :timezone="user.timezone"></timezone-picker>
                             </dd>
                         </dl>
-                        <a class="btn btn-default">{{ $t('Change Password') }}</a>
+                        <a class="btn btn-default"
+                            @click="changingPassword = true">{{ $t('Change Password') }}</a>
+                        <account-password-change-modal v-if="changingPassword"
+                            @cancel="changingPassword = false"
+                            :user="user"></account-password-change-modal>
                     </div>
                 </transition>
             </loading-cover>
@@ -36,9 +40,11 @@
 <script type="text/babel">
     import AnimatedSvg from "./animated-svg";
     import TimezonePicker from "./timezone-picker";
+    import AccountPasswordChangeModal from "./account-password-change-modal";
 
     export default {
         components: {
+            AccountPasswordChangeModal,
             TimezonePicker,
             AnimatedSvg
         },
@@ -46,6 +52,7 @@
             return {
                 user: undefined,
                 animationFinished: false,
+                changingPassword: false,
                 version: VERSION, // eslint-disable-line no-undef
             };
         },
