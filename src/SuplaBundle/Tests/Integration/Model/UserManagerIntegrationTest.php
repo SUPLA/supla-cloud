@@ -50,6 +50,4 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($this->userManager->isPasswordValid($user, 'ala '));
         $this->assertFalse($this->userManager->isPasswordValid($user, 'ola'));
     }
-
-
 }

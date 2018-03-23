@@ -45,20 +45,17 @@ moment.tz.setDefault(Vue.config.external.timezone);
 const components = {
     AccountPage: () => import("./account-details/account-page"),
     AccessIdsPage: () => import("./access-ids/access-ids-page.vue"),
-    AnimatedSvg: () => import("./account-details/animated-svg.vue"),
     ChannelDetailsPage: () => import("./channels/channel-details-page.vue"),
     ChannelGroupsPage: () => import("./channel-groups/channel-groups-page.vue"),
     ClientAppsPage: () => import("./client-apps/client-apps-page.vue"),
     MySuplaPage: () => import("./home/my-supla-page"),
     DeviceDetailsPage: () => import("./devices/details/device-details-page"),
-    EnableDisableDeviceButton: () => import("./devices/details/enable-disable-device-button.vue"),
     IdleLogout: () => import("./common/idle-logout.vue"),
     LanguageSelector: () => import('./login/language-selector.vue'),
     LocationsPage: () => import("./locations/locations-page.vue"),
     ScheduleForm: () => import("./schedules/schedule-form/schedule-form.vue"),
     ScheduleDetailsPage: () => import("./schedules/schedule-details/schedule-details-page"),
     ScheduleListPage: () => import("./schedules/schedule-list/schedule-list-page.vue"),
-    TimezonePicker: () => import("./account-details/timezone-picker.vue"),
 };
 
 $(document).ready(() => {
