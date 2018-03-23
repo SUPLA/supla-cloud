@@ -23,6 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\IODeviceManager;
@@ -31,6 +32,7 @@ use SuplaBundle\Model\UserManager;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ApiUserController extends FOSRestController {
     use Transactional;
@@ -130,5 +132,44 @@ class ApiUserController extends FOSRestController {
             return $user;
         });
         return $this->view($user, Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("users/current/api-settings")
+     */
+    public function getUserApiSettingsAction() {
+        $user = $this->getUser();
+        Assertion::isInstanceOf($user, User::class, 'You cannot fetch API settings via API.');
+        $apiManager = $this->get('api_manager');
+        $client = $apiManager->getClient($user);
+        $apiUser = $apiManager->getAPIUser($user);
+        $url = $this->generateUrl('fos_oauth_server_token', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->view([
+            'user' => $apiUser,
+            'client' => $client,
+            'tokenUrl' => $url,
+            'server' => $this->container->getParameter('supla_protocol') . '://' . $this->container->getParameter('supla_server'),
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Patch("users/current/api-settings")
+     */
+    public function patchUserApiSettingsAction(Request $request) {
+        $user = $this->getUser();
+        Assertion::isInstanceOf($user, User::class, 'You cannot fetch API settings via API.');
+        $data = $request->request->all();
+        $apiManager = $this->get('api_manager');
+        $apiUser = $apiManager->getAPIUser($user);
+        $action = $data['action'] ?? '';
+        if ($action == 'generatePassword') {
+            $password = $apiUser->generateNewPassword();
+            $apiManager->setPassword($password, $apiUser, true);
+            return $this->view(['password' => $password], Response::HTTP_OK);
+        } else if ($action == 'toggleEnabled') {
+            $enabled = $apiManager->setEnabled(!$apiUser->isEnabled(), $apiUser, true);
+            return ['enabled' => $enabled];
+        }
+        Assertion::true(false);
     }
 }

@@ -18,18 +18,20 @@
 namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Entity\Client as BaseClient;
+use FOS\OAuthServerBundle\Entity\Client;
 use SuplaBundle\Entity\User as ParentUser;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_oauth_clients")
  */
-class ApiClient extends BaseClient {
+class ApiClient extends Client {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic"})
      */
     protected $id;
 
@@ -48,7 +50,10 @@ class ApiClient extends BaseClient {
         $this->type = 0;
     }
 
-    public function getGrantType() {
+    /**
+     * @Groups({"basic"})
+     */
+    public function getGrantType(): string {
         return implode(', ', $this->getAllowedGrantTypes());
     }
 
@@ -66,5 +71,15 @@ class ApiClient extends BaseClient {
 
     public function setParent(ParentUser $parent) {
         $this->parent = $parent;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getPublicId() {
+        return parent::getPublicId();
+    }
+
+    /** @Groups({"basic"}) */
+    public function getSecret() {
+        return parent::getSecret();
     }
 }

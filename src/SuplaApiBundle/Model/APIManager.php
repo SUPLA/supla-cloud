@@ -18,6 +18,7 @@
 namespace SuplaApiBundle\Model;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use SuplaApiBundle\Entity\OAuth\ApiClient;
 use SuplaApiBundle\Entity\OAuth\ApiUser as APIUser;
 use SuplaBundle\Entity\User as ParentUser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -68,7 +69,7 @@ class APIManager {
         return $this->oauth_user_rep->findOneBy(['id' => intval($username)]);
     }
 
-    public function getClient(ParentUser $parent) {
+    public function getClient(ParentUser $parent): ApiClient {
 
         $client = $this->oauth_client_rep->findOneBy(['type' => 0, 'parent' => $parent]);
 
@@ -87,7 +88,6 @@ class APIManager {
     }
 
     public function setPassword($password, APIUser $user, $flush = false) {
-        $user->setPlainPassword($password);
         $encoder = $this->encoder_factory->getEncoder($user);
         $password = $encoder->encodePassword($password, $user->getSalt());
         $user->setPassword($password);
@@ -147,6 +147,8 @@ class APIManager {
             $this->deleteRefreshTokens($user);
             $this->deleteAuthCodes($user);
         }
+
+        return $enabled;
     }
 
     public function userLogout(APIUser $user, $accessToken, $refreshToken) {

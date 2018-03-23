@@ -238,19 +238,6 @@ class AccountController extends AbstractController {
     }
 
     /**
-     * @Route("/api", name="_account_api")
-     */
-    public function apiSettingsAction() {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        return $this->render(
-            'SuplaBundle:Account:api.html.twig',
-            ['user' => $user,
-            ]
-        );
-    }
-
-    /**
      * @Route("/ajax/changepassword", name="_account_ajax_changepassword")
      */
     public function ajaxChangePassword(Request $request) {

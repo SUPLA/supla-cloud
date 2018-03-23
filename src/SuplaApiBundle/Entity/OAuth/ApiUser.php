@@ -22,6 +22,7 @@ use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User as ParentUser;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -33,6 +34,7 @@ class ApiUser implements AdvancedUserInterface {
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic"})
      */
     protected $id;
 
@@ -47,15 +49,9 @@ class ApiUser implements AdvancedUserInterface {
     protected $password;
 
     /**
-     * Plain password. Used for model validation. Must not be persisted.
-     * @Assert\NotBlank()
-     * @Assert\Length(min=8)
-     */
-    protected $plainPassword;
-
-    /**
      * @ORM\Column(name="enabled", type="boolean")
      * @Assert\NotNull()
+     * @Groups({"basic"})
      */
     protected $enabled;
 
@@ -64,14 +60,14 @@ class ApiUser implements AdvancedUserInterface {
      */
     protected $accessId;
 
-    private function pwdGen() {
-        return base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-    }
-
     public function __construct(ParentUser $parent) {
         $this->enabled = false;
         $this->parent = $parent;
-        $this->password = $this->pwdGen();
+        $this->password = $this->generateNewPassword();
+    }
+
+    public function generateNewPassword() {
+        return base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
     public function getId() {
@@ -82,6 +78,7 @@ class ApiUser implements AdvancedUserInterface {
         return $this->parent;
     }
 
+    /** @Groups({"basic"}) */
     public function getUsername() {
         return 'api_' . $this->id;
     }
@@ -96,21 +93,10 @@ class ApiUser implements AdvancedUserInterface {
 
     public function setPassword($password) {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getPlainPassword() {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword($password) {
-        $this->plainPassword = $password;
         return $this;
     }
 
     public function eraseCredentials() {
-        $this->plainPassword = null;
     }
 
     public function getRoles() {
