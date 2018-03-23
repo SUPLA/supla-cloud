@@ -1,7 +1,7 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? 'green' : 'grey')"
         @click="$emit('click')">
-        <router-link :to="{name: 'channelGroup', params: model}">
+        <router-link :to="linkSpec">
             <div class="clearfix">
                 <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
                 <function-icon :model="model"
@@ -25,6 +25,11 @@
 
     export default {
         components: {FunctionIcon},
-        props: ['model'],
+        props: ['model', 'noLink'],
+        computed: {
+            linkSpec() {
+                return this.noLink ? {} : {name: 'channelGroup', params: this.model};
+            }
+        }
     };
 </script>

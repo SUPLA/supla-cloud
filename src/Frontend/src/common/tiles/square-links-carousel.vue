@@ -23,6 +23,7 @@
                 :key="item.id">
                 <component :is="tile"
                     :class="isSelected(item) ? 'selected' : ''"
+                    :no-link="noLinks"
                     @click="onItemClick(item)"
                     :model="item"></component>
             </slide>
@@ -38,7 +39,7 @@
 
     export default {
         components: {Carousel, Slide, EmptyListPlaceholder},
-        props: ['items', 'selected', 'tile', 'newItemTile', 'squareLinksHeight'],
+        props: ['items', 'selected', 'tile', 'newItemTile', 'squareLinksHeight', 'noLinks'],
         data() {
             return {
                 selectedIds: [],

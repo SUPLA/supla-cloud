@@ -51,7 +51,9 @@
                                 <tbody>
                                 <tr v-for="ioDevice in location.ioDevices"
                                     v-go-to-link-on-row-click>
-                                    <td><a :href="'/devices/' + ioDevice.id | withBaseUrl">{{ ioDevice.id }}</a></td>
+                                    <td>
+                                        <router-link :to="{name: 'device', params: ioDevice}">{{ ioDevice.id }}</router-link>
+                                    </td>
                                     <td>{{ ioDevice.name }}</td>
                                     <td>{{ ioDevice.comment }}</td>
                                 </tr>
@@ -74,7 +76,9 @@
                                 <tbody>
                                 <tr v-for="aid in location.accessIds"
                                     v-go-to-link-on-row-click>
-                                    <td><a :href="'/access-identifiers/' + aid.id | withBaseUrl">{{ aid.id }}</a></td>
+                                    <td>
+                                        <router-link :to="{name: 'accessId', params: aid}">{{ aid.id }}</router-link>
+                                    </td>
                                     <td>
                                         <password-display :password="aid.password"></password-display>
                                     </td>
@@ -112,7 +116,7 @@
                                         <function-icon :model="channelGroup"></function-icon>
                                     </td>
                                     <td>
-                                        <a :href="'/channel-groups/' + channelGroup.id | withBaseUrl">{{ channelGroup.id }}</a>
+                                        <router-link :to="{name: 'channelGroup', params: channelGroup}">{{ channelGroup.id }}</router-link>
                                     </td>
                                     <td>
                                         <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
@@ -142,7 +146,9 @@
                                     <td style="width: 45px">
                                         <function-icon :model="channel"></function-icon>
                                     </td>
-                                    <td><a :href="'/channels/' + channel.id | withBaseUrl">{{ channel.id }}</a></td>
+                                    <td>
+                                        <router-link :to="{name: 'channel', params: channel}">{{ channel.id }}</router-link>
+                                    </td>
                                     <td>{{ channelTitle(channel) }}</td>
                                 </tr>
                                 </tbody>

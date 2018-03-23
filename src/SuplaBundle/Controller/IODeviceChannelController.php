@@ -19,7 +19,6 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -27,14 +26,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  * @Route("/channels")
  */
 class IODeviceChannelController extends AbstractController {
-    /**
-     * @Route("/{channel}", name="_iodevice_channel_details")
-     * @Template
-     */
-    public function channelDetailsAction(IODeviceChannel $channel) {
-        return ['channel' => $channel];
-    }
-
     /**
      * @Route("/{channel}/csv", name="_iodevice_channel_item_csv")
      * @Security("channel.belongsToUser(user)")

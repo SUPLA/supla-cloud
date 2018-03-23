@@ -51,7 +51,8 @@
                             <tbody>
                             <tr v-for="location in accessId.locations"
                                 v-go-to-link-on-row-click>
-                                <td><a :href="'/locations/' + location.id | withBaseUrl">{{ location.id }}</a></td>
+                                <td>
+                                    <router-link :to="{name: 'location', params: location}">{{ location.id }}</router-link>
                                 <td>
                                     <password-display :password="location.password"></password-display>
                                 </td>

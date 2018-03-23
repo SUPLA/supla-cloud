@@ -11,6 +11,7 @@
             :tile="tile"
             :items="filteredItems"
             :selected="selected"
+            :no-links="noLinks"
             @select="$emit('select', $event)"
             :new-item-tile="filteredItems.length === items.length ? newItemTile : ''"></square-links-carousel>
     </div>
@@ -21,7 +22,7 @@
 
     export default {
         components: {SquareLinksCarousel},
-        props: ['items', 'selected', 'tile', 'newItemTile', 'filters', 'squareLinksHeight'],
+        props: ['items', 'selected', 'tile', 'newItemTile', 'filters', 'squareLinksHeight', 'noLinks'],
         data() {
             return {
                 filteredItems: undefined,

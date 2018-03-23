@@ -1,7 +1,7 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? '' : 'grey ')"
         @click="$emit('click')">
-        <router-link :to="{name: 'accessId', params: model}">
+        <router-link :to="linkSpec">
             <span>
                 <h2>ID<strong>{{ model.id }} </strong></h2>
                 <dl>
@@ -26,6 +26,11 @@
 
 <script>
     export default {
-        props: ['model'],
+        props: ['model', 'noLink'],
+        computed: {
+            linkSpec() {
+                return this.noLink ? {} : {name: 'accessId', params: this.model};
+            }
+        }
     };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <square-link :class="'clearfix pointer ' + (device.enabled ? 'green' : 'grey')">
-        <router-link :to="{name: 'device', params: device}">
+        <router-link :to="linkSpec">
             <h3>{{ device.name }}</h3>
             <dl>
                 <dd>{{ device.gUIDString }}</dd>
@@ -28,7 +28,12 @@
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
 
     export default {
-        props: ['device'],
+        props: ['device', 'noLink'],
         components: {DeviceConnectionStatusLabel},
+        computed: {
+            linkSpec() {
+                return this.noLink ? {} : {name: 'device', params: this.device};
+            }
+        }
     };
 </script>

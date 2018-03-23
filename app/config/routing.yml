@@ -1,9 +1,9 @@
-app:
-  resource: "@SuplaBundle/Resources/config/routing.yml"
-
 api:
   type: rest
   resource: "@SuplaApiBundle/Resources/config/routing.yml"
+
+app:
+  resource: "@SuplaBundle/Resources/config/routing.yml"
 
 logout:
   path: /auth/logout

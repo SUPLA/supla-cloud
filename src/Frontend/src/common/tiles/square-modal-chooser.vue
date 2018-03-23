@@ -11,6 +11,7 @@
                 :filters="filters"
                 :items="items"
                 :selected="selectedItems"
+                :no-links="true"
                 @select="selectedItems = $event"></square-links-carousel-with-filters>
         </loading-cover>
     </modal>

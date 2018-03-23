@@ -74,7 +74,7 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/", name="_homepage")
-     * @Route("/{suffix}", requirements={"suffix"="^[^(web\-api)|(api)].*"}, methods={"GET"})
+     * @Route("/{suffix}", requirements={"suffix"="^.*"}, methods={"GET"})
      * @Template()
      */
     public function spaBoilerplaceAction(Request $request) {
