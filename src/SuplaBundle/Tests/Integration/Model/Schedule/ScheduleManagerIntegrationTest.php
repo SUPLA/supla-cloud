@@ -133,6 +133,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
             'action' => ChannelFunctionAction::TURN_ON,
             'channel' => $this->channel,
         ], $data));
+        $schedule->setEnabled(true);
         $em = $this->getDoctrine()->getManager();
         $em->persist($schedule);
         $em->flush();
