@@ -195,21 +195,6 @@ class AccountController extends AbstractController {
     }
 
     /**
-     * @Route("/view")
-     */
-    public function viewAction() {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        return $this->render(
-            'SuplaBundle:Account:view.html.twig',
-            [
-                'user' => $user,
-                'version' => $this->getParameter('supla.version'),
-            ]
-        );
-    }
-
-    /**
      * @Route("/reset_passwd/{token}", name="_account_reset_passwd")
      */
     public function resetPasswordAction(Request $request, $token) {
