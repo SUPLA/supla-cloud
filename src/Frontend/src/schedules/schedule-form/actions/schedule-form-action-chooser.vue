@@ -46,7 +46,6 @@
     import "bootstrap-chosen/bootstrap-chosen.css";
     import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage.vue";
-    import {withBaseUrl} from "../../../common/filters";
 
     export default {
         name: 'schedule-form-action-chooser',
@@ -77,7 +76,7 @@
                     + ` (${channel.device.location.caption} / ${channel.device.name})`;
             },
             goToSchedulesList() {
-                window.location.assign(withBaseUrl('schedules'));
+                this.$router.push({name: 'schedules'});
             }
         },
         computed: {

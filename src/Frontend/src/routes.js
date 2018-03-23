@@ -20,6 +20,9 @@ export default [
         ]
     },
     {path: '/me', component: () => import("./home/my-supla-page")},
-    {path: '/schedules', component: () => import("./schedules/schedule-list/schedule-list-page.vue")},
-    {path: '/smartphones', component: () => import("./client-apps/client-apps-page.vue")},
+    {path: '/schedules', component: () => import("./schedules/schedule-list/schedule-list-page"), name: 'schedules'},
+    {path: '/schedules/new', component: () => import("./schedules/schedule-form/schedule-form"), name: 'schedule.new'},
+    {path: '/schedules/:id', component: () => import("./schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},
+    {path: '/schedules/edit/:id', component: () => import("./schedules/schedule-form/schedule-form"), name: 'schedule.edit', props: true},
+    {path: '/smartphones', component: () => import("./client-apps/client-apps-page")},
 ];

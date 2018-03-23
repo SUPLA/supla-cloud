@@ -3,14 +3,15 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1 v-if="!channelId">{{ $t('Schedules') }}</h1>
+                    <h1 v-if="!channelId"
+                        v-title>{{ $t('Schedules') }}</h1>
                 </div>
                 <div :class="channelId ? 'no-margin-top' : ''">
-                    <a class="btn btn-green btn-lg"
-                        :href="'/schedules/new' + (channelId ? '?channelId=' + channelId : '') | withBaseUrl">
+                    <router-link :to="{name: 'schedule.new', query: {channelId: channelId}}"
+                        class="btn btn-green btn-lg">
                         <i class="pe-7s-plus"></i>
                         {{ $t('Create New Schedule') }}
-                    </a>
+                    </router-link>
                 </div>
             </div>
         </div>

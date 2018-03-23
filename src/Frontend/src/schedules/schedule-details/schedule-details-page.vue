@@ -13,10 +13,10 @@
                             @click="deleteConfirm = true">
                             {{ $t('Delete') }}
                         </a>
-                        <a class="btn btn-default"
-                            :href="'/schedules/edit/' + schedule.id | withBaseUrl">
+                        <router-link :to="{name: 'schedule.edit', params: schedule}"
+                            class="btn btn-default">
                             {{ $t('Edit') }}
-                        </a>
+                        </router-link>
                     </div>
                     <div class="row hidden-xs">
                         <div class="col-xs-12">
@@ -98,7 +98,6 @@
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ScheduleExecutionsDisplay from "./schedule-executions-display";
-    import {withBaseUrl} from "../../common/filters";
 
     export default {
         components: {
@@ -108,7 +107,7 @@
             ChannelTile,
             DotsRoute
         },
-        props: ['scheduleId'],
+        props: ['id'],
         data() {
             return {
                 schedule: undefined,
@@ -123,7 +122,7 @@
         methods: {
             fetch() {
                 this.loading = true;
-                this.$http.get(`schedules/${this.scheduleId}?include=channel,iodevice,location`).then(({body}) => {
+                this.$http.get(`schedules/${this.id}?include=channel,iodevice,location`).then(({body}) => {
                     this.schedule = body;
                     this.hasPendingChanges = this.loading = false;
                 });
@@ -136,14 +135,14 @@
             },
             saveChanges() {
                 this.loading = true;
-                this.$http.put(`schedules/${this.scheduleId}`, this.schedule)
+                this.$http.put(`schedules/${this.id}`, this.schedule)
                     .then(response => $.extend(this.schedule, response.body))
                     .then(() => this.hasPendingChanges = false)
                     .finally(() => this.loading = false);
             },
             deleteSchedule() {
                 this.loading = true;
-                this.$http.delete(`schedules/${this.scheduleId}`).then(() => window.location.assign(withBaseUrl('schedules')));
+                this.$http.delete(`schedules/${this.id}`).then(() => this.$router.push({name: 'schedules'}));
             }
         },
         computed: {

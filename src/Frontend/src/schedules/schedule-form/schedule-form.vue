@@ -1,6 +1,17 @@
 <template>
-    <div>
-        <loading-dots v-if="scheduleId && !channelId"></loading-dots>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 v-if="id">
+                    <span v-title>{{ $t('Edit schedule') }} ID{{ id }}</span>
+                    <span class="small"
+                        v-if="schedule.caption">{{ schedule.caption }}</span>
+                </h1>
+                <h1 v-else
+                    v-title>{{ $t('Create New Schedule') }}</h1>
+            </div>
+        </div>
+        <loading-dots v-if="id && !schedule.id"></loading-dots>
         <div v-else>
             <div class="row">
                 <div class="col-sm-12">
@@ -43,12 +54,12 @@
                         <schedule-form-action-chooser @channel-change="canSetRetry = !$event || [20, 30].indexOf($event.function) < 0"></schedule-form-action-chooser>
                         <div class="text-right"
                             v-if="!submitting">
-                            <a class="btn btn-white"
-                                :href="`/schedules/${schedule.id}` | withBaseUrl"
+                            <router-link :to="{name: 'schedule', params: schedule}"
+                                class="btn btn-white"
                                 v-if="schedule.id">
                                 <i class="pe-7s-back-2"></i>
                                 {{ $t('Cancel') }}
-                            </a>
+                            </router-link>
                             <button class="btn btn-white btn-lg"
                                 v-if="schedule.enabled === false"
                                 :disabled="actionId == undefined || !nextRunDates.length || fetchingNextRunDates"
@@ -59,8 +70,8 @@
                             <button class="btn btn-green btn-lg"
                                 :disabled="actionId == undefined || !nextRunDates.length || fetchingNextRunDates"
                                 @click="submit(true)">
-                                <i :class="scheduleId ? 'pe-7s-diskette' : 'pe-7s-plus'"></i>
-                                {{ $t(scheduleId ? (schedule.enabled ? 'Save' : 'Save and enable') : 'Add') }}
+                                <i :class="id ? 'pe-7s-diskette' : 'pe-7s-plus'"></i>
+                                {{ $t(id ? (schedule.enabled ? 'Save' : 'Save and enable') : 'Add') }}
                             </button>
                         </div>
                         <div class="text-right"
@@ -93,7 +104,7 @@
 
     export default {
         name: 'schedule-form',
-        props: ['scheduleId', 'forChannelId'],
+        props: ['id'],
         store: new Vuex.Store({
             state: {
                 caption: '',
@@ -139,13 +150,14 @@
             ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'actionId', 'submitting', 'schedule'])
         },
         mounted() {
-            if (this.scheduleId) {
-                this.$http.get('schedules/' + this.scheduleId, {params: {include: 'channel'}}).then(({body}) => {
+            this.resetState();
+            if (this.id) {
+                this.$http.get('schedules/' + this.id, {params: {include: 'channel'}}).then(({body}) => {
                     this.loadScheduleToEdit(body);
                 });
             }
-            else if (this.forChannelId) {
-                this.$store.commit('updateChannel', this.forChannelId);
+            else if (this.$route.query.channelId) {
+                this.$store.commit('updateChannel', this.$route.query.channelId);
             }
         },
         components: {
@@ -161,6 +173,30 @@
             LoadingDots,
             Toggler,
         },
-        methods: mapActions(['submit', 'loadScheduleToEdit'])
+        methods: {
+            resetState() {
+                this.$store.replaceState({
+                    caption: '',
+                    mode: 'once',
+                    timeExpression: '',
+                    dateStart: moment().format(),
+                    dateEnd: '',
+                    fetchingNextRunDates: false,
+                    nextRunDates: [],
+                    retry: true,
+                    channelId: undefined,
+                    actionId: undefined,
+                    actionParam: undefined,
+                    submitting: false,
+                    schedule: {},
+                });
+            },
+            ...mapActions(['submit', 'loadScheduleToEdit'])
+        },
+        watch: {
+            '$route'() {
+                this.resetState();
+            }
+        }
     };
 </script>
