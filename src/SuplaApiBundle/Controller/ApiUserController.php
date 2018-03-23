@@ -166,7 +166,7 @@ class ApiUserController extends FOSRestController {
             $password = $apiUser->generateNewPassword();
             $apiManager->setPassword($password, $apiUser, true);
             return $this->view(['password' => $password], Response::HTTP_OK);
-        } else if ($action == 'toggleEnabled') {
+        } elseif ($action == 'toggleEnabled') {
             $enabled = $apiManager->setEnabled(!$apiUser->isEnabled(), $apiUser, true);
             return ['enabled' => $enabled];
         }
