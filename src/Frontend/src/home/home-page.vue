@@ -26,6 +26,14 @@
                                 readonly>
                             <label>{{ $t('Password') }}</label>
                         </div>
+                        <div v-else-if="!loading"
+                            class="alert alert-warning">
+                            {{ $t('You have no enabled locations.') }}
+                            {{ $t('Go to') }}
+                            <router-link :to="{name: 'locations'}">{{ $t('locations list') }}</router-link>
+                            {{ $t('or') }}
+                            <router-link :to="{name: 'location', params: {id: 'new'}}">{{$t('add new location') }}</router-link>
+                        </div>
                     </loading-cover>
                 </div>
             </div>
@@ -52,6 +60,14 @@
                                 readonly>
                             <label
                                 class="password">{{ $t('Password') }}</label>
+                        </div>
+                        <div v-else-if="!loading"
+                            class="alert alert-warning">
+                            {{ $t('You have no enabled access identifiers.') }}
+                            {{ $t('Go to') }}
+                            <router-link :to="{name: 'accessIds'}">{{ $t('access identifiers list') }}</router-link>
+                            {{ $t('or') }}
+                            <router-link :to="{name: 'accessId', params: {id: 'new'}}">{{$t('add new access identifier') }}</router-link>
                         </div>
                     </loading-cover>
                 </div>

@@ -1,5 +1,7 @@
+import HomePage from "./home/home-page";
+
 export default [
-    {path: '/', component: () => import("./home/home-page")},
+    {path: '/', component: HomePage},
     {
         path: '/access-identifiers', component: () => import("./access-ids/access-ids-page"), name: "accessIds", children: [
             {path: ':id', component: () => import("./access-ids/access-id-details"), name: 'accessId', props: true}
