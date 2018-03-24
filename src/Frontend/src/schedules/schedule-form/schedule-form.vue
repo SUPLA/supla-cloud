@@ -150,7 +150,7 @@
                     this.$store.commit('updateRetry', retry);
                 }
             },
-            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'actionId', 'submitting', 'schedule'])
+            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'actionId', 'submitting', 'schedule', 'timeExpression'])
         },
         mounted() {
             this.resetState();
@@ -183,7 +183,7 @@
                 this.$store.replaceState({
                     caption: '',
                     mode: 'once',
-                    timeExpression: '',
+                    timeExpression: this.timeExpression,
                     dateStart: moment().format(),
                     dateEnd: '',
                     fetchingNextRunDates: false,
