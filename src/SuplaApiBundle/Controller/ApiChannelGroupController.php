@@ -17,6 +17,7 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -52,6 +53,8 @@ class ApiChannelGroupController extends RestController {
      * @Rest\Post("/channel-groups")
      */
     public function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
+        $user = $this->getUser();
+        Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
             return $this->view($channelGroup, Response::HTTP_CREATED);

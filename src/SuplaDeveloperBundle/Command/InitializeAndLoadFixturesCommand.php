@@ -18,8 +18,8 @@
 namespace SuplaDeveloperBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class InitializeAndLoadFixturesCommand extends Command {
@@ -31,15 +31,11 @@ class InitializeAndLoadFixturesCommand extends Command {
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->runCommand('doctrine:database:create', ['--if-not-exists' => true, '--no-interaction' => true], $output);
-        $this->runCommand('doctrine:schema:drop', ['--force' => true, '--no-interaction' => true], $output);
-        $this->runCommand('doctrine:schema:create', ['--no-interaction' => true], $output);
-        $this->runCommand('doctrine:fixtures:load', ['--no-interaction' => true, '--append' => true], $output);
-    }
-
-    private function runCommand(string $name, array $arguments, OutputInterface $output) {
-        $command = $this->getApplication()->find($name);
-        $input = new ArrayInput($arguments);
-        return $command->run($input, $output);
+        $this->getApplication()->setAutoExit(false);
+        $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists'), $output);
+        $this->getApplication()->run(new StringInput('doctrine:database:drop --force --no-interaction'), $output);
+        $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists'), $output);
+        $this->getApplication()->run(new StringInput('doctrine:migrations:migrate --no-interaction --allow-no-migration'), $output);
+        $this->getApplication()->run(new StringInput('doctrine:fixtures:load --no-interaction --append'), $output);
     }
 }

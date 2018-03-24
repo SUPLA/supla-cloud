@@ -155,6 +155,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $limitSchedule;
 
     /**
+     * @ORM\Column(name="limit_channel_group", type="integer", options={"default"=20})
+     */
+    private $limitChannelGroup;
+
+    /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"})
      **/
     private $accessids;
@@ -207,6 +212,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->limitIoDev = 100;
         $this->limitClientApp = 200;
         $this->limitSchedule = 20;
+        $this->limitChannelGroup = 20;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
@@ -445,6 +451,10 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->limitLoc;
     }
 
+    public function getLimitChannelGroup(): int {
+        return $this->limitChannelGroup;
+    }
+
     public function getTimezone() {
         return $this->timezone;
     }
@@ -460,10 +470,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function getLimitSchedule() {
         return $this->limitSchedule;
-    }
-
-    public function setLimitSchedule($limitSchedule) {
-        $this->limitSchedule = $limitSchedule;
     }
 
     /** Schedule[] */

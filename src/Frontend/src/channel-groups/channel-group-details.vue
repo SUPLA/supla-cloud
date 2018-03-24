@@ -161,7 +161,7 @@
                         const newGroup = response.body;
                         newGroup.channels = this.channelGroup.channels;
                         this.$emit('add', newGroup);
-                    });
+                    }).catch(() => this.$emit('delete'));
                 } else {
                     this.$http
                         .put('channel-groups/' + this.channelGroup.id, toSend)

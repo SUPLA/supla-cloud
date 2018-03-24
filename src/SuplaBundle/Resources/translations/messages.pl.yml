@@ -445,6 +445,7 @@ Save changes: Zapisz zmiany
 Channel inherits I/O Device's location: Kanał jest przypisany do lokalizacji urządzenia
 Inherit location from I/O Device: Korzystaj z lokalizacji urządzenia
 Channel groups no: Liczba grup kanałów
+Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 
 Hidden: Niewidoczne
 Visible: Widoczne
