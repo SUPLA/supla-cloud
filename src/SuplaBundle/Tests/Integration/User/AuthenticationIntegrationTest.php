@@ -44,7 +44,7 @@ class AuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($user);
         $this->assertEquals('supler@supla.org', $user->getEmail());
         $this->assertStatusCode(200, $client->getResponse());
-        $this->assertCount(1, $client->getCrawler()->filter('h1:contains("Start Here")'));
+        $this->assertCount(0, $client->getCrawler()->filter('#login-page'));
     }
 
     public function testAuthFailure() {
