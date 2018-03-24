@@ -4,7 +4,9 @@
         baseUrl: '{{ path('_homepage')[:-1] }}',
         timezone: '{{ app.user ? app.user.timezone : '' }}',
         serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
-        renderStart: new Date(),
+        renderStart: new Date()
+        {% if app.user %}
+        ,
         user: {
             id: {{ app.user.id }},
             email: '{{ app.user.email }}',
@@ -15,5 +17,6 @@
                 schedule: {{ app.user.limitSchedule }}
             }
         }
+        {% endif %}
     };
 </script>
