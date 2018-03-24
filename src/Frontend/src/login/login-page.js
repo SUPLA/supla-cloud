@@ -5,8 +5,6 @@ import SuplaDevicesSplash from "./supla-devices-splash.vue";
 import RemindPassword from "./remind-password.vue";
 import VueI18N from "vue-i18n";
 
-Vue.use(VueRouter);
-
 const routes = [
     {path: '', component: LoginForm},
     {path: '/devices', component: SuplaDevicesSplash},

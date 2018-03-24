@@ -45,24 +45,23 @@ moment.tz.setDefault(Vue.config.external.timezone);
     };
 })();
 
-const router = new VueRouter({
-    routes,
-    base: Vue.config.external.baseUrl + '/',
-    linkActiveClass: 'active',
-    mode: 'history',
-});
-
-router.afterEach((to) => {
-    if (to.meta.bodyClass) {
-        document.body.setAttribute('class', to.meta.bodyClass);
-    } else {
-        document.body.removeAttribute('class');
-    }
-});
-
 $(document).ready(() => {
-    if ($('.vue-container').length) {
-        // console.log()
+    if ($('.vue-container').length && !$('.register-page').length) { // temporary fix until register page is not under login-page's router
+        const router = new VueRouter({
+            routes,
+            base: Vue.config.external.baseUrl + '/',
+            linkActiveClass: 'active',
+            mode: 'history',
+        });
+
+        router.afterEach((to) => {
+            if (to.meta.bodyClass) {
+                document.body.setAttribute('class', to.meta.bodyClass);
+            } else {
+                document.body.removeAttribute('class');
+            }
+        });
+
         const i18n = new VueI18N({
             locale: 'SUPLA_TRANSLATIONS',
             messages: {SUPLA_TRANSLATIONS}
