@@ -100,6 +100,18 @@ input[type=text], input[type=password], input[type=email] {
   }
 }
 
+.fade-router {
+  &-enter-active, &-leave-active {
+    transition: opacity .3s
+  }
+  &-enter-active {
+    transition-delay: .3s;
+  }
+  &-enter, &-leave-to {
+    opacity: 0
+  }
+}
+
 .label {
   font-family: $supla-font-special;
   text-transform: uppercase;

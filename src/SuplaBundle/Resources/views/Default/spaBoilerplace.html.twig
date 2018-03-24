@@ -3,7 +3,9 @@
 {% block body %}
     <div class="main-content vue-container">
         <navbar></navbar>
-        <router-view></router-view>
+        <transition name="fade-router">
+            <router-view></router-view>
+        </transition>
         {% if app.user and not app.debug %}
             <idle-logout></idle-logout>
         {% endif %}
