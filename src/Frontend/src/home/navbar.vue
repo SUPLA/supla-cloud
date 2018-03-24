@@ -89,7 +89,7 @@
                                 to="/account">
                                 <a class="my-account">
                                     <span class="username"
-                                        v-if="user">{{ user.email }}</span>
+                                        v-if="$user">{{ $user.email }}</span>
                                     {{ $t('Go to your account') }}
                                 </a>
                             </router-link>
@@ -139,16 +139,6 @@
 
     export default {
         components: {SuplaLogo},
-        data() {
-            return {
-                user: undefined
-            };
-        },
-        mounted() {
-            this.$http.get('users/current').then(response => {
-                this.user = response.data;
-            });
-        },
         methods: {
             reloadPage() {
                 window.location.assign(window.location.toString());

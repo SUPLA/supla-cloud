@@ -66,6 +66,7 @@ $(document).ready(() => {
             locale: 'SUPLA_TRANSLATIONS',
             messages: {SUPLA_TRANSLATIONS}
         });
+        Vue.prototype.$user = Vue.config.external.user;
         const app = new Vue({
             el: '.vue-container',
             i18n,

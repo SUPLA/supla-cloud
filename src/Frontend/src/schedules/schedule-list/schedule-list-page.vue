@@ -8,7 +8,8 @@
                 </div>
                 <div :class="channelId ? 'no-margin-top' : ''">
                     <router-link :to="{name: 'schedule.new', query: {channelId: channelId}}"
-                        class="btn btn-green btn-lg">
+                        class="btn btn-green btn-lg"
+                        v-if="schedules && totalSchedules < $user.limits.schedule">
                         <i class="pe-7s-plus"></i>
                         {{ $t('Create New Schedule') }}
                     </router-link>
@@ -48,6 +49,7 @@
         data() {
             return {
                 schedules: undefined,
+                totalSchedules: undefined,
                 filteredSchedules: undefined,
                 filterFunction: () => true,
                 compareFunction: () => -1,
@@ -58,8 +60,9 @@
             if (this.channelId) {
                 endpoint = `channels/${this.channelId}/${endpoint}`;
             }
-            this.$http.get(endpoint).then(({body}) => {
-                this.schedules = body;
+            this.$http.get(endpoint).then(response => {
+                this.schedules = response.body;
+                this.totalSchedules = +response.headers.get('SUPLA-Total-Schedules');
                 this.filter();
             });
         },

@@ -12,7 +12,7 @@
                                 :items="items"
                                 :selected="item"
                                 @select="itemChanged"
-                                :new-item-tile="createNewLabel"></square-links-carousel-with-filters>
+                                :new-item-tile="(!limit || limit > items.length) ? createNewLabel : ''"></square-links-carousel-with-filters>
                         </div>
                     </loading-cover>
                 </div>
@@ -30,7 +30,7 @@
     import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
 
     export default {
-        props: ['header', 'tile', 'filters', 'endpoint', 'createNewLabel', 'detailsRoute', 'listRoute'],
+        props: ['header', 'tile', 'filters', 'endpoint', 'createNewLabel', 'detailsRoute', 'listRoute', 'limit'],
         components: {SquareLinksCarouselWithFilters},
         data() {
             return {

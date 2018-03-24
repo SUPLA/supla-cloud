@@ -4,6 +4,7 @@
         filters="access-id-filters"
         endpoint="accessids"
         create-new-label="Create New Access Identifier"
+        :limit="$user.limits.accessId"
         details-route="accessId"></carousel-page>
 </template>
 

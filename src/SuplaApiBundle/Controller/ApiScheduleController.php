@@ -48,7 +48,7 @@ class ApiScheduleController extends RestController {
      * include=channel,closestExecutions
      */
     public function getSchedulesAction(Request $request) {
-        return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getCurrentUser()), $request);
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
     }
 
     /**
@@ -76,6 +76,7 @@ class ApiScheduleController extends RestController {
         $schedules = $this->scheduleRepository->findByQuery($query);
         $view = $this->view($schedules, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions']);
+        $view->setHeader('SUPLA-Total-Schedules', $this->getUser()->getSchedules()->count());
         return $view;
     }
 

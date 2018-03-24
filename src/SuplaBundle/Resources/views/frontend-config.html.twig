@@ -4,6 +4,16 @@
         baseUrl: '{{ path('_homepage')[:-1] }}',
         timezone: '{{ app.user ? app.user.timezone : '' }}',
         serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
-        renderStart: new Date()
+        renderStart: new Date(),
+        user: {
+            id: {{ app.user.id }},
+            email: '{{ app.user.email }}',
+            limits: {
+                channelGroup: {{ app.user.limitChannelGroup }},
+                location: {{ app.user.limitLoc }},
+                accessId: {{ app.user.limitAid }},
+                schedule: {{ app.user.limitSchedule }}
+            }
+        }
     };
 </script>
