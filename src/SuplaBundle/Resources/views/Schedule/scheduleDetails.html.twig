@@ -1,7 +1,0 @@
-{% extends 'SuplaBundle::mobile-first-layout.html.twig' %}
-
-{% set page_title = 'Schedule'|trans ~ ' ID' ~ schedule.id %}
-
-{% block content %}
-    <schedule-details-page :schedule-id="{{ schedule.id }}"></schedule-details-page>
-{% endblock %}

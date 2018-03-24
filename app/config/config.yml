@@ -108,6 +108,4 @@ swiftmailer:
 
 twig:
   debug: "%kernel.debug%"
-  form_themes:
-    - "SuplaBundle:Form:fields.html.twig"
   strict_variables: "%kernel.debug%"
