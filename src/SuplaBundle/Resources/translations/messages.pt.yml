@@ -110,7 +110,9 @@ Lack of Access Identifiers: Falta de Identificadores do Acesso
 Change Your Password: Alterar a senha
 On your computer...: No seu computador...
 On your smartphone...: No seu smartphone...
-Having your house or the office connected to SUPLA is very easy.<br>All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.: Ligar a sua casa ou o seu escritório a SUPLA é muito simples.<br>Basta copiar os dados abaixo para os seus dispositivos de comando (entrada/saída) e smartphones.
+WELCOME_MESSAGE: |
+  Ligar a sua casa ou o seu escritório a SUPLA é muito simples.
+  Basta copiar os dados abaixo para os seus dispositivos de comando (entrada/saída) e smartphones.
 Enter the data below in the settings of your control device (I/O Device).: Introduza os dados abaixo nas configurações do seu dispositivo de comando (dispositivo de I/O).
 Enter the data below in your mobile SUPLA application on your smartphone.: Introduza os dados abaixo na aplicação móvel SUPLA instalada no seu smartphone.
 Make it work: Faça com que funcione

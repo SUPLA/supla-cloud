@@ -3,4 +3,8 @@ sunset-before: the sunset
 sunrise-after: the sunrise
 sunset-after: the sunset
 
+WELCOME_MESSAGE: |
+  Having your house or the office connected to SUPLA is very easy.
+  All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
+
 Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.

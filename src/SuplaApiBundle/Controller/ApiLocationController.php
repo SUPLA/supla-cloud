@@ -76,7 +76,7 @@ class ApiLocationController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $locations = $this->getUser()->getLocations();
             $view = $this->view($locations, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups']);
+            $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']);
             return $view;
         } else {
             return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
