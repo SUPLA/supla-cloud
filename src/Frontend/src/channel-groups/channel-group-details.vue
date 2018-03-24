@@ -1,91 +1,93 @@
 <template>
-    <loading-cover :loading="loading"
-        class="channel-group-details">
-        <div v-if="channelGroup">
-            <div class="container">
-                <pending-changes-page :header="$t(channelGroup.id ? 'Channel group' : 'New channel group') + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
-                    @cancel="cancelChanges()"
-                    @save="saveChannelGroup()"
-                    :deletable="!isNewGroup"
-                    @delete="deleteConfirm = true"
-                    :is-pending="hasPendingChanges && !isNewGroup">
-                    <div class="row hidden-xs">
-                        <div class="col-xs-12">
-                            <dots-route></dots-route>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row text-center">
-                            <div class="col-sm-4">
-                                <h3>{{ $t('Details') }}</h3>
-                                <div class="hover-editable text-left">
-                                    <dl>
-                                        <dd>{{ $t('Enabled') }}</dd>
-                                        <dt class="text-center">
-                                            <toggler v-model="channelGroup.enabled"
-                                                @input="channelGroupChanged()"></toggler>
-                                        </dt>
-                                        <dd>{{ $t('Caption') }}</dd>
-                                        <dt>
-                                            <input type="text"
-                                                class="form-control"
-                                                @change="channelGroupChanged()"
-                                                v-model="channelGroup.caption">
-                                        </dt>
-                                        <dd>{{ $t('Show in clients') }}</dd>
-                                        <dt class="text-center">
-                                            <toggler v-model="channelGroup.hidden"
-                                                invert="true"
-                                                @input="channelGroupChanged()"></toggler>
-                                        </dt>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <h3>{{ $t('Location') }}</h3>
-                                <square-location-chooser v-model="channelGroup.location"
-                                    @input="onLocationChange($event)"></square-location-chooser>
-                            </div>
-                            <div class="col-sm-4">
-                                <h3>{{ $t('Function') }}</h3>
-                                <div v-if="channelGroup.function">
-                                    <function-icon :model="channelGroup"
-                                        width="100"></function-icon>
-                                    <h4>{{ $t(channelGroup.function.caption) }}</h4>
-                                </div>
-                                <div v-else-if="isNewGroup">
-                                    <i class="pe-7s-help1"
-                                        style="font-size: 3em"></i>
-                                </div>
+    <page-container :error="error">
+        <loading-cover :loading="loading"
+            class="channel-group-details">
+            <div v-if="channelGroup">
+                <div class="container">
+                    <pending-changes-page :header="$t(channelGroup.id ? 'Channel group' : 'New channel group') + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
+                        @cancel="cancelChanges()"
+                        @save="saveChannelGroup()"
+                        :deletable="!isNewGroup"
+                        @delete="deleteConfirm = true"
+                        :is-pending="hasPendingChanges && !isNewGroup">
+                        <div class="row hidden-xs">
+                            <div class="col-xs-12">
+                                <dots-route></dots-route>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="row text-center">
+                                <div class="col-sm-4">
+                                    <h3>{{ $t('Details') }}</h3>
+                                    <div class="hover-editable text-left">
+                                        <dl>
+                                            <dd>{{ $t('Enabled') }}</dd>
+                                            <dt class="text-center">
+                                                <toggler v-model="channelGroup.enabled"
+                                                    @input="channelGroupChanged()"></toggler>
+                                            </dt>
+                                            <dd>{{ $t('Caption') }}</dd>
+                                            <dt>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    @change="channelGroupChanged()"
+                                                    v-model="channelGroup.caption">
+                                            </dt>
+                                            <dd>{{ $t('Show in clients') }}</dd>
+                                            <dt class="text-center">
+                                                <toggler v-model="channelGroup.hidden"
+                                                    invert="true"
+                                                    @input="channelGroupChanged()"></toggler>
+                                            </dt>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h3>{{ $t('Location') }}</h3>
+                                    <square-location-chooser v-model="channelGroup.location"
+                                        @input="onLocationChange($event)"></square-location-chooser>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h3>{{ $t('Function') }}</h3>
+                                    <div v-if="channelGroup.function">
+                                        <function-icon :model="channelGroup"
+                                            width="100"></function-icon>
+                                        <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                                    </div>
+                                    <div v-else-if="isNewGroup">
+                                        <i class="pe-7s-help1"
+                                            style="font-size: 3em"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </pending-changes-page>
+                </div>
+                <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
+                <square-links-grid v-if="channelGroup.channels"
+                    :count="channelGroup.channels.length + 1"
+                    class="square-links-height-240">
+                    <div key="new">
+                        <channel-group-new-channel-chooser :channel-group="channelGroup"
+                            @add="channelGroupChanged()"></channel-group-new-channel-chooser>
                     </div>
-                </pending-changes-page>
+                    <div v-for="channel in channelGroup.channels"
+                        :key="channel.id">
+                        <channel-group-channel-tile :channel="channel"
+                            :removable="channelGroup.channels.length > 1"
+                            @remove="removeChannel(channel)"></channel-group-channel-tile>
+                    </div>
+                </square-links-grid>
+                <modal-confirm v-if="deleteConfirm"
+                    class="modal-warning"
+                    @confirm="deleteGroup()"
+                    @cancel="deleteConfirm = false"
+                    :header="$t('Are you sure you want to delete this channel group?')"
+                    :loading="loading">
+                </modal-confirm>
             </div>
-            <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
-            <square-links-grid v-if="channelGroup.channels"
-                :count="channelGroup.channels.length + 1"
-                class="square-links-height-240">
-                <div key="new">
-                    <channel-group-new-channel-chooser :channel-group="channelGroup"
-                        @add="channelGroupChanged()"></channel-group-new-channel-chooser>
-                </div>
-                <div v-for="channel in channelGroup.channels"
-                    :key="channel.id">
-                    <channel-group-channel-tile :channel="channel"
-                        :removable="channelGroup.channels.length > 1"
-                        @remove="removeChannel(channel)"></channel-group-channel-tile>
-                </div>
-            </square-links-grid>
-            <modal-confirm v-if="deleteConfirm"
-                class="modal-warning"
-                @confirm="deleteGroup()"
-                @cancel="deleteConfirm = false"
-                :header="$t('Are you sure you want to delete this channel group?')"
-                :loading="loading">
-            </modal-confirm>
-        </div>
-    </loading-cover>
+        </loading-cover>
+    </page-container>
 </template>
 
 <script>
@@ -98,10 +100,12 @@
     import SquareLocationChooser from "../locations/square-location-chooser";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
+    import PageContainer from "../common/pages/page-container";
 
     export default {
         props: ['id'],
         components: {
+            PageContainer,
             PendingChangesPage,
             Toggler,
             ChannelGroupChannelTile,
@@ -115,6 +119,7 @@
             return {
                 loading: false,
                 channelGroup: undefined,
+                error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false
             };
@@ -127,8 +132,10 @@
                 this.hasPendingChanges = false;
                 if (this.id && this.id != 'new') {
                     this.loading = true;
-                    this.$http.get(`channel-groups/${this.id}?include=channels,iodevice,location,function`)
+                    this.error = false;
+                    this.$http.get(`channel-groups/${this.id}?include=channels,iodevice,location,function`, {skipErrorHandler: [403, 404]})
                         .then(response => this.channelGroup = response.body)
+                        .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 }
                 else {

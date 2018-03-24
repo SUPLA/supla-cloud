@@ -242,6 +242,24 @@ body.green {
   }
 }
 
+body.red {
+  nav.navbar-top {
+    background: $supla-red;
+    .navbar-brand {
+      color: $supla-white;
+      fill: $supla-white;
+    }
+    #supla-navbar > .nav > li {
+      &.active {
+        background: darken($supla-red, 5%);
+      }
+      > a {
+        color: $supla-white;
+      }
+    }
+  }
+}
+
 @import "./buttons";
 @import "./notifications";
 @import "./start-here";

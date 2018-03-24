@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <page-container :error="error">
         <loading-cover :loading="!channel || loading">
             <div class="container"
                 v-if="channel">
@@ -92,7 +92,7 @@
             v-if="changeFunctionConfirmationObject"
             @cancel="loading = changeFunctionConfirmationObject = undefined"
             @confirm="saveChanges(true)"></channel-function-edit-confirmation>
-    </div>
+    </page-container>
 </template>
 
 <script>
@@ -108,10 +108,12 @@
     import throttle from "lodash/throttle";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
+    import PageContainer from "../common/pages/page-container";
 
     export default {
         props: ['id'],
         components: {
+            PageContainer,
             PendingChangesPage,
             ChannelFunctionEditConfirmation,
             ChannelDetailsTabs,
@@ -126,6 +128,7 @@
         data() {
             return {
                 channel: undefined,
+                error: false,
                 loading: false,
                 hasPendingChanges: false,
                 changedFunction: false,
@@ -138,11 +141,14 @@
         methods: {
             fetchChannel() {
                 this.loading = true;
-                this.$http.get(`channels/${this.id}?include=iodevice,location,function,supportedFunctions`).then(response => {
-                    this.channel = response.body;
-                    this.$set(this.channel, 'enabled', !!this.channel.function.id);
-                    this.changedFunction = this.hasPendingChanges = this.loading = false;
-                });
+                this.error = false;
+                this.$http.get(`channels/${this.id}?include=iodevice,location,function,supportedFunctions`, {skipErrorHandler: [403, 404]})
+                    .then(response => {
+                        this.channel = response.body;
+                        this.$set(this.channel, 'enabled', !!this.channel.function.id);
+                        this.changedFunction = this.hasPendingChanges = this.loading = false;
+                    })
+                    .catch(response => this.error = response.status);
             },
             updateChannel() {
                 this.hasPendingChanges = true;

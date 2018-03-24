@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <page-container :error="error">
         <loading-cover :loading="!device || loading">
             <div class="bg-green form-group"
                 v-if="device">
@@ -85,7 +85,8 @@
                 </div>
             </div>
         </loading-cover>
-        <channel-list-page :device-id="id"></channel-list-page>
+        <channel-list-page :device-id="id"
+            v-if="device"></channel-list-page>
         <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
             v-if="showSchedulesDisablingConfirmation"
             :schedules="schedules"
@@ -103,7 +104,7 @@
             :loading="loading">
             <p>{{ $t('Confirm if you want to remove {deviceName} device', {deviceName: device.name}) }}</p>
         </modal-confirm>
-    </div>
+    </page-container>
 </template>
 
 <script>
@@ -117,10 +118,12 @@
     import DisablingSchedulesModal from "../../schedules/modals/disabling-schedules-modal";
     import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal";
     import SquareLocationChooser from "../../locations/square-location-chooser";
+    import PageContainer from "../../common/pages/page-container";
 
     export default {
         props: ['id'],
         components: {
+            PageContainer,
             EnablingSchedulesModal,
             DisablingSchedulesModal,
             DeviceConnectionStatusLabel,
@@ -133,6 +136,7 @@
         data() {
             return {
                 device: undefined,
+                error: false,
                 loading: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
@@ -147,11 +151,14 @@
         methods: {
             fetchDevice() {
                 this.loading = true;
-                return this.$http.get(`iodevices/${this.id}?include=location,originalLocation,accessids`).then(response => {
-                    this.device = response.body;
-                    this.loading = false;
-                    this.hasPendingChanges = false;
-                });
+                this.error = false;
+                return this.$http.get(`iodevices/${this.id}?include=location,originalLocation,accessids`, {skipErrorHandler: [403, 404]})
+                    .then(response => {
+                        this.device = response.body;
+                        this.loading = false;
+                        this.hasPendingChanges = false;
+                    })
+                    .catch(response => this.error = response.status);
             },
             updateDevice() {
                 this.hasPendingChanges = true;

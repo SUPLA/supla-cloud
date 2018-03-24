@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <page-container :error="error">
         <loading-cover :loading="!schedule || loading">
             <div class="container"
                 v-if="schedule">
@@ -89,7 +89,7 @@
                 :loading="loading">
             </modal-confirm>
         </loading-cover>
-    </div>
+    </page-container>
 </template>
 
 <script type="text/babel">
@@ -98,9 +98,11 @@
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ScheduleExecutionsDisplay from "./schedule-executions-display";
+    import PageContainer from "../../common/pages/page-container";
 
     export default {
         components: {
+            PageContainer,
             ScheduleExecutionsDisplay,
             PendingChangesPage,
             Toggler,
@@ -111,6 +113,7 @@
         data() {
             return {
                 schedule: undefined,
+                error: false,
                 hasPendingChanges: false,
                 loading: false,
                 deleteConfirm: false,
@@ -122,10 +125,13 @@
         methods: {
             fetch() {
                 this.loading = true;
-                this.$http.get(`schedules/${this.id}?include=channel,iodevice,location`).then(({body}) => {
-                    this.schedule = body;
-                    this.hasPendingChanges = this.loading = false;
-                });
+                this.error = false;
+                this.$http.get(`schedules/${this.id}?include=channel,iodevice,location`, {skipErrorHandler: [403, 404]})
+                    .then(({body}) => {
+                        this.schedule = body;
+                        this.hasPendingChanges = this.loading = false;
+                    })
+                    .catch(response => this.error = response.status);
             },
             cancelChanges() {
                 this.fetch();

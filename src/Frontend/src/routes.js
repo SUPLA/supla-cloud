@@ -25,4 +25,5 @@ export default [
     {path: '/schedules/:id', component: () => import("./schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},
     {path: '/schedules/edit/:id', component: () => import("./schedules/schedule-form/schedule-form"), name: 'schedule.edit', props: true},
     {path: '/smartphones', component: () => import("./client-apps/client-apps-page")},
+    {path: "*", component: () => import("./common/pages/error-404"), meta: {bodyClass: 'red'}}
 ];

@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <page-container :error="error"
+        class="container">
         <div class="row">
             <div class="col-xs-12">
                 <h1 v-if="id">
@@ -82,7 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </page-container>
 </template>
 
 <script type="text/babel">
@@ -101,6 +102,7 @@
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import {actions, mutations} from "./schedule-form-store";
     import Toggler from "../../common/gui/toggler";
+    import PageContainer from "../../common/pages/page-container";
 
     export default {
         name: 'schedule-form',
@@ -128,6 +130,7 @@
         data() {
             return {
                 canSetRetry: false,
+                error: false,
             };
         },
         computed: {
@@ -152,15 +155,17 @@
         mounted() {
             this.resetState();
             if (this.id) {
-                this.$http.get('schedules/' + this.id, {params: {include: 'channel'}}).then(({body}) => {
-                    this.loadScheduleToEdit(body);
-                });
+                this.error = false;
+                this.$http.get('schedules/' + this.id, {params: {include: 'channel'}, skipErrorHandler: [403, 404]})
+                    .then(({body}) => this.loadScheduleToEdit(body))
+                    .catch(response => this.error = response.status);
             }
             else if (this.$route.query.channelId) {
                 this.$store.commit('updateChannel', this.$route.query.channelId);
             }
         },
         components: {
+            PageContainer,
             ScheduleModeChooser,
             ScheduleFormModeOnce,
             ScheduleFormModeMinutely,
