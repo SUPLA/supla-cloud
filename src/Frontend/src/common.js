@@ -46,7 +46,7 @@ moment.tz.setDefault(Vue.config.external.timezone);
 })();
 
 $(document).ready(() => {
-    if ($('.vue-container').length && !$('.register-page').length) { // temporary fix until register page is not under login-page's router
+    if ($('.vue-container').length) {
         const router = new VueRouter({
             routes,
             base: Vue.config.external.baseUrl + '/',

@@ -75,15 +75,9 @@
 
 {% block content_header %}
 
-    {% if app.user %}
-        {{ include('@Supla/navbar.html.twig') }}
-    {% endif %}
 {% endblock %}
-<div class="main-content{% if app.request.get('_route') != '_account_create_here'%} vue-container{% endif %}">
+<div>
     {% block content %}{% endblock %}
-    {% if app.user and not app.debug %}
-        <idle-logout></idle-logout>
-    {% endif %}
 </div>
 
 {% block scripts %}{% endblock %}
