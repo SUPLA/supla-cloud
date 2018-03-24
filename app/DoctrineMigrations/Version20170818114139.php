@@ -71,28 +71,6 @@ class Version20170818114139 extends AbstractMigration {
     }
 
     public function down(Schema $schema) {
-        $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007FA76ED395');
-        $this->addSql('DROP INDEX IDX_5430007FA76ED395 ON supla_client');
-        $this->addSql('DROP INDEX client_reg_enabled_idx ON supla_user');
-        $this->addSql('DROP INDEX iodevice_reg_enabled_idx ON supla_user');
-        $this->addSql('ALTER TABLE supla_client DROP user_id');
-        $this->addSql('ALTER TABLE supla_client DROP auth_key');
-        $this->addSql('ALTER TABLE supla_iodevice DROP auth_key');
-        $this->addSql('ALTER TABLE supla_user DROP iodevice_reg_enabled');
-        $this->addSql('ALTER TABLE supla_user DROP client_reg_enabled');
-        $this->addSql('UPDATE supla_iodevice SET original_location_id = NULL WHERE location_id = original_location_id');
-        $this->addSql('ALTER TABLE supla_client CHANGE reg_ipv4 reg_ipv4 INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_client CHANGE last_access_ipv4 last_access_ipv4 INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_iodevice CHANGE reg_ipv4 reg_ipv4 INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_iodevice CHANGE last_access_ipv4 last_access_ipv4 INT DEFAULT NULL');
-        
-        $this->addSql('UPDATE supla_client SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
-        $this->addSql('UPDATE supla_client SET last_access_ipv4 = ( ((last_access_ipv4 & 0xFF) << 24) | ((last_access_ipv4 & 0xFF00) << 8) | ((last_access_ipv4 & 0xFF0000) >> 8) | ((last_access_ipv4 & 0xFF000000) >> 24) )');
-        
-        $this->addSql('UPDATE supla_iodevice SET reg_ipv4 = ( ((reg_ipv4 & 0xFF) << 24) | ((reg_ipv4 & 0xFF00) << 8) | ((reg_ipv4 & 0xFF0000) >> 8) | ((reg_ipv4 & 0xFF000000) >> 24) )');
-        $this->addSql('UPDATE supla_iodevice SET last_ipv4 = ( ((last_ipv4 & 0xFF) << 24) | ((last_ipv4 & 0xFF00) << 8) | ((last_ipv4 & 0xFF0000) >> 8) | ((last_ipv4 & 0xFF000000) >> 24) )');
-     
-        $this->addSql('UPDATE `supla_temperature_log` SET date = CONVERT_TZ(date, \'+00:00\', \'SYSTEM\')');
-        $this->addSql('UPDATE `supla_temphumidity_log` SET date = CONVERT_TZ(date, \'+00:00\', \'SYSTEM\')');
+        $this->abortIf(true, 'There is no way back');
     }
 }

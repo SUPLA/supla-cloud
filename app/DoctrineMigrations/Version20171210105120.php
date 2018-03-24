@@ -17,5 +17,6 @@ class Version20171210105120 extends AbstractMigration {
     }
 
     public function down(Schema $schema) {
+        $this->abortIf(true, 'There is no way back');
     }
 }

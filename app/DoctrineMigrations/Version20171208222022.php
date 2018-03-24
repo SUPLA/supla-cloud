@@ -21,6 +21,7 @@ class Version20171208222022 extends AbstractMigration implements ContainerAwareI
     }
 
     public function down(Schema $schema) {
+        $this->abortIf(true, 'There is no way back');
     }
 
     private function createSuplaServerViews() {

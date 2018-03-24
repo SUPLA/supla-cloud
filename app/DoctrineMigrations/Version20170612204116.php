@@ -16,7 +16,6 @@ class Version20170612204116 extends AbstractMigration {
     }
 
     public function down(Schema $schema) {
-        $this->addSql('UPDATE supla_user SET password=legacy_password');
-        $this->addSql('ALTER TABLE supla_user DROP legacy_password, CHANGE password password VARCHAR(64) NOT NULL COLLATE utf8_unicode_ci');
+        $this->abortIf(true, 'There is no way back');
     }
 }

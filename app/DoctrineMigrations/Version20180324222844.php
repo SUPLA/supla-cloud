@@ -15,7 +15,6 @@ class Version20180324222844 extends AbstractMigration {
     }
 
     public function down(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        $this->addSql('ALTER TABLE supla_user DROP limit_channel_group');
+        $this->abortIf(true, 'There is no way back');
     }
 }

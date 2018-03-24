@@ -16,6 +16,7 @@ class Version20180113234138 extends AbstractMigration {
     }
 
     public function down(Schema $schema) {
+        $this->abortIf(true, 'There is no way back');
     }
 
     private function createRequiredTables() {

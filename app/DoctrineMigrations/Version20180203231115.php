@@ -17,9 +17,6 @@ class Version20180203231115 extends AbstractMigration {
     }
 
     public function down(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        $this->addSql('ALTER TABLE supla_dev_channel DROP FOREIGN KEY FK_81E928C964D218E');
-        $this->addSql('DROP INDEX IDX_81E928C964D218E ON supla_dev_channel');
-        $this->addSql('ALTER TABLE supla_dev_channel DROP location_id');
+        $this->abortIf(true, 'There is no way back');
     }
 }

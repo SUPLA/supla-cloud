@@ -48,29 +48,6 @@ class Version20170414101854 extends AbstractMigration {
     }
 
     public function down(Schema $schema) {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
-        $this->addSql('ALTER TABLE supla_oauth_refresh_tokens DROP FOREIGN KEY FK_B809538CA76ED395');
-        $this->addSql('ALTER TABLE supla_oauth_auth_codes DROP FOREIGN KEY FK_48E00E5DA76ED395');
-        $this->addSql('ALTER TABLE supla_oauth_access_tokens DROP FOREIGN KEY FK_2402564BA76ED395');
-        $this->addSql('ALTER TABLE supla_oauth_refresh_tokens DROP FOREIGN KEY FK_B809538C19EB6921');
-        $this->addSql('ALTER TABLE supla_oauth_auth_codes DROP FOREIGN KEY FK_48E00E5D19EB6921');
-        $this->addSql('ALTER TABLE supla_oauth_access_tokens DROP FOREIGN KEY FK_2402564B19EB6921');
-        $this->addSql('ALTER TABLE supla_scheduled_executions DROP FOREIGN KEY FK_FB21DBDCA40BC2D5');
-        $this->addSql('DROP TABLE supla_oauth_refresh_tokens');
-        $this->addSql('DROP TABLE supla_oauth_auth_codes');
-        $this->addSql('DROP TABLE supla_oauth_access_tokens');
-        $this->addSql('DROP TABLE supla_oauth_user');
-        $this->addSql('DROP TABLE supla_oauth_clients');
-        $this->addSql('DROP TABLE supla_scheduled_executions');
-        $this->addSql('DROP TABLE supla_schedule');
-        $this->addSql('ALTER TABLE supla_client CHANGE guid guid BINARY(16) NOT NULL');
-        $this->addSql('ALTER TABLE supla_iodevice DROP FOREIGN KEY FK_793D49DF142C1A4');
-        $this->addSql('DROP INDEX IDX_793D49DF142C1A4 ON supla_iodevice');
-        $this->addSql('ALTER TABLE supla_iodevice DROP original_location_id, CHANGE guid guid BINARY(16) NOT NULL');
-        $this->addSql('ALTER TABLE supla_user DROP timezone, DROP limit_schedule');
-        $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007F4FEA67CF');
-        $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007F4FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id)');
+        $this->abortIf(true, 'There is no way back');
     }
 }

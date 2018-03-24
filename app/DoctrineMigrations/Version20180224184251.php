@@ -8,16 +8,9 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: supla_v_client_channel - skip hidden channels. Include channel location.
  */
-class Version20180224184251 extends AbstractMigration
-{
-    /**
-     * @param Schema $schema
-     */
-    public function up(Schema $schema)
-    {
-        // this up() migration is auto-generated, please modify it to your needs
+class Version20180224184251 extends AbstractMigration {
+    public function up(Schema $schema) {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
         $this->addSql(<<<VIEW
 						CREATE OR REPLACE algorithm=undefined SQL SECURITY DEFINER VIEW `supla_v_client_channel` AS
 						SELECT `c`.`id` AS `id`,
@@ -53,14 +46,10 @@ class Version20180224184251 extends AbstractMigration
 						       AND (`l`.`enabled` = 1)
 						       AND (`a`.`enabled` = 1);
 VIEW
-       );
-       }
+        );
+    }
 
-    /**
-     * @param Schema $schema
-     */
-    public function down(Schema $schema)
-    {
-    	$this->abortIf(true, 'There is no way back');
+    public function down(Schema $schema) {
+        $this->abortIf(true, 'There is no way back');
     }
 }

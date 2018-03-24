@@ -45,6 +45,6 @@ INITIAL_SCHEMA
     }
 
     public function down(Schema $schema) {
-        // There's no way back.
+        $this->abortIf(true, 'There is no way back');
     }
 }
