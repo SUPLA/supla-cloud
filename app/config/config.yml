@@ -112,3 +112,5 @@ twig:
   globals:
     supla_require_regulations_acceptance: '%supla_require_regulations_acceptance%'
     supla_require_cookie_policy_acceptance: '%supla_require_cookie_policy_acceptance%'
+    recaptcha_enabled: "%recaptcha_enabled%"
+    recaptcha_site_key: "%recaptcha_site_key%"

@@ -73,7 +73,11 @@
 </template>
 
 <script>
-    export default {};
+    export default {
+        mounted() {
+            document.title = this.$t( 'Supla for devices' ) + ' | ' + 'SUPLA CLOUD';
+        }
+    };
 </script>
 
 <style lang="scss">
