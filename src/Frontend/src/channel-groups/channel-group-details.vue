@@ -67,7 +67,8 @@
                 <square-links-grid v-if="channelGroup.channels"
                     :count="channelGroup.channels.length + 1"
                     class="square-links-height-240">
-                    <div key="new">
+                    <div key="new"
+                        v-if="$user.limits.channelPerGroup > channelGroup.channels.length">
                         <channel-group-new-channel-chooser :channel-group="channelGroup"
                             @add="channelGroupChanged()"></channel-group-new-channel-chooser>
                     </div>
@@ -166,7 +167,8 @@
                     this.$http
                         .put('channel-groups/' + this.channelGroup.id, toSend)
                         .then(response => this.$emit('update', response.body))
-                        .finally(() => this.loading = this.hasPendingChanges = false);
+                        .then(() => this.hasPendingChanges = false)
+                        .finally(() => this.loading = false);
                 }
             },
             removeChannel(channel) {

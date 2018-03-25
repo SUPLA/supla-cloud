@@ -447,6 +447,7 @@ Inherit location from I/O Device: Korzystaj z lokalizacji urządzenia
 Channel groups no: Liczba grup kanałów
 Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 Schedule limit has been exceeded: Limit harmonogramów został przekroczony
+Too many channels in this group: Zbyt dużo kanałów w tej grupie
 
 Hidden: Niewidoczne
 Visible: Widoczne
