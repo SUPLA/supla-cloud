@@ -18,11 +18,37 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DefaultController extends Controller {
+    /**
+     * @Route("/channels/{channel}/csv", name="_iodevice_channel_item_csv")
+     * @Security("channel.belongsToUser(user)")
+     */
+    public function channelItemGetCSV(IODeviceChannel $channel) {
+        $file = $this->get('iodevice_manager')->channelGetCSV($channel, "measurement_" . $channel->getId());
+        if ($file !== false) {
+            return new StreamedResponse(
+                function () use ($file) {
+                    readfile($file);
+                    unlink($file);
+                },
+                200,
+                [
+                    'Content-Type' => 'application/zip',
+                    'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
+                ]
+            );
+        }
+        $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Error creating file']);
+        return $this->redirectToRoute("_iodevice_channel_details", ['channel' => $channel->getId()]);
+    }
+
     /**
      * @Route("/", name="_homepage")
      * @Route("/{suffix}", requirements={"suffix"="^.*"}, methods={"GET"})
