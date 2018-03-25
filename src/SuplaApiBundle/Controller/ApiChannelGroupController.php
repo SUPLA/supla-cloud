@@ -55,7 +55,11 @@ class ApiChannelGroupController extends RestController {
     public function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         $user = $this->getUser();
         Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
-        Assertion::lessOrEqualThan($channelGroup->getChannels()->count(), $user->getLimitChannelPerGroup(), 'Too many channels in this group');
+        Assertion::lessOrEqualThan(
+            $channelGroup->getChannels()->count(),
+            $user->getLimitChannelPerGroup(),
+            'Too many channels in this group'
+        );
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
             return $this->view($channelGroup, Response::HTTP_CREATED);
