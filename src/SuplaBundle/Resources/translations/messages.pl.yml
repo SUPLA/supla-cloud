@@ -469,11 +469,5 @@ The server has returned a HTTP 404 Error. It means that the item you are looking
 Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
 The server has returned a HTTP 403 Error. It means that you don't have rights to display the item you are looking for.: Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.
 
-You have no enabled locations.: Nie masz żadnych aktywnych lokalizacji.
-You have no enabled access identifiers.: Nie masz żadnych aktywnych identyfikatorów dostępu.
-Go to: Przejdź do
-or: lub
-locations list: lista lokalizacji
-access identifiers list: lista identyfikatorów dostępu
-add new location: dodaj nową lokalizację
-add new access identifier: dodaj nowy identyfikator dostępu
+You have no enabled locations. Go to [locations list] or [add new location].: Nie masz żadnych aktywnych lokalizacji. Przejdź do [listy lokalizacji] lub [dodaj nową lokalizację].
+You have no enabled access identifiers. Go to [access identifiers list] or [add new access identifier].: Nie masz żadnych aktywnych identyfikatorów dostępu. Przejdź do [listy identyfikatorów dostępu] lub [dodaj nowy identyfikator dostępu].

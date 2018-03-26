@@ -28,11 +28,7 @@
                         </div>
                         <div v-else-if="!loading"
                             class="alert alert-warning">
-                            {{ $t('You have no enabled locations.') }}
-                            {{ $t('Go to') }}
-                            <router-link :to="{name: 'locations'}">{{ $t('locations list') }}</router-link>
-                            {{ $t('or') }}
-                            <router-link :to="{name: 'location', params: {id: 'new'}}">{{$t('add new location') }}</router-link>
+                            <component :is="noEnabledLocationsWarning"></component>
                         </div>
                     </loading-cover>
                 </div>
@@ -63,11 +59,7 @@
                         </div>
                         <div v-else-if="!loading"
                             class="alert alert-warning">
-                            {{ $t('You have no enabled access identifiers.') }}
-                            {{ $t('Go to') }}
-                            <router-link :to="{name: 'accessIds'}">{{ $t('access identifiers list') }}</router-link>
-                            {{ $t('or') }}
-                            <router-link :to="{name: 'accessId', params: {id: 'new'}}">{{$t('add new access identifier') }}</router-link>
+                            <component :is="noEnabledAccessIdsWarning"></component>
                         </div>
                     </loading-cover>
                 </div>
@@ -102,6 +94,20 @@
                 }
             }).finally(() => this.loading = false);
             this.$http.get('server-info').then(response => this.address = response.body.address);
+        },
+        computed: {
+            noEnabledLocationsWarning() {
+                const warning = this.$t('You have no enabled locations. Go to [locations list] or [add new location].')
+                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'locations'}">$1</router-link>`)
+                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'location', params: {id: 'new'}}">$1</router-link>`);
+                return {template: `<span>${warning}</span>`};
+            },
+            noEnabledAccessIdsWarning() {
+                const warning = this.$t('You have no enabled access identifiers. Go to [access identifiers list] or [add new access identifier].')
+                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessIds'}">$1</router-link>`)
+                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessId', params: {id: 'new'}}">$1</router-link>`);
+                return {template: `<span>${warning}</span>`};
+            }
         }
     };
 </script>
