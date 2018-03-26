@@ -54,13 +54,15 @@ $(document).ready(() => {
             mode: 'history',
         });
 
-        router.beforeEach((to, from, next) => {
-            if (!Vue.config.external.user.agreements.rules && to.name != 'agree-on-rules') {
-                next({name: 'agree-on-rules'});
-            } else {
-                next();
-            }
-        });
+        if (!Vue.config.external.user.agreements.rules) {
+            router.beforeEach((to, from, next) => {
+                if (!Vue.config.external.user.agreements.rules && to.name != 'agree-on-rules') {
+                    next({name: 'agree-on-rules'});
+                } else {
+                    next();
+                }
+            });
+        }
 
         router.afterEach((to) => {
             if (to.meta.bodyClass) {

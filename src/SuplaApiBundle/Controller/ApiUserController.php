@@ -20,7 +20,6 @@ namespace SuplaApiBundle\Controller;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
 use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
@@ -34,7 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class ApiUserController extends FOSRestController {
+class ApiUserController extends RestController {
     use Transactional;
 
     private $serverList;
@@ -122,11 +121,15 @@ class ApiUserController extends FOSRestController {
                     throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
                 }
             } elseif ($data['action'] == 'change:password') {
+                $this->assertNotApliUser();
                 $newPassword = $data['newPassword'] ?? '';
                 $oldPassword = $data['oldPassword'] ?? '';
                 Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect');
                 Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
                 $this->userManager->setPassword($newPassword, $user);
+            } elseif ($data['action'] == 'agree:rules') {
+                $this->assertNotApliUser();
+                $user->agreeOnRules();
             }
             $em->persist($user);
             return $user;
@@ -139,7 +142,7 @@ class ApiUserController extends FOSRestController {
      */
     public function getUserApiSettingsAction() {
         $user = $this->getUser();
-        Assertion::isInstanceOf($user, User::class, 'You cannot fetch API settings via API.');
+        $this->assertNotApliUser();
         $apiManager = $this->get('api_manager');
         $client = $apiManager->getClient($user);
         $apiUser = $apiManager->getAPIUser($user);
@@ -157,7 +160,7 @@ class ApiUserController extends FOSRestController {
      */
     public function patchUserApiSettingsAction(Request $request) {
         $user = $this->getUser();
-        Assertion::isInstanceOf($user, User::class, 'You cannot fetch API settings via API.');
+        $this->assertNotApliUser();
         $data = $request->request->all();
         $apiManager = $this->get('api_manager');
         $apiUser = $apiManager->getAPIUser($user);
@@ -171,5 +174,10 @@ class ApiUserController extends FOSRestController {
             return ['enabled' => $enabled];
         }
         Assertion::true(false);
+    }
+
+    private function assertNotApliUser() {
+        $user = $this->getUser();
+        Assertion::isInstanceOf($user, User::class, 'You cannot perform this action as an API user.');
     }
 }
