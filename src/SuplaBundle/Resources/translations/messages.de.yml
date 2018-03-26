@@ -18,7 +18,7 @@ Server address: Server-Adresse
 Cancel: Abbrechen
 CANCEL: ABBRECHEN
 Are you sure you want to delete?: Bist du sicher, dass du es löschen möchtest?
-Relay switching time: Dauer der Befestigung<br />des Relais
+Relay switching time: Dauer der Befestigung des Relais
 Full opening time: Volle Öffnungszeit
 Full closing time: Volle Schließungszeit
 sec.: Sek.
@@ -71,14 +71,12 @@ CLICK TO ENABLE: KLICKEN UM EINZUSCHALTEN
 DELETE: LÖSCHEN
 Assign Locations: Lokalisierung zuordnen
 Confirm if you want to remove Access Identifier: Bestätigen Sie, wenn Sie Zugriffskennung löschen möchten
-Confirm if you want to remove Location: Bestätigen Sie, wenn Sie die Lokalisierung löschen möchten
 Further connection with this Identifier will be impossible: Weitere Verbindung durch diese Zugriffskennung wird nicht möglich
 Choose locations to be assigned to Access Identifier: Bitte die Lokaliesierungen wählen, die zu dieser Zugriffskennung zugeordnen werden
 Access Identifiers: Zugriffskennungen
 Create New Access Identifier: Neue Zugriffskennung erstellen
 No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Keine Lokalisierungen, die du zu dieser<br />Zugriffskennung zuordnen kannst. Bitte mindestens eine Lokalisierung erstellen.
 No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Keine Zugriffserkennungen, die du zu dieser<br />Lokalisierung zuordnen kannst. Bitte mindestens eine Zugriffserkennung erstellen. 
-You will no longer be able to connect the i/o devices to this Location: Weitere Verdindung der E/A Geräte mit dieser Lokalisierung wird nicht möglich
 Create New Location: Neue Lokalisierung erstellen
 Assign Access Identifiers: Zugriffskennungen zuordnen
 Languages: Sprachen
@@ -100,7 +98,7 @@ All the above and many more can be done from your phone or tablet: Das alles und
 SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA ist überall und immer erreichbar. Keine Sorge, falls du mal vergisst, das Licht zu Hause auszuschalten
 Registered: Registriert
 Last connection: Letzte Verbindung
-Confirm if you want to remove <strong>%devname%</strong> device: Bestätige, wenn du das Gerät löschen möchtest <strong>%devname%</strong>
+Confirm if you want to remove {deviceName} device: Bestätige, wenn du das Gerät löschen möchtest {deviceName}
 All Your I/O Devices: Alle deine E/A Geräte
 Please select function for this channel: Funktion für den Kanal wählen
 No Access Identifiers assigned: Keine zugeordnete Zugriffstkennungen
@@ -176,7 +174,6 @@ Caption has been changed: Bildunterschrift wurde geändert
 Password has been changed: Kennwort wurde geädert 
 Location has been enabled: Lokalisierung wurde eingeschaltet
 Location has been disabled: Lokalisierung wurde ausgeschaltet
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Die verbundenen Geräte löschen bevor Sie diese Lokalisierung löschen
 Comment has been modified: Kommentar wurde geändert
 I/O Device has been disabled: Das E/A Gerät wurde ausgeschaltet
 I/O Device has been enabled: Das E/A Gerät wurde eingeschaltet
@@ -268,7 +265,6 @@ No future executions - schedule disabled: Keine vorausgeplanten Ausführungen- H
 Enable schedule: Schalte das Harmonogramm ein
 Schedule cannot be enabled: Es ist nicht gelungen das Harmonogramm einzuschalten
 Disable schedule: Schalte das Harmonogramm aus
-Edit schedule: Bearbeite das Harmonogramm
 Delete schedule: Entferne das Harmonogramm
 Executions: Ausführungen
 Action: Aktion

@@ -19,7 +19,7 @@ Server address: Endereço do servidor
 Cancel: Cancelar
 CANCEL: CANCELAR
 Are you sure you want to delete?: Deseja mesmo apagar?
-Relay switching time: Tempo de ligação do<br /> relé
+Relay switching time: Tempo de ligação do relé
 Full opening time: Tempo inteiro da abertura
 Full closing time: Tempo inteiro do fecho
 sec.: s.
@@ -73,14 +73,12 @@ CLICK TO ENABLE: CLIQUE PARA LIGAR
 DELETE: APAGAR
 Assign Locations: Atribuir Localizações
 Confirm if you want to remove Access Identifier: Confirme se quer mesmo apagar o Identificador do Acesso
-Confirm if you want to remove Location: Confirme se quer mesmo apagar a Localização
 Further connection with this Identifier will be impossible: Não será possível continuar a ligar através este identificador 
 Choose locations to be assigned to Access Identifier: Selecione Localizações que serão atribuídas a este Identificador do Acesso
 Access Identifiers: Identificadores do acesso 
 Create New Access Identifier: Criar um novo Identificador do Acesso 
 No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Falta de localizações que possam ser atribuídas a este Identificador do Acesso.<br />Passe para a Localização e crie pelo menos uma.
 No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Falta de Identificadores do Acesso que possam ser atribuídos a esta localização.<br />Passe para os Identificadores do Acesso e crie pelo menos um.  
-You will no longer be able to connect the i/o devices to this Location: Não será possível continuar a ligar os dispositivos de entrada/saída a esta localização 
 Create New Location: Criar uma nova localização 
 Assign Access Identifiers: Atribuir os Identificadores do Acesso
 Languages: Línguas
@@ -102,7 +100,7 @@ All the above and many more can be done from your phone or tablet: Faça tudo is
 SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA é disponível sempre e por toda a parte. Não se preocupe mais quando esquecer desligar a luz.
 Registered: Registado
 Last connection: Última ligação
-Confirm if you want to remove <strong>%devname%</strong> device: Confirme se quer mesmo suprimir o dispositivo <strong>%devname%</strong>
+Confirm if you want to remove {deviceName} device: Confirme se quer mesmo suprimir o dispositivo {deviceName}
 All Your I/O Devices: Todos os seus dispositivos de I/O
 Please select function for this channel: Selecione uma função para este canal
 No Access Identifiers assigned: Falta de Identificadores do Acesso atribuídos 
@@ -180,7 +178,6 @@ Caption has been changed: A denominação foi alterada
 Password has been changed: A senha foi alterada
 Location has been enabled: A localização foi ligada
 Location has been disabled: A localização foi desligada
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Suprima os dispositivos associados antes de suprimir a localização
 Comment has been modified: O comentário foi alterado
 I/O Device has been disabled: Dispositivo de I/O foi desligado
 I/O Device has been enabled: Dispositivo de I/O foi ligado
@@ -269,7 +266,6 @@ No future executions - schedule disabled: Falta de execuções planeadas – age
 Enable schedule: Ligue a agenda
 Schedule cannot be enabled: Falha ao ativar a agenda
 Disable schedule: Desligue a agenda
-Edit schedule: Edite a agenda
 Delete schedule: Suprima a agenda
 Executions: Execuções
 Action: Ação

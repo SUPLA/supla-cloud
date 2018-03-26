@@ -19,7 +19,7 @@ Server address: Adresse du serveur
 Cancel: Annuler
 CANCEL: ANNULER
 Are you sure you want to delete?: Voulez-vous vraiment supprimer ?
-Relay switching time: Durée d'activation<br />de relais
+Relay switching time: Durée d'activation de relais
 Full opening time: Durée totale d'ouverture
 Full closing time: Durée totale de fermeture
 sec.: secondes
@@ -73,14 +73,12 @@ CLICK TO ENABLE: CLIQUER ICI POUR ACTIVER
 DELETE: SUPPRIMER
 Assign Locations: Attribuer un lieu
 Confirm if you want to remove Access Identifier: Confirmer la suppression de mon Identifiant d'Accès
-Confirm if you want to remove Location: Confirmer la suppression de mon Lieu
 Further connection with this Identifier will be impossible: Toute autre tentative de connexion avec cet identifiant ne sera plus possible
 Choose locations to be assigned to Access Identifier: Choisir des lieux qui vont être attribués à cet Identifiant d'Accès
 Access Identifiers: Identifiants d'accès
 Create New Access Identifier: Créer un nouvel Identifiant d'Accès
 No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Aucun lieu ne peut être attribué à cet identifiant d'accès.<br />Accédez à la liste de lieux afin de créer au moins un.
 No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Aucun Identifiant d'Accès ne peut être attribué à ce lieu.<br />Accédez à la liste d'Identifiants d'Accès afin de créer au moins un. 
-You will no longer be able to connect the i/o devices to this Location: Toute autre tentative de connexion des dispositifs E/S à ce lieu sera désormais impossible
 Create New Location: Créer un nouveau Lieu
 Assign Access Identifiers: Attribuer mes Identifiants d'Accès
 Languages: Langues
@@ -102,7 +100,7 @@ All the above and many more can be done from your phone or tablet: Tout cela et 
 SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA est disponible toujours et partout donc ne vous inquiétez pas si vous oubliez d'éteindre la lumière
 Registered: Enregistré
 Last connection: Dernière connexion
-Confirm if you want to remove <strong>%devname%</strong> device: Confirmez la suppression de dispositif <strong>%devname%</strong>
+Confirm if you want to remove {deviceName} device: Confirmez la suppression de dispositif {deviceName}
 All Your I/O Devices: Tous mes dispositifs E/S
 Please select function for this channel: Choisir une fonction pour cette chaîne
 No Access Identifiers assigned: Aucun Identifiant d'Accès attribué
@@ -180,7 +178,6 @@ Caption has been changed: Votre signature a été modifiée
 Password has been changed: Votre mot de passe a été modifié
 Location has been enabled: Ce lieu a été activé
 Location has been disabled: Ce lieu a été désactivé
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Supprimer les dispositifs associés avant de supprimer ce lieu
 Comment has been modified: Votre commentaire a été modifié
 I/O Device has been disabled: Ce dispositif E/S a été désactivé
 I/O Device has been enabled: Ce dispositif E/S a été activé
@@ -269,7 +266,6 @@ No future executions - schedule disabled: Aucun programme planifié - le calendr
 Enable schedule: Activer le calendrier
 Schedule cannot be enabled: Échec d'activation de calendrier
 Disable schedule: Désactiver le calendrier
-Edit schedule: Modifier le calendrier
 Delete schedule: Supprimer le calendrier
 Executions: Programmes
 Action: Action

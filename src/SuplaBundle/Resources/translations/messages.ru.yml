@@ -18,7 +18,7 @@ Server address: Адрес сервера
 Cancel: Отмена
 CANCEL: ОТМЕНА
 Are you sure you want to delete?: Точно удалить ?
-Relay switching time: Время переключения<br />реле
+Relay switching time: Время переключения реле
 Full opening time: Общее время открытия
 Full closing time: Общее время закрытия
 sec.: сек.
@@ -70,14 +70,12 @@ CLICK TO ENABLE: ИСПОЛЬЗОВАТЬ
 DELETE: УДАЛИТЬ
 Assign Locations: Подключенные Области
 Confirm if you want to remove Access Identifier: Подтвердите удаление Ключа Доступа
-Confirm if you want to remove Location: Подтвердите удаление Области
 Further connection with this Identifier will be impossible: Подключится с этим Ключем будет невозможно
 Choose locations to be assigned to Access Identifier: Выберите области доступные для данного ключа доступа
 Access Identifiers: Ключ Доступа
 Create New Access Identifier: Создать новый ключ доступа
 No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Нет Областей для назначения этому Ключу.<br />Создайте хотябы одну Позицию.
 No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Нет свободных Ключей доступа<br /> Создайте хотябы один Ключ Доступа. 
-You will no longer be able to connect the i/o devices to this Location: Вам не удастся назначить устройства в эту Область
 Create New Location: Создать новую Область
 Assign Access Identifiers: Приписать Ключи Доступа
 Languages: Язык
@@ -100,7 +98,7 @@ All the above and many more can be done from your phone or tablet: Все это
 SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA доступна везде и всегда, так что не бойтесь забыть выключить свет или утюг
 Registered: Зарегистрирован
 Last connection: Последнее соединение
-Confirm if you want to remove <strong>%devname%</strong> device: Подтвердите удаление <strong>%devname%</strong>
+Confirm if you want to remove {deviceName} device: Подтвердите удаление {deviceName}
 All Your I/O Devices: Все Ваши устройства
 Please select function for this channel: Выберете назначение канала
 No Access Identifiers assigned: Не присвоен Ключ Доступа
@@ -175,7 +173,6 @@ Caption has been changed: Название изменено
 Password has been changed: Пароль изменен
 Location has been enabled: Область используется
 Location has been disabled: Область неиспользуется
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Отключите все привязанные устройства перед удалением позиции
 Comment has been modified: Пояснение изменено
 I/O Device has been disabled: Устройство неипользуется
 I/O Device has been enabled: Устройство используется
@@ -266,7 +263,6 @@ No future executions - schedule disabled: Нет запланированных 
 Enable schedule: Запусти график
 Schedule cannot be enabled: Не получилось запустить график 
 Disable schedule: Выключи график
-Edit schedule: Редактируй график
 Delete schedule: Удали график
 Executions: Реализации
 Action: Акция

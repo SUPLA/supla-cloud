@@ -19,7 +19,7 @@ Server address: Indirizzo del server
 Cancel: Annulla 
 CANCEL: ANNULLA
 Are you sure you want to delete?: Sei sicuro di voler eliminare?
-Relay switching time: Tempo di commutazione<br /> del relè
+Relay switching time: Tempo di commutazione del relè
 Full opening time: Tempo totale di apertura 
 Full closing time: Tempo totale di chiusura
 sec.: Sec.
@@ -73,14 +73,12 @@ CLICK TO ENABLE: CLICCA PER ABILITARE
 DELETE: ELIMINA
 Assign Locations: Assegna le Localizzazioni
 Confirm if you want to remove Access Identifier: Conferma se vuoi rimuovere l’Identificatore dell’Accesso
-Confirm if you want to remove Location: Conferma se vuoi rimuovere la Localizzazione
 Further connection with this Identifier will be impossible: L’ulteriore connessione tramite questo Identificatore sarà impossibile
 Choose locations to be assigned to Access Identifier: Seleziona le Localizzazioni che verranno assegnate a questo Identificatore dell’Accesso
 Access Identifiers: Identificatori dell’accesso
 Create New Access Identifier: Crea un nuovo Identificatore dell’Accesso
 No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Nessuna Localizzazione da assegnare a questo<br />Identificatore dell’Accesso. Vai alle Localizzazioni e aggiungi una.
 No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Nessun Identificatore dell’Accesso da assegnare a questa<br />Localizzazione. Vai agli Identificatori dell’Accesso e aggiungi uno. 
-You will no longer be able to connect the i/o devices to this Location: L’ulteriore connessione dei dispositivi I/O con questa Localizzazione sarà impossibile
 Create New Location: Crea una nuova Localizzazione
 Assign Access Identifiers: Assegna gli Identificatori dell’Accesso
 Languages: Lingue 
@@ -102,7 +100,7 @@ All the above and many more can be done from your phone or tablet: Puoi fare tut
 SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA è disponibile sempre e ovunque, quindi non Ti preoccupare se prosssima volta ti dimenticherai di spegnere la luce
 Registered: Registrato
 Last connection: Ultima connessione
-Confirm if you want to remove <strong>%devname%</strong> device: Conferma se vuoi rimuovere il dispositivo <strong>%devname%</strong>
+Confirm if you want to remove {deviceName} device: Conferma se vuoi rimuovere il dispositivo {deviceName}
 All Your I/O Devices: Tutti i Tuoi dispositivi I/O
 Please select function for this channel: Seleziona la funzione per questo canale 
 No Access Identifiers assigned: Nessun Identificatore dell’Accesso assegnato 
@@ -180,7 +178,6 @@ Caption has been changed: Il titolo è stato cambiato
 Password has been changed: La password è stata cambiata 
 Location has been enabled: La localizzazione è stata abilitata 
 Location has been disabled: La localizzazione è stata disabilitata 
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": Prima di rimuovere questa localizzazione rimuovi i dispositivi uniti
 Comment has been modified: Il commento è stato modificato
 I/O Device has been disabled: Il dispositivo I/O è stato disabilitato
 I/O Device has been enabled: Il dispositivo I/O è stato abilitato
@@ -269,7 +266,6 @@ No future executions - schedule disabled: Nessuna esecuzione programmata - scade
 Enable schedule: Abilita lo scadenzario
 Schedule cannot be enabled: L’abilitazione dello scadenzario è fallita 
 Disable schedule: Disabilita lo scadenzario
-Edit schedule: Modifica lo scadenzario
 Delete schedule: Rimuovi lo scadenzario
 Executions: Esecuzioni
 Action: Azione

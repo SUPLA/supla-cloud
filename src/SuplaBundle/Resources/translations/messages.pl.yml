@@ -79,7 +79,6 @@ Access Identifiers: Identyfikatory dostępu
 Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
 No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Brak lokalizacji, które możesz przypisać do tego<br />  Identyfikatora Dostępu. Przejdź do Lokalizacji i utwórz minimum jedną.
 No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Brak Identyfikatorów Dostępu, które możesz przypisać do tej<br /> lokalizacji. Przejdź do Identyfikatorów Dostępu i utwórz minimum jeden.
-Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 Create New Location: Utwórz nową Lokalizację
 Assign Access Identifiers: Przypisz Identyfikatory Dostępu
 Languages: Języki
@@ -180,10 +179,6 @@ Caption has been changed: Podpis został zmieniony
 Password has been changed: Hasło zostało zmienione
 Location has been enabled: Lokalizacja została włączona
 Location has been disabled: Lokalizacja została wyłączona
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}."
-"Remove all devices that use this location as original location before deleting it. Ids: {relatedIds}.": "Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}."
-"Remove all the associated channels before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}."
-"Remove all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}."
 Comment has been modified: Komentarz został zmieniony
 I/O Device has been disabled: Urządzenie we/wy zostało wyłaczone
 I/O Device has been enabled: Urządzenie we/wy zostało włączone
@@ -272,7 +267,6 @@ No future executions - schedule disabled: Brak zaplanowanych wykonań - harmonog
 Enable schedule: Włącz harmonogram
 Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Disable schedule: Wyłącz harmonogram
-Edit: Edytuj
 Delete schedule: Usuń harmonogram
 Executions: Wykonania
 Action: Akcja
@@ -402,6 +396,7 @@ Staircase timer: Automat schodowy
 Change icon: Zmień ikonę
 Select icon: Wybierz ikonę
 
+Edit: Edytuj
 Automation: Automatyka
 Channel group: Grupa kanałów
 Channel groups: Grupy kanałów
@@ -462,7 +457,6 @@ My SUPLA: Moja SUPLA
 Save changes to see the Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 Generating a new password will force you to reconfigure any connected 3rd party applications.: Wygenerowanie nowego hasła spowoduje konieczność ponownej konfiguracji wszystkich aplikacji korzystających z API.
-Edit schedule: Edytuj harmonogram
 
 Are you lost?: Szukasz czegoś?
 The server has returned a HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
@@ -477,3 +471,10 @@ locations list: lista lokalizacji
 access identifiers list: lista identyfikatorów dostępu
 add new location: dodaj nową lokalizację
 add new access identifier: dodaj nowy identyfikator dostępu
+
+Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}."
+"Remove all devices that use this location as original location before deleting it. Ids: {relatedIds}.": "Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}."
+"Remove all the associated channels before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}."
+"Remove all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}."
+
