@@ -109,3 +109,6 @@ swiftmailer:
 twig:
   debug: "%kernel.debug%"
   strict_variables: "%kernel.debug%"
+  globals:
+    supla_require_regulations_acceptance: '%supla_require_regulations_acceptance%'
+    supla_require_cookie_policy_acceptance: '%supla_require_cookie_policy_acceptance%'

@@ -6,7 +6,8 @@
         <h5>{{ $t('Some of our policies has been changed and you need to agree on them.') }}</h5>
         <div class="checkbox">
             <input type="checkbox">
-            I have read the <a @click="rulesShown = true">rules</a> and blabla
+            <component :is="regulationsText"
+                @click="rulesShown = true"></component>
         </div>
         <div class="form-group">
 
@@ -40,8 +41,17 @@
             };
         },
         mounted() {
+            if (this.$user.agreements.rules) {
+                this.$router.push('/');
+            }
             const rulesLang = Vue.config.external.locale == 'pl' ? 'pl' : 'en';
             this.$http.get(`/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
+        },
+        computed: {
+            regulationsText() {
+                const template = '<span>I have read the <a @click="$emit(\'click\')">rules</a> and <router-link :to="{name: \'locations\'}">blabla</router-link></span>';
+                return {template};
+            }
         }
     };
 </script>

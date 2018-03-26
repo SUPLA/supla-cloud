@@ -55,7 +55,7 @@ $(document).ready(() => {
         });
 
         router.beforeEach((to, from, next) => {
-            if (to.name != 'agree-on-rules') {
+            if (!Vue.config.external.user.agreements.rules && to.name != 'agree-on-rules') {
                 next({name: 'agree-on-rules'});
             } else {
                 next();
