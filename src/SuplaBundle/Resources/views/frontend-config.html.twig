@@ -16,6 +16,10 @@
                 location: {{ app.user.limitLoc }},
                 accessId: {{ app.user.limitAid }},
                 schedule: {{ app.user.limitSchedule }}
+            },
+            agreements: {
+                rules: {{ app.user.rulesAgreement ? 'true' : 'false' }},
+                cookies: {{ app.user.cookiesAgreement ? 'true' : 'false' }}
             }
         }
         {% endif %}

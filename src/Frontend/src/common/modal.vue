@@ -58,6 +58,10 @@
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+        .modal-body {
+            max-height: 65vh;
+            overflow-y: auto;
+        }
     }
 
     .modal-container {
@@ -71,6 +75,12 @@
         transition: all .3s ease;
         @include on-xs-and-down {
             padding: 5px;
+        }
+    }
+
+    .modal-800 {
+        .modal-container {
+            max-width: 800px;
         }
     }
 

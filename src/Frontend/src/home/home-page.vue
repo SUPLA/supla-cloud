@@ -1,7 +1,7 @@
 <template>
     <div class="container home-page">
         <h1 v-title>{{ $t('Start Here') }}</h1>
-        <p class="subinfo">{{ $t('WELCOME_MESSAGE') }}</p>
+        <p class="display-newlines">{{ $t('WELCOME_MESSAGE') }}</p>
         <div class="row">
             <div class="col-md-6 step">
                 <div class="roof">
@@ -126,9 +126,6 @@
             @include on-xs-and-down {
                 font-size: 48px;
             }
-        }
-        .subinfo {
-            white-space: pre-line;
         }
         .step {
             margin-top: 20px;

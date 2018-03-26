@@ -272,5 +272,15 @@ body.red {
   }
 }
 
+body.yellow {
+  nav.navbar-top {
+    background: $supla-yellow;
+  }
+}
+
+.display-newlines {
+  white-space: pre-line;
+}
+
 @import "./buttons";
 @import "./notifications";

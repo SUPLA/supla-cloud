@@ -7,8 +7,8 @@
 </template>
 
 <script>
-    import Error403 from "./error-403";
-    import Error404 from "./error-404";
+    import Error403 from "../errors/error-403";
+    import Error404 from "../errors/error-404";
 
     export default {
         props: ['error'],

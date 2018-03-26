@@ -54,6 +54,14 @@ $(document).ready(() => {
             mode: 'history',
         });
 
+        router.beforeEach((to, from, next) => {
+            if (to.name != 'agree-on-rules') {
+                next({name: 'agree-on-rules'});
+            } else {
+                next();
+            }
+        });
+
         router.afterEach((to) => {
             if (to.meta.bodyClass) {
                 document.body.setAttribute('class', to.meta.bodyClass);

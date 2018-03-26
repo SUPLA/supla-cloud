@@ -211,6 +211,18 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      */
     private $clientsRegistrationEnabled;
 
+    /**
+     * @ORM\Column(name="rules_agreement", type="boolean", options={"default"=false})
+     * @Assert\NotNull()
+     */
+    private $rulesAgreement = false;
+
+    /**
+     * @ORM\Column(name="cookies_agreement", type="boolean", options={"default"=false})
+     * @Assert\NotNull()
+     */
+    private $cookiesAgreement = false;
+
     public function __construct() {
         $this->limitAid = 10;
         $this->limitLoc = 10;
@@ -531,6 +543,14 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function disableIoDevicesRegistration() {
         $this->ioDevicesRegistrationEnabled = null;
+    }
+
+    public function getRulesAgreement(): bool {
+        return $this->rulesAgreement;
+    }
+
+    public function getCookiesAgreement(): bool {
+        return $this->cookiesAgreement;
     }
 
     public function hasLegacyPassword(): bool {
