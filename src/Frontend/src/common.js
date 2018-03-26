@@ -62,6 +62,10 @@ $(document).ready(() => {
             }
         });
 
+        router.afterEach(() => {
+            $(".navbar-toggle:visible:not('.collapsed')").click();
+        });
+
         const i18n = new VueI18N({
             locale: 'SUPLA_TRANSLATIONS',
             messages: {SUPLA_TRANSLATIONS}
