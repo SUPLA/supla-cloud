@@ -130,6 +130,9 @@ class ApiUserController extends RestController {
             } elseif ($data['action'] == 'agree:rules') {
                 $this->assertNotApliUser();
                 $user->agreeOnRules();
+            } elseif ($data['action'] == 'agree:cookies') {
+                $this->assertNotApliUser();
+                $user->agreeOnCookies();
             }
             $em->persist($user);
             return $user;

@@ -9,31 +9,22 @@
                     @click="rulesShown = true"></component>
             </label>
         </div>
-        <modal
-            v-if="rulesShown"
-            @confirm="rulesShown = false"
-            class="text-left modal-800 display-newlines">
-            <div slot
-                v-html="rules"></div>
-        </modal>
+        <regulations-modal v-if="rulesShown"
+            @confirm="rulesShown = false"></regulations-modal>
     </div>
 </template>
 
 <script>
-    import Vue from "vue";
+    import RegulationsModal from "./regulations-modal";
 
     export default {
         props: ['value'],
+        components: {RegulationsModal},
         data() {
             return {
                 agreed: false,
-                rules: '',
                 rulesShown: false
             };
-        },
-        mounted() {
-            const rulesLang = Vue.config.external.locale == 'pl' ? 'pl' : 'en';
-            this.$http.get(`/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
         },
         computed: {
             checkboxLabel() {

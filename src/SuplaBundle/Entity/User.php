@@ -554,6 +554,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this;
     }
 
+    public function agreeOnCookies(): User {
+        $this->cookiesAgreement = true;
+        return $this;
+    }
+
     public function getCookiesAgreement(): bool {
         return $this->cookiesAgreement;
     }

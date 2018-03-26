@@ -10,6 +10,7 @@ import Flipper from "./tiles/flipper";
 import SquareLink from "./tiles/square-link";
 import SquareLinksGrid from "./tiles/square-links-grid";
 
+Vue.component('cookieWarning', () => import("./errors/cookie-warning"));
 Vue.component('emptyListPlaceholder', EmptyListPlaceholder);
 Vue.component('idleLogout', IdleLogout);
 Vue.component('modal', Modal);
