@@ -31,7 +31,7 @@ export default [
         path: "/agree-on-rules",
         component: () => import("./common/errors/error-agree-on-rules"),
         name: 'agree-on-rules',
-        meta: {bodyClass: 'yellow'}
+        meta: {bodyClass: 'yellow hide-cookies-warning'}
     },
     {path: "*", component: () => import("./common/errors/error-404"), meta: {bodyClass: 'red'}}
 ];

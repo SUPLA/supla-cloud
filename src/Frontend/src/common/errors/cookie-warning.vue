@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div v-if="shown"
-            class="alert alert-warning">
+            class="alert alert-warning cookie-warning">
             <component :is="warningText"
                 @click="regulationsShown = true"></component>
             <a @click="agree()"
@@ -52,5 +52,11 @@
         right: 5px;
         background: $supla-yellow;
         border-color: darken($supla-yellow, 10%);
+    }
+</style>
+
+<style>
+    .hide-cookies-warning .cookie-warning {
+        display: none;
     }
 </style>
