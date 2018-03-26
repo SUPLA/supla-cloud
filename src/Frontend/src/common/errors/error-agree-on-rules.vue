@@ -1,56 +1,48 @@
 <template>
-    <div class="container text-center">
-        <h1>{{ $t('You need to agree on rules') }}</h1>
+    <loading-cover class="container text-center"
+        :loading="loading">
+        <h1>{{ $t('Regulations have been changed') }}</h1>
         <i class="pe-7s-note2"
             style="font-size: 160px"></i>
-        <h5>{{ $t('Some of our policies has been changed and you need to agree on them.') }}</h5>
-        <div class="checkbox">
-            <input type="checkbox">
-            <component :is="regulationsText"
-                @click="rulesShown = true"></component>
-        </div>
+        <h5>{{ $t('Some of our policies have been changed and you need to agree on them.') }}</h5>
+        <regulations-checkbox v-model="agreed"></regulations-checkbox>
         <div class="form-group">
-
-            <button class="btn btn-yellow">
+            <a class="btn btn-yellow"
+                :href="'/auth/logout' | withBaseUrl">
                 <i class="pe-7s-back"></i>
-                Disagree, take me out of here
-            </button>
-            <button class="btn btn-green">
+                {{ $t('Disagree, take me out of here') }}
+            </a>
+            <button class="btn btn-green"
+                :disabled="!agreed"
+                @click="agree()">
                 <i class="pe-7s-simple-check"></i>
-                Agree, take me to the app
+                {{ $t('Agree, take me to the app') }}
             </button>
         </div>
-        <modal
-            v-if="rulesShown"
-            @confirm="rulesShown = false"
-            class="text-left modal-800 display-newlines">
-            <div slot
-                v-html="rules"></div>
-        </modal>
-    </div>
+    </loading-cover>
 </template>
 
 <script>
-    import Vue from "vue";
+    import RegulationsCheckbox from "./regulations-checkbox";
 
     export default {
+        components: {RegulationsCheckbox},
         data() {
             return {
-                rules: '',
-                rulesShown: false
+                agreed: false,
+                loading: false,
             };
         },
         mounted() {
             if (this.$user.agreements.rules) {
                 this.$router.push('/');
             }
-            const rulesLang = Vue.config.external.locale == 'pl' ? 'pl' : 'en';
-            this.$http.get(`/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
         },
-        computed: {
-            regulationsText() {
-                const template = '<span>I have read the <a @click="$emit(\'click\')">rules</a> and <router-link :to="{name: \'locations\'}">blabla</router-link></span>';
-                return {template};
+        methods: {
+            agree() {
+                this.loading = true;
+                this.$http.patch('users/current', {action: 'agree:rules'})
+                    .finally(() => window.location.assign(window.location.toString()));
             }
         }
     };

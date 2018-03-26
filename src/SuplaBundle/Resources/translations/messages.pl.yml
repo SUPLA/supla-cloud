@@ -471,3 +471,8 @@ The server has returned a HTTP 403 Error. It means that you don't have rights to
 
 You have no enabled locations. Go to [locations list] or [add new location].: Nie masz żadnych aktywnych lokalizacji. Przejdź do [listy lokalizacji] lub [dodaj nową lokalizację].
 You have no enabled access identifiers. Go to [access identifiers list] or [add new access identifier].: Nie masz żadnych aktywnych identyfikatorów dostępu. Przejdź do [listy identyfikatorów dostępu] lub [dodaj nowy identyfikator dostępu].
+I accept the [Regulations] and agree to the processing of my personal data for the purpose and scope indicated in the [Regulations].: Akceptuję [Regulamin] oraz wyrażam zgodę na przetwarzanie moich danych osobowych w celu i zakresie wskazanym w [Regulaminie].
+Some of our policies have been changed and you need to agree on them.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
+Regulations have been changed: Regulamin uległ zmianie
+Disagree, take me out of here: Nie zgadzam się, zabierz mnie stąd
+Agree, take me to the app: Zgadzam się, przejdź do aplikacji
