@@ -13,7 +13,7 @@
     ]
   },
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.0.8",
     "ext-intl": "*",
     "ext-mbstring": "*",
     "ext-zip": "*",
@@ -34,7 +34,7 @@
     "symfony/monolog-bundle": "^2.8",
     "symfony/polyfill-apcu": "^1.0",
     "symfony/swiftmailer-bundle": "^3.0",
-    "symfony/symfony": "^3.3",
+    "symfony/symfony": "^3.4",
     "twig/extensions": "^1.4"
   },
   "require-dev": {
@@ -82,7 +82,7 @@
   "config": {
     "process-timeout": 0,
     "platform": {
-      "php": "7.0"
+      "php": "7.0.8"
     }
   },
   "extra": {
