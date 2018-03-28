@@ -25,6 +25,7 @@
     "moment-timezone": "^0.5.14",
     "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
+    "superslides": "github:nicinabox/superslides",
     "vivus": "0.4.3",
     "vue": "2.5.13",
     "vue-clipboard2": "^0.1.0",
