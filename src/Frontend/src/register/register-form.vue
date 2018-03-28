@@ -52,7 +52,6 @@
                 </div>
                 <div v-else>
                     <button type="submit"
-                        :disabled="!regulationsAgreed"
                         class="btn btn-default btn-block btn-lg">
                         <span v-if="!isBusy">
                             {{ $t('Create an account') }}

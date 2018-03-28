@@ -9,7 +9,7 @@ import VueI18N from "vue-i18n";
 
 const routes = [
     {path: '', component: LoginForm},
-    {path: '/create', component: CreateAccount},
+    {path: '/register', component: CreateAccount},
     {path: '/check-email', component: CheckEmail},
     {path: '/devices', component: SuplaDevicesSplash},
     {path: '/remind', component: RemindPassword}

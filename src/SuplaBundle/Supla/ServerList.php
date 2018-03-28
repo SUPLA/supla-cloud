@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Supla;
 
-use SuplaBundle\Controller\AjaxController;
 use SuplaBundle\Model\UserManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,7 +119,7 @@ class ServerList {
 
         if (count(@$this->servers) < 2) {
             return $request->getScheme() . '://' . $request->getHost()
-                . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
+                . $this->router->generate('_auth_login', ['lang' => $request->getLocale()]) . '#/register';
         }
 
         $avil = [];
@@ -135,7 +134,7 @@ class ServerList {
 
             if (strlen(@$server['address']) > 0) {
                 return 'https://' . $server['address']
-                    . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
+                    . $this->router->generate('_auth_login', ['locale' => $request->getLocale()]) . '#/register';
             }
         }
 

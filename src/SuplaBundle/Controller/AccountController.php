@@ -21,12 +21,9 @@ use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Form\Model\ChangePassword;
-use SuplaBundle\Form\Model\Registration;
 use SuplaBundle\Form\Model\ResetPassword;
-use SuplaBundle\Form\Type\RegistrationType;
 use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -35,26 +32,26 @@ use Symfony\Component\HttpFoundation\Request;
 class AccountController extends AbstractController {
     use Transactional;
 
-    /**
-     * @Route("/register", name="_account_register")
-     */
-    public function registerAction(Request $request) {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('_homepage');
-        }
-        $registration = new Registration();
-        $form = $this->createForm(RegistrationType::class, $registration, [
-            'action' => $this->generateUrl('_account_create_here'),
-            'validation_groups' => ['_registration'],
-        ]);
-
-        return $this->render(
-            'SuplaBundle:Account:register.html.twig',
-            ['form' => $form->createView(),
-                'locale' => $request->getLocale(),
-            ]
-        );
-    }
+//    /**
+//     * @Route("/register", name="_account_register")
+//     */
+//    public function registerAction(Request $request) {
+//        if ($this->getUser()) {
+//            return $this->redirectToRoute('_homepage');
+//        }
+//        $registration = new Registration();
+//        $form = $this->createForm(RegistrationType::class, $registration, [
+//            'action' => $this->generateUrl('_account_create_here'),
+//            'validation_groups' => ['_registration'],
+//        ]);
+//
+//        return $this->render(
+//            'SuplaBundle:Account:register.html.twig',
+//            ['form' => $form->createView(),
+//                'locale' => $request->getLocale(),
+//            ]
+//        );
+//    }
 
     /**
      * @Route("/checkemail", name="_account_checkemail")
@@ -94,85 +91,85 @@ class AccountController extends AbstractController {
         return $this->redirectToRoute("_auth_login");
     }
 
-    /**
-     * @Route("/create_here", name="_account_create_here")
-     */
-    public function createActionHere(Request $request) {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('_homepage');
-        }
-        $form = $this->createForm(RegistrationType::class, new Registration(), ['language' => $request->getLocale()]);
+//    /**
+//     * @Route("/create_here", name="_account_create_here")
+//     */
+//    public function createActionHere(Request $request) {
+//        if ($this->getUser()) {
+//            return $this->redirectToRoute('_homepage');
+//        }
+//        $form = $this->createForm(RegistrationType::class, new Registration(), ['language' => $request->getLocale()]);
+//
+//        $form->handleRequest($request);
+//
+//        $sl = $this->get('server_list');
+//        $remote_server = '';
+//
+//        if ($form->isValid()) {
+//            $username = $form->getData()->getUser()->getUsername();
+//
+//            for ($n = 0; $n < 4; $n++) {
+//                $exists = $sl->userExists($username, $remote_server);
+//
+//                if ($exists === false) {
+//                    usleep(1000000);
+//                } else {
+//                    break;
+//                }
+//            }
+//        } else {
+//            $exists = false;
+//        }
+//
+//        if ($exists === null) {
+//            $mailer = $this->get('supla_mailer');
+//            $mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remote_server);
+//
+//            return $this->redirectToRoute("_temp_unavailable");
+//        } elseif ($exists === true) {
+//            $translator = $this->get('translator');
+//            $form->get('user')->get('email')->addError(new FormError($translator->trans('Email already exists', [], 'validators')));
+//        }
+//
+//        if ($exists === false
+//            && $form->isValid()
+//        ) {
+//            /** @var Registration $registration */
+//            $registration = $form->getData();
+//            $user_manager = $this->get('user_manager');
+//            $user = $registration->getUser();
+//            $user_manager->create($user);
+//
+//            $mailer = $this->get('supla_mailer');
+//            $mailer->sendConfirmationEmailMessage($user);
+//
+//            $this->container->get('session')->set('_registration_email', $user->getEmail());
+//
+//            $autodiscover = $this->get('supla_autodiscover');
+//            $autodiscover->registerUser($user);
+//
+//            return $this->redirectToRoute("_account_checkemail");
+//        }
+//
+//        return $this->render(
+//            'SuplaBundle:Account:register.html.twig',
+//            ['form_ca' => $form->createView(),
+//                'locale' => $request->getLocale(),
+//            ]
+//        );
+//    }
 
-        $form->handleRequest($request);
-
-        $sl = $this->get('server_list');
-        $remote_server = '';
-
-        if ($form->isValid()) {
-            $username = $form->getData()->getUser()->getUsername();
-
-            for ($n = 0; $n < 4; $n++) {
-                $exists = $sl->userExists($username, $remote_server);
-
-                if ($exists === false) {
-                    usleep(1000000);
-                } else {
-                    break;
-                }
-            }
-        } else {
-            $exists = false;
-        }
-
-        if ($exists === null) {
-            $mailer = $this->get('supla_mailer');
-            $mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remote_server);
-
-            return $this->redirectToRoute("_temp_unavailable");
-        } elseif ($exists === true) {
-            $translator = $this->get('translator');
-            $form->get('user')->get('email')->addError(new FormError($translator->trans('Email already exists', [], 'validators')));
-        }
-
-        if ($exists === false
-            && $form->isValid()
-        ) {
-            /** @var Registration $registration */
-            $registration = $form->getData();
-            $user_manager = $this->get('user_manager');
-            $user = $registration->getUser();
-            $user_manager->create($user);
-
-            $mailer = $this->get('supla_mailer');
-            $mailer->sendConfirmationEmailMessage($user);
-
-            $this->container->get('session')->set('_registration_email', $user->getEmail());
-
-            $autodiscover = $this->get('supla_autodiscover');
-            $autodiscover->registerUser($user);
-
-            return $this->redirectToRoute("_account_checkemail");
-        }
-
-        return $this->render(
-            'SuplaBundle:Account:register.html.twig',
-            ['form_ca' => $form->createView(),
-                'locale' => $request->getLocale(),
-            ]
-        );
-    }
-
-    /**
-     * @Route("/create_here/{locale}", name="_account_create_here_lc")
-     */
-    public function createActionHereLC(Request $request, $locale) {
-        if (LocaleListener::localeAllowed(@$locale)) {
-            $request->getSession()->set('_locale', $locale);
-            $request->setLocale($locale);
-        }
-
-        return $this->redirectToRoute("_account_create_here");
-    }
+//    /**
+//     * @Route("/create_here/{locale}", name="_account_create_here_lc")
+//     */
+//    public function createActionHereLC(Request $request, $locale) {
+//        if (LocaleListener::localeAllowed(@$locale)) {
+//            $request->getSession()->set('_locale', $locale);
+//            $request->setLocale($locale);
+//        }
+//
+//        return $this->redirectToRoute("_account_create_here");
+//    }
 
     /**
      * @Route("/create", name="_account_create")

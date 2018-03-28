@@ -247,8 +247,10 @@ class ApiUserController extends RestController {
 
         // send email
         $mailer = $this->get('supla_mailer');
-        $mailer->sendConfirmationEmailMessage($user);
+        $sent = $mailer->sendConfirmationEmailMessage($user);
 
-        return $this->view($user, Response::HTTP_CREATED);
+        $view = $this->view($user, Response::HTTP_CREATED);
+        $view->setHeader('SUPLA-Email-Sent', $sent ? 'true' : 'false');
+        return $view;
     }
 }
