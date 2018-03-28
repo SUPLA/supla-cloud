@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AuthController extends AbstractController {
     /**
      * @Route("/login", name="_auth_login")
-     * @Template
+     * @Template("@Supla/Default/spaBoilerplace.html.twig");
      */
     public function loginAction() {
         if ($this->getUser()) {
@@ -39,7 +39,6 @@ class AuthController extends AbstractController {
         return [
             'last_username' => $lastUsername,
             'error' => !!$error,
-            'version' => $this->getParameter('supla.version'),
         ];
     }
 

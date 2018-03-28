@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-title="$t('Login')">
         <div class="login-form">
             <div class="logo">
                 <img src="assets/img/logo.svg"
@@ -80,13 +80,10 @@
         data() {
             return {
                 authenticating: false,
-                username: $('#login-page').attr('last-username') || '',
+                username: $('#login-error').attr('last-username') || '',
                 password: '',
-                displayError: !!$('#login-page').attr('error'),
+                displayError: !!$('#login-error').attr('error'),
             };
-        },
-        mounted() {
-            document.title = this.$t( 'Login' ) + ' | ' + 'SUPLA CLOUD';
         },
         methods: {
             findServer() {

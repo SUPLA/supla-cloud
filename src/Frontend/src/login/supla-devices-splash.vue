@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-title="$t('Supla for devices')">
         <img class="app-preview"
             src="/assets/img/supla-app-preview.png">
         <div class="container supla-devices-preview">
@@ -73,11 +73,7 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            document.title = this.$t( 'Supla for devices' ) + ' | ' + 'SUPLA CLOUD';
-        }
-    };
+    export default {};
 </script>
 
 <style lang="scss">
@@ -147,7 +143,6 @@
     }
 
     .github {
-
         text-align: center;
         a {
             display: inline-block;

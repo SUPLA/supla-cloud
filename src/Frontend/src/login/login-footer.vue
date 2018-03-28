@@ -26,7 +26,7 @@
         components: {LanguageSelector},
         data() {
             return {
-                version: $('#login-page').attr('version') || ''
+                version: VERSION, // eslint-disable-line no-undef
             };
         }
     };

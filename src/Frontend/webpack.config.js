@@ -3,8 +3,7 @@ const webpack = require('webpack');
 const glob = require('glob');
 
 const entries = {
-    'commons': './src/common.js',
-    'login-page': './src/login/login-page.js'
+    'commons': './src/common.js'
 };
 
 const availableTranslations = [];

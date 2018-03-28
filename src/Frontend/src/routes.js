@@ -1,7 +1,12 @@
 import HomePage from "./home/home-page";
+import LoginForm from "./login/login-form";
 
 export default [
     {path: '/', component: HomePage},
+    {path: '/login', component: LoginForm, alias: '/auth/login', meta: {unrestricted: true, onlyUnauthenticated: true}, name: 'login'},
+    {path: '/register', component: () => import("./register/create-account"), meta: {unrestricted: true}, alias: '/account/create_here'},
+    {path: '/devices', component: () => import("./login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
+    {path: '/remind', component: () => import("./login/remind-password"), meta: {unrestricted: true, onlyUnauthenticated: true}},
     {
         path: '/access-identifiers', component: () => import("./access-ids/access-ids-page"), name: "accessIds", children: [
             {path: ':id', component: () => import("./access-ids/access-id-details"), name: 'accessId', props: true}
@@ -33,5 +38,5 @@ export default [
         name: 'agree-on-rules',
         meta: {bodyClass: 'yellow hide-cookies-warning'}
     },
-    {path: "*", component: () => import("./common/errors/error-404"), meta: {bodyClass: 'red'}}
+    {path: "*", component: () => import("./common/errors/error-404"), meta: {bodyClass: 'red', unrestricted: true}}
 ];

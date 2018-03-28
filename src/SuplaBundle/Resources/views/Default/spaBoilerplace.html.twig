@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="vue-container">
-        <navbar></navbar>
+        <navbar v-if="$user"></navbar>
         <transition name="fade-router">
             <router-view></router-view>
         </transition>
@@ -13,4 +13,63 @@
             <idle-logout></idle-logout>
         {% endif %}
     </div>
+    <div id="page-preloader">
+        {% include "@Supla/supla-logo-svg.html.twig" %}
+        <h3>
+            {% trans %}Loading{% endtrans %}...
+        </h3>
+        <noscript>
+            <h3>{% trans %}SUPLA-Cloud will not work without Javascript{% endtrans %}</h3>
+        </noscript>
+        <p class="if-too-long text-muted">
+            {% trans %}if it takes too long, check if the JS scripts are loaded correctly{% endtrans %}
+        </p>
+    </div>
+    {% if last_username is defined %}
+        <div id="login-error"
+                class="hidden"
+                last-username="{{ last_username }}"
+                error="{{ error }}"></div>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    <script>
+        setTimeout(function () {
+            var preloader = document.getElementById('page-preloader');
+            if (preloader) {
+                preloader.className = 'too-long';
+            }
+        }, 5000);
+    </script>
+{% endblock %}
+{% block styles %}
+    <style>
+        #page-preloader {
+            width: 350px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -175px;
+            margin-top: -150px;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        #page-preloader svg {
+            width: 200px;
+            height: 200px;
+        }
+
+        #page-preloader .if-too-long {
+            display: none;
+        }
+
+        #page-preloader.too-long .if-too-long {
+            display: inline;
+        }
+
+        #page-preloader noscript {
+            color: #F60;
+        }
+    </style>
 {% endblock %}
