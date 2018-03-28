@@ -79,7 +79,7 @@ class SuplaMailer {
     }
 
     public function sendConfirmationEmailMessage(UserInterface $user) {
-        $url = $this->router->generate('_account_confirmemail', ['token' => $user->getToken(), true], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'confirm/' . $user->getToken();
 
         $sent = $this->sendEmailMessage(
             'confirm.txt.twig',

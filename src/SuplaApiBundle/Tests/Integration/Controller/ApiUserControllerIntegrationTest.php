@@ -62,15 +62,15 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testConfirmingWithBadToken() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('GET', '/account/confirmemail/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdljf');
-        $this->assertContains('Token does not exist', $client->getResponse()->getContent());
+        $client->request('PATCH', '/web-api/confirm/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdljf');
+        $this->assertStatusCode(400, $client->getResponse());
     }
 
     public function testConfirmingWithGoodToken() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('GET', '/account/confirmemail/' . $this->createdUser->getToken());
-        $this->assertContains('Account has been activated', $client->getResponse()->getContent());
+        $client->request('PATCH', '/web-api/confirm/' . $this->createdUser->getToken());
+        $this->assertStatusCode('2XX', $client->getResponse());
         $this->getDoctrine()->getManager()->refresh($this->createdUser);
         $this->assertTrue($this->createdUser->isEnabled());
         $this->assertEmpty($this->createdUser->getToken());
@@ -79,10 +79,10 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testConfirmingTwiceWithGoodTokenIsForbidden() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('GET', '/account/confirmemail/' . $this->createdUser->getToken());
-        $this->assertContains('Account has been activated', $client->getResponse()->getContent());
-        $client->request('GET', '/account/confirmemail/' . $this->createdUser->getToken());
-        $this->assertContains('Token does not exist', $client->getResponse()->getContent());
+        $client->request('PATCH', '/web-api/confirm/' . $this->createdUser->getToken());
+        $this->assertStatusCode('2XX', $client->getResponse());
+        $client->request('PATCH', '/web-api/confirm/' . $this->createdUser->getToken());
+        $this->assertStatusCode(400, $client->getResponse());
     }
 
     public function testCanLoginIfConfirmed() {
@@ -175,5 +175,4 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         $client->followRedirects();
         return $client;
     }
-
 }

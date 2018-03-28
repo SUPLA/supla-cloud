@@ -247,6 +247,17 @@ class ApiUserController extends RestController {
     }
 
     /**
+     * @Rest\Patch("/confirm/{token}")
+     */
+    public function confirmEmailAction($token) {
+        $user = $this->userManager->confirm($token);
+        Assertion::notNull($user, 'Token does not exist');
+        $mailer = $this->get('supla_mailer');
+        $mailer->sendActivationEmailMessage($user);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * @Rest\Patch("/forgotten-password", name="forgot_passwd_post")
      * @Rest\Post("/forgotten-password", name="forgot_passwd_patch")
      * @Rest\Head("/forgotten-password/{token}", name="forgot_passwd_head")

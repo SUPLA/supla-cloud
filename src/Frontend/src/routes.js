@@ -23,6 +23,12 @@ export default [
         props: true
     },
     {
+        path: '/confirm/:token',
+        component: () => import("./login/confirm-account"),
+        meta: {unrestricted: true, onlyUnauthenticated: true},
+        props: true
+    },
+    {
         path: '/access-identifiers', component: () => import("./access-ids/access-ids-page"), name: "accessIds", children: [
             {path: ':id', component: () => import("./access-ids/access-id-details"), name: 'accessId', props: true}
         ]

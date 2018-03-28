@@ -22,6 +22,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DefaultController extends Controller {
@@ -44,8 +46,36 @@ class DefaultController extends Controller {
                 ]
             );
         }
-        $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Error creating file']);
-        return $this->redirectToRoute("_iodevice_channel_details", ['channel' => $channel->getId()]);
+        return new Response('Error creating file', Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * @Route("/auth/create", name="_auth_create")
+     * @Route("/account/create", name="_account_create")
+     */
+    public function createAction(Request $request) {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
+        $sl = $this->get('server_list');
+        return $this->redirect($sl->getCreateAccountUrl($request));
+    }
+
+    /**
+     * @Route("/auth/login", name="_auth_login")
+     * @Template("@Supla/Default/spaBoilerplate.html.twig");
+     */
+    public function loginAction() {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
+        $authenticationUtils = $this->get('security.authentication_utils');
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return [
+            'last_username' => $lastUsername,
+            'error' => !!$error,
+        ];
     }
 
     /**
