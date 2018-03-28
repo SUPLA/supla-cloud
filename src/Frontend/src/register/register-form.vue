@@ -5,7 +5,8 @@
                 v-title>{{ $t('Create an account') }}</h1>
 
             <div class="error"
-                v-if="isError">{{ errorMessage }}
+                v-if="errorMessage">
+                {{ errorMessage }}
             </div>
 
             <form @submit.prevent="submit()"
@@ -16,7 +17,6 @@
 
                 <input type="email"
                     class="form-input"
-                    required
                     autocorrect="off"
                     autocapitalize="none"
                     :placeholder="$t('Enter your email address')"
@@ -24,32 +24,36 @@
 
                 <input type="password"
                     class="form-input"
-                    required
                     :placeholder="$t('Enter strong password')"
                     v-model="password">
 
                 <input type="password"
                     class="form-input"
-                    required
                     :placeholder="$t('Repeat password')"
-                    v-model="confirm">
+                    v-model="confirmPassword">
+
+                <regulations-checkbox v-model="regulationsAgreed"></regulations-checkbox>
 
                 <div v-if="captchaEnabled">
-                    <invisible-recaptcha :sitekey="captchaSiteKey"
+                    <invisible-recaptcha
+                        :sitekey="captchaSiteKey"
                         :callback="checkCaptcha"
                         id="registerRecaptcha"
                         type="submit"
                         :disabled="isBusy"
-                        class="btn btn-default btn-create-account">
-                        <span v-if="!isBusy">
-                            {{ $t('Create an account') }}
-                        </span>
-                        <button-loading-dots v-else></button-loading-dots>
+                        :form-valid="!computedErrorMessage">
+                        <template slot-scope="btn">
+                            <span v-if="!isBusy">
+                                {{ $t('Create an account') }}
+                            </span>
+                            <button-loading-dots v-else></button-loading-dots>
+                        </template>
                     </invisible-recaptcha>
                 </div>
                 <div v-else>
                     <button type="submit"
-                        class="btn btn-default btn-create-account">
+                        :disabled="!regulationsAgreed"
+                        class="btn btn-default btn-block btn-lg">
                         <span v-if="!isBusy">
                             {{ $t('Create an account') }}
                         </span>
@@ -64,24 +68,40 @@
 <script>
     import Vue from 'vue';
     import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
-    import InvisibleRecaptcha from '../common/invisible-recaptcha.vue';
+    import InvisibleRecaptcha from './invisible-recaptcha.vue';
+    import RegulationsCheckbox from "../common/errors/regulations-checkbox";
 
     export default {
-        components: {ButtonLoadingDots, InvisibleRecaptcha},
+        components: {RegulationsCheckbox, ButtonLoadingDots, InvisibleRecaptcha},
 
         data() {
             return {
                 username: '',
                 password: '',
-                confirm: '',
+                confirmPassword: '',
                 timezone: moment.tz.guess() || 'Europe/Warsaw',
-                isError: false,
                 isBusy: false,
                 errorMessage: '',
                 captchaEnabled: Vue.config.external.recaptchaEnabled,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
-                captchaToken: null
+                captchaToken: null,
+                regulationsAgreed: false
             };
+        },
+        computed: {
+            computedErrorMessage() {
+                let errorMessage = '';
+                if (this.username.indexOf('@') <= 0) {
+                    errorMessage = this.$t('Please fill a valid email address');
+                } else if (this.password.length < 8) {
+                    errorMessage = this.$t('The password should be 8 or more characters.');
+                } else if (this.password != this.confirmPassword) {
+                    errorMessage = this.$t('The password and its confirm are not the same.');
+                } else if (!this.regulationsAgreed) {
+                    errorMessage = this.$t('You need to agree on regulations.');
+                }
+                return errorMessage;
+            }
         },
         methods: {
             checkCaptcha(recaptchaToken) {
@@ -89,27 +109,27 @@
                 this.submit();
             },
             submit() {
+                this.errorMessage = this.computedErrorMessage;
+                if (this.errorMessage) {
+                    return;
+                }
                 let data = {
                     username: this.username,
                     email: this.username,
-                    plainPassword: {
-                        password: this.password,
-                        confirm: this.confirm,
-                    },
-                    timezone: this.timezone
+                    plainPassword: this.password,
+                    timezone: this.timezone,
+                    regulationsAgreed: this.regulationsAgreed
                 };
                 if (this.captchaEnabled) {
                     data.captcha = this.captchaToken;
                 }
 
                 this.isBusy = true;
-                this.isError = false;
                 this.$http.post('register', data).then(({body}) => {
                     this.$store.setCreatedUserAction(body.username);
                     this.isBusy = false;
                     this.$emit('registered');
                 }).catch(({body}) => {
-                    this.isError = true;
                     this.isBusy = false;
                     this.errorMessage = this.$t(body.message);
                 });
@@ -119,7 +139,15 @@
 </script>
 
 <style lang="scss">
+    @import '../styles/variables';
+
     .create-form {
+        color: $supla-white;
+
+        .checkbox a {
+            color: $supla-yellow;
+        }
+
         @media screen and (max-width: 899px) {
             padding: 15px;
         }
@@ -138,12 +166,11 @@
         }
 
         .page-title {
-            color: #fff;
             margin-bottom: 20px;
         }
 
         .error {
-            color: #ffe804;
+            color: $supla-yellow;
             margin: 3px 0 10px;
         }
 
@@ -185,27 +212,6 @@
         .form-input:focus,
         .form-input:hover {
             border-bottom-color: #fff;
-        }
-    }
-
-    .btn-create-account {
-        background: #fff;
-        border: solid 1px #fff;
-        border-radius: 3px;
-        width: 100%;
-        margin-top: 20px;
-        max-width: 301px;
-        line-height: 30px;
-        font-size: 13px;
-        text-transform: uppercase;
-        color: #000;
-        transition: all 0.3s;
-
-        &:hover {
-            background: #f0f1f4;
-            border-color: #f0f1f4;
-            color: #000;
-            transition: all 0.3s;
         }
     }
 

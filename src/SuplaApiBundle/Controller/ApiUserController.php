@@ -228,18 +228,19 @@ class ApiUserController extends RestController {
 
         $data = $request->request->all();
         Assert::that($data)
+            ->notEmptyKey('regulationsAgreed')
             ->notEmptyKey('email')
             ->notEmptyKey('username')
             ->notEmptyKey('plainPassword')
             ->notEmptyKey('timezone');
 
-        $newPassword = $data['plainPassword']['password'];
+        Assertion::true($data['regulationsAgreed'], 'You need to agree on regulations.');
+
+        $newPassword = $data['plainPassword'];
         Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
 
-        $confirmPassword = $data['plainPassword']['confirm'];
-        Assertion::true($newPassword == $confirmPassword, 'The password and its confirm are not the same.');
-
         $user = new User();
+        $user->agreeOnRules();
         $user->fill($data);
 
         $this->userManager->create($user);
