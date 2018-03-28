@@ -4,7 +4,9 @@
         baseUrl: '{{ path('_homepage')[:-1] }}',
         timezone: '{{ app.user ? app.user.timezone : '' }}',
         serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
-        renderStart: new Date()
+        renderStart: new Date(),
+        recaptchaEnabled: {{ recaptcha_enabled }},
+        recaptchaSiteKey: '{{ recaptcha_site_key }}'
         {% if app.user %}
         ,
         user: {

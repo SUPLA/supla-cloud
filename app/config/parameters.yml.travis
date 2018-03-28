@@ -22,6 +22,9 @@ parameters:
   supla_require_cookie_policy_acceptance: false
 
   recaptcha_enabled: false
+  recaptcha_site_key: ~
+  recaptcha_secret: ~
+
   ewz_recaptcha_public_key: ~
   ewz_recaptcha_private_key: ~
 

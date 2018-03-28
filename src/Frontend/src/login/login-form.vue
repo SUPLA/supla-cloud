@@ -58,11 +58,11 @@
                     <img src="assets/img/devices.png">
                     {{ $t('Supla for devices') }}
                 </router-link>
-                <a class="btn btn-white btn-wrapped"
-                    href="/auth/create">
+                <router-link to="/create"
+                    class="btn btn-white btn-wrapped">
                     <img src="assets/img/user.png">
                     {{ $t('Create an account') }}
-                </a>
+                </router-link>
             </div>
         </div>
         <login-footer></login-footer>
@@ -84,6 +84,9 @@
                 password: '',
                 displayError: !!$('#login-page').attr('error'),
             };
+        },
+        mounted() {
+            document.title = this.$t( 'Login' ) + ' | ' + 'SUPLA CLOUD';
         },
         methods: {
             findServer() {
