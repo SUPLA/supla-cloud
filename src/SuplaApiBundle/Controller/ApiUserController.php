@@ -123,17 +123,17 @@ class ApiUserController extends RestController {
                     throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
                 }
             } elseif ($data['action'] == 'change:password') {
-                $this->assertNotApliUser();
+                $this->assertNotApiUser();
                 $newPassword = $data['newPassword'] ?? '';
                 $oldPassword = $data['oldPassword'] ?? '';
                 Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect');
                 Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
                 $this->userManager->setPassword($newPassword, $user);
             } elseif ($data['action'] == 'agree:rules') {
-                $this->assertNotApliUser();
+                $this->assertNotApiUser();
                 $user->agreeOnRules();
             } elseif ($data['action'] == 'agree:cookies') {
-                $this->assertNotApliUser();
+                $this->assertNotApiUser();
                 $user->agreeOnCookies();
             }
             $em->persist($user);
@@ -147,7 +147,7 @@ class ApiUserController extends RestController {
      */
     public function getUserApiSettingsAction() {
         $user = $this->getUser();
-        $this->assertNotApliUser();
+        $this->assertNotApiUser();
         $apiManager = $this->get('api_manager');
         $client = $apiManager->getClient($user);
         $apiUser = $apiManager->getAPIUser($user);
@@ -165,7 +165,7 @@ class ApiUserController extends RestController {
      */
     public function patchUserApiSettingsAction(Request $request) {
         $user = $this->getUser();
-        $this->assertNotApliUser();
+        $this->assertNotApiUser();
         $data = $request->request->all();
         $apiManager = $this->get('api_manager');
         $apiUser = $apiManager->getAPIUser($user);
@@ -181,7 +181,7 @@ class ApiUserController extends RestController {
         Assertion::true(false);
     }
 
-    private function assertNotApliUser() {
+    private function assertNotApiUser() {
         $user = $this->getUser();
         Assertion::isInstanceOf($user, User::class, 'You cannot perform this action as an API user.');
     }
@@ -194,18 +194,9 @@ class ApiUserController extends RestController {
         if ($recaptchaEnabled) {
             $recaptchaSecret = $this->container->getParameter('recaptcha_secret');
             $gRecaptchaResponse = $request->get('captcha');
-
             $recaptcha = new ReCaptcha($recaptchaSecret);
             $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
-            if (!$resp->isSuccess()) {
-                $errors = $resp->getErrorCodes();
-
-                return $this->view([
-                    'status' => Response::HTTP_BAD_REQUEST,
-                    'message' => 'Captcha token is not valid.',
-                    'errors' => $errors,
-                ], Response::HTTP_BAD_REQUEST);
-            }
+            Assertion::true($resp->isSuccess(), 'Captcha token is not valid.');
         }
 
         $username = $request->get('username');

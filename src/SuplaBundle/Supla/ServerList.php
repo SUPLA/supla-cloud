@@ -60,7 +60,6 @@ class ServerList {
         }
     }
 
-
     public function userExists($username, &$remote_server) {
 
         if (strlen(@$username) == 0) {
@@ -116,28 +115,23 @@ class ServerList {
     }
 
     public function getCreateAccountUrl(Request $request) {
+        if (count(@$this->servers) > 1) {
+            $avil = [];
+            foreach ($this->servers as $server) {
+                if ($server['create_account'] === true) {
+                    $avil[] = $server;
+                }
+            }
+            if (count($avil) > 0) {
+                $server = $avil[rand(0, count($avil) - 1)];
 
-        if (count(@$this->servers) < 2) {
-            return $request->getScheme() . '://' . $request->getHost()
-                . $this->router->generate('_auth_login', ['lang' => $request->getLocale()]) . '#/register';
-        }
-
-        $avil = [];
-        foreach ($this->servers as $server) {
-            if ($server['create_account'] === true) {
-                $avil[] = $server;
+                if (strlen(@$server['address']) > 0) {
+                    return 'https://' . $server['address']
+                        . $this->router->generate('_auth_login', ['locale' => $request->getLocale()]) . '#/register';
+                }
             }
         }
-
-        if (count($avil) > 0) {
-            $server = $avil[rand(0, count($avil) - 1)];
-
-            if (strlen(@$server['address']) > 0) {
-                return 'https://' . $server['address']
-                    . $this->router->generate('_auth_login', ['locale' => $request->getLocale()]) . '#/register';
-            }
-        }
-
-        return $request->getScheme() . '://' . $request->getHost() . $this->router->generate('_temp_unavailable');
+        return $request->getScheme() . '://' . $request->getHost()
+            . $this->router->generate('_auth_login', ['lang' => $request->getLocale()]) . '#/register';
     }
 }
