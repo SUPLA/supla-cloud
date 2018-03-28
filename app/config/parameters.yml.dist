@@ -19,7 +19,7 @@ parameters:
   supla_server: ~
   supla_server_list: ~
   supla_autodiscover_server: ~
-  supla_require_regulations_acceptance: fatlse
+  supla_require_regulations_acceptance: false
   supla_require_cookie_policy_acceptance: false
 
   recaptcha_enabled: true
