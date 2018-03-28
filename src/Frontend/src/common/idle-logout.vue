@@ -34,7 +34,7 @@
             incrementIdleTime() {
                 ++this.idleTime;
                 if (this.idleTime >= LOGOUT_AFTER_IDLE_MINUTES) {
-                    $("#logout")[0].click();
+                    $("#logoutButton")[0].click();
                     this.stop();
                 }
             },
