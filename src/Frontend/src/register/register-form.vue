@@ -107,7 +107,7 @@
                 this.$http.post('register', data).then(({body}) => {
                     this.$store.setCreatedUserAction(body.username);
                     this.isBusy = false;
-                    this.$router.push("/check-email");
+                    this.$emit('registered');
                 }).catch(({body}) => {
                     this.isError = true;
                     this.isBusy = false;

@@ -1,26 +1,37 @@
 <template>
     <div>
         <div class="bg"></div>
-        <register-slider></register-slider>
-        <register-form></register-form>
+        <check-email v-if="registered"></check-email>
+        <div v-else>
+            <register-slider></register-slider>
+            <register-form @registered="registered = true"></register-form>
+        </div>
         <register-footer></register-footer>
     </div>
 </template>
 
 <script>
-    import RegisterSlider from './register-slider.vue';
-    import RegisterForm from './register-form.vue';
-    import RegisterFooter from './register-footer.vue';
+    import RegisterSlider from './register-slider';
+    import RegisterForm from './register-form';
+    import RegisterFooter from './register-footer';
+    import CheckEmail from './check-email';
 
     export default {
-        components: {RegisterSlider, RegisterForm, RegisterFooter},
+        components: {CheckEmail, RegisterSlider, RegisterForm, RegisterFooter},
+        data() {
+            return {
+                registered: false
+            };
+        }
     };
 </script>
 
 <style lang="scss">
+    @import '../styles/variables';
+
     .bg {
-        background: #00d151;
-        color: #fff;
+        background: $supla-green;
+        color: $supla-white;
         position: fixed;
         width: 100%;
         height: 100%;
