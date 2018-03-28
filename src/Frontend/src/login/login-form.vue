@@ -58,11 +58,11 @@
                     <img src="assets/img/devices.png">
                     {{ $t('Supla for devices') }}
                 </router-link>
-                <router-link to="/register"
-                    class="btn btn-white btn-wrapped">
-                    <img src="assets/img/user.png">
+                <a class="btn btn-white btn-wrapped"
+                    href="/auth/create">
+                    <img src="/assets/img/user.png">
                     {{ $t('Create an account') }}
-                </router-link>
+                </a>
             </div>
         </div>
         <login-footer></login-footer>

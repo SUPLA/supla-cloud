@@ -22,7 +22,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DefaultController extends Controller {
@@ -51,9 +50,10 @@ class DefaultController extends Controller {
 
     /**
      * @Route("/", name="_homepage")
+     * @Route("/register", name="_register")
      * @Route("/{suffix}", requirements={"suffix"="^.*"}, methods={"GET"})
      * @Template()
      */
-    public function spaBoilerplaceAction(Request $request) {
+    public function spaBoilerplateAction() {
     }
 }

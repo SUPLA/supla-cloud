@@ -1,11 +1,16 @@
 <template>
     <div>
         <div class="bg"></div>
-        <check-email v-if="registered"></check-email>
-        <div v-else>
-            <register-slider></register-slider>
-            <register-form @registered="registered = true"></register-form>
-        </div>
+        <transition name="fade-router">
+            <check-email v-if="registeredEmail"
+                :email="registeredEmail"></check-email>
+        </transition>
+        <transition name="fade-router">
+            <div v-if="!registeredEmail">
+                <register-slider></register-slider>
+                <register-form @registered="registeredEmail = $event"></register-form>
+            </div>
+        </transition>
         <register-footer></register-footer>
     </div>
 </template>
@@ -20,7 +25,7 @@
         components: {CheckEmail, RegisterSlider, RegisterForm, RegisterFooter},
         data() {
             return {
-                registered: false
+                registeredEmail: ''
             };
         }
     };

@@ -125,9 +125,8 @@
 
                 this.isBusy = true;
                 this.$http.post('register', data).then(({body}) => {
-                    this.$store.setCreatedUserAction(body.username);
                     this.isBusy = false;
-                    this.$emit('registered');
+                    this.$emit('registered', body.email);
                 }).catch(({body}) => {
                     this.isBusy = false;
                     this.errorMessage = this.$t(body.message);

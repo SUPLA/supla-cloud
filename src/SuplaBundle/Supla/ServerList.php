@@ -127,11 +127,11 @@ class ServerList {
 
                 if (strlen(@$server['address']) > 0) {
                     return 'https://' . $server['address']
-                        . $this->router->generate('_auth_login', ['locale' => $request->getLocale()]) . '#/register';
+                        . $this->router->generate('_register', ['lang' => $request->getLocale()]);
                 }
             }
         }
         return $request->getScheme() . '://' . $request->getHost()
-            . $this->router->generate('_auth_login', ['lang' => $request->getLocale()]) . '#/register';
+            . $this->router->generate('_register', ['lang' => $request->getLocale()]);
     }
 }

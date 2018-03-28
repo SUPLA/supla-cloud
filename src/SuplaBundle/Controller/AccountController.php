@@ -21,12 +21,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Form\Model\ResetPassword;
 use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/account")
  */
-class AccountController extends AbstractController {
+class AccountController extends Controller {
     use Transactional;
 
     /**

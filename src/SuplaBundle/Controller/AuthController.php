@@ -19,15 +19,16 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/auth")
  */
-class AuthController extends AbstractController {
+class AuthController extends Controller {
     /**
      * @Route("/login", name="_auth_login")
-     * @Template("@Supla/Default/spaBoilerplace.html.twig");
+     * @Template("@Supla/Default/spaBoilerplate.html.twig");
      */
     public function loginAction() {
         if ($this->getUser()) {
