@@ -95,7 +95,7 @@ class SuplaMailer {
     }
 
     public function sendResetPasswordEmailMessage(UserInterface $user) {
-        $url = $this->router->generate('_account_reset_passwd', ['token' => $user->getToken(), true], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'reset-password/' . $user->getToken();
 
         $this->sendEmailMessage(
             'resetpwd.txt.twig',

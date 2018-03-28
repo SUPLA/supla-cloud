@@ -42,6 +42,9 @@ services:
     public: false
     tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
 
+#swiftmailer:
+#  delivery_addresses: ['%admin_email%']
+
 web_profiler:
   intercept_redirects: false
   toolbar: true

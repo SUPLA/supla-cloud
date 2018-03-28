@@ -46,7 +46,7 @@
                     </button>
                 </div>
             </form>
-            <router-link to="/remind"
+            <router-link to="/forgotten-password"
                 class="error"
                 v-if="displayError">
                 <strong>{{ $t('Forgot your password?') }}</strong>
@@ -65,7 +65,7 @@
                 </a>
             </div>
         </div>
-        <login-footer></login-footer>
+        <login-footer remind-password-link="true"></login-footer>
     </div>
 </template>
 

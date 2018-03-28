@@ -248,47 +248,46 @@ class ApiUserController extends RestController {
     }
 
     /**
-     * @Rest\Post("/forgot_passwd_here")
+     * @Rest\Patch("/forgotten-password", name="forgot_passwd_post")
+     * @Rest\Post("/forgotten-password", name="forgot_passwd_patch")
+     * @Rest\Head("/forgotten-password/{token}", name="forgot_passwd_head")
+     * @Rest\Put("/forgotten-password/{token}", name="forgot_passwd_put")
      */
-    public function forgotPasswordHereAction(Request $request) {
-        $translator = $this->get('translator');
-        $user_manager = $this->get('user_manager');
-
-        $data = json_decode($request->getContent());
-
-        if (LocaleListener::localeAllowed(@$data->locale)) {
-            $request->getSession()->set('_locale', $data->locale);
-            $request->setLocale($data->locale);
-        }
-
-        if (preg_match('/@/', @$data->email)
-            && null !== ($user = $user = $user_manager->userByEmail($data->email))
-            && $user_manager->paswordRequest($user) === true
-        ) {
-            $mailer = $this->get('supla_mailer');
-            $mailer->sendResetPasswordEmailMessage($user);
-        }
-
-        return $this->view(['success' => true], Response::HTTP_OK);
-    }
-
-    /**
-     * @Rest\Post("/forgot_passwd")
-     */
-    public function forgotPasswordAction(Request $request) {
-        $data = json_decode($request->getContent());
-        $username = @$data->email;
-
-        if (preg_match('/@/', $username)) {
-            $sl = $this->get('server_list');
-            $server = $sl->getAuthServerForUser($request, $username);
-
-            if ($server) {
-                $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'web-api/forgot_passwd_here', [
-                    'email' => $username,
-                    'locale' => $request->getLocale(),
-                ]);
-                Assertion::true($result !== false && $result->success, 'Could not reset the password.');
+    public function forgotPasswordAction(Request $request, string $token = null) {
+        $data = json_decode($request->getContent(), true);
+        $username = $data['email'] ?? '';
+        if (preg_match('/@/', $username) || $token) {
+            if ($request->getMethod() == Request::METHOD_PATCH) {
+                $sl = $this->get('server_list');
+                $server = $sl->getAuthServerForUser($request, $username);
+                if ($server) {
+                    $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'web-api/forgotten-password', [
+                        'email' => $username,
+                        'locale' => $request->getLocale(),
+                    ]);
+                    Assertion::true($result && $result->success, 'Could not reset the password.');
+                }
+            } elseif ($request->getMethod() == Request::METHOD_POST) {
+                if (LocaleListener::localeAllowed($data['locale'] ?? null)) {
+                    $request->getSession()->set('_locale', $data['locale']);
+                    $request->setLocale($data['locale']);
+                }
+                $user = $this->userManager->userByEmail($username);
+                if ($user && $this->userManager->paswordRequest($user) === true) {
+                    $mailer = $this->get('supla_mailer');
+                    $mailer->sendResetPasswordEmailMessage($user);
+                }
+            } else {
+                /** @var User $user */
+                $user = $this->userManager->userByPasswordToken($token);
+                Assertion::notNull($user, 'Token does not exist');
+                $password = $data['password'] ?? '';
+                if ($password) {
+                    Assertion::minLength($password, 8, 'The password should be 8 or more characters.');
+                    $user->setToken(null);
+                    $user->setPasswordRequestedAt(null);
+                    $this->userManager->setPassword($password, $user, true);
+                }
             }
         }
         return $this->view(['success' => true], Response::HTTP_OK);

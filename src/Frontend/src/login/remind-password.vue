@@ -2,7 +2,7 @@
     <div>
         <form class="recovery-form"
             @submit.prevent="remind()">
-            <h1>{{ $t('Password Reset') }}</h1>
+            <h1 v-title>{{ $t('Password Reset') }}</h1>
             <div class="form-group form-group-lg">
                 <input autocomplete="off"
                     class="form-control"
@@ -53,7 +53,7 @@
                 if (!this.loading) {
                     this.loading = true;
                     this.sent = this.sentProblem = false;
-                    this.$http.post('forgot_passwd', {email: this.email}).then(() => {
+                    this.$http.patch('forgotten-password', {email: this.email}).then(() => {
                         this.email = '';
                         this.sent = true;
                     }).catch(() => this.sentProblem = true)

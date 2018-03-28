@@ -277,6 +277,11 @@ body.red {
   }
 }
 
+.text-muted {
+  color: inherit;
+  opacity: .7;
+}
+
 body.warning {
   nav.navbar-top {
     background: $supla-yellow;

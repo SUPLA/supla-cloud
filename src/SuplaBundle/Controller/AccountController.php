@@ -18,8 +18,6 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\Form\Model\ResetPassword;
-use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,40 +58,5 @@ class AccountController extends Controller {
         }
         $sl = $this->get('server_list');
         return $this->redirect($sl->getCreateAccountUrl($request));
-    }
-
-    /**
-     * @Route("/reset_passwd/{token}", name="_account_reset_passwd")
-     */
-    public function resetPasswordAction(Request $request, $token) {
-        $user_manager = $this->get('user_manager');
-
-        if (($user = $user_manager->userByPasswordToken($token)) !== null) {
-            $form = $this->createForm(
-                ResetPasswordType::class,
-                new ResetPassword()
-            );
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $user->setToken(null);
-                $user->setPasswordRequestedAt(null);
-                $user_manager->setPassword($form->getData()->getNewPassword(), $user, true);
-                $this->get('session')->getFlashBag()->add('success', ['title' => 'Success', 'message' => 'Password has been changed!']);
-
-                return $this->redirectToRoute("_auth_login");
-            }
-
-            return $this->render(
-                'SuplaBundle:Account:resetpassword.html.twig',
-                ['form' => $form->createView(),
-                ]
-            );
-        } else {
-            $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Token does not exist']);
-        }
-
-        return $this->redirectToRoute("_auth_login");
     }
 }

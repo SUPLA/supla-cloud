@@ -12,9 +12,15 @@ export default [
     },
     {path: '/devices', component: () => import("./login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
     {
-        path: '/remind',
+        path: '/forgotten-password',
         component: () => import("./login/remind-password"),
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow'}
+    },
+    {
+        path: '/reset-password/:token',
+        component: () => import("./login/reset-password"),
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow'},
+        props: true
     },
     {
         path: '/access-identifiers', component: () => import("./access-ids/access-ids-page"), name: "accessIds", children: [
