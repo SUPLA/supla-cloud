@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div class="bg"></div>
-
         <form class="recovery-form"
             @submit.prevent="remind()">
             <h1>{{ $t('Password Reset') }}</h1>
@@ -69,16 +67,6 @@
 <style scoped
     lang="scss">
     @import "../styles/variables";
-
-    .bg {
-        background: $supla-yellow;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -5;
-    }
 
     .recovery-form {
         $height: 150px;

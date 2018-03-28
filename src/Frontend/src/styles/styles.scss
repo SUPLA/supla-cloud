@@ -12,6 +12,7 @@ body {
   background: $supla-bg;
   font-weight: 400;
   -webkit-font-smoothing: subpixel-antialiased;
+  transition: background-color .5s;
 }
 
 ::selection {
@@ -254,6 +255,10 @@ body.green {
   }
 }
 
+body.yellow {
+  background: $supla-yellow;
+}
+
 body.red {
   nav.navbar-top {
     background: $supla-red;
@@ -272,7 +277,7 @@ body.red {
   }
 }
 
-body.yellow {
+body.warning {
   nav.navbar-top {
     background: $supla-yellow;
   }

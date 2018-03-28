@@ -4,9 +4,18 @@ import LoginForm from "./login/login-form";
 export default [
     {path: '/', component: HomePage},
     {path: '/login', component: LoginForm, alias: '/auth/login', meta: {unrestricted: true, onlyUnauthenticated: true}, name: 'login'},
-    {path: '/register', component: () => import("./register/create-account"), meta: {unrestricted: true}, alias: '/account/create_here'},
+    {
+        path: '/register',
+        component: () => import("./register/create-account"),
+        meta: {unrestricted: true, bodyClass: 'green'},
+        alias: '/account/create_here'
+    },
     {path: '/devices', component: () => import("./login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
-    {path: '/remind', component: () => import("./login/remind-password"), meta: {unrestricted: true, onlyUnauthenticated: true}},
+    {
+        path: '/remind',
+        component: () => import("./login/remind-password"),
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow'}
+    },
     {
         path: '/access-identifiers', component: () => import("./access-ids/access-ids-page"), name: "accessIds", children: [
             {path: ':id', component: () => import("./access-ids/access-id-details"), name: 'accessId', props: true}
@@ -36,7 +45,7 @@ export default [
         path: "/agree-on-rules",
         component: () => import("./common/errors/error-agree-on-rules"),
         name: 'agree-on-rules',
-        meta: {bodyClass: 'yellow hide-cookies-warning'}
+        meta: {bodyClass: 'warning hide-cookies-warning'}
     },
     {path: "*", component: () => import("./common/errors/error-404"), meta: {bodyClass: 'red', unrestricted: true}}
 ];

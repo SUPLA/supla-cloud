@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div class="bg"></div>
         <transition name="fade-router">
             <check-email v-if="registeredEmail"
                 :email="registeredEmail"></check-email>
@@ -30,18 +29,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    @import '../styles/variables';
-
-    .bg {
-        background: $supla-green;
-        color: $supla-white;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -5;
-    }
-</style>
