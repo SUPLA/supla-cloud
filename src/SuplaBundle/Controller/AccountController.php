@@ -17,10 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
-use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\EventListener\LocaleListener;
-use SuplaBundle\Form\Model\ChangePassword;
 use SuplaBundle\Form\Model\ResetPassword;
 use SuplaBundle\Form\Type\ResetPasswordType;
 use SuplaBundle\Model\Transactional;
@@ -31,44 +28,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AccountController extends AbstractController {
     use Transactional;
-
-//    /**
-//     * @Route("/register", name="_account_register")
-//     */
-//    public function registerAction(Request $request) {
-//        if ($this->getUser()) {
-//            return $this->redirectToRoute('_homepage');
-//        }
-//        $registration = new Registration();
-//        $form = $this->createForm(RegistrationType::class, $registration, [
-//            'action' => $this->generateUrl('_account_create_here'),
-//            'validation_groups' => ['_registration'],
-//        ]);
-//
-//        return $this->render(
-//            'SuplaBundle:Account:register.html.twig',
-//            ['form' => $form->createView(),
-//                'locale' => $request->getLocale(),
-//            ]
-//        );
-//    }
-
-    /**
-     * @Route("/checkemail", name="_account_checkemail")
-     */
-    public function checkEmailAction() {
-        $email = $this->container->get('session')->get('_registration_email');
-        $this->container->get('session')->remove('_registration_email');
-
-        if ($email === null) {
-            return $this->redirectToRoute("_auth_login");
-        }
-
-        return $this->render(
-            'SuplaBundle:Account:checkemail.html.twig',
-            ['email' => $email]
-        );
-    }
 
     /**
      * @Route("/confirmemail/{token}", name="_account_confirmemail")
@@ -90,86 +49,6 @@ class AccountController extends AbstractController {
 
         return $this->redirectToRoute("_auth_login");
     }
-
-//    /**
-//     * @Route("/create_here", name="_account_create_here")
-//     */
-//    public function createActionHere(Request $request) {
-//        if ($this->getUser()) {
-//            return $this->redirectToRoute('_homepage');
-//        }
-//        $form = $this->createForm(RegistrationType::class, new Registration(), ['language' => $request->getLocale()]);
-//
-//        $form->handleRequest($request);
-//
-//        $sl = $this->get('server_list');
-//        $remote_server = '';
-//
-//        if ($form->isValid()) {
-//            $username = $form->getData()->getUser()->getUsername();
-//
-//            for ($n = 0; $n < 4; $n++) {
-//                $exists = $sl->userExists($username, $remote_server);
-//
-//                if ($exists === false) {
-//                    usleep(1000000);
-//                } else {
-//                    break;
-//                }
-//            }
-//        } else {
-//            $exists = false;
-//        }
-//
-//        if ($exists === null) {
-//            $mailer = $this->get('supla_mailer');
-//            $mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remote_server);
-//
-//            return $this->redirectToRoute("_temp_unavailable");
-//        } elseif ($exists === true) {
-//            $translator = $this->get('translator');
-//            $form->get('user')->get('email')->addError(new FormError($translator->trans('Email already exists', [], 'validators')));
-//        }
-//
-//        if ($exists === false
-//            && $form->isValid()
-//        ) {
-//            /** @var Registration $registration */
-//            $registration = $form->getData();
-//            $user_manager = $this->get('user_manager');
-//            $user = $registration->getUser();
-//            $user_manager->create($user);
-//
-//            $mailer = $this->get('supla_mailer');
-//            $mailer->sendConfirmationEmailMessage($user);
-//
-//            $this->container->get('session')->set('_registration_email', $user->getEmail());
-//
-//            $autodiscover = $this->get('supla_autodiscover');
-//            $autodiscover->registerUser($user);
-//
-//            return $this->redirectToRoute("_account_checkemail");
-//        }
-//
-//        return $this->render(
-//            'SuplaBundle:Account:register.html.twig',
-//            ['form_ca' => $form->createView(),
-//                'locale' => $request->getLocale(),
-//            ]
-//        );
-//    }
-
-//    /**
-//     * @Route("/create_here/{locale}", name="_account_create_here_lc")
-//     */
-//    public function createActionHereLC(Request $request, $locale) {
-//        if (LocaleListener::localeAllowed(@$locale)) {
-//            $request->getSession()->set('_locale', $locale);
-//            $request->setLocale($locale);
-//        }
-//
-//        return $this->redirectToRoute("_account_create_here");
-//    }
 
     /**
      * @Route("/create", name="_account_create")
@@ -215,84 +94,5 @@ class AccountController extends AbstractController {
         }
 
         return $this->redirectToRoute("_auth_login");
-    }
-
-    /**
-     * @Route("/ajax/changepassword", name="_account_ajax_changepassword")
-     */
-    public function ajaxChangePassword(Request $request) {
-        $data = json_decode($request->getContent());
-        $translator = $this->get('translator');
-        $validator = $this->get('validator');
-
-        $cp = new ChangePassword();
-        $cp->setOldPassword(@$data->old_password);
-        $cp->setNewPassword(@$data->new_password);
-        $cp->setConfirmPassword(@$data->confirm_password);
-
-        $errors = $validator->validate($cp);
-
-        if (count($errors) > 0) {
-            $result = ['flash' => ['title' => $translator->trans('Error'),
-                'message' => $translator->trans($errors[0]->getMessage()),
-                'type' => 'error'],
-            ];
-
-            return AjaxController::jsonResponse(false, $result);
-        };
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        $this->get('user_manager')->setPassword($data->new_password, $user, false);
-
-        return AjaxController::itemEdit($validator, $translator, $this->get('doctrine'), $user, 'Password has been changed!', '');
-    }
-
-    /**
-     * @Route("/ajax/forgot_passwd_here", name="_account_ajax_forgot_passwd_here")
-     */
-    public function forgotPasswordHereAction(Request $request) {
-        $translator = $this->get('translator');
-        $user_manager = $this->get('user_manager');
-
-        $data = json_decode($request->getContent());
-
-        if (LocaleListener::localeAllowed(@$data->locale)) {
-            $request->getSession()->set('_locale', $data->locale);
-            $request->setLocale($data->locale);
-        }
-
-        if (preg_match('/@/', @$data->email)
-            && null !== ($user = $user = $user_manager->userByEmail($data->email))
-            && $user_manager->paswordRequest($user) === true
-        ) {
-            $mailer = $this->get('supla_mailer');
-            $mailer->sendResetPasswordEmailMessage($user);
-        }
-
-        return AjaxController::jsonResponse(true, null);
-    }
-
-    /**
-     * @Route("/ajax/forgot_passwd", name="_account_ajax_forgot_passwd")
-     */
-    public function forgotPasswordAction(Request $request) {
-        $data = json_decode($request->getContent());
-        $username = @$data->email;
-
-        if (preg_match('/@/', $username)) {
-            $sl = $this->get('server_list');
-            $server = $sl->getAuthServerForUser($request, $username);
-
-            if ($server) {
-                $result = AjaxController::remoteRequest($server . $this->generateUrl('_account_ajax_forgot_passwd_here'), [
-                    'email' => $username,
-                    'locale' => $request->getLocale(),
-                ]);
-                Assertion::true($result !== false, 'Could not reset the password.');
-            }
-        }
-
-        return AjaxController::jsonResponse(true, null);
     }
 }

@@ -55,7 +55,7 @@
                 if (!this.loading) {
                     this.loading = true;
                     this.sent = this.sentProblem = false;
-                    this.$http.post('account/ajax/forgot_passwd', {email: this.email}).then(() => {
+                    this.$http.post('forgot_passwd', {email: this.email}).then(() => {
                         this.email = '';
                         this.sent = true;
                     }).catch(() => this.sentProblem = true)

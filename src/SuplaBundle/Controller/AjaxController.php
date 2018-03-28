@@ -17,23 +17,11 @@
 
 namespace SuplaBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @Route("/ajax")
- */
 class AjaxController extends Controller {
     use SuplaServerAware;
-
-    public static function jsonResponse($success, $result = []) {
-        $result['success'] = $success;
-
-        return new Response(json_encode($result), 200, ['Content-Type' => 'application/json']);
-    }
 
     public static function remoteRequest($url, $data) {
 
@@ -63,60 +51,5 @@ class AjaxController extends Controller {
         curl_close($ch);
 
         return $result;
-    }
-
-    public static function itemEdit($validator, $translator, $doctrine, $item, $message, $value) {
-
-        $success = false;
-
-        if ($item !== null) {
-            $errors = $validator->validate($item);
-
-            if (count($errors) > 0) {
-                // Get first one
-                $result = ['flash' => ['title' => $translator->trans('Error'),
-                    'message' => $translator->trans($errors[0]->getMessage()),
-                    'type' => 'error'],
-                ];
-            } else {
-                $doctrine->getManager()->flush();
-
-                $result = ['flash' => ['title' => $translator->trans('Success'),
-                    'message' => $translator->trans($message),
-                    'type' => 'success'],
-                    'value' => $value,
-                ];
-
-                $success = true;
-            }
-        }
-
-        return AjaxController::jsonResponse($success, $result);
-    }
-
-    /**
-     * @Route("/serverctrl-connstate", name="_ajax_serverctrl-connstate")
-     */
-    public function serverctrlConnStateAction(Request $request) {
-        $result = [];
-        $data = json_decode($request->getContent());
-
-        $c = $this->get('translator')->trans('Connected');
-        $d = $this->get('translator')->trans('Disconnected');
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        if (is_array($data->devids)) {
-            $ids = array_unique($data->devids);
-            unset($data);
-
-            $cids = $this->suplaServer->checkDevicesConnection($user->getId(), $ids);
-
-            foreach ($ids as $id) {
-                $result[$id] = in_array($id, $cids) ? ['state' => 1, 'txt' => $c] : ['state' => 0, 'txt' => $d];
-            }
-        }
-
-        return AjaxController::jsonResponse(count($result) > 0, ['states' => $result]);
     }
 }

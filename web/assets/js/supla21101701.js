@@ -329,36 +329,6 @@ function changeIconClick() {
             $("#hello").fadeIn(600).delay(300).fadeOut(600);
         }
 
-        $('#change_pwd_btn').on('click', function (e) {
-
-            $.ajax({
-                type: "POST", url: getAjaxUrl($(this).data('path'), 'changepassword'), data: JSON.stringify({
-                    old_password: $('input#old-password').val(),
-                    new_password: $('input#new-password').val(),
-                    confirm_password: $('input#confirm-password').val()
-                })
-            })
-                .done(function (response) {
-
-                    if (response.success) {
-
-                        $("#change_pwd_dialog").removeClass("overlay-open");
-
-                        $('input#old-password').val("");
-                        $('input#new-password').val("");
-                        $('input#confirm-password').val("");
-
-                    }
-
-                    new PNotify({
-                        title: response.flash.title,
-                        text: response.flash.message,
-                        type: response.flash.type
-                    });
-                });
-
-        });
-
         $('#forgotpwd_btn').on('click', function () {
             $('#forgot-password-step2').hide();
             $('#forgot-password-step1').show();

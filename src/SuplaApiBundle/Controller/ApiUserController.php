@@ -23,10 +23,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use ReCaptcha\ReCaptcha;
 use SuplaApiBundle\Exception\ApiException;
+use SuplaBundle\Controller\AjaxController;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
@@ -243,5 +245,52 @@ class ApiUserController extends RestController {
         $view = $this->view($user, Response::HTTP_CREATED);
         $view->setHeader('SUPLA-Email-Sent', $sent ? 'true' : 'false');
         return $view;
+    }
+
+    /**
+     * @Rest\Post("/forgot_passwd_here")
+     */
+    public function forgotPasswordHereAction(Request $request) {
+        $translator = $this->get('translator');
+        $user_manager = $this->get('user_manager');
+
+        $data = json_decode($request->getContent());
+
+        if (LocaleListener::localeAllowed(@$data->locale)) {
+            $request->getSession()->set('_locale', $data->locale);
+            $request->setLocale($data->locale);
+        }
+
+        if (preg_match('/@/', @$data->email)
+            && null !== ($user = $user = $user_manager->userByEmail($data->email))
+            && $user_manager->paswordRequest($user) === true
+        ) {
+            $mailer = $this->get('supla_mailer');
+            $mailer->sendResetPasswordEmailMessage($user);
+        }
+
+        return $this->view(['success' => true], Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Post("/forgot_passwd")
+     */
+    public function forgotPasswordAction(Request $request) {
+        $data = json_decode($request->getContent());
+        $username = @$data->email;
+
+        if (preg_match('/@/', $username)) {
+            $sl = $this->get('server_list');
+            $server = $sl->getAuthServerForUser($request, $username);
+
+            if ($server) {
+                $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'web-api/forgot_passwd_here', [
+                    'email' => $username,
+                    'locale' => $request->getLocale(),
+                ]);
+                Assertion::true($result !== false && $result->success, 'Could not reset the password.');
+            }
+        }
+        return $this->view(['success' => true], Response::HTTP_OK);
     }
 }
