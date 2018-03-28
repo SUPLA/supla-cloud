@@ -252,12 +252,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->email;
     }
 
-    public function setUsername($username) {
-        $this->email = $username;
-
-        return $this;
-    }
-
     public function getRecaptcha() {
         return $this->recaptcha;
     }
@@ -578,13 +572,9 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return null; // uses the default encoder
     }
 
-    /**
-     * @param array $data
-     */
     public function fill(array $data) {
         $this->setEmail($data['email']);
-        $this->setUsername($data['username']);
         $this->setTimezone($data['timezone']);
-        $this->setPlainPassword($data['timezone']);
+        $this->setPlainPassword($data['password']);
     }
 }

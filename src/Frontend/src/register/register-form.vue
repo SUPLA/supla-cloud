@@ -113,9 +113,8 @@
                     return;
                 }
                 let data = {
-                    username: this.username,
                     email: this.username,
-                    plainPassword: this.password,
+                    password: this.password,
                     timezone: this.timezone,
                     regulationsAgreed: this.regulationsAgreed
                 };

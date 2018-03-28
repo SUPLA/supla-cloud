@@ -201,7 +201,7 @@ class ApiUserController extends RestController {
             Assertion::true($resp->isSuccess(), 'Captcha token is not valid.');
         }
 
-        $username = $request->get('username');
+        $username = $request->get('email');
         Assertion::email($username, 'Please fill a valid email address');
 
         $serverList = $this->get('server_list');
@@ -223,13 +223,12 @@ class ApiUserController extends RestController {
         Assert::that($data)
             ->notEmptyKey('regulationsAgreed')
             ->notEmptyKey('email')
-            ->notEmptyKey('username')
-            ->notEmptyKey('plainPassword')
+            ->notEmptyKey('password')
             ->notEmptyKey('timezone');
 
         Assertion::true($data['regulationsAgreed'], 'You need to agree on regulations.');
 
-        $newPassword = $data['plainPassword'];
+        $newPassword = $data['password'];
         Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
 
         $user = new User();
