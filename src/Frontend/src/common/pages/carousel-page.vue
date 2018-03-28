@@ -12,7 +12,7 @@
                                 :items="items"
                                 :selected="item"
                                 @select="itemChanged"
-                                :new-item-tile="(!limit || limit > items.length) ? createNewLabel : ''"></square-links-carousel-with-filters>
+                                :new-item-tile="createNewLabel"></square-links-carousel-with-filters>
                         </div>
                     </loading-cover>
                 </div>
@@ -28,6 +28,7 @@
 
 <script>
     import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
+    import {warningNotification} from "../notifier";
 
     export default {
         props: ['header', 'tile', 'filters', 'endpoint', 'createNewLabel', 'detailsRoute', 'listRoute', 'limit'],
@@ -52,10 +53,13 @@
         },
         methods: {
             itemChanged(item) {
-                this.item = item;
                 if (!item.id) {
+                    if (this.limit && this.items.length >= this.limit) {
+                        return warningNotification('Error', 'Limit has been exceeded', this);
+                    }
                     this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
                 }
+                this.item = item;
             },
             onItemAdded(item) {
                 this.items.push(item);
