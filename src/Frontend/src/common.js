@@ -54,12 +54,26 @@ $(document).ready(() => {
             mode: 'history',
         });
 
+        if (!Vue.config.external.user.agreements.rules) {
+            router.beforeEach((to, from, next) => {
+                if (!Vue.config.external.user.agreements.rules && to.name != 'agree-on-rules') {
+                    next({name: 'agree-on-rules'});
+                } else {
+                    next();
+                }
+            });
+        }
+
         router.afterEach((to) => {
             if (to.meta.bodyClass) {
                 document.body.setAttribute('class', to.meta.bodyClass);
             } else {
                 document.body.removeAttribute('class');
             }
+        });
+
+        router.afterEach(() => {
+            $(".navbar-toggle:visible:not('.collapsed')").click();
         });
 
         const i18n = new VueI18N({

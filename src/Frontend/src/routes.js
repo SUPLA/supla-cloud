@@ -27,5 +27,11 @@ export default [
     {path: '/schedules/:id', component: () => import("./schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},
     {path: '/schedules/edit/:id', component: () => import("./schedules/schedule-form/schedule-form"), name: 'schedule.edit', props: true},
     {path: '/smartphones', component: () => import("./client-apps/client-apps-page")},
-    {path: "*", component: () => import("./common/pages/error-404"), meta: {bodyClass: 'red'}}
+    {
+        path: "/agree-on-rules",
+        component: () => import("./common/errors/error-agree-on-rules"),
+        name: 'agree-on-rules',
+        meta: {bodyClass: 'yellow hide-cookies-warning'}
+    },
+    {path: "*", component: () => import("./common/errors/error-404"), meta: {bodyClass: 'red'}}
 ];

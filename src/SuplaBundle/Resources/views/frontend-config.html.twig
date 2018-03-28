@@ -16,6 +16,10 @@
                 location: {{ app.user.limitLoc }},
                 accessId: {{ app.user.limitAid }},
                 schedule: {{ app.user.limitSchedule }}
+            },
+            agreements: {
+                rules: {{ app.user.rulesAgreement or not supla_require_regulations_acceptance ? 'true' : 'false' }},
+                cookies: {{ app.user.cookiesAgreement or not supla_require_cookie_policy_acceptance ? 'true' : 'false' }}
             }
         }
         {% endif %}

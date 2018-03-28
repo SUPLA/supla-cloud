@@ -1,0 +1,49 @@
+<template>
+    <loading-cover class="container text-center"
+        :loading="loading">
+        <h1>{{ $t('Regulations have been changed') }}</h1>
+        <i class="pe-7s-note2"
+            style="font-size: 160px"></i>
+        <h5>{{ $t('Some of our policies have been changed and you need to agree on them.') }}</h5>
+        <regulations-checkbox v-model="agreed"></regulations-checkbox>
+        <div class="form-group">
+            <a class="btn btn-yellow"
+                :href="'/auth/logout' | withBaseUrl">
+                <i class="pe-7s-back"></i>
+                {{ $t('Disagree, take me out of here') }}
+            </a>
+            <button class="btn btn-green"
+                :disabled="!agreed"
+                @click="agree()">
+                <i class="pe-7s-simple-check"></i>
+                {{ $t('Agree, take me to the app') }}
+            </button>
+        </div>
+    </loading-cover>
+</template>
+
+<script>
+    import RegulationsCheckbox from "./regulations-checkbox";
+
+    export default {
+        components: {RegulationsCheckbox},
+        data() {
+            return {
+                agreed: false,
+                loading: false,
+            };
+        },
+        mounted() {
+            if (this.$user.agreements.rules) {
+                this.$router.push('/');
+            }
+        },
+        methods: {
+            agree() {
+                this.loading = true;
+                this.$http.patch('users/current', {action: 'agree:rules'})
+                    .finally(() => window.location.assign(window.location.toString()));
+            }
+        }
+    };
+</script>

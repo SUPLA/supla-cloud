@@ -6,6 +6,9 @@
         <transition name="fade-router">
             <router-view></router-view>
         </transition>
+        {% if not app.user.cookiesAgreement and supla_require_cookie_policy_acceptance %}
+            <cookie-warning></cookie-warning>
+        {% endif %}
         {% if app.user and not app.debug %}
             <idle-logout></idle-logout>
         {% endif %}
