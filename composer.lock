@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a841143a47313e7fa2ab958e61e6cea",
+    "content-hash": "2fcd2fdf27c477b5fa22d236fb7b28eb",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1144,53 +1144,6 @@
                 "validator"
             ],
             "time": "2017-01-30T22:07:36+00:00"
-        },
-        {
-            "name": "excelwebzone/recaptcha-bundle",
-            "version": "v1.4.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
-                "reference": "c26cc2fa93649c05d9e1d2fc7130df16d86b4f13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/c26cc2fa93649c05d9e1d2fc7130df16d86b4f13",
-                "reference": "c26cc2fa93649c05d9e1d2fc7130df16d86b4f13",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6",
-                "symfony/form": "^2.8 || ^3.0",
-                "symfony/framework-bundle": "^2.8 || ^3.0",
-                "symfony/validator": "^2.8 || ^3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~5.3"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "EWZ\\Bundle\\RecaptchaBundle\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael H. Arieli",
-                    "email": "excelwebzone@gmail.com",
-                    "homepage": "http://excelwebzone.com/"
-                }
-            ],
-            "description": "This bundle provides easy reCAPTCHA form field integration",
-            "homepage": "https://github.com/excelwebzone/EWZRecaptchaBundle",
-            "keywords": [
-                "recaptcha"
-            ],
-            "time": "2017-02-24T13:25:11+00:00"
         },
         {
             "name": "fig/link-util",

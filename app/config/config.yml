@@ -20,11 +20,6 @@ doctrine:
     auto_generate_proxy_classes: "%kernel.debug%"
     auto_mapping: true
 
-ewz_recaptcha:
-  enabled: "%recaptcha_enabled%"
-  private_key: "%ewz_recaptcha_private_key%"
-  public_key: "%ewz_recaptcha_public_key%"
-
 fos_oauth_server:
   access_token_class: SuplaApiBundle\Entity\OAuth\AccessToken
   auth_code_class: SuplaApiBundle\Entity\OAuth\AuthCode
