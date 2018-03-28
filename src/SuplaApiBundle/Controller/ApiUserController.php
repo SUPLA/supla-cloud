@@ -17,9 +17,11 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Assert\Assert;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use ReCaptcha\ReCaptcha;
 use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
@@ -182,5 +184,70 @@ class ApiUserController extends RestController {
     private function assertNotApliUser() {
         $user = $this->getUser();
         Assertion::isInstanceOf($user, User::class, 'You cannot perform this action as an API user.');
+    }
+
+    /**
+     * @Rest\Post("/register")
+     */
+    public function accountCreateAction(Request $request) {
+        $recaptchaEnabled = $this->container->getParameter('recaptcha_enabled');
+        if ($recaptchaEnabled) {
+            $recaptchaSecret = $this->container->getParameter('recaptcha_secret');
+            $gRecaptchaResponse = $request->get('captcha');
+
+            $recaptcha = new ReCaptcha($recaptchaSecret);
+            $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
+            if (!$resp->isSuccess()) {
+                $errors = $resp->getErrorCodes();
+
+                return $this->view([
+                    'status' => Response::HTTP_BAD_REQUEST,
+                    'message' => 'Captcha token is not valid.',
+                    'errors' => $errors,
+                ], Response::HTTP_BAD_REQUEST);
+            }
+        }
+
+        $username = $request->get('username');
+        Assertion::email($username, 'Please fill a valid email address');
+
+        $serverList = $this->get('server_list');
+        $remoteServer = '';
+        $exists = $serverList->userExists($username, $remoteServer);
+        Assertion::false($exists, 'Email already exists');
+
+        if ($exists === null) {
+            $mailer = $this->get('supla_mailer');
+            $mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);
+
+            return $this->view([
+                'status' => Response::HTTP_SERVICE_UNAVAILABLE,
+                'message' => 'Service temporarily unavailable',
+            ], Response::HTTP_SERVICE_UNAVAILABLE);
+        }
+
+        $data = $request->request->all();
+        Assert::that($data)
+            ->notEmptyKey('email')
+            ->notEmptyKey('username')
+            ->notEmptyKey('plainPassword')
+            ->notEmptyKey('timezone');
+
+        $newPassword = $data['plainPassword']['password'];
+        Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
+
+        $confirmPassword = $data['plainPassword']['confirm'];
+        Assertion::true($newPassword == $confirmPassword, 'The password and its confirm are not the same.');
+
+        $user = new User();
+        $user->fill($data);
+
+        $this->userManager->create($user);
+
+        // send email
+        $mailer = $this->get('supla_mailer');
+        $mailer->sendConfirmationEmailMessage($user);
+
+        return $this->view($user, Response::HTTP_CREATED);
     }
 }
