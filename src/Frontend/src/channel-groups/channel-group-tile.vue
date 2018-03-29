@@ -9,7 +9,7 @@
                     width="60"></function-icon>
             </div>
             <dl>
-                <dd>{{ $t('Channels no') }}</dd>
+                <dd>{{ $t('No. of channels') }}</dd>
                 <dt>{{ model.channelIds.length }}</dt>
             </dl>
             <div v-if="model.caption">

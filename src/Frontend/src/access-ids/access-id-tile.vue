@@ -5,9 +5,9 @@
             <span>
                 <h2>ID<strong>{{ model.id }} </strong></h2>
                 <dl>
-                    <dd>{{ $t('Locations no') }}</dd>
+                    <dd>{{ $t('No. of locations') }}</dd>
                     <dt>{{ model.locationsIds.length }}</dt>
-                    <dd>{{ $t('Client apps no') }}</dd>
+                    <dd>{{ $t('No. of Client’s apps') }}</dd>
                     <dt>{{ model.clientAppsIds.length }}</dt>
                 </dl>
                 <div v-if="model.caption">

@@ -97,7 +97,7 @@
                 } else if (this.password != this.confirmPassword) {
                     errorMessage = this.$t('The password and its confirm are not the same.');
                 } else if (!this.regulationsAgreed) {
-                    errorMessage = this.$t('You need to agree on regulations.');
+                    errorMessage = this.$t('You must agree to the Terms and Conditions.');
                 }
                 return errorMessage;
             }

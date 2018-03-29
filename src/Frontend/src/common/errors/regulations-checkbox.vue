@@ -28,7 +28,7 @@
         },
         computed: {
             checkboxLabel() {
-                const template = this.$t('I accept the [Regulations] and agree to the processing of my personal data for the purpose and scope indicated in the [Regulations].')
+                const template = this.$t('I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].')
                     .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
                 return {template: `<span>${template}</span>`};
             }

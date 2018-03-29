@@ -4,7 +4,7 @@
             @input="$emit('change')"
             :times="times"></channel-opening-time-selector>
         <dl>
-            <dd>{{ $t('Open sensor') }}</dd>
+            <dd>{{ $t('Opening sensor') }}</dd>
             <dt class="text-center"
                 style="font-weight: normal">
                 <channels-dropdown :params="'include=iodevice,location,function&function=' + relatedChannelFunction"

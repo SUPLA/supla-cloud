@@ -33,7 +33,7 @@
                                                     @change="channelGroupChanged()"
                                                     v-model="channelGroup.caption">
                                             </dt>
-                                            <dd>{{ $t('Show in clients') }}</dd>
+                                            <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                             <dt class="text-center">
                                                 <toggler v-model="channelGroup.hidden"
                                                     invert="true"

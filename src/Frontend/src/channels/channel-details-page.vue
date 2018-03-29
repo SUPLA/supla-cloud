@@ -44,7 +44,7 @@
                                             @change="updateChannel()"
                                             v-model="channel.caption">
                                     </dt>
-                                    <dd>{{ $t('Show in clients') }}</dd>
+                                    <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                     <dt class="text-center">
                                         <toggler v-model="channel.hidden"
                                             invert="true"
@@ -64,11 +64,11 @@
                             </div>
                             <p v-if="channel.inheritedLocation"
                                 class="text-muted">
-                                {{ $t('Channel inherits I/O Device\'s location') }}
+                                {{ $t('Channel is assigned to the I/O device location') }}
                             </p>
                             <a v-else
                                 @click="onLocationChange(null)">
-                                {{ $t('Inherit location from I/O Device') }}
+                                {{ $t('Inherit I/O Device location') }}
                             </a>
                         </div>
                         <div class="col-sm-4">

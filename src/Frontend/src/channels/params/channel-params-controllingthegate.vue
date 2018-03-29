@@ -5,7 +5,7 @@
             :times="[500, 1000, 2000]"
             related-channel-function="OPENINGSENSOR_GATE"></channel-params-controlling-any-lock>
         <dl>
-            <dd>{{ $t('Secondary open sensor') }}</dd>
+            <dd>{{ $t('Partial opening sensor') }}</dd>
             <dt class="text-center"
                 style="font-weight: normal">
                 <channels-dropdown params="include=iodevice,location,function&function=OPENINGSENSOR_GATE"

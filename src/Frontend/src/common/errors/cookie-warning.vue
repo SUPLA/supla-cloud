@@ -5,7 +5,7 @@
             <component :is="warningText"
                 @click="regulationsShown = true"></component>
             <a @click="agree()"
-                class="btn btn-default btn-xs pull-right">{{ $t('Agree') }}</a>
+                class="btn btn-default btn-xs pull-right">{{ $t('I agree') }}</a>
             <regulations-modal v-if="regulationsShown"
                 @confirm="regulationsShown = false"></regulations-modal>
         </div>
@@ -31,7 +31,7 @@
         },
         computed: {
             warningText() {
-                const template = this.$t('We store some data (e.g. cookies) in your browser to remember your preferences and ease the application usage. [Read more].')
+                const template = this.$t('We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].')
                     .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
                 return {template: `<span>${template}</span>`};
             }

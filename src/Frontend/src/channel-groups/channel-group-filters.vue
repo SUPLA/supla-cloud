@@ -6,7 +6,7 @@
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
         <btn-filters v-model="hidden"
             @input="$emit('filter')"
-            :filters="[{label: $t('All'), value: undefined}, {label: $t('Hidden'), value: true}, {label: $t('Visible'), value: false}]"></btn-filters>
+            :filters="[{label: $t('All'), value: undefined}, {label: $t('Invisible'), value: true}, {label: $t('Visible'), value: false}]"></btn-filters>
         <input type="text"
             class="form-control"
             v-model="search"

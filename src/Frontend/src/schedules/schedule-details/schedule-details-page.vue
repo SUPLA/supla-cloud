@@ -40,7 +40,7 @@
                                         <toggler v-model="schedule.enabled"
                                             @input="updateSchedule()"></toggler>
                                     </dt>
-                                    <dd>{{ $t('Retry when fail') }}</dd>
+                                    <dd>{{ $t('Retry on failure') }}</dd>
                                     <dt>
                                         <toggler v-model="schedule.retry"
                                             :disabled="retryOptionDisabled"

@@ -61,7 +61,7 @@
                 v-if="generatingPassword"
                 :loading="loading"
                 :header="$t('Are you sure?')">
-                {{ $t('Generating a new password will force you to reconfigure any connected 3rd party applications.') }}
+                {{ $t('If you create new password, reconfiguration of  all the connected 3rd party applications will be required.') }}
             </modal-confirm>
 
         </div>

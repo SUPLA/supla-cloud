@@ -6,7 +6,7 @@
                 @click="addingNewChannel = true">
                 <span>
                     <i class="pe-7s-plus"></i>
-                    <span v-if="!channelGroup.id">{{ $t('Add the first channel to determine channel group\'s function and save it') }}</span>
+                    <span v-if="!channelGroup.id">{{ $t('Add first channel to set channel group function and save it') }}</span>
                     <span v-else>{{ $t('Add new channel to this group') }}</span>
                 </span>
             </a>

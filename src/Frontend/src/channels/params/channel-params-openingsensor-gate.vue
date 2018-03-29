@@ -4,7 +4,7 @@
             @change="$emit('change')"
             related-channel-function="CONTROLLINGTHEGATE"></channel-params-openingsensor-any>
         <dl>
-            <dd>{{ $t('Secondary channel for the sensor') }}</dd>
+            <dd>{{ $t('Channel for the partial opening sensor') }}</dd>
             <dt class="text-center"
                 style="font-weight: normal">
                 <channels-dropdown params="include=iodevice,location,function&function=CONTROLLINGTHEGATE"

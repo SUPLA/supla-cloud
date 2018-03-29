@@ -97,13 +97,13 @@
         },
         computed: {
             noEnabledLocationsWarning() {
-                const warning = this.$t('You have no enabled locations. Go to [locations list] or [add new location].')
+                const warning = this.$t('No location enabled. Go to [location list] or [add a new location].')
                     .replace(/\[(.+?)\]/, `<router-link :to="{name: 'locations'}">$1</router-link>`)
                     .replace(/\[(.+?)\]/, `<router-link :to="{name: 'location', params: {id: 'new'}}">$1</router-link>`);
                 return {template: `<span>${warning}</span>`};
             },
             noEnabledAccessIdsWarning() {
-                const warning = this.$t('You have no enabled access identifiers. Go to [access identifiers list] or [add new access identifier].')
+                const warning = this.$t('No access identifier enabled. Go to [access identifier list] or [add a new access identifier].')
                     .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessIds'}">$1</router-link>`)
                     .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessId', params: {id: 'new'}}">$1</router-link>`);
                 return {template: `<span>${warning}</span>`};

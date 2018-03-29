@@ -226,7 +226,7 @@ class ApiUserController extends RestController {
             ->notEmptyKey('password')
             ->notEmptyKey('timezone');
 
-        Assertion::true($data['regulationsAgreed'], 'You need to agree on regulations.');
+        Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.');
 
         $newPassword = $data['password'];
         Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');

@@ -107,7 +107,7 @@
                                         <th></th>
                                         <th>ID</th>
                                         <th>{{ $t('Caption') }}</th>
-                                        <th>{{ $t('Channels no') }}</th>
+                                        <th>{{ $t('No. of channels') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -167,7 +167,7 @@
                 @cancel="deleteConfirm = false"
                 :header="$t('Are you sure?')"
                 :loading="loading">
-                {{ $t('Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {locationId: location.id}) }}
+                {{ $t('Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {locationId: location.id}) }}
             </modal-confirm>
         </loading-cover>
     </page-container>

@@ -2,11 +2,11 @@
     <span>
         <h2>ID<strong>{{ location.id }} </strong></h2>
         <dl>
-            <dd>{{ $t('Devices no') }}</dd>
+            <dd>{{ $t('No. of devices') }}</dd>
             <dt>{{ location.iodevicesIds.length }}</dt>
-            <dd>{{ $t('Channel groups no') }}</dd>
+            <dd>{{ $t('No. of channel groups') }}</dd>
             <dt>{{ location.channelGroupsIds.length }}</dt>
-            <dd>{{ $t('Access identifiers no') }}</dd>
+            <dd>{{ $t('No. of access identifiers') }}</dd>
             <dt>{{ location.accessIdsIds.length }}</dt>
         </dl>
         <div v-if="location.caption">

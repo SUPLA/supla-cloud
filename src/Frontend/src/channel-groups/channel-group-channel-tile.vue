@@ -23,7 +23,7 @@
                         type="button"
                         @click.stop="$emit('remove')"
                         :disabled="!removable">
-                        {{ $t('Remove') }}
+                        {{ $t('Delete') }}
                     </button>
                 </span>
             </a>

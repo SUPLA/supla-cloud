@@ -72,7 +72,7 @@
                                     v-else>
                                     <div class="list-group-item"
                                         v-if="device.location.accessIdsIds.length">
-                                        <em>{{ $t('Save changes to see the Access IDs') }}</em>
+                                        <em>{{ $t('Save changes to see Access IDs') }}</em>
                                     </div>
                                     <div class="list-group-item"
                                         v-else>

@@ -400,25 +400,25 @@ Edit: Edytuj
 Automation: Automatyka
 Channel group: Grupa kanałów
 Channel groups: Grupy kanałów
-Show in clients: Pokaż w urządzeniach klienckich
+Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Disable: Wyłącz
 Enable: Włącz
-Create new channel group: Dodaj nową grupę kanałów
-Channels no: Liczba kanałów
+Add new channel group: Dodaj nową grupę kanałów
+No. of channels: Liczba kanałów
 Details: Szczegóły
-Devices no: Liczba urządzeń
+No. of devices: Liczba urządzeń
 Add new channel to this group: Dodaj nowy kanał do grupy
 Remove: Usuń
 Go to channel details: Przejdź do szczegółów kanału
 Go to I/O device details: Przejdź do szczegółów urządzenia
-Choose a location: Wybierz lokalizację
+Choose location: Wybierz lokalizację
 There are no more channels you can add to this group: Nie ma innych kanałów, które można by dodać do tej grupy
 New channel group: Nowa grupa kanałów
-Add the first channel to determine channel group's function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
+Add first channel to set channel group function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
 choose: wybierz
 Are you sure you want to delete this channel group?: Czy na pewno chcesz usunąć tę grupę kanałów?
 
-Retry when fail: Powtórz gdy niewykonane
+Retry on failure: Powtórz gdy niewykonane
 Status: Status
 RESTful API: RESTful API
 State: Stan
@@ -427,36 +427,37 @@ Distance: Odległość
 History of measurements: Historia pomiarów
 Humidity adjustment: Dostosowanie wilgotności
 Temperature adjustment: Dostosowanie temperatury
-Secondary open sensor: Pośredni czujnik otwarcia
-Secondary channel for the sensor: Pośredni czujnik dla kanału
+Opening sensor: Czujnik otwarcia
+Partial opening sensor: Czujnik pośredniego otwarcia
+Channel for the partial opening sensor: Kanał dla czujnika pośredniego otwarcia
 Inverted logic: Odwrócona logika
 
-Are you sure you want to change the channel's function?: Czy na pewno chcesz zmienić funkcję kanału?
-Changing the channel's function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
-The channel will be removed from the following channel groups: Kanał zostanie usunięty z poniższych grup kanałów
-The following schedules will be deleted: Poniższe harmonogramy zostaną usunięte
+Are you sure you want to change channel's function?: Czy na pewno chcesz zmienić funkcję kanału?
+Changing channel's function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
+Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
+Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Cancel changes: Anuluj zmiany
 Save changes: Zapisz zmiany
-Channel inherits I/O Device's location: Kanał jest przypisany do lokalizacji urządzenia
-Inherit location from I/O Device: Korzystaj z lokalizacji urządzenia
-Channel groups no: Liczba grup kanałów
+Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
+Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
+No. of channel groups: Liczba grup kanałów
 Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 Schedule limit has been exceeded: Limit harmonogramów został przekroczony
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
 
-Hidden: Niewidoczne
+Invisible: Niewidoczne
 Visible: Widoczne
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
-Access identifiers no: Liczba identyfikatorów dostępu
-Locations no: Liczba lokalizacji
-Client apps no: Liczba aplikacji klienckich
+No. of access identifiers: Liczba identyfikatorów dostępu
+No. of locations: Liczba lokalizacji
+No. of Client’s apps: Liczba aplikacji klienckich
 Assign Client apps: Przypisz aplikacje klienckie
 
 My SUPLA: Moja SUPLA
-Save changes to see the Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
+Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
-Generating a new password will force you to reconfigure any connected 3rd party applications.: Wygenerowanie nowego hasła spowoduje konieczność ponownej konfiguracji wszystkich aplikacji korzystających z API.
+If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Wygenerowanie nowego hasła spowoduje konieczność ponownej konfiguracji wszystkich aplikacji korzystających z API.
 
 Are you lost?: Szukasz czegoś?
 The server has returned a HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
@@ -472,21 +473,21 @@ access identifiers list: lista identyfikatorów dostępu
 add new location: dodaj nową lokalizację
 add new access identifier: dodaj nowy identyfikator dostępu
 
-Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 "Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}."
-"Remove all devices that use this location as original location before deleting it. Ids: {relatedIds}.": "Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}."
-"Remove all the associated channels before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}."
-"Remove all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}."
+"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}."
+"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}."
+"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}."
 
-You have no enabled locations. Go to [locations list] or [add new location].: Nie masz żadnych aktywnych lokalizacji. Przejdź do [listy lokalizacji] lub [dodaj nową lokalizację].
-You have no enabled access identifiers. Go to [access identifiers list] or [add new access identifier].: Nie masz żadnych aktywnych identyfikatorów dostępu. Przejdź do [listy identyfikatorów dostępu] lub [dodaj nowy identyfikator dostępu].
+No location enabled. Go to [location list] or [add a new location].: Nie masz żadnych aktywnych lokalizacji. Przejdź do [listy lokalizacji] lub [dodaj nową lokalizację].
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nie masz żadnych aktywnych identyfikatorów dostępu. Przejdź do [listy identyfikatorów dostępu] lub [dodaj nowy identyfikator dostępu].
 
-I accept the [Regulations] and agree to the processing of my personal data for the purpose and scope indicated in the [Regulations].: Akceptuję [Regulamin] oraz wyrażam zgodę na przetwarzanie moich danych osobowych w celu i zakresie wskazanym w [Regulaminie].
-Some of our policies have been changed and you need to agree on them.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
-Regulations have been changed: Regulamin uległ zmianie
-Disagree, take me out of here: Nie zgadzam się, zabierz mnie stąd
-Agree, take me to the app: Zgadzam się, przejdź do aplikacji
-We store some data (e.g. cookies) in your browser to remember your preferences and ease the application usage. [Read more].: Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek). [Przeczytaj regulamin].
-Agree: Zgadzam się
-You need to agree on regulations.: Akceptacja regulaminu jest wymagana.
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Akceptuję [Regulamin] oraz wyrażam zgodę na przetwarzanie moich danych osobowych w celu i zakresie wskazanym w [Regulaminie].
+The Terms and Conditions have changed – please read them and accept.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
+The Terms and Conditions have changed: Regulamin uległ zmianie
+I do not agree, get me out of here: Nie zgadzam się, zabierz mnie stąd
+I aree, taske me to the app: Zgadzam się, przejdź do aplikacji
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek). [Przeczytaj regulamin].
+I agree: Zgadzam się
+You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
 Limit has been exceeded: Limit został przekroczony
