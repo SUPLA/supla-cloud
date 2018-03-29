@@ -10,9 +10,14 @@
                     href="https://www.supla.org">www.supla.org</a>
             </div>
             <div class="col-sm-4 text-right">
-                <router-link to="/remind"
+                <router-link v-if="remindPasswordLink"
+                    to="/forgotten-password"
                     class="brand nav-link">
                     {{ $t('Forgot your password?') }}
+                </router-link>
+                <router-link v-else
+                    :to="{name: 'login'}"
+                    class="nav-link">{{ $t('Sign In') }}
                 </router-link>
             </div>
         </div>
@@ -23,10 +28,11 @@
     import LanguageSelector from "./language-selector.vue";
 
     export default {
+        props: ['remindPasswordLink'],
         components: {LanguageSelector},
         data() {
             return {
-                version: $('#login-page').attr('version') || ''
+                version: VERSION, // eslint-disable-line no-undef
             };
         }
     };
@@ -40,6 +46,7 @@
         width: 100%;
         position: absolute;
         bottom: 5px;
+        z-index: 10;
         @include on-and-down(500px) {
             position: static;
             .col-sm-4 {

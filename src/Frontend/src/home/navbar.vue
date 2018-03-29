@@ -120,6 +120,7 @@
                                         {{ $t('RESTful API') }}
                                     </router-link>
                                     <a class="btn btn-default"
+                                        id="logoutButton"
                                         :href="'/auth/logout' | withBaseUrl">
                                         {{ $t('Sign Out') }}
                                     </a>

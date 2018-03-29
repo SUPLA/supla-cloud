@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaBundle\Supla\ServerList;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiServerController extends RestController {
     use SuplaServerAware;
+
+    /** @var ServerList */
+    private $serverList;
+
+    public function __construct(ServerList $serverList) {
+        $this->serverList = $serverList;
+    }
 
     /**
      * @api {get} /server-info Server Info
@@ -91,5 +99,12 @@ class ApiServerController extends RestController {
         } else {
             return $this->view(['status' => 'DOWN'], Response::HTTP_SERVICE_UNAVAILABLE);
         }
+    }
+
+    /** @Get("/auth-servers") */
+    public function authServersAction(Request $request) {
+        $username = $request->get('username', '');
+        $server = $this->serverList->getAuthServerForUser($request, $username);
+        return $this->view(['server' => $server]);
     }
 }

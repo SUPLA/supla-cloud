@@ -44,14 +44,14 @@ class AuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($user);
         $this->assertEquals('supler@supla.org', $user->getEmail());
         $this->assertStatusCode(200, $client->getResponse());
-        $this->assertCount(0, $client->getCrawler()->filter('#login-page'));
+        $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
     }
 
     public function testAuthFailure() {
         $client = $this->authenticate('supler@supla.org', 'supla321');
         $user = $this->getAuthenticatedUser($client);
         $this->assertNull($user);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-page'));
+        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
     }
 
     private function authenticate(string $username, string $password): Client {

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-title="$t('Login')">
         <div class="login-form">
             <div class="logo">
                 <img src="assets/img/logo.svg"
@@ -46,7 +46,7 @@
                     </button>
                 </div>
             </form>
-            <router-link to="/remind"
+            <router-link to="/forgotten-password"
                 class="error"
                 v-if="displayError">
                 <strong>{{ $t('Forgot your password?') }}</strong>
@@ -58,14 +58,14 @@
                     <img src="assets/img/devices.png">
                     {{ $t('Supla for devices') }}
                 </router-link>
-                <router-link to="/create"
-                    class="btn btn-white btn-wrapped">
-                    <img src="assets/img/user.png">
+                <a class="btn btn-white btn-wrapped"
+                    href="/auth/create">
+                    <img src="/assets/img/user.png">
                     {{ $t('Create an account') }}
-                </router-link>
+                </a>
             </div>
         </div>
-        <login-footer></login-footer>
+        <login-footer remind-password-link="true"></login-footer>
     </div>
 </template>
 
@@ -80,13 +80,10 @@
         data() {
             return {
                 authenticating: false,
-                username: $('#login-page').attr('last-username') || '',
+                username: $('#login-error').attr('last-username') || '',
                 password: '',
-                displayError: !!$('#login-page').attr('error'),
+                displayError: !!$('#login-error').attr('error'),
             };
-        },
-        mounted() {
-            document.title = this.$t( 'Login' ) + ' | ' + 'SUPLA CLOUD';
         },
         methods: {
             findServer() {

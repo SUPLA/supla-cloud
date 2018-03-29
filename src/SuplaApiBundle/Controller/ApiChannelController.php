@@ -34,6 +34,7 @@ use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiChannelController extends RestController {
@@ -455,5 +456,27 @@ class ApiChannelController extends RestController {
         }
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
+    }
+
+    /**
+     * @Rest\Get("/channels/{channel}/csv")
+     * @Security("channel.belongsToUser(user)")
+     */
+    public function channelItemGetCSVAction(IODeviceChannel $channel) {
+        $file = $this->deviceManager->channelGetCSV($channel, "measurement_" . $channel->getId());
+        if ($file !== false) {
+            return new StreamedResponse(
+                function () use ($file) {
+                    readfile($file);
+                    unlink($file);
+                },
+                200,
+                [
+                    'Content-Type' => 'application/zip',
+                    'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
+                ]
+            );
+        }
+        return new Response('Error creating file', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

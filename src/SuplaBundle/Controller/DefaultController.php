@@ -18,42 +18,46 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DefaultController extends Controller {
     /**
-     * @Route("/channels/{channel}/csv", name="_iodevice_channel_item_csv")
-     * @Security("channel.belongsToUser(user)")
+     * @Route("/auth/create", name="_auth_create")
+     * @Route("/account/create", name="_account_create")
      */
-    public function channelItemGetCSV(IODeviceChannel $channel) {
-        $file = $this->get('iodevice_manager')->channelGetCSV($channel, "measurement_" . $channel->getId());
-        if ($file !== false) {
-            return new StreamedResponse(
-                function () use ($file) {
-                    readfile($file);
-                    unlink($file);
-                },
-                200,
-                [
-                    'Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
-                ]
-            );
+    public function createAction(Request $request) {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
         }
-        $this->get('session')->getFlashBag()->add('error', ['title' => 'Error', 'message' => 'Error creating file']);
-        return $this->redirectToRoute("_iodevice_channel_details", ['channel' => $channel->getId()]);
+        $sl = $this->get('server_list');
+        return $this->redirect($sl->getCreateAccountUrl($request));
+    }
+
+    /**
+     * @Route("/auth/login", name="_auth_login")
+     * @Template("@Supla/Default/spaBoilerplate.html.twig");
+     */
+    public function loginAction() {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('_homepage');
+        }
+        $authenticationUtils = $this->get('security.authentication_utils');
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return [
+            'last_username' => $lastUsername,
+            'error' => !!$error,
+        ];
     }
 
     /**
      * @Route("/", name="_homepage")
-     * @Route("/{suffix}", requirements={"suffix"="^.*"}, methods={"GET"})
+     * @Route("/register", name="_register")
+     * @Route("/{suffix}", requirements={"suffix"="^(?!(web-)?api/).*"}, methods={"GET"})
      * @Template()
      */
-    public function spaBoilerplaceAction(Request $request) {
+    public function spaBoilerplateAction() {
     }
 }

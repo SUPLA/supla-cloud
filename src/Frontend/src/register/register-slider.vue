@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import "superslides/dist/jquery.superslides";
 
     export default {
         data() {
@@ -50,6 +51,8 @@
                 animation: 'fade',
                 play: 12500,
                 pagination: false,
+                inherit_width_from: window,
+                inherit_height_from: window
             });
         }
     };
@@ -104,7 +107,6 @@
         .container {
             height: 100%;
             display: table;
-            width: auto;
 
             .info-wrapper {
                 display: table-cell;

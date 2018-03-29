@@ -1,42 +1,41 @@
 <template>
     <div>
-        <div class="bg"></div>
-        <check-email v-if="registered"></check-email>
-        <div v-else>
-            <register-slider></register-slider>
-            <register-form @registered="registered = true"></register-form>
-        </div>
-        <register-footer></register-footer>
+        <transition name="fade-router">
+            <check-email v-if="registeredEmail"
+                :email="registeredEmail"></check-email>
+        </transition>
+        <transition name="fade-router">
+            <div v-if="!registeredEmail">
+                <register-slider></register-slider>
+                <register-form @registered="registeredEmail = $event"></register-form>
+            </div>
+        </transition>
+        <login-footer class="register-footer"></login-footer>
     </div>
 </template>
 
 <script>
     import RegisterSlider from './register-slider';
     import RegisterForm from './register-form';
-    import RegisterFooter from './register-footer';
     import CheckEmail from './check-email';
+    import LoginFooter from "../login/login-footer";
 
     export default {
-        components: {CheckEmail, RegisterSlider, RegisterForm, RegisterFooter},
+        components: {LoginFooter, CheckEmail, RegisterSlider, RegisterForm},
         data() {
             return {
-                registered: false
+                registeredEmail: ''
             };
         }
     };
 </script>
 
 <style lang="scss">
-    @import '../styles/variables';
+    @import "../styles/variables.scss";
 
-    .bg {
-        background: $supla-green;
-        color: $supla-white;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -5;
+    .register-footer {
+        &, & a, & select {
+            color: $supla-white !important;
+        }
     }
 </style>

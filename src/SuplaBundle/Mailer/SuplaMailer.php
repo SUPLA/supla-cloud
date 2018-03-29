@@ -75,13 +75,13 @@ class SuplaMailer {
             $message->addPart($bodyTxt, 'text/plain');
         }
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
     }
 
     public function sendConfirmationEmailMessage(UserInterface $user) {
-        $url = $this->router->generate('_account_confirmemail', ['token' => $user->getToken(), true], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'confirm/' . $user->getToken();
 
-        $this->sendEmailMessage(
+        $sent = $this->sendEmailMessage(
             'confirm.txt.twig',
             '', // 'confirm.html.twig'
             $this->mailer_from,
@@ -91,10 +91,11 @@ class SuplaMailer {
                 'confirmationUrl' => $url,
             ]
         );
+        return $sent > 0;
     }
 
     public function sendResetPasswordEmailMessage(UserInterface $user) {
-        $url = $this->router->generate('_account_reset_passwd', ['token' => $user->getToken(), true], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'reset-password/' . $user->getToken();
 
         $this->sendEmailMessage(
             'resetpwd.txt.twig',
@@ -123,19 +124,19 @@ class SuplaMailer {
     }
 
     public function sendServiceUnavailableMessage($detail) {
-        
+
         $this->sendEmailMessage(
             'service_unavailable.txt.twig',
             '',
             $this->mailer_from,
             $this->email_admin,
             [
-                        'detail' => $detail,
-                        'supla_server' => $this->supla_server,
-                ]
+                'detail' => $detail,
+                'supla_server' => $this->supla_server,
+            ]
         );
     }
-    
+
     public function test() {
     }
 }

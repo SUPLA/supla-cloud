@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Supla;
 
-use SuplaBundle\Controller\AjaxController;
 use SuplaBundle\Model\UserManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,7 +59,6 @@ class ServerList {
             }
         }
     }
-
 
     public function userExists($username, &$remote_server) {
 
@@ -117,28 +115,23 @@ class ServerList {
     }
 
     public function getCreateAccountUrl(Request $request) {
+        if (count(@$this->servers) > 1) {
+            $avil = [];
+            foreach ($this->servers as $server) {
+                if ($server['create_account'] === true) {
+                    $avil[] = $server;
+                }
+            }
+            if (count($avil) > 0) {
+                $server = $avil[rand(0, count($avil) - 1)];
 
-        if (count(@$this->servers) < 2) {
-            return $request->getScheme() . '://' . $request->getHost()
-                . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
-        }
-
-        $avil = [];
-        foreach ($this->servers as $server) {
-            if ($server['create_account'] === true) {
-                $avil[] = $server;
+                if (strlen(@$server['address']) > 0) {
+                    return 'https://' . $server['address']
+                        . $this->router->generate('_register', ['lang' => $request->getLocale()]);
+                }
             }
         }
-
-        if (count($avil) > 0) {
-            $server = $avil[rand(0, count($avil) - 1)];
-
-            if (strlen(@$server['address']) > 0) {
-                return 'https://' . $server['address']
-                    . $this->router->generate('_account_create_here_lc', ['locale' => $request->getLocale()]);
-            }
-        }
-
-        return $request->getScheme() . '://' . $request->getHost() . $this->router->generate('_temp_unavailable');
+        return $request->getScheme() . '://' . $request->getHost()
+            . $this->router->generate('_register', ['lang' => $request->getLocale()]);
     }
 }

@@ -5,7 +5,7 @@
         timezone: '{{ app.user ? app.user.timezone : '' }}',
         serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
         renderStart: new Date(),
-        recaptchaEnabled: {{ recaptcha_enabled }},
+        recaptchaEnabled: {{ recaptcha_enabled ? 'true' : 'false' }},
         recaptchaSiteKey: '{{ recaptcha_site_key }}'
         {% if app.user %}
         ,

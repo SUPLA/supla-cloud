@@ -1,21 +1,14 @@
 <template>
     <div class="message">
         <i class="pe-7s-mail-open-file"></i>
-        <h1>{{ $t('Sprawdź swoją skrzynkę email')}}</h1>
+        <h1>{{ $t('Check your email box')}}</h1>
         <p>{{ email }}</p>
     </div>
 </template>
 
 <script>
     export default {
-        data() {
-            return {
-                email: this.$store.state.createdUser
-            };
-        },
-        mounted() {
-            document.title = this.$t('Check your email box') + ' | ' + 'SUPLA CLOUD';
-        }
+        props: ['email'],
     };
 </script>
 

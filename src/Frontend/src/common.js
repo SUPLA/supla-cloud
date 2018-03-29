@@ -54,15 +54,27 @@ $(document).ready(() => {
             mode: 'history',
         });
 
-        if (!Vue.config.external.user.agreements.rules) {
-            router.beforeEach((to, from, next) => {
-                if (!Vue.config.external.user.agreements.rules && to.name != 'agree-on-rules') {
-                    next({name: 'agree-on-rules'});
-                } else {
-                    next();
-                }
-            });
-        }
+        Vue.prototype.$user = Vue.config.external.user;
+
+        // if (!Vue.config.external.user.agreements.rules) {
+        //     router.beforeEach((to, from, next) => {
+        //         if (!Vue.config.external.user.agreements.rules && to.name != 'agree-on-rules') {
+        //             next({name: 'agree-on-rules'});
+        //         } else {
+        //             next();
+        //         }
+        //     });
+        // }
+
+        router.beforeEach((to, from, next) => {
+            if (!Vue.prototype.$user && !to.meta.unrestricted) {
+                next({name: 'login'});
+            } else if (Vue.prototype.$user && to.meta.onlyUnauthenticated) {
+                next('/');
+            } else {
+                next();
+            }
+        });
 
         router.afterEach((to) => {
             if (to.meta.bodyClass) {
@@ -80,11 +92,14 @@ $(document).ready(() => {
             locale: 'SUPLA_TRANSLATIONS',
             messages: {SUPLA_TRANSLATIONS}
         });
-        Vue.prototype.$user = Vue.config.external.user;
+
         const app = new Vue({
             el: '.vue-container',
             i18n,
             router,
+            mounted() {
+                document.getElementById('page-preloader').remove();
+            }
         });
         Vue.http.interceptors.push(ResponseErrorInterceptor(app));
         for (let transformer in requestTransformers) {
