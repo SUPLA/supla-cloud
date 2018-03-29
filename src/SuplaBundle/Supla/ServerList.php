@@ -111,4 +111,8 @@ class ServerList {
         return $request->getScheme() . '://' . $request->getHost()
             . $this->router->generate('_register', ['lang' => $request->getLocale()]);
     }
+    
+    public function getAutodiscover():SuplaAutodiscover {
+        return $this->autodiscover;
+    }
 }
