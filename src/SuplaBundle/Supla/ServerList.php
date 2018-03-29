@@ -34,30 +34,16 @@ class ServerList {
         UserManager $user_manager,
         SuplaAutodiscover $autodiscover,
         $supla_server,
-        $supla_server_list,
+        $new_account_server_list,
         $suplaProtocol
     ) {
 
         $this->router = $router;
         $this->user_manager = $user_manager;
         $this->server = $supla_server;
-        $this->servers = $supla_server_list;
+        $this->na_servers = $new_account_server_list;
         $this->autodiscover = $autodiscover;
         $this->suplaProtocol = $suplaProtocol;
-
-        if (count(@$servers) > 1) {
-            for ($a = 0; $a < count($servers); $a++) {
-                if ($servers[$a]['address'] === $server) {
-                    if ($a > 0) {
-                        $s = $servers[$a];
-                        $servers[$a] = $servers[0];
-                        $servers[0] = $s;
-                    }
-
-                    break;
-                }
-            }
-        }
     }
 
     public function userExists($username, &$remote_server) {
@@ -115,22 +101,13 @@ class ServerList {
     }
 
     public function getCreateAccountUrl(Request $request) {
-        if (count(@$this->servers) > 1) {
-            $avil = [];
-            foreach ($this->servers as $server) {
-                if ($server['create_account'] === true) {
-                    $avil[] = $server;
-                }
+        if (count(@$this->na_servers) > 1) {
+            $server = $this->na_servers[rand(0, count($this->na_servers) - 1)];
+            if (strlen(@$server) > 0) {
+                return 'https://' . $server
+                . $this->router->generate('_register', ['lang' => $request->getLocale()]);
             }
-            if (count($avil) > 0) {
-                $server = $avil[rand(0, count($avil) - 1)];
-
-                if (strlen(@$server['address']) > 0) {
-                    return 'https://' . $server['address']
-                        . $this->router->generate('_register', ['lang' => $request->getLocale()]);
-                }
-            }
-        }
+        };
         return $request->getScheme() . '://' . $request->getHost()
             . $this->router->generate('_register', ['lang' => $request->getLocale()]);
     }

@@ -71,7 +71,7 @@ services:
 
   SuplaBundle\Supla\ServerList:
     $supla_server: "%supla_server%"
-    $supla_server_list: "%supla_server_list%"
+    $new_account_server_list: "%new_account_server_list%"
     $suplaProtocol: "%supla_protocol%"
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
