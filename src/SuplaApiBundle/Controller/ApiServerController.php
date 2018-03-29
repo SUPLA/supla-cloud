@@ -100,4 +100,11 @@ class ApiServerController extends RestController {
             return $this->view(['status' => 'DOWN'], Response::HTTP_SERVICE_UNAVAILABLE);
         }
     }
+
+    /** @Get("/auth-servers") */
+    public function authServersAction(Request $request) {
+        $username = $request->get('username', '');
+        $server = $this->serverList->getAuthServerForUser($request, $username);
+        return $this->view(['server' => $server]);
+    }
 }
