@@ -18,37 +18,11 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DefaultController extends Controller {
-    /**
-     * @Route("/channels/{channel}/csv", name="_iodevice_channel_item_csv")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function channelItemGetCSV(IODeviceChannel $channel) {
-        $file = $this->get('iodevice_manager')->channelGetCSV($channel, "measurement_" . $channel->getId());
-        if ($file !== false) {
-            return new StreamedResponse(
-                function () use ($file) {
-                    readfile($file);
-                    unlink($file);
-                },
-                200,
-                [
-                    'Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
-                ]
-            );
-        }
-        return new Response('Error creating file', Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
     /**
      * @Route("/auth/create", name="_auth_create")
      * @Route("/account/create", name="_account_create")
@@ -81,7 +55,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/", name="_homepage")
      * @Route("/register", name="_register")
-     * @Route("/{suffix}", requirements={"suffix"="^.*"}, methods={"GET"})
+     * @Route("/{suffix}", requirements={"suffix"="^(?!(web-)?api/).*"}, methods={"GET"})
      * @Template()
      */
     public function spaBoilerplateAction() {
