@@ -8,10 +8,6 @@ security:
   erase_credentials: false # in order to migrate legacy passwords
 
   firewalls:
-    dev:
-      pattern: ^/(_(profiler|wdt)|css|images|js)/
-      security: false
-
     api:
       anonymous: true
       fos_oauth: true
