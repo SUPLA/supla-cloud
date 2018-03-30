@@ -459,19 +459,10 @@ Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dos
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Wygenerowanie nowego hasła spowoduje konieczność ponownej konfiguracji wszystkich aplikacji korzystających z API.
 
-Are you lost?: Szukasz czegoś?
-The server has returned a HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
+Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
 Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
-The server has returned a HTTP 403 Error. It means that you don't have rights to display the item you are looking for.: Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.
-
-You have no enabled locations.: Nie masz żadnych aktywnych lokalizacji.
-You have no enabled access identifiers.: Nie masz żadnych aktywnych identyfikatorów dostępu.
-Go to: Przejdź do
-or: lub
-locations list: lista lokalizacji
-access identifiers list: lista identyfikatorów dostępu
-add new location: dodaj nową lokalizację
-add new access identifier: dodaj nowy identyfikator dostępu
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.
 
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 "Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}."
