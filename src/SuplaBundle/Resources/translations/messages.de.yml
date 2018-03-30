@@ -386,3 +386,90 @@ Window opening sensor: Fensteröffnungssensor
 Staircase timer: Treppenlichtsensor
 Change icon: Symbol ändern
 Select icon: Symbol wählen
+
+Edit: Editieren
+Automation: Automatisierung
+Channel group: Kanalgruppe
+Channel groups: Kanalgruppen
+Show on the Client’s devices: In Client-Geräten anzeigen
+Disable: Ausschalten
+Enable: Einschalten
+Add new channel group: Neue Kanalgruppe hinzufügen
+No. of channels: Kanalanzahl
+Details: Details
+No. of devices: Anzahl der Geräte
+Add new channel to this group: Einen neuen Kanal zur Gruppe hinzufügen
+Remove: Löschen
+Go to channel details: Gehen Sie zu den Kanaldetails
+Go to I/O device details: Zu den Gerätedetails
+Choose location: Wählen Sie eine Lokalisierung
+There are no more channels you can add to this group: Es gibt keine anderen Kanäle, die zu dieser Gruppe hinzugefügt werden können.
+New channel group: Neue Kanalgruppe
+Add first channel to set channel group function and save it: Wählen Sie den ersten Kanal aus, um die Funktion der Gruppe festzulegen und speichern Sie ihn
+choose: auswählen
+Are you sure you want to delete this channel group?: Wollen Sie diese Kanalgruppe wirklich löschen?
+
+Retry on failure: Wiederholen, wenn nicht ausgeführt
+Status: Status
+RESTful API: RESTful API
+State: Zustand
+Depth: Tiefe
+Distance: Entfernung
+History of measurements: Messhistorie
+Humidity adjustment: Feuchtigkeitsregulierung
+Temperature adjustment: Temperaturanpassung
+Opening sensor: Öffnungssensor
+Partial opening sensor: Indirekter Öffnungssensor
+Channel for the partial opening sensor: Kanal für indirekt öffnenden Sensor
+Inverted logic: Umgekehrte Logik
+
+Are you sure you want to change channel's function?: Wollen Sie wirklich die Funktion des Kanals ändern?
+Changing channel's function will also result in the following changes.: Eine Änderung der Funktion des Kanals führt auch zu folgenden Änderungen.
+Channel will be deleted from the channel group below: Der Kanal wird aus den folgenden Kanalgruppen entfernt
+Schedules below will be deleted: Folgende Zeitpläne werden gelöscht
+Cancel changes: Änderungen rückgängig machen
+Save changes: Speichern Sie Ihre Änderungen
+Channel is assigned to the I/O device location: Der Kanal wird der Lokalisierung des Gerätes zugeordnet.
+Inherit I/O Device location: Verwenden Sie die Lokalisierung des Geräts
+No. of channel groups: Anzahl der Kanalgruppen
+Channel group limit has been exceeded: Das Limit der Kanalgruppen wurde überschritten
+Schedule limit has been exceeded: Das Terminlimit wurde überschritten
+Too many channels in this group: Zu viele Kanäle in dieser Gruppe
+
+Invisible: Unsichtbar
+Visible: Sichtlich
+You cannot delete your last access identifier.: Sie können Ihre letzte Zugangskennung nicht löschen.
+You cannot delete your last location.: Sie können Ihre letzte Lokalisierung nicht löschen.
+No. of access identifiers: Anzahl der Zugangskennungen
+No. of locations: Anzahl der Lokalisierungen
+No. of Client’s apps: Anzahl der Client-Anwendungen
+Assign Client apps: Client-Anwendungen zuordnen
+
+My SUPLA: Meine SUPLA
+Save changes to see Access IDs: Sichern Sie die Änderungen, um die Zugangskennung anzuzeigen
+The password and its confirm are not the same.: Das Passwort und seine Bestätigung sind nicht identisch.
+If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Die Generierung eines neuen Passworts macht es notwendig, alle Anwendungen über die API neu zu konfigurieren.
+
+Are you lost?: Hast du dich verlaufen?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Der Server hat den Fehler HTTP 404 zurückgegeben, was bedeutet, dass das gesuchte Objekt nicht existiert.
+Seems like a secret place: Scheint ein geheimer Bereich zu sein
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Der Server gab HTTP 403-Fehler zurück, was bedeutet, dass Sie nicht genügend Berechtigungen haben, um dieses Element anzuzeigen.
+
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Bestätigen Sie, wenn Sie die ID der Lokaliesierung {locationId} entfernen möchten. Sie können die E/A-Geräte nicht mehr an diese Lokalisierung anschließen.
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Löschen Sie die zugehörigen Geräte, bevor Sie die Lokalisierung löschen. Zugriffskennung: {relatedIds}."
+"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Löschen Sie zunächst alle Geräte, die diese Lokalisierung als ursprüngliche Lokalisierung verwenden. Zugriffskennung: {relatedIds}."
+"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Bevor Sie eine Lokalisierung löschen können, müssen Sie zuerst die Kanäle in der Position verschieben. Zugriffskennung: {relatedIds}."
+"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Bevor Sie einen Lokalisierung löschen können, müssen Sie zuerst die Sendergruppen an diesen Ort verschieben. Zugriffskennung: {relatedIds}."
+
+No location enabled. Go to [location list] or [add a new location].: Sie haben keine aktive Lokalisierung. Gehe zu[Liste Lokalisierung] oder[neuen Lokalisierung hinzufügen].
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Sie haben keine aktive Zugriffskennung. Gehen Sie zu [Liste der Zugriffskennungen] oder[neue Zugriffskennung hinzufügen].
+
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: ch akzeptiere[die Bestimmungen] und stimme der Verarbeitung meiner persönlichen Daten für den unter[die Bestimmungen] angegebenen Zweck und Umfang zu.
+The Terms and Conditions have changed – please read them and accept.: Die Bestimmungen des Dienstes wurden geändert - seine Zustimmung ist erforderlich.
+The Terms and Conditions have changed: Die Vorschriften wurden geändert
+I do not agree, get me out of here: Ich bin nicht einverstanden, bringt mich hier raus
+I aree, taske me to the app: Einverstanden, weiter zur Bewerbung
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Wir speichern Informationen über Ihre Präferenzen in Ihrem Browser, um die Nutzung der Anwendung zu erleichtern (z.B. durch Cookies). [Vorschriften lesen].
+I agree: Ich stimme zu
+You must agree to the Terms and Conditions.: Die Annahme der Richtlinie ist erforderlich.
+Limit has been exceeded: Das Limit wurde überschritten
