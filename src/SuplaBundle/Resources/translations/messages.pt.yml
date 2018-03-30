@@ -426,7 +426,7 @@ Distance: Distância
 History of measurements: Histórico de medições
 Humidity adjustment: Ajuste de humidade
 Temperature adjustment: Ajuste de temperatura
-Opening sensor: Czujnik otwarcia
+Opening sensor: Sensor de abertura
 Partial opening sensor: Sensor de abertura parcial
 Channel for the partial opening sensor: Canal para o sensor de abertura parcial
 Inverted logic: Lógica reversa
@@ -440,9 +440,9 @@ Save changes: Salvar modificações
 Channel is assigned to the I/O device location: O canal está atribuído à localização do dispositivo
 Inherit I/O Device location: Adquira a localização do dispositivo
 No. of channel groups: Número de grupo de canais
-Channel group limit has been exceeded: Limit grup kanałów został przekroczony
-Schedule limit has been exceeded: Limit harmonogramów został przekroczony
-Too many channels in this group: Zbyt dużo kanałów w tej grupie
+Channel group limit has been exceeded: O limite de grupos do canal foi excedido
+Schedule limit has been exceeded: O limite de agendamento foi excedido
+Too many channels in this group: Demasiados canais neste grupo
 
 Invisible: Invisíveis
 Visible: Visíveis
@@ -458,10 +458,10 @@ Save changes to see Access IDs: Salvar mudanças para ver o identificador de ace
 The password and its confirm are not the same.: A senha e sua confirmação não são o mesmo.
 If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: A geração de uma nova senha implica na necessidade de reconfiguração de todas as aplicações que usam a API.
 
-Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
-Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.
+Are you lost?: Está perdido?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: O servidor devolveu um erro HTTP 404. Isto significa que a página que procura não existe.
+Seems like a secret place: Parece ser um local secreto
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: O servidor devolveu um erro HTTP 403. Isto significa que não está autorizado a visualizar a página que procura.
 
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirme se você quiser remover o ID de Localização{locationId}. Não será mais possível você conectar os dispositivos a essa localização.
 "Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Remover todos os dispositivos relacionados antes de deletar essa localização. Identificadores: {relatedIds}."
