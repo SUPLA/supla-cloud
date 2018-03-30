@@ -416,7 +416,7 @@ Distance: Расстояние
 History of measurements: История измерений
 Humidity adjustment: Регулировка влажности
 Temperature adjustment: Регулировка температуры
-Opening sensor: Czujnik otwarcia
+Opening sensor: Датчик открытия
 Partial opening sensor: Датчик промежуточного открытия 
 Channel for the partial opening sensor: Канал для датчика промежуточного открытия
 Inverted logic: Реверсивная логика
@@ -430,9 +430,9 @@ Save changes: Сохранить изменения
 Channel is assigned to the I/O device location: Канал назначен по местоположению устройства
 Inherit I/O Device location: Использовать местоположение устройства
 No. of channel groups: Количество групп каналов
-Channel group limit has been exceeded: Limit grup kanałów został przekroczony
-Schedule limit has been exceeded: Limit harmonogramów został przekroczony
-Too many channels in this group: Zbyt dużo kanałów w tej grupie
+Channel group limit has been exceeded: Лимит групп каналов превышен
+Schedule limit has been exceeded: Лимит графиков превышен
+Too many channels in this group: Слишком много каналов в этой группе
 
 Invisible: Невидимые
 Visible: идимые
@@ -448,10 +448,10 @@ Save changes to see Access IDs: Сохранить изменения для п�
 The password and its confirm are not the same.: Пароль и его подтверждение не совпадают.
 If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Создание нового пароля приведет к необходимости перенастройки всех приложений, использующих API.
 
-Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
-Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.
+Are you lost?: Вы потерялись? Что-то ищете?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Сервер вернул ошибку HTTP 404. Это означает, что ресурс, который вы ищете, не существует.
+Seems like a secret place: Что-то нам подсказывает, что вас здесь быть не должно
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Сервер вернул ошибку HTTP 403. Это означает, что у вас нет достаточных прав для просмотра данного ресурса.
 
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Подтвердить удаление Местоположения ID{locationId}. Дальнейшее подключение устройств ввода-вывода к этому местоположению будет невозможно.
 "Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Удалите связанные устройства перед удалением этого местоположения. Идентификаторы: {relatedIds}."
