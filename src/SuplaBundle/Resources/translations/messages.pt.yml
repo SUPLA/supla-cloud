@@ -394,3 +394,90 @@ Window opening sensor: Sensor de abertura para uma janela
 Staircase timer: Comutador de escada
 Change icon: Mudar uma ícone
 Select icon: Selecionar uma ícone
+
+Edit: Editar
+Automation: Automação
+Channel group: Grupo de canais
+Channel groups: Grupos de canais
+Show on the Client’s devices: Mostrar no dispositivo do cliente
+Disable: Desabilitar
+Enable: Habilitar
+Add new channel group: Adicionar novo grupo de canais
+No. of channels: Número de canais
+Details: Especificações
+No. of devices: Número de dispositivos
+Add new channel to this group: Adicionar novo canal a esse grupo
+Remove: Suprimir
+Go to channel details: Ir para as especificações do canal
+Go to I/O device details: Ir para as especificações do dispositivo
+Choose location: Escolher localização
+There are no more channels you can add to this group: Não há mais canais para adicionar a esse grupo
+New channel group: Novo grupo de canais
+Add first channel to set channel group function and save it: Adicionar o primeiro canal para determinar a função do grupo de canais e salvá-la
+choose: escolher
+Are you sure you want to delete this channel group?: Você tem certeza que quer deletar esse grupo de canais?
+
+Retry on failure: Tentar de novo em caso de falha
+Status: Status
+RESTful API: RESTful API
+State: Estado
+Depth: Profundidade
+Distance: Distância
+History of measurements: Histórico de medições
+Humidity adjustment: Ajuste de humidade
+Temperature adjustment: Ajuste de temperatura
+Opening sensor: Czujnik otwarcia
+Partial opening sensor: Sensor de abertura parcial
+Channel for the partial opening sensor: Canal para o sensor de abertura parcial
+Inverted logic: Lógica reversa
+
+Are you sure you want to change channel's function?: Você tem certeza que quer mudar a função do canal?
+Changing channel's function will also result in the following changes.: A mudança da função do canal implicará nas seguintes modificações.
+Channel will be deleted from the channel group below: O canal será apagado do grupo de canais abaixo
+Schedules below will be deleted: A programação abaixo será apagada
+Cancel changes: Cancelar modificações
+Save changes: Salvar modificações
+Channel is assigned to the I/O device location: O canal está atribuído à localização do dispositivo
+Inherit I/O Device location: Adquira a localização do dispositivo
+No. of channel groups: Número de grupo de canais
+Channel group limit has been exceeded: Limit grup kanałów został przekroczony
+Schedule limit has been exceeded: Limit harmonogramów został przekroczony
+Too many channels in this group: Zbyt dużo kanałów w tej grupie
+
+Invisible: Invisíveis
+Visible: Visíveis
+You cannot delete your last access identifier.: Você não pode deletar seu último identificador de acesso.
+You cannot delete your last location.: Você não pode deletar sua última localização.
+No. of access identifiers: Número de identificadores de acesso
+No. of locations: Número de localizações
+No. of Client’s apps: Número de aplicações cliente
+Assign Client apps: Atribuir aplicação cliente
+
+My SUPLA: Meu SUPLA
+Save changes to see Access IDs: Salvar mudanças para ver o identificador de acesso
+The password and its confirm are not the same.: A senha e sua confirmação não são o mesmo.
+If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: A geração de uma nova senha implica na necessidade de reconfiguração de todas as aplicações que usam a API.
+
+Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
+Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.
+
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirme se você quiser remover o ID de Localização{locationId}. Não será mais possível você conectar os dispositivos a essa localização.
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Remover todos os dispositivos relacionados antes de deletar essa localização. Identificadores: {relatedIds}."
+"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Primeiro deletar todos os dispositivos que usam essa localização como localização original. Identificadores: {relatedIds}."
+"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Antes de deletar essa localização, você deve realocar os canais que se encontram nela. Identificadores: {relatedIds}."
+"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Antes de deletar essa localização, você deve realocar os grupos de canais que se encontram nela. Identificadores: {relatedIds}."
+
+No location enabled. Go to [location list] or [add a new location].: Você não tem nenhuma localização habilitada. Vá para [lista de localizações] ou [adicionar nova localização].
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Você não tem nenhum identificador de acesso ativo. Vá para [lista de identificadores de acesso] ou [adicionar novo identificador de acesso].
+
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Eu aceito [termos e condições] e concordo no processamento dos meus dados pessoais para os propósitos inclusos neste [Termos e condições].
+The Terms and Conditions have changed – please read them and accept.: Os termos e condições do serviço mudaram - é necessário ler e aceitá-los.
+The Terms and Conditions have changed: Os termos e condições mudaram
+I do not agree, get me out of here: Eu não aceito, me tire daqui
+I aree, taske me to the app: Eu aceito, me leve para o aplicativo
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Nós guardamos alguns dados no seu navegador (e.g. cookies) para se lembrar de suas preferências e para fazer o uso da aplicação mais fácil. [Por favor, leio os termos e condições].
+I agree: Eu aceito
+You must agree to the Terms and Conditions.: Você deve aceitar os termos e condições.
+Limit has been exceeded: O limite foi excedido
