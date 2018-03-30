@@ -385,3 +385,89 @@ Staircase timer: Лестничный автомат
 Change icon: Сменить значок
 Select icon: Выбрать значок
 
+Edit: Изменить
+Automation: Автоматика
+Channel group: Группа каналов
+Channel groups: Группы каналов
+Show on the Client’s devices: Показать на клиентских устройствах
+Disable: Выключить
+Enable: Включить
+Add new channel group: Добавить новую группу каналов
+No. of channels: Количество каналов
+Details: Подробная информация
+No. of devices: Количество устройств
+Add new channel to this group: Добавить новый канал в группу
+Remove: Удалить
+Go to channel details: Перейти к подробной информации канала
+Go to I/O device details: Перейти к подробной информации устройства
+Choose location: Выбрать местоположение
+There are no more channels you can add to this group: Нет других каналов, которые можно добавить в эту группу
+New channel group: Новая группа каналов
+Add first channel to set channel group function and save it: Выбрать первый канал для определения функции группы и ее сохранения
+choose: выбрать
+Are you sure you want to delete this channel group?: Вы действительно хотите удалить эту группу?
+
+Retry on failure: Повторить при невыполнении
+Status: Статус
+RESTful API: RESTful API
+State: Состояние
+Depth: Глубина
+Distance: Расстояние
+History of measurements: История измерений
+Humidity adjustment: Регулировка влажности
+Temperature adjustment: Регулировка температуры
+Opening sensor: Czujnik otwarcia
+Partial opening sensor: Датчик промежуточного открытия 
+Channel for the partial opening sensor: Канал для датчика промежуточного открытия
+Inverted logic: Реверсивная логика
+
+Are you sure you want to change channel's function?: Вы действительно хотите изменить функцию канала?
+Changing channel's function will also result in the following changes.: Изменение функции канала повлечет также следующие изменения.
+Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
+Schedules below will be deleted: Следующие графики будут удалены
+Cancel changes: Отменить изменения
+Save changes: Сохранить изменения
+Channel is assigned to the I/O device location: Канал назначен по местоположению устройства
+Inherit I/O Device location: Использовать местоположение устройства
+No. of channel groups: Количество групп каналов
+Channel group limit has been exceeded: Limit grup kanałów został przekroczony
+Schedule limit has been exceeded: Limit harmonogramów został przekroczony
+Too many channels in this group: Zbyt dużo kanałów w tej grupie
+
+Invisible: Невидимые
+Visible: идимые
+You cannot delete your last access identifier.: Невозможно удалить свой последний идентификатор доступа.
+You cannot delete your last location.: Невозможно удалить свое последнее местоположение.
+No. of access identifiers: Количество идентификаторов доступа
+No. of locations: Количество местоположений
+No. of Client’s apps: Количество клиентских приложений
+Assign Client apps: Назначить клиентские приложения
+
+My SUPLA: Моя SUPLA
+Save changes to see Access IDs: Сохранить изменения для получения идентификаторов доступа
+The password and its confirm are not the same.: Пароль и его подтверждение не совпадают.
+If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Создание нового пароля приведет к необходимости перенастройки всех приложений, использующих API.
+
+Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
+Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.
+
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Подтвердить удаление Местоположения ID{locationId}. Дальнейшее подключение устройств ввода-вывода к этому местоположению будет невозможно.
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Удалите связанные устройства перед удалением этого местоположения. Идентификаторы: {relatedIds}."
+"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Сначала удалите все устройства, использующие это местоположение как исходное. Идентификаторы: {relatedIds}."
+"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Перед удалением местоположения необходимо переместить каналы, которые в нем находятся. Идентификаторы: {relatedIds}."
+"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Перед удалением местоположения необходимо переместить группы каналов, которые в нем находятся. Идентификаторы: {relatedIds}."
+
+No location enabled. Go to [location list] or [add a new location].: У вас нет активных местоположений. Перейти к [списку местоположений] или [добавить новое местоположение].
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: У вас нет активных идентификаторов доступа. Перейти к [списку идентификаторов доступа] или [добавить новый идентификатор доступа].
+
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Я принимаю [правила] и даю согласие на обработку моих персональных данных в целях и объеме, указанном в [Правилах].
+The Terms and Conditions have changed – please read them and accept.: Правила сайта изменились - требуется согласие.
+The Terms and Conditions have changed: Правила изменились
+I do not agree, get me out of here: Я не согласен, уберите меня отсюда
+I aree, taske me to the app: Я согласен, перейти к приложению
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Мы сохраняем в вашем браузере информацию о ваших предпочтениях для облегчения использования приложения (например, с помощью механизма куки). [Читать правила].
+I agree: Я согласен
+You must agree to the Terms and Conditions.: Принятие правил является обязательным.
+Limit has been exceeded: Лимит был превышен
