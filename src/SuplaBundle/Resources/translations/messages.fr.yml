@@ -394,3 +394,91 @@ Window opening sensor: Capteur d'ouverture de fenêtre
 Staircase timer: Minuterie d'escalier
 Change icon: Changer d'icône
 Select icon: Sélectionnez l'icône
+
+
+Edit: Modifier
+Automation: Automatique
+Channel group: Groupe de chaînes
+Channel groups: Groupes de chaînes
+Show on the Client’s devices: Afficher dans les dispositifs client
+Disable: Désactiver
+Enable: Activer
+Add new channel group: Ajouter un nouveau groupe de chaînes
+No. of channels: Nombre de chaînes
+Details: Détails
+No. of devices: Nombre de dispositifs
+Add new channel to this group: Ajouter une nouvelle chaîne au groupe
+Remove: Supprimer
+Go to channel details: Aller aux détails de la chaîne
+Go to I/O device details: Aller aux détails du dispositif
+Choose location: Sélectionner le lieu
+There are no more channels you can add to this group: Il n'y a pas d'autres chaînes qui peuvent être ajoutées à ce groupe.
+New channel group: Nouveau groupe de chaînes
+Add first channel to set channel group function and save it: Sélectionner la première chaîne pour spécifier la fonction du groupe et l'enregistrer.
+choose: sélectionner
+Are you sure you want to delete this channel group?: Voulez-vous vraiment supprimer ce groupe de chaînes?
+
+Retry on failure: Répéter lorsqu'il n'est pas exécuté
+Status: Statut
+RESTful API: RESTful API
+State: Etat
+Depth: Profondeur
+Distance: Distance
+History of measurements: Historique de mesures
+Humidity adjustment: Réglage de l'humidité
+Temperature adjustment: Réglage de la température
+Opening sensor: Détecteur d'ouverture
+Partial opening sensor: Capteur d'ouverture partielle 
+Channel for the partial opening sensor: Chaîne pour capteur d'ouverture partielle
+Inverted logic: Logique inversée
+
+Are you sure you want to change channel's function?: Voulez-vous vraiment changer la fonction de la chaîne?
+Changing channel's function will also result in the following changes.: La modification de la fonction de la chaîne entraînera également les changements suivants.
+Channel will be deleted from the channel group below: La chaîne sera supprimée des groupes de chaînes suivants
+Schedules below will be deleted: Les calendriers suivants seront supprimés
+Cancel changes: Annuler les modifications
+Save changes: Enregistrer les modifications
+Channel is assigned to the I/O device location: La chaîne est attribuée au lieu du dispositif
+Inherit I/O Device location: Utiliser le lieu du dispositif
+No. of channel groups: Nombre de groupes de chaînes
+Channel group limit has been exceeded: La limite des groupes de canaux a été dépassée
+Schedule limit has been exceeded: La limite de calendriers a été dépassée
+Too many channels in this group: Trop de canaux dans ce groupe
+
+Invisible: Non affichés
+Visible: Affichés
+You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d'accès.
+You cannot delete your last location.: Vous ne pouvez pas supprimer votre dernier lieu.
+No. of access identifiers: Nombre d'identifiants d'accès
+No. of locations: Nombre des lieux
+No. of Client’s apps: Nombre des applications clientes
+Assign Client apps: Attribuer des applications clients
+
+My SUPLA: Ma SUPLA
+Save changes to see Access IDs: Sauvegarder les modifications pour afficher les identifiants d'accès
+The password and its confirm are not the same.: Le mot de passe et sa confirmation sont différents.
+If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: La génération d'un nouveau mot de passe nécessitera la reconfiguration de toutes les applications qui utilisent l'API.
+
+Are you lost?: Tu t'es perdu ? Tu cherches quelque chose?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Le serveur a renvoyé l'erreur HTTP 404, ce qui signifie que l'article que tu recherches n'existe pas.
+Seems like a secret place: On a l’impression que tu ne devrais pas être ici
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Le serveur a renvoyé l'erreur HTTP 403, ce qui signifie que tu n’as pas suffisamment de permissions pour afficher cet élément.
+
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirmez que vous voulez supprimer le lieu ID{locationId}. Vous ne pourrez plus connecter vos dispositifs d’E/S à ce lieu.
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Supprimer les dispositifs attribués avant de supprimer le lieu. Identifiants: {relatedIds}."
+"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Tout d'abord, supprimez tous les dispositifs qui utilisent ce lieu comme le lieu d'origine. Identifiants: {relatedIds}."
+"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Avant de supprimer un lieu, vous devez d'abord déplacer les chaînes attribuées. Identifiants: {relatedIds}."
+"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Avant de pouvoir supprimer un lieu, vous devez d'abord déplacer les groupes de chaînes attribués. Identifiants: {relatedIds}."
+
+No location enabled. Go to [location list] or [add a new location].: Vous n'avez pas de lieux actifs. Aller à [liste des lieux] ou [ajouter un nouveau lieu].
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Vous n'avez pas d'identifiants d'accès actifs. Aller à [liste des identifiants d'accès] ou [ajouter un nouvel identifiant d'accès].
+
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: J’accepte [le règlement] et j'accepte le traitement de mes données personnelles aux fins et dans le cadre indiqués dans [le Règlement].
+The Terms and Conditions have changed – please read them and accept.: Le Règlement du service a été modifié - son acceptation est requise.
+The Terms and Conditions have changed: Le Règlement a été modifié
+I do not agree, get me out of here: Je ne suis pas d'accord, faites-moi sortir d'ici
+I aree, taske me to the app: J'accepte, allez à l'application
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Nous enregistrons des informations sur vos préférences dans votre navigateur afin de faciliter l'utilisation de l'application (par exemple au moyen de cookies). [Lire le règlement].
+I agree: J'accepte
+You must agree to the Terms and Conditions.: L'acceptation du règlement est requise.
+Limit has been exceeded: La limite a été dépassée
