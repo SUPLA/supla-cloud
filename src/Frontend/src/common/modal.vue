@@ -60,6 +60,7 @@
         transform: translateY(-50%);
         .modal-body {
             max-height: 65vh;
+            overflow-x: hidden;
             overflow-y: auto;
         }
     }
