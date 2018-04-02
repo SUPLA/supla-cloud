@@ -8,22 +8,11 @@
         <modal class="modal-location-chooser"
             :header="$t('Select icon')"
             v-if="choosing">
-            <carousel :navigation-enabled="true"
-                :pagination-enabled="false"
-                navigation-next-label="&gt;"
-                navigation-prev-label="&lt;"
-                :per-page-custom="[[1024, 4], [768, 3], [600, 2], [100, 1]]"
-                ref="carousel">
-                <slide v-for="index in channel.function.maxAlternativeIconIndex + 1"
-                    :key="index">
-                    <square-link :class="'clearfix pointer lift-up grey ' + (channel.altIcon == index - 1 ? 'selected' : '')">
-                        <a @click="choose(index - 1)">
-                            <function-icon :model="channel.function"
-                                :alternative="index - 1"></function-icon>
-                        </a>
-                    </square-link>
-                </slide>
-            </carousel>
+            <square-links-carousel :items="icons"
+                square-links-height="auto"
+                :selected="selectedIcon"
+                tile="channelAlternativeIconTile"
+                @select="choose($event.id)"></square-links-carousel>
             <div slot="footer">
                 <a @click="choosing = false"
                     class="cancel">
@@ -35,25 +24,48 @@
 </template>
 
 <script>
-    import {Carousel, Slide} from 'vue-carousel';
-    import FunctionIcon from "./function-icon";
+    import SquareLinksCarousel from "../common/tiles/square-links-carousel";
+    import ChannelAlternativeIconTile from "./channel-alternative-icon-tile";
+    import Vue from "vue";
+
+    Vue.component('channelAlternativeIconTile', ChannelAlternativeIconTile);
 
     export default {
-        components: {
-            FunctionIcon,
-            Carousel, Slide
-        },
+        components: {SquareLinksCarousel},
         props: ['channel'],
         data() {
             return {
                 choosing: false,
+                icons: [],
+                selectedIcon: undefined
             };
+        },
+        mounted() {
+            this.buildIcons();
         },
         methods: {
             choose(index) {
                 this.channel.altIcon = index;
+                this.selectedIcon = this.icons.find(icon => icon.id == index);
                 this.choosing = false;
                 this.$emit('change');
+            },
+            buildIcons() {
+                this.icons = [];
+                if (this.channel) {
+                    for (let index = 0; index <= this.channel.function.maxAlternativeIconIndex; index++) {
+                        const icon = {channel: this.channel, id: index};
+                        this.icons.push(icon);
+                        if (index == this.channel.altIcon) {
+                            this.selectedIcon = icon;
+                        }
+                    }
+                }
+            }
+        },
+        watch: {
+            channel() {
+                this.buildIcons();
             }
         }
     };
