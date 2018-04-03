@@ -7,7 +7,6 @@
             @compare-function="compareFunction = $event"
             @filter="filter()"></component>
         <square-links-carousel v-if="filteredItems"
-            :square-links-height="squareLinksHeight"
             :tile="tile"
             :items="filteredItems"
             :selected="selected"
@@ -22,7 +21,7 @@
 
     export default {
         components: {SquareLinksCarousel},
-        props: ['items', 'selected', 'tile', 'newItemTile', 'filters', 'squareLinksHeight', 'noLinks'],
+        props: ['items', 'selected', 'tile', 'newItemTile', 'filters', 'noLinks'],
         data() {
             return {
                 filteredItems: undefined,

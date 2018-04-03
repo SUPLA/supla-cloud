@@ -5,7 +5,6 @@
         tile="client-app-tile"
         filters="client-app-filters"
         :selected="selected"
-        :square-links-height="240"
         @select="$emit('select', $event)"
         @cancel="$emit('cancel', $event)"
         @confirm="$emit('confirm', $event)"></square-modal-chooser>

@@ -9,7 +9,6 @@
             :header="$t('Select icon')"
             v-if="choosing">
             <square-links-carousel :items="icons"
-                square-links-height="auto"
                 :selected="selectedIcon"
                 tile="channelAlternativeIconTile"
                 @select="choose($event.id)"></square-links-carousel>

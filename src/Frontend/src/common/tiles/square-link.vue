@@ -21,6 +21,7 @@
         border-radius: 3px;
         border: 2px solid $supla-green;
         transition: all .3s;
+        height: 100%;
         > a, > .valign-center {
             display: block;
             width: 100%;
