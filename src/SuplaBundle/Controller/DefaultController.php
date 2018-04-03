@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller {
     /**
@@ -58,6 +59,9 @@ class DefaultController extends Controller {
      * @Route("/{suffix}", requirements={"suffix"="^(?!(web-)?api/).*"}, methods={"GET"})
      * @Template()
      */
-    public function spaBoilerplateAction() {
+    public function spaBoilerplateAction($suffix = null) {
+        if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
+            throw new NotFoundHttpException("$suffix file could not be found");
+        }
     }
 }
