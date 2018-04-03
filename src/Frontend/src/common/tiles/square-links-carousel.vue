@@ -103,6 +103,32 @@
     @import '../../styles/variables';
     @import '../../styles/mixins';
 
+    .carousel-navigation-below {
+        .VueCarousel {
+            .VueCarousel-navigation-button {
+                position: static !important;
+                top: initial;
+                height: 25px;
+                width: 25px;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: transparent;
+                color: $supla-grey-dark !important;
+                transform: none !important;
+                &.VueCarousel-navigation-prev {
+                    float: left;
+                }
+                &.VueCarousel-navigation-next {
+                    float: right;
+                }
+            }
+        }
+    }
+
+    .modal-body {
+        @extend .carousel-navigation-below;
+    }
+
     .VueCarousel {
         .VueCarousel-navigation {
             &--disabled {
@@ -126,21 +152,7 @@
                 right: -5px;
             }
             @include on-xs-and-down {
-                position: static !important;
-                top: initial;
-                height: 25px;
-                width: 25px;
-                margin: 0 !important;
-                padding: 0 !important;
-                background: transparent;
-                color: $supla-grey-dark !important;
-                transform: none !important;
-                &.VueCarousel-navigation-prev {
-                    float: left;
-                }
-                &.VueCarousel-navigation-next {
-                    float: right;
-                }
+                @extend .carousel-navigation-below;
             }
         }
         .VueCarousel-slide {
