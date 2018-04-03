@@ -15,8 +15,18 @@
             slot="back">
             <span class="valign-center text-center">
                 <span>
+                    <div v-if="$user.limits.channelPerGroup <= channelGroup.channels.length"
+                        @click="addingNewChannel = false">
+                        <i class="pe-7s-close-circle"></i>
+                        {{ $t('Limit has been exceeded') }}
+                    </div>
+                    <div v-else-if="channelsToChoose && channelsToChoose.length === 0"
+                        @click="addingNewChannel = false">
+                        <i class="pe-7s-paint-bucket"></i>
+                        {{ $t('There are no more channels you can add to this group') }}
+                    </div>
                     <form @submit.prevent="addChannel()"
-                        v-show="!channelsToChoose || channelsToChoose.length !== 0">
+                        v-else>
                         <div class="form-group">
                             <channels-dropdown :params="'include=iodevice,location,function&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
                                 v-model="newChannel"
@@ -37,10 +47,6 @@
                             </button>
                         </div>
                     </form>
-                    <div v-show="channelsToChoose && channelsToChoose.length === 0">
-                        <i class="pe-7s-paint-bucket"></i>
-                        {{ $t('There are no more channels you can add to this group') }}
-                    </div>
                 </span>
             </span>
         </square-link>
@@ -73,6 +79,9 @@
         watch: {
             channelGroup() {
                 this.addingNewChannel = false;
+            },
+            'channelGroup.channels.length'() {
+                this.channelsToChoose = undefined;
             }
         }
     };

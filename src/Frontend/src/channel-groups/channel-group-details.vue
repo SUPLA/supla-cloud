@@ -67,8 +67,7 @@
                 <square-links-grid v-if="channelGroup.channels"
                     :count="channelGroup.channels.length + 1"
                     class="square-links-height-240">
-                    <div key="new"
-                        v-if="$user.limits.channelPerGroup > channelGroup.channels.length">
+                    <div key="new">
                         <channel-group-new-channel-chooser :channel-group="channelGroup"
                             @add="channelGroupChanged()"></channel-group-new-channel-chooser>
                     </div>
