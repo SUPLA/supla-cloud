@@ -74,6 +74,7 @@ class ApiChannelGroupController extends RestController {
         Assertion::lessOrEqualThan($updated->getChannels()->count(), $user->getLimitChannelPerGroup(), 'Too many channels in this group');
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
             $channelGroup->setCaption($updated->getCaption());
+            $channelGroup->setAltIcon($updated->getAltIcon());
             $channelGroup->setChannels($updated->getChannels());
             $channelGroup->setEnabled($updated->getEnabled());
             $channelGroup->setHidden($updated->getHidden());

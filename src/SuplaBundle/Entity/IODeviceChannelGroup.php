@@ -89,7 +89,7 @@ class IODeviceChannelGroup {
      * @Groups({"function"})
      */
     private $function;
-    
+
     /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
      * @Groups({"basic"})
@@ -157,13 +157,13 @@ class IODeviceChannelGroup {
     public function getFunction(): ChannelFunction {
         return new ChannelFunction($this->function);
     }
-    
-    public function getAltIcon() {
+
+    public function getAltIcon(): int {
         return intval($this->altIcon);
     }
-    
+
     public function setAltIcon($altIcon) {
-        $this->altIcon = $altIcon;
+        $this->altIcon = intval($altIcon);
     }
 
     /** @param IODeviceChannel[] $channels */

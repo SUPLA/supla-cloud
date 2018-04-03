@@ -261,12 +261,12 @@ class IODeviceChannel {
         $this->param3 = $param3;
     }
 
-    public function getAltIcon() {
+    public function getAltIcon(): int {
         return intval($this->altIcon);
     }
 
     public function setAltIcon($altIcon) {
-        $this->altIcon = $altIcon;
+        $this->altIcon = intval($altIcon);
     }
 
     public function getIconSuffix() {

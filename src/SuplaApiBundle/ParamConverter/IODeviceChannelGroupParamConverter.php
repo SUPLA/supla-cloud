@@ -39,6 +39,7 @@ class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
         }
         $channelGroup = new IODeviceChannelGroup($user, $location, $channels);
         $channelGroup->setCaption($data['caption'] ?? '');
+        $channelGroup->setAltIcon($data['altIcon'] ?? 0);
         if (isset($data['hidden'])) {
             $channelGroup->setHidden(boolval($data['hidden']));
         }

@@ -53,6 +53,8 @@
                                         <function-icon :model="channelGroup"
                                             width="100"></function-icon>
                                         <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                                        <channel-alternative-icon-chooser :channel="channelGroup"
+                                            @change="channelGroupChanged()"></channel-alternative-icon-chooser>
                                     </div>
                                     <div v-else-if="isNewGroup">
                                         <i class="pe-7s-help1"
@@ -101,10 +103,12 @@
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
+    import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
 
     export default {
         props: ['id'],
         components: {
+            ChannelAlternativeIconChooser,
             PageContainer,
             PendingChangesPage,
             Toggler,
