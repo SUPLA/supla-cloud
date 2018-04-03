@@ -143,6 +143,10 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\UserLoginAttempt]
 
+  SuplaBundle\Repository\UserRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\User]
+
   SuplaBundle\Repository\IODeviceChannelRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\IODeviceChannel]

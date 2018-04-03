@@ -39,4 +39,3 @@ security:
     supla_db_provider:
       entity:
         class: "SuplaBundle:User"
-        property: email
