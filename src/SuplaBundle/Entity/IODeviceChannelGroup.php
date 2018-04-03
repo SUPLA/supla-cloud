@@ -89,6 +89,12 @@ class IODeviceChannelGroup {
      * @Groups({"function"})
      */
     private $function;
+    
+    /**
+     * @ORM\Column(name="alt_icon", type="integer", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $altIcon = 0;
 
     /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
@@ -99,6 +105,7 @@ class IODeviceChannelGroup {
             $this->user = $user;
             $this->location = $location;
             $this->setChannels($channels);
+            $this->altIcon = 0;
         }
     }
 
@@ -149,6 +156,14 @@ class IODeviceChannelGroup {
 
     public function getFunction(): ChannelFunction {
         return new ChannelFunction($this->function);
+    }
+    
+    public function getAltIcon() {
+        return intval($this->altIcon);
+    }
+    
+    public function setAltIcon($altIcon) {
+        $this->altIcon = $altIcon;
     }
 
     /** @param IODeviceChannel[] $channels */
