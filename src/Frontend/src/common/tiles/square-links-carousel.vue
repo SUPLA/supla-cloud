@@ -103,7 +103,7 @@
     @import '../../styles/variables';
     @import '../../styles/mixins';
 
-    .carousel-navigation-below {
+    @mixin carousel-navigation-below {
         .VueCarousel {
             .VueCarousel-navigation-button {
                 position: static !important;
@@ -126,7 +126,7 @@
     }
 
     .modal-body {
-        @extend .carousel-navigation-below;
+        @include carousel-navigation-below;
     }
 
     .VueCarousel {
@@ -152,7 +152,7 @@
                 right: -5px;
             }
             @include on-xs-and-down {
-                @extend .carousel-navigation-below;
+                @include carousel-navigation-below;
             }
         }
         .VueCarousel-slide {

@@ -1,7 +1,7 @@
 <template>
     <loading-cover class="container text-center"
         :loading="loading">
-        <h1>{{ $t('The Terms and Conditions have changed') }}</h1>
+        <h1 class="nocapitalize">{{ $t('The Terms and Conditions have changed') }}</h1>
         <i class="pe-7s-note2"
             style="font-size: 160px"></i>
         <h5>{{ $t('The Terms and Conditions have changed – please read them and accept.') }}</h5>

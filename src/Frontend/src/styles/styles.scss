@@ -44,6 +44,9 @@ h1 {
   font-weight: 300;
   text-transform: capitalize;
   letter-spacing: -3px;
+  &.nocapitalize {
+    text-transform: none;
+  }
 }
 
 h1, h2, h3, h4 {
