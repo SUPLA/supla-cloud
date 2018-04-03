@@ -56,15 +56,15 @@ $(document).ready(() => {
 
         Vue.prototype.$user = Vue.config.external.user;
 
-        // if (!Vue.config.external.user.agreements.rules) {
-        //     router.beforeEach((to, from, next) => {
-        //         if (!Vue.config.external.user.agreements.rules && to.name != 'agree-on-rules') {
-        //             next({name: 'agree-on-rules'});
-        //         } else {
-        //             next();
-        //         }
-        //     });
-        // }
+        if (Vue.prototype.$user && !Vue.prototype.$user.agreements.rules) {
+            router.beforeEach((to, from, next) => {
+                if (!Vue.prototype.$user.agreements.rules && to.name != 'agree-on-rules') {
+                    next({name: 'agree-on-rules'});
+                } else {
+                    next();
+                }
+            });
+        }
 
         router.beforeEach((to, from, next) => {
             if (!Vue.prototype.$user && !to.meta.unrestricted) {
