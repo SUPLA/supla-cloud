@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\UserLoginAttemptRepository")
  * @ORM\Table(name="supla_user_login_attempt", indexes={
  *     @ORM\Index(name="supla_user_login_attempt_ipv4_email_idx", columns={"email", "ipv4"}),
  *     @ORM\Index(name="supla_user_login_attempt_created_at_idx", columns={"created_at"})
