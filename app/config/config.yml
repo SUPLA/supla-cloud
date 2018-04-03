@@ -16,6 +16,7 @@ doctrine:
       utcdatetime: SuplaBundle\Model\UTCDateTimeType
     user: "%database_user%"
     server_version: 5.5
+    schema_filter: ~^(?!esp_)~
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
     auto_mapping: true
