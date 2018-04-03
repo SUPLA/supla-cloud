@@ -7,7 +7,7 @@ export default [
     {
         path: '/register',
         component: () => import("./register/create-account"),
-        meta: {unrestricted: true, bodyClass: 'green'},
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
         alias: '/account/create_here'
     },
     {path: '/devices', component: () => import("./login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
