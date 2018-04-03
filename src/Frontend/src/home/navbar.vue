@@ -116,10 +116,10 @@
                             <li class="bottom">
                                 <div class="btn-group btn-group-justified">
                                     <router-link to="/api"
-                                        class="btn btn-default">
+                                        class="btn btn-default btn-wrapped">
                                         {{ $t('RESTful API') }}
                                     </router-link>
-                                    <a class="btn btn-default"
+                                    <a class="btn btn-default btn-wrapped"
                                         id="logoutButton"
                                         :href="'/auth/logout' | withBaseUrl">
                                         {{ $t('Sign Out') }}

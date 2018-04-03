@@ -71,11 +71,10 @@
         .btn-toolbar {
             position: absolute;
             right: 0;
-            min-width: 350px;
+            min-width: 450px;
             .btn {
                 float: right;
             }
-
         }
         @include on-xs-and-down {
             height: 35px;

@@ -6,23 +6,23 @@
                 v-if="schedule">
                 <div slot="buttons">
                     <router-link :to="{name: 'schedule', params: schedule}"
-                        class="btn btn-white"
+                        class="btn btn-grey"
                         v-if="schedule.id">
                         <i class="pe-7s-back"></i>
                         {{ $t('Cancel') }}
                     </router-link>
                     <button class="btn btn-white"
-                        v-if="schedule.enabled === false"
                         :disabled="actionId == undefined || !nextRunDates.length || fetchingNextRunDates"
                         @click="submit()">
                         <i class="pe-7s-diskette"></i>
                         {{ $t('Save') }}
                     </button>
                     <button class="btn btn-green"
+                        v-if="schedule.id && schedule.enabled === false"
                         :disabled="actionId == undefined || !nextRunDates.length || fetchingNextRunDates"
                         @click="submit(true)">
-                        <i :class="id ? 'pe-7s-diskette' : 'pe-7s-plus'"></i>
-                        {{ $t(id ? (schedule.enabled ? 'Save' : 'Save and enable') : 'Add') }}
+                        <i class="pe-7s-diskette"></i>
+                        {{ $t('Save and enable') }}
                     </button>
                 </div>
                 <div class="row">

@@ -2,15 +2,13 @@
     <dl>
         <dd>{{ $t('Relay switching time') }}</dd>
         <dt>
-            <div class="btn-group btn-group-justified"
+            <div class="btn-group btn-group-flex"
                 v-if="times.length < 5">
-                <div v-for="time in times"
-                    class="btn-group">
-                    <button :class="'btn ' + (value == time ? 'btn-green' : 'btn-default')"
-                        @click="$emit('input', time)">
-                        {{ timeInSeconds(time) }}
-                    </button>
-                </div>
+                <a :class="'btn ' + (value == time ? 'btn-green' : 'btn-default')"
+                    v-for="time in times"
+                    @click="$emit('input', time)">
+                    {{ timeInSeconds(time) }}
+                </a>
             </div>
             <div class="dropdown"
                 v-else>
@@ -47,6 +45,12 @@
     };
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    .btn-group-flex {
+        display: flex;
+        justify-content: center;
+        .btn {
+            white-space: normal !important;
+        }
+    }
 </style>
