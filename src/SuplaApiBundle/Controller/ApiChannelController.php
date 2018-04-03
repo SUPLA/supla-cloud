@@ -307,7 +307,8 @@ class ApiChannelController extends RestController {
                             $em->persist($channelGroup);
                         }
                     }
-                } elseif ($channel->getFunction() != ChannelFunction::NONE()) {
+                }
+                if ($channel->getFunction() != ChannelFunction::NONE()) {
                     $this->suplaServer->reconnect();
                 }
                 return $this->getChannelAction($request, $channel);
