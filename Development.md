@@ -12,7 +12,7 @@ uses mock of supla-server by default.
 1. Install a web server with PHP Support. We recommend [Apache](http://httpd.apache.org/docs/2.4/).
    On Winows machines, you can install [XAMPP](https://www.apachefriends.org/pl/index.html).
 2. Install [MySQL database server](https://dev.mysql.com/downloads/installer/) (XAMPP already contains it).
-3. Install [Node JS LTS](https://nodejs.org/en/). Version 6.x is proved to be working.
+3. Install [Node JS LTS](https://nodejs.org/en/). Version 8.x is proved to be working.
 4. Install [Git](https://git-scm.com/), then fork and clone the repository with `git clone` command.
    It is good idea to clone in into a directory from which Apache can server the application
    (for example, `/var/www/supla-cloud` or `C:\xampp\htdocs\supla-cloud` or wherever
@@ -22,7 +22,7 @@ uses mock of supla-server by default.
 7. Install project's PHP dependencies with `composer install`. During the installation,
    copmoser will ask you for a bunch of things. For the development environment, the most important are:
     1. `database_*` - configuration of your database connection
-    1. `supla_server` - set it to `supla.dev` 
+    1. `supla_server` - set it to `supla.local` 
     1. `recaptcha_enabled` - set it to `false`
     
    You can leave the defaults for all of the other settings. If you made a mistake,
