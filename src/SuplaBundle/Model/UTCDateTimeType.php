@@ -52,4 +52,12 @@ class UTCDateTimeType extends DateTimeType {
         }
         return $val;
     }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform) {
+        return true;
+    }
+
+    public function getName() {
+        return 'utcdatetime';
+    }
 }
