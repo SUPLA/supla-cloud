@@ -153,7 +153,7 @@ class ApiLocationController extends RestController {
         }
         return $this->transactional(function (EntityManagerInterface $em) use ($request, $location) {
             $em->persist($location);
-            $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+            $this->suplaServer->reconnect();
             return $this->getLocationAction($request, $location);
         });
     }
