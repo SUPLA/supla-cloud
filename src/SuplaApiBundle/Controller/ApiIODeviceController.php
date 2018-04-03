@@ -211,10 +211,10 @@ class ApiIODeviceController extends RestController {
                 if (!$ioDevice->getEnabled()) {
                     $this->get('schedule_manager')->disableSchedulesForDevice($ioDevice);
                 }
-                $this->suplaServer->reconnect();
             }
             $ioDevice->setLocation($updatedDevice->getLocation());
             $ioDevice->setComment($updatedDevice->getComment());
+            $this->suplaServer->reconnect();
             $view = $this->view($ioDevice, Response::HTTP_OK);
             $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
             return $view;
