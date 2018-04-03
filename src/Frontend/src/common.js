@@ -94,13 +94,20 @@ $(document).ready(() => {
         });
 
         const app = new Vue({
-            el: '.vue-container',
+            data: {changingRoute: false},
             i18n,
             router,
             mounted() {
                 document.getElementById('page-preloader').remove();
             }
+        }).$mount('.vue-container');
+
+        router.beforeEach((to, from, next) => {
+            app.changingRoute = true;
+            next();
         });
+        router.afterEach(() => app.changingRoute = false);
+
         Vue.http.interceptors.push(ResponseErrorInterceptor(app));
         for (let transformer in requestTransformers) {
             Vue.http.interceptors.push(requestTransformers[transformer]);

@@ -3,9 +3,11 @@
 {% block body %}
     <div class="vue-container">
         <navbar v-if="$user"></navbar>
-        <transition name="fade-router">
-            <router-view></router-view>
-        </transition>
+        <loading-cover :loading="changingRoute">
+            <transition name="fade-router">
+                <router-view></router-view>
+            </transition>
+        </loading-cover>
         {% if app.user and not app.user.cookiesAgreement and supla_require_cookie_policy_acceptance %}
             <cookie-warning></cookie-warning>
         {% endif %}
