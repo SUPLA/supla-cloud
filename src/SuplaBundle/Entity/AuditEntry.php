@@ -18,16 +18,17 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\AuditedAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="SuplaBundle\Repository\UserLoginAttemptRepository")
- * @ORM\Table(name="supla_user_login_attempt", indexes={
- *     @ORM\Index(name="supla_user_login_attempt_ipv4_email_idx", columns={"email", "ipv4"}),
- *     @ORM\Index(name="supla_user_login_attempt_created_at_idx", columns={"created_at"})
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AuditEntryRepository")
+ * @ORM\Table(name="supla_audit", indexes={
+ *     @ORM\Index(name="supla_audit_ipv4_idx", columns={"ipv4"}),
+ *     @ORM\Index(name="supla_audit_created_at_idx", columns={"created_at"})
  * })
  */
-class UserLoginAttempt {
+class AuditEntry {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -36,16 +37,15 @@ class UserLoginAttempt {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="loginAttempts")
+     * @ORM\Column(name="action", type="integer")
+     */
+    private $action;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="auditEntries")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     private $user;
-
-    /**
-     * @ORM\Column(name="email", type="string", length=255)
-     * @Groups({"basic"})
-     */
-    private $email;
 
     /**
      * @ORM\Column(name="created_at", type="utcdatetime")
@@ -53,14 +53,20 @@ class UserLoginAttempt {
     private $createdAt;
 
     /**
-     * @ORM\Column(name="ipv4", type="integer", options={"unsigned"=true})
+     * @ORM\Column(name="successful", type="boolean", options={"default"=true})
+     */
+    private $successful = true;
+
+    /**
+     * @ORM\Column(name="ipv4", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $ipv4;
 
     /**
-     * @ORM\Column(name="successful", type="boolean")
+     * @ORM\Column(name="text_param1", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
      */
-    private $successful;
+    private $textParam1;
 
     public function __construct() {
     }
@@ -69,8 +75,8 @@ class UserLoginAttempt {
         return $this->id;
     }
 
-    public function getEmail(): string {
-        return $this->email;
+    public function getAction(): AuditedAction {
+        return new AuditedAction($this->action);
     }
 
     /** @return User|null */
@@ -82,7 +88,15 @@ class UserLoginAttempt {
         return $this->createdAt;
     }
 
-    public function getSuccessful(): bool {
+    public function isSuccessful(): bool {
         return $this->successful;
+    }
+
+    public function getIpv4() {
+        return $this->ipv4;
+    }
+
+    public function getTextParam1() {
+        return $this->textParam1;
     }
 }

@@ -123,6 +123,10 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\AccessID]
 
+  SuplaBundle\Repository\AuditEntryRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\AuditEntry]
+
   SuplaBundle\Repository\ChannelGroupRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\IODeviceChannelGroup]
@@ -138,10 +142,6 @@ services:
   SuplaBundle\Repository\ScheduleRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Schedule]
-
-  SuplaBundle\Repository\UserLoginAttemptRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\UserLoginAttempt]
 
   SuplaBundle\Repository\UserRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]

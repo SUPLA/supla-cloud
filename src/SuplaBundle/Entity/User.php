@@ -180,9 +180,9 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $channelGroups;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserLoginAttempt", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
      **/
-    private $loginAttempts;
+    private $auditEntries;
 
     /**
      * @ORM\Column(name="iodevice_reg_enabled", type="utcdatetime", nullable=true)

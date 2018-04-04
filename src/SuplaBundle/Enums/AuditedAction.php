@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -15,25 +15,28 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\EventListener;
+namespace SuplaBundle\Enums;
 
-use SuplaBundle\Repository\AuditEntryRepository;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use MyCLabs\Enum\Enum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-class UserLoginAttemptListener {
-    /** @var AuditEntryRepository */
-    private $attemptRepository;
+/**
+ * @method static AuditedAction AUTHENTICATION()
+ * @method static AuditedAction PASSWORD_RESET_REQUEST()
+ * @method static AuditedAction PASSWORD_RESET()
+ */
+final class AuditedAction extends Enum {
+    const AUTHENTICATION = 1;
+    const PASSWORD_RESET_REQUEST = 2;
+    const PASSWORD_RESET = 3;
 
-    public function __construct(AuditEntryRepository $attemptRepository) {
-        $this->attemptRepository = $attemptRepository;
+    /** @Groups({"basic"}) */
+    public function getId(): int {
+        return $this->value;
     }
 
-    public function onAuthenticationSuccess(InteractiveLoginEvent $event) {
-        $this->attemptRepository;
-    }
-
-    public function onAuthenticationFailure(AuthenticationFailureEvent $event) {
-        $this->attemptRepository;
+    /** @Groups({"basic"}) */
+    public function getName(): string {
+        return $this->getKey();
     }
 }
