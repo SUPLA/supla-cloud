@@ -11,14 +11,14 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 class UserRepository extends EntityRepository implements UserLoaderInterface {
     public function loadUserByUsername($username) {
         $user = $this->findOneByEmail($username);
-        $limitExceeded = true; // TODO
-        if ($limitExceeded) {
-            if (!$user) {
-                $user = new User();
-                $user->setEmail($username);
-            }
-            $user->lock();
-        }
+//        $limitExceeded = true; // TODO
+//        if ($limitExceeded) {
+//            if (!$user) {
+//                $user = new User();
+//                $user->setEmail($username);
+//            }
+//            $user->lock();
+//        }
         return $user;
     }
 }

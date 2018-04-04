@@ -17,13 +17,21 @@
 
 namespace SuplaBundle\EventListener;
 
+use SuplaApiBundle\Model\Audit\AuditAware;
 use SuplaBundle\Enums\AuditedAction;
-use SuplaBundle\Model\Audit\AuditAware;
+use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UserLoginAttemptListener {
     use AuditAware;
+
+    /** @var UserRepository */
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository) {
+        $this->userRepository = $userRepository;
+    }
 
     public function onAuthenticationSuccess(InteractiveLoginEvent $event) {
         $this->auditEntry(AuditedAction::AUTHENTICATION())
@@ -32,9 +40,12 @@ class UserLoginAttemptListener {
     }
 
     public function onAuthenticationFailure(AuthenticationFailureEvent $event) {
+        $user = $this->userRepository->loadUserByUsername($event->getAuthenticationToken()->getUsername());
+        $reason = preg_replace('#Exception$#', '', basename(get_class($event->getAuthenticationException())));
         $this->auditEntry(AuditedAction::AUTHENTICATION())
             ->setTextParam($event->getAuthenticationToken()->getUsername())
-            ->setTextParam2(get_class($event->getAuthenticationException()))
+            ->setTextParam2($reason)
+            ->setUser($user)
             ->unsuccessful()
             ->buildAndFlush();
     }

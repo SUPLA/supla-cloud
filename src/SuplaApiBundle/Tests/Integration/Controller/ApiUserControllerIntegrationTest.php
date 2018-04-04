@@ -17,6 +17,8 @@
 
 namespace SuplaApiBundle\Tests\Integration\Controller;
 
+use SuplaApiBundle\Model\Audit\Audit;
+use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
@@ -30,6 +32,14 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $createdUser;
+
+    /** @var Audit */
+    private $audit;
+
+    /** @before */
+    public function initAudit() {
+        $this->audit = $this->container->get(Audit::class);
+    }
 
     public function testCreatingUser() {
         $userData = [
@@ -57,6 +67,19 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
             '_password' => self::PASSWORD,
         ]);
         $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+    }
+
+    public function testSavesIncorrectLoginAttemptInAudit() {
+        $this->testCannotLoginIfNotConfirmed();
+        $entries = $this->audit->getRepository()->findAll();
+        $this->assertCount(1, $entries);
+        /** @var AuditEntry $entry */
+        $entry = current($entries);
+        $this->assertFalse($entry->isSuccessful());
+        $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam1());
+        $this->assertEquals('Disabled', $entry->getTextParam2());
+        $this->assertNotNull($entry->getUser());
+        $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
     }
 
     public function testConfirmingWithBadToken() {

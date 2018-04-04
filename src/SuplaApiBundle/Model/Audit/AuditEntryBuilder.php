@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Model\Audit;
+namespace SuplaApiBundle\Model\Audit;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;

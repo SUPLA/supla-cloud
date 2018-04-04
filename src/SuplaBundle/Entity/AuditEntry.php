@@ -80,6 +80,7 @@ class AuditEntry {
         $this->successful = $successful;
         $this->textParam1 = $textParam1;
         $this->textParam2 = $textParam2;
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): int {
