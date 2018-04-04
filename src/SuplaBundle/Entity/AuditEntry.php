@@ -68,7 +68,18 @@ class AuditEntry {
      */
     private $textParam1;
 
-    public function __construct() {
+    /**
+     * @ORM\Column(name="text_param2", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $textParam2;
+
+    public function __construct(AuditedAction $action, $user, bool $successful, $textParam1, $textParam2) {
+        $this->action = $action->getId();
+        $this->user = $user;
+        $this->successful = $successful;
+        $this->textParam1 = $textParam1;
+        $this->textParam2 = $textParam2;
     }
 
     public function getId(): int {
@@ -98,5 +109,9 @@ class AuditEntry {
 
     public function getTextParam1() {
         return $this->textParam1;
+    }
+
+    public function getTextParam2() {
+        return $this->textParam2;
     }
 }

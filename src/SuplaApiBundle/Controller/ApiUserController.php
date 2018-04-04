@@ -26,9 +26,11 @@ use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Controller\AjaxController;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\AuditedAction;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\LocaleListener;
+use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
@@ -39,6 +41,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ApiUserController extends RestController {
     use Transactional;
+    use AuditAware;
 
     private $serverList;
     /** @var UserManager */
@@ -239,7 +242,7 @@ class ApiUserController extends RestController {
         if ($serverList->getAutodiscover()->enabled()) {
             $serverList->getAutodiscover()->registerUser($user);
         }
-        
+
         // send email
         $mailer = $this->get('supla_mailer');
         $sent = $mailer->sendConfirmationEmailMessage($user);
@@ -286,6 +289,11 @@ class ApiUserController extends RestController {
                     $request->setLocale($data['locale']);
                 }
                 $user = $this->userManager->userByEmail($username);
+                $this->auditEntry(AuditedAction::PASSWORD_RESET_REQUEST())
+                    ->setTextParam($username)
+                    ->setUser($user)
+                    ->setSuccessful(!!$user)
+                    ->buildAndSave();
                 if ($user && $this->userManager->paswordRequest($user) === true) {
                     $mailer = $this->get('supla_mailer');
                     $mailer->sendResetPasswordEmailMessage($user);
@@ -300,6 +308,10 @@ class ApiUserController extends RestController {
                     $user->setToken(null);
                     $user->setPasswordRequestedAt(null);
                     $this->userManager->setPassword($password, $user, true);
+                    $this->auditEntry(AuditedAction::PASSWORD_RESET())
+                        ->setTextParam($user->getUsername())
+                        ->setUser($user)
+                        ->buildAndSave();
                 }
             }
         }
