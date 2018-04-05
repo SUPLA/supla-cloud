@@ -20,6 +20,7 @@ namespace SuplaApiBundle\Tests\Integration\Controller;
 use SuplaApiBundle\Model\Audit\Audit;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\AuditedAction;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -75,6 +76,7 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $entries);
         /** @var AuditEntry $entry */
         $entry = current($entries);
+        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
         $this->assertFalse($entry->isSuccessful());
         $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam1());
         $this->assertEquals('Disabled', $entry->getTextParam2());
@@ -116,6 +118,19 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
             '_password' => self::PASSWORD,
         ]);
         $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
+    }
+
+    public function testSavesCorrectLoginAttemptInAudit() {
+        $this->testCanLoginIfConfirmed();
+        $entries = $this->audit->getRepository()->findAll();
+        $this->assertCount(1, $entries);
+        /** @var AuditEntry $entry */
+        $entry = current($entries);
+        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
+        $this->assertTrue($entry->isSuccessful());
+        $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam1());
+        $this->assertNotNull($entry->getUser());
+        $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
     }
 
     public function testPasswordResetForUnknownUserFailsSilently() {
