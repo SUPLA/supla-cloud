@@ -7,6 +7,7 @@ use MyCLabs\Enum\Enum;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Model\TimeProvider;
 
 class AuditEntryBuilder {
     /** @var AuditedAction */
@@ -19,9 +20,12 @@ class AuditEntryBuilder {
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var TimeProvider */
+    private $timeProvider;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(EntityManagerInterface $entityManager, TimeProvider $timeProvider = null) {
         $this->entityManager = $entityManager;
+        $this->timeProvider = $timeProvider ?: new TimeProvider();
     }
 
     public function setAction(AuditedAction $action): AuditEntryBuilder {
@@ -60,7 +64,7 @@ class AuditEntryBuilder {
 
     public function build(): AuditEntry {
         Assertion::notNull($this->action, 'Audit Entry must have an action.');
-        return new AuditEntry($this->action, $this->user, $this->successful, $this->textParam, $this->intParam);
+        return new AuditEntry($this->timeProvider->getDateTime(), $this->action, $this->user, $this->successful, $this->textParam, $this->intParam);
     }
 
     public function buildAndSave() {

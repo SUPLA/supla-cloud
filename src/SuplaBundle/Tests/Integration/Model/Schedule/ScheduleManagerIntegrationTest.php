@@ -36,21 +36,12 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     /** @var IODeviceChannel */
     private $channel;
 
-    /** @var TestTimeProvider */
-    private $timeProvider;
-
     protected function setUp() {
         $this->scheduleManager = $this->container->get('schedule_manager');
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $sonoff = $this->createDeviceSonoff($location);
         $this->channel = $sonoff->getChannels()[0];
-        $timeProvider = new TestTimeProvider();
-        $setter = function () use ($timeProvider) {
-            $this->timeProvider = $timeProvider;
-        };
-        $setter->call($this->scheduleManager);
-        $this->timeProvider = $timeProvider;
     }
 
     public function testCreatedScheduleIsEmpty() {
@@ -97,10 +88,10 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
             'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
             'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
         ]);
-        $this->timeProvider->setTimestamp('2018-01-01 00:00:00');
+        TestTimeProvider::setTime('2018-01-01 00:00:00');
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());
-        $this->timeProvider->setTimestamp('2018-01-01 01:00:01');
+        TestTimeProvider::setTime('2018-01-01 01:00:01');
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertFalse($schedule->getEnabled());
     }
@@ -112,7 +103,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
             'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
             'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
         ]);
-        $this->timeProvider->setTimestamp('2018-01-01 00:00:00');
+        TestTimeProvider::setTime('2018-01-01 00:00:00');
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());

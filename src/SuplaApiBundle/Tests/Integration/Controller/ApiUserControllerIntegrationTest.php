@@ -17,6 +17,7 @@
 
 namespace SuplaApiBundle\Tests\Integration\Controller;
 
+use SuplaApiBundle\Entity\EntityUtils;
 use SuplaApiBundle\Model\Audit\Audit;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
@@ -25,6 +26,7 @@ use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
@@ -38,9 +40,14 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     /** @var Audit */
     private $audit;
 
+    /** @var TestTimeProvider */
+    private $timeProvider;
+
     /** @before */
     public function initAudit() {
         $this->audit = $this->container->get(Audit::class);
+        $this->timeProvider = new TestTimeProvider();
+        EntityUtils::setField($this->audit, 'timeProvider', $this->timeProvider);
     }
 
     public function testCannotLoginIfDoesNotExist() {
@@ -215,9 +222,9 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testAccountIsBlockedAfterThreeUnsuccessfulLogins() {
         $this->testConfirmingWithGoodToken();
         $client = $this->createHttpsClient();
-        for ($attempt = 0; $attempt < 3; $attempt++) {
-            $this->assertFailedLoginRequest($client);
-        }
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
         $this->assertCount(4, $this->audit->getRepository()->findAll());
         $latestEntry = $this->getLatestAuditEntry();
@@ -268,6 +275,17 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequest('PUT', '/web-api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSuccessfulLoginRequest($client, self::EMAIL, 'alamapsa');
+    }
+
+    public function testAccountIsUnlockedAfterTimePasses() {
+        TestTimeProvider::setTime('-25 minutes');
+        $this->testConfirmingWithGoodToken();
+        $client = $this->createHttpsClient();
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        TestTimeProvider::reset();
+        $this->assertSuccessfulLoginRequest($client);
     }
 
     private function assertSuccessfulLoginRequest(TestClient $client, $username = null, $password = null) {

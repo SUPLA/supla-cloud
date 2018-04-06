@@ -4,19 +4,25 @@ namespace SuplaBundle\Tests\Integration\Traits;
 use SuplaBundle\Model\TimeProvider;
 
 class TestTimeProvider extends TimeProvider {
-    private $timestamp;
+    private static $timestamp;
 
     public function getTimestamp(): int {
-        return $this->timestamp ? $this->timestamp : parent::getTimestamp();
+        return self::$timestamp ?: parent::getTimestamp();
     }
 
-    public function setTimestamp($time) {
+    public static function setTime($time) {
         if (is_string($time)) {
-            $this->timestamp = strtotime($time);
+            self::$timestamp = strtotime($time);
         } elseif (is_int($time)) {
-            $this->timestamp = $time;
+            self::$timestamp = $time;
+        } else if (is_null($time)) {
+            self::$timestamp = null;
         } else {
             throw new \InvalidArgumentException('Unsupported time spec: ' . $time);
         }
+    }
+
+    public static function reset() {
+        self::setTime(null);
     }
 }

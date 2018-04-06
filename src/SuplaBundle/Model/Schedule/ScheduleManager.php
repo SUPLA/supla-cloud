@@ -47,13 +47,18 @@ class ScheduleManager {
     /** @var TimeProvider */
     private $timeProvider;
 
-    public function __construct(ManagerRegistry $doctrine, IODeviceManager $ioDeviceManager, CompositeSchedulePlanner $schedulePlanner) {
+    public function __construct(
+        ManagerRegistry $doctrine,
+        IODeviceManager $ioDeviceManager,
+        CompositeSchedulePlanner $schedulePlanner,
+        TimeProvider $timeProvider
+    ) {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
         $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');
         $this->ioDeviceManager = $ioDeviceManager;
         $this->schedulePlanner = $schedulePlanner;
-        $this->timeProvider = new TimeProvider();
+        $this->timeProvider = $timeProvider;
     }
 
     /** @return IODeviceChannel[] */
