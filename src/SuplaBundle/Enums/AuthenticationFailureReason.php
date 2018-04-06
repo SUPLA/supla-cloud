@@ -34,7 +34,7 @@ final class AuthenticationFailureReason extends Enum {
     public static function fromException(AuthenticationException $e): AuthenticationFailureReason {
         switch (get_class($e)) {
             case UsernameNotFoundException::class:
-                return self::NOT_EXISTS;
+                return self::NOT_EXISTS();
             case BadCredentialsException::class:
                 return self::BAD_CREDENTIALS();
             case LockedException::class:

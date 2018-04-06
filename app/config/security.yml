@@ -6,6 +6,7 @@ security:
     SuplaBundle\Entity\User: bcrypt
     legacy_encoder: md5
   erase_credentials: false # in order to migrate legacy passwords
+  hide_user_not_found: false
 
   firewalls:
     api:
