@@ -86,4 +86,10 @@ class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
         $this->expectException(\InvalidArgumentException::class);
         $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIntParam('zamel')->build();
     }
+
+    public function testSettingIpv4() {
+        $entry = $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIpv4('10.0.0.1')->build();
+        $this->assertEquals(167772161, $entry->getIpv4());
+    }
+
 }

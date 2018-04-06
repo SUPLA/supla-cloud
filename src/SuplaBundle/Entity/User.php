@@ -208,8 +208,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      */
     private $cookiesAgreement = false;
 
-    private $locked = false;
-
     public function __construct() {
         $this->limitAid = 10;
         $this->limitLoc = 10;
@@ -353,12 +351,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return true;
     }
 
-    public function lock() {
-        $this->locked = true;
-    }
-
     public function isAccountNonLocked() {
-        return !$this->locked;
+        return true;
     }
 
     public function isCredentialsNonExpired() {

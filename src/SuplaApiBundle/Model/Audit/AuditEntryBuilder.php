@@ -22,6 +22,7 @@ class AuditEntryBuilder {
     private $entityManager;
     /** @var TimeProvider */
     private $timeProvider;
+    private $ipv4;
 
     public function __construct(EntityManagerInterface $entityManager, TimeProvider $timeProvider = null) {
         $this->entityManager = $entityManager;
@@ -36,6 +37,11 @@ class AuditEntryBuilder {
     /** @param User|null $user */
     public function setUser($user): AuditEntryBuilder {
         $this->user = $user;
+        return $this;
+    }
+
+    public function setIpv4(string $ipv4): AuditEntryBuilder {
+        $this->ipv4 = ip2long($ipv4);
         return $this;
     }
 
@@ -64,7 +70,15 @@ class AuditEntryBuilder {
 
     public function build(): AuditEntry {
         Assertion::notNull($this->action, 'Audit Entry must have an action.');
-        return new AuditEntry($this->timeProvider->getDateTime(), $this->action, $this->user, $this->successful, $this->textParam, $this->intParam);
+        return new AuditEntry(
+            $this->timeProvider->getDateTime(),
+            $this->action,
+            $this->user,
+            $this->ipv4,
+            $this->successful,
+            $this->textParam,
+            $this->intParam
+        );
     }
 
     public function buildAndSave() {

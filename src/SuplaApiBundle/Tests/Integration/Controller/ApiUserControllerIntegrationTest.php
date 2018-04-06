@@ -17,7 +17,6 @@
 
 namespace SuplaApiBundle\Tests\Integration\Controller;
 
-use SuplaApiBundle\Entity\EntityUtils;
 use SuplaApiBundle\Model\Audit\Audit;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
@@ -40,14 +39,9 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     /** @var Audit */
     private $audit;
 
-    /** @var TestTimeProvider */
-    private $timeProvider;
-
     /** @before */
     public function initAudit() {
         $this->audit = $this->container->get(Audit::class);
-        $this->timeProvider = new TestTimeProvider();
-        EntityUtils::setField($this->audit, 'timeProvider', $this->timeProvider);
     }
 
     public function testCannotLoginIfDoesNotExist() {
@@ -288,6 +282,16 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuccessfulLoginRequest($client);
     }
 
+    public function testAccountIsLockedOnlyOnSuspiciousIpAddress() {
+        $this->testConfirmingWithGoodToken();
+        $client = $this->createHttpsClient();
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $client = $this->createHttpsClient('10.0.0.1');
+        $this->assertSuccessfulLoginRequest($client);
+    }
+
     private function assertSuccessfulLoginRequest(TestClient $client, $username = null, $password = null) {
         $this->loginRequest($client, $username, $password);
         $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
@@ -308,10 +312,11 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         ]);
     }
 
-    private function createHttpsClient(): TestClient {
+    private function createHttpsClient($ipAddress = '1.2.3.4'): TestClient {
         $client = self::createClient([], [
             'HTTPS' => true,
             'HTTP_Accept' => 'application/json',
+            'REMOTE_ADDR' => $ipAddress,
         ]);
         $client->followRedirects();
         return $client;

@@ -63,6 +63,12 @@ services:
   SuplaApiBundle\Model\:
     resource: '../../src/SuplaApiBundle/Model'
 
+  SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
+    $enabled: '%supla.brute_force_auth_prevention.enabled%'
+    $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'
+    $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'
+
+
   SuplaBundle\Supla\:
     resource: '../../src/SuplaBundle/Supla'
 

@@ -74,9 +74,10 @@ class AuditEntry {
      */
     private $intParam;
 
-    public function __construct(\DateTime $createdAt, AuditedAction $action, $user, bool $successful, $textParam, $intParam) {
+    public function __construct(\DateTime $createdAt, AuditedAction $action, $user, $ipv4, bool $successful, $textParam, $intParam) {
         $this->action = $action->getId();
         $this->user = $user;
+        $this->ipv4 = $ipv4;
         $this->successful = $successful;
         $this->textParam = $textParam;
         $this->intParam = $intParam;

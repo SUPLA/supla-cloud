@@ -1,62 +1,42 @@
 <?php
 namespace SuplaBundle\Repository;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use SuplaBundle\Entity\AuditEntry;
+use SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Enums\AuditedAction;
-use SuplaBundle\Enums\AuthenticationFailureReason;
-use SuplaBundle\Model\TimeProvider;
-use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\LockedException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * @method User|null findOneByEmail(string $email)
  */
-class UserRepository extends EntityRepository implements UserLoaderInterface {
-    /** @var TimeProvider */
-    private $timeProvider;
+class UserRepository extends EntityRepository implements UserProviderInterface {
+    /** @var FailedAuthAttemptsUserBlocker */
+    private $failedAuthAttemptsUserBlocker;
 
-    public function __construct($em, ClassMetadata $class) {
-        parent::__construct($em, $class);
-        $this->timeProvider = new TimeProvider();
+    /** @required */
+    public function setFailedAuthAttemptsUserBlocker(FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker) {
+        $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
     }
 
     public function loadUserByUsername($username) {
         $user = $this->findOneByEmail($username);
-        $limitExceeded = $this->isAuthenticationFailureLimitExceeded($username);
-        if ($limitExceeded) {
-            if (!$user) {
-                throw new LockedException();
-            }
-            $user->lock();
+        if ($this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($username)) {
+            throw new LockedException();
+        }
+        if (!$user) {
+            throw new UsernameNotFoundException();
         }
         return $user;
     }
 
-    private function isAuthenticationFailureLimitExceeded(string $username): bool {
-        $considerEntriesOlderThan = $this->timeProvider->getDateTime(\DateInterval::createFromDateString('-20 minutes'));
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->in('action', [AuditedAction::AUTHENTICATION, AuditedAction::PASSWORD_RESET]))
-            ->andWhere(Criteria::expr()->gte('createdAt', $considerEntriesOlderThan))
-            ->andWhere(Criteria::expr()->eq('textParam', $username))
-            ->andWhere(Criteria::expr()->orX(
-                Criteria::expr()->neq('intParam', AuthenticationFailureReason::BLOCKED),
-                Criteria::expr()->isNull('intParam')
-            ))
-            ->orderBy(['createdAt' => 'DESC', 'id' => 'DESC'])
-            ->setMaxResults(3);
-        $authEntries = $this->getEntityManager()->getRepository(AuditEntry::class)->matching($criteria);
-        if (count($authEntries) === 3) {
-            foreach ($authEntries as $entry) {
-                if ($entry->isSuccessful()) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
+    public function refreshUser(UserInterface $user) {
+        $this->getEntityManager()->refresh($user);
+    }
+
+    public function supportsClass($class) {
+        return $class === User::class;
     }
 }

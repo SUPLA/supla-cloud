@@ -38,5 +38,4 @@ security:
 
   providers:
     supla_db_provider:
-      entity:
-        class: "SuplaBundle:User"
+      id: 'SuplaBundle\Repository\UserRepository'

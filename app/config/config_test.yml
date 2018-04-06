@@ -33,6 +33,10 @@ services:
       - '@test.client.history'
       - '@test.client.cookiejar'
 
+supla:
+  brute_force_auth_prevention:
+    enabled: true
+
 swiftmailer:
   disable_delivery: true
 

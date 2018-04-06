@@ -23,6 +23,7 @@ use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 class ScheduleManagerTest extends \PHPUnit_Framework_TestCase {
     private $doctrine;
@@ -39,7 +40,7 @@ class ScheduleManagerTest extends \PHPUnit_Framework_TestCase {
         $this->doctrine->method('getRepository')->willReturn($this->scheduledExecutionsRepository);
         $this->deviceManager = $this->createMock(IODeviceManager::class);
         $this->schedulePlanner = $this->createMock(CompositeSchedulePlanner::class);
-        $this->manager = new ScheduleManager($this->doctrine, $this->deviceManager, $this->schedulePlanner);
+        $this->manager = new ScheduleManager($this->doctrine, $this->deviceManager, $this->schedulePlanner, new TestTimeProvider());
     }
 
     // https://github.com/SUPLA/supla-cloud/issues/82

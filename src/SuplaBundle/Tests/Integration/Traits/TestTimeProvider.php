@@ -15,7 +15,7 @@ class TestTimeProvider extends TimeProvider {
             self::$timestamp = strtotime($time);
         } elseif (is_int($time)) {
             self::$timestamp = $time;
-        } else if (is_null($time)) {
+        } elseif (is_null($time)) {
             self::$timestamp = null;
         } else {
             throw new \InvalidArgumentException('Unsupported time spec: ' . $time);
