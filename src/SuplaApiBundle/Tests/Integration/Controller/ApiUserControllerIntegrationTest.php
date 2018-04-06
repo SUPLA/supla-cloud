@@ -45,11 +45,7 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCannotLoginIfDoesNotExist() {
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => self::EMAIL,
-            '_password' => self::PASSWORD,
-        ]);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+        $this->assertFailedLoginRequest($client);
         $entry = $this->getLatestAuditEntry();
         $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
         $this->assertFalse($entry->isSuccessful());
@@ -79,11 +75,7 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testCannotLoginIfNotConfirmed() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD,
-        ]);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
     }
 
     public function testSavesIncorrectLoginAttemptInAudit() {
@@ -126,11 +118,7 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testCanLoginIfConfirmed() {
         $this->testConfirmingWithGoodToken();
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD,
-        ]);
-        $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
+        $this->assertSuccessfulLoginRequest($client);
     }
 
     public function testSavesCorrectLoginAttemptInAudit() {
@@ -146,11 +134,7 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testCannotLoginWithInvalidPassword() {
         $this->testConfirmingWithGoodToken();
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD . '_',
-        ]);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+        $this->assertFailedLoginRequest($client);
         $entry = $this->getLatestAuditEntry();
         $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
         $this->assertFalse($entry->isSuccessful());
@@ -178,11 +162,7 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testCanLoginAfterPasswordResetAsked() {
         $this->testGeneratesForgottenPasswordTokenForValidUser();
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD,
-        ]);
-        $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
+        $this->assertSuccessfulLoginRequest($client);
     }
 
     public function testCannotResetPasswordWithInvalidToken() {
@@ -215,36 +195,20 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     public function testCanLoginWithResetPassword() {
         $this->testCanResetPasswordWithValidToken();
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => 'alamapsa',
-        ]);
-        $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
+        $this->assertSuccessfulLoginRequest($client, self::EMAIL, 'alamapsa');
     }
 
     public function testCannotLoginWithOldPasswordAfterReset() {
         $this->testCanResetPasswordWithValidToken();
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD,
-        ]);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
     }
 
     public function testCanLoginWithInvalidAndThenValidPassword() {
         $this->testConfirmingWithGoodToken();
         $client = $this->createHttpsClient();
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD . '_',
-        ]);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD,
-        ]);
-        $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
+        $this->assertFailedLoginRequest($client);
+        $this->assertSuccessfulLoginRequest($client);
         $this->assertCount(2, $this->audit->getRepository()->findAll());
     }
 
@@ -252,21 +216,71 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         $this->testConfirmingWithGoodToken();
         $client = $this->createHttpsClient();
         for ($attempt = 0; $attempt < 3; $attempt++) {
-            $client->request('POST', '/auth/login', [
-                '_username' => $this->createdUser->getEmail(),
-                '_password' => self::PASSWORD . '_',
-            ]);
-            $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+            $this->assertFailedLoginRequest($client);
         }
-        $client->request('POST', '/auth/login', [
-            '_username' => $this->createdUser->getEmail(),
-            '_password' => self::PASSWORD,
-        ]);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
         $this->assertCount(4, $this->audit->getRepository()->findAll());
         $latestEntry = $this->getLatestAuditEntry();
         $this->assertFalse($latestEntry->isSuccessful());
         $this->assertEquals(AuthenticationFailureReason::BLOCKED, $latestEntry->getIntParam());
+    }
+
+    public function testIsNotBlockedIfSuccessfulLoginInMeantime() {
+        $this->testConfirmingWithGoodToken();
+        $client = $this->createHttpsClient();
+        $this->assertFailedLoginRequest($client);
+        $this->assertSuccessfulLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertSuccessfulLoginRequest($client);
+    }
+
+    public function testBlockingNotExistingUser() {
+        $client = $this->createHttpsClient();
+        $email = 'other@supla.org';
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertEquals(AuthenticationFailureReason::NOT_EXISTS, $this->getLatestAuditEntry()->getIntParam());
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertEquals(AuthenticationFailureReason::BLOCKED, $this->getLatestAuditEntry()->getIntParam());
+    }
+
+    public function testSuccessfulLoginsOfOtherDoesNotInfluenceBlocks() {
+        $this->testConfirmingWithGoodToken();
+        $client = $this->createHttpsClient();
+        $email = 'other@supla.org';
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertSuccessfulLoginRequest($client);
+        $this->assertFailedLoginRequest($client, $email);
+        $this->assertEquals(AuthenticationFailureReason::BLOCKED, $this->getLatestAuditEntry()->getIntParam());
+    }
+
+    public function testResettingPasswordUnlocksAccount() {
+        $this->testAccountIsBlockedAfterThreeUnsuccessfulLogins();
+    }
+
+    private function assertSuccessfulLoginRequest(TestClient $client, $username = null, $password = null) {
+        $this->loginRequest($client, $username, $password);
+        $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
+    }
+
+    private function assertFailedLoginRequest(TestClient $client, $username = null, $password = null) {
+        $password = $password ?: 'invalidpassword';
+        $this->loginRequest($client, $username, $password);
+        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+    }
+
+    private function loginRequest(TestClient $client, $username = null, $password = null) {
+        $username = $username ?: self::EMAIL;
+        $password = $password ?: self::PASSWORD;
+        $client->request('POST', '/auth/login', [
+            '_username' => $username,
+            '_password' => $password,
+        ]);
     }
 
     private function createHttpsClient(): TestClient {

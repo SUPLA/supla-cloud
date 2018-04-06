@@ -42,7 +42,7 @@ class UserLoginAttemptListener {
     }
 
     public function onAuthenticationFailure(AuthenticationFailureEvent $event) {
-        $user = $this->userRepository->loadUserByUsername($event->getAuthenticationToken()->getUsername());
+        $user = $this->userRepository->findOneByEmail($event->getAuthenticationToken()->getUsername());
         $reason = AuthenticationFailureReason::fromException($event->getAuthenticationException());
         $this->auditEntry(AuditedAction::AUTHENTICATION())
             ->setTextParam($event->getAuthenticationToken()->getUsername())

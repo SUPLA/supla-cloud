@@ -19,6 +19,7 @@ namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Exception\LockedException;
@@ -32,6 +33,9 @@ final class AuthenticationFailureReason extends Enum {
     const DISABLED = 4;
 
     public static function fromException(AuthenticationException $e): AuthenticationFailureReason {
+        if ($e instanceof AuthenticationServiceException) {
+            $e = $e->getPrevious();
+        }
         switch (get_class($e)) {
             case UsernameNotFoundException::class:
                 return self::NOT_EXISTS();
