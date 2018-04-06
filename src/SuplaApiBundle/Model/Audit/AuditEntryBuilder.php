@@ -40,8 +40,8 @@ class AuditEntryBuilder {
         return $this;
     }
 
-    public function setIpv4(string $ipv4): AuditEntryBuilder {
-        $this->ipv4 = ip2long($ipv4);
+    public function setIpv4($ipv4): AuditEntryBuilder {
+        $this->ipv4 = $ipv4 ? ip2long($ipv4) : null;
         return $this;
     }
 

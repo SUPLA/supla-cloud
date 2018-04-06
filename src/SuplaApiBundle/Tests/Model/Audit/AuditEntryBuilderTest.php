@@ -92,4 +92,8 @@ class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(167772161, $entry->getIpv4());
     }
 
+    public function testSettingEmptyIpv4() {
+        $entry = $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIpv4('')->build();
+        $this->assertNull($entry->getIpv4());
+    }
 }
