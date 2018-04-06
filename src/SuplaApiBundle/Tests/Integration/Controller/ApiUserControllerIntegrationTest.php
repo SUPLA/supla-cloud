@@ -21,6 +21,7 @@ use SuplaApiBundle\Model\Audit\Audit;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -78,8 +79,8 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         $entry = current($entries);
         $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
         $this->assertFalse($entry->isSuccessful());
-        $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam1());
-        $this->assertEquals('Disabled', $entry->getTextParam2());
+        $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
+        $this->assertEquals(AuthenticationFailureReason::DISABLED, $entry->getIntParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
     }
@@ -128,7 +129,7 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
         $entry = current($entries);
         $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
         $this->assertTrue($entry->isSuccessful());
-        $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam1());
+        $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
     }

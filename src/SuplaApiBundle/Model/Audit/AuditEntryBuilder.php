@@ -3,6 +3,7 @@ namespace SuplaApiBundle\Model\Audit;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use MyCLabs\Enum\Enum;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedAction;
@@ -12,7 +13,8 @@ class AuditEntryBuilder {
     private $action;
     /** @var User|null */
     private $user;
-    private $textParam1, $textParam2;
+    private $textParam;
+    private $intParam;
     private $successful = true;
 
     /** @var EntityManagerInterface */
@@ -42,19 +44,23 @@ class AuditEntryBuilder {
         return $this->setSuccessful(false);
     }
 
-    public function setTextParam(string $value, int $paramNo = 1): AuditEntryBuilder {
-        $paramName = 'textParam' . $paramNo;
-        $this->{$paramName} = $value;
+    public function setTextParam(string $value): AuditEntryBuilder {
+        $this->textParam = $value;
         return $this;
     }
 
-    public function setTextParam2($value) {
-        return $this->setTextParam($value, 2);
+    public function setIntParam($value): AuditEntryBuilder {
+        if ($value instanceof Enum) {
+            $value = $value->getValue();
+        }
+        Assertion::numeric($value);
+        $this->intParam = $value;
+        return $this;
     }
 
     public function build(): AuditEntry {
         Assertion::notNull($this->action, 'Audit Entry must have an action.');
-        return new AuditEntry($this->action, $this->user, $this->successful, $this->textParam1, $this->textParam2);
+        return new AuditEntry($this->action, $this->user, $this->successful, $this->textParam, $this->intParam);
     }
 
     public function buildAndSave() {

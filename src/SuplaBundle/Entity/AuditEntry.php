@@ -63,23 +63,23 @@ class AuditEntry {
     private $ipv4;
 
     /**
-     * @ORM\Column(name="text_param1", type="string", length=255, nullable=true)
+     * @ORM\Column(name="text_param", type="string", length=255, nullable=true)
      * @Groups({"basic"})
      */
-    private $textParam1;
+    private $textParam;
 
     /**
-     * @ORM\Column(name="text_param2", type="string", length=255, nullable=true)
+     * @ORM\Column(name="int_param", type="integer", length=255, nullable=true)
      * @Groups({"basic"})
      */
-    private $textParam2;
+    private $intParam;
 
-    public function __construct(AuditedAction $action, $user, bool $successful, $textParam1, $textParam2) {
+    public function __construct(AuditedAction $action, $user, bool $successful, $textParam, $intParam) {
         $this->action = $action->getId();
         $this->user = $user;
         $this->successful = $successful;
-        $this->textParam1 = $textParam1;
-        $this->textParam2 = $textParam2;
+        $this->textParam = $textParam;
+        $this->intParam = $intParam;
         $this->createdAt = new \DateTime();
     }
 
@@ -108,11 +108,11 @@ class AuditEntry {
         return $this->ipv4;
     }
 
-    public function getTextParam1() {
-        return $this->textParam1;
+    public function getTextParam() {
+        return $this->textParam;
     }
 
-    public function getTextParam2() {
-        return $this->textParam2;
+    public function getIntParam() {
+        return $this->intParam;
     }
 }
