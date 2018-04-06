@@ -293,7 +293,7 @@ class ApiUserController extends RestController {
                     ->setTextParam($username)
                     ->setUser($user)
                     ->setSuccessful(!!$user)
-                    ->buildAndSave();
+                    ->buildAndFlush();
                 if ($user && $this->userManager->paswordRequest($user) === true) {
                     $mailer = $this->get('supla_mailer');
                     $mailer->sendResetPasswordEmailMessage($user);
@@ -311,7 +311,7 @@ class ApiUserController extends RestController {
                     $this->auditEntry(AuditedAction::PASSWORD_RESET())
                         ->setTextParam($user->getUsername())
                         ->setUser($user)
-                        ->buildAndSave();
+                        ->buildAndFlush();
                 }
             }
         }

@@ -38,7 +38,7 @@ class AuditIntegrationTest extends IntegrationTestCase {
         /** @var AuditEntry $entry */
         $entry = current($entries);
         $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
-        $this->assertEquals('aaa', $entry->getTextParam1());
+        $this->assertEquals('aaa', $entry->getTextParam());
         $this->assertTrue($entry->isSuccessful());
     }
 

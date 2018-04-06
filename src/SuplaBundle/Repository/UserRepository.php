@@ -20,8 +20,6 @@ class UserRepository extends EntityRepository implements UserLoaderInterface {
         if ($limitExceeded) {
             if (!$user) {
                 throw new LockedException();
-//                $user = new User();
-//                $user->setEmail($username);
             }
             $user->lock();
         }
@@ -30,7 +28,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface {
 
     private function isAuthenticationFailureLimitExceeded(string $username): bool {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq('action', AuditedAction::AUTHENTICATION))
+            ->where(Criteria::expr()->in('action', [AuditedAction::AUTHENTICATION, AuditedAction::PASSWORD_RESET]))
             ->andWhere(Criteria::expr()->gte('createdAt', new \DateTime('-20minutes')))
             ->andWhere(Criteria::expr()->eq('textParam', $username))
             ->andWhere(Criteria::expr()->orX(

@@ -22,7 +22,6 @@ use SuplaBundle\Enums\AuditedAction;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UserLoginAttemptListener {
@@ -50,9 +49,5 @@ class UserLoginAttemptListener {
             ->setUser($user)
             ->unsuccessful()
             ->buildAndFlush();
-    }
-
-    private function determineAuthenticationFailureReason(AuthenticationException $e): int {
-
     }
 }

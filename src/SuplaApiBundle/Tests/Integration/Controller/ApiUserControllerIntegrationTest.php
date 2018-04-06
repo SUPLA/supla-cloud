@@ -260,7 +260,14 @@ class ApiUserControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testResettingPasswordUnlocksAccount() {
-        $this->testAccountIsBlockedAfterThreeUnsuccessfulLogins();
+        $this->testGeneratesForgottenPasswordTokenForValidUser();
+        $client = $this->createHttpsClient();
+        for ($attempt = 0; $attempt < 3; $attempt++) {
+            $this->assertFailedLoginRequest($client);
+        }
+        $client->apiRequest('PUT', '/web-api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSuccessfulLoginRequest($client, self::EMAIL, 'alamapsa');
     }
 
     private function assertSuccessfulLoginRequest(TestClient $client, $username = null, $password = null) {
