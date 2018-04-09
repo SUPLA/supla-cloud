@@ -32,13 +32,12 @@ class AuditIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSavingSimpleAuditEntry() {
-        $this->audit->newEntry(AuditedEvent::AUTHENTICATION())->setTextParam('aaa')->buildAndFlush();
+        $this->audit->newEntry(AuditedEvent::AUTHENTICATION_SUCCESS())->setTextParam('aaa')->buildAndFlush();
         $entries = $this->audit->getRepository()->findAll();
         $this->assertCount(1, $entries);
         /** @var AuditEntry $entry */
         $entry = current($entries);
-        $this->assertEquals(AuditedEvent::AUTHENTICATION(), $entry->getEvent());
+        $this->assertEquals(AuditedEvent::AUTHENTICATION_SUCCESS(), $entry->getEvent());
         $this->assertEquals('aaa', $entry->getTextParam());
-        $this->assertTrue($entry->isSuccessful());
     }
 }

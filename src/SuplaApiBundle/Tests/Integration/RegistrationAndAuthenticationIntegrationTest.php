@@ -231,7 +231,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
-        $this->assertCount(4, $this->audit->getRepository()->findAll());
+        $this->assertCount(7, $this->audit->getRepository()->findAll());
         $latestEntry = $this->getLatestAuditEntry();
         $this->assertEquals(AuthenticationFailureReason::BLOCKED, $latestEntry->getIntParam());
     }
