@@ -158,7 +158,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThanOrEqual(1, count($messages));
         $warnMessage = end($messages);
         $this->assertArrayHasKey(self::EMAIL, $warnMessage->getTo());
-        $this->assertContains('Failed', $warnMessage->getSubject());
+        $this->assertContains('unsuccessful login', $warnMessage->getSubject());
         $this->assertContains('1.2.3.4', $warnMessage->getBody());
     }
 
