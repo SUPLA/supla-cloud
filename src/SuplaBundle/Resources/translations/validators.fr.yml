@@ -1,7 +1,0 @@
-# src/SuplaBundle/Resources/translations/validators.fr.yml
-
-
-The password and its confirm are not the same: Le mot de passe n'est pas le même que sa confirmation
-The password and its confirm are not the same.: Le mot de passe n'est pas le même que sa confirmation.
-The password and its repeat are not the same.: Le mot de passe n'est pas le même que sa répétition.
-Email already exists: Cette adresse e-mail existe déjà
