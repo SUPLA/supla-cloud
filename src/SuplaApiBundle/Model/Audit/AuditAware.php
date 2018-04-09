@@ -1,7 +1,7 @@
 <?php
 namespace SuplaApiBundle\Model\Audit;
 
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 
 trait AuditAware {
     /** @var Audit */
@@ -12,7 +12,7 @@ trait AuditAware {
         $this->audit = $audit;
     }
 
-    public function auditEntry(AuditedAction $action): AuditEntryBuilder {
-        return $this->audit->newEntry($action);
+    public function auditEntry(AuditedEvent $event): AuditEntryBuilder {
+        return $this->audit->newEntry($event);
     }
 }

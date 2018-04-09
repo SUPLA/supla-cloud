@@ -46,11 +46,11 @@ class DefaultController extends Controller {
             return $this->redirectToRoute('_homepage');
         }
         $authenticationUtils = $this->get('security.authentication_utils');
-        $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+        $error = $authenticationUtils->getLastAuthenticationError();
         return [
             'last_username' => $lastUsername,
-            'error' => $error instanceof LockedException ? 'locked' : 'invalid',
+            'error' => $error ? ($error instanceof LockedException ? 'locked' : 'invalid') : false,
         ];
     }
 

@@ -20,7 +20,7 @@ namespace SuplaApiBundle\Tests\Integration;
 use SuplaApiBundle\Model\Audit\Audit;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
@@ -48,7 +48,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $this->assertFailedLoginRequest($client);
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION_FAILURE(), $entry->getAction());
+        $this->assertEquals(AuditedEvent::AUTHENTICATION_FAILURE(), $entry->getEvent());
         $this->assertEquals(self::EMAIL, $entry->getTextParam());
         $this->assertNull($entry->getUser());
         $this->assertEquals(AuthenticationFailureReason::NOT_EXISTS, $entry->getIntParam());
@@ -81,7 +81,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testSavesIncorrectLoginAttemptInAudit() {
         $this->testCannotLoginIfNotConfirmed();
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION_FAILURE(), $entry->getAction());
+        $this->assertEquals(AuditedEvent::AUTHENTICATION_FAILURE(), $entry->getEvent());
         $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
         $this->assertEquals(AuthenticationFailureReason::DISABLED, $entry->getIntParam());
         $this->assertNotNull($entry->getUser());
@@ -123,7 +123,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testSavesCorrectLoginAttemptInAudit() {
         $this->testCanLoginIfConfirmed();
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION_SUCCESS(), $entry->getAction());
+        $this->assertEquals(AuditedEvent::AUTHENTICATION_SUCCESS(), $entry->getEvent());
         $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
@@ -134,7 +134,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $this->assertFailedLoginRequest($client);
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION_FAILURE(), $entry->getAction());
+        $this->assertEquals(AuditedEvent::AUTHENTICATION_FAILURE(), $entry->getEvent());
         $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());

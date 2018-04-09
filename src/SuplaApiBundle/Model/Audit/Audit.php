@@ -3,7 +3,7 @@ namespace SuplaApiBundle\Model\Audit;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaApiBundle\Model\CurrentUserAware;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -34,12 +34,12 @@ class Audit {
         $this->requestStack = $requestStack;
     }
 
-    public function newEntry(AuditedAction $action): AuditEntryBuilder {
+    public function newEntry(AuditedEvent $event): AuditEntryBuilder {
         $request = $this->requestStack->getCurrentRequest();
         return (new AuditEntryBuilder($this->entityManager, $this->timeProvider))
             ->setUser($this->getCurrentUser())
             ->setIpv4($request ? $request->getClientIp() : null)
-            ->setAction($action);
+            ->setEvent($event);
     }
 
     public function getRepository(): AuditEntryRepository {

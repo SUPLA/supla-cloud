@@ -21,7 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaApiBundle\Model\Audit\AuditEntryBuilder;
 use SuplaBundle\Controller\ClientAppController;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 
 class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
@@ -36,41 +36,41 @@ class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
         $this->builder = new AuditEntryBuilder($this->entityManager);
     }
 
-    public function testBuildingWithoutAction() {
+    public function testBuildingWithoutEvent() {
         $this->expectException(\InvalidArgumentException::class);
         $this->builder->build();
     }
 
     public function testBuildingSimpleEntry() {
-        $entry = $this->builder->setAction(AuditedAction::AUTHENTICATION_SUCCESS())->build();
-        $this->assertEquals(AuditedAction::AUTHENTICATION_SUCCESS(), $entry->getAction());
+        $entry = $this->builder->setEvent(AuditedEvent::AUTHENTICATION_SUCCESS())->build();
+        $this->assertEquals(AuditedEvent::AUTHENTICATION_SUCCESS(), $entry->getEvent());
         $this->assertNull($entry->getUser());
     }
 
     public function testBuildingEntryWithUser() {
         $user = $this->createMock(User::class);
-        $entry = $this->builder->setAction(AuditedAction::AUTHENTICATION_SUCCESS())->setUser($user)->build();
+        $entry = $this->builder->setEvent(AuditedEvent::AUTHENTICATION_SUCCESS())->setUser($user)->build();
         $this->assertEquals($user, $entry->getUser());
     }
 
     public function testSettingTextParam() {
-        $entry = $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setTextParam('zamel')->build();
+        $entry = $this->builder->setEvent(AuditedEvent::PASSWORD_RESET())->setTextParam('zamel')->build();
         $this->assertEquals('zamel', $entry->getTextParam());
     }
 
     public function testSettingIntParam() {
-        $entry = $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIntParam(42)->build();
+        $entry = $this->builder->setEvent(AuditedEvent::PASSWORD_RESET())->setIntParam(42)->build();
         $this->assertEquals(42, $entry->getIntParam());
     }
 
     public function testSettingIntParamWithString() {
-        $entry = $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIntParam('42')->build();
+        $entry = $this->builder->setEvent(AuditedEvent::PASSWORD_RESET())->setIntParam('42')->build();
         $this->assertEquals(42, $entry->getIntParam());
     }
 
     public function testSettingIntParamWithEnum() {
         $entry = $this->builder
-            ->setAction(AuditedAction::PASSWORD_RESET())
+            ->setEvent(AuditedEvent::PASSWORD_RESET())
             ->setIntParam(ChannelFunction::CONTROLLINGTHEGARAGEDOOR())
             ->build();
         $this->assertEquals(ChannelFunction::CONTROLLINGTHEGARAGEDOOR, $entry->getIntParam());
@@ -78,16 +78,16 @@ class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
 
     public function testSettingIntParamWithInvalidNumber() {
         $this->expectException(\InvalidArgumentException::class);
-        $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIntParam('zamel')->build();
+        $this->builder->setEvent(AuditedEvent::PASSWORD_RESET())->setIntParam('zamel')->build();
     }
 
     public function testSettingIpv4() {
-        $entry = $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIpv4('10.0.0.1')->build();
+        $entry = $this->builder->setEvent(AuditedEvent::PASSWORD_RESET())->setIpv4('10.0.0.1')->build();
         $this->assertEquals(167772161, $entry->getIpv4());
     }
 
     public function testSettingEmptyIpv4() {
-        $entry = $this->builder->setAction(AuditedAction::PASSWORD_RESET())->setIpv4('')->build();
+        $entry = $this->builder->setEvent(AuditedEvent::PASSWORD_RESET())->setIpv4('')->build();
         $this->assertNull($entry->getIpv4());
     }
 }

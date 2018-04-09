@@ -28,7 +28,7 @@ use SuplaApiBundle\Model\Audit\AuditAware;
 use SuplaBundle\Controller\AjaxController;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\LocaleListener;
@@ -192,14 +192,14 @@ class ApiUserController extends RestController {
     }
 
     public function getUsersCurrentAuditAction(Request $request) {
-        $actions = $request->get('actions', []);
-        Assertion::isArray($actions);
-        $actions = array_map(function ($action) {
-            return (AuditedAction::isValidKey($action) ? AuditedAction::$action() : new AuditedAction($action))->getValue();
-        }, $actions);
+        $events = $request->get('events', []);
+        Assertion::isArray($events);
+        $events = array_map(function ($event) {
+            return (AuditedEvent::isValidKey($event) ? AuditedEvent::$event() : new AuditedEvent($event))->getValue();
+        }, $events);
         $criteria = Criteria::create()->orderBy(['createdAt' => 'DESC']);
-        if ($actions) {
-            $criteria->where(Criteria::expr()->in('action', $actions));
+        if ($events) {
+            $criteria->where(Criteria::expr()->in('event', $events));
         }
         $criteria->setMaxResults(2); // currently used only for displaying last IPs
         $entries = $this->auditEntryRepository->matching($criteria);
@@ -323,7 +323,7 @@ class ApiUserController extends RestController {
                     $user->setToken(null);
                     $user->setPasswordRequestedAt(null);
                     $this->userManager->setPassword($password, $user, true);
-                    $this->auditEntry(AuditedAction::PASSWORD_RESET())
+                    $this->auditEntry(AuditedEvent::PASSWORD_RESET())
                         ->setTextParam($user->getUsername())
                         ->setUser($user)
                         ->buildAndFlush();

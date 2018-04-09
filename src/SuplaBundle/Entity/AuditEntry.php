@@ -18,13 +18,13 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AuditEntryRepository")
  * @ORM\Table(name="supla_audit", indexes={
- *     @ORM\Index(name="supla_audit_action_idx", columns={"action"}),
+ *     @ORM\Index(name="supla_audit_event_idx", columns={"event"}),
  *     @ORM\Index(name="supla_audit_ipv4_idx", columns={"ipv4"}),
  *     @ORM\Index(name="supla_audit_created_at_idx", columns={"created_at"})
  * })
@@ -38,10 +38,10 @@ class AuditEntry {
     private $id;
 
     /**
-     * @ORM\Column(name="action", type="smallint", options={"unsigned"=true})
+     * @ORM\Column(name="event", type="smallint", options={"unsigned"=true})
      * @Groups({"basic"})
      */
-    private $action;
+    private $event;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="auditEntries")
@@ -73,8 +73,8 @@ class AuditEntry {
      */
     private $intParam;
 
-    public function __construct(\DateTime $createdAt, AuditedAction $action, $user, $ipv4, $textParam, $intParam) {
-        $this->action = $action->getId();
+    public function __construct(\DateTime $createdAt, AuditedEvent $event, $user, $ipv4, $textParam, $intParam) {
+        $this->event = $event->getId();
         $this->user = $user;
         $this->ipv4 = $ipv4;
         $this->textParam = $textParam;
@@ -86,8 +86,8 @@ class AuditEntry {
         return $this->id;
     }
 
-    public function getAction(): AuditedAction {
-        return new AuditedAction($this->action);
+    public function getEvent(): AuditedEvent {
+        return new AuditedEvent($this->event);
     }
 
     /** @return User|null */

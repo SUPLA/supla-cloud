@@ -63,7 +63,7 @@
             this.$http.get('users/current').then(response => {
                 this.user = response.body;
             });
-            this.$http.get('users/current/audit', {params: {actions: ['AUTHENTICATION']}}).then(response => {
+            this.$http.get('users/current/audit', {params: {events: ['AUTHENTICATION_SUCCESS']}}).then(response => {
                 this.authAttempts = response.body;
             });
         },

@@ -18,7 +18,7 @@
 namespace SuplaBundle\EventListener;
 
 use SuplaApiBundle\Model\Audit\AuditAware;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
@@ -35,7 +35,7 @@ class UserLoginAttemptListener {
     }
 
     public function onAuthenticationSuccess(InteractiveLoginEvent $event) {
-        $this->auditEntry(AuditedAction::AUTHENTICATION_SUCCESS())
+        $this->auditEntry(AuditedEvent::AUTHENTICATION_SUCCESS())
             ->setTextParam($event->getAuthenticationToken()->getUsername())
             ->buildAndFlush();
     }
@@ -43,7 +43,7 @@ class UserLoginAttemptListener {
     public function onAuthenticationFailure(AuthenticationFailureEvent $event) {
         $user = $this->userRepository->findOneByEmail($event->getAuthenticationToken()->getUsername());
         $reason = AuthenticationFailureReason::fromException($event->getAuthenticationException());
-        $this->auditEntry(AuditedAction::AUTHENTICATION_FAILURE())
+        $this->auditEntry(AuditedEvent::AUTHENTICATION_FAILURE())
             ->setTextParam($event->getAuthenticationToken()->getUsername())
             ->setIntParam($reason->getValue())
             ->setUser($user)

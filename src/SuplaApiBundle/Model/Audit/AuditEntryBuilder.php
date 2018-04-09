@@ -6,17 +6,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use MyCLabs\Enum\Enum;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\TimeProvider;
 
 class AuditEntryBuilder {
-    /** @var AuditedAction */
-    private $action;
+    /** @var AuditedEvent */
+    private $event;
     /** @var User|null */
     private $user;
     private $textParam;
     private $intParam;
-    private $successful = true;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -29,8 +28,8 @@ class AuditEntryBuilder {
         $this->timeProvider = $timeProvider ?: new TimeProvider();
     }
 
-    public function setAction(AuditedAction $action): AuditEntryBuilder {
-        $this->action = $action;
+    public function setEvent(AuditedEvent $event): AuditEntryBuilder {
+        $this->event = $event;
         return $this;
     }
 
@@ -60,10 +59,10 @@ class AuditEntryBuilder {
     }
 
     public function build(): AuditEntry {
-        Assertion::notNull($this->action, 'Audit Entry must have an action.');
+        Assertion::notNull($this->event, 'Audit Entry must have an event.');
         return new AuditEntry(
             $this->timeProvider->getDateTime(),
-            $this->action,
+            $this->event,
             $this->user,
             $this->ipv4,
             $this->textParam,

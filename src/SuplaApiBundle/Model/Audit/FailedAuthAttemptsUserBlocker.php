@@ -2,7 +2,8 @@
 namespace SuplaApiBundle\Model\Audit;
 
 use Doctrine\Common\Collections\Criteria;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Entity\AuditEntry;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -42,10 +43,10 @@ class FailedAuthAttemptsUserBlocker {
         $considerEntriesOlderThan = $this->timeProvider
             ->getDateTime(\DateInterval::createFromDateString("-$this->blockTimeInSeconds seconds"));
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->in('action', [
-                AuditedAction::AUTHENTICATION_SUCCESS,
-                AuditedAction::AUTHENTICATION_FAILURE,
-                AuditedAction::PASSWORD_RESET,
+            ->where(Criteria::expr()->in('event', [
+                AuditedEvent::AUTHENTICATION_SUCCESS,
+                AuditedEvent::AUTHENTICATION_FAILURE,
+                AuditedEvent::PASSWORD_RESET,
             ]))
             ->andWhere(Criteria::expr()->gte('createdAt', $considerEntriesOlderThan))
             ->andWhere(Criteria::expr()->eq('textParam', $username))
@@ -62,7 +63,8 @@ class FailedAuthAttemptsUserBlocker {
         $authEntries = $this->auditEntryRepository->matching($criteria);
         if (count($authEntries) === $this->maxFailedAttempts) {
             foreach ($authEntries as $entry) {
-                if ($entry->getAction() != AuditedAction::AUTHENTICATION_FAILURE()) {
+                /** @var AuditEntry $entry */
+                if ($entry->getEvent() != AuditedEvent::AUTHENTICATION_FAILURE()) {
                     return false;
                 }
             }

@@ -19,7 +19,7 @@ namespace SuplaApiBundle\Tests\Integration\Model\Audit;
 
 use SuplaApiBundle\Model\Audit\Audit;
 use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Enums\AuditedAction;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
 class AuditIntegrationTest extends IntegrationTestCase {
@@ -32,12 +32,12 @@ class AuditIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSavingSimpleAuditEntry() {
-        $this->audit->newEntry(AuditedAction::AUTHENTICATION())->setTextParam('aaa')->buildAndFlush();
+        $this->audit->newEntry(AuditedEvent::AUTHENTICATION())->setTextParam('aaa')->buildAndFlush();
         $entries = $this->audit->getRepository()->findAll();
         $this->assertCount(1, $entries);
         /** @var AuditEntry $entry */
         $entry = current($entries);
-        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
+        $this->assertEquals(AuditedEvent::AUTHENTICATION(), $entry->getEvent());
         $this->assertEquals('aaa', $entry->getTextParam());
         $this->assertTrue($entry->isSuccessful());
     }
