@@ -49,7 +49,7 @@
             <div class="error locked"
                 v-if="displayError == 'locked'">
                 <strong>{{ $t('Your account has been locked.') }}</strong>
-                {{ $t('Please wait a while before the next login attempt.') }}
+                {{ $t('Please wait a moment before the next login attempt.') }}
             </div>
             <router-link to="/forgotten-password"
                 class="error"
