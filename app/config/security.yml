@@ -38,4 +38,4 @@ security:
 
   providers:
     supla_db_provider:
-      id: 'SuplaBundle\Repository\UserRepository'
+      id: 'SuplaBundle\Repository\UserProvider'

@@ -149,6 +149,7 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Schedule]
 
+  SuplaBundle\Repository\UserProvider: ~
   SuplaBundle\Repository\UserRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\User]
