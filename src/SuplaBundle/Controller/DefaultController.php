@@ -19,12 +19,19 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\LockedException;
 
 class DefaultController extends Controller {
+    /** @var FailedAuthAttemptsUserBlocker */
+    private $failedAuthAttemptsUserBlocker;
+
+    public function __construct(FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker) {
+        $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
+    }
+
     /**
      * @Route("/auth/create", name="_auth_create")
      * @Route("/account/create", name="_account_create")
@@ -48,9 +55,13 @@ class DefaultController extends Controller {
         $authenticationUtils = $this->get('security.authentication_utils');
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
+        if ($error) {
+            $isBlocked = $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername);
+            $error = $isBlocked ? 'locked' : 'invalid';
+        }
         return [
             'last_username' => $lastUsername,
-            'error' => $error ? ($error instanceof LockedException ? 'locked' : 'invalid') : false,
+            'error' => $error,
         ];
     }
 
