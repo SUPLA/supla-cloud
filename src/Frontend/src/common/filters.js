@@ -29,3 +29,4 @@ Vue.filter('withBaseUrl', withBaseUrl);
 Vue.filter('intToIp', intToIp);
 Vue.filter('channelTitle', channelTitle);
 Vue.filter('deviceTitle', deviceTitle);
+Vue.filter('toUpperCase', (text) => text.toUpperCase());

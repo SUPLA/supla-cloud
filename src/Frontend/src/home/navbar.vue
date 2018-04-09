@@ -94,19 +94,12 @@
                                 </a>
                             </router-link>
                             <li class="divider"></li>
-                            <li class="flags">
+                            <li class="flags"
+                                v-for="flagsRow in [['en', 'pl', 'cs'], ['ru', 'de', 'it'], ['pt', 'es', 'fr']]">
                                 <router-link :to="{query: { lang: flag }}"
-                                    v-for="flag in ['en', 'pl', 'ru', 'de']"
+                                    v-for="flag in flagsRow"
                                     :key="flag"
-                                    :class="(currentLocale == flag ? 'active' : '')"
-                                    @click.native="reloadPage()">
-                                    <img :src="`assets/img/flags/${flag}.svg` | withBaseUrl">
-                                </router-link>
-                            </li>
-                            <li class="flags">
-                                <router-link :to="{query: { lang: flag }}"
-                                    v-for="flag in ['it', 'pt', 'es', 'fr']"
-                                    :key="flag"
+                                    :title="flag | toUpperCase"
                                     :class="(currentLocale == flag ? 'active' : '')"
                                     @click.native="reloadPage()">
                                     <img :src="`assets/img/flags/${flag}.svg` | withBaseUrl">
