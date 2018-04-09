@@ -42,6 +42,11 @@ class Configuration implements ConfigurationInterface {
                         ->integerNode('manual')->defaultFalse(86400)->end()
                     ->end()->end()
                 ->end()->end()
+                ->arrayNode('brute_force_auth_prevention')->children()
+                    ->booleanNode('enabled')->defaultFalse()->end()
+                    ->integerNode('max_failed_attempts')->defaultValue(3)->end()
+                    ->integerNode('block_time_seconds')->defaultValue(1200)->end() // default 20 minutes
+                ->end()->end()
             ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd

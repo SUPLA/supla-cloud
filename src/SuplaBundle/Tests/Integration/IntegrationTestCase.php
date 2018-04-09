@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration;
 
+use SuplaApiBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -31,6 +33,8 @@ abstract class IntegrationTestCase extends WebTestCase {
     private $application;
 
     public function prepareIntegrationTest() {
+        TestTimeProvider::reset();
+        TestMailer::reset();
         $client = self::createClient(['debug' => false]);
         $this->container = $client->getContainer();
         $kernel = $client->getKernel();

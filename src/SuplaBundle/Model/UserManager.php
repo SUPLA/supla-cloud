@@ -134,8 +134,6 @@ class UserManager {
         return $this->rep->findOneBy([
             'token' => $token,
             'enabled' => 0,
-            'currentLogin' => null,
-            'lastLogin' => null,
             'passwordRequestedAt' => null,
         ]);
     }

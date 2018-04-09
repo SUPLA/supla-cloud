@@ -46,9 +46,14 @@
                     </button>
                 </div>
             </form>
+            <div class="error locked"
+                v-if="displayError == 'locked'">
+                <strong>{{ $t('Your account has been locked.') }}</strong>
+                {{ $t('Please wait a while before the next login attempt.') }}
+            </div>
             <router-link to="/forgotten-password"
                 class="error"
-                v-if="displayError">
+                v-else-if="displayError">
                 <strong>{{ $t('Forgot your password?') }}</strong>
                 {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
@@ -82,7 +87,7 @@
                 authenticating: false,
                 username: $('#login-error').attr('last-username') || '',
                 password: '',
-                displayError: !!$('#login-error').attr('error'),
+                displayError: $('#login-error').attr('error'),
             };
         },
         methods: {
@@ -181,6 +186,10 @@
             border-radius: 3px;
             color: $supla-black;
             margin-bottom: 20px;
+            &.locked {
+                background: $supla-red;
+                color: $supla-white;
+            }
         }
     }
 </style>

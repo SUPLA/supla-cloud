@@ -28,7 +28,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Email already exists")
  * @ORM\Table(name="supla_user", indexes={
  *     @ORM\Index(name="client_reg_enabled_idx", columns={"client_reg_enabled"}),
@@ -86,26 +86,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @Assert\NotBlank()
      */
     private $regDate;
-
-    /**
-     * @ORM\Column(name="last_login", type="utcdatetime", nullable=true)
-     */
-    private $lastLogin;
-
-    /**
-     * @ORM\Column(name="last_ipv4", type="integer", nullable=true, options={"unsigned"=true})
-     */
-    private $lastIpv4;
-
-    /**
-     * @ORM\Column(name="current_login", type="utcdatetime", nullable=true)
-     */
-    private $currentLogin;
-
-    /**
-     * @ORM\Column(name="current_ipv4", type="integer", nullable=true, options={"unsigned"=true})
-     */
-    private $currentIpv4;
 
     /**
      * @ORM\Column(name="token", type="string")
@@ -200,6 +180,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $channelGroups;
 
     /**
+     * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
+     **/
+    private $auditEntries;
+
+    /**
      * @ORM\Column(name="iodevice_reg_enabled", type="utcdatetime", nullable=true)
      * @Groups({"basic"})
      */
@@ -239,7 +224,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
-        $this->lastLogin = null;
         $this->enabled = false;
         $this->setTimezone(null);
     }
@@ -303,57 +287,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      */
     public function getRegDate() {
         return $this->regDate;
-    }
-
-    /**
-     * Gets the last login time.
-     *
-     * @return \DateTime
-     */
-    public function getLastLogin() {
-        return $this->lastLogin;
-    }
-
-    public function setLastLogin(\DateTime $time) {
-        $this->lastLogin = $time;
-
-        return $this;
-    }
-
-    public function getLastIpv4() {
-        return long2ip($this->lastIpv4);
-    }
-
-    public function setLastIpv4($ipstring) {
-        $this->lastIpv4 = ip2long($ipstring);
-    }
-
-    /**
-     * Gets the current login time.
-     *
-     * @return \DateTime
-     */
-    public function getCurrentLogin() {
-        return $this->currentLogin;
-    }
-
-    public function setCurrentLogin(\DateTime $time) {
-        $this->currentLogin = $time;
-
-        return $this;
-    }
-
-    public function getCurrentIpv4() {
-        return long2ip($this->currentIpv4);
-    }
-
-    public function setCurrentIpv4($ipstring) {
-        $this->currentIpv4 = ip2long($ipstring);
-    }
-
-    public function moveCurrentLoginToLastLogin() {
-        $this->lastLogin = $this->currentLogin;
-        $this->lastIpv4 = $this->currentIpv4;
     }
 
     public function getToken() {

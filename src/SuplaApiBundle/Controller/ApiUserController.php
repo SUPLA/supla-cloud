@@ -19,19 +19,23 @@ namespace SuplaApiBundle\Controller;
 
 use Assert\Assert;
 use Assert\Assertion;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use ReCaptcha\ReCaptcha;
 use SuplaApiBundle\Exception\ApiException;
+use SuplaApiBundle\Model\Audit\AuditAware;
 use SuplaBundle\Controller\AjaxController;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,14 +43,18 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ApiUserController extends RestController {
     use Transactional;
+    use AuditAware;
 
     private $serverList;
     /** @var UserManager */
     private $userManager;
+    /** @var AuditEntryRepository */
+    private $auditEntryRepository;
 
-    public function __construct(ServerList $serverList, UserManager $userManager) {
+    public function __construct(ServerList $serverList, UserManager $userManager, AuditEntryRepository $auditEntryRepository) {
         $this->serverList = $serverList;
         $this->userManager = $userManager;
+        $this->auditEntryRepository = $auditEntryRepository;
     }
 
     /**
@@ -180,7 +188,22 @@ class ApiUserController extends RestController {
             $enabled = $apiManager->setEnabled(!$apiUser->isEnabled(), $apiUser, true);
             return ['enabled' => $enabled];
         }
-        Assertion::true(false);
+        Assertion::true(false, "Invalid action given: $action");
+    }
+
+    public function getUsersCurrentAuditAction(Request $request) {
+        $events = $request->get('events', []);
+        Assertion::isArray($events);
+        $events = array_map(function ($event) {
+            return (AuditedEvent::isValidKey($event) ? AuditedEvent::$event() : new AuditedEvent($event))->getValue();
+        }, $events);
+        $criteria = Criteria::create()->orderBy(['createdAt' => 'DESC']);
+        if ($events) {
+            $criteria->where(Criteria::expr()->in('event', $events));
+        }
+        $criteria->setMaxResults(2); // currently used only for displaying last IPs
+        $entries = $this->auditEntryRepository->matching($criteria);
+        return $this->view($entries, Response::HTTP_OK);
     }
 
     private function assertNotApiUser() {
@@ -239,7 +262,7 @@ class ApiUserController extends RestController {
         if ($serverList->getAutodiscover()->enabled()) {
             $serverList->getAutodiscover()->registerUser($user);
         }
-        
+
         // send email
         $mailer = $this->get('supla_mailer');
         $sent = $mailer->sendConfirmationEmailMessage($user);
@@ -300,6 +323,10 @@ class ApiUserController extends RestController {
                     $user->setToken(null);
                     $user->setPasswordRequestedAt(null);
                     $this->userManager->setPassword($password, $user, true);
+                    $this->auditEntry(AuditedEvent::PASSWORD_RESET())
+                        ->setTextParam($user->getUsername())
+                        ->setUser($user)
+                        ->buildAndFlush();
                 }
             }
         }

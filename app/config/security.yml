@@ -6,6 +6,7 @@ security:
     SuplaBundle\Entity\User: bcrypt
     legacy_encoder: md5
   erase_credentials: false # in order to migrate legacy passwords
+  hide_user_not_found: false
 
   firewalls:
     api:
@@ -20,7 +21,6 @@ security:
       form_login:
         check_path: _auth_login
         login_path: _auth_login
-        success_handler: SuplaBundle\Handler\AuthHandler
         require_previous_session: false
       logout:
         path: /auth/logout
@@ -38,6 +38,4 @@ security:
 
   providers:
     supla_db_provider:
-      entity:
-        class: "SuplaBundle:User"
-        property: email
+      id: 'SuplaBundle\Repository\UserProvider'

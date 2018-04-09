@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Mailer;
 
+use SuplaBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -137,6 +138,13 @@ class SuplaMailer {
         );
     }
 
-    public function test() {
+    public function sendFailedAuthenticationAttemptWarning(User $user, $ip) {
+        $this->sendEmailMessage(
+            'failed_auth_attempt.txt.twig',
+            '',
+            $this->mailer_from,
+            $user->getEmail(),
+            ['user' => $user, 'ip' => is_numeric($ip) ? long2ip($ip) : '']
+        );
     }
 }

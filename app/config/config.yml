@@ -83,6 +83,10 @@ sensio_framework_extra:
   request: { converters: true }
 
 supla:
+  brute_force_auth_prevention:
+    enabled: '%brute_force_auth_prevention_enabled%'
+    max_failed_attempts: 3
+    block_time_seconds: 1200
   clients_registration:
     registration_active_time:
       initial: 604800 # 1 week

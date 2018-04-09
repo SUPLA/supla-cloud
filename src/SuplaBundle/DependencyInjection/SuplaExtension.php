@@ -40,5 +40,14 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.io_devices_registration.registration_active_time.manual',
             $mergedConfig['io_devices_registration']['registration_active_time']['manual']
         );
+        $container->setParameter('supla.brute_force_auth_prevention.enabled', $mergedConfig['brute_force_auth_prevention']['enabled']);
+        $container->setParameter(
+            'supla.brute_force_auth_prevention.max_failed_attempts',
+            $mergedConfig['brute_force_auth_prevention']['max_failed_attempts']
+        );
+        $container->setParameter(
+            'supla.brute_force_auth_prevention.block_time_seconds',
+            $mergedConfig['brute_force_auth_prevention']['block_time_seconds']
+        );
     }
 }
