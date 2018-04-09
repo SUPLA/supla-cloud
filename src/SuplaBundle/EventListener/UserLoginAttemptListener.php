@@ -20,6 +20,7 @@ namespace SuplaBundle\EventListener;
 use SuplaApiBundle\Model\Audit\AuditAware;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
+use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -29,9 +30,12 @@ class UserLoginAttemptListener {
 
     /** @var UserRepository */
     private $userRepository;
+    /** @var SuplaMailer */
+    private $mailer;
 
-    public function __construct(UserRepository $userRepository) {
+    public function __construct(UserRepository $userRepository, SuplaMailer $mailer) {
         $this->userRepository = $userRepository;
+        $this->mailer = $mailer;
     }
 
     public function onAuthenticationSuccess(InteractiveLoginEvent $event) {
@@ -43,10 +47,13 @@ class UserLoginAttemptListener {
     public function onAuthenticationFailure(AuthenticationFailureEvent $event) {
         $user = $this->userRepository->findOneByEmail($event->getAuthenticationToken()->getUsername());
         $reason = AuthenticationFailureReason::fromException($event->getAuthenticationException());
-        $this->auditEntry(AuditedEvent::AUTHENTICATION_FAILURE())
+        $entry = $this->auditEntry(AuditedEvent::AUTHENTICATION_FAILURE())
             ->setTextParam($event->getAuthenticationToken()->getUsername())
             ->setIntParam($reason->getValue())
             ->setUser($user)
             ->buildAndFlush();
+        if ($user && $entry->getIntParam() != AuthenticationFailureReason::BLOCKED) {
+            $this->mailer->sendFailedAuthenticationAttemptWarning($user, $entry->getIpv4());
+        }
     }
 }

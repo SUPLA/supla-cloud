@@ -70,12 +70,15 @@ class AuditEntryBuilder {
         );
     }
 
-    public function buildAndSave() {
-        $this->entityManager->persist($this->build());
+    public function buildAndSave(): AuditEntry {
+        $entry = $this->build();
+        $this->entityManager->persist($entry);
+        return $entry;
     }
 
-    public function buildAndFlush() {
-        $this->buildAndSave();
+    public function buildAndFlush(): AuditEntry {
+        $entry = $this->buildAndSave();
         $this->entityManager->flush();
+        return $entry;
     }
 }
