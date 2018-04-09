@@ -48,8 +48,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $this->assertFailedLoginRequest($client);
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
-        $this->assertFalse($entry->isSuccessful());
+        $this->assertEquals(AuditedAction::AUTHENTICATION_FAILURE(), $entry->getAction());
         $this->assertEquals(self::EMAIL, $entry->getTextParam());
         $this->assertNull($entry->getUser());
         $this->assertEquals(AuthenticationFailureReason::NOT_EXISTS, $entry->getIntParam());
@@ -82,8 +81,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testSavesIncorrectLoginAttemptInAudit() {
         $this->testCannotLoginIfNotConfirmed();
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
-        $this->assertFalse($entry->isSuccessful());
+        $this->assertEquals(AuditedAction::AUTHENTICATION_FAILURE(), $entry->getAction());
         $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
         $this->assertEquals(AuthenticationFailureReason::DISABLED, $entry->getIntParam());
         $this->assertNotNull($entry->getUser());
@@ -125,8 +123,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testSavesCorrectLoginAttemptInAudit() {
         $this->testCanLoginIfConfirmed();
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
-        $this->assertTrue($entry->isSuccessful());
+        $this->assertEquals(AuditedAction::AUTHENTICATION_SUCCESS(), $entry->getAction());
         $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
@@ -137,8 +134,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $this->assertFailedLoginRequest($client);
         $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
-        $this->assertFalse($entry->isSuccessful());
+        $this->assertEquals(AuditedAction::AUTHENTICATION_FAILURE(), $entry->getAction());
         $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
@@ -222,7 +218,6 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
         $this->assertCount(4, $this->audit->getRepository()->findAll());
         $latestEntry = $this->getLatestAuditEntry();
-        $this->assertFalse($latestEntry->isSuccessful());
         $this->assertEquals(AuthenticationFailureReason::BLOCKED, $latestEntry->getIntParam());
     }
 

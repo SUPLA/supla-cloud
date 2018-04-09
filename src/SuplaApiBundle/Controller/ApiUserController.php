@@ -309,11 +309,6 @@ class ApiUserController extends RestController {
                     $request->setLocale($data['locale']);
                 }
                 $user = $this->userManager->userByEmail($username);
-                $this->auditEntry(AuditedAction::PASSWORD_RESET_REQUEST())
-                    ->setTextParam($username)
-                    ->setUser($user)
-                    ->setSuccessful(!!$user)
-                    ->buildAndFlush();
                 if ($user && $this->userManager->paswordRequest($user) === true) {
                     $mailer = $this->get('supla_mailer');
                     $mailer->sendResetPasswordEmailMessage($user);

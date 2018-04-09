@@ -35,7 +35,7 @@ class UserLoginAttemptListener {
     }
 
     public function onAuthenticationSuccess(InteractiveLoginEvent $event) {
-        $this->auditEntry(AuditedAction::AUTHENTICATION())
+        $this->auditEntry(AuditedAction::AUTHENTICATION_SUCCESS())
             ->setTextParam($event->getAuthenticationToken()->getUsername())
             ->buildAndFlush();
     }
@@ -43,11 +43,10 @@ class UserLoginAttemptListener {
     public function onAuthenticationFailure(AuthenticationFailureEvent $event) {
         $user = $this->userRepository->findOneByEmail($event->getAuthenticationToken()->getUsername());
         $reason = AuthenticationFailureReason::fromException($event->getAuthenticationException());
-        $this->auditEntry(AuditedAction::AUTHENTICATION())
+        $this->auditEntry(AuditedAction::AUTHENTICATION_FAILURE())
             ->setTextParam($event->getAuthenticationToken()->getUsername())
             ->setIntParam($reason->getValue())
             ->setUser($user)
-            ->unsuccessful()
             ->buildAndFlush();
     }
 }

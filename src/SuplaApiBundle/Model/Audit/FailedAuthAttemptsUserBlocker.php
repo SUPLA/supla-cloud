@@ -42,7 +42,11 @@ class FailedAuthAttemptsUserBlocker {
         $considerEntriesOlderThan = $this->timeProvider
             ->getDateTime(\DateInterval::createFromDateString("-$this->blockTimeInSeconds seconds"));
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->in('action', [AuditedAction::AUTHENTICATION, AuditedAction::PASSWORD_RESET]))
+            ->where(Criteria::expr()->in('action', [
+                AuditedAction::AUTHENTICATION_SUCCESS,
+                AuditedAction::AUTHENTICATION_FAILURE,
+                AuditedAction::PASSWORD_RESET,
+            ]))
             ->andWhere(Criteria::expr()->gte('createdAt', $considerEntriesOlderThan))
             ->andWhere(Criteria::expr()->eq('textParam', $username))
             ->andWhere(Criteria::expr()->orX(
@@ -58,7 +62,7 @@ class FailedAuthAttemptsUserBlocker {
         $authEntries = $this->auditEntryRepository->matching($criteria);
         if (count($authEntries) === $this->maxFailedAttempts) {
             foreach ($authEntries as $entry) {
-                if ($entry->isSuccessful()) {
+                if ($entry->getAction() != AuditedAction::AUTHENTICATION_FAILURE()) {
                     return false;
                 }
             }

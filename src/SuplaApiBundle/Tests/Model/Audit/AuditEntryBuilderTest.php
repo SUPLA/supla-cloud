@@ -42,21 +42,15 @@ class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testBuildingSimpleEntry() {
-        $entry = $this->builder->setAction(AuditedAction::AUTHENTICATION())->build();
-        $this->assertEquals(AuditedAction::AUTHENTICATION(), $entry->getAction());
+        $entry = $this->builder->setAction(AuditedAction::AUTHENTICATION_SUCCESS())->build();
+        $this->assertEquals(AuditedAction::AUTHENTICATION_SUCCESS(), $entry->getAction());
         $this->assertNull($entry->getUser());
-        $this->assertTrue($entry->isSuccessful());
     }
 
     public function testBuildingEntryWithUser() {
         $user = $this->createMock(User::class);
-        $entry = $this->builder->setAction(AuditedAction::AUTHENTICATION())->setUser($user)->build();
+        $entry = $this->builder->setAction(AuditedAction::AUTHENTICATION_SUCCESS())->setUser($user)->build();
         $this->assertEquals($user, $entry->getUser());
-    }
-
-    public function testUnsuccessful() {
-        $entry = $this->builder->setAction(AuditedAction::AUTHENTICATION())->unsuccessful()->build();
-        $this->assertFalse($entry->isSuccessful());
     }
 
     public function testSettingTextParam() {

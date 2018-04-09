@@ -21,13 +21,13 @@ use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @method static AuditedAction AUTHENTICATION()
- * @method static AuditedAction PASSWORD_RESET_REQUEST()
+ * @method static AuditedAction AUTHENTICATION_SUCCESS()
+ * @method static AuditedAction AUTHENTICATION_FAILURE()
  * @method static AuditedAction PASSWORD_RESET()
  */
 final class AuditedAction extends Enum {
-    const AUTHENTICATION = 1;
-    const PASSWORD_RESET_REQUEST = 2;
+    const AUTHENTICATION_SUCCESS = 1;
+    const AUTHENTICATION_FAILURE = 2;
     const PASSWORD_RESET = 3;
 
     /** @Groups({"basic"}) */

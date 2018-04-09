@@ -24,6 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AuditEntryRepository")
  * @ORM\Table(name="supla_audit", indexes={
+ *     @ORM\Index(name="supla_audit_action_idx", columns={"action"}),
  *     @ORM\Index(name="supla_audit_ipv4_idx", columns={"ipv4"}),
  *     @ORM\Index(name="supla_audit_created_at_idx", columns={"created_at"})
  * })
@@ -37,7 +38,7 @@ class AuditEntry {
     private $id;
 
     /**
-     * @ORM\Column(name="action", type="integer")
+     * @ORM\Column(name="action", type="smallint", options={"unsigned"=true})
      * @Groups({"basic"})
      */
     private $action;
@@ -53,12 +54,6 @@ class AuditEntry {
      * @Groups({"basic"})
      */
     private $createdAt;
-
-    /**
-     * @ORM\Column(name="successful", type="boolean", options={"default"=true})
-     * @Groups({"basic"})
-     */
-    private $successful = true;
 
     /**
      * @ORM\Column(name="ipv4", type="integer", nullable=true, options={"unsigned"=true})
@@ -78,11 +73,10 @@ class AuditEntry {
      */
     private $intParam;
 
-    public function __construct(\DateTime $createdAt, AuditedAction $action, $user, $ipv4, bool $successful, $textParam, $intParam) {
+    public function __construct(\DateTime $createdAt, AuditedAction $action, $user, $ipv4, $textParam, $intParam) {
         $this->action = $action->getId();
         $this->user = $user;
         $this->ipv4 = $ipv4;
-        $this->successful = $successful;
         $this->textParam = $textParam;
         $this->intParam = $intParam;
         $this->createdAt = $createdAt;
@@ -103,10 +97,6 @@ class AuditEntry {
 
     public function getCreatedAt(): \DateTime {
         return $this->createdAt;
-    }
-
-    public function isSuccessful(): bool {
-        return $this->successful;
     }
 
     public function getIpv4() {

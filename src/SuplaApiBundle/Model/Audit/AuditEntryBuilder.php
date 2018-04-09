@@ -45,15 +45,6 @@ class AuditEntryBuilder {
         return $this;
     }
 
-    public function setSuccessful(bool $successful): AuditEntryBuilder {
-        $this->successful = $successful;
-        return $this;
-    }
-
-    public function unsuccessful(): AuditEntryBuilder {
-        return $this->setSuccessful(false);
-    }
-
     public function setTextParam(string $value): AuditEntryBuilder {
         $this->textParam = $value;
         return $this;
@@ -75,7 +66,6 @@ class AuditEntryBuilder {
             $this->action,
             $this->user,
             $this->ipv4,
-            $this->successful,
             $this->textParam,
             $this->intParam
         );
