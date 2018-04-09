@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration\Controller;
+namespace SuplaApiBundle\Tests\Integration;
 
 use SuplaApiBundle\Model\Audit\Audit;
 use SuplaBundle\Entity\AuditEntry;
@@ -27,7 +27,7 @@ use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
-class ApiUserControllerIntegrationTest extends IntegrationTestCase {
+class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
 
     const EMAIL = 'cooltester@supla.org';
