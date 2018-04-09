@@ -221,6 +221,21 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(AuthenticationFailureReason::BLOCKED, $latestEntry->getIntParam());
     }
 
+    public function testAccountIsBlockedAfterThreeSuccessfulAndUnsuccessfulLogins() {
+        $this->testConfirmingWithGoodToken();
+        $client = $this->createHttpsClient();
+        $this->assertSuccessfulLoginRequest($client);
+        $this->assertSuccessfulLoginRequest($client);
+        $this->assertSuccessfulLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client);
+        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
+        $this->assertCount(4, $this->audit->getRepository()->findAll());
+        $latestEntry = $this->getLatestAuditEntry();
+        $this->assertEquals(AuthenticationFailureReason::BLOCKED, $latestEntry->getIntParam());
+    }
+
     public function testIsNotBlockedIfSuccessfulLoginInMeantime() {
         $this->testConfirmingWithGoodToken();
         $client = $this->createHttpsClient();
