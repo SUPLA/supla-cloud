@@ -4,6 +4,7 @@
             @change="updateLocale()">
             <option value="en">English</option>
             <option value="pl">Polski</option>
+            <option value="cz">Čeština</option>
             <option value="ru">Русский</option>
             <option value="de">Deutsch</option>
             <option value="it">Italiano</option>

@@ -1,0 +1,484 @@
+# src/SuplaBundle/Resources/translations/messages.cz.yml
+
+Hi: Ahoj
+Delete: Vymazat
+Caption: Podpis
+Enabled: Aktivován
+Disabled: Deaktivován
+Search: Hledej
+Assigned Locations: Přiřazené umístění
+Password change: Změna hesla
+Timezone: Časová zóna
+Registration: Registrace
+Password Reset: Resetovat heslo
+Enter new password: Zadejte nové heslo
+The password should be 8 or more characters.: Heslo musí mít ninimum 8 znaků.
+Account: Ůčet
+Forgot your password?: Zapoměl jsi heslo?
+Server address: Adresa serveru
+Cancel: Zrušit
+CANCEL: ZRUŠIT
+Are you sure you want to delete?: Jste si jist, že to chcete smazat?
+Relay switching time: Doba sepnutí relé
+Full opening time: Celkový čas otevření
+Full closing time: Celkový čas uzavření
+sec.: sek.
+Download the history of measurement: Stáhnout historii měření
+Open sensor: Snímač otevření
+None: Žádný
+Channel for the sensor: Kanál pro snímač
+Channel: Kanál
+Channel No: Číslo kanálu
+Channel properties: Vlastnosti kanálu
+Device: Zařízení
+Access Identifier: Přístupový identifikátor
+Location Identifier: Identifikátor lokalizace
+Type: Typ
+Number: Číslo
+I/O: Vstup/ Výstup
+Function: Funkce
+Name: Název
+Location: Lokalizace
+Locations: Lokalizace
+No Locations assigned: Žádné lokalizace nebyly přiřazeny
+Location has been changed: Lokalizace byla změněna
+Lack of Locations: Nedostatek míst
+SoftVer: Software
+All: Všechno
+Electric: Elektrika
+Doors, Gates: Dveře, Brány
+Roller shutters: Rolety
+Liquid, Temp: Kapalina, Teplota
+Sensors: Senzory
+No function: Bez funkce
+Connected: Připojeno
+Disconnected: Odpojeno
+unknown: neznámý
+Comment: Komentář
+Channels: Kanály
+I/O Devices: Zařízení vs/vý
+Assigned Access Identifiers: Připsané přístupové identifikátory
+Start Here: Začni tady
+Sign In: Přihlas se
+Sign Out: Odhlas se
+Generate new password: Generuj nové heslo
+Password: Heslo
+Confirm Password: Potvrzení hesla
+SAVE: ULOŽ
+GENERATE: GENERUJ
+ENABLED: ZAPNUTO
+CLICK TO DISABLE: KLIKNI ABY VYPNOUT
+DISABLED: VYPNUTO
+CLICK TO ENABLE: KLIKNI ABY ZAPNOUT
+DELETE: VYMAZAT
+Assign Locations: Připiš lokalizace
+Confirm if you want to remove Access Identifier: Potvrď, jestli chceš odstranit identifikátor přístupu
+Further connection with this Identifier will be impossible: Další spojení s tímto identifikátorem nebude možné
+Choose locations to be assigned to Access Identifier: Vyber lokalizaci, která bude připsána k přístupovému identifikátoru
+Access Identifiers: Identifikátory přístupu
+Create New Access Identifier: Vytvoř nový přístupový identifikátor
+No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Neexistují žádné lokalizace, které byste mohli přiřadit k tomuto přístupu.<br />Přejděte do lokalizací a vytvořte minimálně jednu.
+No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Žádné přístupové ID, které můžete přiřadit k tomuto umístění.<br />Přejděte na přístupové identifikátory a vytvořte minimálně jeden.
+Create New Location: Vytvořte nové umístění
+Assign Access Identifiers: Připište přístupové ID
+Languages: Jazyky
+No I/O Devices: Žádná vs/vý zařízení
+Choose Access Identifiers to be assigned to this Location: Vyberte ID přístupu, které budou k tomuto místu přiřazeny
+Are you sure?: Jste si jisti?
+Lighting: Osvětlení
+Temperature: Teplota
+Humidity: Vlhkost
+Doors and gates: Dveře a brány
+Home appliances: Domácí spotřebiče
+And more: a více
+From anywhere: Odkudkoliv
+With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete ovládat osvětlení ve Vašem domu nebo kanceláři
+...you can monitor temperature: ...můžete sledovat teplotu
+...open gateways, gates or doors: ...otevřít branky, brány a dveře
+...open and shut roller shutters: ...otevírat a zavírat rolety 
+...or control home appliances: ...nebo ovládat domácí spotřebiče
+All the above and many more can be done from your phone or tablet: To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA je k dispozici kdykoli a kdekoli, takže se nebojte, když příště zapomenete vypnout světlo
+Registered: Registrován
+Last connection: Poslední připojení
+Confirm if you want to remove {deviceName} device: Potvrďte, že chcete odebrat zařízení {deviceName}
+All Your I/O Devices: Všechny Vaše Vs/vý zařízení
+Please select function for this channel: Vyberte funkci pro tento kanál
+No Access Identifiers assigned: Žádné připsané přístupové ID
+Lack of Access Identifiers: Žádné přístupové ID
+Change Your Password: Změna hesla
+On your computer...: Ve Vašem počítači...
+On your smartphone...: Ve Vašem smartphonu...
+WELCOME_MESSAGE: |
+  Připojení vašeho domova nebo kanceláře k SUPLI je snadné. Jediné, co musíte udělat, je
+  přepište následující údaje do ovládacích.
+Enter the data below in the settings of your control device (I/O Device).: Do nastavení ovládacího zařízení (zařízení I / O) zadejte následující údaje.
+Enter the data below in your mobile SUPLA application on your smartphone.: Do mobilní aplikace SUPLA nainstalované na smartphonu zadejte následující údaje.
+Make it work: Zprovozněte
+You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Nemůžete připojit vstupní / výstupní zařízení, dokud nepřidružíte alespoň jeden přístupový identifikátor s jakýmkoli umístěním
+Install SUPLA on your smartphone.: Nainsatlujte SUPLE ve Vašem smartphonu.
+Open SUPLA app.: Otevřete aplikaci.
+Fill in the fields with settings provided above.: Zadejte výše uvedená data do nastavení.
+Tap <strong>Done</strong> and wait until the app connects.: Klepněte na tlačítko <strong>Hotovo</strong> a počkejte, až se aplikace připojí.
+Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Stáhněte si obrázek <a href="https://www.supla.org/download">karty SD</a> pro Raspberry PI.
+Transfer downloaded image onto the SD Card.: Přenést stažený obrázek na kartu SD.
+Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Otevřete soubor <strong>boot\location.txt</strong>. Zkopírujte a vložte výše uvedená nastavení.
+Done.: Hotovo.
+For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Více informací na <a href="https://www.supla.org">www.supla.org</a>
+Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Stáhněte <a href="https://www.supla.org/download">firmware</a> a nahrajte jej do mikrokontroléru
+Turn the device on: Zapněte zařízení
+Press and hold the P1 button for 5 sec. (Default GPIO2): Stiskněte a podržte tlačítko P1 min. 5 sec (Výchozí GPIO2)
+Connect the computer to WiFi called SUPLA-ESP8266: Připojte počítač k síti WiFi s názvem SUPLA-ESP8266
+Go to http://192.168.4.1: Otevřete stránku na adrese  http://192.168.4.1
+Enter location settings provided above: Zadejte výše uvedená nastavení polohy
+Enter access data to your WiFi: Zadejte přístupová data pro vaši síť WiFi
+Click "Save": Klikněte "Save"
+Restart the device or press the P1 button: Restartujte zařízení nebo stiskněte tlačítko P1
+
+Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Stáhněte si knihovnu <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice</a> pro Arduino
+Run Arduino IDE: Spusťte Arduino IDE
+Click Sketch -> Include library -> Add .ZIP Library: Klepněte na tlačítko Sketch -> Připojit knihovnu -> Přidat .ZIP Library
+Open one of the examples. File -> Examples -> SuplaDevice: Otevřete jeden z příkladů. Soubor -> Příklady -> SuplaDevice
+Complete the code (GUID, Server, Location ID, Location Password): Dokončete kód (GUID, Server, ID místa, Heslo pro umístění)
+Upload program to Arduino: Nahrajte program do Arduino
+
+Previous login: Předchozí přihlášení
+From IP: Z adresy IP
+Current Password: Aktuální heslo
+New password: Nové heslo
+Change Password: Změna hesla
+Coming soon: Brzy k dispozici
+Develop your own building automation: Vlastní inteligentní budova
+Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.: Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.
+SUPLA everywhere!: SUPLA všude!
+One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!.: Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!
+Free of charge and open!: Zdarma a otevřená!
+Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!: Systémy automatizace budov dostupné na trhu jsou obvykle velmi složité, uzavřené a nákladné. V mnoha případech vyžadují instalaci již ve fázi výstavby budovy. SUPLA je jednoduchá, otevřená a zdarma. Umožňuje vytvářet výkonné prvky založené na platformách RaspberryPI, Arduino nebo ESP8266 a kombinovat je pomocí LAN a WiFi sítí. Připojte se k projektu a sestavte vlastní verzi systému automatizace budov!
+
+#inside php code
+Data saved: Data byla uložena
+Save: Ulož
+Save and enable: Uložit a povolit
+Location limit has been exceeded: Limit umístění byl překročen
+Success: Úspěch
+New location has been created: Bylo vytvořeno nové umístění
+Error: Chyba
+Location has been deleted: Umístění bylo odstraněno
+Data saved!: Data byla uložena!
+Access identifier limit has been exceeded: Limit přístupových ID byl překročen
+New access identifier has been created: Bylo vytvořeno nové ID přístupu
+Information: Informace
+Access identifier has been deleted: Identifikátor přístupu byl odstraněn
+I/O Device has been deleted: Vstupní / výstupní zařízení bylo odstraněno
+Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
+Unknown error: Nespecifikovaná chyba
+Token does not exist: Token neexistuje
+Access identifier has been enabled: ID přístupu bylo povoleno
+Access identifier has been disabled: ID přístupu bylo zakázáno
+Caption has been changed: Podpis byl změněn
+Password has been changed: Heslo bylo změněno
+Location has been enabled: Umístění bylo zapnuté
+Location has been disabled: Umístění bylo vypnuté
+Comment has been modified: Komentář byl změněn
+I/O Device has been disabled: I / O zařízení bylo vypnuté
+I/O Device has been enabled: I / O zařízení bylo zapnuté
+Password field cannot be left empty: Heslo nemůže být prázdné
+Current password is incorrect: Aktuální heslo je nesprávné
+Password has been changed!: Heslo bylo změněno!
+Create an account: Vytvořte si účet
+Your email: Váš e-mail
+Enter your email: Zadejte svůj e-mail
+Enter your email address: Zadejte svou e-mailovou adresu
+Repeat your email: Opakujte e-mail
+Enter password: Zadejte heslo
+Enter strong password: Zadejte silné heslo
+Repeat password: Opakujte heslo
+Don't worry, you can always reset your password via email. Click here to do so.: Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
+RESET: RESET
+Click RESET button when visible: Pokud se zobrazí, klikněte na tlačítko RESET
+Check your email box: Zkontrolujte e-mailovou schránku
+Please fill the field before continuing: Toto pole vyplňte ještě před pokračováním
+Please fill a valid email address: Zadejte správnou e-mailovou adresu
+Whoops, that's not an email address!: Upss, to není platný e-mail
+Supla for devices: Supla na zařízeních
+Next: Dále
+Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
+...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
+Mobile Apps: Mobilní aplikace
+Sources available from: Zdroje dostupné v
+
+Input: Vvstup
+Output: Výstup
+Sensor (normal open): Snímač (normálně otevřený)
+Sensor (normal closed): Snímač (normálně zavřený)
+Relay: Relé
+HFD4 Relay: Relé HFD4
+G5LA1A Relay: Relé G5LA1A
+G5LA1A Relay x2: Relé 2xG5LA1A
+DS18B20 Thermometer: Teploměr DS18B20
+DHT11 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT11
+DHT21 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT21
+DHT22 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT22
+AM2301 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2301
+AM2302 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2302
+Dimmer: Reostat
+RGB led controller: Kontroler oświetlenia RGB
+Dimmer & RGB led controller: Reostat a kontroler osvětlení RGB
+Distance sensor: Snímač vzdálenosti
+Depth sensor: Snímač hloubky
+Thermometer: Teploměr
+Gateway lock operation: Otevření branky
+Gate operation: Otevření / zavření vstupní brány
+Garage door operation: Otevření / zavření dveří garáže
+Door lock operation: Otevření dveří
+Roller shutter operation: Otevírání a zavírání rolet
+Gateway opening sensor: Snímač otevření branky
+Gate opening sensor: Snímač otevření vstupní brány
+Garage door opening sensor: Snímač otevření dveří garáže
+Door opening sensor: Snímač otevření dveří
+Roller shutter opening sensor: Snímač otevření rolet
+No liquid sensor: Snímač nedostatku kapaliny
+On/Off switch: Síťový spínač
+Light switch: Spínač světel
+Humidity sensor: Snímač vlhkosti
+Temperature and humidity sensor: Snímač teploty a vlhkosti
+RGB lighting: Osvětlení RGB
+Dimmer and RGB lighting: Reostat a RGB osvětlení
+Choose new device location for the: Zvolte nové umístění pro zařízení
+Original location: Původní umístění
+Change location: Změňte umístění
+Choose the location: Vyberte umístění
+Go to your account: Přejděte do účtu
+
+Service temporarily unavailable: Služba dočasně nedostupná
+Try again later: Zkuste to prosím později
+
+Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Vítáme programátore! RESTful API bylo vytvořeno ke splnění Vašich potřeb, díky němu můžete integrovat vlastní IT řešení s SUPLA.
+RESTful API has been enabled: Funkce RESTful API byla aktivována
+RESTful API has been disabled: Funkce RESTful API byla deaktivována
+The password should be 24 or more characters.: Heslo by mělo mít alespoň 24 znaků.
+OAuth 2.0 Authentication: Povolení OAuth 2.0
+copy: kopíruj
+
+Schedule: Plán
+Schedules: Plány
+Create New Schedule: Vytvořte nový plán
+No future executions - schedule disabled: Žádné naplánované výkony - plán zakázán
+Enable schedule: Zapnout plán
+Schedule cannot be enabled: Plán nemohl být zapnutý
+Disable schedule: Vypnout plán
+Delete schedule: Smazat  plán
+Executions: Výkony
+Action: Akce
+Subject: Předmět
+Mode: Režim
+Schedule has been deleted: Plán byl odstraněn
+Schedule mode: Režim plánu
+Your timezone: Vaše časové pásmo
+Choose your timezone: Zvolte časové pásmo
+change: změnit
+When: Kdy
+Start date: Datum zahájení
+Start hour: Hodina zahájení
+End date: Datum ukončení
+End hour: Hodina ukončení
+calculating the next available executions: vypočítávám nejbližší výkon
+The next available executions: Nejbližší výkony
+choose the channel: vyberte kanál
+Add: Přidat
+Date: Datum
+Hour: Hodina
+Interval: Interval
+Every: Každý
+minutes: minuty
+Hours: Hodiny
+Minute: Minuta
+Days: Dny
+Are you sure you want to delete this schedule?: Opravdu chcete tento plán smazat?
+Next run date: Nejbližší výkon
+The latest execution: Poslední výkon
+
+Mondays: Pondělky
+Tuesdays: Úterky
+Wednesdays: Středy
+Thursdays: Čtvrtky
+Fridays: Pátky
+Saturdays: Soboty
+Sundays: Neděle
+
+once: Jednorázový
+minutely: Minutový cyklus
+hourly: Hodinový cyklus
+daily: Denní cyklus 
+
+Close: Zavřít
+Open: Otevřít 
+Adjust parameters: Nastavte parametry
+Brightness: Jas
+Color brightness: Jas barev
+Color: Barvy
+Random: Náhodný
+Off: Vypnout
+On: Zapnout
+Shut: Zakrýt
+Reveal: Odkrýt
+Reveal partially: Částečně odkrytí
+
+Successful: Úspěšný
+Device unavailable: Zařízení je nedostupné
+Sensor disconnected: Žádný snímač
+Server unreachable: Server není dosažitelný
+Failed: Neúspěšný
+Failed (zombie): Neúspěšný (zombie)
+Cancelled: Zrušeno
+Expired: Prošlý
+Processing: Zpracovává se
+The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
+
+You will be logged out shortly: Budete brzy odhlášeni 
+If you want to stay here, do something!: Pokud chcete zůstat, udělejte něco!
+
+Chosen hour: Vybraný čas
+before: před
+after: po
+sunrise-before: před východem slunce
+sunset-before: před západem slunce
+sunrise-after: po východu slunce
+sunset-after: po západu slunce
+Sunrise / Sunset: Východ / Západ
+
+The device is disabled: Zařízení je vypnuté
+Existing schedules: Stávající plány
+Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
+Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
+If you change the function of the channel, the following schedules will be removed: Změníte-li funkci tohoto kanálu, přidělené plány budou smazány
+Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
+You have no devices that can be added to the schedule: Nemáte žádné zařízení, které můžete přidat do plánu
+You will be redirected back to the schedules list now.: Nyní budete přesměrováni na seznam plánů
+
+Choose: Vybrat
+White: Bílý
+
+Smartphones: Smartphony
+Client's Apps: Klientské aplikace
+smartphones, tablets, etc.: smartphony, tablety atd.
+Active: Aktivní
+Idle: Nečinný
+Client's app has been deleted: Klientská aplikace byla odstraněna
+Error when communicating the server. Try again in a while.: Při komunikaci se serverem došlo k problému. Zkuste to prosím znovu.
+Loading: Načítání
+if it takes too long, check if the JS scripts are loaded correctly: pokud bude akce trvat příliš dlouho, zkontrolujte, zda jsou JS skripty správně vloženy
+SUPLA-Cloud will not work without Javascript: SUPLA Cloud nebude fungovat bez zapnutí Javascriptu
+will expire: vyprší
+Registration of new clients: Registrace zákazníka
+Registration of new I/O devices: Registrace zařízení
+Empty!: Prázdný!
+Last access: Poslední hovor
+from the IP: z adresy
+Access ID: Přístupové ID
+Are you sure you want to delete this client?: Opravdu chcete tuto klientskou aplikaci smazat?
+The client will be automatically logged out when deleted.: Odstranění klienta bude mít za následek okamžité odhlášení.
+ACTIVE: AKTIVNÍ
+INACTIVE: NEAKTIVNÍ
+Sign in temporarily unavailable. Please try again later.: Přihlášení dočasně nedostupné. Zkuste to prosím později.
+
+Temperature Sensor: Snímač teploty
+Humidity Sensor: Snímač vlhkosti
+Temperature & Humidity Sensor: Snímač teploty a vlhkosti
+Mail sensor:  Poštovní snímač
+Wind sensor: Snímač větru
+Pressure sensor: Snímač tlaku
+Rain sensor: Snímač deště
+Weight sensor: Váha
+Weather Station: Meteorologická stanice
+Window opening sensor: Snímač otevření okna
+Staircase timer: Schodišťový automat 
+Change icon: Změňte ikonu
+Select icon: Vyberte ikonu
+
+Edit: Editovat
+Automation: Automatizace
+Channel group: Skupina kanálů
+Channel groups: Skupiny kanálů
+Show on the Client’s devices: Zobrazit v klientských zařízeních
+Disable: Vypnout
+Enable: Zapnout
+Add new channel group: Přidat novou skupinu kanálů
+No. of channels: Počet kanálů
+Details: Podrobnosti
+No. of devices: Počet zařízení
+Add new channel to this group: Přidejte nový kanál do skupiny
+Remove: Vymazat
+Go to channel details: Přejděte na detaily kanálu
+Go to I/O device details: Přejděte na detaily zařízení
+Choose location: Vyberte umístění
+There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
+New channel group: Nová skupina kanálů
+Add first channel to set channel group function and save it: Vyberte první kanál pro definici funkce skupiny a uložte ji
+choose: vybrat
+Are you sure you want to delete this channel group?: Opravdu chcete tuto skupinu kanálů smazat?
+
+Retry on failure: Opakujte, když není hotovo
+Status: Stav
+RESTful API: RESTful API
+State: Stav
+Depth: Hloubka
+Distance: Vzdálenost
+History of measurements: Historie měření
+Humidity adjustment: Nastavení vlhkosti
+Temperature adjustment: Nastavení teploty
+Opening sensor: Snímač otevření
+Partial opening sensor: Snímač středního otevření
+Channel for the partial opening sensor: Kanál pro snímač nepřímého otevření
+Inverted logic: Obrácená logika
+
+Are you sure you want to change channel's function?: Opravdu chcete změnit funkci kanálu?
+Changing channel's function will also result in the following changes.: Změna funkce kanálu také způsobí následující změny.
+Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
+Schedules below will be deleted: Následující plány budou smazány
+Cancel changes: Zrušit změny
+Save changes: Zapiš změny
+Channel is assigned to the I/O device location: Kanál je přiřazen k umístění zařízení
+Inherit I/O Device location: Použijte polohu zařízení
+No. of channel groups: Počet skupin kanálů
+Channel group limit has been exceeded: Limit skupin kanálů byl překročen
+Schedule limit has been exceeded: Limit plánu byl překročen
+Too many channels in this group: Příliš mnoho kanálů v této skupině
+
+Invisible: Neviditelný
+Visible: Viditelný
+You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
+You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
+No. of access identifiers: Počet identifikátorů přístupu
+No. of locations: Počet umístění
+No. of Client’s apps: Počet klientských aplikací
+Assign Client apps: Přiřaďte klientské aplikace
+
+My SUPLA: Moje SUPLA
+Save changes to see Access IDs: Uložte změny a zobrazte ID přístupu
+The password and its confirm are not the same.: Heslo a jeho potvrzení nejsou stejné.
+If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Generování nového hesla si vyžádá změnu konfigurace všech aplikací pomocí rozhraní API.
+
+Are you lost?: Ztratili jste? Hledáte něco?
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.
+Seems like a secret place: Něco nám říká, že byste tady neměl být
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Server vrátil chybu HTTP 403. To znamená, že nemáte dostatečná oprávnění k zobrazení této položky.
+
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potvrďte, že chcete smazat identifikátor polohy Potvrďte, že chcete smazat identifikátor polohy {locationId}. Další připojení I / O zařízení na toto místo nebude možné.. Další připojení I / O zařízení na toto místo nebude možné.
+"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Před odstraněním tohoto umístění odstraňte související zařízení. Identifikátory: {relatedIds}."
+"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Nejdříve odstraňte všechna zařízení, která používají toto umístění jako původní umístění. ID: {relatedIds}."
+"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Než odstraníte místo, musíte nejprve přesunout kanály, které jsou v něm. Identifikátory: {relatedIds}."
+"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Než odstraníte místo, musíte nejprve přesunout skupiny kanálů, které jsou v něm. Identifikátory: {relatedIds}."
+
+No location enabled. Go to [location list] or [add a new location].: Nemáte aktivní místa. Přejděte na [seznam míst] nebo [přidat nové umístění]..
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nemáte aktivní identifikátory přístupu. Přejděte na [seznam přístupových ID] nebo [přidat přístupové ID].
+
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Souhlasím s  [Podmínky] a souhlasím se zpracováním mých osobních údajů za účelem a rozsahu stanoveným v [nařízení].
+The Terms and Conditions have changed – please read them and accept.: Podmínky servisu se změnily - vyžaduje se jejich přijetí.
+The Terms and Conditions have changed: Podmínky se změnily
+I do not agree, get me out of here: Nesouhlasím, opustit toto pole
+I aree, taske me to the app: ZSouhlasím, vezmi mě do aplikace
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].
+I agree: Souhlasím
+You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
+Limit has been exceeded: Limit byl překročen
