@@ -52,6 +52,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(self::EMAIL, $entry->getTextParam());
         $this->assertNull($entry->getUser());
         $this->assertEquals(AuthenticationFailureReason::NOT_EXISTS, $entry->getIntParam());
+        $this->assertEmpty(TestMailer::getMessages());
     }
 
     public function testCreatingUser() {
@@ -86,6 +87,16 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(AuthenticationFailureReason::DISABLED, $entry->getIntParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
+    }
+
+    public function testSendsEmailWithConfirmationToken() {
+        $this->testCreatingUser();
+        $messages = TestMailer::getMessages();
+        $this->assertCount(1, $messages);
+        $confirmationMessage = end($messages);
+        $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
+        $this->assertContains('Activation', $confirmationMessage->getSubject());
+        $this->assertContains($this->createdUser->getToken(), $confirmationMessage->getBody());
     }
 
     public function testConfirmingWithBadToken() {
@@ -141,6 +152,16 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(AuthenticationFailureReason::BAD_CREDENTIALS, $entry->getIntParam());
     }
 
+    public function testSendsInvalidAuthenticationWarningByEmail() {
+        $this->testCannotLoginWithInvalidPassword();
+        $messages = TestMailer::getMessages();
+        $this->assertGreaterThanOrEqual(1, count($messages));
+        $warnMessage = end($messages);
+        $this->assertArrayHasKey(self::EMAIL, $warnMessage->getTo());
+        $this->assertContains('Failed', $warnMessage->getSubject());
+        $this->assertContains('1.2.3.4', $warnMessage->getBody());
+    }
+
     public function testPasswordResetForUnknownUserFailsSilently() {
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/web-api/forgotten-password', ['email' => 'zamel@supla.org']);
@@ -154,6 +175,15 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $this->getDoctrine()->getManager()->refresh($this->createdUser);
         $this->assertNotEmpty($this->createdUser->getToken());
+    }
+
+    public function testSendsEmailWithResetPasswordToken() {
+        $this->testGeneratesForgottenPasswordTokenForValidUser();
+        $messages = TestMailer::getMessages();
+        $message = end($messages);
+        $this->assertArrayHasKey(self::EMAIL, $message->getTo());
+        $this->assertContains('Password reset', $message->getSubject());
+        $this->assertContains($this->createdUser->getToken(), $message->getBody());
     }
 
     public function testCanLoginAfterPasswordResetAsked() {
