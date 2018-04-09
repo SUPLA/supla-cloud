@@ -10,17 +10,17 @@
                     <div class="user-account"
                         v-if="user">
                         <h1>{{ user.email }}</h1>
-                        <dl>
+                        <dl v-if="previousAuthAttempt">
                             <dt>{{ $t('Previous login') }}</dt>
                             <dd>
-                                <strong v-if="user.lastLogin">{{ user.currentlogin | moment('LLL') }}</strong>
-                                <strong v-else>{{ user.lastlogin | moment('LLL') }}</strong>
+                                <strong>{{ previousAuthAttempt.createdAt | moment('LLL') }}</strong>
                             </dd>
                             <dt>{{ $t('From IP') }}</dt>
                             <dd>
-                                <strong v-if="user.lastLogin">{{ user.currentipv4 | intToIp}}</strong>
-                                <strong v-else>{{ user.lastipv4 | intToIp}}</strong>
+                                <strong>{{ previousAuthAttempt.ipv4 | intToIp }}</strong>
                             </dd>
+                        </dl>
+                        <dl>
                             <dt>{{ $t('Timezone') }}</dt>
                             <dd>
                                 <timezone-picker :timezone="user.timezone"></timezone-picker>
@@ -52,6 +52,7 @@
         data() {
             return {
                 user: undefined,
+                authAttempts: [],
                 animationFinished: false,
                 changingPassword: false,
                 version: VERSION, // eslint-disable-line no-undef
@@ -62,8 +63,15 @@
             this.$http.get('users/current').then(response => {
                 this.user = response.body;
             });
+            this.$http.get('users/current/audit', {params: {actions: ['AUTHENTICATION']}}).then(response => {
+                this.authAttempts = response.body;
+            });
         },
-        computed: {}
+        computed: {
+            previousAuthAttempt() {
+                return this.authAttempts[1] || this.authAttempts[0];
+            }
+        }
     };
 </script>
 

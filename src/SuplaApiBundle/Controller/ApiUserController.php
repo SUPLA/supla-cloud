@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Controller;
 
 use Assert\Assert;
 use Assert\Assertion;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use ReCaptcha\ReCaptcha;
@@ -34,6 +35,7 @@ use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +48,13 @@ class ApiUserController extends RestController {
     private $serverList;
     /** @var UserManager */
     private $userManager;
+    /** @var AuditEntryRepository */
+    private $auditEntryRepository;
 
-    public function __construct(ServerList $serverList, UserManager $userManager) {
+    public function __construct(ServerList $serverList, UserManager $userManager, AuditEntryRepository $auditEntryRepository) {
         $this->serverList = $serverList;
         $this->userManager = $userManager;
+        $this->auditEntryRepository = $auditEntryRepository;
     }
 
     /**
@@ -183,7 +188,22 @@ class ApiUserController extends RestController {
             $enabled = $apiManager->setEnabled(!$apiUser->isEnabled(), $apiUser, true);
             return ['enabled' => $enabled];
         }
-        Assertion::true(false);
+        Assertion::true(false, "Invalid action given: $action");
+    }
+
+    public function getUsersCurrentAuditAction(Request $request) {
+        $actions = $request->get('actions', []);
+        Assertion::isArray($actions);
+        $actions = array_map(function ($action) {
+            return (AuditedAction::isValidKey($action) ? AuditedAction::$action() : new AuditedAction($action))->getValue();
+        }, $actions);
+        $criteria = Criteria::create()->orderBy(['createdAt' => 'DESC']);
+        if ($actions) {
+            $criteria->where(Criteria::expr()->in('action', $actions));
+        }
+        $criteria->setMaxResults(2); // currently used only for displaying last IPs
+        $entries = $this->auditEntryRepository->matching($criteria);
+        return $this->view($entries, Response::HTTP_OK);
     }
 
     private function assertNotApiUser() {

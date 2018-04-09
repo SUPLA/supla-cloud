@@ -38,6 +38,7 @@ class AuditEntry {
 
     /**
      * @ORM\Column(name="action", type="integer")
+     * @Groups({"basic"})
      */
     private $action;
 
@@ -49,16 +50,19 @@ class AuditEntry {
 
     /**
      * @ORM\Column(name="created_at", type="utcdatetime")
+     * @Groups({"basic"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(name="successful", type="boolean", options={"default"=true})
+     * @Groups({"basic"})
      */
     private $successful = true;
 
     /**
      * @ORM\Column(name="ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @Groups({"basic"})
      */
     private $ipv4;
 
