@@ -33,7 +33,7 @@ class LocaleListener implements EventSubscriberInterface {
     }
     
     public static function localeAllowed($locale) {
-        return ($locale && in_array($locale, ['en', 'pl', 'cz', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) ? $locale : false;
+        return ($locale && in_array($locale, ['en', 'pl', 'cs', 'de', 'ru', 'it', 'pt', 'es', 'fr'])) ? $locale : false;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
