@@ -25,4 +25,3 @@ release/
 app/config/config_build.yml
 web/assets/dist/
 web/api-docs/
-apidocs/
