@@ -31,6 +31,8 @@ class UsersFixture extends SuplaFixture {
         $userManager = $this->container->get('user_manager');
         $user = new User();
         $user->setEmail('user@supla.org');
+        $user->agreeOnRules();
+        $user->agreeOnCookies();
         $userManager->create($user);
         $userManager->setPassword('pass', $user, true);
         $userManager->confirm($user->getToken());
