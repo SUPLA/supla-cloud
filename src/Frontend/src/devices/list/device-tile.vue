@@ -32,7 +32,7 @@
         components: {DeviceConnectionStatusLabel},
         computed: {
             linkSpec() {
-                return this.noLink ? {} : {name: 'device', params: this.device};
+                return this.noLink ? {} : {name: 'device', params: {id: this.model.id}};
             }
         }
     };

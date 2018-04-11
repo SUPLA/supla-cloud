@@ -1,7 +1,7 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? 'green' : 'grey')"
         @click="$emit('click')">
-        <router-link :to="{name: 'schedule', params: model}">
+        <router-link :to="{name: 'schedule', params: {id: model.id}}">
             <div class="clearfix">
                 <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
                 <function-icon v-if="model.channel"

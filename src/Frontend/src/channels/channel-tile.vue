@@ -34,7 +34,7 @@
         components: {FunctionIcon, DeviceConnectionStatusLabel},
         computed: {
             linkSpec() {
-                return this.noLink ? {} : {name: 'channel', params: this.model};
+                return this.noLink ? {} : {name: 'channel', params: {id: this.model.id}};
             }
         }
     };

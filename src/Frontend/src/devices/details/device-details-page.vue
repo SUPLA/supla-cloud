@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
-                                <router-link :to="{name: 'location', params: device.originalLocation}"
+                                <router-link :to="{name: 'location', params: device.originalLocationId}"
                                     class="original-location"
                                     v-if="device.originalLocationId && device.originalLocationId != device.locationId">
                                     {{ $t('Original location')}}
@@ -61,7 +61,7 @@
                                 <h3>{{ $t('Access ID') }}</h3>
                                 <div class="list-group"
                                     v-if="device.location.accessIdsIds.length > 0 && device.location.accessIds">
-                                    <router-link :to="{name: 'accessId', params: aid}"
+                                    <router-link :to="{name: 'accessId', params: {id: aid.id}}"
                                         v-for="aid in device.location.accessIds"
                                         class="list-group-item"
                                         :key="aid.id">

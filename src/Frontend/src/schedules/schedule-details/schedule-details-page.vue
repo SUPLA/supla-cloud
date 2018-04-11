@@ -13,7 +13,7 @@
                             @click="deleteConfirm = true">
                             {{ $t('Delete') }}
                         </a>
-                        <router-link :to="{name: 'schedule.edit', params: schedule}"
+                        <router-link :to="{name: 'schedule.edit', params: {id: schedule.id}}"
                             class="btn btn-default">
                             {{ $t('Edit') }}
                         </router-link>

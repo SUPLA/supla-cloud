@@ -5,7 +5,7 @@
             <pending-changes-page :header="id ? $t('Edit schedule') + ' ID' + id : $t('Create New Schedule')"
                 v-if="schedule">
                 <div slot="buttons">
-                    <router-link :to="{name: 'schedule', params: schedule}"
+                    <router-link :to="{name: 'schedule', params: {id: schedule.id}}"
                         class="btn btn-grey"
                         v-if="schedule.id">
                         <i class="pe-7s-back"></i>

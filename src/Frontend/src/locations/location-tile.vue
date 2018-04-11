@@ -15,7 +15,7 @@
         props: ['model', 'noLink'],
         computed: {
             linkSpec() {
-                return this.noLink ? {} : {name: 'location', params: this.model};
+                return this.noLink ? {} : {name: 'location', params: {id: this.model.id}};
             }
         }
     };

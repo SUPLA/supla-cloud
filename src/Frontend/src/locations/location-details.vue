@@ -53,7 +53,7 @@
                                     <tr v-for="ioDevice in location.ioDevices"
                                         v-go-to-link-on-row-click>
                                         <td>
-                                            <router-link :to="{name: 'device', params: ioDevice}">{{ ioDevice.id }}</router-link>
+                                            <router-link :to="{name: 'device', params: {id: ioDevice.id}}">{{ ioDevice.id }}</router-link>
                                         </td>
                                         <td>{{ ioDevice.name }}</td>
                                         <td>{{ ioDevice.comment }}</td>
@@ -78,7 +78,7 @@
                                     <tr v-for="aid in location.accessIds"
                                         v-go-to-link-on-row-click>
                                         <td>
-                                            <router-link :to="{name: 'accessId', params: aid}">{{ aid.id }}</router-link>
+                                            <router-link :to="{name: 'accessId', params: {id: aid.id}}">{{ aid.id }}</router-link>
                                         </td>
                                         <td>
                                             <password-display :password="aid.password"></password-display>
@@ -117,7 +117,7 @@
                                             <function-icon :model="channelGroup"></function-icon>
                                         </td>
                                         <td>
-                                            <router-link :to="{name: 'channelGroup', params: channelGroup}">{{ channelGroup.id }}</router-link>
+                                            <router-link :to="{name: 'channelGroup', params: {id: channelGroup.id}}">{{ channelGroup.id }}</router-link>
                                         </td>
                                         <td>
                                             <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
@@ -148,7 +148,7 @@
                                             <function-icon :model="channel"></function-icon>
                                         </td>
                                         <td>
-                                            <router-link :to="{name: 'channel', params: channel}">{{ channel.id }}</router-link>
+                                            <router-link :to="{name: 'channel', params: {id: channel.id}}">{{ channel.id }}</router-link>
                                         </td>
                                         <td>{{ channelTitle(channel) }}</td>
                                     </tr>

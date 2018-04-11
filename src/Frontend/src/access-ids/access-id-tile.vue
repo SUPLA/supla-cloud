@@ -29,7 +29,7 @@
         props: ['model', 'noLink'],
         computed: {
             linkSpec() {
-                return this.noLink ? {} : {name: 'accessId', params: this.model};
+                return this.noLink ? {} : {name: 'accessId', params: {id: this.model.id}};
             }
         }
     };
