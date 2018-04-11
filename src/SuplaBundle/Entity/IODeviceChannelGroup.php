@@ -27,9 +27,7 @@ use Symfony\Component\Validator\Constraints;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
- * @ORM\Table(name="supla_dev_channel_group", indexes={
- *     @ORM\Index(name="enabled_idx", columns={"enabled"})
- * })
+ * @ORM\Table(name="supla_dev_channel_group")
  */
 class IODeviceChannelGroup {
     use BelongsToUser;
@@ -64,12 +62,6 @@ class IODeviceChannelGroup {
      * @var Collection|IODeviceChannel[]
      */
     private $channels;
-
-    /**
-     * @ORM\Column(name="enabled", type="boolean", nullable=false)
-     * @Groups({"basic"})
-     */
-    private $enabled = true;
 
     /**
      * @ORM\Column(name="hidden", type="boolean", nullable=false, options={"default"=0})
@@ -123,14 +115,6 @@ class IODeviceChannelGroup {
 
     public function setLocation(Location $location) {
         $this->location = $location;
-    }
-
-    public function getEnabled(): bool {
-        return $this->enabled;
-    }
-
-    public function setEnabled(bool $enabled) {
-        $this->enabled = $enabled;
     }
 
     public function getHidden(): bool {

@@ -9,12 +9,9 @@ use Doctrine\DBAL\Schema\Schema;
  * Add views for channel group processing
  */
 class Version20180411202101 extends AbstractMigration {
-    public 
-
-
-function up(Schema $schema) {
-	$this->abortIf ( $this->connection->getDatabasePlatform ()->getName () !== 'mysql', 'Migration can only be executed safely on \'mysql\'.' );
-	$this->addSql ( <<<CREATE_VIEW
+    public function up(Schema $schema) {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->addSql(<<<CREATE_VIEW
 				CREATE
 				 ALGORITHM = UNDEFINED
 				 VIEW `supla_v_client_channel_group`
@@ -36,9 +33,9 @@ function up(Schema $schema) {
 				  AND (`l`.`enabled` = 1)
 				  AND (`a`.`enabled` = 1))
 CREATE_VIEW
- );
-	
-	$this->addSql ( <<<CREATE_VIEW
+        );
+
+        $this->addSql(<<<CREATE_VIEW
 				CREATE
 				 ALGORITHM = UNDEFINED
 				 VIEW `supla_v_rel_cg`
@@ -49,8 +46,8 @@ CREATE_VIEW
                  join `supla`.`supla_dev_channel` `c` on((`c`.`id` = `r`.`channel_id`))) 
                  join `supla`.`supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) where `d`.`enabled` = 1
 CREATE_VIEW
- );
-}
+        );
+    }
 
     public function down(Schema $schema) {
         $this->abortIf(true, 'There is no way back');

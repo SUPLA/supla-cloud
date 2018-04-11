@@ -76,7 +76,6 @@ class ApiChannelGroupController extends RestController {
             $channelGroup->setCaption($updated->getCaption());
             $channelGroup->setAltIcon($updated->getAltIcon());
             $channelGroup->setChannels($updated->getChannels());
-            $channelGroup->setEnabled($updated->getEnabled());
             $channelGroup->setHidden($updated->getHidden());
             $channelGroup->setLocation($updated->getLocation());
             $em->persist($channelGroup);

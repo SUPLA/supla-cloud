@@ -1,9 +1,6 @@
 <template>
     <div class="grid-filters"
         v-if="items.length">
-        <btn-filters v-model="enabled"
-            @input="$emit('filter')"
-            :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
         <btn-filters v-model="hidden"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Invisible'), value: true}, {label: $t('Visible'), value: false}]"></btn-filters>
@@ -24,7 +21,6 @@
         props: ['items'],
         data() {
             return {
-                enabled: undefined,
                 hidden: undefined,
                 search: '',
             };
@@ -34,9 +30,6 @@
         },
         methods: {
             matches(channelGroup) {
-                if (this.enabled !== undefined && this.enabled != channelGroup.enabled) {
-                    return false;
-                }
                 if (this.hidden !== undefined && this.hidden != channelGroup.hidden) {
                     return false;
                 }

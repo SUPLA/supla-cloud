@@ -64,7 +64,7 @@
             onItemAdded(item) {
                 this.items.push(item);
                 this.item = item;
-                this.$router.push({name: this.detailsRoute, params: item});
+                this.$router.push({name: this.detailsRoute, params: {id: item.id}});
             },
             onItemUpdated(item) {
                 const itemToUpdate = this.items.find(c => item.id == c.id);

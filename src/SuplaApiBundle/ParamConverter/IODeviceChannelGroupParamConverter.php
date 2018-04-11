@@ -43,9 +43,6 @@ class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
         if (isset($data['hidden'])) {
             $channelGroup->setHidden(boolval($data['hidden']));
         }
-        if (isset($data['enabled'])) {
-            $channelGroup->setEnabled(boolval($data['enabled']));
-        }
         return $channelGroup;
     }
 }

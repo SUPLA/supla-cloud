@@ -21,11 +21,6 @@
                                     <h3>{{ $t('Details') }}</h3>
                                     <div class="hover-editable text-left">
                                         <dl>
-                                            <dd>{{ $t('Enabled') }}</dd>
-                                            <dt class="text-center">
-                                                <toggler v-model="channelGroup.enabled"
-                                                    @input="channelGroupChanged()"></toggler>
-                                            </dt>
                                             <dd>{{ $t('Caption') }}</dd>
                                             <dt>
                                                 <input type="text"
@@ -143,7 +138,7 @@
                         .finally(() => this.loading = false);
                 }
                 else {
-                    this.channelGroup = {enabled: true};
+                    this.channelGroup = {};
                     if (!this.channelGroup.channels) {
                         this.$set(this.channelGroup, 'channels', []);
                     }
