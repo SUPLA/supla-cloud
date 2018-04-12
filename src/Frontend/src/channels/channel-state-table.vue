@@ -30,11 +30,11 @@
             <dt>{{channel.state.brightness}}%</dt>
         </dl>
         <dl v-if="channel.state.is_calibrating">
-            <dd>{{ $t('Calibration in progress') }}</dd>
+            <dd>{{ $t('Calibration') }}</dd>
             <dt></dt>
         </dl>
         <dl v-if="channel.state.shut !== undefined">
-            <dd>{{ $t('Shut percentage') }}</dd>
+            <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{channel.state.shut}}%</dt>
         </dl>
     </div>

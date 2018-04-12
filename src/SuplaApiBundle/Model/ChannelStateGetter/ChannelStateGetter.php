@@ -7,7 +7,7 @@ class ChannelStateGetter {
     /** @var SingleChannelStateGetter[] */
     private $stateGetters = [];
 
-    public function __construct(iterable $stateGetters) {
+    public function __construct($stateGetters) {
         $this->stateGetters = $stateGetters;
     }
 

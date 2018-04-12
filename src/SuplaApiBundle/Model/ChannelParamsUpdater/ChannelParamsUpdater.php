@@ -7,7 +7,7 @@ class ChannelParamsUpdater {
     /** @var SingleChannelParamsUpdater[] */
     private $updaters = [];
 
-    public function __construct(iterable $updaters) {
+    public function __construct($updaters) {
         $this->updaters = $updaters;
     }
 
