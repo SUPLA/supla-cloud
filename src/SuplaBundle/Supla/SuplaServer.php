@@ -145,6 +145,12 @@ abstract class SuplaServer {
         return false;
     }
 
+    /** @return int|bool */
+    public function getIntValue(IODeviceChannel $channel) {
+        $value = $this->getValue('CHAR', $channel);
+        return is_numeric($value) ? intval($value) : $value;
+    }
+
     public function getCharValue(IODeviceChannel $channel) {
         return $this->getValue('CHAR', $channel);
     }

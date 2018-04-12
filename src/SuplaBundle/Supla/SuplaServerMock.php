@@ -21,6 +21,8 @@ namespace SuplaBundle\Supla;
  * SuplaServer implementation to be used during development.
  */
 class SuplaServerMock extends SuplaServer {
+    private static $nextResponse;
+
     /** @var SuplaServerMockCommandsCollector */
     private $commandsCollector;
 
@@ -47,6 +49,11 @@ class SuplaServerMock extends SuplaServer {
     }
 
     private function tryToHandleCommand($cmd) {
+        if (self::$nextResponse) {
+            $response = self::$nextResponse;
+            self::$nextResponse = null;
+            return $response;
+        }
         if (preg_match('#^IS-(IODEV|CLIENT)-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
             return "CONNECTED:$match[3]\n";
         } elseif (preg_match('#^SET-CHAR-VALUE:.+$#', $cmd, $match)) {
@@ -68,5 +75,9 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(0, 1000) / 10);
         }
         return false;
+    }
+
+    public static function mockTheNextResponse($response) {
+        self::$nextResponse = $response;
     }
 }
