@@ -5,17 +5,17 @@ use SuplaBundle\Entity\IODeviceChannel;
 
 class ChannelStateGetter {
     /** @var SingleChannelStateGetter[] */
-    private $updaters = [];
+    private $stateGetters = [];
 
-    public function registerChannelStateGetter(SingleChannelStateGetter $updater) {
-        $this->updaters[] = $updater;
+    public function __construct(iterable $stateGetters) {
+        $this->stateGetters = $stateGetters;
     }
 
     public function getState(IODeviceChannel $channel): array {
         $state = [];
-        foreach ($this->updaters as $updater) {
-            if (in_array($channel->getFunction(), $updater->supportedFunctions())) {
-                $state = array_merge($state, $updater->getState($channel));
+        foreach ($this->stateGetters as $stateGetter) {
+            if (in_array($channel->getFunction(), $stateGetter->supportedFunctions())) {
+                $state = array_merge($state, $stateGetter->getState($channel));
             }
         }
         return $state;

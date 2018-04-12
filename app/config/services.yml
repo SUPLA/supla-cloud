@@ -63,6 +63,12 @@ services:
   SuplaApiBundle\Model\:
     resource: '../../src/SuplaApiBundle/Model'
 
+  SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater:
+    - !tagged supla.channel_params_updater
+
+  SuplaApiBundle\Model\ChannelStateGetter\ChannelStateGetter:
+    - !tagged supla.channel_state_getter
+
   SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
     $enabled: '%supla.brute_force_auth_prevention.enabled%'
     $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'

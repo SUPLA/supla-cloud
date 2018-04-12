@@ -7,8 +7,8 @@ class ChannelParamsUpdater {
     /** @var SingleChannelParamsUpdater[] */
     private $updaters = [];
 
-    public function registerChannelUpdater(SingleChannelParamsUpdater $updater) {
-        $this->updaters[] = $updater;
+    public function __construct(iterable $updaters) {
+        $this->updaters = $updaters;
     }
 
     public function updateChannelParams(IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
