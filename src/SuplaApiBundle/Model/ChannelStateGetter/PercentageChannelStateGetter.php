@@ -10,7 +10,7 @@ class PercentageChannelStateGetter implements SingleChannelStateGetter {
 
     public function getState(IODeviceChannel $channel): array {
         $value = $this->suplaServer->getIntValue($channel);
-        return ['is_calibrating' => $value == -1, 'percentage' => min(100, max(0, $value))];
+        return ['is_calibrating' => $value == -1, 'shut' => min(100, max(0, $value))];
     }
 
     public function supportedFunctions(): array {

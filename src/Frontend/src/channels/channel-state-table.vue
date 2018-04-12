@@ -29,6 +29,14 @@
             <dd>{{ $t('Brightness') }}</dd>
             <dt>{{channel.state.brightness}}%</dt>
         </dl>
+        <dl v-if="channel.state.is_calibrating">
+            <dd>{{ $t('Calibration in progress') }}</dd>
+            <dt></dt>
+        </dl>
+        <dl v-if="channel.state.shut !== undefined">
+            <dd>{{ $t('Shut percentage') }}</dd>
+            <dt>{{channel.state.shut}}%</dt>
+        </dl>
     </div>
 </template>
 

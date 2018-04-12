@@ -48,23 +48,23 @@ class PercentageChannelStateGetterIntegrationTest extends IntegrationTestCase {
         SuplaServerMock::mockTheNextResponse("VALUE:-1\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('is_calibrating', $state);
-        $this->assertArrayHasKey('percentage', $state);
+        $this->assertArrayHasKey('shut', $state);
         $this->assertTrue($state['is_calibrating']);
-        $this->assertEquals(0, $state['percentage']);
+        $this->assertEquals(0, $state['shut']);
     }
 
     public function testPercentageState() {
         SuplaServerMock::mockTheNextResponse("VALUE:42\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('is_calibrating', $state);
-        $this->assertArrayHasKey('percentage', $state);
+        $this->assertArrayHasKey('shut', $state);
         $this->assertFalse($state['is_calibrating']);
-        $this->assertEquals(42, $state['percentage']);
+        $this->assertEquals(42, $state['shut']);
     }
 
     public function testNoPercentageForOtherFunctionChannel() {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[1]);
         $this->assertArrayNotHasKey('is_calibrating', $state);
-        $this->assertArrayNotHasKey('percentage', $state);
+        $this->assertArrayNotHasKey('shut', $state);
     }
 }
