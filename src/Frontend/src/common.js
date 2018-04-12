@@ -1,6 +1,7 @@
 import "expose-loader?jQuery!expose-loader?$!jquery";
 import "expose-loader?moment!moment";
 import "bootstrap";
+import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
 import Vuex from "vuex";

@@ -23,6 +23,7 @@
     "lodash": "4.17.5",
     "moment": "2.18.1",
     "moment-timezone": "^0.5.14",
+    "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
     "superslides": "github:nicinabox/superslides",
