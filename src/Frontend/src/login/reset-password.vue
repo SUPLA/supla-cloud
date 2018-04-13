@@ -90,12 +90,14 @@
             width: 90%;
             margin: 10px;
             transform: none;
+            height: auto;
         }
         @media (max-height: 500px) {
             position: static;
             width: 90%;
             margin: 10px;
             transform: none;
+            height: auto;
         }
         input {
             border-color: $supla-black;

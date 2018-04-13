@@ -22,7 +22,7 @@
             <p v-if="sent"><strong>{{ $t('Check your email box') }}</strong></p>
             <p v-else-if="sentProblem"><strong>{{ $t('Could not reset the password. Try again in a while.') }}</strong></p>
 
-            <div class="col-xs-12 text-center">
+            <div class="text-center">
                 <router-link to="/"
                     class="back">
                     <i class="pe-7s-left-arrow"></i>
@@ -69,7 +69,7 @@
     @import "../styles/variables";
 
     .recovery-form {
-        $height: 150px;
+        $height: 220px;
         max-width: 400px;
         height: $height;
         position: absolute;
@@ -78,14 +78,17 @@
         margin-top: -$height/2;
         margin-left: -200px;
         @media (max-width: 500px) {
+            max-width: none;
             position: static;
             width: 90%;
             margin: 10px;
+            height: auto;
         }
         @media (max-height: 500px) {
             position: static;
             width: 90%;
             margin: 10px;
+            height: auto;
         }
         input {
             border-color: $supla-black;
