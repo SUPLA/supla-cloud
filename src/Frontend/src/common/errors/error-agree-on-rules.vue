@@ -15,7 +15,7 @@
             <button class="btn btn-green"
                 :disabled="!agreed"
                 @click="agree()">
-                <i class="pe-7s-simple-check"></i>
+                <i class="pe-7s-check"></i>
                 {{ $t('I aree, taske me to the app') }}
             </button>
         </div>
