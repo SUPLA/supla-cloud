@@ -101,18 +101,18 @@ class ServerList {
     }
 
     public function getCreateAccountUrl(Request $request) {
-        if (count(@$this->na_servers) > 1) {
+        if ($this->na_servers && count($this->na_servers) > 1) {
             $server = $this->na_servers[rand(0, count($this->na_servers) - 1)];
             if (strlen(@$server) > 0) {
                 return 'https://' . $server
-                . $this->router->generate('_register', ['lang' => $request->getLocale()]);
+                    . $this->router->generate('_register', ['lang' => $request->getLocale()]);
             }
         };
         return $request->getScheme() . '://' . $request->getHost()
             . $this->router->generate('_register', ['lang' => $request->getLocale()]);
     }
-    
-    public function getAutodiscover():SuplaAutodiscover {
+
+    public function getAutodiscover(): SuplaAutodiscover {
         return $this->autodiscover;
     }
 }
