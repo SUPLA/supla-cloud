@@ -22,6 +22,7 @@ services:
   SuplaBundle\Mailer\SuplaMailer:
     $router: '@router'
     $templating: '@templating.engine.twig'
+    $requestStack: '@request_stack'
     $mailer: '@SuplaApiBundle\Tests\Integration\TestMailer'
     $mailer_from: "%mailer_from%"
     $email_admin: "%admin_email%"
