@@ -1,6 +1,13 @@
 <template>
     <div class="square-links-carousel"
         v-if="items">
+        <a class="btn btn-block btn-black text-center visible-xs"
+            @click="onItemClick(newItem)">
+            <span>
+                <i class="pe-7s-plus"></i>
+                {{ $t(newItemTile) }}
+            </span>
+        </a>
         <carousel v-if="newItemTile || items.length > 0"
             :navigation-enabled="true"
             :pagination-enabled="false"
@@ -8,7 +15,7 @@
             navigation-prev-label="&lt;"
             :per-page-custom="[[1024, 4], [768, 3], [600, 2], [1, 1]]"
             ref="carousel">
-            <slide v-if="newItemTile">
+            <slide v-if="newItemTile && $mq.resize && $mq.above($mv.xs)">
                 <square-link class="clearfix pointer lift-up black">
                     <a class="valign-center text-center"
                         @click="onItemClick(newItem)">
@@ -125,11 +132,8 @@
         }
     }
 
-    .modal-body {
-        @include carousel-navigation-below;
-    }
-
     .VueCarousel {
+        margin: 0 -5px;
         .VueCarousel-navigation {
             &--disabled {
                 visibility: hidden;
@@ -151,9 +155,7 @@
             &.VueCarousel-navigation-next {
                 right: -5px;
             }
-            @include on-xs-and-down {
-                @include carousel-navigation-below;
-            }
+
         }
         .VueCarousel-slide {
             padding: 5px;
@@ -161,5 +163,13 @@
         h2 {
             margin-top: 3px;
         }
+    }
+
+    .modal-body {
+        @include carousel-navigation-below;
+    }
+
+    @include on-sm-and-down {
+        @include carousel-navigation-below;
     }
 </style>

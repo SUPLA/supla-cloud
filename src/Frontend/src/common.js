@@ -10,6 +10,7 @@ import VueRouter from "vue-router";
 import VueLocalStorage from 'vue-localstorage';
 import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
+import vMediaQuery from 'v-media-query';
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
 import * as requestTransformers from "./common/http/transformers";
 import "moment-timezone";
@@ -25,6 +26,7 @@ Vue.use(VueMoment);
 Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(VueLocalStorage);
+Vue.use(vMediaQuery, {variables: {xs: 768}});
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
 if (!Vue.config.external.baseUrl) {

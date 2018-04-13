@@ -27,6 +27,7 @@
     "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
     "superslides": "github:nicinabox/superslides",
+    "v-media-query": "^1.0.3",
     "vivus": "0.4.3",
     "vue": "2.5.13",
     "vue-clipboard2": "^0.1.0",
