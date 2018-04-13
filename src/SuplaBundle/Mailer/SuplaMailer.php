@@ -20,6 +20,7 @@ namespace SuplaBundle\Mailer;
 use SuplaBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -30,11 +31,24 @@ class SuplaMailer {
     protected $mailer;
     protected $email_admin;
     protected $supla_server;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
-    public function __construct(Router $router, TwigEngine $templating, \Swift_Mailer $mailer, $mailer_from, $email_admin, $supla_server) {
+    public function __construct(
+        Router $router,
+        TwigEngine $templating,
+        \Swift_Mailer $mailer,
+        RequestStack $requestStack,
+        $mailer_from,
+        $email_admin,
+        $supla_server
+    ) {
         $this->router = $router;
         $this->templating = $templating;
         $this->mailer_from = $mailer_from;
+        $this->requestStack = $requestStack;
         $this->mailer = $mailer;
         $this->email_admin = $email_admin;
         $this->supla_server = $supla_server;
@@ -81,6 +95,7 @@ class SuplaMailer {
 
     public function sendConfirmationEmailMessage(UserInterface $user) {
         $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'confirm/' . $user->getToken();
+        $url .= '?lang=' . $this->getLocale();
 
         $sent = $this->sendEmailMessage(
             'confirm.txt.twig',
@@ -97,6 +112,7 @@ class SuplaMailer {
 
     public function sendResetPasswordEmailMessage(UserInterface $user) {
         $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'reset-password/' . $user->getToken();
+        $url .= '?lang=' . $this->getLocale();
 
         $this->sendEmailMessage(
             'resetpwd.txt.twig',
@@ -146,5 +162,13 @@ class SuplaMailer {
             $user->getEmail(),
             ['user' => $user, 'ip' => is_numeric($ip) ? long2ip($ip) : '']
         );
+    }
+
+    private function getLocale(): string {
+        $request = $this->requestStack->getCurrentRequest();
+        if ($request && $request->getSession() && ($locale = $request->getLocale())) {
+            return $locale;
+        }
+        return 'en';
     }
 }
