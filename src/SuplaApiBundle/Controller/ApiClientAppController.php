@@ -80,8 +80,8 @@ class ApiClientAppController extends RestController {
      */
     public function deleteClientAppAction(ClientApp $clientApp): Response {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {
-            $this->suplaServer->clientReconnect($clientApp);
             $entityManager->remove($clientApp);
+            $this->suplaServer->clientReconnect($clientApp);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }
