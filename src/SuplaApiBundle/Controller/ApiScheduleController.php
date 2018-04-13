@@ -147,7 +147,7 @@ class ApiScheduleController extends RestController {
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         Assertion::count($errors, 0, implode(', ', $errors));
         $nextRunDates = $this->get('schedule_manager')->getNextRunDates($schedule, '+5days', 1, true);
-        Assertion::notEmpty($nextRunDates, 'Invalid time expression');
+        Assertion::notEmpty($nextRunDates, 'Schedule cannot be enabled');
         return $schedule;
     }
 
