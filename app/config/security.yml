@@ -35,6 +35,10 @@ security:
       path: ^/(api|web-api)
       role: [IS_AUTHENTICATED_FULLY]
       requires_channel: '%supla_protocol%'
+    -
+      path: ^/
+      role: [IS_AUTHENTICATED_ANONYMOUSLY]
+      requires_channel: '%supla_protocol%'
 
   providers:
     supla_db_provider:
