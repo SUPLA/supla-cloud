@@ -113,7 +113,7 @@ class IODevice {
     private $lastConnected;
 
     /**
-     * @ORM\Column(name="last_ipv4", type="integer", nullable=true)
+     * @ORM\Column(name="last_ipv4", type="integer", nullable=true, options={"unsigned"=true})
      * @Groups({"basic"})
      */
     private $lastIpv4;
