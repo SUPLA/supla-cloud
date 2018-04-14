@@ -57,7 +57,7 @@
                             <next-run-dates-preview></next-run-dates-preview>
                             <toggler v-model="retry"
                                 v-if="canSetRetry"
-                                label="Retry when fail"></toggler>
+                                label="Retry on failure"></toggler>
                         </div>
                     </div>
                     <div class="col-md-6">

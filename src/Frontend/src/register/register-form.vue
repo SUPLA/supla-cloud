@@ -167,7 +167,7 @@
         }
 
         .error {
-            color: $supla-yellow;
+            color: $supla-red;
             margin: 3px 0 10px;
         }
 

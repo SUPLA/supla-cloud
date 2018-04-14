@@ -16,7 +16,7 @@
             navigation-prev-label="&lt;"
             :per-page-custom="[[1024, 4], [768, 3], [600, 2], [1, 1]]"
             ref="carousel">
-            <slide v-if="newItemTile && $mq.resize && $mq.above($mv.xs)">
+            <slide v-if="showNewItemTile">
                 <square-link class="clearfix pointer lift-up black">
                     <a class="valign-center text-center"
                         @click="onItemClick(newItem)">
@@ -60,6 +60,9 @@
         computed: {
             multiple() {
                 return Array.isArray(this.selected);
+            },
+            showNewItemTile() {
+                return this.newItemTile && this.$mq.resize && this.$mq.above(this.$mv.xs);
             }
         },
         methods: {
@@ -87,7 +90,7 @@
                     Vue.nextTick(() => {
                         const index = this.items.findIndex(item => this.isSelected(item));
                         let desiredPage = index - this.$refs.carousel.perPage + 2;
-                        if (this.newItemTile) {
+                        if (this.showNewItemTile) {
                             ++desiredPage;
                         }
                         desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, desiredPage));

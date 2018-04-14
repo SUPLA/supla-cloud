@@ -5,11 +5,15 @@
             <function-icon :model="model"
                 width="90"></function-icon>
             <h3 class="no-margin-top">ID{{ model.id }} {{ $t(model.function.caption) }}</h3>
-            <dl>
+            <dl class="ellipsis">
                 <dd>{{ $t('Device') }}</dd>
                 <dt>{{ model.iodevice.name }}</dt>
+            </dl>
+            <dl class="ellipsis">
                 <dd>{{ $t('Type') }}</dd>
                 <dt>{{ $t(model.type.caption) }}</dt>
+            </dl>
+            <dl class="ellipsis">
                 <dd>{{ $t('Location') }}</dd>
                 <dt>ID{{model.location.id}} {{ model.location.caption }}</dt>
             </dl>

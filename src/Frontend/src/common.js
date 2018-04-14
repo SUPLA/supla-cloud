@@ -19,6 +19,7 @@ import "./common/common-directives";
 import "./common/filters";
 import "style-loader!css-loader!sass-loader!./styles/styles.scss";
 import routes from "./routes";
+import "./polyfills";
 
 Vue.use(Vuex);
 Vue.use(VueI18N);

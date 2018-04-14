@@ -10,6 +10,8 @@
             <dl>
                 <dd>{{ $t('SoftVer') }}</dd>
                 <dt>{{ device.softwareVersion }}</dt>
+            </dl>
+            <dl class="ellipsis">
                 <dd>{{ $t('Location') }}</dd>
                 <dt>ID{{device.location.id}} {{ device.location.caption }}</dt>
             </dl>

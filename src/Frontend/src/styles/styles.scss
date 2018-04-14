@@ -257,6 +257,15 @@ body.green {
       color: $supla-white;
     }
   }
+  ::selection {
+    background: $supla-yellow;
+    color: $supla-white;
+  }
+
+  ::-moz-selection {
+    background: $supla-yellow;
+    color: $supla-white;
+  }
 }
 
 body.yellow {
@@ -294,6 +303,12 @@ body.warning {
 
 .display-newlines {
   white-space: pre-line;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @import "./buttons";

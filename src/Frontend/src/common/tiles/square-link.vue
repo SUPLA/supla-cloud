@@ -22,6 +22,7 @@
         border: 2px solid $supla-green;
         transition: all .3s;
         height: 100%;
+        overflow: hidden;
         > a, > .valign-center {
             display: block;
             width: 100%;
