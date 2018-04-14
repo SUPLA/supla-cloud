@@ -2,7 +2,8 @@
     <div class="square-links-carousel"
         v-if="items">
         <a class="btn btn-block btn-black text-center visible-xs"
-            @click="onItemClick(newItem)">
+            @click="onItemClick(newItem)"
+            v-if="newItemTile">
             <span>
                 <i class="pe-7s-plus"></i>
                 {{ $t(newItemTile) }}

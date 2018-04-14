@@ -27,9 +27,9 @@
                                         <dd>{{ $t('GUID') }}</dd>
                                         <dt>{{ this.device.gUIDString }}</dt>
                                         <dd>{{ $t('Registered') }}</dd>
-                                        <dt>{{ this.device.regdate | moment("LT L")}}</dt>
+                                        <dt>{{ this.device.regDate | moment("LT L")}}</dt>
                                         <dd>{{ $t('Last connection') }}</dd>
-                                        <dt>{{ this.device.lastconnected | moment("LT L")}}</dt>
+                                        <dt>{{ this.device.lastConnected | moment("LT L")}}</dt>
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="device.enabled"

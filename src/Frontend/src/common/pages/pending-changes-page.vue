@@ -77,8 +77,9 @@
             }
         }
         @include on-xs-and-down {
-            height: 35px;
             .btn-toolbar {
+                position: static;
+                min-width: initial;
                 width: 100%;
             }
             .btn {
