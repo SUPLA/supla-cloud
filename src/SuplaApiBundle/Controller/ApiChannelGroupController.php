@@ -64,7 +64,7 @@ class ApiChannelGroupController extends RestController {
         );
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
-            $this->suplaServer->reconnect($this->getUser()->getId());
+            $this->suplaServer->reconnect();
             return $this->view($channelGroup, Response::HTTP_CREATED);
         });
     }
@@ -82,7 +82,7 @@ class ApiChannelGroupController extends RestController {
             $channelGroup->setHidden($updated->getHidden());
             $channelGroup->setLocation($updated->getLocation());
             $em->persist($channelGroup);
-            $this->suplaServer->reconnect($this->getUser()->getId());
+            $this->suplaServer->reconnect();
             return $this->view($channelGroup, Response::HTTP_CREATED);
         });
     }
@@ -94,7 +94,7 @@ class ApiChannelGroupController extends RestController {
     public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->remove($channelGroup);
-            $this->suplaServer->reconnect($this->getUser()->getId());
+            $this->suplaServer->reconnect();
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }
