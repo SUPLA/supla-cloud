@@ -23,12 +23,14 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiChannelGroupController extends RestController {
     use Transactional;
-
+    use SuplaServerAware;
+    
     /**
      * @Rest\Get("/channel-groups")
      */
@@ -62,6 +64,7 @@ class ApiChannelGroupController extends RestController {
         );
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
+            $this->suplaServer->reconnect($this->getUser()->getId());
             return $this->view($channelGroup, Response::HTTP_CREATED);
         });
     }
@@ -79,6 +82,7 @@ class ApiChannelGroupController extends RestController {
             $channelGroup->setHidden($updated->getHidden());
             $channelGroup->setLocation($updated->getLocation());
             $em->persist($channelGroup);
+            $this->suplaServer->reconnect($this->getUser()->getId());
             return $this->view($channelGroup, Response::HTTP_CREATED);
         });
     }
@@ -90,6 +94,7 @@ class ApiChannelGroupController extends RestController {
     public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->remove($channelGroup);
+            $this->suplaServer->reconnect($this->getUser()->getId());
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }
