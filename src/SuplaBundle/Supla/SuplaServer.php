@@ -17,9 +17,11 @@
 
 namespace SuplaBundle\Supla;
 
+use HttpException;
 use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODeviceChannel;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 abstract class SuplaServer {
     use CurrentUserAware;
@@ -132,7 +134,7 @@ abstract class SuplaServer {
         }
         return false;
     }
-    
+
     private function setChannelGroupValue(string $type, int $userId, int $groupId, $value) {
         if ($userId && $deviceId && $channelId && $this->connect()) {
             $result = $this->command("SET-$type-VALUE:$userId,$groupId,$value");
@@ -198,13 +200,18 @@ abstract class SuplaServer {
         }
         return $this->setValue('CHAR', $userId, $deviceId, $cgId, $char);
     }
-    
-    public function setCharValue(int $userId, int $deviceId, int $channelId, $char) {
-        return $this->setCharVal($userId, $deviceId, $channelId, false, $char);
+
+    public function setCharValue(IODeviceChannel $channel, $char) {
+        $user = $this->getCurrentUserOrThrow();
+        $success = $this->setCharVal($user->getId(), $channel->getIoDevice()->getId(), $channel->getId(), false, $char);
+        if (false === $success) {
+            throw new ServiceUnavailableHttpException();
+        }
+        return $success;
     }
-    
+
     public function setChannelGroupCharValue(int $userId, int $groupId, $char) {
-        return $this->setCharVal($userId, 0, $channelId, true, $char);
+        return $this->setCharVal($userId, 0, $groupId, true, $char);
     }
 
     private function setRgbwVal(int $userId, int $deviceId, int $cgId, bool $group, int $color, int $colorBrightness, int $brightness) {
@@ -224,18 +231,18 @@ abstract class SuplaServer {
         if ($color < 0 || $color > 0xffffff) {
             $color = 0x00FF00;
         }
-        
+
         if ($group) {
             return $this->setChannelGroupVal('RGBW', $userId, $cgId, $color . ',' . $colorBrightness . ',' . $brightness);
         }
 
         return $this->setValue('RGBW', $userId, $deviceId, $cgId, $color . ',' . $colorBrightness . ',' . $brightness);
     }
-    
+
     public function setRgbwValue(int $userId, int $deviceId, int $channelId, int $color, int $colorBrightness, int $brightness) {
         return $this->setRgbwVal($userId, $deviceId, $cgId, false, $color, $colorBrightness, $brightness);
     }
-    
+
     public function setChannelGroupRgbwValue(int $userId, int $groupId, int $color, int $colorBrightness, int $brightness) {
         return $this->setRgbwVal($userId, 0, $groupId, true, $color, $colorBrightness, $brightness);
     }

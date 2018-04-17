@@ -10,6 +10,8 @@ services:
   _instanceof:
     SuplaApiBundle\ParamConverter\AbstractBodyParamConverter:
       tags: [request.param_converter]
+    SuplaApiBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
+      tags: [supla.channel_action_executor]
     SuplaApiBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
       tags: [supla.channel_params_updater]
     SuplaApiBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
@@ -62,6 +64,9 @@ services:
 
   SuplaApiBundle\Model\:
     resource: '../../src/SuplaApiBundle/Model'
+
+  SuplaApiBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
+    - !tagged supla.channel_action_executor
 
   SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater:
     - !tagged supla.channel_params_updater

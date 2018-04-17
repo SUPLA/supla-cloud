@@ -277,7 +277,8 @@ class ApiChannelController extends RestController {
      * @apiSuccess {Object} state Present only if `include=state` has been given. Represents the current channel's state.
      * Read more about `state` format [on wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
      * @apiSuccessExample Success
-     * {"id":56,"channelNumber":44,"caption":"My sensor","type":{"id":3036,"name":"HUMIDITYSENSOR","caption":"Humidity sensor","output":false},
+     * {"id":56,"channelNumber":44,"caption":"My sensor","type":{"id":3036,"name":"HUMIDITYSENSOR","caption":"Humidity sensor",
+     * "output":false},
      * "function":{"id":42,"name":"HUMIDITY","caption":"Humidity sensor","possibleActions":[],"maxAlternativeIconIndex":0},
      * "funcList":0,"param1":0,"param2":0,"param3":0,"altIcon":0,"hidden":false,"inheritedLocation":true,
      * "iodeviceId":4,"locationId":3,"functionId":42,"typeId":3036}
@@ -462,8 +463,6 @@ class ApiChannelController extends RestController {
         $channel = $this->channelById($channelid, null, true, true);
         $data = json_decode($request->getContent());
 
-        $devid = $channel->getIoDevice()->getId();
-        $userid = $this->getParentUser()->getId();
         $action = @$data->action;
 
         $func = $channel->getFunction()->getId();
@@ -499,7 +498,7 @@ class ApiChannelController extends RestController {
                 break;
         }
 
-        if (false === $this->suplaServer->setCharValue($userid, $devid, $channelid, $value)) {
+        if (false === $this->suplaServer->setCharValue($channel, $value)) {
             throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
