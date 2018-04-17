@@ -28,7 +28,7 @@
                     <form @submit.prevent="addChannel()"
                         v-else>
                         <div class="form-group">
-                            <channels-dropdown :params="'include=iodevice,location,function&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
+                            <channels-dropdown :params="'include=iodevice,location&io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
                                 v-model="newChannel"
                                 @update="channelsToChoose = $event"
                                 :hidden-channels="channelGroup.channels">

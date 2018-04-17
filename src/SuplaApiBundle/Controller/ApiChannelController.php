@@ -60,6 +60,24 @@ class ApiChannelController extends RestController {
         $this->channelStateGetter = $channelStateGetter;
     }
 
+    /**
+     * @api {get} /channels List
+     * @apiDescription Get the list of the channels.
+     * @apiGroup Channels
+     * @apiVersion 2.2.0
+     * @apiParam {string} include Comma-separated list of what to fetch for every Channel.
+     * Available options: `iodevice`, `location`.
+     * @apiParamExample {GET} GET param to fetch Channels' IO Device and location
+     * include=iodevice,location
+     * @apiParam {string} function Comma-separated list of functions which channel must have to include in the response. Both names
+     * and function identifiers are supported. See [the wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states) for
+     * available functions.
+     * @apiParamExample {GET} GET param to return only temperature and humidity sensors
+     * function=THERMOMETER,HUMIDITY,HUMIDITYANDTEMPERATURE
+     * @apiParam {string} io Specify whether the returned channels should be input or output. Only `input` and `output` values are allowed.
+     * @apiParam {boolean} hasFunction Allows to return only channels that has some function choosen (i.e. filter out the `NONE` function
+     * channels). Can be either `true` or `false`.
+     */
     public function getChannelsAction(Request $request) {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
@@ -87,7 +105,7 @@ class ApiChannelController extends RestController {
         }
         $channels = $this->getCurrentUser()->getChannels()->matching($criteria);
         $view = $this->view($channels, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'function']);
+        $this->setSerializationGroups($view, $request, ['iodevice', 'location']);
         return $view;
     }
 
@@ -242,6 +260,36 @@ class ApiChannelController extends RestController {
     }
 
     /**
+     * @api {get} /channels/{id} Details
+     * @apiDescription Get the details of the channel with `{id}` identifier.
+     * @apiGroup Channels
+     * @apiVersion 2.2.0
+     * @apiParam {string} include Comma-separated list of what to fetch for every Channel.
+     * Available options: `iodevice`, `location`, `connected`, `state`, `supportedFunctions`.
+     * @apiParamExample {GET} GET param to fetch Channel's IO Device and location
+     * include=iodevice,location
+     * @apiSuccess {int} param1 Channel's configuration value. Its meaning depends on the channel's function. Read more about params
+     * [on wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-parameters).
+     * @apiSuccess {int} param2 Channel's configuration value. Its meaning depends on the channel's function. Read more about params
+     * [on wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-parameters).
+     * @apiSuccess {int} param3 Channel's configuration value. Its meaning depends on the channel's function. Read more about params
+     * [on wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-parameters).
+     * @apiSuccess {Object} state Present only if `include=state` has been given. Represents the current channel's state.
+     * Read more about `state` format [on wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
+     * @apiSuccessExample Success
+     * {"id":56,"channelNumber":44,"caption":"My sensor","type":{"id":3036,"name":"HUMIDITYSENSOR","caption":"Humidity sensor","output":false},
+     * "function":{"id":42,"name":"HUMIDITY","caption":"Humidity sensor","possibleActions":[],"maxAlternativeIconIndex":0},
+     * "funcList":0,"param1":0,"param2":0,"param3":0,"altIcon":0,"hidden":false,"inheritedLocation":true,
+     * "iodeviceId":4,"locationId":3,"functionId":42,"typeId":3036}
+     * @apiSuccessExample Success with `include=state`
+     * {"id":10,"channelNumber":0,"caption":"My RGB",
+     * "type":{"id":4010,"name":"RGBLEDCONTROLLER","caption":"RGB led controller","output":true},
+     * "function":{"id":200,"name":"DIMMERANDRGBLIGHTING","caption":"Dimmer and RGB lighting",
+     * "possibleActions":[{"id":80,"name":"SET_RGBW_PARAMETERS","caption":"Adjust parameters"}],"maxAlternativeIconIndex":0},
+     * "funcList":0,"param1":0,"param2":0,"param3":0,"altIcon":0,"hidden":false,"inheritedLocation":true,"iodeviceId":3,"locationId":2,
+     * "functionId":200,"typeId":4010,"state":{"color":"0x4674D9","color_brightness":68,"brightness":78}}
+     */
+    /**
      * @Security("channel.belongsToUser(user)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
@@ -250,7 +298,7 @@ class ApiChannelController extends RestController {
             $this->setSerializationGroups(
                 $view,
                 $request,
-                ['iodevice', 'location', 'function', 'type', 'connected', 'state', 'supportedFunctions']
+                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions']
             );
             return $view;
         } else {

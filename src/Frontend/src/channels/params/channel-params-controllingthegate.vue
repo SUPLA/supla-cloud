@@ -8,7 +8,7 @@
             <dd>{{ $t('Partial opening sensor') }}</dd>
             <dt class="text-center"
                 style="font-weight: normal">
-                <channels-dropdown params="include=iodevice,location,function&function=OPENINGSENSOR_GATE"
+                <channels-dropdown params="include=iodevice,location&function=OPENINGSENSOR_GATE"
                     v-model="secondarySensor"
                     @input="secondarySensorChanged()"></channels-dropdown>
             </dt>

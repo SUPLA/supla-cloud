@@ -32,7 +32,7 @@
             <dd>{{ $t('Opening sensor') }}</dd>
             <dt class="text-center"
                 style="font-weight: normal">
-                <channels-dropdown params="include=iodevice,location,function&function=OPENINGSENSOR_ROLLERSHUTTER"
+                <channels-dropdown params="include=iodevice,location&function=OPENINGSENSOR_ROLLERSHUTTER"
                     v-model="relatedChannel"
                     @input="relatedChannelChanged()"></channels-dropdown>
             </dt>

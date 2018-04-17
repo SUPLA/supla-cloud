@@ -7,7 +7,7 @@
             <dd>{{ $t('Channel for the partial opening sensor') }}</dd>
             <dt class="text-center"
                 style="font-weight: normal">
-                <channels-dropdown params="include=iodevice,location,function&function=CONTROLLINGTHEGATE"
+                <channels-dropdown params="include=iodevice,location&function=CONTROLLINGTHEGATE"
                     v-model="secondaryChannel"
                     @input="secondaryChannelChanged()"></channels-dropdown>
             </dt>

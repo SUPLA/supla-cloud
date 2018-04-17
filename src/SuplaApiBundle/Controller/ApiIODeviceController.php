@@ -122,7 +122,7 @@ class ApiIODeviceController extends RestController {
 
     /**
      * @api {get} /iodevices/{id} Details
-     * @apiDescription Get details of device with `{id}` identifier.
+     * @apiDescription Get the details of the device with `{id}` identifier.
      * @apiGroup IODevices
      * @apiVersion 2.2.0
      * @apiParam {string} include Comma-separated list of what to fetch for every IODevice.

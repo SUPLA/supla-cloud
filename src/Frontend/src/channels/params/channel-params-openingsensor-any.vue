@@ -6,7 +6,7 @@
             <dd>{{ $t('Channel for the sensor') }}</dd>
             <dt class="text-center"
                 style="font-weight: normal">
-                <channels-dropdown :params="'include=iodevice,location,function&function=' + relatedChannelFunction"
+                <channels-dropdown :params="'include=iodevice,location&function=' + relatedChannelFunction"
                     v-model="relatedChannel"
                     @input="relatedChannelChanged()"></channels-dropdown>
             </dt>
