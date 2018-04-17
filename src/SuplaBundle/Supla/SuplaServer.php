@@ -132,6 +132,16 @@ abstract class SuplaServer {
         }
         return false;
     }
+    
+    private function setChannelGroupValue(string $type, int $userId, int $groupId, $value) {
+        if ($userId && $deviceId && $channelId && $this->connect()) {
+            $result = $this->command("SET-$type-VALUE:$userId,$groupId,$value");
+            if ($result && preg_match("/^OK:/", $result) === 1) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private function getValue($type, IODeviceChannel $channel) {
         $result = $this->getRawValue($type, $channel);
@@ -178,15 +188,26 @@ abstract class SuplaServer {
         return false;
     }
 
-    public function setCharValue(int $userId, int $deviceId, int $channelId, $char) {
+    private function setCharVal(int $userId, int $deviceId, int $cgId, bool $group, $char) {
         $char = intval($char, 0);
         if ($char < 0 || $char > 255) {
             $char = 0;
         }
-        return $this->setValue('CHAR', $userId, $deviceId, $channelId, $char);
+        if ($group) {
+            return $this->setChannelGroupValue('CHAR', $userId, $cgId, $char);
+        }
+        return $this->setValue('CHAR', $userId, $deviceId, $cgId, $char);
+    }
+    
+    public function setCharValue(int $userId, int $deviceId, int $channelId, $char) {
+        return $this->setCharVal($userId, $deviceId, $channelId, false, $char);
+    }
+    
+    public function setChannelGroupCharValue(int $userId, int $groupId, $char) {
+        return $this->setCharVal($userId, 0, $channelId, true, $char);
     }
 
-    public function setRgbwValue($userId, $deviceId, $channelId, $color, $colorBrightness, $brightness) {
+    private function setRgbwVal(int $userId, int $deviceId, int $cgId, bool $group, int $color, int $colorBrightness, int $brightness) {
 
         $color = intval($color, 0x00FF00);
         $colorBrightness = intval($colorBrightness, 0);
@@ -203,8 +224,20 @@ abstract class SuplaServer {
         if ($color < 0 || $color > 0xffffff) {
             $color = 0x00FF00;
         }
+        
+        if ($group) {
+            return $this->setChannelGroupVal('RGBW', $userId, $cgId, $color . ',' . $colorBrightness . ',' . $brightness);
+        }
 
-        return $this->setValue('RGBW', $userId, $deviceId, $channelId, $color . ',' . $colorBrightness . ',' . $brightness);
+        return $this->setValue('RGBW', $userId, $deviceId, $cgId, $color . ',' . $colorBrightness . ',' . $brightness);
+    }
+    
+    public function setRgbwValue(int $userId, int $deviceId, int $channelId, int $color, int $colorBrightness, int $brightness) {
+        return $this->setRgbwVal($userId, $deviceId, $cgId, false, $color, $colorBrightness, $brightness);
+    }
+    
+    public function setChannelGroupRgbwValue(int $userId, int $groupId, int $color, int $colorBrightness, int $brightness) {
+        return $this->setRgbwVal($userId, 0, $groupId, true, $color, $colorBrightness, $brightness);
     }
 
     public function isAlive(): bool {
