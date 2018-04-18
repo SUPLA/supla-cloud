@@ -325,11 +325,24 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Rest\Patch("/channels/{channel}")
+     * @api {patch} /channels/{id} Execute action
+     * @apiDescription Execute action on the channel with `{id}` identifier.
+     * @apiGroup Channels
+     * @apiVersion 2.2.0
+     * @apiParam {string} action Action to execute on the channel. See available actions
+     * [on wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
+     * @apiExample {turn-on} Example TURN_OFF
+     *     {"action": "TURN_ON"}
+     * @apiExample {shut} Example SHUT
+     *     {"action": "SHUT", "percentage": 80}
+     * @apiExample {shut} Example SET_RGBW_PARAMETERS
+     *     {"action": "SET_RGBW_PARAMETERS", "color": "0x06FE63", "color_brightness": 20, "brightness": 70}
+     * @apiError 400 Bad Request. Check if the chosen action can be executed on the given channel. Response should contain more details.
+     */
+    /**
      * @Security("channel.belongsToUser(user)")
      */
     public function patchChannelsAction(Request $request, IODeviceChannel $channel) {
-        // TODO check connected
         $params = json_decode($request->getContent(), true);
         Assertion::keyExists($params, 'action', 'Missing action.');
         $action = ChannelFunctionAction::fromString($params['action']);
