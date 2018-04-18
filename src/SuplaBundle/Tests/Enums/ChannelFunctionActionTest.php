@@ -69,11 +69,11 @@ class ChannelFunctionActionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testEveryValueHasCaption() {
-        $this->assertCount(
-            count(ChannelFunctionAction::values()),
-            ChannelFunctionAction::captions(),
-            'Have you forgot to add a caption for the new ScheduleAction value?'
-        );
+        $diff = array_map(function (ChannelFunctionAction $type) {
+            return $type->getKey();
+        }, array_diff(ChannelFunctionAction::values(), array_keys(ChannelFunctionAction::captions())));
+        $this->assertEmpty($diff, 'Have you forgotten to add a caption for the new ChannelFunction value? Missing: '
+            . implode(', ', $diff));
     }
 
     public function testConvertsNumericActionParamsToInts() {
@@ -82,5 +82,12 @@ class ChannelFunctionActionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(50, $params['brightness']);
         $this->assertSame(359, $params['hue']);
         $this->assertSame(100, $params['color_brightness']);
+    }
+
+    public function testCreatingFromString() {
+        $this->assertEquals(ChannelFunctionAction::REVEAL(), ChannelFunctionAction::fromString('reveal'));
+        $this->assertEquals(ChannelFunctionAction::OPEN_CLOSE(), ChannelFunctionAction::fromString('OPEN_CLOSE'));
+        $this->assertEquals(ChannelFunctionAction::OPEN_CLOSE(), ChannelFunctionAction::fromString('open_close'));
+        $this->assertEquals(ChannelFunctionAction::OPEN_CLOSE(), ChannelFunctionAction::fromString('open-close'));
     }
 }

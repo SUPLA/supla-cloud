@@ -77,6 +77,8 @@ final class ChannelFunctionAction extends Enum {
             self::TURN_ON => 'On',
             self::TURN_OFF => 'Off',
             self::SET_RGBW_PARAMETERS => 'Adjust parameters',
+            self::OPEN_CLOSE => 'Open / close',
+            self::STOP => 'Stop',
         ];
     }
 

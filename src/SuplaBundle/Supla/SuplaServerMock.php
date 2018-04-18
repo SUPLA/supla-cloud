@@ -56,7 +56,7 @@ class SuplaServerMock extends SuplaServer {
         }
         if (preg_match('#^IS-(IODEV|CLIENT)-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
             return "CONNECTED:$match[3]\n";
-        } elseif (preg_match('#^SET-CHAR-VALUE:.+$#', $cmd, $match)) {
+        } elseif (preg_match('#^SET-(CHAR|RGBW)-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^GET-CHAR-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1);

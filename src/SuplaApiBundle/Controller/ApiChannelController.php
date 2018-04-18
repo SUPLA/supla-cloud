@@ -407,9 +407,7 @@ class ApiChannelController extends RestController {
                         }
                     }
 
-                if (false === $this->suplaServer->setRgbwValue($channel, $color, $color_brightness, $brightness)) {
-                        throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
-                    }
+                $this->suplaServer->setRgbwValue($channel, $color, $color_brightness, $brightness);
 
                     break;
 
@@ -419,47 +417,6 @@ class ApiChannelController extends RestController {
 
             return $this->handleView($this->view(null, Response::HTTP_OK));
         }
-    }
-
-    private function checkPatchAllowed($action, $func) {
-
-        switch ($action) {
-            case 'turn-on':
-            case 'turn-off':
-                switch ($func) {
-                    case SuplaConst::FNC_POWERSWITCH:
-                    case SuplaConst::FNC_LIGHTSWITCH:
-                        return true;
-                }
-                break;
-
-            case 'open':
-                switch ($func) {
-                    case SuplaConst::FNC_CONTROLLINGTHEGATEWAYLOCK:
-                    case SuplaConst::FNC_CONTROLLINGTHEDOORLOCK:
-                        return true;
-                }
-                break;
-
-            case 'open-close':
-                switch ($func) {
-                    case SuplaConst::FNC_CONTROLLINGTHEGATE:
-                    case SuplaConst::FNC_CONTROLLINGTHEGARAGEDOOR:
-                        return true;
-                }
-                break;
-
-            case 'shut':
-            case 'reveal':
-            case 'stop':
-                if ($func == SuplaConst::FNC_CONTROLLINGTHEROLLERSHUTTER) {
-                    return true;
-                }
-
-                break;
-        }
-
-        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Invalid action.');
     }
 
     /**

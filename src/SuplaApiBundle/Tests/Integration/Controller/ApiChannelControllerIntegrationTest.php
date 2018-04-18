@@ -17,9 +17,12 @@
 
 namespace SuplaApiBundle\Tests\Integration\Controller;
 
+use SuplaApiBundle\Model\ApiVersions;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 
@@ -35,7 +38,13 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
     protected function setUp() {
         $this->user = $this->createConfirmedUserWithApiAccess();
         $location = $this->createLocation($this->user);
-        $this->device = $this->createDeviceFull($location);
+        $this->device = $this->createDevice($location, [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
+            [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
+        ]);
     }
 
     public function testGettingChannelInfo() {
@@ -54,11 +63,11 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
     /**
      * @dataProvider changingChannelStateDataProvider
      */
-    public function testChangingChannelState(int $deviceId, string $action, string $expectedCommand, array $additionalRequest = []) {
+    public function testChangingChannelState(int $channelId, string $action, string $expectedCommand, array $additionalRequest = []) {
         $client = $this->createAuthenticatedApiClient($this->user);
         $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
-        $client->request('PATCH', '/api/channels/' . $deviceId, [], [], [], json_encode($request));
+        $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
@@ -91,5 +100,16 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'unicorn'])));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
+    }
+
+    public function testChangingChannelRgbwState20() {
+        $client = $this->createAuthenticatedApiClient($this->user);
+        $client->enableProfiler();
+        $request = ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42];
+        $client->request('PUT', '/api/channels/5', [], [], $this->versionHeader(ApiVersions::V2_0()), json_encode($request));
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-RGBW-VALUE:1,1,5,16711935,58,42', $commands);
     }
 }
