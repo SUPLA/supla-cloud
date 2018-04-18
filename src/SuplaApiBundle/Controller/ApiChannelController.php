@@ -115,7 +115,7 @@ class ApiChannelController extends RestController {
         return $view;
     }
 
-    protected function channelById($channelid, $functions = null, $checkConnected = false, $authorize = false) {
+    protected function channelById($channelid, $functions = null) {
 
         $channelid = intval($channelid);
 
@@ -129,34 +129,10 @@ class ApiChannelController extends RestController {
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'The requested function is not available on this device');
         }
 
-        if ($checkConnected === true) {
-            $connected = false;
-
-            $devid = $channel->getIoDevice()->getId();
-            $userid = $this->getParentUser()->getId();
-
-            if ($channel->getIoDevice()->getEnabled()) {
-                $cids = $this->suplaServer->checkDevicesConnection($userid, [$devid]);
-                $connected = in_array($devid, $cids);
-            }
-
-            if ($connected === false) {
-                throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE, 'The requested device is not connected');
-            }
-        }
-
-        if ($authorize === true) {
-            $token = $this->container->get('security.token_storage')->getToken()->getToken();
-            if (true !== $this->suplaServer->oauthAuthorize($userid, $token)) {
-                throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Supla server has rejected the authorization token');
-            }
-        }
-
         return $channel;
     }
 
     protected function getTempHumidityLogCountAction($th, $channelid) {
-
         $f = [];
 
         if ($th === true) {
@@ -380,7 +356,6 @@ class ApiChannelController extends RestController {
      */
     public function patchChannelsAction(Request $request, IODeviceChannel $channel) {
         // TODO check connected
-//        $channel = $this->channelById($channelid, null, true, true);
         $params = json_decode($request->getContent(), true);
         Assertion::keyExists($params, 'action', 'Missing action.');
         $action = ChannelFunctionAction::fromString($params['action']);

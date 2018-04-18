@@ -148,7 +148,7 @@ class ApiScheduleController extends RestController {
         $channel = $this->get('iodevice_manager')->channelById($data['channelId']);
         Assertion::notNull($channel);
         $data['channel'] = $channel;
-        if ($data['actionParam']) {
+        if (isset($data['actionParam']) && $data['actionParam']) {
             $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
                 $channel,
                 new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),

@@ -21,6 +21,7 @@ use Assert\Assertion;
 use SuplaApiBundle\Entity\OAuth\ApiUser;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 trait CurrentUserAware {
     /** @var TokenStorageInterface */
@@ -33,7 +34,7 @@ trait CurrentUserAware {
 
     /** @return User|null */
     protected function getCurrentUser() {
-        if (null === $token = $this->tokenStorage->getToken()) {
+        if (null === $token = $this->getCurrentUserToken()) {
             return null;
         }
         if (!is_object($user = $token->getUser())) {
@@ -50,5 +51,10 @@ trait CurrentUserAware {
         $user = $this->getCurrentUser();
         Assertion::notNull($user, 'You must be authenticated to perform this action.');
         return $user;
+    }
+
+    /** @return TokenInterface|null */
+    protected function getCurrentUserToken() {
+        return $this->tokenStorage->getToken();
     }
 }

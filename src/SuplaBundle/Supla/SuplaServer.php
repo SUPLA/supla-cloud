@@ -21,12 +21,15 @@ use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 abstract class SuplaServer {
     use CurrentUserAware;
 
     /** @var string */
     protected $socketPath;
+
+    protected $authorized = false;
 
     public function __construct(string $socketPath) {
         $this->socketPath = $socketPath;
@@ -42,12 +45,16 @@ abstract class SuplaServer {
 
     abstract protected function command($command);
 
-    public function oauthAuthorize($userId, $accessToken) {
-        $result = false;
-        if ($this->connect() !== false) {
-            $result = $this->command("OAUTH:" . $accessToken);
+    private function authorizeSocket() {
+        if (!$this->authorized) {
+            $user = $this->getCurrentUserOrThrow();
+            $token = $this->getCurrentUserToken()->getToken();
+            $result = $this->command("OAUTH:" . $token);
+            $this->authorized = $result && preg_match("/^AUTH_OK:" . $user->getId() . "\n/", $result) === 1 ? true : false;
+            if (!$this->authorized) {
+                throw new UnauthorizedHttpException('Supla server has rejected the authorization token');
+            }
         }
-        return $result !== false && preg_match("/^AUTH_OK:" . $userId . "\n/", $result) === 1 ? true : false;
     }
 
     private function isConnected(int $userId, int $id, $what = 'iodev'): bool {
@@ -169,12 +176,9 @@ abstract class SuplaServer {
         return false;
     }
 
-//    public function setCharValue(HasFunction $functionable, int $char) {
-//        $this->setValue('CHAR', $functionable, [$char]);
-//    }
-
     public function executeSetCommand(string $command) {
         if ($this->connect()) {
+            $this->authorizeSocket();
             $result = $this->command($command);
             if (!$result || preg_match("/^OK:/", $result) !== 1) {
                 throw new ServiceUnavailableHttpException();
@@ -183,31 +187,6 @@ abstract class SuplaServer {
             throw new ServiceUnavailableHttpException();
         }
     }
-
-//    private function setRgbwVal(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
-//
-//        $color = intval($color, 0x00FF00);
-//        $colorBrightness = intval($colorBrightness, 0);
-//        $brightness = intval($brightness, 0);
-//
-//        if ($colorBrightness < 0 || $colorBrightness > 255) {
-//            $colorBrightness = 0;
-//        }
-//
-//        if ($brightness < 0 || $brightness > 255) {
-//            $brightness = 0;
-//        }
-//
-//        if ($color < 0 || $color > 0xffffff) {
-//            $color = 0x00FF00;
-//        }
-//
-//        $this->setValue('RGBW', $functionable, [$color, $colorBrightness, $brightness]);
-//    }
-//
-//    public function setRgbwValue(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
-//        return $this->setRgbwVal($functionable, $color, $colorBrightness, $brightness);
-//    }
 
     public function isAlive(): bool {
         // TODO @pzygmunt

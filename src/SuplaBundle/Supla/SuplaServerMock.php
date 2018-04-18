@@ -39,10 +39,6 @@ class SuplaServerMock extends SuplaServer {
         return true;
     }
 
-    public function oauthAuthorize($userId, $accessToken) {
-        return true;
-    }
-
     protected function command($command) {
         $this->commandsCollector->addCommand($command);
         return $this->tryToHandleCommand($command);
@@ -56,7 +52,7 @@ class SuplaServerMock extends SuplaServer {
         }
         if (preg_match('#^IS-(IODEV|CLIENT)-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
             return "CONNECTED:$match[3]\n";
-        } elseif (preg_match('#^SET-(CHAR|RGBW)-VALUE:.+$#', $cmd, $match)) {
+        } elseif (preg_match('#^SET-(CG-)?(CHAR|RGBW|RAND-RGBW)-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^GET-CHAR-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1);
@@ -73,6 +69,8 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(-2000, 2000) / 1000);
         } elseif (preg_match('#^GET-((HUMIDITY)|(DOUBLE))-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(0, 1000) / 10);
+        } elseif (preg_match('#^OAUTH:#', $cmd, $match)) {
+            return 'AUTH_OK:' . $this->getCurrentUserOrThrow()->getId() . "\n";
         }
         return false;
     }
