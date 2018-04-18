@@ -342,7 +342,7 @@ class ApiChannelController extends RestController {
     /**
      * @Security("channel.belongsToUser(user)")
      */
-    public function patchChannelsAction(Request $request, IODeviceChannel $channel) {
+    public function patchChannelAction(Request $request, IODeviceChannel $channel) {
         $params = json_decode($request->getContent(), true);
         Assertion::keyExists($params, 'action', 'Missing action.');
         $action = ChannelFunctionAction::fromString($params['action']);

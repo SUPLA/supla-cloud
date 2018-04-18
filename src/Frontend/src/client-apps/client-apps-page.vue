@@ -84,6 +84,7 @@
             },
             removeClientFromList(app) {
                 this.clientApps.splice(this.clientApps.indexOf(app), 1);
+                this.filter();
             }
         }
     };
