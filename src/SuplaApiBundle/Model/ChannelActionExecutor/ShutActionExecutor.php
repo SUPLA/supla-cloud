@@ -19,7 +19,7 @@ class ShutActionExecutor extends StopActionExecutor {
         }
     }
 
-    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []) {
+    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []): int {
         $percent = $actionParams['percent'] ?? 0;
         return $percent + 10;
     }

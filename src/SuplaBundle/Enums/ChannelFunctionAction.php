@@ -80,6 +80,11 @@ final class ChannelFunctionAction extends Enum {
         ];
     }
 
+    public static function fromString(string $action): ChannelFunctionAction {
+        $action = str_replace('-', '_', strtoupper($action));
+        return self::$action();
+    }
+
     public function validateActionParam($actionParams) {
         switch ($this->getValue()) {
             case self::REVEAL_PARTIALLY:

@@ -2,6 +2,7 @@
 namespace SuplaApiBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
+use SuplaApiBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
@@ -19,7 +20,11 @@ class ChannelActionExecutor {
     public function executeAction(IODeviceChannel $channel, ChannelFunctionAction $action, array $actionParams = []) {
         Assertion::keyIsset($this->actionExecutors, $action->getName(), 'Cannot execute requested action through API.');
         $executor = $this->actionExecutors[$action->getName()];
-        Assertion::inArray($channel->getFunction(), $executor->getSupportedFunctions(), 'Cannot execute requested action on this channel.');
+        Assertion::inArray(
+            $channel->getFunction()->getId(),
+            EntityUtils::mapToIds($executor->getSupportedFunctions()),
+            'Cannot execute requested action on this channel.'
+        );
         $executor->validateActionParams($actionParams);
         $executor->execute($channel, $actionParams);
     }

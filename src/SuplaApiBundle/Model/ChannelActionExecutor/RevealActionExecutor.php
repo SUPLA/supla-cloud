@@ -1,9 +1,7 @@
 <?php
 namespace SuplaApiBundle\Model\ChannelActionExecutor;
 
-use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class RevealActionExecutor extends ShutActionExecutor {
@@ -11,7 +9,7 @@ class RevealActionExecutor extends ShutActionExecutor {
         return ChannelFunctionAction::REVEAL();
     }
 
-    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []) {
+    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []): int {
         $percent = $actionParams['percent'] ?? 0;
         return 110 - $percent;
     }

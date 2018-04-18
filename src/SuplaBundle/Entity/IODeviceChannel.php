@@ -34,7 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})})
  * @SuplaAssert\Channel
  */
-class IODeviceChannel {
+class IODeviceChannel implements HasFunction {
     use BelongsToUser;
 
     /**
@@ -137,7 +137,7 @@ class IODeviceChannel {
      */
     private $channelGroups;
 
-    public function getId() {
+    public function getId(): int {
         return $this->id;
     }
 
@@ -288,5 +288,9 @@ class IODeviceChannel {
     /** @return Collection|IODeviceChannelGroup[] */
     public function getChannelGroups(): Collection {
         return $this->channelGroups;
+    }
+
+    public function getServerFootprint(): array {
+        return [$this->getUser()->getId(), $this->getIoDevice()->getId(), $this->getId()];
     }
 }

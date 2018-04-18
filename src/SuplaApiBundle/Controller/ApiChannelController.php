@@ -23,10 +23,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
+use SuplaApiBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaApiBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
@@ -49,15 +51,19 @@ class ApiChannelController extends RestController {
     private $channelParamsUpdater;
     /** @var ChannelStateGetter */
     private $channelStateGetter;
+    /** @var ChannelActionExecutor */
+    private $channelActionExecutor;
 
     public function __construct(
         IODeviceManager $deviceManager,
         ChannelParamsUpdater $channelParamsUpdater,
-        ChannelStateGetter $channelStateGetter
+        ChannelStateGetter $channelStateGetter,
+        ChannelActionExecutor $channelActionExecutor
     ) {
         $this->deviceManager = $deviceManager;
         $this->channelParamsUpdater = $channelParamsUpdater;
         $this->channelStateGetter = $channelStateGetter;
+        $this->channelActionExecutor = $channelActionExecutor;
     }
 
     /**
@@ -401,7 +407,7 @@ class ApiChannelController extends RestController {
                         }
                     }
 
-                    if (false === $this->suplaServer->setRgbwValue($userid, $devid, $channelid, $color, $color_brightness, $brightness)) {
+                if (false === $this->suplaServer->setRgbwValue($channel, $color, $color_brightness, $brightness)) {
                         throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
                     }
 
@@ -457,52 +463,18 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Rest\Patch("/channels/{channelid}")
+     * @Rest\Patch("/channels/{channel}")
+     * @Security("channel.belongsToUser(user)")
      */
-    public function patchChannelsAction(Request $request, $channelid) {
-        $channel = $this->channelById($channelid, null, true, true);
-        $data = json_decode($request->getContent());
-
-        $action = @$data->action;
-
-        $func = $channel->getFunction()->getId();
-        $this->checkPatchAllowed($action, $func);
-
-        $value = 0;
-
-        switch ($action) {
-            case 'turn-on':
-            case 'open':
-            case 'open-close':
-                $value = 1;
-                break;
-            case 'shut':
-                $value = 1;
-
-                $percent = intval(@$data->percent);
-
-                if ($percent >= 0 && $percent <= 100) {
-                    $value = 10 + $percent;
-                }
-
-                break;
-            case 'reveal':
-                $value = 2;
-
-                $percent = intval(@$data->percent);
-
-                if ($percent >= 0 && $percent <= 100) {
-                    $value = 110 - $percent;
-                }
-
-                break;
-        }
-
-        if (false === $this->suplaServer->setCharValue($channel, $value)) {
-            throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE);
-        }
-
-        return $this->handleView($this->view(null, Response::HTTP_OK));
+    public function patchChannelsAction(Request $request, IODeviceChannel $channel) {
+        // TODO check connected
+//        $channel = $this->channelById($channelid, null, true, true);
+        $params = json_decode($request->getContent(), true);
+        Assertion::keyExists($params, 'action', 'Missing action.');
+        $action = ChannelFunctionAction::fromString($params['action']);
+        unset($params['action']);
+        $this->channelActionExecutor->executeAction($channel, $action, $params);
+        return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
     }
 
     /**

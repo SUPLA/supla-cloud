@@ -16,7 +16,7 @@ class StopActionExecutor extends SetCharValueActionExecutor {
         return ChannelFunctionAction::STOP();
     }
 
-    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []) {
+    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []): int {
         return 0;
     }
 }

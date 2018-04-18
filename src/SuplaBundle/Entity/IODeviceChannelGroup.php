@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
  * @ORM\Table(name="supla_dev_channel_group")
  */
-class IODeviceChannelGroup {
+class IODeviceChannelGroup implements HasFunction {
     use BelongsToUser;
 
     /**
@@ -164,5 +164,9 @@ class IODeviceChannelGroup {
         foreach ($channels as $channel) {
             $this->channels->add($channel);
         }
+    }
+
+    public function getServerFootprint(): array {
+        return [$this->getUser()->getId(), $this->getId()];
     }
 }

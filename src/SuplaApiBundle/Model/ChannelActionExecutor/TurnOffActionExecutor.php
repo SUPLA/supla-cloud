@@ -9,7 +9,7 @@ class TurnOffActionExecutor extends TurnOnActionExecutor {
         return ChannelFunctionAction::TURN_OFF();
     }
 
-    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []) {
+    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []): int {
         return 0;
     }
 }

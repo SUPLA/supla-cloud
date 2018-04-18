@@ -17,9 +17,9 @@
 
 namespace SuplaBundle\Supla;
 
-use HttpException;
 use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
@@ -125,26 +125,6 @@ abstract class SuplaServer {
         return false;
     }
 
-    private function setValue(string $type, int $userId, int $deviceId, int $channelId, $value) {
-        if ($userId && $deviceId && $channelId && $this->connect()) {
-            $result = $this->command("SET-$type-VALUE:$userId,$deviceId,$channelId,$value");
-            if ($result && preg_match("/^OK:/", $result) === 1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private function setChannelGroupValue(string $type, int $userId, int $groupId, $value) {
-        if ($userId && $deviceId && $channelId && $this->connect()) {
-            $result = $this->command("SET-$type-VALUE:$userId,$groupId,$value");
-            if ($result && preg_match("/^OK:/", $result) === 1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private function getValue($type, IODeviceChannel $channel) {
         $result = $this->getRawValue($type, $channel);
         if ($result !== false) {
@@ -190,31 +170,24 @@ abstract class SuplaServer {
         return false;
     }
 
-    private function setCharVal(int $userId, int $deviceId, int $cgId, bool $group, $char) {
-        $char = intval($char, 0);
-        if ($char < 0 || $char > 255) {
-            $char = 0;
-        }
-        if ($group) {
-            return $this->setChannelGroupValue('CHAR', $userId, $cgId, $char);
-        }
-        return $this->setValue('CHAR', $userId, $deviceId, $cgId, $char);
+    public function setCharValue(HasFunction $functionable, int $char) {
+        $this->setValue('CHAR', $functionable, [$char]);
     }
 
-    public function setCharValue(IODeviceChannel $channel, $char) {
-        $user = $this->getCurrentUserOrThrow();
-        $success = $this->setCharVal($user->getId(), $channel->getIoDevice()->getId(), $channel->getId(), false, $char);
-        if (false === $success) {
+    private function setValue(string $type, HasFunction $functionable, array $params) {
+        $params = array_merge($functionable->getServerFootprint(), $params);
+        $params = implode(',', $params);
+        if ($this->connect()) {
+            $result = $this->command("SET-$type-VALUE:$params");
+            if (!$result || preg_match("/^OK:/", $result) !== 1) {
+                throw new ServiceUnavailableHttpException();
+            }
+        } else {
             throw new ServiceUnavailableHttpException();
         }
-        return $success;
     }
 
-    public function setChannelGroupCharValue(int $userId, int $groupId, $char) {
-        return $this->setCharVal($userId, 0, $groupId, true, $char);
-    }
-
-    private function setRgbwVal(int $userId, int $deviceId, int $cgId, bool $group, int $color, int $colorBrightness, int $brightness) {
+    private function setRgbwVal(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
 
         $color = intval($color, 0x00FF00);
         $colorBrightness = intval($colorBrightness, 0);
@@ -232,19 +205,11 @@ abstract class SuplaServer {
             $color = 0x00FF00;
         }
 
-        if ($group) {
-            return $this->setChannelGroupVal('RGBW', $userId, $cgId, $color . ',' . $colorBrightness . ',' . $brightness);
-        }
-
-        return $this->setValue('RGBW', $userId, $deviceId, $cgId, $color . ',' . $colorBrightness . ',' . $brightness);
+        $this->setValue('RGBW', $functionable, [$color, $colorBrightness, $brightness]);
     }
 
-    public function setRgbwValue(int $userId, int $deviceId, int $channelId, int $color, int $colorBrightness, int $brightness) {
-        return $this->setRgbwVal($userId, $deviceId, $cgId, false, $color, $colorBrightness, $brightness);
-    }
-
-    public function setChannelGroupRgbwValue(int $userId, int $groupId, int $color, int $colorBrightness, int $brightness) {
-        return $this->setRgbwVal($userId, 0, $groupId, true, $color, $colorBrightness, $brightness);
+    public function setRgbwValue(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
+        return $this->setRgbwVal($functionable, $color, $colorBrightness, $brightness);
     }
 
     public function isAlive(): bool {
