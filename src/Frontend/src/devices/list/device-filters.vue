@@ -41,7 +41,7 @@
                 if (this.enabled !== undefined && this.enabled != device.enabled) {
                     return false;
                 }
-                if (this.connected !== undefined && this.hidden != device.connected) {
+                if (this.connected !== undefined && this.connected != device.connected) {
                     return false;
                 }
                 if (this.search) {
