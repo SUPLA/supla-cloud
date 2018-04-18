@@ -65,6 +65,9 @@
         watch: {
             channel() {
                 this.buildIcons();
+            },
+            'channel.function.maxAlternativeIconIndex'() {
+                this.buildIcons();
             }
         }
     };
