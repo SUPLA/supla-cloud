@@ -368,53 +368,8 @@ class ApiChannelController extends RestController {
                 return $this->getChannelAction($request, $channel);
             });
         } else {
-            $channelid = $channel->getId();
-            $channel = $this->channelById($channelid, null, true, true);
-            $data = json_decode($request->getContent());
-
-            $devid = $channel->getIoDevice()->getId();
-            $userid = $this->getParentUser()->getId();
-
-            $func = $channel->getFunction()->getId();
-
-            switch ($func) {
-                case SuplaConst::FNC_DIMMER:
-                case SuplaConst::FNC_RGBLIGHTING:
-                case SuplaConst::FNC_DIMMERANDRGBLIGHTING:
-                    $color = intval(@$data->color);
-                    $color_brightness = intval(@$data->color_brightness);
-                    $brightness = intval(@$data->brightness);
-
-                    if ($func == SuplaConst::FNC_RGBLIGHTING
-                        || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
-                    ) {
-                        if ($color <= 0
-                            || $color > 0xffffff
-                            || $color_brightness < 0
-                            || $color_brightness > 100
-                        ) {
-                            throw new HttpException(Response::HTTP_BAD_REQUEST);
-                        }
-                    }
-
-                    if ($func == SuplaConst::FNC_DIMMER
-                        || $func == SuplaConst::FNC_DIMMERANDRGBLIGHTING
-                    ) {
-                        if ($brightness < 0
-                            || $brightness > 100
-                        ) {
-                            throw new HttpException(Response::HTTP_BAD_REQUEST);
-                        }
-                    }
-
-                $this->suplaServer->setRgbwValue($channel, $color, $color_brightness, $brightness);
-
-                    break;
-
-                default:
-                    throw new HttpException(Response::HTTP_BAD_REQUEST, 'Invalid action.');
-            }
-
+            $data = json_decode($request->getContent(), true);
+            $this->channelActionExecutor->executeAction($channel, ChannelFunctionAction::SET_RGBW_PARAMETERS(), $data);
             return $this->handleView($this->view(null, Response::HTTP_OK));
         }
     }

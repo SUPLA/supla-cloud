@@ -19,7 +19,6 @@ namespace SuplaBundle\Supla;
 
 use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODeviceChannel;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
@@ -170,15 +169,13 @@ abstract class SuplaServer {
         return false;
     }
 
-    public function setCharValue(HasFunction $functionable, int $char) {
-        $this->setValue('CHAR', $functionable, [$char]);
-    }
+//    public function setCharValue(HasFunction $functionable, int $char) {
+//        $this->setValue('CHAR', $functionable, [$char]);
+//    }
 
-    private function setValue(string $type, HasFunction $functionable, array $params) {
-        $params = array_merge($functionable->getServerFootprint(), $params);
-        $params = implode(',', $params);
+    public function executeSetCommand(string $command) {
         if ($this->connect()) {
-            $result = $this->command("SET-$type-VALUE:$params");
+            $result = $this->command($command);
             if (!$result || preg_match("/^OK:/", $result) !== 1) {
                 throw new ServiceUnavailableHttpException();
             }
@@ -187,30 +184,30 @@ abstract class SuplaServer {
         }
     }
 
-    private function setRgbwVal(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
-
-        $color = intval($color, 0x00FF00);
-        $colorBrightness = intval($colorBrightness, 0);
-        $brightness = intval($brightness, 0);
-
-        if ($colorBrightness < 0 || $colorBrightness > 255) {
-            $colorBrightness = 0;
-        }
-
-        if ($brightness < 0 || $brightness > 255) {
-            $brightness = 0;
-        }
-
-        if ($color < 0 || $color > 0xffffff) {
-            $color = 0x00FF00;
-        }
-
-        $this->setValue('RGBW', $functionable, [$color, $colorBrightness, $brightness]);
-    }
-
-    public function setRgbwValue(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
-        return $this->setRgbwVal($functionable, $color, $colorBrightness, $brightness);
-    }
+//    private function setRgbwVal(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
+//
+//        $color = intval($color, 0x00FF00);
+//        $colorBrightness = intval($colorBrightness, 0);
+//        $brightness = intval($brightness, 0);
+//
+//        if ($colorBrightness < 0 || $colorBrightness > 255) {
+//            $colorBrightness = 0;
+//        }
+//
+//        if ($brightness < 0 || $brightness > 255) {
+//            $brightness = 0;
+//        }
+//
+//        if ($color < 0 || $color > 0xffffff) {
+//            $color = 0x00FF00;
+//        }
+//
+//        $this->setValue('RGBW', $functionable, [$color, $colorBrightness, $brightness]);
+//    }
+//
+//    public function setRgbwValue(HasFunction $functionable, int $color, int $colorBrightness, int $brightness) {
+//        return $this->setRgbwVal($functionable, $color, $colorBrightness, $brightness);
+//    }
 
     public function isAlive(): bool {
         // TODO @pzygmunt

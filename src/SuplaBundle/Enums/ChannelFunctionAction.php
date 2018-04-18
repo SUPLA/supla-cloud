@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Enums;
 
-use Assert\Assert;
 use Assert\Assertion;
 use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -84,46 +83,7 @@ final class ChannelFunctionAction extends Enum {
 
     public static function fromString(string $action): ChannelFunctionAction {
         $action = str_replace('-', '_', strtoupper($action));
+        Assertion::true(self::isValidKey($action), 'Invalid action: ' . $action);
         return self::$action();
-    }
-
-    public function validateActionParam($actionParams) {
-        switch ($this->getValue()) {
-            case self::REVEAL_PARTIALLY:
-                return $this->validateActionParamForRevealPartially($actionParams);
-            case self::SET_RGBW_PARAMETERS:
-                return $this->validateActionParamForRgbwParameters($actionParams);
-            default:
-                Assertion::null($actionParams, "Action {$this->getKey()} is not expected to have an action parameters.");
-                return null;
-        }
-    }
-
-    private function validateActionParamForRevealPartially($actionParams) {
-        Assert::that($actionParams)->count(1)->keyExists('percentage');
-        Assert::that($actionParams['percentage'])->numeric()->between(0, 100);
-        $actionParams['percentage'] = intval($actionParams['percentage']);
-        return $actionParams;
-    }
-
-    private function validateActionParamForRgbwParameters($actionParams) {
-        Assertion::true(is_array($actionParams));
-        Assertion::between(count($actionParams), 1, 3);
-        Assertion::count(array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness'])), count($actionParams));
-        if (isset($actionParams['hue'])) {
-            Assertion::true(is_numeric($actionParams['hue']) || in_array($actionParams['hue'], ['random', 'white']));
-            if (is_numeric($actionParams['hue'])) {
-                Assert::that($actionParams['hue'])->between(0, 359);
-                $actionParams['hue'] = intval($actionParams['hue']);
-            }
-            Assertion::keyExists($actionParams, 'color_brightness');
-            Assert::that($actionParams['color_brightness'])->numeric()->between(0, 100);
-            $actionParams['color_brightness'] = intval($actionParams['color_brightness']);
-        }
-        if (isset($actionParams['brightness'])) {
-            Assert::that($actionParams['brightness'])->numeric()->between(0, 100);
-            $actionParams['brightness'] = intval($actionParams['brightness']);
-        }
-        return $actionParams;
     }
 }

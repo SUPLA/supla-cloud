@@ -193,9 +193,10 @@ class Schedule {
 
     /** @param array|null */
     public function setActionParam($actionParam) {
-        $params = $this->getAction()->validateActionParam($actionParam);
-        if ($params) {
-            $params = json_encode($params);
+        if ($actionParam) {
+            $params = json_encode($actionParam);
+        } else {
+            $params = null;
         }
         $this->actionParam = $params;
     }

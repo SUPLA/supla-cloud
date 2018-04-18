@@ -2,7 +2,7 @@
 namespace SuplaApiBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -15,9 +15,10 @@ abstract class SingleChannelActionExecutor {
 
     abstract public function getSupportedAction(): ChannelFunctionAction;
 
-    abstract public function execute(IODeviceChannel $channel, array $actionParams = []);
+    abstract public function execute(HasFunction $subject, array $actionParams = []);
 
-    public function validateActionParams(array $actionParams) {
+    public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::noContent($actionParams, 'This action is not supposed to have any parameters.');
+        return $actionParams;
     }
 }

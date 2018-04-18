@@ -1,7 +1,7 @@
 <?php
 namespace SuplaApiBundle\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
@@ -16,7 +16,7 @@ class StopActionExecutor extends SetCharValueActionExecutor {
         return ChannelFunctionAction::STOP();
     }
 
-    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []): int {
+    protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
         return 0;
     }
 }

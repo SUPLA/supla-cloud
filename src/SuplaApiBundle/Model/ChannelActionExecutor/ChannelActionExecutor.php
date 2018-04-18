@@ -3,7 +3,7 @@ namespace SuplaApiBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
 use SuplaApiBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ChannelActionExecutor {
@@ -17,15 +17,25 @@ class ChannelActionExecutor {
         }
     }
 
-    public function executeAction(IODeviceChannel $channel, ChannelFunctionAction $action, array $actionParams = []) {
+    public function executeAction(HasFunction $subject, ChannelFunctionAction $action, array $actionParams = []) {
+        $executor = $this->getExecutor($subject, $action);
+        $actionParams = $executor->validateActionParams($subject, $actionParams);
+        $executor->execute($subject, $actionParams);
+    }
+
+    public function validateActionParams(HasFunction $subject, ChannelFunctionAction $action, array $actionParams): array {
+        $executor = $this->getExecutor($subject, $action);
+        return $executor->validateActionParams($subject, $actionParams);
+    }
+
+    private function getExecutor(HasFunction $subject, ChannelFunctionAction $action): SingleChannelActionExecutor {
         Assertion::keyIsset($this->actionExecutors, $action->getName(), 'Cannot execute requested action through API.');
         $executor = $this->actionExecutors[$action->getName()];
         Assertion::inArray(
-            $channel->getFunction()->getId(),
+            $subject->getFunction()->getId(),
             EntityUtils::mapToIds($executor->getSupportedFunctions()),
             'Cannot execute requested action on this channel.'
         );
-        $executor->validateActionParams($actionParams);
-        $executor->execute($channel, $actionParams);
+        return $executor;
     }
 }

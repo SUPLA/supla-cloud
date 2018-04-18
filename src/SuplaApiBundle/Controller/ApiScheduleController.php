@@ -21,8 +21,10 @@ use Assert\Assert;
 use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaApiBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +33,12 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiScheduleController extends RestController {
     /** @var ScheduleRepository */
     private $scheduleRepository;
+    /** @var ChannelActionExecutor */
+    private $channelActionExecutor;
 
-    public function __construct(ScheduleRepository $scheduleRepository) {
+    public function __construct(ScheduleRepository $scheduleRepository, ChannelActionExecutor $channelActionExecutor) {
         $this->scheduleRepository = $scheduleRepository;
+        $this->channelActionExecutor = $channelActionExecutor;
     }
 
     /**
@@ -143,6 +148,13 @@ class ApiScheduleController extends RestController {
         $channel = $this->get('iodevice_manager')->channelById($data['channelId']);
         Assertion::notNull($channel);
         $data['channel'] = $channel;
+        if ($data['actionParam']) {
+            $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
+                $channel,
+                new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),
+                $data['actionParam']
+            );
+        }
         $schedule->fill($data);
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         Assertion::count($errors, 0, implode(', ', $errors));

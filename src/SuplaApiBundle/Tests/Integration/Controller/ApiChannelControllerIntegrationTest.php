@@ -85,6 +85,8 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
             [4, 'stop', 'SET-CHAR-VALUE:1,1,4,0'],
             [4, 'shut', 'SET-CHAR-VALUE:1,1,4,50', ['percent' => 40]],
             [4, 'reveal', 'SET-CHAR-VALUE:1,1,4,50', ['percent' => 60]],
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42', ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42]],
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42', ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
         ];
     }
 

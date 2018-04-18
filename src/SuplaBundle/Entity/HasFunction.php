@@ -13,5 +13,5 @@ interface HasFunction {
      * See SuplaServer#setValue for more details.
      * @return int[]
      */
-    public function getServerFootprint(): array;
+    public function buildServerSetCommand(string $type, array $actionParams): string;
 }

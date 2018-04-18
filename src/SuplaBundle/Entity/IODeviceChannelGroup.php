@@ -166,7 +166,9 @@ class IODeviceChannelGroup implements HasFunction {
         }
     }
 
-    public function getServerFootprint(): array {
-        return [$this->getUser()->getId(), $this->getId()];
+    public function buildServerSetCommand(string $type, array $actionParams): string {
+        $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
+        $params = implode(',', $params);
+        return "SET-CG-$type-VALUE:$params";
     }
 }

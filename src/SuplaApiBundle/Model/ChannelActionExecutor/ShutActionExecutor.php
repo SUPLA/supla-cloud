@@ -2,7 +2,7 @@
 namespace SuplaApiBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ShutActionExecutor extends StopActionExecutor {
@@ -10,17 +10,23 @@ class ShutActionExecutor extends StopActionExecutor {
         return ChannelFunctionAction::SHUT();
     }
 
-    public function validateActionParams(array $actionParams) {
+    public function validateActionParams(HasFunction $subject, array $actionParams): array {
         if ($actionParams) {
             Assertion::count($actionParams, 1, 'Too many action parameters.');
-            Assertion::keyIsset($actionParams, 'percent', 'Missing required action param: percent.');
-            Assertion::integer($actionParams['percent'], 'Invalid percent action param.');
-            Assertion::between($actionParams['percent'], 0, 100, 'Percent should be between 0 and 100.');
+            if (isset($actionParams['percent'])) {
+                $actionParams['percentage'] = $actionParams['percent'];
+                unset($actionParams['percent']);
+            }
+            Assertion::keyIsset($actionParams, 'percentage', 'Missing required action param: percent.');
+            Assertion::numeric($actionParams['percentage'], 'Invalid percent action param.');
+            $actionParams['percentage'] = intval($actionParams['percentage']);
+            Assertion::between($actionParams['percentage'], 0, 100, 'Percent should be between 0 and 100.');
         }
+        return $actionParams;
     }
 
-    protected function getCharValue(IODeviceChannel $channel, array $actionParams = []): int {
-        $percent = $actionParams['percent'] ?? 0;
+    protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
+        $percent = $actionParams['percentage'] ?? 0;
         return $percent + 10;
     }
 }
