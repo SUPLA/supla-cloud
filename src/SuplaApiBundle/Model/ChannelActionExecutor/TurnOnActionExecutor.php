@@ -9,6 +9,7 @@ class TurnOnActionExecutor extends SetCharValueActionExecutor {
         return [
             ChannelFunction::POWERSWITCH(),
             ChannelFunction::LIGHTSWITCH(),
+            ChannelFunction::STAIRCASETIMER(),
         ];
     }
 

@@ -21,7 +21,9 @@ use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaApiBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +32,14 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiChannelGroupController extends RestController {
     use Transactional;
     use SuplaServerAware;
-    
+
+    /** @var ChannelActionExecutor */
+    private $channelActionExecutor;
+
+    public function __construct(ChannelActionExecutor $channelActionExecutor) {
+        $this->channelActionExecutor = $channelActionExecutor;
+    }
+
     /**
      * @Rest\Get("/channel-groups")
      */
@@ -97,5 +106,18 @@ class ApiChannelGroupController extends RestController {
             $this->suplaServer->reconnect();
             return new Response('', Response::HTTP_NO_CONTENT);
         });
+    }
+
+    /**
+     * @Rest\Patch("/channel-groups/{channelGroup}")
+     * @Security("channelGroup.belongsToUser(user)")
+     */
+    public function patchChannelsAction(Request $request, IODeviceChannelGroup $channelGroup) {
+        $params = json_decode($request->getContent(), true);
+        Assertion::keyExists($params, 'action', 'Missing action.');
+        $action = ChannelFunctionAction::fromString($params['action']);
+        unset($params['action']);
+        $this->channelActionExecutor->executeAction($channelGroup, $action, $params);
+        return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
     }
 }
