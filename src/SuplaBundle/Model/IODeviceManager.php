@@ -27,7 +27,6 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\RelayFunctionBits;
-use SuplaBundle\Supla\SuplaConst;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -41,8 +40,12 @@ class IODeviceManager {
     protected $sec;
     protected $template;
 
-    public function __construct(TranslatorInterface $translator, ManagerRegistry $doctrine, TokenStorage $security_token,
-                                TwigEngine $template) {
+    public function __construct(
+        TranslatorInterface $translator,
+        ManagerRegistry $doctrine,
+        TokenStorage $security_token,
+        TwigEngine $template
+    ) {
         $this->translator = $translator;
         $this->doctrine = $doctrine;
         $this->dev_rep = $doctrine->getRepository('SuplaBundle:IODevice');
@@ -69,7 +72,7 @@ class IODeviceManager {
             $type = $type->getValue();
         }
 
-        if ($type == SuplaConst::TYPE_RELAY) {
+        if ($type == ChannelType::RELAY) {
             $fnc = [0];
 
             if ($flist !== null && is_int($flist)) {
@@ -147,32 +150,6 @@ class IODeviceManager {
         );
     }
 
-    public function getUnattachedOPENINGSENSORs($func, $include = 0) {
-        $user = $this->sec->getToken()->getUser();
-
-        return $this->channel_rep->findBy(
-            ['user' => $user,
-                'type' => [SuplaConst::TYPE_SENSORNO, SuplaConst::TYPE_SENSORNC],
-                'function' => $func,
-                'param1' => [0, $include],
-                'param2' => 0,
-                'param3' => 0]
-        );
-    }
-
-    public function getSensorUnnattachedSubChannels($func, $include = 0) {
-
-        $user = $this->sec->getToken()->getUser();
-
-        return $this->channel_rep->findBy(
-            ['user' => $user,
-                'type' => [SuplaConst::TYPE_RELAY, SuplaConst::TYPE_RELAYHFD4, SuplaConst::TYPE_RELAYG5LA1A, SuplaConst::TYPE_RELAY2XG5LA1A],
-                'function' => $func,
-                'param2' => [0, $include],
-                'param3' => 0]
-        );
-    }
-
     public function channelsToArray($channels) {
         $result = [];
 
@@ -221,8 +198,8 @@ class IODeviceManager {
         if ($temp_file !== false) {
             $handle = fopen($temp_file, 'w+');
 
-            if ($channel->getType()->getId() == SuplaConst::TYPE_THERMOMETERDS18B20
-                || $channel->getType()->getId() == SuplaConst::TYPE_THERMOMETER) {
+            if ($channel->getType()->getId() == ChannelType::THERMOMETERDS18B20
+                || $channel->getType()->getId() == ChannelType::THERMOMETER) {
                 fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature']);
 
                 $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";

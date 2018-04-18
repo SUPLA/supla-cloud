@@ -32,12 +32,10 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
-use SuplaBundle\Supla\SuplaConst;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiChannelController extends RestController {
     use SuplaServerAware;
@@ -115,33 +113,16 @@ class ApiChannelController extends RestController {
         return $view;
     }
 
-    protected function channelById($channelid, $functions = null) {
-
-        $channelid = intval($channelid);
-
-        $channel = $this->deviceManager->channelById($channelid, $this->getParentUser());
-
-        if (!($channel instanceof IODeviceChannel)) {
-            throw new HttpException(Response::HTTP_NOT_FOUND, 'The device channel could not be found');
-        }
-
-        if (is_array($functions) && !in_array($channel->getFunction()->getId(), $functions)) {
-            throw new HttpException(Response::HTTP_BAD_REQUEST, 'The requested function is not available on this device');
-        }
-
-        return $channel;
-    }
-
-    protected function getTempHumidityLogCountAction($th, $channelid) {
+    protected function getTempHumidityLogCountAction($th, IODeviceChannel $channel) {
         $f = [];
 
         if ($th === true) {
-            $f[] = SuplaConst::FNC_HUMIDITYANDTEMPERATURE;
+            $f[] = ChannelFunction::HUMIDITYANDTEMPERATURE;
         } else {
-            $f[] = SuplaConst::FNC_THERMOMETER;
+            $f[] = ChannelFunction::THERMOMETER;
         }
 
-        $channel = $this->channelById($channelid, $f);
+        Assertion::inArray($channel->getFunction()->getId(), $f, 'The requested function is not available on this device');
 
         $em = $this->container->get('doctrine')->getManager();
         $rep = $em->getRepository('SuplaBundle:' . ($th === true ? 'TempHumidityLogItem' : 'TemperatureLogItem'));
@@ -149,7 +130,7 @@ class ApiChannelController extends RestController {
         $query = $rep->createQueryBuilder('f')
             ->select('COUNT(f.id)')
             ->where('f.channel_id = :id')
-            ->setParameter('id', $channelid)
+            ->setParameter('id', $channel->getId())
             ->getQuery();
 
         return $this->handleView($this->view(
@@ -159,47 +140,32 @@ class ApiChannelController extends RestController {
         ));
     }
 
-    /**
-     * @Rest\Get("/channels/{channelid}/temperature-log-count")
-     */
-    public function getTempLogCountAction(Request $request, $channelid) {
-
-        return $this->getTempHumidityLogCountAction(false, $channelid);
-    }
-
     protected function temperatureLogItems($channelid, $offset, $limit) {
-
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, `temperature` ";
         $sql .= "FROM `supla_temperature_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
-
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
         $stmt->bindValue(2, $limit, 'integer');
         $stmt->bindValue(3, $offset, 'integer');
         $stmt->execute();
-
         return $stmt->fetchAll();
     }
 
     protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
-
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, `temperature`, ";
         $sql .= "`humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
-
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
         $stmt->bindValue(2, $limit, 'integer');
         $stmt->bindValue(3, $offset, 'integer');
         $stmt->execute();
-
         return $stmt->fetchAll();
     }
 
-    protected function getTempHumidityLogItemsAction($th, $channelid, $offset, $limit) {
+    protected function getTempHumidityLogItemsAction($th, IODeviceChannel $channel, $offset, $limit) {
+        $f[] = $th === true ? ChannelFunction::HUMIDITYANDTEMPERATURE : ChannelFunction::THERMOMETER;
 
-        $f[] = $th === true ? SuplaConst::FNC_HUMIDITYANDTEMPERATURE : SuplaConst::FNC_THERMOMETER;
-
-        $channel = $this->channelById($channelid, $f);
+        Assertion::inArray($channel->getFunction()->getId(), $f, 'The requested function is not available on this device');
 
         $offset = intval($offset);
         $limit = intval($limit);
@@ -209,36 +175,44 @@ class ApiChannelController extends RestController {
         }
 
         if ($th === true) {
-            $result = $this->temperatureAndHumidityLogItems($channelid, $offset, $limit);
+            $result = $this->temperatureAndHumidityLogItems($channel->getId(), $offset, $limit);
         } else {
-            $result = $this->temperatureLogItems($channelid, $offset, $limit);
+            $result = $this->temperatureLogItems($channel->getId(), $offset, $limit);
         }
 
         return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
     }
 
     /**
-     * @Rest\Get("/channels/{channelid}/temperature-log-items")
+     * @Rest\Get("/channels/{channel}/temperature-log-count")
+     * @Security("channel.belongsToUser(user)")
      */
-    public function getTempLogItemsAction(Request $request, $channelid) {
-
-        return $this->getTempHumidityLogItemsAction(false, $channelid, @$request->query->get('offset'), @$request->query->get('limit'));
+    public function getTempLogCountAction(IODeviceChannel $channel) {
+        return $this->getTempHumidityLogCountAction(false, $channel);
     }
 
     /**
-     * @Rest\Get("/channels/{channelid}/temperature-and-humidity-count")
+     * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
+     * @Security("channel.belongsToUser(user)")
      */
-    public function getTempHumLogCountAction(Request $request, $channelid) {
-
-        return $this->getTempHumidityLogCountAction(true, $channelid);
+    public function getTempHumLogCountAction(IODeviceChannel $channel) {
+        return $this->getTempHumidityLogCountAction(true, $channel);
     }
 
     /**
-     * @Rest\Get("/channels/{channelid}/temperature-and-humidity-items")
+     * @Rest\Get("/channels/{channel}/temperature-log-items")
+     * @Security("channel.belongsToUser(user)")
      */
-    public function getTempHumLogItemsAction(Request $request, $channelid) {
+    public function getTempLogItemsAction(Request $request, IODeviceChannel $channel) {
+        return $this->getTempHumidityLogItemsAction(false, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
+    }
 
-        return $this->getTempHumidityLogItemsAction(true, $channelid, @$request->query->get('offset'), @$request->query->get('limit'));
+    /**
+     * @Rest\Get("/channels/{channel}/temperature-and-humidity-items")
+     * @Security("channel.belongsToUser(user)")
+     */
+    public function getTempHumLogItemsAction(Request $request, IODeviceChannel $channel) {
+        return $this->getTempHumidityLogItemsAction(true, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
     }
 
     /**
