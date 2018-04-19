@@ -78,7 +78,7 @@ class IODeviceChannelGroup implements HasFunction {
 
     /**
      * @ORM\Column(name="func", type="integer", nullable=false)
-     * @Groups({"function"})
+     * @Groups({"basic"})
      */
     private $function;
 
