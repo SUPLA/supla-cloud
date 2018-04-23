@@ -85,6 +85,7 @@ services:
 
   SuplaBundle\Supla\SuplaServerReal:
     $socketPath: '%supla_server_socket%'
+    $serverName: '%supla_server%'
 
   SuplaBundle\Supla\SuplaAutodiscover:
     $server: "%supla_autodiscover_server%"
