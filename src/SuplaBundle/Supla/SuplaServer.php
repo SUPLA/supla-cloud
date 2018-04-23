@@ -28,11 +28,17 @@ abstract class SuplaServer {
 
     /** @var string */
     protected $socketPath;
+    
+    /** @var string */
+    protected $serverName;
 
     protected $authorized = false;
 
-    public function __construct(string $socketPath) {
+    // __construct(string $socketPath, string? $serverName)
+    // nullable types requires php 7.1
+    public function __construct(string $socketPath, $serverName) {
         $this->socketPath = $socketPath;
+        $this->serverName = $serverName;
     }
 
     public function __destruct() {
@@ -189,7 +195,39 @@ abstract class SuplaServer {
     }
 
     public function isAlive(): bool {
-        // TODO @pzygmunt
-        return true;
+        
+        $alive = false;
+        $server = $this->serverName;
+        
+        if (!$server) {
+            $server = "localhost";
+        }
+        
+        $context = stream_context_create([
+                'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false
+                ]
+        ]);
+        
+        $socket = @stream_socket_client("tls://".$server.":2016", $errno, $errstr, 3, STREAM_CLIENT_CONNECT, $context);
+        if ($socket) {
+            fclose($socket);
+        } else {
+            return false;
+        }
+        
+        $socket = @stream_socket_client($server.":2015", $errno, $errstr, 3);
+        if ($socket) {
+            fclose($socket);
+        } else {
+            return false;
+        }
+        
+        if ($this->connect() !== false) {
+            $result = $this->command("UNKNOWN-COMMAND");
+            return $result !== false && preg_match("/^COMMAND_UNKNOWN\n/", $result) === 1 ? true : false;
+        }
+        return false;
     }
 }

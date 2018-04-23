@@ -27,7 +27,7 @@ class SuplaServerMock extends SuplaServer {
     private $commandsCollector;
 
     public function __construct(SuplaServerMockCommandsCollector $commandsCollector) {
-        parent::__construct('');
+        parent::__construct('', '');
         $this->commandsCollector = $commandsCollector;
     }
 
