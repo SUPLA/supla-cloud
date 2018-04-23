@@ -23,8 +23,10 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use SuplaBundle\Supla\SuplaServerAware;
 
 class MaintenanceCommand extends ContainerAwareCommand {
+    use SuplaServerAware;
 
     protected function configure() {
         $this
@@ -104,6 +106,38 @@ class MaintenanceCommand extends ContainerAwareCommand {
         $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $stmt->rowCount(), $name));
     }
 
+    protected function disableClients($em, OutputInterface $output) {
+        /** @var Registry $doctrine */
+        $doctrine = $this->getContainer()->get('doctrine');
+        /** @var SuplaServer $suplaServer */
+        $clientRepo = $doctrine->getRepository('SuplaBundle:ClientApp');
+        
+        if (!$this->suplaServer) {
+            $this->suplaServer = $this->getContainer()->get('user_manager');
+        }
+    
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $criteria
+        ->where($criteria->expr()->eq('enabled', true))
+        ->andWhere($criteria->expr()->lte('disableAfterDate', $now));
+        $clients = $clientRepo->matching($criteria);
+
+        $output->writeln('Clients to disable: ' . count($clients));
+        
+        if ($this->suplaServer == null) {
+            $this->suplaServer= $this->getContainer()->get('SuplaServer');
+        }
+        
+        foreach ($clients as $clientApp) {
+            $output->writeln($clientApp->getId());
+            $this->suplaServer->clientReconnect($clientApp);
+            $clientApp->setEnabled(false);
+            $em->persist($clientApp);
+            $em->flush();
+        }
+    }
+    
     protected function execute(InputInterface $input, OutputInterface $output) {
         $em = $this->getContainer()->get('doctrine')->getManager();
 
@@ -112,6 +146,7 @@ class MaintenanceCommand extends ContainerAwareCommand {
                 $this->oauthClean($output);
                 $this->regDatesClean($em, 'client', $output);
                 $this->regDatesClean($em, 'iodevice', $output);
+                $this->disableClients($em, $output);
                 break;
             case 'hour':
                 break;

@@ -117,6 +117,11 @@ class ClientApp {
      * @Assert\Length(max=100)
      */
     private $caption;
+    
+    /**
+     * @ORM\Column(name="disable_after_date", type="utcdatetime", nullable=true)
+     */
+    private $disableAfterDate;
 
     public function getId(): int {
         return $this->id;
@@ -182,5 +187,9 @@ class ClientApp {
 
     public function setCaption(string $caption) {
         $this->caption = $caption;
+    }
+    
+    public function getDisableAfterDate() {
+        return $this->disableAfterDate;
     }
 }
