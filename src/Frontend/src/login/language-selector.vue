@@ -5,6 +5,7 @@
             <option value="en">English</option>
             <option value="pl">Polski</option>
             <option value="cs">Čeština</option>
+            <option value="lt">Lietuvių</option>
             <option value="ru">Русский</option>
             <option value="de">Deutsch</option>
             <option value="it">Italiano</option>

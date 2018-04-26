@@ -95,7 +95,7 @@
                             </router-link>
                             <li class="divider"></li>
                             <li class="flags"
-                                v-for="flagsRow in [['en', 'pl', 'cs'], ['ru', 'de', 'it'], ['pt', 'es', 'fr']]">
+                                v-for="flagsRow in [['en', 'pl', 'cs', 'lt', 'ru'], ['de', 'it', 'pt', 'es', 'fr']]">
                                 <router-link :to="{query: { lang: flag }}"
                                     v-for="flag in flagsRow"
                                     :key="flag"
