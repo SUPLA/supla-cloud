@@ -84,7 +84,10 @@ export function clientAppTransformer(request, next) {
     if (request.url.startsWith('client-apps')) {
         if (request.body && request.body.id) {
             const toSend = Vue.util.extend({}, request.body);
-            delete toSend.accessId;
+            if (toSend.accessId) {
+                toSend.accessIdId = toSend.accessId.id;
+                delete toSend.accessId;
+            }
             request.body = toSend;
         }
     }

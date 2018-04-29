@@ -4,7 +4,7 @@
             <client-app-tile :model="app"
                 slot="front"
                 @click="edit()"></client-app-tile>
-            <square-link class="yellow"
+            <square-link class="yellow not-transform"
                 slot="back">
                 <form @submit.prevent="save()"
                     v-if="editingModel">
@@ -17,12 +17,11 @@
 
                     <div class="form-group">
                         <label>{{ $t('Access Identifier') }}</label>
-                        <select class="form-control"
-                            v-model="editingModel.accessIdId">
-                            <option v-for="accessId in accessIds"
-                                :value="accessId.id">ID{{accessId.id}} {{ accessId.caption }}
-                            </option>
-                        </select>
+                        <div>
+                            <a @click="assignAccessIds = true">
+                                ID{{editingModel.accessId.id}} {{ editingModel.accessId.caption }}
+                            </a>
+                        </div>
                     </div>
                     <switches v-model="editingModel.enabled"
                         type-bold="true"
@@ -59,6 +58,10 @@
             :loading="saving">
             <p>{{ $t('The client will be automatically logged out when deleted.') }}</p>
         </modal-confirm>
+        <access-id-chooser v-if="assignAccessIds"
+            :selected="editingModel.accessId"
+            @cancel="assignAccessIds = false"
+            @confirm="editingModel.accessId = $event assignAccessIds = false"></access-id-chooser>
     </div>
 </template>
 
@@ -68,15 +71,20 @@
     import Vue from "vue";
     import {successNotification, warningNotification} from "../common/notifier";
     import ClientAppTile from "./client-app-tile";
+    import AccessIdChooser from "../access-ids/access-id-chooser";
 
     export default {
-        props: ['app', 'accessIds'],
-        components: {ClientAppTile, Switches, ButtonLoadingDots},
+        props: ['app'],
+        components: {
+            AccessIdChooser,
+            ClientAppTile, Switches, ButtonLoadingDots
+        },
         data() {
             return {
                 saving: false,
                 editingModel: null,
-                deleteConfirm: false
+                deleteConfirm: false,
+                assignAccessIds: false
             };
         },
         methods: {

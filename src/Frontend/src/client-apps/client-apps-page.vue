@@ -24,7 +24,6 @@
                 :key="app.id"
                 :ref="'app-tile-' + app.id">
                 <client-app-tile-editable :app="app"
-                    :access-ids="accessIds"
                     @change="filter()"
                     @delete="removeClientFromList(app)"></client-app-tile-editable>
             </div>
@@ -61,7 +60,6 @@
         data() {
             return {
                 clientApps: undefined,
-                accessIds: undefined,
                 filteredClientApps: [],
                 filterFunction: () => true,
                 compareFunction: () => 1,
@@ -73,7 +71,6 @@
                     this.clientApps = body;
                     this.filter();
                 });
-            this.$http.get('accessids').then(({body}) => this.accessIds = body);
         },
         methods: {
             filter() {
