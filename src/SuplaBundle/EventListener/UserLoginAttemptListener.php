@@ -52,7 +52,7 @@ class UserLoginAttemptListener {
             ->setIntParam($reason->getValue())
             ->setUser($user)
             ->buildAndFlush();
-        if ($user && $entry->getIntParam() != AuthenticationFailureReason::BLOCKED) {
+        if ($user && $user->isEnabled() && $entry->getIntParam() != AuthenticationFailureReason::BLOCKED) {
             $this->mailer->sendFailedAuthenticationAttemptWarning($user, $entry->getIpv4());
         }
     }

@@ -79,6 +79,13 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
     }
 
+    public function testNoFailedAttemptNotificationIfAccountNotConfirmed() {
+        $this->testCreatingUser();
+        TestMailer::reset();
+        $this->assertFailedLoginRequest($this->createHttpsClient(), self::EMAIL, self::PASSWORD);
+        $this->assertEmpty(TestMailer::getMessages());
+    }
+
     public function testSavesIncorrectLoginAttemptInAudit() {
         $this->testCannotLoginIfNotConfirmed();
         $entry = $this->getLatestAuditEntry();
