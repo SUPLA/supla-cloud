@@ -19,12 +19,12 @@ namespace SuplaBundle\Entity;
 
 use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\RelayFunctionBits;
 use SuplaBundle\Validator\Constraints as SuplaAssert;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -288,6 +288,12 @@ class IODeviceChannel implements HasFunction {
     /** @return Collection|IODeviceChannelGroup[] */
     public function getChannelGroups(): Collection {
         return $this->channelGroups;
+    }
+
+    public function removeFromAllChannelGroups(EntityManagerInterface $entityManager) {
+        foreach ($this->getChannelGroups() as $channelGroup) {
+            $channelGroup->removeChannel($this, $entityManager);
+        }
     }
 
     public function buildServerSetCommand(string $type, array $actionParams): string {

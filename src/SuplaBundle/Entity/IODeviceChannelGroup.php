@@ -20,6 +20,7 @@ namespace SuplaBundle\Entity;
 use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -163,6 +164,15 @@ class IODeviceChannelGroup implements HasFunction {
         $this->channels->clear();
         foreach ($channels as $channel) {
             $this->channels->add($channel);
+        }
+    }
+
+    public function removeChannel(IODeviceChannel $channel, EntityManagerInterface $entityManager) {
+        $this->getChannels()->removeElement($channel);
+        if ($this->getChannels()->isEmpty()) {
+            $entityManager->remove($this);
+        } else {
+            $entityManager->persist($this);
         }
     }
 

@@ -229,6 +229,7 @@ class ApiIODeviceController extends RestController {
             foreach ($ioDevice->getChannels() as $channel) {
                 // clears all paired channels that are possibly made with the one that is being deleted
                 $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
+                $channel->removeFromAllChannelGroups($em);
                 $em->remove($channel);
             }
             $em->remove($ioDevice);

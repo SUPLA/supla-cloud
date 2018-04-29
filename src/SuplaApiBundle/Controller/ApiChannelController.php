@@ -304,16 +304,8 @@ class ApiChannelController extends RestController {
                     foreach ($channel->getSchedules() as $schedule) {
                         $this->get('schedule_manager')->delete($schedule);
                     }
-                    foreach ($channel->getChannelGroups() as $channelGroup) {
-                        $channelGroup->getChannels()->removeElement($channel);
-                        if ($channelGroup->getChannels()->isEmpty()) {
-                            $em->remove($channelGroup);
-                        } else {
-                            $em->persist($channelGroup);
-                        }
-                    }
+                    $channel->removeFromAllChannelGroups($em);
                 }
-
                 $this->suplaServer->reconnect();
                 return $this->getChannelAction($request, $channel);
             });
