@@ -18,13 +18,11 @@
 namespace SuplaBundle\Supla;
 
 trait SuplaServerAware {
-    /** @var SuplaServerr */
+    /** @var SuplaServer */
     protected $suplaServer;
 
     /** @required */
     public function setSuplaServer(SuplaServer $suplaServer) {
-        
-        file_put_contents('/tmp/stack', (new \Exception)->getTraceAsString());
         $this->suplaServer = $suplaServer;
     }
 }
