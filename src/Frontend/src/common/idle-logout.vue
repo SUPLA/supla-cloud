@@ -42,7 +42,7 @@
                 this.idleTime = 0;
             },
             pingSession() {
-                this.$http.get('iodev');
+                this.$http.get('server-info');
             },
             stop() {
                 clearInterval(this.incrementInterval);
