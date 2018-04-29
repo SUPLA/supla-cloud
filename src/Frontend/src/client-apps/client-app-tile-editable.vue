@@ -61,7 +61,7 @@
         <access-id-chooser v-if="assignAccessIds"
             :selected="editingModel.accessId"
             @cancel="assignAccessIds = false"
-            @confirm="editingModel.accessId = $event assignAccessIds = false"></access-id-chooser>
+            @confirm="editingModel.accessId = $event; assignAccessIds = false"></access-id-chooser>
     </div>
 </template>
 

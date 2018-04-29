@@ -64,9 +64,6 @@ a {
     outline: none;
     box-shadow: none;
   }
-  &.disabled, &[disabled] {
-    pointer-events: none;
-  }
 }
 
 * {

@@ -48,6 +48,7 @@
                                     <dt class="text-center">
                                         <toggler v-model="channel.hidden"
                                             invert="true"
+                                            :disabled="shownInClientsAlwaysOn"
                                             @input="updateChannel()"></toggler>
                                     </dt>
                                 </dl>
@@ -151,6 +152,9 @@
                     .catch(response => this.error = response.status);
             },
             updateChannel() {
+                if (this.shownInClientsAlwaysOn) {
+                    this.channel.hidden = false;
+                }
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
@@ -190,13 +194,11 @@
             supportedFunctions() {
                 return [].concat.apply([{id: 0, caption: 'None'}], this.channel.supportedFunctions);
             },
-            shownInClients: {
-                set(value) {
-                    this.channel.hidden = !value;
-                    this.updateChannel();
-                },
-                get() {
-                    return !this.channel.hidden;
+            shownInClientsAlwaysOn() {
+                if (this.channel.function.name.match(/^OPENINGSENSOR/)) {
+                    return +this.channel.param1 > 0 || +this.channel.param2 > 0;
+                } else {
+                    return false;
                 }
             }
         }
