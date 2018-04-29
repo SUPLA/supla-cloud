@@ -19,13 +19,12 @@
             <div class="text-right">
                 <div class="btn-group">
                     <a class="btn btn-default"
-                        @click="sunBefore = !sunBefore; updateTimeExpression()"
-                        :disabled="!sunMinute">
+                        @click="sunBefore = !sunBefore updateTimeExpression()">
                         <span v-show="sunBefore">{{ $t('before') }}</span>
                         <span v-show="!sunBefore">{{ $t('after') }}</span>
                     </a>
                     <a class="btn btn-default"
-                        @click="sunrise = !sunrise; updateTimeExpression()">
+                        @click="sunrise = !sunrise updateTimeExpression()">
                         <span v-show="sunrise && sunBefore">{{ $t('sunrise-before') }}</span>
                         <span v-show="!sunrise && sunBefore">{{ $t('sunset-before') }}</span>
                         <span v-show="sunrise && !sunBefore">{{ $t('sunrise-after') }}</span>
