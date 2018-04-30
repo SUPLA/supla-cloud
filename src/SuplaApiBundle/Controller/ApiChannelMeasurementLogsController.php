@@ -149,7 +149,8 @@ class ApiChannelMeasurementLogsController extends RestController {
         $result = $this->getTempHumidityLogItemsAction(
             false,
             $channel,
-            @$request->query->get('offset'), @$request->query->get('limit'),
+            @$request->query->get('offset'),
+            @$request->query->get('limit'),
             false
         );
         return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
@@ -166,7 +167,8 @@ class ApiChannelMeasurementLogsController extends RestController {
         $result = $this->getTempHumidityLogItemsAction(
             true,
             $channel,
-            @$request->query->get('offset'), @$request->query->get('limit'),
+            @$request->query->get('offset'),
+            @$request->query->get('limit'),
             false
         );
         return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
@@ -181,7 +183,12 @@ class ApiChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
         $humidity = $channel->getFunction()->getId() == ChannelFunction::HUMIDITYANDTEMPERATURE;
-        return $this->getTempHumidityLogItemsAction($humidity, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
+        return $this->getTempHumidityLogItemsAction(
+            $humidity,
+            $channel,
+            @$request->query->get('offset'),
+            @$request->query->get('limit')
+        );
     }
 
     /**

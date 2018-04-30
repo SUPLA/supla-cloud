@@ -43,10 +43,6 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
         ]);
-    }
-
-    public function testGettingMeasurementLogs() {
-        $client = $this->createAuthenticatedApiClient($this->user);
         foreach ([21, 22, 23] as $temperature) {
             $logItem = new TemperatureLogItem();
             EntityUtils::setField($logItem, 'channel_id', 2);
@@ -55,12 +51,20 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
             $this->getEntityManager()->persist($logItem);
         }
         $this->getEntityManager()->flush();
+    }
+
+    public function testGettingMeasurementLogsCount() {
+        $client = $this->createAuthenticatedApiClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/2?include=measurementLogsCount');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('measurementLogsCount', $content);
         $this->assertEquals(3, $content['measurementLogsCount']);
+    }
+
+    public function testGettingMeasurementLogs() {
+        $client = $this->createAuthenticatedApiClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/2/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
@@ -68,5 +72,22 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
         $this->assertCount(3, $content);
         $temperaturesInOrder = [23, 22, 21];
         $this->assertEquals($temperaturesInOrder, array_map('intval', array_column($content, 'temperature')));
+    }
+
+    public function testGettingMeasurementLogsWithOffset() {
+        $client = $this->createAuthenticatedApiClient($this->user);
+        $client->apiRequestV22('GET', '/api/channels/2/measurement-logs?offset=1&limit=1');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals(22, intval($content[0]['temperature']));
+    }
+
+    public function testGettingMeasurementLogsOfUnsupportedChannel() {
+        $client = $this->createAuthenticatedApiClient($this->user);
+        $client->apiRequestV22('GET', '/api/channels/1/measurement-logs');
+        $response = $client->getResponse();
+        $this->assertStatusCode('400', $response);
     }
 }
