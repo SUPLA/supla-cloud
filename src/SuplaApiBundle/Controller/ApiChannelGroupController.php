@@ -46,7 +46,7 @@ class ApiChannelGroupController extends RestController {
     public function getChannelGroupsAction(Request $request) {
         $channelGroups = $this->getUser()->getChannelGroups();
         $view = $this->view($channelGroups, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'function', 'type']);
+        $this->setSerializationGroups($view, $request, ['channels']);
         return $view;
     }
 
@@ -56,7 +56,7 @@ class ApiChannelGroupController extends RestController {
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location', 'function', 'type']);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location']);
         return $view;
     }
 
@@ -128,7 +128,7 @@ class ApiChannelGroupController extends RestController {
      * @Rest\Patch("/channel-groups/{channelGroup}")
      * @Security("channelGroup.belongsToUser(user)")
      */
-    public function patchChannelsAction(Request $request, IODeviceChannelGroup $channelGroup) {
+    public function patchChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $params = json_decode($request->getContent(), true);
         Assertion::keyExists($params, 'action', 'Missing action.');
         $action = ChannelFunctionAction::fromString($params['action']);
