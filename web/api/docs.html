@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+        content="ie=edge">
+    <title>SUPLA Cloud API</title>
+    <script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+    <link rel="stylesheet"
+        href="//unpkg.com/swagger-ui-dist@3/swagger-ui.css">
+</head>
+<body>
+<div id="api"></div>
+
+<script>
+    SwaggerUIBundle({
+        dom_id: '#api',
+        url: '/api/swagger.yaml',
+        displayRequestDuration: true,
+        tagsSorter: 'alpha',
+        requestInterceptor: function (request) {
+            if (request.url.indexOf('.yaml') < 0) {
+                request.url = request.url.replace(/\/api\//, '/web-api/');
+                request.url = request.url.replace(/cloud\.supla\.org/, window.location.host);
+            }
+            return request;
+        }
+    });
+</script>
+</body>
+</html>

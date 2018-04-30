@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
@@ -12,7 +13,6 @@ $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(['--no-d
 if ($debug) {
     Debug::enable();
 }
-\SuplaApiBundle\DependencyInjection\IgnoreApiDocsAnnotationsPass::ignore();
 $kernel = new AppKernel(APPLICATION_ENV, $debug);
 $application = new Application($kernel);
 $application->run($input);
