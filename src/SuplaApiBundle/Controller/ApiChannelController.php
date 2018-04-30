@@ -36,6 +36,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ApiChannelController extends RestController {
     use SuplaServerAware;
@@ -187,7 +188,10 @@ class ApiChannelController extends RestController {
      * @Rest\Get("/channels/{channel}/temperature-log-count")
      * @Security("channel.belongsToUser(user)")
      */
-    public function getTempLogCountAction(IODeviceChannel $channel) {
+    public function getTempLogCountAction(IODeviceChannel $channel, Request $request) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
         return $this->getTempHumidityLogCountAction(false, $channel);
     }
 
@@ -195,7 +199,10 @@ class ApiChannelController extends RestController {
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
      * @Security("channel.belongsToUser(user)")
      */
-    public function getTempHumLogCountAction(IODeviceChannel $channel) {
+    public function getTempHumLogCountAction(IODeviceChannel $channel, Request $request) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
         return $this->getTempHumidityLogCountAction(true, $channel);
     }
 
@@ -255,7 +262,7 @@ class ApiChannelController extends RestController {
             $this->setSerializationGroups(
                 $view,
                 $request,
-                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions']
+                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'measureLogsCount']
             );
             return $view;
         } else {

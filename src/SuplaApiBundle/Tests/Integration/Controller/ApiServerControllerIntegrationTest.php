@@ -39,7 +39,20 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $client->followRedirects(true);
         $client->request('GET', '/api/server-info');
         $response = $client->getResponse();
-        $this->assertEquals(401, $response->getStatusCode());
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayNotHasKey('username', $content);
+    }
+
+    public function testGettingServerInfoWithoutAuthentication22() {
+        $client = self::createClient();
+        $client->followRedirects(true);
+        $client->request('GET', '/api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent(), true);
+        $this->assertFalse($content['authenticated']);
+        $this->assertArrayNotHasKey('username', $content);
     }
 
     public function testGettingServerInfoAsOauthUser() {
@@ -50,6 +63,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent());
         $this->assertEquals($this->container->getParameter('supla_server'), $content->data->address);
         $this->assertNotEmpty($content->data->time);
+        $this->assertTrue($content->authenticated);
         $this->assertFalse(property_exists($content->data, 'username')); // added in v2.2
     }
 
@@ -84,17 +98,5 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->container->getParameter('supla_server'), $content->address);
         $this->assertEquals('supler@supla.org', $content->username);
         $this->assertNotEmpty($content->time);
-    }
-
-    public function testGettingApiEndpointAsWebUser() {
-        $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/api/server-info');
-        $this->assertStatusCode(401, $client->getResponse());
-    }
-
-    public function testGettingWebApiEndpointAsOAuthUser() {
-        $client = $this->createAuthenticatedApiClient($this->user);
-        $client->request('GET', '/web-api/server-info');
-        $this->assertStatusCode(401, $client->getResponse());
     }
 }

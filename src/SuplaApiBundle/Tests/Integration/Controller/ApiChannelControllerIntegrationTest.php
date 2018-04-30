@@ -118,4 +118,16 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('SET-RGBW-VALUE:1,1,5,16711935,58,42', $commands);
     }
+
+    public function testGettingApiEndpointAsWebUser() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/channels');
+        $this->assertStatusCode(401, $client->getResponse());
+    }
+
+    public function testGettingWebApiEndpointAsOAuthUser() {
+        $client = $this->createAuthenticatedApiClient($this->user);
+        $client->request('GET', '/web-api/channels');
+        $this->assertStatusCode(401, $client->getResponse());
+    }
 }
