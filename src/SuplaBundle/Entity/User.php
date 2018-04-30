@@ -25,7 +25,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\UserRepository")
@@ -51,9 +50,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="email", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     * @Assert\Length(max=255)
      * @Groups({"basic"})
      */
     private $email;
@@ -70,20 +66,16 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * Plain password. Used for model validation. Must not be persisted.
-     * @Assert\NotBlank()
-     * @Assert\Length(min=8)
      */
     private $plainPassword;
 
     /**
      * @ORM\Column(name="enabled", type="boolean")
-     * @Assert\NotNull()
      */
     private $enabled;
 
     /**
      * @ORM\Column(name="reg_date", type="utcdatetime")
-     * @Assert\NotBlank()
      */
     private $regDate;
 
@@ -107,25 +99,21 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="limit_aid", type="integer")
-     * @Assert\NotBlank()
      */
     private $limitAid;
 
     /**
      * @ORM\Column(name="limit_loc", type="integer")
-     * @Assert\NotBlank()
      */
     private $limitLoc;
 
     /**
      * @ORM\Column(name="limit_iodev", type="integer")
-     * @Assert\NotBlank()
      */
     private $limitIoDev;
 
     /**
      * @ORM\Column(name="limit_client", type="integer")
-     * @Assert\NotBlank()
      */
     private $limitClientApp;
 
@@ -198,13 +186,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="rules_agreement", type="boolean", options={"default"=false})
-     * @Assert\NotNull()
      */
     private $rulesAgreement = false;
 
     /**
      * @ORM\Column(name="cookies_agreement", type="boolean", options={"default"=false})
-     * @Assert\NotNull()
      */
     private $cookiesAgreement = false;
 

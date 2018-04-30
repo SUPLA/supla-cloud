@@ -18,8 +18,6 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -36,19 +34,16 @@ class TemperatureLogItem {
 
     /**
      * @ORM\Column(name="channel_id", type="integer")
-     * @Assert\NotBlank()
      */
     private $channel_id;
 
     /**
      * @ORM\Column(name="date", type="utcdatetime")
-     * @Assert\NotBlank()
      */
     private $date;
 
     /**
      * @ORM\Column(name="temperature", type="decimal", precision=8, scale=4)
-     * @Assert\NotBlank()
      */
     private $temperature;
 

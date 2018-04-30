@@ -24,7 +24,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
@@ -43,7 +42,6 @@ class IODeviceChannelGroup implements HasFunction {
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="channelGroups")
-     * @Constraints\NotNull
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
@@ -72,7 +70,6 @@ class IODeviceChannelGroup implements HasFunction {
 
     /**
      * @ORM\Column(name="caption", type="string", length=255, nullable=true)
-     * @Constraints\Length(max=255)
      * @Groups({"basic"})
      */
     private $caption;

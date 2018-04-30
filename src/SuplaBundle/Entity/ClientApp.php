@@ -19,9 +19,7 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ClientAppRepository")
@@ -58,8 +56,6 @@ class ClientApp {
 
     /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
-     * @Assert\Length(max=100)
-     * @Assert\NotBlank
      * @Groups({"basic"})
      */
     private $name;
@@ -114,7 +110,6 @@ class ClientApp {
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Groups({"basic"})
-     * @Assert\Length(max=100)
      */
     private $caption;
     

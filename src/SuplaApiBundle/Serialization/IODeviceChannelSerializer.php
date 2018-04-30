@@ -52,7 +52,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
                 $normalized['connected'] = $this->isDeviceConnected($channel->getIoDevice());
             }
             if (in_array('state', $context[self::GROUPS])) {
-                $normalized['state'] = $this->channelStateGetter->getState($channel);
+                $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
             }
         }
         return $normalized;

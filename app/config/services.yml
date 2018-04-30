@@ -129,14 +129,6 @@ services:
 
   SuplaBundle\Twig\IoDeviceAttributesToStringExtension: ~
 
-  SuplaBundle\Validator\Constraints\ChannelValidator:
-    tags:
-      - { alias: channel_validator, name: validator.constraint_validator }
-
-  SuplaBundle\Validator\Constraints\UsernameExistsValidator:
-    tags:
-      - { alias: username_exists_validator, name: validator.constraint_validator }
-
   SuplaBundle\Repository\AccessIdRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\AccessID]

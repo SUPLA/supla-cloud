@@ -19,11 +19,8 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Entity\Loaction;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -48,7 +45,6 @@ class IODevice {
 
     /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
-     * @Assert\Length(max=100)
      * @Groups({"basic"})
      */
     private $name;
@@ -88,14 +84,12 @@ class IODevice {
 
     /**
      * @ORM\Column(name="comment", type="string", length=200, nullable=true)
-     * @Assert\Length(max=200)
      * @Groups({"basic"})
      */
     private $comment;
 
     /**
      * @ORM\Column(name="reg_date", type="utcdatetime")
-     * @Assert\NotBlank()
      * @Groups({"basic"})
      */
     private $regDate;

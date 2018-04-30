@@ -46,4 +46,14 @@ abstract class AbstractSerializer extends ObjectNormalizer {
     protected function toIds($collection): array {
         return EntityUtils::mapToIds($collection);
     }
+
+    /**
+     * Forces to serialize empty array as json object (i.e. {} instead of []).
+     */
+    protected function emptyArrayAsObject(array $array) {
+        if (count($array) == 0) {
+            return new \stdClass();
+        }
+        return $array;
+    }
 }

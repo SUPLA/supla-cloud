@@ -24,15 +24,12 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\RelayFunctionBits;
-use SuplaBundle\Validator\Constraints as SuplaAssert;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceChannelRepository")
  * @ORM\Table(name="supla_dev_channel",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})})
- * @SuplaAssert\Channel
  */
 class IODeviceChannel implements HasFunction {
     use BelongsToUser;
@@ -79,7 +76,6 @@ class IODeviceChannel implements HasFunction {
 
     /**
      * @ORM\Column(name="caption", type="string", length=100, nullable=true)
-     * @Assert\Length(max=100)
      * @Groups({"basic"})
      */
     private $caption;
@@ -98,7 +94,6 @@ class IODeviceChannel implements HasFunction {
 
     /**
      * @ORM\Column(name="flist", type="integer", nullable=true)
-     * @Groups({"basic"})
      */
     private $funcList;
 

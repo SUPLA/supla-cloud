@@ -71,7 +71,10 @@ class ApiServerController extends RestController {
         ];
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $user = $this->getUser();
-            $result['username'] = $user->getUsername();
+            $result['authenticated'] = !!$user;
+            if ($user) {
+                $result['username'] = $user->getUsername();
+            }
             $result['cloudVersion'] = $this->container->getParameter('supla.version');
             $result['apiVersion'] = ApiVersions::fromRequest($request)->getValue();
             $result['supportedApiVersions'] = array_values(array_unique(ApiVersions::toArray()));

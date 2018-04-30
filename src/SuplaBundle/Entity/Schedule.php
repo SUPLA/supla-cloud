@@ -23,7 +23,6 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ScheduleRepository")
@@ -46,14 +45,12 @@ class Schedule {
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="schedules")
-     * @Constraints\NotNull
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
      * @ORM\Column(name="time_expression", type="string", length=100, nullable=false)
-     * @Constraints\Length(max=100)
      * @Groups({"basic"})
      */
     private $timeExpression;
@@ -61,14 +58,12 @@ class Schedule {
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
-     * @Constraints\NotNull
      * @Groups({"channel", "iodevice", "location"})
      */
     private $channel;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
-     * @Constraints\NotNull
      * @Groups({"basic"})
      */
     private $action;
@@ -87,7 +82,6 @@ class Schedule {
 
     /**
      * @ORM\Column(name="date_start", type="utcdatetime", nullable=false)
-     * @Constraints\NotNull()
      * @Groups({"basic"})
      */
     private $dateStart;
@@ -111,7 +105,6 @@ class Schedule {
 
     /**
      * @ORM\Column(name="caption", type="string", length=255, nullable=true)
-     * @Constraints\Length(max=255)
      * @Groups({"basic"})
      */
     private $caption;
