@@ -17,13 +17,11 @@
 
 namespace SuplaApiBundle\Serialization;
 
-use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaApiBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaServerAware;
 
 class IODeviceChannelSerializer extends AbstractSerializer {
@@ -60,9 +58,6 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             if (in_array('state', $context[self::GROUPS])) {
                 $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
             }
-            if (in_array('measurementLogsCount', $context[self::GROUPS])) {
-                $normalized['measurementLogsCount'] = $this->getMeasureLogsCount($channel);
-            }
         }
         return $normalized;
     }
@@ -78,22 +73,5 @@ class IODeviceChannelSerializer extends AbstractSerializer {
 
     public function supportsNormalization($entity, $format = null) {
         return $entity instanceof IODeviceChannel;
-    }
-
-    private function getMeasureLogsCount(IODeviceChannel $channel) {
-        $functionId = $channel->getFunction()->getId();
-        Assertion::inArray(
-            $functionId,
-            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER],
-            'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
-        );
-        $repoName = $functionId == ChannelFunction::HUMIDITYANDTEMPERATURE ? 'TempHumidityLogItem' : 'TemperatureLogItem';
-        $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);
-        $query = $rep->createQueryBuilder('f')
-            ->select('COUNT(f.id)')
-            ->where('f.channel_id = :id')
-            ->setParameter('id', $channel->getId())
-            ->getQuery();
-        return intval($query->getSingleScalarResult());
     }
 }

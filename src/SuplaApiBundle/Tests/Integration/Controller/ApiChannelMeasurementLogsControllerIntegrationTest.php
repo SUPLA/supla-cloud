@@ -55,12 +55,11 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
 
     public function testGettingMeasurementLogsCount() {
         $client = $this->createAuthenticatedApiClient($this->user);
-        $client->apiRequestV22('GET', '/api/channels/2?include=measurementLogsCount');
+        $client->apiRequestV22('GET', '/api/channels/2/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $content = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('measurementLogsCount', $content);
-        $this->assertEquals(3, $content['measurementLogsCount']);
+        $this->assertTrue($response->headers->has('X-Total-Count'));
+        $this->assertEquals(3, $response->headers->get('X-Total-Count'));
     }
 
     public function testGettingMeasurementLogs() {

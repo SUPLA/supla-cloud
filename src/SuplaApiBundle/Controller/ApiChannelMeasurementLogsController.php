@@ -44,31 +44,21 @@ class ApiChannelMeasurementLogsController extends RestController {
         $this->deviceManager = $deviceManager;
     }
 
-    private function getTempHumidityLogCountAction($th, IODeviceChannel $channel) {
-        $f = [];
-
-        if ($th === true) {
-            $f[] = ChannelFunction::HUMIDITYANDTEMPERATURE;
-        } else {
-            $f[] = ChannelFunction::THERMOMETER;
-        }
-
-        Assertion::inArray($channel->getFunction()->getId(), $f, 'The requested function is not available on this device');
-
-        $em = $this->container->get('doctrine')->getManager();
-        $rep = $em->getRepository('SuplaBundle:' . ($th === true ? 'TempHumidityLogItem' : 'TemperatureLogItem'));
-
+    private function getMeasureLogsCount(IODeviceChannel $channel) {
+        $functionId = $channel->getFunction()->getId();
+        Assertion::inArray(
+            $functionId,
+            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER],
+            'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
+        );
+        $repoName = $functionId == ChannelFunction::HUMIDITYANDTEMPERATURE ? 'TempHumidityLogItem' : 'TemperatureLogItem';
+        $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);
         $query = $rep->createQueryBuilder('f')
             ->select('COUNT(f.id)')
             ->where('f.channel_id = :id')
             ->setParameter('id', $channel->getId())
             ->getQuery();
-
-        return $this->handleView($this->view(
-            ['count' => $query->getSingleScalarResult(),
-                'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST],
-            Response::HTTP_OK
-        ));
+        return intval($query->getSingleScalarResult());
     }
 
     private function temperatureLogItems($channelid, $offset, $limit, $orderDesc = true) {
@@ -118,24 +108,18 @@ class ApiChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-log-count")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function getTempLogCountAction(IODeviceChannel $channel, Request $request) {
-        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            throw new NotFoundHttpException();
-        }
-        return $this->getTempHumidityLogCountAction(false, $channel);
-    }
-
-    /**
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
      * @Security("channel.belongsToUser(user)")
      */
-    public function getTempHumLogCountAction(IODeviceChannel $channel, Request $request) {
+    public function getObsoleteMeasurementLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
-        return $this->getTempHumidityLogCountAction(true, $channel);
+        $count = $this->getMeasureLogsCount($channel);
+        return [
+            'count' => $count,
+            'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
+        ];
     }
 
     /**
@@ -183,12 +167,15 @@ class ApiChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
         $humidity = $channel->getFunction()->getId() == ChannelFunction::HUMIDITYANDTEMPERATURE;
-        return $this->getTempHumidityLogItemsAction(
+        $logs = $this->getTempHumidityLogItemsAction(
             $humidity,
             $channel,
             @$request->query->get('offset'),
             @$request->query->get('limit')
         );
+        $view = $this->view($logs, Response::HTTP_OK);
+        $view->setHeader('X-Total-Count', $this->getMeasureLogsCount($channel));
+        return $view;
     }
 
     /**
