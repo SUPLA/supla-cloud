@@ -18,6 +18,8 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use SuplaApiBundle\Entity\EntityUtils;
+use SuplaApiBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
 
@@ -37,5 +39,21 @@ class UsersFixture extends SuplaFixture {
         $userManager->setPassword('pass', $user, true);
         $userManager->confirm($user->getToken());
         $this->addReference(self::USER, $user);
+
+        $apiManager = $this->container->get('api_manager');
+        $apiUser = $apiManager->getAPIUser($user);
+        $apiUser->setEnabled(true);
+        $apiManager->setPassword('pass', $apiUser, true);
+        $client = $apiManager->getClient($user);
+
+        $token = new AccessToken();
+        EntityUtils::setField($token, 'client', $client);
+        EntityUtils::setField($token, 'user', $apiUser);
+        EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
+        EntityUtils::setField($token, 'token', '0123456789012345678901234567890123456789');
+        EntityUtils::setField($token, 'scope', 'restapi');
+        $em = $this->container->get('doctrine')->getManager();
+        $em->persist($token);
+        $em->flush();
     }
 }
