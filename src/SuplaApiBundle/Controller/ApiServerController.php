@@ -24,10 +24,6 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @apiDefine Error401
- * @apiError 401 Unauthorized. Please authenticate in API with OAuth.
- */
 class ApiServerController extends RestController {
     use SuplaServerAware;
 
