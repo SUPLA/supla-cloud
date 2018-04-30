@@ -16,7 +16,7 @@
         </div>
         <div v-if="currentTab == 'measurementsHistory'"
             class="text-center">
-            <a :href="'/web-api/channels/' + channel.id + '/csv' | withBaseUrl"
+            <a :href="'/web-api/channels/' + channel.id + '/measurement-logs-csv' | withBaseUrl"
                 class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
         </div>
     </div>

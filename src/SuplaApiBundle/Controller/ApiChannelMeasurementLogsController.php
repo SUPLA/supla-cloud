@@ -179,7 +179,7 @@ class ApiChannelMeasurementLogsController extends RestController {
     }
 
     /**
-     * @Rest\Get("/channels/{channel}/csv")
+     * @Rest\Get("/channels/{channel}/measurement-logs-csv")
      * @Security("channel.belongsToUser(user)")
      */
     public function channelItemGetCSVAction(IODeviceChannel $channel) {
