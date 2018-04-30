@@ -57,16 +57,6 @@ class ApiUserController extends RestController {
         $this->auditEntryRepository = $auditEntryRepository;
     }
 
-    /**
-     * @api {get} /users/current Current user
-     * @apiDescription Get the currently authenticated user
-     * @apiGroup Users
-     * @apiVersion 2.2.0
-     * @apiSuccess {Number} id User ID
-     * @apiSuccess {String} email User email address
-     * @apiSuccess {Boolean} ioDevicesRegistrationEnabled Whether the registration of new IO Devices is enabled or not.
-     * @apiSuccess {Boolean} clientsRegistrationEnabled Whether the registration of new clients is enabled or not.
-     */
     public function currentUserAction() {
         return $this->view($this->getUser(), Response::HTTP_OK);
     }

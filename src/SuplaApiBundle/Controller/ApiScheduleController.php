@@ -41,32 +41,10 @@ class ApiScheduleController extends RestController {
         $this->channelActionExecutor = $channelActionExecutor;
     }
 
-    /**
-     * @apiIgnore
-     * @api {get} /schedules List
-     * @apiDescription Get list of schedules.
-     * @apiGroup Schedules
-     * @apiVersion 2.2.0
-     * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
-     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`, `function`, `type`.
-     * @apiParamExample {GET} GET param to fetch IODevice's channels and location
-     * include=channel,closestExecutions
-     */
     public function getSchedulesAction(Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
     }
 
-    /**
-     * @apiIgnore
-     * @api {get} /channels/{channelId}/schedules List schedules
-     * @apiDescription Get list of schedules for given channel
-     * @apiGroup Channels
-     * @apiVersion 2.2.0
-     * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
-     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`, `function`, `type`.
-     * @apiParamExample {GET} GET param to fetch IODevice's channels and location
-     * include=channel,closestExecutions
-     */
     /**
      * @Security("channel.belongsToUser(user)")
      */
@@ -85,17 +63,6 @@ class ApiScheduleController extends RestController {
         return $view;
     }
 
-    /**
-     * @apiIgnore
-     * @api {get} /schedules/{id} Details
-     * @apiDescription Get details of schedule with `{id}` identifier.
-     * @apiGroup Schedules
-     * @apiVersion 2.2.0
-     * @apiParam {string} include Comma-separated list of what to fetch for every Schedule.
-     * Available options: `channel`, `iodevice`, `location`, `closestExecutions`, `function`, `type`.
-     * @apiParamExample {GET} GET param to fetch IODevice's channels and location
-     * include=channel,closestExecutions
-     */
     /**
      * @Security("schedule.belongsToUser(user)")
      */

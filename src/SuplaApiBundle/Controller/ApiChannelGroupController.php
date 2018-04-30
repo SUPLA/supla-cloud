@@ -109,22 +109,6 @@ class ApiChannelGroupController extends RestController {
     }
 
     /**
-     * @api {patch} /channel-groups/{id} Execute action
-     * @apiDescription Execute action on the channel group with `{id}` identifier.
-     * @apiGroup Channel groups
-     * @apiVersion 2.2.0
-     * @apiParam {string} action Action to execute on the channel group. See available actions
-     * [on wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
-     * @apiExample {turn-on} Example TURN_OFF
-     *     {"action": "TURN_ON"}
-     * @apiExample {shut} Example SHUT
-     *     {"action": "SHUT", "percentage": 80}
-     * @apiExample {shut} Example SET_RGBW_PARAMETERS
-     *     {"action": "SET_RGBW_PARAMETERS", "color": "0x06FE63", "color_brightness": 20, "brightness": 70}
-     * @apiError 400 Bad Request. Check if the chosen action can be executed on the given channel group.
-     * Response should contain more details.
-     */
-    /**
      * @Rest\Patch("/channel-groups/{channelGroup}")
      * @Security("channelGroup.belongsToUser(user)")
      */

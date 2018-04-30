@@ -38,26 +38,6 @@ class ApiServerController extends RestController {
         $this->serverList = $serverList;
     }
 
-    /**
-     * @api {get} /server-info Server Info
-     * @apiDescription Get server info.
-     * @apiGroup Server
-     * @apiVersion 2.2.0
-     * @apiUse Error401
-     * @apiSuccess {string} address URL address of the server
-     * @apiSuccess {time} time Current server time
-     * @apiSuccess {object} timezone Current server timezone
-     * @apiSuccess {string} timezone.name Current server timezone name
-     * @apiSuccess {int} timezone.offset Current server timezone offset in minutes
-     * @apiSuccess {string} username Current user's username
-     * @apiSuccess {string} cloudVersion The version of the SUPLA Cloud
-     * @apiSuccess {string} apiVersion The requsted version of SUPLA Cloud API
-     * @apiSuccess {string[]} supportedApiVersions List of SUPLA Cloud API versions that is supported by the server and can be chosen with
-     * `X-Accept-Version` header
-     * @apiSuccessExample Success
-     * {"address":"supla.org","time":"2017-11-03T10:47:29+01:00","timezone":{"name":"Europe/Berlin","offset":3600},
-     * "username":"supler@supla.org","cloudVersion":"2.2.2","apiVersion":"2.2.0","supportedApiVersions":["2.0.0","2.1.0","2.2.0"]}
-     */
     /** @Get("/server-info") */
     public function getServerInfoAction(Request $request) {
         $dt = new \DateTime();

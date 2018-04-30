@@ -17,18 +17,7 @@
 
 namespace SuplaApiBundle;
 
-use SuplaApiBundle\DependencyInjection\IgnoreApiDocsAnnotationsPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SuplaApiBundle extends Bundle {
-    public function boot() {
-        parent::boot();
-        IgnoreApiDocsAnnotationsPass::ignore();
-    }
-
-    public function build(ContainerBuilder $container) {
-        parent::build($container);
-        $container->addCompilerPass(new IgnoreApiDocsAnnotationsPass());
-    }
 }
