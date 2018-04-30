@@ -60,8 +60,8 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             if (in_array('state', $context[self::GROUPS])) {
                 $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
             }
-            if (in_array('measureLogsCount', $context[self::GROUPS])) {
-                $normalized['measureLogsCount'] = $this->getMeasureLogsCount($channel);
+            if (in_array('measurementLogsCount', $context[self::GROUPS])) {
+                $normalized['measurementLogsCount'] = $this->getMeasureLogsCount($channel);
             }
         }
         return $normalized;
@@ -85,7 +85,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         Assertion::inArray(
             $functionId,
             [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER],
-            'Cannot fetch measureLogsCount for channel with function ' . $channel->getFunction()->getName()
+            'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
         $repoName = $functionId == ChannelFunction::HUMIDITYANDTEMPERATURE ? 'TempHumidityLogItem' : 'TemperatureLogItem';
         $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);

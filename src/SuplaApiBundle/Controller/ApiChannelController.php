@@ -211,6 +211,9 @@ class ApiChannelController extends RestController {
      * @Security("channel.belongsToUser(user)")
      */
     public function getTempLogItemsAction(Request $request, IODeviceChannel $channel) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
         return $this->getTempHumidityLogItemsAction(false, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
     }
 
@@ -219,6 +222,20 @@ class ApiChannelController extends RestController {
      * @Security("channel.belongsToUser(user)")
      */
     public function getTempHumLogItemsAction(Request $request, IODeviceChannel $channel) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
+        return $this->getTempHumidityLogItemsAction(true, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
+    }
+
+    /**
+     * @Rest\Get("/channels/{channel}/measurement-logs")
+     * @Security("channel.belongsToUser(user)")
+     */
+    public function getMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
+        if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
         return $this->getTempHumidityLogItemsAction(true, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
     }
 
@@ -262,7 +279,7 @@ class ApiChannelController extends RestController {
             $this->setSerializationGroups(
                 $view,
                 $request,
-                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'measureLogsCount']
+                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'measurementLogsCount']
             );
             return $view;
         } else {

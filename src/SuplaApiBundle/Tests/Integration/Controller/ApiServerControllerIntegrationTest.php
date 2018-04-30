@@ -63,7 +63,6 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent());
         $this->assertEquals($this->container->getParameter('supla_server'), $content->data->address);
         $this->assertNotEmpty($content->data->time);
-        $this->assertTrue($content->authenticated);
         $this->assertFalse(property_exists($content->data, 'username')); // added in v2.2
     }
 
@@ -85,6 +84,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(200, $response->getStatusCode());
         $content = json_decode($response->getContent());
         $this->assertEquals($this->container->getParameter('supla_server'), $content->address);
+        $this->assertTrue('supler@supla.org', $content->authenticated);
         $this->assertEquals('supler@supla.org', $content->username);
         $this->assertNotEmpty($content->time);
     }
