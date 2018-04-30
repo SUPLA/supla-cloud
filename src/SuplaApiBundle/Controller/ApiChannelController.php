@@ -20,7 +20,6 @@ namespace SuplaApiBundle\Controller;
 use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaApiBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
@@ -30,22 +29,15 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ApiChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    const RECORD_LIMIT_PER_REQUEST = 5000;
-
-    /** @var IODeviceManager */
-    private $deviceManager;
     /** @var ChannelParamsUpdater */
     private $channelParamsUpdater;
     /** @var ChannelStateGetter */
@@ -54,12 +46,10 @@ class ApiChannelController extends RestController {
     private $channelActionExecutor;
 
     public function __construct(
-        IODeviceManager $deviceManager,
         ChannelParamsUpdater $channelParamsUpdater,
         ChannelStateGetter $channelStateGetter,
         ChannelActionExecutor $channelActionExecutor
     ) {
-        $this->deviceManager = $deviceManager;
         $this->channelParamsUpdater = $channelParamsUpdater;
         $this->channelStateGetter = $channelStateGetter;
         $this->channelActionExecutor = $channelActionExecutor;
@@ -112,131 +102,6 @@ class ApiChannelController extends RestController {
         $view = $this->view($channels, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['iodevice', 'location']);
         return $view;
-    }
-
-    protected function getTempHumidityLogCountAction($th, IODeviceChannel $channel) {
-        $f = [];
-
-        if ($th === true) {
-            $f[] = ChannelFunction::HUMIDITYANDTEMPERATURE;
-        } else {
-            $f[] = ChannelFunction::THERMOMETER;
-        }
-
-        Assertion::inArray($channel->getFunction()->getId(), $f, 'The requested function is not available on this device');
-
-        $em = $this->container->get('doctrine')->getManager();
-        $rep = $em->getRepository('SuplaBundle:' . ($th === true ? 'TempHumidityLogItem' : 'TemperatureLogItem'));
-
-        $query = $rep->createQueryBuilder('f')
-            ->select('COUNT(f.id)')
-            ->where('f.channel_id = :id')
-            ->setParameter('id', $channel->getId())
-            ->getQuery();
-
-        return $this->handleView($this->view(
-            ['count' => $query->getSingleScalarResult(),
-                'record_limit_per_request' => ApiChannelController::RECORD_LIMIT_PER_REQUEST],
-            Response::HTTP_OK
-        ));
-    }
-
-    protected function temperatureLogItems($channelid, $offset, $limit) {
-        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, `temperature` ";
-        $sql .= "FROM `supla_temperature_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
-        $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
-        $stmt->bindValue(1, $channelid, 'integer');
-        $stmt->bindValue(2, $limit, 'integer');
-        $stmt->bindValue(3, $offset, 'integer');
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    protected function temperatureAndHumidityLogItems($channelid, $offset, $limit) {
-        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, `temperature`, ";
-        $sql .= "`humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? LIMIT ? OFFSET ?";
-        $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
-        $stmt->bindValue(1, $channelid, 'integer');
-        $stmt->bindValue(2, $limit, 'integer');
-        $stmt->bindValue(3, $offset, 'integer');
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    protected function getTempHumidityLogItemsAction($th, IODeviceChannel $channel, $offset, $limit) {
-        $f[] = $th === true ? ChannelFunction::HUMIDITYANDTEMPERATURE : ChannelFunction::THERMOMETER;
-
-        Assertion::inArray($channel->getFunction()->getId(), $f, 'The requested function is not available on this device');
-
-        $offset = intval($offset);
-        $limit = intval($limit);
-
-        if ($limit <= 0) {
-            $limit = ApiChannelController::RECORD_LIMIT_PER_REQUEST;
-        }
-
-        if ($th === true) {
-            $result = $this->temperatureAndHumidityLogItems($channel->getId(), $offset, $limit);
-        } else {
-            $result = $this->temperatureLogItems($channel->getId(), $offset, $limit);
-        }
-
-        return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
-    }
-
-    /**
-     * @Rest\Get("/channels/{channel}/temperature-log-count")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function getTempLogCountAction(IODeviceChannel $channel, Request $request) {
-        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            throw new NotFoundHttpException();
-        }
-        return $this->getTempHumidityLogCountAction(false, $channel);
-    }
-
-    /**
-     * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function getTempHumLogCountAction(IODeviceChannel $channel, Request $request) {
-        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            throw new NotFoundHttpException();
-        }
-        return $this->getTempHumidityLogCountAction(true, $channel);
-    }
-
-    /**
-     * @Rest\Get("/channels/{channel}/temperature-log-items")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function getTempLogItemsAction(Request $request, IODeviceChannel $channel) {
-        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            throw new NotFoundHttpException();
-        }
-        return $this->getTempHumidityLogItemsAction(false, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
-    }
-
-    /**
-     * @Rest\Get("/channels/{channel}/temperature-and-humidity-items")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function getTempHumLogItemsAction(Request $request, IODeviceChannel $channel) {
-        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            throw new NotFoundHttpException();
-        }
-        return $this->getTempHumidityLogItemsAction(true, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
-    }
-
-    /**
-     * @Rest\Get("/channels/{channel}/measurement-logs")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function getMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
-        if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            throw new NotFoundHttpException();
-        }
-        return $this->getTempHumidityLogItemsAction(true, $channel, @$request->query->get('offset'), @$request->query->get('limit'));
     }
 
     /**
@@ -365,27 +230,5 @@ class ApiChannelController extends RestController {
         unset($params['action']);
         $this->channelActionExecutor->executeAction($channel, $action, $params);
         return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
-    }
-
-    /**
-     * @Rest\Get("/channels/{channel}/csv")
-     * @Security("channel.belongsToUser(user)")
-     */
-    public function channelItemGetCSVAction(IODeviceChannel $channel) {
-        $file = $this->deviceManager->channelGetCSV($channel, "measurement_" . $channel->getId());
-        if ($file !== false) {
-            return new StreamedResponse(
-                function () use ($file) {
-                    readfile($file);
-                    unlink($file);
-                },
-                200,
-                [
-                    'Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
-                ]
-            );
-        }
-        return new Response('Error creating file', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

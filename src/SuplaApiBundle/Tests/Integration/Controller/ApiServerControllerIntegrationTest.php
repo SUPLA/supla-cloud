@@ -84,7 +84,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(200, $response->getStatusCode());
         $content = json_decode($response->getContent());
         $this->assertEquals($this->container->getParameter('supla_server'), $content->address);
-        $this->assertTrue('supler@supla.org', $content->authenticated);
+        $this->assertTrue($content->authenticated);
         $this->assertEquals('supler@supla.org', $content->username);
         $this->assertNotEmpty($content->time);
     }
