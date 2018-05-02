@@ -12,6 +12,15 @@
         href="//unpkg.com/swagger-ui-dist@3/swagger-ui.css">
 </head>
 <body>
+
+<div style="max-width: 1000px; margin: 10px auto; border: 1px solid darkorange; background: lightyellow; padding: 10px">
+    <p>For the sake of simplicity, all the <em>Try it out</em> forms make requests to the current SUPLA Cloud instance to the
+        <code>/web-api</code>-prefixed endpoints.</p>
+    <p>This leverages your current web-based authentication and is done solely for the demo convenience. When using the API in your 3rd pary app,
+        you should use the <code>/api/v2.2.0</code> endpoint prefix.</p>
+    <p>Beware, that all modifying requests you do here CHANGE the state of your account.</p>
+</div>
+
 <div id="api"></div>
 
 <script>
@@ -23,6 +32,7 @@
         requestInterceptor: function (request) {
             if (request.url.indexOf('.yaml') < 0) {
                 request.url = request.url.replace(/\/api\//, '/web-api/');
+                request.url = request.url.replace(/\/v2.2.0\//, '/');
                 request.url = request.url.replace(/cloud\.supla\.org/, window.location.host);
             }
             return request;

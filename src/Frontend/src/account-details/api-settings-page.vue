@@ -49,11 +49,15 @@
                 v-if="settings.user.enabled">
                 <a class="btn btn-default"
                     @click="generatingPassword = true">
-                    Wygeneruj hasło
+                    Generate password
+                </a>
+                <a class="btn btn-default"
+                    href="/api/docs.html">
+                    API Documentation
                 </a>
                 <a class="btn pull-right btn-default"
                     v-clipboard:copy="allSettings">
-                    Kopiuj wszystko
+                    Copy all
                 </a>
             </div>
             <modal-confirm @confirm="generatePassword()"
@@ -61,7 +65,7 @@
                 v-if="generatingPassword"
                 :loading="loading"
                 :header="$t('Are you sure?')">
-                {{ $t('If you create new password, reconfiguration of  all the connected 3rd party applications will be required.') }}
+                {{ $t('If you create new password, reconfiguration of all the connected 3rd party applications will be required.') }}
             </modal-confirm>
 
         </div>

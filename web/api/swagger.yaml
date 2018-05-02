@@ -3,189 +3,58 @@ info:
   version: "2.2.0"
   title: SUPLA Cloud API
 host: cloud.supla.org
-basePath: /api
+basePath: /api/v2.2.0
 schemes: [https, http]
 consumes: [application/json]
 produces: [application/json]
 paths:
-  /server-info:
-    parameters:
-      - $ref: '#/parameters/version'
+  /accessids:
     get:
-      tags: [Server]
-      summary: Get server status
-      security: [{}]
-      responses:
-        200:
-          description: Server status
-          schema:
-            properties:
-              address:
-                type: string
-                example: svr1.supla.org
-                description: SUPLA Server address (to be used in smartphones)
-              time:
-                type: string
-                format: date-time
-                description: Current server time
-              timezone:
-                properties:
-                  name:
-                    type: string
-                    example: UTC
-                  offset:
-                    type: integer
-                    description: Timezone offset in minutes
-              authenticated:
-                type: boolean
-              username:
-                type: string
-                example: supler@supla.org
-                description: Present only if `authenticated=true`
-              cloudVersion:
-                type: string
-                example: 2.2.0
-              apiVersion:
-                type: string
-                example: 2.2.0
-              supportedApiVersions:
-                type: array
-                example: [2.0.0, 2.1.0, 2.2.0]
-                items:
-                  type: string
-  /server-status:
-    parameters:
-      - $ref: '#/parameters/version'
-    get:
-      tags: [Server]
-      summary: Get the SUPLA Server status
-      security: [{}]
-      responses:
-        200:
-          description: SUPLA Server is alive
-          schema:
-            properties:
-              status:
-                type: string
-                example: OK
-        503:
-          description: SUPLA Server is down
-          schema:
-            properties:
-              status:
-                type: string
-                example: DOWN
-  /users/current:
-    parameters:
-      - $ref: '#/parameters/version'
-    get:
-      tags: [Users]
-      summary: Get current user
-      operationId: getCurrentUser
-      responses:
-        200:
-          description: Success
-          schema:
-            properties:
-              id:
-                type: integer
-              email:
-                type: string
-                format: email
-              timezone:
-                type: string
-                example: "Europe/Warsaw"
-              clientsRegistrationEnabled:
-                type: string
-                format: date-time
-              ioDevicesRegistrationEnabled:
-                type: string
-                format: date-time
-    patch:
-      tags: [Users]
-      summary: Edit current user
-      operationId: editCurrentUser
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            properties:
-              action:
-                type: string
-                description: The `change:userTimezone` requires to provide also a `timezone` value in the request. The `change:password` requires to provide also a `newPassword` and `oldPassword` in the request.
-                enum: [change:clientsRegistrationEnabled, change:ioDevicesRegistrationEnabled, change:userTimezone, change:password, agree:rules, agree:cookies]
-      responses:
-        200:
-          description: Success
-          schema:
-            properties:
-              id:
-                type: integer
-  /locations:
-    parameters:
-      - $ref: '#/parameters/version'
-    get:
-      tags: [Locations]
-      summary: Get locations list
-      operationId: getLocations
+      tags: [Access IDs]
+      summary: Get Access IDs list
+      operationId: getAccessID
       parameters: 
-        - name: include
-          in: query
-          description: Specify what extra fields to include in the response.
-          required: false
-          type: array
-          items: 
-            type: string
-            enum: ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']
-          collectionFormat: csv
+        - $ref: '#/parameters/AccessIdIncludes'
       responses:
         200:
-          description: List of locations owned by the current user.
+          description: List of Access IDs owned by the current user.
           schema:
             type: array
             items:
-              $ref: '#/definitions/Location'
+              $ref: '#/definitions/AccessID'
     post:
-      summary: Create a new location
-      operationId: createLocation
-      tags: [Locations]
+      summary: Create a new Access ID
+      tags: [Access IDs]
+      operationId: createAccessID
       responses:
         201:
-          description: Newely created location with automatic name
+          description: Newely created AccessID with automatic name
           schema:
-            $ref: '#/definitions/Location'
-  /locations/{id}:
+            $ref: '#/definitions/AccessID'
+  /accessids/{id}:
     parameters: 
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
-      - name: include
-        in: query
-        description: Specify what extra fields to include in the response.
-        required: false
-        type: array
-        items: 
-          type: string
-          enum: ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']
-        collectionFormat: csv
     get:
-      summary: Get location by ID
-      tags: [Locations]
-      operationId: getLocation
+      summary: Get Access ID
+      tags: [Access IDs]
+      operationId: getAccessID
+      parameters:
+        - $ref: '#/parameters/AccessIdIncludes'
       responses:
         200:
-          description: Get location
+          description: Get Access ID
           schema:
-            $ref: '#/definitions/Location'
+            $ref: '#/definitions/AccessID'
     put:
-      summary: Edit location
-      tags: [Locations]
-      operationId: updateLocation
+      summary: Update Access ID
+      tags: [Access IDs]
+      operationId: updateAccessID
       parameters:
         - in: body
           name: body
           required: true
           schema:
+            title: Access ID update request
             properties:
               enabled:
                 type: boolean
@@ -194,25 +63,27 @@ paths:
               password:
                 type: string
                 description: Provide new password if you want to change it.
-              accessIdsIds:
+              locationsIds:
                 type: array
                 items: {type: integer}
-                description: Access Identifiers identifiers to assign to this location.
+                description: Locations identifiers to assign to this Access ID.
+              clientAppsIds:
+                type: array
+                items: {type: integer}
+                description: Client Apps identifiers to assign to this Access ID. If client app is connected to any other Client ID, it will be disconnected from the old one before assigning.
       responses:
         200:
           description: Definition generated from Swagger Inspector
           schema:
-            $ref: '#/definitions/Location'
+            $ref: '#/definitions/AccessID'
     delete:
-      summary: Delete location
-      tags: [Locations]
-      operationId: deleteLocation
+      summary: Delete Access Identifier
+      tags: [Access IDs]
+      operationId: deleteAccessID
       responses:
         204:
-          description: Location has been successfully deleted
+          description: Access Identifier has been successfully deleted
   /channels:
-    parameters:
-      - $ref: '#/parameters/version'
     get:
       tags: [Channels]
       summary: Get channels list
@@ -251,7 +122,6 @@ paths:
               $ref: '#/definitions/Channel'
   /channels/{id}:
     parameters:
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get channel by ID
@@ -281,6 +151,7 @@ paths:
           name: body
           required: true
           schema:
+            title: Channel update request
             properties:
               functionId:
                 type: integer
@@ -308,6 +179,7 @@ paths:
         409:
           description: Channel update will result in data loss. Please confirm the request with `confirm=true` GET param to force.
           schema:
+            title: Channel update confirmation response
             properties:
               schedules:
                 type: array
@@ -329,6 +201,7 @@ paths:
           description: Defines an action to execute on channel. The `action` key is always required. The rest of the keys are params depending on the chosen action. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
           required: true
           schema:
+            title: Channel execute action request
             properties:
               action:
                 $ref: '#/definitions/ChannelFunctionActionEnum'
@@ -341,6 +214,7 @@ paths:
         400:
           description: Invalid request.
           schema:
+            title: Channel action execution failed response
             properties:
               status: 
                 type: integer
@@ -350,7 +224,6 @@ paths:
                 example: Cannot execute requested action on this channel.
   /channels/{id}/schedules:
     parameters:
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
     get:
       tags: [Channels]
@@ -374,7 +247,6 @@ paths:
               $ref: '#/definitions/Schedule'
   /channels/{id}/measurement-logs-csv:
     parameters: 
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get measurement logs as zipped CSV file.
@@ -388,8 +260,9 @@ paths:
           schema:
             type: file
         400:
-          description: Unsupoorted channel
+          description: Unsupported channel
           schema:
+            title: Channel unsupported function response
             properties:
               status:
                 type: integer
@@ -399,7 +272,6 @@ paths:
                 example: The requested function is not available on this channel
   /channels/{id}/measurement-logs:
     parameters: 
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get measurement logs.
@@ -426,6 +298,7 @@ paths:
           schema:
             type: array
             items:
+              title: Channel measurement log
               properties:
                 date_timestamp:
                   type: integer
@@ -442,6 +315,7 @@ paths:
         400:
           description: Unsupoorted channel
           schema:
+            title: Channel unsupported function response
             properties:
               status:
                 type: integer
@@ -450,18 +324,16 @@ paths:
                 type: string
                 example: The requested function is not available on this channel
   /channel-groups:
-    parameters:
-      - $ref: '#/parameters/version'
     get:
       tags: [Channel Groups]
       summary: Get channels list
       operationId: getChannelGroups
-      parameters: 
+      parameters:
         - name: include
           in: query
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['channels']
           collectionFormat: csv
@@ -481,27 +353,14 @@ paths:
           name: body
           required: true
           schema:
-            properties:
-              caption:
-                type: string
-              altIcon:
-                type: integer
-              hidden:
-                type: boolean
-              locationId:
-                type: integer
-              channelIds:
-                type: array
-                items:
-                  type: integer
+            $ref: '#/definitions/ChannelGroupRequest'
       responses:
         201:
           description: Newely created channel group
           schema:
             $ref: '#/definitions/ChannelGroup'
   /channel-groups/{id}:
-    parameters: 
-      - $ref: '#/parameters/version'
+    parameters:
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get channel group by ID
@@ -513,7 +372,7 @@ paths:
           required: false
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['channels', 'iodevice', 'location']
           collectionFormat: csv
@@ -531,19 +390,7 @@ paths:
           name: body
           required: true
           schema:
-            properties:
-              caption:
-                type: string
-              altIcon:
-                type: integer
-              hidden:
-                type: boolean
-              locationId:
-                type: integer
-              channelIds:
-                type: array
-                items:
-                  type: integer
+            $ref: '#/definitions/ChannelGroupRequest'
       responses:
         200:
           description: Success
@@ -559,6 +406,7 @@ paths:
           description: Defines an action to execute on channel group. The `action` key is always required. The rest of the keys are params depending on the chosen action. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
           required: true
           schema:
+            title: Channel Group execute action request
             properties:
               action:
                 $ref: '#/definitions/ChannelFunctionActionEnum'
@@ -572,7 +420,7 @@ paths:
           description: Invalid request.
           schema:
             properties:
-              status: 
+              status:
                 type: integer
                 example: 400
               message:
@@ -586,8 +434,6 @@ paths:
         204:
           description: Channel Group has been successfully deleted
   /client-apps:
-    parameters:
-      - $ref: '#/parameters/version'
     get:
       tags: [Client Apps]
       summary: Get client apps
@@ -609,8 +455,7 @@ paths:
             items:
               $ref: '#/definitions/ClientApp'
   /client-apps/{id}:
-    parameters: 
-      - $ref: '#/parameters/version'
+    parameters:
       - {name: id, in: path, required: true, type: integer }
     put:
       summary: Update client app
@@ -621,6 +466,7 @@ paths:
           name: body
           required: true
           schema:
+            title: Client App update request
             properties:
               caption:
                 type: string
@@ -641,8 +487,6 @@ paths:
         204:
           description: Success
   /iodevices:
-    parameters:
-      - $ref: '#/parameters/version'
     get:
       tags: [IO Devices]
       summary: Get IO Devices
@@ -665,7 +509,6 @@ paths:
               $ref: '#/definitions/Device'
   /iodevices/{id}:
     parameters: 
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get IO Device
@@ -695,6 +538,7 @@ paths:
           name: body
           required: true
           schema:
+            title: IO Device update request
             properties:
               comment:
                 type: string
@@ -716,7 +560,6 @@ paths:
           description: Success
   /iodevices/{id}/channels:
     parameters: 
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get Channels that belong to IO Deice
@@ -737,9 +580,149 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/Channel'
+  /locations:
+    get:
+      tags: [Locations]
+      summary: Get locations list
+      operationId: getLocations
+      parameters: 
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          required: false
+          type: array
+          items: 
+            type: string
+            enum: ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']
+          collectionFormat: csv
+      responses:
+        200:
+          description: List of locations owned by the current user.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+    post:
+      summary: Create a new location
+      operationId: createLocation
+      tags: [Locations]
+      responses:
+        201:
+          description: Newely created location with automatic name
+          schema:
+            $ref: '#/definitions/Location'
+  /locations/{id}:
+    parameters: 
+      - {name: id, in: path, required: true, type: integer }
+      - name: include
+        in: query
+        description: Specify what extra fields to include in the response.
+        required: false
+        type: array
+        items: 
+          type: string
+          enum: ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']
+        collectionFormat: csv
+    get:
+      summary: Get location by ID
+      tags: [Locations]
+      operationId: getLocation
+      responses:
+        200:
+          description: Get location
+          schema:
+            $ref: '#/definitions/Location'
+    put:
+      summary: Update location
+      tags: [Locations]
+      operationId: updateLocation
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            title: Location update request
+            properties:
+              enabled:
+                type: boolean
+              caption:
+                type: string
+              password:
+                type: string
+                description: Provide new password if you want to change it.
+              accessIdsIds:
+                type: array
+                items: {type: integer}
+                description: Access Identifiers identifiers to assign to this location.
+      responses:
+        200:
+          description: Definition generated from Swagger Inspector
+          schema:
+            $ref: '#/definitions/Location'
+    delete:
+      summary: Delete location
+      tags: [Locations]
+      operationId: deleteLocation
+      responses:
+        204:
+          description: Location has been successfully deleted
+  /server-status:
+    get:
+      tags: [Server]
+      summary: Get the SUPLA Server status
+      operationId: getSuplaServerStatus
+      security: [{}]
+      responses:
+        200:
+          description: Supla Server is alive
+        503:
+          description: SUPLA Server is down
+  /server-info:
+    get:
+      tags: [Server]
+      summary: Get server info
+      operationId: getServerInfo
+      security: [{}]
+      responses:
+        200:
+          description: Success
+          schema:
+            title: Server Info
+            properties:
+              address:
+                type: string
+                example: svr1.supla.org
+                description: SUPLA Server address (to be used in smartphones)
+              time:
+                type: string
+                format: date-time
+                description: Current server time
+              timezone:
+                properties:
+                  name:
+                    type: string
+                    example: UTC
+                  offset:
+                    type: integer
+                    description: Timezone offset in minutes
+              authenticated:
+                type: boolean
+              username:
+                type: string
+                example: supler@supla.org
+                description: Present only if `authenticated=true`
+              cloudVersion:
+                type: string
+                example: 2.2.0
+              apiVersion:
+                type: string
+                example: 2.2.0
+              supportedApiVersions:
+                type: array
+                example: [2.0.0, 2.1.0, 2.2.0]
+                items:
+                  type: string
   /schedules:
-    parameters:
-      - $ref: '#/parameters/version'
     get:
       tags: [Schedules]
       summary: Get schedules list
@@ -784,6 +767,7 @@ paths:
           name: body
           required: true
           schema:
+            title: Schedules enable request
             properties:
               enable:
                 type: array
@@ -795,7 +779,6 @@ paths:
           description: Success
   /schedules/{id}:
     parameters:
-      - $ref: '#/parameters/version'
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get Schedule
@@ -843,81 +826,49 @@ paths:
       responses:
         204:
           description: Success
-  /accessids:
-    parameters:
-      - $ref: '#/parameters/version'
+  /users/current:
     get:
-      tags: [Access IDs]
-      summary: Get Access IDs list
-      parameters: 
-        - $ref: '#/parameters/AccessIdIncludes'
+      tags: [Users]
+      summary: Get current user
+      operationId: getCurrentUser
       responses:
         200:
-          description: List of Access IDs owned by the current user.
+          description: Success
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/AccessID'
-    post:
-      summary: Create a new Access ID
-      tags: [Access IDs]
-      responses:
-        201:
-          description: Newely created AccessID with automatic name
-          schema:
-            $ref: '#/definitions/AccessID'
-  /accessids/{id}:
-    parameters: 
-      - $ref: '#/parameters/version'
-      - {name: id, in: path, required: true, type: integer }
-    get:
-      summary: Get Access ID
-      tags: [Access IDs]
-      operationId: getAccessID
-      parameters:
-        - $ref: '#/parameters/AccessIdIncludes'
-      responses:
-        200:
-          description: Get Access ID
-          schema:
-            $ref: '#/definitions/AccessID'
-    put:
-      summary: Edit Access ID
-      tags: [Access IDs]
-      operationId: updateAccessID
+            title: User data
+            properties:
+              id:
+                type: integer
+              email:
+                type: string
+                format: email
+              timezone:
+                type: string
+                example: "Europe/Warsaw"
+              clientsRegistrationEnabled:
+                type: string
+                format: date-time
+              ioDevicesRegistrationEnabled:
+                type: string
+                format: date-time
+    patch:
+      tags: [Users]
+      summary: Update current user
+      operationId: updateCurrentUser
       parameters:
         - in: body
           name: body
           required: true
           schema:
+            title: User update request
             properties:
-              enabled:
-                type: boolean
-              caption:
+              action:
                 type: string
-              password:
-                type: string
-                description: Provide new password if you want to change it.
-              locationsIds:
-                type: array
-                items: {type: integer}
-                description: Locations identifiers to assign to this Access ID.
-              clientAppsIds:
-                type: array
-                items: {type: integer}
-                description: Client Apps identifiers to assign to this Access ID. If client app is connected to any other Client ID, it will be disconnected from the old one before assigning.
+                description: The `change:userTimezone` requires to provide also a `timezone` value in the request. The `change:password` requires to provide also a `newPassword` and `oldPassword` in the request.
+                enum: [change:clientsRegistrationEnabled, change:ioDevicesRegistrationEnabled, change:userTimezone, change:password, agree:rules, agree:cookies]
       responses:
         200:
-          description: Definition generated from Swagger Inspector
-          schema:
-            $ref: '#/definitions/AccessID'
-    delete:
-      summary: Delete Access Identifier
-      tags: [Access IDs]
-      operationId: deleteAccessID
-      responses:
-        204:
-          description: Access Identifier has been successfully deleted
+          description: Success
 definitions:
   AccessID:
     properties:
@@ -1010,7 +961,7 @@ definitions:
         description: Whether this channel is shown on client apps or not
       inheritedLocation:
         type: boolean
-        description: Whether this channel inherits its IODevice's location (`true`) or not (`false`)
+        description: Whether this channel inherits its IO Device's location (`true`) or not (`false`)
       iodeviceId:
         type: integer
       locationId:
@@ -1067,6 +1018,20 @@ definitions:
       altIcon:
         type: integer
         description: Chosen alternative icon idenifier. Should not be greater than `funciton.maxAlternativeIconIndex`
+  ChannelGroupRequest:
+    properties:
+      caption:
+        type: string
+      altIcon:
+        type: integer
+      hidden:
+        type: boolean
+      locationId:
+        type: integer
+      channelIds:
+        type: array
+        items:
+          type: integer
   ChannelType:
     properties:
       id:
@@ -1314,14 +1279,6 @@ definitions:
       retry:
         type: boolean
 parameters:
-  version:
-    name: X-Accept-Version
-    in: header
-    description: API Version
-    required: false
-    type: string
-    enum: [2.0.0, 2.1.0, 2.2.0]
-    x-example: 2.2.0
   AccessIdIncludes:
     name: include
     in: query
@@ -1333,10 +1290,6 @@ parameters:
       type: string
       enum: ['locations', 'clientApps', 'password']
 securityDefinitions:
-  bearer:
-    type: apiKey
-    name: Authorization
-    in: header
   password:
     flow: password
     type: oauth2
@@ -1344,5 +1297,4 @@ securityDefinitions:
     scopes:
       restapi: full API access
 security:
-  - bearer: []
   - password: []
