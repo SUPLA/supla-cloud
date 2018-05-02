@@ -55,6 +55,17 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayNotHasKey('username', $content);
     }
 
+    public function testGettingServerInfoWithoutAuthentication22InUrl() {
+        $client = self::createClient();
+        $client->followRedirects(true);
+        $client->request('GET', '/api/v2.2.0/server-info');
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent(), true);
+        $this->assertFalse($content['authenticated']);
+        $this->assertArrayNotHasKey('username', $content);
+    }
+
     public function testGettingServerInfoAsOauthUser() {
         $client = $this->createAuthenticatedApiClient($this->user);
         $client->request('GET', '/api/server-info');
