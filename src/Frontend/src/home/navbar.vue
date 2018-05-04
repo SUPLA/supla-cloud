@@ -229,6 +229,7 @@
         .account-dropdown {
             .dropdown-menu {
                 border-top-left-radius: 4px;
+                min-width: 240px;
             }
             &, a {
                 text-align: center;
