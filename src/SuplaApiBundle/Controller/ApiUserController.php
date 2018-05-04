@@ -205,6 +205,7 @@ class ApiUserController extends RestController {
      * @Rest\Post("/register")
      */
     public function accountCreateAction(Request $request) {
+        $regulationsRequired = $this->container->getParameter('supla_require_regulations_acceptance');
         $recaptchaEnabled = $this->container->getParameter('recaptcha_enabled');
         if ($recaptchaEnabled) {
             $recaptchaSecret = $this->container->getParameter('recaptcha_secret');
@@ -234,18 +235,23 @@ class ApiUserController extends RestController {
 
         $data = $request->request->all();
         Assert::that($data)
-            ->notEmptyKey('regulationsAgreed')
             ->notEmptyKey('email')
             ->notEmptyKey('password')
             ->notEmptyKey('timezone');
-
-        Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.');
+        
+        
+        if ($regulationsRequired) {
+            Assert::that($data)->notEmptyKey('regulationsAgreed');
+            Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.');
+        }
 
         $newPassword = $data['password'];
         Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
 
         $user = new User();
-        $user->agreeOnRules();
+        if ($regulationsRequired) {
+            $user->agreeOnRules();
+        }
         $user->fill($data);
 
         $this->userManager->create($user);

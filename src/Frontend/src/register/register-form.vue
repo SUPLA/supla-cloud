@@ -32,7 +32,7 @@
                     :placeholder="$t('Repeat password')"
                     v-model="confirmPassword">
 
-                <regulations-checkbox v-model="regulationsAgreed"></regulations-checkbox>
+                <regulations-checkbox v-model="regulationsAgreed" v-if="regulationsAcceptRequired"></regulations-checkbox>
 
                 <div v-if="captchaEnabled">
                     <invisible-recaptcha
@@ -81,6 +81,7 @@
                 timezone: moment.tz.guess() || 'Europe/Warsaw',
                 isBusy: false,
                 errorMessage: '',
+                regulationsAcceptRequired: Vue.config.external.regulationsAcceptRequired,
                 captchaEnabled: Vue.config.external.recaptchaEnabled,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
                 captchaToken: null,
@@ -96,7 +97,7 @@
                     errorMessage = this.$t('The password should be 8 or more characters.');
                 } else if (this.password != this.confirmPassword) {
                     errorMessage = this.$t('The password and its confirm are not the same.');
-                } else if (!this.regulationsAgreed) {
+                } else if (!this.regulationsAgreed && this.regulationsAcceptRequired) {
                     errorMessage = this.$t('You must agree to the Terms and Conditions.');
                 }
                 return errorMessage;
