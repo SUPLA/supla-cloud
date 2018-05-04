@@ -25,7 +25,7 @@
                                             <dt>
                                                 <input type="text"
                                                     class="form-control"
-                                                    @change="channelGroupChanged()"
+                                                    @keydown="channelGroupChanged()"
                                                     v-model="channelGroup.caption">
                                             </dt>
                                             <dd>{{ $t('Show on the Client’s devices') }}</dd>

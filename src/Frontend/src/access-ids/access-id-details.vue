@@ -23,7 +23,7 @@
                                     <dt>
                                         <input type="text"
                                             class="form-control"
-                                            @change="accessIdChanged()"
+                                            @keydown="accessIdChanged()"
                                             v-model="accessId.caption">
                                     </dt>
                                     <dd>{{ $t('Password') }}</dd>

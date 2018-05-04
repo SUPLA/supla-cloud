@@ -23,7 +23,7 @@
                                         <dt>
                                             <input type="text"
                                                 class="form-control"
-                                                @change="locationChanged()"
+                                                @keydown="locationChanged()"
                                                 v-model="location.caption">
                                         </dt>
                                         <dd>{{ $t('Password') }}</dd>

@@ -41,7 +41,7 @@
                                     <dt>
                                         <input type="text"
                                             class="form-control text-center"
-                                            @change="updateChannel()"
+                                            @keydown="updateChannel()"
                                             v-model="channel.caption">
                                     </dt>
                                     <dd>{{ $t('Show on the Client’s devices') }}</dd>

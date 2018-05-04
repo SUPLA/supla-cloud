@@ -32,7 +32,7 @@
                                     <dt>
                                         <input type="text"
                                             class="form-control text-center"
-                                            @change="updateSchedule()"
+                                            @keydown="updateSchedule()"
                                             v-model="schedule.caption">
                                     </dt>
                                     <dd>{{ $t('Enabled') }}</dd>

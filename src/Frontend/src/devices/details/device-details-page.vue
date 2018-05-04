@@ -40,7 +40,7 @@
                                         <dt>
                                             <input type="text"
                                                 class="form-control"
-                                                @change="updateDevice()"
+                                                @keydown="updateDevice()"
                                                 v-model="device.comment">
                                         </dt>
                                     </dl>
