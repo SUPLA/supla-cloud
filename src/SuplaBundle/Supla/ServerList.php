@@ -101,7 +101,7 @@ class ServerList {
     }
 
     public function getCreateAccountUrl(Request $request) {
-        if ($this->na_servers && count($this->na_servers) > 1) {
+        if ($this->na_servers && count($this->na_servers) > 0) {
             $server = $this->na_servers[rand(0, count($this->na_servers) - 1)];
             if (strlen(@$server) > 0) {
                 return 'https://' . $server
