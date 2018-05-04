@@ -12,7 +12,7 @@ paths:
     get:
       tags: [Access IDs]
       summary: Get Access IDs list
-      operationId: getAccessID
+      operationId: getAccessIDs
       parameters: 
         - $ref: '#/parameters/AccessIdIncludes'
       responses:
@@ -201,13 +201,7 @@ paths:
           description: Defines an action to execute on channel. The `action` key is always required. The rest of the keys are params depending on the chosen action. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
           required: true
           schema:
-            title: Channel execute action request
-            properties:
-              action:
-                $ref: '#/definitions/ChannelFunctionActionEnum'
-              percentage:
-                type: integer
-                example: 40
+            $ref: '#/definitions/ChannelExecuteActionRequest'
       responses:
         204:
           description: Action has been executed.
@@ -406,13 +400,7 @@ paths:
           description: Defines an action to execute on channel group. The `action` key is always required. The rest of the keys are params depending on the chosen action. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
           required: true
           schema:
-            title: Channel Group execute action request
-            properties:
-              action:
-                $ref: '#/definitions/ChannelFunctionActionEnum'
-              percentage:
-                type: integer
-                example: 40
+            $ref: '#/definitions/ChannelExecuteActionRequest'
       responses:
         204:
           description: Action has been executed.
@@ -1019,6 +1007,7 @@ definitions:
         type: integer
         description: Chosen alternative icon idenifier. Should not be greater than `funciton.maxAlternativeIconIndex`
   ChannelGroupRequest:
+    required: [channelIds]
     properties:
       caption:
         type: string
@@ -1082,6 +1071,21 @@ definitions:
   ChannelFunctionActionEnum:
     type: string
     enum: [OPEN, CLOSE, SHUT, REVEAL, REVEAL_PARTIALLY, TURN_ON, TURN_OFF, SET_RGBW_PARAMETERS, OPEN_CLOSE, STOP]
+  ChannelExecuteActionRequest:
+    required: [action]
+    properties:
+      action:
+        $ref: '#/definitions/ChannelFunctionActionEnum'
+      percentage:
+        type: integer
+        example: 40
+      color:
+        type: string
+        example: '0x00FF00'
+      color_brightness:
+        type: integer
+      brightness:
+        type: integer
   ChannelParam:
     type: integer
     description: Configuration of the channel behavior. Value meaning depends on the chosen channel function. See more details on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-parameters).
@@ -1255,6 +1259,7 @@ definitions:
                     type: string
                     format: date-time
   ScheduleRequest:
+    required: [channelId, actionId, mode, timeExpression]
     properties:
       channelId:
         type: integer
