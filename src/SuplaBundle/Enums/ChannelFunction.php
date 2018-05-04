@@ -184,6 +184,7 @@ final class ChannelFunction extends Enum {
             self::LIGHTSWITCH => 1,
             self::CONTROLLINGTHEGATE => 2,
             self::OPENINGSENSOR_GATE => 2,
+            self::STAIRCASETIMER=> 1,
         ];
     }
 }
