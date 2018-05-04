@@ -8,3 +8,4 @@ WELCOME_MESSAGE: |
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
 
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.
+Confirm if you want to remove {deviceName} device: Confirm if you want to remove {deviceName} device
