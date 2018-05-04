@@ -10,51 +10,51 @@ produces: [application/json]
 paths:
   /accessids:
     get:
-      tags: [Access IDs]
-      summary: Get Access IDs list
-      operationId: getAccessIDs
+      tags: [Access Identifiers]
+      summary: Get Access Identifiers list
+      operationId: getAccessIdentifiers
       parameters: 
         - $ref: '#/parameters/AccessIdIncludes'
       responses:
         200:
-          description: List of Access IDs owned by the current user.
+          description: List of Access Identifiers owned by the current user.
           schema:
             type: array
             items:
-              $ref: '#/definitions/AccessID'
+              $ref: '#/definitions/AccessIdentifier'
     post:
-      summary: Create a new Access ID
-      tags: [Access IDs]
-      operationId: createAccessID
+      summary: Create a new Access Identifier
+      tags: [Access Identifiers]
+      operationId: createAccessIdentifier
       responses:
         201:
-          description: Newely created AccessID with automatic name
+          description: Newely created AccessIdentifier with automatic name
           schema:
-            $ref: '#/definitions/AccessID'
+            $ref: '#/definitions/AccessIdentifier'
   /accessids/{id}:
     parameters: 
       - {name: id, in: path, required: true, type: integer }
     get:
-      summary: Get Access ID
-      tags: [Access IDs]
-      operationId: getAccessID
+      summary: Get Access Identifier
+      tags: [Access Identifiers]
+      operationId: getAccessIdentifier
       parameters:
         - $ref: '#/parameters/AccessIdIncludes'
       responses:
         200:
-          description: Get Access ID
+          description: Get Access Identifier
           schema:
-            $ref: '#/definitions/AccessID'
+            $ref: '#/definitions/AccessIdentifier'
     put:
-      summary: Update Access ID
-      tags: [Access IDs]
-      operationId: updateAccessID
+      summary: Update Access Identifier
+      tags: [Access Identifiers]
+      operationId: updateAccessIdentifier
       parameters:
         - in: body
           name: body
           required: true
           schema:
-            title: Access ID update request
+            title: Access Identifier update request
             properties:
               enabled:
                 type: boolean
@@ -66,20 +66,20 @@ paths:
               locationsIds:
                 type: array
                 items: {type: integer}
-                description: Locations identifiers to assign to this Access ID.
+                description: Locations identifiers to assign to this Access Identifier.
               clientAppsIds:
                 type: array
                 items: {type: integer}
-                description: Client Apps identifiers to assign to this Access ID. If client app is connected to any other Client ID, it will be disconnected from the old one before assigning.
+                description: Client Apps identifiers to assign to this Access Identifier. If client app is connected to any other Client ID, it will be disconnected from the old one before assigning.
       responses:
         200:
           description: Definition generated from Swagger Inspector
           schema:
-            $ref: '#/definitions/AccessID'
+            $ref: '#/definitions/AccessIdentifier'
     delete:
       summary: Delete Access Identifier
-      tags: [Access IDs]
-      operationId: deleteAccessID
+      tags: [Access Identifiers]
+      operationId: deleteAccessIdentifier
       responses:
         204:
           description: Access Identifier has been successfully deleted
@@ -858,11 +858,11 @@ paths:
         200:
           description: Success
 definitions:
-  AccessID:
+  AccessIdentifier:
     properties:
       id:
         type: integer
-        description: Access ID identifier
+        description: Access Identifier identifier
       caption:
         type: string
         description: Location caption
@@ -919,7 +919,7 @@ definitions:
       connected:
         type: boolean
       accessId:
-        $ref: '#/definitions/AccessID'
+        $ref: '#/definitions/AccessIdentifier'
   Channel:
     properties:
       id:
@@ -1187,7 +1187,7 @@ definitions:
         type: array
         description: Returned only if requested by the `include` parameter.
         items:
-          $ref: '#/definitions/AccessID'
+          $ref: '#/definitions/AccessIdentifier'
       channels:
         type: array
         description: Returned only if requested by the `include` parameter.
