@@ -26,15 +26,3 @@
         components: {ButtonLoadingDots},
     };
 </script>
-
-<style lang="scss">
-    @import "../styles/variables";
-
-    .modal-confirm {
-        .modal-footer {
-            .cancel {
-                color: $supla-grey-light;
-            }
-        }
-    }
-</style>

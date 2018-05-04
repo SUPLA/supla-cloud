@@ -120,12 +120,6 @@
         }
     }
 
-    .modal-footer {
-        .cancel {
-            color: $supla-grey-dark;
-        }
-    }
-
     @mixin modal-variant($type, $color) {
         .modal-#{$type} {
             h4 {
@@ -138,4 +132,10 @@
     }
 
     @include modal-variant(warning, $supla-orange);
+
+    .modal-footer {
+        a.cancel {
+            color: $supla-grey-dark;
+        }
+    }
 </style>
