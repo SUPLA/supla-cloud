@@ -30,6 +30,7 @@
         displayRequestDuration: true,
         tagsSorter: 'alpha',
         requestInterceptor: function (request) {
+            request.headers['X-Accept-Version'] = '2.2.0';
             if (request.url.indexOf('.yaml') < 0) {
                 request.url = request.url.replace(/\/api\//, '/web-api/');
                 request.url = request.url.replace(/\/v2.2.0\//, '/');
