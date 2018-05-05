@@ -54,7 +54,7 @@
         },
         data: function () {
             return {
-                widgetId: false,
+                widgetId: undefined,
                 loaded: false
             };
         },
@@ -64,7 +64,7 @@
                     sitekey: this.sitekey,
                     size: 'invisible',
                     badge: this.badge || 'bottomright',
-                    theme: this.theme || 'dark',
+                    theme: this.theme || 'light',
                     callback: token => {
                         this.callback(token);
                         window.grecaptcha.reset(this.widgetId);
@@ -72,11 +72,14 @@
                 });
                 this.loaded = true;
             },
-            renderWait: function () {
-                const self = this;
-                setTimeout(function () {
-                    if (typeof window.grecaptcha !== 'undefined') self.render();
-                    else self.renderWait();
+            waitForRecaptcha: function () {
+                setTimeout(() => {
+                    if (typeof window.grecaptcha !== 'undefined') {
+                        window.grecaptcha.ready(() => this.render());
+                    }
+                    else {
+                        this.waitForRecaptcha();
+                    }
                 }, 200);
             }
         },
@@ -87,14 +90,11 @@
         },
         mounted: function () {
             if (typeof window.grecaptcha === 'undefined') {
-                var script = document.createElement('script');
+                const script = document.createElement('script');
                 script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
-                script.onload = this.renderWait;
-
                 document.head.appendChild(script);
-            } else {
-                this.render();
             }
+            this.waitForRecaptcha();
         }
     };
 </script>
