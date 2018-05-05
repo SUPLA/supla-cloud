@@ -88,7 +88,7 @@ class ApiUser implements AdvancedUserInterface {
     }
 
     public function getPassword() {
-        return $this->isEnabled() ? $this->password : $this->pwdGen();
+        return $this->isEnabled() ? $this->password : $this->generateNewPassword();
     }
 
     public function setPassword($password) {
