@@ -192,7 +192,7 @@
                 return deviceTitle(this.channel.iodevice, this);
             },
             supportedFunctions() {
-                return [].concat.apply([{id: 0, caption: 'None'}], this.channel.supportedFunctions);
+                return [].concat.apply([{id: 0, caption: 'None', name: 'NONE'}], this.channel.supportedFunctions);
             },
             shownInClientsAlwaysOn() {
                 if (this.channel.function.name.match(/^OPENINGSENSOR/)) {
