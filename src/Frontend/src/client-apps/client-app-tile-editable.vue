@@ -19,7 +19,10 @@
                         <label>{{ $t('Access Identifier') }}</label>
                         <div>
                             <a @click="assignAccessIds = true">
-                                ID{{editingModel.accessId.id}} {{ editingModel.accessId.caption }}
+                                <span v-if="editingModel.accessId">
+                                    ID{{editingModel.accessId.id}} {{ editingModel.accessId.caption }}
+                                </span>
+                                <span v-else>{{ $t('None') }}</span>
                             </a>
                         </div>
                     </div>
