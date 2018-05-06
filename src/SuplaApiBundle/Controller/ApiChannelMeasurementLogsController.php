@@ -107,8 +107,8 @@ class ApiChannelMeasurementLogsController extends RestController {
     }
 
     /**
-     * @Rest\Get("/channels/{channel}/temperature-log-count")
-     * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
+     * @Rest\Get("/channels/{channel}/temperature-log-count", name="_temp_log_count")
+     * @Rest\Get("/channels/{channel}/temperature-and-humidity-count", name="_hum_log_count")
      * @Security("channel.belongsToUser(user)")
      */
     public function getObsoleteMeasurementLogsCountAction(IODeviceChannel $channel, Request $request) {
