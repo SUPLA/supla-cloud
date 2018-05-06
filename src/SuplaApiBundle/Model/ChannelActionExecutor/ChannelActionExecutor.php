@@ -34,7 +34,7 @@ class ChannelActionExecutor {
         Assertion::inArray(
             $subject->getFunction()->getId(),
             EntityUtils::mapToIds($executor->getSupportedFunctions()),
-            'Cannot execute requested action on this channel.'
+            "Cannot execute the requested action {$action->getName()} on function {$subject->getFunction()->getName()}."
         );
         return $executor;
     }
