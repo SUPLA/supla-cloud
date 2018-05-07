@@ -165,6 +165,7 @@ class ApiChannelController extends RestController {
         $action = ChannelFunctionAction::fromString($params['action']);
         unset($params['action']);
         $this->channelActionExecutor->executeAction($channel, $action, $params);
-        return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
+        $status = ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($http_response_header) ? Response::HTTP_NO_CONTENT : Response::HTTP_OK;
+        return $this->handleView($this->view(null, $status));
     }
 }
