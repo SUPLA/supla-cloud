@@ -253,8 +253,8 @@ class ApiUserController extends RestController {
         $user->fill($data);
 
         $this->userManager->create($user);
-        if ($serverList->getAutodiscover()->enabled()) {
-            $serverList->getAutodiscover()->registerUser($user);
+        if ($this->serverList->getAutodiscover()->enabled()) {
+            $this->serverList->getAutodiscover()->registerUser($user);
         }
 
         // send email
