@@ -20,6 +20,7 @@ namespace SuplaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
+use SuplaBundle\Supla\ServerList;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -27,9 +28,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DefaultController extends Controller {
     /** @var FailedAuthAttemptsUserBlocker */
     private $failedAuthAttemptsUserBlocker;
+    /** @var ServerList */
+    private $serverList;
 
-    public function __construct(FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker) {
+    public function __construct(FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker, ServerList $serverList) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
+        $this->serverList = $serverList;
     }
 
     /**
@@ -41,8 +45,7 @@ class DefaultController extends Controller {
         if ($this->getUser()) {
             return $this->redirectToRoute('_homepage');
         }
-        $sl = $this->get('server_list');
-        return $this->redirect($sl->getCreateAccountUrl($request));
+        return $this->redirect($this->serverList->getCreateAccountUrl($request));
     }
 
     /**

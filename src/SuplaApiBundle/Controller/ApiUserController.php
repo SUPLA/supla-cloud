@@ -151,11 +151,11 @@ class ApiUserController extends RestController {
         $apiManager = $this->get('api_manager');
         $client = $apiManager->getClient($user);
         $apiUser = $apiManager->getAPIUser($user);
-        $url = $this->generateUrl('fos_oauth_server_token', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->generateUrl('fos_oauth_server_token', [], UrlGeneratorInterface::ABSOLUTE_PATH);
         return $this->view([
             'user' => $apiUser,
             'client' => $client,
-            'tokenUrl' => $url,
+            'tokenUrl' => $this->container->getParameter('supla_url') . $url,
             'server' => $this->container->getParameter('supla_url'),
         ], Response::HTTP_OK);
     }
@@ -218,9 +218,8 @@ class ApiUserController extends RestController {
         $username = $request->get('email');
         Assertion::email($username, 'Please fill a valid email address');
 
-        $serverList = $this->get('server_list');
         $remoteServer = '';
-        $exists = $serverList->userExists($username, $remoteServer);
+        $exists = $this->serverList->userExists($username, $remoteServer);
         Assertion::false($exists, 'Email already exists');
 
         if ($exists === null) {
@@ -238,8 +237,7 @@ class ApiUserController extends RestController {
             ->notEmptyKey('email')
             ->notEmptyKey('password')
             ->notEmptyKey('timezone');
-        
-        
+
         if ($regulationsRequired) {
             Assert::that($data)->notEmptyKey('regulationsAgreed');
             Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.');
@@ -290,8 +288,7 @@ class ApiUserController extends RestController {
         $username = $data['email'] ?? '';
         if (preg_match('/@/', $username) || $token) {
             if ($request->getMethod() == Request::METHOD_PATCH) {
-                $sl = $this->get('server_list');
-                $server = $sl->getAuthServerForUser($username);
+                $server = $this->serverList->getAuthServerForUser($username);
                 if ($server) {
                     $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'web-api/forgotten-password', [
                         'email' => $username,
