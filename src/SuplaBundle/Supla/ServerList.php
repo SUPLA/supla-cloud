@@ -22,28 +22,25 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 
 class ServerList {
-    protected $server = null;
+    protected $suplaUrl = null;
     protected $servers = null;
     protected $user_manager = null;
     protected $router = null;
     protected $autodiscover = null;
-    private $suplaProtocol;
 
     public function __construct(
         Router $router,
         UserManager $user_manager,
         SuplaAutodiscover $autodiscover,
-        $supla_server,
-        $new_account_server_list,
-        $suplaProtocol
+        $suplaUrl,
+        $new_account_server_list
     ) {
 
         $this->router = $router;
         $this->user_manager = $user_manager;
-        $this->server = $supla_server;
+        $this->suplaUrl = $suplaUrl;
         $this->na_servers = $new_account_server_list;
         $this->autodiscover = $autodiscover;
-        $this->suplaProtocol = $suplaProtocol;
     }
 
     public function userExists($username, &$remote_server) {
@@ -66,35 +63,15 @@ class ServerList {
         return false;
     }
 
-    public function getAuthServerForUser(Request $request, $username) {
-        $result = false;
-        $protocol = 'https';
-
-        $local = $request->getHost();
-        if ($request->getPort() != 443) {
-            $local .= ":" . $request->getPort();
-        }
-
-        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            $user = $this->user_manager->userByEmail($username);
-
-            if ($user !== null) {
-                $result = $local;
-                $protocol = $this->suplaProtocol;
-            } elseif ($this->autodiscover->enabled()) {
-                $result = $this->autodiscover->findServer($username);
-                if ($result === null) {
-                    return false;
-                }
+    public function getAuthServerForUser(string $username) {
+        $domainFromAutodiscover = false;
+        if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->autodiscover->enabled()) {
+            $domainFromAutodiscover = $this->autodiscover->findServer($username);
+            if ($domainFromAutodiscover === null) {
+                return false;
             }
         }
-
-        if (!$result) {
-            $result = $local;
-            $protocol = $this->suplaProtocol;
-        }
-
-        return $protocol . '://' . $result;
+        return $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
     }
 
     public function getCreateAccountUrl(Request $request) {

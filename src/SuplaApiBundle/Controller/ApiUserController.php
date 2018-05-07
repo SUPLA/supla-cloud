@@ -156,7 +156,7 @@ class ApiUserController extends RestController {
             'user' => $apiUser,
             'client' => $client,
             'tokenUrl' => $url,
-            'server' => $this->container->getParameter('supla_protocol') . '://' . $this->container->getParameter('supla_server'),
+            'server' => $this->container->getParameter('supla_url'),
         ], Response::HTTP_OK);
     }
 
@@ -291,7 +291,7 @@ class ApiUserController extends RestController {
         if (preg_match('/@/', $username) || $token) {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $sl = $this->get('server_list');
-                $server = $sl->getAuthServerForUser($request, $username);
+                $server = $sl->getAuthServerForUser($username);
                 if ($server) {
                     $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'web-api/forgotten-password', [
                         'email' => $username,

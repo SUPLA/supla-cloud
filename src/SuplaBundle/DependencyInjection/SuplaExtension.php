@@ -49,5 +49,11 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.brute_force_auth_prevention.block_time_seconds',
             $mergedConfig['brute_force_auth_prevention']['block_time_seconds']
         );
+        if (!$container->hasParameter('supla_url')) {
+            $container->setParameter(
+                'supla_url',
+                $container->getParameter('supla_protocol') . '://' . $container->getParameter('supla_server')
+            );
+        }
     }
 }
