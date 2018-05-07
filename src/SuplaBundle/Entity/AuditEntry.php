@@ -45,7 +45,7 @@ class AuditEntry {
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="auditEntries")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $user;
 
