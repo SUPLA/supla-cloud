@@ -68,27 +68,24 @@ class ServerList {
 
     public function getAuthServerForUser(Request $request, $username) {
         $result = false;
-        $err = false;
         $protocol = 'https';
-
-        if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            return $result;
-        }
 
         $local = $request->getHost();
         if ($request->getPort() != 443) {
             $local .= ":" . $request->getPort();
         }
 
-        $user = $this->user_manager->userByEmail($username);
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $user = $this->user_manager->userByEmail($username);
 
-        if ($user !== null) {
-            $result = $local;
-            $protocol = $this->suplaProtocol;
-        } elseif ($this->autodiscover->enabled()) {
-            $result = $this->autodiscover->findServer($username);
-            if ($result === null) {
-                return false;
+            if ($user !== null) {
+                $result = $local;
+                $protocol = $this->suplaProtocol;
+            } elseif ($this->autodiscover->enabled()) {
+                $result = $this->autodiscover->findServer($username);
+                if ($result === null) {
+                    return false;
+                }
             }
         }
 
