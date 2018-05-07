@@ -107,14 +107,30 @@ class ApiChannelMeasurementLogsController extends RestController {
     }
 
     /**
-     * @Rest\Get("/channels/{channel}/temperature-log-count", name="_temp_log_count")
-     * @Rest\Get("/channels/{channel}/temperature-and-humidity-count", name="_hum_log_count")
+     * @Rest\Get("/channels/{channel}/temperature-log-count")
      * @Security("channel.belongsToUser(user)")
      */
-    public function getObsoleteMeasurementLogsCountAction(IODeviceChannel $channel, Request $request) {
+    public function getObsoleteMeasurementTempLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
+        Assertion::eq($channel->getFunction()->getId(), ChannelFunction::THERMOMETER);
+        $count = $this->getMeasureLogsCount($channel);
+        return [
+            'count' => $count,
+            'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
+        ];
+    }
+
+    /**
+     * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
+     * @Security("channel.belongsToUser(user)")
+     */
+    public function getObsoleteMeasurementHumLogsCountAction(IODeviceChannel $channel, Request $request) {
+        if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
+        Assertion::eq($channel->getFunction()->getId(), ChannelFunction::HUMIDITYANDTEMPERATURE);
         $count = $this->getMeasureLogsCount($channel);
         return [
             'count' => $count,
