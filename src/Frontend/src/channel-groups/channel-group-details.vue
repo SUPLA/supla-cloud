@@ -10,12 +10,14 @@
                         :deletable="!isNewGroup"
                         @delete="deleteConfirm = true"
                         :is-pending="hasPendingChanges && !isNewGroup">
-                        <div class="row hidden-xs">
+                        <div class="row hidden-xs"
+                            v-if="!isNewGroup">
                             <div class="col-xs-12">
                                 <dots-route></dots-route>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group"
+                            v-if="!isNewGroup">
                             <div class="row text-center">
                                 <div class="col-sm-4">
                                     <h3>{{ $t('Details') }}</h3>
