@@ -2,7 +2,7 @@
     <page-container :error="error"
         class="container">
         <loading-cover :loading="submitting || (id && !schedule.id)">
-            <pending-changes-page :header="id ? $t('Edit schedule') + ' ID' + id : $t('Create New Schedule')"
+            <pending-changes-page :header="id ? $t('Schedule') + ' ID' + id : $t('Create New Schedule')"
                 v-if="schedule">
                 <div slot="buttons">
                     <router-link :to="{name: 'schedule', params: {id: schedule.id}}"
