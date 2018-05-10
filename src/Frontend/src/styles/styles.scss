@@ -315,5 +315,11 @@ body.warning {
   text-overflow: ellipsis;
 }
 
+.in-app-register {
+	.login-footer {
+	  visibility: hidden;
+	}
+}
+
 @import "./buttons";
 @import "./notifications";
