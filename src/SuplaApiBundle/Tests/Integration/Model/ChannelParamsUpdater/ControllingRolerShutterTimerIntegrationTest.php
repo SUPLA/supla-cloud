@@ -25,7 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
-class ControllingRoletteShutterTimerIntegrationTest extends IntegrationTestCase {
+class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
     /** @var IODevice */
@@ -39,12 +39,13 @@ class ControllingRoletteShutterTimerIntegrationTest extends IntegrationTestCase 
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER],
         ]);
         $this->updater = $this->container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($user);
     }
 
-    public function testUpdatingControllingTheDoorLockTime() {
+    public function testUpdatingControllingTheRollerShutterTime() {
         $channel = $this->device->getChannels()[0];
         $this->assertEquals(0, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
@@ -57,5 +58,21 @@ class ControllingRoletteShutterTimerIntegrationTest extends IntegrationTestCase 
         $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(1000, 0, 3000));
         $this->assertEquals(1000, $channel->getParam1());
         $this->assertEquals(3000, $channel->getParam3());
+    }
+
+    public function testSettingOpeningSensorForRollerShutter() {
+        $channel = $this->device->getChannels()[0];
+        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(0, $this->device->getChannels()[1]->getId()));
+        $this->getEntityManager()->refresh($this->device);
+        $this->assertEquals($channel->getId(), $this->device->getChannels()[1]->getParam1());
+        $this->assertEquals($this->device->getChannels()[1]->getId(), $this->device->getChannels()[0]->getParam2());
+    }
+
+    public function testSettingRollerShutterForOpeningSensor() {
+        $sensor = $this->device->getChannels()[1];
+        $this->updater->updateChannelParams($sensor, new IODeviceChannelWithParams($this->device->getChannels()[0]->getId()));
+        $this->getEntityManager()->refresh($this->device);
+        $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
+        $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());
     }
 }
