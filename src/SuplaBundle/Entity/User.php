@@ -193,6 +193,18 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\Column(name="cookies_agreement", type="boolean", options={"default"=false})
      */
     private $cookiesAgreement = false;
+    
+    /**
+     * @ORM\Column(name="oauth_compat_username", type="string", length=64, nullable=true, options={"comment":"For backward compatibility purpose"})
+     */
+    private $oauthCompatUserName;
+    
+    /**
+     * @ORM\Column(name="oauth_compat_password", type="string", length=64, nullable=true, options={"comment":"For backward compatibility purpose"})
+     */
+    private $oauthCompatUserPassword;
+    
+    private $oauthOldApiCompatEnabled;
 
     public function __construct() {
         $this->limitAid = 10;
@@ -212,6 +224,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->passwordRequestedAt = null;
         $this->enabled = false;
         $this->setTimezone(null);
+        $this->oauthOldApiCompatEnabled = false;
     }
 
     public function getId() {
@@ -219,7 +232,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     }
 
     public function getUsername() {
-        return $this->email;
+        return $this->oauthOldApiCompatEnabled ? $this->oauthCompatUserName : $this->email;
     }
 
     public function getRecaptcha() {
@@ -245,6 +258,9 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     }
 
     public function getPassword() {
+        if ($this->oauthOldApiCompatEnabled) {
+            return $this->oauthCompatUserPassword;
+        }
         return null === $this->password ? $this->legacyPassword : $this->password;
     }
 
@@ -495,5 +511,25 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->setEmail($data['email']);
         $this->setTimezone($data['timezone']);
         $this->setPlainPassword($data['password']);
+    }
+    
+    public function getOAuthCompatUserName() {
+        return $this->oauthCompatUserName;
+    }
+    
+    public function getOAuthCompatPassword() {
+        return $this->oauthCompatUserName;
+    }
+    
+    public function setOAuthCompatUserPassword($password) {
+        $this->oauthCompatUserPassword = $password;
+    }
+    
+    public function setOAuthOldApiCompatEnabled(bool $enabled) {
+        $this->oauthOldApiCompatEnabled = $enabled;
+    }
+    
+    public function getOAuthOldApiCompatEnabled(): bool {
+        return $this->oauthOldApiCompatEnabled;
     }
 }

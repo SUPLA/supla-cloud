@@ -72,7 +72,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/", name="_homepage")
      * @Route("/register", name="_register")
-     * @Route("/{suffix}", requirements={"suffix"="^(?!(web-)?api/).*"}, methods={"GET"})
+     * @Route("/{suffix}", requirements={"suffix"="^(?!(web-)?api|oauth/).*"}, methods={"GET"})
      * @Template()
      */
     public function spaBoilerplateAction($suffix = null) {

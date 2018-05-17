@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
+use SuplaApiBundle\Entity\User;
 
 /**
  * @ORM\Entity
@@ -39,7 +40,7 @@ class AccessToken extends BaseAccessToken {
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\OAuth\ApiUser")
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
      */
     protected $user;
 }

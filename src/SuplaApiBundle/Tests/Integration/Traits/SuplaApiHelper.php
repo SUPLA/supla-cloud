@@ -19,7 +19,6 @@ namespace SuplaApiBundle\Tests\Integration\Traits;
 
 use Assert\Assertion;
 use Psr\Container\ContainerInterface;
-use SuplaApiBundle\Entity\OAuth\ApiUser;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServerMockCommandsCollector;

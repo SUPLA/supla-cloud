@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
+use SuplaApiBundle\Entity\User;
 
 /**
  * @ORM\Entity
@@ -39,7 +40,7 @@ class RefreshToken extends BaseRefreshToken {
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\OAuth\ApiUser")
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
      */
     protected $user;
 }

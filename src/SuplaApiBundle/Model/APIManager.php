@@ -19,7 +19,6 @@ namespace SuplaApiBundle\Model;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Entity\OAuth\ApiUser as APIUser;
 use SuplaBundle\Entity\User as ParentUser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
@@ -28,7 +27,7 @@ class APIManager {
 
     protected $doctrine;
     protected $encoder_factory;
-    protected $oauth_user_rep;
+    protected $user_rep;
     protected $oauth_client_rep;
     protected $oauth_token_rep;
     protected $oauth_rtoken_rep;
@@ -38,7 +37,7 @@ class APIManager {
     public function __construct(ManagerRegistry $doctrine, EncoderFactory $encoder_factory, ContainerInterface $container) {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
-        $this->oauth_user_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\ApiUser');
+        $this->user_rep = $doctrine->getRepository('SuplaBundle:User');
         $this->oauth_client_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\ApiClient');
         $this->oauth_token_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\AccessToken');
         $this->oauth_rtoken_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\RefreshToken');
@@ -46,27 +45,22 @@ class APIManager {
         $this->container = $container;
     }
 
-    public function getAPIUser(ParentUser $parent) {
-
-        $api_user = $this->oauth_user_rep->findOneBy(['parent' => $parent, 'accessId' => null]);
-
-        if ($api_user === null) {
-            $api_user = new APIUser($parent);
-
-            if ($api_user !== null) {
-                $m = $this->doctrine->getManager();
-                $m->persist($api_user);
-                $m->flush();
+    public function getAPIUserByName($username) {
+        
+        $user = null;
+        
+        if (!filter_var($username, FILTER_VALIDATE_EMAIL)
+                && preg_match('/^api_[0-9]+$/', $username) ) {
+             $user = $this->user_rep->findOneBy(['oauthCompatUserName' => $username]);
+             
+            if ($user) {
+                $user->setOAuthOldApiCompatEnabled(true);
             }
+        } else {
+             $user = $this->user_rep->findOneByEmail($username);
         }
 
-        return $api_user;
-    }
-
-    public function getAPIUserByName($username) {
-
-        $username = preg_replace('/^api_/', '', $username);
-        return $this->oauth_user_rep->findOneBy(['id' => intval($username)]);
+        return $user;
     }
 
     public function getClient(ParentUser $parent): ApiClient {
@@ -80,26 +74,14 @@ class APIManager {
             $client = $clientManager->createClient();
             $client->setParent($parent);
             $client->setRedirectUris([$redirectUri]);
-            $client->setAllowedGrantTypes(['password']);
+            $client->setAllowedGrantTypes(['authorization_code']);
             $clientManager->updateClient($client);
         }
 
         return $client;
     }
 
-    public function setPassword($password, APIUser $user, $flush = false) {
-        $encoder = $this->encoder_factory->getEncoder($user);
-        $password = $encoder->encodePassword($password, $user->getSalt());
-        $user->setPassword($password);
-
-        if ($flush === true) {
-            $em = $this->doctrine->getManager();
-            $em->persist($user);
-            $em->flush();
-        }
-    }
-
-    public function deleteTokens(APIUser $user) {
+    public function deleteTokens(User $user) {
 
         $qb = $this->oauth_token_rep->createQueryBuilder('t');
         $qb
@@ -110,7 +92,7 @@ class APIManager {
         return $qb->getQuery()->execute();
     }
 
-    public function deleteRefreshTokens(APIUser $user) {
+    public function deleteRefreshTokens(User $user) {
 
         $qb = $this->oauth_rtoken_rep->createQueryBuilder('t');
         $qb
@@ -121,7 +103,7 @@ class APIManager {
         return $qb->getQuery()->execute();
     }
 
-    public function deleteAuthCodes(APIUser $user) {
+    public function deleteAuthCodes(User $user) {
 
         $qb = $this->oauth_code_rep->createQueryBuilder('t');
         $qb
@@ -132,26 +114,7 @@ class APIManager {
         return $qb->getQuery()->execute();
     }
 
-    public function setEnabled($enabled, APIUser $user, $flush = false) {
-        $user->setEnabled($enabled);
-
-        if ($flush === true) {
-            $em = $this->doctrine->getManager();
-            $em->persist($user);
-            $em->flush();
-        }
-
-        if ($enabled === false) {
-            $this->deleteTokens($user);
-            $this->deleteRefreshTokens($user);
-            $this->deleteRefreshTokens($user);
-            $this->deleteAuthCodes($user);
-        }
-
-        return $enabled;
-    }
-
-    public function userLogout(APIUser $user, $accessToken, $refreshToken) {
+    public function userLogout(User $user, $accessToken, $refreshToken) {
 
         $qb = $this->oauth_token_rep->createQueryBuilder('t');
         $qb

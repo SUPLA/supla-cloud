@@ -142,45 +142,6 @@ class ApiUserController extends RestController {
         return $this->view($user, Response::HTTP_OK);
     }
 
-    /**
-     * @Rest\Get("users/current/api-settings")
-     */
-    public function getUserApiSettingsAction() {
-        $user = $this->getUser();
-        $this->assertNotApiUser();
-        $apiManager = $this->get('api_manager');
-        $client = $apiManager->getClient($user);
-        $apiUser = $apiManager->getAPIUser($user);
-        $url = $this->generateUrl('fos_oauth_server_token', [], UrlGeneratorInterface::ABSOLUTE_PATH);
-        return $this->view([
-            'user' => $apiUser,
-            'client' => $client,
-            'tokenUrl' => $this->container->getParameter('supla_url') . $url,
-            'server' => $this->container->getParameter('supla_url'),
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * @Rest\Patch("users/current/api-settings")
-     */
-    public function patchUserApiSettingsAction(Request $request) {
-        $user = $this->getUser();
-        $this->assertNotApiUser();
-        $data = $request->request->all();
-        $apiManager = $this->get('api_manager');
-        $apiUser = $apiManager->getAPIUser($user);
-        $action = $data['action'] ?? '';
-        if ($action == 'generatePassword') {
-            $password = $apiUser->generateNewPassword();
-            $apiManager->setPassword($password, $apiUser, true);
-            return $this->view(['password' => $password], Response::HTTP_OK);
-        } elseif ($action == 'toggleEnabled') {
-            $enabled = $apiManager->setEnabled(!$apiUser->isEnabled(), $apiUser, true);
-            return ['enabled' => $enabled];
-        }
-        Assertion::true(false, "Invalid action given: $action");
-    }
-
     public function getUsersCurrentAuditAction(Request $request) {
         $events = $request->get('events', []);
         Assertion::isArray($events);

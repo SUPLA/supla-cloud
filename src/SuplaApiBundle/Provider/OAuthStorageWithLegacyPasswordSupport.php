@@ -23,7 +23,7 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use OAuth2\Model\IOAuth2Client;
-use SuplaApiBundle\Entity\OAuth\ApiUser;
+use SuplaBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -58,7 +58,7 @@ class OAuthStorageWithLegacyPasswordSupport extends OAuthStorage {
         return $credentialsValid;
     }
 
-    /** @return ApiUser|null */
+    /** @return User|null */
     private function getUserIfLegacyPasswordMatches($username, $plainPassword) {
         try {
             $user = $this->userProvider->loadUserByUsername($username);
@@ -71,10 +71,10 @@ class OAuthStorageWithLegacyPasswordSupport extends OAuthStorage {
         return null;
     }
 
-    private function rehashLegacyPassword(ApiUser $user, string $plainPassword) {
+    private function rehashLegacyPassword(User $user, string $plainPassword) {
         $encoder = $this->encoderFactory->getEncoder($user);
         $hashedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
-        $user->setPassword($hashedPassword);
+        $user->setOAuthCompatUserPassword($hashedPassword);
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($user);
         $em->flush();

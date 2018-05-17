@@ -18,7 +18,6 @@
 namespace SuplaApiBundle\Model;
 
 use Assert\Assertion;
-use SuplaApiBundle\Entity\OAuth\ApiUser;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -40,11 +39,7 @@ trait CurrentUserAware {
         if (!is_object($user = $token->getUser())) {
             return null;
         }
-        if ($user instanceof ApiUser) {
-            return $user->getParentUser();
-        } else {
-            return $user;
-        }
+        return $user;
     }
 
     protected function getCurrentUserOrThrow(): User {

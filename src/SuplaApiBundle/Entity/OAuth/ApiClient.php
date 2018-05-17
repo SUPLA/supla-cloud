@@ -19,7 +19,6 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\Client;
-use SuplaBundle\Entity\User as ParentUser;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -40,10 +39,6 @@ class ApiClient extends Client {
      */
     protected $type;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
-     */
-    protected $parent;
 
     public function __construct() {
         parent::__construct();
@@ -63,14 +58,6 @@ class ApiClient extends Client {
 
     public function getType() {
         return $this->type;
-    }
-
-    public function getParentUser() {
-        return $this->parent;
-    }
-
-    public function setParent(ParentUser $parent) {
-        $this->parent = $parent;
     }
 
     /** @Groups({"basic"}) */

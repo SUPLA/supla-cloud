@@ -39,7 +39,7 @@ class AuthCode extends BaseAuthCode {
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\OAuth\ApiUser")
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
      */
     protected $user;
 }

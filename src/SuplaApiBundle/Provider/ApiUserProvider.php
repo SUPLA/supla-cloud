@@ -17,7 +17,7 @@
 
 namespace SuplaApiBundle\Provider;
 
-use SuplaApiBundle\Entity\OAuth\ApiUser;
+use SuplaBundle\Entity\User;
 use SuplaApiBundle\Model\APIManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,6 +44,6 @@ class ApiUserProvider implements UserProviderInterface {
     }
 
     public function supportsClass($class) {
-        return $class === ApiUser::class;
+        return $class === User::class;
     }
 }
