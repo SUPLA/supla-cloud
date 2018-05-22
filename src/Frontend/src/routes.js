@@ -5,6 +5,11 @@ export default [
     {path: '/', component: HomePage},
     {path: '/login', component: LoginForm, alias: '/auth/login', meta: {unrestricted: true, onlyUnauthenticated: true}, name: 'login'},
     {
+        path: '/terms',
+        component: () => import("./common/pages/terms"),
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
+    },
+    {
         path: '/register',
         component: () => import("./register/create-account"),
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
