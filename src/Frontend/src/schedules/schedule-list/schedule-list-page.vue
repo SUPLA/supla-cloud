@@ -9,7 +9,7 @@
                 <div :class="channelId ? 'no-margin-top' : ''">
                     <router-link :to="{name: 'schedule.new', query: {channelId: channelId}}"
                         class="btn btn-green btn-lg"
-                        v-if="schedules && totalSchedules < $user.limits.schedule">
+                        v-if="schedules">
                         <i class="pe-7s-plus"></i>
                         {{ $t('Create New Schedule') }}
                     </router-link>
