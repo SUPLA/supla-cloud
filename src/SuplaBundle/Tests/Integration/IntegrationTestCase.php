@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration;
 
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaApiBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -44,6 +45,10 @@ abstract class IntegrationTestCase extends WebTestCase {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
             $this->executeCommand('doctrine:database:create --if-not-exists');
         }
+        $this->clearDatabase();
+    }
+
+    protected function clearDatabase() {
         $this->executeCommand('doctrine:schema:drop --force');
         $this->executeCommand('doctrine:schema:create');
     }
@@ -53,7 +58,8 @@ abstract class IntegrationTestCase extends WebTestCase {
         $output = new BufferedOutput();
         $input->setInteractive(false);
         $this->application->run($input, $output);
-        return $output->fetch();
+        $result = $output->fetch();
+        return $result;
     }
 
     protected function createAuthenticatedClient($username = 'supler@supla.org', string $password = 'supla123'): TestClient {
@@ -68,5 +74,9 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     protected function getDoctrine(): RegistryInterface {
         return $this->container->get('doctrine');
+    }
+
+    protected function getEntityManager(): EntityManagerInterface {
+        return $this->getDoctrine()->getEntityManager();
     }
 }

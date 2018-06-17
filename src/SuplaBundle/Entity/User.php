@@ -193,17 +193,19 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\Column(name="cookies_agreement", type="boolean", options={"default"=false})
      */
     private $cookiesAgreement = false;
-    
+
     /**
-     * @ORM\Column(name="oauth_compat_username", type="string", length=64, nullable=true, options={"comment":"For backward compatibility purpose"})
+     * @ORM\Column(name="oauth_compat_username", type="string", length=64, nullable=true,
+     *     options={"comment":"For backward compatibility purpose"})
      */
     private $oauthCompatUserName;
-    
+
     /**
-     * @ORM\Column(name="oauth_compat_password", type="string", length=64, nullable=true, options={"comment":"For backward compatibility purpose"})
+     * @ORM\Column(name="oauth_compat_password", type="string", length=64, nullable=true,
+     *     options={"comment":"For backward compatibility purpose"})
      */
     private $oauthCompatUserPassword;
-    
+
     private $oauthOldApiCompatEnabled;
 
     public function __construct() {
@@ -512,24 +514,12 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->setTimezone($data['timezone']);
         $this->setPlainPassword($data['password']);
     }
-    
-    public function getOAuthCompatUserName() {
-        return $this->oauthCompatUserName;
-    }
-    
-    public function getOAuthCompatPassword() {
-        return $this->oauthCompatUserName;
-    }
-    
+
     public function setOAuthCompatUserPassword($password) {
         $this->oauthCompatUserPassword = $password;
     }
-    
-    public function setOAuthOldApiCompatEnabled(bool $enabled) {
-        $this->oauthOldApiCompatEnabled = $enabled;
-    }
-    
-    public function getOAuthOldApiCompatEnabled(): bool {
-        return $this->oauthOldApiCompatEnabled;
+
+    public function setOAuthOldApiCompatEnabled() {
+        $this->oauthOldApiCompatEnabled = true;
     }
 }

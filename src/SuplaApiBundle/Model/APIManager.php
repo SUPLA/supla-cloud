@@ -54,7 +54,7 @@ class APIManager {
              $user = $this->user_rep->findOneBy(['oauthCompatUserName' => $username]);
              
             if ($user) {
-                $user->setOAuthOldApiCompatEnabled(true);
+                $user->setOAuthOldApiCompatEnabled();
             }
         } else {
              $user = $this->user_rep->findOneByEmail($username);
