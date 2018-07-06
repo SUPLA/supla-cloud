@@ -160,3 +160,10 @@ services:
   SuplaBundle\Repository\IODeviceChannelRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\IODeviceChannel]
+
+  fos_oauth_server.server:
+    class: SuplaApiBundle\Auth\SuplaOAuth2
+    arguments:
+      - '@fos_oauth_server.storage'
+      - '%fos_oauth_server.server.options%'
+      - '%supla_url%'

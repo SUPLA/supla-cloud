@@ -29,8 +29,8 @@ fos_oauth_server:
   refresh_token_class: SuplaApiBundle\Entity\OAuth\RefreshToken
   service:
     options:
-      access_token_lifetime: 30
-      refresh_token_lifetime: 60
+      access_token_lifetime: 300
+      refresh_token_lifetime: 600
       supported_scopes: restapi
     storage: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport
 
@@ -79,6 +79,7 @@ parameters:
   supla_server_socket: /tmp/supla-server-ctrl.sock
   supla_url: '%supla_protocol%://%supla_server%'
   use_webpack_dev_server: false
+#  fos_oauth_server.server.class: SuplaApiBundle\Auth\SuplaOAuth2
 
 sensio_framework_extra:
   request: { converters: true }
