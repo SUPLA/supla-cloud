@@ -36,7 +36,7 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
     private $device;
 
     protected function setUp() {
-        $this->user = $this->createConfirmedUserWithApiAccess();
+        $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
@@ -48,10 +48,10 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingChannelInfo() {
-        $client = $this->createAuthenticatedApiClient($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $channel = $this->device->getChannels()[0];
-        $client->request('GET', '/api/channels/' . $channel->getId());
+        $client->request('GET', '/web-api/channels/' . $channel->getId());
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $content = json_decode($response->getContent());
@@ -64,10 +64,10 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
      * @dataProvider changingChannelStateDataProvider
      */
     public function testChangingChannelState(int $channelId, string $action, string $expectedCommand, array $additionalRequest = []) {
-        $client = $this->createAuthenticatedApiClient($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
-        $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($request));
+        $client->request('PATCH', '/web-api/channels/' . $channelId, [], [], [], json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
@@ -95,39 +95,27 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testTryingToExecuteActionInvalidForChannel() {
-        $client = $this->createAuthenticatedApiClient($this->user);
-        $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->request('PATCH', '/web-api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'open'])));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }
 
     public function testTryingToExecuteInvalidAction() {
-        $client = $this->createAuthenticatedApiClient($this->user);
-        $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'unicorn'])));
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->request('PATCH', '/web-api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'unicorn'])));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }
 
     public function testChangingChannelRgbwState20() {
-        $client = $this->createAuthenticatedApiClient($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $request = ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42];
-        $client->request('PUT', '/api/channels/5', [], [], $this->versionHeader(ApiVersions::V2_0()), json_encode($request));
+        $client->request('PUT', '/web-api/channels/5', [], [], $this->versionHeader(ApiVersions::V2_0()), json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('SET-RGBW-VALUE:1,1,5,16711935,58,42', $commands);
-    }
-
-    public function testGettingApiEndpointAsWebUser() {
-        $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/api/channels');
-        $this->assertStatusCode(401, $client->getResponse());
-    }
-
-    public function testGettingWebApiEndpointAsOAuthUser() {
-        $client = $this->createAuthenticatedApiClient($this->user);
-        $client->request('GET', '/web-api/channels');
-        $this->assertStatusCode(401, $client->getResponse());
     }
 }

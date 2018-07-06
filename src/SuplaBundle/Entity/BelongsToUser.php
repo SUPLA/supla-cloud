@@ -7,10 +7,8 @@ namespace SuplaBundle\Entity;
 trait BelongsToUser {
     /** @param User $me */
     public function belongsToUser($me): bool {
-        if ($me) {
-            if ($me instanceof User) {
-                return $me->getId() == $this->getUser()->getId();
-            }
+        if ($me instanceof User) {
+            return $me->getId() == $this->getUser()->getId();
         }
         return false;
     }

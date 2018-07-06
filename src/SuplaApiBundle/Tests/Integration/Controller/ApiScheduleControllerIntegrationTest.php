@@ -38,7 +38,7 @@ class ApiScheduleControllerIntegrationTest extends IntegrationTestCase {
     private $device;
 
     protected function setUp() {
-        $this->user = $this->createConfirmedUserWithApiAccess();
+        $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDeviceFull($location);
     }

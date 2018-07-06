@@ -18,8 +18,6 @@
 namespace SuplaApiBundle\Model;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\User as ParentUser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
@@ -46,87 +44,52 @@ class APIManager {
     }
 
     public function getAPIUserByName($username) {
-        
         $user = null;
-        
-        if (!filter_var($username, FILTER_VALIDATE_EMAIL)
-                && preg_match('/^api_[0-9]+$/', $username) ) {
-             $user = $this->user_rep->findOneBy(['oauthCompatUserName' => $username]);
-             
+        if (!filter_var($username, FILTER_VALIDATE_EMAIL) && preg_match('/^api_[0-9]+$/', $username)) {
+            $user = $this->user_rep->findOneBy(['oauthCompatUserName' => $username]);
             if ($user) {
                 $user->setOAuthOldApiCompatEnabled();
             }
         } else {
-             $user = $this->user_rep->findOneByEmail($username);
+            $user = $this->user_rep->findOneByEmail($username);
         }
-
         return $user;
     }
 
-    public function getClient(ParentUser $parent): ApiClient {
-
-        $client = $this->oauth_client_rep->findOneBy(['type' => 0, 'parent' => $parent]);
-
-        if ($client === null) {
-            $redirectUri = '/';
-
-            $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
-            $client = $clientManager->createClient();
-            $client->setParent($parent);
-            $client->setRedirectUris([$redirectUri]);
-            $client->setAllowedGrantTypes(['authorization_code']);
-            $clientManager->updateClient($client);
-        }
-
-        return $client;
-    }
-
     public function deleteTokens(User $user) {
-
         $qb = $this->oauth_token_rep->createQueryBuilder('t');
-        $qb
-            ->delete()
+        $qb->delete()
             ->where('t.user = ?1')
             ->setParameters([1 => $user->getId()]);
-
         return $qb->getQuery()->execute();
     }
 
     public function deleteRefreshTokens(User $user) {
-
         $qb = $this->oauth_rtoken_rep->createQueryBuilder('t');
-        $qb
-            ->delete()
+        $qb->delete()
             ->where('t.user = ?1')
             ->setParameters([1 => $user->getId()]);
-
         return $qb->getQuery()->execute();
     }
 
     public function deleteAuthCodes(User $user) {
-
         $qb = $this->oauth_code_rep->createQueryBuilder('t');
-        $qb
-            ->delete()
+        $qb->delete()
             ->where('t.user = ?1')
             ->setParameters([1 => $user->getId()]);
-
         return $qb->getQuery()->execute();
     }
 
     public function userLogout(User $user, $accessToken, $refreshToken) {
-
         $qb = $this->oauth_token_rep->createQueryBuilder('t');
-        $qb
-            ->delete()
+        $qb->delete()
             ->where('t.user = ?1 AND t.token = ?2')
             ->setParameters([1 => $user->getId(), 2 => $accessToken]);
 
         $qb->getQuery()->execute();
 
         $qb = $this->oauth_rtoken_rep->createQueryBuilder('t');
-        $qb
-            ->delete()
+        $qb->delete()
             ->where('t.user = ?1 AND t.token = ?2')
             ->setParameters([1 => $user->getId(), 2 => $refreshToken]);
 

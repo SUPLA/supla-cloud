@@ -34,7 +34,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
     private $device;
 
     protected function setUp() {
-        $this->user = $this->createConfirmedUserWithApiAccess();
+        $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDeviceFull($location);
     }
@@ -117,15 +117,6 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingDevicesDetails() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/web-api/iodevices/' . $this->device->getId());
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $content = current(json_decode($response->getContent(), true));
-        $this->assertEquals($this->device->getId(), $content['id']);
-    }
-
-    public function testGettingDevicesDetailsAsApiUser() {
-        $client = $this->createAuthenticatedApiClient($this->user);
-        $client->request('GET', '/api/iodevices/' . $this->device->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = current(json_decode($response->getContent(), true));

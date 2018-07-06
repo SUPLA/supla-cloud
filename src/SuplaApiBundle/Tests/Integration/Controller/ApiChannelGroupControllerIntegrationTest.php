@@ -36,7 +36,7 @@ class ApiChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     private $device;
 
     protected function setUp() {
-        $this->user = $this->createConfirmedUserWithApiAccess();
+        $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
@@ -66,10 +66,10 @@ class ApiChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         string $expectedCommand,
         array $additionalRequest = []
     ) {
-        $client = $this->createAuthenticatedApiClient($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
-        $client->request('PATCH', '/api/channel-groups/' . $channelGroupId, [], [], [], json_encode($request));
+        $client->request('PATCH', '/web-api/channel-groups/' . $channelGroupId, [], [], [], json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);

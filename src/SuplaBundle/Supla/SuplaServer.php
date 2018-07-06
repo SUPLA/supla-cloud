@@ -54,7 +54,7 @@ abstract class SuplaServer {
     private function authorizeSocket() {
         if (!$this->authorized) {
             $user = $this->getCurrentUserOrThrow();
-            $token = $this->getCurrentUserToken()->getToken();
+            $token = 'abc'; // TODO FIXME BOM BOM $this->getCurrentUserToken()->getToken();
             $result = $this->command("OAUTH:" . $token);
             $this->authorized = $result && preg_match("/^AUTH_OK:" . $user->getId() . "\n/", $result) === 1 ? true : false;
             if (!$this->authorized) {

@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaApiBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -64,7 +65,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     protected function createAuthenticatedClient($username = 'supler@supla.org', string $password = 'supla123'): TestClient {
         $client = self::createClient([], [
-            'PHP_AUTH_USER' => $username,
+            'PHP_AUTH_USER' => $username instanceof User ? $username->getUsername() : $username,
             'PHP_AUTH_PW' => $password,
             'HTTPS' => true,
             'HTTP_Accept' => 'application/json',
