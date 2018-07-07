@@ -25,7 +25,7 @@ security:
 
   access_control:
     -
-      path: ^/((web-)?api/(v?\d\.\d\.\d/)?(auth-servers|server-status|server-info|register|forgotten-password|confirm))
+      path: ^/((web-)?api/(v?\d\.\d\.\d/)?(auth-servers|server-status|server-info|register|forgotten-password|confirm|webapp-tokens))
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
     -

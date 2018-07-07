@@ -17,8 +17,10 @@
 
 namespace SuplaApiBundle\Entity\OAuth;
 
+use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\Client;
+use SuplaApiBundle\Enums\ApiClientType;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -39,10 +41,9 @@ class ApiClient extends Client {
      */
     protected $type;
 
-
     public function __construct() {
         parent::__construct();
-        $this->type = 0;
+        $this->type = ApiClientType::ADMIN;
     }
 
     /**
@@ -52,12 +53,13 @@ class ApiClient extends Client {
         return implode(', ', $this->getAllowedGrantTypes());
     }
 
-    public function setType($type) {
-        $this->type = $type;
+    public function getType(): ApiClientType {
+        return new ApiClientType($this->type);
     }
 
-    public function getType() {
-        return $this->type;
+    public function setType(ApiClientType $type) {
+        Assertion::eq($this->type, ApiClientType::ADMIN, 'You cannot change the type of an existing non-ADMIN type client.');
+        $this->type = $type->getValue();
     }
 
     /** @Groups({"basic"}) */

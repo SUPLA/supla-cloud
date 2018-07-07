@@ -47,6 +47,7 @@ abstract class IntegrationTestCase extends WebTestCase {
             $this->executeCommand('doctrine:database:create --if-not-exists');
         }
         $this->clearDatabase();
+        $this->executeCommand('supla:initialize');
     }
 
     protected function clearDatabase() {

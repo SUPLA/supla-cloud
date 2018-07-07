@@ -39,7 +39,6 @@ use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ApiUserController extends RestController {
     use Transactional;
