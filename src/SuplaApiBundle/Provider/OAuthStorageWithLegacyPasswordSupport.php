@@ -17,6 +17,7 @@
 
 namespace SuplaApiBundle\Provider;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
@@ -24,14 +25,13 @@ use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use OAuth2\Model\IOAuth2Client;
 use SuplaBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class OAuthStorageWithLegacyPasswordSupport extends OAuthStorage {
-    /** @var ContainerInterface */
-    private $container;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
     public function __construct(
         ClientManagerInterface $clientManager,
@@ -40,43 +40,49 @@ class OAuthStorageWithLegacyPasswordSupport extends OAuthStorage {
         AuthCodeManagerInterface $authCodeManager,
         UserProviderInterface $userProvider = null,
         EncoderFactoryInterface $encoderFactory = null,
-        ContainerInterface $container
+        EntityManagerInterface $entityManager
     ) {
         parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $encoderFactory);
-        $this->container = $container;
+        $this->entityManager = $entityManager;
     }
 
     public function checkUserCredentials(IOAuth2Client $client, $username, $plainPassword) {
         $credentialsValid = parent::checkUserCredentials($client, $username, $plainPassword);
-        if (!$credentialsValid) {
-            $user = $this->getUserIfLegacyPasswordMatches($username, $plainPassword);
-            if ($user) {
-                $this->rehashLegacyPassword($user, $plainPassword);
-                return $this->checkUserCredentials($client, $username, $plainPassword);
-            }
+        if ($credentialsValid) {
+            $this->migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword);
+            return $credentialsValid;
+        } else {
+            return $this->migrateUserCompatPasswordIfAuthenticatedWithLegacy($client, $username, $plainPassword);
         }
-        return $credentialsValid;
+    }
+
+    protected function migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword) {
+        /** @var User $user */
+        $user = $this->userProvider->loadUserByUsername($username);
+        if ($user->hasLegacyPassword()) {
+            $user->clearLegacyPassword();
+            $encoder = $this->encoderFactory->getEncoder($user);
+            $user->setPassword($encoder->encodePassword($plainPassword, $user->getSalt()));
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        }
     }
 
     /** @return User|null */
-    private function getUserIfLegacyPasswordMatches($username, $plainPassword) {
+    private function migrateUserCompatPasswordIfAuthenticatedWithLegacy(IOAuth2Client $client, $username, $plainPassword) {
         try {
             $user = $this->userProvider->loadUserByUsername($username);
             $legacyEncoder = $this->encoderFactory->getEncoder('legacy_encoder');
             if ($user && $legacyEncoder->isPasswordValid($user->getPassword(), $plainPassword, $user->getSalt())) {
-                return $user;
+                $encoder = $this->encoderFactory->getEncoder($user);
+                $hashedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
+                $user->setOAuthCompatUserPassword($hashedPassword);
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+                return $this->checkUserCredentials($client, $username, $plainPassword);
             }
         } catch (AuthenticationException $e) {
         }
-        return null;
-    }
-
-    private function rehashLegacyPassword(User $user, string $plainPassword) {
-        $encoder = $this->encoderFactory->getEncoder($user);
-        $hashedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
-        $user->setOAuthCompatUserPassword($hashedPassword);
-        $em = $this->container->get('doctrine')->getManager();
-        $em->persist($user);
-        $em->flush();
+        return false;
     }
 }

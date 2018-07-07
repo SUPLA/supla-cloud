@@ -250,7 +250,7 @@ class ApiUserController extends RestController {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $server = $this->serverList->getAuthServerForUser($username);
                 if ($server) {
-                    $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'web-api/forgotten-password', [
+                    $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'api/forgotten-password', [
                         'email' => $username,
                         'locale' => $request->getLocale(),
                     ]);

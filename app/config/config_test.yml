@@ -12,11 +12,6 @@ framework:
     storage_id: session.storage.mock_file
   test: ~
 
-security:
-  firewalls:
-    main:
-      http_basic: ~
-
 services:
   SuplaApiBundle\Tests\Integration\TestMailer: ~
   SuplaBundle\Mailer\SuplaMailer:

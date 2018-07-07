@@ -4,6 +4,3 @@ api:
 
 app:
   resource: "@SuplaBundle/Resources/config/routing.yml"
-
-logout:
-  path: /auth/logout

@@ -40,7 +40,7 @@ trait SuplaApiHelper {
             'password' => $password,
         ]);
         $response = $client->getResponse();
-        return json_decode($response->getContent(), true)['access_token'];
+        return json_decode($response->getContent(), true)['access_token'] ?? false;
     }
 
     protected function createAuthenticatedClient($username = 'supler@supla.org'): TestClient {

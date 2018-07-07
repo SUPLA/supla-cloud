@@ -2,7 +2,6 @@ security:
   encoders:
     SuplaBundle\Entity\User: bcrypt
     legacy_encoder: md5
-  erase_credentials: false # in order to migrate legacy passwords
   hide_user_not_found: false
 
   firewalls:
@@ -12,24 +11,13 @@ security:
       pattern: ^/api/
       stateless: true
 
-    main:
-      anonymous: true
-      entry_point: SuplaApiBundle\DependencyInjection\WebApiAuthenticationEntryPoint
-      form_login:
-        check_path: _auth_login
-        login_path: _auth_login
-        require_previous_session: false
-      logout:
-        path: /auth/logout
-        target: /auth/login
-
   access_control:
     -
-      path: ^/((web-)?api/(v?\d\.\d\.\d/)?(auth-servers|server-status|server-info|register|forgotten-password|confirm|webapp-tokens))
+      path: ^/(api/(v?\d\.\d\.\d/)?(auth-servers|server-status|server-info|register|forgotten-password|confirm|webapp-tokens))
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
     -
-      path: ^/(api|web-api)
+      path: ^/api
       role: [IS_AUTHENTICATED_FULLY]
       requires_channel: '%supla_protocol%'
     -

@@ -341,21 +341,21 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     private function assertSuccessfulLoginRequest(TestClient $client, $username = null, $password = null) {
         $this->loginRequest($client, $username, $password);
-        $this->assertCount(0, $client->getCrawler()->filter('#login-error'));
+        $this->assertStatusCode(200, $client->getResponse());
     }
 
     private function assertFailedLoginRequest(TestClient $client, $username = null, $password = null) {
         $password = $password ?: 'invalidpassword';
         $this->loginRequest($client, $username, $password);
-        $this->assertCount(1, $client->getCrawler()->filter('#login-error'));
+        $this->assertStatusCode(401, $client->getResponse());
     }
 
     private function loginRequest(TestClient $client, $username = null, $password = null) {
         $username = $username ?: self::EMAIL;
         $password = $password ?: self::PASSWORD;
-        $client->request('POST', '/auth/login', [
-            '_username' => $username,
-            '_password' => $password,
+        $client->request('POST', '/api/webapp-tokens', [
+            'username' => $username,
+            'password' => $password,
         ]);
     }
 
