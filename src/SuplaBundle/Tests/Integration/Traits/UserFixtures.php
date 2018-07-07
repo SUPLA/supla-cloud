@@ -19,6 +19,10 @@ namespace SuplaBundle\Tests\Integration\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
+use SuplaApiBundle\Entity\EntityUtils;
+use SuplaApiBundle\Entity\OAuth\AccessToken;
+use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaApiBundle\Enums\ApiClientType;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
@@ -37,6 +41,19 @@ trait UserFixtures {
         $userManager->create($user);
         $userManager->setPassword($password, $user, true);
         $userManager->confirm($user->getToken());
+
+        // create valid access token to speed up integration tests
+        $webappClient = $this->container->get('doctrine')->getRepository(ApiClient::class)->findOneBy(['type' => ApiClientType::WEBAPP]);
+        $token = new AccessToken();
+        EntityUtils::setField($token, 'client', $webappClient);
+        EntityUtils::setField($token, 'user', $user);
+        EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
+        EntityUtils::setField($token, 'token', base64_encode($username));
+        EntityUtils::setField($token, 'scope', 'restapi');
+        $em = $this->container->get('doctrine')->getManager();
+        $em->persist($token);
+        $em->flush();
+
         return $user;
     }
 

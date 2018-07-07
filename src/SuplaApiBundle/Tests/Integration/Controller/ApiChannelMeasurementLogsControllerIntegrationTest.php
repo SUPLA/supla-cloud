@@ -55,7 +55,7 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
 
     public function testGettingMeasurementLogsCount() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', '/web-api/channels/2/measurement-logs');
+        $client->apiRequestV22('GET', '/api/channels/2/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $this->assertTrue($response->headers->has('X-Total-Count'));
@@ -64,7 +64,7 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
 
     public function testGettingMeasurementLogsCountObsolete() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequest('GET', '/web-api/channels/2/temperature-log-count');
+        $client->apiRequest('GET', '/api/channels/2/temperature-log-count');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
@@ -73,7 +73,7 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
 
     public function testGettingMeasurementLogs() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', '/web-api/channels/2/measurement-logs');
+        $client->apiRequestV22('GET', '/api/channels/2/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
@@ -84,7 +84,7 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
 
     public function testGettingMeasurementLogsWithOffset() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', '/web-api/channels/2/measurement-logs?offset=1&limit=1');
+        $client->apiRequestV22('GET', '/api/channels/2/measurement-logs?offset=1&limit=1');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
@@ -94,7 +94,7 @@ class ApiChannelMeasurementLogsControllerIntegrationTest extends IntegrationTest
 
     public function testGettingMeasurementLogsOfUnsupportedChannel() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', '/web-api/channels/1/measurement-logs');
+        $client->apiRequestV22('GET', '/api/channels/1/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('400', $response);
     }

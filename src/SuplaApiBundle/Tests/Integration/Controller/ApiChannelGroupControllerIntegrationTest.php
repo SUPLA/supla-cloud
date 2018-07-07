@@ -69,7 +69,7 @@ class ApiChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
-        $client->request('PATCH', '/web-api/channel-groups/' . $channelGroupId, [], [], [], json_encode($request));
+        $client->request('PATCH', '/api/channel-groups/' . $channelGroupId, [], [], [], json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);

@@ -18,6 +18,10 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use SuplaApiBundle\Entity\EntityUtils;
+use SuplaApiBundle\Entity\OAuth\AccessToken;
+use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaApiBundle\Enums\ApiClientType;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
 
@@ -37,5 +41,17 @@ class UsersFixture extends SuplaFixture {
         $userManager->setPassword('pass', $user, true);
         $userManager->confirm($user->getToken());
         $this->addReference(self::USER, $user);
+
+        // create an always valid simple access token issued for webapp
+        $webappClient = $this->container->get('doctrine')->getRepository(ApiClient::class)->findOneBy(['type' => ApiClientType::WEBAPP]);
+        $token = new AccessToken();
+        EntityUtils::setField($token, 'client', $webappClient);
+        EntityUtils::setField($token, 'user', $user);
+        EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
+        EntityUtils::setField($token, 'token', '0123456789012345678901234567890123456789');
+        EntityUtils::setField($token, 'scope', 'restapi');
+        $em = $this->container->get('doctrine')->getManager();
+        $em->persist($token);
+        $em->flush();
     }
 }

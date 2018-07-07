@@ -22,6 +22,7 @@ use Psr\Container\ContainerInterface;
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
+use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -31,6 +32,24 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  */
 trait SuplaApiHelper {
     use UserFixtures;
+
+    protected function authenticate($username = 'supler@supla.org', string $password = 'supla123') {
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-tokens', [
+            'username' => $username,
+            'password' => $password,
+        ]);
+        $response = $client->getResponse();
+        return json_decode($response->getContent(), true)['access_token'];
+    }
+
+    protected function createAuthenticatedClient($username = 'supler@supla.org'): TestClient {
+        $username = $username instanceof User ? $username->getUsername() : $username;
+        /** @var Client $client */
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . base64_encode($username), 'HTTPS' => true]);
+        $client->followRedirects();
+        return $client;
+    }
 
     protected function simulateAuthentication(User $user) {
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());

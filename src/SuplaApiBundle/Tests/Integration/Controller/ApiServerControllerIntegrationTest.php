@@ -37,7 +37,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingServerInfoWithoutAuthentication() {
         $client = self::createClient();
         $client->followRedirects(true);
-        $client->request('GET', '/web-api/server-info');
+        $client->request('GET', '/api/server-info');
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $content = json_decode($response->getContent(), true);
@@ -47,7 +47,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingServerInfoWithoutAuthentication22() {
         $client = self::createClient();
         $client->followRedirects(true);
-        $client->request('GET', '/web-api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $client->request('GET', '/api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $content = json_decode($response->getContent(), true);
@@ -56,7 +56,6 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingServerInfoWithoutAuthentication22InUrl() {
-        $this->markTestSkipped('Until /web-api prefix is replaced to /api');
         $client = self::createClient();
         $client->followRedirects(true);
         $client->request('GET', '/api/v2.2.0/server-info');
@@ -69,7 +68,7 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingServerInfo() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/server-info');
+        $client->request('GET', '/api/server-info');
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $content = json_decode($response->getContent());
@@ -80,7 +79,18 @@ class ApiServerControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingServerInfoForVersion22() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $client->request('GET', '/api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent());
+        $this->assertEquals($this->container->getParameter('supla_server'), $content->address);
+        $this->assertEquals('supler@supla.org', $content->username);
+        $this->assertNotEmpty($content->time);
+    }
+
+    public function testGettingServerInfoForVersion22InUrl() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/v2.2.0/server-info');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());

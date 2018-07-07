@@ -41,7 +41,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingDevicesList() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices');
+        $client->request('GET', '/api/iodevices');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
@@ -52,7 +52,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingDevicesListVersion22() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $client->request('GET', '/api/iodevices', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
@@ -65,7 +65,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingDevicesWithChannels22() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices?include=channels', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $client->request('GET', '/api/iodevices?include=channels', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
@@ -78,7 +78,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingDevicesWithLocationAndOriginalLocation22() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices?include=location,originalLocation', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $client->request('GET', '/api/iodevices?include=location,originalLocation', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
@@ -92,7 +92,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingDevicesWithConnectedStatus22() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices?include=connected', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $client->request('GET', '/api/iodevices?include=connected', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
@@ -106,7 +106,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testPassingWrongIncludeParam() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices?include=turtles,channels,unicorns', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $client->request('GET', '/api/iodevices?include=turtles,channels,unicorns', [], [], $this->versionHeader(ApiVersions::V2_2()));
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $content = json_decode($response->getContent());
@@ -116,7 +116,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingDevicesDetails() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices/' . $this->device->getId());
+        $client->request('GET', '/api/iodevices/' . $this->device->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = current(json_decode($response->getContent(), true));
@@ -125,7 +125,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function test404OnGettingInvalidIoDevice() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/iodevices/123245');
+        $client->request('GET', '/api/iodevices/123245');
         $response = $client->getResponse();
         $this->assertStatusCode(404, $response);
     }
@@ -133,7 +133,7 @@ class ApiIODeviceControllerIntegrationTest extends IntegrationTestCase {
     public function test403OnGettingDeviceOfAnotherUser() {
         $user = $this->createConfirmedUser('another@supla.org');
         $client = $this->createAuthenticatedClient($user->getUsername());
-        $client->request('GET', '/web-api/iodevices/' . $this->device->getId());
+        $client->request('GET', '/api/iodevices/' . $this->device->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
     }

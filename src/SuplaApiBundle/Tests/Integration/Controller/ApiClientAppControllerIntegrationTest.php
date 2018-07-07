@@ -42,7 +42,7 @@ class ApiClientAppControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGetClientAppList() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/client-apps');
+        $client->request('GET', '/api/client-apps');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -52,7 +52,7 @@ class ApiClientAppControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGetClientAppListWithConnectedStatus() {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/web-api/client-apps?include=connected');
+        $client->request('GET', '/api/client-apps?include=connected');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -63,7 +63,7 @@ class ApiClientAppControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingClientApp() {
         $client = $this->createAuthenticatedClient();
-        $client->request('DELETE', '/web-api/client-apps/' . $this->clientApp->getId());
+        $client->request('DELETE', '/api/client-apps/' . $this->clientApp->getId());
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $existingApps = $this->container->get('doctrine')->getRepository('SuplaBundle:ClientApp')->findAll();

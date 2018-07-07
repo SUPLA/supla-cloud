@@ -63,7 +63,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
             'timezone' => 'Europe/Warsaw',
         ];
         $client = $this->createHttpsClient();
-        $client->apiRequest('POST', '/web-api/register', $userData);
+        $client->apiRequest('POST', '/api/register', $userData);
         $this->assertStatusCode(201, $client->getResponse());
         $data = json_decode($client->getResponse()->getContent(), true);
         $this->createdUser = $this->getDoctrine()->getRepository(User::class)->findOneByEmail(self::EMAIL);
@@ -109,14 +109,14 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testConfirmingWithBadToken() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('PATCH', '/web-api/confirm/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdljf');
+        $client->request('PATCH', '/api/confirm/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdljf');
         $this->assertStatusCode(400, $client->getResponse());
     }
 
     public function testConfirmingWithGoodToken() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('PATCH', '/web-api/confirm/' . $this->createdUser->getToken());
+        $client->request('PATCH', '/api/confirm/' . $this->createdUser->getToken());
         $this->assertStatusCode('2XX', $client->getResponse());
         $this->getDoctrine()->getManager()->refresh($this->createdUser);
         $this->assertTrue($this->createdUser->isEnabled());
@@ -126,9 +126,9 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testConfirmingTwiceWithGoodTokenIsForbidden() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('PATCH', '/web-api/confirm/' . $this->createdUser->getToken());
+        $client->request('PATCH', '/api/confirm/' . $this->createdUser->getToken());
         $this->assertStatusCode('2XX', $client->getResponse());
-        $client->request('PATCH', '/web-api/confirm/' . $this->createdUser->getToken());
+        $client->request('PATCH', '/api/confirm/' . $this->createdUser->getToken());
         $this->assertStatusCode(400, $client->getResponse());
     }
 
@@ -171,14 +171,14 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testPasswordResetForUnknownUserFailsSilently() {
         $client = $this->createHttpsClient();
-        $client->apiRequest('POST', '/web-api/forgotten-password', ['email' => 'zamel@supla.org']);
+        $client->apiRequest('POST', '/api/forgotten-password', ['email' => 'zamel@supla.org']);
         $this->assertStatusCode(200, $client->getResponse());
     }
 
     public function testGeneratesForgottenPasswordTokenForValidUser() {
         $this->testConfirmingWithGoodToken();
         $client = $this->createHttpsClient();
-        $client->apiRequest('POST', '/web-api/forgotten-password', ['email' => self::EMAIL]);
+        $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->getDoctrine()->getManager()->refresh($this->createdUser);
         $this->assertNotEmpty($this->createdUser->getToken());
@@ -202,14 +202,14 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testCannotResetPasswordWithInvalidToken() {
         $this->testGeneratesForgottenPasswordTokenForValidUser();
         $client = $this->createHttpsClient();
-        $client->apiRequest('PUT', '/web-api/forgotten-password/asdfasdfasdfasdf', ['password' => 'alamapsa']);
+        $client->apiRequest('PUT', '/api/forgotten-password/asdfasdfasdfasdf', ['password' => 'alamapsa']);
         $this->assertStatusCode(400, $client->getResponse());
     }
 
     public function testCanResetPasswordWithValidToken() {
         $this->testGeneratesForgottenPasswordTokenForValidUser();
         $client = $this->createHttpsClient();
-        $client->apiRequest('PUT', '/web-api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
+        $client->apiRequest('PUT', '/api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
         $this->assertStatusCode(200, $client->getResponse());
         $oldPassword = $this->createdUser->getPassword();
         $this->getDoctrine()->getManager()->refresh($this->createdUser);
@@ -220,9 +220,9 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testCannotResetPasswordTwiceWithTheSameToken() {
         $this->testGeneratesForgottenPasswordTokenForValidUser();
         $client = $this->createHttpsClient();
-        $client->apiRequest('PUT', '/web-api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
+        $client->apiRequest('PUT', '/api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
         $this->assertStatusCode(200, $client->getResponse());
-        $client->apiRequest('PUT', '/web-api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
+        $client->apiRequest('PUT', '/api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
         $this->assertStatusCode(400, $client->getResponse());
     }
 
@@ -313,7 +313,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         for ($attempt = 0; $attempt < 3; $attempt++) {
             $this->assertFailedLoginRequest($client);
         }
-        $client->apiRequest('PUT', '/web-api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
+        $client->apiRequest('PUT', '/api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSuccessfulLoginRequest($client, self::EMAIL, 'alamapsa');
     }
