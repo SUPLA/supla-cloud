@@ -125,6 +125,10 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\AccessID]
 
+  SuplaBundle\Repository\ApiClientRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaApiBundle\Entity\OAuth\ApiClient]
+
   SuplaBundle\Repository\AuditEntryRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\AuditEntry]

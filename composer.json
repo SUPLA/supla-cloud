@@ -58,7 +58,7 @@
       "@symfony-scripts"
     ],
     "test": [
-      "phpunit -c app"
+      "phpunit -c app --testdox"
     ],
     "lint": [
       "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml",

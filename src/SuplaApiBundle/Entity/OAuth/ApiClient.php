@@ -24,7 +24,7 @@ use SuplaApiBundle\Enums\ApiClientType;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ApiClientRepository")
  * @ORM\Table(name="supla_oauth_clients")
  */
 class ApiClient extends Client {

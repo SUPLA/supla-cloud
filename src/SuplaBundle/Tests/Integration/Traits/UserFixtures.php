@@ -21,14 +21,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use SuplaApiBundle\Entity\EntityUtils;
 use SuplaApiBundle\Entity\OAuth\AccessToken;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Enums\ApiClientType;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Repository\ApiClientRepository;
 
 /**
  * @property ContainerInterface $container
@@ -43,7 +42,7 @@ trait UserFixtures {
         $userManager->confirm($user->getToken());
 
         // create valid access token to speed up integration tests
-        $webappClient = $this->container->get('doctrine')->getRepository(ApiClient::class)->findOneBy(['type' => ApiClientType::WEBAPP]);
+        $webappClient = $this->container->get(ApiClientRepository::class)->getWebappClient();
         $token = new AccessToken();
         EntityUtils::setField($token, 'client', $webappClient);
         EntityUtils::setField($token, 'user', $user);

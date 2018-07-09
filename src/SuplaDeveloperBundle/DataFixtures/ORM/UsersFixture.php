@@ -20,10 +20,9 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use SuplaApiBundle\Entity\EntityUtils;
 use SuplaApiBundle\Entity\OAuth\AccessToken;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Enums\ApiClientType;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\ApiClientRepository;
 
 class UsersFixture extends SuplaFixture {
     const ORDER = 0;
@@ -43,7 +42,7 @@ class UsersFixture extends SuplaFixture {
         $this->addReference(self::USER, $user);
 
         // create an always valid simple access token issued for webapp
-        $webappClient = $this->container->get('doctrine')->getRepository(ApiClient::class)->findOneBy(['type' => ApiClientType::WEBAPP]);
+        $webappClient = $this->container->get(ApiClientRepository::class)->getWebappClient();
         $token = new AccessToken();
         EntityUtils::setField($token, 'client', $webappClient);
         EntityUtils::setField($token, 'user', $user);

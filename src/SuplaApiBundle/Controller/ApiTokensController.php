@@ -17,13 +17,11 @@
 
 namespace SuplaApiBundle\Controller;
 
-use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
 use SuplaApiBundle\Auth\SuplaOAuth2;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Enums\ApiClientType;
+use SuplaBundle\Repository\ApiClientRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -36,18 +34,20 @@ class ApiTokensController extends RestController {
     private $server;
     /** @var RouterInterface */
     private $router;
+    /** @var ApiClientRepository */
+    private $apiClientRepository;
 
-    public function __construct(SuplaOAuth2 $server, RouterInterface $router) {
+    public function __construct(SuplaOAuth2 $server, RouterInterface $router, ApiClientRepository $apiClientRepository) {
         $this->server = $server;
         $this->router = $router;
+        $this->apiClientRepository = $apiClientRepository;
     }
 
     /**
      * @Rest\Post("webapp-tokens")
      */
     public function issueTokenForWebappAction(Request $request) {
-        $webappClient = $this->getDoctrine()->getRepository(ApiClient::class)->findOneBy(['type' => ApiClientType::WEBAPP]);
-        Assertion::notNull($webappClient, 'You need to create an API Client for webapp. Try execution php bin\\console supla:initialize');
+        $webappClient = $this->apiClientRepository->getWebappClient();
         $grantType = $request->get('grant_type', 'password');
         $requestData = [
             'client_id' => $webappClient->getPublicId(),
