@@ -13,7 +13,7 @@ security:
 
   access_control:
     -
-      path: ^/(api/(v?\d\.\d\.\d/)?(auth-servers|server-status|server-info|register|forgotten-password|confirm|webapp-tokens))
+      path: ^/(api/(v?\d\.\d\.\d/)?(server-status|server-info|register|forgotten-password|confirm|webapp-tokens|webapp-auth))
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
     -

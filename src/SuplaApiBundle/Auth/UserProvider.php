@@ -54,7 +54,7 @@ class UserProvider extends EntityUserProvider {
                     throw new DisabledException();
                 }
             }
-        } else if (preg_match('/^api_[0-9]+$/', $username)) {
+        } elseif (preg_match('/^api_[0-9]+$/', $username)) {
             $user = $this->userRepository->findOneBy(['oauthCompatUserName' => $username]);
             if ($user) {
                 $user->setOAuthOldApiCompatEnabled();

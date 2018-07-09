@@ -68,6 +68,4 @@ class DeletingApiUserMigrationTest extends DatabaseMigrationTestCase {
         $content = json_decode($response->getContent());
         $this->assertTrue($content->authenticated);
     }
-
-    // TODO test of migrating compat md5 password
 }

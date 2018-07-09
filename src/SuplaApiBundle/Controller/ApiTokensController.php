@@ -17,11 +17,13 @@
 
 namespace SuplaApiBundle\Controller;
 
+use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
 use SuplaApiBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Repository\ApiClientRepository;
+use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -29,18 +31,40 @@ use Symfony\Component\Routing\RouterInterface;
  * Idea of issuing tokens without client & secret taken from the gist: https://gist.github.com/johnpancoast/359bad0255cb50ccd6ab13e4ac18e4e8
  */
 class ApiTokensController extends RestController {
-
     /** @var SuplaOAuth2 */
     private $server;
     /** @var RouterInterface */
     private $router;
     /** @var ApiClientRepository */
     private $apiClientRepository;
+    /** @var ServerList */
+    private $serverList;
 
-    public function __construct(SuplaOAuth2 $server, RouterInterface $router, ApiClientRepository $apiClientRepository) {
+    public function __construct(
+        SuplaOAuth2 $server,
+        RouterInterface $router,
+        ApiClientRepository $apiClientRepository,
+        ServerList $serverList
+    ) {
         $this->server = $server;
         $this->router = $router;
         $this->apiClientRepository = $apiClientRepository;
+        $this->serverList = $serverList;
+    }
+
+    /** @Rest\Post("/webapp-auth") */
+    public function webappAuthAction(Request $request) {
+        $username = $request->get('username');
+        $password = $request->get('password');
+        Assertion::notBlank($username, 'Username is required.');
+        Assertion::notEmpty($password, 'Password is required.');
+        $server = $this->serverList->getAuthServerForUser($username);
+        if ($server->isLocal()) {
+            return $this->issueTokenForWebappAction($request);
+        } else {
+            list($response, $status) = $server->issueWebappToken($username, $password);
+            return $this->view($response, $status);
+        }
     }
 
     /**

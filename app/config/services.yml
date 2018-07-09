@@ -89,6 +89,7 @@ services:
 
   SuplaBundle\Supla\ServerList:
     $suplaUrl: "%supla_url%"
+    $suplaProtocol: "%supla_protocol%"
     $new_account_server_list: "%new_account_server_list%"
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:

@@ -85,4 +85,18 @@ class ApiTokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEquals($content['access_token'], $tokenData['access_token']);
         $this->assertNotEquals($content['refresh_token'], $tokenData['refresh_token']);
     }
+
+    public function testIssuingTokenForWebappViaWebappAuthBroker() {
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-auth', [
+            'username' => 'supler@supla.org',
+            'password' => 'supla123',
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('access_token', $content);
+        $this->assertArrayHasKey('refresh_token', $content);
+        return $content;
+    }
 }
