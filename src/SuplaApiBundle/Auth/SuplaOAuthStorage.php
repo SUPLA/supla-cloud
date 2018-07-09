@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Provider;
+namespace SuplaApiBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
@@ -24,14 +24,22 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use OAuth2\Model\IOAuth2Client;
+use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaApiBundle\Enums\ApiClientType;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\AuthenticationFailureReason;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\DisabledException;
+use Symfony\Component\Security\Core\Exception\LockedException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class OAuthStorageWithLegacyPasswordSupport extends OAuthStorage {
+class SuplaOAuthStorage extends OAuthStorage {
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var UserLoginAttemptListener */
+    private $userLoginAttemptListener;
 
     public function __construct(
         ClientManagerInterface $clientManager,
@@ -40,20 +48,33 @@ class OAuthStorageWithLegacyPasswordSupport extends OAuthStorage {
         AuthCodeManagerInterface $authCodeManager,
         UserProviderInterface $userProvider = null,
         EncoderFactoryInterface $encoderFactory = null,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        UserLoginAttemptListener $userLoginAttemptListener
     ) {
         parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $encoderFactory);
         $this->entityManager = $entityManager;
+        $this->userLoginAttemptListener = $userLoginAttemptListener;
     }
 
+    /**
+     * @param ApiClient $client
+     * @param $username
+     * @param $plainPassword
+     * @return array|bool
+     */
     public function checkUserCredentials(IOAuth2Client $client, $username, $plainPassword) {
         $credentialsValid = parent::checkUserCredentials($client, $username, $plainPassword);
         if ($credentialsValid) {
             $this->migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword);
-            return $credentialsValid;
-        } else {
-            return $this->migrateUserCompatPasswordIfAuthenticatedWithLegacy($client, $username, $plainPassword);
         }
+        if ($client->getType() == ApiClientType::WEBAPP()) {
+            if ($credentialsValid) {
+                $this->userLoginAttemptListener->onAuthenticationSuccess($username);
+            } else {
+                $this->onAuthenticationFailure($username);
+            }
+        }
+        return $credentialsValid;
     }
 
     protected function migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword) {
@@ -68,21 +89,19 @@ class OAuthStorageWithLegacyPasswordSupport extends OAuthStorage {
         }
     }
 
-    /** @return User|null */
-    private function migrateUserCompatPasswordIfAuthenticatedWithLegacy(IOAuth2Client $client, $username, $plainPassword) {
+    private function onAuthenticationFailure($username) {
+        $reason = AuthenticationFailureReason::UNKNOWN();
         try {
-            $user = $this->userProvider->loadUserByUsername($username);
-            $legacyEncoder = $this->encoderFactory->getEncoder('legacy_encoder');
-            if ($user && $legacyEncoder->isPasswordValid($user->getPassword(), $plainPassword, $user->getSalt())) {
-                $encoder = $this->encoderFactory->getEncoder($user);
-                $hashedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
-                $user->setOAuthCompatUserPassword($hashedPassword);
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-                return $this->checkUserCredentials($client, $username, $plainPassword);
-            }
+            $this->userProvider->loadUserByUsername($username);
+            $reason = AuthenticationFailureReason::BAD_CREDENTIALS();
+        } catch (UsernameNotFoundException $e) {
+            $reason = AuthenticationFailureReason::NOT_EXISTS();
+        } catch (LockedException $e) {
+            $reason = AuthenticationFailureReason::BLOCKED();
+        } catch (DisabledException $e) {
+            $reason = AuthenticationFailureReason::DISABLED();
         } catch (AuthenticationException $e) {
         }
-        return false;
+        $this->userLoginAttemptListener->onAuthenticationFailure($username, $reason);
     }
 }

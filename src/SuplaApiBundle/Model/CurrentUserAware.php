@@ -31,6 +31,7 @@ trait CurrentUserAware {
         $this->tokenStorage = $tokenStorage;
     }
 
+    // TODO this does not work
     /** @return User|null */
     protected function getCurrentUser() {
         if (null === $token = $this->getCurrentUserToken()) {

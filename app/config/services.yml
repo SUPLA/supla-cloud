@@ -96,8 +96,11 @@ services:
       - "%use_webpack_dev_server%"
       - "%supla.webpack_hashes%"
 
-  SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport:
-    $userProvider: '@SuplaApiBundle\Provider\ApiUserProvider'
+  SuplaApiBundle\Auth\UserProvider: ~
+  SuplaApiBundle\Auth\UserLoginAttemptListener: ~
+
+  SuplaApiBundle\Auth\SuplaOAuthStorage:
+    $userProvider: '@SuplaApiBundle\Auth\UserProvider'
 
   SuplaApiBundle\EventListener\ApiExceptionHandler:
     arguments:
@@ -149,7 +152,6 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Schedule]
 
-  SuplaBundle\Repository\UserProvider: ~
   SuplaBundle\Repository\UserRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\User]

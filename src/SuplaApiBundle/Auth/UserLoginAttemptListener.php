@@ -15,15 +15,13 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\EventListener;
+namespace SuplaApiBundle\Auth;
 
 use SuplaApiBundle\Model\Audit\AuditAware;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Repository\UserRepository;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UserLoginAttemptListener {
     use AuditAware;
@@ -38,17 +36,17 @@ class UserLoginAttemptListener {
         $this->mailer = $mailer;
     }
 
-    public function onAuthenticationSuccess(InteractiveLoginEvent $event) {
+    public function onAuthenticationSuccess(string $username) {
         $this->auditEntry(AuditedEvent::AUTHENTICATION_SUCCESS())
-            ->setTextParam($event->getAuthenticationToken()->getUsername())
+            ->setTextParam($username)
+            ->setUser($this->userRepository->findOneByEmail($username))
             ->buildAndFlush();
     }
 
-    public function onAuthenticationFailure(AuthenticationFailureEvent $event) {
-        $user = $this->userRepository->findOneByEmail($event->getAuthenticationToken()->getUsername());
-        $reason = AuthenticationFailureReason::fromException($event->getAuthenticationException());
+    public function onAuthenticationFailure(string $username, AuthenticationFailureReason $reason) {
+        $user = $this->userRepository->findOneByEmail($username);
         $entry = $this->auditEntry(AuditedEvent::AUTHENTICATION_FAILURE())
-            ->setTextParam($event->getAuthenticationToken()->getUsername())
+            ->setTextParam($username)
             ->setIntParam($reason->getValue())
             ->setUser($user)
             ->buildAndFlush();

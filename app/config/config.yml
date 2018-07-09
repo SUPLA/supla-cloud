@@ -32,7 +32,7 @@ fos_oauth_server:
       access_token_lifetime: 300
       refresh_token_lifetime: 600
       supported_scopes: restapi
-    storage: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport
+    storage: SuplaApiBundle\Auth\SuplaOAuthStorage
 
 fos_rest:
   routing_loader:

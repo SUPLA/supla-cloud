@@ -347,7 +347,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function setEnabled($boolean) {
         $this->enabled = (Boolean)$boolean;
-
         return $this;
     }
 

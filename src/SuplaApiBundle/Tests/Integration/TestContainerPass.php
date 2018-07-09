@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class TestContainerPass implements CompilerPassInterface {
     private static $publicInTests = [
+        \SuplaApiBundle\Model\Audit\Audit::class,
         \SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater::class,
     ];
 

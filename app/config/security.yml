@@ -27,4 +27,4 @@ security:
 
   providers:
     supla_db_provider:
-      id: 'SuplaBundle\Repository\UserProvider'
+      id: 'SuplaApiBundle\Auth\UserProvider'
