@@ -49,30 +49,10 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/auth/login", name="_auth_login")
-     * @Template("@Supla/Default/spaBoilerplate.html.twig");
-     */
-    public function loginAction() {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('_homepage');
-        }
-        $authenticationUtils = $this->get('security.authentication_utils');
-        $lastUsername = $authenticationUtils->getLastUsername();
-        $error = $authenticationUtils->getLastAuthenticationError();
-        if ($error) {
-            $isBlocked = $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername);
-            $error = $isBlocked ? 'locked' : 'invalid';
-        }
-        return [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ];
-    }
-
-    /**
      * @Route("/", name="_homepage")
      * @Route("/register", name="_register")
-     * @Route("/{suffix}", requirements={"suffix"="^(?!(web-)?api|oauth/).*"}, methods={"GET"})
+     * @Route("/auth/login", name="_obsolete_login")
+     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/).*"}, methods={"GET"})
      * @Template()
      */
     public function spaBoilerplateAction($suffix = null) {

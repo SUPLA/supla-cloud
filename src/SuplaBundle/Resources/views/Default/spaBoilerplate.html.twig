@@ -2,13 +2,16 @@
 
 {% block body %}
     <div class="vue-container">
-        <navbar v-if="$user"></navbar>
+        <transition name="fade">
+            <navbar v-if="$user.username"></navbar>
+        </transition>
         <loading-cover :loading="changingRoute">
             <transition name="fade-router">
                 <router-view></router-view>
             </transition>
         </loading-cover>
         {% if app.user and not app.user.cookiesAgreement and supla_require_cookie_policy_acceptance %}
+            {#TODO#}
             <cookie-warning></cookie-warning>
         {% endif %}
         {% if app.user and not app.debug %}
@@ -41,7 +44,7 @@
             if (preloader) {
                 preloader.className = 'too-long';
             }
-        }, 5000);
+        }, 8000);
     </script>
 {% endblock %}
 {% block styles %}

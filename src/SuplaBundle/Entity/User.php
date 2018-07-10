@@ -521,4 +521,23 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     public function setOAuthOldApiCompatEnabled() {
         $this->oauthOldApiCompatEnabled = true;
     }
+
+    /** @Groups({"basic"}) */
+    public function getLimits(): array {
+        return [
+            'accessId' => $this->limitAid,
+            'channelGroup' => $this->limitChannelGroup,
+            'channelPerGroup' => $this->limitChannelPerGroup,
+            'location' => $this->limitLoc,
+            'schedule' => $this->limitSchedule,
+        ];
+    }
+
+    /** @Groups({"basic"}) */
+    public function getAgreements(): array {
+        return [
+            'rules' => $this->rulesAgreement,
+            'cookies' => $this->cookiesAgreement,
+        ];
+    }
 }

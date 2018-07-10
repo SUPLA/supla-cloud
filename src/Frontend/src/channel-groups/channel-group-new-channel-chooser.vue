@@ -15,7 +15,7 @@
             slot="back">
             <span class="valign-center text-center">
                 <span>
-                    <div v-if="$user.limits.channelPerGroup <= channelGroup.channels.length"
+                    <div v-if="$user.userData.limits.channelPerGroup <= channelGroup.channels.length"
                         @click="addingNewChannel = false">
                         <i class="pe-7s-close-circle"></i>
                         {{ $t('Limit has been exceeded') }}

@@ -74,6 +74,15 @@ framework:
   validation:
     enable_annotations: true
 
+nelmio_cors:
+  paths:
+    '^/api/':
+      origin_regex: true
+      allow_origin: '%cors_allow_origin_regex%'
+      allow_headers: ['*']
+      allow_methods: ['POST', 'PUT', 'PATCH', 'HEAD', 'GET', 'DELETE']
+      max_age: 3600
+
 parameters:
   supla_protocol: https
   supla_server_socket: /tmp/supla-server-ctrl.sock

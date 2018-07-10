@@ -5,7 +5,7 @@
                 <img src="assets/img/logo.svg"
                     alt="SUPLA">
             </div>
-            <form @submit.prevent="findServer()"
+            <form @submit.prevent="login()"
                 ref="loginForm"
                 method="post">
                 <div class="form-group form-group-lg">
@@ -46,17 +46,21 @@
                     </button>
                 </div>
             </form>
-            <div class="error locked"
-                v-if="displayError == 'locked'">
-                <strong>{{ $t('Your account has been locked.') }}</strong>
-                {{ $t('Please wait a moment before the next login attempt.') }}
-            </div>
-            <router-link to="/forgotten-password"
-                class="error"
-                v-else-if="displayError">
-                <strong>{{ $t('Forgot your password?') }}</strong>
-                {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
-            </router-link>
+            <transition name="fade">
+                <div class="error locked"
+                    v-if="displayError == 'locked'">
+                    <strong>{{ $t('Your account has been locked.') }}</strong>
+                    {{ $t('Please wait a moment before the next login attempt.') }}
+                </div>
+            </transition>
+            <transition name="fade">
+                <router-link to="/forgotten-password"
+                    class="error"
+                    v-if="displayError">
+                    <strong>{{ $t('Forgot your password?') }}</strong>
+                    {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
+                </router-link>
+            </transition>
             <div class="additional-buttons form-group">
                 <router-link to="/devices"
                     class="btn btn-white btn-wrapped">
@@ -78,33 +82,33 @@
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import LoginFooter from "./login-footer.vue";
     import {errorNotification} from "../common/notifier";
-    import Vue from "vue";
 
     export default {
         components: {ButtonLoadingDots, LoginFooter},
         data() {
             return {
                 authenticating: false,
-                username: $('#login-error').attr('last-username') || '',
+                username: '',
                 password: '',
-                displayError: $('#login-error').attr('error'),
+                displayError: false,
             };
         },
         methods: {
-            findServer() {
+            login() {
                 if (!this.authenticating) {
                     this.authenticating = true;
-                    this.$http.get('auth-servers', {params: {username: this.username}}).then(({body}) => {
-                        if (!body.server) {
-                            throw new Error();
-                        } else {
-                            this.$refs.loginForm.action = body.server + '/auth/login?lang=' + Vue.config.external.locale;
-                            this.$refs.loginForm.submit();
-                        }
-                    }).catch(() => {
-                        errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
-                        this.authenticating = false;
-                    });
+                    this.displayError = false;
+                    this.$user.authenticate(this.username, this.password)
+                        .then(() => this.$router.push('/'))
+                        .catch((error) => {
+                            if (error.status == 401) {
+                                this.displayError = true;
+                                // TODO else if blocked
+                            } else {
+                                errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
+                            }
+                            this.authenticating = false;
+                        });
                 }
             }
         }

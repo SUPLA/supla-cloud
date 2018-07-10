@@ -89,7 +89,7 @@
                                 to="/account">
                                 <a class="my-account">
                                     <span class="username"
-                                        v-if="$user">{{ $user.email }}</span>
+                                        v-if="$user">{{ $user.username }}</span>
                                     {{ $t('Go to your account') }}
                                 </a>
                             </router-link>
@@ -114,7 +114,7 @@
                                     </router-link>
                                     <a class="btn btn-default btn-wrapped"
                                         id="logoutButton"
-                                        :href="'/auth/logout' | withBaseUrl">
+                                        @click="logout()">
                                         {{ $t('Sign Out') }}
                                     </a>
                                 </div>
@@ -142,7 +142,12 @@
                 return paths.some(path => {
                     return this.$route.path.indexOf(path) === 0;
                 });
+            },
+            logout() {
+                this.$user.forget();
+                this.$router.push({name: 'login'});
             }
+
         },
         computed: {
             currentLocale() {

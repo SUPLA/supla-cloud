@@ -34,7 +34,7 @@
             };
         },
         mounted() {
-            if (this.$user.agreements.rules) {
+            if (this.$user.userData.agreements.rules) {
                 this.$router.push('/');
             }
         },
