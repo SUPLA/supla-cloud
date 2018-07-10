@@ -30,7 +30,7 @@ fos_oauth_server:
   service:
     options:
       access_token_lifetime: 300
-      refresh_token_lifetime: 600
+      refresh_token_lifetime: 500
       supported_scopes: restapi
     storage: SuplaApiBundle\Auth\SuplaOAuthStorage
 

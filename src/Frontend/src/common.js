@@ -52,7 +52,7 @@ moment.tz.setDefault(Vue.config.external.timezone);
 
 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
 Vue.prototype.$user = new CurrentUser();
-Vue.prototype.$user.fetch().then(() => {
+Vue.prototype.$user.refreshUser().then(() => {
     $(document).ready(() => {
         if ($('.vue-container').length) {
             const router = new VueRouter({

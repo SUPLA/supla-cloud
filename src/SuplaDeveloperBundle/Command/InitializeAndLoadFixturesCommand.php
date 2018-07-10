@@ -36,6 +36,7 @@ class InitializeAndLoadFixturesCommand extends Command {
         $this->getApplication()->run(new StringInput('doctrine:database:drop --force --no-interaction'), $output);
         $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists'), $output);
         $this->getApplication()->run(new StringInput('doctrine:migrations:migrate --no-interaction --allow-no-migration'), $output);
+        $this->getApplication()->run(new StringInput('supla:oauth:create-webapp-client'), $output);
         $this->getApplication()->run(new StringInput('doctrine:fixtures:load --no-interaction --append'), $output);
     }
 }
