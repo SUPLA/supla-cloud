@@ -24,6 +24,7 @@ use SuplaBundle\Supla\ServerList;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends Controller {
     /** @var FailedAuthAttemptsUserBlocker */
@@ -46,6 +47,35 @@ class DefaultController extends Controller {
             return $this->redirectToRoute('_homepage');
         }
         return $this->redirect($this->serverList->getCreateAccountUrl($request));
+    }
+
+    /**
+     * @Route("/oauth-authorize", name="_oauth_login")
+     * @Route("/oauth/v2/auth_login", name="_oauth_login_check")
+     * @Template()
+     */
+    public function oAuthLoginAction(Request $request) {
+        $session = $request->getSession();
+
+        // get the login error if there is one
+        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(Security::AUTHENTICATION_ERROR);
+            $session->remove(Security::AUTHENTICATION_ERROR);
+        }
+
+        if ($session->has('_security.target_path')) {
+            if (false !== strpos($session->get('_security.target_path'), $this->generateUrl('fos_oauth_server_authorize'))) {
+                $session->set('_fos_oauth_server.ensure_logout', true);
+            }
+        }
+
+        return [
+            // last username entered by the user
+            'last_username' => $session->get(Security::LAST_USERNAME),
+            'error' => $error,
+        ];
     }
 
     /**

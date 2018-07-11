@@ -5,6 +5,18 @@ security:
   hide_user_not_found: false
 
   firewalls:
+    oauth_token:
+      pattern:    ^/oauth/v2/token
+      security:   false
+
+    oauth_authorize:
+      pattern:    ^/oauth/v2/auth
+      form_login:
+        provider: supla_db_provider
+        check_path: _oauth_login_check
+        login_path: _oauth_login
+        use_referer: true
+
     api:
       anonymous: true
       fos_oauth: true
