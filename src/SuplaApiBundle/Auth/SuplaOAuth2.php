@@ -17,7 +17,9 @@
 namespace SuplaApiBundle\Auth;
 
 use OAuth2\IOAuth2Storage;
+use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
+use SuplaApiBundle\Entity\OAuth\ApiClient;
 
 class SuplaOAuth2 extends OAuth2 {
     /** @var string */
@@ -30,5 +32,24 @@ class SuplaOAuth2 extends OAuth2 {
 
     protected function genAccessToken() {
         return parent::genAccessToken() . '.' . base64_encode($this->suplaUrl);
+    }
+
+    /** @param ApiClient $client */
+    public function createAccessToken(
+        IOAuth2Client $client,
+        $data,
+        $scope = null,
+        $accessTokenLifetime = null,
+        $issueRefreshToken = true,
+        $refreshTokenLifetime = null
+    ) {
+        return parent::createAccessToken(
+            $client,
+            $data,
+            $scope,
+            $accessTokenLifetime,
+            $issueRefreshToken && !$client->issueNeverExpiringAccessToken(),
+            $refreshTokenLifetime
+        );
     }
 }

@@ -65,11 +65,11 @@ class DefaultController extends Controller {
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
 
-        if ($session->has('_security.target_path')) {
-            if (false !== strpos($session->get('_security.target_path'), $this->generateUrl('fos_oauth_server_authorize'))) {
-                $session->set('_fos_oauth_server.ensure_logout', true);
-            }
-        }
+//        if ($session->has('_security.target_path')) {
+//            if (false !== strpos($session->get('_security.target_path'), $this->generateUrl('fos_oauth_server_authorize'))) {
+//                $session->set('_fos_oauth_server.ensure_logout', true);
+//            }
+//        }
 
         return [
             // last username entered by the user

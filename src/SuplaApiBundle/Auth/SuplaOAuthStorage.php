@@ -104,4 +104,8 @@ class SuplaOAuthStorage extends OAuthStorage {
         }
         $this->userLoginAttemptListener->onAuthenticationFailure($username, $reason);
     }
+
+    public function createAccessToken($tokenString, IOAuth2Client $client, $data, $expires, $scope = null) {
+        return parent::createAccessToken($tokenString, $client, $data, $client->issueNeverExpiringAccessToken() ? null : $expires, $scope);
+    }
 }
