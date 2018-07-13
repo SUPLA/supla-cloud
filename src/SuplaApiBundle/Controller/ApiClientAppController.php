@@ -32,6 +32,7 @@ class ApiClientAppController extends RestController {
 
     /**
      * @Rest\Get("/client-apps")
+     * @Security("has_role('ROLE_CLIENTAPPS_R')")
      */
     public function getClientAppsAction(Request $request) {
         $clientApps = $this->getUser()->getClientApps();
@@ -42,7 +43,7 @@ class ApiClientAppController extends RestController {
 
     /**
      * @Rest\Put("/client-apps/{clientApp}")
-     * @Security("clientApp.belongsToUser(user)")
+     * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
      */
     public function putClientAppAction(Request $request, ClientApp $clientApp) {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp, $request) {
@@ -76,7 +77,7 @@ class ApiClientAppController extends RestController {
 
     /**
      * @Rest\Delete("/client-apps/{clientApp}")
-     * @Security("clientApp.belongsToUser(user)")
+     * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
      */
     public function deleteClientAppAction(ClientApp $clientApp): Response {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {

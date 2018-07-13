@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use ReCaptcha\ReCaptcha;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Exception\ApiException;
 use SuplaApiBundle\Model\Audit\AuditAware;
 use SuplaBundle\Controller\AjaxController;
@@ -56,12 +57,14 @@ class ApiUserController extends RestController {
         $this->auditEntryRepository = $auditEntryRepository;
     }
 
+    /** @Security("has_role('ROLE_ACCOUNT_R')") */
     public function currentUserAction() {
         return $this->view($this->getUser(), Response::HTTP_OK);
     }
 
     /**
      * @Rest\Get("users/current/schedulable-channels")
+     * @Security("has_role('ROLE_SCHEDULES_RW')")
      */
     public function getUserSchedulableChannelsAction() {
         /** @var IODeviceManager $ioDeviceManager */
@@ -94,6 +97,7 @@ class ApiUserController extends RestController {
         ]);
     }
 
+    /** @Security("has_role('ROLE_ACCOUNT_RW')") */
     public function patchUsersCurrentAction(Request $request) {
         $data = $request->request->all();
         $user = $this->transactional(function (EntityManagerInterface $em) use ($data) {
@@ -141,6 +145,7 @@ class ApiUserController extends RestController {
         return $this->view($user, Response::HTTP_OK);
     }
 
+    /** @Security("has_role('ROLE_ACCOUNT_R')") */
     public function getUsersCurrentAuditAction(Request $request) {
         $events = $request->get('events', []);
         Assertion::isArray($events);

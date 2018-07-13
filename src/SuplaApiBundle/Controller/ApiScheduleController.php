@@ -41,12 +41,13 @@ class ApiScheduleController extends RestController {
         $this->channelActionExecutor = $channelActionExecutor;
     }
 
+    /** @Security("has_role('ROLE_SCHEDULES_R')") */
     public function getSchedulesAction(Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
     }
 
     /**
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getChannelSchedulesAction(IODeviceChannel $channel, Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByChannel($channel), $request);
@@ -64,7 +65,7 @@ class ApiScheduleController extends RestController {
     }
 
     /**
-     * @Security("schedule.belongsToUser(user)")
+     * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_R')")
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
         $view = $this->view($schedule, Response::HTTP_OK);
@@ -72,6 +73,7 @@ class ApiScheduleController extends RestController {
         return $view;
     }
 
+    /** @Security("has_role('ROLE_SCHEDULES_RW')") */
     public function postScheduleAction(Request $request) {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
         $data = $request->request->all();
@@ -85,7 +87,7 @@ class ApiScheduleController extends RestController {
     }
 
     /**
-     * @Security("schedule.belongsToUser(user)")
+     * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
      */
     public function putScheduleAction(Request $request, Schedule $schedule) {
         $data = $request->request->all();
@@ -130,6 +132,7 @@ class ApiScheduleController extends RestController {
         return $schedule;
     }
 
+    /** @Security("has_role('ROLE_SCHEDULES_RW')") */
     public function patchSchedulesAction(Request $request) {
         $data = $request->request->all();
         $this->getDoctrine()->getManager()->transactional(function () use ($data) {
@@ -145,7 +148,7 @@ class ApiScheduleController extends RestController {
     }
 
     /**
-     * @Security("schedule.belongsToUser(user)")
+     * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
      */
     public function deleteScheduleAction(Schedule $schedule) {
         $this->get('schedule_manager')->delete($schedule);
@@ -154,6 +157,7 @@ class ApiScheduleController extends RestController {
 
     /**
      * @Rest\Post("/schedules/next-run-dates")
+     * @Security("has_role('ROLE_SCHEDULES_R')")
      */
     public function getNextRunDatesAction(Request $request) {
         Assertion::true($request->isXmlHttpRequest());

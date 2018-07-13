@@ -64,6 +64,7 @@ class ApiAccessIDController extends RestController {
         return ['accessids' => $result];
     }
 
+    /** @Security("has_role('ROLE_ACCESSIDS_R')") */
     public function getAccessidsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             return $this->view($this->getUser()->getAccessIDS());
@@ -73,7 +74,7 @@ class ApiAccessIDController extends RestController {
     }
 
     /**
-     * @Security("accessId.belongsToUser(user)")
+     * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_R')")
      */
     public function getAccessidAction(Request $request, AccessID $accessId) {
         $view = $this->view($accessId, Response::HTTP_OK);
@@ -81,6 +82,7 @@ class ApiAccessIDController extends RestController {
         return $view;
     }
 
+    /** @Security("has_role('ROLE_ACCESSIDS_RW')") */
     public function postAccessidAction(Request $request) {
         $user = $this->getUser();
         $accessIdCount = $user->getAccessIDS()->count();
@@ -93,7 +95,7 @@ class ApiAccessIDController extends RestController {
     }
 
     /**
-     * @Security("accessId.belongsToUser(user)")
+     * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_RW')")
      */
     public function deleteAccessidAction(AccessID $accessId) {
         Assertion::greaterThan($this->getUser()->getAccessIDS()->count(), 1, 'You cannot delete your last access identifier.');

@@ -72,6 +72,7 @@ class ApiLocationController extends RestController {
         return ['locations' => $result];
     }
 
+    /** @Security("has_role('ROLE_LOCATIONS_R')") */
     public function getLocationsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $locations = $this->getUser()->getLocations();
@@ -83,6 +84,7 @@ class ApiLocationController extends RestController {
         }
     }
 
+    /** @Security("has_role('ROLE_LOCATIONS_RW')") */
     public function postLocationAction(Request $request) {
         $user = $this->getUser();
         $locationsCount = $user->getLocations()->count();
@@ -95,7 +97,7 @@ class ApiLocationController extends RestController {
     }
 
     /**
-     * @Security("location.belongsToUser(user)")
+     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_R')")
      */
     public function getLocationAction(Request $request, Location $location) {
         $view = $this->view($location, Response::HTTP_OK);
@@ -104,7 +106,7 @@ class ApiLocationController extends RestController {
     }
 
     /**
-     * @Security("location.belongsToUser(user)")
+     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW')")
      */
     public function deleteLocationAction(Location $location) {
         $this->ensureNoRelatedEntities(
@@ -136,7 +138,7 @@ class ApiLocationController extends RestController {
     }
 
     /**
-     * @Security("location.belongsToUser(user)")
+     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW')")
      */
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
         $location->setCaption($updatedLocation->getCaption());

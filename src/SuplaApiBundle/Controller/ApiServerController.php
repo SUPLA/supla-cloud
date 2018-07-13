@@ -48,7 +48,7 @@ class ApiServerController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $user = $this->getUser();
             $result['authenticated'] = !!$user;
-            if ($user) {
+            if ($user) { // TODO if has read user access
                 $result['username'] = $user->getUsername();
             }
             $result['cloudVersion'] = $this->container->getParameter('supla.version');
@@ -79,11 +79,4 @@ class ApiServerController extends RestController {
             return $this->view(['status' => 'DOWN'], Response::HTTP_SERVICE_UNAVAILABLE);
         }
     }
-
-//    /** @Get("/auth-servers") */
-//    public function authServersAction(Request $request) {
-//        $username = $request->get('username', '');
-//        $server = $this->serverList->getAuthServerForUser($username);
-//        return $this->view(['server' => $server]);
-//    }
 }

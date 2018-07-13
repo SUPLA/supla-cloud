@@ -27,7 +27,7 @@ class SuplaOAuth2 extends OAuth2 {
     /** @var array */
     private $tokensLifetime;
 
-    public function __construct(IOAuth2Storage $storage, array $config = [], string $suplaUrl = '', array $tokensLifetime) {
+    public function __construct(IOAuth2Storage $storage, array $config, string $suplaUrl, array $tokensLifetime) {
         parent::__construct($storage, $config);
         $this->suplaUrl = $suplaUrl;
         $this->tokensLifetime = $tokensLifetime;

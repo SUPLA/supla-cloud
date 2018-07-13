@@ -42,6 +42,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Get("/channel-groups")
+     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupsAction(Request $request) {
         $channelGroups = $this->getUser()->getChannelGroups();
@@ -52,7 +53,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Get("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user)")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
@@ -62,6 +63,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Post("/channel-groups")
+     * @Security("has_role('ROLE_CHANNELGROUPS_RW')")
      */
     public function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         $user = $this->getUser();
@@ -80,6 +82,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Put("/channel-groups/{channelGroup}")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
      */
     public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated) {
         $user = $this->getUser();
@@ -98,7 +101,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Delete("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user)")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
      */
     public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
@@ -110,7 +113,7 @@ class ApiChannelGroupController extends RestController {
 
     /**
      * @Rest\Patch("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user)")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_EA')")
      */
     public function patchChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $params = json_decode($request->getContent(), true);

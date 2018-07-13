@@ -43,6 +43,7 @@ class ApiIODeviceController extends RestController {
         $this->scheduleManager = $scheduleManager;
     }
 
+    /** @Security("has_role('ROLE_IODEVICES_R')") */
     public function getIodevicesAction(Request $request) {
         $result = [];
         $user = $this->getUser();
@@ -96,7 +97,7 @@ class ApiIODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user)")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_R')")
      */
     public function getIodeviceAction(Request $request, IODevice $ioDevice) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -157,7 +158,7 @@ class ApiIODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user)")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW')")
      */
     public function putIodeviceAction(Request $request, IODevice $ioDevice, IODevice $updatedDevice) {
         return $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
@@ -187,7 +188,7 @@ class ApiIODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user)")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW')")
      */
     public function deleteIodeviceAction(IODevice $ioDevice) {
         $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
@@ -196,7 +197,7 @@ class ApiIODeviceController extends RestController {
                 $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
                 $channel->removeFromAllChannelGroups($em);
             }
-            
+
             foreach ($ioDevice->getChannels() as $channel) {
                 $em->remove($channel);
             }
@@ -207,7 +208,7 @@ class ApiIODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user)")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
         $channels = $ioDevice->getChannels();

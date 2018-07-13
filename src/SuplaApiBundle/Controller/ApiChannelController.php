@@ -55,6 +55,7 @@ class ApiChannelController extends RestController {
         $this->channelActionExecutor = $channelActionExecutor;
     }
 
+    /** @Security("has_role('ROLE_CHANNELS_R')") */
     public function getChannelsAction(Request $request) {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
@@ -87,7 +88,7 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -114,7 +115,7 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
      */
     public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -157,7 +158,7 @@ class ApiChannelController extends RestController {
     }
 
     /**
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_EA')")
      */
     public function patchChannelAction(Request $request, IODeviceChannel $channel) {
         $params = json_decode($request->getContent(), true);
