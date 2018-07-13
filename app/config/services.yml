@@ -162,3 +162,4 @@ services:
       - '@fos_oauth_server.storage'
       - '%fos_oauth_server.server.options%'
       - '%supla_url%'
+      - '%supla.oauth.tokens_lifetime%'

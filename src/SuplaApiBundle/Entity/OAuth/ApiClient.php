@@ -71,8 +71,4 @@ class ApiClient extends Client {
     public function getSecret() {
         return parent::getSecret();
     }
-
-    public function issueNeverExpiringAccessToken(): bool {
-        return in_array($this->type, [ApiClientType::ADMIN, ApiClientType::USER]);
-    }
 }

@@ -24,17 +24,23 @@ use SuplaApiBundle\Entity\OAuth\ApiClient;
 class SuplaOAuth2 extends OAuth2 {
     /** @var string */
     private $suplaUrl;
+    /** @var array */
+    private $tokensLifetime;
 
-    public function __construct(IOAuth2Storage $storage, array $config = [], string $suplaUrl = '') {
+    public function __construct(IOAuth2Storage $storage, array $config = [], string $suplaUrl = '', array $tokensLifetime) {
         parent::__construct($storage, $config);
         $this->suplaUrl = $suplaUrl;
+        $this->tokensLifetime = $tokensLifetime;
     }
 
     protected function genAccessToken() {
         return parent::genAccessToken() . '.' . base64_encode($this->suplaUrl);
     }
 
-    /** @param ApiClient $client */
+    /**
+     * @param ApiClient $client
+     * @inheritdoc
+     */
     public function createAccessToken(
         IOAuth2Client $client,
         $data,
@@ -43,13 +49,18 @@ class SuplaOAuth2 extends OAuth2 {
         $issueRefreshToken = true,
         $refreshTokenLifetime = null
     ) {
+        $clientType = $client->getType()->getValue();
         return parent::createAccessToken(
             $client,
             $data,
             $scope,
-            $accessTokenLifetime,
-            $issueRefreshToken && !$client->issueNeverExpiringAccessToken(),
-            $refreshTokenLifetime
+            $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']),
+            $issueRefreshToken,
+            $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['refresh'])
         );
+    }
+
+    private function randomizeTokenLifetime(int $lifetime): int {
+        return $lifetime + floor($lifetime * .001 * rand(1, 100));
     }
 }

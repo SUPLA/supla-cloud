@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\DependencyInjection;
 
+use SuplaApiBundle\Enums\ApiClientType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
@@ -49,5 +50,19 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.brute_force_auth_prevention.block_time_seconds',
             $mergedConfig['brute_force_auth_prevention']['block_time_seconds']
         );
+        $container->setParameter('supla.oauth.tokens_lifetime', $this->buildOauthTokensConfig($mergedConfig['oauth']['tokens_lifetime']));
+    }
+
+    private function buildOauthTokensConfig(array $tokensLifetimes): array {
+        $mapped = [];
+        foreach ($tokensLifetimes as $clientType => $lifetimes) {
+            $clientType = strtoupper($clientType);
+            $id = ApiClientType::$clientType()->getValue();
+            $mapped[$id] = [
+                'access' => $lifetimes[0],
+                'refresh' => $lifetimes[1],
+            ];
+        }
+        return $mapped;
     }
 }
