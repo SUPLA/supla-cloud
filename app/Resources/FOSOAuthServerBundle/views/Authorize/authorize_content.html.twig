@@ -1,0 +1,22 @@
+{% extends 'SuplaBundle::vue-template.html.twig' %}
+
+{% block vue %}
+    <oauth-authorize-form>
+        {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
+        <input type="submit"
+                name="rejected"
+                class="btn btn-white btn-lg"
+                value="Odmów"/>
+        <input type="submit"
+                name="accepted"
+                class="btn btn-green btn-lg pull-right"
+                value="Przyznaj dostęp"/>
+        {{ form_row(form.client_id) }}
+        {{ form_row(form.response_type) }}
+        {{ form_row(form.redirect_uri) }}
+        {{ form_row(form.state) }}
+        {{ form_row(form.scope) }}
+        {{ form_rest(form) }}
+        </form>
+    </oauth-authorize-form>
+{% endblock %}

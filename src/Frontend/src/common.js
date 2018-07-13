@@ -103,8 +103,12 @@ Vue.prototype.$user.refreshUser().then(() => {
                 data: {changingRoute: false},
                 i18n,
                 router,
+                components: {
+                    OauthAuthorizeForm: () => import("./login/oauth-authorize-form")
+                },
                 mounted() {
                     document.getElementById('page-preloader').remove();
+                    $('.vue-container').removeClass('invisible');
                 }
             }).$mount('.vue-container');
 
