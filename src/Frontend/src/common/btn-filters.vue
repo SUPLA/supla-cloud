@@ -51,7 +51,9 @@
         methods: {
             setFilter(filter) {
                 this.chosenFilter = filter;
-                this.$emit('input', this.chosenFilter);
+                if (this.value != filter) {
+                    this.$emit('input', this.chosenFilter);
+                }
                 if (this.id) {
                     this.$localStorage.set(this.localStorageId, filter);
                 }
@@ -64,6 +66,13 @@
             chosenFilterLabel() {
                 const filter = this.filters.find(f => f.value === this.chosenFilter);
                 return filter ? filter.label : '';
+            }
+        },
+        watch: {
+            value(value) {
+                if (value) {
+                    this.setFilter(value);
+                }
             }
         }
     };

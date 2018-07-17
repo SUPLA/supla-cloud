@@ -24,7 +24,7 @@
         </div>
         <loading-cover :loading="!tokens">
             <table class="table table-striped"
-                v-if="tokens.length">
+                v-if="tokens && tokens.length">
                 <thead>
                 <tr>
                     <th>{{ $t('Name') }}</th>
@@ -48,7 +48,7 @@
                 </tr>
                 </tbody>
             </table>
-            <empty-list-placeholder v-else></empty-list-placeholder>
+            <empty-list-placeholder v-else-if="tokens"></empty-list-placeholder>
         </loading-cover>
     </div>
 </template>
