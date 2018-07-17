@@ -35,7 +35,7 @@ if (!Vue.config.external.baseUrl) {
     Vue.config.external.baseUrl = '';
 }
 Vue.http.options.root = Vue.config.external.baseUrl + '/api';
-Vue.http.headers.common['X-Accept-Version'] = '2.2.0';
+Vue.http.headers.common['X-Accept-Version'] = '2.3.0';
 
 moment.locale(Vue.config.external.locale);
 moment.tz.setDefault(Vue.config.external.timezone);

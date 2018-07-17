@@ -16,6 +16,7 @@ class ApiVersions extends Enum {
     const V2_0 = '2.0.0';
     const V2_1 = '2.1.0';
     const V2_2 = '2.2.0';
+    const V2_3 = '2.3.0';
     const DEFAULT = self::V2_0;
 
     public function isRequestedEqualOrGreaterThan(Request $request): bool {

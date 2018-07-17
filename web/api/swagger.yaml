@@ -1,9 +1,9 @@
 swagger: '2.0'
 info:
-  version: "2.2.0"
+  version: "2.3.0"
   title: SUPLA Cloud API
 host: cloud.supla.org
-basePath: /api/v2.2.0
+basePath: /api/v2.3.0
 schemes: [https, http]
 consumes: [application/json]
 produces: [application/json]
@@ -13,7 +13,7 @@ paths:
       tags: [Access Identifiers]
       summary: Get Access Identifiers list
       operationId: getAccessIdentifiers
-      parameters: 
+      parameters:
         - $ref: '#/parameters/AccessIdIncludes'
       responses:
         200:
@@ -32,7 +32,7 @@ paths:
           schema:
             $ref: '#/definitions/AccessIdentifier'
   /accessids/{id}:
-    parameters: 
+    parameters:
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get Access Identifier
@@ -88,19 +88,19 @@ paths:
       tags: [Channels]
       summary: Get channels list
       operationId: getChannels
-      parameters: 
+      parameters:
         - name: include
           in: query
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['iodevice', 'location']
           collectionFormat: csv
         - name: function
           in: query
           type: array
-          items: 
+          items:
             type: string
             enum: [NONE, CONTROLLINGTHEGATEWAYLOCK, CONTROLLINGTHEGATE, CONTROLLINGTHEGARAGEDOOR, THERMOMETER, HUMIDITY, HUMIDITYANDTEMPERATURE, OPENINGSENSOR_GATEWAY, OPENINGSENSOR_GATE, OPENINGSENSOR_GARAGEDOOR, NOLIQUIDSENSOR, CONTROLLINGTHEDOORLOCK, OPENINGSENSOR_DOOR, CONTROLLINGTHEROLLERSHUTTER, OPENINGSENSOR_ROLLERSHUTTER, POWERSWITCH, LIGHTSWITCH, DIMMER, RGBLIGHTING, DIMMERANDRGBLIGHTING, DEPTHSENSOR, DISTANCESENSOR, OPENINGSENSOR_WINDOW, MAILSENSOR, WINDSENSOR, PRESSURESENSOR, RAINSENSOR, WEIGHTSENSOR, WEATHER_STATION, STAIRCASETIMER]
           collectionFormat: csv
@@ -133,7 +133,7 @@ paths:
           required: false
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['iodevice', 'location', 'connected', 'state', 'supportedFunctions']
           collectionFormat: csv
@@ -210,7 +210,7 @@ paths:
           schema:
             title: Channel action execution failed response
             properties:
-              status: 
+              status:
                 type: integer
                 example: 400
               message:
@@ -223,12 +223,12 @@ paths:
       tags: [Channels]
       summary: Get schedules list of the channel
       operationId: getChannelSchedules
-      parameters: 
+      parameters:
         - name: include
           in: query
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['channel', 'iodevice', 'location', 'closestExecutions']
           collectionFormat: csv
@@ -240,7 +240,7 @@ paths:
             items:
               $ref: '#/definitions/Schedule'
   /channels/{id}/measurement-logs-csv:
-    parameters: 
+    parameters:
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get measurement logs as zipped CSV file.
@@ -265,7 +265,7 @@ paths:
                 type: string
                 example: The requested function is not available on this channel
   /channels/{id}/measurement-logs:
-    parameters: 
+    parameters:
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get measurement logs.
@@ -426,12 +426,12 @@ paths:
       tags: [Client Apps]
       summary: Get client apps
       operationId: getClientApps
-      parameters: 
+      parameters:
         - name: include
           in: query
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['accessId', 'connected']
           collectionFormat: csv
@@ -479,12 +479,12 @@ paths:
       tags: [IO Devices]
       summary: Get IO Devices
       operationId: getIoDevices
-      parameters: 
+      parameters:
         - name: include
           in: query
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['channels', 'location', 'originalLocation', 'connected', 'schedules']
           collectionFormat: csv
@@ -496,7 +496,7 @@ paths:
             items:
               $ref: '#/definitions/Device'
   /iodevices/{id}:
-    parameters: 
+    parameters:
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get IO Device
@@ -508,7 +508,7 @@ paths:
           required: false
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids']
           collectionFormat: csv
@@ -547,7 +547,7 @@ paths:
         204:
           description: Success
   /iodevices/{id}/channels:
-    parameters: 
+    parameters:
       - {name: id, in: path, required: true, type: integer }
     get:
       summary: Get Channels that belong to IO Deice
@@ -559,7 +559,7 @@ paths:
           required: false
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['iodevice', 'location']
           collectionFormat: csv
@@ -573,13 +573,13 @@ paths:
       tags: [Locations]
       summary: Get locations list
       operationId: getLocations
-      parameters: 
+      parameters:
         - name: include
           in: query
           description: Specify what extra fields to include in the response.
           required: false
           type: array
-          items: 
+          items:
             type: string
             enum: ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']
           collectionFormat: csv
@@ -600,14 +600,14 @@ paths:
           schema:
             $ref: '#/definitions/Location'
   /locations/{id}:
-    parameters: 
+    parameters:
       - {name: id, in: path, required: true, type: integer }
       - name: include
         in: query
         description: Specify what extra fields to include in the response.
         required: false
         type: array
-        items: 
+        items:
           type: string
           enum: ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']
         collectionFormat: csv
@@ -715,12 +715,12 @@ paths:
       tags: [Schedules]
       summary: Get schedules list
       operationId: getSchedules
-      parameters: 
+      parameters:
         - name: include
           in: query
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['channel', 'iodevice', 'location', 'closestExecutions']
           collectionFormat: csv
@@ -778,7 +778,7 @@ paths:
           required: false
           description: Specify what extra fields to include in the response.
           type: array
-          items: 
+          items:
             type: string
             enum: ['channel', 'iodevice', 'location', 'closestExecutions']
           collectionFormat: csv
@@ -1233,7 +1233,7 @@ definitions:
         description: Returned only if requested by the `include` parameter. Contains two arrays of maximum 3 closest past and future executions.
         items:
           properties:
-            past: 
+            past:
               type: array
               items:
                 properties:
@@ -1291,15 +1291,23 @@ parameters:
     required: false
     type: array
     collectionFormat: csv
-    items: 
+    items:
       type: string
       enum: ['locations', 'clientApps', 'password']
 securityDefinitions:
-  password:
-    flow: password
+  token:
+    type: apiKey
+    in: header
+    name: Authorization
+  OAuth2:
     type: oauth2
-    tokenUrl: https://beta-cloud.supla.org/oauth/v2/token
+    flow: accessCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
     scopes:
-      restapi: full API access
+      read: Grants read access
+      write: Grants write access
+      admin: Grants read and write access to administrative information
 security:
-  - password: []
+  - token: []
+  - OAuth2: []
