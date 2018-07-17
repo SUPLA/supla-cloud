@@ -108,7 +108,7 @@
                             <li class="divider"></li>
                             <li class="bottom">
                                 <div class="btn-group btn-group-justified">
-                                    <router-link to="/integrations"
+                                    <router-link :to="{name: 'authorized-oauth-apps'}"
                                         class="btn btn-default btn-wrapped">
                                         {{ $t('Integrations') }}
                                     </router-link>

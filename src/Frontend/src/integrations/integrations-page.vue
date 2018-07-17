@@ -4,10 +4,22 @@
             <h1 v-title>{{ $t('Integrations') }}</h1>
             <h4>{{$t('With integrations you can easily add features to your account, leveraging solutions provided by another developer or even better - by yourself.')}}</h4>
             <div class="form-group">
-                <btn-filters v-model="tab"
-                    :filters="[{label: $t('Authorized OAuth apps'), value: 'authorized-oauth-apps'},
-                               {label: $t('My OAuth apps'), value: 'my-oauth-apps'},
-                               {label: $t('Personal access tokens'), value: 'personal-tokens'}]"></btn-filters>
+                <div class="btn-filters">
+                    <div class="btn-group btn-group-filters">
+                        <router-link :to="{name: 'authorized-oauth-apps'}"
+                            class="btn">
+                            {{ $t('Authorized OAuth apps') }}
+                        </router-link>
+                        <router-link :to="{name: 'my-oauth-apps'}"
+                            class="btn">
+                            {{ $t('My OAuth apps') }}
+                        </router-link>
+                        <router-link :to="{name: 'personal-tokens'}"
+                            class="btn">
+                            {{ $t('Personal access tokens') }}
+                        </router-link>
+                    </div>
+                </div>
             </div>
             <router-view></router-view>
         </div>
@@ -15,33 +27,5 @@
 </template>
 
 <script>
-    import DevicesRegistrationButton from "../devices/list/devices-registration-button";
-    import DevicesListPage from "../devices/list/devices-list-page";
-    import BtnFilters from "../common/btn-filters";
-    import ChannelListPage from "../channels/channel-list-page";
-
-    export default {
-        components: {
-            ChannelListPage,
-            BtnFilters,
-            DevicesListPage,
-            DevicesRegistrationButton
-        },
-        data() {
-            return {
-                tab: undefined,
-                listType: 'devices'
-            };
-        },
-        mounted() {
-            this.tab = this.$router.currentRoute.name;
-        },
-        watch: {
-            tab(name) {
-                if (name != this.$router.currentRoute.name) {
-                    this.$router.push({name});
-                }
-            }
-        }
-    };
+    export default {};
 </script>
