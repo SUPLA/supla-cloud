@@ -19,10 +19,10 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
-use SuplaApiBundle\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AccessTokenRepository")
  * @ORM\Table(name="supla_oauth_access_tokens")
  */
 class AccessToken extends BaseAccessToken {
@@ -30,17 +30,43 @@ class AccessToken extends BaseAccessToken {
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"basic"})
      */
     protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="ApiClient")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $client;
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $user;
+
+    /**
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $name;
+
+    /** @Groups({"basic"}) */
+    public function getScope() {
+        return parent::getScope();
+    }
+
+    /** @Groups({"token"}) */
+    public function getToken() {
+        return parent::getToken();
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName(string $name) {
+        $this->name = $name;
+    }
 }

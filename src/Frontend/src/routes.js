@@ -45,7 +45,6 @@ export default [
         ]
     },
     {path: '/account', component: () => import("./account-details/account-page"), meta: {bodyClass: 'green'}},
-    {path: '/api', component: () => import("./account-details/api-settings-page"), meta: {bodyClass: 'green'}},
     {
         path: '/channel-groups', component: () => import("./channel-groups/channel-groups-page"), name: 'channelGroups', children: [
             {path: ':id', component: () => import("./channel-groups/channel-group-details"), name: 'channelGroup', props: true}
@@ -56,6 +55,13 @@ export default [
     {
         path: '/locations', component: () => import("./locations/locations-page"), name: 'locations', children: [
             {path: ':id', component: () => import("./locations/location-details"), name: 'location', props: true}
+        ]
+    },
+    {
+        path: '/integrations', component: () => import("./integrations/integrations-page"), children: [
+            {path: 'authorized', component: () => import("./integrations/authorized-oauth-apps")},
+            {path: 'my', component: () => import("./integrations/my-oauth-apps")},
+            {path: 'tokens', component: () => import("./integrations/personal-access-tokens")},
         ]
     },
     {path: '/me', component: () => import("./home/my-supla-page")},

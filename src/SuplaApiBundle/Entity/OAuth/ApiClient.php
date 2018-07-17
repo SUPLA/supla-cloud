@@ -41,6 +41,36 @@ class ApiClient extends Client {
      */
     protected $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User", inversedBy="apiClients")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(name="homepage", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $homepage;
+
+    /**
+     * @ORM\Column(name="is_public", type="boolean", nullable=false)
+     * @Groups({"basic"})
+     */
+    private $isPublic = false;
+
     public function __construct() {
         parent::__construct();
         $this->type = ApiClientType::ADMIN;

@@ -108,9 +108,9 @@
                             <li class="divider"></li>
                             <li class="bottom">
                                 <div class="btn-group btn-group-justified">
-                                    <router-link to="/api"
+                                    <router-link to="/integrations"
                                         class="btn btn-default btn-wrapped">
-                                        {{ $t('RESTful API') }}
+                                        {{ $t('Integrations') }}
                                     </router-link>
                                     <a class="btn btn-default btn-wrapped"
                                         id="logoutButton"

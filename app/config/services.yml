@@ -124,6 +124,10 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\AccessID]
 
+  SuplaBundle\Repository\AccessTokenRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaApiBundle\Entity\OAuth\AccessToken]
+
   SuplaBundle\Repository\ApiClientRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaApiBundle\Entity\OAuth\ApiClient]

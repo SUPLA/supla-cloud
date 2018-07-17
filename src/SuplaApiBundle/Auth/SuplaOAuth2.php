@@ -19,7 +19,9 @@ namespace SuplaApiBundle\Auth;
 use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
+use SuplaApiBundle\Entity\OAuth\AccessToken;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\User;
 
 class SuplaOAuth2 extends OAuth2 {
     /** @var string */
@@ -58,6 +60,19 @@ class SuplaOAuth2 extends OAuth2 {
             $issueRefreshToken,
             $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['refresh'])
         );
+    }
+
+    public function createPersonalAccessToken(User $user, string $name, array $scopes): AccessToken {
+        $token = new AccessToken();
+        $scope = implode(' ', $scopes);
+        if (!$this->checkScope($scope, $this->getVariable(self::CONFIG_SUPPORTED_SCOPES))) {
+            throw new \RuntimeException('Invalid personal token scope has been requested.');
+        }
+        $token->setScope($scope);
+        $token->setUser($user);
+        $token->setName($name);
+        $token->setToken($this->genAccessToken());
+        return $token;
     }
 
     private function randomizeTokenLifetime(int $lifetime): int {

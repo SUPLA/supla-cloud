@@ -21,6 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaApiBundle\Entity\OAuth\ApiClient;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -134,42 +135,47 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $accessids;
 
     /**
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $clientApps;
 
     /**
      * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\IODeviceChannel", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $channels;
 
     /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $locations;
 
     /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $iodevices;
 
     /**
+     * @ORM\OneToMany(targetEntity="SuplaApiBundle\Entity\OAuth\ApiClient", mappedBy="user", cascade={"persist"})
+     */
+    private $apiClients;
+
+    /**
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $schedules;
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $channelGroups;
 
     /**
      * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $auditEntries;
 
     /**
@@ -389,6 +395,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     /** @return IODevice[] */
     public function getIODevices() {
         return $this->iodevices;
+    }
+
+    /** @return ApiClient[] */
+    public function getApiClients() {
+        return $this->apiClients;
     }
 
     public function getLimitAid() {
