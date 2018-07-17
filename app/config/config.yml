@@ -31,9 +31,6 @@ fos_oauth_server:
     options:
       access_token_lifetime: 300
       refresh_token_lifetime: 500
-      supported_scopes: |
-        accessids_r accessids_rw account_r account_rw channels_r channels_rw channels_ea channelgroups_r channelgroups_rw channelgroups_ea
-        clientapps_r clientapps_rw iodevices_r iodevices_rw locations_r locations_rw schedules_r schedules_rw restapi
     storage: SuplaApiBundle\Auth\SuplaOAuthStorage
 
 fos_rest:

@@ -70,7 +70,7 @@ class ApiIntegrationsController extends RestController {
         Assertion::keyExists($data, 'name');
         Assertion::keyExists($data, 'scopes');
         Assertion::notBlank($data['name'], 'Personal token name is required.');
-        Assertion::isArray($data['scopes'], 'Invalid personal token scope.');
+        Assertion::isArray($data['scopes'], 'Personal token scope is required.');
         $token = $this->transactional(function (EntityManagerInterface $entityManager) use ($data) {
             $token = $this->oauthServer->createPersonalAccessToken($this->getUser(), $data['name'], $data['scopes']);
             $entityManager->persist($token);

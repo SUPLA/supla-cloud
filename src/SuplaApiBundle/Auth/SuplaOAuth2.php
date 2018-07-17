@@ -33,6 +33,16 @@ class SuplaOAuth2 extends OAuth2 {
         parent::__construct($storage, $config);
         $this->suplaUrl = $suplaUrl;
         $this->tokensLifetime = $tokensLifetime;
+        $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, $this->getSupportedScopes());
+    }
+
+    private function getSupportedScopes(): array {
+        $supportedScopes = ['restapi', 'channels_ea', 'channelgroups_ea'];
+        foreach (['accessids', 'account', 'channels', 'channelgroups', 'clientapps', 'iodevices', 'locations', 'schedules'] as $rwScope) {
+            $supportedScopes[] = $rwScope . '_r';
+            $supportedScopes[] = $rwScope . '_rw';
+        }
+        return $supportedScopes;
     }
 
     protected function genAccessToken() {
@@ -65,7 +75,7 @@ class SuplaOAuth2 extends OAuth2 {
     public function createPersonalAccessToken(User $user, string $name, array $scopes): AccessToken {
         $token = new AccessToken();
         $scope = implode(' ', $scopes);
-        if (!$this->checkScope($scope, $this->getVariable(self::CONFIG_SUPPORTED_SCOPES))) {
+        if ($scope && !$this->checkScope($scope, $this->getVariable(self::CONFIG_SUPPORTED_SCOPES))) {
             throw new \RuntimeException('Invalid personal token scope has been requested.');
         }
         $token->setScope($scope);

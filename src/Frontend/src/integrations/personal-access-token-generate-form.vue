@@ -14,10 +14,13 @@
                 <div class="list-group-item col-xs-12 col-sm-6 col-md-4 col-lg-3"
                     v-for="scope in availableScopes">
                     <h4>{{ $t(scope.label) }}</h4>
-                    <toggler v-for="suffix in scope.suffixes"
-                        :key="scope.prefix + suffix"
-                        :label="suffix"
-                        v-model="selectedScopes[scope.prefix + '_' + suffix]"></toggler>
+                    <div class="togglers">
+                        <div v-for="suffix in scope.suffixes">
+                            <toggler :label="scopeSuffixLabels[suffix]"
+                                @input="scopeChanged(scope, suffix)"
+                                v-model="selectedScopes[scopeId(scope, suffix)]"></toggler>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,19 +33,13 @@
 </template>
 
 <script>
+    import {availableScopes, scopeId, scopeSuffixLabels} from "./oauth-scopes";
+
     export default {
         data() {
             return {
-                availableScopes: [
-                    {prefix: 'accessids', suffixes: ['r', 'rw'], label: 'Access Identifiers'},
-                    {prefix: 'account', suffixes: ['r', 'rw'], label: 'Account'},
-                    {prefix: 'channels', suffixes: ['r', 'rw', 'ea'], label: 'Channels'},
-                    {prefix: 'channelgroups', suffixes: ['r', 'rw', 'ea'], label: 'Channel groups'},
-                    {prefix: 'clientapps', suffixes: ['r', 'rw'], label: 'Client apps'},
-                    {prefix: 'iodevices', suffixes: ['r', 'rw'], label: 'IO Devices'},
-                    {prefix: 'locations', suffixes: ['r', 'rw'], label: 'Locations'},
-                    {prefix: 'schedules', suffixes: ['r', 'rw'], label: 'Schedules'},
-                ],
+                availableScopes,
+                scopeSuffixLabels,
                 selectedScopes: {},
                 token: {
                     name: '',
@@ -63,7 +60,16 @@
                 this.$http.post('integrations/personal-tokens', this.token).then(response => {
                     this.$emit('generated', response.body);
                 });
-            }
+            },
+            scopeChanged(scope, suffix) {
+                const scopeId = this.scopeId(scope, suffix);
+                if (suffix == 'r' && !this.selectedScopes[scopeId]) {
+                    this.$set(this.selectedScopes, this.scopeId(scope, 'rw'), false);
+                } else if (suffix == 'rw' && this.selectedScopes[scopeId]) {
+                    this.$set(this.selectedScopes, this.scopeId(scope, 'r'), true);
+                }
+            },
+            scopeId,
         }
     };
 </script>
@@ -72,6 +78,13 @@
     .scope-selector {
         .list-group-item {
             border-radius: 0 !important;
+            h4 {
+                margin-top: 0;
+            }
+            .togglers {
+                display: flex;
+                justify-content: space-evenly;
+            }
         }
     }
 </style>

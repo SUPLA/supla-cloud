@@ -36,7 +36,7 @@
                 <tr v-for="token in tokens">
                     <td>{{ token.name }}</td>
                     <td>
-                        XXX
+                        <oauth-scope-label :scope="token.scope"></oauth-scope-label>
                     </td>
                     <td class="text-right">
                         <button type="button"
@@ -56,9 +56,10 @@
 <script>
     import PersonalAccessTokenGenerateForm from "./personal-access-token-generate-form";
     import ApiSettingCopyInput from "../account-details/api-setting-copy-input";
+    import OauthScopeLabel from "./oauth-scope-label";
 
     export default {
-        components: {ApiSettingCopyInput, PersonalAccessTokenGenerateForm},
+        components: {OauthScopeLabel, ApiSettingCopyInput, PersonalAccessTokenGenerateForm},
         data() {
             return {
                 tokens: undefined,

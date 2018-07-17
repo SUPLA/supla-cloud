@@ -6,6 +6,6 @@ use SuplaBundle\Entity\User;
 
 class AccessTokenRepository extends EntityRepository {
     public function findPersonalTokens(User $user) {
-        return $this->findBy(['user' => $user, 'expiresAt' => null]);
+        return $this->findBy(['user' => $user, 'expiresAt' => null], ['id' => 'DESC']);
     }
 }
