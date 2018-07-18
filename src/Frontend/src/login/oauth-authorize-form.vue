@@ -1,35 +1,31 @@
 <template>
-    <div v-title="$t('Login')">
-
+    <div v-title="$t('OAuth authorization')">
         <div class="authorize-form">
             <div class="authorization-logo">
-                <span class="app-name">SUPLA Scripts</span>
+                <span class="app-name">{{ clientName }}</span>
                 <span class="arrow"><span class="pe-7s-link"></span></span>
                 <img src="assets/img/logo.svg"
                     alt="SUPLA">
             </div>
-            <h3 class="text-center"
-                style="margin-bottom: 15px">Aplikacja <strong>SUPLA Scripts</strong> prosi o możliwość:</h3>
-            <h4>Odczytu</h4>
-            <ul>
-                <li>szczegółów Twojego konta, w tym <strong>Twojego adresu e-mail oraz strefy czasowej</strong></li>
-                <li>listy i szczegółów <strong>Twoich urządzeń</strong></li>
-                <li>listy i szczegółów <strong>Twoich kanałów</strong></li>
-            </ul>
-            <h4>Modyfikacji</h4>
-            <ul>
-                <li>ustawień <strong>Twoich kanałów</strong></li>
-            </ul>
-            <h4>A także</h4>
-            <ul>
-                <li class="text-danger"><strong>sterowania Twoimi kanałami</strong></li>
-                <li class="text-danger"><strong>sterowania Twoimi grupami kanałami</strong></li>
-                <li>dostępu do Twojego konta nawet gdy nie ma Cię przy komputerze</li>
-            </ul>
+            <h3 class="text-center">{{ $t('Authorize application to use your SUPLA account')}}</h3>
+            <div class="form-group clearfix">
+                <div class="list-group scope-selector">
+                    <div class="list-group-item col-xs-12 col-sm-6"
+                        v-for="scope in desiredAvailableScopes">
+                        <h4>{{ $t(scope.label) }}</h4>
+                        <div class="permissions">
+                            <div v-for="suffix in scope.suffixes">
+                                <i :class="'pe-7s-' + icons[suffix]"></i>
+                                {{ $t(scopeSuffixLabels[suffix]) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="alert alert-info">
                 <span class="pe-7s-info"></span>
-                Po przyznaniu dostępu <strong>możesz zawsze zmienić swoją decyzję</strong> w ustawieniach Twojego konta w SUPLA Cloud.
+                {{ $t('After granting access, you can always change your mind in the account settings.') }}
             </div>
 
             <div class="buttons">
@@ -42,36 +38,33 @@
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import LoginFooter from "./login-footer.vue";
-    import {errorNotification} from "../common/notifier";
+    import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../integrations/oauth-scopes";
+    import {cloneDeep} from "lodash";
 
     export default {
         components: {ButtonLoadingDots, LoginFooter},
+        props: ['desiredScopes', 'clientName'],
         data() {
             return {
-                authenticating: false,
-                username: '',
-                password: '',
-                displayError: false,
+                desiredAvailableScopes: [],
+                scopeSuffixLabels,
+                icons: {
+                    r: 'look',
+                    rw: 'edit',
+                    ea: 'power',
+                }
             };
         },
+        mounted() {
+            const desiredScopes = addImplicitScopes(arrayOfScopes(this.desiredScopes));
+            const desiredAvailableScopes = cloneDeep(availableScopes);
+            desiredAvailableScopes.forEach(
+                scope => scope.suffixes = scope.suffixes.filter(suffix => desiredScopes.indexOf(scopeId(scope, suffix)) !== -1)
+            );
+            this.desiredAvailableScopes = desiredAvailableScopes.filter(scope => scope.suffixes.length > 0);
+        },
         methods: {
-            login() {
-                if (!this.authenticating) {
-                    this.authenticating = true;
-                    this.displayError = false;
-                    this.$user.authenticate(this.username, this.password)
-                        .then(() => this.$router.push('/'))
-                        .catch((error) => {
-                            if (error.status == 401) {
-                                this.displayError = true;
-                                // TODO else if blocked
-                            } else {
-                                errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
-                            }
-                            this.authenticating = false;
-                        });
-                }
-            }
+            scopeId,
         }
     };
 </script>
@@ -80,38 +73,23 @@
     @import "../styles/variables";
     @import "../styles/mixins";
 
-    body._auth_login {
-        background: $supla-white;
-    }
-
     .authorize-form {
-        $height: 500px;
         width: 90%;
         max-width: 600px;
-        height: $height;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -$height/2;
-        margin-left: -300px;
-        @include on-and-down(500px) {
-            position: static;
-            margin: 10px auto;
-            height: auto;
-        }
-        @media (max-height: $height) {
-            position: static;
-            margin: 10px auto;
-        }
+        margin: 10px auto;
         .authorization-logo {
             .app-name {
                 font-size: 40px;
+                display: inline-block;
+                max-width: 55%;
+                vertical-align: middle;
             }
             .arrow {
                 font-size: 50px;
                 font-weight: bold;
                 display: inline-block;
                 padding: 0 20px;
+                vertical-align: middle;
             }
             text-align: center;
             margin-bottom: 40px;
@@ -123,49 +101,29 @@
         .buttons {
             margin-top: 30px;
         }
-        form {
-            .input-group-addon > span {
-                font-size: 2em;
-            }
-        }
-        input[type=text], input[type=password], input[type=email] {
-            &.form-control {
-                border: 0;
-                border-radius: 0;
-                border-bottom: 1px solid $supla-grey-light;
-                box-shadow: initial;
-                background: transparent;
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
-        .additional-buttons {
-            display: flex;
-            justify-content: space-between;
-            > .btn {
-                flex: 1;
-                max-width: 48%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                img {
-                    float: left;
-                    height: 23px;
-                    margin-right: 5px;
+        .scope-selector {
+            .list-group-item {
+                border-radius: 0 !important;
+                h4 {
+                    margin-top: 0;
                 }
-            }
-        }
-        .error {
-            display: inline-block;
-            background: $supla-yellow;
-            padding: 12px 20px;
-            margin-top: 15px;
-            border-radius: 3px;
-            color: $supla-black;
-            margin-bottom: 20px;
-            &.locked {
-                background: $supla-red;
-                color: $supla-white;
+                &:nth-child(even) {
+                    border-left: 0;
+                }
+                &:last-child:nth-child(odd) {
+                    width: 100%;
+                }
+                .permissions {
+                    display: flex;
+                    justify-content: space-evenly;
+                    i {
+                        display: block;
+                        text-align: center;
+                        font-size: 2em;
+                        margin-bottom: 5px;
+                        color: $supla-green;
+                    }
+                }
             }
         }
     }

@@ -1,7 +1,8 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
 {% block vue %}
-    <oauth-authorize-form>
+    <oauth-authorize-form desired-scopes="{{ form.scope.vars.value }}"
+            client-name="{{ client.name }}">
         {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
         <input type="submit"
                 name="rejected"
@@ -15,7 +16,7 @@
         {{ form_row(form.response_type) }}
         {{ form_row(form.redirect_uri) }}
         {{ form_row(form.state) }}
-        {{ form_row(form.scope) }}
+        {{ form_row(form.scope, {attr: {ref: 'scopeField'}}) }}
         {{ form_rest(form) }}
         </form>
     </oauth-authorize-form>

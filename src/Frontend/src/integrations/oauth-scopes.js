@@ -31,12 +31,12 @@ export function stringOfScopes(arrayOfScopes) {
 
 export function removeImplicitScopes(arrayOfScopes) {
     return arrayOfScopes.filter(scope => {
-        return !scope.match(/_r$/) || arrayOfScopes.indexOf(scope + 'w') === -1;
+        return !scope.match(/.+_r$/) || arrayOfScopes.indexOf(scope + 'w') === -1;
     });
 }
 
 export function addImplicitScopes(arrayOfScopes) {
-    const rwScopes = arrayOfScopes.filter(scope => !scope.match(/_rw$/));
+    const rwScopes = arrayOfScopes.filter(scope => scope.match(/.+_rw$/));
     rwScopes.forEach(rwScope => {
         const rScope = rwScope.substr(0, rwScope.length - 1);
         if (arrayOfScopes.indexOf(rScope) === -1) {

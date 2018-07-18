@@ -101,4 +101,8 @@ class ApiClient extends Client {
     public function getSecret() {
         return parent::getSecret();
     }
+
+    public function getName() {
+        return $this->name;
+    }
 }
