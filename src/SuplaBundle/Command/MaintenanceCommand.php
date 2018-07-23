@@ -95,7 +95,7 @@ class MaintenanceCommand extends ContainerAwareCommand {
         ));
     }
 
-    protected function temperatureLogClean($em, $output, $entity, $name) {
+    protected function logClean($em, $output, $entity, $name) {
 
         $sql = "DELETE t FROM `" . $em->getClassMetadata($entity)->getTableName()
             . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
@@ -152,8 +152,9 @@ class MaintenanceCommand extends ContainerAwareCommand {
                 break;
             case 'day':
                 $this->usersClean($em, $output);
-                $this->temperatureLogClean($em, $output, 'SuplaBundle:TemperatureLogItem', 'TemperatureLog');
-                $this->temperatureLogClean($em, $output, 'SuplaBundle:TempHumidityLogItem', 'TempHumidityLog');
+                $this->logClean($em, $output, 'SuplaBundle:TemperatureLogItem', 'TemperatureLog');
+                $this->logClean($em, $output, 'SuplaBundle:TempHumidityLogItem', 'TempHumidityLog');
+                $this->logClean($em, $output, 'SuplaBundle:ElectricityMeterLogItem', 'ElectricityMeterLogItem');
                 break;
         }
     }
