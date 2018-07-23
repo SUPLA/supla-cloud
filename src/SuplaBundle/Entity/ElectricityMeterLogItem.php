@@ -117,7 +117,7 @@ class ElectricityMeterLogItem {
         return $this->date;
     }
 
-    public function getTotalForwardActiveEnergy($phase) {
+    public function getTotalForwardActiveEnergy($phase = 0) {
         switch ($phase) {
             case 1:
                 return $this->phase1_fae;
@@ -126,10 +126,10 @@ class ElectricityMeterLogItem {
             case 3:
                 return $this->phase3_fae;
         }
-        return 0;
+        return $this->phase1_fae+$this->phase2_fae+$this->phase3_fae;
     }
     
-    public function getTotalReverseActiveEnergy($phase) {
+    public function getTotalReverseActiveEnergy($phase = 0) {
         switch ($phase) {
             case 1:
                 return $this->phase1_rae;
@@ -138,10 +138,10 @@ class ElectricityMeterLogItem {
             case 3:
                 return $this->phase3_rae;
         }
-        return 0;
+        return $this->phase1_rae+$this->phase2_rae+$this->phase3_rae;
     }
     
-    public function getTotalForwardReactiveEnergy($phase) {
+    public function getTotalForwardReactiveEnergy($phase = 0) {
         switch ($phase) {
             case 1:
                 return $this->phase1_fre;
@@ -150,10 +150,10 @@ class ElectricityMeterLogItem {
             case 3:
                 return $this->phase3_fre;
         }
-        return 0;
+        return $this->phase1_fre+$this->phase2_fre+$this->phase3_fre;
     }
     
-    public function getTotalReverseRectiveEnergy($phase) {
+    public function getTotalReverseRectiveEnergy($phase = 0) {
         switch ($phase) {
             case 1:
                 return $this->phase1_rre;
@@ -162,6 +162,6 @@ class ElectricityMeterLogItem {
             case 3:
                 return $this->phase3_rre;
         }
-        return 0;
+        return $this->phase1_rre+$this->phase2_rre+$this->phase3_rre;
     }
 }
