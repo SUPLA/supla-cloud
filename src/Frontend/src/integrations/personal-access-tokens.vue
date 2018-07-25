@@ -13,8 +13,13 @@
                 </a>
             </div>
         </div>
-        <personal-access-token-generate-form v-if="generatingNewToken"
-            @generated="onNewToken($event)"></personal-access-token-generate-form>
+        <div class="well"
+            v-if="generatingNewToken">
+            <h3 class="no-margin-top">{{ $t('Generate new token') }}</h3>
+            <personal-access-token-generate-form
+                @generated="onNewToken($event)"
+                @cancel="generatingNewToken = false"></personal-access-token-generate-form>
+        </div>
         <div class="alert alert-info"
             v-if="latestToken">
             <div class="form-group">A new personal access token has been generated.

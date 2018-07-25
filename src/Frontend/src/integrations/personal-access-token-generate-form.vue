@@ -24,9 +24,14 @@
                 </div>
             </div>
         </div>
-        <div class="form-group text-right">
+        <div class="text-right">
             <button class="btn btn-green">
                 {{ $t('Generate token') }}
+            </button>
+            <button class="btn btn-white"
+                type="button"
+                @click="$emit('cancel')">
+                {{ $t('Cancel') }}
             </button>
         </div>
     </form>
