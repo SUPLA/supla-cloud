@@ -48,20 +48,20 @@ class ApiChannelMeasurementLogsController extends RestController {
         $functionId = $channel->getFunction()->getId();
         Assertion::inArray(
             $functionId,
-        		[ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
     
         switch ($channel->getFunction()->getId()) {
-        	case ChannelFunction::HUMIDITYANDTEMPERATURE:
-        		$repoName = 'TempHumidityLogItem';
-        		break;
-        	case ChannelFunction::THERMOMETER:
-        		$repoName = 'TemperatureLogItem';
-        		break;
-        	case ChannelFunction::ELECTRICITYMETER:
-        		$repoName = 'ElectricityMeterLogItem';
-        		break;
+            case ChannelFunction::HUMIDITYANDTEMPERATURE:
+                $repoName = 'TempHumidityLogItem';
+                break;
+            case ChannelFunction::THERMOMETER:
+                $repoName = 'TemperatureLogItem';
+                break;
+            case ChannelFunction::ELECTRICITYMETER:
+                $repoName = 'ElectricityMeterLogItem';
+                break;
         }
         
         $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);
