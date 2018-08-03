@@ -48,10 +48,22 @@ class ApiChannelMeasurementLogsController extends RestController {
         $functionId = $channel->getFunction()->getId();
         Assertion::inArray(
             $functionId,
-            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER],
+        		[ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
-        $repoName = $functionId == ChannelFunction::HUMIDITYANDTEMPERATURE ? 'TempHumidityLogItem' : 'TemperatureLogItem';
+    
+        switch ($channel->getFunction()->getId()) {
+        	case ChannelFunction::HUMIDITYANDTEMPERATURE:
+        		$repoName = 'TempHumidityLogItem';
+        		break;
+        	case ChannelFunction::THERMOMETER:
+        		$repoName = 'TemperatureLogItem';
+        		break;
+        	case ChannelFunction::ELECTRICITYMETER:
+        		$repoName = 'ElectricityMeterLogItem';
+        		break;
+        }
+        
         $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);
         $query = $rep->createQueryBuilder('f')
             ->select('COUNT(f.id)')
@@ -61,34 +73,47 @@ class ApiChannelMeasurementLogsController extends RestController {
         return intval($query->getSingleScalarResult());
     }
 
-    private function temperatureLogItems($channelid, $offset, $limit, $orderDesc = true) {
+    private function logItems($table, $fields, $channelid, $offset, $limit, $sinceTimestamp = 0, $orderDesc = true) {
         $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : '';
-        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, `temperature` ";
-        $sql .= "FROM `supla_temperature_log` WHERE channel_id = ? $order LIMIT ? OFFSET ?";
+        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
+        $sql .= "FROM $table WHERE channel_id = ? ";
+        
+        if ($sinceTimestamp > 0) {
+            $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  >= ? ";
+            $sql .= "$order LIMIT ?";
+        } else {
+            $sql .= "$order LIMIT ? OFFSET ?";
+        }
+                
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
-        $stmt->bindValue(2, $limit, 'integer');
-        $stmt->bindValue(3, $offset, 'integer');
+        
+        if ($sinceTimestamp > 0) {
+            $stmt->bindValue(2, $sinceTimestamp, 'integer');
+            $stmt->bindValue(3, $limit, 'integer');
+        } else {
+            $stmt->bindValue(2, $limit, 'integer');
+            $stmt->bindValue(3, $offset, 'integer');
+        }
+        
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    
+    private function getMeasurementLogItemsAction(
+        IODeviceChannel $channel,
+        $offset,
+        $limit,
+        $sinceTimestamp = 0,
+        $orderDesc = true,
+        $allowedFuncList = null
+    ) {
+   
+        if ($allowedFuncList == null) {
+            $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER];
+        }
 
-    protected function temperatureAndHumidityLogItems($channelid, $offset, $limit, $orderDesc = true) {
-        $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : '';
-        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, `temperature`, ";
-        $sql .= "`humidity` FROM `supla_temphumidity_log` WHERE channel_id = ? $order LIMIT ? OFFSET ?";
-        $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
-        $stmt->bindValue(1, $channelid, 'integer');
-        $stmt->bindValue(2, $limit, 'integer');
-        $stmt->bindValue(3, $offset, 'integer');
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    private function getTempHumidityLogItemsAction($th, IODeviceChannel $channel, $offset, $limit, $orderDesc = true) {
-        $f[] = $th === true ? ChannelFunction::HUMIDITYANDTEMPERATURE : ChannelFunction::THERMOMETER;
-
-        Assertion::inArray($channel->getFunction()->getId(), $f, 'The requested function is not available on this channel');
+        Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');
 
         $offset = intval($offset);
         $limit = intval($limit);
@@ -97,10 +122,42 @@ class ApiChannelMeasurementLogsController extends RestController {
             $limit = self::RECORD_LIMIT_PER_REQUEST;
         }
 
-        if ($th === true) {
-            $result = $this->temperatureAndHumidityLogItems($channel->getId(), $offset, $limit, $orderDesc);
-        } else {
-            $result = $this->temperatureLogItems($channel->getId(), $offset, $limit, $orderDesc);
+        switch ($channel->getFunction()->getId()) {
+            case ChannelFunction::HUMIDITYANDTEMPERATURE:
+                $result = $this->logItems(
+                    "`supla_temphumidity_log`",
+                    "`temperature`, `humidity`",
+                    $channel->getId(),
+                    $offset,
+                    $limit,
+                    $sinceTimestamp,
+                    $orderDesc
+                );
+                break;
+            case ChannelFunction::THERMOMETER:
+                $result = $this->logItems(
+                    "`supla_temperature_log`",
+                    "`temperature`",
+                    $channel->getId(),
+                    $offset,
+                    $limit,
+                    $sinceTimestamp,
+                    $orderDesc
+                );
+                break;
+            case ChannelFunction::ELECTRICITYMETER:
+                $result = $this->logItems(
+                    "`supla_em_log`",
+                    "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
+                        ."`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
+                    ."`phase3_rae`, `phase3_fre`, `phase3_rre`",
+                    $channel->getId(),
+                    $offset,
+                    $limit,
+                    $sinceTimestamp,
+                    $orderDesc
+                );
+                break;
         }
 
         return $result;
@@ -108,7 +165,7 @@ class ApiChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-log-count")
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getObsoleteMeasurementTempLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -124,7 +181,7 @@ class ApiChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getObsoleteMeasurementHumLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -140,54 +197,55 @@ class ApiChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-log-items")
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getTempLogItemsAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
-        $result = $this->getTempHumidityLogItemsAction(
-            false,
+        $result = $this->getMeasurementLogItemsAction(
             $channel,
             @$request->query->get('offset'),
             @$request->query->get('limit'),
-            false
+            0,
+            false,
+            [ChannelFunction::THERMOMETER]
         );
         return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
     }
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-items")
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getTempHumLogItemsAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
-        $result = $this->getTempHumidityLogItemsAction(
-            true,
+        $result = $this->getMeasurementLogItemsAction(
             $channel,
             @$request->query->get('offset'),
             @$request->query->get('limit'),
-            false
+            0,
+            false,
+            [ChannelFunction::HUMIDITYANDTEMPERATURE]
         );
         return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
     }
 
     /**
      * @Rest\Get("/channels/{channel}/measurement-logs")
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
         if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
-        $humidity = $channel->getFunction()->getId() == ChannelFunction::HUMIDITYANDTEMPERATURE;
-        $logs = $this->getTempHumidityLogItemsAction(
-            $humidity,
+        $logs = $this->getMeasurementLogItemsAction(
             $channel,
             @$request->query->get('offset'),
-            @$request->query->get('limit')
+            @$request->query->get('limit'),
+            @$request->query->get('sincetimestamp')
         );
         $view = $this->view($logs, Response::HTTP_OK);
         $view->setHeader('X-Total-Count', $this->getMeasureLogsCount($channel));
@@ -196,7 +254,7 @@ class ApiChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
-     * @Security("channel.belongsToUser(user)")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function channelItemGetCSVAction(IODeviceChannel $channel) {
         $file = $this->deviceManager->channelGetCSV($channel, "measurement_" . $channel->getId());
