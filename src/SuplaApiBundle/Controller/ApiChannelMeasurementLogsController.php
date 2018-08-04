@@ -73,13 +73,20 @@ class ApiChannelMeasurementLogsController extends RestController {
         return intval($query->getSingleScalarResult());
     }
 
-    private function logItems($table, $fields, $channelid, $offset, $limit, $sinceTimestamp = 0, $orderDesc = true) {
+    private function logItems($table, $fields, $channelid, $offset, $limit, $geTimestamp = 0, $leTimestamp = 0, $orderDesc = true) {
         $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : '';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
         
-        if ($sinceTimestamp > 0) {
-            $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  >= ? ";
+        if ($geTimestamp > 0 || $leTimestamp > 0) {
+            if ($geTimestamp > 0) {
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  >= ? ";
+            }
+            
+            if ($leTimestamp> 0) {
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  <= ? ";
+            }
+            
             $sql .= "$order LIMIT ?";
         } else {
             $sql .= "$order LIMIT ? OFFSET ?";
@@ -88,9 +95,17 @@ class ApiChannelMeasurementLogsController extends RestController {
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
         
-        if ($sinceTimestamp > 0) {
-            $stmt->bindValue(2, $sinceTimestamp, 'integer');
-            $stmt->bindValue(3, $limit, 'integer');
+        if ($geTimestamp > 0 || $leTimestamp > 0) {
+            $n = 2;
+            if ($geTimestamp > 0) {
+                $stmt->bindValue($n, $geTimestamp, 'integer');
+                $n++;
+            }
+            if ($leTimestamp > 0) {
+                $stmt->bindValue($n, $leTimestamp, 'integer');
+                $n++;
+            }
+            $stmt->bindValue($n, $limit, 'integer');
         } else {
             $stmt->bindValue(2, $limit, 'integer');
             $stmt->bindValue(3, $offset, 'integer');
@@ -104,7 +119,8 @@ class ApiChannelMeasurementLogsController extends RestController {
         IODeviceChannel $channel,
         $offset,
         $limit,
-        $sinceTimestamp = 0,
+        $geTimestamp = 0,
+        $leTimestamp = 0,
         $orderDesc = true,
         $allowedFuncList = null
     ) {
@@ -130,7 +146,8 @@ class ApiChannelMeasurementLogsController extends RestController {
                     $channel->getId(),
                     $offset,
                     $limit,
-                    $sinceTimestamp,
+                    $geTimestamp,
+                    $leTimestamp,
                     $orderDesc
                 );
                 break;
@@ -141,7 +158,8 @@ class ApiChannelMeasurementLogsController extends RestController {
                     $channel->getId(),
                     $offset,
                     $limit,
-                    $sinceTimestamp,
+                    $geTimestamp,
+                    $leTimestamp,
                     $orderDesc
                 );
                 break;
@@ -154,7 +172,8 @@ class ApiChannelMeasurementLogsController extends RestController {
                     $channel->getId(),
                     $offset,
                     $limit,
-                    $sinceTimestamp,
+                    $geTimestamp,
+                    $leTimestamp,
                     $orderDesc
                 );
                 break;
@@ -208,6 +227,7 @@ class ApiChannelMeasurementLogsController extends RestController {
             @$request->query->get('offset'),
             @$request->query->get('limit'),
             0,
+            0,
             false,
             [ChannelFunction::THERMOMETER]
         );
@@ -227,6 +247,7 @@ class ApiChannelMeasurementLogsController extends RestController {
             @$request->query->get('offset'),
             @$request->query->get('limit'),
             0,
+            0,
             false,
             [ChannelFunction::HUMIDITYANDTEMPERATURE]
         );
@@ -245,7 +266,8 @@ class ApiChannelMeasurementLogsController extends RestController {
             $channel,
             @$request->query->get('offset'),
             @$request->query->get('limit'),
-            @$request->query->get('sincetimestamp')
+            @$request->query->get('ge_timestamp'), // is greater than timestamp or equal to timestamp
+            @$request->query->get('le_timestamp')  // is lessthan timestamp or equal to timestamp
         );
         $view = $this->view($logs, Response::HTTP_OK);
         $view->setHeader('X-Total-Count', $this->getMeasureLogsCount($channel));
