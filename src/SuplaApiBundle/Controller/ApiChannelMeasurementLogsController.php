@@ -63,7 +63,7 @@ class ApiChannelMeasurementLogsController extends RestController {
                 $repoName = 'ElectricityMeterLogItem';
                 break;
         }
-        
+       
         $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);
         $query = $rep->createQueryBuilder('f')
             ->select('COUNT(f.id)')
@@ -73,18 +73,18 @@ class ApiChannelMeasurementLogsController extends RestController {
         return intval($query->getSingleScalarResult());
     }
 
-    private function logItems($table, $fields, $channelid, $offset, $limit, $geTimestamp = 0, $leTimestamp = 0, $orderDesc = true) {
+    private function logItems($table, $fields, $channelid, $offset, $limit, $afterTimestamp = 0, $beforeTimestamp = 0, $orderDesc = true) {
         $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : '';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
         
-        if ($geTimestamp > 0 || $leTimestamp > 0) {
-            if ($geTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  >= ? ";
+        if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
+            if ($afterTimestamp > 0) {
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  > ? ";
             }
             
-            if ($leTimestamp> 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  <= ? ";
+            if ($beforeTimestamp> 0) {
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  < ? ";
             }
             
             $sql .= "$order LIMIT ?";
@@ -95,14 +95,14 @@ class ApiChannelMeasurementLogsController extends RestController {
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
         
-        if ($geTimestamp > 0 || $leTimestamp > 0) {
+        if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             $n = 2;
-            if ($geTimestamp > 0) {
-                $stmt->bindValue($n, $geTimestamp, 'integer');
+            if ($afterTimestamp > 0) {
+                $stmt->bindValue($n, $afterTimestamp, 'integer');
                 $n++;
             }
-            if ($leTimestamp > 0) {
-                $stmt->bindValue($n, $leTimestamp, 'integer');
+            if ($beforeTimestamp > 0) {
+                $stmt->bindValue($n, $beforeTimestamp, 'integer');
                 $n++;
             }
             $stmt->bindValue($n, $limit, 'integer');
@@ -119,8 +119,8 @@ class ApiChannelMeasurementLogsController extends RestController {
         IODeviceChannel $channel,
         $offset,
         $limit,
-        $geTimestamp = 0,
-        $leTimestamp = 0,
+        $afterTimestamp = 0,
+        $beforeTimestamp = 0,
         $orderDesc = true,
         $allowedFuncList = null
     ) {
@@ -146,8 +146,8 @@ class ApiChannelMeasurementLogsController extends RestController {
                     $channel->getId(),
                     $offset,
                     $limit,
-                    $geTimestamp,
-                    $leTimestamp,
+                    $afterTimestamp,
+                    $beforeTimestamp,
                     $orderDesc
                 );
                 break;
@@ -158,8 +158,8 @@ class ApiChannelMeasurementLogsController extends RestController {
                     $channel->getId(),
                     $offset,
                     $limit,
-                    $geTimestamp,
-                    $leTimestamp,
+                    $afterTimestamp,
+                    $beforeTimestamp,
                     $orderDesc
                 );
                 break;
@@ -172,8 +172,8 @@ class ApiChannelMeasurementLogsController extends RestController {
                     $channel->getId(),
                     $offset,
                     $limit,
-                    $geTimestamp,
-                    $leTimestamp,
+                    $afterTimestamp,
+                    $beforeTimestamp,
                     $orderDesc
                 );
                 break;
@@ -266,8 +266,9 @@ class ApiChannelMeasurementLogsController extends RestController {
             $channel,
             @$request->query->get('offset'),
             @$request->query->get('limit'),
-            @$request->query->get('ge_timestamp'), // is greater than timestamp or equal to timestamp
-            @$request->query->get('le_timestamp')  // is lessthan timestamp or equal to timestamp
+            @$request->query->get('afterTimestamp'),
+            @$request->query->get('beforeTimestamp'),
+            @$request->query->get('order') !== 'ASC'
         );
         $view = $this->view($logs, Response::HTTP_OK);
         $view->setHeader('X-Total-Count', $this->getMeasureLogsCount($channel));
