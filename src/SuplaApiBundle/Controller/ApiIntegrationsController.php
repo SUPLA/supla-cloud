@@ -19,9 +19,12 @@ namespace SuplaApiBundle\Controller;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OAuth2\OAuth2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Auth\SuplaOAuth2;
+use SuplaApiBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessTokenRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -36,10 +39,17 @@ class ApiIntegrationsController extends RestController {
     private $accessTokenRepository;
     /** @var SuplaOAuth2 */
     private $oauthServer;
+    /** @var ClientManagerInterface */
+    private $clientManager;
 
-    public function __construct(AccessTokenRepository $accessTokenRepository, SuplaOAuth2 $oauthServer) {
+    public function __construct(
+        AccessTokenRepository $accessTokenRepository,
+        SuplaOAuth2 $oauthServer,
+        ClientManagerInterface $clientManager
+    ) {
         $this->accessTokenRepository = $accessTokenRepository;
         $this->oauthServer = $oauthServer;
+        $this->clientManager = $clientManager;
     }
 
     /**
@@ -50,6 +60,27 @@ class ApiIntegrationsController extends RestController {
         $view = $this->view($applications, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['secret']);
         return $view;
+    }
+
+    /**
+     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     */
+    public function getApplicationAction(ApiClient $client, Request $request) {
+        $view = $this->view($client, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['secret']);
+        return $view;
+    }
+
+    /**
+     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     */
+    public function postApplicationsAction(Request $request) {
+        $data = $request->request->all();
+        /** @var ApiClient $client */
+        $client = $this->clientManager->createClient();
+        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
+        $this->clientManager->updateClient($client);
+        return $this->getApplicationAction($client, $request);
     }
 
     /**

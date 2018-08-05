@@ -2,6 +2,7 @@
 namespace SuplaBundle\Command;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use OAuth2\OAuth2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -40,7 +41,8 @@ class OAuthCreateClientCommand extends Command {
         // Create a new client
         $client = $this->clientManager->createClient();
         $client->setRedirectUris($input->getOption('redirect-uri'));
-        $client->setAllowedGrantTypes(['authorization_code']);
+        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
+        $client->setIssueRefreshToken(true);
         // Save the client
         $this->clientManager->updateClient($client);
         // Give the credentials back to the user

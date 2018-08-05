@@ -60,16 +60,16 @@ class ApiClient extends Client {
     private $description;
 
     /**
-     * @ORM\Column(name="homepage", type="string", length=255, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $homepage;
-
-    /**
      * @ORM\Column(name="is_public", type="boolean", nullable=false)
      * @Groups({"basic"})
      */
     private $isPublic = false;
+
+    /**
+     * @ORM\Column(name="issue_refresh_token", type="boolean", nullable=false)
+     * @Groups({"basic"})
+     */
+    private $issueRefreshToken = false;
 
     public function __construct() {
         parent::__construct();
@@ -97,12 +97,40 @@ class ApiClient extends Client {
         return parent::getPublicId();
     }
 
-    /** @Groups({"basic"}) */
+    /** @Groups({"secret"}) */
     public function getSecret() {
         return parent::getSecret();
     }
 
     public function getName() {
         return $this->name;
+    }
+
+    public function setName(string $name) {
+        $this->name = $name;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription(string $description) {
+        $this->description = $description;
+    }
+
+    public function isPublic(): bool {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic) {
+        $this->isPublic = $isPublic;
+    }
+
+    public function getIssueRefreshToken(): bool {
+        return $this->issueRefreshToken;
+    }
+
+    public function setIssueRefreshToken(bool $issueRefreshToken) {
+        $this->issueRefreshToken = $issueRefreshToken;
     }
 }

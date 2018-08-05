@@ -60,7 +60,16 @@ export default [
     {
         path: '/integrations', component: () => import("./integrations/integrations-page"), children: [
             {path: 'authorized', component: () => import("./integrations/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
-            {path: 'my', component: () => import("./integrations/my-oauth-apps"), name: 'my-oauth-apps'},
+            {
+                path: 'my', component: () => import("./integrations/my-oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
+                    {
+                        path: ':id',
+                        component: () => import("./integrations/my-oauth-apps/my-oauth-app-details"),
+                        name: 'myOauthApp',
+                        props: true
+                    }
+                ]
+            },
             {path: 'tokens', component: () => import("./integrations/personal-access-tokens"), name: 'personal-tokens'},
         ]
     },

@@ -10,7 +10,7 @@
                             class="btn">
                             {{ $t('Authorized OAuth apps') }}
                         </router-link>
-                        <router-link :to="{name: 'my-oauth-apps'}"
+                        <router-link :to="{name: 'myOauthApps'}"
                             class="btn">
                             {{ $t('My OAuth apps') }}
                         </router-link>
