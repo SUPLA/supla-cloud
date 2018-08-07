@@ -72,6 +72,6 @@ class AccessToken extends BaseAccessToken {
     }
 
     public function setScope($scope) {
-        parent::setScope((new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
+        parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
     }
 }

@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
+use SuplaApiBundle\Auth\OAuthScope;
 use SuplaApiBundle\Entity\User;
 
 /**
@@ -43,4 +44,8 @@ class RefreshToken extends BaseRefreshToken {
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
      */
     protected $user;
+
+    public function setScope($scope) {
+        parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
+    }
 }

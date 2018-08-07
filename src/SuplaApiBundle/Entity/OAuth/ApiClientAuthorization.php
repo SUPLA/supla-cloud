@@ -90,7 +90,7 @@ class ApiClientAuthorization {
     }
 
     public function setScope($scope) {
-        $this->scope = (new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes();
+        $this->scope = (string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes();
     }
 
     public function getAuthorizationDate(): \DateTime {

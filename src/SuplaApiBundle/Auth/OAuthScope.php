@@ -28,7 +28,7 @@ final class OAuthScope {
     public function __construct($scopes) {
         if (!is_array($scopes)) {
             $scopes = $this->scopeToArray($scopes);
-        } else if ($scopes instanceof self) {
+        } elseif ($scopes instanceof self) {
             $this->scopes = $scopes->scopes;
         }
         $this->scopes = $scopes;
