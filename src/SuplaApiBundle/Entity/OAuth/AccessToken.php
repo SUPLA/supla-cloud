@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
+use SuplaApiBundle\Auth\OAuthScope;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -68,5 +69,9 @@ class AccessToken extends BaseAccessToken {
 
     public function setName(string $name) {
         $this->name = $name;
+    }
+
+    public function setScope($scope) {
+        parent::setScope((new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
     }
 }

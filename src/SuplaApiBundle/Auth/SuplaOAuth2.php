@@ -21,7 +21,6 @@ use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
 use SuplaApiBundle\Entity\OAuth\AccessToken;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\User;
 
 class SuplaOAuth2 extends OAuth2 {
@@ -34,16 +33,7 @@ class SuplaOAuth2 extends OAuth2 {
         parent::__construct($storage, $config);
         $this->suplaUrl = $suplaUrl;
         $this->tokensLifetime = $tokensLifetime;
-        $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, $this->getSupportedScopes());
-    }
-
-    private function getSupportedScopes(): array {
-        $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea'];
-        foreach (['accessids', 'account', 'channels', 'channelgroups', 'clientapps', 'iodevices', 'locations', 'schedules'] as $rwScope) {
-            $supportedScopes[] = $rwScope . '_r';
-            $supportedScopes[] = $rwScope . '_rw';
-        }
-        return $supportedScopes;
+        $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, OAuthScope::getSupportedScopes());
     }
 
     protected function genAccessToken() {
@@ -75,19 +65,12 @@ class SuplaOAuth2 extends OAuth2 {
 
     public function createPersonalAccessToken(User $user, string $name, array $scopes): AccessToken {
         $token = new AccessToken();
-        $scope = implode(' ', $scopes);
-        if ($scope && !$this->checkScope($scope, $this->getVariable(self::CONFIG_SUPPORTED_SCOPES))) {
-            throw new \RuntimeException('Invalid personal token scope has been requested.');
-        }
-        $token->setScope($scope);
+        $scope = new OAuthScope($scopes);
+        $token->setScope((string)($scope->ensureThatAllScopesAreSupported()->addImplicitScopes()));
         $token->setUser($user);
         $token->setName($name);
         $token->setToken($this->genAccessToken());
         return $token;
-    }
-
-    public function isAuthorized(ApiClientAuthorization $apiClientAuthorization, string $scope): bool {
-        return $this->checkScope($scope, $apiClientAuthorization->getScope());
     }
 
     private function randomizeTokenLifetime(int $lifetime): int {

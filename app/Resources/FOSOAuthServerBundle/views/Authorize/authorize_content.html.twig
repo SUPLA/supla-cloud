@@ -7,11 +7,11 @@
         <input type="submit"
                 name="rejected"
                 class="btn btn-white btn-lg"
-                value="Odmów"/>
+                :value="$t('Decline')">
         <input type="submit"
                 name="accepted"
                 class="btn btn-green btn-lg pull-right"
-                value="Przyznaj dostęp"/>
+                :value="$t('Grant access')">
         {{ form_row(form.client_id) }}
         {{ form_row(form.response_type) }}
         {{ form_row(form.redirect_uri) }}

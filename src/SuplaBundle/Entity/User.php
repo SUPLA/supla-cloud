@@ -567,4 +567,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $authorization->setAuthorizationDate(new \DateTime());
         $this->apiClientAuthorizations->add($authorization);
     }
+
+    public function getApiClientAuthorizations() {
+        return $this->apiClientAuthorizations;
+    }
 }

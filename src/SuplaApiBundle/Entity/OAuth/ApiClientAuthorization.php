@@ -19,13 +19,15 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use SuplaApiBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ApiClientAuthorizationRepository")
- * @ORM\Table(name="supla_oauth_client_authorizations", uniqueConstraints={@UniqueConstraint(name="UNIQUE_USER_CLIENT", columns={"user_id", "client_id"})})
+ * @ORM\Table(name="supla_oauth_client_authorizations",
+ *     uniqueConstraints={@UniqueConstraint(name="UNIQUE_USER_CLIENT", columns={"user_id", "client_id"})})
  */
 class ApiClientAuthorization {
     use BelongsToUser;
@@ -47,7 +49,7 @@ class ApiClientAuthorization {
     /**
      * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\OAuth\ApiClient", inversedBy="apiClientAuthorizations")
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=true)
-     * @Groups({"basic"})
+     * @Groups({"client"})
      */
     private $apiClient;
 
@@ -84,11 +86,11 @@ class ApiClientAuthorization {
     }
 
     public function getScope(): string {
-        return $this->scope;
+        return (string)$this->scope;
     }
 
-    public function setScope(string $scope) {
-        $this->scope = $scope;
+    public function setScope($scope) {
+        $this->scope = (new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes();
     }
 
     public function getAuthorizationDate(): \DateTime {
@@ -97,5 +99,13 @@ class ApiClientAuthorization {
 
     public function setAuthorizationDate(\DateTime $authorizationDate) {
         $this->authorizationDate = $authorizationDate;
+    }
+
+    public function isAuthorized($scope): bool {
+        return (new OAuthScope($this->scope))->hasAllScopes($scope);
+    }
+
+    public function authorizeNewScope($scope) {
+        $this->setScope((new OAuthScope($this->scope))->merge($scope));
     }
 }

@@ -37,19 +37,15 @@ class OAuthEventListener {
     private $userRepository;
     /** @var RequestStack */
     private $requestStack;
-    /** @var SuplaOAuth2 */
-    private $oAuth2;
 
     public function __construct(
         ApiClientAuthorizationRepository $authorizationRepository,
         UserRepository $userRepository,
-        RequestStack $requestStack,
-        SuplaOAuth2 $oAuth2
+        RequestStack $requestStack
     ) {
         $this->authorizationRepository = $authorizationRepository;
         $this->userRepository = $userRepository;
         $this->requestStack = $requestStack;
-        $this->oAuth2 = $oAuth2;
     }
 
     public function onPreAuthorizationProcess(OAuthEvent $event) {
@@ -57,7 +53,7 @@ class OAuthEventListener {
             $scope = $this->requestStack->getCurrentRequest()->get('scope', null);
             $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $event->getClient());
             if ($scope && $authorization) {
-                $event->setAuthorizedClient($this->oAuth2->isAuthorized($authorization, $scope));
+                $event->setAuthorizedClient($authorization->isAuthorized($scope));
             }
         }
     }
@@ -70,9 +66,15 @@ class OAuthEventListener {
                 $formData = $request->get('fos_oauth_server_authorize_form', []);
                 $scope = $formData['scope'] ?? null;
                 if ($scope) {
-                    $user->addApiClientAuthorization($client, $scope);
-                    $this->transactional(function (EntityManagerInterface $entityManager) use ($user) {
-                        $entityManager->persist($user);
+                    $this->transactional(function (EntityManagerInterface $entityManager) use ($client, $scope, $user) {
+                        $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $client);
+                        if ($authorization) {
+                            $authorization->authorizeNewScope($scope);
+                            $entityManager->persist($authorization);
+                        } else {
+                            $user->addApiClientAuthorization($client, $scope);
+                            $entityManager->persist($user);
+                        }
                     });
                 }
             }

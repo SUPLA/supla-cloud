@@ -43,7 +43,7 @@
     export default {
         data() {
             return {
-                availableScopes,
+                availableScopes: availableScopes.filter(scope => scope.prefix != 'offline'),
                 scopeSuffixLabels,
                 selectedScopes: {},
                 token: {

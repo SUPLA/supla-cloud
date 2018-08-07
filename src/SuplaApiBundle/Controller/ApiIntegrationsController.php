@@ -25,6 +25,7 @@ use OAuth2\OAuth2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Auth\SuplaOAuth2;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaApiBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessTokenRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -110,6 +111,28 @@ class ApiIntegrationsController extends RestController {
     public function getPersonalTokensAction(Request $request) {
         $accessTokens = $this->accessTokenRepository->findPersonalTokens($this->getUser());
         return $this->view($accessTokens, Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("/integrations/authorized-apps")
+     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     */
+    public function getAuthorizedAppsAction(Request $request) {
+        $apps = $this->getUser()->getApiClientAuthorizations();
+        $view = $this->view($apps, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['client']);
+        return $view;
+    }
+
+    /**
+     * @Rest\Delete("/integrations/authorized-apps/{authorizedApp}")
+     * @Security("authorizedApp.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     */
+    public function deleteAuthorizedAppAction(ApiClientAuthorization $authorizedApp, Request $request) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($authorizedApp) {
+            $em->remove($authorizedApp);
+            return new Response('', Response::HTTP_NO_CONTENT);
+        });
     }
 
     /**

@@ -19,6 +19,7 @@ namespace SuplaApiBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
+use SuplaApiBundle\Auth\OAuthScope;
 
 /**
  * @ORM\Entity
@@ -42,4 +43,9 @@ class AuthCode extends BaseAuthCode {
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
      */
     protected $user;
+
+    public function setScope($scope) {
+        parent::setScope((new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
+    }
+
 }
