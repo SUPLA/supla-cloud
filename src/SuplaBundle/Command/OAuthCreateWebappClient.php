@@ -38,7 +38,6 @@ class OAuthCreateWebappClient extends Command {
             $client = $this->clientManager->createClient();
             $client->setAllowedGrantTypes(['password', OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
             $client->setType(ApiClientType::WEBAPP());
-            $client->setIssueRefreshToken(true);
             $this->clientManager->updateClient($client);
             $output->writeln('Client for webapp has been created.');
         }

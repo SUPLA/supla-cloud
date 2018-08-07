@@ -191,7 +191,7 @@ input[type=text], input[type=password], input[type=email] {
 
 .hover-editable {
   @include on-md-and-up {
-    &:not(:hover) {
+    &:not(:hover):not(.hovered) {
       .form-control, .dropdown .btn, .chosen-container .chosen-single {
         color: $supla-black;
         border-color: transparent;

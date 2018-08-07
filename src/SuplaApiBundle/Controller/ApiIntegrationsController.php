@@ -63,7 +63,7 @@ class ApiIntegrationsController extends RestController {
     }
 
     /**
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("client.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getApplicationAction(ApiClient $client, Request $request) {
         $view = $this->view($client, Response::HTTP_OK);
@@ -73,14 +73,34 @@ class ApiIntegrationsController extends RestController {
 
     /**
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Post("/applications")
      */
-    public function postApplicationsAction(Request $request) {
-        $data = $request->request->all();
-        /** @var ApiClient $client */
-        $client = $this->clientManager->createClient();
-        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
+    public function postApplicationsAction(ApiClient $newClient, Request $request) {
+        $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
+        $newClient->setUser($this->getUser());
+        $this->clientManager->updateClient($newClient);
+        return $this->getApplicationAction($newClient, $request);
+    }
+
+    /**
+     * @Security("client.belongsToUser(user) && has_role('ROLE_CHANNELGROUPS_R')")
+     */
+    public function putApplicationsAction(ApiClient $client, ApiClient $updatedClient, Request $request) {
+        $client->setName($updatedClient->getName());
+        $client->setDescription($updatedClient->getDescription());
+        $client->setRedirectUris($updatedClient->getRedirectUris());
         $this->clientManager->updateClient($client);
         return $this->getApplicationAction($client, $request);
+    }
+
+    /**
+     * @Security("client.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
+     */
+    public function deleteApplicationAction(ApiClient $client) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($client) {
+            $em->remove($client);
+            return new Response('', Response::HTTP_NO_CONTENT);
+        });
     }
 
     /**

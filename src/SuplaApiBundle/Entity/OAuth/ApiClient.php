@@ -21,6 +21,8 @@ use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\Client;
 use SuplaApiBundle\Enums\ApiClientType;
+use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\User;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -28,6 +30,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="supla_oauth_clients")
  */
 class ApiClient extends Client {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -65,12 +69,6 @@ class ApiClient extends Client {
      */
     private $isPublic = false;
 
-    /**
-     * @ORM\Column(name="issue_refresh_token", type="boolean", nullable=false)
-     * @Groups({"basic"})
-     */
-    private $issueRefreshToken = false;
-
     public function __construct() {
         parent::__construct();
         $this->type = ApiClientType::ADMIN;
@@ -102,6 +100,11 @@ class ApiClient extends Client {
         return parent::getSecret();
     }
 
+    /** @Groups({"basic"}) */
+    public function getRedirectUris() {
+        return parent::getRedirectUris();
+    }
+
     public function getName() {
         return $this->name;
     }
@@ -126,11 +129,11 @@ class ApiClient extends Client {
         $this->isPublic = $isPublic;
     }
 
-    public function getIssueRefreshToken(): bool {
-        return $this->issueRefreshToken;
+    public function getUser() {
+        return $this->user;
     }
 
-    public function setIssueRefreshToken(bool $issueRefreshToken) {
-        $this->issueRefreshToken = $issueRefreshToken;
+    public function setUser(User $user) {
+        $this->user = $user;
     }
 }

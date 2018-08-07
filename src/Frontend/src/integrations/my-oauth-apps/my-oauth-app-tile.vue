@@ -5,9 +5,9 @@
             <div class="clearfix">
                 <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
             </div>
-            <dl>
+            <dl class="ellipsis">
                 <dd>{{ $t('Public ID') }}</dd>
-                <dt>{{ model.publicId }}</dt>
+                <dt>{{ model.publicId | ellipsis }}</dt>
             </dl>
             <div class="separator"></div>
             {{ model.name }}
