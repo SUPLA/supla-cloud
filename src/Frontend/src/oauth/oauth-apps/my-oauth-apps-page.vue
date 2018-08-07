@@ -3,7 +3,8 @@
         tile="my-oauth-app-tile"
         endpoint="oauth-clients"
         create-new-label="Register a new OAuth application"
-        details-route="myOauthApp"></carousel-page>
+        details-route="myOauthApp"
+        class="my-oauth-apps-page"></carousel-page>
 </template>
 
 <script>
@@ -17,3 +18,9 @@
         components: {CarouselPage}
     };
 </script>
+
+<style>
+    .my-oauth-apps-page .carousel-title {
+        display: none;
+    }
+</style>

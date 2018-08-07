@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <h5>{{ $t('This is the list of applications you have granted access to your account.') }}</h5>
         <loading-cover :loading="!authorizedApps">
             <table class="table table-striped"

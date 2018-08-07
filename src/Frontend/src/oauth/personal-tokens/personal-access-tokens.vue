@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div class="clearfix left-right-header">
             <div>
                 <h5>{{ $t('Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.') }}</h5>
@@ -24,8 +24,8 @@
             v-if="latestToken">
             <div class="form-group">A new personal access token has been generated.
                 <strong>Make sure to copy it now because you won’t be able to see it again!</strong></div>
-            <!--<api-setting-copy-input :label="latestToken.name"-->
-            <!--:value="latestToken.token"></api-setting-copy-input>-->
+            <pre><code>{{ latestToken.token }}</code></pre>
+            <copy-button :text="latestToken.token"></copy-button>
         </div>
         <loading-cover :loading="!tokens">
             <table class="table table-striped"
@@ -45,7 +45,8 @@
                     </td>
                     <td class="text-right">
                         <button type="button"
-                            class="btn btn-red">
+                            class="btn btn-red"
+                            @click="tokenToRevoke = token">
                             <i class="pe-7s-close-circle"></i>
                             {{ $t('Revoke') }}
                         </button>
@@ -55,20 +56,31 @@
             </table>
             <empty-list-placeholder v-else-if="tokens"></empty-list-placeholder>
         </loading-cover>
+        <modal-confirm v-if="tokenToRevoke"
+            class="modal-warning"
+            @confirm="revokeToken(tokenToRevoke)"
+            @cancel="tokenToRevoke = undefined"
+            :header="$t('Are you sure you want to revoke this token?')"
+            :loading="revoking">
+            {{ $t('Any application or device that uses the {tokenName} token will not work anymore.', {tokenName: tokenToRevoke.name})}}
+        </modal-confirm>
     </div>
 </template>
 
 <script>
     import PersonalAccessTokenGenerateForm from "./personal-access-token-generate-form";
     import OauthScopeLabel from "../oauth-scope-label";
+    import CopyButton from "../../common/copy-button";
 
     export default {
-        components: {OauthScopeLabel, PersonalAccessTokenGenerateForm},
+        components: {CopyButton, OauthScopeLabel, PersonalAccessTokenGenerateForm},
         data() {
             return {
                 tokens: undefined,
                 generatingNewToken: false,
                 latestToken: undefined,
+                revoking: false,
+                tokenToRevoke: undefined,
             };
         },
         mounted() {
@@ -81,6 +93,13 @@
                 this.tokens.unshift(token);
                 this.latestToken = token;
                 this.generatingNewToken = false;
+            },
+            revokeToken(token) {
+                this.revoking = true;
+                this.$http.delete('oauth-personal-tokens/' + token.id)
+                    .then(() => this.tokens.splice(this.tokens.indexOf(token), 1))
+                    .then(() => this.tokenToRevoke = undefined)
+                    .finally(() => this.revoking = false);
             }
         }
     };

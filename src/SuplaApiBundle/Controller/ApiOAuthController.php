@@ -24,6 +24,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use OAuth2\OAuth2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Auth\SuplaOAuth2;
+use SuplaApiBundle\Entity\OAuth\AccessToken;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
 use SuplaApiBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Model\Transactional;
@@ -157,5 +158,16 @@ class ApiOAuthController extends RestController {
         $view = $this->view($token, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['token'], ['token']);
         return $view;
+    }
+
+    /**
+     * @Rest\Delete("/oauth-personal-tokens/{accessToken}")
+     * @Security("accessToken.belongsToUser(user) and accessToken.isPersonal() and has_role('ROLE_CHANNELGROUPS_R')")
+     */
+    public function deletePersonalTokenAction(AccessToken $accessToken, Request $request) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($accessToken) {
+            $em->remove($accessToken);
+            return new Response('', Response::HTTP_NO_CONTENT);
+        });
     }
 }

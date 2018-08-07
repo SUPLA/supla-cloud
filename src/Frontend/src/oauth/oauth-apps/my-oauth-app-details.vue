@@ -52,8 +52,10 @@
                                 <h3 class="text-center">{{ $t('Configuration') }}</h3>
                                 <h4>{{ $t('Public ID') }}</h4>
                                 <pre><code>{{ app.publicId }}</code></pre>
+                                <copy-button :text="app.publicId"></copy-button>
                                 <h4>{{ $t('Secret') }}</h4>
                                 <pre><code>{{ app.secret }}</code></pre>
+                                <copy-button :text="app.secret"></copy-button>
                             </div>
                         </div>
                     </pending-changes-page>
@@ -74,10 +76,11 @@
     import PageContainer from "src/common/pages/page-container";
     import PendingChangesPage from "src/common/pages/pending-changes-page";
     import Vue from "vue";
+    import CopyButton from "../../common/copy-button";
 
     export default {
         props: ['id'],
-        components: {PageContainer, PendingChangesPage},
+        components: {CopyButton, PageContainer, PendingChangesPage},
         data() {
             return {
                 loading: false,

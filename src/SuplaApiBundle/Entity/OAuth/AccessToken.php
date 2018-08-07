@@ -20,6 +20,7 @@ namespace SuplaApiBundle\Entity\OAuth;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use SuplaApiBundle\Auth\OAuthScope;
+use SuplaBundle\Entity\BelongsToUser;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,6 +28,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="supla_oauth_access_tokens")
  */
 class AccessToken extends BaseAccessToken {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -73,5 +76,9 @@ class AccessToken extends BaseAccessToken {
 
     public function setScope($scope) {
         parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
+    }
+
+    public function isPersonal() {
+        return !$this->getExpiresAt();
     }
 }
