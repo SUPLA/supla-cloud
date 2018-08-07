@@ -52,12 +52,14 @@
                     r: 'look',
                     rw: 'edit',
                     ea: 'power',
+                    access: 'moon',
                 }
             };
         },
         mounted() {
             const desiredScopes = addImplicitScopes(arrayOfScopes(this.desiredScopes));
             const desiredAvailableScopes = cloneDeep(availableScopes);
+            debugger;
             desiredAvailableScopes.forEach(
                 scope => scope.suffixes = scope.suffixes.filter(suffix => desiredScopes.indexOf(scopeId(scope, suffix)) !== -1)
             );

@@ -21,6 +21,7 @@ use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
 use SuplaApiBundle\Entity\OAuth\AccessToken;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaApiBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\User;
 
 class SuplaOAuth2 extends OAuth2 {
@@ -37,7 +38,7 @@ class SuplaOAuth2 extends OAuth2 {
     }
 
     private function getSupportedScopes(): array {
-        $supportedScopes = ['restapi', 'channels_ea', 'channelgroups_ea'];
+        $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea'];
         foreach (['accessids', 'account', 'channels', 'channelgroups', 'clientapps', 'iodevices', 'locations', 'schedules'] as $rwScope) {
             $supportedScopes[] = $rwScope . '_r';
             $supportedScopes[] = $rwScope . '_rw';
@@ -83,6 +84,10 @@ class SuplaOAuth2 extends OAuth2 {
         $token->setName($name);
         $token->setToken($this->genAccessToken());
         return $token;
+    }
+
+    public function isAuthorized(ApiClientAuthorization $apiClientAuthorization, string $scope): bool {
+        return $this->checkScope($scope, $apiClientAuthorization->getScope());
     }
 
     private function randomizeTokenLifetime(int $lifetime): int {

@@ -7,16 +7,18 @@ export const availableScopes = [
     {prefix: 'accessids', suffixes: ['r', 'rw'], label: 'Access Identifiers'},
     {prefix: 'locations', suffixes: ['r', 'rw'], label: 'Locations'},
     {prefix: 'schedules', suffixes: ['r', 'rw'], label: 'Schedules'},
+    {prefix: 'offline', suffixes: ['access'], label: 'Offline access'},
 ];
 
 export function scopeId(scope, suffix) {
-    return `${scope.prefix}_${suffix}`;
+    return `${scope.prefix}${suffix ? '_' + suffix : ''}`;
 }
 
 export const scopeSuffixLabels = {
     'r': 'Read',
     'rw': 'Modify',
     'ea': 'Execute action',
+    'access': 'Use your account when you are away',
 };
 
 const SCOPE_DELIMITER = ' ';

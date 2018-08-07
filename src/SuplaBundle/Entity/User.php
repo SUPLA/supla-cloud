@@ -22,6 +22,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaApiBundle\Entity\OAuth\ApiClientAuthorization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -214,6 +215,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     private $oauthOldApiCompatEnabled;
 
+    /**
+     * @ORM\OneToMany(targetEntity="SuplaApiBundle\Entity\OAuth\ApiClientAuthorization", mappedBy="user", cascade={"persist"})
+     */
+    private $apiClientAuthorizations;
+
     public function __construct() {
         $this->limitAid = 10;
         $this->limitLoc = 10;
@@ -227,6 +233,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->iodevices = new ArrayCollection();
         $this->schedules = new ArrayCollection();
         $this->clientApps = new ArrayCollection();
+        $this->apiClientAuthorizations = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
@@ -550,5 +557,14 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
             'rules' => $this->rulesAgreement,
             'cookies' => $this->cookiesAgreement,
         ];
+    }
+
+    public function addApiClientAuthorization(ApiClient $apiClient, string $scope) {
+        $authorization = new ApiClientAuthorization();
+        $authorization->setUser($this);
+        $authorization->setApiClient($apiClient);
+        $authorization->setScope($scope);
+        $authorization->setAuthorizationDate(new \DateTime());
+        $this->apiClientAuthorizations->add($authorization);
     }
 }
