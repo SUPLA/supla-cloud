@@ -32,7 +32,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiIntegrationsController extends RestController {
+class ApiOAuthController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
@@ -55,6 +55,7 @@ class ApiIntegrationsController extends RestController {
 
     /**
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Get("/oauth-clients")
      */
     public function getApplicationsAction(Request $request) {
         $applications = $this->getUser()->getApiClients();
@@ -65,6 +66,7 @@ class ApiIntegrationsController extends RestController {
 
     /**
      * @Security("client.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Get("/oauth-clients/{client}")
      */
     public function getApplicationAction(ApiClient $client, Request $request) {
         $view = $this->view($client, Response::HTTP_OK);
@@ -74,7 +76,7 @@ class ApiIntegrationsController extends RestController {
 
     /**
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
-     * @Rest\Post("/applications")
+     * @Rest\Post("/oauth-clients")
      */
     public function postApplicationsAction(ApiClient $newClient, Request $request) {
         $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
@@ -85,6 +87,7 @@ class ApiIntegrationsController extends RestController {
 
     /**
      * @Security("client.belongsToUser(user) && has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Put("/oauth-clients/{client}")
      */
     public function putApplicationsAction(ApiClient $client, ApiClient $updatedClient, Request $request) {
         $client->setName($updatedClient->getName());
@@ -96,6 +99,7 @@ class ApiIntegrationsController extends RestController {
 
     /**
      * @Security("client.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
+     * @Rest\Delete("/oauth-clients/{client}")
      */
     public function deleteApplicationAction(ApiClient $client) {
         return $this->transactional(function (EntityManagerInterface $em) use ($client) {
@@ -105,16 +109,7 @@ class ApiIntegrationsController extends RestController {
     }
 
     /**
-     * @Rest\Get("/integrations/personal-tokens")
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
-     */
-    public function getPersonalTokensAction(Request $request) {
-        $accessTokens = $this->accessTokenRepository->findPersonalTokens($this->getUser());
-        return $this->view($accessTokens, Response::HTTP_OK);
-    }
-
-    /**
-     * @Rest\Get("/integrations/authorized-apps")
+     * @Rest\Get("/oauth-authorized-clients")
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getAuthorizedAppsAction(Request $request) {
@@ -125,7 +120,7 @@ class ApiIntegrationsController extends RestController {
     }
 
     /**
-     * @Rest\Delete("/integrations/authorized-apps/{authorizedApp}")
+     * @Rest\Delete("/oauth-authorized-clients/{authorizedApp}")
      * @Security("authorizedApp.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function deleteAuthorizedAppAction(ApiClientAuthorization $authorizedApp, Request $request) {
@@ -136,7 +131,16 @@ class ApiIntegrationsController extends RestController {
     }
 
     /**
-     * @Rest\Post("/integrations/personal-tokens")
+     * @Rest\Get("/oauth-personal-tokens")
+     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     */
+    public function getPersonalTokensAction(Request $request) {
+        $accessTokens = $this->accessTokenRepository->findPersonalTokens($this->getUser());
+        return $this->view($accessTokens, Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Post("/oauth-personal-tokens")
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function postPersonalTokensAction(Request $request) {
@@ -154,77 +158,4 @@ class ApiIntegrationsController extends RestController {
         $this->setSerializationGroups($view, $request, ['token'], ['token']);
         return $view;
     }
-
-//    /**
-//     * @Rest\Get("/channel-groups/{channelGroup}")
-//     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
-//     */
-//    public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
-//        $view = $this->view($channelGroup, Response::HTTP_OK);
-//        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location']);
-//        return $view;
-//    }
-//
-//    /**
-//     * @Rest\Post("/channel-groups")
-//     * @Security("has_role('ROLE_CHANNELGROUPS_RW')")
-//     */
-//    public function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
-//        $user = $this->getUser();
-//        Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
-//        Assertion::lessOrEqualThan(
-//            $channelGroup->getChannels()->count(),
-//            $user->getLimitChannelPerGroup(),
-//            'Too many channels in this group'
-//        );
-//        return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
-//            $em->persist($channelGroup);
-//            $this->suplaServer->reconnect();
-//            return $this->view($channelGroup, Response::HTTP_CREATED);
-//        });
-//    }
-//
-//    /**
-//     * @Rest\Put("/channel-groups/{channelGroup}")
-//     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
-//     */
-//    public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated) {
-//        $user = $this->getUser();
-//        Assertion::lessOrEqualThan($updated->getChannels()->count(), $user->getLimitChannelPerGroup(), 'Too many channels in this group');
-//        return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
-//            $channelGroup->setCaption($updated->getCaption());
-//            $channelGroup->setAltIcon($updated->getAltIcon());
-//            $channelGroup->setChannels($updated->getChannels());
-//            $channelGroup->setHidden($updated->getHidden());
-//            $channelGroup->setLocation($updated->getLocation());
-//            $em->persist($channelGroup);
-//            $this->suplaServer->reconnect();
-//            return $this->view($channelGroup, Response::HTTP_CREATED);
-//        });
-//    }
-//
-//    /**
-//     * @Rest\Delete("/channel-groups/{channelGroup}")
-//     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
-//     */
-//    public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
-//        return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
-//            $em->remove($channelGroup);
-//            $this->suplaServer->reconnect();
-//            return new Response('', Response::HTTP_NO_CONTENT);
-//        });
-//    }
-//
-//    /**
-//     * @Rest\Patch("/channel-groups/{channelGroup}")
-//     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_EA')")
-//     */
-//    public function patchChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
-//        $params = json_decode($request->getContent(), true);
-//        Assertion::keyExists($params, 'action', 'Missing action.');
-//        $action = ChannelFunctionAction::fromString($params['action']);
-//        unset($params['action']);
-//        $this->channelActionExecutor->executeAction($channelGroup, $action, $params);
-//        return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
-//    }
 }

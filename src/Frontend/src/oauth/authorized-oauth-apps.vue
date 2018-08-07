@@ -56,14 +56,14 @@
             };
         },
         mounted() {
-            this.$http.get('integrations/authorized-apps?include=client').then(response => {
+            this.$http.get('oauth-authorized-clients?include=client').then(response => {
                 this.authorizedApps = response.body;
             });
         },
         methods: {
             revokeApp(app) {
                 this.revoking = true;
-                this.$http.delete('integrations/authorized-apps/' + app.id)
+                this.$http.delete('oauth-authorized-clients/' + app.id)
                     .then(() => this.authorizedApps.splice(this.authorizedApps.indexOf(app), 1))
                     .then(() => this.appToRevoke = undefined)
                     .finally(() => this.revoking = false);

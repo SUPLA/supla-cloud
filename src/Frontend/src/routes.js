@@ -58,19 +58,19 @@ export default [
         ]
     },
     {
-        path: '/integrations', component: () => import("./integrations/integrations-page"), children: [
-            {path: 'authorized', component: () => import("./integrations/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
+        path: '/integrations', component: () => import("./oauth/integrations-page"), children: [
+            {path: 'authorized', component: () => import("./oauth/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
             {
-                path: 'my', component: () => import("./integrations/my-oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
+                path: 'apps', component: () => import("./oauth/oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
                     {
                         path: ':id',
-                        component: () => import("./integrations/my-oauth-apps/my-oauth-app-details"),
+                        component: () => import("./oauth/oauth-apps/my-oauth-app-details"),
                         name: 'myOauthApp',
                         props: true
                     }
                 ]
             },
-            {path: 'tokens', component: () => import("./integrations/personal-access-tokens"), name: 'personal-tokens'},
+            {path: 'tokens', component: () => import("./oauth/personal-tokens/personal-access-tokens"), name: 'personal-tokens'},
         ]
     },
     {path: '/me', component: () => import("./home/my-supla-page")},

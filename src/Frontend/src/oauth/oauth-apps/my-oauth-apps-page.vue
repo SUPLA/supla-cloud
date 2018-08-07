@@ -1,7 +1,7 @@
 <template>
     <carousel-page header="My OAuth apps"
         tile="my-oauth-app-tile"
-        endpoint="applications"
+        endpoint="oauth-clients"
         create-new-label="Register a new OAuth application"
         details-route="myOauthApp"></carousel-page>
 </template>

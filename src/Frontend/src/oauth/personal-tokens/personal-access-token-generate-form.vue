@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import {availableScopes, scopeId, scopeSuffixLabels} from "./oauth-scopes";
+    import {availableScopes, scopeId, scopeSuffixLabels} from "../oauth-scopes";
 
     export default {
         data() {
@@ -62,7 +62,7 @@
                         this.token.scopes.push(scope);
                     }
                 }
-                this.$http.post('integrations/personal-tokens', this.token).then(response => {
+                this.$http.post('oauth-personal-tokens', this.token).then(response => {
                     this.$emit('generated', response.body);
                 });
             },
@@ -70,6 +70,7 @@
                 const scopeId = this.scopeId(scope, suffix);
                 if (suffix == 'r' && !this.selectedScopes[scopeId]) {
                     this.$set(this.selectedScopes, this.scopeId(scope, 'rw'), false);
+
                 } else if (suffix == 'rw' && this.selectedScopes[scopeId]) {
                     this.$set(this.selectedScopes, this.scopeId(scope, 'r'), true);
                 }

@@ -96,7 +96,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`applications/${this.id}?include=secret`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`oauth-clients/${this.id}?include=secret`, {skipErrorHandler: [403, 404]})
                         .then(response => this.app = response.body)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
@@ -109,12 +109,12 @@
                 const toSend = Vue.util.extend({}, this.app);
                 this.loading = true;
                 if (this.isNew) {
-                    this.$http.post('applications', toSend).then(response => {
+                    this.$http.post('oauth-clients', toSend).then(response => {
                         this.$emit('add', response.body);
                     }).catch(() => this.loading = false);
                 } else {
                     this.$http
-                        .put('applications/' + this.app.id, toSend)
+                        .put('oauth-clients/' + this.app.id, toSend)
                         .then(response => this.$emit('update', response.body))
                         .then(() => this.hasPendingChanges = false)
                         .finally(() => this.loading = false);
@@ -125,7 +125,7 @@
             },
             deleteApp() {
                 this.loading = true;
-                this.$http.delete('applications/' + this.app.id).then(() => this.$emit('delete'));
+                this.$http.delete('oauth-clients/' + this.app.id).then(() => this.$emit('delete'));
                 this.app = undefined;
             },
             cancelChanges() {

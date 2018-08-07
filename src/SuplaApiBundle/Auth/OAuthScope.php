@@ -67,6 +67,11 @@ final class OAuthScope {
         return $this;
     }
 
+    public function addWebappScope(): self {
+        $this->scopes[] = 'webapp';
+        return $this;
+    }
+
     public function hasScope(string $scope, bool $respectImplicit = true): bool {
         $scopes = new self($this);
         if ($respectImplicit) {
@@ -101,7 +106,17 @@ final class OAuthScope {
 
     public static function getSupportedScopes(): array {
         $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea'];
-        foreach (['accessids', 'account', 'channels', 'channelgroups', 'clientapps', 'iodevices', 'locations', 'schedules'] as $rwScope) {
+        foreach ([
+                     'accessids',
+                     'account',
+                     'apiconfig',
+                     'channels',
+                     'channelgroups',
+                     'clientapps',
+                     'iodevices',
+                     'locations',
+                     'schedules',
+                 ] as $rwScope) {
             $supportedScopes[] = $rwScope . '_r';
             $supportedScopes[] = $rwScope . '_rw';
         }

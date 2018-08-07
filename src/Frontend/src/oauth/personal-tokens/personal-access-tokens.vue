@@ -24,8 +24,8 @@
             v-if="latestToken">
             <div class="form-group">A new personal access token has been generated.
                 <strong>Make sure to copy it now because you won’t be able to see it again!</strong></div>
-            <api-setting-copy-input :label="latestToken.name"
-                :value="latestToken.token"></api-setting-copy-input>
+            <!--<api-setting-copy-input :label="latestToken.name"-->
+            <!--:value="latestToken.token"></api-setting-copy-input>-->
         </div>
         <loading-cover :loading="!tokens">
             <table class="table table-striped"
@@ -60,11 +60,10 @@
 
 <script>
     import PersonalAccessTokenGenerateForm from "./personal-access-token-generate-form";
-    import ApiSettingCopyInput from "../account-details/api-setting-copy-input";
-    import OauthScopeLabel from "./oauth-scope-label";
+    import OauthScopeLabel from "../oauth-scope-label";
 
     export default {
-        components: {OauthScopeLabel, ApiSettingCopyInput, PersonalAccessTokenGenerateForm},
+        components: {OauthScopeLabel, PersonalAccessTokenGenerateForm},
         data() {
             return {
                 tokens: undefined,
@@ -73,7 +72,7 @@
             };
         },
         mounted() {
-            this.$http.get('integrations/personal-tokens').then(response => {
+            this.$http.get('oauth-personal-tokens').then(response => {
                 this.tokens = response.body;
             });
         },
