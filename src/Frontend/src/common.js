@@ -96,7 +96,14 @@ Vue.prototype.$user.refreshUser().then(() => {
 
             const i18n = new VueI18N({
                 locale: 'SUPLA_TRANSLATIONS',
-                messages: {SUPLA_TRANSLATIONS}
+                messages: {SUPLA_TRANSLATIONS},
+                missing(locale, key) {
+                    if (!window.MISSING_TRANSLATIONS) {
+                        window.MISSING_TRANSLATIONS = {};
+                    }
+                    window.MISSING_TRANSLATIONS[key] = '~';
+                    return key;
+                }
             });
 
             const app = new Vue({
