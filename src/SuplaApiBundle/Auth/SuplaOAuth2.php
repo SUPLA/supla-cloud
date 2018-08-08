@@ -33,7 +33,7 @@ class SuplaOAuth2 extends OAuth2 {
         parent::__construct($storage, $config);
         $this->suplaUrl = $suplaUrl;
         $this->tokensLifetime = $tokensLifetime;
-        $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, OAuthScope::getSupportedScopes());
+        $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, OAuthScope::getAllKnownScopes());
     }
 
     protected function genAccessToken() {
@@ -63,9 +63,8 @@ class SuplaOAuth2 extends OAuth2 {
         );
     }
 
-    public function createPersonalAccessToken(User $user, string $name, array $scopes): AccessToken {
+    public function createPersonalAccessToken(User $user, string $name, OAuthScope $scope): AccessToken {
         $token = new AccessToken();
-        $scope = new OAuthScope($scopes);
         $token->setScope((string)($scope->ensureThatAllScopesAreSupported()->addImplicitScopes()));
         $token->setUser($user);
         $token->setName($name);

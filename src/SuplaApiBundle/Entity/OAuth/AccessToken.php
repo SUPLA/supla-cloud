@@ -75,7 +75,7 @@ class AccessToken extends BaseAccessToken {
     }
 
     public function setScope($scope) {
-        parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
+        parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreKnown()->addImplicitScopes());
     }
 
     public function isPersonal() {

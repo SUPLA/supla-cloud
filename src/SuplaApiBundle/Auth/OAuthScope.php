@@ -49,6 +49,14 @@ final class OAuthScope {
         return $this;
     }
 
+    public function ensureThatAllScopesAreKnown(): self {
+        $unsupportedScopes = array_diff($this->scopes, self::getAllKnownScopes());
+        if ($unsupportedScopes) {
+            throw new ApiException('Unknown scopes: ' . implode(', ', $unsupportedScopes));
+        }
+        return $this;
+    }
+
     public function removeUnsupportedScopes(): self {
         $this->scopes = array_intersect(self::getSupportedScopes(), $this->scopes);
         return $this;
@@ -105,6 +113,10 @@ final class OAuthScope {
     }
 
     public static function getSupportedScopes(): array {
+        return array_diff(self::getAllKnownScopes(), ['restapi']);
+    }
+
+    public static function getAllKnownScopes(): array {
         $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea'];
         foreach ([
                      'accessids',

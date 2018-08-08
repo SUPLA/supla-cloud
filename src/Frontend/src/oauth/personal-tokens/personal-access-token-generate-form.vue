@@ -48,7 +48,7 @@
                 selectedScopes: {},
                 token: {
                     name: '',
-                    scopes: []
+                    scope: []
                 }
             };
         },
@@ -56,10 +56,10 @@
         },
         methods: {
             saveNewToken() {
-                this.token.scopes = [];
+                this.token.scope = [];
                 for (let scope in this.selectedScopes) {
                     if (this.selectedScopes[scope]) {
-                        this.token.scopes.push(scope);
+                        this.token.scope.push(scope);
                     }
                 }
                 this.$http.post('oauth-personal-tokens', this.token).then(response => {

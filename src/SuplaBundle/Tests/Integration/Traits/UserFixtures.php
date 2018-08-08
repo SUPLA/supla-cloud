@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
+use SuplaApiBundle\Auth\OAuthScope;
 use SuplaApiBundle\Entity\EntityUtils;
 use SuplaApiBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\IODevice;
@@ -48,7 +49,7 @@ trait UserFixtures {
         EntityUtils::setField($token, 'user', $user);
         EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
         EntityUtils::setField($token, 'token', base64_encode($username));
-        EntityUtils::setField($token, 'scope', 'restapi');
+        EntityUtils::setField($token, 'scope', (string)(new OAuthScope(OAuthScope::getSupportedScopes())));
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($token);
         $em->flush();

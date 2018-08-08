@@ -23,6 +23,7 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OAuth2\OAuth2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaApiBundle\Auth\OAuthScope;
 use SuplaApiBundle\Auth\SuplaOAuth2;
 use SuplaApiBundle\Entity\OAuth\AccessToken;
 use SuplaApiBundle\Entity\OAuth\ApiClient;
@@ -137,7 +138,9 @@ class ApiOAuthController extends RestController {
      */
     public function getPersonalTokensAction(Request $request) {
         $accessTokens = $this->accessTokenRepository->findPersonalTokens($this->getUser());
-        return $this->view($accessTokens, Response::HTTP_OK);
+        $view = $this->view($accessTokens, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, []);
+        return $view;
     }
 
     /**
@@ -147,15 +150,15 @@ class ApiOAuthController extends RestController {
     public function postPersonalTokensAction(Request $request) {
         $data = $request->request->all();
         Assertion::keyExists($data, 'name');
-        Assertion::keyExists($data, 'scopes');
+        Assertion::keyExists($data, 'scope');
         Assertion::notBlank($data['name'], 'Personal token name is required.');
-        Assertion::isArray($data['scopes'], 'Personal token scope is required.');
-        $token = $this->transactional(function (EntityManagerInterface $entityManager) use ($data) {
-            $token = $this->oauthServer->createPersonalAccessToken($this->getUser(), $data['name'], $data['scopes']);
+        $scope = new OAuthScope($data['scope']);
+        $token = $this->transactional(function (EntityManagerInterface $entityManager) use ($data, $scope) {
+            $token = $this->oauthServer->createPersonalAccessToken($this->getUser(), $data['name'], $scope);
             $entityManager->persist($token);
             return $token;
         });
-        $view = $this->view($token, Response::HTTP_OK);
+        $view = $this->view($token, Response::HTTP_CREATED);
         $this->setSerializationGroups($view, $request, ['token'], ['token']);
         return $view;
     }

@@ -21,6 +21,7 @@ use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
+use SuplaApiBundle\Auth\OAuthScope;
 use SuplaApiBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Repository\ApiClientRepository;
 use SuplaBundle\Supla\ServerList;
@@ -77,7 +78,7 @@ class ApiTokensController extends RestController {
             'client_id' => $webappClient->getPublicId(),
             'client_secret' => $webappClient->getSecret(),
             'grant_type' => $grantType,
-            'scope' => 'restapi',
+            'scope' => (string)(new OAuthScope(OAuthScope::getSupportedScopes())),
         ];
         if ($grantType == OAuth2::GRANT_TYPE_REFRESH_TOKEN) {
             $requestData['refresh_token'] = $request->get('refresh_token');
