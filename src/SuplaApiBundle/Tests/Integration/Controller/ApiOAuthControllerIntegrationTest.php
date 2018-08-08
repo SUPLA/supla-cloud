@@ -106,4 +106,21 @@ class ApiOAuthControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', '/api/unicorns');
         $this->assertStatusCode(404, $client->getResponse());
     }
+
+    public function testFullAccessPersonalTokenDoesNotAllowToIssuePersonalTokens() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest('POST', '/api/oauth-personal-tokens', [
+            'name' => 'My Sample Token',
+            'scope' => (string)(new OAuthScope(OAuthScope::getSupportedScopes())),
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $token = json_decode($response->getContent(), true)['token'];
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('GET', '/api/users/current');
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->request('GET', '/api/oauth-personal-tokens');
+        $this->assertStatusCode(403, $client->getResponse());
+    }
 }

@@ -121,7 +121,6 @@ final class OAuthScope {
         foreach ([
                      'accessids',
                      'account',
-                     'apiconfig',
                      'channels',
                      'channelgroups',
                      'clientapps',

@@ -69,6 +69,15 @@ class ApiTokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content->authenticated);
     }
 
+    public function testAccessingWebappOnlyApiWithIssuedWebappToken() {
+        $token = $this->testIssuingTokenForWebapp()['access_token'];
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('GET', '/api/oauth-personal-tokens', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
     public function testRefreshingWebappToken() {
         $tokenData = $this->testIssuingTokenForWebapp();
         $client = self::createClient([], ['HTTPS' => true]);
@@ -83,6 +92,16 @@ class ApiTokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('refresh_token', $content);
         $this->assertNotEquals($content['access_token'], $tokenData['access_token']);
         $this->assertNotEquals($content['refresh_token'], $tokenData['refresh_token']);
+        return $content;
+    }
+
+    public function testAccessingWebappOnlyApiWithRefreshedWebappToken() {
+        $token = $this->testRefreshingWebappToken()['access_token'];
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('GET', '/api/oauth-personal-tokens', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function testIssuingTokenForWebappViaWebappAuthBroker() {

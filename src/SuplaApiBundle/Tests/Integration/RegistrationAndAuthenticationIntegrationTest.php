@@ -347,7 +347,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     private function assertFailedLoginRequest(TestClient $client, $username = null, $password = null) {
         $password = $password ?: 'invalidpassword';
         $this->loginRequest($client, $username, $password);
-        $this->assertStatusCode(401, $client->getResponse());
+        $this->assertStatusCode([401, 429], $client->getResponse());
     }
 
     private function loginRequest(TestClient $client, $username = null, $password = null) {

@@ -56,31 +56,31 @@ class ApiOAuthController extends RestController {
     }
 
     /**
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("has_role('ROLE_WEBAPP')")
      * @Rest\Get("/oauth-clients")
      */
-    public function getApplicationsAction(Request $request) {
+    public function getOAuthClientsAction(Request $request) {
         $applications = $this->getUser()->getApiClients();
         $view = $this->view($applications, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['secret']);
+        $this->setSerializationGroups($view, $request, []);
         return $view;
     }
 
     /**
-     * @Security("client.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("client.belongsToUser(user) and has_role('ROLE_WEBAPP')")
      * @Rest\Get("/oauth-clients/{client}")
      */
-    public function getApplicationAction(ApiClient $client, Request $request) {
+    public function getOAuthClientAction(ApiClient $client, Request $request) {
         $view = $this->view($client, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['secret']);
         return $view;
     }
 
     /**
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("has_role('ROLE_WEBAPP')")
      * @Rest\Post("/oauth-clients")
      */
-    public function postApplicationsAction(ApiClient $newClient, Request $request) {
+    public function postOAuthClientsAction(ApiClient $newClient, Request $request) {
         $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
         $newClient->setUser($this->getUser());
         $this->clientManager->updateClient($newClient);
@@ -88,10 +88,10 @@ class ApiOAuthController extends RestController {
     }
 
     /**
-     * @Security("client.belongsToUser(user) && has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("client.belongsToUser(user) && has_role('ROLE_WEBAPP')")
      * @Rest\Put("/oauth-clients/{client}")
      */
-    public function putApplicationsAction(ApiClient $client, ApiClient $updatedClient, Request $request) {
+    public function putOAuthClientAction(ApiClient $client, ApiClient $updatedClient, Request $request) {
         $client->setName($updatedClient->getName());
         $client->setDescription($updatedClient->getDescription());
         $client->setRedirectUris($updatedClient->getRedirectUris());
@@ -100,10 +100,10 @@ class ApiOAuthController extends RestController {
     }
 
     /**
-     * @Security("client.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
+     * @Security("client.belongsToUser(user) and has_role('ROLE_WEBAPP')")
      * @Rest\Delete("/oauth-clients/{client}")
      */
-    public function deleteApplicationAction(ApiClient $client) {
+    public function deleteOAuthClientAction(ApiClient $client) {
         return $this->transactional(function (EntityManagerInterface $em) use ($client) {
             $em->remove($client);
             return new Response('', Response::HTTP_NO_CONTENT);
@@ -112,9 +112,9 @@ class ApiOAuthController extends RestController {
 
     /**
      * @Rest\Get("/oauth-authorized-clients")
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("has_role('ROLE_WEBAPP')")
      */
-    public function getAuthorizedAppsAction(Request $request) {
+    public function getAuthorizedClientsAction(Request $request) {
         $apps = $this->getUser()->getApiClientAuthorizations();
         $view = $this->view($apps, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['client']);
@@ -123,9 +123,9 @@ class ApiOAuthController extends RestController {
 
     /**
      * @Rest\Delete("/oauth-authorized-clients/{authorizedApp}")
-     * @Security("authorizedApp.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("authorizedApp.belongsToUser(user) and has_role('ROLE_WEBAPP')")
      */
-    public function deleteAuthorizedAppAction(ApiClientAuthorization $authorizedApp, Request $request) {
+    public function deleteAuthorizedClientsAction(ApiClientAuthorization $authorizedApp, Request $request) {
         return $this->transactional(function (EntityManagerInterface $em) use ($authorizedApp) {
             $em->remove($authorizedApp);
             return new Response('', Response::HTTP_NO_CONTENT);
@@ -134,7 +134,7 @@ class ApiOAuthController extends RestController {
 
     /**
      * @Rest\Get("/oauth-personal-tokens")
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("has_role('ROLE_WEBAPP')")
      */
     public function getPersonalTokensAction(Request $request) {
         $accessTokens = $this->accessTokenRepository->findPersonalTokens($this->getUser());
@@ -145,7 +145,7 @@ class ApiOAuthController extends RestController {
 
     /**
      * @Rest\Post("/oauth-personal-tokens")
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("has_role('ROLE_WEBAPP')")
      */
     public function postPersonalTokensAction(Request $request) {
         $data = $request->request->all();
@@ -165,7 +165,7 @@ class ApiOAuthController extends RestController {
 
     /**
      * @Rest\Delete("/oauth-personal-tokens/{accessToken}")
-     * @Security("accessToken.belongsToUser(user) and accessToken.isPersonal() and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("accessToken.belongsToUser(user) and accessToken.isPersonal() and has_role('ROLE_WEBAPP')")
      */
     public function deletePersonalTokenAction(AccessToken $accessToken, Request $request) {
         return $this->transactional(function (EntityManagerInterface $em) use ($accessToken) {

@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 trait ResponseAssertions {
     /**
      * Asserts that HTTP response's status code is equal to expected or belongs to expected family.
-     * @param $expectedStatus int|string representing code (eg. 200, 404) or string representing code family (eg. '2xx', '4xx')
+     * @param $expectedStatus int|string|int[] representing code (eg. 200, 404) or string representing code family (eg. '2xx', '4xx')
      * @param Response $clientResponse
      */
     protected function assertStatusCode($expectedStatus, Response $clientResponse) {
@@ -33,6 +33,8 @@ trait ResponseAssertions {
             . str_replace('%', 'p', $clientResponse->getContent());
         if (is_int($expectedStatus)) {
             Assert::assertEquals($expectedStatus, $actualStatus, sprintf($message, $expectedStatus));
+        } elseif (is_array($expectedStatus)) {
+            Assert::assertContains($actualStatus, $expectedStatus, sprintf($message, implode('|', $expectedStatus)));
         } elseif (preg_match('/^[1-5]xx$/i', $expectedStatus)) {
             $firstDigit = intval($expectedStatus[0]);
             Assert::assertEquals($firstDigit, floor($actualStatus / 100), sprintf($message, $expectedStatus));

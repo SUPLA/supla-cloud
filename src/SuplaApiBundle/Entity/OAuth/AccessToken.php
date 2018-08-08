@@ -20,6 +20,7 @@ namespace SuplaApiBundle\Entity\OAuth;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use SuplaApiBundle\Auth\OAuthScope;
+use SuplaApiBundle\Enums\ApiClientType;
 use SuplaBundle\Entity\BelongsToUser;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -79,7 +80,11 @@ class AccessToken extends BaseAccessToken {
         parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreKnown()->addImplicitScopes());
     }
 
-    public function isPersonal() {
+    public function isPersonal(): bool {
         return !$this->getExpiresAt();
+    }
+
+    public function isForWebapp(): bool {
+        return $this->client && $this->client->getType() == ApiClientType::WEBAPP();
     }
 }
