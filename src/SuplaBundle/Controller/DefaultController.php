@@ -24,6 +24,7 @@ use SuplaBundle\Supla\ServerList;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\LockedException;
 use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends Controller {
@@ -70,6 +71,10 @@ class DefaultController extends Controller {
 //                $session->set('_fos_oauth_server.ensure_logout', true);
 //            }
 //        }
+
+        if ($error) {
+            $error = $error instanceof LockedException ? 'locked' : 'error';
+        }
 
         return [
             // last username entered by the user

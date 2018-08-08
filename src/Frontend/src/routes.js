@@ -1,15 +1,10 @@
 import HomePage from "./home/home-page";
-import LoginForm from "./login/login-form";
+import LoginPage from "./login/login-page";
 
 export default [
     {path: '/', component: HomePage},
-    {path: '/login', component: LoginForm, alias: '/auth/login', meta: {unrestricted: true, onlyUnauthenticated: true}, name: 'login'},
-    {
-        path: '/oauth-authorize',
-        component: () => import("./login/login-form-oauth-authorize"),
-        meta: {unrestricted: true},
-        name: 'oauthAuthorize'
-    },
+    {path: '/login', component: LoginPage, alias: '/auth/login', meta: {unrestricted: true, onlyUnauthenticated: true}, name: 'login'},
+    {path: '/oauth-authorize', component: () => import("./login/login-page-oauth"), meta: {unrestricted: true}, name: 'oauthAuthorize'},
     {
         path: '/terms',
         component: () => import("./common/pages/terms"),

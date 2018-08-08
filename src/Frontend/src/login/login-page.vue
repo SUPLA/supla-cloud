@@ -1,0 +1,47 @@
+<template>
+    <form @submit.prevent="login()"
+        ref="loginForm"
+        method="post"
+        v-title="$t('Login')">
+        <login-form v-model="user"
+            :authenticating="authenticating"
+            :error="displayError"></login-form>
+        <login-footer remind-password-link="true"></login-footer>
+    </form>
+</template>
+
+<script>
+    import LoginForm from "./login-form.vue";
+    import LoginFooter from "./login-footer.vue";
+    import {errorNotification} from "../common/notifier";
+
+    export default {
+        components: {LoginFooter, LoginForm},
+        data() {
+            return {
+                authenticating: false,
+                user: undefined,
+                displayError: false,
+            };
+        },
+        methods: {
+            login() {
+                if (!this.authenticating) {
+                    this.authenticating = true;
+                    this.displayError = false;
+                    this.$user.authenticate(this.user.username, this.user.password)
+                        .then(() => this.$router.push('/'))
+                        .catch((error) => {
+                            if (error.status == 401) {
+                                this.displayError = true;
+                                // TODO else if blocked
+                            } else {
+                                errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
+                            }
+                            this.authenticating = false;
+                        });
+                }
+            }
+        }
+    };
+</script>
