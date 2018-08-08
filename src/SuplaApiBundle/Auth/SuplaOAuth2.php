@@ -58,7 +58,7 @@ class SuplaOAuth2 extends OAuth2 {
             $data,
             $scope,
             $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']),
-            $issueRefreshToken,
+            (new OAuthScope($scope))->hasScope('offline_access'),
             $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['refresh'])
         );
     }
