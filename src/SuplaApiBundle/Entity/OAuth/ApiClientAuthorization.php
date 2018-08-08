@@ -54,7 +54,7 @@ class ApiClientAuthorization {
     private $apiClient;
 
     /**
-     * @ORM\Column(name="scope", type="string", length=255, nullable=true)
+     * @ORM\Column(name="scope", type="string", length=2000, nullable=false)
      * @Groups({"basic"})
      */
     private $scope;

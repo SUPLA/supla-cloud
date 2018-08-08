@@ -20,11 +20,11 @@ namespace SuplaApiBundle\Entity\OAuth;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use SuplaApiBundle\Auth\OAuthScope;
-use SuplaApiBundle\Entity\User;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_oauth_refresh_tokens")
+ * @ORM\AttributeOverrides({@ORM\AttributeOverride(name="scope", column=@ORM\Column(length=2000))})
  */
 class RefreshToken extends BaseRefreshToken {
     /**

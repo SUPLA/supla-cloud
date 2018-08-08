@@ -26,6 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AccessTokenRepository")
  * @ORM\Table(name="supla_oauth_access_tokens")
+ * @ORM\AttributeOverrides({@ORM\AttributeOverride(name="scope", column=@ORM\Column(length=2000))})
  */
 class AccessToken extends BaseAccessToken {
     use BelongsToUser;
@@ -46,7 +47,7 @@ class AccessToken extends BaseAccessToken {
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $user;
 
