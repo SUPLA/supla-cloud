@@ -42,7 +42,7 @@ class AccessToken extends BaseAccessToken {
 
     /**
      * @ORM\ManyToOne(targetEntity="ApiClient")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     protected $client;
 

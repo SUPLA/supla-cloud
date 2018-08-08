@@ -35,7 +35,7 @@ class AuthCode extends BaseAuthCode {
 
     /**
      * @ORM\ManyToOne(targetEntity="ApiClient")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     protected $client;
 

@@ -84,7 +84,7 @@ class ApiOAuthController extends RestController {
         $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
         $newClient->setUser($this->getUser());
         $this->clientManager->updateClient($newClient);
-        return $this->getApplicationAction($newClient, $request);
+        return $this->getOAuthClientAction($newClient, $request);
     }
 
     /**
@@ -96,7 +96,7 @@ class ApiOAuthController extends RestController {
         $client->setDescription($updatedClient->getDescription());
         $client->setRedirectUris($updatedClient->getRedirectUris());
         $this->clientManager->updateClient($client);
-        return $this->getApplicationAction($client, $request);
+        return $this->getOAuthClientAction($client, $request);
     }
 
     /**

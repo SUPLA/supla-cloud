@@ -42,13 +42,13 @@ class ApiClientAuthorization {
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User", inversedBy="apiClientAuthorizations")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\OAuth\ApiClient", inversedBy="apiClientAuthorizations")
-     * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Groups({"client"})
      */
     private $apiClient;
