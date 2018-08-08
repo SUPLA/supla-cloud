@@ -26,7 +26,6 @@ use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaApiBundle\Exception\ApiException;
 use SuplaApiBundle\Model\Audit\AuditAware;
-use SuplaBundle\Controller\AjaxController;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
@@ -254,13 +253,8 @@ class ApiUserController extends RestController {
         if (preg_match('/@/', $username) || $token) {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $server = $this->serverList->getAuthServerForUser($username);
-                if ($server) {
-                    $result = AjaxController::remoteRequest($server . $this->generateUrl('_homepage') . 'api/forgotten-password', [
-                        'email' => $username,
-                        'locale' => $request->getLocale(),
-                    ]);
-                    Assertion::true($result && $result->success, 'Could not reset the password.');
-                }
+                list(, $status) = $server->resetPasswordToken($username, $request->getLocale());
+                Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.');
             } elseif ($request->getMethod() == Request::METHOD_POST) {
                 if (LocaleListener::localeAllowed($data['locale'] ?? null)) {
                     $request->getSession()->set('_locale', $data['locale']);
