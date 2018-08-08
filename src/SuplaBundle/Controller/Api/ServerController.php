@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Controller;
+namespace SuplaBundle\Controller\Api;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use SuplaApiBundle\Model\ApiVersions;
@@ -24,7 +24,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiServerController extends RestController {
+class ServerController extends RestController {
     use SuplaServerAware;
 
     /** @var ServerList */

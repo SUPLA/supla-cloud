@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Controller;
+namespace SuplaBundle\Controller\Api;
 
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\FOSRestController;

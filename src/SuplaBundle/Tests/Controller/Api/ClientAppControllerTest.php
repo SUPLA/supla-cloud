@@ -15,19 +15,18 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Controller;
+namespace SuplaBundle\Tests\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\View;
-use SuplaApiBundle\Controller\ApiClientAppController;
-use SuplaBundle\Controller\ClientAppController;
+use SuplaBundle\Controller\Api\ClientAppController;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApiClientAppControllerTest extends \PHPUnit_Framework_TestCase {
+class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
     /** @var  EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $entityManager;
     /** @var ClientAppController|\PHPUnit_Framework_MockObject_MockObject */
@@ -36,7 +35,7 @@ class ApiClientAppControllerTest extends \PHPUnit_Framework_TestCase {
     private $suplaServer;
 
     protected function setUp() {
-        $this->controller = $this->getMockBuilder(ApiClientAppController::class)
+        $this->controller = $this->getMockBuilder(ClientAppController::class)
             ->setMethods(['getUser'])
             ->getMock();
         $this->suplaServer = $this->createMock(SuplaServer::class);

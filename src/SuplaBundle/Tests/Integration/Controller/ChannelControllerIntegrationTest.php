@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration\Controller;
+namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -26,7 +26,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 
-class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
+class ChannelControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
@@ -53,7 +53,7 @@ class ApiChannelControllerIntegrationTest extends IntegrationTestCase {
         $channel = $this->device->getChannels()[0];
         $client->request('GET', '/api/channels/' . $channel->getId());
         $response = $client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
         $this->assertTrue($content->enabled);
         $commands = $this->getSuplaServerCommands($client);

@@ -1,0 +1,11 @@
+supla_api:
+  type: rest
+  prefix: /api/{version}
+  resource: "@SuplaBundle/Controller/Api"
+  name_prefix: api_
+
+supla_api_default:
+  type: rest
+  prefix: /api
+  resource: "@SuplaBundle/Controller/Api"
+  name_prefix: api_default_

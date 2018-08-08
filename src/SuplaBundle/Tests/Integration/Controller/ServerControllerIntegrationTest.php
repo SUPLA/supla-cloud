@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration\Controller;
+namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaApiBundle\Model\ApiVersions;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -23,7 +23,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 
-class ApiServerControllerIntegrationTest extends IntegrationTestCase {
+class ServerControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 

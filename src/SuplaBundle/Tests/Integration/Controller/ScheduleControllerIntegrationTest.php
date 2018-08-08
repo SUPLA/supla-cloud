@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration\Controller;
+namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\IODevice;
@@ -28,7 +28,7 @@ use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiScheduleControllerIntegrationTest extends IntegrationTestCase {
+class ScheduleControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 

@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Controller;
+namespace SuplaBundle\Controller\Api;
 
 use Assert\Assert;
 use Assert\Assertion;
@@ -30,7 +30,7 @@ use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiScheduleController extends RestController {
+class ScheduleController extends RestController {
     /** @var ScheduleRepository */
     private $scheduleRepository;
     /** @var ChannelActionExecutor */

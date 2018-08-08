@@ -2,6 +2,10 @@ supla:
   resource: "@SuplaBundle/Controller"
   type: annotation
 
+api:
+  type: rest
+  resource: "@SuplaBundle/Resources/config/routing-api.yml"
+
 fos_oauth_server_token:
   resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 

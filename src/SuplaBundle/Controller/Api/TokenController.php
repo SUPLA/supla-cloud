@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Controller;
+namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -33,7 +33,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Idea of issuing tokens without client & secret taken from the gist: https://gist.github.com/johnpancoast/359bad0255cb50ccd6ab13e4ac18e4e8
  */
-class ApiTokensController extends RestController {
+class TokenController extends RestController {
     /** @var SuplaOAuth2 */
     private $server;
     /** @var RouterInterface */

@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Controller;
+namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
@@ -34,7 +34,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiChannelController extends RestController {
+class ChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
