@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\DependencyInjection;
 
-use SuplaApiBundle\Enums\ApiClientType;
+use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 

@@ -102,7 +102,7 @@ services:
       - { name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess }
       - { name: kernel.event_listener, event: fos_oauth_server.post_authorization_process, method: onPostAuthorizationProcess }
 
-  SuplaApiBundle\EventListener\ApiExceptionHandler:
+  SuplaBundle\EventListener\ApiExceptionHandler:
     arguments:
       - "%kernel.debug%"
     tags:
@@ -130,15 +130,15 @@ services:
 
   SuplaBundle\Repository\AccessTokenRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaApiBundle\Entity\OAuth\AccessToken]
+    arguments: [SuplaBundle\Entity\OAuth\AccessToken]
 
   SuplaBundle\Repository\ApiClientRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaApiBundle\Entity\OAuth\ApiClient]
+    arguments: [SuplaBundle\Entity\OAuth\ApiClient]
 
   SuplaBundle\Repository\ApiClientAuthorizationRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaApiBundle\Entity\OAuth\ApiClientAuthorization]
+    arguments: [SuplaBundle\Entity\OAuth\ApiClientAuthorization]
 
   SuplaBundle\Repository\AuditEntryRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]

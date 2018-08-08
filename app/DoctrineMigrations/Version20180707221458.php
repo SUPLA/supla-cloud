@@ -4,7 +4,7 @@ namespace Application\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
-use SuplaApiBundle\Enums\ApiClientType;
+use SuplaBundle\Enums\ApiClientType;
 
 /**
  * Set all existing API clients to USER type.

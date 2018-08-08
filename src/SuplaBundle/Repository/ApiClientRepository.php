@@ -3,8 +3,8 @@ namespace SuplaBundle\Repository;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityRepository;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Enums\ApiClientType;
+use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Enums\ApiClientType;
 
 /**
  * @method ApiClient|null findOneByType(int $type)

@@ -15,14 +15,14 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Entity\OAuth;
+namespace SuplaBundle\Entity\OAuth;
 
 use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\Client;
-use SuplaApiBundle\Enums\ApiClientType;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**

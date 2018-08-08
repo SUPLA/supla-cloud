@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaApiBundle\Entity\EntityUtils;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\TemperatureLogItem;
 use SuplaBundle\Entity\User;

@@ -1,5 +1,5 @@
 <?php
-namespace SuplaApiBundle\Entity;
+namespace SuplaBundle\Entity;
 
 final class EntityUtils {
     private function __construct() {

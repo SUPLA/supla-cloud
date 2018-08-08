@@ -15,18 +15,17 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Entity\OAuth;
+namespace SuplaBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
+use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 use SuplaApiBundle\Auth\OAuthScope;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_oauth_refresh_tokens")
- * @ORM\AttributeOverrides({@ORM\AttributeOverride(name="scope", column=@ORM\Column(length=2000))})
+ * @ORM\Table(name="supla_oauth_auth_codes")
  */
-class RefreshToken extends BaseRefreshToken {
+class AuthCode extends BaseAuthCode {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -46,6 +45,6 @@ class RefreshToken extends BaseRefreshToken {
     protected $user;
 
     public function setScope($scope) {
-        parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreKnown()->addImplicitScopes());
+        parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
     }
 }

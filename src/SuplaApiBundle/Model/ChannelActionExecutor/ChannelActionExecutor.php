@@ -2,7 +2,7 @@
 namespace SuplaApiBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaApiBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 

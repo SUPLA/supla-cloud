@@ -18,7 +18,7 @@
 namespace SuplaApiBundle\Auth;
 
 use FOS\OAuthServerBundle\Security\Authentication\Provider\OAuthProvider;
-use SuplaApiBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class WebappAwareOAuthProvider extends OAuthProvider {

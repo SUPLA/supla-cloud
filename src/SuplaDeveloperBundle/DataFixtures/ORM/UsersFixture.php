@@ -19,8 +19,8 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use SuplaApiBundle\Auth\OAuthScope;
-use SuplaApiBundle\Entity\EntityUtils;
-use SuplaApiBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;

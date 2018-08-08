@@ -22,11 +22,11 @@ doctrine:
     auto_mapping: true
 
 fos_oauth_server:
-  access_token_class: SuplaApiBundle\Entity\OAuth\AccessToken
-  auth_code_class: SuplaApiBundle\Entity\OAuth\AuthCode
-  client_class: SuplaApiBundle\Entity\OAuth\ApiClient
+  access_token_class: SuplaBundle\Entity\OAuth\AccessToken
+  auth_code_class: SuplaBundle\Entity\OAuth\AuthCode
+  client_class: SuplaBundle\Entity\OAuth\ApiClient
+  refresh_token_class: SuplaBundle\Entity\OAuth\RefreshToken
   db_driver: orm
-  refresh_token_class: SuplaApiBundle\Entity\OAuth\RefreshToken
   service:
     options:
       access_token_lifetime: 300

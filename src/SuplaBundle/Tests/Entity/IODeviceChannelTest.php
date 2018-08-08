@@ -18,7 +18,6 @@
 namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
-use SuplaApiBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
@@ -50,7 +49,7 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         $location = $this->createMock(Location::class);
         $ioDevice = $this->createMock(IODevice::class);
         $ioDevice->method('getLocation')->willReturn($location);
-        EntityUtils::setField($channel, 'iodevice', $ioDevice);
+        \SuplaBundle\Entity\EntityUtils::setField($channel, 'iodevice', $ioDevice);
         $this->assertEquals($location, $channel->getLocation());
         $this->assertTrue($channel->hasInheritedLocation());
     }
@@ -60,7 +59,7 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         $location = $this->createMock(Location::class);
         $ioDevice = $this->createMock(IODevice::class);
         $ioDevice->method('getLocation')->willReturn($location);
-        EntityUtils::setField($channel, 'iodevice', $ioDevice);
+        \SuplaBundle\Entity\EntityUtils::setField($channel, 'iodevice', $ioDevice);
         $channel->setLocation($location);
         $this->assertEquals($location, $channel->getLocation());
         $this->assertFalse($channel->hasInheritedLocation());

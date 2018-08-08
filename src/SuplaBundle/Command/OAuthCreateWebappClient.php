@@ -3,8 +3,8 @@ namespace SuplaBundle\Command;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Enums\ApiClientType;
+use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Repository\ApiClientRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

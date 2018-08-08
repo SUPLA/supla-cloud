@@ -19,9 +19,9 @@ namespace SuplaApiBundle\Tests\Integration;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Entity\OAuth\AuthCode;
 use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\AuthCode;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;

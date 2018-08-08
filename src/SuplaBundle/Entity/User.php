@@ -21,8 +21,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Entity\OAuth\ApiClientAuthorization;
+use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -160,7 +160,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $iodevices;
 
     /**
-     * @ORM\OneToMany(targetEntity="SuplaApiBundle\Entity\OAuth\ApiClient", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\OAuth\ApiClient", mappedBy="user", cascade={"persist"})
      */
     private $apiClients;
 
@@ -216,7 +216,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $oauthOldApiCompatEnabled;
 
     /**
-     * @ORM\OneToMany(targetEntity="SuplaApiBundle\Entity\OAuth\ApiClientAuthorization", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\OAuth\ApiClientAuthorization", mappedBy="user", cascade={"persist"})
      */
     private $apiClientAuthorizations;
 

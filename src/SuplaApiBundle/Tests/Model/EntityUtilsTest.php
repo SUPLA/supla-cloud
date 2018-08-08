@@ -17,7 +17,7 @@
 
 namespace SuplaApiBundle\Tests\Model;
 
-use SuplaApiBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 
 class EntityUtilsTest extends \PHPUnit_Framework_TestCase {

@@ -2,8 +2,8 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
-use SuplaApiBundle\Entity\OAuth\ApiClientAuthorization;
+use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\User;
 
 class ApiClientAuthorizationRepository extends EntityRepository {

@@ -17,7 +17,7 @@
 
 namespace SuplaApiBundle\Serialization;
 
-use SuplaApiBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\EntityUtils;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;

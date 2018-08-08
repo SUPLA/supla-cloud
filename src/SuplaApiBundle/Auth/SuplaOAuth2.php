@@ -19,8 +19,8 @@ namespace SuplaApiBundle\Auth;
 use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
-use SuplaApiBundle\Entity\OAuth\AccessToken;
-use SuplaApiBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 
 class SuplaOAuth2 extends OAuth2 {

@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Entity\OAuth;
+namespace SuplaBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
@@ -47,7 +47,7 @@ class ApiClientAuthorization {
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SuplaApiBundle\Entity\OAuth\ApiClient", inversedBy="apiClientAuthorizations")
+     * @ORM\ManyToOne(targetEntity="ApiClient", inversedBy="apiClientAuthorizations")
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Groups({"client"})
      */
