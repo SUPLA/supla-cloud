@@ -69,6 +69,15 @@ class ApiTokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content->authenticated);
     }
 
+    public function testAccessingApiWithInvalidToken() {
+        $token = $this->testIssuingTokenForWebapp()['access_token'];
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token . 'a', 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('GET', '/api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertEquals(401, $response->getStatusCode());
+    }
+
     public function testAccessingWebappOnlyApiWithIssuedWebappToken() {
         $token = $this->testIssuingTokenForWebapp()['access_token'];
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
@@ -93,6 +102,16 @@ class ApiTokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEquals($content['access_token'], $tokenData['access_token']);
         $this->assertNotEquals($content['refresh_token'], $tokenData['refresh_token']);
         return $content;
+    }
+
+    public function testRefreshingWebappTokenWithInvalidToken() {
+        $tokenData = $this->testIssuingTokenForWebapp();
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-tokens', [
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $tokenData['refresh_token'] . 'a',
+        ]);
+        $this->assertStatusCode(401, $client->getResponse());
     }
 
     public function testAccessingWebappOnlyApiWithRefreshedWebappToken() {
