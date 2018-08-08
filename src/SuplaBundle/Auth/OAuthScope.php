@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Auth;
 
-use SuplaApiBundle\Exception\ApiException;
+use SuplaBundle\Exception\ApiException;
 
 final class OAuthScope {
     const SCOPE_DELIMITER = ' ';

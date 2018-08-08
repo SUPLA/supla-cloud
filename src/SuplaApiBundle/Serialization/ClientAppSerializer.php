@@ -18,8 +18,8 @@
 namespace SuplaApiBundle\Serialization;
 
 use Assert\Assertion;
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Supla\SuplaServerAware;
 
 class ClientAppSerializer extends AbstractSerializer {

@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Auth;
 
-use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Auth\OAuthScope;
+use SuplaBundle\Exception\ApiException;
 
 class OauthScopeTest extends \PHPUnit_Framework_TestCase {
     public function testGetSupportedScopes() {

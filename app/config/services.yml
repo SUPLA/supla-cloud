@@ -10,11 +10,11 @@ services:
   _instanceof:
     SuplaApiBundle\ParamConverter\AbstractBodyParamConverter:
       tags: [request.param_converter]
-    SuplaApiBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
+    SuplaBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
       tags: [supla.channel_action_executor]
-    SuplaApiBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
+    SuplaBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
       tags: [supla.channel_params_updater]
-    SuplaApiBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
+    SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
@@ -50,19 +50,16 @@ services:
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner'
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner'
 
-  SuplaApiBundle\Model\:
-    resource: '../../src/SuplaApiBundle/Model'
-
-  SuplaApiBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
+  SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
     - !tagged supla.channel_action_executor
 
-  SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater:
+  SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater:
     - !tagged supla.channel_params_updater
 
-  SuplaApiBundle\Model\ChannelStateGetter\ChannelStateGetter:
+  SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
     - !tagged supla.channel_state_getter
 
-  SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
+  SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
     $enabled: '%supla.brute_force_auth_prevention.enabled%'
     $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'
     $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'

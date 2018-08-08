@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\User;
@@ -25,6 +24,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
 class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;

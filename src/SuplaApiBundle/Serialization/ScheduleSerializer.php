@@ -17,8 +17,8 @@
 
 namespace SuplaApiBundle\Serialization;
 
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;

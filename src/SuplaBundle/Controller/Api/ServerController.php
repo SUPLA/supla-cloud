@@ -18,7 +18,7 @@
 namespace SuplaBundle\Controller\Api;
 
 use FOS\RestBundle\Controller\Annotations\Get;
-use SuplaApiBundle\Model\ApiVersions;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Supla\ServerList;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;

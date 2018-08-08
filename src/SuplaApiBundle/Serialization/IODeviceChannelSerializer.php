@@ -18,10 +18,10 @@
 namespace SuplaApiBundle\Serialization;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaApiBundle\Model\ChannelStateGetter\ChannelStateGetter;
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Supla\SuplaServerAware;
 
 class IODeviceChannelSerializer extends AbstractSerializer {

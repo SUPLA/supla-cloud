@@ -18,7 +18,7 @@
 namespace SuplaBundle\EventListener;
 
 use Assert\InvalidArgumentException;
-use SuplaApiBundle\Exception\ApiExceptionWithDetails;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;

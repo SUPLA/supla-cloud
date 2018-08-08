@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Tests\Integration;
 
-use SuplaApiBundle\Model\ApiVersions;
+use SuplaBundle\Model\ApiVersions;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 class TestClient extends Client {

@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaApiBundle\Model\ApiVersions;
-use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
 class TokensControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;

@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaApiBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\TemperatureLogItem;
@@ -26,6 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
 class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;

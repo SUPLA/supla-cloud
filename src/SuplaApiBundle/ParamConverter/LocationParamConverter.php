@@ -2,8 +2,8 @@
 namespace SuplaApiBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\AccessIdRepository;
 
 class LocationParamConverter extends AbstractBodyParamConverter {

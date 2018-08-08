@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
-use SuplaApiBundle\Model\RemoteSuplaServer;
+use SuplaBundle\Model\RemoteSuplaServer;
 use SuplaBundle\Model\UserManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;

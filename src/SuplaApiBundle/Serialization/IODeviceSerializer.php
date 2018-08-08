@@ -18,8 +18,8 @@
 namespace SuplaApiBundle\Serialization;
 
 use Assert\Assertion;
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;

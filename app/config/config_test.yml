@@ -13,12 +13,12 @@ framework:
   test: ~
 
 services:
-  SuplaApiBundle\Tests\Integration\TestMailer: ~
+  SuplaBundle\Tests\Integration\TestMailer: ~
   SuplaBundle\Mailer\SuplaMailer:
     $router: '@router'
     $templating: '@templating.engine.twig'
     $requestStack: '@request_stack'
-    $mailer: '@SuplaApiBundle\Tests\Integration\TestMailer'
+    $mailer: '@SuplaBundle\Tests\Integration\TestMailer'
     $mailer_from: "%mailer_from%"
     $email_admin: "%admin_email%"
     $supla_server: "%supla_server%"

@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Auth;
 
-use SuplaApiBundle\Model\Audit\AuditAware;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Mailer\SuplaMailer;
+use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;

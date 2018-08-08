@@ -2,8 +2,8 @@
 namespace SuplaApiBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\ClientAppRepository;
 use SuplaBundle\Repository\LocationRepository;
 

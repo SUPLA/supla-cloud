@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Supla;
 
-use SuplaApiBundle\Exception\ApiException;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Exception\ApiException;
 use Symfony\Component\HttpFoundation\Response;
 
 class SuplaAutodiscover {

@@ -17,14 +17,14 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
-use SuplaApiBundle\Model\Audit\Audit;
-use SuplaApiBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
+use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
+use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 

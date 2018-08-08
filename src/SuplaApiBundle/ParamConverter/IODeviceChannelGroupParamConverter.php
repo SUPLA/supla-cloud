@@ -2,8 +2,8 @@
 namespace SuplaApiBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
 

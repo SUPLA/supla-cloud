@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Model;
+namespace SuplaBundle\Tests\Model;
 
 use SuplaApiBundle\ParamConverter\IODeviceChannelParamConverter;
 use SuplaBundle\Entity\IODeviceChannel;

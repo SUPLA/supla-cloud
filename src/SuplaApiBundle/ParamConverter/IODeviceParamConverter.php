@@ -1,8 +1,8 @@
 <?php
 namespace SuplaApiBundle\ParamConverter;
 
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\LocationRepository;
 
 class IODeviceParamConverter extends AbstractBodyParamConverter {

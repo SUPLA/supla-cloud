@@ -18,8 +18,8 @@
 namespace SuplaBundle\Auth;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\Security\Core\Exception\DisabledException;

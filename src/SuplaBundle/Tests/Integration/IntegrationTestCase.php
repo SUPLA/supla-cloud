@@ -18,7 +18,6 @@
 namespace SuplaBundle\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaApiBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
