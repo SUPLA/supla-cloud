@@ -24,7 +24,6 @@ use SuplaBundle\Supla\ServerList;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\LockedException;
 use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends Controller {
@@ -58,7 +57,6 @@ class DefaultController extends Controller {
     public function oAuthLoginAction(Request $request) {
         $session = $request->getSession();
 
-        // get the login error if there is one
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
         } else {
@@ -72,15 +70,16 @@ class DefaultController extends Controller {
 //            }
 //        }
 
+        $lastUsername = $session->get(Security::LAST_USERNAME);
+
         if ($error) {
-            $error = $error instanceof LockedException ? 'locked' : 'error';
+            $error = 'error';
+            if ($lastUsername && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername)) {
+                $error = 'locked';
+            }
         }
 
-        return [
-            // last username entered by the user
-            'last_username' => $session->get(Security::LAST_USERNAME),
-            'error' => $error,
-        ];
+        return ['last_username' => $lastUsername, 'error' => $error];
     }
 
     /**

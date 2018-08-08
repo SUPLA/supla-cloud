@@ -23,9 +23,11 @@ use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
 use SuplaApiBundle\Auth\OAuthScope;
 use SuplaApiBundle\Auth\SuplaOAuth2;
+use SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Repository\ApiClientRepository;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -40,17 +42,21 @@ class ApiTokensController extends RestController {
     private $apiClientRepository;
     /** @var ServerList */
     private $serverList;
+    /** @var FailedAuthAttemptsUserBlocker */
+    private $failedAuthAttemptsUserBlocker;
 
     public function __construct(
         SuplaOAuth2 $server,
         RouterInterface $router,
         ApiClientRepository $apiClientRepository,
-        ServerList $serverList
+        ServerList $serverList,
+        FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker
     ) {
         $this->server = $server;
         $this->router = $router;
         $this->apiClientRepository = $apiClientRepository;
         $this->serverList = $serverList;
+        $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
     }
 
     /** @Rest\Post("/webapp-auth") */
@@ -92,7 +98,15 @@ class ApiTokensController extends RestController {
         try {
             return $this->server->grantAccessToken($tokenRequest);
         } catch (OAuth2ServerException $e) {
-            return $e->getHttpResponse()->setStatusCode(401);
+            $username = $request->get('username');
+            if ($username && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($username)) {
+                return $this->view(
+                    ['error' => 'locked', 'error_description' => 'Your account has been blocked for a while.'],
+                    Response::HTTP_TOO_MANY_REQUESTS
+                );
+            } else {
+                return $e->getHttpResponse()->setStatusCode(401);
+            }
         }
     }
 }

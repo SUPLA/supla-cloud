@@ -23,7 +23,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 
-class ApiTokensControllerIntegrationTest extends IntegrationTestCase {
+class ApiOAuthControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 

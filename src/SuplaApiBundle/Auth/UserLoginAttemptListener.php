@@ -22,6 +22,8 @@ use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Repository\UserRepository;
+use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UserLoginAttemptListener {
     use AuditAware;
@@ -53,5 +55,15 @@ class UserLoginAttemptListener {
         if ($user && $user->isEnabled() && $entry->getIntParam() != AuthenticationFailureReason::BLOCKED) {
             $this->mailer->sendFailedAuthenticationAttemptWarning($user, $entry->getIpv4());
         }
+    }
+
+    /* these two methods are called when authenticating to authorize an OAuth app */
+    public function onInteractiveAuthenticationSuccess(InteractiveLoginEvent $event) {
+        $this->onAuthenticationSuccess($event->getAuthenticationToken()->getUsername());
+    }
+
+    public function onInteractiveAuthenticationFailure(AuthenticationFailureEvent $event) {
+        $reason = AuthenticationFailureReason::fromException($event->getAuthenticationException());
+        $this->onAuthenticationFailure($event->getAuthenticationToken()->getUsername(), $reason);
     }
 }

@@ -33,9 +33,11 @@
                         .then(() => this.$router.push('/'))
                         .catch((error) => {
                             if (error.status == 401) {
-                                this.displayError = true;
-                                // TODO else if blocked
-                            } else {
+                                this.displayError = 'error';
+                            } else if (error.status == 429) {
+                                this.displayError = 'locked';
+                            }
+                            else {
                                 errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             }
                             this.authenticating = false;

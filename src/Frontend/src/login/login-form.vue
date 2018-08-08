@@ -46,7 +46,7 @@
         </div>
         <transition name="fade">
             <div class="error locked"
-                v-if="error == 'locked'">
+                v-if="error === 'locked'">
                 <strong>{{ $t('Your account has been locked.') }}</strong>
                 {{ $t('Please wait a moment before the next login attempt.') }}
             </div>
@@ -54,7 +54,7 @@
         <transition name="fade">
             <router-link to="/forgotten-password"
                 class="error"
-                v-if="error">
+                v-if="error && error !== 'locked'">
                 <strong>{{ $t('Forgot your password?') }}</strong>
                 {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
