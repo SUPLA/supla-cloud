@@ -36,10 +36,10 @@ class APIManager {
         $this->doctrine = $doctrine;
         $this->encoder_factory = $encoder_factory;
         $this->user_rep = $doctrine->getRepository('SuplaBundle:User');
-        $this->oauth_client_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\ApiClient');
-        $this->oauth_token_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\AccessToken');
-        $this->oauth_rtoken_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\RefreshToken');
-        $this->oauth_code_rep = $doctrine->getRepository('SuplaApiBundle:OAuth\AuthCode');
+        $this->oauth_client_rep = $doctrine->getRepository('SuplaBundle:OAuth\ApiClient');
+        $this->oauth_token_rep = $doctrine->getRepository('SuplaBundle:OAuth\AccessToken');
+        $this->oauth_rtoken_rep = $doctrine->getRepository('SuplaBundle:OAuth\RefreshToken');
+        $this->oauth_code_rep = $doctrine->getRepository('SuplaBundle:OAuth\AuthCode');
         $this->container = $container;
     }
 

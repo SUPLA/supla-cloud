@@ -1,5 +1,5 @@
 <?php
-namespace SuplaApiBundle\ParamConverter;
+namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\AccessID;

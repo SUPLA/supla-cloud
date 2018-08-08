@@ -1,5 +1,5 @@
 <?php
-namespace SuplaApiBundle\Serialization;
+namespace SuplaBundle\Serialization;
 
 class ObjectIdCircularReferenceHandler {
     public function __invoke($object) {

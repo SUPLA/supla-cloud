@@ -15,11 +15,11 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Model;
+namespace SuplaBundle\Tests\Model\ParamConverter;
 
-use SuplaApiBundle\ParamConverter\IODeviceChannelParamConverter;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\ParamConverter\IODeviceChannelParamConverter;
 use SuplaBundle\Repository\LocationRepository;
 
 class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {

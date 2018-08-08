@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Serialization;
+namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\CurrentUserAware;

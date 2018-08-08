@@ -8,7 +8,7 @@ services:
     public: false
 
   _instanceof:
-    SuplaApiBundle\ParamConverter\AbstractBodyParamConverter:
+    SuplaBundle\ParamConverter\AbstractBodyParamConverter:
       tags: [request.param_converter]
     SuplaBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
       tags: [supla.channel_action_executor]
@@ -27,8 +27,6 @@ services:
   SuplaBundle\Form\Type\ChannelFunctionType:
     tags:
       - { alias: channelfunction, name: form.type }
-
-  SuplaApiBundle\Provider\ApiUserProvider: ~
 
   SuplaBundle\Command\:
     resource: '../../src/SuplaBundle/Command'
@@ -105,11 +103,11 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
-  SuplaApiBundle\ParamConverter\:
-    resource: '../../src/SuplaApiBundle/ParamConverter'
+  SuplaBundle\ParamConverter\:
+    resource: '../../src/SuplaBundle/ParamConverter'
 
-  SuplaApiBundle\Serialization\:
-    resource: '../../src/SuplaApiBundle/Serialization'
+  SuplaBundle\Serialization\:
+    resource: '../../src/SuplaBundle/Serialization'
 
   SuplaBundle\Mailer\SuplaMailer:
     $mailer_from: "%mailer_from%"

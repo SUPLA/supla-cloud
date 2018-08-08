@@ -1,5 +1,5 @@
 <?php
-namespace SuplaApiBundle\Serialization;
+namespace SuplaBundle\Serialization;
 
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 

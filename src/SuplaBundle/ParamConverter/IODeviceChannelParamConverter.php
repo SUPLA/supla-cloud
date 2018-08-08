@@ -1,5 +1,5 @@
 <?php
-namespace SuplaApiBundle\ParamConverter;
+namespace SuplaBundle\ParamConverter;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\CurrentUserAware;

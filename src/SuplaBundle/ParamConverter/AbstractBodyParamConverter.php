@@ -1,5 +1,5 @@
 <?php
-namespace SuplaApiBundle\ParamConverter;
+namespace SuplaBundle\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
