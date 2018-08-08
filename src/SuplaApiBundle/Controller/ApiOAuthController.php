@@ -81,7 +81,7 @@ class ApiOAuthController extends RestController {
      * @Rest\Post("/oauth-clients")
      */
     public function postOAuthClientsAction(ApiClient $newClient, Request $request) {
-        $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
+        $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
         $newClient->setUser($this->getUser());
         $this->clientManager->updateClient($newClient);
         return $this->getOAuthClientAction($newClient, $request);

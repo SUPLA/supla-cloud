@@ -42,13 +42,14 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $clientManager = $this->container->get(ClientManagerInterface::class);
         $client = $clientManager->createClient();
         $client->setRedirectUris(['https://unicorns.pl']);
-        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
+        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
         $clientManager->updateClient($client);
         $this->client = $client;
         $this->user = $this->createConfirmedUser();
     }
 
-    private function makeOAuthAuthorizeRequest(array $params = []) {
+    private function makeOAuthAuthorizeRequest(array $params = [], array $testCase = []) {
+        $testCase = array_merge(['grant' => true], $testCase);
         $params = array_merge([
             'client_id' => $this->client->getPublicId(),
             'redirect_uri' => 'https://unicorns.pl',
@@ -60,8 +61,10 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $client->request('GET', '/oauth/v2/auth?' . http_build_query($params));
         /** @var Crawler $crawler */
         $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
-        $form = $crawler->selectButton('accepted')->form();
-        $client->submit($form);
+        if ($testCase['grant']) {
+            $form = $crawler->selectButton('accepted')->form();
+            $client->submit($form);
+        }
     }
 
     public function testGrantingAccess() {
@@ -73,19 +76,19 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('account_r offline_access', $authorization->getScope());
     }
 
-    private function issueTokenBasedOnAuthCode($authCode = null) {
+    private function issueTokenBasedOnAuthCode($authCode = null, array $params = []) {
         if (!$authCode) {
             $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
             $this->assertCount(1, $authCodes);
             $authCode = $authCodes[0];
         }
-        $params = [
+        $params = array_merge([
             'grant_type' => 'authorization_code',
             'client_id' => $this->client->getPublicId(),
             'client_secret' => $this->client->getSecret(),
             'redirect_uri' => 'https://unicorns.pl',
             'code' => $authCode->getToken(),
-        ];
+        ], $params);
         $client = $this->createClient();
         $client->followRedirects();
         $client->apiRequest('POST', '/oauth/v2/token', $params);
@@ -103,6 +106,22 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('account_r offline_access', $response['scope']);
     }
 
+    public function testErrorWhenWrongSecret() {
+        $this->makeOAuthAuthorizeRequest();
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $params = [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret() . 'a',
+            'redirect_uri' => 'https://unicorns.pl',
+            'code' => $authCodes[0]->getToken(),
+        ];
+        $client = $this->createClient();
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
     public function testNotIssuingRefreshTokenIfOfflineAccessNotRequested() {
         $this->makeOAuthAuthorizeRequest(['scope' => 'account_r']);
         $response = $this->issueTokenBasedOnAuthCode();
@@ -118,10 +137,40 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty($authCodes);
     }
 
-//    public function testAutomaticallyGrantForAlreadyAuthorizedClients() {
-//        $this->makeOAuthAuthorizeRequest();
-//
-//    }
+    public function testAutomaticallyGrantForAlreadyAuthorizedClients() {
+        $this->makeOAuthAuthorizeRequest();
+        $this->makeOAuthAuthorizeRequest([], ['grant' => false]);
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $this->assertCount(2, $authCodes);
+    }
+
+    public function testAutomaticallyGrantForAlreadyAuthorizedClientsIfRequestedLessScope() {
+        $this->makeOAuthAuthorizeRequest();
+        $this->makeOAuthAuthorizeRequest(['scope' => 'account_r'], ['grant' => false]);
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $this->assertCount(2, $authCodes);
+    }
+
+    public function testRequiredRegrantingForAlreadyAuthorizedClientsIfRequestedBiggerScope() {
+        $this->makeOAuthAuthorizeRequest();
+        $this->makeOAuthAuthorizeRequest(['scope' => 'account_rw'], ['grant' => false]);
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $this->assertCount(1, $authCodes);
+    }
+
+    public function testRegrantingMergesScopes() {
+        $this->makeOAuthAuthorizeRequest();
+        $this->makeOAuthAuthorizeRequest(['scope' => 'account_rw']);
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $this->assertCount(2, $authCodes);
+        $token = $this->issueTokenBasedOnAuthCode($authCodes[1]);
+        $this->assertEquals('account_rw account_r', $token['scope']);
+        $user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->assertCount(1, $user->getApiClientAuthorizations());
+        $authorization = $user->getApiClientAuthorizations()[0];
+        $this->assertEquals($this->client->getId(), $authorization->getApiClient()->getId());
+        $this->assertEquals('account_r offline_access account_rw', $authorization->getScope());
+    }
 
     public function testAccessingApiWithGivenToken() {
         $this->makeOAuthAuthorizeRequest(['scope' => 'account_r']);
@@ -134,5 +183,22 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(403, $client->getResponse());
         $client->request('GET', '/api/unicorns');
         $this->assertStatusCode(404, $client->getResponse());
+    }
+
+    public function testRefreshingToken() {
+        $this->makeOAuthAuthorizeRequest(['scope' => 'offline_access']);
+        $response = $this->issueTokenBasedOnAuthCode();
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'refresh_token' => $response['refresh_token'],
+        ];
+        $client = $this->createClient();
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(200, $client->getResponse());
+        $refreshResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('access_token', $refreshResponse);
     }
 }
