@@ -568,6 +568,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->apiClientAuthorizations->add($authorization);
     }
 
+    /** @return ApiClientAuthorization[] */
     public function getApiClientAuthorizations() {
         return $this->apiClientAuthorizations;
     }

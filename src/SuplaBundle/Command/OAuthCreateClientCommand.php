@@ -42,7 +42,6 @@ class OAuthCreateClientCommand extends Command {
         $client = $this->clientManager->createClient();
         $client->setRedirectUris($input->getOption('redirect-uri'));
         $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
-        $client->setIssueRefreshToken(true);
         // Save the client
         $this->clientManager->updateClient($client);
         // Give the credentials back to the user
