@@ -31,7 +31,7 @@ fos_oauth_server:
     options:
       access_token_lifetime: 300
       refresh_token_lifetime: 500
-    storage: SuplaApiBundle\Auth\SuplaOAuthStorage
+    storage: SuplaBundle\Auth\SuplaOAuthStorage
 
 fos_rest:
   routing_loader:
@@ -87,7 +87,7 @@ parameters:
   supla_server_socket: /tmp/supla-server-ctrl.sock
   supla_url: '%supla_protocol%://%supla_server%'
   use_webpack_dev_server: false
-  fos_oauth_server.security.authentication.provider.class: SuplaApiBundle\Auth\WebappAwareOAuthProvider
+  fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\WebappAwareOAuthProvider
 
 sensio_framework_extra:
   request: { converters: true }

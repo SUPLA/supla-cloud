@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration;
+namespace SuplaBundle\Tests\Integration\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;

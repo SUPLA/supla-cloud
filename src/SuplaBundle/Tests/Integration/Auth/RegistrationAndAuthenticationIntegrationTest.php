@@ -15,9 +15,10 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Integration;
+namespace SuplaBundle\Tests\Integration\Auth;
 
 use SuplaApiBundle\Model\Audit\Audit;
+use SuplaApiBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;

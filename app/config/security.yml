@@ -39,7 +39,7 @@ security:
 
   providers:
     supla_db_provider:
-      id: 'SuplaApiBundle\Auth\UserProvider'
+      id: 'SuplaBundle\Auth\UserProvider'
 
   role_hierarchy:
     ROLE_ACCESSIDS_RW: ROLE_ACCESSIDS_R

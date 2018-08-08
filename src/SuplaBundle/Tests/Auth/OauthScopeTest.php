@@ -15,10 +15,10 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Tests\Auth;
+namespace SuplaBundle\Tests\Auth;
 
-use SuplaApiBundle\Auth\OAuthScope;
 use SuplaApiBundle\Exception\ApiException;
+use SuplaBundle\Auth\OAuthScope;
 
 class OauthScopeTest extends \PHPUnit_Framework_TestCase {
     public function testGetSupportedScopes() {

@@ -19,7 +19,7 @@ namespace SuplaBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
-use SuplaApiBundle\Auth\OAuthScope;
+use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\Serializer\Annotation\Groups;

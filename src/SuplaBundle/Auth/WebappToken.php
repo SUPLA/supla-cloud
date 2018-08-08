@@ -15,20 +15,17 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaApiBundle\Auth;
+namespace SuplaBundle\Auth;
 
-use FOS\OAuthServerBundle\Security\Authentication\Provider\OAuthProvider;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use FOS\OAuthServerBundle\Security\Authentication\Token\OAuthToken;
 
-class WebappAwareOAuthProvider extends OAuthProvider {
-    public function authenticate(TokenInterface $token) {
-        $authenticatedToken = parent::authenticate($token);
-        /** @var AccessToken $accessToken */
-        $accessToken = $this->serverService->verifyAccessToken($token->getToken());
-        if ($accessToken->isForWebapp()) {
-            $authenticatedToken = new WebappToken($authenticatedToken);
-        }
-        return $authenticatedToken;
+class WebappToken extends OAuthToken {
+    const ROLE_WEBAPP = 'ROLE_WEBAPP';
+
+    public function __construct(OAuthToken $token) {
+        parent::__construct(array_merge($token->getRoles(), [self::ROLE_WEBAPP]));
+        $this->setAuthenticated($token->isAuthenticated());
+        $this->setUser($token->getUser());
+        $this->setToken($token->getToken());
     }
 }

@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Integration\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
-use SuplaApiBundle\Auth\OAuthScope;
+use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;

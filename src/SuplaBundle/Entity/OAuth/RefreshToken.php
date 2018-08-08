@@ -19,7 +19,7 @@ namespace SuplaBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
-use SuplaApiBundle\Auth\OAuthScope;
+use SuplaBundle\Auth\OAuthScope;
 
 /**
  * @ORM\Entity

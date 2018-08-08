@@ -19,7 +19,7 @@ namespace SuplaBundle\Entity\OAuth;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use SuplaApiBundle\Auth\OAuthScope;
+use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Serializer\Annotation\Groups;
