@@ -60,7 +60,6 @@ class ApiTokensControllerIntegrationTest extends IntegrationTestCase {
 
     public function testAccessingApiWithIssuedWebappToken() {
         $token = $this->testIssuingTokenForWebapp()['access_token'];
-        /** @var Client $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
         $client->followRedirects();
         $client->request('GET', '/api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));

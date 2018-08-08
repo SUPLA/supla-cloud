@@ -64,14 +64,7 @@ class DefaultController extends Controller {
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
 
-//        if ($session->has('_security.target_path')) {
-//            if (false !== strpos($session->get('_security.target_path'), $this->generateUrl('fos_oauth_server_authorize'))) {
-//                $session->set('_fos_oauth_server.ensure_logout', true);
-//            }
-//        }
-
         $lastUsername = $session->get(Security::LAST_USERNAME);
-
         if ($error) {
             $error = 'error';
             if ($lastUsername && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername)) {

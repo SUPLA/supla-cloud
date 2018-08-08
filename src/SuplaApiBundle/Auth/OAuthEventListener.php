@@ -54,6 +54,7 @@ class OAuthEventListener {
             $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $event->getClient());
             if ($scope && $authorization) {
                 $event->setAuthorizedClient($authorization->isAuthorized($scope));
+                $this->invalidateSession();
             }
         }
     }
@@ -78,6 +79,14 @@ class OAuthEventListener {
                     });
                 }
             }
+        }
+        $this->invalidateSession();
+    }
+
+    private function invalidateSession() {
+        $request = $this->requestStack->getCurrentRequest();
+        if ($request && ($session = $request->getSession())) {
+            $session->invalidate(60);
         }
     }
 
