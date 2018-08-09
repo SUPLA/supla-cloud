@@ -107,7 +107,7 @@ supla:
       manual: 86400 # 24 hours
   oauth:
     tokens_lifetime:
-      webapp: [300, 600]
+      webapp: [3600]
       client_app: [3600, 5184000] # 60 days
       admin: [3600, 5184000]
       user: [3600, 5184000]

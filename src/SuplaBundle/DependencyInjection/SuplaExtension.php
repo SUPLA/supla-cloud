@@ -60,7 +60,7 @@ class SuplaExtension extends ConfigurableExtension {
             $id = ApiClientType::$clientType()->getValue();
             $mapped[$id] = [
                 'access' => $lifetimes[0],
-                'refresh' => $lifetimes[1],
+                'refresh' => $lifetimes[1] ?? 5184000,
             ];
         }
         return $mapped;

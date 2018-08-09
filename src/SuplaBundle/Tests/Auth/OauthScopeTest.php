@@ -81,4 +81,9 @@ class OauthScopeTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($scope->hasAllScopes('account_r locations_rw'));
         $this->assertFalse($scope->hasAllScopes('locations_rw'));
     }
+
+    public function testRemovingOneScope() {
+        $scope = (new OAuthScope('account_rw offline_access'))->remove('offline_access');
+        $this->assertEquals('account_rw', (string)$scope);
+    }
 }

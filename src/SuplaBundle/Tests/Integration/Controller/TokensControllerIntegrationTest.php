@@ -44,7 +44,7 @@ class TokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('access_token', $content);
-        $this->assertArrayHasKey('refresh_token', $content);
+        $this->assertArrayNotHasKey('refresh_token', $content);
         return $content;
     }
 
@@ -87,42 +87,6 @@ class TokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testRefreshingWebappToken() {
-        $tokenData = $this->testIssuingTokenForWebapp();
-        $client = self::createClient([], ['HTTPS' => true]);
-        $client->request('POST', '/api/webapp-tokens', [
-            'grant_type' => 'refresh_token',
-            'refresh_token' => $tokenData['refresh_token'],
-        ]);
-        $response = $client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-        $content = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('access_token', $content);
-        $this->assertArrayHasKey('refresh_token', $content);
-        $this->assertNotEquals($content['access_token'], $tokenData['access_token']);
-        $this->assertNotEquals($content['refresh_token'], $tokenData['refresh_token']);
-        return $content;
-    }
-
-    public function testRefreshingWebappTokenWithInvalidToken() {
-        $tokenData = $this->testIssuingTokenForWebapp();
-        $client = self::createClient([], ['HTTPS' => true]);
-        $client->request('POST', '/api/webapp-tokens', [
-            'grant_type' => 'refresh_token',
-            'refresh_token' => $tokenData['refresh_token'] . 'a',
-        ]);
-        $this->assertStatusCode(401, $client->getResponse());
-    }
-
-    public function testAccessingWebappOnlyApiWithRefreshedWebappToken() {
-        $token = $this->testRefreshingWebappToken()['access_token'];
-        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
-        $client->followRedirects();
-        $client->request('GET', '/api/oauth-personal-tokens', [], [], $this->versionHeader(ApiVersions::V2_2()));
-        $response = $client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
     public function testIssuingTokenForWebappViaWebappAuthBroker() {
         $client = self::createClient([], ['HTTPS' => true]);
         $client->request('POST', '/api/webapp-auth', [
@@ -133,7 +97,7 @@ class TokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('access_token', $content);
-        $this->assertArrayHasKey('refresh_token', $content);
+        $this->assertArrayNotHasKey('refresh_token', $content);
         return $content;
     }
 }

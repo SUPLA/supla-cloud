@@ -34,6 +34,13 @@ final class OAuthScope {
         $this->scopes = $scopes;
     }
 
+    public function remove(string $scope): self {
+        $this->scopes = array_filter($this->scopes, function ($existingScope) use ($scope) {
+            return $existingScope !== $scope;
+        });
+        return $this;
+    }
+
     public function removeImplicitScopes(): self {
         $this->scopes = array_filter($this->scopes, function (string $scope) {
             return !preg_match('#_r$#', $scope) || !$this->hasScope($scope . 'w', false);
