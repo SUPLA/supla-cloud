@@ -30,7 +30,7 @@
                     this.authenticating = true;
                     this.displayError = false;
                     this.$user.authenticate(this.user.username, this.user.password)
-                        .then(() => this.$router.push('/'))
+                        .then(() => this.$router.push(this.$router.currentRoute.query.target || '/'))
                         .catch((error) => {
                             if (error.status == 401) {
                                 this.displayError = 'error';
@@ -38,6 +38,7 @@
                                 this.displayError = 'locked';
                             }
                             else {
+                                console.warn(error); // eslint-disable-line no-console
                                 errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             }
                             this.authenticating = false;

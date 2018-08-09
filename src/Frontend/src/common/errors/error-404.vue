@@ -6,7 +6,7 @@
                 style="font-size: 160px"></i>
             <h5>{{ $t('The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.') }}</h5>
         </div>
-        <login-footer v-if="!$user"></login-footer>
+        <login-footer v-if="!$user.username"></login-footer>
     </div>
 </template>
 

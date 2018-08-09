@@ -35,7 +35,7 @@ export class CurrentUser {
         this.userData = undefined;
     }
 
-    refreshUser() {
+    fetchUser() {
         if (this.getToken()) {
             return this.fetchUserData();
         } else {
