@@ -204,6 +204,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     /**
      * @ORM\Column(name="oauth_compat_username", type="string", length=64, nullable=true,
      *     options={"comment":"For backward compatibility purpose"})
+     * @Groups({"basic"})
      */
     private $oauthCompatUserName;
 
@@ -532,8 +533,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->setPlainPassword($data['password']);
     }
 
-    public function setOAuthCompatUserPassword($password) {
-        $this->oauthCompatUserPassword = $password;
+    public function getOauthCompatUserName() {
+        return $this->oauthCompatUserName;
     }
 
     public function setOAuthOldApiCompatEnabled() {
