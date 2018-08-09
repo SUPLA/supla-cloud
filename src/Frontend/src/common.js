@@ -113,7 +113,8 @@ Vue.prototype.$user.fetchUser().then(() => {
                 i18n,
                 router,
                 components: {
-                    OauthAuthorizeForm: () => import("./login/oauth-authorize-form")
+                    OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
+                    ErrorPage: () => import("./common/errors/error-page"),
                 },
                 mounted() {
                     document.getElementById('page-preloader').remove();
