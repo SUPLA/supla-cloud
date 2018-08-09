@@ -2,6 +2,6 @@
 
 {% block vue %}
     <error-page header="Error"
-            message="The server has returned an error."
+            message="The server has returned an HTTP {{ status_code }} error."
             icon="pe-7s-gleam"></error-page>
 {% endblock %}
