@@ -2,7 +2,6 @@
     window.FRONTEND_CONFIG = {
         locale: '{{ app.request.locale }}',
         baseUrl: '{{ path('_homepage')[:-1] }}',
-        timezone: '{{ app.user ? app.user.timezone : '' }}',
         serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
         renderStart: new Date(),
         regulationsAcceptRequired: {{ supla_require_regulations_acceptance ? 'true' : 'false' }},

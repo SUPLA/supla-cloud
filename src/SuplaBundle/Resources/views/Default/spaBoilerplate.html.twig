@@ -9,11 +9,10 @@
             <router-view></router-view>
         </transition>
     </loading-cover>
-    {% if app.user and not app.user.cookiesAgreement and supla_require_cookie_policy_acceptance %}
-        {#TODO#}
-        <cookie-warning></cookie-warning>
+    {% if supla_require_cookie_policy_acceptance %}
+        <cookie-warning v-if="$user.username && !$user.userData.agreements.cookies"></cookie-warning>
     {% endif %}
-    {% if app.user and not app.debug %}
-        <idle-logout></idle-logout>
+    {% if not app.debug %}
+        <idle-logout v-if="$user.username"></idle-logout>
     {% endif %}
 {% endblock %}

@@ -38,7 +38,6 @@ Vue.http.options.root = Vue.config.external.baseUrl + '/api';
 Vue.http.headers.common['X-Accept-Version'] = '2.3.0';
 
 moment.locale(Vue.config.external.locale);
-moment.tz.setDefault(Vue.config.external.timezone);
 
 // synchronize browser time with server's
 (function () {
@@ -62,9 +61,9 @@ Vue.prototype.$user.fetchUser().then(() => {
                 mode: 'history',
             });
 
-            if (Vue.prototype.$user.username && !Vue.prototype.$user.userData.agreements.rules) {
+            if (Vue.config.external.regulationsAcceptRequired) {
                 router.beforeEach((to, from, next) => {
-                    if (!Vue.prototype.$user.userData.agreements.rules && to.name != 'agree-on-rules') {
+                    if (Vue.prototype.$user.username && !Vue.prototype.$user.userData.agreements.rules && to.name != 'agree-on-rules') {
                         next({name: 'agree-on-rules'});
                     } else {
                         next();
