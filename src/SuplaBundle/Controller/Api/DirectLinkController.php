@@ -25,15 +25,19 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class DirectLinkController extends RestController {
     use Transactional;
 
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /** @var EncoderFactory */
+    private $encoderFactory;
 
-    public function __construct(ChannelActionExecutor $channelActionExecutor) {
+    public function __construct(ChannelActionExecutor $channelActionExecutor, EncoderFactory $encoderFactory) {
         $this->channelActionExecutor = $channelActionExecutor;
+        $this->encoderFactory = $encoderFactory;
     }
 
     /**
@@ -65,13 +69,14 @@ class DirectLinkController extends RestController {
         $user = $this->getUser();
         // TODO limit
         //        Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
-        $savedLink = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
-            $directLink->generateSlug();
+        $slug = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
+            $slug = $directLink->generateSlug($this->encoderFactory->getEncoder($directLink));
             $em->persist($directLink);
-            return $directLink;
+            return $slug;
         });
-        $view = $this->view($savedLink, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, ['channel', 'slug'], ['slug']);
+        $view = $this->view($directLink, Response::HTTP_CREATED);
+        $this->setSerializationGroups($view, $request, ['channel']);
+        $view->getContext()->setAttribute('slug', $slug);
         return $view;
     }
 

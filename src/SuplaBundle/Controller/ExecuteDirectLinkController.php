@@ -20,9 +20,11 @@ namespace SuplaBundle\Controller;
 use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class ExecuteDirectLinkController extends Controller {
     /** @var ChannelActionExecutor */
@@ -37,8 +39,9 @@ class ExecuteDirectLinkController extends Controller {
      */
     public function executeDirectLinkAction(DirectLink $directLink, string $slug, string $action) {
         $action = ChannelFunctionAction::fromString($action);
-        Assertion::inArray($action, $directLink->getAllowedActions());
+        Assertion::inArray($action->getId(), EntityUtils::mapToIds($directLink->getAllowedActions()));
         // TODO check slug
         $this->channelActionExecutor->executeAction($directLink->getChannel(), $action);
+        return new Response('', Response::HTTP_ACCEPTED);
     }
 }

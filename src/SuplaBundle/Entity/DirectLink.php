@@ -20,6 +20,7 @@ namespace SuplaBundle\Entity;
 use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -30,6 +31,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DirectLink {
     use BelongsToUser;
+
+    const SLUG_LENGTH_MIN = 10;
+    const SLUG_LENGTH_MAX = 16;
 
     /**
      * @ORM\Id
@@ -127,6 +131,10 @@ class DirectLink {
         return $this->channel;
     }
 
+    public function getUser(): User {
+        return $this->user;
+    }
+
     /** @return mixed */
     public function getActiveFrom() {
         return $this->activeFrom;
@@ -167,10 +175,16 @@ class DirectLink {
         return $this->enabled;
     }
 
-    public function generateSlug() {
+    public function generateSlug(PasswordEncoderInterface $slugEncoder) {
         Assertion::null($this->slug);
-        $this->slug = bin2hex(random_bytes(16));
-        return $this->slug;
+        $slugLength = random_int(self::SLUG_LENGTH_MIN, self::SLUG_LENGTH_MAX);
+        do {
+            $randomBytes = bin2hex(random_bytes($slugLength * 2));
+            $almostSlug = preg_replace('#[1lI0O]#', '', preg_replace('#[^a-zA-Z0-9]#', '', base64_encode($randomBytes)));
+        } while (strlen($almostSlug) < $slugLength);
+        $slug = str_shuffle(substr($almostSlug, 0, $slugLength));
+        $this->slug = $slugEncoder->encodePassword($slug, null);
+        return $slug;
     }
 
     /**

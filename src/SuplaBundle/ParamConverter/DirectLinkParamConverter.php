@@ -3,6 +3,7 @@ namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -29,11 +30,11 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
         $channel = $this->channelRepository->findForUser($user, $data['channelId']);
         $link = new DirectLink($channel);
         $link->setCaption($data['caption'] ?? '');
-        $possibleActions = $channel->getFunction()->getPossibleActions();
-        $possibleActions[] = ChannelFunctionAction::READ();
+        $possibleActions = EntityUtils::mapToIds($channel->getFunction()->getPossibleActions());
+        $possibleActions[] = ChannelFunctionAction::READ;
         $allowedActions = array_map(function ($allowedActionName) use ($possibleActions) {
             $allowedAction = ChannelFunctionAction::fromString($allowedActionName);
-            Assertion::inArray($allowedAction, $possibleActions, "Action $allowedActionName cannot be executed on this channel.");
+            Assertion::inArray($allowedAction->getId(), $possibleActions, "Action $allowedActionName cannot be executed on this channel.");
             return $allowedAction;
         }, $data['allowedActions']);
         $link->setAllowedActions($allowedActions);

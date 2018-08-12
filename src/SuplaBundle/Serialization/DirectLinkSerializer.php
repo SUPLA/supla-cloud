@@ -29,11 +29,14 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
      * @inheritdoc
      */
     public function normalize($directLink, $format = null, array $context = []) {
-        $normalized = parent::normalize($group, $format, $context);
+        $normalized = parent::normalize($directLink, $format, $context);
         $normalized['userId'] = $directLink->getUser()->getId();
         $normalized['channelId'] = $directLink->getChannel()->getId();
         if ($this->shouldInclude('channel', $context)) {
             $normalized['channel'] = $this->normalizer->normalize($directLink->getChannel(), $format, $context);
+        }
+        if (isset($context['slug'])) {
+            $normalized['slug'] = $context['slug'];
         }
         return $normalized;
     }
