@@ -175,6 +175,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $channelGroups;
 
     /**
+     * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="user", cascade={"persist"})
+     */
+    private $directLinks;
+
+    /**
      * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
      */
     private $auditEntries;
@@ -393,6 +398,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     /** @return Collection|IODeviceChannelGroup[] */
     public function getChannelGroups() {
         return $this->channelGroups;
+    }
+
+    /** @return Collection|DirectLink[] */
+    public function getDirectLInks() {
+        return $this->directLinks;
     }
 
     /** @return Collection|Location[] */

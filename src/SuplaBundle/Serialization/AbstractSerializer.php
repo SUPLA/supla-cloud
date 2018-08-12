@@ -47,6 +47,10 @@ abstract class AbstractSerializer extends ObjectNormalizer {
         return EntityUtils::mapToIds($collection);
     }
 
+    protected function shouldInclude(string $groupName, array $context): bool {
+        return in_array($groupName, $context[self::GROUPS]);
+    }
+
     /**
      * Forces to serialize empty array as json object (i.e. {} instead of []).
      */

@@ -22,6 +22,7 @@ use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @method static ChannelFunctionAction READ()
  * @method static ChannelFunctionAction OPEN()
  * @method static ChannelFunctionAction CLOSE()
  * @method static ChannelFunctionAction SHUT()
@@ -34,6 +35,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction STOP()
  */
 final class ChannelFunctionAction extends Enum {
+    const READ = 1000;
     const OPEN = 10;
     const CLOSE = 20;
     const SHUT = 30;
@@ -68,6 +70,7 @@ final class ChannelFunctionAction extends Enum {
 
     public static function captions(): array {
         return [
+            self::READ => 'Read',
             self::OPEN => 'Open',
             self::CLOSE => 'Close',
             self::SHUT => 'Shut',

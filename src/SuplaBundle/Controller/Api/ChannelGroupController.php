@@ -96,7 +96,7 @@ class ChannelGroupController extends RestController {
             $channelGroup->setLocation($updated->getLocation());
             $em->persist($channelGroup);
             $this->suplaServer->reconnect();
-            return $this->view($channelGroup, Response::HTTP_CREATED);
+            return $this->view($channelGroup, Response::HTTP_OK);
         });
     }
 
