@@ -19,13 +19,12 @@ namespace SuplaBundle\Entity;
 
 use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * TODO indexes
- * TODO encoder
  * @ORM\Entity
  * @ORM\Table(name="supla_direct_link")
  */
@@ -62,10 +61,15 @@ class DirectLink {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="directLinks")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
-     * @Groups({"channel"})
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
      */
     private $channel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="directLinks")
+     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
+     */
+    private $channelGroup;
 
     /**
      * @ORM\Column(name="allowed_actions", type="string", nullable=false, length=255)
@@ -109,9 +113,15 @@ class DirectLink {
      */
     protected $enabled = true;
 
-    public function __construct(IODeviceChannel $channel) {
-        $this->channel = $channel;
-        $this->user = $channel->getUser();
+    public function __construct(HasFunction $subject) {
+        if ($subject instanceof IODeviceChannel) {
+            $this->channel = $subject;
+        } elseif ($subject instanceof IODeviceChannelGroup) {
+            $this->channelGroup = $subject;
+        } else {
+            throw new \InvalidArgumentException('Invalid link subject given: ' . get_class($subject));
+        }
+        $this->user = $subject->getUser();
         $this->setAllowedActions([]);
     }
 
@@ -127,8 +137,13 @@ class DirectLink {
         $this->caption = $caption;
     }
 
-    public function getChannel(): IODeviceChannel {
-        return $this->channel;
+    /** @Groups({"subject"}) */
+    public function getSubject(): HasFunction {
+        return $this->channel ?: $this->channelGroup;
+    }
+
+    public function getSubjectType(): ActionableSubjectType {
+        return ActionableSubjectType::forEntity($this->getSubject());
     }
 
     public function getUser(): User {
@@ -161,16 +176,10 @@ class DirectLink {
         return $this->lastUsed;
     }
 
-    /**
-     * @return mixed
-     */
     public function getLastIpv4() {
         return $this->lastIpv4;
     }
 
-    /**
-     * @return mixed
-     */
     public function isEnabled(): bool {
         return $this->enabled;
     }
@@ -212,11 +221,6 @@ class DirectLink {
 
     public function canBeUsed(): bool {
         return $this->isEnabled(); // TODO date, qty etc
-    }
-
-    public function update(array $data) {
-        $this->enabled = $data['enabled'] ?? false;
-        $this->setAllowedActions($data['allowedActions'] ?? []);
     }
 
     public function verifySlug(string $hashedSlug) {

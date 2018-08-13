@@ -19,12 +19,15 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\HttpFoundation\Response;
 
 class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
@@ -34,33 +37,69 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     private $user;
     /** @var IODevice */
     private $device;
+    /** @var IODeviceChannelGroup */
+    private $channelGroup;
 
     protected function setUp() {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
         ]);
+        $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
+            $this->device->getChannels()[0],
+            $this->device->getChannels()[1],
+        ]);
+        $this->getEntityManager()->persist($this->channelGroup);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @return mixed
+     */
+    private function createDirectLink(array $data = []): Response {
+        $data = array_merge([
+            'caption' => 'My link',
+            'channelId' => $this->device->getChannels()[0]->getId(),
+            'allowedActions' => ['turn-on', 'read'],
+        ], $data);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV22('POST', '/api/direct-links', $data);
+        return $client->getResponse();
     }
 
     public function testCreatingDirectLink() {
-        $client = $this->createAuthenticatedClient($this->user);
-        $channel = $this->device->getChannels()[0];
-        $client->apiRequestV22('POST', '/api/direct-links', [
-            'caption' => 'My link',
-            'channelId' => $channel->getId(),
-            'allowedActions' => ['turn-on', 'read'],
-        ]);
-        $response = $client->getResponse();
+        $response = $this->createDirectLink();
         $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertTrue($content['enabled']);
         $this->assertEquals('My link', $content['caption']);
+        $this->assertEquals($this->device->getChannels()[0]->getId(), $content['channelId']);
         $this->assertArrayHasKey('slug', $content);
         $this->assertLessThanOrEqual(DirectLink::SLUG_LENGTH_MAX, strlen($content['slug']));
         return $content;
+    }
+
+    public function testGettingDirectLinkDetails() {
+        $id = $this->testCreatingDirectLink()['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV22('GET', '/api/direct-links/' . $id . '?include=subject');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
+        $this->assertArrayHasKey('channelId', $content);
+        $this->assertArrayNotHasKey('channelGroupId', $content);
+        $this->assertEquals(1, $content['channelId']);
+        $this->assertArrayNotHasKey('slug', $content);
+    }
+
+    public function testCannotCreateDirectLinkWithActionNotSupportedInChannel() {
+        $response = $this->createDirectLink(['allowedActions' => ['open']]);
+        $this->assertStatusCode(400, $response);
     }
 
     public function testExecutingDirectLink() {
@@ -118,5 +157,51 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('on', $content);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+    }
+
+    public function testCreatingDirectLinkForChannelGroup() {
+        $data = [
+            'caption' => 'My link',
+            'channelGroupId' => $this->channelGroup->getId(),
+            'allowedActions' => ['turn-on', 'read'],
+        ];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV22('POST', '/api/direct-links', $data);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My link', $content['caption']);
+        $this->assertArrayNotHasKey('channelId', $content);
+        $this->assertEquals($this->channelGroup->getId(), $content['channelGroupId']);
+        $this->assertArrayHasKey('slug', $content);
+        return $content;
+    }
+
+    public function testExecutingDirectLinkForChannelGroup() {
+        $directLink = $this->testCreatingDirectLinkForChannelGroup();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/turn-on");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-CG-CHAR-VALUE:1,1,1', $commands);
+    }
+
+    public function testReadingDirectLinkForChannelGroup() {
+        $directLink = $this->testCreatingDirectLinkForChannelGroup();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+        $this->assertArrayHasKey(1, $content);
+        $this->assertArrayHasKey('on', $content[1]);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-CHAR-VALUE:1,1,2', $commands);
     }
 }

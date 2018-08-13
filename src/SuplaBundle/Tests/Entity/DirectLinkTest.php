@@ -19,11 +19,20 @@ namespace SuplaBundle\Tests\Entity;
 
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 class DirectLinkTest extends \PHPUnit_Framework_TestCase {
     public function testGeneratingSlug() {
         $directLink = new DirectLink($this->createMock(IODeviceChannel::class));
+        $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
+        $this->assertGreaterThanOrEqual(DirectLink::SLUG_LENGTH_MIN, strlen($slug));
+        $this->assertLessThanOrEqual(DirectLink::SLUG_LENGTH_MAX, strlen($slug));
+        $this->assertNotContains('0', $slug);
+    }
+
+    public function testCreatingForChannelGroup() {
+        $directLink = new DirectLink($this->createMock(IODeviceChannelGroup::class));
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
         $this->assertGreaterThanOrEqual(DirectLink::SLUG_LENGTH_MIN, strlen($slug));
         $this->assertLessThanOrEqual(DirectLink::SLUG_LENGTH_MAX, strlen($slug));

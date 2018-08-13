@@ -61,10 +61,10 @@ class ExecuteDirectLinkController extends Controller {
             throw new ApiException("Giver verification code is invalid.", Response::HTTP_FORBIDDEN);
         }
         if ($action->getId() === ChannelFunctionAction::READ) {
-            $state = $this->channelStateGetter->getState($directLink->getChannel());
+            $state = $this->channelStateGetter->getState($directLink->getSubject());
             return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
         } else {
-            $this->channelActionExecutor->executeAction($directLink->getChannel(), $action);
+            $this->channelActionExecutor->executeAction($directLink->getSubject(), $action);
             return new Response('', Response::HTTP_ACCEPTED);
         }
     }

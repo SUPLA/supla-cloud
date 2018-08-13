@@ -47,7 +47,7 @@ class DirectLinkController extends RestController {
     public function getDirectLinksAction(Request $request) {
         $directLinks = $this->getUser()->getDirectLInks();
         $view = $this->view($directLinks, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channel']);
+        $this->setSerializationGroups($view, $request, ['subject']);
         return $view;
     }
 
@@ -57,7 +57,7 @@ class DirectLinkController extends RestController {
      */
     public function getDirectLinkAction(Request $request, DirectLink $directLink) {
         $view = $this->view($directLink, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channel']);
+        $this->setSerializationGroups($view, $request, ['subject']);
         return $view;
     }
 
