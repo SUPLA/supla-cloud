@@ -36,4 +36,11 @@ class DirectLinkTest extends \PHPUnit_Framework_TestCase {
         $directLink->generateSlug(new PlaintextPasswordEncoder());
         $directLink->generateSlug(new PlaintextPasswordEncoder());
     }
+
+    public function testCheckingSlug() {
+        $directLink = new DirectLink($this->createMock(IODeviceChannel::class));
+        $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
+        $this->assertTrue($directLink->isValidSlug($slug, new PlaintextPasswordEncoder()));
+        $this->assertFalse($directLink->isValidSlug($slug . 'X', new PlaintextPasswordEncoder()));
+    }
 }

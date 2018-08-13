@@ -187,6 +187,10 @@ class DirectLink {
         return $slug;
     }
 
+    public function isValidSlug(string $slug, PasswordEncoderInterface $slugEncoder): bool {
+        return $slugEncoder->isPasswordValid($this->slug, $slug, null);
+    }
+
     /**
      * @param ChannelFunctionAction[] $allowedActions
      */

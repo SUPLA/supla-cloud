@@ -68,7 +68,7 @@ class DirectLinkController extends RestController {
     public function postDirectLinkAction(Request $request, DirectLink $directLink) {
         $user = $this->getUser();
         // TODO limit
-        //        Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
+        // Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
         $slug = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
             $slug = $directLink->generateSlug($this->encoderFactory->getEncoder($directLink));
             $em->persist($directLink);

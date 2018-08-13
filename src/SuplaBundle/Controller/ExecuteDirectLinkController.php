@@ -17,31 +17,55 @@
 
 namespace SuplaBundle\Controller;
 
-use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ExecuteDirectLinkController extends Controller {
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /** @var EncoderFactoryInterface */
+    private $encoderFactory;
+    /** @var ChannelStateGetter */
+    private $channelStateGetter;
 
-    public function __construct(ChannelActionExecutor $channelActionExecutor) {
+    public function __construct(
+        ChannelActionExecutor $channelActionExecutor,
+        EncoderFactoryInterface $encoderFactory,
+        ChannelStateGetter $channelStateGetter
+    ) {
         $this->channelActionExecutor = $channelActionExecutor;
+        $this->encoderFactory = $encoderFactory;
+        $this->channelStateGetter = $channelStateGetter;
     }
 
     /**
      * @Route("/direct/{directLink}/{slug}/{action}")
      */
     public function executeDirectLinkAction(DirectLink $directLink, string $slug, string $action) {
-        $action = ChannelFunctionAction::fromString($action);
-        Assertion::inArray($action->getId(), EntityUtils::mapToIds($directLink->getAllowedActions()));
-        // TODO check slug
-        $this->channelActionExecutor->executeAction($directLink->getChannel(), $action);
-        return new Response('', Response::HTTP_ACCEPTED);
+        try {
+            $action = ChannelFunctionAction::fromString($action);
+        } catch (\InvalidArgumentException $e) {
+            throw new ApiException("Action $action is not supported.", Response::HTTP_NOT_FOUND, $e);
+        }
+        if (!in_array($action, $directLink->getAllowedActions())) {
+            throw new ApiException("The action $action is not allowed for this direct link.", Response::HTTP_FORBIDDEN);
+        }
+        if (!$directLink->isValidSlug($slug, $this->encoderFactory->getEncoder($directLink))) {
+            throw new ApiException("Giver verification code is invalid.", Response::HTTP_FORBIDDEN);
+        }
+        if ($action->getId() === ChannelFunctionAction::READ) {
+            $state = $this->channelStateGetter->getState($directLink->getChannel());
+            return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        } else {
+            $this->channelActionExecutor->executeAction($directLink->getChannel(), $action);
+            return new Response('', Response::HTTP_ACCEPTED);
+        }
     }
 }

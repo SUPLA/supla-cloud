@@ -51,7 +51,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV22('POST', '/api/direct-links', [
             'caption' => 'My link',
             'channelId' => $channel->getId(),
-            'allowedActions' => ['turn-on'],
+            'allowedActions' => ['turn-on', 'read'],
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(201, $response);
@@ -64,11 +64,59 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingDirectLink() {
-        $this->markTestSkipped('How to authenticate in the supla server socket??');
         $directLink = $this->testCreatingDirectLink();
         $client = $this->createClient();
+        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/turn-on");
-        $resopnse = $client->getResponse();
-        $this->assertStatusCode('2XX', $resopnse);
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
+    public function testCannotExecuteForbiddenAction() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/turn-off");
+        $response = $client->getResponse();
+        $this->assertStatusCode(403, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
+    public function testCannotExecuteActionWithInvalidSlug() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]X/turn-on");
+        $response = $client->getResponse();
+        $this->assertStatusCode(403, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
+    public function testCannotExecuteNotExistingAction() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/unicornify");
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
+    public function testReadingDirectLink() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('on', $content);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
     }
 }
