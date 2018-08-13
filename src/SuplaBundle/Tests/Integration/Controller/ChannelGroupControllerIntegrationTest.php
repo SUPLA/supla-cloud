@@ -69,7 +69,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
-        $client->request('PATCH', '/api/channel-groups/' . $channelGroupId, [], [], [], json_encode($request));
+        $client->apiRequestV22('PATCH', '/api/channel-groups/' . $channelGroupId, $request);
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
@@ -82,5 +82,23 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
             [1, 'turn-off', 'SET-CG-CHAR-VALUE:1,1,0'],
             [2, 'open', 'SET-CG-CHAR-VALUE:1,2,1'],
         ];
+    }
+
+    public function testGettingChannelGroupState() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->enableProfiler();
+        $client->apiRequestV22('GET', '/api/channel-groups/1?include=state');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-CHAR-VALUE:1,1,2', $commands);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('state', $content);
+        $this->assertCount(2, $content['state']);
+        $this->assertArrayHasKey(1, $content['state']);
+        $this->assertArrayHasKey('on', $content['state'][1]);
+        $this->assertArrayHasKey(2, $content['state']);
+        $this->assertArrayHasKey('on', $content['state'][2]);
     }
 }

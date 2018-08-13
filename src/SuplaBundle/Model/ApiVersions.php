@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @method static ApiVersions V2_0()
  * @method static ApiVersions V2_1()
  * @method static ApiVersions V2_2()
+ * @method static ApiVersions V2_3()
  * @method static ApiVersions DEFAULT()
  */
 class ApiVersions extends Enum {

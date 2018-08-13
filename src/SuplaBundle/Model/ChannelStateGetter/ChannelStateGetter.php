@@ -2,6 +2,7 @@
 namespace SuplaBundle\Model\ChannelStateGetter;
 
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 
 class ChannelStateGetter {
     /** @var SingleChannelStateGetter[] */
@@ -17,6 +18,14 @@ class ChannelStateGetter {
             if (in_array($channel->getFunction(), $stateGetter->supportedFunctions())) {
                 $state = array_merge($state, $stateGetter->getState($channel));
             }
+        }
+        return $state;
+    }
+
+    public function getStateForChannelGroup(IODeviceChannelGroup $group): array {
+        $state = [];
+        foreach ($group->getChannels() as $channel) {
+            $state[$channel->getId()] = $this->getState($channel);
         }
         return $state;
     }

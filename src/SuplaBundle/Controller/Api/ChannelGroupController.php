@@ -23,6 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -57,7 +58,7 @@ class ChannelGroupController extends RestController {
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location']);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location', 'state']);
         return $view;
     }
 
@@ -121,6 +122,7 @@ class ChannelGroupController extends RestController {
         $action = ChannelFunctionAction::fromString($params['action']);
         unset($params['action']);
         $this->channelActionExecutor->executeAction($channelGroup, $action, $params);
-        return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
+        $status = ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request) ? Response::HTTP_ACCEPTED : Response::HTTP_NO_CONTENT;
+        return $this->handleView($this->view(null, $status));
     }
 }

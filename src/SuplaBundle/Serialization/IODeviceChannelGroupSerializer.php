@@ -18,11 +18,19 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
 class IODeviceChannelGroupSerializer extends AbstractSerializer implements NormalizerAwareInterface {
     use NormalizerAwareTrait;
+
+    /** @var ChannelStateGetter */
+    private $channelStateGetter;
+
+    public function __construct(ChannelStateGetter $channelStateGetter) {
+        $this->channelStateGetter = $channelStateGetter;
+    }
 
     /**
      * @param IODeviceChannelGroup $group
@@ -30,16 +38,18 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
      */
     public function normalize($group, $format = null, array $context = []) {
         $fetchChannels = in_array('channels', $context[self::GROUPS]);
-        if ($fetchChannels) {
-            // this prevents from fetching IODevice's channels recursively
-            $context[self::GROUPS] = array_diff($context[self::GROUPS], ['channels']);
-        }
+        $fetchState = in_array('state', $context[self::GROUPS]);
+        // this prevents from fetching IODevice's channels or their recursively
+        $context[self::GROUPS] = array_diff($context[self::GROUPS], ['state', 'channels']);
         $normalized = parent::normalize($group, $format, $context);
         $normalized['locationId'] = $group->getLocation()->getId();
         $normalized['channelIds'] = $this->toIds($group->getChannels());
         $normalized['functionId'] = $group->getFunction()->getId();
         if ($fetchChannels) {
             $normalized['channels'] = $this->normalizer->normalize($group->getChannels(), $format, $context);
+        }
+        if ($fetchState) {
+            $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getStateForChannelGroup($group));
         }
         return $normalized;
     }

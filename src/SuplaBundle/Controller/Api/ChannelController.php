@@ -167,6 +167,7 @@ class ChannelController extends RestController {
         unset($params['action']);
         $this->channelActionExecutor->executeAction($channel, $action, $params);
         $status = ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request) ? Response::HTTP_NO_CONTENT : Response::HTTP_OK;
+        $status = ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request) ? Response::HTTP_ACCEPTED : $status;
         return $this->handleView($this->view(null, $status));
     }
 }
