@@ -2,17 +2,9 @@
     <div>
         <div class="form-group">
             <label>{{ $t('Subject') }}</label>
-            <!--<select class="form-control"-->
-            <!--ref="channelsDropdown"-->
-            <!--:data-placeholder="$t('choose the channel')"-->
-            <!--v-model="channelId">-->
-            <!--<option v-for="channel in userChannels"-->
-            <!--:value="channel.id">-->
-            <!--{{ channelTitle(channel) }}-->
-            <!--</option>-->
-            <!--</select>-->
-            <channels-dropdown params="include=iodevice,location&io=output&hasFunction=1"
-                v-model="channel"
+            <channels-dropdown params="io=output&hasFunction=1"
+                :initial-id="channelId"
+                @input="channelId = $event.id"
                 hide-none="true">
             </channels-dropdown>
         </div>
@@ -56,7 +48,6 @@
         components: {ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
         data() {
             return {
-                channel: undefined,
                 userChannels: [],
                 channelFunctionMap: {}
             };

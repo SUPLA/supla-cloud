@@ -1,5 +1,4 @@
 import Vue from "vue";
-import {withBaseUrl} from "../../common/filters";
 
 export const mutations = {
     changeScheduleMode(state, newScheduleMode) {
@@ -113,9 +112,7 @@ export const actions = {
         } else {
             promise = Vue.http.post('schedules', state);
         }
-        promise
-            .then(({body: schedule}) => window.location.href = withBaseUrl(`/schedules/${schedule.id}`))
-            .catch(() => commit('submitFailed'));
+        return promise.catch(() => commit('submitFailed'));
     },
 
     loadScheduleToEdit({commit, dispatch}, schedule) {

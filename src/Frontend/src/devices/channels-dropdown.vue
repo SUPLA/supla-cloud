@@ -12,26 +12,17 @@
             data-width="100%"
             :data-none-selected-text="$t('choose the channel')"
             :data-none-results-text="$t('No results match {0}')"
-            v-model="chosenChannelId">
+            v-model="chosenChannel"
+            @change="$emit('input', chosenChannel)">
             <option value="0"
-                v-if="!hideNone">{{ $t('None') }}
+                v-if="!hideNone && chosenChannel">{{ $t('None') }}
             </option>
-            <optgroup :label="$t('Channels')">
-                <option v-for="channel in channelsForDropdown"
-                    :value="channel.id"
-                    :data-content="channelHtml(channel)"
-                    :title="channelTitle(channel)">
-                    {{ channelTitle(channel) }}
-                </option>
-            </optgroup>
-            <optgroup :label="$t('Channel groups')">
-                <option v-for="channel in channelsForDropdown"
-                    :value="channel.id"
-                    :data-content="channelHtml(channel)"
-                    :title="channelTitle(channel)">
-                    {{ channelTitle(channel) }}
-                </option>
-            </optgroup>
+            <option v-for="channel in channelsForDropdown"
+                :value="channel"
+                :data-content="channelHtml(channel)"
+                :title="channelTitle(channel)">
+                {{ channelTitle(channel) }}
+            </option>
         </select>
     </div>
 </template>
@@ -58,12 +49,12 @@
     import {channelTitle} from "../common/filters";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone'],
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'initialId'],
         components: {ButtonLoadingDots},
         data() {
             return {
                 channels: undefined,
-                chosenChannelId: undefined
+                chosenChannel: undefined
             };
         },
         mounted() {
@@ -73,13 +64,13 @@
             fetchChannels() {
                 // $(this.$refs.dropdown).chosen("destroy");
                 this.channels = undefined;
-                this.$http.get('channels?' + this.params).then(({body: channels}) => {
+                this.$http.get('channels?include=iodevice,location&' + this.params).then(({body: channels}) => {
                     this.channels = channels;
+                    if (this.initialId) {
+                        this.chosenChannel = this.channels.filter(ch => ch.id == this.initialId)[0];
+                    }
+                    this.setChannelFromModel();
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
-                    // .sele().change((e) => {
-                    //         this.chosenChannelId = e.currentTarget.value;
-                    //         this.channelChanged();
-                    //     }));
                 });
             },
             channelTitle(channel) {
@@ -96,16 +87,15 @@
                 content += `<div class="icon"><img src='assets/img/functions/${channel.function.id}.svg'></div></div>`;
                 return content;
             },
-            channelChanged() {
-                if (this.chosenChannelId) {
-                    const channel = this.channels.find(c => c.id == this.chosenChannelId);
-                    this.$emit('input', channel);
-                } else {
-                    this.$emit('input', undefined);
-                }
-            },
             updateDropdownOptions() {
-                // Vue.nextTick(() => $(this.$refs.dropdown).trigger("chosen:updated"));
+                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker('refresh'));
+            },
+            setChannelFromModel() {
+                if (this.value && this.channels) {
+                    this.chosenChannel = this.channels.filter(ch => ch.id == this.value.id)[0];
+                } else {
+                    this.chosenChannel = undefined;
+                }
             }
         },
         computed: {
@@ -127,7 +117,7 @@
         },
         watch: {
             value() {
-                this.chosenChannelId = this.value ? this.value.id : undefined;
+                this.setChannelFromModel();
                 this.updateDropdownOptions();
             },
             params() {
