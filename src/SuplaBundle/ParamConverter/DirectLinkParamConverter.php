@@ -28,12 +28,16 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
 
     public function convert(array $data) {
         $user = $this->getCurrentUserOrThrow();
-        $subjectIds = array_intersect(['channelId', 'channelGroupId'], array_keys($data));
-        Assertion::count($subjectIds, 1, 'You must set either channelId or channelGroupId for the link.');
+        $subjectIds = array_intersect(['channelId', 'channelGroupId', 'subjectId'], array_keys($data));
+        Assertion::count($subjectIds, 1, 'You must set either channelId, channelGroupId or subjectId and subjectType for the link.');
         Assertion::keyExists($data, 'allowedActions', 'AllowedActions must be set.');
         Assertion::isArray($data['allowedActions'], 'AllowedActions must be an array.');
         $subjectIdKey = current($subjectIds);
         $subjectId = $data[$subjectIdKey];
+        if ($subjectIdKey == 'subjectId') {
+            Assertion::keyExists($data, 'subjectType', 'You must set subjectType for the link.');
+            $subjectIdKey = $data['subjectType'] . 'Id';
+        }
         $subject = $subjectIdKey === 'channelId'
             ? $this->channelRepository->findForUser($user, $subjectId)
             : $this->channelGroupRepository->findForUser($user, $subjectId);

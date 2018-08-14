@@ -73,7 +73,6 @@ class DirectLink {
 
     /**
      * @ORM\Column(name="allowed_actions", type="string", nullable=false, length=255)
-     * @Groups({"basic"})
      */
     private $allowedActions;
 
@@ -219,11 +218,16 @@ class DirectLink {
         }, $actionIds) : [];
     }
 
-    public function canBeUsed(): bool {
+    /** @Groups({"basic"}) */
+    public function isActive(): bool {
         return $this->isEnabled(); // TODO date, qty etc
     }
 
     public function verifySlug(string $hashedSlug) {
         return strcmp($this->slug, $hashedSlug) === 0;
+    }
+
+    public function buildUrl(string $suplaUrl, string $slug): string {
+        return sprintf('%s/direct/%d/%s', $suplaUrl, $this->id, $slug);
     }
 }

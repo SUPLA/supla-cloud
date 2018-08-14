@@ -325,6 +325,9 @@ body.warning {
 }
 
 .bootstrap-select {
+  .text {
+    width: 100%;
+  }
   .dropdown-menu > li {
     > a {
       white-space: normal;
@@ -334,6 +337,31 @@ body.warning {
         background-color: $supla-green;
       }
     }
+  }
+}
+
+.alert {
+  &.alert-warning {
+    border-color: darken($supla-yellow, 10%);
+    background: lighten($supla-yellow, 10%);
+  }
+}
+
+.flex-left-full-width {
+  display: flex;
+  > :first-child {
+    flex: 1;
+  }
+  > pre {
+    padding: 7px;
+    margin: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+  }
+  .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 

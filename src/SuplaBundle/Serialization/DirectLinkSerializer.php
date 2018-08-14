@@ -18,11 +18,19 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
 class DirectLinkSerializer extends AbstractSerializer implements NormalizerAwareInterface {
     use NormalizerAwareTrait;
+
+    /** @var string */
+    private $suplaUrl;
+
+    public function __construct(string $suplaUrl) {
+        $this->suplaUrl = $suplaUrl;
+    }
 
     /**
      * @param DirectLink $directLink
@@ -33,9 +41,13 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
         $normalized['userId'] = $directLink->getUser()->getId();
         $subjectType = $directLink->getSubjectType()->getValue();
         $normalized['subjectType'] = $subjectType;
+        $normalized['allowedActions'] = array_map(function (ChannelFunctionAction $action) {
+            return $action->getName();
+        }, $directLink->getAllowedActions());
         $normalized[$subjectType . 'Id'] = $directLink->getSubject()->getId();
         if (isset($context['slug'])) {
             $normalized['slug'] = $context['slug'];
+            $normalized['url'] = $directLink->buildUrl($this->suplaUrl, $context['slug']);
         }
         return $normalized;
     }

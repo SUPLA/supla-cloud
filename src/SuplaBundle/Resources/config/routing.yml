@@ -1,5 +1,9 @@
-supla:
-  resource: "@SuplaBundle/Controller"
+supla_default:
+  resource: "@SuplaBundle/Controller/DefaultController.php"
+  type: annotation
+
+directLinksExecutore:
+  resource: "@SuplaBundle/Controller/ExecuteDirectLinkController.php"
   type: annotation
 
 api:

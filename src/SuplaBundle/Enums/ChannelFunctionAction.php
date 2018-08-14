@@ -18,6 +18,7 @@
 namespace SuplaBundle\Enums;
 
 use Assert\Assertion;
+use Cocur\Slugify\Slugify;
 use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -47,23 +48,22 @@ final class ChannelFunctionAction extends Enum {
     const OPEN_CLOSE = 90;
     const STOP = 100;
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
     public function getId(): int {
         return $this->value;
     }
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
     public function getName(): string {
         return $this->getKey();
     }
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
+    public function getNameSlug(): string {
+        return (new Slugify())->slugify($this->getKey());
+    }
+
+    /** @Groups({"basic"}) */
     public function getCaption(): string {
         return self::captions()[$this->getValue()];
     }

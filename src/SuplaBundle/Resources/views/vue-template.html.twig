@@ -26,6 +26,9 @@
             }
         }, 8000);
     </script>
+    {% include '@Supla/frontend-config.html.twig' %}
+    <script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
+    <script src="{{ asset('assets/dist/translations/messages-' ~ app.request.locale ~ '.js', 'webpack') }}"></script>
 {% endblock %}
 {% block styles %}
     <style>

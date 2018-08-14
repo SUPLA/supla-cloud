@@ -62,7 +62,7 @@
                 return channelTitle(channel, this, true);
             },
             channelHtml(channel) {
-                let content = `<div class='channel-dropdown-option'>`
+                let content = `<div class='channel-dropdown-option flex-left-full-width'>`
                     + `<div class="labels"><h4>ID${channel.id} ${ this.$t(channel.function.caption) }`;
                 if (channel.caption) {
                     content += ` <span class='small text-muted'>${channel.caption}</span>`;
@@ -127,18 +127,9 @@
         }
     }
 
-    .bootstrap-select {
-        .text {
-            width: 100%;
-            .channel-dropdown-option {
-                display: flex;
-                .labels {
-                    flex: 1;
-                }
-                .icon {
-                    img { height: 60px; }
-                }
-            }
+    .channel-dropdown-option {
+        .icon {
+            img { height: 60px; }
         }
     }
 </style>

@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\ApiException;
@@ -46,6 +47,15 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     /**
+     * @Route("/direct/{directLink}/{slug}")
+     * @Template()
+     */
+    public function directLinkOptionsAction(DirectLink $directLink, string $slug) {
+        $this->ensureLinkCanBeUsed($directLink, $slug);
+        return ['directLink' => $directLink];
+    }
+
+    /**
      * @Route("/direct/{directLink}/{slug}/{action}")
      */
     public function executeDirectLinkAction(DirectLink $directLink, string $slug, string $action) {
@@ -57,15 +67,19 @@ class ExecuteDirectLinkController extends Controller {
         if (!in_array($action, $directLink->getAllowedActions())) {
             throw new ApiException("The action $action is not allowed for this direct link.", Response::HTTP_FORBIDDEN);
         }
-        if (!$directLink->isValidSlug($slug, $this->encoderFactory->getEncoder($directLink))) {
-            throw new ApiException("Giver verification code is invalid.", Response::HTTP_FORBIDDEN);
-        }
+        $this->ensureLinkCanBeUsed($directLink, $slug);
         if ($action->getId() === ChannelFunctionAction::READ) {
             $state = $this->channelStateGetter->getState($directLink->getSubject());
             return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
         } else {
             $this->channelActionExecutor->executeAction($directLink->getSubject(), $action);
             return new Response('', Response::HTTP_ACCEPTED);
+        }
+    }
+
+    private function ensureLinkCanBeUsed(DirectLink $directLink, string $slug) {
+        if (!$directLink->isValidSlug($slug, $this->encoderFactory->getEncoder($directLink))) {
+            throw new ApiException("Giver verification code is invalid.", Response::HTTP_FORBIDDEN);
         }
     }
 }
