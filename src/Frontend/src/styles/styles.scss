@@ -93,6 +93,9 @@ a {
 input[type=text], input[type=password], input[type=email] {
   &.form-control {
     box-shadow: initial;
+    &:focus {
+      border-color: $supla-green;
+    }
   }
 }
 
@@ -319,6 +322,19 @@ body.warning {
 	.login-footer {
 	  display: none;
 	}
+}
+
+.bootstrap-select {
+  .dropdown-menu > li {
+    > a {
+      white-space: normal;
+    }
+    &.active > a {
+      &, &:focus, &:hover {
+        background-color: $supla-green;
+      }
+    }
+  }
 }
 
 @import "./buttons";

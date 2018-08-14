@@ -37,8 +37,6 @@
 </template>
 
 <script>
-    // import "chosen-js";
-    // import "bootstrap-chosen/bootstrap-chosen.css";
     import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage.vue";
     import ChannelsDropdown from "../../../devices/channels-dropdown";

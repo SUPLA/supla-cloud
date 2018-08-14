@@ -27,20 +27,6 @@
     </div>
 </template>
 
-<style lang="scss">
-    .select-loader {
-        position: relative;
-        text-align: center;
-        .button-loading-dots {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            margin-left: -25px;
-            z-index: 20;
-        }
-    }
-</style>
-
 <script>
     import Vue from "vue";
     import "bootstrap-select";
@@ -62,7 +48,6 @@
         },
         methods: {
             fetchChannels() {
-                // $(this.$refs.dropdown).chosen("destroy");
                 this.channels = undefined;
                 this.$http.get('channels?include=iodevice,location&' + this.params).then(({body: channels}) => {
                     this.channels = channels;
@@ -130,17 +115,19 @@
 <style lang="scss">
     @import "../styles/variables";
 
-    .bootstrap-select {
-        .dropdown-menu > li {
-            > a {
-                white-space: normal;
-            }
-            &.active > a {
-                &, &:focus, &:hover {
-                    background-color: $supla-green;
-                }
-            }
+    .select-loader {
+        position: relative;
+        text-align: center;
+        .button-loading-dots {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            margin-left: -25px;
+            z-index: 20;
         }
+    }
+
+    .bootstrap-select {
         .text {
             width: 100%;
             .channel-dropdown-option {
