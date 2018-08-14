@@ -131,6 +131,12 @@ class IODeviceChannel implements HasFunction {
      * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", mappedBy="channels", cascade={"persist"})
      */
     private $channelGroups;
+    
+    /**
+     * @ORM\Column(name="flags", type="integer", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $flags = 0;
 
     public function getId(): int {
         return $this->id;
@@ -295,5 +301,9 @@ class IODeviceChannel implements HasFunction {
         $params = array_merge([$this->getUser()->getId(), $this->getIoDevice()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
         return "SET-$type-VALUE:$params";
+    }
+    
+    public function getFlags(): int {
+        return $this->flags;
     }
 }

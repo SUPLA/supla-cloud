@@ -127,6 +127,12 @@ class IODevice {
      * @ORM\Column(name="auth_key", type="string", length=64, nullable=true)
      */
     private $authKey;
+    
+    /**
+     * @ORM\Column(name="flags", type="integer", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $flags = 0;
 
     public function getEnabled() {
         return $this->enabled;
@@ -220,5 +226,9 @@ class IODevice {
 
     public function getProtocolVersion() {
         return $this->protocolVersion;
+    }
+    
+    public function getFlags(): int {
+        return $this->flags;
     }
 }
