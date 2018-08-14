@@ -1,9 +1,10 @@
 import HomePage from "./home/home-page";
-import LoginForm from "./login/login-form";
+import LoginPage from "./login/login-page";
 
 export default [
     {path: '/', component: HomePage},
-    {path: '/login', component: LoginForm, alias: '/auth/login', meta: {unrestricted: true, onlyUnauthenticated: true}, name: 'login'},
+    {path: '/login', component: LoginPage, alias: '/auth/login', meta: {unrestricted: true, onlyUnauthenticated: true}, name: 'login'},
+    {path: '/oauth-authorize', component: () => import("./login/login-page-oauth"), meta: {unrestricted: true}, name: 'oauthAuthorize'},
     {
         path: '/terms',
         component: () => import("./common/pages/terms"),
@@ -39,7 +40,6 @@ export default [
         ]
     },
     {path: '/account', component: () => import("./account-details/account-page"), meta: {bodyClass: 'green'}},
-    {path: '/api', component: () => import("./account-details/api-settings-page"), meta: {bodyClass: 'green'}},
     {
         path: '/channel-groups', component: () => import("./channel-groups/channel-groups-page"), name: 'channelGroups', children: [
             {path: ':id', component: () => import("./channel-groups/channel-group-details"), name: 'channelGroup', props: true}
@@ -50,6 +50,22 @@ export default [
     {
         path: '/locations', component: () => import("./locations/locations-page"), name: 'locations', children: [
             {path: ':id', component: () => import("./locations/location-details"), name: 'location', props: true}
+        ]
+    },
+    {
+        path: '/integrations', component: () => import("./oauth/integrations-page"), children: [
+            {path: 'authorized', component: () => import("./oauth/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
+            {
+                path: 'apps', component: () => import("./oauth/oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
+                    {
+                        path: ':id',
+                        component: () => import("./oauth/oauth-apps/my-oauth-app-details"),
+                        name: 'myOauthApp',
+                        props: true
+                    }
+                ]
+            },
+            {path: 'tokens', component: () => import("./oauth/personal-tokens/personal-access-tokens"), name: 'personal-tokens'},
         ]
     },
     {path: '/me', component: () => import("./home/my-supla-page")},

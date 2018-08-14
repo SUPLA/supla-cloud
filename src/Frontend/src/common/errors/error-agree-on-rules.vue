@@ -8,7 +8,7 @@
         <regulations-checkbox v-model="agreed"></regulations-checkbox>
         <div class="form-group">
             <a class="btn btn-yellow"
-                :href="'/auth/logout' | withBaseUrl">
+                @click="disagree()">
                 <i class="pe-7s-back"></i>
                 {{ $t('I do not agree, get me out of here') }}
             </a>
@@ -34,7 +34,7 @@
             };
         },
         mounted() {
-            if (this.$user.agreements.rules) {
+            if (this.$user.userData.agreements.rules) {
                 this.$router.push('/');
             }
         },
@@ -43,6 +43,9 @@
                 this.loading = true;
                 this.$http.patch('users/current', {action: 'agree:rules'})
                     .finally(() => window.location.assign(window.location.toString()));
+            },
+            disagree() {
+                $("#logoutButton")[0].click();
             }
         }
     };

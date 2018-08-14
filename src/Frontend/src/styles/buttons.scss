@@ -106,3 +106,48 @@
     }
   }
 }
+
+.btn-filters {
+  display: inline-block;
+}
+
+.btn-group-filters {
+  .btn {
+    color: $supla-black;
+    border-color: $supla-grey-light;
+    text-transform: uppercase;
+    line-height: 26px;
+    padding: 4px 10px;
+    font-size: .8em;
+    background: $supla-white;
+    font-weight: 400;
+    border-radius: 3px;
+    outline-color: $supla-grey-light !important;
+    &:hover {
+      background: $supla-grey-light;
+    }
+    &.active {
+      background: $supla-grey-light;
+    }
+  }
+  &:hover {
+    .btn {
+      border-color: $supla-black;
+      &.active {
+        color: $supla-white;
+        background: $supla-black;
+      }
+    }
+  }
+  &-dropdown {
+    display: none;
+  }
+  @include on-xs-and-down {
+    &-dropdown {
+      display: block;
+    }
+    &-inline {
+      display: none;
+    }
+  }
+}

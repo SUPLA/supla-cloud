@@ -18,10 +18,12 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use SuplaApiBundle\Entity\EntityUtils;
-use SuplaApiBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Auth\OAuthScope;
+use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\ApiClientRepository;
 
 class UsersFixture extends SuplaFixture {
     const ORDER = 0;
@@ -40,18 +42,14 @@ class UsersFixture extends SuplaFixture {
         $userManager->confirm($user->getToken());
         $this->addReference(self::USER, $user);
 
-        $apiManager = $this->container->get('api_manager');
-        $apiUser = $apiManager->getAPIUser($user);
-        $apiUser->setEnabled(true);
-        $apiManager->setPassword('pass', $apiUser, true);
-        $client = $apiManager->getClient($user);
-
+        // create an always valid simple access token issued for webapp
+        $webappClient = $this->container->get(ApiClientRepository::class)->getWebappClient();
         $token = new AccessToken();
-        EntityUtils::setField($token, 'client', $client);
-        EntityUtils::setField($token, 'user', $apiUser);
+        EntityUtils::setField($token, 'client', $webappClient);
+        EntityUtils::setField($token, 'user', $user);
         EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
         EntityUtils::setField($token, 'token', '0123456789012345678901234567890123456789');
-        EntityUtils::setField($token, 'scope', 'restapi');
+        EntityUtils::setField($token, 'scope', (string)(new OAuthScope(OAuthScope::getSupportedScopes())));
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($token);
         $em->flush();

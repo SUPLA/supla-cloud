@@ -4,7 +4,7 @@
         filters="location-filters"
         endpoint="locations"
         create-new-label="Create New Location"
-        :limit="$user.limits.location"
+        :limit="$user.userData.limits.location"
         details-route="location"></carousel-page>
 </template>
 

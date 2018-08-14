@@ -1,38 +1,35 @@
 security:
   encoders:
-    SuplaApiBundle\Entity\OAuth\ApiUser:
-      algorithm: bcrypt
-      cost: 4
     SuplaBundle\Entity\User: bcrypt
     legacy_encoder: md5
-  erase_credentials: false # in order to migrate legacy passwords
   hide_user_not_found: false
 
   firewalls:
+    oauth_token:
+      pattern:    ^/oauth/v2/token
+      security:   false
+
+    oauth_authorize:
+      pattern:    ^/oauth/v2/auth
+      form_login:
+        provider: supla_db_provider
+        check_path: _oauth_login_check
+        login_path: _oauth_login
+        use_referer: true
+
     api:
       anonymous: true
       fos_oauth: true
       pattern: ^/api/
       stateless: true
 
-    main:
-      anonymous: true
-      entry_point: SuplaApiBundle\DependencyInjection\WebApiAuthenticationEntryPoint
-      form_login:
-        check_path: _auth_login
-        login_path: _auth_login
-        require_previous_session: false
-      logout:
-        path: /auth/logout
-        target: /auth/login
-
   access_control:
     -
-      path: ^/((web-)?api/(v?\d\.\d\.\d/)?(auth-servers|server-status|server-info|register|forgotten-password|confirm))
+      path: ^/(api/(v?\d\.\d\.\d/)?(server-status|server-info|register|forgotten-password|confirm|webapp-tokens|webapp-auth))
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
     -
-      path: ^/(api|web-api)
+      path: ^/api
       role: [IS_AUTHENTICATED_FULLY]
       requires_channel: '%supla_protocol%'
     -
@@ -42,4 +39,15 @@ security:
 
   providers:
     supla_db_provider:
-      id: 'SuplaBundle\Repository\UserProvider'
+      id: 'SuplaBundle\Auth\UserProvider'
+
+  role_hierarchy:
+    ROLE_ACCESSIDS_RW: ROLE_ACCESSIDS_R
+    ROLE_ACCOUNT_RW: ROLE_ACCOUNT_R
+    ROLE_CHANNELS_RW: ROLE_CHANNELS_R
+    ROLE_CHANNELGROUPS_RW: ROLE_CHANNELGROUPS_R
+    ROLE_CLIENTAPPS_RW: ROLE_CLIENTAPPS_R
+    ROLE_IODEVICES_RW: ROLE_IODEVICES_R
+    ROLE_LOCATIONS_RW: ROLE_LOCATIONS_R
+    ROLE_SCHEDULES_RW: ROLE_SCHEDULES_R
+    ROLE_RESTAPI: [ROLE_ACCESSIDS_RW, ROLE_ACCOUNT_RW, ROLE_CHANNELS_RW, ROLE_CHANNELGROUPS_RW, ROLE_CLIENTAPPS_RW, ROLE_IODEVICES_RW, ROLE_LOCATIONS_RW, ROLE_SCHEDULES_RW, ROLE_CHANNELS_EA, ROLE_CHANNELGROUPS_EA]

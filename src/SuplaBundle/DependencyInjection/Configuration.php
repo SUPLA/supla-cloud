@@ -47,6 +47,14 @@ class Configuration implements ConfigurationInterface {
                     ->integerNode('max_failed_attempts')->defaultValue(3)->end()
                     ->integerNode('block_time_seconds')->defaultValue(1200)->end() // default 20 minutes
                 ->end()->end()
+                ->arrayNode('oauth')->children()
+                    ->arrayNode('tokens_lifetime')->children()
+                        ->arrayNode('webapp')->prototype('integer')->end()->end()
+                        ->arrayNode('client_app')->prototype('integer')->end()->end()
+                        ->arrayNode('admin')->prototype('integer')->end()->end()
+                        ->arrayNode('user')->prototype('integer')->end()->end()
+                    ->end()->end()
+                ->end()->end()
             ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd

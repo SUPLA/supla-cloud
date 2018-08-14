@@ -8,23 +8,18 @@ services:
     public: false
 
   _instanceof:
-    SuplaApiBundle\ParamConverter\AbstractBodyParamConverter:
+    SuplaBundle\ParamConverter\AbstractBodyParamConverter:
       tags: [request.param_converter]
-    SuplaApiBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
+    SuplaBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
       tags: [supla.channel_action_executor]
-    SuplaApiBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
+    SuplaBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
       tags: [supla.channel_params_updater]
-    SuplaApiBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
+    SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
-
-  SuplaBundle\EventListener\UserLoginAttemptListener:
-    tags:
-      - { name: kernel.event_listener, event: security.authentication.failure, method: onAuthenticationFailure }
-      - { name: kernel.event_listener, event: security.interactive_login, method: onAuthenticationSuccess }
 
   SuplaBundle\EventListener\LocaleListener:
     - "%kernel.default_locale%"
@@ -33,21 +28,12 @@ services:
     tags:
       - { alias: channelfunction, name: form.type }
 
-  SuplaApiBundle\Provider\ApiUserProvider: ~
-
   SuplaBundle\Command\:
     resource: '../../src/SuplaBundle/Command'
 
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'
     public: true
-
-  SuplaApiBundle\Controller\:
-    resource: '../../src/SuplaApiBundle/Controller'
-    public: true
-
-  SuplaApiBundle\DependencyInjection\WebApiAuthenticationEntryPoint:
-    $loginPath: '_auth_login'
 
   SuplaBundle\Model\:
     resource: '../../src/SuplaBundle/Model'
@@ -62,19 +48,16 @@ services:
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner'
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner'
 
-  SuplaApiBundle\Model\:
-    resource: '../../src/SuplaApiBundle/Model'
-
-  SuplaApiBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
+  SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
     - !tagged supla.channel_action_executor
 
-  SuplaApiBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater:
+  SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater:
     - !tagged supla.channel_params_updater
 
-  SuplaApiBundle\Model\ChannelStateGetter\ChannelStateGetter:
+  SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
     - !tagged supla.channel_state_getter
 
-  SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
+  SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
     $enabled: '%supla.brute_force_auth_prevention.enabled%'
     $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'
     $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'
@@ -92,6 +75,7 @@ services:
 
   SuplaBundle\Supla\ServerList:
     $suplaUrl: "%supla_url%"
+    $suplaProtocol: "%supla_protocol%"
     $new_account_server_list: "%new_account_server_list%"
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
@@ -99,24 +83,31 @@ services:
       - "%use_webpack_dev_server%"
       - "%supla.webpack_hashes%"
 
-  SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport:
-    $userProvider: '@SuplaApiBundle\Provider\ApiUserProvider'
+  SuplaBundle\Auth\UserProvider: ~
+  SuplaBundle\Auth\UserLoginAttemptListener:
+    tags:
+      - { name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure }
+      - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveAuthenticationSuccess }
 
-  SuplaApiBundle\EventListener\ApiExceptionHandler:
+  SuplaBundle\Auth\SuplaOAuthStorage:
+    $userProvider: '@SuplaBundle\Auth\UserProvider'
+
+  SuplaBundle\Auth\OAuthEventListener:
+    tags:
+      - { name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess }
+      - { name: kernel.event_listener, event: fos_oauth_server.post_authorization_process, method: onPostAuthorizationProcess }
+
+  SuplaBundle\EventListener\ApiExceptionHandler:
     arguments:
       - "%kernel.debug%"
     tags:
       - { name: kernel.event_subscriber }
 
-  SuplaApiBundle\ParamConverter\:
-    resource: '../../src/SuplaApiBundle/ParamConverter'
+  SuplaBundle\ParamConverter\:
+    resource: '../../src/SuplaBundle/ParamConverter'
 
-  SuplaApiBundle\Serialization\:
-    resource: '../../src/SuplaApiBundle/Serialization'
-
-  SuplaBundle\EventListener\LegacyPasswordMigrationListener:
-    tags:
-      - { event: security.interactive_login, name: kernel.event_listener }
+  SuplaBundle\Serialization\:
+    resource: '../../src/SuplaBundle/Serialization'
 
   SuplaBundle\Mailer\SuplaMailer:
     $mailer_from: "%mailer_from%"
@@ -131,6 +122,18 @@ services:
   SuplaBundle\Repository\AccessIdRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\AccessID]
+
+  SuplaBundle\Repository\AccessTokenRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\OAuth\AccessToken]
+
+  SuplaBundle\Repository\ApiClientRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\OAuth\ApiClient]
+
+  SuplaBundle\Repository\ApiClientAuthorizationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\OAuth\ApiClientAuthorization]
 
   SuplaBundle\Repository\AuditEntryRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
@@ -152,7 +155,6 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Schedule]
 
-  SuplaBundle\Repository\UserProvider: ~
   SuplaBundle\Repository\UserRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\User]
@@ -160,3 +162,11 @@ services:
   SuplaBundle\Repository\IODeviceChannelRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\IODeviceChannel]
+
+  fos_oauth_server.server:
+    class: SuplaBundle\Auth\SuplaOAuth2
+    arguments:
+      - '@fos_oauth_server.storage'
+      - '%fos_oauth_server.server.options%'
+      - '%supla_url%'
+      - '%supla.oauth.tokens_lifetime%'

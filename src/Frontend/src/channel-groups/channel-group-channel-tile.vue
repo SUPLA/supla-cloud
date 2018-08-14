@@ -9,16 +9,14 @@
             <a class="valign-center text-center"
                 @click="flipped = false">
                 <span class="channel-buttons">
-                    <a class="btn btn-default"
-                        @click.stop=""
-                        :href="`/channels/${channel.id}` | withBaseUrl">
+                    <router-link class="btn btn-default"
+                        :to="{name: 'channel', params: {id: channel.id}}">
                         {{ $t('Go to channel details') }}
-                    </a>
-                    <a class="btn btn-default"
-                        @click.stop=""
-                        :href="`/devices/${channel.iodeviceId}` | withBaseUrl">
+                    </router-link>
+                    <router-link class="btn btn-default"
+                        :to="{name: 'device', params: {id: channel.iodeviceId}}">
                         {{ $t('Go to I/O device details') }}
-                    </a>
+                    </router-link>
                     <button class="btn btn-danger btn-block"
                         type="button"
                         @click.stop="$emit('remove')"

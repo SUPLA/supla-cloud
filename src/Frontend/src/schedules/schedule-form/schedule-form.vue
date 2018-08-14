@@ -184,7 +184,11 @@
                     schedule: {},
                 });
             },
-            ...mapActions(['submit', 'loadScheduleToEdit'])
+            submit(enableIfDisabled) {
+                this.$store.dispatch('submit', enableIfDisabled)
+                    .then(({body: schedule}) => this.$router.push({name: 'schedule', params: {id: schedule.id}}));
+            },
+            ...mapActions(['loadScheduleToEdit'])
         },
         watch: {
             '$route'() {

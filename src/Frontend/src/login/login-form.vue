@@ -1,112 +1,93 @@
 <template>
-    <div v-title="$t('Login')">
-        <div class="login-form">
-            <div class="logo">
-                <img src="assets/img/logo.svg"
-                    alt="SUPLA">
-            </div>
-            <form @submit.prevent="findServer()"
-                ref="loginForm"
-                method="post">
-                <div class="form-group form-group-lg">
-                    <span class="input-group">
-                        <span class="input-group-addon">
-                            <span class="pe-7s-user"></span>
-                        </span>
-                        <input type="email"
-                            required
-                            autocorrect="off"
-                            autocapitalize="none"
-                            :placeholder="$t('Your email')"
-                            v-model="username"
-                            name="_username"
-                            class="form-control">
-                    </span>
-                </div>
-                <div class="form-group form-group-lg">
-                    <span class="input-group">
-                        <span class="input-group-addon">
-                            <span class="pe-7s-lock"></span>
-                        </span>
-                        <input type="password"
-                            required
-                            :placeholder="$t('Password')"
-                            name="_password"
-                            v-model="password"
-                            class="form-control">
-                    </span>
-                </div>
-                <div class="form-group text-right">
-                    <button type="submit"
-                        class="btn btn-green btn-lg">
-                        <span v-if="!authenticating">
-                            {{ $t('Sign In') }}
-                        </span>
-                        <button-loading-dots v-else></button-loading-dots>
-                    </button>
-                </div>
-            </form>
+    <div class="login-form">
+        <div class="logo">
+            <img src="assets/img/logo.svg"
+                alt="SUPLA">
+        </div>
+
+        <div class="form-group form-group-lg">
+            <span class="input-group">
+                <span class="input-group-addon">
+                    <span class="pe-7s-user"></span>
+                </span>
+                <input type="email"
+                    required
+                    autocorrect="off"
+                    autocapitalize="none"
+                    :placeholder="$t('Your email')"
+                    v-model="username"
+                    name="_username"
+                    class="form-control">
+            </span>
+        </div>
+        <div class="form-group form-group-lg">
+            <span class="input-group">
+                <span class="input-group-addon">
+                    <span class="pe-7s-lock"></span>
+                </span>
+                <input type="password"
+                    required
+                    :placeholder="$t('Password')"
+                    name="_password"
+                    v-model="password"
+                    class="form-control">
+            </span>
+        </div>
+        <div class="form-group text-right">
+            <button type="submit"
+                class="btn btn-green btn-lg"
+                @click="$emit('input', {username: username, password: password})"
+                :disabled="authenticating">
+                <span v-if="!authenticating">
+                    {{ $t('Sign In') }}
+                </span>
+                <button-loading-dots v-else></button-loading-dots>
+            </button>
+        </div>
+        <transition name="fade">
             <div class="error locked"
-                v-if="displayError == 'locked'">
+                v-if="error === 'locked'">
                 <strong>{{ $t('Your account has been locked.') }}</strong>
                 {{ $t('Please wait a moment before the next login attempt.') }}
             </div>
+        </transition>
+        <transition name="fade">
             <router-link to="/forgotten-password"
                 class="error"
-                v-else-if="displayError">
+                v-if="error && error !== 'locked'">
                 <strong>{{ $t('Forgot your password?') }}</strong>
                 {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
-            <div class="additional-buttons form-group">
-                <router-link to="/devices"
-                    class="btn btn-white btn-wrapped">
-                    <img src="assets/img/devices.png">
-                    {{ $t('Supla for devices') }}
-                </router-link>
-                <a class="btn btn-white btn-wrapped"
-                    href="/auth/create">
-                    <img src="/assets/img/user.png">
-                    {{ $t('Create an account') }}
-                </a>
-            </div>
+        </transition>
+        <div class="additional-buttons form-group">
+            <router-link to="/devices"
+                class="btn btn-white btn-wrapped">
+                <img src="assets/img/devices.png">
+                {{ $t('Supla for devices') }}
+            </router-link>
+            <a class="btn btn-white btn-wrapped"
+                href="/auth/create">
+                <img src="/assets/img/user.png">
+                {{ $t('Create an account') }}
+            </a>
         </div>
-        <login-footer remind-password-link="true"></login-footer>
     </div>
 </template>
 
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import LoginFooter from "./login-footer.vue";
-    import {errorNotification} from "../common/notifier";
-    import Vue from "vue";
 
     export default {
-        components: {ButtonLoadingDots, LoginFooter},
+        props: ['authenticating', 'error', 'value', 'intitialUsername'],
+        components: {ButtonLoadingDots},
         data() {
             return {
-                authenticating: false,
-                username: $('#login-error').attr('last-username') || '',
+                username: '',
                 password: '',
-                displayError: $('#login-error').attr('error'),
             };
         },
-        methods: {
-            findServer() {
-                if (!this.authenticating) {
-                    this.authenticating = true;
-                    this.$http.get('auth-servers', {params: {username: this.username}}).then(({body}) => {
-                        if (!body.server) {
-                            throw new Error();
-                        } else {
-                            this.$refs.loginForm.action = body.server + '/auth/login?lang=' + Vue.config.external.locale;
-                            this.$refs.loginForm.submit();
-                        }
-                    }).catch(() => {
-                        errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
-                        this.authenticating = false;
-                    });
-                }
-            }
+        mounted() {
+            this.username = this.intitialUsername || '';
         }
     };
 </script>
@@ -114,10 +95,6 @@
 <style lang="scss">
     @import "../styles/variables";
     @import "../styles/mixins";
-
-    body._auth_login {
-        background: $supla-white;
-    }
 
     .login-form {
         $height: 500px;
@@ -146,10 +123,8 @@
                 height: 150px;
             }
         }
-        form {
-            .input-group-addon > span {
-                font-size: 2em;
-            }
+        .input-group-addon > span {
+            font-size: 2em;
         }
         input[type=text], input[type=password], input[type=email] {
             &.form-control {

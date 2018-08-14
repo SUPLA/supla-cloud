@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration;
 
-use SuplaApiBundle\Tests\Integration\TestMailer;
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -44,8 +44,13 @@ abstract class IntegrationTestCase extends WebTestCase {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
             $this->executeCommand('doctrine:database:create --if-not-exists');
         }
+        $this->clearDatabase();
+    }
+
+    protected function clearDatabase() {
         $this->executeCommand('doctrine:schema:drop --force');
         $this->executeCommand('doctrine:schema:create');
+        $this->executeCommand('supla:oauth:create-webapp-client');
     }
 
     protected function executeCommand(string $command): string {
@@ -53,20 +58,15 @@ abstract class IntegrationTestCase extends WebTestCase {
         $output = new BufferedOutput();
         $input->setInteractive(false);
         $this->application->run($input, $output);
-        return $output->fetch();
-    }
-
-    protected function createAuthenticatedClient($username = 'supler@supla.org', string $password = 'supla123'): TestClient {
-        $client = self::createClient([], [
-            'PHP_AUTH_USER' => $username,
-            'PHP_AUTH_PW' => $password,
-            'HTTPS' => true,
-            'HTTP_Accept' => 'application/json',
-        ]);
-        return $client;
+        $result = $output->fetch();
+        return $result;
     }
 
     protected function getDoctrine(): RegistryInterface {
         return $this->container->get('doctrine');
+    }
+
+    protected function getEntityManager(): EntityManagerInterface {
+        return $this->getDoctrine()->getEntityManager();
     }
 }

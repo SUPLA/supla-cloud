@@ -2,15 +2,11 @@
     <div>
         <div class="form-group">
             <label>{{ $t('Subject') }}</label>
-            <select class="form-control"
-                ref="channelsDropdown"
-                :data-placeholder="$t('choose the channel')"
-                v-model="channelId">
-                <option v-for="channel in userChannels"
-                    :value="channel.id">
-                    {{ channelTitle(channel) }}
-                </option>
-            </select>
+            <channels-dropdown params="io=output&hasFunction=1"
+                :initial-id="channelId"
+                @input="channelId = $event.id"
+                hide-none="true">
+            </channels-dropdown>
         </div>
         <div v-show="channelId">
             <div v-for="possibleAction in channelFunctionMap[channelId]">
@@ -41,15 +37,13 @@
 </template>
 
 <script>
-    import Vue from "vue";
-    import "chosen-js";
-    import "bootstrap-chosen/bootstrap-chosen.css";
     import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage.vue";
+    import ChannelsDropdown from "../../../devices/channels-dropdown";
 
     export default {
         name: 'schedule-form-action-chooser',
-        components: {RgbwParametersSetter, RoletteShutterPartialPercentage},
+        components: {ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
         data() {
             return {
                 userChannels: [],
@@ -61,9 +55,9 @@
                 if (body.userChannels.length) {
                     this.userChannels = body.userChannels;
                     this.channelFunctionMap = body.channelFunctionMap;
-                    Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
-                        this.channelId = e.currentTarget.value;
-                    }));
+                    // Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
+                    //     this.channelId = e.currentTarget.value;
+                    // }));
                 } else {
                     this.userChannels = undefined;
                 }
@@ -85,7 +79,7 @@
             },
             channelId: {
                 get() {
-                    Vue.nextTick(() => $(this.$refs.channelsDropdown).trigger("chosen:updated"));
+                    // Vue.nextTick(() => $(this.$refs.channelsDropdown).trigger("chosen:updated"));
                     return this.$store.state.channelId;
                 },
                 set(channelId) {

@@ -30,3 +30,5 @@ parameters:
 
   # A secret key that's used to generate certain security-related tokens
   secret: ThisTokenIsNotSoSecretChangeIt
+
+  cors_allow_origin_regex: []

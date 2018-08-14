@@ -17,23 +17,25 @@
 
 namespace SuplaBundle\Supla;
 
+use SuplaBundle\Model\RemoteSuplaServer;
 use SuplaBundle\Model\UserManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 
 class ServerList {
-    protected $suplaUrl = null;
-    protected $servers = null;
-    protected $user_manager = null;
-    protected $router = null;
-    protected $autodiscover = null;
+    private $suplaUrl = null;
+    private $user_manager = null;
+    private $router = null;
+    private $autodiscover = null;
+    private $suplaProtocol;
 
     public function __construct(
         Router $router,
         UserManager $user_manager,
         SuplaAutodiscover $autodiscover,
-        $suplaUrl,
-        $new_account_server_list
+        string $suplaUrl,
+        $new_account_server_list,
+        string $suplaProtocol
     ) {
 
         $this->router = $router;
@@ -41,6 +43,7 @@ class ServerList {
         $this->suplaUrl = $suplaUrl;
         $this->na_servers = $new_account_server_list;
         $this->autodiscover = $autodiscover;
+        $this->suplaProtocol = $suplaProtocol;
     }
 
     public function userExists($username, &$remote_server) {
@@ -63,15 +66,13 @@ class ServerList {
         return false;
     }
 
-    public function getAuthServerForUser(string $username) {
+    public function getAuthServerForUser(string $username): RemoteSuplaServer {
         $domainFromAutodiscover = false;
         if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->autodiscover->enabled()) {
             $domainFromAutodiscover = $this->autodiscover->findServer($username);
-            if ($domainFromAutodiscover === null) {
-                return false;
-            }
         }
-        return $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
+        $serverUrl = $domainFromAutodiscover ? $this->suplaProtocol . '://' . $domainFromAutodiscover : $this->suplaUrl;
+        return new RemoteSuplaServer($serverUrl, !$domainFromAutodiscover);
     }
 
     public function getCreateAccountUrl(Request $request) {

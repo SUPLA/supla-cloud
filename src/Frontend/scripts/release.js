@@ -56,7 +56,6 @@ function copyToReleaseDirectory() {
     [
         'app/',
         'bin/',
-        'src/SuplaApiBundle',
         'src/SuplaBundle',
         'vendor/',
         'web/',

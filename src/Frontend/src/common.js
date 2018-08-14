@@ -20,6 +20,7 @@ import "./common/filters";
 import "style-loader!css-loader!sass-loader!./styles/styles.scss";
 import routes from "./routes";
 import "./polyfills";
+import {CurrentUser} from "./login/current-user";
 
 Vue.use(Vuex);
 Vue.use(VueI18N);
@@ -33,11 +34,10 @@ Vue.config.external = window.FRONTEND_CONFIG || {};
 if (!Vue.config.external.baseUrl) {
     Vue.config.external.baseUrl = '';
 }
-Vue.http.options.root = Vue.config.external.baseUrl + '/web-api';
-Vue.http.headers.common['X-Accept-Version'] = '2.2.0';
+Vue.http.options.root = Vue.config.external.baseUrl + '/api';
+Vue.http.headers.common['X-Accept-Version'] = '2.3.0';
 
 moment.locale(Vue.config.external.locale);
-moment.tz.setDefault(Vue.config.external.timezone);
 
 // synchronize browser time with server's
 (function () {
@@ -49,72 +49,88 @@ moment.tz.setDefault(Vue.config.external.timezone);
     };
 })();
 
-$(document).ready(() => {
-    if ($('.vue-container').length) {
-        const router = new VueRouter({
-            routes,
-            base: Vue.config.external.baseUrl + '/',
-            linkActiveClass: 'active',
-            mode: 'history',
-        });
+Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
+Vue.prototype.$user = new CurrentUser();
+Vue.prototype.$user.fetchUser().then(() => {
+    $(document).ready(() => {
+        if ($('.vue-container').length) {
+            const router = new VueRouter({
+                routes,
+                base: Vue.config.external.baseUrl + '/',
+                linkActiveClass: 'active',
+                mode: 'history',
+            });
 
-        Vue.prototype.$user = Vue.config.external.user;
+            if (Vue.config.external.regulationsAcceptRequired) {
+                router.beforeEach((to, from, next) => {
+                    if (Vue.prototype.$user.username && !Vue.prototype.$user.userData.agreements.rules && to.name != 'agree-on-rules') {
+                        next({name: 'agree-on-rules'});
+                    } else {
+                        next();
+                    }
+                });
+            }
 
-        if (Vue.prototype.$user && !Vue.prototype.$user.agreements.rules) {
             router.beforeEach((to, from, next) => {
-                if (!Vue.prototype.$user.agreements.rules && to.name != 'agree-on-rules') {
-                    next({name: 'agree-on-rules'});
+                if (!Vue.prototype.$user.username && !to.meta.unrestricted) {
+                    next({name: 'login', query: {target: to.path}});
+                } else if (Vue.prototype.$user.username && to.meta.onlyUnauthenticated) {
+                    next('/');
                 } else {
                     next();
                 }
             });
-        }
 
-        router.beforeEach((to, from, next) => {
-            if (!Vue.prototype.$user && !to.meta.unrestricted) {
-                next({name: 'login'});
-            } else if (Vue.prototype.$user && to.meta.onlyUnauthenticated) {
-                next('/');
-            } else {
+            router.afterEach((to) => {
+                if (to.meta.bodyClass) {
+                    document.body.setAttribute('class', to.meta.bodyClass);
+                } else {
+                    document.body.removeAttribute('class');
+                }
+            });
+
+            router.afterEach(() => {
+                $(".navbar-toggle:visible:not('.collapsed')").click();
+            });
+
+            const i18n = new VueI18N({
+                locale: 'SUPLA_TRANSLATIONS',
+                messages: {SUPLA_TRANSLATIONS},
+                // uncomment to collect missing translations automatically in MISSING_TRANSLATIONS global variable.
+                // then collect yml with: Object.keys(MISSING_TRANSLATIONS).map(t => `${t}: ~`).join("\n")
+                // missing(locale, key) {
+                //     if (!window.MISSING_TRANSLATIONS) {
+                //         window.MISSING_TRANSLATIONS = {};
+                //     }
+                //     window.MISSING_TRANSLATIONS[key] = '~';
+                //     return key;
+                // }
+            });
+
+            const app = new Vue({
+                data: {changingRoute: false},
+                i18n,
+                router,
+                components: {
+                    OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
+                    ErrorPage: () => import("./common/errors/error-page"),
+                },
+                mounted() {
+                    document.getElementById('page-preloader').remove();
+                    $('.vue-container').removeClass('invisible');
+                }
+            }).$mount('.vue-container');
+
+            router.beforeEach((to, from, next) => {
+                app.changingRoute = true;
                 next();
+            });
+            router.afterEach(() => app.changingRoute = false);
+
+            Vue.http.interceptors.push(ResponseErrorInterceptor(app));
+            for (let transformer in requestTransformers) {
+                Vue.http.interceptors.push(requestTransformers[transformer]);
             }
-        });
-
-        router.afterEach((to) => {
-            if (to.meta.bodyClass) {
-                document.body.setAttribute('class', to.meta.bodyClass);
-            } else {
-                document.body.removeAttribute('class');
-            }
-        });
-
-        router.afterEach(() => {
-            $(".navbar-toggle:visible:not('.collapsed')").click();
-        });
-
-        const i18n = new VueI18N({
-            locale: 'SUPLA_TRANSLATIONS',
-            messages: {SUPLA_TRANSLATIONS}
-        });
-
-        const app = new Vue({
-            data: {changingRoute: false},
-            i18n,
-            router,
-            mounted() {
-                document.getElementById('page-preloader').remove();
-            }
-        }).$mount('.vue-container');
-
-        router.beforeEach((to, from, next) => {
-            app.changingRoute = true;
-            next();
-        });
-        router.afterEach(() => app.changingRoute = false);
-
-        Vue.http.interceptors.push(ResponseErrorInterceptor(app));
-        for (let transformer in requestTransformers) {
-            Vue.http.interceptors.push(requestTransformers[transformer]);
         }
-    }
+    });
 });

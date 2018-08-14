@@ -17,8 +17,8 @@ class AppKernel extends Kernel {
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
             new SuplaBundle\SuplaBundle(),
-            new SuplaApiBundle\SuplaApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -68,7 +68,7 @@ class AppKernel extends Kernel {
     protected function build(\Symfony\Component\DependencyInjection\ContainerBuilder $container) {
         parent::build($container);
         if ($this->getEnvironment() === 'test') {
-            $container->addCompilerPass(new SuplaApiBundle\Tests\Integration\TestContainerPass(), \Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_OPTIMIZE);
+            $container->addCompilerPass(new SuplaBundle\Tests\Integration\TestContainerPass(), \Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_OPTIMIZE);
         }
     }
 }

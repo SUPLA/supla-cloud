@@ -17,9 +17,9 @@
 
 namespace SuplaBundle\Supla;
 
-use SuplaApiBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Model\CurrentUserAware;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 

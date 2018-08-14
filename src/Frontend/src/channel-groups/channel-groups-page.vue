@@ -4,7 +4,7 @@
         filters="channel-group-filters"
         endpoint="channel-groups"
         create-new-label="Add new channel group"
-        :limit="$user.limits.channelGroup"
+        :limit="$user.userData.limits.channelGroup"
         details-route="channelGroup"></carousel-page>
 </template>
 

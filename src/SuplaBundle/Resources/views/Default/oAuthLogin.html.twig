@@ -1,0 +1,6 @@
+{% extends 'SuplaBundle::vue-template.html.twig' %}
+
+{% block vue %}
+    <router-view last-username="{{ last_username }}"
+            error="{{ error }}"></router-view>
+{% endblock %}

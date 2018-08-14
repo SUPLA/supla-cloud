@@ -51,7 +51,9 @@
         methods: {
             setFilter(filter) {
                 this.chosenFilter = filter;
-                this.$emit('input', this.chosenFilter);
+                if (this.value != filter) {
+                    this.$emit('input', this.chosenFilter);
+                }
                 if (this.id) {
                     this.$localStorage.set(this.localStorageId, filter);
                 }
@@ -65,56 +67,13 @@
                 const filter = this.filters.find(f => f.value === this.chosenFilter);
                 return filter ? filter.label : '';
             }
-        }
-    };
-</script>
-
-<style lang="scss">
-    @import "../styles/mixins";
-    @import "../styles/variables";
-
-    .btn-filters {
-        display: inline-block;
-    }
-
-    .btn-group-filters {
-        .btn {
-            border-color: $supla-grey-light;
-            text-transform: uppercase;
-            font-size: 11px;
-            line-height: 26px;
-            padding: 4px 10px;
-            font-size: .8em;
-            background: $supla-white;
-            font-weight: 400;
-            border-radius: 3px;
-            outline-color: $supla-grey-light !important;
-            &:hover {
-                background: $supla-grey-light;
-            }
-            &.active {
-                background: $supla-grey-light;
-            }
-        }
-        &:hover {
-            .btn {
-                border-color: $supla-black;
-                &.active {
-                    color: $supla-white;
-                    background: $supla-black;
+        },
+        watch: {
+            value(value) {
+                if (value) {
+                    this.setFilter(value);
                 }
             }
         }
-        &-dropdown {
-            display: none;
-        }
-        @include on-xs-and-down {
-            &-dropdown {
-                display: block;
-            }
-            &-inline {
-                display: none;
-            }
-        }
-    }
-</style>
+    };
+</script>

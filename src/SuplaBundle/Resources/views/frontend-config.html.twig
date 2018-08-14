@@ -2,29 +2,10 @@
     window.FRONTEND_CONFIG = {
         locale: '{{ app.request.locale }}',
         baseUrl: '{{ path('_homepage')[:-1] }}',
-        timezone: '{{ app.user ? app.user.timezone : '' }}',
         serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
         renderStart: new Date(),
         regulationsAcceptRequired: {{ supla_require_regulations_acceptance ? 'true' : 'false' }},
         recaptchaEnabled: {{ recaptcha_enabled ? 'true' : 'false' }},
         recaptchaSiteKey: '{{ recaptcha_site_key }}'
-        {% if app.user %}
-        ,
-        user: {
-            id: {{ app.user.id }},
-            email: '{{ app.user.email }}',
-            limits: {
-                channelGroup: {{ app.user.limitChannelGroup }},
-                channelPerGroup: {{ app.user.limitChannelPerGroup }},
-                location: {{ app.user.limitLoc }},
-                accessId: {{ app.user.limitAid }},
-                schedule: {{ app.user.limitSchedule }}
-            },
-            agreements: {
-                rules: {{ app.user.rulesAgreement or not supla_require_regulations_acceptance ? 'true' : 'false' }},
-                cookies: {{ app.user.cookiesAgreement or not supla_require_cookie_policy_acceptance ? 'true' : 'false' }}
-            }
-        }
-        {% endif %}
     };
 </script>

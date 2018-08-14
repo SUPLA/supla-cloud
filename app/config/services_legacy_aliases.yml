@@ -5,7 +5,7 @@ services:
   location_manager: '@SuplaBundle\Model\LocationManager'
   iodevice_manager: '@SuplaBundle\Model\IODeviceManager'
   accessid_manager: '@SuplaBundle\Model\AccessIdManager'
-  api_manager: '@SuplaApiBundle\Model\APIManager'
+  api_manager: '@SuplaBundle\Model\APIManager'
   user_manager: '@SuplaBundle\Model\UserManager'
   supla_mailer: '@SuplaBundle\Mailer\SuplaMailer'
   supla_autodiscover: '@SuplaBundle\Supla\SuplaAutodiscover'

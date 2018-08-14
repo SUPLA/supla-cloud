@@ -18,59 +18,60 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Entity\User;
+use SuplaBundle\Exception\ApiException;
+use Symfony\Component\HttpFoundation\Response;
 
 class SuplaAutodiscover {
 
     protected $server = null;
-    
+
     private function remoteRequest($endpoint, $post = false) {
-    
 
         if (!$this->enabled()) {
             return null;
         }
-        
-        $options = array(
-                    'http' => array( // use key 'http' even if you send the request to https://...
-                            'header'  => "Content-type: application/json\r\n",
-                            'method'  => $post ? 'POST' : 'GET',
-                            'content' => json_encode($post)
-                    )
-         );
-         
-        $context  = stream_context_create($options);
-        
+
+        $options = [
+            'http' => [ // use key 'http' even if you send the request to https://...
+                'header' => "Content-type: application/json\r\n",
+                'method' => $post ? 'POST' : 'GET',
+                'content' => json_encode($post),
+            ],
+        ];
+
+        $context = stream_context_create($options);
+
         $result = @file_get_contents("https://" . $this->server . $endpoint, false, $context);
-        
+
         if ($result) {
             $result = json_decode($result, true);
         } elseif (preg_match("/^HTTP\/1\.1\ 404/", @$http_response_header[0])) {
             return false;
         } else {
-            $result = null;
+            throw new ApiException('Service temporarily unavailable.', Response::HTTP_SERVICE_UNAVAILABLE);
         }
-        
+
         return $result;
     }
-    
+
     public function __construct($server) {
         $this->server = $server;
     }
-    
-    public function enabled() {
+
+    public function enabled(): bool {
         return $this->server && strlen($this->server) > 0;
     }
-    
+
     public function findServer($username) {
         $result = $this->remoteRequest('/users/' . urlencode($username));
-        
+
         if ($result && strlen(@$result['server']) > 0) {
             return $result['server'];
         }
-        
+
         return $result;
     }
-    
+
     public function registerUser(User $user) {
         $this->remoteRequest('/users', ['email' => $user->getUsername()]);
     }

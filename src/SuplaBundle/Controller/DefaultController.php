@@ -19,11 +19,12 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaApiBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
+use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Supla\ServerList;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends Controller {
     /** @var FailedAuthAttemptsUserBlocker */
@@ -49,30 +50,36 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/auth/login", name="_auth_login")
-     * @Template("@Supla/Default/spaBoilerplate.html.twig");
+     * @Route("/oauth-authorize", name="_oauth_login")
+     * @Route("/oauth/v2/auth_login", name="_oauth_login_check")
+     * @Template()
      */
-    public function loginAction() {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('_homepage');
+    public function oAuthLoginAction(Request $request) {
+        $session = $request->getSession();
+
+        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(Security::AUTHENTICATION_ERROR);
+            $session->remove(Security::AUTHENTICATION_ERROR);
         }
-        $authenticationUtils = $this->get('security.authentication_utils');
-        $lastUsername = $authenticationUtils->getLastUsername();
-        $error = $authenticationUtils->getLastAuthenticationError();
+
+        $lastUsername = $session->get(Security::LAST_USERNAME);
         if ($error) {
-            $isBlocked = $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername);
-            $error = $isBlocked ? 'locked' : 'invalid';
+            $error = 'error';
+            if ($lastUsername && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername)) {
+                $error = 'locked';
+            }
         }
-        return [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ];
+
+        return ['last_username' => $lastUsername, 'error' => $error];
     }
 
     /**
      * @Route("/", name="_homepage")
      * @Route("/register", name="_register")
-     * @Route("/{suffix}", requirements={"suffix"="^(?!(web-)?api/).*"}, methods={"GET"})
+     * @Route("/auth/login", name="_obsolete_login")
+     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/).*"}, methods={"GET"})
      * @Template()
      */
     public function spaBoilerplateAction($suffix = null) {

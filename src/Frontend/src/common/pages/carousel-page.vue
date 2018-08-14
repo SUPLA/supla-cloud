@@ -3,7 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1 v-title>{{ $t(header) }}</h1>
+                    <h1 class="carousel-title"
+                        v-title>{{ $t(header) }}</h1>
                     <loading-cover :loading="!items">
                         <div v-if="items">
                             <square-links-carousel-with-filters

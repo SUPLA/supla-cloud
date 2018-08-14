@@ -25,8 +25,13 @@ export function deviceTitle(device) {
     return `${device.location.caption} / ${device.comment || device.name}`;
 }
 
+export function ellipsis(string, length = 20) {
+    return string.length > length ? string.substr(0, length - 3) + '...' : string;
+}
+
 Vue.filter('withBaseUrl', withBaseUrl);
 Vue.filter('intToIp', intToIp);
 Vue.filter('channelTitle', channelTitle);
 Vue.filter('deviceTitle', deviceTitle);
 Vue.filter('toUpperCase', (text) => text.toUpperCase());
+Vue.filter('ellipsis', ellipsis);

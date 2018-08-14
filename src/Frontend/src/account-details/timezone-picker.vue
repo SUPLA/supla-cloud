@@ -1,7 +1,12 @@
 <template>
     <span class="timezone-picker">
-        <select data-placeholder="Wybierz strefę czasową"
-            v-model="timezone"
+        <select data-live-search="true"
+            :data-live-search-placeholder="$t('Search')"
+            :data-none-selected-text="$t('choose the timezone')"
+            :data-none-results-text="$t('No results match {0}')"
+            data-width="100%"
+            v-model="chosenTimezone"
+            @change="updateTimezone()"
             ref="dropdown">
             <option v-for="timezone in availableTimezones"
                 :value="timezone.name">
@@ -15,17 +20,23 @@
 
 <script type="text/babel">
     import Vue from "vue";
-    import "chosen-js";
-    import "bootstrap-chosen/bootstrap-chosen.css";
+    import "bootstrap-select";
+    import "bootstrap-select/dist/css/bootstrap-select.css";
 
     export default {
         props: ['timezone'],
+        data() {
+            return {chosenTimezone: undefined};
+        },
         mounted() {
-            Vue.nextTick(() => $(this.$refs.dropdown).chosen({search_contains: true}).change((e) => {
-                let timezone = e.currentTarget.value;
-                moment.tz.setDefault(timezone);
-                this.$http.patch('users/current', {timezone, action: 'change:userTimezone'});
-            }));
+            this.chosenTimezone = this.timezone;
+            Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
+        },
+        methods: {
+            updateTimezone() {
+                moment.tz.setDefault(this.chosenTimezone);
+                this.$http.patch('users/current', {timezone: this.chosenTimezone, action: 'change:userTimezone'});
+            }
         },
         computed: {
             availableTimezones() {
@@ -48,21 +59,3 @@
         }
     };
 </script>
-
-<style lang="scss"
-    rel="stylesheet/scss">
-    .timezone-picker {
-        select {
-            max-width: 100%;
-        }
-        .chosen-single {
-            cursor: pointer;
-            border: 0 !important;
-            background: transparent !important;
-            box-shadow: initial !important;
-            padding: 0 !important;
-            line-height: 25px !important;
-            height: 25px !important;
-        }
-    }
-</style>

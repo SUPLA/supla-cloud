@@ -93,6 +93,9 @@ a {
 input[type=text], input[type=password], input[type=email] {
   &.form-control {
     box-shadow: initial;
+    &:focus {
+      border-color: $supla-green;
+    }
   }
 }
 
@@ -191,7 +194,7 @@ input[type=text], input[type=password], input[type=email] {
 
 .hover-editable {
   @include on-md-and-up {
-    &:not(:hover) {
+    &:not(:hover):not(.hovered) {
       .form-control, .dropdown .btn, .chosen-container .chosen-single {
         color: $supla-black;
         border-color: transparent;
@@ -295,7 +298,7 @@ body.red {
 }
 
 .text-muted {
-  color: inherit;
+  color: inherit !important;
   opacity: .7;
 }
 
@@ -319,6 +322,19 @@ body.warning {
 	.login-footer {
 	  display: none;
 	}
+}
+
+.bootstrap-select {
+  .dropdown-menu > li {
+    > a {
+      white-space: normal;
+    }
+    &.active > a {
+      &, &:focus, &:hover {
+        background-color: $supla-green;
+      }
+    }
+  }
 }
 
 @import "./buttons";

@@ -21,6 +21,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -134,42 +136,47 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $accessids;
 
     /**
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $clientApps;
 
     /**
      * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\IODeviceChannel", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $channels;
 
     /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $locations;
 
     /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $iodevices;
 
     /**
+     * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\OAuth\ApiClient", mappedBy="user", cascade={"persist"})
+     */
+    private $apiClients;
+
+    /**
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $schedules;
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $channelGroups;
 
     /**
      * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
-     **/
+     */
     private $auditEntries;
 
     /**
@@ -194,6 +201,26 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      */
     private $cookiesAgreement = false;
 
+    /**
+     * @ORM\Column(name="oauth_compat_username", type="string", length=64, nullable=true,
+     *     options={"comment":"For backward compatibility purpose"})
+     * @Groups({"basic"})
+     */
+    private $oauthCompatUserName;
+
+    /**
+     * @ORM\Column(name="oauth_compat_password", type="string", length=64, nullable=true,
+     *     options={"comment":"For backward compatibility purpose"})
+     */
+    private $oauthCompatUserPassword;
+
+    private $oauthOldApiCompatEnabled;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\OAuth\ApiClientAuthorization", mappedBy="user", cascade={"persist"})
+     */
+    private $apiClientAuthorizations;
+
     public function __construct() {
         $this->limitAid = 10;
         $this->limitLoc = 10;
@@ -207,11 +234,13 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->iodevices = new ArrayCollection();
         $this->schedules = new ArrayCollection();
         $this->clientApps = new ArrayCollection();
+        $this->apiClientAuthorizations = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
         $this->enabled = false;
         $this->setTimezone(null);
+        $this->oauthOldApiCompatEnabled = false;
     }
 
     public function getId() {
@@ -219,7 +248,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     }
 
     public function getUsername() {
-        return $this->email;
+        return $this->oauthOldApiCompatEnabled ? $this->oauthCompatUserName : $this->email;
     }
 
     public function getRecaptcha() {
@@ -245,6 +274,9 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     }
 
     public function getPassword() {
+        if ($this->oauthOldApiCompatEnabled) {
+            return $this->oauthCompatUserPassword;
+        }
         return null === $this->password ? $this->legacyPassword : $this->password;
     }
 
@@ -329,7 +361,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function setEnabled($boolean) {
         $this->enabled = (Boolean)$boolean;
-
         return $this;
     }
 
@@ -372,6 +403,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     /** @return IODevice[] */
     public function getIODevices() {
         return $this->iodevices;
+    }
+
+    /** @return ApiClient[] */
+    public function getApiClients() {
+        return $this->apiClients;
     }
 
     public function getLimitAid() {
@@ -495,5 +531,46 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->setEmail($data['email']);
         $this->setTimezone($data['timezone']);
         $this->setPlainPassword($data['password']);
+    }
+
+    public function getOauthCompatUserName() {
+        return $this->oauthCompatUserName;
+    }
+
+    public function setOAuthOldApiCompatEnabled() {
+        $this->oauthOldApiCompatEnabled = true;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getLimits(): array {
+        return [
+            'accessId' => $this->limitAid,
+            'channelGroup' => $this->limitChannelGroup,
+            'channelPerGroup' => $this->limitChannelPerGroup,
+            'location' => $this->limitLoc,
+            'schedule' => $this->limitSchedule,
+        ];
+    }
+
+    /** @Groups({"basic"}) */
+    public function getAgreements(): array {
+        return [
+            'rules' => $this->rulesAgreement,
+            'cookies' => $this->cookiesAgreement,
+        ];
+    }
+
+    public function addApiClientAuthorization(ApiClient $apiClient, string $scope) {
+        $authorization = new ApiClientAuthorization();
+        $authorization->setUser($this);
+        $authorization->setApiClient($apiClient);
+        $authorization->setScope($scope);
+        $authorization->setAuthorizationDate(new \DateTime());
+        $this->apiClientAuthorizations->add($authorization);
+    }
+
+    /** @return ApiClientAuthorization[] */
+    public function getApiClientAuthorizations() {
+        return $this->apiClientAuthorizations;
     }
 }

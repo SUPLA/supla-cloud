@@ -22,17 +22,16 @@ doctrine:
     auto_mapping: true
 
 fos_oauth_server:
-  access_token_class: SuplaApiBundle\Entity\OAuth\AccessToken
-  auth_code_class: SuplaApiBundle\Entity\OAuth\AuthCode
-  client_class: SuplaApiBundle\Entity\OAuth\ApiClient
+  access_token_class: SuplaBundle\Entity\OAuth\AccessToken
+  auth_code_class: SuplaBundle\Entity\OAuth\AuthCode
+  client_class: SuplaBundle\Entity\OAuth\ApiClient
+  refresh_token_class: SuplaBundle\Entity\OAuth\RefreshToken
   db_driver: orm
-  refresh_token_class: SuplaApiBundle\Entity\OAuth\RefreshToken
   service:
     options:
-      access_token_lifetime: 30
-      refresh_token_lifetime: 60
-      supported_scopes: restapi
-    storage: SuplaApiBundle\Provider\OAuthStorageWithLegacyPasswordSupport
+      access_token_lifetime: 300
+      refresh_token_lifetime: 500
+    storage: SuplaBundle\Auth\SuplaOAuthStorage
 
 fos_rest:
   routing_loader:
@@ -60,8 +59,8 @@ framework:
   serializer:
     enable_annotations: true
     enabled: true
-    name_converter: SuplaApiBundle\Serialization\NoopNameConverter
-    circular_reference_handler: SuplaApiBundle\Serialization\ObjectIdCircularReferenceHandler
+    name_converter: SuplaBundle\Serialization\NoopNameConverter
+    circular_reference_handler: SuplaBundle\Serialization\ObjectIdCircularReferenceHandler
   session:
     cookie_lifetime: 0
     handler_id: ~
@@ -74,11 +73,21 @@ framework:
   validation:
     enable_annotations: true
 
+nelmio_cors:
+  paths:
+    '^/api/':
+      origin_regex: true
+      allow_origin: '%cors_allow_origin_regex%'
+      allow_headers: ['*']
+      allow_methods: ['POST', 'PUT', 'PATCH', 'HEAD', 'GET', 'DELETE']
+      max_age: 3600
+
 parameters:
   supla_protocol: https
   supla_server_socket: /tmp/supla-server-ctrl.sock
   supla_url: '%supla_protocol%://%supla_server%'
   use_webpack_dev_server: false
+  fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\WebappAwareOAuthProvider
 
 sensio_framework_extra:
   request: { converters: true }
@@ -96,6 +105,12 @@ supla:
     registration_active_time:
       initial: 604800 # 1 week
       manual: 86400 # 24 hours
+  oauth:
+    tokens_lifetime:
+      webapp: [3600]
+      client_app: [3600, 5184000] # 60 days
+      admin: [3600, 5184000]
+      user: [3600, 5184000]
 
 swiftmailer:
   encryption: "%mailer_encryption%"
