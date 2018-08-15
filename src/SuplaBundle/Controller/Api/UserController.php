@@ -152,8 +152,9 @@ class UserController extends RestController {
             return (AuditedEvent::isValidKey($event) ? AuditedEvent::$event() : new AuditedEvent($event))->getValue();
         }, $events);
         $criteria = Criteria::create()->orderBy(['createdAt' => 'DESC']);
+        $criteria->where(Criteria::expr()->eq('user', $this->getUser()));
         if ($events) {
-            $criteria->where(Criteria::expr()->in('event', $events));
+            $criteria->andWhere(Criteria::expr()->in('event', $events));
         }
         $criteria->setMaxResults(2); // currently used only for displaying last IPs
         $entries = $this->auditEntryRepository->matching($criteria);
