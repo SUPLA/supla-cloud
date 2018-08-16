@@ -229,6 +229,6 @@ class IODevice {
     }
     
     public function getFlags(): int {
-        return $this->flags;
+        return intval($this->flags);
     }
 }
