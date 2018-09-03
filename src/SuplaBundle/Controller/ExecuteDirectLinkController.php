@@ -20,8 +20,10 @@ namespace SuplaBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,15 +37,19 @@ class ExecuteDirectLinkController extends Controller {
     private $encoderFactory;
     /** @var ChannelStateGetter */
     private $channelStateGetter;
+    /** @var Audit */
+    private $audit;
 
     public function __construct(
         ChannelActionExecutor $channelActionExecutor,
         EncoderFactoryInterface $encoderFactory,
-        ChannelStateGetter $channelStateGetter
+        ChannelStateGetter $channelStateGetter,
+        Audit $audit
     ) {
         $this->channelActionExecutor = $channelActionExecutor;
         $this->encoderFactory = $encoderFactory;
         $this->channelStateGetter = $channelStateGetter;
+        $this->audit = $audit;
     }
 
     /**
@@ -68,6 +74,10 @@ class ExecuteDirectLinkController extends Controller {
             throw new ApiException("The action $action is not allowed for this direct link.", Response::HTTP_FORBIDDEN);
         }
         $this->ensureLinkCanBeUsed($directLink, $slug);
+        $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION())
+            ->setIntParam($directLink->getId())
+            ->setTextParam($action)
+            ->buildAndFlush();
         if ($action->getId() === ChannelFunctionAction::READ) {
             $state = $this->channelStateGetter->getState($directLink->getSubject());
             return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);

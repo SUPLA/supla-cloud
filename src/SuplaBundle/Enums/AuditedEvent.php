@@ -24,11 +24,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static AuditedEvent AUTHENTICATION_SUCCESS()
  * @method static AuditedEvent AUTHENTICATION_FAILURE()
  * @method static AuditedEvent PASSWORD_RESET()
+ * @method static AuditedEvent DIRECT_LINK_EXECUTION()
  */
 final class AuditedEvent extends Enum {
     const AUTHENTICATION_SUCCESS = 1;
     const AUTHENTICATION_FAILURE = 2;
     const PASSWORD_RESET = 3;
+    const DIRECT_LINK_EXECUTION = 4;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
