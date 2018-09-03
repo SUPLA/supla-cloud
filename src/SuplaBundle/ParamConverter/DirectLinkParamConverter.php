@@ -62,6 +62,7 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
                 $link->setActiveTo(new \DateTime($activeTo));
             }
         }
+        $link->setExecutionsLimit($data['executionsLimit'] ?? null);
         return $link;
     }
 }

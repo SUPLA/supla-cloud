@@ -168,11 +168,14 @@ class DirectLink {
         $this->activeTo = $activeTo;
     }
 
-    /**
-     * @return mixed
-     */
+    /** @return int|null */
     public function getExecutionsLimit() {
         return $this->executionsLimit;
+    }
+
+    /** @param int|null $executionsLimit */
+    public function setExecutionsLimit($executionsLimit) {
+        $this->executionsLimit = $executionsLimit;
     }
 
     /**
@@ -237,13 +240,16 @@ class DirectLink {
 
     public function ensureIsActive() {
         if (!$this->isEnabled()) {
-            throw new InactiveDirectLinkException('Direct link is inactive.');
+            throw new InactiveDirectLinkException('Direct link is disabled.');
         }
         if ($this->getActiveFrom() && $this->getActiveFrom() > new \DateTime()) {
             throw new InactiveDirectLinkException('Direct link is not active yet.');
         }
         if ($this->getActiveTo() && $this->getActiveTo() < new \DateTime()) {
             throw new InactiveDirectLinkException('Direct link has expired.');
+        }
+        if ($this->getExecutionsLimit() && $this->getExecutionsLimit() <= 0) {
+            throw new InactiveDirectLinkException('Execution limit has been exceeded.');
         }
     }
 
