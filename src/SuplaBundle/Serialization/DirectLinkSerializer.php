@@ -49,6 +49,10 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
             $normalized['slug'] = $context['slug'];
             $normalized['url'] = $directLink->buildUrl($this->suplaUrl, $context['slug']);
         }
+        $normalized['activeDateRange'] = [
+            'dateStart' => $directLink->getActiveFrom() ? $directLink->getActiveFrom()->format(\DateTime::ATOM) : null,
+            'dateEnd' => $directLink->getActiveTo() ? $directLink->getActiveTo()->format(\DateTime::ATOM) : null,
+        ];
         return $normalized;
     }
 

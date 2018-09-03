@@ -88,6 +88,8 @@ class DirectLinkController extends RestController {
         return $this->transactional(function (EntityManagerInterface $em) use ($directLink, $updated) {
             $directLink->setCaption($updated->getCaption());
             $directLink->setAllowedActions($updated->getAllowedActions());
+            $directLink->setActiveFrom($updated->getActiveFrom());
+            $directLink->setActiveTo($updated->getActiveTo());
             $em->persist($directLink);
             return $this->view($directLink, Response::HTTP_OK);
         });

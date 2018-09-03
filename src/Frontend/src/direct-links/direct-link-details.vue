@@ -46,8 +46,14 @@
                                                     </div>
                                                 </div>
                                             </dt>
+                                            <dd>{{ $t('Active between') }}</dd>
+                                            <dt>
+                                                <date-range-picker v-model="directLink.activeDateRange"
+                                                    @input="directLinkChanged()"></date-range-picker>
+                                            </dt>
                                         </dl>
                                     </div>
+                                    {{ directLink.activeDateRange }}
                                 </div>
                                 <div class="col-md-4">
                                     <h3>{{ $t('Subject') }}</h3>
@@ -99,10 +105,12 @@
     import ChannelsDropdown from "../devices/channels-dropdown";
     import ChannelTile from "../channels/channel-tile";
     import DirectLinkPreview from "./direct-link-preview";
+    import DateRangePicker from "./date-range-picker";
 
     export default {
         props: ['id', 'item'],
         components: {
+            DateRangePicker,
             DirectLinkPreview,
             ChannelTile,
             ChannelsDropdown,

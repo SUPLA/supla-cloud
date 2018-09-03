@@ -51,6 +51,17 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
             return $allowedAction;
         }, $data['allowedActions']);
         $link->setAllowedActions($allowedActions);
+        if (isset($data['activeDateRange'])) {
+            Assertion::isArray($data['activeDateRange'], 'activeDateRange must be an array');
+            $activeFrom = $data['activeDateRange']['dateStart'] ?? null;
+            if ($activeFrom) {
+                $link->setActiveFrom(new \DateTime($activeFrom));
+            }
+            $activeTo = $data['activeDateRange']['dateEnd'] ?? null;
+            if ($activeTo) {
+                $link->setActiveTo(new \DateTime($activeTo));
+            }
+        }
         return $link;
     }
 }

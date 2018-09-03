@@ -62,7 +62,7 @@ export function locationTransformer(request, next) {
     next();
 }
 
-export function accessIdTranformer(request, next) {
+export function accessIdTransformer(request, next) {
     if (request.url.startsWith('accessids')) {
         if (request.body && request.body.id) {
             const toSend = Vue.util.extend({}, request.body);
@@ -94,7 +94,7 @@ export function clientAppTransformer(request, next) {
     next();
 }
 
-export function iodeviceTranformer(request, next) {
+export function iodeviceTransformer(request, next) {
     if (request.url.startsWith('iodevices')) {
         if (request.body && request.body.id) {
             const toSend = Vue.util.extend({}, request.body);
@@ -108,7 +108,7 @@ export function iodeviceTranformer(request, next) {
     next();
 }
 
-export function scheduleTranformer(request, next) {
+export function scheduleTransformer(request, next) {
     if (request.url.startsWith('schedules')) {
         if (request.body && request.body.id) {
             const toSend = Vue.util.extend({}, request.body);

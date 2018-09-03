@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Exception\InactiveDirectLinkException;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -78,13 +79,11 @@ class DirectLink {
 
     /**
      * @ORM\Column(name="active_from", type="utcdatetime", nullable=true)
-     * @Groups({"basic"})
      */
     private $activeFrom;
 
     /**
      * @ORM\Column(name="active_to", type="utcdatetime", nullable=true)
-     * @Groups({"basic"})
      */
     private $activeTo;
 
@@ -149,16 +148,24 @@ class DirectLink {
         return $this->user;
     }
 
-    /** @return mixed */
+    /** @return \DateTime|null */
     public function getActiveFrom() {
         return $this->activeFrom;
     }
 
-    /**
-     * @return mixed
-     */
+    /** @param \DateTime|null $activeFrom */
+    public function setActiveFrom($activeFrom) {
+        $this->activeFrom = $activeFrom;
+    }
+
+    /** @return \DateTime|null */
     public function getActiveTo() {
         return $this->activeTo;
+    }
+
+    /** @param \DateTime|null $activeTo */
+    public function setActiveTo($activeTo) {
+        $this->activeTo = $activeTo;
     }
 
     /**
@@ -220,7 +227,24 @@ class DirectLink {
 
     /** @Groups({"basic"}) */
     public function isActive(): bool {
-        return $this->isEnabled(); // TODO date, qty etc
+        try {
+            $this->ensureIsActive();
+            return true;
+        } catch (InactiveDirectLinkException $e) {
+            return false;
+        }
+    }
+
+    public function ensureIsActive() {
+        if (!$this->isEnabled()) {
+            throw new InactiveDirectLinkException('Direct link is inactive.');
+        }
+        if ($this->getActiveFrom() && $this->getActiveFrom() > new \DateTime()) {
+            throw new InactiveDirectLinkException('Direct link is not active yet.');
+        }
+        if ($this->getActiveTo() && $this->getActiveTo() < new \DateTime()) {
+            throw new InactiveDirectLinkException('Direct link has expired.');
+        }
     }
 
     public function verifySlug(string $hashedSlug) {

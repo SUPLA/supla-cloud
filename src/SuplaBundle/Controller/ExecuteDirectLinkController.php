@@ -89,7 +89,8 @@ class ExecuteDirectLinkController extends Controller {
 
     private function ensureLinkCanBeUsed(DirectLink $directLink, string $slug) {
         if (!$directLink->isValidSlug($slug, $this->encoderFactory->getEncoder($directLink))) {
-            throw new ApiException("Giver verification code is invalid.", Response::HTTP_FORBIDDEN);
+            throw new ApiException("Given verification code is invalid.", Response::HTTP_FORBIDDEN);
         }
+        $directLink->ensureIsActive();
     }
 }
