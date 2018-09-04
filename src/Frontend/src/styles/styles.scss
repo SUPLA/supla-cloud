@@ -319,9 +319,9 @@ body.warning {
 }
 
 .in-app-register {
-	.login-footer {
-	  display: none;
-	}
+  .login-footer {
+    display: none;
+  }
 }
 
 .bootstrap-select {
@@ -362,6 +362,28 @@ body.warning {
   .btn {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+  }
+}
+
+.list-group-item {
+  @mixin supla-list-group-item($color) {
+    background: $supla-white;
+    border-color: $color;
+    color: darken($color, 10%);
+    border-top-color: $supla-grey-light;
+    border-bottom-color: $supla-grey-light;
+    &:first-child {
+      border-top-color: $color;
+    }
+    &:last-child {
+      border-bottom-color: $color;
+    }
+  }
+  &-success {
+    @include supla-list-group-item($supla-green);
+  }
+  &-danger {
+    @include supla-list-group-item($supla-red);
   }
 }
 

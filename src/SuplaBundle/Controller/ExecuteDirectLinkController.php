@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\DirectLink;
@@ -26,11 +27,15 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
+use SuplaBundle\Model\Transactional;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ExecuteDirectLinkController extends Controller {
+    use Transactional;
+
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
     /** @var EncoderFactoryInterface */
@@ -64,26 +69,38 @@ class ExecuteDirectLinkController extends Controller {
     /**
      * @Route("/direct/{directLink}/{slug}/{action}")
      */
-    public function executeDirectLinkAction(DirectLink $directLink, string $slug, string $action) {
+    public function executeDirectLinkAction(DirectLink $directLink, string $slug, string $action, Request $request) {
         try {
-            $action = ChannelFunctionAction::fromString($action);
-        } catch (\InvalidArgumentException $e) {
-            throw new ApiException("Action $action is not supported.", Response::HTTP_NOT_FOUND, $e);
-        }
-        if (!in_array($action, $directLink->getAllowedActions())) {
-            throw new ApiException("The action $action is not allowed for this direct link.", Response::HTTP_FORBIDDEN);
-        }
-        $this->ensureLinkCanBeUsed($directLink, $slug);
-        $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION())
-            ->setIntParam($directLink->getId())
-            ->setTextParam($action)
-            ->buildAndFlush();
-        if ($action->getId() === ChannelFunctionAction::READ) {
-            $state = $this->channelStateGetter->getState($directLink->getSubject());
-            return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
-        } else {
-            $this->channelActionExecutor->executeAction($directLink->getSubject(), $action);
-            return new Response('', Response::HTTP_ACCEPTED);
+            try {
+                $action = ChannelFunctionAction::fromString($action);
+            } catch (\InvalidArgumentException $e) {
+                throw new ApiException("Action $action is not supported.", Response::HTTP_NOT_FOUND, $e);
+            }
+            if (!in_array($action, $directLink->getAllowedActions())) {
+                throw new ApiException("The action $action is not allowed for this direct link.", Response::HTTP_FORBIDDEN);
+            }
+            $this->ensureLinkCanBeUsed($directLink, $slug);
+            return $this->transactional(function (EntityManagerInterface $entityManager) use ($request, $action, $slug, $directLink) {
+                $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION())
+                    ->setIntParam($directLink->getId())
+                    ->setTextParam($action)
+                    ->buildAndFlush();
+                $directLink->markExecution($request);
+                $entityManager->persist($directLink);
+                if ($action->getId() === ChannelFunctionAction::READ) {
+                    $state = $this->channelStateGetter->getState($directLink->getSubject());
+                    return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+                } else {
+                    $this->channelActionExecutor->executeAction($directLink->getSubject(), $action);
+                    return new Response('', Response::HTTP_ACCEPTED);
+                }
+            });
+        } catch (ApiException $e) {
+            $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
+                ->setIntParam($directLink->getId())
+                ->setTextParam($e->getMessage())
+                ->buildAndFlush();
+            throw $e;
         }
     }
 

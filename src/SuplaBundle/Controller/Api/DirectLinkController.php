@@ -17,12 +17,15 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
@@ -34,10 +37,17 @@ class DirectLinkController extends RestController {
     private $channelActionExecutor;
     /** @var EncoderFactory */
     private $encoderFactory;
+    /** @var AuditEntryRepository */
+    private $auditEntryRepository;
 
-    public function __construct(ChannelActionExecutor $channelActionExecutor, EncoderFactory $encoderFactory) {
+    public function __construct(
+        ChannelActionExecutor $channelActionExecutor,
+        EncoderFactory $encoderFactory,
+        AuditEntryRepository $auditEntryRepository
+    ) {
         $this->channelActionExecutor = $channelActionExecutor;
         $this->encoderFactory = $encoderFactory;
+        $this->auditEntryRepository = $auditEntryRepository;
     }
 
     /**
@@ -105,5 +115,19 @@ class DirectLinkController extends RestController {
             $em->remove($directLink);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
+    }
+
+    /**
+     * @Rest\Get("/direct-links/{directLink}/audit")
+     * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_R')")
+     */
+    public function getDirectLinkAuditAction(DirectLink $directLink) {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->in('event', [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE]))
+            ->where(Criteria::expr()->eq('intParam', $directLink->getId()))
+            ->orderBy(['createdAt' => 'DESC']);
+//        $criteria->setMaxResults(2);
+        $entries = $this->auditEntryRepository->matching($criteria);
+        return $this->view($entries, Response::HTTP_OK);
     }
 }

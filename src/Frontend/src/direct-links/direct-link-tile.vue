@@ -10,7 +10,8 @@
             </div>
             <dl>
                 <dd>{{ $t('Last used') }}</dd>
-                <dt>{{ model.lastUsed ? (model.lastUsed | moment("LT L")) : $t('Never') }}</dt>
+                <dt v-if="model.lastUsed">{{ model.lastUsed | moment("LT L") }}</dt>
+                <dt v-else>{{ $t('Never') }}</dt>
             </dl>
             <div v-if="model.caption">
                 <div class="separator"></div>

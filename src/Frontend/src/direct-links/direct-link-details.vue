@@ -51,9 +51,16 @@
                                                 <date-range-picker v-model="directLink.activeDateRange"
                                                     @input="directLinkChanged()"></date-range-picker>
                                             </dt>
+                                            <dd>{{ $t('Executions limit') }}</dd>
+                                            <dt>
+                                                <input v-model="directLink.executionsLimit"
+                                                    class="form-control"
+                                                    type="number"
+                                                    min="0"
+                                                    @input="directLinkChanged()">
+                                            </dt>
                                         </dl>
                                     </div>
-                                    {{ directLink.activeDateRange }}
                                 </div>
                                 <div class="col-md-4">
                                     <h3>{{ $t('Subject') }}</h3>
@@ -63,20 +70,21 @@
                                     <!--<square-location-chooser v-model="channelGroup.location"-->
                                     <!--@input="onLocationChange($event)"></square-location-chooser>-->
                                 </div>
-                                <!--<div class="col-sm-4">-->
-                                <!--<h3>{{ $t('Function') }}</h3>-->
-                                <!--<div v-if="channelGroup.function">-->
-                                <!--<function-icon :model="channelGroup"-->
-                                <!--width="100"></function-icon>-->
-                                <!--<h4>{{ $t(channelGroup.function.caption) }}</h4>-->
-                                <!--<channel-alternative-icon-chooser :channel="channelGroup"-->
-                                <!--@change="channelGroupChanged()"></channel-alternative-icon-chooser>-->
-                                <!--</div>-->
-                                <!--<div v-else-if="isNewGroup">-->
-                                <!--<i class="pe-7s-help1"-->
-                                <!--style="font-size: 3em"></i>-->
-                                <!--</div>-->
-                                <!--</div>-->
+                                <div class="col-sm-4">
+                                    <h3>{{ $t('Executions history') }}</h3>
+                                    <direct-link-audit :direct-link="directLink"></direct-link-audit>
+                                    <!--<div v-if="channelGroup.function">-->
+                                    <!--<function-icon :model="channelGroup"-->
+                                    <!--width="100"></function-icon>-->
+                                    <!--<h4>{{ $t(channelGroup.function.caption) }}</h4>-->
+                                    <!--<channel-alternative-icon-chooser :channel="channelGroup"-->
+                                    <!--@change="channelGroupChanged()"></channel-alternative-icon-chooser>-->
+                                    <!--</div>-->
+                                    <!--<div v-else-if="isNewGroup">-->
+                                    <!--<i class="pe-7s-help1"-->
+                                    <!--style="font-size: 3em"></i>-->
+                                    <!--</div>-->
+                                </div>
                             </div>
                         </div>
                     </pending-changes-page>
@@ -106,10 +114,12 @@
     import ChannelTile from "../channels/channel-tile";
     import DirectLinkPreview from "./direct-link-preview";
     import DateRangePicker from "./date-range-picker";
+    import DirectLinkAudit from "./direct-link-audit";
 
     export default {
         props: ['id', 'item'],
         components: {
+            DirectLinkAudit,
             DateRangePicker,
             DirectLinkPreview,
             ChannelTile,
@@ -151,16 +161,15 @@
             },
             calculateAllowedActions() {
                 this.allowedActions = {};
-                const allowedActionNames = this.directLink.allowedActions.map(aa => aa.name);
                 this.possibleActions.forEach(possibleAction => {
-                    this.$set(this.allowedActions, possibleAction.name, allowedActionNames.indexOf(possibleAction.name) >= 0);
+                    this.$set(this.allowedActions, possibleAction.name, this.directLink.allowedActions.indexOf(possibleAction.name) >= 0);
                 });
             },
             chooseSubjectForNewLink(subject) {
                 const toSend = {
                     subjectType: 'channel',//subject.subjectType,
                     subjectId: subject.id,
-                    caption: this.$t('My Direct Link for #') + subject.id,
+                    caption: this.$t('Direct Link for #') + subject.id,
                     allowedActions: ['read'],
                 };
                 this.$http.post('direct-links', toSend).then(response => {

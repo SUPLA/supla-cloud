@@ -31,6 +31,7 @@ final class AuditedEvent extends Enum {
     const AUTHENTICATION_FAILURE = 2;
     const PASSWORD_RESET = 3;
     const DIRECT_LINK_EXECUTION = 4;
+    const DIRECT_LINK_EXECUTION_FAILURE = 5;
 
     /** @Groups({"basic"}) */
     public function getId(): int {

@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\InactiveDirectLinkException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -248,7 +249,7 @@ class DirectLink {
         if ($this->getActiveTo() && $this->getActiveTo() < new \DateTime()) {
             throw new InactiveDirectLinkException('Direct link has expired.');
         }
-        if ($this->getExecutionsLimit() && $this->getExecutionsLimit() <= 0) {
+        if ($this->getExecutionsLimit() !== null && $this->getExecutionsLimit() <= 0) {
             throw new InactiveDirectLinkException('Execution limit has been exceeded.');
         }
     }
@@ -259,5 +260,13 @@ class DirectLink {
 
     public function buildUrl(string $suplaUrl, string $slug): string {
         return sprintf('%s/direct/%d/%s', $suplaUrl, $this->id, $slug);
+    }
+
+    public function markExecution(Request $request) {
+        $this->lastIpv4 = $request->getClientIp();
+        $this->lastUsed = new \DateTime();
+        if ($this->executionsLimit > 0) {
+            --$this->executionsLimit;
+        }
     }
 }
