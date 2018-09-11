@@ -3,6 +3,7 @@
         tile="direct-link-tile"
         endpoint="direct-links?include=subject"
         create-new-label="Create new direct link"
+        :limit="$user.userData.limits.directLink"
         details-route="directLink"></carousel-page>
 </template>
 

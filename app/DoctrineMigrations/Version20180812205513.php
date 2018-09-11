@@ -15,6 +15,8 @@ class Version20180812205513 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_direct_link ADD CONSTRAINT FK_6AE7809FA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id)');
         $this->addSql('ALTER TABLE supla_direct_link ADD CONSTRAINT FK_6AE7809F72F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id)');
         $this->addSql('ALTER TABLE supla_direct_link ADD CONSTRAINT FK_6AE7809F89E4AAEE FOREIGN KEY (channel_group_id) REFERENCES supla_dev_channel_group (id)');
+        $this->addSql('ALTER TABLE supla_user ADD limit_direct_link INT DEFAULT 50 NOT NULL');
+        $this->addSql('CREATE INDEX supla_audit_int_param ON supla_audit (int_param)');
     }
 
     public function down(Schema $schema) {

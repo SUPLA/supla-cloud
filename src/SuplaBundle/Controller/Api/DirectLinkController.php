@@ -78,8 +78,7 @@ class DirectLinkController extends RestController {
      */
     public function postDirectLinkAction(Request $request, DirectLink $directLink) {
         $user = $this->getUser();
-        // TODO limit
-        // Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
+        Assertion::false($user->isLimitDirectLinkExceeded(), 'Direct links limit has been exceeded');
         $slug = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
             $slug = $directLink->generateSlug($this->encoderFactory->getEncoder($directLink));
             $directLink->setEnabled(true);
@@ -139,16 +138,7 @@ class DirectLinkController extends RestController {
                 'events' => [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE],
                 'directLinkId' => $directLink->getId(),
             ]);
-//        $criteria = Criteria::create()
-//            ->where(Criteria::expr()->in('event', [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE]))
-//            ->where(Criteria::expr()->eq('intParam', $directLink->getId()))
-//            ->orderBy(['createdAt' => 'DESC'])
-//            ->setFirstResult(($page - 1) * $pageSize)
-//            ->setMaxResults($pageSize);
-//        $criteria->setMaxResults(2);
         $entries = new Paginator($query);
-//        $entries = $this->auditEntryRepository->matching($criteria);
-//        $totalCount = $this->auditEntryRepository->count($criteria);
         $view = $this->view($entries, Response::HTTP_OK);
         $view->setHeader('X-Total-Count', count($entries));
         return $view;

@@ -135,6 +135,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $limitChannelPerGroup;
 
     /**
+     * @ORM\Column(name="limit_direct_link", type="integer", options={"default"=50})
+     */
+    private $limitDirectLink;
+
+    /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"})
      */
     private $accessids;
@@ -234,6 +239,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->limitSchedule = 20;
         $this->limitChannelGroup = 20;
         $this->limitChannelPerGroup = 10;
+        $this->limitDirectLinks = 50;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
@@ -466,6 +472,10 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->getLimitSchedule() > 0 && count($this->getSchedules()) >= $this->getLimitSchedule();
     }
 
+    public function isLimitDirectLinkExceeded() {
+        return $this->limitDirectLink > 0 && count($this->getDirectLInks()) >= $this->limitDirectLink;
+    }
+
     /** @return \DateTime|null */
     public function getClientsRegistrationEnabled() {
         if ($this->clientsRegistrationEnabled) {
@@ -559,6 +569,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
             'channelPerGroup' => $this->limitChannelPerGroup,
             'location' => $this->limitLoc,
             'schedule' => $this->limitSchedule,
+            'directLink' => $this->limitDirectLink,
         ];
     }
 
