@@ -43,6 +43,7 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
             : $this->channelGroupRepository->findForUser($user, $subjectId);
         $link = new DirectLink($subject);
         $link->setCaption($data['caption'] ?? '');
+        $link->setEnabled($data['enabled'] ?? false);
         $possibleActions = EntityUtils::mapToIds($subject->getFunction()->getPossibleActions());
         $possibleActions[] = ChannelFunctionAction::READ;
         $allowedActions = array_map(function ($allowedActionName) use ($possibleActions) {

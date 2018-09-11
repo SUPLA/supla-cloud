@@ -81,6 +81,7 @@ class DirectLinkController extends RestController {
         // Assertion::lessThan($user->getChannelGroups()->count(), $user->getLimitChannelGroup(), 'Channel group limit has been exceeded');
         $slug = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
             $slug = $directLink->generateSlug($this->encoderFactory->getEncoder($directLink));
+            $directLink->setEnabled(true);
             $em->persist($directLink);
             return $slug;
         });
@@ -101,6 +102,7 @@ class DirectLinkController extends RestController {
             $directLink->setActiveFrom($updated->getActiveFrom());
             $directLink->setActiveTo($updated->getActiveTo());
             $directLink->setExecutionsLimit($updated->getExecutionsLimit());
+            $directLink->setEnabled($updated->isEnabled());
             $em->persist($directLink);
             return $this->view($directLink, Response::HTTP_OK);
         });

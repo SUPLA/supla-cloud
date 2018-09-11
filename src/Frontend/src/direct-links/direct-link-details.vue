@@ -20,6 +20,16 @@
                                 <dots-route></dots-route>
                             </div>
                         </div>
+                        <div class="row"
+                            v-if="!directLink.active && directLink.inactiveReason">
+                            <div class="form-group"></div>
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="alert alert-warning">
+                                    {{ $t('Direct link is not working right now. Reason:') }}
+                                    <strong>{{ $t(directLink.inactiveReason) }}</strong>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group"
                             v-if="!isNew">
                             <div class="row text-center">
@@ -33,6 +43,12 @@
                                                     class="form-control"
                                                     @keydown="channelGroupChanged()"
                                                     v-model="directLink.caption">
+                                            </dt>
+                                            <dd>{{ $t('Enabled') }}</dd>
+                                            <dt>
+                                                <toggler
+                                                    @input="directLinkChanged()"
+                                                    v-model="directLink.enabled"></toggler>
                                             </dt>
                                             <dd>{{ $t('Allowed actions') }}</dd>
                                             <dt>
@@ -94,12 +110,22 @@
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-4">
                             <channels-dropdown @input="chooseSubjectForNewLink($event)"></channels-dropdown>
+                            <span class="help-block">
+                                {{ $t('After you choose a channel, direct link will be generated. You will set all other options after creation.') }}
+                            </span>
                         </div>
                     </div>
                 </div>
-
             </div>
         </loading-cover>
+        <modal-confirm v-if="deleteConfirm"
+            class="modal-warning"
+            @confirm="deleteDirectLink()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure you want to delete this direct link?')"
+            :loading="loading">
+            {{ $t('You will not be able to generate a direct link with the same URL again.') }}
+        </modal-confirm>
     </page-container>
 </template>
 
@@ -186,7 +212,11 @@
                 this.loading = true;
                 this.$http
                     .put('direct-links/' + this.directLink.id, toSend)
-                    .then(response => this.$emit('update', response.body))
+                    .then(response => {
+                        this.$emit('update', response.body);
+                        this.directLink.active = response.body.active;
+                        this.directLink.inactiveReason = response.body.inactiveReason;
+                    })
                     .then(() => this.hasPendingChanges = false)
                     .finally(() => this.loading = false);
 

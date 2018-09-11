@@ -89,6 +89,9 @@ class ExecuteDirectLinkController extends Controller {
                 $entityManager->persist($directLink);
                 if ($action->getId() === ChannelFunctionAction::READ) {
                     $state = $this->channelStateGetter->getState($directLink->getSubject());
+                    if ($state == []) {
+                        $state = new \stdClass();
+                    }
                     return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
                 } else {
                     $this->channelActionExecutor->executeAction($directLink->getSubject(), $action);

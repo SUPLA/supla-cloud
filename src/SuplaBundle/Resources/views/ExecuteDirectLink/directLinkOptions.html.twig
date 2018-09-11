@@ -2,7 +2,10 @@
 {% set page_title = directLink.caption %}
 {% block body %}
     <div class="links">
-        <h1><span>{{ directLink.caption }}</span></h1>
+        <h1>
+            {% include "@Supla/supla-logo-svg.html.twig" %}
+            <span>{{ directLink.caption }}</span>
+        </h1>
         {% for action in directLink.allowedActions %}
             <a href="{{ app.request.uri }}/{{ action.nameSlug }}">
                 <span>{{ action.caption | trans }}</span>
@@ -17,10 +20,10 @@
             padding: 0;
             height: 100%;
             text-align: center;
+            font-family: Arial;
         }
 
         h1 {
-            font-family: Arial;
             font-size: 30px;
             background: #eaeaea;
             margin: 0;
@@ -42,7 +45,7 @@
 
         .links > a {
             background: #00d151;
-            border-top: #ffe836 2px solid;
+            border-top: #35d100 2px solid;
             color: white;
             font-variant: small-caps;
             text-decoration: none;
@@ -51,6 +54,11 @@
 
         .links > a:hover, .links > a:focus, .links > a:active {
             background: #00b44f;
+        }
+
+        svg {
+            height: 50px;
+            margin-bottom: 20px;
         }
     </style>
 {% endblock %}

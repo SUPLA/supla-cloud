@@ -27,14 +27,19 @@
         data() {
             return {
                 auditEntries: undefined,
+                timer: undefined,
             };
         },
         mounted() {
-            this.$http.get(`direct-links/${this.directLink.id}/audit`).then(response => {
-                this.auditEntries = response.body;
-            });
+            this.timer = setInterval(() => this.fetch(), 15000);
+            this.fetch();
         },
         methods: {
+            fetch() {
+                this.$http.get(`direct-links/${this.directLink.id}/audit`).then(response => {
+                    this.auditEntries = response.body;
+                });
+            },
             functionLabel(functionId) {
                 return this.$t(this.possibleActions.filter(action => action.id == functionId)[0].caption);
             }
@@ -50,6 +55,9 @@
                     }].concat(this.directLink.subject.function.possibleActions);
                 }
             },
+        },
+        beforeDestroy() {
+            clearInterval(this.timer);
         }
     };
 </script>

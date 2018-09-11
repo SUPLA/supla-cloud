@@ -194,6 +194,10 @@ class DirectLink {
         return $this->enabled;
     }
 
+    public function setEnabled(bool $enabled) {
+        $this->enabled = $enabled;
+    }
+
     public function generateSlug(PasswordEncoderInterface $slugEncoder) {
         Assertion::null($this->slug);
         $slugLength = random_int(self::SLUG_LENGTH_MIN, self::SLUG_LENGTH_MAX);
@@ -251,6 +255,9 @@ class DirectLink {
         }
         if ($this->getExecutionsLimit() !== null && $this->getExecutionsLimit() <= 0) {
             throw new InactiveDirectLinkException('Execution limit has been exceeded.');
+        }
+        if (!$this->getAllowedActions()) {
+            throw new InactiveDirectLinkException('No allowed actions have been chosen.');
         }
     }
 

@@ -19,6 +19,7 @@ namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Exception\InactiveDirectLinkException;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
@@ -53,6 +54,13 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
             'dateStart' => $directLink->getActiveFrom() ? $directLink->getActiveFrom()->format(\DateTime::ATOM) : null,
             'dateEnd' => $directLink->getActiveTo() ? $directLink->getActiveTo()->format(\DateTime::ATOM) : null,
         ];
+        if (!$normalized['active']) {
+            try {
+                $directLink->ensureIsActive();
+            } catch (InactiveDirectLinkException $e) {
+                $normalized['inactiveReason'] = $e->getMessage();
+            }
+        }
         return $normalized;
     }
 
