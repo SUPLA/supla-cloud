@@ -18,6 +18,16 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-6 text-left">
+                <a @click="loadPage(page - 1)"
+                    v-if="page > 1">&laquo; {{ $t('Newer') }}</a>
+            </div>
+            <div class="col-xs-6 text-right">
+                <a @click="loadPage(page + 1)"
+                    v-if="hasMorePages">{{ $t('Older') }} &raquo;</a>
+            </div>
+        </div>
     </loading-cover>
 </template>
 
@@ -28,17 +38,28 @@
             return {
                 auditEntries: undefined,
                 timer: undefined,
+                page: 1,
+                hasMorePages: false
             };
         },
         mounted() {
-            this.timer = setInterval(() => this.fetch(), 15000);
             this.fetch();
         },
         methods: {
             fetch() {
-                this.$http.get(`direct-links/${this.directLink.id}/audit`).then(response => {
+                clearTimeout(this.timer);
+                this.timer = undefined;
+                this.$http.get(`direct-links/${this.directLink.id}/audit?pageSize=5&page=` + this.page).then(response => {
                     this.auditEntries = response.body;
+                    this.timer = setTimeout(() => this.fetch(), 15000);
+                    this.hasMorePages = +response.headers.get('X-Total-Count') > this.page * 5;
                 });
+            },
+            loadPage(page) {
+                if (this.timer) {
+                    this.page = page;
+                    this.fetch();
+                }
             },
             functionLabel(functionId) {
                 return this.$t(this.possibleActions.filter(action => action.id == functionId)[0].caption);
@@ -57,7 +78,7 @@
             },
         },
         beforeDestroy() {
-            clearInterval(this.timer);
+            clearTimeout(this.timer);
         }
     };
 </script>

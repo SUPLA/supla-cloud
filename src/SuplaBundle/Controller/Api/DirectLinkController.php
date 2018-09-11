@@ -17,8 +17,9 @@
 
 namespace SuplaBundle\Controller\Api;
 
-use Doctrine\Common\Collections\Criteria;
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\DirectLink;
@@ -123,13 +124,33 @@ class DirectLinkController extends RestController {
      * @Rest\Get("/direct-links/{directLink}/audit")
      * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_R')")
      */
-    public function getDirectLinkAuditAction(DirectLink $directLink) {
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->in('event', [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE]))
-            ->where(Criteria::expr()->eq('intParam', $directLink->getId()))
-            ->orderBy(['createdAt' => 'DESC']);
+    public function getDirectLinkAuditAction(DirectLink $directLink, Request $request) {
+        $page = $request->get('page', 1);
+        $pageSize = $request->get('pageSize', 10);
+        Assertion::greaterOrEqualThan($page, 1, 'Page should be at least 1.');
+        Assertion::between($pageSize, 5, 100, 'Page size should be between 5 and 100.');
+        $query = $this->auditEntryRepository->createQueryBuilder('ae')
+            ->where('ae.event IN(:events)')
+            ->andWhere('ae.intParam = :directLinkId')
+            ->orderBy('ae.createdAt', 'DESC')
+            ->setFirstResult(($page - 1) * $pageSize)
+            ->setMaxResults($pageSize)
+            ->setParameters([
+                'events' => [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE],
+                'directLinkId' => $directLink->getId(),
+            ]);
+//        $criteria = Criteria::create()
+//            ->where(Criteria::expr()->in('event', [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE]))
+//            ->where(Criteria::expr()->eq('intParam', $directLink->getId()))
+//            ->orderBy(['createdAt' => 'DESC'])
+//            ->setFirstResult(($page - 1) * $pageSize)
+//            ->setMaxResults($pageSize);
 //        $criteria->setMaxResults(2);
-        $entries = $this->auditEntryRepository->matching($criteria);
-        return $this->view($entries, Response::HTTP_OK);
+        $entries = new Paginator($query);
+//        $entries = $this->auditEntryRepository->matching($criteria);
+//        $totalCount = $this->auditEntryRepository->count($criteria);
+        $view = $this->view($entries, Response::HTTP_OK);
+        $view->setHeader('X-Total-Count', count($entries));
+        return $view;
     }
 }
