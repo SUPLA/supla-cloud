@@ -75,6 +75,13 @@
                                     {{ $t('Channel groups') }}
                                 </a>
                             </router-link>
+                            <router-link tag="li"
+                                :to="{name: 'directLinks'}">
+                                <a>
+                                    <i class="hidden-sm hidden-xs pe-7s-link"></i>
+                                    {{ $t('Direct links') }}
+                                </a>
+                            </router-link>
                         </ul>
                     </li>
                     <li class="dropdown account-dropdown">

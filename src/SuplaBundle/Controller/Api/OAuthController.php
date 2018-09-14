@@ -81,8 +81,10 @@ class OAuthController extends RestController {
      * @Rest\Post("/oauth-clients")
      */
     public function postOAuthClientsAction(ApiClient $newClient, Request $request) {
+        $user = $this->getUser();
+        Assertion::false($user->isLimitOAuthClientExceeded(), 'OAuth clients limit has been exceeded');
         $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
-        $newClient->setUser($this->getUser());
+        $newClient->setUser($user);
         $this->clientManager->updateClient($newClient);
         return $this->getOAuthClientAction($newClient, $request);
     }

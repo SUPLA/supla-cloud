@@ -4,6 +4,7 @@
         endpoint="oauth-clients"
         create-new-label="Register a new OAuth application"
         details-route="myOauthApp"
+        :limit="$user.userData.limits.oauthClient"
         class="my-oauth-apps-page"></carousel-page>
 </template>
 

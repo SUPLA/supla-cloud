@@ -1,5 +1,5 @@
 <template>
-    <a :class="'btn btn-' + (copied ? 'green' : 'white')"
+    <a :class="'copy-button btn btn-' + (copied ? 'green' : 'white')"
         v-clipboard:copy="text"
         v-clipboard:success="onCopy">
         <span v-if="copied">

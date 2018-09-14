@@ -21,7 +21,6 @@ use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\CurrentUserAware;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 abstract class SuplaServer {
     use CurrentUserAware;
@@ -32,10 +31,6 @@ abstract class SuplaServer {
     /** @var string */
     protected $serverName;
 
-    protected $authorized = false;
-
-    // __construct(string $socketPath, string? $serverName)
-    // nullable types requires php 7.1
     public function __construct(string $socketPath, $serverName) {
         $this->socketPath = $socketPath;
         $this->serverName = $serverName;
@@ -50,18 +45,6 @@ abstract class SuplaServer {
     abstract protected function disconnect();
 
     abstract protected function command($command);
-
-    private function authorizeSocket() {
-        if (!$this->authorized) {
-            $user = $this->getCurrentUserOrThrow();
-            $token = $this->getCurrentUserToken()->getToken();
-            $result = $this->command("OAUTH:" . $token);
-            $this->authorized = $result && preg_match("/^AUTH_OK:" . $user->getId() . "\n/", $result) === 1 ? true : false;
-            if (!$this->authorized) {
-                throw new UnauthorizedHttpException('Supla server has rejected the authorization token');
-            }
-        }
-    }
 
     private function isConnected(int $userId, int $id, $what = 'iodev'): bool {
         $userId = intval($userId);
@@ -184,7 +167,6 @@ abstract class SuplaServer {
 
     public function executeSetCommand(string $command) {
         if ($this->connect()) {
-            $this->authorizeSocket();
             $result = $this->command($command);
             if (!$result || preg_match("/^OK:/", $result) !== 1) {
                 throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.');

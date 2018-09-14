@@ -51,7 +51,6 @@ class SuplaServerReal extends SuplaServer {
             fclose($this->socket);
             $this->socket = null;
         }
-        $this->authorized = false;
     }
 
     protected function command($command) {

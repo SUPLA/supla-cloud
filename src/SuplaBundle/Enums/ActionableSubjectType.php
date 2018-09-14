@@ -18,28 +18,26 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
-use Symfony\Component\Serializer\Annotation\Groups;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 
 /**
- * @method static AuditedEvent AUTHENTICATION_SUCCESS()
- * @method static AuditedEvent AUTHENTICATION_FAILURE()
- * @method static AuditedEvent PASSWORD_RESET()
- * @method static AuditedEvent DIRECT_LINK_EXECUTION()
+ * @method static ActionableSubjectType CHANNEL()
+ * @method static ActionableSubjectType CHANNEL_GROUP()
  */
-final class AuditedEvent extends Enum {
-    const AUTHENTICATION_SUCCESS = 1;
-    const AUTHENTICATION_FAILURE = 2;
-    const PASSWORD_RESET = 3;
-    const DIRECT_LINK_EXECUTION = 4;
-    const DIRECT_LINK_EXECUTION_FAILURE = 5;
+final class ActionableSubjectType extends Enum {
+    const CHANNEL = 'channel';
+    const CHANNEL_GROUP = 'channelGroup';
 
-    /** @Groups({"basic"}) */
-    public function getId(): int {
-        return $this->value;
-    }
+//    const SCENE = 'scene';
 
-    /** @Groups({"basic"}) */
-    public function getName(): string {
-        return $this->getKey();
+    public static function forEntity($entity): self {
+        if ($entity instanceof IODeviceChannel) {
+            return self::CHANNEL();
+        } elseif ($entity instanceof IODeviceChannelGroup) {
+            return self::CHANNEL_GROUP();
+        } else {
+            throw new \InvalidArgumentException('Invalid entity given: ' . get_class($entity));
+        }
     }
 }

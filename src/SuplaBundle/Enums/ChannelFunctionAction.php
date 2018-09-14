@@ -18,10 +18,12 @@
 namespace SuplaBundle\Enums;
 
 use Assert\Assertion;
+use Cocur\Slugify\Slugify;
 use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @method static ChannelFunctionAction READ()
  * @method static ChannelFunctionAction OPEN()
  * @method static ChannelFunctionAction CLOSE()
  * @method static ChannelFunctionAction SHUT()
@@ -34,6 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction STOP()
  */
 final class ChannelFunctionAction extends Enum {
+    const READ = 1000;
     const OPEN = 10;
     const CLOSE = 20;
     const SHUT = 30;
@@ -45,29 +48,29 @@ final class ChannelFunctionAction extends Enum {
     const OPEN_CLOSE = 90;
     const STOP = 100;
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
     public function getId(): int {
         return $this->value;
     }
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
     public function getName(): string {
         return $this->getKey();
     }
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
+    public function getNameSlug(): string {
+        return (new Slugify())->slugify($this->getKey());
+    }
+
+    /** @Groups({"basic"}) */
     public function getCaption(): string {
         return self::captions()[$this->getValue()];
     }
 
     public static function captions(): array {
         return [
+            self::READ => 'Read',
             self::OPEN => 'Open',
             self::CLOSE => 'Close',
             self::SHUT => 'Shut',

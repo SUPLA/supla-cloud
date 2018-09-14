@@ -319,12 +319,15 @@ body.warning {
 }
 
 .in-app-register {
-	.login-footer {
-	  display: none;
-	}
+  .login-footer {
+    display: none;
+  }
 }
 
 .bootstrap-select {
+  .text {
+    width: 100%;
+  }
   .dropdown-menu > li {
     > a {
       white-space: normal;
@@ -334,6 +337,53 @@ body.warning {
         background-color: $supla-green;
       }
     }
+  }
+}
+
+.alert {
+  &.alert-warning {
+    border-color: darken($supla-yellow, 10%);
+    background: lighten($supla-yellow, 10%);
+  }
+}
+
+.flex-left-full-width {
+  display: flex;
+  > :first-child {
+    flex: 1;
+  }
+  > pre {
+    padding: 7px;
+    margin: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+  }
+  .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.list-group-item {
+  @mixin supla-list-group-item($color) {
+    background: $supla-white;
+    border-color: $color;
+    color: darken($color, 10%);
+    border-top-color: $supla-grey-light;
+    border-bottom-color: $supla-grey-light;
+    &:first-child {
+      border-top-color: $color;
+    }
+    &:last-child {
+      border-bottom-color: $color;
+    }
+  }
+  &-success {
+    @include supla-list-group-item($supla-green);
+  }
+  &-danger {
+    @include supla-list-group-item($supla-red);
   }
 }
 

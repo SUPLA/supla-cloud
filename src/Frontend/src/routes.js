@@ -53,6 +53,11 @@ export default [
         ]
     },
     {
+        path: '/direct-links', component: () => import("./direct-links/direct-links-page"), name: 'directLinks', children: [
+            {path: ':id', component: () => import("./direct-links/direct-link-details"), name: 'directLink', props: true}
+        ]
+    },
+    {
         path: '/integrations', component: () => import("./oauth/integrations-page"), children: [
             {path: 'authorized', component: () => import("./oauth/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
             {

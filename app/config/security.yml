@@ -1,6 +1,9 @@
 security:
   encoders:
     SuplaBundle\Entity\User: bcrypt
+    SuplaBundle\Entity\DirectLink:
+      algorithm: bcrypt
+      cost: 4
     legacy_encoder: md5
   hide_user_not_found: false
 
@@ -24,16 +27,13 @@ security:
       stateless: true
 
   access_control:
-    -
-      path: ^/(api/(v?\d\.\d\.\d/)?(server-status|server-info|register|forgotten-password|confirm|webapp-tokens|webapp-auth))
+    - path: ^/(api/(v?\d\.\d\.\d/)?(server-status|server-info|register|forgotten-password|confirm|webapp-tokens|webapp-auth))
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
-    -
-      path: ^/api
+    - path: ^/api
       role: [IS_AUTHENTICATED_FULLY]
       requires_channel: '%supla_protocol%'
-    -
-      path: ^/
+    - path: ^/
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
 

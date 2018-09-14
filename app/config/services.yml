@@ -109,6 +109,9 @@ services:
   SuplaBundle\Serialization\:
     resource: '../../src/SuplaBundle/Serialization'
 
+  SuplaBundle\Serialization\DirectLinkSerializer:
+    $suplaUrl: '%supla_url%'
+
   SuplaBundle\Mailer\SuplaMailer:
     $mailer_from: "%mailer_from%"
     $email_admin: "%admin_email%"
