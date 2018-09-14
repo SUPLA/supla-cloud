@@ -94,7 +94,8 @@ class ExecuteDirectLinkController extends Controller {
                     }
                     return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
                 } else {
-                    $this->channelActionExecutor->executeAction($directLink->getSubject(), $action);
+                    $params = $request->query->all();
+                    $this->channelActionExecutor->executeAction($directLink->getSubject(), $action, $params);
                     return new Response('', Response::HTTP_ACCEPTED);
                 }
             });

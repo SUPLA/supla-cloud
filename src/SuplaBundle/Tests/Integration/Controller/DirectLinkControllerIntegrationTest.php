@@ -47,6 +47,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+            [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],
@@ -203,5 +204,20 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
         $this->assertContains('GET-CHAR-VALUE:1,1,2', $commands);
+    }
+
+    public function testExecutingDirectLinkWithParameters() {
+        $response = $this->createDirectLink([
+            'channelId' => $this->device->getChannels()[3]->getId(),
+            'allowedActions' => ['set-rgbw-parameters'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66', $commands);
     }
 }

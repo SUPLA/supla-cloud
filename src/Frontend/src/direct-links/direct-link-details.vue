@@ -83,23 +83,10 @@
                                     <div class="text-left">
                                         <channel-tile :model="directLink.subject"></channel-tile>
                                     </div>
-                                    <!--<square-location-chooser v-model="channelGroup.location"-->
-                                    <!--@input="onLocationChange($event)"></square-location-chooser>-->
                                 </div>
                                 <div class="col-sm-4">
                                     <h3>{{ $t('Executions history') }}</h3>
                                     <direct-link-audit :direct-link="directLink"></direct-link-audit>
-                                    <!--<div v-if="channelGroup.function">-->
-                                    <!--<function-icon :model="channelGroup"-->
-                                    <!--width="100"></function-icon>-->
-                                    <!--<h4>{{ $t(channelGroup.function.caption) }}</h4>-->
-                                    <!--<channel-alternative-icon-chooser :channel="channelGroup"-->
-                                    <!--@change="channelGroupChanged()"></channel-alternative-icon-chooser>-->
-                                    <!--</div>-->
-                                    <!--<div v-else-if="isNewGroup">-->
-                                    <!--<i class="pe-7s-help1"-->
-                                    <!--style="font-size: 3em"></i>-->
-                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -198,6 +185,7 @@
                     caption: this.$t('Direct Link for #') + subject.id,
                     allowedActions: ['read'],
                 };
+                this.loading = true;
                 this.$http.post('direct-links', toSend).then(response => {
                     const newLink = response.body;
                     this.$emit('add', newLink);
