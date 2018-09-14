@@ -244,7 +244,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->limitSchedule = 20;
         $this->limitChannelGroup = 20;
         $this->limitChannelPerGroup = 10;
-        $this->limitDirectLinks = 50;
+        $this->limitDirectLink = 50;
+        $this->limitOAuthClient = 20;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
