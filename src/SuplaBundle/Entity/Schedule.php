@@ -19,6 +19,7 @@ namespace SuplaBundle\Entity;
 
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
@@ -57,10 +58,16 @@ class Schedule {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
      * @Groups({"channel", "iodevice", "location"})
      */
     private $channel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="schedules")
+     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
+     */
+    private $channelGroup;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
@@ -169,6 +176,15 @@ class Schedule {
     /** @param IODeviceChannel|null $channel */
     public function setChannel($channel) {
         $this->channel = $channel;
+    }
+
+    /** @Groups({"subject"}) */
+    public function getSubject(): HasFunction {
+        return $this->channel ?: $this->channelGroup;
+    }
+
+    public function getSubjectType(): ActionableSubjectType {
+        return ActionableSubjectType::forEntity($this->getSubject());
     }
 
     public function getAction(): ChannelFunctionAction {
