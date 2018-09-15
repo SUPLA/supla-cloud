@@ -26,7 +26,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="supla_audit", indexes={
  *     @ORM\Index(name="supla_audit_event_idx", columns={"event"}),
  *     @ORM\Index(name="supla_audit_ipv4_idx", columns={"ipv4"}),
- *     @ORM\Index(name="supla_audit_created_at_idx", columns={"created_at"})
+ *     @ORM\Index(name="supla_audit_created_at_idx", columns={"created_at"}),
+ *     @ORM\Index(name="supla_audit_int_param", columns={"int_param"})
  * })
  */
 class AuditEntry {

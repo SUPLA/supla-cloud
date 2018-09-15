@@ -131,6 +131,7 @@ final class OAuthScope {
                      'channels',
                      'channelgroups',
                      'clientapps',
+                     'directlinks',
                      'iodevices',
                      'locations',
                      'schedules',

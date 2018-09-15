@@ -23,7 +23,8 @@
         <router-view v-if="items"
             @add="onItemAdded($event)"
             @delete="onItemDeleted()"
-            @update="onItemUpdated($event)"></router-view>
+            @update="onItemUpdated($event)"
+            :item="item"></router-view>
     </div>
 </template>
 

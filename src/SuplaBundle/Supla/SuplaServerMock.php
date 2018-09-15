@@ -69,8 +69,6 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(-2000, 2000) / 1000);
         } elseif (preg_match('#^GET-((HUMIDITY)|(DOUBLE))-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(0, 1000) / 10);
-        } elseif (preg_match('#^OAUTH:#', $cmd, $match)) {
-            return 'AUTH_OK:' . $this->getCurrentUserOrThrow()->getId() . "\n";
         }
         return false;
     }

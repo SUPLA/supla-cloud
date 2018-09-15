@@ -5,7 +5,8 @@
             <function-icon :model="model"
                 width="90"></function-icon>
             <h3 class="no-margin-top">ID{{ model.id }} {{ $t(model.function.caption) }}</h3>
-            <dl class="ellipsis">
+            <dl class="ellipsis"
+                v-if="model.iodevice">
                 <dd>{{ $t('Device') }}</dd>
                 <dt>{{ model.iodevice.name }}</dt>
             </dl>
@@ -13,7 +14,8 @@
                 <dd>{{ $t('Type') }}</dd>
                 <dt>{{ $t(model.type.caption) }}</dt>
             </dl>
-            <dl class="ellipsis">
+            <dl class="ellipsis"
+                v-if="model.location">
                 <dd>{{ $t('Location') }}</dd>
                 <dt>ID{{model.location.id}} {{ model.location.caption }}</dt>
             </dl>
@@ -23,7 +25,8 @@
             </div>
             <div class="square-link-label"
                 v-if="model.functionId != 0">
-                <device-connection-status-label :device="model.iodevice"></device-connection-status-label>
+                <device-connection-status-label v-if="model.iodevice"
+                    :device="model.iodevice"></device-connection-status-label>
             </div>
         </router-link>
     </square-link>

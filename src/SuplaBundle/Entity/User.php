@@ -135,6 +135,16 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $limitChannelPerGroup;
 
     /**
+     * @ORM\Column(name="limit_direct_link", type="integer", options={"default"=50})
+     */
+    private $limitDirectLink;
+
+    /**
+     * @ORM\Column(name="limit_oauth_client", type="integer", options={"default"=20})
+     */
+    private $limitOAuthClient;
+
+    /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"})
      */
     private $accessids;
@@ -173,6 +183,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="user", cascade={"persist"})
      */
     private $channelGroups;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="user", cascade={"persist"})
+     */
+    private $directLinks;
 
     /**
      * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
@@ -229,6 +244,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->limitSchedule = 20;
         $this->limitChannelGroup = 20;
         $this->limitChannelPerGroup = 10;
+        $this->limitDirectLink = 50;
+        $this->limitOAuthClient = 20;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
@@ -395,6 +412,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->channelGroups;
     }
 
+    /** @return Collection|DirectLink[] */
+    public function getDirectLInks() {
+        return $this->directLinks;
+    }
+
     /** @return Collection|Location[] */
     public function getLocations(): Collection {
         return $this->locations;
@@ -454,6 +476,14 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function isLimitScheduleExceeded() {
         return $this->getLimitSchedule() > 0 && count($this->getSchedules()) >= $this->getLimitSchedule();
+    }
+
+    public function isLimitDirectLinkExceeded() {
+        return $this->limitDirectLink > 0 && count($this->getDirectLInks()) >= $this->limitDirectLink;
+    }
+
+    public function isLimitOAuthClientExceeded() {
+        return $this->limitOAuthClient > 0 && count($this->getApiClients()) >= $this->limitOAuthClient;
     }
 
     /** @return \DateTime|null */
@@ -549,6 +579,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
             'channelPerGroup' => $this->limitChannelPerGroup,
             'location' => $this->limitLoc,
             'schedule' => $this->limitSchedule,
+            'directLink' => $this->limitDirectLink,
+            'oauthClient' => $this->limitOAuthClient,
         ];
     }
 

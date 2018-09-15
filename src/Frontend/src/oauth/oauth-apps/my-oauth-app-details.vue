@@ -51,11 +51,15 @@
                                 v-if="!isNew">
                                 <h3 class="text-center">{{ $t('Configuration') }}</h3>
                                 <h4>{{ $t('Public ID') }}</h4>
-                                <pre><code>{{ app.publicId }}</code></pre>
-                                <copy-button :text="app.publicId"></copy-button>
+                                <div class="flex-left-full-width">
+                                    <pre><code>{{ app.publicId }}</code></pre>
+                                    <copy-button :text="app.publicId"></copy-button>
+                                </div>
                                 <h4>{{ $t('Secret') }}</h4>
-                                <pre><code>{{ app.secret }}</code></pre>
-                                <copy-button :text="app.secret"></copy-button>
+                                <div class="flex-left-full-width">
+                                    <pre><code>{{ app.secret }}</code></pre>
+                                    <copy-button :text="app.secret"></copy-button>
+                                </div>
                             </div>
                         </div>
                     </pending-changes-page>

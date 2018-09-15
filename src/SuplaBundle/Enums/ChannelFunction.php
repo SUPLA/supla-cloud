@@ -102,7 +102,10 @@ final class ChannelFunction extends Enum {
         return self::captions()[$this->value] ?? 'Unknown';
     }
 
-    /** @Groups({"basic"}) */
+    /**
+     * @Groups({"basic"})
+     * @return ChannelFunctionAction[]
+     */
     public function getPossibleActions(): array {
         return self::actions()[$this->getValue()] ?? [];
     }
@@ -187,7 +190,7 @@ final class ChannelFunction extends Enum {
             self::LIGHTSWITCH => 1,
             self::CONTROLLINGTHEGATE => 2,
             self::OPENINGSENSOR_GATE => 2,
-            self::STAIRCASETIMER=> 1,
+            self::STAIRCASETIMER => 1,
         ];
     }
 }

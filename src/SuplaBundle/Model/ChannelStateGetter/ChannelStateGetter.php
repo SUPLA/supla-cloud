@@ -1,6 +1,7 @@
 <?php
 namespace SuplaBundle\Model\ChannelStateGetter;
 
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 
@@ -12,14 +13,20 @@ class ChannelStateGetter {
         $this->stateGetters = $stateGetters;
     }
 
-    public function getState(IODeviceChannel $channel): array {
-        $state = [];
-        foreach ($this->stateGetters as $stateGetter) {
-            if (in_array($channel->getFunction(), $stateGetter->supportedFunctions())) {
-                $state = array_merge($state, $stateGetter->getState($channel));
+    public function getState(HasFunction $channel): array {
+        if ($channel instanceof IODeviceChannel) {
+            $state = [];
+            foreach ($this->stateGetters as $stateGetter) {
+                if (in_array($channel->getFunction(), $stateGetter->supportedFunctions())) {
+                    $state = array_merge($state, $stateGetter->getState($channel));
+                }
             }
+            return $state;
+        } elseif ($channel instanceof IODeviceChannelGroup) {
+            return $this->getStateForChannelGroup($channel);
+        } else {
+            throw new \InvalidArgumentException('Could not get state for entity ' . get_class($channel));
         }
-        return $state;
     }
 
     public function getStateForChannelGroup(IODeviceChannelGroup $group): array {
