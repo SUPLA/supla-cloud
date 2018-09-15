@@ -45,7 +45,7 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
         if (is_array($normalized)) {
             $subjectType = $schedule->getSubjectType()->getValue();
             $normalized['subjectType'] = $subjectType;
-            $normalized[$subjectType . 'Id'] = $schedule->getSubject()->getId();
+            $normalized['subjectId'] = $schedule->getSubject()->getId();
             $normalized['mode'] = $schedule->getMode()->getValue();
             $normalized['actionId'] = $schedule->getAction()->getId();
             if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {

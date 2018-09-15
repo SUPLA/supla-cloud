@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                         <div class="well">
                             <h3 class="no-margin-top">{{ $t('Action') }}</h3>
-                            <schedule-form-action-chooser @channel-change="canSetRetry = !$event || [20, 30].indexOf($event.function) < 0"></schedule-form-action-chooser>
+                            <schedule-form-action-chooser @subject-change="canSetRetry = !$event || [20, 30].indexOf($event.function) < 0"></schedule-form-action-chooser>
                         </div>
                     </div>
                 </div>

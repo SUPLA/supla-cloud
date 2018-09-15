@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assert;
+use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
@@ -134,7 +135,7 @@ class Schedule {
         $this->setTimeExpression($data['timeExpression']);
         $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
-        $this->setChannel($data['channel'] ?? null);
+        $this->setSubject($data['subject'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['mode']));
@@ -142,16 +143,11 @@ class Schedule {
         $this->setRetry($data['retry'] ?? true);
     }
 
-    /**
-     * @return mixed
-     */
     public function getId() {
         return $this->id;
     }
 
-    /**
-     * @return User
-     */
+    /** @return User */
     public function getUser() {
         return $this->user;
     }
@@ -166,21 +162,26 @@ class Schedule {
         $this->timeExpression = $timeExpression;
     }
 
-    /**
-     * @return IODeviceChannel
-     */
-    public function getChannel() {
-        return $this->channel;
-    }
-
-    /** @param IODeviceChannel|null $channel */
-    public function setChannel($channel) {
-        $this->channel = $channel;
+    /** @param IODeviceChannel|IODeviceChannelGroup|null $subject */
+    public function setSubject($subject) {
+        $this->channel = null;
+        $this->channelGroup = null;
+        if ($subject instanceof IODeviceChannel) {
+            $this->channel = $subject;
+        } else if ($subject instanceof IODeviceChannelGroup) {
+            $this->channelGroup = $subject;
+        } else {
+            Assertion::null($subject, 'Invalid subject for schedule given: ' . get_class($subject));
+        }
     }
 
     /** @Groups({"subject"}) */
     public function getSubject(): HasFunction {
         return $this->channel ?: $this->channelGroup;
+    }
+
+    public function isSubjectChannel(): bool {
+        return $this->getSubjectType() == ActionableSubjectType::CHANNEL();
     }
 
     public function getSubjectType(): ActionableSubjectType {
@@ -297,7 +298,7 @@ class Schedule {
     public function setRetry(bool $retry) {
         if ($this->channel) {
             $alwaysRetryFunctions = [ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::CONTROLLINGTHEGARAGEDOOR()];
-            if (in_array($this->getChannel()->getFunction(), $alwaysRetryFunctions)) {
+            if (in_array($this->getSubject()->getFunction(), $alwaysRetryFunctions)) {
                 $retry = true;
             }
         }

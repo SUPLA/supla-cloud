@@ -24,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
@@ -77,10 +78,14 @@ class ScheduleController extends RestController {
     public function postScheduleAction(Request $request) {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
         $data = $request->request->all();
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $data['subjectId'] = $data['channelId'] ?? null;
+            $data['subjectType'] = 'channel';
+        }
         $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data);
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
-        if ($schedule->getChannel()->getIoDevice()->getEnabled()) {
+        if ($schedule->isSubjectChannel() && $schedule->getSubject()->getIoDevice()->getEnabled()) {
             $this->get('schedule_manager')->enable($schedule);
         }
         return $this->view($schedule, Response::HTTP_CREATED);
@@ -97,7 +102,8 @@ class ScheduleController extends RestController {
             $em->persist($schedule);
             if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
                 $this->get('schedule_manager')->enable($schedule);
-            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true) || !$schedule->getChannel()->getIoDevice()->getEnabled())) {
+            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true)
+                    || ($schedule->isSubjectChannel() && !$schedule->getSubject()->getIoDevice()->getEnabled()))) {
                 $this->get('schedule_manager')->disable($schedule);
             }
             if ($schedule->getEnabled()) {
@@ -110,13 +116,14 @@ class ScheduleController extends RestController {
     /** @return Schedule */
     private function fillSchedule(Schedule $schedule, array $data) {
         Assert::that($data)
-            ->notEmptyKey('channelId')
+            ->notEmptyKey('subjectId')
+            ->notEmptyKey('subjectType')
             ->notEmptyKey('actionId')
             ->notEmptyKey('mode')
             ->notEmptyKey('timeExpression');
-        $channel = $this->get('iodevice_manager')->channelById($data['channelId']);
+        $channel = $this->get('iodevice_manager')->channelById($data['subjectId']);
         Assertion::notNull($channel);
-        $data['channel'] = $channel;
+        $data['subject'] = $channel;
         if (isset($data['actionParam']) && $data['actionParam']) {
             $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
                 $channel,
