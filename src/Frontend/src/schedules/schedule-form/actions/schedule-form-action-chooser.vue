@@ -11,8 +11,8 @@
             <!--hide-none="true">-->
             <!--</channels-dropdown>-->
         </div>
-        <div v-if="subjectWithType.subject">
-            <div v-for="possibleAction in subjectWithType.subject.function.possibleActions">
+        <div v-if="subject">
+            <div v-for="possibleAction in subject.function.possibleActions">
                 <div class="radio">
                     <label>
                         <input type="radio"
@@ -26,16 +26,16 @@
                 </span>
                 <span v-if="possibleAction.id == 80 && actionId == possibleAction.id">
                     <rgbw-parameters-setter v-model="actionParam"
-                        :channel-function="subjectWithType.subject.function"></rgbw-parameters-setter>
+                        :channel-function="subject.function"></rgbw-parameters-setter>
                 </span>
             </div>
         </div>
-        <modal v-if="userChannels === undefined"
-            class="modal-warning"
-            @confirm="goToSchedulesList()"
-            :header="$t('You have no devices that can be added to the schedule')">
-            {{ $t('You will be redirected back to the schedules list now.') }}
-        </modal>
+        <!--<modal v-if="userChannels === undefined"-->
+        <!--class="modal-warning"-->
+        <!--@confirm="goToSchedulesList()"-->
+        <!--:header="$t('You have no devices that can be added to the schedule')">-->
+        <!--{{ $t('You will be redirected back to the schedules list now.') }}-->
+        <!--</modal>-->
     </div>
 </template>
 
@@ -50,19 +50,23 @@
         components: {SubjectDropdown, ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
         data() {
             return {
-                userChannels: [],
-                channelFunctionMap: {},
+                // userChannels: [],
+                // channelFunctionMap: {},
                 subjectWithType: {}
             };
         },
         mounted() {
             this.$http.get('users/current/schedulable-channels').then(({body}) => {
-                if (body.userChannels.length) {
-                    this.userChannels = body.userChannels;
-                    this.channelFunctionMap = body.channelFunctionMap;
-                } else {
-                    this.userChannels = undefined;
-                }
+                // if (body.userChannels.length) {
+                //     this.userChannels = body.userChannels;
+                //     this.channelFunctionMap = body.channelFunctionMap;
+                // } else {
+                //     this.userChannels = undefined;
+                // }
+                this.subjectWithType = {
+                    subject: this.subject,
+                    type: this.subjectType,
+                };
             });
         },
         methods: {

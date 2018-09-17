@@ -23,9 +23,12 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Repository\ChannelGroupRepository;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +39,21 @@ class ScheduleController extends RestController {
     private $scheduleRepository;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /** @var ChannelGroupRepository */
+    private $channelGroupRepository;
+    /** @var IODeviceChannelRepository */
+    private $channelRepository;
 
-    public function __construct(ScheduleRepository $scheduleRepository, ChannelActionExecutor $channelActionExecutor) {
+    public function __construct(
+        ScheduleRepository $scheduleRepository,
+        ChannelGroupRepository $channelGroupRepository,
+        IODeviceChannelRepository $channelRepository,
+        ChannelActionExecutor $channelActionExecutor
+    ) {
         $this->scheduleRepository = $scheduleRepository;
         $this->channelActionExecutor = $channelActionExecutor;
+        $this->channelGroupRepository = $channelGroupRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     /** @Security("has_role('ROLE_SCHEDULES_R')") */
@@ -60,7 +74,11 @@ class ScheduleController extends RestController {
         }
         $schedules = $this->scheduleRepository->findByQuery($query);
         $view = $this->view($schedules, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions']);
+        $serializationGroups = ['subject', 'closestExecutions'];
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $serializationGroups = ['channel', 'iodevice', 'location', 'closestExecutions'];
+        }
+        $this->setSerializationGroups($view, $request, $serializationGroups);
         $view->setHeader('SUPLA-Total-Schedules', $this->getUser()->getSchedules()->count());
         return $view;
     }
@@ -70,7 +88,11 @@ class ScheduleController extends RestController {
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
         $view = $this->view($schedule, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions']);
+        $serializationGroups = ['subject', 'closestExecutions'];
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $serializationGroups = ['channel', 'iodevice', 'location', 'closestExecutions'];
+        }
+        $this->setSerializationGroups($view, $request, $serializationGroups);
         return $view;
     }
 
@@ -121,9 +143,15 @@ class ScheduleController extends RestController {
             ->notEmptyKey('actionId')
             ->notEmptyKey('mode')
             ->notEmptyKey('timeExpression');
+        $subject = null;
+        if ($data['subjectType'] == ActionableSubjectType::CHANNEL) {
+            $subject = $this->channelRepository->findForUser($this->getUser(), $data['subjectId']);
+        } else if ($data['subjectType'] == ActionableSubjectType::CHANNEL_GROUP) {
+            $subject = $this->channelGroupRepository->findForUser($this->getUser(), $data['subjectId']);
+        }
         $channel = $this->get('iodevice_manager')->channelById($data['subjectId']);
-        Assertion::notNull($channel);
-        $data['subject'] = $channel;
+        Assertion::notNull($subject, 'Invalid schedule subject.');
+        $data['subject'] = $subject;
         if (isset($data['actionParam']) && $data['actionParam']) {
             $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
                 $channel,

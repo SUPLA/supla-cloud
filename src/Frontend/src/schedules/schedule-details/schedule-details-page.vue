@@ -60,9 +60,12 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <h3 class="text-center">{{ $t('Channel') }}</h3>
+                            <h3 class="text-center">{{ $t(schedule.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</h3>
                             <div class="form-group">
-                                <channel-tile :model="schedule.channel"></channel-tile>
+                                <channel-tile :model="schedule.subject"
+                                    v-if="schedule.subjectType == 'channel'"></channel-tile>
+                                <channel-group-tile :model="schedule.subject"
+                                    v-if="schedule.subjectType == 'channelGroup'"></channel-group-tile>
                             </div>
                             <div class="form-group"
                                 v-if="displayOpeningSensorWarning">
@@ -95,6 +98,7 @@
 <script type="text/babel">
     import DotsRoute from "../../common/gui/dots-route";
     import ChannelTile from "../../channels/channel-tile";
+    import ChannelGroupTile from "../../channel-groups/channel-group-tile";
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ScheduleExecutionsDisplay from "./schedule-executions-display";
@@ -107,7 +111,8 @@
             PendingChangesPage,
             Toggler,
             ChannelTile,
-            DotsRoute
+            DotsRoute,
+            ChannelGroupTile,
         },
         props: ['id'],
         data() {
@@ -126,7 +131,7 @@
             fetch() {
                 this.loading = true;
                 this.error = false;
-                this.$http.get(`schedules/${this.id}?include=channel,iodevice,location`, {skipErrorHandler: [403, 404]})
+                this.$http.get(`schedules/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
                     .then(({body}) => {
                         this.schedule = body;
                         this.hasPendingChanges = this.loading = false;
@@ -154,7 +159,7 @@
         computed: {
             displayOpeningSensorWarning() {
                 return this.schedule &&
-                    ['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].indexOf(this.schedule.channel.function.name) >= 0;
+                    ['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].indexOf(this.schedule.subject.function.name) >= 0;
             },
             retryOptionDisabled() {
                 return this.displayOpeningSensorWarning;

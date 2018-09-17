@@ -104,7 +104,8 @@
                 fetchingNextRunDates: false,
                 nextRunDates: [],
                 retry: true,
-                channelId: undefined,
+                subjectId: undefined,
+                subject: undefined,
                 actionId: undefined,
                 actionParam: undefined,
                 submitting: false,
@@ -137,18 +138,18 @@
                     this.$store.commit('updateRetry', retry);
                 }
             },
-            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'actionId', 'submitting', 'schedule', 'timeExpression'])
+            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'subjectId', 'actionId', 'submitting', 'schedule', 'timeExpression'])
         },
         mounted() {
             this.resetState();
             if (this.id) {
                 this.error = false;
-                this.$http.get('schedules/' + this.id, {params: {include: 'channel'}, skipErrorHandler: [403, 404]})
+                this.$http.get('schedules/' + this.id, {params: {include: 'subject'}, skipErrorHandler: [403, 404]})
                     .then(({body}) => this.loadScheduleToEdit(body))
                     .catch(response => this.error = response.status);
             }
-            else if (this.$route.query.channelId) {
-                this.$store.commit('updateChannel', this.$route.query.channelId);
+            else if (this.$route.query.subjectId) {
+                // this.$store.commit('updateSubject', this.$route.query.subject);
             }
         },
         components: {
@@ -177,7 +178,8 @@
                     fetchingNextRunDates: false,
                     nextRunDates: [],
                     retry: true,
-                    channelId: undefined,
+                    subjectId: undefined,
+                    subject: undefined,
                     actionId: undefined,
                     actionParam: undefined,
                     submitting: false,

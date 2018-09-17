@@ -33,7 +33,7 @@ export const mutations = {
     },
     updateSubject(state, subjectWithType) {
         state.subject = subjectWithType.subject;
-        state.subjectId = subjectWithType.subject.id;
+        state.subjectId = subjectWithType.subject ? subjectWithType.subject.id : undefined;
         state.subjectType = subjectWithType.type;
         state.actionId = undefined;
         state.actionParam = undefined;

@@ -180,6 +180,11 @@ class Schedule {
         return $this->channel ?: $this->channelGroup;
     }
 
+    /** Exists only for v2.2- compatibility (there was a "channel" serialization group before. */
+    public function getChannel() {
+        return $this->channel;
+    }
+
     public function isSubjectChannel(): bool {
         return $this->getSubjectType() == ActionableSubjectType::CHANNEL();
     }
