@@ -22,6 +22,7 @@ use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -66,6 +67,14 @@ class ScheduleController extends RestController {
      */
     public function getChannelSchedulesAction(IODeviceChannel $channel, Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByChannel($channel), $request);
+    }
+
+    /**
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Get("/channel-groups/{channelGroup}/schedules")
+     */
+    public function getChannelGroupSchedulesAction(IODeviceChannelGroup $channelGroup, Request $request) {
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByChannelGroup($channelGroup), $request);
     }
 
     private function returnSchedules(ScheduleListQuery $query, Request $request) {
