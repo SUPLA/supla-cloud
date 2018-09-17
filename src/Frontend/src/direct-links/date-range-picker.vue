@@ -1,19 +1,29 @@
 <template>
-    <div>
-        <div class="form-group">
-            <div class="input-group date">
-                <div class="input-group-addon">{{ $t('From') }}</div>
-                <input type="text"
-                    class="form-control datetimepicker-start"
-                    ref="startDatePicker">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>{{ $t('Start date') }}</label>
+                <div class="input-group date">
+                    <input type="text"
+                        class="form-control datetimepicker-start"
+                        ref="startDatePicker">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="input-group date">
-                <div class="input-group-addon">{{ $t('To') }}</div>
-                <input type="text"
-                    class="form-control datetimepicker-end"
-                    ref="endDatePicker">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>{{ $t('End date') }}</label>
+                <div class="input-group date">
+                    <input type="text"
+                        class="form-control datetimepicker-end"
+                        ref="endDatePicker">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

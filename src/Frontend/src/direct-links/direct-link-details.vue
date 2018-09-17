@@ -61,19 +61,6 @@
                                                     </div>
                                                 </div>
                                             </dt>
-                                            <dd>{{ $t('Active between') }}</dd>
-                                            <dt>
-                                                <date-range-picker v-model="directLink.activeDateRange"
-                                                    @input="directLinkChanged()"></date-range-picker>
-                                            </dt>
-                                            <dd>{{ $t('Executions limit') }}</dd>
-                                            <dt>
-                                                <input v-model="directLink.executionsLimit"
-                                                    class="form-control"
-                                                    type="number"
-                                                    min="0"
-                                                    @input="directLinkChanged()">
-                                            </dt>
                                         </dl>
                                     </div>
                                 </div>
@@ -89,6 +76,50 @@
                                 <div class="col-sm-4">
                                     <h3>{{ $t('Executions history') }}</h3>
                                     <direct-link-audit :direct-link="directLink"></direct-link-audit>
+                                </div>
+                            </div>
+                            <h3>{{ $t('Constraints') }}</h3>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="well">
+                                            <h4 class="text-center">{{ $t('Working period') }}</h4>
+                                            <date-range-picker v-model="directLink.activeDateRange"
+                                                @input="directLinkChanged()"></date-range-picker>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="well">
+                                            <h4 class="text-center">{{ $t('Executions limit') }}</h4>
+
+                                            <div class="executions-limit">
+                                                {{ directLink.executionsLimit }}
+                                            </div>
+                                            <div class="btn-group btn-group-justified">
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(undefined)">No limit</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(1)">1</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(2)">2</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(10)">10</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(100)">100</a>
+                                                <a :class="'btn btn-default ' + (choosingCustomLimit ? 'active' : '')"
+                                                    @click="choosingCustomLimit = !choosingCustomLimit">Custom</a>
+                                            </div>
+                                            <div v-if="choosingCustomLimit">
+                                                <div class="form-group"></div>
+                                                <label>{{ $t('Custom executions limit') }}</label>
+                                                <input v-model="directLink.executionsLimit"
+                                                    class="form-control"
+                                                    type="number"
+                                                    min="0"
+                                                    @input="directLinkChanged()">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +187,8 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
-                allowedActions: {}
+                allowedActions: {},
+                choosingCustomLimit: false,
             };
         },
         mounted() {
@@ -220,6 +252,10 @@
                 this.$http.delete('direct-links/' + this.directLink.id).then(() => this.$emit('delete'));
                 this.directLink = undefined;
             },
+            setExecutionsLimit(limit) {
+                this.directLink.executionsLimit = limit;
+                this.directLinkChanged();
+            },
             cancelChanges() {
                 this.fetch();
             },
@@ -239,13 +275,15 @@
             },
             possibleActions() {
                 if (this.directLink) {
+                    // OPEN and CLOSE actions are not supported for gates via API
+                    const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
                     return [{
                         id: 1000,
                         name: 'READ',
                         caption: 'Read',
                         nameSlug: 'read'
                     }].concat(this.directLink.subject.function.possibleActions)
-                        .filter(action => action.name != 'OPEN' && action.name != 'CLOSE');
+                        .filter(action => !isGate || (action.name != 'OPEN' && action.name != 'CLOSE'));
 
                 }
             },
@@ -260,3 +298,15 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../styles/variables";
+
+    .executions-limit {
+        font-size: 3em;
+        font-weight: bold;
+        color: $supla-orange;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+</style>
