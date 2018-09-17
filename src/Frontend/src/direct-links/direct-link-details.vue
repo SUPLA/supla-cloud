@@ -192,7 +192,7 @@
                     allowedActions: ['read'],
                 };
                 this.loading = true;
-                this.$http.post('direct-links', toSend).then(response => {
+                this.$http.post('direct-links?include=subject', toSend).then(response => {
                     const newLink = response.body;
                     this.$emit('add', newLink);
                 }).catch(() => this.$emit('delete'));
@@ -244,7 +244,9 @@
                         name: 'READ',
                         caption: 'Read',
                         nameSlug: 'read'
-                    }].concat(this.directLink.subject.function.possibleActions);
+                    }].concat(this.directLink.subject.function.possibleActions)
+                        .filter(action => action.name != 'OPEN' && action.name != 'CLOSE');
+
                 }
             },
             fullUrl() {

@@ -49,7 +49,7 @@
         methods: {
             fetchChannels() {
                 this.channels = undefined;
-                this.$http.get('channels?include=iodevice,location&' + this.params).then(({body: channels}) => {
+                this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
                     this.channels = channels;
                     if (this.initialId) {
                         this.chosenChannel = this.channels.filter(ch => ch.id == this.initialId)[0];

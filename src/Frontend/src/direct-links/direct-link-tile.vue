@@ -12,6 +12,8 @@
                 <dd>{{ $t('Last used') }}</dd>
                 <dt v-if="model.lastUsed">{{ model.lastUsed | moment("LT L") }}</dt>
                 <dt v-else>{{ $t('Never') }}</dt>
+                <dd>{{ $t('Subject type') }}</dd>
+                <dt>{{ $t(model.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</dt>
             </dl>
             <div v-if="model.caption">
                 <div class="separator"></div>

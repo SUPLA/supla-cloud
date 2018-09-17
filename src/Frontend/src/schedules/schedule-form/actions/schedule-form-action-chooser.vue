@@ -8,7 +8,8 @@
         </div>
         <div v-if="subject">
             <div v-for="possibleAction in subject.function.possibleActions">
-                <div class="radio">
+                <div class="radio"
+                    v-if="possibleAction.name != 'OPEN_CLOSE'">
                     <label>
                         <input type="radio"
                             :value="possibleAction.id"

@@ -132,8 +132,16 @@ final class ChannelFunction extends Enum {
         return [
             self::CONTROLLINGTHEGATEWAYLOCK => [ChannelFunctionAction::OPEN()],
             self::CONTROLLINGTHEDOORLOCK => [ChannelFunctionAction::OPEN()],
-            self::CONTROLLINGTHEGATE => [ChannelFunctionAction::OPEN(), ChannelFunctionAction::CLOSE()],
-            self::CONTROLLINGTHEGARAGEDOOR => [ChannelFunctionAction::OPEN(), ChannelFunctionAction::CLOSE()],
+            self::CONTROLLINGTHEGATE => [
+                ChannelFunctionAction::OPEN(),
+                ChannelFunctionAction::CLOSE(),
+                ChannelFunctionAction::OPEN_CLOSE(),
+            ],
+            self::CONTROLLINGTHEGARAGEDOOR => [
+                ChannelFunctionAction::OPEN(),
+                ChannelFunctionAction::CLOSE(),
+                ChannelFunctionAction::OPEN_CLOSE(),
+            ],
             self::CONTROLLINGTHEROLLERSHUTTER => [
                 ChannelFunctionAction::SHUT(),
                 ChannelFunctionAction::REVEAL(),
