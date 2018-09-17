@@ -50,24 +50,14 @@
         components: {SubjectDropdown, ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
         data() {
             return {
-                // userChannels: [],
-                // channelFunctionMap: {},
                 subjectWithType: {}
             };
         },
         mounted() {
-            this.$http.get('users/current/schedulable-channels').then(({body}) => {
-                // if (body.userChannels.length) {
-                //     this.userChannels = body.userChannels;
-                //     this.channelFunctionMap = body.channelFunctionMap;
-                // } else {
-                //     this.userChannels = undefined;
-                // }
-                this.subjectWithType = {
-                    subject: this.subject,
-                    type: this.subjectType,
-                };
-            });
+            this.subjectWithType = {
+                subject: this.subject,
+                type: this.subjectType,
+            };
         },
         methods: {
             goToSchedulesList() {
@@ -79,18 +69,6 @@
             }
         },
         computed: {
-            // channelId: {
-            //     get() {
-                    // Vue.nextTick(() => $(this.$refs.channelsDropdown).trigger("chosen:updated"));
-            // return this.$store.state.channelId;
-            // },
-            // set(channelId) {
-            //     this.$store.commit('updateChannel', channelId);
-            //     if (channelId) {
-            //         this.actionId = this.channelFunctionMap[channelId][0].id;
-            //     }
-            // }
-            // },
             actionId: {
                 get() {
                     return this.$store.state.actionId;
@@ -108,6 +86,14 @@
                 }
             },
             ...mapState(['subject', 'subjectType']),
+        },
+        watch: {
+            subject() {
+                this.subjectWithType = {
+                    subject: this.subject,
+                    type: this.subjectType,
+                };
+            }
         }
     };
 </script>

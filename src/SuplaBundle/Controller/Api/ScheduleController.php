@@ -146,7 +146,7 @@ class ScheduleController extends RestController {
         $subject = null;
         if ($data['subjectType'] == ActionableSubjectType::CHANNEL) {
             $subject = $this->channelRepository->findForUser($this->getUser(), $data['subjectId']);
-        } else if ($data['subjectType'] == ActionableSubjectType::CHANNEL_GROUP) {
+        } elseif ($data['subjectType'] == ActionableSubjectType::CHANNEL_GROUP) {
             $subject = $this->channelGroupRepository->findForUser($this->getUser(), $data['subjectId']);
         }
         $channel = $this->get('iodevice_manager')->channelById($data['subjectId']);

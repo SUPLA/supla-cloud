@@ -24,15 +24,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\Audit\AuditAware;
-use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -59,41 +55,6 @@ class UserController extends RestController {
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
     public function currentUserAction() {
         return $this->view($this->getUser(), Response::HTTP_OK);
-    }
-
-    /**
-     * @Rest\Get("users/current/schedulable-channels")
-     * @Security("has_role('ROLE_SCHEDULES_RW')")
-     */
-    public function getUserSchedulableChannelsAction() {
-        /** @var IODeviceManager $ioDeviceManager */
-        $ioDeviceManager = $this->get('iodevice_manager');
-        $schedulableChannels = $this->get('schedule_manager')->getSchedulableChannels($this->getUser());
-        $channelToFunctionsMap = [];
-        foreach ($schedulableChannels as $channel) {
-            $channelToFunctionsMap[$channel->getId()] = (new ChannelFunction($channel->getFunction()->getId()))->getPossibleActions();
-        }
-        return $this->view([
-            'userChannels' => array_map(function (IODeviceChannel $channel) use ($ioDeviceManager) {
-                return [
-                    'id' => $channel->getId(),
-                    'function' => $channel->getFunction()->getId(),
-                    'functionName' => $ioDeviceManager->channelFunctionToString($channel->getFunction()),
-                    'type' => $channel->getType(),
-                    'caption' => $channel->getCaption(),
-                    'device' => [
-                        'id' => $channel->getIoDevice()->getId(),
-                        'name' => $channel->getIoDevice()->getName(),
-                        'location' => [
-                            'id' => $channel->getIoDevice()->getLocation()->getId(),
-                            'caption' => $channel->getIoDevice()->getLocation()->getCaption(),
-                        ],
-                    ],
-                ];
-            }, $schedulableChannels),
-            'actionCaptions' => ChannelFunctionAction::captions(),
-            'channelFunctionMap' => $channelToFunctionsMap,
-        ]);
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_RW')") */

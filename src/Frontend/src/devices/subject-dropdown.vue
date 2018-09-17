@@ -1,5 +1,5 @@
 <template>
-    <div class="subject-dropdown">
+    <div :class="'subject-dropdown ' + (subjectType == 'channel' ? 'first-selected' : '')">
         <ul class="nav nav-tabs">
             <li :class="subjectType == 'channel' ? 'active' : ''">
                 <a @click="changeSubjectType('channel')">{{$t('Channels')}}</a>
@@ -8,7 +8,6 @@
                 <a @click="changeSubjectType('channelGroup')">{{$t('Channel groups')}}</a>
             </li>
         </ul>
-        {{ subjectType }}
         <channels-dropdown v-model="subject"
             v-if="subjectType == 'channel'"
             @input="subjectChanged()"
@@ -40,16 +39,22 @@
             },
             subjectChanged() {
                 this.$emit('input', {subject: this.subject, type: this.subjectType});
-            }
-        },
-        watch: {
-            value() {
+            },
+            updateBasedOnValue() {
                 if (this.value && this.value.type) {
                     this.subjectType = this.value.type;
                     this.subject = this.value.subject;
                 } else {
                     this.changeSubjectType('channel');
                 }
+            },
+        },
+        watch: {
+            value() {
+                this.updateBasedOnValue();
+            },
+            'value.subject'() {
+                this.updateBasedOnValue();
             }
         }
     };
@@ -59,11 +64,29 @@
     @import "../styles/variables";
 
     .subject-dropdown {
-
         .nav-tabs {
+            border: 0;
+            z-index: 2;
+            position: relative;
+            top: 1px;
             li > a {
                 padding: 3px 5px;
+                &:hover {
+                    background: inherit;
+                    border-bottom-color: transparent;
+                }
             }
+            li.active > a {
+                border-color: $supla-green;
+                border-bottom: 0;
+                background: $supla-white;
+            }
+        }
+        &.first-selected .btn.dropdown-toggle {
+            border-top-left-radius: 0;
+        }
+        .btn.dropdown-toggle {
+            background: $supla-white !important;
         }
     }
 </style>

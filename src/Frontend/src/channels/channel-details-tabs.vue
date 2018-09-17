@@ -12,7 +12,8 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :channel-id="channel.id"></schedule-list-page>
+            <schedule-list-page :subject-id="channel.id"
+                subject-type="channel"></schedule-list-page>
         </div>
         <div v-if="currentTab == 'measurementsHistory'"
             class="text-center">

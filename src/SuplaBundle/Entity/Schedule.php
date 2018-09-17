@@ -168,9 +168,9 @@ class Schedule {
         $this->channelGroup = null;
         if ($subject instanceof IODeviceChannel) {
             $this->channel = $subject;
-        } else if ($subject instanceof IODeviceChannelGroup) {
+        } elseif ($subject instanceof IODeviceChannelGroup) {
             $this->channelGroup = $subject;
-        } else {
+        } elseif ($subject) {
             Assertion::null($subject, 'Invalid subject for schedule given: ' . get_class($subject));
         }
     }
