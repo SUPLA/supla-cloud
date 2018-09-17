@@ -5,11 +5,6 @@
             <subject-dropdown v-model="subjectWithType"
                 channels-dropdown-params="io=output&hasFunction=1"
                 @input="subjectChanged()"></subject-dropdown>
-            <!--<channels-dropdown params="io=output&hasFunction=1"-->
-            <!--:initial-id="channelId"-->
-            <!--@input="channelId = $event.id"-->
-            <!--hide-none="true">-->
-            <!--</channels-dropdown>-->
         </div>
         <div v-if="subject">
             <div v-for="possibleAction in subject.function.possibleActions">
@@ -30,12 +25,6 @@
                 </span>
             </div>
         </div>
-        <!--<modal v-if="userChannels === undefined"-->
-        <!--class="modal-warning"-->
-        <!--@confirm="goToSchedulesList()"-->
-        <!--:header="$t('You have no devices that can be added to the schedule')">-->
-        <!--{{ $t('You will be redirected back to the schedules list now.') }}-->
-        <!--</modal>-->
     </div>
 </template>
 

@@ -1,7 +1,6 @@
 <template>
     <page-container :error="error">
-        <loading-cover :loading="loading"
-            class="channel-group-details">
+        <loading-cover :loading="loading">
             <div v-if="directLink">
                 <div class="container">
                     <pending-changes-page :header="$t(directLink.id ? 'Direct link' : 'New direct link') + (directLink.id ? ' ID'+ directLink.id : '')"
@@ -79,9 +78,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <h3>{{ $t('Subject') }}</h3>
+                                    <h3 class="text-center">{{ $t(directLink.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</h3>
                                     <div class="text-left">
-                                        <channel-tile :model="directLink.subject"></channel-tile>
+                                        <channel-tile :model="directLink.subject"
+                                            v-if="directLink.subjectType == 'channel'"></channel-tile>
+                                        <channel-group-tile :model="directLink.subject"
+                                            v-if="directLink.subjectType == 'channelGroup'"></channel-group-tile>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -96,9 +98,9 @@
                     <h3 class="text-center">{{ $t('Choose an item that should be managed by this link') }}</h3>
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-4">
-                            <channels-dropdown @input="chooseSubjectForNewLink($event)"></channels-dropdown>
+                            <subject-dropdown @input="chooseSubjectForNewLink($event)"></subject-dropdown>
                             <span class="help-block">
-                                {{ $t('After you choose a channel, direct link will be generated. You will set all other options after creation.') }}
+                                {{ $t('After you choose a subject, direct link will be generated. You will set all other options after creation.') }}
                             </span>
                         </div>
                     </div>
@@ -125,17 +127,21 @@
     import PageContainer from "../common/pages/page-container";
     import ChannelsDropdown from "../devices/channels-dropdown";
     import ChannelTile from "../channels/channel-tile";
+    import ChannelGroupTile from "../channel-groups/channel-group-tile";
     import DirectLinkPreview from "./direct-link-preview";
     import DateRangePicker from "./date-range-picker";
     import DirectLinkAudit from "./direct-link-audit";
+    import SubjectDropdown from "../devices/subject-dropdown";
 
     export default {
         props: ['id', 'item'],
         components: {
+            SubjectDropdown,
             DirectLinkAudit,
             DateRangePicker,
             DirectLinkPreview,
             ChannelTile,
+            ChannelGroupTile,
             ChannelsDropdown,
             PageContainer,
             PendingChangesPage,
@@ -162,7 +168,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`direct-links/${this.id}?include=subject,iodevice`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`direct-links/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
                         .then(response => this.directLink = response.body)
                         .then(() => this.calculateAllowedActions())
                         .catch(response => this.error = response.status)
@@ -178,11 +184,11 @@
                     this.$set(this.allowedActions, possibleAction.name, this.directLink.allowedActions.indexOf(possibleAction.name) >= 0);
                 });
             },
-            chooseSubjectForNewLink(subject) {
+            chooseSubjectForNewLink({subject, type}) {
                 const toSend = {
-                    subjectType: 'channel',//subject.subjectType,
+                    subjectType: type,
                     subjectId: subject.id,
-                    caption: this.$t('Direct Link for #') + subject.id,
+                    caption: this.$t('Direct Link for #') + subject.id, // TODO generate it on backend when user has language in db
                     allowedActions: ['read'],
                 };
                 this.loading = true;
@@ -242,7 +248,7 @@
                 }
             },
             fullUrl() {
-                return this.item.url || '';
+                return this.item && this.item.url || '';
             }
         },
         watch: {
