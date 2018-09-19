@@ -43,7 +43,9 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
     public function normalize($schedule, $format = null, array $context = []) {
         $normalized = parent::normalize($schedule, $format, $context);
         if (is_array($normalized)) {
-            $normalized['channelId'] = $schedule->getChannel()->getId();
+            $subjectType = $schedule->getSubjectType()->getValue();
+            $normalized['subjectType'] = $subjectType;
+            $normalized['subjectId'] = $schedule->getSubject()->getId();
             $normalized['mode'] = $schedule->getMode()->getValue();
             $normalized['actionId'] = $schedule->getAction()->getId();
             if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {

@@ -24,7 +24,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,19 +33,12 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 class DirectLinkController extends RestController {
     use Transactional;
 
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
     /** @var EncoderFactory */
     private $encoderFactory;
     /** @var AuditEntryRepository */
     private $auditEntryRepository;
 
-    public function __construct(
-        ChannelActionExecutor $channelActionExecutor,
-        EncoderFactory $encoderFactory,
-        AuditEntryRepository $auditEntryRepository
-    ) {
-        $this->channelActionExecutor = $channelActionExecutor;
+    public function __construct(EncoderFactory $encoderFactory, AuditEntryRepository $auditEntryRepository) {
         $this->encoderFactory = $encoderFactory;
         $this->auditEntryRepository = $auditEntryRepository;
     }
@@ -68,7 +60,7 @@ class DirectLinkController extends RestController {
      */
     public function getDirectLinkAction(Request $request, DirectLink $directLink) {
         $view = $this->view($directLink, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['subject', 'iodevice']);
+        $this->setSerializationGroups($view, $request, ['subject']);
         return $view;
     }
 
@@ -86,7 +78,7 @@ class DirectLinkController extends RestController {
             return $slug;
         });
         $view = $this->view($directLink, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, ['channel']);
+        $this->setSerializationGroups($view, $request, ['subject']);
         $view->getContext()->setAttribute('slug', $slug);
         return $view;
     }
@@ -112,7 +104,7 @@ class DirectLinkController extends RestController {
      * @Rest\Delete("/direct-links/{directLink}")
      * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_RW')")
      */
-    public function deleteChannelGroupAction(DirectLink $directLink) {
+    public function deleteDirectLinkAction(DirectLink $directLink) {
         return $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
             $em->remove($directLink);
             return new Response('', Response::HTTP_NO_CONTENT);

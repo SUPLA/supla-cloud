@@ -12,13 +12,8 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :subject-id="channel.id"
-                subject-type="channel"></schedule-list-page>
-        </div>
-        <div v-if="currentTab == 'measurementsHistory'"
-            class="text-center">
-            <a :href="'/web-api/channels/' + channel.id + '/measurement-logs-csv' | withBaseUrl"
-                class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
+            <schedule-list-page :subject-id="channelGroup.id"
+                subject-type="channelGroup"></schedule-list-page>
         </div>
     </div>
 </template>
@@ -27,7 +22,7 @@
     import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
 
     export default {
-        props: ['channel'],
+        props: ['channelGroup'],
         components: {ScheduleListPage},
         data() {
             return {
@@ -36,12 +31,7 @@
             };
         },
         mounted() {
-            if (this.channel.function.possibleActions.length) {
-                this.availableTabs.push({id: 'schedules', header: 'Schedules'});
-            }
-            if (['THERMOMETER', 'HUMIDITY', 'HUMIDITYANDTEMPERATURE'].indexOf(this.channel.function.name) >= 0) {
-                this.availableTabs.push({id: 'measurementsHistory', header: 'History of measurements'});
-            }
+            this.availableTabs.push({id: 'schedules', header: 'Schedules'});
             if (this.availableTabs.length) {
                 this.currentTab = this.availableTabs[0].id;
             }

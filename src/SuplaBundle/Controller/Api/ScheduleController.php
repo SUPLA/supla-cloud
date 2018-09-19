@@ -22,9 +22,14 @@ use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Repository\ChannelGroupRepository;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,10 +40,21 @@ class ScheduleController extends RestController {
     private $scheduleRepository;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /** @var ChannelGroupRepository */
+    private $channelGroupRepository;
+    /** @var IODeviceChannelRepository */
+    private $channelRepository;
 
-    public function __construct(ScheduleRepository $scheduleRepository, ChannelActionExecutor $channelActionExecutor) {
+    public function __construct(
+        ScheduleRepository $scheduleRepository,
+        ChannelGroupRepository $channelGroupRepository,
+        IODeviceChannelRepository $channelRepository,
+        ChannelActionExecutor $channelActionExecutor
+    ) {
         $this->scheduleRepository = $scheduleRepository;
         $this->channelActionExecutor = $channelActionExecutor;
+        $this->channelGroupRepository = $channelGroupRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     /** @Security("has_role('ROLE_SCHEDULES_R')") */
@@ -53,13 +69,25 @@ class ScheduleController extends RestController {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByChannel($channel), $request);
     }
 
+    /**
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Get("/channel-groups/{channelGroup}/schedules")
+     */
+    public function getChannelGroupSchedulesAction(IODeviceChannelGroup $channelGroup, Request $request) {
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByChannelGroup($channelGroup), $request);
+    }
+
     private function returnSchedules(ScheduleListQuery $query, Request $request) {
         if (count($sort = explode('|', $request->get('sort', ''))) == 2) {
             $query->orderBy($sort[0], $sort[1]);
         }
         $schedules = $this->scheduleRepository->findByQuery($query);
         $view = $this->view($schedules, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions']);
+        $serializationGroups = ['subject', 'closestExecutions'];
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $serializationGroups = ['channel', 'iodevice', 'location', 'closestExecutions'];
+        }
+        $this->setSerializationGroups($view, $request, $serializationGroups);
         $view->setHeader('SUPLA-Total-Schedules', $this->getUser()->getSchedules()->count());
         return $view;
     }
@@ -69,7 +97,11 @@ class ScheduleController extends RestController {
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
         $view = $this->view($schedule, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channel', 'iodevice', 'location', 'closestExecutions']);
+        $serializationGroups = ['subject', 'closestExecutions'];
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $serializationGroups = ['channel', 'iodevice', 'location', 'closestExecutions'];
+        }
+        $this->setSerializationGroups($view, $request, $serializationGroups);
         return $view;
     }
 
@@ -77,10 +109,14 @@ class ScheduleController extends RestController {
     public function postScheduleAction(Request $request) {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
         $data = $request->request->all();
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $data['subjectId'] = $data['channelId'] ?? null;
+            $data['subjectType'] = 'channel';
+        }
         $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data);
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
-        if ($schedule->getChannel()->getIoDevice()->getEnabled()) {
+        if ($schedule->isSubjectChannel() && $schedule->getSubject()->getIoDevice()->getEnabled()) {
             $this->get('schedule_manager')->enable($schedule);
         }
         return $this->view($schedule, Response::HTTP_CREATED);
@@ -97,7 +133,8 @@ class ScheduleController extends RestController {
             $em->persist($schedule);
             if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
                 $this->get('schedule_manager')->enable($schedule);
-            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true) || !$schedule->getChannel()->getIoDevice()->getEnabled())) {
+            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true)
+                    || ($schedule->isSubjectChannel() && !$schedule->getSubject()->getIoDevice()->getEnabled()))) {
                 $this->get('schedule_manager')->disable($schedule);
             }
             if ($schedule->getEnabled()) {
@@ -110,13 +147,20 @@ class ScheduleController extends RestController {
     /** @return Schedule */
     private function fillSchedule(Schedule $schedule, array $data) {
         Assert::that($data)
-            ->notEmptyKey('channelId')
+            ->notEmptyKey('subjectId')
+            ->notEmptyKey('subjectType')
             ->notEmptyKey('actionId')
             ->notEmptyKey('mode')
             ->notEmptyKey('timeExpression');
-        $channel = $this->get('iodevice_manager')->channelById($data['channelId']);
-        Assertion::notNull($channel);
-        $data['channel'] = $channel;
+        $subject = null;
+        if ($data['subjectType'] == ActionableSubjectType::CHANNEL) {
+            $subject = $this->channelRepository->findForUser($this->getUser(), $data['subjectId']);
+        } elseif ($data['subjectType'] == ActionableSubjectType::CHANNEL_GROUP) {
+            $subject = $this->channelGroupRepository->findForUser($this->getUser(), $data['subjectId']);
+        }
+        $channel = $this->get('iodevice_manager')->channelById($data['subjectId']);
+        Assertion::notNull($subject, 'Invalid schedule subject.');
+        $data['subject'] = $subject;
         if (isset($data['actionParam']) && $data['actionParam']) {
             $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
                 $channel,

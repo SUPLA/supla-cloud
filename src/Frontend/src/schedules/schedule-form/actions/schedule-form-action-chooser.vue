@@ -2,15 +2,14 @@
     <div>
         <div class="form-group">
             <label>{{ $t('Subject') }}</label>
-            <channels-dropdown params="io=output&hasFunction=1"
-                :initial-id="channelId"
-                @input="channelId = $event.id"
-                hide-none="true">
-            </channels-dropdown>
+            <subject-dropdown v-model="subjectWithType"
+                channels-dropdown-params="io=output&hasFunction=1"
+                @input="subjectChanged()"></subject-dropdown>
         </div>
-        <div v-show="channelId">
-            <div v-for="possibleAction in channelFunctionMap[channelId]">
-                <div class="radio">
+        <div v-if="subject">
+            <div v-for="possibleAction in subject.function.possibleActions">
+                <div class="radio"
+                    v-if="possibleAction.name != 'OPEN_CLOSE'">
                     <label>
                         <input type="radio"
                             :value="possibleAction.id"
@@ -23,16 +22,10 @@
                 </span>
                 <span v-if="possibleAction.id == 80 && actionId == possibleAction.id">
                     <rgbw-parameters-setter v-model="actionParam"
-                        :channel-function="chosenChannel.function"></rgbw-parameters-setter>
+                        :channel-function="subject.function"></rgbw-parameters-setter>
                 </span>
             </div>
         </div>
-        <modal v-if="userChannels === undefined"
-            class="modal-warning"
-            @confirm="goToSchedulesList()"
-            :header="$t('You have no devices that can be added to the schedule')">
-            {{ $t('You will be redirected back to the schedules list now.') }}
-        </modal>
     </div>
 </template>
 
@@ -40,56 +33,32 @@
     import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage.vue";
     import ChannelsDropdown from "../../../devices/channels-dropdown";
+    import SubjectDropdown from "../../../devices/subject-dropdown";
+    import {mapState} from "vuex";
 
     export default {
-        name: 'schedule-form-action-chooser',
-        components: {ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
+        components: {SubjectDropdown, ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
         data() {
             return {
-                userChannels: [],
-                channelFunctionMap: {}
+                subjectWithType: {}
             };
         },
         mounted() {
-            this.$http.get('users/current/schedulable-channels').then(({body}) => {
-                if (body.userChannels.length) {
-                    this.userChannels = body.userChannels;
-                    this.channelFunctionMap = body.channelFunctionMap;
-                    // Vue.nextTick(() => $(this.$refs.channelsDropdown).chosen().change((e) => {
-                    //     this.channelId = e.currentTarget.value;
-                    // }));
-                } else {
-                    this.userChannels = undefined;
-                }
-                this.$emit('channel-change', this.chosenChannel);
-            });
+            this.subjectWithType = {
+                subject: this.subject,
+                type: this.subjectType,
+            };
         },
         methods: {
-            channelTitle(channel) {
-                return `ID${channel.id} ` + (channel.caption || channel.functionName)
-                    + ` (${channel.device.location.caption} / ${channel.device.name})`;
-            },
             goToSchedulesList() {
                 this.$router.push({name: 'schedules'});
+            },
+            subjectChanged() {
+                this.$emit('subject-change', this.subjectWithType.subject);
+                this.$store.commit('updateSubject', this.subjectWithType);
             }
         },
         computed: {
-            chosenChannel() {
-                return this.userChannels.filter(c => c.id == this.channelId)[0];
-            },
-            channelId: {
-                get() {
-                    // Vue.nextTick(() => $(this.$refs.channelsDropdown).trigger("chosen:updated"));
-                    return this.$store.state.channelId;
-                },
-                set(channelId) {
-                    this.$store.commit('updateChannel', channelId);
-                    this.$emit('channel-change', this.chosenChannel);
-                    if (channelId) {
-                        this.actionId = this.channelFunctionMap[channelId][0].id;
-                    }
-                }
-            },
             actionId: {
                 get() {
                     return this.$store.state.actionId;
@@ -105,6 +74,15 @@
                 set(actionParam) {
                     this.$store.commit('updateActionParam', actionParam);
                 }
+            },
+            ...mapState(['subject', 'subjectType']),
+        },
+        watch: {
+            subject() {
+                this.subjectWithType = {
+                    subject: this.subject,
+                    type: this.subjectType,
+                };
             }
         }
     };

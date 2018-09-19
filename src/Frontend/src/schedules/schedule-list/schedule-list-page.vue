@@ -3,11 +3,11 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1 v-if="!channelId"
+                    <h1 v-if="!subjectType"
                         v-title>{{ $t('Schedules') }}</h1>
                 </div>
-                <div :class="channelId ? 'no-margin-top' : ''">
-                    <router-link :to="{name: 'schedule.new', query: {channelId: channelId}}"
+                <div :class="subjectType ? 'no-margin-top' : ''">
+                    <router-link :to="{name: 'schedule.new', query: {subjectId: subjectId, subjectType: subjectType}}"
                         class="btn btn-green btn-lg"
                         v-if="schedules">
                         <i class="pe-7s-plus"></i>
@@ -45,7 +45,7 @@
 
     export default {
         components: {ScheduleFilters, ScheduleTile},
-        props: ['channelId'],
+        props: ['subjectId', 'subjectType'],
         data() {
             return {
                 schedules: undefined,
@@ -56,9 +56,14 @@
             };
         },
         mounted() {
-            let endpoint = 'schedules?include=channel,iodevice,location,closestExecutions';
-            if (this.channelId) {
-                endpoint = `channels/${this.channelId}/${endpoint}`;
+            let endpoint = 'schedules?include=subject,closestExecutions';
+            if (this.subjectId) {
+                if (this.subjectType == 'channel') {
+                    endpoint = `channels/${this.subjectId}/${endpoint}`;
+                }
+                else if (this.subjectType == 'channelGroup') {
+                    endpoint = `channel-groups/${this.subjectId}/${endpoint}`;
+                }
             }
             this.$http.get(endpoint).then(response => {
                 this.schedules = response.body;

@@ -1,7 +1,6 @@
 <template>
     <page-container :error="error">
-        <loading-cover :loading="loading"
-            class="channel-group-details">
+        <loading-cover :loading="loading">
             <div v-if="directLink">
                 <div class="container">
                     <pending-changes-page :header="$t(directLink.id ? 'Direct link' : 'New direct link') + (directLink.id ? ' ID'+ directLink.id : '')"
@@ -62,31 +61,65 @@
                                                     </div>
                                                 </div>
                                             </dt>
-                                            <dd>{{ $t('Active between') }}</dd>
-                                            <dt>
-                                                <date-range-picker v-model="directLink.activeDateRange"
-                                                    @input="directLinkChanged()"></date-range-picker>
-                                            </dt>
-                                            <dd>{{ $t('Executions limit') }}</dd>
-                                            <dt>
-                                                <input v-model="directLink.executionsLimit"
-                                                    class="form-control"
-                                                    type="number"
-                                                    min="0"
-                                                    @input="directLinkChanged()">
-                                            </dt>
                                         </dl>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <h3>{{ $t('Subject') }}</h3>
+                                    <h3 class="text-center">{{ $t(directLink.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</h3>
                                     <div class="text-left">
-                                        <channel-tile :model="directLink.subject"></channel-tile>
+                                        <channel-tile :model="directLink.subject"
+                                            v-if="directLink.subjectType == 'channel'"></channel-tile>
+                                        <channel-group-tile :model="directLink.subject"
+                                            v-if="directLink.subjectType == 'channelGroup'"></channel-group-tile>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <h3>{{ $t('Executions history') }}</h3>
                                     <direct-link-audit :direct-link="directLink"></direct-link-audit>
+                                </div>
+                            </div>
+                            <h3>{{ $t('Constraints') }}</h3>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="well">
+                                            <h4 class="text-center">{{ $t('Working period') }}</h4>
+                                            <date-range-picker v-model="directLink.activeDateRange"
+                                                @input="directLinkChanged()"></date-range-picker>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="well">
+                                            <h4 class="text-center">{{ $t('Executions limit') }}</h4>
+
+                                            <div class="executions-limit">
+                                                {{ directLink.executionsLimit }}
+                                            </div>
+                                            <div class="btn-group btn-group-justified">
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(undefined)">No limit</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(1)">1</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(2)">2</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(10)">10</a>
+                                                <a class="btn btn-default"
+                                                    @click="setExecutionsLimit(100)">100</a>
+                                                <a :class="'btn btn-default ' + (choosingCustomLimit ? 'active' : '')"
+                                                    @click="choosingCustomLimit = !choosingCustomLimit">Custom</a>
+                                            </div>
+                                            <div v-if="choosingCustomLimit">
+                                                <div class="form-group"></div>
+                                                <label>{{ $t('Custom executions limit') }}</label>
+                                                <input v-model="directLink.executionsLimit"
+                                                    class="form-control"
+                                                    type="number"
+                                                    min="0"
+                                                    @input="directLinkChanged()">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -96,9 +129,9 @@
                     <h3 class="text-center">{{ $t('Choose an item that should be managed by this link') }}</h3>
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-4">
-                            <channels-dropdown @input="chooseSubjectForNewLink($event)"></channels-dropdown>
+                            <subject-dropdown @input="chooseSubjectForNewLink($event)"></subject-dropdown>
                             <span class="help-block">
-                                {{ $t('After you choose a channel, direct link will be generated. You will set all other options after creation.') }}
+                                {{ $t('After you choose a subject, direct link will be generated. You will set all other options after creation.') }}
                             </span>
                         </div>
                     </div>
@@ -125,17 +158,21 @@
     import PageContainer from "../common/pages/page-container";
     import ChannelsDropdown from "../devices/channels-dropdown";
     import ChannelTile from "../channels/channel-tile";
+    import ChannelGroupTile from "../channel-groups/channel-group-tile";
     import DirectLinkPreview from "./direct-link-preview";
     import DateRangePicker from "./date-range-picker";
     import DirectLinkAudit from "./direct-link-audit";
+    import SubjectDropdown from "../devices/subject-dropdown";
 
     export default {
         props: ['id', 'item'],
         components: {
+            SubjectDropdown,
             DirectLinkAudit,
             DateRangePicker,
             DirectLinkPreview,
             ChannelTile,
+            ChannelGroupTile,
             ChannelsDropdown,
             PageContainer,
             PendingChangesPage,
@@ -150,7 +187,8 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
-                allowedActions: {}
+                allowedActions: {},
+                choosingCustomLimit: false,
             };
         },
         mounted() {
@@ -162,7 +200,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`direct-links/${this.id}?include=subject,iodevice`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`direct-links/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
                         .then(response => this.directLink = response.body)
                         .then(() => this.calculateAllowedActions())
                         .catch(response => this.error = response.status)
@@ -178,15 +216,15 @@
                     this.$set(this.allowedActions, possibleAction.name, this.directLink.allowedActions.indexOf(possibleAction.name) >= 0);
                 });
             },
-            chooseSubjectForNewLink(subject) {
+            chooseSubjectForNewLink({subject, type}) {
                 const toSend = {
-                    subjectType: 'channel',//subject.subjectType,
+                    subjectType: type,
                     subjectId: subject.id,
-                    caption: this.$t('Direct Link for #') + subject.id,
+                    caption: this.$t('Direct Link for #') + subject.id, // TODO generate it on backend when user has language in db
                     allowedActions: ['read'],
                 };
                 this.loading = true;
-                this.$http.post('direct-links', toSend).then(response => {
+                this.$http.post('direct-links?include=subject', toSend).then(response => {
                     const newLink = response.body;
                     this.$emit('add', newLink);
                 }).catch(() => this.$emit('delete'));
@@ -214,6 +252,10 @@
                 this.$http.delete('direct-links/' + this.directLink.id).then(() => this.$emit('delete'));
                 this.directLink = undefined;
             },
+            setExecutionsLimit(limit) {
+                this.directLink.executionsLimit = limit;
+                this.directLinkChanged();
+            },
             cancelChanges() {
                 this.fetch();
             },
@@ -233,16 +275,20 @@
             },
             possibleActions() {
                 if (this.directLink) {
+                    // OPEN and CLOSE actions are not supported for gates via API
+                    const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
                     return [{
                         id: 1000,
                         name: 'READ',
                         caption: 'Read',
                         nameSlug: 'read'
-                    }].concat(this.directLink.subject.function.possibleActions);
+                    }].concat(this.directLink.subject.function.possibleActions)
+                        .filter(action => !isGate || (action.name != 'OPEN' && action.name != 'CLOSE'));
+
                 }
             },
             fullUrl() {
-                return this.item.url || '';
+                return this.item && this.item.url || '';
             }
         },
         watch: {
@@ -252,3 +298,15 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../styles/variables";
+
+    .executions-limit {
+        font-size: 3em;
+        font-weight: bold;
+        color: $supla-orange;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+</style>

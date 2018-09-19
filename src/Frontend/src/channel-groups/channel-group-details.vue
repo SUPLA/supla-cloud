@@ -63,21 +63,25 @@
                     </pending-changes-page>
                 </div>
                 <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
-                <square-links-grid v-if="channelGroup.channels"
-                    :count="channelGroup.channels.length + 1"
-                    class="square-links-height-240">
-                    <div key="new">
-                        <channel-group-new-channel-chooser :channel-group="channelGroup"
-                            @add="channelGroupChanged()"></channel-group-new-channel-chooser>
-                    </div>
-                    <div v-for="channel in channelGroup.channels"
-                        :key="channel.id">
-                        <channel-group-channel-tile :channel="channel"
-                            :removable="channelGroup.channels.length > 1"
-                            @remove="removeChannel(channel)"></channel-group-channel-tile>
-                    </div>
-                </square-links-grid>
+                <div class="form-group">
+                    <square-links-grid v-if="channelGroup.channels"
+                        :count="channelGroup.channels.length + 1"
+                        class="square-links-height-240">
+                        <div key="new">
+                            <channel-group-new-channel-chooser :channel-group="channelGroup"
+                                @add="channelGroupChanged()"></channel-group-new-channel-chooser>
+                        </div>
+                        <div v-for="channel in channelGroup.channels"
+                            :key="channel.id">
+                            <channel-group-channel-tile :channel="channel"
+                                :removable="channelGroup.channels.length > 1"
+                                @remove="removeChannel(channel)"></channel-group-channel-tile>
+                        </div>
+                    </square-links-grid>
+                </div>
             </div>
+            <channel-group-details-tabs :channel-group="channelGroup"
+                v-if="!isNewGroup"></channel-group-details-tabs>
         </loading-cover>
     </page-container>
 </template>
@@ -94,10 +98,12 @@
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
     import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
+    import ChannelGroupDetailsTabs from "./channel-group-details-tabs";
 
     export default {
         props: ['id'],
         components: {
+            ChannelGroupDetailsTabs,
             ChannelAlternativeIconChooser,
             PageContainer,
             PendingChangesPage,
@@ -183,7 +189,7 @@
         },
         computed: {
             isNewGroup() {
-                return !this.channelGroup.id;
+                return !this.channelGroup || !this.channelGroup.id;
             }
         },
         watch: {

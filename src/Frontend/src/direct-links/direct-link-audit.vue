@@ -28,6 +28,7 @@
                     v-if="hasMorePages">{{ $t('Older') }} &raquo;</a>
             </div>
         </div>
+        <empty-list-placeholder v-if="auditEntries && auditEntries.length === 0"></empty-list-placeholder>
     </loading-cover>
 </template>
 

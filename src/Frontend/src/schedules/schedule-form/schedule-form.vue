@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                         <div class="well">
                             <h3 class="no-margin-top">{{ $t('Action') }}</h3>
-                            <schedule-form-action-chooser @channel-change="canSetRetry = !$event || [20, 30].indexOf($event.function) < 0"></schedule-form-action-chooser>
+                            <schedule-form-action-chooser @subject-change="canSetRetry = !$event || [20, 30].indexOf($event.function) < 0"></schedule-form-action-chooser>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,8 @@
                 fetchingNextRunDates: false,
                 nextRunDates: [],
                 retry: true,
-                channelId: undefined,
+                subjectId: undefined,
+                subject: undefined,
                 actionId: undefined,
                 actionParam: undefined,
                 submitting: false,
@@ -137,18 +138,28 @@
                     this.$store.commit('updateRetry', retry);
                 }
             },
-            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'channelId', 'actionId', 'submitting', 'schedule', 'timeExpression'])
+            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'subjectId', 'subject', 'actionId', 'submitting', 'schedule', 'timeExpression'])
         },
         mounted() {
             this.resetState();
             if (this.id) {
                 this.error = false;
-                this.$http.get('schedules/' + this.id, {params: {include: 'channel'}, skipErrorHandler: [403, 404]})
+                this.$http.get('schedules/' + this.id, {params: {include: 'subject'}, skipErrorHandler: [403, 404]})
                     .then(({body}) => this.loadScheduleToEdit(body))
                     .catch(response => this.error = response.status);
             }
-            else if (this.$route.query.channelId) {
-                this.$store.commit('updateChannel', this.$route.query.channelId);
+            else if (this.$route.query.subjectId && this.$route.query.subjectType) {
+                if (['channel', 'channelGroup'].indexOf(this.$route.query.subjectType) < 0) {
+                    this.error = 404;
+                } else {
+                    const endpoint = this.$route.query.subjectType == 'channel' ? 'channels' : 'channel-groups';
+                    this.$http.get(endpoint + '/' + this.$route.query.subjectId)
+                        .then(response => this.$store.commit('updateSubject', {
+                            subject: response.body,
+                            type: this.$route.query.subjectType
+                        }))
+                        .catch(response => this.error = response.status);
+                }
             }
         },
         components: {
@@ -177,7 +188,8 @@
                     fetchingNextRunDates: false,
                     nextRunDates: [],
                     retry: true,
-                    channelId: undefined,
+                    subjectId: undefined,
+                    subject: undefined,
                     actionId: undefined,
                     actionParam: undefined,
                     submitting: false,

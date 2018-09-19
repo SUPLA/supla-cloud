@@ -3,11 +3,13 @@ namespace SuplaBundle\Repository;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\User;
 
 class ScheduleListQuery {
     private $user;
     private $channel;
+    private $channelGroup;
     private $orderBy = [];
 
     private function __construct() {
@@ -27,6 +29,11 @@ class ScheduleListQuery {
         return $this;
     }
 
+    public function filterByChannelGroup(IODeviceChannelGroup $channelGroup): ScheduleListQuery {
+        $this->channelGroup = $channelGroup;
+        return $this;
+    }
+
     public function orderBy($column, $direction = 'ASC'): ScheduleListQuery {
         Assertion::inArray($column, ['id', 'caption', 'dateStart']);
         Assertion::inArray(strtolower($direction), ['asc', 'desc']);
@@ -42,6 +49,11 @@ class ScheduleListQuery {
     /** @return IODeviceChannel|null */
     public function getChannel() {
         return $this->channel;
+    }
+
+    /** @return IODeviceChannelGroup|null */
+    public function getChannelGroup() {
+        return $this->channelGroup;
     }
 
     public function getOrderBy(): array {

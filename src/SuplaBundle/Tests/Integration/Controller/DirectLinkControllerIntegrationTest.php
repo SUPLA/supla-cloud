@@ -63,7 +63,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     private function createDirectLink(array $data = []): Response {
         $data = array_merge([
             'caption' => 'My link',
-            'channelId' => $this->device->getChannels()[0]->getId(),
+            'subjectType' => 'channel',
+            'subjectId' => $this->device->getChannels()[0]->getId(),
             'allowedActions' => ['turn-on', 'read'],
         ], $data);
         $client = $this->createAuthenticatedClient($this->user);
@@ -77,7 +78,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertTrue($content['enabled']);
         $this->assertEquals('My link', $content['caption']);
-        $this->assertEquals($this->device->getChannels()[0]->getId(), $content['channelId']);
+        $this->assertEquals($this->device->getChannels()[0]->getId(), $content['subjectId']);
         $this->assertArrayHasKey('slug', $content);
         $this->assertLessThanOrEqual(DirectLink::SLUG_LENGTH_MAX, strlen($content['slug']));
         return $content;
@@ -92,9 +93,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($id, $content['id']);
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
-        $this->assertArrayHasKey('channelId', $content);
-        $this->assertArrayNotHasKey('channelGroupId', $content);
-        $this->assertEquals(1, $content['channelId']);
+        $this->assertArrayHasKey('subjectId', $content);
+        $this->assertEquals(1, $content['subjectId']);
         $this->assertArrayNotHasKey('slug', $content);
     }
 
@@ -161,20 +161,18 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingDirectLinkForChannelGroup() {
-        $data = [
+        $response = $this->createDirectLink([
             'caption' => 'My link',
-            'channelGroupId' => $this->channelGroup->getId(),
+            'subjectType' => 'channelGroup',
+            'subjectId' => $this->channelGroup->getId(),
             'allowedActions' => ['turn-on', 'read'],
-        ];
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('POST', '/api/direct-links', $data);
-        $response = $client->getResponse();
+        ]);
         $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertTrue($content['enabled']);
         $this->assertEquals('My link', $content['caption']);
-        $this->assertArrayNotHasKey('channelId', $content);
-        $this->assertEquals($this->channelGroup->getId(), $content['channelGroupId']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['subjectType']);
+        $this->assertEquals($this->channelGroup->getId(), $content['subjectId']);
         $this->assertArrayHasKey('slug', $content);
         return $content;
     }
@@ -208,7 +206,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
 
     public function testExecutingDirectLinkWithParameters() {
         $response = $this->createDirectLink([
-            'channelId' => $this->device->getChannels()[3]->getId(),
+            'subjectId' => $this->device->getChannels()[3]->getId(),
             'allowedActions' => ['set-rgbw-parameters'],
         ]);
         $directLink = json_decode($response->getContent(), true);

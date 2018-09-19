@@ -4,8 +4,8 @@
         <router-link :to="{name: 'schedule', params: {id: model.id}}">
             <div class="clearfix">
                 <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
-                <function-icon v-if="model.channel"
-                    :model="model.channel"
+                <function-icon v-if="model.subject"
+                    :model="model.subject"
                     class="pull-right"
                     width="60"></function-icon>
             </div>
@@ -14,6 +14,8 @@
                 <dt></dt>
                 <dd>{{ scheduleLabel }}</dd>
                 <dt></dt>
+                <dd>{{ $t('Subject type') }}</dd>
+                <dt>{{ $t(model.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</dt>
                 <dd>{{ $t('The latest execution') }}</dd>
                 <dt v-if="latestExecution && latestExecution.resultTimestamp"
                     :class="latestExecution.failed ? 'text-danger' : ''"
@@ -46,7 +48,7 @@
         props: ['model'],
         computed: {
             scheduleLabel() {
-                return this.$t(this.model.action.caption) + ' ' + channelTitle(this.model.channel, this, true);
+                return this.$t(this.model.action.caption) + ' ' + channelTitle(this.model.subject, this);
             },
             nearestExecution() {
                 if (this.model.closestExecutions.future.length) {

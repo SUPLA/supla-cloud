@@ -1,7 +1,6 @@
 <template>
     <page-container :error="error">
-        <loading-cover :loading="loading"
-            class="channel-group-details">
+        <loading-cover :loading="loading">
             <div v-if="app">
                 <div class="container">
                     <pending-changes-page :header="$t(app.id ? 'OAuth application' : 'New OAuth application') + (app.id ? ' ID'+ app.id : '')"

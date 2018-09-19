@@ -18,7 +18,9 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assert;
+use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
@@ -57,10 +59,16 @@ class Schedule {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
      * @Groups({"channel", "iodevice", "location"})
      */
     private $channel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="schedules")
+     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
+     */
+    private $channelGroup;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
@@ -127,7 +135,7 @@ class Schedule {
         $this->setTimeExpression($data['timeExpression']);
         $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
-        $this->setChannel($data['channel'] ?? null);
+        $this->setSubject($data['subject'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['mode']));
@@ -135,16 +143,11 @@ class Schedule {
         $this->setRetry($data['retry'] ?? true);
     }
 
-    /**
-     * @return mixed
-     */
     public function getId() {
         return $this->id;
     }
 
-    /**
-     * @return User
-     */
+    /** @return User */
     public function getUser() {
         return $this->user;
     }
@@ -159,16 +162,35 @@ class Schedule {
         $this->timeExpression = $timeExpression;
     }
 
-    /**
-     * @return IODeviceChannel
-     */
+    /** @param IODeviceChannel|IODeviceChannelGroup|null $subject */
+    public function setSubject($subject) {
+        $this->channel = null;
+        $this->channelGroup = null;
+        if ($subject instanceof IODeviceChannel) {
+            $this->channel = $subject;
+        } elseif ($subject instanceof IODeviceChannelGroup) {
+            $this->channelGroup = $subject;
+        } elseif ($subject) {
+            Assertion::null($subject, 'Invalid subject for schedule given: ' . get_class($subject));
+        }
+    }
+
+    /** @Groups({"subject"}) */
+    public function getSubject(): HasFunction {
+        return $this->channel ?: $this->channelGroup;
+    }
+
+    /** Exists only for v2.2- compatibility (there was a "channel" serialization group before. */
     public function getChannel() {
         return $this->channel;
     }
 
-    /** @param IODeviceChannel|null $channel */
-    public function setChannel($channel) {
-        $this->channel = $channel;
+    public function isSubjectChannel(): bool {
+        return $this->getSubjectType() == ActionableSubjectType::CHANNEL();
+    }
+
+    public function getSubjectType(): ActionableSubjectType {
+        return ActionableSubjectType::forEntity($this->getSubject());
     }
 
     public function getAction(): ChannelFunctionAction {
@@ -281,7 +303,7 @@ class Schedule {
     public function setRetry(bool $retry) {
         if ($this->channel) {
             $alwaysRetryFunctions = [ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::CONTROLLINGTHEGARAGEDOOR()];
-            if (in_array($this->getChannel()->getFunction(), $alwaysRetryFunctions)) {
+            if (in_array($this->getSubject()->getFunction(), $alwaysRetryFunctions)) {
                 $retry = true;
             }
         }
