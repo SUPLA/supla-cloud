@@ -40,6 +40,9 @@
                     if (this.state.hi) {
                         return '-closed';
                     }
+                    if (this.state.partial_hi) {
+                        return '-partial';
+                    }
                     if (this.state.on === false) {
                         return '-off';
                     }
