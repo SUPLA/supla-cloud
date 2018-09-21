@@ -1,7 +1,9 @@
 <template>
     <square-link class="clearfix pointer lift-up grey">
         <a @click="$emit('click')">
-            <function-icon :model="model.channel.function"
+            <span v-if="model.id == 'new'">{{ $t('Add new icon' )}}</span>
+            <function-icon v-else
+                :model="model.channel.function"
                 :alternative="model.id"></function-icon>
         </a>
     </square-link>

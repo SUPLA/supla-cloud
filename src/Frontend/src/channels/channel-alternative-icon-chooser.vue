@@ -1,19 +1,20 @@
 <template>
     <div>
         <a @click="choosing = true"
-            v-if="channel.function.maxAlternativeIconIndex > 0"
             class="btn btn-link">
             {{ $t('Change icon') }}
         </a>
-        <modal class="modal-location-chooser"
-            :header="$t('Select icon')"
+        <modal :header="$t('Select icon')"
             v-if="choosing">
-            <square-links-carousel :items="icons"
+            <channel-alternative-icon-creator v-if="addingNewIcon"
+                :model="channel"></channel-alternative-icon-creator>
+            <square-links-carousel v-else
+                :items="icons"
                 :selected="selectedIcon"
                 tile="channelAlternativeIconTile"
                 @select="choose($event.id)"></square-links-carousel>
             <div slot="footer">
-                <a @click="choosing = false"
+                <a @click="choosing = addingNewIcon = false"
                     class="cancel">
                     <i class="pe-7s-close"></i>
                 </a>
@@ -26,16 +27,18 @@
     import SquareLinksCarousel from "../common/tiles/square-links-carousel";
     import ChannelAlternativeIconTile from "./channel-alternative-icon-tile";
     import Vue from "vue";
+    import ChannelAlternativeIconCreator from "./channel-alternative-icon-creator";
 
     Vue.component('channelAlternativeIconTile', ChannelAlternativeIconTile);
 
     export default {
-        components: {SquareLinksCarousel},
+        components: {ChannelAlternativeIconCreator, SquareLinksCarousel},
         props: ['channel'],
         data() {
             return {
                 choosing: false,
                 icons: [],
+                addingNewIcon: false,
                 selectedIcon: undefined
             };
         },
@@ -44,10 +47,14 @@
         },
         methods: {
             choose(index) {
-                this.channel.altIcon = index;
-                this.selectedIcon = this.icons.find(icon => icon.id == index);
-                this.choosing = false;
-                this.$emit('change');
+                if (index == 'new') {
+                    this.addingNewIcon = true;
+                } else {
+                    this.channel.altIcon = index;
+                    this.selectedIcon = this.icons.find(icon => icon.id == index);
+                    this.choosing = false;
+                    this.$emit('change');
+                }
             },
             buildIcons() {
                 this.icons = [];
@@ -59,6 +66,7 @@
                             this.selectedIcon = icon;
                         }
                     }
+                    this.icons.push({channel: this.channel, id: 'new'});
                 }
             }
         },
