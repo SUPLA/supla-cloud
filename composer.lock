@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-  "content-hash": "a7bd1fe9ce612d76d9313e2130236ce9",
+  "content-hash": "fbebdc78c199fec0f33065a0f2eddee9",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1480,6 +1480,61 @@
             "time": "2017-03-09T18:44:34+00:00"
         },
         {
+          "name": "gumlet/php-image-resize",
+          "version": "1.9.1",
+          "source": {
+            "type": "git",
+            "url": "https://github.com/gumlet/php-image-resize.git",
+            "reference": "d36a7bcd679445ec8f310fdbecac5d40b0c587de"
+          },
+          "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/gumlet/php-image-resize/zipball/d36a7bcd679445ec8f310fdbecac5d40b0c587de",
+            "reference": "d36a7bcd679445ec8f310fdbecac5d40b0c587de",
+            "shasum": ""
+          },
+          "require": {
+            "ext-fileinfo": "*",
+            "ext-gd": "*",
+            "php": ">=5.5.0"
+          },
+          "require-dev": {
+            "apigen/apigen": "^4.1",
+            "ext-exif": "*",
+            "ext-gd": "*",
+            "php-coveralls/php-coveralls": "^2.1",
+            "phpunit/phpunit": "^4.8"
+          },
+          "suggest": {
+            "ext-exif": "Auto-rotate jpeg files"
+          },
+          "type": "library",
+          "autoload": {
+            "psr-4": {
+              "Gumlet\\": "lib/"
+            }
+          },
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "Aditya Patadia",
+              "homepage": "http://aditya.patadia.org/"
+            }
+          ],
+          "description": "PHP class to re-size and scale images",
+          "homepage": "https://github.com/gumlet/php-image-resize",
+          "keywords": [
+            "image",
+            "php",
+            "resize",
+            "scale"
+          ],
+          "time": "2018-07-28T11:04:15+00:00"
+        },
+      {
             "name": "incenteev/composer-parameter-handler",
             "version": "v2.1.2",
             "source": {

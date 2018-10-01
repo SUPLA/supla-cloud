@@ -37,7 +37,8 @@
     "symfony/swiftmailer-bundle": "^3.0",
     "symfony/symfony": "^3.4",
     "twig/extensions": "^1.4",
-    "nelmio/cors-bundle": "^1.5"
+    "nelmio/cors-bundle": "^1.5",
+    "gumlet/php-image-resize": "^1.9"
   },
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^2.3",

@@ -1,24 +1,24 @@
 <template>
-    <div class="row">
-        <div class="col-sm-4"
-            v-for="possibleState in possibleStates">
-            <h5 class="no-margin-top">{{ possibleState }}</h5>
-            <vue-dropzone :options="dropzoneOptions"
-                :id="possibleState + 'Dropzone'"
-                :ref="possibleState + 'Dropzone'"
-                @vdropzone-files-added="fileAdded(possibleState, $event)">
-                <!--<square-link class="clearfix pointer lift-up grey">-->
-                <!--<a class="valign-center text-center"-->
-                <!--@click="$upload.select('icons')">-->
-                <!--<span>-->
-                <!--<i class="pe-7s-plus"></i>-->
-                <!--{{ $t('Upload') }}-->
-                <!--</span>-->
-                <!--</a>-->
-                <!--</square-link>-->
-            </vue-dropzone>
+    <div>
+        <div class="row">
+            <div class="col-sm-4"
+                v-for="possibleState in possibleStates">
+                <h5 class="no-margin-top">{{ possibleState }}</h5>
+                <img :ref="possibleState + 'Preview'"
+                    class="icon-preview">
+                <input type="file"
+                    :ref="possibleState + 'Dropzone'"
+                    @change="readUrl(possibleState)">
+            </div>
+            <!--<a @click="processQueue()">PRO</a>-->
         </div>
-        <!--<a @click="processQueue()">PRO</a>-->
+        <div class="row">
+            <div class="col-xs-12">
+                <a class="btn btn-green"
+                    @click="uploadIcons()">Wyślij
+                </a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -49,6 +49,25 @@
         },
 
         methods: {
+            readUrl(state) {
+                const input = this.$refs[state + 'Dropzone'][0];
+                const preview = this.$refs[state + 'Preview'][0];
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $(preview).attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            },
+            uploadIcons() {
+                const formData = new FormData();
+                for (let possibleState of this.possibleStates) {
+                    const input = this.$refs[possibleState + 'Dropzone'][0];
+                    formData.append(possibleState, input.files[0], input.files[0].name);
+                }
+                this.$http.post('channel-icons', formData);
+            },
             fileAdded(state, files) {
                 for (let possibleState of this.possibleStates) {
                     const currentDropzone = this.$refs[possibleState + 'Dropzone'][0];
@@ -97,3 +116,10 @@
         }
     };
 </script>
+
+<style>
+    .icon-preview {
+        max-width: 100%;
+        max-height: 156px;
+    }
+</style>
