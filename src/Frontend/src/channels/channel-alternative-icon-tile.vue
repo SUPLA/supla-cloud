@@ -1,19 +1,23 @@
 <template>
     <square-link class="clearfix pointer lift-up grey">
-        <a @click="$emit('click')">
+        <a @click="$emit('click')"
+            class="valign-center">
             <span v-if="model.id == 'new'">{{ $t('Add new icon' )}}</span>
+            <channel-user-icon-preview :icon="model"
+                v-else-if="model.images"></channel-user-icon-preview>
             <function-icon v-else
                 :model="model.channel.function"
-                :alternative="model.id"></function-icon>
+                :alternative="model.index"></function-icon>
         </a>
     </square-link>
 </template>
 
 <script>
     import FunctionIcon from "./function-icon";
+    import ChannelUserIconPreview from "./channel-user-icon-preview";
 
     export default {
-        components: {FunctionIcon},
+        components: {ChannelUserIconPreview, FunctionIcon},
         props: ['model'],
     };
 </script>

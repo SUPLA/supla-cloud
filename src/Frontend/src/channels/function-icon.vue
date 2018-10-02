@@ -1,14 +1,17 @@
 <template>
-    <span class="channel-icon">
+    <span class="channel-icon"
+        v-if="functionId !== undefined">
+        <img :src="`/api/channel-icons/${model.userIconId}/${stateIndex}?access_token=${$user.getFilesDownloadToken()}`"
+            v-if="model.userIconId">
         <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
             :width="width"
-            v-if="functionId !== undefined">
+            v-else>
     </span>
 </template>
 
 <script>
     export default {
-        props: ['model', 'width', 'alternative', 'state'],
+        props: ['model', 'width', 'alternative'],
         computed: {
             functionId() {
                 if (this.model) {
@@ -36,24 +39,36 @@
                 return '';
             },
             stateSuffix() {
-                if (this.state) {
-                    if (this.state.hi) {
+                if (this.model.state) {
+                    if (this.model.state.hi) {
                         return '-closed';
                     }
-                    if (this.state.partial_hi) {
+                    if (this.model.state.partial_hi) {
                         return '-partial';
                     }
-                    if (this.state.on === false) {
+                    if (this.model.state.on === false) {
                         return '-off';
                     }
-                    if (this.state.color_brightness !== undefined && this.state.brightness !== undefined) {
+                    if (this.model.state.color_brightness !== undefined && this.model.state.brightness !== undefined) {
                         return '-' + (this.state.brightness ? 'on' : 'off') + (this.state.color_brightness ? 'on' : 'off');
                     }
-                    else if (this.state.color_brightness || this.state.brightness) {
+                    else if (this.model.state.color_brightness || this.model.state.brightness) {
                         return '-on';
                     }
                 }
                 return '';
+            },
+            stateIndex() {
+                const suffix = this.stateSuffix;
+                if (['-closed', '-off', '-onoff'].indexOf(suffix) !== -1) {
+                    return 1;
+                } else if (['-offon', '-partial'].indexOf(suffix) !== -1) {
+                    return 2;
+                } else if ('-offoff' === suffix) {
+                    return 3;
+                } else {
+                    return 0;
+                }
             }
         }
     };

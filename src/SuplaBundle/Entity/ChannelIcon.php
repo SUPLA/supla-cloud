@@ -85,32 +85,27 @@ class ChannelIcon {
         return new ChannelFunction($this->function);
     }
 
-    public function getImage1() {
-        return $this->image1;
+    public function getImages(): array {
+        $images = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $imageField = 'image' . $i;
+            if ($this->{$imageField}) {
+                $images[] = stream_get_contents($this->{$imageField});
+            }
+        }
+        return $images;
     }
 
     public function setImage1($image1) {
         $this->image1 = $image1;
     }
 
-    public function getImage2() {
-        return $this->image2;
-    }
-
     public function setImage2($image2) {
         $this->image2 = $image2;
     }
 
-    public function getImage3() {
-        return $this->image3;
-    }
-
     public function setImage3($image3) {
         $this->image3 = $image3;
-    }
-
-    public function getImage4() {
-        return $this->image4;
     }
 
     public function setImage4($image4) {

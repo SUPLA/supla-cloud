@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -59,11 +60,7 @@ class ChannelController extends RestController {
     public function getChannelsAction(Request $request) {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
-            $functionIds = array_map(function ($fnc) {
-                return ChannelFunction::isValidKey($fnc)
-                    ? ChannelFunction::$fnc()->getValue()
-                    : (new ChannelFunction((int)$fnc))->getValue();
-            }, explode(',', $function));
+            $functionIds = EntityUtils::mapToIds(ChannelFunction::fromStrings(explode(',', $function)));
             $criteria->andWhere(Criteria::expr()->in('function', $functionIds));
         }
         if (($io = $request->get('io')) !== null) {
@@ -130,6 +127,7 @@ class ChannelController extends RestController {
                 $channel->setFunction($updatedChannel->getFunction());
             } else {
                 $channel->setAltIcon($updatedChannel->getAltIcon());
+                $channel->setUserIcon($updatedChannel->getUserIcon());
             }
             if ($updatedChannel->hasInheritedLocation()) {
                 $channel->setLocation(null);

@@ -1,24 +1,30 @@
 <template>
     <div>
-        <a @click="choosing = true"
+        <a @click="openIconDialog()"
             class="btn btn-link">
             {{ $t('Change icon') }}
         </a>
+
         <modal :header="$t('Select icon')"
             v-if="choosing">
-            <channel-alternative-icon-creator v-if="addingNewIcon"
-                :model="channel"></channel-alternative-icon-creator>
-            <square-links-carousel v-else
-                :items="icons"
-                :selected="selectedIcon"
-                tile="channelAlternativeIconTile"
-                @select="choose($event.id)"></square-links-carousel>
-            <div slot="footer">
-                <a @click="choosing = addingNewIcon = false"
-                    class="cancel">
-                    <i class="pe-7s-close"></i>
-                </a>
-            </div>
+            <loading-cover :loading="!icons.length">
+                <div v-if="icons.length">
+                    <channel-alternative-icon-creator v-if="addingNewIcon"
+                        :model="channel"
+                        @created="buildIcons()"></channel-alternative-icon-creator>
+                    <square-links-carousel v-else
+                        :items="icons"
+                        :selected="selectedIcon"
+                        tile="channelAlternativeIconTile"
+                        @select="choose($event)"></square-links-carousel>
+                </div>
+                <div slot="footer">
+                    <a @click="choosing = addingNewIcon = false"
+                        class="cancel">
+                        <i class="pe-7s-close"></i>
+                    </a>
+                </div>
+            </loading-cover>
         </modal>
     </div>
 </template>
@@ -37,46 +43,62 @@
         data() {
             return {
                 choosing: false,
-                icons: [],
                 addingNewIcon: false,
-                selectedIcon: undefined
+                selectedIcon: undefined,
+                icons: [],
+                userIcons: undefined,
             };
         },
-        mounted() {
-            this.buildIcons();
-        },
+        // mounted() {
+        //     this.buildIcons();
+        // },
         methods: {
-            choose(index) {
-                if (index == 'new') {
+            openIconDialog() {
+                this.buildIcons();
+                this.choosing = true;
+            },
+            choose(chosenIcon) {
+                if (chosenIcon.id == 'new') {
                     this.addingNewIcon = true;
+                } else if (chosenIcon.images) {
+                    this.channel.userIconId = chosenIcon.id;
+                    this.choosing = false;
+                    this.$emit('change');
                 } else {
-                    this.channel.altIcon = index;
-                    this.selectedIcon = this.icons.find(icon => icon.id == index);
+                    this.channel.altIcon = chosenIcon.index;
                     this.choosing = false;
                     this.$emit('change');
                 }
             },
             buildIcons() {
                 this.icons = [];
+                this.addingNewIcon = false;
                 if (this.channel) {
-                    for (let index = 0; index <= this.channel.function.maxAlternativeIconIndex; index++) {
-                        const icon = {channel: this.channel, id: index};
-                        this.icons.push(icon);
-                        if (index == this.channel.altIcon) {
-                            this.selectedIcon = icon;
+                    this.$http.get('channel-icons?include=images&function=' + this.channel.function.name).then(response => {
+                        for (let index = 0; index <= this.channel.function.maxAlternativeIconIndex; index++) {
+                            this.icons.push({id: (-index - 1), channel: this.channel, index});
                         }
-                    }
-                    this.icons.push({channel: this.channel, id: 'new'});
+                        this.icons = this.icons.concat(response.body);
+                        this.icons.push({id: 'new', channel: this.channel});
+                        this.updateSelectedIcon();
+                    });
+                }
+            },
+            updateSelectedIcon() {
+                if (this.channel.userIconId) {
+                    this.selectedIcon = this.icons.find(icon => icon.id == this.channel.userIconId);
+                } else {
+                    this.selectedIcon = this.icons.find(icon => icon.index == this.channel.altIcon);
                 }
             }
         },
         watch: {
-            channel() {
-                this.buildIcons();
-            },
-            'channel.function.maxAlternativeIconIndex'() {
-                this.buildIcons();
-            }
+            // channel() {
+            //     this.buildIcons();
+            // },
+            // 'channel.function.maxAlternativeIconIndex'() {
+            //     this.buildIcons();
+            // }
         }
     };
 </script>

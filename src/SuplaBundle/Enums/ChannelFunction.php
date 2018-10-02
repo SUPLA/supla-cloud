@@ -19,6 +19,7 @@ namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Exception\ApiException;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -214,7 +215,7 @@ final class ChannelFunction extends Enum {
         return [
             self::NONE => [],
             self::CONTROLLINGTHEGATEWAYLOCK => ['opened', 'closed'],
-            self::CONTROLLINGTHEGATE => ['opened', 'partiallyClosed', 'closed'],
+            self::CONTROLLINGTHEGATE => ['opened', 'closed', 'partiallyClosed'],
             self::CONTROLLINGTHEGARAGEDOOR => ['opened', 'closed'],
             self::THERMOMETER => ['default'],
             self::OPENINGSENSOR_GATEWAY => ['opened', 'closed'],
@@ -244,5 +245,27 @@ final class ChannelFunction extends Enum {
             self::STAIRCASETIMER => ['on', 'off'],
             self::ELECTRICITYMETER => ['default'],
         ];
+    }
+
+    public static function fromString(string $functionName): ChannelFunction {
+        $functionName = trim($functionName);
+        try {
+            if (is_numeric($functionName)) {
+                return new self((int)$functionName);
+            } else {
+                $functionName = strtoupper($functionName);
+                return self::$functionName();
+            }
+        } catch (\RuntimeException $e) {
+            throw new ApiException('Invalid function given: ' . $functionName, 400, $e);
+        }
+    }
+
+    /**
+     * @param string[] $functionNames
+     * @return ChannelFunction[]
+     */
+    public static function fromStrings(array $functionNames): array {
+        return array_map(self::class . '::fromString', $functionNames);
     }
 }

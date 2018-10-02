@@ -122,6 +122,12 @@ class IODeviceChannel implements HasFunction {
     private $altIcon = 0;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ChannelIcon", inversedBy="channels")
+     * @ORM\JoinColumn(name="user_icon_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $userIcon;
+
+    /**
      * @ORM\Column(name="hidden", type="boolean", nullable=false, options={"default"=0})
      * @Groups({"basic"})
      */
@@ -131,7 +137,7 @@ class IODeviceChannel implements HasFunction {
      * @ORM\ManyToMany(targetEntity="IODeviceChannelGroup", mappedBy="channels", cascade={"persist"})
      */
     private $channelGroups;
-    
+
     /**
      * @ORM\Column(name="flags", type="integer", nullable=true)
      * @Groups({"basic"})
@@ -203,6 +209,7 @@ class IODeviceChannel implements HasFunction {
         $this->function = $function;
         $this->param1 = $this->param2 = $this->param3 = 0;
         $this->altIcon = 0;
+        $this->userIcon = null;
     }
 
     /**
@@ -267,15 +274,18 @@ class IODeviceChannel implements HasFunction {
     }
 
     public function setAltIcon($altIcon) {
+        Assertion::between($altIcon, 0, $this->getFunction()->getMaxAlternativeIconIndex(), 'Invalid alternative icon has been chosen.');
         $this->altIcon = intval($altIcon);
     }
 
-    public function getIconSuffix() {
-        return ($this->getAltIcon() > 0 ? '_' . $this->getAltIcon() : '') . '.svg';
+    /** @return ChannelIcon|null */
+    public function getUserIcon() {
+        return $this->userIcon;
     }
 
-    public function getIconFilename() {
-        return $this->getFunction() . $this->getIconSuffix();
+    /** @param ChannelIcon|null $userIcon */
+    public function setUserIcon($userIcon) {
+        $this->userIcon = $userIcon;
     }
 
     public function getHidden() {
@@ -302,7 +312,7 @@ class IODeviceChannel implements HasFunction {
         $params = implode(',', $params);
         return "SET-$type-VALUE:$params";
     }
-    
+
     public function getFlags(): int {
         return intval($this->flags);
     }

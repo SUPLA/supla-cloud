@@ -22,8 +22,10 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Gumlet\ImageResize;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ChannelIcon;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ChannelIconRepository;
@@ -31,7 +33,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChannelIconsController extends RestController {
+class ChannelIconController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
@@ -57,9 +59,9 @@ class ChannelIconsController extends RestController {
         for ($iconIndex = 1; $iconIndex <= $imagesCount; $iconIndex++) {
             Assertion::true($files->has('image' . $iconIndex), "Icon for this function must consist of $imagesCount images.");
             $image = new ImageResize($files->get('image' . $iconIndex)->getPathName());
-            $image->resizeToHeight(156, true);
-            $image->crop(210, 156);
-            $imageString = $image->getImageAsString(IMAGETYPE_PNG);
+            $image = $image->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
+            $image = ImageResize::createFromString($image);
+            $imageString = $image->crop(210, 156)->getImageAsString(IMAGETYPE_PNG);
             $method = 'setImage' . $iconIndex;
             $icon->$method($imageString);
         }
@@ -76,11 +78,7 @@ class ChannelIconsController extends RestController {
     public function getChannelIconsAction(Request $request) {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
-            $functionIds = array_map(function ($fnc) {
-                return ChannelFunction::isValidKey($fnc)
-                    ? ChannelFunction::$fnc()->getValue()
-                    : (new ChannelFunction((int)$fnc))->getValue();
-            }, explode(',', $function));
+            $functionIds = EntityUtils::mapToIds(ChannelFunction::fromStrings(explode(',', $function)));
             $criteria->andWhere(Criteria::expr()->in('function', $functionIds));
         }
         if (($ids = $request->get('ids')) !== null) {
@@ -90,5 +88,15 @@ class ChannelIconsController extends RestController {
         $view = $this->view($channels, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['images']);
         return $view;
+    }
+
+    /**
+     * @Rest\Get("/channel-icons/{channelIcon}/{imageIndex}")
+     * @Security("has_role('ROLE_CHANNELS_FILES')")
+     * @Cache(maxage="86400", smaxage=86400)
+     */
+    public function getChannelIconImageAction(ChannelIcon $channelIcon, int $imageIndex) {
+        $image = $channelIcon->getImages()[$imageIndex];
+        return new Response($image);
     }
 }

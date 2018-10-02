@@ -35,4 +35,27 @@ class ChannelFunctionTest extends \PHPUnit_Framework_TestCase {
         $this->assertEmpty($diff, 'Have you forgotten to add visual states for the new ChannelFunction value? Missing: '
             . implode(', ', $diff));
     }
+
+    public function testFromString() {
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::fromString('CONTROLLINGTHEGATE'));
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::fromString('controllingTheGate'));
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::fromString(ChannelFunction::CONTROLLINGTHEGATE));
+    }
+
+    public function testFromStrings() {
+        $this->assertEquals(
+            [ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::WINDSENSOR()],
+            ChannelFunction::fromStrings(['CONTROLLINGTHEGATE', 'windSensor'])
+        );
+    }
+
+    public function testInvalidFromString() {
+        $this->expectExceptionMessage('UNICORN');
+        ChannelFunction::fromString('unicorn');
+    }
+
+    public function testInvalidFromValue() {
+        $this->expectExceptionMessage('123');
+        ChannelFunction::fromString(123);
+    }
 }

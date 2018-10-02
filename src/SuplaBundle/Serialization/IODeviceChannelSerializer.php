@@ -51,6 +51,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
             $normalized['locationId'] = $channel->getLocation()->getId();
             $normalized['functionId'] = $channel->getFunction()->getId();
+            $normalized['userIconId'] = $channel->getUserIcon() ? $channel->getUserIcon()->getId() : null;
             $normalized['typeId'] = $channel->getType()->getId();
             if (in_array('connected', $context[self::GROUPS])) {
                 $normalized['connected'] = $this->isDeviceConnected($channel->getIoDevice());

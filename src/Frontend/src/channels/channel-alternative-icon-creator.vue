@@ -67,7 +67,7 @@
                     formData.append('image' + (index + 1), input.files[0], input.files[0].name);
                 }
                 formData.append('function', this.functionName);
-                this.$http.post('channel-icons', formData);
+                this.$http.post('channel-icons', formData).then(() => this.$emit('created'));
             },
             fileAdded(state, files) {
                 for (let possibleState of this.possibleStates) {
