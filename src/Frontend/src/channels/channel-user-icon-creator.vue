@@ -1,116 +1,76 @@
 <template>
-    <div>
-        <div class="row">
-            <div :class="'col-sm-' + (12 / possibleStates.length)"
-                v-for="possibleState in possibleStates">
-                <h5 class="no-margin-top">{{ possibleState }}</h5>
-                <img :ref="possibleState + 'Preview'"
-                    class="icon-preview">
-                <input type="file"
-                    :ref="possibleState + 'Dropzone'"
-                    @change="readUrl(possibleState)">
+    <loading-cover :loading="uploading">
+        <div class="form-group">
+            <div class="row">
+                <div :class="'col-sm-' + (12 / possibleStates.length)"
+                    v-for="(possibleState, stateIndex) in possibleStates">
+                    <h5 class="no-margin-top">{{ possibleState }}</h5>
+
+                    <div class="dropbox">
+                        <input type="file"
+                            multiple
+                            accept="image/*"
+                            class="input-file"
+                            :disabled="uploading"
+                            @change="onFileChosen($event.target.files, stateIndex)">
+                        <img v-if="previews[stateIndex]"
+                            :src="previews[stateIndex]"
+                            class="icon-preview">
+                        <p v-else>Drag your file(s) here to begin<br> or click to browse</p>
+                    </div>
+
+                </div>
             </div>
-            <!--<a @click="processQueue()">PRO</a>-->
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <a class="btn btn-green"
-                    @click="uploadIcons()">Wyślij
+                    @click="uploadIcons()">
+                    {{ $t('Add') }}
                 </a>
             </div>
         </div>
-    </div>
+    </loading-cover>
 </template>
 
 <script>
-    import vueDropzone from 'vue2-dropzone';
-    import 'vue2-dropzone/dist/vue2Dropzone.min.css';
-
     export default {
         props: ['model'],
-        components: {vueDropzone},
         data() {
             return {
-                dropzoneOptions: {
-                    url: '/api/icons',
-                    addRemoveLinks: true,
-                    acceptedFiles: 'image/*',
-                    // autoQueue: false,
-                    autoProcessQueue: false,
-                    thumbnailHeight: 100,
-                    thumbnailWidth: 100,
-                    thumbnailMethod: 'contain'
-                }
+                images: [],
+                previews: [],
+                uploading: false,
             };
         },
-
-        mounted() {
-
-        },
-
         methods: {
-            readUrl(state) {
-                const input = this.$refs[state + 'Dropzone'][0];
-                const preview = this.$refs[state + 'Preview'][0];
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $(preview).attr('src', e.target.result);
-                };
-
-                reader.readAsDataURL(input.files[0]);
+            onFileChosen(files, index) {
+                for (let file of files) {
+                    this.images[index] = file;
+                    this.loadImagePreview(index);
+                    if (++index >= this.possibleStates.length) {
+                        break;
+                    }
+                }
+            },
+            loadImagePreview(index) {
+                const reader = new FileReader();
+                reader.onload = (e) => this.$set(this.previews, index, e.target.result);
+                reader.readAsDataURL(this.images[index]);
             },
             uploadIcons() {
+                this.uploading = true;
                 const formData = new FormData();
-                for (let [index, possibleState] of this.possibleStates.entries()) {
-                    const input = this.$refs[possibleState + 'Dropzone'][0];
-                    formData.append('image' + (index + 1), input.files[0], input.files[0].name);
+                for (let [index, image] of this.images.entries()) {
+                    formData.append('image' + (index + 1), image, image.name);
                 }
-                formData.append('function', this.functionName);
-                this.$http.post('channel-icons', formData).then(() => this.$emit('created'));
+                formData.append('function', this.model.function.name);
+                this.$http.post('channel-icons', formData)
+                    .then((response) => this.$emit('created', response.body))
+                    .finally(() => this.uploading = false);
             },
-            fileAdded(state, files) {
-                for (let possibleState of this.possibleStates) {
-                    const currentDropzone = this.$refs[possibleState + 'Dropzone'][0];
-                    const currentAcceptedFiles = currentDropzone.getAcceptedFiles();
-                    if (currentAcceptedFiles.length > 1) {
-                        const possibleStateIndex = this.possibleStates.indexOf(possibleState);
-                        for (let i = 1; i < currentAcceptedFiles.length; i++) {
-                            currentDropzone.removeFile(currentAcceptedFiles[i]);
-                            const possibleTargetState = this.possibleStates[possibleStateIndex + i];
-                            if (possibleTargetState) {
-                                this.$refs[possibleTargetState + 'Dropzone'][0].manuallyAddFile(currentAcceptedFiles[i]);
-                            }
-                        }
-                    }
-                }
-
-                // if (files.length > 1) {
-                //     if (state == this.possibleStates[0]) {
-                //         this.$refs.openedDropzone[0].removeFile(files[1]);
-                //         this.$refs.openedDropzone[0].removeFile(files[2]);
-                //         this.$refs.partialDropzone[0].manuallyAddFile(files[1]);
-                //         this.$refs.closedDropzone[0].manuallyAddFile(files[2]);
-                //     }
-                // }
-            },
-            processQueue() {
-                console.log(this.$refs);
-            }
         },
-
         computed: {
-            functionName() {
-                if (this.model) {
-                    if (this.model.function) {
-                        return this.model.function.name;
-                    } else if (this.model.name) {
-                        return this.model.name;
-                    } else {
-                        return this.model;
-                    }
-                }
-            },
             possibleStates() {
                 return this.model.function.possibleVisualStates;
             }
@@ -118,9 +78,34 @@
     };
 </script>
 
-<style>
+<style lang="scss">
+    @import "../styles/variables";
+
     .icon-preview {
         max-width: 100%;
         max-height: 156px;
+        padding: 5px;
+    }
+
+    .dropbox {
+        outline: 2px dashed $supla-grey-light !important;
+        background: $supla-white;
+        color: $supla-grey-dark;
+        position: relative;
+        cursor: pointer;
+        &:hover {
+            outline: 2px dashed $supla-green !important;
+        }
+        p {
+            padding: 10px;
+        }
+    }
+
+    .input-file {
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        cursor: pointer;
     }
 </style>

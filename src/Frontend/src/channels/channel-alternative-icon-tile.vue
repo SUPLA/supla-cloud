@@ -2,7 +2,11 @@
     <square-link class="clearfix pointer lift-up grey">
         <a @click="$emit('click')"
             class="valign-center">
-            <span v-if="model.id == 'new'">{{ $t('Add new icon' )}}</span>
+            <span v-if="model.id == 'new'">
+                <i class="pe-7s-plus"
+                    style="font-size: 3em"></i>
+                {{ $t('Add new icon' )}}
+            </span>
             <channel-user-icon-preview :icon="model"
                 v-else-if="model.function"></channel-user-icon-preview>
             <function-icon v-else

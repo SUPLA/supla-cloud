@@ -5,13 +5,13 @@
             {{ $t('Change icon') }}
         </a>
 
-        <modal :header="$t('Select icon')"
+        <modal :header="$t(addingNewIcon ? 'Add new icon' : 'Select icon')"
             v-if="choosing">
             <loading-cover :loading="!icons.length">
                 <div v-if="icons.length">
                     <channel-user-icon-creator v-if="addingNewIcon"
                         :model="channel"
-                        @created="buildIcons()"></channel-user-icon-creator>
+                        @created="choose($event)"></channel-user-icon-creator>
                     <square-links-carousel v-else
                         :items="icons"
                         :selected="selectedIcon"
