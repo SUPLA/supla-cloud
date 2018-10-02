@@ -2,7 +2,8 @@
     <span class="channel-icon"
         v-if="functionId !== undefined">
         <img :src="`/api/channel-icons/${model.userIconId}/${stateIndex}?access_token=${$user.getFilesDownloadToken()}`"
-            v-if="model.userIconId">
+            v-if="model.userIconId"
+            :class="`icon-size-${width}`">
         <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
             :width="width"
             v-else>
@@ -78,6 +79,14 @@
     .channel-icon {
         img {
             max-width: 100%;
+            &.icon-size-100 {
+                max-width: 100px;
+                max-height: 100px;
+            }
+            &.icon-size-90 {
+                max-width: 90px;
+                max-height: 90px;
+            }
         }
     }
 </style>
