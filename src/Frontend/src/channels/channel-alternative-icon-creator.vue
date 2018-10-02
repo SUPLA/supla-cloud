@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-sm-4"
+            <div :class="'col-sm-' + (12 / possibleStates.length)"
                 v-for="possibleState in possibleStates">
                 <h5 class="no-margin-top">{{ possibleState }}</h5>
                 <img :ref="possibleState + 'Preview'"
@@ -62,10 +62,11 @@
             },
             uploadIcons() {
                 const formData = new FormData();
-                for (let possibleState of this.possibleStates) {
+                for (let [index, possibleState] of this.possibleStates.entries()) {
                     const input = this.$refs[possibleState + 'Dropzone'][0];
-                    formData.append(possibleState, input.files[0], input.files[0].name);
+                    formData.append('image' + (index + 1), input.files[0], input.files[0].name);
                 }
+                formData.append('function', this.functionName);
                 this.$http.post('channel-icons', formData);
             },
             fileAdded(state, files) {
@@ -111,7 +112,7 @@
                 }
             },
             possibleStates() {
-                return ['opened', 'partial', 'closed'];
+                return this.model.function.possibleVisualStates;
             }
         }
     };

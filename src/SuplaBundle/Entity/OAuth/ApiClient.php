@@ -40,7 +40,8 @@ class ApiClient extends Client {
      */
     protected $id;
 
-    /**     * @ORM\Column(name="type", type="integer")
+    /**
+     * @ORM\Column(name="type", type="integer")
      */
     protected $type;
 

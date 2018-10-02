@@ -38,7 +38,7 @@ class ChannelIcon {
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="channelIcons")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $user;
 
@@ -91,5 +91,29 @@ class ChannelIcon {
 
     public function setImage1($image1) {
         $this->image1 = $image1;
+    }
+
+    public function getImage2() {
+        return $this->image2;
+    }
+
+    public function setImage2($image2) {
+        $this->image2 = $image2;
+    }
+
+    public function getImage3() {
+        return $this->image3;
+    }
+
+    public function setImage3($image3) {
+        $this->image3 = $image3;
+    }
+
+    public function getImage4() {
+        return $this->image4;
+    }
+
+    public function setImage4($image4) {
+        $this->image4 = $image4;
     }
 }

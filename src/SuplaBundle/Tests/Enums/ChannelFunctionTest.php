@@ -27,4 +27,12 @@ class ChannelFunctionTest extends \PHPUnit_Framework_TestCase {
         $this->assertEmpty($diff, 'Have you forgotten to add a caption for the new ChannelFunction value? Missing: '
             . implode(', ', $diff));
     }
+
+    public function testEveryFunctionHasStates() {
+        $diff = array_map(function (ChannelFunction $type) {
+            return $type->getKey();
+        }, array_diff(ChannelFunction::values(), array_keys(ChannelFunction::possibleVisualStates())));
+        $this->assertEmpty($diff, 'Have you forgotten to add visual states for the new ChannelFunction value? Missing: '
+            . implode(', ', $diff));
+    }
 }

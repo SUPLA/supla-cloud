@@ -160,6 +160,12 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $channels;
 
     /**
+     * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\ChannelIcon", mappedBy="user")
+     */
+    private $channelIcons;
+
+    /**
+     * /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"})
      */
     private $locations;
@@ -405,6 +411,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     /** @return Collection|Selectable|IODeviceChannel[] */
     public function getChannels() {
         return $this->channels;
+    }
+
+    /** @return Collection|Selectable|ChannelIcon[] */
+    public function getChannelIcons() {
+        return $this->channelIcons;
     }
 
     /** @return Collection|IODeviceChannelGroup[] */

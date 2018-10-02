@@ -111,6 +111,14 @@ final class ChannelFunction extends Enum {
     }
 
     /**
+     * @Groups({"basic"})
+     * @return string[]
+     */
+    public function getPossibleVisualStates(): array {
+        return self::possibleVisualStates()[$this->getValue()] ?? [];
+    }
+
+    /**
      * @param IODeviceChannel $channel
      * @return ChannelFunction[]
      */
@@ -199,6 +207,42 @@ final class ChannelFunction extends Enum {
             self::CONTROLLINGTHEGATE => 2,
             self::OPENINGSENSOR_GATE => 2,
             self::STAIRCASETIMER => 1,
+        ];
+    }
+
+    public static function possibleVisualStates(): array {
+        return [
+            self::NONE => [],
+            self::CONTROLLINGTHEGATEWAYLOCK => ['opened', 'closed'],
+            self::CONTROLLINGTHEGATE => ['opened', 'partiallyClosed', 'closed'],
+            self::CONTROLLINGTHEGARAGEDOOR => ['opened', 'closed'],
+            self::THERMOMETER => ['default'],
+            self::OPENINGSENSOR_GATEWAY => ['opened', 'closed'],
+            self::OPENINGSENSOR_GATE => ['opened', 'partiallyClosed', 'closed'],
+            self::OPENINGSENSOR_GARAGEDOOR => ['opened', 'closed'],
+            self::NOLIQUIDSENSOR => ['empty', 'full'],
+            self::CONTROLLINGTHEDOORLOCK => ['opened', 'closed'],
+            self::OPENINGSENSOR_DOOR => ['opened', 'closed'],
+            self::CONTROLLINGTHEROLLERSHUTTER => ['revealed', 'shut'],
+            self::OPENINGSENSOR_ROLLERSHUTTER => ['revealted', 'shut'],
+            self::POWERSWITCH => ['on', 'off'],
+            self::LIGHTSWITCH => ['on', 'off'],
+            self::HUMIDITY => ['default'],
+            self::HUMIDITYANDTEMPERATURE => ['default'],
+            self::DIMMER => ['on', 'off'],
+            self::RGBLIGHTING => ['on', 'off'],
+            self::DIMMERANDRGBLIGHTING => ['rgb_on_dim_on', 'rgb_on_dim_off', 'rgb_off_dim_on', 'rgb_off_dim_off'],
+            self::DISTANCESENSOR => ['default'],
+            self::DEPTHSENSOR => ['default'],
+            self::OPENINGSENSOR_WINDOW => ['opened', 'closed'],
+            self::MAILSENSOR => ['empty', 'full'],
+            self::WINDSENSOR => ['default'],
+            self::PRESSURESENSOR => ['default'],
+            self::RAINSENSOR => ['empty', 'full'],
+            self::WEIGHTSENSOR => ['default'],
+            self::WEATHER_STATION => ['default'],
+            self::STAIRCASETIMER => ['on', 'off'],
+            self::ELECTRICITYMETER => ['default'],
         ];
     }
 }
