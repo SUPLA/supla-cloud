@@ -9,22 +9,22 @@
             v-if="choosing">
             <loading-cover :loading="!icons.length">
                 <div v-if="icons.length">
-                    <channel-alternative-icon-creator v-if="addingNewIcon"
+                    <channel-user-icon-creator v-if="addingNewIcon"
                         :model="channel"
-                        @created="buildIcons()"></channel-alternative-icon-creator>
+                        @created="buildIcons()"></channel-user-icon-creator>
                     <square-links-carousel v-else
                         :items="icons"
                         :selected="selectedIcon"
                         tile="channelAlternativeIconTile"
                         @select="choose($event)"></square-links-carousel>
                 </div>
-                <div slot="footer">
-                    <a @click="choosing = addingNewIcon = false"
-                        class="cancel">
-                        <i class="pe-7s-close"></i>
-                    </a>
-                </div>
             </loading-cover>
+            <div slot="footer">
+                <a @click="choosing = addingNewIcon = false"
+                    class="cancel">
+                    <i class="pe-7s-close"></i>
+                </a>
+            </div>
         </modal>
     </div>
 </template>
@@ -33,12 +33,12 @@
     import SquareLinksCarousel from "../common/tiles/square-links-carousel";
     import ChannelAlternativeIconTile from "./channel-alternative-icon-tile";
     import Vue from "vue";
-    import ChannelAlternativeIconCreator from "./channel-alternative-icon-creator";
+    import ChannelUserIconCreator from "./channel-user-icon-creator";
 
     Vue.component('channelAlternativeIconTile', ChannelAlternativeIconTile);
 
     export default {
-        components: {ChannelAlternativeIconCreator, SquareLinksCarousel},
+        components: {ChannelUserIconCreator, SquareLinksCarousel},
         props: ['channel'],
         data() {
             return {
@@ -60,11 +60,12 @@
             choose(chosenIcon) {
                 if (chosenIcon.id == 'new') {
                     this.addingNewIcon = true;
-                } else if (chosenIcon.images) {
+                } else if (chosenIcon.function) {
                     this.channel.userIconId = chosenIcon.id;
                     this.choosing = false;
                     this.$emit('change');
                 } else {
+                    this.channel.userIconId = undefined;
                     this.channel.altIcon = chosenIcon.index;
                     this.choosing = false;
                     this.$emit('change');
@@ -74,7 +75,7 @@
                 this.icons = [];
                 this.addingNewIcon = false;
                 if (this.channel) {
-                    this.$http.get('channel-icons?include=images&function=' + this.channel.function.name).then(response => {
+                    this.$http.get('channel-icons?function=' + this.channel.function.name).then(response => {
                         for (let index = 0; index <= this.channel.function.maxAlternativeIconIndex; index++) {
                             this.icons.push({id: (-index - 1), channel: this.channel, index});
                         }

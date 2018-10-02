@@ -1,9 +1,9 @@
 <template>
     <div @mouseenter="startPreview()"
         @mouseleave="stopPreview()">
-        <img v-for="(image, index) in icon.images"
-            :src="'data:image/png;base64,' + image"
-            v-show="index == shownIndex">
+        <img v-for="(state, stateIndex) in icon.function.possibleVisualStates"
+            :src="`/api/channel-icons/${icon.id}/${stateIndex}?access_token=${$user.getFilesDownloadToken()}`"
+            v-show="stateIndex == shownIndex">
     </div>
 </template>
 
@@ -20,7 +20,7 @@
             startPreview() {
                 this.previewTimeout = setTimeout(() => {
                     this.shownIndex++;
-                    if (this.shownIndex >= this.icon.images.length) {
+                    if (this.shownIndex >= this.icon.function.possibleVisualStates.length) {
                         this.shownIndex = 0;
                     }
                     this.startPreview();
@@ -36,5 +36,8 @@
 
 <style scoped
     lang="scss">
-    img {width: 100%;}
+    img {
+        max-width: 100%;
+        max-height: 100px;
+    }
 </style>

@@ -4,7 +4,7 @@
             class="valign-center">
             <span v-if="model.id == 'new'">{{ $t('Add new icon' )}}</span>
             <channel-user-icon-preview :icon="model"
-                v-else-if="model.images"></channel-user-icon-preview>
+                v-else-if="model.function"></channel-user-icon-preview>
             <function-icon v-else
                 :model="model.channel.function"
                 :alternative="model.index"></function-icon>
