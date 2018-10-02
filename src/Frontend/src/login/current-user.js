@@ -10,6 +10,10 @@ export class CurrentUser {
         return localStorage.getItem('_token');
     }
 
+    getFilesDownloadToken() {
+        return localStorage.getItem('_token_down');
+    }
+
     synchronizeAuthState() {
         Vue.http.headers.common['Authorization'] = this.getToken() ? 'Bearer ' + this.getToken() : undefined;
         const serverUrl = Base64.decode((this.getToken() || '').split('.')[1] || '');
@@ -25,12 +29,14 @@ export class CurrentUser {
 
     handleNewToken(response) {
         localStorage.setItem('_token', response.body.access_token);
+        localStorage.setItem('_token_down', response.body.download_token);
         this.synchronizeAuthState();
         window.SS = () => this.synchronizeAuthState();
     }
 
     forget() {
         localStorage.removeItem('_token');
+        localStorage.removeItem('_token_down');
         this.synchronizeAuthState();
         this.username = undefined;
         this.userData = undefined;

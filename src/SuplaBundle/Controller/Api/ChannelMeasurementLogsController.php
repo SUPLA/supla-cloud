@@ -277,7 +277,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES')")
      */
     public function channelItemGetCSVAction(IODeviceChannel $channel) {
         $file = $this->deviceManager->channelGetCSV($channel, "measurement_" . $channel->getId());

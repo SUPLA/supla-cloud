@@ -22,6 +22,7 @@ use OAuth2\OAuth2;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ApiClientType;
 
 class SuplaOAuth2 extends OAuth2 {
     /** @var string */
@@ -53,14 +54,26 @@ class SuplaOAuth2 extends OAuth2 {
         $refreshTokenLifetime = null
     ) {
         $clientType = $client->getType()->getValue();
-        return parent::createAccessToken(
+        $accessTokenLifetime = $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']);
+        $token = parent::createAccessToken(
             $client,
             $data,
             $scope,
-            $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']),
+            $accessTokenLifetime,
             (new OAuthScope($scope))->hasScope('offline_access'),
             $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['refresh'])
         );
+        if ($clientType == ApiClientType::WEBAPP) {
+            $tokenUsedForFilesDownload = parent::createAccessToken(
+                $client,
+                $data,
+                'channels_files',
+                $accessTokenLifetime,
+                false
+            );
+            $token['download_token'] = $tokenUsedForFilesDownload['access_token'];
+        }
+        return $token;
     }
 
     public function createPersonalAccessToken(User $user, string $name, OAuthScope $scope): AccessToken {
