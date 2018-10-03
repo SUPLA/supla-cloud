@@ -92,11 +92,22 @@ class ChannelIconController extends RestController {
 
     /**
      * @Rest\Get("/channel-icons/{channelIcon}/{imageIndex}")
-     * @Security("has_role('ROLE_CHANNELS_FILES')")
+     * @Security("channelIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES')")
      * @Cache(maxage="86400", smaxage=86400)
      */
     public function getChannelIconImageAction(ChannelIcon $channelIcon, int $imageIndex) {
         $image = $channelIcon->getImages()[$imageIndex];
         return new Response($image);
+    }
+
+    /**
+     * @Rest\Delete("/channel-icons/{channelIcon}")
+     * @Security("channelIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     */
+    public function deleteChannelGroupAction(ChannelIcon $channelIcon) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($channelIcon) {
+            $em->remove($channelIcon);
+            return new Response('', Response::HTTP_NO_CONTENT);
+        });
     }
 }

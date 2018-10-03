@@ -9,9 +9,11 @@
             v-if="choosing">
             <loading-cover :loading="!icons.length">
                 <div v-if="icons.length">
-                    <channel-user-icon-creator v-if="addingNewIcon"
+                    <channel-user-icon-creator v-if="addingNewIcon || editingIcon"
+                        :icon="editingIcon"
                         :model="channel"
-                        @created="choose($event)"></channel-user-icon-creator>
+                        @created="choose($event)"
+                        @cancel="buildIcons()"></channel-user-icon-creator>
                     <square-links-carousel v-else
                         :items="icons"
                         :selected="selectedIcon"
@@ -44,6 +46,7 @@
             return {
                 choosing: false,
                 addingNewIcon: false,
+                editingIcon: undefined,
                 selectedIcon: undefined,
                 icons: [],
                 userIcons: undefined,
@@ -74,12 +77,15 @@
             buildIcons() {
                 this.icons = [];
                 this.addingNewIcon = false;
+                this.editingIcon = undefined;
                 if (this.channel) {
                     this.$http.get('channel-icons?function=' + this.channel.function.name).then(response => {
                         for (let index = 0; index <= this.channel.function.maxAlternativeIconIndex; index++) {
                             this.icons.push({id: (-index - 1), channel: this.channel, index});
                         }
-                        this.icons = this.icons.concat(response.body);
+                        const userIcons = response.body;
+                        userIcons.forEach(userIcon => userIcon.edit = () => this.editingIcon = userIcon);
+                        this.icons = this.icons.concat(userIcons);
                         this.icons.push({id: 'new', channel: this.channel});
                         this.updateSelectedIcon();
                     });
@@ -88,6 +94,10 @@
             updateSelectedIcon() {
                 if (this.channel.userIconId) {
                     this.selectedIcon = this.icons.find(icon => icon.id == this.channel.userIconId);
+                    if (!this.selectedIcon) {
+                        this.channel.userIconId = undefined;
+                        this.updateSelectedIcon();
+                    }
                 } else {
                     this.selectedIcon = this.icons.find(icon => icon.index == this.channel.altIcon);
                 }

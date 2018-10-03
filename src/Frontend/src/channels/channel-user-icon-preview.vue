@@ -38,7 +38,7 @@
             },
             editIcon(event) {
                 event.stopPropagation();
-                this.$emit('edit');
+                this.icon.edit();
             }
         }
     };

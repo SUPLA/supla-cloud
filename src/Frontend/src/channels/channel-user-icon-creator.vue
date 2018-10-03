@@ -26,22 +26,46 @@
             <div class="col-xs-12">
                 <a class="btn btn-green"
                     @click="uploadIcons()">
-                    {{ $t('Add') }}
+                    {{ $t(icon ? 'Save' : 'Add') }}
+                </a>
+                <a class="btn btn-red"
+                    v-if="icon"
+                    @click="deleteConfirm = true">
+                    {{ $t('Delete') }}
+                </a>
+                <a class="btn btn-white"
+                    @click="$emit('cancel')">
+                    {{ $t('Cancel') }}
                 </a>
             </div>
         </div>
+        <modal-confirm v-if="deleteConfirm"
+            @confirm="deleteIcon()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure you want to delete this icon?')"
+            :loading="uploading">
+            <p>{{ $t('All channels or channel groups that use this icon will return to the default icon after deletion.') }}</p>
+        </modal-confirm>
     </loading-cover>
 </template>
 
 <script>
     export default {
-        props: ['model'],
+        props: ['model', 'icon'],
         data() {
             return {
+                deleteConfirm: false,
                 images: [],
                 previews: [],
                 uploading: false,
             };
+        },
+        mounted() {
+            if (this.icon) {
+                for (let index = 0; index < this.possibleStates.length; index++) {
+                    this.previews.push(`/api/channel-icons/${this.icon.id}/${index}?access_token=${this.$user.getFilesDownloadToken()}`);
+                }
+            }
         },
         methods: {
             onFileChosen(files, index) {
@@ -69,6 +93,12 @@
                     .then((response) => this.$emit('created', response.body))
                     .finally(() => this.uploading = false);
             },
+            deleteIcon() {
+                this.uploading = true;
+                this.$http.delete('channel-icons/' + this.icon.id)
+                    .then(() => this.$emit('cancel'))
+                    .finally(() => this.uploading = false);
+            }
         },
         computed: {
             possibleStates() {
