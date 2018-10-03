@@ -22,11 +22,13 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Gumlet\ImageResize;
+use Gumlet\ImageResizeException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ChannelIcon;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ChannelIconRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -49,24 +51,45 @@ class ChannelIconController extends RestController {
      * @Rest\Post("/channel-icons")
      */
     public function postIconAction(Request $request) {
-        $function = $request->get('function');
-        Assertion::true(ChannelFunction::isValidKey($function), 'Given function is not valid.');
         /** @var ChannelFunction $function */
-        $function = ChannelFunction::$function();
+        $function = ChannelFunction::fromString($request->get('function'));
+        $sourceIcon = $request->get('sourceIcon');
         $icon = new ChannelIcon($this->getUser(), $function);
+        if ($sourceIcon) {
+            $sourceIcon = $this->channelIconRepository->findForUser($this->getUser(), $sourceIcon);
+            Assertion::eq($function->getId(), $sourceIcon->getFunction()->getId(), 'Function of the edited icons mismatch.');
+        }
         $files = $request->files;
         $imagesCount = count($function->getPossibleVisualStates());
         for ($iconIndex = 1; $iconIndex <= $imagesCount; $iconIndex++) {
-            Assertion::true($files->has('image' . $iconIndex), "Icon for this function must consist of $imagesCount images.");
-            $image = new ImageResize($files->get('image' . $iconIndex)->getPathName());
-            $image = $image->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
-            $image = ImageResize::createFromString($image);
-            $imageString = $image->crop(210, 156)->getImageAsString(IMAGETYPE_PNG);
+            $imageFileNameInRequest = 'image' . $iconIndex;
+            if (!$sourceIcon) {
+                Assertion::true($files->has($imageFileNameInRequest), "Icon for this function must consist of $imagesCount images.");
+            }
+            if ($files->has($imageFileNameInRequest)) {
+                try {
+                    $image = new ImageResize($files->get($imageFileNameInRequest)->getPathName());
+                    $image = $image->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
+                    $image = ImageResize::createFromString($image);
+                    $imageString = $image->crop(210, 156)->getImageAsString(IMAGETYPE_PNG);
+                } catch (ImageResizeException $exception) {
+                    throw new ApiException($exception->getMessage(), 400, $exception);
+                }
+            } else {
+                $imageString = $sourceIcon->getImages()[$iconIndex - 1];
+            }
             $method = 'setImage' . $iconIndex;
             $icon->$method($imageString);
         }
-        $this->transactional(function (EntityManagerInterface $em) use ($icon) {
+        $this->transactional(function (EntityManagerInterface $em) use ($icon, $sourceIcon) {
             $em->persist($icon);
+            if ($sourceIcon) {
+                foreach ($sourceIcon->getChannels() as $channel) {
+                    $channel->setUserIcon($icon);
+                    $em->persist($icon);
+                }
+                $em->remove($sourceIcon);
+            }
         });
         return $this->view($icon);
     }
@@ -104,7 +127,7 @@ class ChannelIconController extends RestController {
      * @Rest\Delete("/channel-icons/{channelIcon}")
      * @Security("channelIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
      */
-    public function deleteChannelGroupAction(ChannelIcon $channelIcon) {
+    public function deleteChannelIconAction(ChannelIcon $channelIcon) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelIcon) {
             $em->remove($channelIcon);
             return new Response('', Response::HTTP_NO_CONTENT);

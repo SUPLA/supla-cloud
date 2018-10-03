@@ -43,6 +43,11 @@ class ChannelIcon {
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="userIcon")
+     */
+    private $channels;
+
+    /**
      * @ORM\Column(name="func", type="integer", nullable=false)
      * @Groups({"basic"})
      */
@@ -68,6 +73,8 @@ class ChannelIcon {
      */
     private $image4;
 
+    private $fetchedImages;
+
     public function __construct(User $user, ChannelFunction $function) {
         $this->user = $user;
         $this->function = $function->getValue();
@@ -85,15 +92,22 @@ class ChannelIcon {
         return new ChannelFunction($this->function);
     }
 
+    /** @return IODeviceChannel[] */
+    public function getChannels() {
+        return $this->channels;
+    }
+
     public function getImages(): array {
-        $images = [];
-        for ($i = 1; $i <= 4; $i++) {
-            $imageField = 'image' . $i;
-            if ($this->{$imageField}) {
-                $images[] = stream_get_contents($this->{$imageField});
+        if (!$this->fetchedImages) {
+            $this->fetchedImages = [];
+            for ($i = 1; $i <= 4; $i++) {
+                $imageField = 'image' . $i;
+                if ($this->{$imageField}) {
+                    $this->fetchedImages[] = stream_get_contents($this->{$imageField});
+                }
             }
         }
-        return $images;
+        return $this->fetchedImages;
     }
 
     public function setImage1($image1) {

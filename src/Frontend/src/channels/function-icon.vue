@@ -51,7 +51,7 @@
                         return '-off';
                     }
                     if (this.model.state.color_brightness !== undefined && this.model.state.brightness !== undefined) {
-                        return '-' + (this.state.brightness ? 'on' : 'off') + (this.state.color_brightness ? 'on' : 'off');
+                        return '-' + (this.model.state.brightness ? 'on' : 'off') + (this.model.state.color_brightness ? 'on' : 'off');
                     }
                     else if (this.model.state.color_brightness || this.model.state.brightness) {
                         return '-on';

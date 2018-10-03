@@ -50,6 +50,8 @@
 </template>
 
 <script>
+    import {errorNotification} from "../common/notifier";
+
     export default {
         props: ['model', 'icon'],
         data() {
@@ -70,10 +72,12 @@
         methods: {
             onFileChosen(files, index) {
                 for (let file of files) {
-                    this.images[index] = file;
-                    this.loadImagePreview(index);
-                    if (++index >= this.possibleStates.length) {
-                        break;
+                    if (file.type.indexOf('image/') === 0) {
+                        this.images[index] = file;
+                        this.loadImagePreview(index);
+                        if (++index >= this.possibleStates.length) {
+                            break;
+                        }
                     }
                 }
             },
@@ -83,12 +87,22 @@
                 reader.readAsDataURL(this.images[index]);
             },
             uploadIcons() {
-                this.uploading = true;
                 const formData = new FormData();
+                let addedImages = 0;
                 for (let [index, image] of this.images.entries()) {
-                    formData.append('image' + (index + 1), image, image.name);
+                    if (image) {
+                        formData.append('image' + (index + 1), image, image.name);
+                        ++addedImages;
+                    }
                 }
+                if (!this.icon && addedImages < this.possibleStates.length) {
+                    return errorNotification(this.$t('Error'), 'You need to choose icons for all states.');
+                }
+                this.uploading = true;
                 formData.append('function', this.model.function.name);
+                if (this.icon) {
+                    formData.append('sourceIcon', this.icon.id);
+                }
                 this.$http.post('channel-icons', formData)
                     .then((response) => this.$emit('created', response.body))
                     .finally(() => this.uploading = false);
