@@ -11,3 +11,19 @@ Confirm if you want to remove the Location ID{locationId}. You will no longer be
 Confirm if you want to remove {deviceName} device: Confirm if you want to remove {deviceName} device
 "{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} will not be able to interact with your account until you grant the access again."
 Any application or device that uses the {tokenName} token will not work anymore.: Any application or device that uses the {tokenName} token will not work anymore.
+
+state-on: On
+state-off: Off
+state-opened: Opened
+state-closed: Closed
+state-partially_closed: Partially closed
+state-default: Default
+state-empty: Empty
+state-full: Full
+state-revealed: Revealed
+state-shut: Shut
+state-rgb_on_dim_on: RGB and dimmer on
+state-rgb_on_dim_off: RGB on, dimmer off
+state-rgb_off_dim_on: RGB off, dimmer on
+state-rgb_off_dim_off: RGB and dimmer off
+We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).: We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).

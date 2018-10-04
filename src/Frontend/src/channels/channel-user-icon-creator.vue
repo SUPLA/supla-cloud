@@ -4,8 +4,10 @@
             <div class="row">
                 <div :class="'col-sm-' + (12 / possibleStates.length)"
                     v-for="(possibleState, stateIndex) in possibleStates">
-                    <h5 class="no-margin-top">{{ possibleState }}</h5>
-
+                    <h5 class="no-margin-top"
+                        v-if="possibleStates.length > 1">
+                        {{ $t('state-' + possibleState) }}
+                    </h5>
                     <div class="dropbox">
                         <input type="file"
                             multiple
@@ -16,12 +18,12 @@
                         <img v-if="previews[stateIndex]"
                             :src="previews[stateIndex]"
                             class="icon-preview">
-                        <p v-else>Drag your file(s) here to begin<br> or click to browse</p>
+                        <p v-else>{{ $t('Drag your image(s) here or click to browse') }}</p>
                     </div>
-
                 </div>
             </div>
         </div>
+        <p class="text-muted">{{ $t('We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).', {width: 210, height: 156}) }}</p>
         <div class="row">
             <div class="col-xs-12">
                 <a class="btn btn-green"
