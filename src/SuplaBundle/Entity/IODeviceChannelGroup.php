@@ -81,6 +81,12 @@ class IODeviceChannelGroup implements HasFunction {
     private $function;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ChannelIcon", inversedBy="channelGroups")
+     * @ORM\JoinColumn(name="user_icon_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $userIcon;
+
+    /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
      * @Groups({"basic"})
      */
@@ -146,6 +152,16 @@ class IODeviceChannelGroup implements HasFunction {
 
     public function setAltIcon($altIcon) {
         $this->altIcon = intval($altIcon);
+    }
+
+    /** @return ChannelIcon|null */
+    public function getUserIcon() {
+        return $this->userIcon;
+    }
+
+    /** @param ChannelIcon|null $userIcon */
+    public function setUserIcon($userIcon) {
+        $this->userIcon = $userIcon;
     }
 
     /** @param IODeviceChannel[] $channels */

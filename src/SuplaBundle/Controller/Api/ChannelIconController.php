@@ -51,15 +51,16 @@ class ChannelIconController extends RestController {
      * @Rest\Post("/channel-icons")
      */
     public function postIconAction(Request $request) {
+        $files = $request->files;
+        Assertion::greaterThan(count($files), 0, 'You have not uploaded any files, or the uploaded files are too big.');
         /** @var ChannelFunction $function */
-        $function = ChannelFunction::fromString($request->get('function'));
+        $function = ChannelFunction::fromString($request->get('function', ''));
         $sourceIcon = $request->get('sourceIcon');
         $icon = new ChannelIcon($this->getUser(), $function);
         if ($sourceIcon) {
             $sourceIcon = $this->channelIconRepository->findForUser($this->getUser(), $sourceIcon);
             Assertion::eq($function->getId(), $sourceIcon->getFunction()->getId(), 'Function of the edited icons mismatch.');
         }
-        $files = $request->files;
         $imagesCount = count($function->getPossibleVisualStates());
         for ($iconIndex = 1; $iconIndex <= $imagesCount; $iconIndex++) {
             $imageFileNameInRequest = 'image' . $iconIndex;
@@ -86,7 +87,11 @@ class ChannelIconController extends RestController {
             if ($sourceIcon) {
                 foreach ($sourceIcon->getChannels() as $channel) {
                     $channel->setUserIcon($icon);
-                    $em->persist($icon);
+                    $em->persist($channel);
+                }
+                foreach ($sourceIcon->getChannelGroups() as $channelGroup) {
+                    $channelGroup->setUserIcon($icon);
+                    $em->persist($channelGroup);
                 }
                 $em->remove($sourceIcon);
             }

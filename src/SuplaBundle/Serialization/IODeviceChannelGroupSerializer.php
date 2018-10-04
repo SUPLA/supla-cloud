@@ -45,6 +45,7 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         $normalized['locationId'] = $group->getLocation()->getId();
         $normalized['channelIds'] = $this->toIds($group->getChannels());
         $normalized['functionId'] = $group->getFunction()->getId();
+        $normalized['userIconId'] = $group->getUserIcon() ? $group->getUserIcon()->getId() : null;
         if ($fetchChannels) {
             $normalized['channels'] = $this->normalizer->normalize($group->getChannels(), $format, $context);
         }

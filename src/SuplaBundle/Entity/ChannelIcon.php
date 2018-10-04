@@ -48,6 +48,11 @@ class ChannelIcon {
     private $channels;
 
     /**
+     * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="userIcon")
+     */
+    private $channelGroups;
+
+    /**
      * @ORM\Column(name="func", type="integer", nullable=false)
      * @Groups({"basic"})
      */
@@ -94,6 +99,11 @@ class ChannelIcon {
 
     /** @return IODeviceChannel[] */
     public function getChannels() {
+        return $this->channels;
+    }
+
+    /** @return IODeviceChannelGroup[] */
+    public function getChannelGroups() {
         return $this->channels;
     }
 

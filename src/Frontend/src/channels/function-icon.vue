@@ -79,13 +79,12 @@
     .channel-icon {
         img {
             max-width: 100%;
-            &.icon-size-100 {
-                max-width: 100px;
-                max-height: 100px;
-            }
-            &.icon-size-90 {
-                max-width: 90px;
-                max-height: 90px;
+            @for $i from 5 to 12 {
+                $width: $i * 10;
+                &.icon-size-#{$width} {
+                    max-width: $width * 1px;
+                    max-height: $width * 1px;
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ namespace SuplaBundle\ParamConverter;
 use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Repository\ChannelIconRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
 
@@ -14,10 +15,17 @@ class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
     private $locationRepository;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
+    /** @var ChannelIconRepository */
+    private $channelIconRepository;
 
-    public function __construct(LocationRepository $locationRepository, IODeviceChannelRepository $channelRepository) {
+    public function __construct(
+        LocationRepository $locationRepository,
+        IODeviceChannelRepository $channelRepository,
+        ChannelIconRepository $channelIconRepository
+    ) {
         $this->locationRepository = $locationRepository;
         $this->channelRepository = $channelRepository;
+        $this->channelIconRepository = $channelIconRepository;
     }
 
     public function getConvertedClass(): string {
@@ -38,6 +46,12 @@ class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
             $location = $user->getLocations()[0];
         }
         $channelGroup = new IODeviceChannelGroup($user, $location, $channels);
+        if (isset($data['userIconId']) && $data['userIconId']) {
+            $user = $this->getCurrentUserOrThrow();
+            $icon = $this->channelIconRepository->findForUser($user, $data['userIconId']);
+            Assertion::eq($icon->getFunction()->getId(), $channelGroup->getFunction()->getId(), 'Chosen user icon is for other function.');
+            $channelGroup->setUserIcon($icon);
+        }
         $channelGroup->setCaption($data['caption'] ?? '');
         $channelGroup->setAltIcon($data['altIcon'] ?? 0);
         if (isset($data['hidden'])) {

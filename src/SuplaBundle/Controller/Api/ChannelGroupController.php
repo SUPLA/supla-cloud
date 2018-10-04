@@ -91,6 +91,7 @@ class ChannelGroupController extends RestController {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
             $channelGroup->setCaption($updated->getCaption());
             $channelGroup->setAltIcon($updated->getAltIcon());
+            $channelGroup->setUserIcon($updated->getUserIcon());
             $channelGroup->setChannels($updated->getChannels());
             $channelGroup->setHidden($updated->getHidden());
             $channelGroup->setLocation($updated->getLocation());

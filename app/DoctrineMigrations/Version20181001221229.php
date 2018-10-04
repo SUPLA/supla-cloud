@@ -16,6 +16,9 @@ class Version20181001221229 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_dev_channel ADD user_icon_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_dev_channel ADD CONSTRAINT FK_81E928C9CB4C938 FOREIGN KEY (user_icon_id) REFERENCES supla_channel_icons (id) ON DELETE SET NULL');
         $this->addSql('CREATE INDEX IDX_81E928C9CB4C938 ON supla_dev_channel (user_icon_id)');
+        $this->addSql('ALTER TABLE supla_dev_channel_group ADD user_icon_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_dev_channel_group ADD CONSTRAINT FK_6B2EFCE5CB4C938 FOREIGN KEY (user_icon_id) REFERENCES supla_channel_icons (id) ON DELETE SET NULL');
+        $this->addSql('CREATE INDEX IDX_6B2EFCE5CB4C938 ON supla_dev_channel_group (user_icon_id)');
     }
 
     public function down(Schema $schema) {
