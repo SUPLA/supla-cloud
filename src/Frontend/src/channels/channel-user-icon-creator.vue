@@ -53,6 +53,7 @@
 
 <script>
     import {errorNotification} from "../common/notifier";
+    import {withDownloadAccessToken} from "../common/filters";
 
     export default {
         props: ['model', 'icon'],
@@ -67,7 +68,7 @@
         mounted() {
             if (this.icon) {
                 for (let index = 0; index < this.possibleStates.length; index++) {
-                    this.previews.push(`/api/user-icons/${this.icon.id}/${index}?access_token=${this.$user.getFilesDownloadToken()}`);
+                    this.previews.push(withDownloadAccessToken(`/api/user-icons/${this.icon.id}/${index}?`));
                 }
             }
         },

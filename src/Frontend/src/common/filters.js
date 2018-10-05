@@ -7,6 +7,10 @@ export function withBaseUrl(url) {
     return Vue.config.external.baseUrl + url;
 }
 
+export function withDownloadAccessToken(url) {
+    return withBaseUrl(url) + 'access_token=' + Vue.prototype.$user.getFilesDownloadToken();
+}
+
 // https://stackoverflow.com/a/8105740/878514
 export function intToIp(int) {
     const part1 = int & 255;
@@ -30,6 +34,7 @@ export function ellipsis(string, length = 20) {
 }
 
 Vue.filter('withBaseUrl', withBaseUrl);
+Vue.filter('withDownloadAccessToken', withDownloadAccessToken);
 Vue.filter('intToIp', intToIp);
 Vue.filter('channelTitle', channelTitle);
 Vue.filter('deviceTitle', deviceTitle);
