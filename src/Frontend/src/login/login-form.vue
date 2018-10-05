@@ -33,6 +33,9 @@
                     class="form-control">
             </span>
         </div>
+        <div>
+            <slot></slot>
+        </div>
         <div class="form-group text-right">
             <button type="submit"
                 class="btn btn-green btn-lg"
