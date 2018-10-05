@@ -54,7 +54,7 @@
                         return '-' + (this.model.state.brightness ? 'on' : 'off') + (this.model.state.color_brightness ? 'on' : 'off');
                     }
                     else if (this.model.state.color_brightness || this.model.state.brightness) {
-                        return '-on';
+                        return '-off';
                     }
                 }
                 return '';
