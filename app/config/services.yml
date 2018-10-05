@@ -146,9 +146,9 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\IODeviceChannelGroup]
 
-  SuplaBundle\Repository\ChannelIconRepository:
+  SuplaBundle\Repository\UserIconRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\ChannelIcon]
+    arguments: [SuplaBundle\Entity\UserIcon]
 
   SuplaBundle\Repository\ClientAppRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]

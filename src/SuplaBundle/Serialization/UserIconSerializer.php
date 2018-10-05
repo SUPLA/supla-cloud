@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\ChannelIcon;
+use SuplaBundle\Entity\UserIcon;
 
-class ChannelIconSerializer extends AbstractSerializer {
+class UserIconSerializer extends AbstractSerializer {
     /**
-     * @param ChannelIcon $icon
+     * @param UserIcon $icon
      * @inheritdoc
      */
     public function normalize($icon, $format = null, array $context = []) {
@@ -33,6 +33,6 @@ class ChannelIconSerializer extends AbstractSerializer {
     }
 
     public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof ChannelIcon;
+        return $entity instanceof UserIcon;
     }
 }

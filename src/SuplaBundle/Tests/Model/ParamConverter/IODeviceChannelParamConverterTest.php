@@ -20,8 +20,8 @@ namespace SuplaBundle\Tests\Model\ParamConverter;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\ParamConverter\IODeviceChannelParamConverter;
-use SuplaBundle\Repository\ChannelIconRepository;
 use SuplaBundle\Repository\LocationRepository;
+use SuplaBundle\Repository\UserIconRepository;
 
 class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
     /** @var IODeviceChannelParamConverter */
@@ -31,7 +31,7 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
     public function init() {
         $this->converter = new IODeviceChannelParamConverter(
             $this->createMock(LocationRepository::class),
-            $this->createMock(ChannelIconRepository::class)
+            $this->createMock(UserIconRepository::class)
         );
     }
 

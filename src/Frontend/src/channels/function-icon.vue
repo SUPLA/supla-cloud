@@ -1,7 +1,7 @@
 <template>
     <span class="channel-icon"
         v-if="functionId !== undefined">
-        <img :src="`/api/channel-icons/${model.userIconId}/${stateIndex}?access_token=${$user.getFilesDownloadToken()}`"
+        <img :src="`/api/user-icons/${model.userIconId}/${stateIndex}?access_token=${$user.getFilesDownloadToken()}`"
             v-if="model.userIconId"
             :class="`icon-size-${width}`">
         <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"

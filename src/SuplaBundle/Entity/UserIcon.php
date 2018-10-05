@@ -22,10 +22,10 @@ use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelIconRepository")
- * @ORM\Table(name="supla_channel_icons")
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\UserIconRepository")
+ * @ORM\Table(name="supla_user_icons")
  */
-class ChannelIcon {
+class UserIcon {
     use BelongsToUser;
 
     /**
@@ -37,7 +37,7 @@ class ChannelIcon {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="channelIcons")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="userIcons")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $user;

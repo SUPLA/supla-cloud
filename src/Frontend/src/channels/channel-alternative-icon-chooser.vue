@@ -79,7 +79,7 @@
                 this.addingNewIcon = false;
                 this.editingIcon = undefined;
                 if (this.channel) {
-                    this.$http.get('channel-icons?function=' + this.channel.function.name).then(response => {
+                    this.$http.get('user-icons?function=' + this.channel.function.name).then(response => {
                         for (let index = 0; index <= this.channel.function.maxAlternativeIconIndex; index++) {
                             this.icons.push({id: (-index - 1), channel: this.channel, index});
                         }

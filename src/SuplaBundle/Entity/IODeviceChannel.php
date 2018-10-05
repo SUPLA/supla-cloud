@@ -122,7 +122,7 @@ class IODeviceChannel implements HasFunction {
     private $altIcon = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ChannelIcon", inversedBy="channels")
+     * @ORM\ManyToOne(targetEntity="UserIcon", inversedBy="channels")
      * @ORM\JoinColumn(name="user_icon_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $userIcon;
@@ -278,12 +278,12 @@ class IODeviceChannel implements HasFunction {
         $this->altIcon = intval($altIcon);
     }
 
-    /** @return ChannelIcon|null */
+    /** @return UserIcon|null */
     public function getUserIcon() {
         return $this->userIcon;
     }
 
-    /** @param ChannelIcon|null $userIcon */
+    /** @param UserIcon|null $userIcon */
     public function setUserIcon($userIcon) {
         $this->userIcon = $userIcon;
     }

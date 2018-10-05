@@ -67,7 +67,7 @@
         mounted() {
             if (this.icon) {
                 for (let index = 0; index < this.possibleStates.length; index++) {
-                    this.previews.push(`/api/channel-icons/${this.icon.id}/${index}?access_token=${this.$user.getFilesDownloadToken()}`);
+                    this.previews.push(`/api/user-icons/${this.icon.id}/${index}?access_token=${this.$user.getFilesDownloadToken()}`);
                 }
             }
         },
@@ -105,13 +105,13 @@
                 if (this.icon) {
                     formData.append('sourceIcon', this.icon.id);
                 }
-                this.$http.post('channel-icons', formData)
+                this.$http.post('user-icons', formData)
                     .then((response) => this.$emit('created', response.body))
                     .finally(() => this.uploading = false);
             },
             deleteIcon() {
                 this.uploading = true;
-                this.$http.delete('channel-icons/' + this.icon.id)
+                this.$http.delete('user-icons/' + this.icon.id)
                     .then(() => this.$emit('cancel'))
                     .finally(() => this.uploading = false);
             }

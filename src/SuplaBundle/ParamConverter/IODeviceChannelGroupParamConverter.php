@@ -4,9 +4,9 @@ namespace SuplaBundle\ParamConverter;
 use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Repository\ChannelIconRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
+use SuplaBundle\Repository\UserIconRepository;
 
 class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
     use CurrentUserAware;
@@ -15,17 +15,17 @@ class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
     private $locationRepository;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
-    /** @var ChannelIconRepository */
-    private $channelIconRepository;
+    /** @var UserIconRepository */
+    private $userIconRepository;
 
     public function __construct(
         LocationRepository $locationRepository,
         IODeviceChannelRepository $channelRepository,
-        ChannelIconRepository $channelIconRepository
+        UserIconRepository $userIconRepository
     ) {
         $this->locationRepository = $locationRepository;
         $this->channelRepository = $channelRepository;
-        $this->channelIconRepository = $channelIconRepository;
+        $this->userIconRepository = $userIconRepository;
     }
 
     public function getConvertedClass(): string {
@@ -48,7 +48,7 @@ class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
         $channelGroup = new IODeviceChannelGroup($user, $location, $channels);
         if (isset($data['userIconId']) && $data['userIconId']) {
             $user = $this->getCurrentUserOrThrow();
-            $icon = $this->channelIconRepository->findForUser($user, $data['userIconId']);
+            $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
             Assertion::eq($icon->getFunction()->getId(), $channelGroup->getFunction()->getId(), 'Chosen user icon is for other function.');
             $channelGroup->setUserIcon($icon);
         }

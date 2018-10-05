@@ -25,30 +25,30 @@ use Gumlet\ImageResize;
 use Gumlet\ImageResizeException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\ChannelIcon;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\UserIcon;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\Transactional;
-use SuplaBundle\Repository\ChannelIconRepository;
+use SuplaBundle\Repository\UserIconRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChannelIconController extends RestController {
+class UserIconController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    /** @var ChannelIconRepository */
-    private $channelIconRepository;
+    /** @var UserIconRepository */
+    private $userIconRepository;
 
-    public function __construct(ChannelIconRepository $channelIconRepository) {
-        $this->channelIconRepository = $channelIconRepository;
+    public function __construct(UserIconRepository $userIconRepository) {
+        $this->userIconRepository = $userIconRepository;
     }
 
     /**
      * @Security("has_role('ROLE_CHANNELS_RW')")
-     * @Rest\Post("/channel-icons")
+     * @Rest\Post("/user-icons")
      */
     public function postIconAction(Request $request) {
         $files = $request->files;
@@ -56,9 +56,9 @@ class ChannelIconController extends RestController {
         /** @var ChannelFunction $function */
         $function = ChannelFunction::fromString($request->get('function', ''));
         $sourceIcon = $request->get('sourceIcon');
-        $icon = new ChannelIcon($this->getUser(), $function);
+        $icon = new UserIcon($this->getUser(), $function);
         if ($sourceIcon) {
-            $sourceIcon = $this->channelIconRepository->findForUser($this->getUser(), $sourceIcon);
+            $sourceIcon = $this->userIconRepository->findForUser($this->getUser(), $sourceIcon);
             Assertion::eq($function->getId(), $sourceIcon->getFunction()->getId(), 'Function of the edited icons mismatch.');
         }
         $imagesCount = count($function->getPossibleVisualStates());
@@ -100,10 +100,10 @@ class ChannelIconController extends RestController {
     }
 
     /**
-     * @Rest\Get("/channel-icons")
+     * @Rest\Get("/user-icons")
      * @Security("has_role('ROLE_CHANNELS_R')")
      */
-    public function getChannelIconsAction(Request $request) {
+    public function getUserIconsAction(Request $request) {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
             $functionIds = EntityUtils::mapToIds(ChannelFunction::fromStrings(explode(',', $function)));
@@ -112,29 +112,29 @@ class ChannelIconController extends RestController {
         if (($ids = $request->get('ids')) !== null) {
             $criteria->andWhere(Criteria::expr()->in('id', explode(',', $ids)));
         }
-        $channels = $this->getUser()->getChannelIcons()->matching($criteria);
+        $channels = $this->getUser()->getUserIcons()->matching($criteria);
         $view = $this->view($channels, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['images']);
         return $view;
     }
 
     /**
-     * @Rest\Get("/channel-icons/{channelIcon}/{imageIndex}")
-     * @Security("channelIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES')")
+     * @Rest\Get("/user-icons/{userIcon}/{imageIndex}")
+     * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES')")
      * @Cache(maxage="86400", smaxage=86400)
      */
-    public function getChannelIconImageAction(ChannelIcon $channelIcon, int $imageIndex) {
-        $image = $channelIcon->getImages()[$imageIndex];
+    public function getUserIconImageAction(UserIcon $userIcon, int $imageIndex) {
+        $image = $userIcon->getImages()[$imageIndex];
         return new Response($image);
     }
 
     /**
-     * @Rest\Delete("/channel-icons/{channelIcon}")
-     * @Security("channelIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Rest\Delete("/user-icons/{userIcon}")
+     * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
      */
-    public function deleteChannelIconAction(ChannelIcon $channelIcon) {
-        return $this->transactional(function (EntityManagerInterface $em) use ($channelIcon) {
-            $em->remove($channelIcon);
+    public function deleteUserIconAction(UserIcon $userIcon) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($userIcon) {
+            $em->remove($userIcon);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }

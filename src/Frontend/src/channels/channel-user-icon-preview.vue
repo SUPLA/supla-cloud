@@ -7,7 +7,7 @@
             @click="editIcon($event)"><i class="pe-7s-note"></i>
         </a>
         <img v-for="(state, stateIndex) in icon.function.possibleVisualStates"
-            :src="`/api/channel-icons/${icon.id}/${stateIndex}?access_token=${$user.getFilesDownloadToken()}`"
+            :src="`/api/user-icons/${icon.id}/${stateIndex}?access_token=${$user.getFilesDownloadToken()}`"
             v-show="stateIndex == shownIndex">
     </div>
 </template>
