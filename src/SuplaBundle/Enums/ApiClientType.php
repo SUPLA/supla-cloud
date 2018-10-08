@@ -24,6 +24,7 @@ use MyCLabs\Enum\Enum;
  * @method static ApiClientType CLIENT_APP()
  * @method static ApiClientType ADMIN()
  * @method static ApiClientType USER()
+ * @method static ApiClientType BROKER()
  */
 final class ApiClientType extends Enum {
     /** API Client for issuing tokens for SUPLA-Cloud webapp. */
@@ -34,4 +35,6 @@ final class ApiClientType extends Enum {
     const ADMIN = 3;
     /** API Clients created by users with provided GUI in SUPLA-Cloud webapp. */
     const USER = 4;
+    /** Public OAuth Clients created in Target Cloud with mapped clientIds, based on data given from Autodiscover. */
+    const BROKER = 5;
 }
