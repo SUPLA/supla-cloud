@@ -2,9 +2,10 @@
 namespace SuplaBundle\Model;
 
 use SuplaBundle\Exception\ApiException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RemoteSuplaServer {
+class TargetSuplaCloud {
     /** @var string */
     private $address;
     private $local;
@@ -26,6 +27,10 @@ class RemoteSuplaServer {
             'email' => $username,
             'locale' => $locale,
         ]);
+    }
+
+    public function registerUser(Request $request): array {
+
     }
 
     public function isLocal(): bool {

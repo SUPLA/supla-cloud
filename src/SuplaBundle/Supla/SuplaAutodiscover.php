@@ -18,7 +18,7 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Entity\User;
-use SuplaBundle\Model\RemoteSuplaServer;
+use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,24 +40,24 @@ abstract class SuplaAutodiscover {
 
     abstract protected function remoteRequest($endpoint, $post = false);
 
-    public function getAuthServerForUser(string $username): RemoteSuplaServer {
+    public function getAuthServerForUser(string $username): TargetSuplaCloud {
         $domainFromAutodiscover = false;
         if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
             $result = $this->remoteRequest('/users/' . urlencode($username));
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
         }
         $serverUrl = $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
-        return new RemoteSuplaServer($serverUrl, !$domainFromAutodiscover);
+        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover);
     }
 
-    public function getRegisterServerForUser(string $username, Request $request): RemoteSuplaServer {
+    public function getRegisterServerForUser(string $username, Request $request): TargetSuplaCloud {
         $domainFromAutodiscover = false;
         if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
             $result = $this->remoteRequest('/servers/' . urlencode($username) . '?ip=' . urlencode($request->getClientIp()));
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
         }
         $serverUrl = $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
-        return new RemoteSuplaServer($serverUrl, !$domainFromAutodiscover);
+        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover);
     }
 
     public function userExists($username) {

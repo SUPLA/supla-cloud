@@ -20,7 +20,7 @@ namespace SuplaBundle\Supla;
 use SuplaBundle\Exception\ApiException;
 use Symfony\Component\HttpFoundation\Response;
 
-class SuplaAutodisoverReal extends SuplaAutodiscover {
+class SuplaAutodiscoverReal extends SuplaAutodiscover {
     protected function remoteRequest($endpoint, $post = false) {
         if (!$this->enabled()) {
             return null;
