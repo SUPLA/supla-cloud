@@ -18,57 +18,66 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Entity\User;
-use SuplaBundle\Exception\ApiException;
-use Symfony\Component\HttpFoundation\Response;
+use SuplaBundle\Model\RemoteSuplaServer;
+use SuplaBundle\Model\UserManager;
+use Symfony\Component\HttpFoundation\Request;
 
-class SuplaAutodiscover {
+abstract class SuplaAutodiscover {
+    protected $autodiscoverUrl = null;
+    private $suplaUrl;
+    /** @var UserManager */
+    private $userManager;
 
-    protected $server = null;
-
-    private function remoteRequest($endpoint, $post = false) {
-
-        if (!$this->enabled()) {
-            return null;
-        }
-
-        $options = [
-            'http' => [ // use key 'http' even if you send the request to https://...
-                'header' => "Content-type: application/json\r\n",
-                'method' => $post ? 'POST' : 'GET',
-                'content' => json_encode($post),
-            ],
-        ];
-
-        $context = stream_context_create($options);
-
-        $result = @file_get_contents("https://" . $this->server . $endpoint, false, $context);
-
-        if ($result) {
-            $result = json_decode($result, true);
-        } elseif (preg_match("/^HTTP\/1\.1\ 404/", @$http_response_header[0])) {
-            return false;
-        } else {
-            throw new ApiException('Service temporarily unavailable.', Response::HTTP_SERVICE_UNAVAILABLE);
-        }
-
-        return $result;
-    }
-
-    public function __construct($server) {
-        $this->server = $server;
+    public function __construct($autodiscoverUrl, string $suplaUrl, UserManager $userManager) {
+        $this->autodiscoverUrl = $autodiscoverUrl;
+        $this->suplaUrl = $suplaUrl;
+        $this->userManager = $userManager;
     }
 
     public function enabled(): bool {
-        return $this->server && strlen($this->server) > 0;
+        return !!$this->autodiscoverUrl;
     }
 
-    public function findServer($username) {
-        $result = $this->remoteRequest('/users/' . urlencode($username));
+    abstract protected function remoteRequest($endpoint, $post = false);
 
+    public function getAuthServerForUser(string $username): RemoteSuplaServer {
+        $domainFromAutodiscover = false;
+        if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
+            $result = $this->remoteRequest('/users/' . urlencode($username));
+            $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+        }
+        $serverUrl = $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
+        return new RemoteSuplaServer($serverUrl, !$domainFromAutodiscover);
+    }
+
+    public function getRegisterServerForUser(string $username, Request $request): RemoteSuplaServer {
+        $domainFromAutodiscover = false;
+        if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
+            $result = $this->remoteRequest('/servers/' . urlencode($username) . '?ip=' . urlencode($request->getClientIp()));
+            $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+        }
+        $serverUrl = $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
+        return new RemoteSuplaServer($serverUrl, !$domainFromAutodiscover);
+    }
+
+    public function userExists($username) {
+        if ($username) {
+            if ($this->userManager->userByEmail($username)) {
+                return true;
+            }
+            if ($this->enabled()) {
+                $authServer = $this->getAuthServerForUser($username);
+                return !$authServer->isLocal();
+            }
+        }
+        return false;
+    }
+
+    public function findServer(string $username) {
+        $result = $this->remoteRequest('/users/' . urlencode($username));
         if ($result && strlen(@$result['server']) > 0) {
             return $result['server'];
         }
-
         return $result;
     }
 

@@ -8,4 +8,3 @@ services:
   api_manager: '@SuplaBundle\Model\APIManager'
   user_manager: '@SuplaBundle\Model\UserManager'
   supla_mailer: '@SuplaBundle\Mailer\SuplaMailer'
-  supla_autodiscover: '@SuplaBundle\Supla\SuplaAutodiscover'

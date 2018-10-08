@@ -25,7 +25,7 @@ use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Repository\ApiClientRepository;
-use SuplaBundle\Supla\ServerList;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
@@ -40,23 +40,23 @@ class TokenController extends RestController {
     private $router;
     /** @var ApiClientRepository */
     private $apiClientRepository;
-    /** @var ServerList */
-    private $serverList;
     /** @var FailedAuthAttemptsUserBlocker */
     private $failedAuthAttemptsUserBlocker;
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
 
     public function __construct(
         SuplaOAuth2 $server,
         RouterInterface $router,
         ApiClientRepository $apiClientRepository,
-        ServerList $serverList,
-        FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker
+        FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
+        SuplaAutodiscover $autodiscover
     ) {
         $this->server = $server;
         $this->router = $router;
         $this->apiClientRepository = $apiClientRepository;
-        $this->serverList = $serverList;
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
+        $this->autodiscover = $autodiscover;
     }
 
     /** @Rest\Post("/webapp-auth") */
@@ -65,7 +65,7 @@ class TokenController extends RestController {
         $password = $request->get('password');
         Assertion::notBlank($username, 'Username is required.');
         Assertion::notEmpty($password, 'Password is required.');
-        $server = $this->serverList->getAuthServerForUser($username);
+        $server = $this->autodiscover->getAuthServerForUser($username);
         if ($server->isLocal()) {
             return $this->issueTokenForWebappAction($request);
         } else {

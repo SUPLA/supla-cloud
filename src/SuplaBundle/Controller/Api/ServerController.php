@@ -19,20 +19,12 @@ namespace SuplaBundle\Controller\Api;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Supla\ServerList;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ServerController extends RestController {
     use SuplaServerAware;
-
-    /** @var ServerList */
-    private $serverList;
-
-    public function __construct(ServerList $serverList) {
-        $this->serverList = $serverList;
-    }
 
     /** @Get("/server-info") */
     public function getServerInfoAction(Request $request) {

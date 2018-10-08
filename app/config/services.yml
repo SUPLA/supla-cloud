@@ -67,13 +67,8 @@ services:
     $socketPath: '%supla_server_socket%'
     $serverName: '%supla_server%'
 
-  SuplaBundle\Supla\SuplaAutodiscover:
-    $server: "%supla_autodiscover_server%"
-
-  SuplaBundle\Supla\ServerList:
-    $suplaUrl: "%supla_url%"
-    $suplaProtocol: "%supla_protocol%"
-    $new_account_server_list: "%new_account_server_list%"
+  SuplaBundle\Supla\SuplaAutodisoverReal:
+    $autodiscoverUrl: "%supla_autodiscover_server%"
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
     arguments:

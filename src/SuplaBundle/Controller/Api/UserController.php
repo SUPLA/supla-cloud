@@ -31,7 +31,7 @@ use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
-use SuplaBundle\Supla\ServerList;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -39,16 +39,17 @@ class UserController extends RestController {
     use Transactional;
     use AuditAware;
 
-    private $serverList;
     /** @var UserManager */
     private $userManager;
     /** @var AuditEntryRepository */
     private $auditEntryRepository;
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
 
-    public function __construct(ServerList $serverList, UserManager $userManager, AuditEntryRepository $auditEntryRepository) {
-        $this->serverList = $serverList;
+    public function __construct(UserManager $userManager, AuditEntryRepository $auditEntryRepository, SuplaAutodiscover $autodiscover) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
+        $this->autodiscover = $autodiscover;
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
@@ -151,7 +152,7 @@ class UserController extends RestController {
         Assertion::email($username, 'Please fill a valid email address');
 
         $remoteServer = '';
-        $exists = $this->serverList->userExists($username, $remoteServer);
+        $exists = $this->autodiscover->userExists($username, $remoteServer);
         Assertion::false($exists, 'Email already exists');
 
         if ($exists === null) {
@@ -185,8 +186,8 @@ class UserController extends RestController {
         $user->fill($data);
 
         $this->userManager->create($user);
-        if ($this->serverList->getAutodiscover()->enabled()) {
-            $this->serverList->getAutodiscover()->registerUser($user);
+        if ($this->autodiscover->enabled()) {
+            $this->autodiscover->registerUser($user);
         }
 
         // send email
@@ -220,7 +221,7 @@ class UserController extends RestController {
         $username = $data['email'] ?? '';
         if (preg_match('/@/', $username) || $token) {
             if ($request->getMethod() == Request::METHOD_PATCH) {
-                $server = $this->serverList->getAuthServerForUser($username);
+                $server = $this->autodiscover->getAuthServerForUser($username);
                 list(, $status) = $server->resetPasswordToken($username, $request->getLocale());
                 Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.');
             } elseif ($request->getMethod() == Request::METHOD_POST) {
