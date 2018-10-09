@@ -69,6 +69,7 @@ services:
 
   SuplaBundle\Supla\SuplaAutodiscoverReal:
     $autodiscoverUrl: "%supla_autodiscover_server%"
+    $suplaUrl: "%supla_url%"
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
     arguments:

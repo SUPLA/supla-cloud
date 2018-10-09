@@ -96,7 +96,7 @@ class DirectLink {
 
     /**
      * @ORM\Column(name="last_used", type="utcdatetime", nullable=true)
-     * @Groups({"basic", "flat"})
+     * @Groups({"basic"})
      */
     private $lastUsed;
 
