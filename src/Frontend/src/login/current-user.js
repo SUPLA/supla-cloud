@@ -19,6 +19,7 @@ export class CurrentUser {
         const serverUrl = Base64.decode((this.getToken() || '').split('.')[1] || '');
         Vue.http.options.root = serverUrl + Vue.config.external.baseUrl + '/api';
         moment.tz.setDefault(this.userData && this.userData.timezone || undefined);
+        return this.userData;
     }
 
     authenticate(username, password) {
@@ -55,6 +56,7 @@ export class CurrentUser {
             .then(response => {
                 this.username = response.body.email;
                 this.userData = response.body;
+                return this.userData;
             })
             .catch(response => {
                 if (response.status == 401) {

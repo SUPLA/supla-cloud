@@ -117,6 +117,7 @@
                     email: this.username,
                     password: this.password,
                     timezone: this.timezone,
+                    locale: this.$i18n.locale,
                     regulationsAgreed: this.regulationsAgreed
                 };
                 if (this.captchaEnabled) {

@@ -21,9 +21,6 @@ services:
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
 
-  SuplaBundle\EventListener\LocaleListener:
-    - "%kernel.default_locale%"
-
   SuplaBundle\Form\Type\ChannelFunctionType:
     tags:
       - { alias: channelfunction, name: form.type }
@@ -116,6 +113,7 @@ services:
     $mailer_from: "%mailer_from%"
     $email_admin: "%admin_email%"
     $supla_server: "%supla_server%"
+    $locale: "%locale%"
 
   twig.extension.intl:
     class: Twig_Extensions_Extension_Intl

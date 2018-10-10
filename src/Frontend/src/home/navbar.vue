@@ -102,15 +102,16 @@
                             </router-link>
                             <li class="divider"></li>
                             <li class="flags"
-                                v-for="flagsRow in [['en', 'pl', 'cs', 'lt', 'ru'], ['de', 'it', 'pt', 'es', 'fr']]">
-                                <router-link :to="{query: { lang: flag }}"
-                                    v-for="flag in flagsRow"
-                                    :key="flag"
-                                    :title="flag | toUpperCase"
-                                    :class="(currentLocale == flag ? 'active' : '')"
-                                    @click.native="reloadPage()">
-                                    <img :src="`assets/img/flags/${flag}.svg` | withBaseUrl">
-                                </router-link>
+                                v-for="(localesRow, index) in locales"
+                                :key="index">
+                                <a v-for="locale in localesRow"
+                                    :key="locale.value"
+                                    :title="locale.text"
+                                    :class="($i18n.locale == locale.value ? 'active' : '')"
+                                    class="link">
+                                    <img :src="`assets/img/flags/${locale.value}.svg` | withBaseUrl"
+                                        @click="setLocale(locale.value)">
+                                </a>
                             </li>
                             <li class="divider"></li>
                             <li class="bottom">
@@ -140,9 +141,19 @@
 
     export default {
         components: {SuplaLogo},
+        computed: {
+            locales() {
+                let half = Math.ceil(Vue.config.availableLanguages.length / 2);
+                return [
+                    Vue.config.availableLanguages.slice(0, half),
+                    Vue.config.availableLanguages.slice(half),
+                ];
+            }
+        },
         methods: {
-            reloadPage() {
-                window.location.assign(window.location.toString());
+            setLocale(lang) {
+                this.$setLocale(lang);
+                this.$updateUserLocale(lang);
             },
             subIsActive(input) {
                 const paths = Array.isArray(input) ? input : [input];
@@ -153,12 +164,6 @@
             logout() {
                 this.$user.forget();
                 this.$router.push({name: 'login'});
-            }
-
-        },
-        computed: {
-            currentLocale() {
-                return Vue.config.external.locale;
             }
         }
     };
@@ -254,7 +259,7 @@
             }
             .flags {
                 text-align: center;
-                a {
+                .link {
                     display: inline-block;
                     padding: 3px;
                     &.active {

@@ -2,16 +2,10 @@
     <div>
         <select v-model="locale"
             @change="updateLocale()">
-            <option value="en">English</option>
-            <option value="pl">Polski</option>
-            <option value="cs">Čeština</option>
-            <option value="lt">Lietuvių</option>
-            <option value="ru">Русский</option>
-            <option value="de">Deutsch</option>
-            <option value="it">Italiano</option>
-            <option value="pt">Português</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
+            <option
+                v-for="locale in locales"
+                :key="locale.value"
+                :value="locale.value">{{ locale.text }}</option>
         </select>
     </div>
 </template>
@@ -25,32 +19,17 @@
                 locale: ''
             };
         },
+        computed: {
+            locales() {
+                return Vue.config.availableLanguages;
+            }
+        },
         mounted() {
-            this.locale = Vue.config.external.locale;
+            this.locale = this.$i18n.locale;
         },
         methods: {
             updateLocale() {
-                this.safeInsertGetParamToUrl('lang', this.locale);
-            },
-            // idea based on https://stackoverflow.com/a/487049/878514
-            safeInsertGetParamToUrl(key, value) {
-                key = encodeURI(key);
-                value = encodeURI(value);
-                const kvp = document.location.search.substr(1).split('&');
-                let i = kvp.length;
-                let x;
-                while (i--) {
-                    x = kvp[i].split('=');
-                    if (x[0] == key) {
-                        x[1] = value;
-                        kvp[i] = x.join('=');
-                        break;
-                    }
-                }
-                if (i < 0) {
-                    kvp[kvp.length] = [key, value].join('=');
-                }
-                document.location.search = kvp.join('&');
+                this.$setLocale(this.locale);
             }
         }
     };
