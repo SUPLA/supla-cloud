@@ -1,3 +1,7 @@
+oauthAuthorize:
+  resource: "@SuplaBundle/Controller/AuthorizeOAuthController.php"
+  type: annotation
+
 supla_default:
   resource: "@SuplaBundle/Controller/DefaultController.php"
   type: annotation

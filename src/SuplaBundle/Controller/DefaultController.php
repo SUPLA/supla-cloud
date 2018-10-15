@@ -19,20 +19,11 @@ namespace SuplaBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends Controller {
-    /** @var FailedAuthAttemptsUserBlocker */
-    private $failedAuthAttemptsUserBlocker;
-
-    public function __construct(FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker) {
-        $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
-    }
-
     /**
      * @Route("/auth/create", name="_auth_create")
      * @Route("/account/create", name="_account_create")
@@ -43,32 +34,6 @@ class DefaultController extends Controller {
             return $this->redirectToRoute('_homepage');
         }
         return $this->redirectToRoute('_register', ['lang' => $request->getLocale()]);
-    }
-
-    /**
-     * @Route("/oauth-authorize", name="_oauth_login")
-     * @Route("/oauth/v2/auth_login", name="_oauth_login_check")
-     * @Template()
-     */
-    public function oAuthLoginAction(Request $request) {
-        $session = $request->getSession();
-
-        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
-        } else {
-            $error = $session->get(Security::AUTHENTICATION_ERROR);
-            $session->remove(Security::AUTHENTICATION_ERROR);
-        }
-
-        $lastUsername = $session->get(Security::LAST_USERNAME);
-        if ($error) {
-            $error = 'error';
-            if ($lastUsername && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername)) {
-                $error = 'locked';
-            }
-        }
-
-        return ['last_username' => $lastUsername, 'error' => $error];
     }
 
     /**

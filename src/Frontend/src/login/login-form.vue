@@ -20,13 +20,12 @@
                     class="form-control">
             </span>
         </div>
-        <div class="form-group form-group-lg">
+        <div class="form-group form-group-lg login-password">
             <span class="input-group">
                 <span class="input-group-addon">
                     <span class="pe-7s-lock"></span>
                 </span>
                 <input type="password"
-                    required
                     :placeholder="$t('Password')"
                     name="_password"
                     v-model="password"
@@ -42,7 +41,7 @@
                 @click="$emit('input', {username: username, password: password})"
                 :disabled="authenticating">
                 <span v-if="!authenticating">
-                    {{ $t('Sign In') }}
+                    {{ $t(buttonText) }}
                 </span>
                 <button-loading-dots v-else></button-loading-dots>
             </button>
@@ -81,16 +80,18 @@
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
 
     export default {
-        props: ['authenticating', 'error', 'value', 'intitialUsername'],
+        props: ['authenticating', 'error', 'value', 'intitialUsername', 'submitButtonText'],
         components: {ButtonLoadingDots},
         data() {
             return {
                 username: '',
                 password: '',
+                buttonText: '',
             };
         },
         mounted() {
             this.username = this.intitialUsername || '';
+            this.buttonText = this.submitButtonText || 'Sign In';
         }
     };
 </script>
