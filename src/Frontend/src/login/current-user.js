@@ -16,7 +16,7 @@ export class CurrentUser {
 
     synchronizeAuthState() {
         Vue.http.headers.common['Authorization'] = this.getToken() ? 'Bearer ' + this.getToken() : undefined;
-        const serverUrl = Base64.decode((this.getToken() || '').split('.')[1] || '');
+        const serverUrl = Base64.decode((this.getToken() || '').split('.')[1] || '') || Vue.config.external.suplaUrl;
         Vue.http.options.root = serverUrl + Vue.config.external.baseUrl + '/api';
         moment.tz.setDefault(this.userData && this.userData.timezone || undefined);
         return this.userData;

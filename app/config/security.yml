@@ -9,11 +9,11 @@ security:
 
   firewalls:
     oauth_token:
-      pattern:    ^/oauth/v2/token
-      security:   false
+      pattern: ^/oauth/v2/token
+      security: false
 
     oauth_authorize:
-      pattern:    ^/oauth/v2/auth
+      pattern: ^/oauth/v2/auth
       form_login:
         provider: supla_db_provider
         check_path: _oauth_login_check

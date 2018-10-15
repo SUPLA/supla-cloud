@@ -20,11 +20,27 @@ namespace SuplaBundle\Supla;
 use SuplaBundle\Model\UserManager;
 
 class SuplaAutodiscoverMock extends SuplaAutodiscover {
+    const SECONDARY_INSTANCE = 'localhost:81';
+
     public function __construct(UserManager $userManager) {
-        parent::__construct('mocked-autodiscover', 'http://supla.local', $userManager);
+        parent::__construct(self::SECONDARY_INSTANCE ? 'mocked-autodiscover' : false, 'http', 'http://supla.local', $userManager);
     }
 
     protected function remoteRequest($endpoint, $post = false) {
+        if (preg_match('#/users/(.+)#', $endpoint, $match)) {
+            $server = $this->getServerForUsername(urldecode($match[1]));
+            if ($server) {
+                return ['server' => $server];
+            }
+        } elseif (preg_match('#/new-account-server/#', $endpoint)) {
+            return ['server' => self::SECONDARY_INSTANCE];
+        }
         return false;
+    }
+
+    private function getServerForUsername($username) {
+        if (strpos($username, 'user2')) {
+            return self::SECONDARY_INSTANCE;
+        }
     }
 }

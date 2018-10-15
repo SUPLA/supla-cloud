@@ -135,9 +135,23 @@ class UserController extends RestController {
     }
 
     /**
+     * @Rest\Post("/register-account")
+     */
+    public function routeAccountCreateAction(Request $request) {
+        $server = $this->autodiscover->getRegisterServerForUser($request);
+        if ($server->isLocal()) {
+            return $this->accountCreateAction($request);
+        } else {
+            list($response, $status) = $server->registerUser($request);
+            return $this->view($response, $status);
+        }
+    }
+
+    /**
      * @Rest\Post("/register")
      */
     public function accountCreateAction(Request $request) {
+
         $regulationsRequired = $this->container->getParameter('supla_require_regulations_acceptance');
         $recaptchaEnabled = $this->container->getParameter('recaptcha_enabled');
         if ($recaptchaEnabled) {
@@ -167,7 +181,6 @@ class UserController extends RestController {
 
         $data = $request->request->all();
         Assert::that($data)
-            ->notEmptyKey('email')
             ->notEmptyKey('password')
             ->notEmptyKey('timezone');
 

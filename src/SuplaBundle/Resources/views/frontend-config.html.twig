@@ -1,5 +1,6 @@
 <script>
     window.FRONTEND_CONFIG = {
+        suplaUrl: '{{ app.request.getSchemeAndHttpHost() }}',
         baseUrl: '{{ path('_homepage')[:-1] }}',
         serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
         renderStart: new Date(),

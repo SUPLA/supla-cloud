@@ -125,7 +125,7 @@
                 }
 
                 this.isBusy = true;
-                this.$http.post('register', data).then(({body}) => {
+                this.$http.post('register-account', data).then(({body}) => {
                     this.isBusy = false;
                     this.$emit('registered', body.email);
                 }).catch(({body}) => {

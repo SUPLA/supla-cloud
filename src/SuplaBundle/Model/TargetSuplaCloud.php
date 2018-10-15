@@ -30,7 +30,7 @@ class TargetSuplaCloud {
     }
 
     public function registerUser(Request $request): array {
-
+        return $this->postRequest('register', $request->request->all());
     }
 
     public function isLocal(): bool {

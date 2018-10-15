@@ -27,11 +27,14 @@ abstract class SuplaAutodiscover {
     private $suplaUrl;
     /** @var UserManager */
     private $userManager;
+    /** @var string */
+    private $suplaProtocol;
 
-    public function __construct($autodiscoverUrl, string $suplaUrl, UserManager $userManager) {
+    public function __construct($autodiscoverUrl, string $suplaProtocol, string $suplaUrl, UserManager $userManager) {
         $this->autodiscoverUrl = $autodiscoverUrl;
         $this->suplaUrl = $suplaUrl;
         $this->userManager = $userManager;
+        $this->suplaProtocol = $suplaProtocol;
     }
 
     public function enabled(): bool {
@@ -42,22 +45,22 @@ abstract class SuplaAutodiscover {
 
     public function getAuthServerForUser(string $username): TargetSuplaCloud {
         $domainFromAutodiscover = false;
-        if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
+        if (!$this->userManager->userByEmail($username) && filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
             $result = $this->remoteRequest('/users/' . urlencode($username));
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
         }
-        $serverUrl = $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
-        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover);
+        $serverUrl = $domainFromAutodiscover ? $this->suplaProtocol . '://' . $domainFromAutodiscover : $this->suplaUrl;
+        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover || $domainFromAutodiscover == $this->suplaUrl);
     }
 
-    public function getRegisterServerForUser(string $username, Request $request): TargetSuplaCloud {
+    public function getRegisterServerForUser(Request $request): TargetSuplaCloud {
         $domainFromAutodiscover = false;
-        if (filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
-            $result = $this->remoteRequest('/servers/' . urlencode($username) . '?ip=' . urlencode($request->getClientIp()));
+        if ($this->enabled()) {
+            $result = $this->remoteRequest('/new-account-server/' . urlencode($request->getClientIp()));
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
         }
-        $serverUrl = $domainFromAutodiscover ? 'https://' . $domainFromAutodiscover : $this->suplaUrl;
-        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover);
+        $serverUrl = $domainFromAutodiscover ? $this->suplaProtocol . '://' . $domainFromAutodiscover : $this->suplaUrl;
+        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover || $domainFromAutodiscover == $this->suplaUrl);
     }
 
     public function userExists($username) {
@@ -71,14 +74,6 @@ abstract class SuplaAutodiscover {
             }
         }
         return false;
-    }
-
-    public function findServer(string $username) {
-        $result = $this->remoteRequest('/users/' . urlencode($username));
-        if ($result && strlen(@$result['server']) > 0) {
-            return $result['server'];
-        }
-        return $result;
     }
 
     public function registerUser(User $user) {
