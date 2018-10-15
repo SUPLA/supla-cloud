@@ -26,7 +26,6 @@ use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\EventListener\LocaleListener;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\Transactional;
@@ -85,6 +84,13 @@ class UserController extends RestController {
                 } catch (\Exception $e) {
                     throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
                 }
+            } elseif ($data['action'] == 'change:userLocale') {
+                Assertion::inArray(
+                    $data['locale'],
+                    ['en', 'pl', 'cs', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr'],
+                    'Language is not available'
+                );
+                $user->setLocale($data['locale']);
             } elseif ($data['action'] == 'change:password') {
                 $this->assertNotApiUser();
                 $newPassword = $data['newPassword'] ?? '';
@@ -218,10 +224,6 @@ class UserController extends RestController {
                 list(, $status) = $server->resetPasswordToken($username, $request->getLocale());
                 Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.');
             } elseif ($request->getMethod() == Request::METHOD_POST) {
-                if (LocaleListener::localeAllowed($data['locale'] ?? null)) {
-                    $request->getSession()->set('_locale', $data['locale']);
-                    $request->setLocale($data['locale']);
-                }
                 $user = $this->userManager->userByEmail($username);
                 if ($user && $this->userManager->paswordRequest($user) === true) {
                     $mailer = $this->get('supla_mailer');

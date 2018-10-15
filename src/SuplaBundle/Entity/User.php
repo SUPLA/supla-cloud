@@ -223,6 +223,12 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $cookiesAgreement = false;
 
     /**
+     * @ORM\Column(name="locale", type="string", length=5, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $locale = false;
+
+    /**
      * @ORM\Column(name="oauth_compat_username", type="string", length=64, nullable=true,
      *     options={"comment":"For backward compatibility purpose"})
      * @Groups({"basic"})
@@ -615,5 +621,13 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     /** @return ApiClientAuthorization[] */
     public function getApiClientAuthorizations() {
         return $this->apiClientAuthorizations;
+    }
+
+    public function setLocale(string $locale) {
+        $this->locale = $locale;
+    }
+
+    public function getLocale(): string {
+        return $this->locale;
     }
 }

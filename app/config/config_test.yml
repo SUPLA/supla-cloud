@@ -22,6 +22,8 @@ services:
     $mailer_from: "%mailer_from%"
     $email_admin: "%admin_email%"
     $supla_server: "%supla_server%"
+    $locale: "%locale%"
+    $translator: '@translator'
   SuplaBundle\Model\TimeProvider:
     class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'

@@ -30,6 +30,15 @@
                     this.authenticating = true;
                     this.displayError = false;
                     this.$user.authenticate(this.user.username, this.user.password)
+                        .then(userData => {
+                            if (userData) {
+                                if (userData.locale) {
+                                    this.$setLocale(userData.locale);
+                                } else {
+                                    this.$updateUserLocale(this.$i18n.locale);
+                                }
+                            }
+                        })
                         .then(() => this.$router.push(this.$router.currentRoute.query.target || '/'))
                         .catch((error) => {
                             if (error.status == 401) {

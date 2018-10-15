@@ -8,8 +8,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
-
     export default {
         data() {
             return {
@@ -17,7 +15,7 @@
             };
         },
         mounted() {
-            const rulesLang = Vue.config.external.locale == 'pl' ? 'pl' : 'en';
+            const rulesLang = this.$i18n.locale == 'pl' ? 'pl' : 'en';
             this.$http.get(`/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
         }
     };

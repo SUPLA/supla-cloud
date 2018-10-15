@@ -23,6 +23,7 @@ use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SuplaMailer {
     protected $router;
@@ -31,10 +32,13 @@ class SuplaMailer {
     protected $mailer;
     protected $email_admin;
     protected $supla_server;
+    protected $default_locale;
     /**
      * @var RequestStack
      */
     private $requestStack;
+    /** @var TranslatorInterface */
+    private $translator;
 
     public function __construct(
         Router $router,
@@ -43,7 +47,9 @@ class SuplaMailer {
         RequestStack $requestStack,
         $mailer_from,
         $email_admin,
-        $supla_server
+        $supla_server,
+        $locale,
+        TranslatorInterface $translator
     ) {
         $this->router = $router;
         $this->templating = $templating;
@@ -52,6 +58,8 @@ class SuplaMailer {
         $this->mailer = $mailer;
         $this->email_admin = $email_admin;
         $this->supla_server = $supla_server;
+        $this->default_locale = $locale;
+        $this->translator = $translator;
     }
 
     private function extractSubjectAndBody($template, $params, &$subject) {
@@ -72,7 +80,9 @@ class SuplaMailer {
         return $body;
     }
 
-    private function sendEmailMessage($txtTmpl, $htmlTmpl, $fromEmail, $toEmail, $params) {
+    private function sendEmailMessage($txtTmpl, $htmlTmpl, $fromEmail, $toEmail, $params, $locale = null) {
+        $this->translator->setLocale($locale ?? $this->default_locale);
+
         $subject = null;
         $bodyHtml = $this->extractSubjectAndBody($htmlTmpl, $params, $subject);
 
@@ -95,7 +105,7 @@ class SuplaMailer {
 
     public function sendConfirmationEmailMessage(UserInterface $user) {
         $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'confirm/' . $user->getToken();
-        $url .= '?lang=' . $this->getLocale();
+        $url .= '?lang=' . $this->getLocale($user);
 
         $sent = $this->sendEmailMessage(
             'confirm.txt.twig',
@@ -105,14 +115,15 @@ class SuplaMailer {
             [
                 'user' => $user,
                 'confirmationUrl' => $url,
-            ]
+            ],
+            $user->getLocale()
         );
         return $sent > 0;
     }
 
     public function sendResetPasswordEmailMessage(UserInterface $user) {
         $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'reset-password/' . $user->getToken();
-        $url .= '?lang=' . $this->getLocale();
+        $url .= '?lang=' . $this->getLocale($user);
 
         $this->sendEmailMessage(
             'resetpwd.txt.twig',
@@ -122,7 +133,8 @@ class SuplaMailer {
             [
                 'user' => $user,
                 'confirmationUrl' => $url,
-            ]
+            ],
+            $user->getLocale()
         );
     }
 
@@ -136,7 +148,8 @@ class SuplaMailer {
             [
                 'user' => $user,
                 'supla_server' => $this->supla_server,
-            ]
+            ],
+            $user->getLocale()
         );
     }
 
@@ -160,15 +173,15 @@ class SuplaMailer {
             '',
             $this->mailer_from,
             $user->getEmail(),
-            ['user' => $user, 'ip' => is_numeric($ip) ? long2ip($ip) : '']
+            [
+                'user' => $user,
+                'ip' => is_numeric($ip) ? long2ip($ip) : '',
+            ],
+            $user->getLocale()
         );
     }
 
-    private function getLocale(): string {
-        $request = $this->requestStack->getCurrentRequest();
-        if ($request && $request->getSession() && ($locale = $request->getLocale())) {
-            return $locale;
-        }
-        return 'en';
+    private function getLocale(User $user): string {
+        return $user->getLocale() ?? $this->default_locale;
     }
 }
