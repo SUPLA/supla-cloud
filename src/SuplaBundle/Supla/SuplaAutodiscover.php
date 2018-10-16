@@ -79,4 +79,10 @@ abstract class SuplaAutodiscover {
     public function registerUser(User $user) {
         $this->remoteRequest('/users', ['email' => $user->getUsername()]);
     }
+
+    /** @return string|null */
+    public function getTargetCloudClientId(TargetSuplaCloud $targetCloud, $clientPublicId) {
+        $response = $this->remoteRequest('/mapped-client-id/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress()));
+        return $response['mapped_client_id'] ?? null;
+    }
 }

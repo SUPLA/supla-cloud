@@ -3,5 +3,6 @@
 {% block vue %}
     <router-view last-username="{{ last_username }}"
             error="{{ error }}"
-            :ask-for-target-cloud="{{ askForTargetCloud ? 'true' : 'false' }}"></router-view>
+            :ask-for-target-cloud="{{ askForTargetCloud ? 'true' : 'false' }}"
+            last-target-cloud="{{ lastTargetCloud }}"></router-view>
 {% endblock %}

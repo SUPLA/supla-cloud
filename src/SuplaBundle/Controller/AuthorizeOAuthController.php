@@ -21,10 +21,11 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
-use SuplaBundle\Repository\ApiClientRepository;
+use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 
 class AuthorizeOAuthController extends Controller {
@@ -32,10 +33,10 @@ class AuthorizeOAuthController extends Controller {
     private $failedAuthAttemptsUserBlocker;
     /** @var SuplaAutodiscover */
     private $autodiscover;
-    /** @var ApiClientRepository */
-    private $apiClientRepository;
     /** @var ClientManagerInterface */
     private $clientManager;
+
+    const LAST_TARGET_CLOUD_ADDRESS_KEY = '_lastTargetCloud';
 
     public function __construct(
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
@@ -63,7 +64,9 @@ class AuthorizeOAuthController extends Controller {
                 parse_str($match[1], $oauthParams);
             }
             if (isset($oauthParams['client_id'])) {
-                if (!$this->clientManager->findClientByPublicId($oauthParams['client_id'])) {
+                if ($request->isMethod(Request::METHOD_POST)) {
+                    return $this->handleBrokerAuth($request, $oauthParams);
+                } elseif (!$this->clientManager->findClientByPublicId($oauthParams['client_id'])) {
                     // this client does not exist. maybe it exists somewhere... lets ask for the Target Cloud!
                     $askForTargetCloud = true;
                 }
@@ -78,13 +81,48 @@ class AuthorizeOAuthController extends Controller {
         }
 
         $lastUsername = $session->get(Security::LAST_USERNAME);
-        if ($error) {
+        $lastTargetCloudAddress = $session->get(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
+        if ($error && $error != 'autodiscover_fail') {
             $error = 'error';
             if ($lastUsername && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername)) {
                 $error = 'locked';
             }
         }
 
-        return ['last_username' => $lastUsername, 'error' => $error, 'askForTargetCloud' => $askForTargetCloud];
+        return [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'askForTargetCloud' => $askForTargetCloud,
+            'lastTargetCloud' => $lastTargetCloudAddress,
+        ];
+    }
+
+    private function handleBrokerAuth(Request $request, array $oauthParams): Response {
+        $session = $request->getSession();
+        $username = $request->get('_username');
+        $targetCloud = $request->get('targetCloud', null);
+        $protocol = $this->getParameter('supla_protocol');
+        if ($targetCloud) {
+            $session->set(self::LAST_TARGET_CLOUD_ADDRESS_KEY, $targetCloud);
+            $targetCloud = new TargetSuplaCloud($protocol . '://' . $targetCloud, false);
+        } else {
+            $session->remove(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
+        }
+        if (!$targetCloud) {
+            if ($this->autodiscover->userExists($username)) {
+                $targetCloud = $this->autodiscover->getAuthServerForUser($username);
+            }
+        }
+        if ($targetCloud) {
+            $mappedClientId = $this->autodiscover->getTargetCloudClientId($targetCloud, $oauthParams['client_id']);
+            if ($mappedClientId) {
+                $oauthParams['client_id'] = $mappedClientId;
+                $redirectUrl = $targetCloud->getOauthAuthUrl($oauthParams);
+                return $this->redirect($redirectUrl);
+            }
+        }
+        $session->set(Security::LAST_USERNAME, $username);
+        $session->set(Security::AUTHENTICATION_ERROR, 'autodiscover_fail');
+        return $this->redirectToRoute('_oauth_login');
     }
 }

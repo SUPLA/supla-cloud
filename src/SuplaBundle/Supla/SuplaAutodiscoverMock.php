@@ -34,6 +34,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             }
         } elseif (preg_match('#/new-account-server/#', $endpoint)) {
             return ['server' => self::SECONDARY_INSTANCE];
+        } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint)) {
+            return ['mapped_client_id' => '2_19fmbgwtxl8ko40wgcscwg088c4wow4cw4g4ckgcsc08g088c0'];
         }
         return false;
     }

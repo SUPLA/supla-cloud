@@ -56,7 +56,7 @@
         <transition name="fade">
             <router-link to="/forgotten-password"
                 class="error"
-                v-if="error && error !== 'locked'">
+                v-if="error == 'error'">
                 <strong>{{ $t('Forgot your password?') }}</strong>
                 {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>

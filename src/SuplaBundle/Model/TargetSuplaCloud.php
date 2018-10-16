@@ -33,6 +33,14 @@ class TargetSuplaCloud {
         return $this->postRequest('register', $request->request->all());
     }
 
+    public function getOauthAuthUrl(array $oauthParams): string {
+        return sprintf('%s/oauth/v2/auth?%s', $this->address, http_build_query($oauthParams));
+    }
+
+    public function getAddress(): string {
+        return $this->address;
+    }
+
     public function isLocal(): bool {
         return $this->local;
     }
