@@ -67,6 +67,9 @@ services:
     $socketPath: '%supla_server_socket%'
     $serverName: '%supla_server%'
 
+  SuplaBundle\Supla\SuplaAutodiscoverMock:
+    $suplaProtocol: "%supla_protocol%"
+
   SuplaBundle\Supla\SuplaAutodiscoverReal:
     $autodiscoverUrl: "%supla_autodiscover_server%"
     $suplaUrl: "%supla_url%"

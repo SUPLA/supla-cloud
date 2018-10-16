@@ -20,60 +20,58 @@ namespace SuplaBundle\Supla;
 use SuplaBundle\Model\UserManager;
 
 class SuplaAutodiscoverMock extends SuplaAutodiscover {
-    const SECONDARY_INSTANCE = 'localhost:81';
+    public static $publicClients = [
+        '100_public' => [
+            'name' => 'Cool app',
+            'description' => 'This is very cool mocked public app',
+            'redirectUris' => ['https://cool.app'],
+        ],
+    ];
 
-    public function __construct(UserManager $userManager) {
-        parent::__construct(self::SECONDARY_INSTANCE ? 'mocked-autodiscover' : false, 'http', 'http://supla.local', $userManager);
+    public static $clientMapping = [
+        'http://supla.local' => [
+            '100_public' => '100_local',
+        ],
+    ];
+
+    public static $userMapping = [
+        'user@supla.org' => 'supla.local',
+        'user2@supla.org' => 'localhost:81',
+    ];
+
+    public function __construct(string $suplaProtocol, UserManager $userManager) {
+        parent::__construct(count(self::$userMapping) ? 'mocked-autodiscover' : false, $suplaProtocol, $suplaProtocol . '://supla.local', $userManager);
     }
 
     protected function remoteRequest($endpoint, $post = false, &$responseStatus = null) {
         if (preg_match('#/users/(.+)#', $endpoint, $match)) {
-            $server = $this->getServerForUsername(urldecode($match[1]));
+            $server = self::$userMapping[urldecode($match[1])] ?? null;
             if ($server) {
                 $responseStatus = 200;
                 return ['server' => $server];
             }
         } elseif (preg_match('#/new-account-server/#', $endpoint)) {
             $responseStatus = 200;
-            return ['server' => self::SECONDARY_INSTANCE];
+            return ['server' => current(self::$userMapping)];
         } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint, $match)) {
-            $mappedClientId = $this->getMappedClientId($match[1], $match[2]);
+            $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
+            $mappedClientId = $domainMaps[urldecode($match[1])] ?? null;
             if ($mappedClientId) {
                 $responseStatus = 200;
                 return ['mapped_client_id' => $mappedClientId];
             }
         } elseif (preg_match('#/mapped-client-data/(.+)/(.+)#', $endpoint, $match)) {
-            $responseStatus = 200;
-            return $this->getMappedClientData($match[1], $match[2]);
+            if ($post) {
+                $responseStatus = 204;
+                return '';
+            } else {
+                $responseStatus = 200;
+                $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
+                $publicId = array_search(urldecode($match[1]), $domainMaps);
+                return $publicId ? (self::$publicClients[$publicId] ?? []) : [];
+            }
         }
         $responseStatus = 404;
         return false;
-    }
-
-    private function getServerForUsername($username) {
-        if (strpos($username, 'user2') !== false) {
-            return self::SECONDARY_INSTANCE;
-        } elseif (strpos($username, 'user') !== false) {
-            return 'supla.local';
-        }
-    }
-
-    private function getMappedClientId($clientId, $targetCloudAddress) {
-        return [
-                '100_supla' => '100_generate',
-            ][$clientId] ?? '100_generate';
-    }
-
-    // http://localhost:81/oauth/v2/auth?client_id=2_19fmbgwtxl8ko40wgcscwg088c4wow4cw4g4ckgcsc08g088c0&redirect_uri=http%3A%2F%2Fsuplascripts.local%2Fapi%2Foauth&response_type=code&scope=account_r
-
-    private function getMappedClientData($clientId, $targetCloudAddress) {
-        $key = urldecode($clientId) . '.' . urldecode($targetCloudAddress);
-        return [
-                '100_generate.http://supla.local' => [
-                    'redirectUris' => ['http://suplascripts.local/authorize'],
-                    'name' => 'SUPLA Scripts',
-                    'description' => 'A must-have extensions of your SUPLA!',
-                ],
-            ][$key] ?? false;
     }
 }
