@@ -104,4 +104,21 @@ class SuplaOAuthStorage extends OAuthStorage {
         }
         $this->userLoginAttemptListener->onAuthenticationFailure($username, $reason);
     }
+
+    public function getClient($clientId) {
+        $client = parent::getClient($clientId);
+        if (!$client) { // maybe it exists in AD?
+            $client = new AutodiscoverPublicClientStub($clientId);
+        }
+        return $client;
+    }
+
+    public function checkClientCredentials(IOAuth2Client $client, $clientSecret = null) {
+        if ($client instanceof AutodiscoverPublicClientStub) {
+            $client->setSecret($clientSecret);
+            return true;
+        } else {
+            return parent::checkClientCredentials($client, $clientSecret);
+        }
+    }
 }

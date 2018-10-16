@@ -18,11 +18,13 @@
 namespace SuplaBundle\Tests\Integration\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use Symfony\Component\HttpFoundation\Response;
 
 class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
@@ -61,7 +63,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRedirectsToGivenTargetCloudIfAutodiscoverKnowsIt() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = '1_CBA';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC']['client_id'] = '1_CBA';
         $client = $this->createHttpsClient(false);
         $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
         $client->followRedirect();
@@ -76,7 +78,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRedirectsToTargetCloudByAutodiscoveredUsername() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = '1_CBA';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC']['client_id'] = '1_CBA';
         SuplaAutodiscoverMock::$userMapping['ala@supla.org'] = 'target.cloud';
         $client = $this->createHttpsClient(false);
         $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
@@ -91,7 +93,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
     }
 
-    public function testDisplaysErrorTargetCloudIsNotRegisteredInAd() {
+    public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
         $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
@@ -109,8 +111,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('autodiscover_fail', $askForTargetCloud);
     }
 
-    public function testCreatingNewApiClientForPublicClientInTargetCloudDuringTheFirstRequest() {
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_ABC'] = '1_CBA';
+    public function testCreatesNewApiClientForPublicClientInTargetCloudDuringTheFirstRequest() {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_ABC']['client_id'] = '1_CBA';
         SuplaAutodiscoverMock::$publicClients['1_ABC'] = [
             'name' => 'unicorn',
             'description' => 'Cool app',
@@ -127,6 +129,31 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('client_id=' . $createdClient->getPublicId(), $targetUrl);
         $this->assertEquals('Cool app', $createdClient->getDescription());
         $this->assertCount(1, $createdClient->getRedirectUris());
+    }
+
+    public function testForwardsIssueTokenRequestBasedOnAuthCode() {
+        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        $params = array_merge([
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_ABC',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://cool.app',
+            'code' => 'ABC.' . base64_encode('https://target.cloud'),
+        ]);
+        $targetCalled = false;
+        TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
+            $this->assertEquals('/oauth/v2/token', $endpoint);
+            $this->assertEquals('1_CBA', $data['client_id']);
+            $this->assertEquals('target-secret', $data['secret']);
+            $this->assertEquals($params['code'], $data['code']);
+            $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
+            $targetCalled = true;
+            return ['OK', Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertTrue($targetCalled);
     }
 
     private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://app.com/auth', $scope = 'account_r', $responseType = 'code') {

@@ -25,12 +25,13 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             'name' => 'Cool app',
             'description' => 'This is very cool mocked public app',
             'redirectUris' => ['https://cool.app'],
+            'secret' => '100-public-secret',
         ],
     ];
 
     public static $clientMapping = [
         'http://supla.local' => [
-            '100_public' => '100_local',
+            '100_public' => ['client_id' => '100_local', 'secret' => '100-local-secret'],
         ],
     ];
 
@@ -40,7 +41,12 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
     ];
 
     public function __construct(string $suplaProtocol, UserManager $userManager) {
-        parent::__construct(count(self::$userMapping) ? 'mocked-autodiscover' : false, $suplaProtocol, $suplaProtocol . '://supla.local', $userManager);
+        parent::__construct(
+            count(self::$userMapping) ? 'mocked-autodiscover' : false,
+            $suplaProtocol,
+            $suplaProtocol . '://supla.local',
+            $userManager
+        );
     }
 
     protected function remoteRequest($endpoint, $post = false, &$responseStatus = null) {
@@ -55,7 +61,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             return ['server' => current(self::$userMapping)];
         } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint, $match)) {
             $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
-            $mappedClientId = $domainMaps[urldecode($match[1])] ?? null;
+            $mapping = $domainMaps[urldecode($match[1])] ?? [];
+            $mappedClientId = $mapping['client_id'] ?? null;
             if ($mappedClientId) {
                 $responseStatus = 200;
                 return ['mapped_client_id' => $mappedClientId];
@@ -67,8 +74,18 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             } else {
                 $responseStatus = 200;
                 $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
-                $publicId = array_search(urldecode($match[1]), $domainMaps);
+                $targetMapping = array_filter($domainMaps, function ($mapping) use ($match) {
+                    return $mapping['client_id'] == urldecode($match[1]);
+                });
+                $publicId = $targetMapping ? key($targetMapping) : null;
                 return $publicId ? (self::$publicClients[$publicId] ?? []) : [];
+            }
+        } elseif (preg_match('#/mapped-client-secret/(.+)/(.+)#', $endpoint, $match)) {
+            $publicId = urldecode($match[1]);
+            $secret = $post['secret'];
+            if (isset(self::$publicClients[$publicId]) && self::$publicClients[$publicId]['secret'] == $secret) {
+                $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
+                return $domainMaps[$publicId] ?? [];
             }
         }
         $responseStatus = 404;

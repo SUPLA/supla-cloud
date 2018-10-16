@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
+use FOS\OAuthServerBundle\Model\ClientInterface;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Exception\ApiException;
@@ -103,5 +104,11 @@ abstract class SuplaAutodiscover {
         if (!in_array($responseStatus, [Response::HTTP_OK, Response::HTTP_NO_CONTENT])) {
             throw new ApiException('Autodiscover has rejected the new client data.');
         }
+    }
+
+    public function fetchTargetCloudClientSecret(ClientInterface $client, TargetSuplaCloud $targetCloud) {
+        $url = '/mapped-client-secret/' . urlencode($client->getPublicId()) . '/' . urlencode($targetCloud->getAddress());
+        $response = $this->remoteRequest($url, ['secret' => $client->getSecret()]);
+        return is_array($response) && isset($response['secret']) ? $response : false;
     }
 }

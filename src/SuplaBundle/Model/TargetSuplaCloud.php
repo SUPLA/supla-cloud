@@ -10,6 +10,12 @@ class TargetSuplaCloud {
     private $address;
     private $local;
 
+    /**
+     * For the sake of tests.
+     * @var callable
+     */
+    public static $requestExecutor;
+
     public function __construct(string $address, bool $local) {
         $this->address = $address;
         $this->local = $local;
@@ -20,6 +26,16 @@ class TargetSuplaCloud {
             'username' => $username,
             'password' => $password,
         ]);
+    }
+
+    public function issueOAuthToken(Request $request, array $mappedClientData): array {
+        if ($request->getMethod() === 'POST') {
+            $inputData = $request->request->all();
+        } else {
+            $inputData = $request->query->all();
+        }
+        $inputData = array_merge($inputData, $mappedClientData);
+        return $this->postRequest('/oauth/v2/token', $inputData);
     }
 
     public function resetPasswordToken(string $username, string $locale): array {
@@ -46,8 +62,14 @@ class TargetSuplaCloud {
     }
 
     private function postRequest(string $apiEndpoint, array $data): array {
+        if (self::$requestExecutor) {
+            return (self::$requestExecutor)($apiEndpoint, $data);
+        }
         $content = json_encode($data);
-        $ch = curl_init($this->address . '/api/' . $apiEndpoint);
+        if (strpos($apiEndpoint, '/') !== 0) {
+            $apiEndpoint = '/api/' . $apiEndpoint;
+        }
+        $ch = curl_init($this->address . $apiEndpoint);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

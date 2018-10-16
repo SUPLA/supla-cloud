@@ -19,22 +19,34 @@ namespace SuplaBundle\Auth;
 use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
+use OAuth2\OAuth2ServerException;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ApiClientType;
+use SuplaBundle\Model\TargetSuplaCloud;
+use SuplaBundle\Supla\SuplaAutodiscover;
 
 class SuplaOAuth2 extends OAuth2 {
     /** @var string */
     private $suplaUrl;
     /** @var array */
     private $tokensLifetime;
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
 
-    public function __construct(IOAuth2Storage $storage, array $config, string $suplaUrl, array $tokensLifetime) {
+    public function __construct(
+        IOAuth2Storage $storage,
+        array $config,
+        string $suplaUrl,
+        array $tokensLifetime,
+        SuplaAutodiscover $autodiscover
+    ) {
         parent::__construct($storage, $config);
         $this->suplaUrl = $suplaUrl;
         $this->tokensLifetime = $tokensLifetime;
         $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, OAuthScope::getAllKnownScopes());
+        $this->autodiscover = $autodiscover;
     }
 
     protected function genAccessToken() {
@@ -87,5 +99,28 @@ class SuplaOAuth2 extends OAuth2 {
 
     private function randomizeTokenLifetime(int $lifetime): int {
         return $lifetime + floor($lifetime * .001 * rand(1, 100));
+    }
+
+    protected function grantAccessTokenAuthCode(IOAuth2Client $client, array $input) {
+        if ($client instanceof AutodiscoverPublicClientStub && isset($input['code'])) {
+            $code = explode('.', $input['code']);
+            if (count($code) === 2 && ($targetCloudUrl = base64_decode($code[1]))) {
+                if ($targetCloudUrl != $this->suplaUrl) {
+                    // we hit authCode as SUPLA Broker! let's verify the public client credentials now
+                    $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
+                    $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
+                    if ($mappedClientData) {
+                        throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
+                    } else {
+                        throw new OAuth2ServerException(
+                            self::HTTP_BAD_REQUEST,
+                            self::ERROR_INVALID_CLIENT,
+                            'The client credentials are invalid'
+                        );
+                    }
+                }
+            }
+        }
+        return parent::grantAccessTokenAuthCode($client, $input);
     }
 }
