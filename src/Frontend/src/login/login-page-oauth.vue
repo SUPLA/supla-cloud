@@ -4,7 +4,7 @@
         ref="loginForm"
         method="post"
         v-title="$t('Login')"
-        class="login-oauth-form">
+        :class="'login-oauth-form ' + (askForTargetCloud ? 'login-oauth-form-broker' : '')">
         <login-form :authenticating="authenticating"
             :error="error"
             :intitial-username="lastUsername"
@@ -82,7 +82,7 @@
 <style lang="scss">
     @import "../styles/variables";
 
-    .login-oauth-form {
+    .login-oauth-form-broker {
         .login-password {
             display: none;
         }

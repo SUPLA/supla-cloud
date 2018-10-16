@@ -34,15 +34,24 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             }
         } elseif (preg_match('#/new-account-server/#', $endpoint)) {
             return ['server' => self::SECONDARY_INSTANCE];
-        } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint)) {
-            return ['mapped_client_id' => '2_19fmbgwtxl8ko40wgcscwg088c4wow4cw4g4ckgcsc08g088c0'];
+        } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint, $match)) {
+            $mappedClientId = $this->getMappedClientId($match[1], $match[2]);
+            if ($mappedClientId) {
+                return ['mapped_client_id' => $mappedClientId];
+            }
         }
         return false;
     }
 
     private function getServerForUsername($username) {
-        if (strpos($username, 'user2')) {
+        if (strpos($username, 'user2') !== false) {
             return self::SECONDARY_INSTANCE;
         }
+    }
+
+    private function getMappedClientId($clientId, $targetCloudAddress) {
+        return [
+                '2_19fmbgwtxl8ko40wgcscwg088c4wow4cw4g4ckgcsc08g088c0' => '2_5yk6rgk1m0gskwkg800g8wc8o0g4o800sookgwc0g084ks8480',
+            ][$clientId] ?? null;
     }
 }
