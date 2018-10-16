@@ -18,8 +18,11 @@
 namespace SuplaBundle\Controller;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use OAuth2\OAuth2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -56,6 +59,7 @@ class AuthorizeOAuthController extends Controller {
      */
     public function oAuthLoginAction(Request $request) {
         $session = $request->getSession();
+        $lastUsername = $session->get(Security::LAST_USERNAME);
 
         $askForTargetCloud = false;
         if ($this->autodiscover->enabled()) {
@@ -67,9 +71,15 @@ class AuthorizeOAuthController extends Controller {
                 if ($request->isMethod(Request::METHOD_POST)) {
                     return $this->handleBrokerAuth($request, $oauthParams);
                 } elseif (!$this->clientManager->findClientByPublicId($oauthParams['client_id'])) {
-                    // this client does not exist. maybe it exists somewhere... lets ask for the Target Cloud!
-                    $askForTargetCloud = true;
+                    // this client does not exist. maybe it has just been created in AD?
+                    if (!$this->fetchClientFromAutodiscover($oauthParams['client_id'])) {
+                        // this client neither exists nor AD provided it. Maybe it exists somewhere else... lets ask for the Target Cloud!
+                        $askForTargetCloud = true;
+                    }
                 }
+            }
+            if (!$lastUsername && isset($oauthParams) && isset($oauthParams['ad_username'])) {
+                $lastUsername = $oauthParams['ad_username'];
             }
         }
 
@@ -80,7 +90,6 @@ class AuthorizeOAuthController extends Controller {
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
 
-        $lastUsername = $session->get(Security::LAST_USERNAME);
         $lastTargetCloudAddress = $session->get(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
         if ($error && $error != 'autodiscover_fail') {
             $error = 'error';
@@ -117,6 +126,7 @@ class AuthorizeOAuthController extends Controller {
             $mappedClientId = $this->autodiscover->getTargetCloudClientId($targetCloud, $oauthParams['client_id']);
             if ($mappedClientId) {
                 $oauthParams['client_id'] = $mappedClientId;
+                $oauthParams['ad_username'] = $username;
                 $redirectUrl = $targetCloud->getOauthAuthUrl($oauthParams);
                 return $this->redirect($redirectUrl);
             }
@@ -124,5 +134,21 @@ class AuthorizeOAuthController extends Controller {
         $session->set(Security::LAST_USERNAME, $username);
         $session->set(Security::AUTHENTICATION_ERROR, 'autodiscover_fail');
         return $this->redirectToRoute('_oauth_login');
+    }
+
+    private function fetchClientFromAutodiscover(string $clientId) {
+        // TODO this must be authorized!
+        $clientData = $this->autodiscover->fetchTargetCloudClientData($clientId);
+        if ($clientData) {
+            /** @var ApiClient $client */
+            $client = $this->clientManager->createClient();
+            $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+            $client->setType(ApiClientType::BROKER());
+            $client->setName($clientData['name']);
+            $client->setDescription($clientData['description']);
+            $client->setRedirectUris($clientData['redirectUris']);
+            $this->clientManager->updateClient($client);
+            return $client;
+        }
     }
 }

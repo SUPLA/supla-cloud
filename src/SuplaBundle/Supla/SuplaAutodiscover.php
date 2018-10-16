@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class SuplaAutodiscover {
     protected $autodiscoverUrl = null;
+
     private $suplaUrl;
     /** @var UserManager */
     private $userManager;
@@ -84,5 +85,10 @@ abstract class SuplaAutodiscover {
     public function getTargetCloudClientId(TargetSuplaCloud $targetCloud, $clientPublicId) {
         $response = $this->remoteRequest('/mapped-client-id/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress()));
         return $response['mapped_client_id'] ?? null;
+    }
+
+    public function fetchTargetCloudClientData(string $clientId) {
+        $response = $this->remoteRequest('/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->suplaUrl));
+        return is_array($response) && isset($response['secret']) ? $response : false;
     }
 }

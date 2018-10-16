@@ -28,7 +28,7 @@ if (config.regulationsAcceptRequired) {
 
 router.beforeEach((to, from, next) => {
     if (!Vue.prototype.$user.username && !to.meta.unrestricted) {
-        next({name: 'login', query: {target: to.path}});
+        next({name: 'login', query: {target: (to.path && to.path.length > 2 ? to.path : undefined)}});
     } else if (Vue.prototype.$user.username && to.meta.onlyUnauthenticated) {
         next('/');
     } else {
