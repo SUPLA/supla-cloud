@@ -17,10 +17,13 @@
 
 namespace SuplaBundle\Supla;
 
+use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class SuplaAutodiscover {
     protected $autodiscoverUrl = null;
@@ -42,7 +45,7 @@ abstract class SuplaAutodiscover {
         return !!$this->autodiscoverUrl;
     }
 
-    abstract protected function remoteRequest($endpoint, $post = false);
+    abstract protected function remoteRequest($endpoint, $post = false, &$responseStatus = null);
 
     public function getAuthServerForUser(string $username): TargetSuplaCloud {
         $domainFromAutodiscover = false;
@@ -89,6 +92,16 @@ abstract class SuplaAutodiscover {
 
     public function fetchTargetCloudClientData(string $clientId) {
         $response = $this->remoteRequest('/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->suplaUrl));
-        return is_array($response) && isset($response['secret']) ? $response : false;
+        return is_array($response) && isset($response['name']) ? $response : false;
+    }
+
+    public function updateTargetCloudClientData(string $clientId, ApiClient $client) {
+        $this->remoteRequest('/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->suplaUrl), [
+            'clientId' => $client->getPublicId(),
+            'secret' => $client->getSecret(),
+        ], $responseStatus);
+        if (!in_array($responseStatus, [Response::HTTP_OK, Response::HTTP_NO_CONTENT])) {
+            throw new ApiException('Autodiscover has rejected the new client data.');
+        }
     }
 }

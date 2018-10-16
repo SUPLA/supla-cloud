@@ -21,7 +21,7 @@ use SuplaBundle\Exception\ApiException;
 use Symfony\Component\HttpFoundation\Response;
 
 class SuplaAutodiscoverReal extends SuplaAutodiscover {
-    protected function remoteRequest($endpoint, $post = false) {
+    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null) {
         if (!$this->enabled()) {
             return null;
         }
@@ -32,11 +32,15 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
                 'content' => json_encode($post),
             ],
         ];
+        // TODO why not curl???
         $context = stream_context_create($options);
         $result = @file_get_contents("https://" . $this->autodiscoverUrl . $endpoint, false, $context);
+        preg_match("/^HTTP\/1\.1\ (\d{3})/", @$http_response_header[0], $status);
+
+        $responseStatus = $status[1];
         if ($result) {
             $result = json_decode($result, true);
-        } elseif (preg_match("/^HTTP\/1\.1\ 404/", @$http_response_header[0])) {
+        } elseif ($responseStatus == 404) {
             return false;
         } else {
             throw new ApiException('Service temporarily unavailable.', Response::HTTP_SERVICE_UNAVAILABLE);

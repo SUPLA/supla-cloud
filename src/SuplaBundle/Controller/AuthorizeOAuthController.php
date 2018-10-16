@@ -72,7 +72,9 @@ class AuthorizeOAuthController extends Controller {
                     return $this->handleBrokerAuth($request, $oauthParams);
                 } elseif (!$this->clientManager->findClientByPublicId($oauthParams['client_id'])) {
                     // this client does not exist. maybe it has just been created in AD?
-                    if (!$this->fetchClientFromAutodiscover($oauthParams['client_id'])) {
+                    if ($redirectionToNewClient = $this->fetchClientFromAutodiscover($oauthParams)) {
+                        return $redirectionToNewClient;
+                    } else {
                         // this client neither exists nor AD provided it. Maybe it exists somewhere else... lets ask for the Target Cloud!
                         $askForTargetCloud = true;
                     }
@@ -136,9 +138,9 @@ class AuthorizeOAuthController extends Controller {
         return $this->redirectToRoute('_oauth_login');
     }
 
-    private function fetchClientFromAutodiscover(string $clientId) {
+    private function fetchClientFromAutodiscover(array $oauthParams) {
         // TODO this must be authorized!
-        $clientData = $this->autodiscover->fetchTargetCloudClientData($clientId);
+        $clientData = $this->autodiscover->fetchTargetCloudClientData($oauthParams['client_id']);
         if ($clientData) {
             /** @var ApiClient $client */
             $client = $this->clientManager->createClient();
@@ -148,7 +150,10 @@ class AuthorizeOAuthController extends Controller {
             $client->setDescription($clientData['description']);
             $client->setRedirectUris($clientData['redirectUris']);
             $this->clientManager->updateClient($client);
-            return $client;
+            $this->autodiscover->updateTargetCloudClientData($oauthParams['client_id'], $client);
+            $oauthParams['client_id'] = $client->getPublicId();
+            $redirectUrl = (new TargetSuplaCloud($this->getParameter('supla_url'), true))->getOauthAuthUrl($oauthParams);
+            return $this->redirect($redirectUrl);
         }
     }
 }

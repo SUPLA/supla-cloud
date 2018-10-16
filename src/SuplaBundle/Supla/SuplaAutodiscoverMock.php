@@ -26,22 +26,27 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         parent::__construct(self::SECONDARY_INSTANCE ? 'mocked-autodiscover' : false, 'http', 'http://supla.local', $userManager);
     }
 
-    protected function remoteRequest($endpoint, $post = false) {
+    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null) {
         if (preg_match('#/users/(.+)#', $endpoint, $match)) {
             $server = $this->getServerForUsername(urldecode($match[1]));
             if ($server) {
+                $responseStatus = 200;
                 return ['server' => $server];
             }
         } elseif (preg_match('#/new-account-server/#', $endpoint)) {
+            $responseStatus = 200;
             return ['server' => self::SECONDARY_INSTANCE];
         } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint, $match)) {
             $mappedClientId = $this->getMappedClientId($match[1], $match[2]);
             if ($mappedClientId) {
+                $responseStatus = 200;
                 return ['mapped_client_id' => $mappedClientId];
             }
         } elseif (preg_match('#/mapped-client-data/(.+)/(.+)#', $endpoint, $match)) {
+            $responseStatus = 200;
             return $this->getMappedClientData($match[1], $match[2]);
         }
+        $responseStatus = 404;
         return false;
     }
 
@@ -55,8 +60,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
 
     private function getMappedClientId($clientId, $targetCloudAddress) {
         return [
-                '2_19fmbgwtxl8ko40wgcscwg088c4wow4cw4g4ckgcsc08g088c0' => '2_5yk6rgk1m0gskwkg800g8wc8o0g4o800sookgwc0g084ks8480',
-            ][$clientId] ?? null;
+                '100_supla' => '100_generate',
+            ][$clientId] ?? '100_generate';
     }
 
     // http://localhost:81/oauth/v2/auth?client_id=2_19fmbgwtxl8ko40wgcscwg088c4wow4cw4g4ckgcsc08g088c0&redirect_uri=http%3A%2F%2Fsuplascripts.local%2Fapi%2Foauth&response_type=code&scope=account_r
@@ -64,9 +69,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
     private function getMappedClientData($clientId, $targetCloudAddress) {
         $key = urldecode($clientId) . '.' . urldecode($targetCloudAddress);
         return [
-                '2_5yk6rgk1m0gskwkg800g8wc8o0g4o800sookgwc0g084ks8480.http://supla.local' => [
-                    'clientId' => '2_19fmbgwtxl8ko40wgcscwg088c4wow4cw4g4ckgcsc08g088c0',
-                    'secret' => '1f8b0doy5h1cso48oo00os0wwokwg00w04ksgkcgosgs48g8cg',
+                '100_generate.http://supla.local' => [
                     'redirectUris' => ['http://suplascripts.local/authorize'],
                     'name' => 'SUPLA Scripts',
                     'description' => 'A must-have extensions of your SUPLA!',
