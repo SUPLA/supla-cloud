@@ -77,6 +77,11 @@ export default [
         ]
     },
     {path: '/me', component: () => import("@/home/my-supla-page")},
+    {
+        path: '/register-cloud',
+        component: () => import("@/oauth/register-target-cloud-form"),
+        meta: {bodyClass: 'yellow', unrestricted: true}
+    },
     {path: '/schedules', component: () => import("@/schedules/schedule-list/schedule-list-page"), name: 'schedules'},
     {path: '/schedules/new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new'},
     {path: '/schedules/:id', component: () => import("@/schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},

@@ -250,6 +250,7 @@ table {
 
 body.green {
   background: $supla-green;
+  color: white;
   nav.navbar-top {
     background: $supla-green;
     .navbar-brand {
@@ -268,6 +269,10 @@ body.green {
   ::-moz-selection {
     background: $supla-yellow;
     color: $supla-white;
+  }
+
+  a {
+    color: $supla-yellow;
   }
 }
 
@@ -389,3 +394,4 @@ body.warning {
 
 @import "./buttons";
 @import "./notifications";
+@import "./register";

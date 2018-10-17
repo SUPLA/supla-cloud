@@ -132,5 +132,4 @@ class SuplaOAuth2 extends OAuth2 {
             }
         }
     }
-
 }

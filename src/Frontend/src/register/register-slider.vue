@@ -25,6 +25,7 @@
     import "superslides/dist/jquery.superslides";
 
     export default {
+        props: ['texts'],
         data() {
             return {
                 slides: [
@@ -47,6 +48,9 @@
             };
         },
         mounted() {
+            if (this.texts) {
+                this.slides = this.texts;
+            }
             $('#slides').superslides({
                 animation: 'fade',
                 play: 12500,
@@ -59,6 +63,8 @@
 </script>
 
 <style lang="scss">
+    @import "../styles/variables";
+
     #slides {
         position: relative;
         width: 100%;
@@ -91,7 +97,7 @@
                 &:active,
                 &:focus,
                 &:hover {
-                    color: #fff;
+                    color: $supla-white;
                     background: transparent;
                 }
 
@@ -118,12 +124,12 @@
                     width: 40%;
 
                     h1 {
-                        color: #fff;
+                        color: $supla-white;
                         text-transform: none;
                     }
 
                     p {
-                        color: #fff;
+                        color: $supla-white;
                     }
                 }
             }
