@@ -142,12 +142,12 @@ Current Password: Текущий пароль
 New password: Новый пароль
 Change Password: Смена пароля
 Coming soon: Скоро будет
-Develop your own building automation: Разработай собственную домашнюю автоматику
-Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.: С помощью простой и доступной электроники с помощью SUPLA можно создать устройства управляющие домашней автоматикой. Двери, роллеты, гаражные ворота и калитки, розетки и лампочкм, бытовая тезника и контроль температуры станут подвластны простому прикосновению пальца.
-SUPLA everywhere!: SUPLA везде!
-One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!.: Основное достоинство проекта это простота и доступность. SUPLA дает возможность управлять своим домом в любом месте Земли где есть интернет для вашего планшета или смартфона. SUPLA проект с открытым програмным кодом и дизайном электрических схем. Вы даже можете внести свой вклад в развитие SUPLA 
-Free of charge and open!: Бесплатно и с открыто дляя всех!
-Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!: Системы Умного Дома зачастую слишком сложны и требуют монтажа во время строительства. SUPLA проста и бесплатна. Возможно построение элементов на платформах RaspberryPI, Arduino а также ESP8266 объединяя их с помощью LAN или WiFi. Присоединяйтесь к нам и постройте собственную систему автоматики своего здания!
+register-slide1-title: Разработай собственную домашнюю автоматику
+register-slide1-text: С помощью простой и доступной электроники с помощью SUPLA можно создать устройства управляющие домашней автоматикой. Двери, роллеты, гаражные ворота и калитки, розетки и лампочкм, бытовая тезника и контроль температуры станут подвластны простому прикосновению пальца.
+register-slide2-title: SUPLA везде!
+register-slide2-text: Основное достоинство проекта это простота и доступность. SUPLA дает возможность управлять своим домом в любом месте Земли где есть интернет для вашего планшета или смартфона. SUPLA проект с открытым програмным кодом и дизайном электрических схем. Вы даже можете внести свой вклад в развитие SUPLA
+register-slide3-title: Бесплатно и с открыто дляя всех!
+register-slide3-text: Системы Умного Дома зачастую слишком сложны и требуют монтажа во время строительства. SUPLA проста и бесплатна. Возможно построение элементов на платформах RaspberryPI, Arduino а также ESP8266 объединяя их с помощью LAN или WiFi. Присоединяйтесь к нам и постройте собственную систему автоматики своего здания!
 
 #inside php code
 Data saved: Данные сохранены

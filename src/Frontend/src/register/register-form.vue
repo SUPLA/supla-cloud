@@ -32,7 +32,8 @@
                     :placeholder="$t('Repeat password')"
                     v-model="confirmPassword">
 
-                <regulations-checkbox v-model="regulationsAgreed" v-if="regulationsAcceptRequired"></regulations-checkbox>
+                <regulations-checkbox v-model="regulationsAgreed"
+                    v-if="regulationsAcceptRequired"></regulations-checkbox>
 
                 <div v-if="captchaEnabled">
                     <invisible-recaptcha
@@ -113,7 +114,7 @@
                 if (this.errorMessage) {
                     return;
                 }
-                let data = {
+                const data = {
                     email: this.username,
                     password: this.password,
                     timezone: this.timezone,
@@ -125,13 +126,10 @@
                 }
 
                 this.isBusy = true;
-                this.$http.post('register-account', data).then(({body}) => {
-                    this.isBusy = false;
-                    this.$emit('registered', body.email);
-                }).catch(({body}) => {
-                    this.isBusy = false;
-                    this.errorMessage = this.$t(body.message);
-                });
+                this.$http.post('register-account', data)
+                    .then(({body}) => this.$emit('registered', body.email))
+                    .catch(({body}) => this.errorMessage = this.$t(body.message))
+                    .finally(() => this.isBusy = false);
             }
         }
     };

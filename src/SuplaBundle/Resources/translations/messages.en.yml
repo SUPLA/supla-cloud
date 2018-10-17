@@ -27,3 +27,10 @@ state-rgb_on_dim_off: RGB on, dimmer off
 state-rgb_off_dim_on: RGB off, dimmer on
 state-rgb_off_dim_off: RGB and dimmer off
 We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).: We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).
+
+register-slide1-title: Develop your own building automation
+register-slide1-text: Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.
+register-slide2-title: SUPLA everywhere!
+register-slide2-text: One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!
+register-slide3-title: Free of charge and open!
+register-slide3-text: Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!

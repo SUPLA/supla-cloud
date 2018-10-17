@@ -22,7 +22,7 @@ class TargetSuplaCloud {
     }
 
     public function issueWebappToken(string $username, string $password): array {
-        return $this->postRequest('webapp-tokens', [
+        return $this->sendRequest('webapp-tokens', [
             'username' => $username,
             'password' => $password,
         ]);
@@ -35,18 +35,18 @@ class TargetSuplaCloud {
             $inputData = $request->query->all();
         }
         $inputData = array_merge($inputData, $mappedClientData);
-        return $this->postRequest('/oauth/v2/token', $inputData);
+        return $this->sendRequest('/oauth/v2/token', $inputData);
     }
 
     public function resetPasswordToken(string $username, string $locale): array {
-        return $this->postRequest('forgotten-password', [
+        return $this->sendRequest('forgotten-password', [
             'email' => $username,
             'locale' => $locale,
         ]);
     }
 
     public function registerUser(Request $request): array {
-        return $this->postRequest('register', $request->request->all());
+        return $this->sendRequest('register', $request->request->all());
     }
 
     public function getOauthAuthUrl(array $oauthParams): string {
@@ -61,19 +61,21 @@ class TargetSuplaCloud {
         return $this->local;
     }
 
-    private function postRequest(string $apiEndpoint, array $data): array {
+    private function sendRequest(string $apiEndpoint, array $data = null): array {
         if (self::$requestExecutor) {
             return (self::$requestExecutor)($apiEndpoint, $data);
         }
-        $content = json_encode($data);
         if (strpos($apiEndpoint, '/') !== 0) {
-            $apiEndpoint = '/api/' . $apiEndpoint;
+            $apiEndpoint = '/api/v' . ApiVersions::V2_2 . '/' . $apiEndpoint;
         }
         $ch = curl_init($this->address . $apiEndpoint);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $data ? 'POST' : 'GET');
+        if ($data) {
+            $content = json_encode($data);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Content-Length: ' . strlen($content)]);
+        }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Content-Length: ' . strlen($content)]);
         $response = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if (curl_errno($ch) != 0) {
@@ -82,5 +84,14 @@ class TargetSuplaCloud {
         curl_close($ch);
         $response = json_decode($response, true);
         return [$response, $status];
+    }
+
+    public function getInfo() {
+        list($response, $status) = $this->sendRequest('server-info');
+        if ($status == 200) {
+            return $response;
+        } else {
+            return null;
+        }
     }
 }

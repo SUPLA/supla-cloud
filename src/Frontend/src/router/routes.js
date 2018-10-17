@@ -80,7 +80,7 @@ export default [
     {
         path: '/register-cloud',
         component: () => import("@/oauth/register-target-cloud-form"),
-        meta: {bodyClass: 'yellow', unrestricted: true}
+        meta: {bodyClass: 'blue', unrestricted: true}
     },
     {path: '/schedules', component: () => import("@/schedules/schedule-list/schedule-list-page"), name: 'schedules'},
     {path: '/schedules/new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new'},

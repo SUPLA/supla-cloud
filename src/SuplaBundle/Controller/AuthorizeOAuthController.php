@@ -17,14 +17,17 @@
 
 namespace SuplaBundle\Controller;
 
+use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
+use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Auth\ForwardRequestToTargetCloudException;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -176,5 +179,36 @@ class AuthorizeOAuthController extends Controller {
             $redirectUrl = (new TargetSuplaCloud($this->getParameter('supla_url'), true))->getOauthAuthUrl($oauthParams);
             return $this->redirect($redirectUrl);
         }
+    }
+
+    /**
+     * @Route("/api/register-target-cloud", methods={"POST"})
+     */
+    public function registerTargetCloudAction(Request $request) {
+        $recaptchaSecret = $this->getParameter('recaptcha_secret');
+        $gRecaptchaResponse = $request->get('captcha');
+        $recaptcha = new ReCaptcha($recaptchaSecret);
+        $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
+        Assertion::true($resp->isSuccess(), 'Captcha token is not valid.');
+
+        $email = $request->get('email');
+        Assertion::email($email, 'Please fill a valid email address');
+
+        $domain = $request->get('targetCloud');
+        $url = $this->getParameter('supla_protocol') . '://' . $domain;
+        $validDomain = filter_var($url, FILTER_VALIDATE_URL);
+        Assertion::true(!!$validDomain, 'Please provide a valid domain name for your private SUPLA Cloud');
+
+        $targetCloud = new TargetSuplaCloud($url, false);
+        $info = $targetCloud->getInfo();
+        Assertion::isArray($info, 'Could not connect to the given address. Is the SUPLA Cloud working there?');
+        Assertion::version(
+            ApiVersions::V2_3,
+            '<=',
+            $info['cloudVersion'] ?? '0.0.0',
+            'You must upgrade your private SUPLA Cloud to be at least v2.3.0.'
+        );
+
+        return $this->json(['token' => 'Aflkajdsfa.sdf897hjf28/f237d923ndasdif79963726736X=']);
     }
 }

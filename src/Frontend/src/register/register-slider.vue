@@ -26,26 +26,18 @@
 
     export default {
         props: ['texts'],
-        data() {
-            return {
-                slides: [
-                    {
-                        img: 'assets/img/1.svg',
-                        title: 'Develop your own building automation',
-                        description: 'Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.'
-                    },
-                    {
-                        img: 'assets/img/2.svg',
-                        title: 'SUPLA everywhere!',
-                        description: 'One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!.'
-                    },
-                    {
-                        img: 'assets/img/3.svg',
-                        title: 'Free of charge and open!',
-                        description: 'Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!'
-                    },
-                ]
-            };
+        computed: {
+            slides() {
+                const slides = [];
+                for (let [index, text] of this.texts.entries()) {
+                    slides.push({
+                        img: `img: 'assets/img/${index + 1}.svg`,
+                        title: `${text}-title`,
+                        description: `${text}-text`,
+                    });
+                }
+                return slides;
+            }
         },
         mounted() {
             if (this.texts) {
