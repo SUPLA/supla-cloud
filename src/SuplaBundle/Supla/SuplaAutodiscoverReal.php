@@ -25,26 +25,26 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
         if (!$this->enabled()) {
             return null;
         }
-        $options = [
-            'http' => [ // use key 'http' even if you send the request to https://...
-                'header' => "Content-type: application/json\r\n",
-                'method' => $post ? 'POST' : 'GET',
-                'content' => json_encode($post),
-            ],
-        ];
-        // TODO why not curl???
-        $context = stream_context_create($options);
-        $result = @file_get_contents("https://" . $this->autodiscoverUrl . $endpoint, false, $context);
-        preg_match("/^HTTP\/1\.1\ (\d{3})/", @$http_response_header[0], $status);
-
-        $responseStatus = $status[1];
+        $ch = curl_init('https://' . $this->autodiscoverUrl . $endpoint);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $post ? 'POST' : 'GET');
+        if ($post) {
+            $content = json_encode($post);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Content-Length: ' . strlen($content)]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        }
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $responseStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if (curl_errno($ch) != 0) {
+            throw new ApiException('Service temporarily unavailable.', Response::HTTP_SERVICE_UNAVAILABLE);
+        }
+        curl_close($ch);
         if ($result) {
-            $result = json_decode($result, true);
+            return json_decode($result, true);
         } elseif ($responseStatus == 404) {
             return false;
         } else {
             throw new ApiException('Service temporarily unavailable.', Response::HTTP_SERVICE_UNAVAILABLE);
         }
-        return $result;
     }
 }
