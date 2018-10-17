@@ -74,13 +74,13 @@ class AuthorizeOAuthController extends Controller {
                 parse_str($match[1], $oauthParams);
             }
             if (isset($oauthParams['client_id'])) {
-                if ($request->isMethod(Request::METHOD_POST)) {
+                if ($this->autodiscover->isBroker() && $request->isMethod(Request::METHOD_POST)) {
                     return $this->handleBrokerAuth($request, $oauthParams);
                 } elseif (!$this->clientManager->findClientByPublicId($oauthParams['client_id'])) {
                     // this client does not exist. maybe it has just been created in AD?
                     if ($redirectionToNewClient = $this->fetchClientFromAutodiscover($oauthParams)) {
                         return $redirectionToNewClient;
-                    } else {
+                    } else if ($this->autodiscover->isBroker()) {
                         // this client neither exists nor AD provided it. Maybe it exists somewhere else... lets ask for the Target Cloud!
                         $askForTargetCloud = true;
                     }

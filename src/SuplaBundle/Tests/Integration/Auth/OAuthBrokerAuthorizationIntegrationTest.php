@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use PHPUnit_Framework_ExpectationFailedException;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -59,6 +60,15 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
         $this->assertEquals('true', $askForTargetCloud);
+    }
+
+    public function testDisplaysNormalLoginFormIfLocalClientDoesNotExistButCloudIsNotBroker() {
+        SuplaAutodiscoverMock::$isBroker = false;
+        $client = $this->createHttpsClient();
+        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
+        $routerView = $crawler->filter('router-view')->getNode(0);
+        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
+        $this->assertEquals('false', $askForTargetCloud);
     }
 
     public function testRedirectsToGivenTargetCloudIfAutodiscoverKnowsIt() {
@@ -153,6 +163,12 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient(false);
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertTrue($targetCalled);
+    }
+
+    public function testDoesNotForwardAuthAnywhereIfNotBroker() {
+        $this->expectException(PHPUnit_Framework_ExpectationFailedException::class);
+        SuplaAutodiscoverMock::$isBroker = false;
+        $this->testForwardsIssueTokenRequestBasedOnAuthCode();
     }
 
     public function testReturnsErrorIfAutodiscoverDoesNotKnowTargetCloudGivenInAuthCode() {

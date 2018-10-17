@@ -74,6 +74,7 @@ services:
     $autodiscoverUrl: "%supla_autodiscover_server%"
     $suplaUrl: "%supla_url%"
     $suplaProtocol: "%supla_protocol%"
+    $actAsBrokerCloud: '%act_as_broker_cloud%'
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
     arguments:

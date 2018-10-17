@@ -88,6 +88,7 @@ parameters:
   supla_url: '%supla_protocol%://%supla_server%'
   use_webpack_dev_server: false
   fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\WebappAwareOAuthProvider
+  act_as_broker_cloud: false
 
 sensio_framework_extra:
   request: { converters: true }

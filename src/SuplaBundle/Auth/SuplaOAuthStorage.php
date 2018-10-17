@@ -28,6 +28,7 @@ use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\AuthenticationFailureReason;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
@@ -40,20 +41,24 @@ class SuplaOAuthStorage extends OAuthStorage {
     private $entityManager;
     /** @var UserLoginAttemptListener */
     private $userLoginAttemptListener;
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
 
     public function __construct(
         ClientManagerInterface $clientManager,
         AccessTokenManagerInterface $accessTokenManager,
         RefreshTokenManagerInterface $refreshTokenManager,
         AuthCodeManagerInterface $authCodeManager,
-        UserProviderInterface $userProvider = null,
-        EncoderFactoryInterface $encoderFactory = null,
+        UserProviderInterface $userProvider,
+        EncoderFactoryInterface $encoderFactory,
         EntityManagerInterface $entityManager,
-        UserLoginAttemptListener $userLoginAttemptListener
+        UserLoginAttemptListener $userLoginAttemptListener,
+        SuplaAutodiscover $autodiscover
     ) {
         parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $encoderFactory);
         $this->entityManager = $entityManager;
         $this->userLoginAttemptListener = $userLoginAttemptListener;
+        $this->autodiscover = $autodiscover;
     }
 
     /**
@@ -107,7 +112,7 @@ class SuplaOAuthStorage extends OAuthStorage {
 
     public function getClient($clientId) {
         $client = parent::getClient($clientId);
-        if (!$client) { // maybe it exists in AD?
+        if (!$client && $this->autodiscover->isBroker()) { // maybe it exists in AD?
             $client = new AutodiscoverPublicClientStub($clientId);
         }
         return $client;

@@ -34,16 +34,29 @@ abstract class SuplaAutodiscover {
     private $userManager;
     /** @var string */
     private $suplaProtocol;
+    /** @var bool */
+    private $actAsBrokerCloud;
 
-    public function __construct($autodiscoverUrl, string $suplaProtocol, string $suplaUrl, UserManager $userManager) {
+    public function __construct(
+        $autodiscoverUrl,
+        string $suplaProtocol,
+        string $suplaUrl,
+        bool $actAsBrokerCloud,
+        UserManager $userManager
+    ) {
         $this->autodiscoverUrl = $autodiscoverUrl;
         $this->suplaUrl = $suplaUrl;
         $this->userManager = $userManager;
         $this->suplaProtocol = $suplaProtocol;
+        $this->actAsBrokerCloud = $actAsBrokerCloud;
     }
 
     public function enabled(): bool {
         return !!$this->autodiscoverUrl;
+    }
+
+    public function isBroker(): bool {
+        return $this->actAsBrokerCloud;
     }
 
     abstract protected function remoteRequest($endpoint, $post = false, &$responseStatus = null);
@@ -87,6 +100,9 @@ abstract class SuplaAutodiscover {
 
     /** @return string|null */
     public function getTargetCloudClientId(TargetSuplaCloud $targetCloud, $clientPublicId) {
+        if (!$this->isBroker()) {
+            return null;
+        }
         $response = $this->remoteRequest('/mapped-client-id/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress()));
         return $response['mapped_client_id'] ?? null;
     }
@@ -107,6 +123,9 @@ abstract class SuplaAutodiscover {
     }
 
     public function fetchTargetCloudClientSecret(ClientInterface $client, TargetSuplaCloud $targetCloud) {
+        if (!$this->isBroker()) {
+            return false;
+        }
         $url = '/mapped-client-secret/' . urlencode($client->getPublicId()) . '/' . urlencode($targetCloud->getAddress());
         $response = $this->remoteRequest($url, ['secret' => $client->getSecret()]);
         return is_array($response) && isset($response['secret']) ? $response : false;
