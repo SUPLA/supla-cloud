@@ -80,7 +80,7 @@ class AuthorizeOAuthController extends Controller {
                     // this client does not exist. maybe it has just been created in AD?
                     if ($redirectionToNewClient = $this->fetchClientFromAutodiscover($oauthParams)) {
                         return $redirectionToNewClient;
-                    } else if ($this->autodiscover->isBroker()) {
+                    } elseif ($this->autodiscover->isBroker()) {
                         // this client neither exists nor AD provided it. Maybe it exists somewhere else... lets ask for the Target Cloud!
                         $askForTargetCloud = true;
                     }

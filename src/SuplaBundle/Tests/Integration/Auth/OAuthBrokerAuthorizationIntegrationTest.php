@@ -143,13 +143,13 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testForwardsIssueTokenRequestBasedOnAuthCode() {
         SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
-        $params = array_merge([
+        $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_ABC',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
-        ]);
+        ];
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
             $this->assertEquals('/oauth/v2/token', $endpoint);
@@ -173,13 +173,13 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testReturnsErrorIfAutodiscoverDoesNotKnowTargetCloudGivenInAuthCode() {
         SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
-        $params = array_merge([
+        $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_ABC',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
-        ]);
+        ];
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
@@ -195,13 +195,13 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testReturnsErrorIfPublicSecretDoesNotMatch() {
         SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
-        $params = array_merge([
+        $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_ABC',
             'client_secret' => 'wrong-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
-        ]);
+        ];
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
@@ -215,13 +215,13 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testReturnsErrorIfPublicClientIdDoesNotExist() {
-        $params = array_merge([
+        $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_ABC',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
-        ]);
+        ];
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
@@ -237,13 +237,13 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testReturnsErrorForInvalidSyntaxOfAuthCode() {
         SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
-        $params = array_merge([
+        $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_ABC',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC',
-        ]);
+        ];
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
@@ -256,6 +256,31 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($response->isSuccessful());
     }
 
+    public function testForwardsIssueTokenRequestBasedOnRefreshToken() {
+        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => '1_ABC',
+            'client_secret' => 'public-secret',
+            'refresh_token' => 'ABC.' . base64_encode('https://target.cloud'),
+        ];
+        $targetCalled = false;
+        TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
+            $this->assertEquals('/oauth/v2/token', $endpoint);
+            $this->assertEquals('1_CBA', $data['client_id']);
+            $this->assertEquals('target-secret', $data['secret']);
+            $this->assertEquals($params['grant_type'], 'refresh_token');
+            $this->assertEquals($params['refresh_token'], $data['refresh_token']);
+            $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
+            $targetCalled = true;
+            return ['OK', Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertTrue($targetCalled);
+    }
+
     private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://app.com/auth', $scope = 'account_r', $responseType = 'code') {
         return '/oauth/v2/auth?' . http_build_query([
                 'client_id' => $clientId,
@@ -266,7 +291,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     private function createHttpsClient($followRedirects = true): TestClient {
-        $client = self::createClient([], [
+        $client = self::createClient(['debug' => false], [
             'HTTPS' => true,
         ]);
         if ($followRedirects) {

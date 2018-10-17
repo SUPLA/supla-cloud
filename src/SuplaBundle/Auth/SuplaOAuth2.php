@@ -102,11 +102,21 @@ class SuplaOAuth2 extends OAuth2 {
     }
 
     protected function grantAccessTokenAuthCode(IOAuth2Client $client, array $input) {
-        if ($client instanceof AutodiscoverPublicClientStub && isset($input['code'])) {
-            $code = explode('.', $input['code']);
-            if (count($code) === 2 && ($targetCloudUrl = base64_decode($code[1]))) {
+        $this->forwardIssueTokenRequestIfBroker($client, $input['code'] ?? '');
+        return parent::grantAccessTokenAuthCode($client, $input);
+    }
+
+    protected function grantAccessTokenRefreshToken(IOAuth2Client $client, array $input) {
+        $this->forwardIssueTokenRequestIfBroker($client, $input['refresh_token'] ?? '');
+        return parent::grantAccessTokenRefreshToken($client, $input);
+    }
+
+    private function forwardIssueTokenRequestIfBroker(IOAuth2Client $client, string $authCodeOrRefreshToken) {
+        if ($client instanceof AutodiscoverPublicClientStub && $authCodeOrRefreshToken) {
+            $tokenParts = explode('.', $authCodeOrRefreshToken);
+            if (count($tokenParts) === 2 && ($targetCloudUrl = base64_decode($tokenParts[1]))) {
                 if ($targetCloudUrl != $this->suplaUrl) {
-                    // we hit authCode as SUPLA Broker! let's verify the public client credentials now
+                    // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
                     $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
                     $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
                     if ($mappedClientData) {
@@ -121,6 +131,6 @@ class SuplaOAuth2 extends OAuth2 {
                 }
             }
         }
-        return parent::grantAccessTokenAuthCode($client, $input);
     }
+
 }
