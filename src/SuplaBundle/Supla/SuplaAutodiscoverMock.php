@@ -78,7 +78,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                     return $mapping['client_id'] == urldecode($match[1]);
                 });
                 $publicId = $targetMapping ? key($targetMapping) : null;
-                return $publicId ? (self::$publicClients[$publicId] ?? []) : [];
+                $clientData = $publicId ? (self::$publicClients[$publicId] ?? []) : [];
+                return array_diff_key($clientData, ['secret' => '']);
             }
         } elseif (preg_match('#/mapped-client-secret/(.+)/(.+)#', $endpoint, $match)) {
             $publicId = urldecode($match[1]);
@@ -90,5 +91,14 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         }
         $responseStatus = 404;
         return false;
+    }
+
+    public static function clear($shouldBeEnabled = true) {
+        self::$userMapping = [];
+        self::$clientMapping = [];
+        self::$publicClients = [];
+        if ($shouldBeEnabled) {
+            self::$userMapping['user@supla.org'] = 'supla.local';
+        }
     }
 }

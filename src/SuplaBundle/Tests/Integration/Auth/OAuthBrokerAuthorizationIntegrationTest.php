@@ -39,8 +39,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function initAutodiscover() {
         $this->autodiscover = $this->container->get(SuplaAutodiscover::class);
         $this->clientManager = $this->container->get(ClientManagerInterface::class);
-        SuplaAutodiscoverMock::$clientMapping = [];
-        SuplaAutodiscoverMock::$userMapping = ['user@supla.org' => 'supla.local']; // always set mapping in order to enable autodiscover
+        SuplaAutodiscoverMock::clear();
     }
 
     public function testDisplaysNormalLoginFormIfLocalClientExists() {
@@ -154,6 +153,91 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient(false);
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertTrue($targetCalled);
+    }
+
+    public function testReturnsErrorIfAutodiscoverDoesNotKnowTargetCloudGivenInAuthCode() {
+        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
+        $params = array_merge([
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_ABC',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://cool.app',
+            'code' => 'ABC.' . base64_encode('https://target.cloud'),
+        ]);
+        $targetCalled = false;
+        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+            $targetCalled = true;
+            return ['OK', Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $response = $client->getResponse();
+        $this->assertFalse($targetCalled);
+        $this->assertFalse($response->isSuccessful());
+    }
+
+    public function testReturnsErrorIfPublicSecretDoesNotMatch() {
+        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        $params = array_merge([
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_ABC',
+            'client_secret' => 'wrong-secret',
+            'redirect_uri' => 'https://cool.app',
+            'code' => 'ABC.' . base64_encode('https://target.cloud'),
+        ]);
+        $targetCalled = false;
+        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+            $targetCalled = true;
+            return ['OK', Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $response = $client->getResponse();
+        $this->assertFalse($targetCalled);
+        $this->assertFalse($response->isSuccessful());
+    }
+
+    public function testReturnsErrorIfPublicClientIdDoesNotExist() {
+        $params = array_merge([
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_ABC',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://cool.app',
+            'code' => 'ABC.' . base64_encode('https://target.cloud'),
+        ]);
+        $targetCalled = false;
+        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+            $targetCalled = true;
+            return ['OK', Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $response = $client->getResponse();
+        $this->assertFalse($targetCalled);
+        $this->assertFalse($response->isSuccessful());
+    }
+
+    public function testReturnsErrorForInvalidSyntaxOfAuthCode() {
+        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        $params = array_merge([
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_ABC',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://cool.app',
+            'code' => 'ABC',
+        ]);
+        $targetCalled = false;
+        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+            $targetCalled = true;
+            return ['OK', Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $response = $client->getResponse();
+        $this->assertFalse($targetCalled);
+        $this->assertFalse($response->isSuccessful());
     }
 
     private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://app.com/auth', $scope = 'account_r', $responseType = 'code') {
