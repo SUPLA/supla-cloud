@@ -627,7 +627,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->locale = $locale;
     }
 
-    public function getLocale(): string {
+    public function getLocale() {
         return $this->locale;
     }
 }
