@@ -28,6 +28,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class SuplaAutodiscover {
+    const TARGET_CLOUD_TOKEN_SAVE_PATH = \AppKernel::VAR_PATH . '/local/target-cloud-token';
+
     protected $autodiscoverUrl = null;
 
     private $suplaUrl;
@@ -58,6 +60,10 @@ abstract class SuplaAutodiscover {
 
     public function isBroker(): bool {
         return $this->actAsBrokerCloud;
+    }
+
+    public function isTarget(): bool {
+        return file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
     }
 
     abstract protected function remoteRequest($endpoint, $post = false, &$responseStatus = null);
@@ -132,10 +138,20 @@ abstract class SuplaAutodiscover {
         return is_array($response) && isset($response['secret']) ? $response : false;
     }
 
-    public function registerTargetCloud(TargetSuplaCloud $targetCloud, $email): string {
-        $response = $this->remoteRequest('/register-target-cloud', [
+    public function issueRegistrationTokenForTargetCloud(TargetSuplaCloud $targetCloud, $email): string {
+        $response = $this->remoteRequest('/target-cloud-registration-token', [
             'targetCloud' => $targetCloud->getAddress(),
             'email' => $email,
+        ]);
+        $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
+        Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
+        return $token;
+    }
+
+    public function registerTargetCloud(string $registrationToken): string {
+        $response = $this->remoteRequest('/register-target-cloud', [
+            'targetCloud' => $this->suplaUrl,
+            'registrationToken' => $registrationToken,
         ]);
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
         Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
