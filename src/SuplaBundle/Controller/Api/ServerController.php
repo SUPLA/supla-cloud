@@ -46,6 +46,9 @@ class ServerController extends RestController {
             $result['cloudVersion'] = $this->container->getParameter('supla.version');
             $result['apiVersion'] = ApiVersions::fromRequest($request)->getValue();
             $result['supportedApiVersions'] = array_values(array_unique(ApiVersions::toArray()));
+            if ($this->getParameter('act_as_broker_cloud')) {
+                $result['broker'] = true;
+            }
         } else {
             $result = ['data' => $result];
         }

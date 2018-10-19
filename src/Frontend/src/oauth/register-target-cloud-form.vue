@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <page-container :error="error">
         <register-slider :texts="['register-target-cloud-slide1', 'register-target-cloud-slide2', 'register-target-cloud-slide3']"></register-slider>
         <div class="create-form">
             <div class="wrapper">
@@ -53,7 +53,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </page-container>
 </template>
 
 <script>
@@ -62,18 +62,25 @@
     import InvisibleRecaptcha from "../register/invisible-recaptcha";
     import Vue from "vue";
     import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
+    import PageContainer from "../common/pages/page-container";
 
     export default {
-        components: {InvisibleRecaptcha, RegulationsCheckbox, RegisterSlider, ButtonLoadingDots},
+        components: {PageContainer, InvisibleRecaptcha, RegulationsCheckbox, RegisterSlider, ButtonLoadingDots},
         data() {
             return {
                 email: '',
                 targetCloud: '',
                 isBusy: false,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
+                error: Vue.config.external.actAsBrokerCloud ? 0 : 404,
                 regulationsAgreed: false,
                 errorMessage: '',
             };
+        },
+        mounted() {
+            if (!this.error) {
+                document.body.setAttribute('class', 'blue');
+            }
         },
         computed: {
             computedErrorMessage() {
