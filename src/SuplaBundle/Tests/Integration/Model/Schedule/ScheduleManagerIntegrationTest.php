@@ -37,7 +37,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     private $channel;
 
     protected function setUp() {
-        $this->scheduleManager = $this->container->get('schedule_manager');
+        $this->scheduleManager = $this->container->get(ScheduleManager::class);
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $sonoff = $this->createDeviceSonoff($location);

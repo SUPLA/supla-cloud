@@ -1,7 +1,6 @@
 # very lazy migration to the new configuration
 # http://symfony.com/doc/master/service_container/3.3-di-changes.html#upgrading-to-the-new-symfony-3-3-configuration
 services:
-  schedule_manager: '@SuplaBundle\Model\Schedule\ScheduleManager'
   location_manager: '@SuplaBundle\Model\LocationManager'
   iodevice_manager: '@SuplaBundle\Model\IODeviceManager'
   accessid_manager: '@SuplaBundle\Model\AccessIdManager'

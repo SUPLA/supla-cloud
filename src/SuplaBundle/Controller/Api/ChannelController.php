@@ -31,6 +31,7 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,15 +47,19 @@ class ChannelController extends RestController {
     private $channelStateGetter;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /** @var ScheduleManager */
+    private $scheduleManager;
 
     public function __construct(
         ChannelParamsUpdater $channelParamsUpdater,
         ChannelStateGetter $channelStateGetter,
-        ChannelActionExecutor $channelActionExecutor
+        ChannelActionExecutor $channelActionExecutor,
+        ScheduleManager $scheduleManager
     ) {
         $this->channelParamsUpdater = $channelParamsUpdater;
         $this->channelStateGetter = $channelStateGetter;
         $this->channelActionExecutor = $channelActionExecutor;
+        $this->scheduleManager = $scheduleManager;
     }
 
     /** @Security("has_role('ROLE_CHANNELS_R')") */
@@ -145,7 +150,7 @@ class ChannelController extends RestController {
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
                     foreach ($channel->getSchedules() as $schedule) {
-                        $this->get('schedule_manager')->delete($schedule);
+                        $this->scheduleManager->delete($schedule);
                     }
                     $channel->removeFromAllChannelGroups($em);
                 }

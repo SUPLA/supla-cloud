@@ -15,6 +15,7 @@ class TestContainerPass implements CompilerPassInterface {
     private static $publicInTests = [
         \SuplaBundle\Model\Audit\Audit::class,
         \SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater::class,
+        \SuplaBundle\Model\Schedule\ScheduleManager::class,
     ];
 
     public function process(ContainerBuilder $container) {

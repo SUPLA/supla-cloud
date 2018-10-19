@@ -17,16 +17,36 @@
 
 namespace SuplaBundle\Command;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use SuplaBundle\Repository\ScheduleRepository;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GenerateSchedulesExecutionsCommand extends ContainerAwareCommand {
+class GenerateSchedulesExecutionsCommand extends Command {
+
+    /** @var ScheduleManager */
+    private $scheduleManager;
+    /** @var ScheduleRepository */
+    private $scheduleRepository;
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
+    public function __construct(
+        ScheduleManager $scheduleManager,
+        ScheduleRepository $scheduleRepository,
+        EntityManagerInterface $entityManager
+    ) {
+        parent::__construct();
+        $this->scheduleManager = $scheduleManager;
+        $this->scheduleRepository = $scheduleRepository;
+        $this->entityManager = $entityManager;
+    }
+
     protected function configure() {
         $this
             ->setName('supla:generate-schedules-executions')
@@ -38,23 +58,18 @@ class GenerateSchedulesExecutionsCommand extends ContainerAwareCommand {
     }
 
     private function generateFutureExecutions(OutputInterface $output) {
-        /** @var Registry $doctrine */
-        $doctrine = $this->getContainer()->get('doctrine');
-        /** @var ScheduleManager $scheduleManager */
-        $scheduleRepo = $doctrine->getRepository('SuplaBundle:Schedule');
-        $scheduleManager = $this->getContainer()->get('schedule_manager');
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
         $criteria = new \Doctrine\Common\Collections\Criteria();
         $criteria
             ->where($criteria->expr()->eq('enabled', true))
             ->andWhere($criteria->expr()->lte('nextCalculationDate', $now))
             ->andWhere($criteria->expr()->neq('mode', ScheduleMode::ONCE));
-        $schedules = $scheduleRepo->matching($criteria);
+        $schedules = $this->scheduleRepository->matching($criteria);
         $output->writeln('Schedules to regenerate: ' . count($schedules));
         $expired = 0;
         foreach ($schedules as $schedule) {
             $output->writeln($schedule->getId());
-            $scheduleManager->generateScheduledExecutions($schedule);
+            $this->scheduleManager->generateScheduledExecutions($schedule);
             $expired += $this->clearOldExecutions($schedule);
         }
         $output->writeln('Deleted expired scheduled executions: ' . $expired);
@@ -62,10 +77,9 @@ class GenerateSchedulesExecutionsCommand extends ContainerAwareCommand {
 
     private function clearOldExecutions(Schedule $schedule): int {
         /** @var ScheduledExecution $oldestExecutionToLeave */
-        $oldestExecutionToLeave = current($this->getContainer()->get('schedule_manager')->findClosestExecutions($schedule)['past']);
+        $oldestExecutionToLeave = current($this->scheduleManager->findClosestExecutions($schedule)['past']);
         if ($oldestExecutionToLeave) {
-            $doctrine = $this->getContainer()->get('doctrine');
-            return $doctrine->getManager()->createQueryBuilder()
+            return $this->entityManager->createQueryBuilder()
                 ->delete('SuplaBundle:ScheduledExecution', 's')
                 ->where('s.schedule = :schedule')
                 ->andWhere('s.resultTimestamp < :expirationDate')

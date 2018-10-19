@@ -28,6 +28,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\ScheduleListQuery;
@@ -44,17 +45,21 @@ class ScheduleController extends RestController {
     private $channelGroupRepository;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
+    /** @var ScheduleManager */
+    private $scheduleManager;
 
     public function __construct(
         ScheduleRepository $scheduleRepository,
         ChannelGroupRepository $channelGroupRepository,
         IODeviceChannelRepository $channelRepository,
-        ChannelActionExecutor $channelActionExecutor
+        ChannelActionExecutor $channelActionExecutor,
+        ScheduleManager $scheduleManager
     ) {
         $this->scheduleRepository = $scheduleRepository;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->channelGroupRepository = $channelGroupRepository;
         $this->channelRepository = $channelRepository;
+        $this->scheduleManager = $scheduleManager;
     }
 
     /** @Security("has_role('ROLE_SCHEDULES_R')") */
@@ -117,7 +122,7 @@ class ScheduleController extends RestController {
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
         if ($schedule->isSubjectChannel() && $schedule->getSubject()->getIoDevice()->getEnabled()) {
-            $this->get('schedule_manager')->enable($schedule);
+            $this->scheduleManager->enable($schedule);
         }
         return $this->view($schedule, Response::HTTP_CREATED);
     }
@@ -129,16 +134,16 @@ class ScheduleController extends RestController {
         $data = $request->request->all();
         $this->fillSchedule($schedule, $data);
         return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request, $data) {
-            $this->get('schedule_manager')->deleteScheduledExecutions($schedule);
+            $this->scheduleManager->deleteScheduledExecutions($schedule);
             $em->persist($schedule);
             if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
-                $this->get('schedule_manager')->enable($schedule);
+                $this->scheduleManager->enable($schedule);
             } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true)
                     || ($schedule->isSubjectChannel() && !$schedule->getSubject()->getIoDevice()->getEnabled()))) {
-                $this->get('schedule_manager')->disable($schedule);
+                $this->scheduleManager->disable($schedule);
             }
             if ($schedule->getEnabled()) {
-                $this->get('schedule_manager')->generateScheduledExecutions($schedule);
+                $this->scheduleManager->generateScheduledExecutions($schedule);
             }
             return $this->view($schedule, Response::HTTP_OK);
         });
@@ -171,7 +176,7 @@ class ScheduleController extends RestController {
         $schedule->fill($data);
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         Assertion::count($errors, 0, implode(', ', $errors));
-        $nextRunDates = $this->get('schedule_manager')->getNextRunDates($schedule, '+5days', 1, true);
+        $nextRunDates = $this->scheduleManager->getNextRunDates($schedule, '+5days', 1, true);
         Assertion::notEmpty($nextRunDates, 'Schedule cannot be enabled');
         return $schedule;
     }
@@ -183,7 +188,7 @@ class ScheduleController extends RestController {
             if (isset($data['enable'])) {
                 foreach ($this->getCurrentUser()->getSchedules() as $schedule) {
                     if (in_array($schedule->getId(), $data['enable']) && !$schedule->getEnabled()) {
-                        $this->get('schedule_manager')->enable($schedule);
+                        $this->scheduleManager->enable($schedule);
                     }
                 }
             }
@@ -195,7 +200,7 @@ class ScheduleController extends RestController {
      * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
      */
     public function deleteScheduleAction(Schedule $schedule) {
-        $this->get('schedule_manager')->delete($schedule);
+        $this->scheduleManager->delete($schedule);
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 
@@ -207,7 +212,7 @@ class ScheduleController extends RestController {
         Assertion::true($request->isXmlHttpRequest());
         $data = $request->request->all();
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
-        $nextRunDates = $this->get('schedule_manager')->getNextRunDates($temporarySchedule, '+7days', 3);
+        $nextRunDates = $this->scheduleManager->getNextRunDates($temporarySchedule, '+7days', 3);
         return $this->view(array_map(function ($dateTime) {
             return $dateTime->format(\DateTime::ATOM);
         }, $nextRunDates), Response::HTTP_OK);

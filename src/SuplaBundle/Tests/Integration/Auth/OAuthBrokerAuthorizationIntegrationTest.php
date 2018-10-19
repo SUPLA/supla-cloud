@@ -272,7 +272,6 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             $this->assertEquals('target-secret', $data['secret']);
             $this->assertEquals($params['grant_type'], 'refresh_token');
             $this->assertEquals($params['refresh_token'], $data['refresh_token']);
-            $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
             $targetCalled = true;
             return ['OK', Response::HTTP_OK];
         };

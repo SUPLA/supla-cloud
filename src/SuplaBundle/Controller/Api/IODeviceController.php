@@ -180,7 +180,7 @@ class IODeviceController extends RestController {
                 }
                 $ioDevice->setEnabled($updatedDevice->getEnabled());
                 if (!$ioDevice->getEnabled()) {
-                    $this->get('schedule_manager')->disableSchedulesForDevice($ioDevice);
+                    $this->scheduleManager->disableSchedulesForDevice($ioDevice);
                 }
             }
             $ioDevice->setLocation($updatedDevice->getLocation());
