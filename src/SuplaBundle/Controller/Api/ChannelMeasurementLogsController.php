@@ -51,7 +51,7 @@ class ChannelMeasurementLogsController extends RestController {
             [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
-    
+
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
                 $repoName = 'TempHumidityLogItem';
@@ -63,7 +63,7 @@ class ChannelMeasurementLogsController extends RestController {
                 $repoName = 'ElectricityMeterLogItem';
                 break;
         }
-       
+
         $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);
         $query = $rep->createQueryBuilder('f')
             ->select('COUNT(f.id)')
@@ -77,24 +77,24 @@ class ChannelMeasurementLogsController extends RestController {
         $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : '';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
-        
+
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
                 $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  > ? ";
             }
-            
-            if ($beforeTimestamp> 0) {
+
+            if ($beforeTimestamp > 0) {
                 $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  < ? ";
             }
-            
+
             $sql .= "$order LIMIT ?";
         } else {
             $sql .= "$order LIMIT ? OFFSET ?";
         }
-                
+
         $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
-        
+
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             $n = 2;
             if ($afterTimestamp > 0) {
@@ -110,11 +110,11 @@ class ChannelMeasurementLogsController extends RestController {
             $stmt->bindValue(2, $limit, 'integer');
             $stmt->bindValue(3, $offset, 'integer');
         }
-        
+
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    
+
     private function getMeasurementLogItemsAction(
         IODeviceChannel $channel,
         $offset,
@@ -124,7 +124,7 @@ class ChannelMeasurementLogsController extends RestController {
         $orderDesc = true,
         $allowedFuncList = null
     ) {
-   
+
         if ($allowedFuncList == null) {
             $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER];
         }
@@ -167,8 +167,8 @@ class ChannelMeasurementLogsController extends RestController {
                 $result = $this->logItems(
                     "`supla_em_log`",
                     "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
-                        ."`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
-                    ."`phase3_rae`, `phase3_fre`, `phase3_rre`",
+                    . "`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
+                    . "`phase3_rae`, `phase3_fre`, `phase3_rre`",
                     $channel->getId(),
                     $offset,
                     $limit,
@@ -184,7 +184,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-log-count")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getObsoleteMeasurementTempLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -200,7 +200,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getObsoleteMeasurementHumLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -216,7 +216,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-log-items")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getTempLogItemsAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -236,7 +236,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-items")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getTempHumLogItemsAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -256,7 +256,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/measurement-logs")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
         if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -277,7 +277,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
      */
     public function channelItemGetCSVAction(IODeviceChannel $channel) {
         $file = $this->deviceManager->channelGetCSV($channel, "measurement_" . $channel->getId());

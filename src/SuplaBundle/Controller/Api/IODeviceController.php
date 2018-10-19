@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Auth\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\ApiVersions;
@@ -49,6 +50,10 @@ class IODeviceController extends RestController {
         $user = $this->getUser();
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $result = $user->getIODevices();
+            $result = $result->filter(function (IODevice $device) {
+                return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $device);
+            });
+            $result = $result->getValues();
         } else {
             if ($user !== null) {
                 foreach ($user->getIODevices() as $device) {
@@ -97,7 +102,7 @@ class IODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_R')")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_R') and is_granted('accessIdContains', ioDevice)")
      */
     public function getIodeviceAction(Request $request, IODevice $ioDevice) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -158,7 +163,7 @@ class IODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW')")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      */
     public function putIodeviceAction(Request $request, IODevice $ioDevice, IODevice $updatedDevice) {
         return $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
@@ -188,7 +193,7 @@ class IODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW')")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      */
     public function deleteIodeviceAction(IODevice $ioDevice) {
         $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
@@ -208,7 +213,7 @@ class IODeviceController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
      */
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
         $channels = $ioDevice->getChannels();

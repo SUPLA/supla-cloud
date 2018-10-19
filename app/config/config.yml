@@ -87,7 +87,7 @@ parameters:
   supla_server_socket: /tmp/supla-server-ctrl.sock
   supla_url: '%supla_protocol%://%supla_server%'
   use_webpack_dev_server: false
-  fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\WebappAwareOAuthProvider
+  fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\SuplaOAuthProvider
   act_as_broker_cloud: false
 
 sensio_framework_extra:

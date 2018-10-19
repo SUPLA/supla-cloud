@@ -18,6 +18,8 @@
 namespace SuplaBundle\Auth;
 
 use FOS\OAuthServerBundle\Security\Authentication\Provider\OAuthProvider;
+use SuplaBundle\Auth\Token\AccessIdAwareToken;
+use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 

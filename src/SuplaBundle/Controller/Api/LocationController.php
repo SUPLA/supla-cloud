@@ -97,7 +97,7 @@ class LocationController extends RestController {
     }
 
     /**
-     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_R')")
+     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_R') and is_granted('accessIdContains', location)")
      */
     public function getLocationAction(Request $request, Location $location) {
         $view = $this->view($location, Response::HTTP_OK);
@@ -106,7 +106,7 @@ class LocationController extends RestController {
     }
 
     /**
-     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW')")
+     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      */
     public function deleteLocationAction(Location $location) {
         $this->ensureNoRelatedEntities(
@@ -138,7 +138,7 @@ class LocationController extends RestController {
     }
 
     /**
-     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW')")
+     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      */
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
         $location->setCaption($updatedLocation->getCaption());

@@ -18,6 +18,7 @@
 namespace SuplaBundle\Auth;
 
 use Assert\Assertion;
+use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\Location;

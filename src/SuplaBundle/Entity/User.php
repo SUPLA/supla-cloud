@@ -439,7 +439,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->locations;
     }
 
-    /** @return IODevice[] */
+    /** @return IODevice[]|Collection */
     public function getIODevices() {
         return $this->iodevices;
     }

@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Auth\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ApiVersions;
@@ -47,14 +48,17 @@ class ChannelGroupController extends RestController {
      */
     public function getChannelGroupsAction(Request $request) {
         $channelGroups = $this->getUser()->getChannelGroups();
-        $view = $this->view($channelGroups, Response::HTTP_OK);
+        $channelGroups = $channelGroups->filter(function (IODeviceChannelGroup $channelGroup) {
+            return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
+        });
+        $view = $this->view($channelGroups->getValues(), Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['channels']);
         return $view;
     }
 
     /**
      * @Rest\Get("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R') and is_granted('accessIdContains', channelGroup)")
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
@@ -83,7 +87,7 @@ class ChannelGroupController extends RestController {
 
     /**
      * @Rest\Put("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
      */
     public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated) {
         $user = $this->getUser();
@@ -103,7 +107,7 @@ class ChannelGroupController extends RestController {
 
     /**
      * @Rest\Delete("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW')")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
      */
     public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         return $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
@@ -115,7 +119,7 @@ class ChannelGroupController extends RestController {
 
     /**
      * @Rest\Patch("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_EA')")
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_EA') and is_granted('accessIdContains', channelGroup)")
      */
     public function patchChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $params = json_decode($request->getContent(), true);

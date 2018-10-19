@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Auth\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
@@ -79,7 +80,10 @@ class ChannelController extends RestController {
             }
         }
         $channels = $this->getCurrentUser()->getChannels()->matching($criteria);
-        $view = $this->view($channels, Response::HTTP_OK);
+        $channels = $channels->filter(function (IODeviceChannel $channel) {
+            return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel);
+        });
+        $view = $this->view($channels->getValues(), Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['iodevice', 'location']);
         return $view;
     }
@@ -112,7 +116,7 @@ class ChannelController extends RestController {
     }
 
     /**
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      */
     public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -156,7 +160,7 @@ class ChannelController extends RestController {
     }
 
     /**
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_EA')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_EA') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelAction(Request $request, IODeviceChannel $channel) {
         $params = json_decode($request->getContent(), true);

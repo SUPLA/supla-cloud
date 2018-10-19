@@ -20,7 +20,6 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
@@ -37,17 +36,19 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var IODevice */
-    private $device;
     /** @var Location */
-    private $location;
+    private $location1;
+    /** @var Location */
+    private $location2;
     /** @var AccessID */
     private $accessId;
 
     protected function setUp() {
         $this->user = $this->createConfirmedUser();
-        $this->location = $this->createLocation($this->user);
-        $this->device = $this->createDevice($this->location, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
+        $this->location1 = $this->createLocation($this->user);
+        $this->location2 = $this->createLocation($this->user);
+        $this->createDevice($this->location1, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
+        $this->createDevice($this->location2, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
         $this->accessId = new AccessID($this->user);
         $this->accessId->setPassword('abcd');
         $this->accessId->setCaption('AID');
@@ -65,20 +66,52 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
 
     public function testGettingChannelInfoOfChannelNotIncludedInAccessIdIsFailed() {
         $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
-        $channel = $this->device->getChannels()[0];
-        $client->request('GET', '/api/channels/' . $channel->getId());
+        $client->request('GET', '/api/channels/1');
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
     }
 
     public function testGettingChannelInfoOfChannelIncludedInAccessIdIsSuccessful() {
-        $this->accessId->updateLocations([$this->location]);
+        $this->accessId->updateLocations([$this->location1]);
         $this->getEntityManager()->persist($this->accessId);
         $this->getEntityManager()->flush();
         $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
-        $channel = $this->device->getChannels()[0];
-        $client->request('GET', '/api/channels/' . $channel->getId());
+        $client->request('GET', '/api/channels/1');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+    }
+
+    public function testGettingChannelsListWithNoLocationsAccessId() {
+        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client->request('GET', '/api/channels');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertEmpty(json_decode($response->getContent(), true));
+    }
+
+    public function testGettingChannelsListWithOneLocationInAccessId() {
+        $this->accessId->updateLocations([$this->location2]);
+        $this->getEntityManager()->persist($this->accessId);
+        $this->getEntityManager()->flush();
+        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client->request('GET', '/api/channels');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals(2, $content[0]['id']);
+    }
+
+    public function testGettingDevicesListWithOneLocationInAccessId() {
+        $this->accessId->updateLocations([$this->location1]);
+        $this->getEntityManager()->persist($this->accessId);
+        $this->getEntityManager()->flush();
+        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client->request('GET', '/api/v2.3.0/iodevices');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals(1, $content[0]['id']);
     }
 }
