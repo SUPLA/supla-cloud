@@ -82,6 +82,7 @@ services:
       - "%supla.webpack_hashes%"
 
   SuplaBundle\Auth\UserProvider: ~
+  SuplaBundle\Auth\AccessIdSecurityVoter: ~
   SuplaBundle\Auth\UserLoginAttemptListener:
     tags:
       - { name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure }

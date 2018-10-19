@@ -85,7 +85,7 @@ class ChannelController extends RestController {
     }
 
     /**
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {

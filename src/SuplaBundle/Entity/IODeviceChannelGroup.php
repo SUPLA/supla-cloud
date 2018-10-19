@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
  * @ORM\Table(name="supla_dev_channel_group")
  */
-class IODeviceChannelGroup implements HasFunction {
+class IODeviceChannelGroup implements HasFunction, HasLocation {
     use BelongsToUser;
 
     /**

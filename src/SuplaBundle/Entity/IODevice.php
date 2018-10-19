@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="supla_iodevice")
  * @UniqueEntity(fields="id", message="IODevice already exists")
  */
-class IODevice {
+class IODevice implements HasLocation {
     use BelongsToUser;
 
     /**
@@ -127,7 +127,7 @@ class IODevice {
      * @ORM\Column(name="auth_key", type="string", length=64, nullable=true)
      */
     private $authKey;
-    
+
     /**
      * @ORM\Column(name="flags", type="integer", nullable=true)
      * @Groups({"basic"})
@@ -227,7 +227,7 @@ class IODevice {
     public function getProtocolVersion() {
         return $this->protocolVersion;
     }
-    
+
     public function getFlags(): int {
         return intval($this->flags);
     }

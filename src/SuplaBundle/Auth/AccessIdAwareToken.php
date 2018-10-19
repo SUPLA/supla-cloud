@@ -17,18 +17,23 @@
 
 namespace SuplaBundle\Auth;
 
-use FOS\OAuthServerBundle\Security\Authentication\Provider\OAuthProvider;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use FOS\OAuthServerBundle\Security\Authentication\Token\OAuthToken;
+use SuplaBundle\Entity\AccessID;
 
-class WebappAwareOAuthProvider extends OAuthProvider {
-    public function authenticate(TokenInterface $token) {
-        $authenticatedToken = parent::authenticate($token);
-        /** @var AccessToken $accessToken */
-        $accessToken = $this->serverService->verifyAccessToken($token->getToken());
-        if ($accessToken->isForWebapp()) {
-            $authenticatedToken = new WebappToken($authenticatedToken);
-        }
-        return $authenticatedToken;
+class AccessIdAwareToken extends OAuthToken {
+    const ROLE_WEBAPP = 'ROLE_WEBAPP';
+    /** @var AccessID */
+    private $accessId;
+
+    public function __construct(OAuthToken $token, AccessID $accessId) {
+        parent::__construct($token->getRoles());
+        $this->setAuthenticated($token->isAuthenticated());
+        $this->setUser($token->getUser());
+        $this->setToken($token->getToken());
+        $this->accessId = $accessId;
+    }
+
+    public function getAccessId(): AccessID {
+        return $this->accessId;
     }
 }

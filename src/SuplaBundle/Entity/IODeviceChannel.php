@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="supla_dev_channel",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})})
  */
-class IODeviceChannel implements HasFunction {
+class IODeviceChannel implements HasFunction, HasLocation {
     use BelongsToUser;
 
     /**
