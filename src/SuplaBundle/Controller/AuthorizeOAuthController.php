@@ -209,6 +209,8 @@ class AuthorizeOAuthController extends Controller {
             'You must upgrade your private SUPLA Cloud to be at least v2.3.0.'
         );
 
-        return $this->json(['token' => 'Aflkajdsfa.sdf897hjf28/f237d923ndasdif79963726736X=']);
+        $token = $this->autodiscover->registerTargetCloud($targetCloud, $email);
+
+        return $this->json(['token' => $token]);
     }
 }

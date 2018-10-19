@@ -1,5 +1,5 @@
 <template>
-    <a :class="'copy-button btn btn-' + (copied ? 'green' : 'white')"
+    <a :class="'copy-button btn btn-' + (copied ? copiedCssClass : defaultCssClass)"
         v-clipboard:copy="text"
         v-clipboard:success="onCopy">
         <span v-if="copied">
@@ -21,11 +21,19 @@
     Vue.use(VueClipboard);
 
     export default {
-        props: ['text'],
+        props: ['text', 'copiedClass', 'defaultClass'],
         data() {
             return {
                 copied: false
             };
+        },
+        computed: {
+            copiedCssClass() {
+                return this.copiedClass || 'green';
+            },
+            defaultCssClass() {
+                return this.defaultClass || 'white';
+            }
         },
         methods: {
             onCopy() {

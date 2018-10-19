@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
+use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
@@ -129,5 +130,15 @@ abstract class SuplaAutodiscover {
         $url = '/mapped-client-secret/' . urlencode($client->getPublicId()) . '/' . urlencode($targetCloud->getAddress());
         $response = $this->remoteRequest($url, ['secret' => $client->getSecret()]);
         return is_array($response) && isset($response['secret']) ? $response : false;
+    }
+
+    public function registerTargetCloud(TargetSuplaCloud $targetCloud, $email): string {
+        $response = $this->remoteRequest('/register-target-cloud', [
+            'targetCloud' => $targetCloud->getAddress(),
+            'email' => $email,
+        ]);
+        $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
+        Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
+        return $token;
     }
 }

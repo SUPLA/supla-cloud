@@ -1,13 +1,13 @@
 <template>
     <div>
-        <button class="invisible-recaptcha btn btn-default btn-block btn-lg"
+        <button :class="'invisible-recaptcha btn btn-block btn-lg ' + btnClass"
             v-show="formValid"
             :type="type"
             :disabled="isDisabled"
             :id="id">
             <slot btn></slot>
         </button>
-        <button class="btn btn-default btn-block btn-lg"
+        <button :class="'btn btn-block btn-lg ' + btnClass"
             v-show="!formValid"
             :type="type"
             :disabled="isDisabled">
@@ -51,6 +51,10 @@
                 type: String,
                 required: false
             },
+            btnClass: {
+                type: String,
+                default: 'btn-default'
+            }
         },
         data: function () {
             return {
