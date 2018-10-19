@@ -1,17 +1,17 @@
 <template>
     <page-container :error="error">
         <transition name="fade-router">
-            <div v-if="token"
-                class="message container">
-                <i class="pe-7s-global"></i>
-                <h1>{{ $t('Your private SUPLA Cloud is almost registered.')}}</h1>
-                <p>{{ $t('You just need to execute the following command inside your host terminal.') }}</p>
+            <whole-screen-message v-if="token"
+                class="container"
+                icon="pe-7s-global"
+                header="Your private SUPLA Cloud is almost registered."
+                message="You just need to execute the following command inside your host terminal.">
                 <div class="flex-left-full-width">
                     <pre style="overflow: hidden"><code style="white-space: nowrap; overflow: hidden">{{ tokenCommand }}</code></pre>
                     <copy-button :text="tokenCommand"
                         default-class="black"></copy-button>
                 </div>
-            </div>
+            </whole-screen-message>
         </transition>
         <transition name="fade-router">
             <div v-if="!token">
@@ -82,9 +82,13 @@
     import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
     import PageContainer from "../common/pages/page-container";
     import CopyButton from "../common/copy-button";
+    import WholeScreenMessage from "../register/whole-screen-message";
 
     export default {
-        components: {CopyButton, PageContainer, InvisibleRecaptcha, RegulationsCheckbox, RegisterSlider, ButtonLoadingDots},
+        components: {
+            WholeScreenMessage,
+            CopyButton, PageContainer, InvisibleRecaptcha, RegulationsCheckbox, RegisterSlider, ButtonLoadingDots
+        },
         data() {
             return {
                 email: '',
@@ -138,27 +142,3 @@
         }
     };
 </script>
-
-<style lang="scss"
-    scoped>
-    .message {
-        color: white;
-        padding-top: 5%;
-        text-align: center;
-
-        i {
-            font-size: 200px;
-            display: inline-block;
-            margin-bottom: 40px;
-        }
-
-        p {
-            color: #fff;
-            font-size: 17px;
-            font-weight: 300;
-            display: inline-block;
-            margin-top: 10px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-    }
-</style>

@@ -40,9 +40,6 @@
             }
         },
         mounted() {
-            if (this.texts) {
-                this.slides = this.texts;
-            }
             $('#slides').superslides({
                 animation: 'fade',
                 play: 12500,

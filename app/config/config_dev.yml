@@ -35,6 +35,7 @@ monolog:
 parameters:
   supla_protocol: http
   use_webpack_dev_server: true
+  act_as_broker_cloud: true
 
 services:
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'

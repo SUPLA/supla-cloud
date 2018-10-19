@@ -1,8 +1,10 @@
 <template>
     <div>
         <transition name="fade-router">
-            <check-email v-if="registeredEmail"
-                :email="registeredEmail"></check-email>
+            <whole-screen-message v-if="registeredEmail"
+                icon="pe-7s-mail-open-file"
+                header="Check your email box"
+                :message="registeredEmail"></whole-screen-message>
         </transition>
         <transition name="fade-router">
             <div v-if="!registeredEmail">
@@ -17,11 +19,11 @@
 <script>
     import RegisterSlider from './register-slider';
     import RegisterForm from './register-form';
-    import CheckEmail from './check-email';
     import LoginFooter from "../login/login-footer";
+    import WholeScreenMessage from "./whole-screen-message";
 
     export default {
-        components: {LoginFooter, CheckEmail, RegisterSlider, RegisterForm},
+        components: {WholeScreenMessage, LoginFooter, RegisterSlider, RegisterForm},
         data() {
             return {
                 registeredEmail: ''

@@ -19,6 +19,7 @@ export default [
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
         alias: '/account/create_here'
     },
+    {path: '/apps', component: () => import("@/oauth/catalog/public-apps-catalog"), meta: {unrestricted: true}},
     {path: '/devices', component: () => import("@/login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
     {
         path: '/forgotten-password',
@@ -77,11 +78,7 @@ export default [
         ]
     },
     {path: '/me', component: () => import("@/home/my-supla-page")},
-    {
-        path: '/register-cloud',
-        component: () => import("@/oauth/register-target-cloud-form"),
-        meta: {unrestricted: true}
-    },
+    {path: '/register-cloud', component: () => import("@/oauth/register-target-cloud-form"), meta: {unrestricted: true}},
     {path: '/schedules', component: () => import("@/schedules/schedule-list/schedule-list-page"), name: 'schedules'},
     {path: '/schedules/new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new'},
     {path: '/schedules/:id', component: () => import("@/schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},

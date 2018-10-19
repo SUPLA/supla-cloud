@@ -1,21 +1,21 @@
 <template>
     <div class="message">
-        <i class="pe-7s-mail-open-file"></i>
-        <h1>{{ $t('Check your email box')}}</h1>
-        <p>{{ email }}</p>
+        <i :class="icon"></i>
+        <h1>{{ $t(header)}}</h1>
+        <p v-if="message">{{ message }}</p>
+        <slot></slot>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['email'],
+        props: ['icon', 'header', 'message'],
     };
 </script>
 
 <style lang="scss"
     scoped>
     .message {
-        color: white;
         padding-top: 5%;
         text-align: center;
 
@@ -26,12 +26,10 @@
         }
 
         p {
-            color: #fff;
             font-size: 17px;
             font-weight: 300;
-            display: inline-block;
             margin-top: 10px;
-            color: rgba(255, 255, 255, 0.8);
+            opacity: .9;
         }
     }
 </style>
