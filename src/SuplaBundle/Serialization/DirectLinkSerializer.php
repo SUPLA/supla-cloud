@@ -20,17 +20,18 @@ namespace SuplaBundle\Serialization;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\InactiveDirectLinkException;
+use SuplaBundle\Model\LocalSuplaCloud;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
 class DirectLinkSerializer extends AbstractSerializer implements NormalizerAwareInterface {
     use NormalizerAwareTrait;
 
-    /** @var string */
-    private $suplaUrl;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
 
-    public function __construct(string $suplaUrl) {
-        $this->suplaUrl = $suplaUrl;
+    public function __construct(LocalSuplaCloud $localSuplaCloud) {
+        $this->localSuplaCloud = $localSuplaCloud;
     }
 
     /**
@@ -47,7 +48,7 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
         $normalized['subjectId'] = $directLink->getSubject()->getId();
         if (isset($context['slug'])) {
             $normalized['slug'] = $context['slug'];
-            $normalized['url'] = $directLink->buildUrl($this->suplaUrl, $context['slug']);
+            $normalized['url'] = $directLink->buildUrl($this->localSuplaCloud->getAddress(), $context['slug']);
         }
         $normalized['activeDateRange'] = [
             'dateStart' => $directLink->getActiveFrom() ? $directLink->getActiveFrom()->format(\DateTime::ATOM) : null,

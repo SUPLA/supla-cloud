@@ -22,6 +22,7 @@ use FOS\OAuthServerBundle\Model\ClientInterface;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,25 +33,17 @@ abstract class SuplaAutodiscover {
 
     protected $autodiscoverUrl = null;
 
-    private $suplaUrl;
     /** @var UserManager */
     private $userManager;
-    /** @var string */
-    private $suplaProtocol;
     /** @var bool */
     private $actAsBrokerCloud;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
 
-    public function __construct(
-        $autodiscoverUrl,
-        string $suplaProtocol,
-        string $suplaUrl,
-        bool $actAsBrokerCloud,
-        UserManager $userManager
-    ) {
+    public function __construct($autodiscoverUrl, LocalSuplaCloud $localSuplaCloud, bool $actAsBrokerCloud, UserManager $userManager) {
         $this->autodiscoverUrl = $autodiscoverUrl;
-        $this->suplaUrl = $suplaUrl;
         $this->userManager = $userManager;
-        $this->suplaProtocol = $suplaProtocol;
+        $this->localSuplaCloud = $localSuplaCloud;
         $this->actAsBrokerCloud = $actAsBrokerCloud;
     }
 
@@ -74,8 +67,12 @@ abstract class SuplaAutodiscover {
             $result = $this->remoteRequest('/users/' . urlencode($username));
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
         }
-        $serverUrl = $domainFromAutodiscover ? $this->suplaProtocol . '://' . $domainFromAutodiscover : $this->suplaUrl;
-        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover || $domainFromAutodiscover == $this->suplaUrl);
+        if ($domainFromAutodiscover) {
+            $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+            return new TargetSuplaCloud($serverUrl);
+        } else {
+            return $this->localSuplaCloud;
+        }
     }
 
     public function getRegisterServerForUser(Request $request): TargetSuplaCloud {
@@ -84,8 +81,12 @@ abstract class SuplaAutodiscover {
             $result = $this->remoteRequest('/new-account-server/' . urlencode($request->getClientIp()));
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
         }
-        $serverUrl = $domainFromAutodiscover ? $this->suplaProtocol . '://' . $domainFromAutodiscover : $this->suplaUrl;
-        return new TargetSuplaCloud($serverUrl, !$domainFromAutodiscover || $domainFromAutodiscover == $this->suplaUrl);
+        if ($domainFromAutodiscover) {
+            $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+            return new TargetSuplaCloud($serverUrl);
+        } else {
+            return $this->localSuplaCloud;
+        }
     }
 
     public function userExists($username) {
@@ -115,12 +116,14 @@ abstract class SuplaAutodiscover {
     }
 
     public function fetchTargetCloudClientData(string $clientId) {
-        $response = $this->remoteRequest('/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->suplaUrl));
+        $response = $this->remoteRequest(
+            '/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress())
+        );
         return is_array($response) && isset($response['name']) ? $response : false;
     }
 
     public function updateTargetCloudClientData(string $clientId, ApiClient $client) {
-        $this->remoteRequest('/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->suplaUrl), [
+        $this->remoteRequest('/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress()), [
             'clientId' => $client->getPublicId(),
             'secret' => $client->getSecret(),
         ], $responseStatus);
@@ -150,7 +153,7 @@ abstract class SuplaAutodiscover {
 
     public function registerTargetCloud(string $registrationToken): string {
         $response = $this->remoteRequest('/register-target-cloud', [
-            'targetCloud' => $this->suplaUrl,
+            'targetCloud' => $this->localSuplaCloud->getAddress(),
             'registrationToken' => $registrationToken,
         ]);
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';

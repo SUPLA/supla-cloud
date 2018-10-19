@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Supla;
 
+use SuplaBundle\Model\LocalSuplaCloud;
+
 /**
  * SuplaServer implementation to be used during development.
  */
@@ -27,7 +29,7 @@ class SuplaServerMock extends SuplaServer {
     private $commandsCollector;
 
     public function __construct(SuplaServerMockCommandsCollector $commandsCollector) {
-        parent::__construct('', '');
+        parent::__construct('', new LocalSuplaCloud('http://supla.local'));
         $this->commandsCollector = $commandsCollector;
     }
 

@@ -20,6 +20,7 @@ namespace SuplaBundle\Supla;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Model\LocalSuplaCloud;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 abstract class SuplaServer {
@@ -27,13 +28,12 @@ abstract class SuplaServer {
 
     /** @var string */
     protected $socketPath;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
 
-    /** @var string */
-    protected $serverName;
-
-    public function __construct(string $socketPath, $serverName) {
+    public function __construct(string $socketPath, LocalSuplaCloud $localSuplaCloud) {
         $this->socketPath = $socketPath;
-        $this->serverName = $serverName;
+        $this->localSuplaCloud = $localSuplaCloud;
     }
 
     public function __destruct() {
@@ -177,35 +177,28 @@ abstract class SuplaServer {
     }
 
     public function isAlive(): bool {
-
-        $alive = false;
-        $server = $this->serverName;
-
+        $server = $this->localSuplaCloud->getHost(false);
         if (!$server) {
             $server = "localhost";
         }
-
         $context = stream_context_create([
             'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
             ],
         ]);
-
         $socket = @stream_socket_client("tls://" . $server . ":2016", $errno, $errstr, 3, STREAM_CLIENT_CONNECT, $context);
         if ($socket) {
             fclose($socket);
         } else {
             return false;
         }
-
         $socket = @stream_socket_client($server . ":2015", $errno, $errstr, 3);
         if ($socket) {
             fclose($socket);
         } else {
             return false;
         }
-
         if ($this->connect() !== false) {
             $result = $this->command("UNKNOWN-COMMAND");
             return $result !== false && preg_match("/^COMMAND_UNKNOWN\n/", $result) === 1 ? true : false;

@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Supla;
 
 use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -34,7 +35,7 @@ class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
     /** @before */
     public function init() {
         $this->userManager = $this->createMock(UserManager::class);
-        $this->autodiscover = new SuplaAutodiscoverMock('https', $this->userManager);
+        $this->autodiscover = new SuplaAutodiscoverMock(new LocalSuplaCloud('https://supla.local'), $this->userManager);
         SuplaAutodiscoverMock::clear();
     }
 

@@ -24,33 +24,34 @@ use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ApiClientType;
+use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 
 class SuplaOAuth2 extends OAuth2 {
-    /** @var string */
-    private $suplaUrl;
     /** @var array */
     private $tokensLifetime;
     /** @var SuplaAutodiscover */
     private $autodiscover;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
 
     public function __construct(
         IOAuth2Storage $storage,
         array $config,
-        string $suplaUrl,
         array $tokensLifetime,
+        LocalSuplaCloud $localSuplaCloud,
         SuplaAutodiscover $autodiscover
     ) {
         parent::__construct($storage, $config);
-        $this->suplaUrl = $suplaUrl;
         $this->tokensLifetime = $tokensLifetime;
         $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, OAuthScope::getAllKnownScopes());
+        $this->localSuplaCloud = $localSuplaCloud;
         $this->autodiscover = $autodiscover;
     }
 
     protected function genAccessToken() {
-        return parent::genAccessToken() . '.' . base64_encode($this->suplaUrl);
+        return parent::genAccessToken() . '.' . base64_encode($this->localSuplaCloud->getAddress());
     }
 
     /**
@@ -115,7 +116,7 @@ class SuplaOAuth2 extends OAuth2 {
         if ($client instanceof AutodiscoverPublicClientStub && $authCodeOrRefreshToken) {
             $tokenParts = explode('.', $authCodeOrRefreshToken);
             if (count($tokenParts) === 2 && ($targetCloudUrl = base64_decode($tokenParts[1]))) {
-                if ($targetCloudUrl != $this->suplaUrl) {
+                if ($targetCloudUrl != $this->localSuplaCloud->getAddress()) {
                     // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
                     $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
                     $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);

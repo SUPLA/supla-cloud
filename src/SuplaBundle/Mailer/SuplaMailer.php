@@ -18,6 +18,7 @@
 namespace SuplaBundle\Mailer;
 
 use SuplaBundle\Entity\User;
+use SuplaBundle\Model\LocalSuplaCloud;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -31,7 +32,6 @@ class SuplaMailer {
     protected $mailer_from;
     protected $mailer;
     protected $email_admin;
-    protected $supla_server;
     protected $default_locale;
     /**
      * @var RequestStack
@@ -39,6 +39,8 @@ class SuplaMailer {
     private $requestStack;
     /** @var TranslatorInterface */
     private $translator;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
 
     public function __construct(
         Router $router,
@@ -47,7 +49,7 @@ class SuplaMailer {
         RequestStack $requestStack,
         $mailer_from,
         $email_admin,
-        $supla_server,
+        LocalSuplaCloud $localSuplaCloud,
         $locale,
         TranslatorInterface $translator
     ) {
@@ -57,7 +59,7 @@ class SuplaMailer {
         $this->requestStack = $requestStack;
         $this->mailer = $mailer;
         $this->email_admin = $email_admin;
-        $this->supla_server = $supla_server;
+        $this->localSuplaCloud = $localSuplaCloud;
         $this->default_locale = $locale;
         $this->translator = $translator;
     }
@@ -147,7 +149,7 @@ class SuplaMailer {
             $this->email_admin,
             [
                 'user' => $user,
-                'supla_server' => $this->supla_server,
+                'supla_server' => $this->localSuplaCloud->getHost(),
             ],
             $user->getLocale()
         );
@@ -162,7 +164,7 @@ class SuplaMailer {
             $this->email_admin,
             [
                 'detail' => $detail,
-                'supla_server' => $this->supla_server,
+                'supla_server' => $this->localSuplaCloud->getHost(),
             ]
         );
     }

@@ -16,7 +16,7 @@ class TargetSuplaCloud {
      */
     public static $requestExecutor;
 
-    public function __construct(string $address, bool $local) {
+    public function __construct(string $address, bool $local = false) {
         $this->address = $address;
         $this->local = $local;
     }
@@ -55,6 +55,15 @@ class TargetSuplaCloud {
 
     public function getAddress(): string {
         return $this->address;
+    }
+
+    public function getProtocol(): string {
+        return strtolower(parse_url($this->address, PHP_URL_SCHEME));
+    }
+
+    public function getHost($withPort = true): string {
+        $port = parse_url($this->address, PHP_URL_PORT);
+        return parse_url($this->address, PHP_URL_HOST) . ($port && $withPort ? ":$port" : '');
     }
 
     public function isLocal(): bool {

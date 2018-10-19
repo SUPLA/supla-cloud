@@ -2,6 +2,7 @@
 namespace SuplaBundle\Command;
 
 use Assert\Assertion;
+use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -11,10 +12,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 class RegisterTargetCloudCommand extends Command {
     /** @var SuplaAutodiscover */
     private $autodiscover;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
 
-    public function __construct(SuplaAutodiscover $autodiscover) {
+    public function __construct(SuplaAutodiscover $autodiscover, LocalSuplaCloud $localSuplaCloud) {
         parent::__construct();
         $this->autodiscover = $autodiscover;
+        $this->localSuplaCloud = $localSuplaCloud;
     }
 
     protected function configure() {
@@ -47,7 +51,6 @@ class RegisterTargetCloudCommand extends Command {
         $chmodChanged = chmod(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH, 0600);
         Assertion::true($chmodChanged, 'Could not change the token file permissions.');
         $output->writeln('<info>You have correctly registered your private SUPLA Cloud!');
-        $localInstance = $this->autodiscover->getAuthServerForUser('target');
-        $output->writeln("<info>Now, go to {$localInstance->getAddress()}/apps to explore new possibilities!");
+        $output->writeln("<info>Now, go to {$this->localSuplaCloud->getAddress()}/apps to explore new possibilities!");
     }
 }

@@ -35,6 +35,9 @@ services:
   SuplaBundle\Model\:
     resource: '../../src/SuplaBundle/Model'
 
+  SuplaBundle\Model\LocalSuplaCloud:
+    $address: '%supla_url%'
+
   SuplaBundle\Model\UserManager:
     $defaultClientsRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
     $defaultIoDevicesRegistrationTime: '%supla.io_devices_registration.registration_active_time.initial%'
@@ -65,15 +68,10 @@ services:
 
   SuplaBundle\Supla\SuplaServerReal:
     $socketPath: '%supla_server_socket%'
-    $serverName: '%supla_server%'
 
-  SuplaBundle\Supla\SuplaAutodiscoverMock:
-    $suplaProtocol: "%supla_protocol%"
-
+  SuplaBundle\Supla\SuplaAutodiscoverMock: ~
   SuplaBundle\Supla\SuplaAutodiscoverReal:
     $autodiscoverUrl: "%supla_autodiscover_server%"
-    $suplaUrl: "%supla_url%"
-    $suplaProtocol: "%supla_protocol%"
     $actAsBrokerCloud: '%act_as_broker_cloud%'
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
@@ -108,13 +106,9 @@ services:
   SuplaBundle\Serialization\:
     resource: '../../src/SuplaBundle/Serialization'
 
-  SuplaBundle\Serialization\DirectLinkSerializer:
-    $suplaUrl: '%supla_url%'
-
   SuplaBundle\Mailer\SuplaMailer:
     $mailer_from: "%mailer_from%"
     $email_admin: "%admin_email%"
-    $supla_server: "%supla_server%"
     $locale: "%locale%"
 
   twig.extension.intl:
@@ -175,5 +169,4 @@ services:
     arguments:
       - '@fos_oauth_server.storage'
       - '%fos_oauth_server.server.options%'
-      - '%supla_url%'
       - '%supla.oauth.tokens_lifetime%'

@@ -21,8 +21,8 @@ services:
     $mailer: '@SuplaBundle\Tests\Integration\TestMailer'
     $mailer_from: "%mailer_from%"
     $email_admin: "%admin_email%"
-    $supla_server: "%supla_server%"
     $locale: "%locale%"
+    $localSuplaCloud: '@SuplaBundle\Model\LocalSuplaCloud'
     $translator: '@translator'
   SuplaBundle\Model\TimeProvider:
     class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider

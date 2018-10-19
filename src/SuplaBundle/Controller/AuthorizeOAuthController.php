@@ -29,6 +29,7 @@ use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
+use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -47,17 +48,21 @@ class AuthorizeOAuthController extends Controller {
     const LAST_TARGET_CLOUD_ADDRESS_KEY = '_lastTargetCloud';
     /** @var OAuth2 */
     private $oauth2;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
 
     public function __construct(
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
         SuplaAutodiscover $autodiscover,
         ClientManagerInterface $clientManager,
-        OAuth2 $oauth2
+        OAuth2 $oauth2,
+        LocalSuplaCloud $localSuplaCloud
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
         $this->clientManager = $clientManager;
         $this->oauth2 = $oauth2;
+        $this->localSuplaCloud = $localSuplaCloud;
     }
 
     /**
@@ -136,10 +141,9 @@ class AuthorizeOAuthController extends Controller {
         $session = $request->getSession();
         $username = $request->get('_username');
         $targetCloud = $request->get('targetCloud', null);
-        $protocol = $this->getParameter('supla_protocol');
         if ($targetCloud) {
             $session->set(self::LAST_TARGET_CLOUD_ADDRESS_KEY, $targetCloud);
-            $targetCloud = new TargetSuplaCloud($protocol . '://' . $targetCloud, false);
+            $targetCloud = new TargetSuplaCloud($this->localSuplaCloud->getProtocol() . '://' . $targetCloud, false);
         } else {
             $session->remove(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
         }
@@ -176,7 +180,7 @@ class AuthorizeOAuthController extends Controller {
             $this->clientManager->updateClient($client);
             $this->autodiscover->updateTargetCloudClientData($oauthParams['client_id'], $client);
             $oauthParams['client_id'] = $client->getPublicId();
-            $redirectUrl = (new TargetSuplaCloud($this->getParameter('supla_url'), true))->getOauthAuthUrl($oauthParams);
+            $redirectUrl = $this->localSuplaCloud->getOauthAuthUrl($oauthParams);
             return $this->redirect($redirectUrl);
         }
     }
@@ -195,7 +199,7 @@ class AuthorizeOAuthController extends Controller {
         Assertion::email($email, 'Please fill a valid email address');
 
         $domain = $request->get('targetCloud');
-        $url = $this->getParameter('supla_protocol') . '://' . $domain;
+        $url = $this->localSuplaCloud->getProtocol() . '://' . $domain;
         $validDomain = filter_var($url, FILTER_VALIDATE_URL);
         Assertion::true(!!$validDomain, 'Please provide a valid domain name for your private SUPLA Cloud');
 
