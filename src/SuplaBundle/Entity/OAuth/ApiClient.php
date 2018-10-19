@@ -64,10 +64,9 @@ class ApiClient extends Client {
     private $description;
 
     /**
-     * @ORM\Column(name="is_public", type="boolean", nullable=false)
-     * @Groups({"basic"})
+     * @ORM\Column(name="public_client_id", type="string", nullable=true)
      */
-    private $isPublic = false;
+    private $publicClientId = false;
 
     public function __construct() {
         parent::__construct();
@@ -119,14 +118,6 @@ class ApiClient extends Client {
 
     public function setDescription(string $description) {
         $this->description = $description;
-    }
-
-    public function isPublic(): bool {
-        return $this->isPublic;
-    }
-
-    public function setIsPublic(bool $isPublic) {
-        $this->isPublic = $isPublic;
     }
 
     public function getUser() {

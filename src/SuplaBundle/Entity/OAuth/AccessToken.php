@@ -20,6 +20,7 @@ namespace SuplaBundle\Entity\OAuth;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use SuplaBundle\Auth\OAuthScope;
+use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -58,6 +59,12 @@ class AccessToken extends BaseAccessToken {
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\AccessID", inversedBy="accessTokens")
+     * @ORM\JoinColumn(name="access_id_id", referencedColumnName="id", nullable=true)
+     */
+    private $accessId;
+
     /** @Groups({"basic"}) */
     public function getScope() {
         return parent::getScope();
@@ -86,5 +93,10 @@ class AccessToken extends BaseAccessToken {
 
     public function isForWebapp(): bool {
         return $this->client && $this->client->getType() == ApiClientType::WEBAPP();
+    }
+
+    /** @return AccessID|null */
+    public function getAccessId() {
+        return $this->accessId;
     }
 }
