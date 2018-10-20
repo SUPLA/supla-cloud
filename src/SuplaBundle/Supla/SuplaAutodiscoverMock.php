@@ -29,6 +29,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             'description' => 'This is very cool mocked public app',
             'redirectUris' => ['https://cool.app'],
             'secret' => '100-public-secret',
+            'defaultScope' => 'account_r channels_r channels_ea',
         ],
     ];
 
@@ -56,7 +57,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         return self::$isBroker;
     }
 
-    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null) {
+    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = []) {
         if (preg_match('#/users/(.+)#', $endpoint, $match)) {
             $server = self::$userMapping[urldecode($match[1])] ?? null;
             if ($server) {
@@ -99,6 +100,12 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             $randomBytes = bin2hex(random_bytes(20));
             $token = preg_replace('#[1lI0O]#', '', preg_replace('#[^a-zA-Z0-9]#', '', base64_encode($randomBytes)));
             return ['token' => $token];
+        } elseif (preg_match('#/public-clients#', $endpoint, $match)) {
+            $responseStatus = 200;
+            return array_map(function ($client) {
+                unset($client['secret']);
+                return $client;
+            }, self::$publicClients);
         }
         $responseStatus = 404;
         return false;

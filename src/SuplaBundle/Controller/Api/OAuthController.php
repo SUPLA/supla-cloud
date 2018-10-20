@@ -30,6 +30,7 @@ use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessTokenRepository;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,15 +45,19 @@ class OAuthController extends RestController {
     private $oauthServer;
     /** @var ClientManagerInterface */
     private $clientManager;
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
 
     public function __construct(
         AccessTokenRepository $accessTokenRepository,
         SuplaOAuth2 $oauthServer,
-        ClientManagerInterface $clientManager
+        ClientManagerInterface $clientManager,
+        SuplaAutodiscover $autodiscover
     ) {
         $this->accessTokenRepository = $accessTokenRepository;
         $this->oauthServer = $oauthServer;
         $this->clientManager = $clientManager;
+        $this->autodiscover = $autodiscover;
     }
 
     /**
@@ -174,5 +179,17 @@ class OAuthController extends RestController {
             $em->remove($accessToken);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
+    }
+
+    /**
+     * @Rest\Get("/public-oauth-apps")
+     */
+    public function getPublicOAuthAppsAction() {
+        if ($this->autodiscover->isTarget()) {
+            $clients = $this->autodiscover->getPublicClients();
+            return $this->view($clients, Response::HTTP_OK);
+        } else {
+            return new Response('', Response::HTTP_NOT_ACCEPTABLE);
+        }
     }
 }

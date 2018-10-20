@@ -30,6 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class SuplaAutodiscover {
     const TARGET_CLOUD_TOKEN_SAVE_PATH = \AppKernel::VAR_PATH . '/local/target-cloud-token';
+    const PUBLIC_CLIENTS_SAVE_PATH = \AppKernel::VAR_PATH . '/local/public-clients';
 
     protected $autodiscoverUrl = null;
 
@@ -59,7 +60,7 @@ abstract class SuplaAutodiscover {
         return file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
     }
 
-    abstract protected function remoteRequest($endpoint, $post = false, &$responseStatus = null);
+    abstract protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = []);
 
     public function getAuthServerForUser(string $username): TargetSuplaCloud {
         $domainFromAutodiscover = false;
@@ -159,5 +160,29 @@ abstract class SuplaAutodiscover {
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
         Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
         return $token;
+    }
+
+    public function getPublicClients() {
+        $publicClients = null;
+        if (file_exists(self::PUBLIC_CLIENTS_SAVE_PATH)) {
+            $publicClients = json_decode(file_get_contents(self::PUBLIC_CLIENTS_SAVE_PATH), true);
+        }
+        if (!is_array($publicClients) || !isset($publicClients['lastFetchedTimestamp'])) {
+            $publicClients = ['lastFetchedTimestamp' => 0, 'clients' => []];
+        }
+        $response = $this->remoteRequest(
+            '/public-clients',
+            false,
+            $responseStatus,
+            ['If-Modified-Since' => $publicClients['lastFetchedTimestamp']]
+        );
+        if ($responseStatus == Response::HTTP_OK) {
+            $publicClients = ['lastFetchedTimestamp' => time(), 'clients' => $response];
+            $saved = file_put_contents(self::PUBLIC_CLIENTS_SAVE_PATH, json_encode($publicClients));
+            Assertion::greaterThan($saved, 0, 'Could not save the public clients list from Autodiscover');
+        } else {
+            Assertion::eq(Response::HTTP_NOT_MODIFIED, $responseStatus, 'Error communicating with AD - please try again later.');
+        }
+        return $publicClients['clients'];
     }
 }

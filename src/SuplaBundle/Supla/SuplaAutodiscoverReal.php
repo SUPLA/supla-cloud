@@ -21,7 +21,7 @@ use SuplaBundle\Exception\ApiException;
 use Symfony\Component\HttpFoundation\Response;
 
 class SuplaAutodiscoverReal extends SuplaAutodiscover {
-    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null) {
+    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = []) {
         if (!$this->enabled()) {
             return null;
         }
@@ -29,8 +29,14 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $post ? 'POST' : 'GET');
         if ($post) {
             $content = json_encode($post);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Content-Length: ' . strlen($content)]);
+            $headers = array_merge(['Content-Type: application/json', 'Content-Length: ' . strlen($content)], $headers);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        }
+        if (file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
+            $headers['Authorization'] = 'Bearer ' . file_get_contents(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
+        }
+        if ($headers) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);

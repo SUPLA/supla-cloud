@@ -1,7 +1,7 @@
 <template>
     <loading-cover :loading="apps === undefined">
         <div class="container">
-            <h1>SUPLA Integrations</h1>
+            <h1>SUPLA Apps</h1>
             <public-apps-catalog-not-registered-message></public-apps-catalog-not-registered-message>
         </div>
     </loading-cover>
