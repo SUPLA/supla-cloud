@@ -1,5 +1,5 @@
 <template>
-    <square-link class="clearfix pointer yellow public-app">
+    <square-link class="clearfix pointer blue public-app">
         <router-link :to="linkSpec">
             <img class="app-image"
                 :src="'https://api.thecatapi.com/v1/images/search?format=src&size=full&' + app.id">

@@ -1,5 +1,5 @@
 oauthAuthorize:
-  resource: "@SuplaBundle/Controller/AuthorizeOAuthController.php"
+  resource: "@SuplaBundle/Controller/OAuth"
   type: annotation
 
 supla_default:
@@ -13,6 +13,3 @@ directLinksExecutore:
 api:
   type: rest
   resource: "@SuplaBundle/Resources/config/routing-api.yml"
-
-fos_oauth_server_authorize:
-  resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"

@@ -15,16 +15,14 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Controller;
+namespace SuplaBundle\Controller\OAuth;
 
 use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
-use OAuth2\OAuth2ServerException;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaBundle\Auth\ForwardRequestToTargetCloudException;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Model\ApiVersions;
@@ -46,8 +44,6 @@ class AuthorizeOAuthController extends Controller {
     private $clientManager;
 
     const LAST_TARGET_CLOUD_ADDRESS_KEY = '_lastTargetCloud';
-    /** @var OAuth2 */
-    private $oauth2;
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
 
@@ -55,13 +51,11 @@ class AuthorizeOAuthController extends Controller {
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
         SuplaAutodiscover $autodiscover,
         ClientManagerInterface $clientManager,
-        OAuth2 $oauth2,
         LocalSuplaCloud $localSuplaCloud
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
         $this->clientManager = $clientManager;
-        $this->oauth2 = $oauth2;
         $this->localSuplaCloud = $localSuplaCloud;
     }
 
@@ -122,21 +116,6 @@ class AuthorizeOAuthController extends Controller {
         ];
     }
 
-    /**
-     * @Route("/oauth/v2/token", name="fos_oauth_server_token", methods={"GET", "POST"})
-     */
-    public function tokenAction(Request $request) {
-        try {
-            return $this->oauth2->grantAccessToken($request);
-        } catch (ForwardRequestToTargetCloudException $e) {
-            $targetCloud = $e->getTargetCloud();
-            list($response, $status) = $targetCloud->issueOAuthToken($request, $e->getMappedClientData());
-            return new Response($response, $status);
-        } catch (OAuth2ServerException $e) {
-            return $e->getHttpResponse();
-        }
-    }
-
     private function handleBrokerAuth(Request $request, array $oauthParams): Response {
         $session = $request->getSession();
         $username = $request->get('_username');
@@ -167,7 +146,6 @@ class AuthorizeOAuthController extends Controller {
     }
 
     private function fetchClientFromAutodiscover(array $oauthParams) {
-        // TODO this must be authorized!
         $clientData = $this->autodiscover->fetchTargetCloudClientData($oauthParams['client_id']);
         if ($clientData) {
             /** @var ApiClient $client */

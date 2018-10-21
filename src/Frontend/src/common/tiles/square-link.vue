@@ -63,6 +63,11 @@
             color: $supla-white;
             border-color: $supla-black;
         }
+        &.blue {
+            background: $supla-blue;
+            color: $supla-white;
+            border-color: $supla-black;
+        }
         &:hover {
             border-color: $supla-black;
         }
