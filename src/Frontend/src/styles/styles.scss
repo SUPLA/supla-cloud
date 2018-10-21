@@ -110,7 +110,7 @@ input[type=text], input[type=password], input[type=email] {
 
 .fade-router {
   &-enter-active, &-leave-active {
-    transition: opacity .3s
+    transition: opacity .3s;
   }
   &-enter-active {
     transition-delay: .3s;

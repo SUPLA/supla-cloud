@@ -86,7 +86,7 @@ class OAuthEventListener {
     private function invalidateSession() {
         $request = $this->requestStack->getCurrentRequest();
         if ($request && ($session = $request->getSession())) {
-            $session->invalidate(60);
+            @$session->invalidate(60);
         }
     }
 

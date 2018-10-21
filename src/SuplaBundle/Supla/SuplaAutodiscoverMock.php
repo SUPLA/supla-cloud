@@ -25,10 +25,25 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
 
     public static $publicClients = [
         '100_public' => [
-            'name' => 'Cool app',
-            'description' => 'This is very cool mocked public app',
+            'name' => 'SUPLA Scripts',
+            'description' => 'SUPLA on steroids! Web management, thermostats, voice command and notifications - all of these is possible with SUPLA Scripts integration.',
             'redirectUris' => ['https://cool.app'],
+            'defaultRedirectUri' => ['https://cool.app'],
             'secret' => '100-public-secret',
+            'defaultScope' => 'account_r channels_r channels_ea',
+        ],
+        '101_public' => [
+            'name' => 'Amazon Alexa',
+            'description' => 'Bring voice commands from Alexa to your SUPLA-ish home!',
+            'redirectUris' => ['https://cool.app'],
+            'secret' => '101-public-secret',
+            'defaultScope' => 'account_r channels_r channels_ea',
+        ],
+        '102_public' => [
+            'name' => 'Google Home',
+            'description' => 'Bring voice commands from Google Now service to your SUPLA-ish home!',
+            'redirectUris' => ['https://cool.app'],
+            'secret' => '102-public-secret',
             'defaultScope' => 'account_r channels_r channels_ea',
         ],
     ];
@@ -102,10 +117,11 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             return ['token' => $token];
         } elseif (preg_match('#/public-clients#', $endpoint, $match)) {
             $responseStatus = 200;
-            return array_map(function ($client) {
+            return array_values(array_map(function ($client, $id) {
                 unset($client['secret']);
+                $client['id'] = $id;
                 return $client;
-            }, self::$publicClients);
+            }, self::$publicClients, array_keys(self::$publicClients)));
         }
         $responseStatus = 404;
         return false;

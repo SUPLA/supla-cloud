@@ -19,7 +19,16 @@ export default [
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
         alias: '/account/create_here'
     },
-    {path: '/apps', component: () => import("@/oauth/catalog/public-apps-catalog"), meta: {unrestricted: true}},
+    {
+        path: '/apps/:id?',
+        component: () => import("@/oauth/catalog/public-apps-catalog"),
+        name: 'publicApps',
+        meta: {unrestricted: true},
+        props: true,
+        // children: [
+        //     {path: ':id', component: () => import("@/oauth/catalog/public-app-details"), name: 'publicApp', props: true}
+        // ]
+    },
     {path: '/devices', component: () => import("@/login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
     {
         path: '/forgotten-password',
