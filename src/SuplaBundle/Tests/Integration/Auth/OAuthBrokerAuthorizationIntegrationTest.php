@@ -170,7 +170,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testForwardsIssueTokenRequestBasedOnAuthCode() {
         SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_public',
@@ -222,7 +222,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testReturnsErrorIfPublicSecretDoesNotMatch() {
         SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_public',
@@ -264,7 +264,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testReturnsErrorForInvalidSyntaxOfAuthCode() {
         SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_public',
@@ -286,7 +286,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testForwardsIssueTokenRequestBasedOnRefreshToken() {
         SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'refresh_token',
             'client_id' => '1_public',

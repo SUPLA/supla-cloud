@@ -56,26 +56,26 @@ class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFetchTargetCloudClientId() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['public-id']['client_id'] = 'local-id';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['public-id']['clientId'] = 'local-id';
         $targetCloud = new TargetSuplaCloud('https://target.cloud', false);
         $this->assertEquals('local-id', $this->autodiscover->getTargetCloudClientId($targetCloud, 'public-id'));
     }
 
     public function testFetchTargetCloudClientSecret() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.org']['public-id'] = ['client_id' => 'local-id', 'secret' => 'local-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.org']['public-id'] = ['clientId' => 'local-id', 'secret' => 'local-secret'];
         SuplaAutodiscoverMock::$publicClients['public-id'] = ['secret' => 'public-secret', 'name' => 'App'];
         $targetCloud = new TargetSuplaCloud('https://target.org', false);
         $client = $this->createMock(ApiClient::class);
         $client->method('getPublicId')->willReturn('public-id');
         $client->method('getSecret')->willReturn('public-secret');
         $this->assertEquals(
-            ['client_id' => 'local-id', 'secret' => 'local-secret'],
+            ['clientId' => 'local-id', 'secret' => 'local-secret'],
             $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud)
         );
     }
 
     public function testFetchTargetCloudClientSecretWhenWrongPublicSecret() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.org']['public-id'] = ['client_id' => 'local-id', 'secret' => 'local-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.org']['public-id'] = ['clientId' => 'local-id', 'secret' => 'local-secret'];
         SuplaAutodiscoverMock::$publicClients['public-id'] = ['secret' => 'public-secret', 'name' => 'App'];
         $targetCloud = new TargetSuplaCloud('https://target.org', false);
         $client = $this->createMock(ApiClient::class);
@@ -85,7 +85,7 @@ class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFetchTargetCloudClientSecretWhenWrongPublicId() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.org']['public-id'] = ['client_id' => 'local-id', 'secret' => 'local-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.org']['public-id'] = ['clientId' => 'local-id', 'secret' => 'local-secret'];
         SuplaAutodiscoverMock::$publicClients['public-id'] = ['secret' => 'public-secret', 'name' => 'App'];
         $targetCloud = new TargetSuplaCloud('https://target.org', false);
         $client = $this->createMock(ApiClient::class);
@@ -95,8 +95,11 @@ class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFetchClientDataBasedOnMappedId() {
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['public-id'] = ['client_id' => 'local-id', 'secret' => 'local-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['public-id'] = ['clientId' => 'local-id', 'secret' => 'local-secret'];
         SuplaAutodiscoverMock::$publicClients['public-id'] = ['secret' => 'public-secret', 'name' => 'App'];
-        $this->assertEquals(['name' => 'App'], $this->autodiscover->fetchTargetCloudClientData('local-id'));
+        $this->assertEquals(
+            ['name' => 'App', 'publicClientId' => 'public-id'],
+            $this->autodiscover->fetchTargetCloudClientData('local-id')
+        );
     }
 }
