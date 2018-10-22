@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use PHPUnit_Framework_ExpectationFailedException;
+use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -124,23 +125,47 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatesNewApiClientForPublicClientInTargetCloudDuringTheFirstRequest() {
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_ABC']['client_id'] = '1_CBA';
-        SuplaAutodiscoverMock::$publicClients['1_ABC'] = [
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = '1_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'unicorn',
             'description' => 'Cool app',
             'redirectUris' => ['https://cool.app'],
         ];
         $client = $this->createHttpsClient(false);
-        $client->request('GET', $this->oauthAuthorizeUrl('1_CBA'));
+        $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
         $client->followRedirect(); // to login form
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect()); // to new client id
         $targetUrl = $response->headers->get('Location');
+        /** @var ApiClient $createdClient */
         $createdClient = $this->clientManager->findClientBy(['name' => 'unicorn']);
         $this->assertContains('https://supla.local/oauth/v2/auth?', $targetUrl);
         $this->assertContains('client_id=' . $createdClient->getPublicId(), $targetUrl);
         $this->assertEquals('Cool app', $createdClient->getDescription());
-        $this->assertCount(1, $createdClient->getRedirectUris());
+        $this->assertEquals('1_public', $createdClient->getPublicClientId());
+        $this->assertEquals(['https://cool.app'], $createdClient->getRedirectUris());
+    }
+
+    public function testUpdatesMappedClientNameAndDescriptionIfUpdatedInAd() {
+        $localClient = $this->clientManager->createClient();
+        $localClient->setName('Local App');
+        $localClient->setPublicClientId('1_public');
+        $this->clientManager->updateClient($localClient);
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = $localClient->getPublicId();
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'butterfly',
+            'description' => 'Cooler app',
+            'redirectUris' => ['https://cooler.app'],
+        ];
+        $this->createConfirmedUser();
+        $client = $this->createHttpsClient();
+        $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
+        $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+        $createdClient = $this->clientManager->findClientByPublicId($localClient->getPublicId());
+        $this->assertNotNull($createdClient);
+        $this->assertEquals('butterfly', $createdClient->getName());
+        $this->assertEquals('Cooler app', $createdClient->getDescription());
+        $this->assertEquals(['https://cooler.app'], $createdClient->getRedirectUris());
     }
 
     public function testForwardsIssueTokenRequestBasedOnAuthCode() {

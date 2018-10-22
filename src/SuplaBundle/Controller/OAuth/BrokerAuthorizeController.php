@@ -18,7 +18,9 @@
 namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\AuthorizeController;
+use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +37,9 @@ class BrokerAuthorizeController extends AuthorizeController {
 
     /** @var TokenStorageInterface */
     private $tokenStorage;
+
+    /** @var ClientManagerInterface */
+    private $clientManager;
 
     /**
      * @Route("/oauth/v2/auth", name="fos_oauth_server_authorize", methods={"GET", "POST"})
@@ -62,9 +67,23 @@ class BrokerAuthorizeController extends AuthorizeController {
         $this->tokenStorage = $tokenStorage;
     }
 
+    /** @required */
+    public function setClientManager(ClientManagerInterface $clientManager) {
+        $this->clientManager = $clientManager;
+    }
+
     protected function getClient() {
         try {
-            return parent::getClient();
+            /** @var ApiClient $client */
+            $client = parent::getClient();
+            if ($client->getPublicClientId()) {
+                $clientData = $this->autodiscover->getPublicClient($client->getPublicClientId());
+                if ($clientData) {
+                    $client->updateDataFromAutodiscover($clientData);
+                    $this->clientManager->updateClient($client);
+                }
+            }
+            return $client;
         } catch (NotFoundHttpException $e) {
             $request = $this->requestStack->getCurrentRequest();
             if ($request && $clientId = $request->get('client_id')) {

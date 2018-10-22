@@ -28,6 +28,7 @@ use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
 
 /**
@@ -35,7 +36,7 @@ use SuplaBundle\Repository\ApiClientRepository;
  */
 trait UserFixtures {
     protected function createConfirmedUser(string $username = 'supler@supla.org', string $password = 'supla123'): User {
-        $userManager = $this->container->get('user_manager');
+        $userManager = $this->container->get(UserManager::class);
         $user = new User();
         $user->setEmail($username);
         $userManager->create($user);

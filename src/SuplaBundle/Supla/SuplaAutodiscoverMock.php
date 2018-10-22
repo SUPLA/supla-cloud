@@ -103,6 +103,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                 });
                 $publicId = $targetMapping ? key($targetMapping) : null;
                 $clientData = $publicId ? (self::$publicClients[$publicId] ?? []) : [];
+                $clientData['public_client_id'] = $publicId;
                 return array_diff_key($clientData, ['secret' => '']);
             }
         } elseif (preg_match('#/mapped-client-secret/(.+)/(.+)#', $endpoint, $match)) {

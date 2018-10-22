@@ -152,9 +152,8 @@ class AuthorizeOAuthController extends Controller {
             $client = $this->clientManager->createClient();
             $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
             $client->setType(ApiClientType::BROKER());
-            $client->setName($clientData['name']);
-            $client->setDescription($clientData['description']);
-            $client->setRedirectUris($clientData['redirectUris']);
+            $client->setPublicClientId($clientData['public_client_id']);
+            $client->updateDataFromAutodiscover($clientData);
             $this->clientManager->updateClient($client);
             $this->autodiscover->updateTargetCloudClientData($oauthParams['client_id'], $client);
             $oauthParams['client_id'] = $client->getPublicId();

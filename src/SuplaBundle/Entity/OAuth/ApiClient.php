@@ -127,4 +127,19 @@ class ApiClient extends Client {
     public function setUser(User $user) {
         $this->user = $user;
     }
+
+    /** @return string|null */
+    public function getPublicClientId() {
+        return $this->publicClientId;
+    }
+
+    public function setPublicClientId($publicClientId) {
+        $this->publicClientId = $publicClientId;
+    }
+
+    public function updateDataFromAutodiscover(array $clientData) {
+        $this->setName($clientData['name']);
+        $this->setDescription($clientData['description']);
+        $this->setRedirectUris($clientData['redirectUris']);
+    }
 }
