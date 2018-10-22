@@ -25,10 +25,13 @@ use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
 class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
+    use SuplaApiHelper;
 
     /** @var SuplaAutodiscoverMock */
     private $autodiscover;
@@ -278,6 +281,50 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient(false);
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertTrue($targetCalled);
+    }
+
+    public function testForcesReauthorizationIfUserIsAlreadyLoggedInButHitsPublicId() {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = '1_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'unicorn',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+        $this->createConfirmedUser();
+        $client = $this->createHttpsClient();
+        $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
+        /** @var Crawler $crawler */
+        $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+        $this->assertCount(1, $crawler->filter('oauth-authorize-form'));
+        // now, try again with the public id
+        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        // the broker login form should be displayed
+        $routerView = $crawler->filter('router-view')->getNode(0);
+        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
+        $this->assertEquals('true', $askForTargetCloud);
+    }
+
+    public function testForcesReauthrozatoinIfUserIsAlreadyLoggedInButHitsIdNotMappedYet() {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = '1_local';
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['2_public']['client_id'] = '2_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'unicorn',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+        SuplaAutodiscoverMock::$publicClients['2_public'] = SuplaAutodiscoverMock::$publicClients['1_public'];
+        $this->createConfirmedUser();
+        $client = $this->createHttpsClient();
+        $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
+        /** @var Crawler $crawler */
+        $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+        $this->assertCount(1, $crawler->filter('oauth-authorize-form'));
+        // now, try again with the public id
+        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('2_local'));
+        // the normal login form with newely mapped client should be displayed
+        $routerView = $crawler->filter('router-view')->getNode(0);
+        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
+        $this->assertEquals('false', $askForTargetCloud);
     }
 
     private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://app.com/auth', $scope = 'account_r', $responseType = 'code') {

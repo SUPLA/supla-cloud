@@ -24,6 +24,7 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @see https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/master/Resources/doc/the_oauth_event_class.md
@@ -37,15 +38,19 @@ class OAuthEventListener {
     private $userRepository;
     /** @var RequestStack */
     private $requestStack;
+    /** @var TokenStorageInterface */
+    private $tokenStorage;
 
     public function __construct(
         ApiClientAuthorizationRepository $authorizationRepository,
         UserRepository $userRepository,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        TokenStorageInterface $tokenStorage
     ) {
         $this->authorizationRepository = $authorizationRepository;
         $this->userRepository = $userRepository;
         $this->requestStack = $requestStack;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function onPreAuthorizationProcess(OAuthEvent $event) {
@@ -84,9 +89,10 @@ class OAuthEventListener {
     }
 
     private function invalidateSession() {
+        $this->tokenStorage->setToken(null);
         $request = $this->requestStack->getCurrentRequest();
         if ($request && ($session = $request->getSession())) {
-            @$session->invalidate(60);
+            @$session->invalidate();
         }
     }
 

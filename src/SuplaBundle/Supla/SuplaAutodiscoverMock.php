@@ -26,7 +26,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
     public static $publicClients = [
         '100_public' => [
             'name' => 'SUPLA Scripts',
-            'description' => 'SUPLA on steroids! Web management, thermostats, voice command and notifications - all of these is possible with SUPLA Scripts integration.',
+            'description' => 'SUPLA on steroids! Web management, thermostats, voice command and notifications 
+                              - all of these is possible with SUPLA Scripts integration.',
             'redirectUris' => ['https://cool.app'],
             'defaultRedirectUri' => ['https://cool.app'],
             'secret' => '100-public-secret',

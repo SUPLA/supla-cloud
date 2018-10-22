@@ -23,6 +23,7 @@ use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\AuthCode;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\DomCrawler\Crawler;
@@ -48,8 +49,8 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->user = $this->createConfirmedUser();
     }
 
-    private function makeOAuthAuthorizeRequest(array $params = [], array $testCase = []) {
-        $testCase = array_merge(['grant' => true], $testCase);
+    private function makeOAuthAuthorizeRequest(array $params = [], array $testCase = []): TestClient {
+        $testCase = array_merge(['grant' => true, 'login' => true], $testCase);
         $params = array_merge([
             'client_id' => $this->client->getPublicId(),
             'redirect_uri' => 'https://unicorns.pl',
@@ -59,12 +60,15 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createClient();
         $client->followRedirects();
         $client->request('GET', '/oauth/v2/auth?' . http_build_query($params));
-        /** @var Crawler $crawler */
-        $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
-        if ($testCase['grant']) {
-            $form = $crawler->selectButton('accepted')->form();
-            $client->submit($form);
+        if ($testCase['login']) {
+            /** @var Crawler $crawler */
+            $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+            if ($testCase['grant']) {
+                $form = $crawler->selectButton('accepted')->form();
+                $client->submit($form);
+            }
         }
+        return $client;
     }
 
     public function testGrantingAccess() {
@@ -74,6 +78,14 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $authorization = $user->getApiClientAuthorizations()[0];
         $this->assertEquals($this->client->getId(), $authorization->getApiClient()->getId());
         $this->assertEquals('account_r offline_access', $authorization->getScope());
+    }
+
+    public function testLogsOutAfterGrantingAccess() {
+        $this->makeOAuthAuthorizeRequest();
+        $client = $this->makeOAuthAuthorizeRequest(['client_id' => '1_local'], ['login' => false]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertContains('ask-for-target-cloud', $response->getContent());
     }
 
     private function issueTokenBasedOnAuthCode($authCode = null, array $params = []) {
