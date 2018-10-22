@@ -146,28 +146,6 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(['https://cool.app'], $createdClient->getRedirectUris());
     }
 
-    public function testUpdatesMappedClientNameAndDescriptionIfUpdatedInAd() {
-        $localClient = $this->clientManager->createClient();
-        $localClient->setName('Local App');
-        $localClient->setPublicClientId('1_public');
-        $this->clientManager->updateClient($localClient);
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = $localClient->getPublicId();
-        SuplaAutodiscoverMock::$publicClients['1_public'] = [
-            'name' => 'butterfly',
-            'description' => 'Cooler app',
-            'redirectUris' => ['https://cooler.app'],
-        ];
-        $this->createConfirmedUser();
-        $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
-        $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
-        $createdClient = $this->clientManager->findClientByPublicId($localClient->getPublicId());
-        $this->assertNotNull($createdClient);
-        $this->assertEquals('butterfly', $createdClient->getName());
-        $this->assertEquals('Cooler app', $createdClient->getDescription());
-        $this->assertEquals(['https://cooler.app'], $createdClient->getRedirectUris());
-    }
-
     public function testForwardsIssueTokenRequestBasedOnAuthCode() {
         SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
@@ -344,12 +322,36 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         /** @var Crawler $crawler */
         $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
         $this->assertCount(1, $crawler->filter('oauth-authorize-form'));
-        // now, try again with the public id
+        // now, try again with the not-mapped-yet client id
         $crawler = $client->request('GET', $this->oauthAuthorizeUrl('2_local'));
+        $this->assertStatusCode(200, $client->getResponse());
         // the normal login form with newely mapped client should be displayed
         $routerView = $crawler->filter('router-view')->getNode(0);
+        $this->assertNotNull($routerView);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
         $this->assertEquals('false', $askForTargetCloud);
+    }
+
+    public function testUpdatesMappedClientNameAndDescriptionIfUpdatedInAd() {
+        $localClient = $this->clientManager->createClient();
+        $localClient->setName('Local App');
+        $localClient->setPublicClientId('1_public');
+        $this->clientManager->updateClient($localClient);
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = $localClient->getPublicId();
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'butterfly',
+            'description' => 'Cooler app',
+            'redirectUris' => ['https://cooler.app'],
+        ];
+        $this->createConfirmedUser();
+        $client = $this->createHttpsClient();
+        $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
+        $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+        $createdClient = $this->clientManager->findClientByPublicId($localClient->getPublicId());
+        $this->assertNotNull($createdClient);
+        $this->assertEquals('butterfly', $createdClient->getName());
+        $this->assertEquals('Cooler app', $createdClient->getDescription());
+        $this->assertEquals(['https://cooler.app'], $createdClient->getRedirectUris());
     }
 
     private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://app.com/auth', $scope = 'account_r', $responseType = 'code') {

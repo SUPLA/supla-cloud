@@ -22,6 +22,7 @@ use SuplaBundle\Model\UserManager;
 
 class SuplaAutodiscoverMock extends SuplaAutodiscover {
     public static $isBroker = true;
+    public static $isTarget = true;
 
     public static $publicClients = [
         '100_public' => [
@@ -71,6 +72,10 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
 
     public function isBroker(): bool {
         return self::$isBroker;
+    }
+
+    public function isTarget(): bool {
+        return self::$isTarget;
     }
 
     protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = []) {
@@ -134,6 +139,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         self::$clientMapping = [];
         self::$publicClients = [];
         self::$isBroker = true;
+        self::$isTarget = true;
         if ($shouldBeEnabled) {
             self::$userMapping['user@supla.org'] = 'supla.local';
         }
