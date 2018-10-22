@@ -60,7 +60,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testDisplaysBrokerLoginFormIfLocalClientDoesNotExist() {
         $client = $this->createHttpsClient();
-        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
+        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
         $this->assertEquals('true', $askForTargetCloud);
@@ -69,46 +69,46 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testDisplaysNormalLoginFormIfLocalClientDoesNotExistButCloudIsNotBroker() {
         SuplaAutodiscoverMock::$isBroker = false;
         $client = $this->createHttpsClient();
-        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
+        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
         $this->assertEquals('false', $askForTargetCloud);
     }
 
     public function testRedirectsToGivenTargetCloudIfAutodiscoverKnowsIt() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC']['client_id'] = '1_CBA';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
         $client = $this->createHttpsClient(false);
-        $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $client->followRedirect();
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect());
         $targetUrl = $response->headers->get('Location');
         $this->assertContains('https://target.cloud/oauth/v2/auth?', $targetUrl);
-        $this->assertContains('client_id=1_CBA', $targetUrl);
+        $this->assertContains('client_id=1_local', $targetUrl);
         $this->assertContains('scope=account_r', $targetUrl);
         $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
     }
 
     public function testRedirectsToTargetCloudByAutodiscoveredUsername() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC']['client_id'] = '1_CBA';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$userMapping['ala@supla.org'] = 'target.cloud';
         $client = $this->createHttpsClient(false);
-        $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $client->followRedirect();
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect());
         $targetUrl = $response->headers->get('Location');
         $this->assertContains('https://target.cloud/oauth/v2/auth?', $targetUrl);
-        $this->assertContains('client_id=1_CBA', $targetUrl);
+        $this->assertContains('client_id=1_local', $targetUrl);
         $this->assertContains('scope=account_r', $targetUrl);
         $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
     }
 
     public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
         $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute('error');
@@ -117,7 +117,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testDisplaysErrorIfUserCannotBeAutodiscovered() {
         $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl('1_ABC'));
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute('error');
@@ -125,7 +125,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatesNewApiClientForPublicClientInTargetCloudDuringTheFirstRequest() {
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = '1_local';
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'unicorn',
             'description' => 'Cool app',
@@ -151,7 +151,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $localClient->setName('Local App');
         $localClient->setPublicClientId('1_public');
         $this->clientManager->updateClient($localClient);
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = $localClient->getPublicId();
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = $localClient->getPublicId();
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'butterfly',
             'description' => 'Cooler app',
@@ -169,11 +169,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testForwardsIssueTokenRequestBasedOnAuthCode() {
-        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'authorization_code',
-            'client_id' => '1_ABC',
+            'client_id' => '1_public',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
@@ -181,7 +181,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
             $this->assertEquals('/oauth/v2/token', $endpoint);
-            $this->assertEquals('1_CBA', $data['client_id']);
+            $this->assertEquals('1_local', $data['clientId']);
             $this->assertEquals('target-secret', $data['secret']);
             $this->assertEquals($params['code'], $data['code']);
             $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
@@ -200,10 +200,10 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testReturnsErrorIfAutodiscoverDoesNotKnowTargetCloudGivenInAuthCode() {
-        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
         $params = [
             'grant_type' => 'authorization_code',
-            'client_id' => '1_ABC',
+            'client_id' => '1_public',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
@@ -221,11 +221,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testReturnsErrorIfPublicSecretDoesNotMatch() {
-        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'authorization_code',
-            'client_id' => '1_ABC',
+            'client_id' => '1_public',
             'client_secret' => 'wrong-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
@@ -245,7 +245,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testReturnsErrorIfPublicClientIdDoesNotExist() {
         $params = [
             'grant_type' => 'authorization_code',
-            'client_id' => '1_ABC',
+            'client_id' => '1_public',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
@@ -263,11 +263,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testReturnsErrorForInvalidSyntaxOfAuthCode() {
-        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'authorization_code',
-            'client_id' => '1_ABC',
+            'client_id' => '1_public',
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC',
@@ -285,18 +285,18 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testForwardsIssueTokenRequestBasedOnRefreshToken() {
-        SuplaAutodiscoverMock::$publicClients['1_ABC'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_ABC'] = ['client_id' => '1_CBA', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['client_id' => '1_local', 'secret' => 'target-secret'];
         $params = [
             'grant_type' => 'refresh_token',
-            'client_id' => '1_ABC',
+            'client_id' => '1_public',
             'client_secret' => 'public-secret',
             'refresh_token' => 'ABC.' . base64_encode('https://target.cloud'),
         ];
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
             $this->assertEquals('/oauth/v2/token', $endpoint);
-            $this->assertEquals('1_CBA', $data['client_id']);
+            $this->assertEquals('1_local', $data['clientId']);
             $this->assertEquals('target-secret', $data['secret']);
             $this->assertEquals($params['grant_type'], 'refresh_token');
             $this->assertEquals($params['refresh_token'], $data['refresh_token']);
@@ -309,7 +309,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testForcesReauthorizationIfUserIsAlreadyLoggedInButHitsPublicId() {
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = '1_local';
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'unicorn',
             'description' => 'Cool app',
@@ -330,8 +330,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testForcesReauthrozatoinIfUserIsAlreadyLoggedInButHitsIdNotMappedYet() {
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['client_id'] = '1_local';
-        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['2_public']['client_id'] = '2_local';
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['2_public']['clientId'] = '2_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'unicorn',
             'description' => 'Cool app',

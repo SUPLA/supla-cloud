@@ -51,7 +51,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
 
     public static $clientMapping = [
         'http://supla.local' => [
-            '100_public' => ['client_id' => '100_local', 'secret' => '100-local-secret'],
+            '100_public' => ['clientId' => '100_local', 'secret' => '100-local-secret'],
         ],
     ];
 
@@ -86,10 +86,10 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint, $match)) {
             $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
             $mapping = $domainMaps[urldecode($match[1])] ?? [];
-            $mappedClientId = $mapping['client_id'] ?? null;
+            $mappedClientId = $mapping['clientId'] ?? null;
             if ($mappedClientId) {
                 $responseStatus = 200;
-                return ['mapped_client_id' => $mappedClientId];
+                return ['mappedClientId' => $mappedClientId];
             }
         } elseif (preg_match('#/mapped-client-data/(.+)/(.+)#', $endpoint, $match)) {
             if ($post) {
@@ -99,11 +99,11 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                 $responseStatus = 200;
                 $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
                 $targetMapping = array_filter($domainMaps, function ($mapping) use ($match) {
-                    return $mapping['client_id'] == urldecode($match[1]);
+                    return $mapping['clientId'] == urldecode($match[1]);
                 });
                 $publicId = $targetMapping ? key($targetMapping) : null;
                 $clientData = $publicId ? (self::$publicClients[$publicId] ?? []) : [];
-                $clientData['public_client_id'] = $publicId;
+                $clientData['publicClientId'] = $publicId;
                 return array_diff_key($clientData, ['secret' => '']);
             }
         } elseif (preg_match('#/mapped-client-secret/(.+)/(.+)#', $endpoint, $match)) {

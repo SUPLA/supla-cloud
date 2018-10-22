@@ -113,7 +113,7 @@ abstract class SuplaAutodiscover {
             return null;
         }
         $response = $this->remoteRequest('/mapped-client-id/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress()));
-        return $response['mapped_client_id'] ?? null;
+        return $response['mappedClientId'] ?? null;
     }
 
     public function fetchTargetCloudClientData(string $clientId) {
