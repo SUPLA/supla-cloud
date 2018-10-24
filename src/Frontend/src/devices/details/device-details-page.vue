@@ -48,10 +48,10 @@
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
-                                <router-link :to="{name: 'location', params: device.originalLocationId}"
+                                <router-link :to="{name: 'location', params: {id: device.originalLocationId}}"
                                     class="original-location"
                                     v-if="device.originalLocationId && device.originalLocationId != device.locationId">
-                                    {{ $t('Original location')}}
+                                    {{ $t('Original location') }}
                                     <strong>{{ device.originalLocation.caption }}</strong>
                                 </router-link>
                                 <square-location-chooser v-model="device.location"
