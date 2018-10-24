@@ -5,9 +5,11 @@
             @input="$emit('filter')"
             :filters="[{label: $t('Registered'), value: 'regDate'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
         <btn-filters v-model="functionality"
+            class="always-dropdown"
             @input="$emit('filter')"
             :filters="[
                 {label: $t('All'), value: '*'},
+                {label: $t('With function'), value: 'withFunction'},
                 {label: $t('Electric'), value: '130,140,180,190,200'},
                 {label: $t('Doors, Gates'), value: '10,20,30,50,60,70,90,100'},
                 {label: $t('Roller shutters'), value: '110,120'},
@@ -42,8 +44,14 @@
         },
         methods: {
             matches(channel) {
-                if (this.functionality && this.functionality !== '*' && this.functionality.split(',').indexOf('' + channel.function.id) === -1) {
-                    return false;
+                if (this.functionality && this.functionality !== '*') {
+                    if (this.functionality === 'withFunction') {
+                        if (!channel.function.id) {
+                            return false;
+                        }
+                    } else if (this.functionality.split(',').indexOf('' + channel.function.id) === -1) {
+                        return false;
+                    }
                 }
                 if (this.search) {
                     const searchString = latinize([channel.id, channel.caption, channel.iodevice.name, this.$t(channel.type.caption),

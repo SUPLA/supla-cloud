@@ -151,3 +151,14 @@
     }
   }
 }
+
+.always-dropdown {
+  .btn-group-filters {
+    &-dropdown {
+      display: block;
+    }
+    &-inline {
+      display: none;
+    }
+  }
+}
