@@ -271,7 +271,7 @@ body.green {
     color: $supla-white;
   }
 
-  a {
+  p a:not(.btn) {
     color: $supla-yellow;
   }
 }

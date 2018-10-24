@@ -101,6 +101,7 @@
         padding-top: 217px;
         margin: 0 auto;
         position: relative;
+        color: $supla-black;
         .supla-version {
             background: $supla-black;
             border-radius: 15px;
