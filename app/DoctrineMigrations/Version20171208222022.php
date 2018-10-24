@@ -1,27 +1,16 @@
 <?php
 
-namespace Application\Migrations;
+namespace Supla\Migrations;
 
 use Doctrine\DBAL\Driver\Connection;
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Add possibly missing procedures and views to the database.
  */
-class Version20171208222022 extends AbstractMigration implements ContainerAwareInterface {
-    use ContainerAwareTrait;
-
-    public function up(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+class Version20171208222022 extends NoWayBackMigration {
+    public function migrate() {
         $this->createSuplaServerViews();
         $this->createSuplaServerProcedures();
-    }
-
-    public function down(Schema $schema) {
-        $this->abortIf(true, 'There is no way back');
     }
 
     private function createSuplaServerViews() {

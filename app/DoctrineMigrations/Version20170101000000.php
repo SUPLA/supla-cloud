@@ -1,21 +1,12 @@
 <?php
 
-namespace Application\Migrations;
-
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+namespace Supla\Migrations;
 
 /**
  * Initial DB structure from SUPLA-Cloud v1.1.0.
  */
-class Version20170101000000 extends AbstractMigration implements ContainerAwareInterface {
-    use ContainerAwareTrait;
-
-    public function up(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
+class Version20170101000000 extends NoWayBackMigration {
+    public function migrate() {
         $connection = $this->container->get('doctrine.orm.entity_manager')->getConnection();
         $userTableExists = !!$connection->fetchColumn('SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = "supla_user";');
 
@@ -42,9 +33,5 @@ class Version20170101000000 extends AbstractMigration implements ContainerAwareI
 INITIAL_SCHEMA
             );
         }
-    }
-
-    public function down(Schema $schema) {
-        $this->abortIf(true, 'There is no way back');
     }
 }

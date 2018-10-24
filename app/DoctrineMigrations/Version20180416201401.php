@@ -1,16 +1,12 @@
 <?php
 
-namespace Application\Migrations;
-
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
+namespace Supla\Migrations;
 
 /**
  * Add views for channel group processing
  */
-class Version20180416201401 extends AbstractMigration {
-    public function up(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+class Version20180416201401 extends NoWayBackMigration {
+    public function migrate() {
         $this->addSql(<<<CREATE_VIEW
 				CREATE
 				 ALGORITHM = UNDEFINED
@@ -26,9 +22,5 @@ class Version20180416201401 extends AbstractMigration {
 				 and (`l`.`enabled` = 1) and (`d`.`enabled` = 1)) 
 CREATE_VIEW
         );
-    }
-
-    public function down(Schema $schema) {
-        $this->abortIf(true, 'There is no way back');
     }
 }

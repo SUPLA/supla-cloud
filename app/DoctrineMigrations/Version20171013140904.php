@@ -1,18 +1,9 @@
 <?php
 
-namespace Application\Migrations;
+namespace Supla\Migrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
-
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
-class Version20171013140904 extends AbstractMigration {
-    public function up(Schema $schema) {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
+class Version20171013140904 extends NoWayBackMigration {
+    public function migrate() {
         $this->addSql('CREATE TABLE supla_rel_cg (channel_id INT NOT NULL, group_id INT NOT NULL, INDEX IDX_BE981CD772F5A1AA (channel_id), INDEX IDX_BE981CD7FE54D947 (group_id), PRIMARY KEY(channel_id, group_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE supla_dev_channel_group (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, enabled TINYINT(1) NOT NULL, caption VARCHAR(255) DEFAULT NULL, func INT NOT NULL, INDEX IDX_6B2EFCE5A76ED395 (user_id), INDEX enabled_idx (enabled), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE supla_rel_cg ADD CONSTRAINT FK_BE981CD772F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id)');
@@ -39,9 +30,5 @@ class Version20171013140904 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_user CHANGE current_ipv4 current_ipv4 INT UNSIGNED DEFAULT NULL');
         $this->addSql('UPDATE supla_user SET current_ipv4 = current_ipv4_tmp');
         $this->addSql('ALTER TABLE supla_user DROP current_ipv4_tmp');
-    }
-
-    public function down(Schema $schema) {
-        $this->abortIf(true, 'There is no way back');
     }
 }

@@ -1,16 +1,12 @@
 <?php
 
-namespace Application\Migrations;
-
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
+namespace Supla\Migrations;
 
 /**
  * The transition to correct OAuth 2.0 support.
  */
-class Version20180518131234 extends AbstractMigration {
-    public function up(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+class Version20180518131234 extends NoWayBackMigration {
+    public function migrate() {
         $this->addSql('DELETE FROM `supla_oauth_access_tokens`');
         $this->addSql('DELETE FROM `supla_oauth_refresh_tokens`');
         $this->addSql('ALTER TABLE supla_user ADD oauth_compat_username VARCHAR(64) DEFAULT NULL COMMENT \'For backward compatibility purpose\', ADD oauth_compat_password VARCHAR(64) DEFAULT NULL COMMENT \'For backward compatibility purpose\'');
@@ -25,9 +21,5 @@ class Version20180518131234 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_oauth_clients DROP FOREIGN KEY FK_4035AD80727ACA70');
         $this->addSql('DROP INDEX IDX_4035AD80727ACA70 ON supla_oauth_clients');
         $this->addSql('ALTER TABLE supla_oauth_clients DROP parent_id');
-    }
-
-    public function down(Schema $schema) {
-        $this->abortIf(true, 'There is no way back');
     }
 }

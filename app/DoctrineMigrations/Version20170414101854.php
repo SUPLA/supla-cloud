@@ -1,17 +1,12 @@
 <?php
 
-namespace Application\Migrations;
-
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
+namespace Supla\Migrations;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170414101854 extends AbstractMigration {
-    public function up(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
+class Version20170414101854 extends NoWayBackMigration {
+    public function migrate() {
         $timezone = date_default_timezone_get();
 
         if (strlen($timezone) == 0) {
@@ -45,9 +40,5 @@ class Version20170414101854 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_client CHANGE guid guid VARBINARY(16) NOT NULL');
         $this->addSql('ALTER TABLE supla_client DROP FOREIGN KEY FK_5430007F4FEA67CF');
         $this->addSql('ALTER TABLE supla_client ADD CONSTRAINT FK_5430007F4FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id) ON DELETE CASCADE');
-    }
-
-    public function down(Schema $schema) {
-        $this->abortIf(true, 'There is no way back');
     }
 }

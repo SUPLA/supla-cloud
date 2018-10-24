@@ -1,16 +1,12 @@
 <?php
 
-namespace Application\Migrations;
-
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
+namespace Supla\Migrations;
 
 /**
  * Add reasonable ON DELETE CASCADE for relations with user.
  */
-class Version20181024164957 extends AbstractMigration {
-    public function up(Schema $schema) {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+class Version20181024164957 extends NoWayBackMigration {
+    public function migrate() {
         $this->addSql('ALTER TABLE supla_dev_channel DROP FOREIGN KEY FK_81E928C9125F95D6');
         $this->addSql('ALTER TABLE supla_dev_channel ADD CONSTRAINT FK_81E928C9125F95D6 FOREIGN KEY (iodevice_id) REFERENCES supla_iodevice (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_oauth_clients DROP FOREIGN KEY FK_4035AD80A76ED395');
@@ -27,9 +23,5 @@ class Version20181024164957 extends AbstractMigration {
         $this->addSql('ALTER TABLE supla_oauth_auth_codes DROP FOREIGN KEY FK_48E00E5DA76ED395');
         $this->addSql('ALTER TABLE supla_oauth_auth_codes CHANGE user_id user_id INT NOT NULL');
         $this->addSql('ALTER TABLE supla_oauth_auth_codes ADD CONSTRAINT FK_48E00E5DA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id) ON DELETE CASCADE');
-    }
-
-    public function down(Schema $schema) {
-        $this->abortIf(true, 'There is no way back');
     }
 }
