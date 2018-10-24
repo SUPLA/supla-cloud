@@ -195,14 +195,14 @@ input[type=text], input[type=password], input[type=email] {
 .hover-editable {
   @include on-md-and-up {
     &:not(:hover):not(.hovered) {
-      .form-control, .dropdown .btn, .chosen-container .chosen-single {
+      .form-control, .dropdown:not(.hovered) .btn, .chosen-container .chosen-single {
         color: $supla-black;
         border-color: transparent;
         box-shadow: none;
         transition: border-color .3s;
         background-color: transparent;
       }
-      .dropdown .caret, .chosen-single > div > b {
+      .dropdown:not(.hovered) .caret, .chosen-single > div > b {
         visibility: hidden;
       }
     }
