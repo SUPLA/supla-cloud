@@ -18,7 +18,7 @@ class Version20181019115859 extends AbstractMigration {
         $this->addSql('DROP INDEX idx_eeb07467a76ed395 ON supla_user_icons');
         $this->addSql('CREATE INDEX IDX_27B32ACA76ED395 ON supla_user_icons (user_id)');
         $this->addSql('ALTER TABLE supla_user_icons ADD CONSTRAINT FK_EEB07467A76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE supla_oauth_clients ADD public_client_id VARCHAR(255) DEFAULT NULL, DROP is_public');
+        $this->addSql('ALTER TABLE supla_oauth_clients ADD public_client_id VARCHAR(255) DEFAULT NULL, DROP is_public, ADD long_description LONGTEXT DEFAULT NULL, CHANGE description description LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_em_log CHANGE phase3_fae phase3_fae BIGINT DEFAULT NULL, CHANGE phase3_rae phase3_rae BIGINT DEFAULT NULL, CHANGE phase3_fre phase3_fre BIGINT DEFAULT NULL, CHANGE phase3_rre phase3_rre BIGINT DEFAULT NULL');
     }
 

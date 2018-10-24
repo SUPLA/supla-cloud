@@ -27,10 +27,15 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
     public static $publicClients = [
         '100_public' => [
             'name' => 'SUPLA Scripts',
-            'description' => 'SUPLA on steroids! Web management, thermostats, voice command and notifications 
+            'description' => [
+                'en' => 'SUPLA on steroids! Web management, thermostats, voice command and notifications 
                               - all of these is possible with SUPLA Scripts integration.',
-            'redirectUris' => ['https://cool.app'],
-            'defaultRedirectUri' => ['https://cool.app'],
+                'pl' => 'SUPLA on steroids! Zarządzanie przez przegląarkę, termostat, komendy głosowe i powiadomienia 
+                              - to wszystko już możliwe dzięki integracji z SUPLA Scripts.',
+            ],
+            'websiteUrl' => 'https://supla.fracz.com',
+            'redirectUris' => ['http://suplascripts.local/auth'],
+            'defaultRedirectUri' => 'http://suplascripts.local/auth',
             'secret' => '100-public-secret',
             'defaultScope' => 'account_r channels_r channels_ea',
         ],
@@ -96,21 +101,17 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                 $responseStatus = 200;
                 return ['mappedClientId' => $mappedClientId];
             }
-        } elseif (preg_match('#/mapped-client-data/(.+)/(.+)#', $endpoint, $match)) {
-            if ($post) {
-                $responseStatus = 204;
-                return '';
-            } else {
-                $responseStatus = 200;
-                $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
-                $targetMapping = array_filter($domainMaps, function ($mapping) use ($match) {
-                    return $mapping['clientId'] == urldecode($match[1]);
-                });
-                $publicId = $targetMapping ? key($targetMapping) : null;
-                $clientData = $publicId ? (self::$publicClients[$publicId] ?? []) : [];
-                $clientData['publicClientId'] = $publicId;
-                return array_diff_key($clientData, ['secret' => '']);
-            }
+        } elseif (preg_match('#/mapped-client-public-id/(.+)/(.+)#', $endpoint, $match)) {
+            $responseStatus = 200;
+            $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
+            $targetMapping = array_filter($domainMaps, function ($mapping) use ($match) {
+                return $mapping['clientId'] == urldecode($match[1]);
+            });
+            $publicId = $targetMapping ? key($targetMapping) : null;
+            return $publicId ? ['publicClientId' => $publicId] : null;
+        } elseif (preg_match('#/mapped-client-credentials/(.+)/(.+)#', $endpoint, $match)) {
+            $responseStatus = 204;
+            return '';
         } elseif (preg_match('#/mapped-client-secret/(.+)/(.+)#', $endpoint, $match)) {
             $publicId = urldecode($match[1]);
             $secret = $post['secret'];

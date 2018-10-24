@@ -146,16 +146,17 @@ class AuthorizeOAuthController extends Controller {
     }
 
     private function fetchClientFromAutodiscover(array $oauthParams) {
-        $clientData = $this->autodiscover->fetchTargetCloudClientData($oauthParams['client_id']);
-        if ($clientData) {
+        $publicId = $this->autodiscover->getPublicIdBasedOnMappedId($oauthParams['client_id']);
+        if ($publicId) {
+            $clientData = $this->autodiscover->getPublicClient($publicId);
             /** @var ApiClient $client */
             $client = $this->clientManager->createClient();
             $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
             $client->setType(ApiClientType::BROKER());
-            $client->setPublicClientId($clientData['publicClientId']);
+            $client->setPublicClientId($publicId);
             $client->updateDataFromAutodiscover($clientData);
             $this->clientManager->updateClient($client);
-            $this->autodiscover->updateTargetCloudClientData($oauthParams['client_id'], $client);
+            $this->autodiscover->updateTargetCloudCredentials($oauthParams['client_id'], $client);
             $oauthParams['client_id'] = $client->getPublicId();
             $redirectUrl = $this->localSuplaCloud->getOauthAuthUrl($oauthParams);
             return $this->redirect($redirectUrl);

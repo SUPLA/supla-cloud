@@ -90,7 +90,7 @@ class BrokerAuthorizeController extends AuthorizeController {
                 $shouldAuthenticateAgain = false;
                 if ($this->autodiscover->isTarget()) {
                     // maybe we hit mapped id?
-                    $shouldAuthenticateAgain = $this->autodiscover->fetchTargetCloudClientData($clientId);
+                    $shouldAuthenticateAgain = $this->autodiscover->getPublicIdBasedOnMappedId($clientId);
                 }
                 if (!$shouldAuthenticateAgain && $this->autodiscover->isBroker()) {
                     // maybe we hit public id?

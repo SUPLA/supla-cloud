@@ -4,14 +4,19 @@
             <img class="app-image"
                 :src="'https://api.thecatapi.com/v1/images/search?format=src&size=full&' + app.id">
             <h3>{{ app.name }}</h3>
-            <p>{{ app.description }}</p>
+            <p>
+                <i18n-text :text="app.description"></i18n-text>
+            </p>
         </router-link>
     </square-link>
 </template>
 
 <script>
 
+    import I18nText from "./i18n-text";
+
     export default {
+        components: {I18nText},
         props: ['app', 'noLink'],
         computed: {
             linkSpec() {

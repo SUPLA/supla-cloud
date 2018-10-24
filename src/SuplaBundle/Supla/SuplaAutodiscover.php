@@ -116,15 +116,15 @@ abstract class SuplaAutodiscover {
         return $response['mappedClientId'] ?? null;
     }
 
-    public function fetchTargetCloudClientData(string $clientId) {
+    public function getPublicIdBasedOnMappedId(string $clientId): string {
         $response = $this->remoteRequest(
-            '/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress())
+            '/mapped-client-public-id/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress())
         );
-        return is_array($response) && isset($response['name']) ? $response : false;
+        return is_array($response) && isset($response['publicClientId']) ? $response['publicClientId'] : '';
     }
 
-    public function updateTargetCloudClientData(string $clientId, ApiClient $client) {
-        $this->remoteRequest('/mapped-client-data/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress()), [
+    public function updateTargetCloudCredentials(string $mappedClientId, ApiClient $client) {
+        $this->remoteRequest('/mapped-client-credentials/' . urlencode($mappedClientId) . '/' . urlencode($this->localSuplaCloud->getAddress()), [
             'clientId' => $client->getPublicId(),
             'secret' => $client->getSecret(),
         ], $responseStatus);

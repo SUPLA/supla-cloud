@@ -6,7 +6,7 @@
                     :src="'https://api.thecatapi.com/v1/images/search?format=src&size=full&' + app.id">
             </div>
             <div class="col-sm-9">
-                {{ app.description }}
+                <i18n-text :text="app.longDescription || app.description"></i18n-text>
             </div>
         </div>
         <div class="row">
@@ -17,7 +17,8 @@
         </div>
         <div class="row">
             <div class="col-sm-6 text-center">
-                <a href=""
+                <a :href="app.websiteUrl"
+                    v-if="app.websiteUrl"
                     class="btn btn-lg btn-white">
                     <i class="pe-7s-global"></i>
                     {{ $t('Visit app webpage' )}}
@@ -37,10 +38,12 @@
 <script>
     import PageContainer from "../../common/pages/page-container";
     import OauthScopePreview from "../../login/oauth-scope-preview";
+    import I18nText from "./i18n-text";
 
     export default {
         props: ['app'],
         components: {
+            I18nText,
             OauthScopePreview,
             PageContainer,
 

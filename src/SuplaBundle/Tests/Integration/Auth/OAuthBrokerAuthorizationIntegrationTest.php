@@ -340,7 +340,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = $localClient->getPublicId();
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'butterfly',
-            'description' => 'Cooler app',
+            'description' => ['pl' => 'Spoko apka', 'en' => 'Cooler app'],
             'redirectUris' => ['https://cooler.app'],
         ];
         $this->createConfirmedUser();
@@ -350,7 +350,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $createdClient = $this->clientManager->findClientByPublicId($localClient->getPublicId());
         $this->assertNotNull($createdClient);
         $this->assertEquals('butterfly', $createdClient->getName());
-        $this->assertEquals('Cooler app', $createdClient->getDescription());
+        $this->assertEquals(['pl' => 'Spoko apka', 'en' => 'Cooler app'], $createdClient->getDescription());
         $this->assertEquals(['https://cooler.app'], $createdClient->getRedirectUris());
     }
 

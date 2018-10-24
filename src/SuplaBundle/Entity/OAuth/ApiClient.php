@@ -58,15 +58,21 @@ class ApiClient extends Client {
     private $name;
 
     /**
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @ORM\Column(name="description", type="text", nullable=true)
      * @Groups({"basic"})
      */
     private $description;
 
     /**
+     * @ORM\Column(name="long_description", type="text", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $longDescription;
+
+    /**
      * @ORM\Column(name="public_client_id", type="string", nullable=true)
      */
-    private $publicClientId = false;
+    private $publicClientId = null;
 
     public function __construct() {
         parent::__construct();
@@ -113,11 +119,25 @@ class ApiClient extends Client {
     }
 
     public function getDescription() {
-        return $this->description;
+        return @json_decode($this->description, true) ?: $this->description;
     }
 
-    public function setDescription(string $description) {
+    public function setDescription($description) {
+        if (is_array($description)) {
+            $description = json_encode($description);
+        }
         $this->description = $description;
+    }
+
+    public function getLongDescription() {
+        return @json_decode($this->longDescription, true) ?: $this->longDescription;
+    }
+
+    private function setLongDescription($longDescription) {
+        if (is_array($longDescription)) {
+            $longDescription = json_encode($longDescription);
+        }
+        $this->longDescription = $longDescription;
     }
 
     public function getUser() {
@@ -139,7 +159,8 @@ class ApiClient extends Client {
 
     public function updateDataFromAutodiscover(array $clientData) {
         $this->setName($clientData['name']);
-        $this->setDescription($clientData['description']);
+        $this->setDescription($clientData['description'] ?? '');
+        $this->setLongDescription($clientData['longDescription'] ?? '');
         $this->setRedirectUris($clientData['redirectUris']);
     }
 }
