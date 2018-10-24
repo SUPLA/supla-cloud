@@ -69,10 +69,17 @@ services:
   SuplaBundle\Supla\SuplaServerReal:
     $socketPath: '%supla_server_socket%'
 
-  SuplaBundle\Supla\SuplaAutodiscoverMock: ~
+  SuplaBundle\Supla\SuplaAutodiscoverMock:
+    tags:
+      - {name: monolog.logger, channel: supla_autodiscover}
+
+
   SuplaBundle\Supla\SuplaAutodiscoverReal:
-    $autodiscoverUrl: "%supla_autodiscover_server%"
-    $actAsBrokerCloud: '%act_as_broker_cloud%'
+    arguments:
+      $autodiscoverUrl: "%supla_autodiscover_server%"
+      $actAsBrokerCloud: '%act_as_broker_cloud%'
+    tags:
+      - {name: monolog.logger, channel: supla_autodiscover}
 
   SuplaBundle\Twig\WebpackAssetVersionStrategy:
     arguments:

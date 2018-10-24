@@ -11,19 +11,6 @@ imports:
 #  validation:
 #    cache: apc
 
-monolog:
-  handlers:
-    main:
-      type: fingers_crossed
-      action_level: error
-      handler: nested
-    nested:
-      type: stream
-      path: "%kernel.logs_dir%/%kernel.environment%.log"
-      level: debug
-    console:
-      type: console
-
 services:
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerReal'
   SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'

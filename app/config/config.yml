@@ -72,6 +72,25 @@ framework:
   validation:
     enable_annotations: true
 
+monolog:
+  channels: [supla_autodiscover]
+  handlers:
+    main:
+      action_level: error
+      handler: main_logger
+      type: fingers_crossed
+    main_logger:
+      level: debug
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      type: rotating_file
+      max_files: 14
+    autodiscover:
+      channels: ['supla_autodiscover']
+      action_level: error
+      path: "%kernel.logs_dir%/autodiscover.log"
+      type: rotating_file
+      max_files: 14
+
 nelmio_cors:
   paths:
     '^/api/':

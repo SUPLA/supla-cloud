@@ -12,6 +12,16 @@ framework:
     storage_id: session.storage.mock_file
   test: ~
 
+monolog:
+  handlers:
+    main:
+      action_level: notice
+    main_logger:
+      max_files: 1
+    autodiscover:
+      level: debug
+      max_files: 1
+
 services:
   SuplaBundle\Tests\Integration\TestMailer: ~
   SuplaBundle\Mailer\SuplaMailer:

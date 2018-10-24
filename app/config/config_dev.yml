@@ -10,27 +10,13 @@ framework:
 
 monolog:
   handlers:
-    console:
-      bubble: false
-      channels:
-        - "!doctrine"
-      type: console
-      verbosity_levels:
-        VERBOSITY_VERBOSE: INFO
-        VERBOSITY_VERY_VERBOSE: DEBUG
-    console_very_verbose:
-      bubble: false
-      channels:
-        - doctrine
-      type: console
-      verbosity_levels:
-        VERBOSITY_DEBUG: DEBUG
-        VERBOSITY_VERBOSE: NOTICE
-        VERBOSITY_VERY_VERBOSE: NOTICE
     main:
+      action_level: notice
+    main_logger:
+      max_files: 2
+    autodiscover:
       level: debug
-      path: "%kernel.logs_dir%/%kernel.environment%.log"
-      type: stream
+      max_files: 2
 
 parameters:
   supla_protocol: http

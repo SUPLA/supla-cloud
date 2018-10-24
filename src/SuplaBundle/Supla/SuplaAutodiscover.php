@@ -19,6 +19,7 @@ namespace SuplaBundle\Supla;
 
 use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\ClientInterface;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Exception\ApiException;
@@ -40,12 +41,21 @@ abstract class SuplaAutodiscover {
     private $actAsBrokerCloud;
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
+    /** @var LoggerInterface */
+    private $logger;
 
-    public function __construct($autodiscoverUrl, LocalSuplaCloud $localSuplaCloud, bool $actAsBrokerCloud, UserManager $userManager) {
+    public function __construct(
+        $autodiscoverUrl,
+        LocalSuplaCloud $localSuplaCloud,
+        bool $actAsBrokerCloud,
+        UserManager $userManager,
+        LoggerInterface $logger
+    ) {
         $this->autodiscoverUrl = $autodiscoverUrl;
         $this->userManager = $userManager;
         $this->localSuplaCloud = $localSuplaCloud;
         $this->actAsBrokerCloud = $actAsBrokerCloud;
+        $this->logger = $logger;
     }
 
     public function enabled(): bool {
@@ -66,6 +76,7 @@ abstract class SuplaAutodiscover {
         $domainFromAutodiscover = false;
         if (!$this->userManager->userByEmail($username) && filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
             $result = $this->remoteRequest('/users/' . urlencode($username));
+            $this->logger->debug(__FUNCTION__, ['response' => $result]);
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
         }
         if ($domainFromAutodiscover) {
@@ -104,6 +115,7 @@ abstract class SuplaAutodiscover {
     }
 
     public function registerUser(User $user) {
+        $this->logger->debug(__FUNCTION__);
         $this->remoteRequest('/users', ['email' => $user->getUsername()]);
     }
 
@@ -112,22 +124,23 @@ abstract class SuplaAutodiscover {
         if (!$this->isBroker()) {
             return null;
         }
-        $response = $this->remoteRequest('/mapped-client-id/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress()));
+        $url = '/mapped-client-id/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress());
+        $response = $this->remoteRequest($url);
+        $this->logger->debug(__FUNCTION__, ['url' => $url, 'response' => $response]);
         return $response['mappedClientId'] ?? null;
     }
 
     public function getPublicIdBasedOnMappedId(string $clientId): string {
-        $response = $this->remoteRequest(
-            '/mapped-client-public-id/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress())
-        );
+        $url = '/mapped-client-public-id/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress());
+        $response = $this->remoteRequest($url);
+        $this->logger->debug(__FUNCTION__, ['url' => $url, 'response' => $response]);
         return is_array($response) && isset($response['publicClientId']) ? $response['publicClientId'] : '';
     }
 
     public function updateTargetCloudCredentials(string $mappedClientId, ApiClient $client) {
-        $this->remoteRequest('/mapped-client-credentials/' . urlencode($mappedClientId) . '/' . urlencode($this->localSuplaCloud->getAddress()), [
-            'clientId' => $client->getPublicId(),
-            'secret' => $client->getSecret(),
-        ], $responseStatus);
+        $url = '/mapped-client-credentials/' . urlencode($mappedClientId) . '/' . urlencode($this->localSuplaCloud->getAddress());
+        $this->remoteRequest($url, ['clientId' => $client->getPublicId(), 'secret' => $client->getSecret()], $responseStatus);
+        $this->logger->debug(__FUNCTION__, ['url' => $url, 'responseStatus' => $responseStatus, 'clientId' => $client->getPublicId()]);
         if (!in_array($responseStatus, [Response::HTTP_OK, Response::HTTP_NO_CONTENT])) {
             throw new ApiException('Autodiscover has rejected the new client data.');
         }
@@ -138,7 +151,8 @@ abstract class SuplaAutodiscover {
             return false;
         }
         $url = '/mapped-client-secret/' . urlencode($client->getPublicId()) . '/' . urlencode($targetCloud->getAddress());
-        $response = $this->remoteRequest($url, ['secret' => $client->getSecret()]);
+        $response = $this->remoteRequest($url, ['secret' => $client->getSecret()], $responseStatus);
+        $this->logger->debug(__FUNCTION__, ['url' => $url, 'responseStatus' => $responseStatus]);
         return is_array($response) && isset($response['secret']) ? $response : false;
     }
 
@@ -147,6 +161,7 @@ abstract class SuplaAutodiscover {
             'targetCloud' => $targetCloud->getAddress(),
             'email' => $email,
         ]);
+        $this->logger->debug(__FUNCTION__, ['targetCloud' => $targetCloud->getAddress()]);
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
         Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
         return $token;
@@ -157,6 +172,7 @@ abstract class SuplaAutodiscover {
             'targetCloud' => $this->localSuplaCloud->getAddress(),
             'registrationToken' => $registrationToken,
         ]);
+        $this->logger->debug(__FUNCTION__, ['targetCloud' => $this->localSuplaCloud->getAddress()]);
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
         Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
         return $token;
@@ -176,6 +192,7 @@ abstract class SuplaAutodiscover {
             $responseStatus,
             ['If-Modified-Since' => $publicClients['lastFetchedTimestamp']]
         );
+        $this->logger->debug(__FUNCTION__, ['responseStatus' => $responseStatus]);
         if ($responseStatus == Response::HTTP_OK) {
             $publicClients = ['lastFetchedTimestamp' => time(), 'clients' => $response];
             $saved = file_put_contents(self::PUBLIC_CLIENTS_SAVE_PATH, json_encode($publicClients));

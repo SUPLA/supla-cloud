@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Supla;
 
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
@@ -35,7 +36,11 @@ class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
     /** @before */
     public function init() {
         $this->userManager = $this->createMock(UserManager::class);
-        $this->autodiscover = new SuplaAutodiscoverMock(new LocalSuplaCloud('https://supla.local'), $this->userManager);
+        $this->autodiscover = new SuplaAutodiscoverMock(
+            new LocalSuplaCloud('https://supla.local'),
+            $this->userManager,
+            $this->createMock(LoggerInterface::class)
+        );
         SuplaAutodiscoverMock::clear();
     }
 
@@ -94,11 +99,11 @@ class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud));
     }
 
-    public function testFetchClientDataBasedOnMappedId() {
+    public function testFetchClientPublicIdBasedOnMappedId() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['public-id'] = ['clientId' => 'local-id', 'secret' => 'local-secret'];
         SuplaAutodiscoverMock::$publicClients['public-id'] = ['secret' => 'public-secret', 'name' => 'App'];
         $this->assertEquals(
-            ['name' => 'App', 'publicClientId' => 'public-id'],
+            'public-id',
             $this->autodiscover->getPublicIdBasedOnMappedId('local-id')
         );
     }
