@@ -89,7 +89,7 @@ class ChannelController extends RestController {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel);
         });
         $view = $this->view($channels->getValues(), Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['iodevice', 'location']);
+        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'connected', 'state']);
         return $view;
     }
 
