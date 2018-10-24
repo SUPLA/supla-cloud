@@ -26,7 +26,7 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
     private $userManager;
 
     protected function setUp() {
-        $this->userManager = $this->container->get('user_manager');
+        $this->userManager = $this->container->get(UserManager::class);
     }
 
     public function testCanGetUserManagerFromIoc() {

@@ -48,7 +48,7 @@ class DirectLinkController extends RestController {
      * @Security("has_role('ROLE_DIRECTLINKS_R')")
      */
     public function getDirectLinksAction(Request $request) {
-        $directLinks = $this->getUser()->getDirectLInks();
+        $directLinks = $this->getUser()->getDirectLinks();
         $view = $this->view($directLinks, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['subject']);
         return $view;

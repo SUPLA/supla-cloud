@@ -19,11 +19,11 @@ namespace SuplaBundle\Command;
 
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
 use FOS\OAuthServerBundle\Model\TokenManagerInterface;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use SuplaBundle\Supla\SuplaServerAware;
 
 class MaintenanceCommand extends ContainerAwareCommand {
     use SuplaServerAware;
@@ -112,10 +112,6 @@ class MaintenanceCommand extends ContainerAwareCommand {
         /** @var SuplaServer $suplaServer */
         $clientRepo = $doctrine->getRepository('SuplaBundle:ClientApp');
         
-        if (!$this->suplaServer) {
-            $this->suplaServer = $this->getContainer()->get('user_manager');
-        }
-    
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
         $criteria = new \Doctrine\Common\Collections\Criteria();
         $criteria

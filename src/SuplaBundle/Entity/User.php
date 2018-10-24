@@ -430,7 +430,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     }
 
     /** @return Collection|DirectLink[] */
-    public function getDirectLInks() {
+    public function getDirectLinks() {
         return $this->directLinks;
     }
 
@@ -496,7 +496,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     }
 
     public function isLimitDirectLinkExceeded() {
-        return $this->limitDirectLink > 0 && count($this->getDirectLInks()) >= $this->limitDirectLink;
+        return $this->limitDirectLink > 0 && count($this->getDirectLinks()) >= $this->limitDirectLink;
     }
 
     public function isLimitOAuthClientExceeded() {

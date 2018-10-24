@@ -41,6 +41,7 @@ class AuthCode extends BaseAuthCode {
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     protected $user;
 

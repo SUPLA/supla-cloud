@@ -47,7 +47,7 @@ class ApiClient extends Client {
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User", inversedBy="apiClients")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $user;
 

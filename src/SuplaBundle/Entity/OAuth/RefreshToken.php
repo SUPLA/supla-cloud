@@ -42,6 +42,7 @@ class RefreshToken extends BaseRefreshToken {
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     protected $user;
 

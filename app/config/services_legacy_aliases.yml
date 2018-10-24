@@ -5,5 +5,4 @@ services:
   iodevice_manager: '@SuplaBundle\Model\IODeviceManager'
   accessid_manager: '@SuplaBundle\Model\AccessIdManager'
   api_manager: '@SuplaBundle\Model\APIManager'
-  user_manager: '@SuplaBundle\Model\UserManager'
   supla_mailer: '@SuplaBundle\Mailer\SuplaMailer'

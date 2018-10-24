@@ -32,7 +32,7 @@ class UsersFixture extends SuplaFixture {
 
     public function load(ObjectManager $manager) {
         /** @var UserManager $userManager */
-        $userManager = $this->container->get('user_manager');
+        $userManager = $this->container->get(UserManager::class);
         $user = new User();
         $user->setEmail('user@supla.org');
         $user->agreeOnRules();

@@ -50,7 +50,7 @@ class IODeviceChannel implements HasFunction, HasLocation {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="channels")
-     * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Groups({"iodevice"})
      */
     private $iodevice;
