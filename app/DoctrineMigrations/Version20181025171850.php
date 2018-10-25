@@ -99,7 +99,8 @@ CREATE PROCEDURE `supla_add_temphumidity_log_item` (IN `_channel_id` INT(11), IN
 IN `_humidity` DECIMAL(8,4))  NO SQL
 BEGIN
 
-INSERT INTO `supla_temphumidity_log`(`channel_id`, `date`, `temperature`) VALUES (_channel_id,UTC_TIMESTAMP(),_temperature, _humidiy);
+INSERT INTO `supla_temphumidity_log`(`channel_id`, `date`, `temperature`, `humidity`) 
+VALUES (_channel_id,UTC_TIMESTAMP(),_temperature, _humidity);
 
 END
 PROCEDURE
