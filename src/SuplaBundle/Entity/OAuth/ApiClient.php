@@ -27,7 +27,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ApiClientRepository")
- * @ORM\Table(name="supla_oauth_clients")
+ * @ORM\Table(name="supla_oauth_clients", indexes={
+ *     @ORM\Index(name="supla_oauth_clients_random_id_idx", columns={"random_id"}),
+ *     @ORM\Index(name="supla_oauth_clients_type_idx", columns={"type"})
+ * })
  */
 class ApiClient extends Client {
     use BelongsToUser;
