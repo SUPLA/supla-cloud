@@ -61,7 +61,7 @@ class AccessToken extends BaseAccessToken {
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\AccessID", inversedBy="accessTokens")
-     * @ORM\JoinColumn(name="access_id_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $accessId;
 
