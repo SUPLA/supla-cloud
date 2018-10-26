@@ -46,7 +46,7 @@ class ImpulseCounterLogItem {
      * @ORM\Column(name="counter", type="bigint", nullable=false)
      */
     private $counter;
-    
+
     /**
      * @ORM\Column(name="calculated_value", type="bigint", nullable=false)
      */
@@ -72,7 +72,7 @@ class ImpulseCounterLogItem {
         return $this->counter;
     }
 
-    public function getCalculatedValue(): int {
-        return $this->calculatedValue;
+    public function getCalculatedValue(): float {
+        return $this->calculatedValue / 1000.00;
     }
 }
