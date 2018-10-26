@@ -54,6 +54,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction WEATHER_STATION()
  * @method static ChannelFunction STAIRCASETIMER()
  * @method static ChannelFunction ELECTRICITYMETER()
+ * @method static ChannelFunction GASMETER()
+ * @method static ChannelFunction WATERMETER()
  */
 final class ChannelFunction extends Enum {
     const NONE = 0;
@@ -87,6 +89,8 @@ final class ChannelFunction extends Enum {
     const WEATHER_STATION = 290;
     const STAIRCASETIMER = 300;
     const ELECTRICITYMETER = 310;
+    const GASMETER = 320;
+    const WATERMETER = 330;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -198,6 +202,8 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => 'Weather Station',
             self::STAIRCASETIMER => 'Staircase timer',
             self::ELECTRICITYMETER => 'Electricity meter',
+            self::GASMETER => 'Gas meter',
+            self::WATERMETER => 'Water meter',
         ];
     }
 
@@ -244,6 +250,8 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => ['default'],
             self::STAIRCASETIMER => ['on', 'off'],
             self::ELECTRICITYMETER => ['default'],
+            self::GASMETER => ['default'],
+            self::WATERMETER => ['default'],
         ];
     }
 

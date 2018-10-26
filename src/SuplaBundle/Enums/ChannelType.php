@@ -47,6 +47,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelType RGBLEDCONTROLLER()
  * @method static ChannelType DIMMERANDRGBLED()
  * @method static ChannelType ELECTRICITYMETER();
+ * @method static ChannelType IMPULSECOUNTER();
  */
 final class ChannelType extends Enum {
     const SENSORNO = 1000;
@@ -75,6 +76,7 @@ final class ChannelType extends Enum {
     const RGBLEDCONTROLLER = 4010;
     const DIMMERANDRGBLED = 4020;
     const ELECTRICITYMETER = 5000;
+    const IMPULSECOUNTER= 5010;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -142,6 +144,7 @@ final class ChannelType extends Enum {
             self::DISTANCESENSOR => 'Distance sensor',
             self::CALLBUTTON => 'Distance sensor',
             self::ELECTRICITYMETER => 'Electricity meter',
+            self::IMPULSECOUNTER => 'Impulse counter',
         ];
     }
 
@@ -201,6 +204,11 @@ final class ChannelType extends Enum {
             self::WEATHER_STATION => [ChannelFunction::WEATHER_STATION()],
             self::CALLBUTTON => [],
             self::ELECTRICITYMETER => [ChannelFunction::ELECTRICITYMETER()],
+            self::IMPULSECOUNTER => [
+                ChannelFunction::ELECTRICITYMETER(),
+                ChannelFunction::GASMETER(),
+                ChannelFunction::WATERMETER(),
+                ],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
