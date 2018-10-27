@@ -116,6 +116,12 @@ class IODeviceChannel implements HasFunction, HasLocation {
     private $param3 = 0;
 
     /**
+     * @ORM\Column(name="param4", type="string", length=50, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $param4;
+
+    /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
      * @Groups({"basic"})
      */
@@ -267,6 +273,20 @@ class IODeviceChannel implements HasFunction, HasLocation {
 
     public function setParam3(int $param3) {
         $this->param3 = $param3;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getParam4() {
+        return $this->param4;
+    }
+
+    /**
+     * @param string|null $param4
+     */
+    public function setParam4($param4) {
+        $this->param4 = $param4;
     }
 
     public function getAltIcon(): int {
