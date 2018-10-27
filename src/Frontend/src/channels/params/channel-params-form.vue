@@ -23,6 +23,9 @@
     import ChannelParamsHumidityandtemperature from "./channel-params-humidityandtemperature";
     import ChannelParamsMailsensor from "./channel-params-mailsensor";
     import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
+    import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
+    import ChannelParamsGasmeter from "./channel-params-gas-meter";
+    import ChannelParamsWatermeter from "./channel-params-water-meter";
 
     export default {
         props: ['channel'],
@@ -44,12 +47,15 @@
             ChannelParamsHumidityandtemperature,
             ChannelParamsMailsensor,
             ChannelParamsNoliquidsensor,
+            ChannelParamsElectricitymeter,
+            ChannelParamsGasmeter,
+            ChannelParamsWatermeter,
         },
         computed: {
             additionalChannelParamsComponent() {
                 const fncName = changeCase.camelCase(this.channel.function.name);
                 let componentName = 'ChannelParams' + changeCase.upperCaseFirst(fncName);
-                // console.log(componentName);
+                //console.log(componentName);
                 if (this.$options.components[componentName]) {
                     return changeCase.headerCase(componentName);
                 } else {

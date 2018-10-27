@@ -198,7 +198,7 @@
                 } else {
                     return false;
                 }
-            }
+            },
         }
     };
 </script>

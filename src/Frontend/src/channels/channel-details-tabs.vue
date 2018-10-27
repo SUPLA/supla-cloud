@@ -39,7 +39,14 @@
             if (this.channel.function.possibleActions.length) {
                 this.availableTabs.push({id: 'schedules', header: 'Schedules'});
             }
-            if (['THERMOMETER', 'HUMIDITY', 'HUMIDITYANDTEMPERATURE'].indexOf(this.channel.function.name) >= 0) {
+            var supporterFunctions = ['THERMOMETER',
+                'HUMIDITY',
+                'HUMIDITYANDTEMPERATURE',
+                'ELECTRICITYMETER',
+                'GASMETER',
+                'WATERMETER'];
+            
+            if (supporterFunctions.indexOf(this.channel.function.name) >= 0) {
                 this.availableTabs.push({id: 'measurementsHistory', header: 'History of measurements'});
             }
             if (this.availableTabs.length) {
