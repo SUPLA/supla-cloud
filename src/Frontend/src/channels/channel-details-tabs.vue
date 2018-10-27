@@ -45,7 +45,7 @@
                 'ELECTRICITYMETER',
                 'GASMETER',
                 'WATERMETER'];
-            
+
             if (supporterFunctions.indexOf(this.channel.function.name) >= 0) {
                 this.availableTabs.push({id: 'measurementsHistory', header: 'History of measurements'});
             }
