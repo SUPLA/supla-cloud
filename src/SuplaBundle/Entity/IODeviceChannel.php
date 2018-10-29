@@ -116,10 +116,22 @@ class IODeviceChannel implements HasFunction, HasLocation {
     private $param3 = 0;
 
     /**
-     * @ORM\Column(name="param4", type="string", length=50, nullable=true)
+     * @ORM\Column(name="text_param1", type="string", length=255, nullable=true)
      * @Groups({"basic"})
      */
-    private $param4;
+    private $textParam1;
+
+    /**
+     * @ORM\Column(name="text_param2", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $textParam2;
+
+    /**
+     * @ORM\Column(name="text_param3", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $textParam3;
 
     /**
      * @ORM\Column(name="alt_icon", type="integer", nullable=true)
@@ -278,15 +290,43 @@ class IODeviceChannel implements HasFunction, HasLocation {
     /**
      * @return string|null
      */
-    public function getParam4() {
-        return $this->param4;
+    public function getTextParam1() {
+        return $this->textParam1;
     }
 
     /**
-     * @param string|null $param4
+     * @param string|null $textParam1
      */
-    public function setParam4($param4) {
-        $this->param4 = $param4;
+    public function setTextParam1($textParam1) {
+        $this->textParam1 = $textParam1;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTextParam2() {
+        return $this->textParam2;
+    }
+
+    /**
+     * @param string|null $textParam2
+     */
+    public function setTextParam2($textParam2) {
+        $this->textParam2 = $textParam2;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTextParam3() {
+        return $this->textParam3;
+    }
+
+    /**
+     * @param string|null $textParam3
+     */
+    public function setTextParam3($textParam3) {
+        $this->textParam3 = $textParam3;
     }
 
     public function getAltIcon(): int {

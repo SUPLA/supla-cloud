@@ -134,6 +134,18 @@ class IODevice implements HasLocation {
      */
     private $flags = 0;
 
+    /**
+     * @ORM\Column(name="manufacturer_id", type="smallint", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $manufacturerId;
+
+    /**
+     * @ORM\Column(name="product_id", type="smallint", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $productId;
+
     public function getEnabled() {
         return $this->enabled;
     }
@@ -230,5 +242,19 @@ class IODevice implements HasLocation {
 
     public function getFlags(): int {
         return intval($this->flags);
+    }
+
+    /**
+     * @return integer
+     */
+    public function getManufacturerId() {
+        return $this->manufacturerId;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getProductId() {
+        return $this->productId;
     }
 }
