@@ -14,7 +14,7 @@
 
         <dd>{{ $t('Currency') }}</dd>
         <dt>
-            <currency-picker v-model="param4"></currency-picker>
+            <currency-picker v-model="textParam1"></currency-picker>
         </dt>
     </dl>
 </template>
@@ -35,9 +35,9 @@
                     return this.channel.param2 / 100;
                 }
             },
-            param4: {
+            textParam1: {
                 set(value) {
-                    this.channel.param4 = value;
+                    this.channel.textParam1 = value;
                     this.$emit('change');
                 },
                 get() {

@@ -7,8 +7,12 @@ use SuplaBundle\Entity\IODeviceChannel;
 class AnyMeterCurrency implements SingleChannelParamsUpdater {
 
     public function updateChannelParams(IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
-        if (preg_match('/^[A-Z]{3}$/', $updatedChannel->getParam4())) {
-            $channel->setParam4($updatedChannel->getParam4());
+        if (preg_match('/^[A-Z]{3}$/', $updatedChannel->getTextParam1())) {
+            $channel->setTextParam1($updatedChannel->getTextParam1());
+        }
+
+        if (strlen($updatedChannel->getTextParam2() <= 4)) {
+            $channel->setTextParam2($updatedChannel->getTextParam2());
         }
     }
 
