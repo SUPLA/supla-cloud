@@ -6,7 +6,7 @@
                 <input type="text" maxlength="4"
                     class="form-control text-center"
                     v-model="unitTextInput"
-                @keyup="onKeyUp">
+                @keyup="$emit('change')">
             </span>
         </dt>
     </dl>
@@ -24,10 +24,6 @@
         methods: {
           getDefaultUnit() {
               return this.default_unit ? this.default_unit : 'm³';
-          },
-          onKeyUp() {
-              this.$emit('change');
-              this.$emit('input', this.unit);
           }
         },
         computed: {
@@ -39,6 +35,7 @@
                     this.textInput = value;
                     this.unit = value ? value : this.getDefaultUnit();
                     this.channel.textParam2 = value == this.getDefaultUnit() ? null : value;
+                    this.$emit('input', this.unit);
                 }
             }
         },
@@ -46,7 +43,6 @@
             this.unit = this.channel.textParam2;
             if (!this.unit) {
                 this.unit = this.getDefaultUnit();
-                this.$emit('input', this.unit);
             }
             this.textInput = this.unit;
         }
