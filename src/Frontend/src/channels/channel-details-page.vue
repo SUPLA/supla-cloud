@@ -179,6 +179,8 @@
                 this.channel.state = {};
                 this.channel.function = fnc;
                 this.channel.altIcon = 0;
+                this.channel.textParam1 = null;
+                this.channel.textParam2 = null;
                 this.updateChannel();
             }
         },

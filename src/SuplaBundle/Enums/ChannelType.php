@@ -76,7 +76,7 @@ final class ChannelType extends Enum {
     const RGBLEDCONTROLLER = 4010;
     const DIMMERANDRGBLED = 4020;
     const ELECTRICITYMETER = 5000;
-    const IMPULSECOUNTER= 5010;
+    const IMPULSECOUNTER = 5010;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -208,7 +208,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::ELECTRICITYMETER(),
                 ChannelFunction::GASMETER(),
                 ChannelFunction::WATERMETER(),
-                ],
+            ],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
