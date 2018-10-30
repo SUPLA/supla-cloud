@@ -3,10 +3,11 @@
         <dd>{{ $t('Unit') }}</dd>
         <dt>
             <span class="input-group">
-                <input type="text" maxlength="4"
+                <input type="text"
+                    maxlength="4"
                     class="form-control text-center"
                     v-model="unitTextInput"
-                @keyup="$emit('change')">
+                    @keyup="$emit('change')">
             </span>
         </dt>
     </dl>
@@ -22,9 +23,9 @@
             };
         },
         methods: {
-          getDefaultUnit() {
-              return this.default_unit ? this.default_unit : 'm³';
-          }
+            getDefaultUnit() {
+                return this.default_unit ? this.default_unit : 'm³';
+            }
         },
         computed: {
             unitTextInput: {
