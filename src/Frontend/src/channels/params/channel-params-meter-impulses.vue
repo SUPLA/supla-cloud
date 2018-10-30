@@ -8,9 +8,9 @@
                     min="0"
                     max="1000000"
                     class="form-control text-center"
-                    v-model="param3">
+                    v-model="impulses">
                 <span class="input-group-addon">
-                    /{{ _unit }}
+                    /{{ unit }}
                 </span>
             </span>
         </dt>
@@ -21,7 +21,7 @@
     export default {
         props: ['channel', 'unit'],
         computed: {
-            param3: {
+            impulses: {
                 set(value) {
                     this.channel.param3 = value;
                     this.$emit('change');
@@ -29,12 +29,7 @@
                 get() {
                     return this.channel.param3;
                 }
-            },
-            _unit: {
-                get() {
-                    return this.unit ? this.unit : 'm³';
-                }
-            },
+            }
         },
     };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <dl>
-        <dd>{{ $t('Price per') }} {{ _unit }}</dd>
+        <dd>{{ $t('Price per') }} {{ unit }}</dd>
         <dt>
             <span class="input-group">
                 <input type="number"
@@ -8,13 +8,13 @@
                     min="0"
                     max="1000"
                     class="form-control text-center"
-                    v-model="param2">
+                    v-model="pricePerUnit">
             </span>
         </dt>
 
         <dd>{{ $t('Currency') }}</dd>
         <dt>
-            <currency-picker v-model="textParam1"></currency-picker>
+            <currency-picker v-model="currency"></currency-picker>
         </dt>
     </dl>
 </template>
@@ -26,7 +26,7 @@
         components: {CurrencyPicker},
         props: ['channel', 'unit'],
         computed: {
-            param2: {
+            pricePerUnit: {
                 set(value) {
                     this.channel.param2 = value * 100;
                     this.$emit('change');
@@ -35,20 +35,15 @@
                     return this.channel.param2 / 100;
                 }
             },
-            textParam1: {
+            currency: {
                 set(value) {
                     this.channel.textParam1 = value;
                     this.$emit('change');
                 },
                 get() {
-                    return this.channel.param4;
+                    return this.channel.textParam1;
                 }
-            },
-            _unit: {
-                get() {
-                    return this.unit ? this.unit : 'm³';
-                }
-            },
+            }
         },
     };
 </script>
