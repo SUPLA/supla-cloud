@@ -199,7 +199,28 @@ class IODeviceManager {
         if ($temp_file !== false) {
             $handle = fopen($temp_file, 'w+');
 
-            if ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
+            if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
+
+                fputcsv($handle, ['Timestamp', 'Date and time', `Counter`, `CalculatedValue`]);
+
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
+                $sql .= "`counter`, `calculated_value` FROM `supla_ic_log` WHERE channel_id = ?";
+
+                $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
+                $stmt->bindValue(1, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(2, $this->sec->getToken()->getUser()->getTimezone());
+                $stmt->bindValue(3, $channel->getId(), 'integer');
+                $stmt->execute();
+
+                while ($row = $stmt->fetch()) {
+                    fputcsv($handle, [$row['date_ts'], $row['date'],
+                        $row['counter'],
+                        $row['calculated_value'],
+                    ]);
+                }
+
+            } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
             	
             	fputcsv($handle, ['Timestamp', 'Date and time', `Phase1FAE`, `Phase1RAE`, `Phase1FRE`, `Phase1RRE`,
             			`Phase2FAE`, `Phase2RAE`, `Phase2FRE`, `Phase2RRE`, `Phase3FAE`, `Phase3RAE`, `Phase3FRE`, `Phase3RRE`]);

@@ -22,6 +22,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
@@ -60,7 +61,18 @@ class ChannelMeasurementLogsController extends RestController {
                 $repoName = 'TemperatureLogItem';
                 break;
             case ChannelFunction::ELECTRICITYMETER:
-                $repoName = 'ElectricityMeterLogItem';
+                switch($channel->getType()->getId()) {
+                    case ChannelType::IMPULSECOUNTER:
+                        $repoName = 'ImpulseCounterLogItem';
+                        break;
+                    case ChannelType::ELECTRICITYMETER:
+                        $repoName = 'ElectricityMeterLogItem';
+                        break;
+                }
+                break;
+            case ChannelFunction::GASMETER:
+            case ChannelFunction::WATERMETER:
+                $repoName = 'ImpulseCounterLogItem';
                 break;
         }
 
@@ -126,7 +138,8 @@ class ChannelMeasurementLogsController extends RestController {
     ) {
 
         if ($allowedFuncList == null) {
-            $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER];
+            $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER];
         }
 
         Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');
@@ -136,6 +149,19 @@ class ChannelMeasurementLogsController extends RestController {
 
         if ($limit <= 0) {
             $limit = self::RECORD_LIMIT_PER_REQUEST;
+        }
+
+        if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
+            return $this->logItems(
+                "`supla_ic_log`",
+                "`counter`, `calculated_value`",
+                $channel->getId(),
+                $offset,
+                $limit,
+                $afterTimestamp,
+                $beforeTimestamp,
+                $orderDesc
+            );
         }
 
         switch ($channel->getFunction()->getId()) {
