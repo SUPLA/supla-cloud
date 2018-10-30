@@ -51,6 +51,9 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
         ]);
 
         $date = new \DateTime($datestr);

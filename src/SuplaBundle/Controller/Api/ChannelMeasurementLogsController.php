@@ -61,7 +61,7 @@ class ChannelMeasurementLogsController extends RestController {
                 $repoName = 'TemperatureLogItem';
                 break;
             case ChannelFunction::ELECTRICITYMETER:
-                switch($channel->getType()->getId()) {
+                switch ($channel->getType()->getId()) {
                     case ChannelType::IMPULSECOUNTER:
                         $repoName = 'ImpulseCounterLogItem';
                         break;
