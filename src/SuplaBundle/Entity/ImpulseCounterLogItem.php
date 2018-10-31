@@ -35,7 +35,7 @@ class ImpulseCounterLogItem {
     /**
      * @ORM\Column(name="channel_id", type="integer")
      */
-    private $channelId;
+    private $channel_id;
 
     /**
      * @ORM\Column(name="date", type="utcdatetime")
@@ -50,7 +50,7 @@ class ImpulseCounterLogItem {
     /**
      * @ORM\Column(name="calculated_value", type="bigint", nullable=false)
      */
-    private $calculatedValue;
+    private $calculated_value;
 
     public function __construct() {
     }
@@ -60,7 +60,7 @@ class ImpulseCounterLogItem {
     }
 
     public function getChannelId(): int {
-        return $this->channelId;
+        return $this->channel_id;
     }
 
     /** @return \DateTime */
@@ -73,6 +73,6 @@ class ImpulseCounterLogItem {
     }
 
     public function getCalculatedValue(): float {
-        return $this->calculatedValue / 1000.00;
+        return $this->calculated_value / 1000.00;
     }
 }
