@@ -63,6 +63,12 @@ class CompositeSchedulePlanner {
             } catch (\RuntimeException $e) {
                 // impossible cron expression
             }
+            if ($nextRunDate->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {
+                $runDates = array_map(function (\DateTime $nextRunDateInDifferentTimezone) use ($schedule) {
+                    $nextRunDateInDifferentTimezone->setTimezone($schedule->getUserTimezone());
+                    return $nextRunDateInDifferentTimezone;
+                }, $runDates);
+            }
             return $runDates;
         });
     }
