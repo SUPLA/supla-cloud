@@ -3,7 +3,7 @@ namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
 
-class AnyMeterUnitPrice extends RangeParamsUpdater {
+class AnyMeterPricePerUnit extends RangeParamsUpdater {
     const MIN_PRICE = 0;
     const MAX_PRICE = 1000;
 
