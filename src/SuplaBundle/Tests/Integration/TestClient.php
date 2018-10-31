@@ -5,8 +5,15 @@ use SuplaBundle\Model\ApiVersions;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 class TestClient extends Client {
-    public function apiRequest(string $method, string $uri, $content = [], array $params = [], array $files = [], array $server = [],
-                               string $version = null) {
+    public function apiRequest(
+        string $method,
+        string $uri,
+        $content = [],
+        array $params = [],
+        array $files = [],
+        array $server = [],
+        string $version = null
+    ) {
         if (is_array($content)) {
             $content = json_encode($content);
         }
