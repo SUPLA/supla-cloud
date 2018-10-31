@@ -49,7 +49,8 @@ class ChannelMeasurementLogsController extends RestController {
         $functionId = $channel->getFunction()->getId();
         Assertion::inArray(
             $functionId,
-            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
 
@@ -154,7 +155,7 @@ class ChannelMeasurementLogsController extends RestController {
         if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
             return $this->logItems(
                 "`supla_ic_log`",
-                "`counter`, `calculated_value`",
+                "`counter`, `calculated_value` / 1000 calculated_value",
                 $channel->getId(),
                 $offset,
                 $limit,
