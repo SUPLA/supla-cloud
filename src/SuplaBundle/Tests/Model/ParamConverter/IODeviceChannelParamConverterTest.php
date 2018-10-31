@@ -84,6 +84,4 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('caption', $channel->getCaption());
         $this->assertEquals(true, $channel->getHidden());
     }
-
-
 }
