@@ -3,6 +3,7 @@ namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ChannelType;
 
 class AnyMeterUnit implements SingleChannelParamsUpdater {
 
@@ -13,7 +14,8 @@ class AnyMeterUnit implements SingleChannelParamsUpdater {
     }
 
     public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction(), [ChannelFunction::ELECTRICITYMETER(),
+        return $channel->getType() == ChannelType::IMPULSECOUNTER()
+            && in_array($channel->getFunction(), [ChannelFunction::ELECTRICITYMETER(),
             ChannelFunction::GASMETER(),
             ChannelFunction::WATERMETER()]);
     }
