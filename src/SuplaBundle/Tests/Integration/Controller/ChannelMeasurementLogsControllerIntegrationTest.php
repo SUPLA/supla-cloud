@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\ElectricityMeterLogItem;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\TemperatureLogItem;
 use SuplaBundle\Entity\TempHumidityLogItem;
@@ -94,6 +95,21 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
+        $date = new \DateTime($datestr);
+        foreach ([100, 200, 300] as $impulses) {
+            foreach ([1, 2, 3] as $num) {
+                $logItem = new ImpulseCounterLogItem();
+
+                EntityUtils::setField($logItem, 'channel_id', 4+$num);
+                EntityUtils::setField($logItem, 'date', clone $date);
+                EntityUtils::setField($logItem, 'counter', $impulses);
+                EntityUtils::setField($logItem, 'calculated_value', $impulses);
+
+                $this->getEntityManager()->persist($logItem);
+            }
+            $date->add($oneday);
+        }
+
         $this->getEntityManager()->flush();
     }
 
@@ -116,6 +132,18 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testGettingElectricityMeasurementsLogsCount() {
         $this->ensureMeasurementLogsCount(4);
+    }
+
+    public function testGettingElectricityImpulsesLogsCount() {
+        $this->ensureMeasurementLogsCount(5);
+    }
+
+    public function testGettingGasImpulsesLogsCount() {
+        $this->ensureMeasurementLogsCount(6);
+    }
+
+    public function testGettingWaterImpulsesLogsCount() {
+        $this->ensureMeasurementLogsCount(7);
     }
 
     public function testGettingTemperatureLogsCountObsolete() {
@@ -186,6 +214,28 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [855000, 854900, 854800]);
     }
 
+    private function testImpulseCounterLogs($channelId) {
+        $content = $this->getMeasurementLogs($channelId);
+        $impulsesInOrder = [300, 200,100];
+        $calculatedValuesInOrder = [0.3, 0.2, 0.1];
+
+        $this->assertEquals($impulsesInOrder, array_map('intval', array_column($content, 'counter')));
+        $this->assertEquals($calculatedValuesInOrder, array_map('floatval', array_column($content, 'calculated_value')));
+    }
+
+
+    public function testGettingElectricityCounterLogs() {
+        $this->testImpulseCounterLogs(5);
+    }
+
+    public function testGettingGasCounterLogs() {
+        $this->testImpulseCounterLogs(6);
+    }
+
+    public function testGettingWaterCounterLogs() {
+        $this->testImpulseCounterLogs(7);
+    }
+
     private function getMeasurementLogsAscending(int $channelId) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs?order=ASC');
@@ -215,6 +265,27 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
     }
 
+    private function testImpulseCounterLogsAscending($channelId) {
+        $content = $this->getMeasurementLogsAscending($channelId);
+        $impulsesInOrder = [100, 200,300];
+        $calculatedValuesInOrder = [0.1, 0.2, 0.3];
+
+        $this->assertEquals($impulsesInOrder, array_map('intval', array_column($content, 'counter')));
+        $this->assertEquals($calculatedValuesInOrder, array_map('floatval', array_column($content, 'calculated_value')));
+    }
+
+    public function testGettingElectricityCounterLogsAscending() {
+        $this->testImpulseCounterLogsAscending(5);
+    }
+
+    public function testGettingGasCounterLogsAscending() {
+        $this->testImpulseCounterLogsAscending(6);
+    }
+
+    public function testGettingWaterCounterLogsAscending() {
+        $this->testImpulseCounterLogsAscending(7);
+    }
+
     private function gettingMeasurementLogsWithOffset(int $channelId) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs?offset=1&limit=1');
@@ -239,6 +310,24 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testGettingElectricityMeasurementLogsWithOffset() {
         $content = $this->gettingMeasurementLogsWithOffset(4);
         $this->ensureElectricityMeasurementLogsOrder($content, [854900]);
+    }
+
+    private function testGettingImpulseCounterLogsWithOffset($channelId) {
+        $content = $this->gettingMeasurementLogsWithOffset($channelId);
+        $this->assertEquals(200, intval($content[0]['counter']));
+        $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
+    }
+
+    public function testGettingElectricityCounterLogsWithOffset() {
+        $this->testGettingImpulseCounterLogsWithOffset(5);
+    }
+
+    public function testGettingGasCounterLogsWithOffset() {
+        $this->testGettingImpulseCounterLogsWithOffset(6);
+    }
+
+    public function testGettingWaterCounterLogsWithOffset() {
+        $this->testGettingImpulseCounterLogsWithOffset(7);
     }
 
     private function getMeasurementLogsWithTimestampRange(int $channelId) {
@@ -270,6 +359,24 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testGettingElectricityMeasurementLogsWithTimestampRange() {
         $content = $this->getMeasurementLogsWithTimestampRange(4);
         $this->ensureElectricityMeasurementLogsOrder($content, [854900]);
+    }
+
+    public function testGettingElectricityCounterLogsWithTimestampRange() {
+        $content = $this->getMeasurementLogsWithTimestampRange(5);
+        $this->assertEquals(200, intval($content[0]['counter']));
+        $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
+    }
+
+    public function testGettingGasCounterLogsWithTimestampRange() {
+        $content = $this->getMeasurementLogsWithTimestampRange(6);
+        $this->assertEquals(200, intval($content[0]['counter']));
+        $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
+    }
+
+    public function testGettingWaterCounterLogsWithTimestampRange() {
+        $content = $this->getMeasurementLogsWithTimestampRange(7);
+        $this->assertEquals(200, intval($content[0]['counter']));
+        $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
     }
 
     public function testGettingMeasurementLogsOfUnsupportedChannel() {
