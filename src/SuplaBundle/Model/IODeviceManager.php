@@ -192,6 +192,8 @@ class IODeviceManager {
             ChannelFunction::HUMIDITY()->getId(),
             ChannelFunction::HUMIDITYANDTEMPERATURE()->getId(),
         	ChannelFunction::ELECTRICITYMETER()->getId(),
+            ChannelFunction::GASMETER()->getId(),
+            ChannelFunction::WATERMETER()->getId(),
         ]);
 
         $temp_file = tempnam(sys_get_temp_dir(), 'supla_csv_');
@@ -201,11 +203,11 @@ class IODeviceManager {
 
             if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
 
-                fputcsv($handle, ['Timestamp', 'Date and time', `Counter`, `CalculatedValue`]);
+                fputcsv($handle, ['Timestamp', 'Date and time', 'Counter', 'CalculatedValue']);
 
                 $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
                 $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
-                $sql .= "`counter`, `calculated_value` FROM `supla_ic_log` WHERE channel_id = ?";
+                $sql .= "`counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = ?";
 
                 $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
                 $stmt->bindValue(1, $this->sec->getToken()->getUser()->getTimezone());
