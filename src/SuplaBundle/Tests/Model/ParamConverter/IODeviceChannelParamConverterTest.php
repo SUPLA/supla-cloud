@@ -49,4 +49,41 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
         $this->expectException(\InvalidArgumentException::class);
         $this->converter->convert(['functionId' => -1]);
     }
+
+    public function testAltIcon() {
+        $channel = $this->converter->convert(['functionId' => ChannelFunction::POWERSWITCH,
+            'altIcon' => 1]);
+        $this->assertEquals(1, $channel->getAltIcon());
+    }
+
+    public function testInvalidAltIcon() {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->converter->convert(['functionId' => ChannelFunction::POWERSWITCH,
+            'altIcon' => 50]);
+    }
+
+    public function testOtherParamsInit() {
+        $channel = $this->converter->convert(['param1' => 1,
+            'param2' => 2,
+            'param3' => 3,
+            'textParam1' => 'text1',
+            'textParam2' => 'text2',
+            'textParam3' => 'text3',
+            'caption' => 'caption',
+            'hidden' => true,
+            ]);
+
+        $this->assertEquals(1, $channel->getParam1());
+        $this->assertEquals(2, $channel->getParam2());
+        $this->assertEquals(3, $channel->getParam3());
+
+        $this->assertEquals('text1', $channel->getTextParam1());
+        $this->assertEquals('text2', $channel->getTextParam2());
+        $this->assertEquals('text3', $channel->getTextParam3());
+
+        $this->assertEquals('caption', $channel->getCaption());
+        $this->assertEquals(true, $channel->getHidden());
+    }
+
+
 }
