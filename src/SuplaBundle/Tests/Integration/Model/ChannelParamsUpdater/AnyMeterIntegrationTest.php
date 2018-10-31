@@ -38,7 +38,10 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
+            [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
         ]);
         $this->updater = $this->container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($user);
@@ -149,6 +152,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
                 $this->updater->updateChannelParams($channel, $newChannel);
                 $this->assertEquals(null, $channel->getTextParam2());
             } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
+                $newChannel = new IODeviceChannel();
                 $newChannel->setTextParam2("kWh");
                 $this->updater->updateChannelParams($channel, $newChannel);
                 $this->assertEquals(null, $channel->getTextParam2());
