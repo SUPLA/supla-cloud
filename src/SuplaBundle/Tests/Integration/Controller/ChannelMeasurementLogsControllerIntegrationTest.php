@@ -321,22 +321,22 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854900]);
     }
 
-    private function testGettingImpulseCounterLogsWithOffset($channelId) {
+    private function ensureGettingImpulseCounterLogsWithOffset($channelId) {
         $content = $this->gettingMeasurementLogsWithOffset($channelId);
         $this->assertEquals(200, intval($content[0]['counter']));
         $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
     }
 
     public function testGettingElectricityCounterLogsWithOffset() {
-        $this->testGettingImpulseCounterLogsWithOffset(5);
+        $this->ensureGettingImpulseCounterLogsWithOffset(5);
     }
 
     public function testGettingGasCounterLogsWithOffset() {
-        $this->testGettingImpulseCounterLogsWithOffset(6);
+        $this->ensureGettingImpulseCounterLogsWithOffset(6);
     }
 
     public function testGettingWaterCounterLogsWithOffset() {
-        $this->testGettingImpulseCounterLogsWithOffset(7);
+        $this->ensureGettingImpulseCounterLogsWithOffset(7);
     }
 
     private function getMeasurementLogsWithTimestampRange(int $channelId) {
