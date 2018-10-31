@@ -274,7 +274,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
     }
 
-    private function testImpulseCounterLogsAscending($channelId) {
+    private function ensureImpulseCounterLogsAscending($channelId) {
         $content = $this->getMeasurementLogsAscending($channelId);
         $impulsesInOrder = [100, 200,300];
         $calculatedValuesInOrder = [0.1, 0.2, 0.3];
@@ -284,15 +284,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingElectricityCounterLogsAscending() {
-        $this->testImpulseCounterLogsAscending(5);
+        $this->ensureImpulseCounterLogsAscending(5);
     }
 
     public function testGettingGasCounterLogsAscending() {
-        $this->testImpulseCounterLogsAscending(6);
+        $this->ensureImpulseCounterLogsAscending(6);
     }
 
     public function testGettingWaterCounterLogsAscending() {
-        $this->testImpulseCounterLogsAscending(7);
+        $this->ensureImpulseCounterLogsAscending(7);
     }
 
     private function gettingMeasurementLogsWithOffset(int $channelId) {
