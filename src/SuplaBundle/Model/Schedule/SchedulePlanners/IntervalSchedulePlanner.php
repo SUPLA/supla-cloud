@@ -28,8 +28,12 @@ class IntervalSchedulePlanner implements SchedulePlanner {
         $intervalInMinutes = intval($matches[1]);
         $period = "PT{$intervalInMinutes}M";
         $nextRunDate = clone $currentDate;
+        if ($nextRunDate->getTimezone()->getName() != 'UTC') {
+            // switching to UTC before adding the interval mitigates problems with DST changes
+            $nextRunDate->setTimezone(new \DateTimeZone('UTC'));
+        }
         $nextRunDate->add(new \DateInterval($period));
-        return CompositeSchedulePlanner::roundToClosest5Minutes($nextRunDate, $schedule->getUserTimezone());
+        return CompositeSchedulePlanner::roundToClosest5Minutes($nextRunDate, $nextRunDate->getTimezone());
     }
 
     public function canCalculateFor(Schedule $schedule) {

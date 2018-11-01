@@ -47,12 +47,62 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotContains('2017-01-02T00:10:00+01:00', $runDates);
     }
 
-    public function testCalculatingWhenDstChanges() {
+    public function testCalculatingIntervalWhenDstChangesForward() {
         $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Europe/Warsaw');
         $runDates = array_map(function (\DateTime $d) {
             return $d->format(\DateTime::ATOM);
         }, $this->planner->calculateNextRunDatesUntil($schedule, '2017-03-26 04:00', '2017-03-26 01:00'));
         $this->assertNotContains('2017-03-26T02:00:00+01:00', $runDates);
+    }
+
+    public function testCalculatingCronExpressionWhenDstChangesForward() {
+        $schedule = new ScheduleWithTimezone('30 2 * * *', 'Europe/Warsaw');
+        $runDates = array_map(function (\DateTime $d) {
+            return $d->format(\DateTime::ATOM);
+        }, $this->planner->calculateNextRunDatesUntil($schedule, '2017-03-28 08:00', '2017-03-25 00:00'));
+        $this->assertContains('2017-03-26T02:30:00+02:00', $runDates);
+        $this->assertNotContains('2017-03-26T02:30:00+01:00', $runDates);
+        $this->assertNotContains('2017-03-26T03:30:00+01:00', $runDates);
+        $this->assertNotContains('2017-03-26T03:30:00+02:00', $runDates);
+    }
+
+    public function testCalculatingIntervalWhenDstChangesBackward() {
+        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Europe/Warsaw');
+        $runDates = array_map(function (\DateTime $d) {
+            return $d->format(\DateTime::ATOM);
+        }, $this->planner->calculateNextRunDatesUntil($schedule, '2018-10-28 03:05', '2018-10-28 01:50'));
+        $this->assertContains('2018-10-28T02:30:00+01:00', $runDates);
+        $this->assertContains('2018-10-28T02:30:00+02:00', $runDates);
+    }
+
+    public function testCalculatingCronExpressionWhenDstChangesBackward() {
+        $schedule = new ScheduleWithTimezone('30 2 * * *', 'Europe/Warsaw');
+        $runDates = array_map(function (\DateTime $d) {
+            return $d->format(\DateTime::ATOM);
+        }, $this->planner->calculateNextRunDatesUntil($schedule, '2018-10-29 00:00', '2018-10-27 00:00'));
+        $this->assertContains('2018-10-27T02:30:00+02:00', $runDates);
+        $this->assertNotContains('2018-10-28T02:30:00+02:00', $runDates);
+        $this->assertContains('2018-10-28T02:30:00+01:00', $runDates);
+    }
+
+    public function testCalculatingIntervalWhenDstChangesBackwardInAmericaWinnipeg() {
+        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'America/Winnipeg');
+        $runDates = array_map(function (\DateTime $d) {
+            return $d->format(\DateTime::ATOM);
+        }, $this->planner->calculateNextRunDatesUntil($schedule, '2018-11-04 02:05', '2018-11-04 00:50'));
+        $this->assertContains('2018-11-04T01:30:00-05:00', $runDates);
+        $this->assertContains('2018-11-04T01:30:00-06:00', $runDates);
+    }
+
+    public function testCalculatingCronExpressionWhenDstChangesBackwardInAmericaWinnipeg() {
+        $schedule = new ScheduleWithTimezone('30 1 * * *', 'America/Winnipeg');
+        $runDates = array_map(function (\DateTime $d) {
+            return $d->format(\DateTime::ATOM);
+        }, $this->planner->calculateNextRunDatesUntil($schedule, '2018-11-05 00:00', '2018-11-03 00:00'));
+        $this->assertContains('2018-11-03T01:30:00-05:00', $runDates);
+        $this->assertContains('2018-11-04T01:30:00-05:00', $runDates);
+        $this->assertNotContains('2018-11-04T01:30:00-06:00', $runDates);
+        $this->assertContains('2018-11-05T01:30:00-06:00', $runDates);
     }
 
     public function testCalculatingRunForMelbourne() {
@@ -108,8 +158,7 @@ class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testMinutesBasedSchedulesAreRelativeToStartTime() {
-        $schedule = new ScheduleWithTimezone();
-        $schedule->setTimeExpression('*/10 * * * *');
+        $schedule = new ScheduleWithTimezone('*/10 * * * *', 'UTC');
         $format = 'Y-m-d H:i';
         $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:00:00')->format($format));
         $this->assertEquals('2017-07-01 15:10', $this->planner->calculateNextRunDate($schedule, '2017-07-01 15:01:00')->format($format));

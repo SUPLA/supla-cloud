@@ -26,7 +26,7 @@ class IntervalSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new IntervalSchedulePlanner();
-        $schedule = new ScheduleWithTimezone($cronExpression);
+        $schedule = new ScheduleWithTimezone($cronExpression, 'UTC');
         $format = 'Y-m-d H:i';
         $startDate = \DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
