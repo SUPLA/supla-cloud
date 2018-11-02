@@ -16,10 +16,10 @@
         computed: {
             functionId() {
                 if (this.model) {
-                    if (this.model.functionId) {
-                        return this.model.functionId;
-                    } else if (this.model.function) {
+                    if (this.model.function) {
                         return this.model.function.id;
+                    } else if (this.model.functionId) {
+                        return this.model.functionId;
                     } else if (this.model.id) {
                         return this.model.id;
                     } else if (Number.isInteger(this.model)) {

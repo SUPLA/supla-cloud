@@ -176,9 +176,10 @@
             },
             onFunctionChange(fnc) {
                 this.changedFunction = true;
-                this.channel.state = {};
-                this.channel.function = fnc;
+                this.$set(this.channel, 'state', {});
+                this.$set(this.channel, 'function', fnc);
                 this.channel.altIcon = 0;
+                this.channel.userIconId = null;
                 this.channel.textParam1 = null;
                 this.channel.textParam2 = null;
                 this.updateChannel();
