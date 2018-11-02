@@ -17,11 +17,13 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 
 abstract class AbstractCyclicCommand extends Command implements CyclicCommand {
-    final public function shouldRunNow(): bool {
-        $minuteInTheDay = intval(date('H')) * 60 + intval(date('i'));
+    final public function shouldRunNow(TimeProvider $timeProvider): bool {
+        $timestamp = $timeProvider->getTimestamp();
+        $minuteInTheDay = intval(date('H', $timestamp)) * 60 + intval(date('i', $timestamp));
         return $minuteInTheDay % $this->getIntervalInMinutes() === 0;
     }
 

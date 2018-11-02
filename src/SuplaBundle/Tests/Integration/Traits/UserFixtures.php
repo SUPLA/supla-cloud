@@ -21,13 +21,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
 
@@ -110,6 +114,20 @@ trait UserFixtures {
         }
         $this->getEntityManager()->refresh($device);
         return $device;
+    }
+
+    private function createSchedule(HasFunction $subject, string $timeExpression, array $data = []): Schedule {
+        $schedule = new Schedule($subject->getUser(), array_merge([
+            'action' => ChannelFunctionAction::TURN_ON,
+            'subject' => $subject,
+            'mode' => ScheduleMode::ONCE,
+            'timeExpression' => $timeExpression,
+        ], $data));
+        $schedule->setEnabled(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($schedule);
+        $em->flush();
+        return $schedule;
     }
 
     protected function getEntityManager(): EntityManagerInterface {

@@ -18,9 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Model;
 
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -45,10 +43,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatedScheduleIsEmpty() {
-        $schedule = $this->createSchedule([
-            'timeExpression' => '0 0 1 1 * 2088',
-            'mode' => ScheduleMode::ONCE,
-        ]);
+        $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088');
         $this->assertGreaterThan(0, $schedule->getId());
         $this->assertNull($schedule->getNextCalculationDate());
         $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
@@ -56,10 +51,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCalculateNextRunDateForOnceSchedule() {
-        $schedule = $this->createSchedule([
-            'timeExpression' => '0 0 1 1 * 2088',
-            'mode' => ScheduleMode::ONCE,
-        ]);
+        $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088');
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertNotNull($schedule->getNextCalculationDate());
         $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
@@ -71,8 +63,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDoesNotGenerateRunDateForSchedulesWithPastEndDate() {
-        $schedule = $this->createSchedule([
-            'timeExpression' => '*/5 * * * *',
+        $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
             'dateEnd' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
         ]);
@@ -82,8 +73,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisablesScheduleIfNoMoreExecutions() {
-        $schedule = $this->createSchedule([
-            'timeExpression' => '*/5 * * * *',
+        $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
             'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
             'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
@@ -97,8 +87,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDoesNotDisableIfThereArePendingExecutionsToExecute() {
-        $schedule = $this->createSchedule([
-            'timeExpression' => '*/5 * * * *',
+        $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
             'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
             'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
@@ -110,24 +99,9 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDoesNotDisableFutureOnceSchedule() {
-        $schedule = $this->createSchedule([
-            'timeExpression' => '0 0 1 1 * 2088',
-            'mode' => ScheduleMode::MINUTELY,
-        ]);
+        $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088', ['mode' => ScheduleMode::MINUTELY]);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());
-    }
-
-    private function createSchedule($data): Schedule {
-        $schedule = new Schedule($this->channel->getIoDevice()->getUser(), array_merge([
-            'action' => ChannelFunctionAction::TURN_ON,
-            'channel' => $this->channel,
-        ], $data));
-        $schedule->setEnabled(true);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($schedule);
-        $em->flush();
-        return $schedule;
     }
 }

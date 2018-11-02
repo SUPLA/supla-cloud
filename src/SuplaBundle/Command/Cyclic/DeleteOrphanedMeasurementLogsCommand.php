@@ -18,6 +18,7 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -51,7 +52,7 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
         $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $stmt->rowCount(), $name));
     }
 
-    public function shouldRunNow(): bool {
-        return date('H:i') === '01:20';
+    public function shouldRunNow(TimeProvider $timeProvider): bool {
+        return date('H:i', $timeProvider->getTimestamp()) === '01:20';
     }
 }

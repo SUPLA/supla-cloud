@@ -20,6 +20,7 @@ namespace SuplaBundle\Command\Cyclic;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -60,7 +61,7 @@ QUERY;
         $output->writeln(sprintf('Disabled <info>%d</info> schedules due to failed executions.', $stmt->rowCount()));
     }
 
-    public function shouldRunNow(): bool {
-        return date('H:i') === '03:20';
+    public function shouldRunNow(TimeProvider $timeProvider): bool {
+        return date('H:i', $timeProvider->getTimestamp()) === '03:20';
     }
 }
