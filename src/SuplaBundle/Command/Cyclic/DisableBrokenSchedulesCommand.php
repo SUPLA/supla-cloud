@@ -60,7 +60,8 @@ class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
     (SELECT COUNT(*) FROM `$scheduleExecutionsTableName` 
         WHERE schedule_id = s.id AND result=0 AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) successful,
     (SELECT COUNT(*) FROM `$scheduleExecutionsTableName` 
-        WHERE schedule_id = s.id AND result!=0 AND result IS NOT NULL AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) failed
+        WHERE schedule_id = s.id AND result!=0 AND result IS NOT NULL 
+              AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) failed
 	FROM `$schedulesTableName` s
 	WHERE enabled = 1 
 	HAVING successful = 0 AND failed > 10

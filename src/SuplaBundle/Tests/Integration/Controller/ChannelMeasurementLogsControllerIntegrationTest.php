@@ -100,7 +100,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             foreach ([1, 2, 3] as $num) {
                 $logItem = new ImpulseCounterLogItem();
 
-                EntityUtils::setField($logItem, 'channel_id', 4+$num);
+                EntityUtils::setField($logItem, 'channel_id', 4 + $num);
                 EntityUtils::setField($logItem, 'date', clone $date);
                 EntityUtils::setField($logItem, 'counter', $impulses);
                 EntityUtils::setField($logItem, 'calculated_value', $impulses);
@@ -214,26 +214,25 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [855000, 854900, 854800]);
     }
 
-    private function testImpulseCounterLogs($channelId) {
+    private function assertValidImpulseCounterLogs($channelId) {
         $content = $this->getMeasurementLogs($channelId);
-        $impulsesInOrder = [300, 200,100];
+        $impulsesInOrder = [300, 200, 100];
         $calculatedValuesInOrder = [0.3, 0.2, 0.1];
 
         $this->assertEquals($impulsesInOrder, array_map('intval', array_column($content, 'counter')));
         $this->assertEquals($calculatedValuesInOrder, array_map('floatval', array_column($content, 'calculated_value')));
     }
 
-
     public function testGettingElectricityCounterLogs() {
-        $this->testImpulseCounterLogs(5);
+        $this->assertValidImpulseCounterLogs(5);
     }
 
     public function testGettingGasCounterLogs() {
-        $this->testImpulseCounterLogs(6);
+        $this->assertValidImpulseCounterLogs(6);
     }
 
     public function testGettingWaterCounterLogs() {
-        $this->testImpulseCounterLogs(7);
+        $this->assertValidImpulseCounterLogs(7);
     }
 
     private function getMeasurementLogsAscending(int $channelId) {
@@ -265,9 +264,9 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
     }
 
-    private function testImpulseCounterLogsAscending($channelId) {
+    private function assertValidImpulseCounterLogsAscending($channelId) {
         $content = $this->getMeasurementLogsAscending($channelId);
-        $impulsesInOrder = [100, 200,300];
+        $impulsesInOrder = [100, 200, 300];
         $calculatedValuesInOrder = [0.1, 0.2, 0.3];
 
         $this->assertEquals($impulsesInOrder, array_map('intval', array_column($content, 'counter')));
@@ -275,15 +274,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingElectricityCounterLogsAscending() {
-        $this->testImpulseCounterLogsAscending(5);
+        $this->assertValidImpulseCounterLogsAscending(5);
     }
 
     public function testGettingGasCounterLogsAscending() {
-        $this->testImpulseCounterLogsAscending(6);
+        $this->assertValidImpulseCounterLogsAscending(6);
     }
 
     public function testGettingWaterCounterLogsAscending() {
-        $this->testImpulseCounterLogsAscending(7);
+        $this->assertValidImpulseCounterLogsAscending(7);
     }
 
     private function gettingMeasurementLogsWithOffset(int $channelId) {
@@ -312,22 +311,22 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854900]);
     }
 
-    private function testGettingImpulseCounterLogsWithOffset($channelId) {
+    private function assertValidImpulseCounterLogsWithOffset($channelId) {
         $content = $this->gettingMeasurementLogsWithOffset($channelId);
         $this->assertEquals(200, intval($content[0]['counter']));
         $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
     }
 
     public function testGettingElectricityCounterLogsWithOffset() {
-        $this->testGettingImpulseCounterLogsWithOffset(5);
+        $this->assertValidImpulseCounterLogsWithOffset(5);
     }
 
     public function testGettingGasCounterLogsWithOffset() {
-        $this->testGettingImpulseCounterLogsWithOffset(6);
+        $this->assertValidImpulseCounterLogsWithOffset(6);
     }
 
     public function testGettingWaterCounterLogsWithOffset() {
-        $this->testGettingImpulseCounterLogsWithOffset(7);
+        $this->assertValidImpulseCounterLogsWithOffset(7);
     }
 
     private function getMeasurementLogsWithTimestampRange(int $channelId) {
