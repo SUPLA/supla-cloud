@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Command;
+namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Schedule;
@@ -23,12 +23,10 @@ use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\ScheduleRepository;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GenerateSchedulesExecutionsCommand extends Command {
-
+class GenerateSchedulesExecutionsCommand extends AbstractCyclicCommand {
     /** @var ScheduleManager */
     private $scheduleManager;
     /** @var ScheduleRepository */
@@ -89,5 +87,9 @@ class GenerateSchedulesExecutionsCommand extends Command {
                 ->execute();
         }
         return 0;
+    }
+
+    public function getIntervalInMinutes(): int {
+        return 360; // every six hours
     }
 }

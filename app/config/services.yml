@@ -16,6 +16,8 @@ services:
       tags: [supla.channel_params_updater]
     SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
+    SuplaBundle\Command\Cyclic\CyclicCommand:
+      tags: [supla.cyclic_command]
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
@@ -27,6 +29,8 @@ services:
 
   SuplaBundle\Command\:
     resource: '../../src/SuplaBundle/Command'
+  SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
+    - !tagged supla.cyclic_command
 
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'
