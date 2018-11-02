@@ -4,7 +4,7 @@
         <dt>
             <span class="input-group">
                 <input type="number"
-                    step="0.01"
+                    step="0.0001"
                     min="0"
                     max="1000"
                     class="form-control text-center"
@@ -28,11 +28,11 @@
         computed: {
             pricePerUnit: {
                 set(value) {
-                    this.channel.param2 = value * 100;
+                    this.channel.param2 = value * 10000;
                     this.$emit('change');
                 },
                 get() {
-                    return this.channel.param2 / 100;
+                    return this.channel.param2 / 10000;
                 }
             },
             currency: {

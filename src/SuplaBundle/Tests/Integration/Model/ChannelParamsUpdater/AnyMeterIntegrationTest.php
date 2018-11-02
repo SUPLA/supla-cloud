@@ -53,17 +53,17 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             $this->assertEquals(0, $channel->getParam2());
             $newChannel = new IODeviceChannel();
 
-            $newChannel->setParam2(1000 * 100);
+            $newChannel->setParam2(1000 * 10000);
             $this->updater->updateChannelParams($channel, $newChannel);
-            $this->assertEquals(1000 * 100, $channel->getParam2());
+            $this->assertEquals(1000 * 10000, $channel->getParam2());
 
             $newChannel->setParam2(1);
             $this->updater->updateChannelParams($channel, $newChannel);
             $this->assertEquals(1, $channel->getParam2());
 
-            $newChannel->setParam2(1000 * 100 + 1);
+            $newChannel->setParam2(1000 * 10000 + 1);
             $this->updater->updateChannelParams($channel, $newChannel);
-            $this->assertEquals(1000 * 100, $channel->getParam2());
+            $this->assertEquals(1000 * 10000, $channel->getParam2());
 
             $newChannel->setParam2(0);
             $this->updater->updateChannelParams($channel, $newChannel);
