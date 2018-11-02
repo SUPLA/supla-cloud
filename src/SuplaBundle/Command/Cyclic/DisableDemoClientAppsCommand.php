@@ -64,5 +64,4 @@ class DisableDemoClientAppsCommand extends AbstractCyclicCommand {
     protected function getIntervalInMinutes(): int {
         return 1; // every minute
     }
-
 }

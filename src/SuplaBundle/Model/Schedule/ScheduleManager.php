@@ -225,7 +225,7 @@ class ScheduleManager {
         }
     }
 
-    private function getNow() {
+    private function getNow(): \DateTime {
         return new \DateTime('now', new \DateTimeZone('UTC'));
     }
 }

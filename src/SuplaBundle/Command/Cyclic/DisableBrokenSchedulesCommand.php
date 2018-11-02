@@ -20,7 +20,9 @@ namespace SuplaBundle\Command\Cyclic;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\TimeProvider;
+use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,10 +30,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var ScheduleManager */
+    private $scheduleManager;
+    /** @var ScheduleRepository */
+    private $scheduleRepository;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ScheduleManager $scheduleManager,
+        ScheduleRepository $scheduleRepository
+    ) {
         parent::__construct();
         $this->entityManager = $entityManager;
+        $this->scheduleManager = $scheduleManager;
+        $this->scheduleRepository = $scheduleRepository;
     }
 
     protected function configure() {
@@ -44,20 +56,21 @@ class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
         $schedulesTableName = $this->entityManager->getClassMetadata(Schedule::class)->getTableName();
         $scheduleExecutionsTableName = $this->entityManager->getClassMetadata(ScheduledExecution::class)->getTableName();
         $query = <<<QUERY
-UPDATE `$schedulesTableName` SET enabled = 0 WHERE id IN(
-  SELECT id FROM (
     SELECT id, 
     (SELECT COUNT(*) FROM `$scheduleExecutionsTableName` 
         WHERE schedule_id = s.id AND result=0 AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) successful,
     (SELECT COUNT(*) FROM `$scheduleExecutionsTableName` 
-        WHERE schedule_id = s.id AND result!=0 AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) failed
+        WHERE schedule_id = s.id AND result!=0 AND result IS NOT NULL AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) failed
 	FROM `$schedulesTableName` s
-	WHERE enabled = 1
-  ) AS schedules_to_disable
-)
+	WHERE enabled = 1 
+	HAVING successful = 0 AND failed > 10
 QUERY;
         $stmt = $this->entityManager->getConnection()->prepare($query);
         $stmt->execute();
+        while ($scheduleIdToDisable = $stmt->fetchColumn()) {
+            $schedule = $this->scheduleRepository->find($scheduleIdToDisable);
+            $this->scheduleManager->disable($schedule);
+        }
         $output->writeln(sprintf('Disabled <info>%d</info> schedules due to failed executions.', $stmt->rowCount()));
     }
 
