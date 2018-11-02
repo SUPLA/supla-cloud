@@ -45,7 +45,7 @@ class DeleteObsoleteOauthTokensCommand extends AbstractCyclicCommand {
     protected function configure() {
         $this
             ->setName('supla:clean:obsolete-oauth-tokens')
-            ->setDescription('Delete logs of channels that has been deleted.');
+            ->setDescription('Delete expired Access/Refresh OAuth tokens and Auth Codes.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {

@@ -33,7 +33,7 @@ class ClearPassedRegistrationDatesCommand extends AbstractCyclicCommand {
     protected function configure() {
         $this
             ->setName('supla:clean:passed-io-client-registration-dates')
-            ->setDescription('Delete users that did not confirmed their accounts within the last 24 hours.');
+            ->setDescription('Clear I/O or Client App registration availability dates that are in the past.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {

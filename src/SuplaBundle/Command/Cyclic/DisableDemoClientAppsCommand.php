@@ -41,7 +41,7 @@ class DisableDemoClientAppsCommand extends AbstractCyclicCommand {
     protected function configure() {
         $this
             ->setName('supla:clean:disable-demo-client-apps')
-            ->setDescription('Delete logs of channels that has been deleted.');
+            ->setDescription('Disable demonstration client apps.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
