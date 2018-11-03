@@ -37,30 +37,18 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     /** @var User */
     private $user;
     /** @var IODevice */
-    private $device;
+    private $device1;
+    /** @var IODevice */
+    private $device2;
 
-    protected function setUp() {
-
+    protected function addLogItems($offset = 0) {
         $datestr = '2018-09-15';
         $date = new \DateTime($datestr);
         $oneday = new \DateInterval('P1D');
 
-        $this->user = $this->createConfirmedUser();
-        $location = $this->createLocation($this->user);
-        $this->device = $this->createDevice($location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
-            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
-            [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
-            [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
-        ]);
-
-        $date = new \DateTime($datestr);
         foreach ([21, 22, 23] as $temperature) {
             $logItem = new TemperatureLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 2);
+            EntityUtils::setField($logItem, 'channel_id', 2+$offset);
             EntityUtils::setField($logItem, 'date', clone $date);
             EntityUtils::setField($logItem, 'temperature', $temperature);
             $this->getEntityManager()->persist($logItem);
@@ -70,7 +58,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $date = new \DateTime($datestr);
         foreach ([[21, 30], [22, 40], [23, 50]] as $th) {
             $logItem = new TempHumidityLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 3);
+            EntityUtils::setField($logItem, 'channel_id', 3+$offset);
             EntityUtils::setField($logItem, 'date', clone $date);
             EntityUtils::setField($logItem, 'temperature', $th[0]);
             EntityUtils::setField($logItem, 'humidity', $th[1]);
@@ -81,7 +69,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $date = new \DateTime($datestr);
         foreach ([854800, 854900, 855000] as $energy) {
             $logItem = new ElectricityMeterLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 4);
+            EntityUtils::setField($logItem, 'channel_id', 4+$offset);
             EntityUtils::setField($logItem, 'date', clone $date);
 
             foreach ([1, 2, 3] as $phase) {
@@ -100,7 +88,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             foreach ([1, 2, 3] as $num) {
                 $logItem = new ImpulseCounterLogItem();
 
-                EntityUtils::setField($logItem, 'channel_id', 4 + $num);
+                EntityUtils::setField($logItem, 'channel_id', 4+$num+$offset);
                 EntityUtils::setField($logItem, 'date', clone $date);
                 EntityUtils::setField($logItem, 'counter', $impulses);
                 EntityUtils::setField($logItem, 'calculated_value', $impulses);
@@ -109,17 +97,38 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             }
             $date->add($oneday);
         }
+    }
+
+    protected function setUp() {
+        $this->user = $this->createConfirmedUser();
+        $location = $this->createLocation($this->user);
+
+        $channels = [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+            [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
+            [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
+        ];
+
+        $this->device1 = $this->createDevice($location, $channels);
+        $this->device2 = $this->createDevice($location, $channels);
+
+        $this->addLogItems();
+        $this->addLogItems(count($channels));
 
         $this->getEntityManager()->flush();
     }
 
-    private function ensureMeasurementLogsCount(int $channelId) {
+    private function ensureMeasurementLogsCount(int $channelId, int $expected = 3) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $this->assertTrue($response->headers->has('X-Total-Count'));
-        $this->assertEquals(3, $response->headers->get('X-Total-Count'));
+        $this->assertEquals($expected, $response->headers->get('X-Total-Count'));
     }
 
     public function testGettingTemperatureLogsCount() {
@@ -214,7 +223,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [855000, 854900, 854800]);
     }
 
-    private function assertValidImpulseCounterLogs($channelId) {
+    private function ensureImpulseCounterLogs($channelId) {
         $content = $this->getMeasurementLogs($channelId);
         $impulsesInOrder = [300, 200, 100];
         $calculatedValuesInOrder = [0.3, 0.2, 0.1];
@@ -224,15 +233,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingElectricityCounterLogs() {
-        $this->assertValidImpulseCounterLogs(5);
+        $this->ensureImpulseCounterLogs(5);
     }
 
     public function testGettingGasCounterLogs() {
-        $this->assertValidImpulseCounterLogs(6);
+        $this->ensureImpulseCounterLogs(6);
     }
 
     public function testGettingWaterCounterLogs() {
-        $this->assertValidImpulseCounterLogs(7);
+        $this->ensureImpulseCounterLogs(7);
     }
 
     private function getMeasurementLogsAscending(int $channelId) {
@@ -264,7 +273,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
     }
 
-    private function assertValidImpulseCounterLogsAscending($channelId) {
+    private function ensureImpulseCounterLogsAscending($channelId) {
         $content = $this->getMeasurementLogsAscending($channelId);
         $impulsesInOrder = [100, 200, 300];
         $calculatedValuesInOrder = [0.1, 0.2, 0.3];
@@ -274,15 +283,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingElectricityCounterLogsAscending() {
-        $this->assertValidImpulseCounterLogsAscending(5);
+        $this->ensureImpulseCounterLogsAscending(5);
     }
 
     public function testGettingGasCounterLogsAscending() {
-        $this->assertValidImpulseCounterLogsAscending(6);
+        $this->ensureImpulseCounterLogsAscending(6);
     }
 
     public function testGettingWaterCounterLogsAscending() {
-        $this->assertValidImpulseCounterLogsAscending(7);
+        $this->ensureImpulseCounterLogsAscending(7);
     }
 
     private function gettingMeasurementLogsWithOffset(int $channelId) {
@@ -311,22 +320,22 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854900]);
     }
 
-    private function assertValidImpulseCounterLogsWithOffset($channelId) {
+    private function ensureGettingImpulseCounterLogsWithOffset($channelId) {
         $content = $this->gettingMeasurementLogsWithOffset($channelId);
         $this->assertEquals(200, intval($content[0]['counter']));
         $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
     }
 
     public function testGettingElectricityCounterLogsWithOffset() {
-        $this->assertValidImpulseCounterLogsWithOffset(5);
+        $this->ensureGettingImpulseCounterLogsWithOffset(5);
     }
 
     public function testGettingGasCounterLogsWithOffset() {
-        $this->assertValidImpulseCounterLogsWithOffset(6);
+        $this->ensureGettingImpulseCounterLogsWithOffset(6);
     }
 
     public function testGettingWaterCounterLogsWithOffset() {
-        $this->assertValidImpulseCounterLogsWithOffset(7);
+        $this->ensureGettingImpulseCounterLogsWithOffset(7);
     }
 
     private function getMeasurementLogsWithTimestampRange(int $channelId) {
@@ -383,5 +392,28 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $client->apiRequestV22('GET', '/api/channels/1/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('400', $response);
+    }
+
+    private function deleteMeasurementLogs(int $channelId) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('DELETE', '/api/channels/' . $channelId . '/measurement-logs');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+    }
+
+    public function testDeletingMeasurementLogs() {
+        foreach ($this->device1->getChannels() as $channel) {
+            if ($channel->getType()->getId() != ChannelType::RELAY) {
+                $this->ensureMeasurementLogsCount($channel->getId());
+                $this->deleteMeasurementLogs($channel->getId());
+                $this->ensureMeasurementLogsCount($channel->getId(), 0);
+            }
+        }
+
+        foreach ($this->device2->getChannels() as $channel) {
+            if ($channel->getType()->getId() != ChannelType::RELAY) {
+                $this->ensureMeasurementLogsCount($channel->getId());
+            }
+        }
     }
 }

@@ -20,7 +20,11 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Entity\ElectricityMeterLogItem;
+use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\TemperatureLogItem;
+use SuplaBundle\Entity\TempHumidityLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
@@ -128,6 +132,15 @@ class ChannelMeasurementLogsController extends RestController {
         return $stmt->fetchAll();
     }
 
+    private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, $allowedFuncList = null) {
+        if ($allowedFuncList == null) {
+            $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER];
+        }
+
+        Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');
+    }
+
     private function getMeasurementLogItemsAction(
         IODeviceChannel $channel,
         $offset,
@@ -138,12 +151,7 @@ class ChannelMeasurementLogsController extends RestController {
         $allowedFuncList = null
     ) {
 
-        if ($allowedFuncList == null) {
-            $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER];
-        }
-
-        Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');
+        $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
 
         $offset = intval($offset);
         $limit = intval($limit);
@@ -300,6 +308,39 @@ class ChannelMeasurementLogsController extends RestController {
         $view = $this->view($logs, Response::HTTP_OK);
         $view->setHeader('X-Total-Count', $this->getMeasureLogsCount($channel));
         return $view;
+    }
+
+    private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel) {
+        $repo = $this->getDoctrine()->getRepository($entityClass);
+
+        $repo->createQueryBuilder('log')
+            ->delete()
+            ->where('log.channel_id = :channelId')
+            ->setParameters([
+                'channelId' => $channel->getId(),
+            ])
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @Rest\Delete("/channels/{channel}/measurement-logs")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     */
+    public function deleteMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
+
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->ensureChannelHasMeasurementLogs($channel);
+
+        $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);
+        $this->deleteMeasurementLogs(ImpulseCounterLogItem::class, $channel);
+        $this->deleteMeasurementLogs(TemperatureLogItem::class, $channel);
+        $this->deleteMeasurementLogs(TempHumidityLogItem::class, $channel);
+
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     /**
