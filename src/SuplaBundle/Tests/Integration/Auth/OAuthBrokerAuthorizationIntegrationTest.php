@@ -88,6 +88,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('client_id=1_local', $targetUrl);
         $this->assertContains('scope=account_r', $targetUrl);
         $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
+        $this->assertContains('state=some-state', $targetUrl);
     }
 
     public function testRedirectsToTargetCloudByAutodiscoveredUsername() {
@@ -104,6 +105,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('client_id=1_local', $targetUrl);
         $this->assertContains('scope=account_r', $targetUrl);
         $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
+        $this->assertContains('state=some-state', $targetUrl);
     }
 
     public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
@@ -155,6 +157,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'client_secret' => 'public-secret',
             'redirect_uri' => 'https://cool.app',
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
+            'state' => 'unicorn',
         ];
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
@@ -163,6 +166,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             $this->assertEquals('target-secret', $data['secret']);
             $this->assertEquals($params['code'], $data['code']);
             $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
+            $this->assertEquals($params['state'], $data['state']);
             $targetCalled = true;
             return ['OK', Response::HTTP_OK];
         };
@@ -360,6 +364,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
                 'redirect_uri' => $redirectUri,
                 'scope' => $scope,
                 'response_type' => $responseType,
+                'state' => 'some-state',
             ]);
     }
 

@@ -59,6 +59,11 @@
                                     <pre><code>{{ app.secret }}</code></pre>
                                     <copy-button :text="app.secret"></copy-button>
                                 </div>
+                                <h4>{{ $t('Example Auth URL') }}</h4>
+                                <div class="flex-left-full-width">
+                                    <pre><code>{{ exampleAuthUrl }}</code></pre>
+                                    <copy-button :text="exampleAuthUrl"></copy-button>
+                                </div>
                             </div>
                         </div>
                     </pending-changes-page>
@@ -141,6 +146,15 @@
         computed: {
             isNew() {
                 return !this.app.id;
+            },
+            exampleAuthUrl() {
+                return Vue.config.external.suplaUrl + '/oauth/v2/auth?' + $.param({
+                    client_id: this.app.publicId,
+                    scope: 'account_r',
+                    state: 'example-state',
+                    response_type: 'code',
+                    redirect_uri: this.app.redirectUris[0],
+                });
             }
         },
         watch: {
