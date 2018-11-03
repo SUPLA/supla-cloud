@@ -6,6 +6,7 @@
         v-title="$t('Login')"
         :class="'login-oauth-form ' + (askForTargetCloud ? 'login-oauth-form-broker' : '')">
         <login-form :authenticating="authenticating"
+            :oauth="true"
             :error="error"
             :intitial-username="lastUsername"
             :submit-button-text="askForTargetCloud ? 'Proceed to authentication' : ''">

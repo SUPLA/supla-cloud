@@ -61,7 +61,7 @@
                 {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
         </transition>
-        <div class="additional-buttons form-group">
+        <div v-if="!oauth" class="additional-buttons form-group">
             <router-link to="/devices"
                 class="btn btn-white btn-wrapped">
                 <img src="assets/img/devices.png">
@@ -80,7 +80,7 @@
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
 
     export default {
-        props: ['authenticating', 'error', 'value', 'intitialUsername', 'submitButtonText'],
+        props: ['authenticating', 'oauth', 'error', 'value', 'intitialUsername', 'submitButtonText'],
         components: {ButtonLoadingDots},
         data() {
             return {
