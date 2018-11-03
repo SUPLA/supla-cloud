@@ -13,7 +13,7 @@ class DispatchCyclicTasksCommand extends Command {
     /** @var TimeProvider */
     private $timeProvider;
 
-    public function __construct(iterable $cyclicCommands, TimeProvider $timeProvider) {
+    public function __construct($cyclicCommands, TimeProvider $timeProvider) {
         parent::__construct();
         $this->cyclicCommands = $cyclicCommands;
         $this->timeProvider = $timeProvider;
