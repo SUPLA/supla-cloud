@@ -132,7 +132,7 @@ class ChannelMeasurementLogsController extends RestController {
         return $stmt->fetchAll();
     }
 
-    private function isChannellAllowed(IODeviceChannel $channel, $allowedFuncList = null) {
+    private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, $allowedFuncList = null) {
         if ($allowedFuncList == null) {
             $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
                 ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER];
@@ -151,7 +151,7 @@ class ChannelMeasurementLogsController extends RestController {
         $allowedFuncList = null
     ) {
 
-        $this->isChannellAllowed($channel, $allowedFuncList);
+        $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
 
         $offset = intval($offset);
         $limit = intval($limit);
@@ -333,7 +333,7 @@ class ChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
 
-        $this->isChannellAllowed($channel);
+        $this->ensureChannelHasMeasurementLogs($channel);
 
         $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);
         $this->deleteMeasurementLogs(ImpulseCounterLogItem::class, $channel);
