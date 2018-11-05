@@ -43,11 +43,11 @@ final class Manufacturer extends Enum {
     const NICE = 5;
     const ITEAD = 6;
     const VL = 7;
-    const HP = 8;
+    const HPOL = 8;
 
     public function __construct($value) {
         try {
-            parent::__construct($value);
+            parent::__construct($value ?? 0);
         } catch (UnexpectedValueException $e) {
             $this->value = 0;
         }

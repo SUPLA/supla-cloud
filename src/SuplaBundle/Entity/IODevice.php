@@ -139,7 +139,7 @@ class IODevice implements HasLocation {
      * @ORM\Column(name="manufacturer_id", type="smallint", nullable=true)
      * @Groups({"basic"})
      */
-    private $manufacturerId;
+    private $manufacturer;
 
     /**
      * @ORM\Column(name="product_id", type="smallint", nullable=true)
@@ -249,7 +249,7 @@ class IODevice implements HasLocation {
      * @return integer
      */
     public function getManufacturer() : Manufacturer {
-        return new Manufacturer($this->manufacturerId);
+        return new Manufacturer($this->manufacturer);
     }
 
     /**
