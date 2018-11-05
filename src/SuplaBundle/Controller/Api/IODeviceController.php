@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Manufacturer;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -90,6 +91,11 @@ class IODeviceController extends RestController {
                         'guid' => $device->getGUIDString(),
                         'software_version' => $device->getSoftwareVersion(),
                         'protocol_version' => $device->getProtocolVersion(),
+                        'manufacturer' => [
+                            'name' => $device->getManufacturer()->getCaption(),
+                            'id' => $device->getManufacturer()->getId(),
+
+                        ],
                         'channels' => $channels,
                     ];
                 }

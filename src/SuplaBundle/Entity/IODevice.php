@@ -19,6 +19,7 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\Manufacturer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -247,8 +248,8 @@ class IODevice implements HasLocation {
     /**
      * @return integer
      */
-    public function getManufacturerId() {
-        return $this->manufacturerId;
+    public function getManufacturer() : Manufacturer {
+        return new Manufacturer(4);
     }
 
     /**
