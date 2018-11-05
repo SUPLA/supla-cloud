@@ -249,7 +249,7 @@ class IODevice implements HasLocation {
      * @return integer
      */
     public function getManufacturer() : Manufacturer {
-        return new Manufacturer(4);
+        return new Manufacturer($this->manufacturerId);
     }
 
     /**
