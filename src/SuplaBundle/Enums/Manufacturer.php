@@ -46,11 +46,8 @@ final class Manufacturer extends Enum {
     const HPOL = 8;
 
     public function __construct($value) {
-        try {
-            parent::__construct($value ?? 0);
-        } catch (UnexpectedValueException $e) {
-            $this->value = 0;
-        }
+        $value = $value && $this->isValid($value) ? $value : 0;
+        parent::__construct($value);
     }
 
     /** @Groups({"basic"}) */
