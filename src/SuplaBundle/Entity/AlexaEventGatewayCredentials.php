@@ -21,8 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AlexaEventGatewayCredentialsRepository")
- * @ORM\Table(name="supla_alexa_egc",
- *     indexes={@ORM\Index(name="user_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="supla_alexa_egc")
  */
 class AlexaEventGatewayCredentials {
     use BelongsToUser;
