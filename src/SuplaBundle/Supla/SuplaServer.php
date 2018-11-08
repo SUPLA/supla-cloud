@@ -87,17 +87,25 @@ abstract class SuplaServer {
         return false;
     }
 
-    public function reconnect($userId = null) {
+    public function userAction($userId, $action) {
         if (!$userId) {
             $user = $this->getCurrentUserOrThrow();
             $userId = $user->getId();
         }
         $userId = intval($userId);
         if ($userId != 0 && $this->connect() !== false) {
-            $result = $this->command("USER-RECONNECT:" . $userId);
+            $result = $this->command("USER-"+$action+":" . $userId);
             return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
         }
         return false;
+    }
+
+    public function reconnect($userId = null) {
+        return $this->userAction($userId, "RECONNECT");
+    }
+
+    public function alexaEventGatewayCredentialsChanged($userId = null) {
+        return $this->userAction($userId, "ALEXA-EGC-CHANGED");
     }
 
     public function clientReconnect(ClientApp $clientApp) {
