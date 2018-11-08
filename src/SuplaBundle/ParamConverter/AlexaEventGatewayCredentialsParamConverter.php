@@ -43,8 +43,8 @@ class AlexaEventGatewayCredentialsParamConverter extends AbstractBodyParamConver
         $expiresIn =  intval($requestData['aeg_expires_in']);
         $refreshToken = $requestData['aeg_refresh_token'];
 
-        Assertion::betweenLength($accessToken, 1, 255);
-        Assertion::betweenLength($refreshToken, 1, 255);
+        Assertion::betweenLength($accessToken, 1, 1024);
+        Assertion::betweenLength($refreshToken, 1, 1024);
 
         if ($expiresIn > 0) {
             Assertion::max($expiresIn, 1000000000);

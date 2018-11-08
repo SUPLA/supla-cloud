@@ -45,7 +45,7 @@ class AlexaEventGatewayCredentials {
     private $regDate;
 
     /**
-     * @ORM\Column(name="access_token", type="string", length=255, nullable=false)
+     * @ORM\Column(name="access_token", type="string", length=1024, nullable=false)
      */
     private $accessToken;
 
@@ -55,7 +55,7 @@ class AlexaEventGatewayCredentials {
     private $expiresAt;
 
     /**
-     * @ORM\Column(name="refresh_token", type="string", length=255, nullable=false)
+     * @ORM\Column(name="refresh_token", type="string", length=1024, nullable=false)
      */
     private $refreshToken;
 
