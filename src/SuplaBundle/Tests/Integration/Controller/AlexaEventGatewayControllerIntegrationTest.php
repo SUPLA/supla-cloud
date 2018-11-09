@@ -111,4 +111,20 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
 
         $this->assertUpdatingWithIncompleteData($params);
     }
+
+    public function testDeleting() {
+        $this->client->apiRequestV23('DELETE', '/api/alexa-event-gateway-credentials');
+        $response = $this->client->getResponse();
+        $this->assertStatusCode('4xx', $response);
+
+        $params = ['aeg_access_token' => 'abcd',
+            'aeg_expires_in' => 3600,
+            'aeg_refresh_token' => 'xyz'];
+
+        $this->assertUpdatingCredentials($params);
+
+        $this->client->apiRequestV23('DELETE', '/api/alexa-event-gateway-credentials');
+        $response = $this->client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+    }
 }
