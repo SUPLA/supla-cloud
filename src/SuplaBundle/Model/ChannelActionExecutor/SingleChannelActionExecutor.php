@@ -17,8 +17,27 @@ abstract class SingleChannelActionExecutor {
 
     abstract public function execute(HasFunction $subject, array $actionParams = []);
 
+    public function assignCommonParams(array $source, array $actionParams = []) {
+        if (array_key_exists('alexaCorrelationToken', $actionParams)) {
+            $source['ACT'] = 'ALEXA-CORELATION-TOKEN='.base64_encode($actionParams['alexaCorrelationToken']);
+        }
+
+        return $source;
+    }
+
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
-        Assertion::noContent($actionParams, 'This action is not supposed to have any parameters.');
+        if (array_key_exists('alexaCorrelationToken', $actionParams)
+        && $subject->getFunction()->isAlexaIntegrationPossible()) {
+            Assertion::eq(
+                count($actionParams),
+                1,
+                'This action is not supposed to have more parameters than one. (alexaCorrelationToken)'
+            );
+            Assertion::lessOrEqualThan(strlen($actionParams['alexaCorrelationToken']), 256, 'Correlation token is too long.');
+        } else {
+            Assertion::noContent($actionParams, 'This action is not supposed to have any parameters.');
+        }
+
         return $actionParams;
     }
 }

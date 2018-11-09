@@ -141,6 +141,14 @@ final class ChannelFunction extends Enum {
         return self::maxAlternativeIconIndexes()[$this->getValue()] ?? 0;
     }
 
+    public function isAlexaIntegrationPossible(): bool {
+        return in_array(
+            $this->getValue(),
+            [self::POWERSWITCH,
+            self::LIGHTSWITCH]
+        );
+    }
+
     public static function actions(): array {
         return [
             self::CONTROLLINGTHEGATEWAYLOCK => [ChannelFunctionAction::OPEN()],
