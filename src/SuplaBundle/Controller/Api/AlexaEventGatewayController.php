@@ -76,13 +76,8 @@ class AlexaEventGatewayController extends RestController {
             throw new NotFoundHttpException();
         }
 
-        try {
+        $this->transactional(function (EntityManagerInterface $em) {
             $aegc = $this->alexaEgcRepository->findForUser($this->getUser());
-        } catch (NotFoundHttpException $e) {
-            return new Response('', Response::HTTP_NO_CONTENT);
-        };
-
-        $this->transactional(function (EntityManagerInterface $em) use ($aegc) {
             $em->remove($aegc);
             $this->suplaServer->alexaEventGatewayCredentialsChanged();
         });
