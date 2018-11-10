@@ -31,6 +31,6 @@ find_unused () {
 
 [[ -z "$1" ]] && echo "Usage example: ./bin/trans-find-unused pl" && exit 0
 
-while IFS='' read -r line || [[ -n "$line" ]]; do
+while read -r line || [[ -n "$line" ]]; do
 	find_unused "${line//:*}" "$line"
 done < ./src/SuplaBundle/Resources/translations/messages."$1".yml 
