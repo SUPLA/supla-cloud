@@ -33,7 +33,7 @@ abstract class SingleChannelActionExecutor {
                 1,
                 'This action is not supposed to have more parameters than one. (alexaCorrelationToken)'
             );
-            Assertion::lessOrEqualThan(strlen($actionParams['alexaCorrelationToken']), 256, 'Correlation token is too long.');
+            Assertion::lessOrEqualThan(strlen($actionParams['alexaCorrelationToken']), 2048, 'Correlation token is too long.');
         } else {
             Assertion::noContent($actionParams, 'This action is not supposed to have any parameters.');
         }
