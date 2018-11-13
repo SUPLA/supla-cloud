@@ -21,9 +21,9 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
-        Assertion::between(count($actionParams), 1, 3, 'Invalid number of action parameters');
+        Assertion::between(count($actionParams), 1, 4, 'Invalid number of action parameters');
         Assertion::count(
-            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color'])),
+            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color', 'alexaCorrelationToken'])),
             count($actionParams),
             'Invalid action parameters'
         );
@@ -60,7 +60,8 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         $color = $actionParams['color'] ?? 1;
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;
-        $command = $subject->buildServerSetCommand('RGBW', [$color, $colorBrightness, $brightness]);
+        $command = $subject->buildServerSetCommand('RGBW',
+            $this->assignCommonParams([$color, $colorBrightness, $brightness], $actionParams));
         if ($color == 'random') {
             $command = $subject->buildServerSetCommand('RAND-RGBW', [$colorBrightness, $brightness]);
         }
