@@ -60,8 +60,10 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         $color = $actionParams['color'] ?? 1;
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;
-        $command = $subject->buildServerSetCommand('RGBW',
-            $this->assignCommonParams([$color, $colorBrightness, $brightness], $actionParams));
+        $command = $subject->buildServerSetCommand(
+            'RGBW',
+            $this->assignCommonParams([$color, $colorBrightness, $brightness], $actionParams)
+        );
         if ($color == 'random') {
             $command = $subject->buildServerSetCommand('RAND-RGBW', [$colorBrightness, $brightness]);
         }
