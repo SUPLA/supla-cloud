@@ -61,8 +61,9 @@ class AlexaEventGatewayController extends RestController {
 
         $this->transactional(function (EntityManagerInterface $em) use ($aegc) {
             $em->persist($aegc);
-            $this->suplaServer->alexaEventGatewayCredentialsChanged();
         });
+
+        $this->suplaServer->alexaEventGatewayCredentialsChanged();
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
     }
@@ -80,7 +81,7 @@ class AlexaEventGatewayController extends RestController {
             $aegc = $this->alexaEgcRepository->findForUser($this->getUser());
             $em->remove($aegc);
         });
-        
+
         $this->suplaServer->alexaEventGatewayCredentialsChanged();
 
         return new Response('', Response::HTTP_NO_CONTENT);
