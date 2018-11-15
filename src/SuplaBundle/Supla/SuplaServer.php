@@ -94,7 +94,7 @@ abstract class SuplaServer {
         }
         $userId = intval($userId);
         if ($userId != 0 && $this->connect() !== false) {
-            $result = $this->command("USER-"+$action+":" . $userId);
+            $result = $this->command("USER-".$action.":" . $userId);
             return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
         }
         return false;
