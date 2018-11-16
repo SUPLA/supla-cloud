@@ -59,6 +59,11 @@ class AlexaEventGatewayCredentials {
      */
     private $refreshToken;
 
+    /**
+     * @ORM\Column(name="region", type="string", length=5, nullable=true)
+     */
+    private $region;
+
     public function __construct(User $user) {
         $this->user = $user;
     }
@@ -125,5 +130,19 @@ class AlexaEventGatewayCredentials {
      */
     public function setRefreshToken($refreshToken) {
         $this->refreshToken = $refreshToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegion() {
+        return $this->region;
+    }
+
+    /**
+     * @param string $region
+     */
+    public function setRegion($region) {
+        $this->region = $region;
     }
 }

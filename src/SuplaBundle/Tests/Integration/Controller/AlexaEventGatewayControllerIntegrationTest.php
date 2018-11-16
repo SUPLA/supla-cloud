@@ -58,6 +58,7 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
         $credentials = $this->getCredentials();
         $this->assertEquals($params['aeg_access_token'], $credentials->getAccessToken());
         $this->assertEquals($params['aeg_refresh_token'], $credentials->getRefreshToken());
+        $this->assertEquals($params['aeg_region'], $credentials->getRegion());
 
         $now = new \DateTime();
         $expiresIn = intval(@$params['aeg_expires_in']);
@@ -78,18 +79,21 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
     public function testUpdatingCredentials() {
         $params = ['aeg_access_token' => 'abcd',
             'aeg_expires_in' => 3600,
-            'aeg_refresh_token' => 'xyz'];
+            'aeg_refresh_token' => 'xyz',
+            'aeg_region' => 'eu'];
 
         $this->assertUpdatingCredentials($params);
 
         $params = ['aeg_access_token' => 'efgh',
             'aeg_expires_in' => 600,
-            'aeg_refresh_token' => 'vbn'];
+            'aeg_refresh_token' => 'vbn',
+            'aeg_region' => ''];
 
         $this->assertUpdatingCredentials($params);
 
         $params = ['aeg_access_token' => 'ujn',
-            'aeg_refresh_token' => 'mnb'];
+            'aeg_refresh_token' => 'mnb',
+            'aeg_region' => 'fe'];
 
         $this->assertUpdatingCredentials($params);
     }
@@ -102,14 +106,17 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
 
     public function testUpdatingWithIncompleteData() {
         $params = ['aeg_expires_in' => 600,
-            'aeg_refresh_token' => 'vbn'];
+            'aeg_refresh_token' => 'vbn',
+            'aeg_region' => 'eu'];
 
         $this->assertUpdatingWithIncompleteData($params);
 
         $params = ['aeg_access_token' => 'efgh',
-            'aeg_expires_in' => 600];
+            'aeg_expires_in' => 600,
+            'aeg_region' => 'eu'];
 
         $this->assertUpdatingWithIncompleteData($params);
+
     }
 
     public function testDeleting() {
@@ -119,7 +126,8 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
 
         $params = ['aeg_access_token' => 'abcd',
             'aeg_expires_in' => 3600,
-            'aeg_refresh_token' => 'xyz'];
+            'aeg_refresh_token' => 'xyz',
+            'aeg_region' => ''];
 
         $this->assertUpdatingCredentials($params);
 

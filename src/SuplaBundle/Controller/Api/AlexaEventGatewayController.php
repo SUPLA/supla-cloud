@@ -54,6 +54,7 @@ class AlexaEventGatewayController extends RestController {
             $aegc->setAccessToken($source->getAccessToken());
             $aegc->setExpiresAt($source->getExpiresAt());
             $aegc->setRefreshToken($source->getRefreshToken());
+            $aegc->setRegion($source->getRegion());
         } catch (NotFoundHttpException $e) {
             $aegc = $source;
             $aegc->setRegDate(new \DateTime);
