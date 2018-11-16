@@ -18,8 +18,8 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Entity\AlexaEventGatewayCredentials;
+use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\AlexaEventGatewayCredentialsRepository;
 
 class AlexaEventGatewayCredentialsParamConverter extends AbstractBodyParamConverter {
@@ -39,16 +39,16 @@ class AlexaEventGatewayCredentialsParamConverter extends AbstractBodyParamConver
     public function convert(array $requestData) {
         $aegc = new AlexaEventGatewayCredentials($this->getCurrentUserOrThrow());
 
-        $accessToken = $requestData['aeg_access_token'];
-        $expiresIn =  intval($requestData['aeg_expires_in']);
-        $refreshToken = $requestData['aeg_refresh_token'];
+        $accessToken = $requestData['aeg_access_token'] ?? '';
+        $expiresIn = intval($requestData['aeg_expires_in'] ?? 0);
+        $refreshToken = $requestData['aeg_refresh_token'] ?? '';
 
         Assertion::betweenLength($accessToken, 1, 1024);
         Assertion::betweenLength($refreshToken, 1, 1024);
 
         if ($expiresIn > 0) {
             Assertion::max($expiresIn, 1000000000);
-            $interval = new \DateInterval('PT'.$expiresIn.'S');
+            $interval = new \DateInterval('PT' . $expiresIn . 'S');
         } else {
             $interval = new \DateInterval('P20Y');
         }
