@@ -56,6 +56,9 @@ abstract class SuplaAutodiscover {
         $this->localSuplaCloud = $localSuplaCloud;
         $this->actAsBrokerCloud = $actAsBrokerCloud;
         $this->logger = $logger;
+        if (strpos($this->autodiscoverUrl, 'http') !== 0) {
+            $this->autodiscoverUrl = 'https://' . $this->autodiscoverUrl;
+        }
     }
 
     public function enabled(): bool {

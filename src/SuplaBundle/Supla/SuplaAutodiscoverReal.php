@@ -18,6 +18,7 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Response;
 
 class SuplaAutodiscoverReal extends SuplaAutodiscover {
@@ -25,8 +26,9 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
         if (!$this->enabled()) {
             return null;
         }
-        $ch = curl_init('https://' . $this->autodiscoverUrl . $endpoint);
+        $ch = curl_init($this->autodiscoverUrl . $endpoint);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $post ? 'POST' : 'GET');
+        $headers['X-Cloud-Version'] = ApiVersions::LATEST;
         if ($post) {
             $content = json_encode($post);
             $headers = array_merge(['Content-Type: application/json', 'Content-Length: ' . strlen($content)], $headers);
@@ -35,9 +37,7 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
         if (file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
             $headers['Authorization'] = 'Bearer ' . file_get_contents(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
         }
-        if ($headers) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         $responseStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);

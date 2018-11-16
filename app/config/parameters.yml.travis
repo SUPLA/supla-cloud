@@ -16,7 +16,6 @@ parameters:
   mailer_from: ~
   admin_email: ~
   supla_server: supla.local
-  supla_autodiscover_server: ~
   supla_require_regulations_acceptance: false
   supla_require_cookie_policy_acceptance: false
   brute_force_auth_prevention_enabled: true
