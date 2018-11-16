@@ -116,7 +116,6 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
             'aeg_region' => 'eu'];
 
         $this->assertUpdatingWithIncompleteData($params);
-
     }
 
     public function testDeleting() {
