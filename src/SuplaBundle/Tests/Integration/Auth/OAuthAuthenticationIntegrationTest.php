@@ -64,6 +64,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             /** @var Crawler $crawler */
             $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
             if ($testCase['grant']) {
+                $client->followRedirects(false);
                 $form = $crawler->selectButton('accepted')->form();
                 $client->submit($form);
             }
@@ -78,6 +79,16 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $authorization = $user->getApiClientAuthorizations()[0];
         $this->assertEquals($this->client->getId(), $authorization->getApiClient()->getId());
         $this->assertEquals('account_r offline_access', $authorization->getScope());
+    }
+
+    public function testRedirectionAfterGrantingAccess() {
+        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse']);
+        $response = $client->getResponse();
+        $this->assertTrue($response->isRedirection());
+        $targetUrl = $response->headers->get('Location');
+        $this->assertContains('https://unicorns.pl?', $targetUrl);
+        $this->assertContains('state=horse', $targetUrl);
+        $this->assertContains('code=', $targetUrl);
     }
 
     public function testLogsOutAfterGrantingAccess() {

@@ -40,7 +40,7 @@ abstract class SuplaAutodiscover {
     /** @var bool */
     private $actAsBrokerCloud;
     /** @var LocalSuplaCloud */
-    private $localSuplaCloud;
+    protected $localSuplaCloud;
     /** @var LoggerInterface */
     private $logger;
 
@@ -124,21 +124,21 @@ abstract class SuplaAutodiscover {
         if (!$this->isBroker()) {
             return null;
         }
-        $url = '/mapped-client-id/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress());
+        $url = '/mapped-client/' . urlencode($clientPublicId) . '/' . urlencode($targetCloud->getAddress());
         $response = $this->remoteRequest($url);
         $this->logger->debug(__FUNCTION__, ['url' => $url, 'response' => $response]);
         return $response['mappedClientId'] ?? null;
     }
 
     public function getPublicIdBasedOnMappedId(string $clientId): string {
-        $url = '/mapped-client-public-id/' . urlencode($clientId) . '/' . urlencode($this->localSuplaCloud->getAddress());
+        $url = '/mapped-client-public-id/' . urlencode($clientId);
         $response = $this->remoteRequest($url);
         $this->logger->debug(__FUNCTION__, ['url' => $url, 'response' => $response]);
         return is_array($response) && isset($response['publicClientId']) ? $response['publicClientId'] : '';
     }
 
     public function updateTargetCloudCredentials(string $mappedClientId, ApiClient $client) {
-        $url = '/mapped-client-credentials/' . urlencode($mappedClientId) . '/' . urlencode($this->localSuplaCloud->getAddress());
+        $url = '/mapped-client-credentials/' . urlencode($mappedClientId);
         $this->remoteRequest($url, ['clientId' => $client->getPublicId(), 'secret' => $client->getSecret()], $responseStatus);
         $this->logger->debug(__FUNCTION__, ['url' => $url, 'responseStatus' => $responseStatus, 'clientId' => $client->getPublicId()]);
         if (!in_array($responseStatus, [Response::HTTP_OK, Response::HTTP_NO_CONTENT])) {
@@ -150,7 +150,7 @@ abstract class SuplaAutodiscover {
         if (!$this->isBroker()) {
             return false;
         }
-        $url = '/mapped-client-secret/' . urlencode($client->getPublicId()) . '/' . urlencode($targetCloud->getAddress());
+        $url = '/mapped-client/' . urlencode($client->getPublicId()) . '/' . urlencode($targetCloud->getAddress());
         $response = $this->remoteRequest($url, ['secret' => $client->getSecret()], $responseStatus);
         $this->logger->debug(__FUNCTION__, ['url' => $url, 'responseStatus' => $responseStatus]);
         return is_array($response) && isset($response['secret']) ? $response : false;

@@ -95,32 +95,31 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         } elseif (preg_match('#/new-account-server/#', $endpoint)) {
             $responseStatus = 200;
             return ['server' => current(self::$userMapping)];
-        } elseif (preg_match('#/mapped-client-id/(.+)/(.+)#', $endpoint, $match)) {
+        } elseif (preg_match('#/mapped-client/(.+)/(.+)#', $endpoint, $match)) {
             $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
-            $mapping = $domainMaps[urldecode($match[1])] ?? [];
+            $publicId = urldecode($match[1]);
+            $mapping = $domainMaps[$publicId] ?? [];
             $mappedClientId = $mapping['clientId'] ?? null;
-            if ($mappedClientId) {
+            if ($post) {
+                $secret = $post['secret'];
+                if (isset(self::$publicClients[$publicId]) && self::$publicClients[$publicId]['secret'] == $secret) {
+                    return $domainMaps[$publicId] ?? [];;
+                }
+            } elseif ($mappedClientId) {
                 $responseStatus = 200;
                 return ['mappedClientId' => $mappedClientId];
             }
-        } elseif (preg_match('#/mapped-client-public-id/(.+)/(.+)#', $endpoint, $match)) {
+        } elseif (preg_match('#/mapped-client-public-id/(.+)#', $endpoint, $match)) {
             $responseStatus = 200;
-            $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
+            $domainMaps = self::$clientMapping[$this->localSuplaCloud->getAddress()] ?? [];
             $targetMapping = array_filter($domainMaps, function ($mapping) use ($match) {
                 return $mapping['clientId'] == urldecode($match[1]);
             });
             $publicId = $targetMapping ? key($targetMapping) : null;
             return $publicId ? ['publicClientId' => $publicId] : null;
-        } elseif (preg_match('#/mapped-client-credentials/(.+)/(.+)#', $endpoint, $match)) {
+        } elseif (preg_match('#/mapped-client-credentials/(.+)#', $endpoint, $match)) {
             $responseStatus = 204;
             return '';
-        } elseif (preg_match('#/mapped-client-secret/(.+)/(.+)#', $endpoint, $match)) {
-            $publicId = urldecode($match[1]);
-            $secret = $post['secret'];
-            if (isset(self::$publicClients[$publicId]) && self::$publicClients[$publicId]['secret'] == $secret) {
-                $domainMaps = self::$clientMapping[urldecode($match[2])] ?? [];
-                return $domainMaps[$publicId] ?? [];
-            }
         } elseif (preg_match('#/(register-target-cloud)|(target-cloud-registration-token)#', $endpoint, $match)) {
             $randomBytes = bin2hex(random_bytes(20));
             $token = preg_replace('#[1lI0O]#', '', preg_replace('#[^a-zA-Z0-9]#', '', base64_encode($randomBytes)));
