@@ -2,6 +2,7 @@ imports:
   - { resource: security.yml }
   - { resource: services.yml }
   - { resource: config_build.yml, ignore_errors: true }
+  - { resource: parameters.yml }
 
 doctrine:
   dbal:

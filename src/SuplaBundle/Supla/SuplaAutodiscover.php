@@ -76,32 +76,34 @@ abstract class SuplaAutodiscover {
     abstract protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = []);
 
     public function getAuthServerForUser(string $username): TargetSuplaCloud {
-        $domainFromAutodiscover = false;
-        if (!$this->userManager->userByEmail($username) && filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
-            $result = $this->remoteRequest('/users/' . urlencode($username));
-            $this->logger->debug(__FUNCTION__, ['response' => $result]);
-            $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+        if ($this->isBroker()) {
+            $domainFromAutodiscover = false;
+            if (!$this->userManager->userByEmail($username) && filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
+                $result = $this->remoteRequest('/users/' . urlencode($username));
+                $this->logger->debug(__FUNCTION__, ['response' => $result]);
+                $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+            }
+            if ($domainFromAutodiscover) {
+                $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+                return new TargetSuplaCloud($serverUrl);
+            }
         }
-        if ($domainFromAutodiscover) {
-            $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
-            return new TargetSuplaCloud($serverUrl);
-        } else {
-            return $this->localSuplaCloud;
-        }
+        return $this->localSuplaCloud;
     }
 
     public function getRegisterServerForUser(Request $request): TargetSuplaCloud {
-        $domainFromAutodiscover = false;
-        if ($this->enabled()) {
-            $result = $this->remoteRequest('/new-account-server/' . urlencode($request->getClientIp()));
-            $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+        if ($this->isBroker()) {
+            $domainFromAutodiscover = false;
+            if ($this->enabled()) {
+                $result = $this->remoteRequest('/new-account-server/' . urlencode($request->getClientIp()));
+                $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+            }
+            if ($domainFromAutodiscover) {
+                $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+                return new TargetSuplaCloud($serverUrl);
+            }
         }
-        if ($domainFromAutodiscover) {
-            $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
-            return new TargetSuplaCloud($serverUrl);
-        } else {
-            return $this->localSuplaCloud;
-        }
+        return $this->localSuplaCloud;
     }
 
     public function userExists($username) {
@@ -109,7 +111,7 @@ abstract class SuplaAutodiscover {
             if ($this->userManager->userByEmail($username)) {
                 return true;
             }
-            if ($this->enabled()) {
+            if ($this->enabled() && $this->isBroker()) {
                 $authServer = $this->getAuthServerForUser($username);
                 return !$authServer->isLocal();
             }
@@ -118,8 +120,10 @@ abstract class SuplaAutodiscover {
     }
 
     public function registerUser(User $user) {
-        $this->logger->debug(__FUNCTION__);
-        $this->remoteRequest('/users', ['email' => $user->getUsername()]);
+        if ($this->isBroker()) {
+            $this->logger->debug(__FUNCTION__);
+            $this->remoteRequest('/users', ['email' => $user->getUsername()]);
+        }
     }
 
     /** @return string|null */
