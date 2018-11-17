@@ -64,6 +64,11 @@ class AlexaEventGatewayCredentials {
      */
     private $region;
 
+    /**
+     * @ORM\Column(name="endpoint_scope", type="string", length=16, nullable=false)
+     */
+    private $endpointScope;
+
     public function __construct(User $user) {
         $this->user = $user;
     }
@@ -144,5 +149,19 @@ class AlexaEventGatewayCredentials {
      */
     public function setRegion($region) {
         $this->region = $region;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEndpointScope() {
+        return $this->endpointScope;
+    }
+
+    /**
+     * @param string $region
+     */
+    public function setEndpointScope($endpointScope) {
+        $this->endpointScope = $endpointScope;
     }
 }

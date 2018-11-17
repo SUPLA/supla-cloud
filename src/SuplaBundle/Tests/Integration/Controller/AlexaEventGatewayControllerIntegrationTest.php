@@ -59,6 +59,7 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($params['aeg_access_token'], $credentials->getAccessToken());
         $this->assertEquals($params['aeg_refresh_token'], $credentials->getRefreshToken());
         $this->assertEquals($params['aeg_region'], $credentials->getRegion());
+        $this->assertEquals($params['aeg_endpoint_scope'], $credentials->getEndpointScope());
 
         $now = new \DateTime();
         $expiresIn = intval(@$params['aeg_expires_in']);
@@ -80,20 +81,23 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
         $params = ['aeg_access_token' => 'abcd',
             'aeg_expires_in' => 3600,
             'aeg_refresh_token' => 'xyz',
-            'aeg_region' => 'eu'];
+            'aeg_region' => 'eu',
+            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
 
         $this->assertUpdatingCredentials($params);
 
         $params = ['aeg_access_token' => 'efgh',
             'aeg_expires_in' => 600,
             'aeg_refresh_token' => 'vbn',
-            'aeg_region' => ''];
+            'aeg_region' => '',
+            'aeg_endpoint_scope' => 'AABB50AAC7EBCFBA'];
 
         $this->assertUpdatingCredentials($params);
 
         $params = ['aeg_access_token' => 'ujn',
             'aeg_refresh_token' => 'mnb',
-            'aeg_region' => 'fe'];
+            'aeg_region' => 'fe',
+            'aeg_endpoint_scope' => 'BBBB50AAC7EBCFBA'];
 
         $this->assertUpdatingCredentials($params);
     }
@@ -107,12 +111,21 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
     public function testUpdatingWithIncompleteData() {
         $params = ['aeg_expires_in' => 600,
             'aeg_refresh_token' => 'vbn',
-            'aeg_region' => 'eu'];
+            'aeg_region' => 'eu',
+            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
 
         $this->assertUpdatingWithIncompleteData($params);
 
         $params = ['aeg_access_token' => 'efgh',
             'aeg_expires_in' => 600,
+            'aeg_region' => 'eu',
+            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
+
+        $this->assertUpdatingWithIncompleteData($params);
+
+        $params = ['aeg_access_token' => 'efgh',
+            'aeg_expires_in' => 600,
+            'aeg_refresh_token' => 'vbn',
             'aeg_region' => 'eu'];
 
         $this->assertUpdatingWithIncompleteData($params);
@@ -126,7 +139,8 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
         $params = ['aeg_access_token' => 'abcd',
             'aeg_expires_in' => 3600,
             'aeg_refresh_token' => 'xyz',
-            'aeg_region' => ''];
+            'aeg_region' => '',
+            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
 
         $this->assertUpdatingCredentials($params);
 
