@@ -18,26 +18,26 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\AlexaEventGatewayCredentials;
+use SuplaBundle\Entity\AmazonAlexa;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Repository\AlexaEventGatewayCredentialsRepository;
+use SuplaBundle\Repository\AmazonAlexaRepository;
 
-class AlexaEventGatewayCredentialsParamConverter extends AbstractBodyParamConverter {
+class AmazonAlexaParamConverter extends AbstractBodyParamConverter {
     use CurrentUserAware;
 
-    /** @var AlexaEventGatewayCredentialsRepository */
-    private $alexaEgcRepository;
+    /** @var AmazonAlexaRepository */
+    private $amazonAlexaRepository;
 
     public function getConvertedClass(): string {
-        return AlexaEventGatewayCredentials::class;
+        return AmazonAlexa::class;
     }
 
-    public function __construct(AlexaEventGatewayCredentialsRepository $alexaEgcRepository) {
-        $this->alexaEgcRepository = $alexaEgcRepository;
+    public function __construct(AmazonAlexaRepository $amazonAlexaRepository) {
+        $this->amazonAlexaRepository = $amazonAlexaRepository;
     }
 
     public function convert(array $requestData) {
-        $aegc = new AlexaEventGatewayCredentials($this->getCurrentUserOrThrow());
+        $aegc = new AmazonAlexa($this->getCurrentUserOrThrow());
 
         $accessToken = $requestData['aeg_access_token'] ?? '';
         $expiresIn = intval($requestData['aeg_expires_in'] ?? 0);
@@ -48,7 +48,6 @@ class AlexaEventGatewayCredentialsParamConverter extends AbstractBodyParamConver
         Assertion::betweenLength($accessToken, 1, 1024);
         Assertion::betweenLength($refreshToken, 1, 1024);
         Assertion::betweenLength($region, 0, 5);
-        Assertion::length($endpointScope, 16);
 
         if ($expiresIn > 0) {
             Assertion::max($expiresIn, 1000000000);
@@ -64,7 +63,6 @@ class AlexaEventGatewayCredentialsParamConverter extends AbstractBodyParamConver
         $aegc->setExpiresAt($expiresAt);
         $aegc->setRefreshToken($refreshToken);
         $aegc->setRegion($region);
-        $aegc->setEndpointScope($endpointScope);
 
         return $aegc;
     }

@@ -17,14 +17,14 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\AlexaEventGatewayCredentials;
+use SuplaBundle\Entity\AmazonAlexa;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
+class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
@@ -40,9 +40,9 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
-    private function getCredentials() : AlexaEventGatewayCredentials {
+    private function getCredentials() : AmazonAlexa {
         return $this->getDoctrine()
-            ->getRepository(AlexaEventGatewayCredentials::class)->findForUser($this->user);
+            ->getRepository(AmazonAlexa::class)->findForUser($this->user);
     }
 
     public function testNonexistingCredentials() {
@@ -51,7 +51,7 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
     }
 
     private function assertUpdatingCredentials(array $params) {
-        $this->client->apiRequestV23('PUT', '/api/alexa-event-gateway-credentials', $params);
+        $this->client->apiRequestV23('PUT', '/api/amazon-alexa', $params);
         $response = $this->client->getResponse();
         $this->assertStatusCode('2xx', $response);
 
@@ -59,7 +59,6 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($params['aeg_access_token'], $credentials->getAccessToken());
         $this->assertEquals($params['aeg_refresh_token'], $credentials->getRefreshToken());
         $this->assertEquals($params['aeg_region'], $credentials->getRegion());
-        $this->assertEquals($params['aeg_endpoint_scope'], $credentials->getEndpointScope());
 
         $now = new \DateTime();
         $expiresIn = intval(@$params['aeg_expires_in']);
@@ -81,29 +80,26 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
         $params = ['aeg_access_token' => 'abcd',
             'aeg_expires_in' => 3600,
             'aeg_refresh_token' => 'xyz',
-            'aeg_region' => 'eu',
-            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
+            'aeg_region' => 'eu'];
 
         $this->assertUpdatingCredentials($params);
 
         $params = ['aeg_access_token' => 'efgh',
             'aeg_expires_in' => 600,
             'aeg_refresh_token' => 'vbn',
-            'aeg_region' => '',
-            'aeg_endpoint_scope' => 'AABB50AAC7EBCFBA'];
+            'aeg_region' => ''];
 
         $this->assertUpdatingCredentials($params);
 
         $params = ['aeg_access_token' => 'ujn',
             'aeg_refresh_token' => 'mnb',
-            'aeg_region' => 'fe',
-            'aeg_endpoint_scope' => 'BBBB50AAC7EBCFBA'];
+            'aeg_region' => 'fe'];
 
         $this->assertUpdatingCredentials($params);
     }
 
     private function assertUpdatingWithIncompleteData(array $params) {
-        $this->client->apiRequestV23('PUT', '/api/alexa-event-gateway-credentials', $params);
+        $this->client->apiRequestV23('PUT', '/api/amazon-alexa', $params);
         $response = $this->client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }
@@ -132,7 +128,7 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDeleting() {
-        $this->client->apiRequestV23('DELETE', '/api/alexa-event-gateway-credentials');
+        $this->client->apiRequestV23('DELETE', '/api/amazon-alexa');
         $response = $this->client->getResponse();
         $this->assertStatusCode('4xx', $response);
 
@@ -144,7 +140,7 @@ class AlexaEventGatewayControllerIntegrationTest extends IntegrationTestCase {
 
         $this->assertUpdatingCredentials($params);
 
-        $this->client->apiRequestV23('DELETE', '/api/alexa-event-gateway-credentials');
+        $this->client->apiRequestV23('DELETE', '/api/amazon-alexa');
         $response = $this->client->getResponse();
         $this->assertStatusCode('2xx', $response);
     }

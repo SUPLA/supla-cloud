@@ -175,9 +175,9 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\IODeviceChannel]
 
-  SuplaBundle\Repository\AlexaEventGatewayCredentialsRepository:
+  SuplaBundle\Repository\AmazonAlexaRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\AlexaEventGatewayCredentials]
+    arguments: [SuplaBundle\Entity\AmazonAlexa]
 
   fos_oauth_server.server:
     class: SuplaBundle\Auth\SuplaOAuth2

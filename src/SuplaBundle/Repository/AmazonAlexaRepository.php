@@ -19,16 +19,16 @@ namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\AlexaEventGatewayCredentials;
+use SuplaBundle\Entity\AmazonAlexa;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AlexaEventGatewayCredentialsRepository extends EntityRepository {
-    public function findForUser(User $user): AlexaEventGatewayCredentials {
-        /** @var AlexaEventGatewayCredentials $alexaEventGateway */
-        $alexaEventGatewayCredentials = $this->findOneBy(['user' => $user]);
-        if (!$alexaEventGatewayCredentials) {
-            throw new NotFoundHttpException("AlexaEventGatewayCredentials could not be found.");
+class AmazonAlexaRepository extends EntityRepository {
+    public function findForUser(User $user): AmazonAlexa {
+        /** @var AmazonAlexa $alexaEventGateway */
+        $amazonAlexa = $this->findOneBy(['user' => $user]);
+        if (!$amazonAlexa) {
+            throw new NotFoundHttpException("AmazonAlexa could not be found.");
         }
-        return $alexaEventGatewayCredentials;
+        return $amazonAlexa;
     }
 }

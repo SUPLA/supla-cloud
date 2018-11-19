@@ -21,70 +21,71 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Model\Transactional;
-use SuplaBundle\Repository\AlexaEventGatewayCredentialsRepository;
+use SuplaBundle\Repository\AmazonAlexaRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Entity\AlexaEventGatewayCredentials;
+use SuplaBundle\Entity\AmazonAlexa;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AlexaEventGatewayController extends RestController {
+class AmazonAlexaController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    /** @var AlexaEventGatewayCredentialsRepository */
-    private $alexaEgcRepository;
+    /** @var AmazonAlexaRepository */
+    private $amazonAlexaRepository;
 
-    public function __construct(AlexaEventGatewayCredentialsRepository $alexaEgcRepository) {
-        $this->alexaEgcRepository = $alexaEgcRepository;
+    public function __construct(AmazonAlexaRepository $amazonAlexaRepository) {
+        $this->amazonAlexaRepository = $amazonAlexaRepository;
     }
 
     /**
      * @Security("has_role('ROLE_CHANNELS_EA')")
-     * @Rest\Put("/alexa-event-gateway-credentials")
+     * @Rest\Put("/amazon-alexa")
      */
-    public function putCredentialsAction(Request $request, AlexaEventGatewayCredentials $source) {
+    public function putAmazonAlexaAction(Request $request, AmazonAlexa $source) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         };
 
         try {
-            $aegc = $this->alexaEgcRepository->findForUser($this->getUser());
+            $aegc = $this->amazonAlexaRepository->findForUser($this->getUser());
             $aegc->setAccessToken($source->getAccessToken());
             $aegc->setExpiresAt($source->getExpiresAt());
             $aegc->setRefreshToken($source->getRefreshToken());
             $aegc->setRegion($source->getRegion());
-            $aegc->setEndpointScope($source->getEndpointScope());
         } catch (NotFoundHttpException $e) {
             $aegc = $source;
             $aegc->setRegDate(new \DateTime);
+            $bytes = random_bytes(16);
+            $aegc->setEndpointScope(bin2hex($bytes));
         };
 
         $this->transactional(function (EntityManagerInterface $em) use ($aegc) {
             $em->persist($aegc);
         });
 
-        $this->suplaServer->alexaEventGatewayCredentialsChanged();
+        $this->suplaServer->amazonAlexaCredentialsChanged();
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
     }
 
     /**
      * @Security("has_role('ROLE_CHANNELS_EA')")
-     * @Rest\Delete("/alexa-event-gateway-credentials")
+     * @Rest\Delete("/amazon-alexa")
      */
-    public function deleteCredentialsAction(Request $request) {
+    public function deleteAmazonAlexaAction(Request $request) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
 
         $this->transactional(function (EntityManagerInterface $em) {
-            $aegc = $this->alexaEgcRepository->findForUser($this->getUser());
+            $aegc = $this->amazonAlexaRepository->findForUser($this->getUser());
             $em->remove($aegc);
         });
 
-        $this->suplaServer->alexaEventGatewayCredentialsChanged();
+        $this->suplaServer->amazonAlexaCredentialsChanged();
 
         return new Response('', Response::HTTP_NO_CONTENT);
     }

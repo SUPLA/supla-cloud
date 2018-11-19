@@ -20,10 +20,10 @@ namespace SuplaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AlexaEventGatewayCredentialsRepository")
- * @ORM\Table(name="supla_alexa_egc")
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AmazonAlexaRepository")
+ * @ORM\Table(name="supla_amazon_alexa")
  */
-class AlexaEventGatewayCredentials {
+class AmazonAlexa {
     use BelongsToUser;
 
     /**
@@ -65,7 +65,7 @@ class AlexaEventGatewayCredentials {
     private $region;
 
     /**
-     * @ORM\Column(name="endpoint_scope", type="string", length=16, nullable=false)
+     * @ORM\Column(name="endpoint_scope", type="string", length=36, nullable=false)
      */
     private $endpointScope;
 

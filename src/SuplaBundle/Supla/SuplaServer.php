@@ -104,8 +104,8 @@ abstract class SuplaServer {
         return $this->userAction($userId, "RECONNECT");
     }
 
-    public function alexaEventGatewayCredentialsChanged($userId = null) {
-        return $this->userAction($userId, "ALEXA-EGC-CHANGED");
+    public function amazonAlexaCredentialsChanged($userId = null) {
+        return $this->userAction($userId, "ALEXA-CREDENTIALS-CHANGED");
     }
 
     public function clientReconnect(ClientApp $clientApp) {
