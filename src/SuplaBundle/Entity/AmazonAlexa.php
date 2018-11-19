@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AmazonAlexaRepository")
@@ -61,11 +62,13 @@ class AmazonAlexa {
 
     /**
      * @ORM\Column(name="region", type="string", length=5, nullable=true)
+     * @Groups({"basic"})
      */
     private $region;
 
     /**
      * @ORM\Column(name="endpoint_scope", type="string", length=36, nullable=false)
+     * @Groups({"basic"})
      */
     private $endpointScope;
 

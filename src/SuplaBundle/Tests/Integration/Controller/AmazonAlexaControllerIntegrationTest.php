@@ -40,14 +40,14 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
-    private function getCredentials() : AmazonAlexa {
+    private function getAmazonAlexa() : AmazonAlexa {
         return $this->getDoctrine()
             ->getRepository(AmazonAlexa::class)->findForUser($this->user);
     }
 
     public function testNonexistingCredentials() {
         $this->expectException(NotFoundHttpException::class);
-        $this->getCredentials();
+        $this->getAmazonAlexa();
     }
 
     private function assertUpdatingCredentials(array $params) {
@@ -55,10 +55,10 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
         $response = $this->client->getResponse();
         $this->assertStatusCode('2xx', $response);
 
-        $credentials = $this->getCredentials();
-        $this->assertEquals($params['aeg_access_token'], $credentials->getAccessToken());
-        $this->assertEquals($params['aeg_refresh_token'], $credentials->getRefreshToken());
-        $this->assertEquals($params['aeg_region'], $credentials->getRegion());
+        $amazonAlexa = $this->getAmazonAlexa();
+        $this->assertEquals($params['aeg_access_token'], $amazonAlexa->getAccessToken());
+        $this->assertEquals($params['aeg_refresh_token'], $amazonAlexa->getRefreshToken());
+        $this->assertEquals($params['aeg_region'], $amazonAlexa->getRegion());
 
         $now = new \DateTime();
         $expiresIn = intval(@$params['aeg_expires_in']);
@@ -68,12 +68,12 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
             $now->add($interval);
         }
 
-        $diff = $credentials->getExpiresAt()->getTimestamp() - $now->getTimestamp();
+        $diff = $amazonAlexa->getExpiresAt()->getTimestamp() - $now->getTimestamp();
 
         $this->assertGreaterThanOrEqual($expiresIn-2, $diff);
         $this->assertLessThanOrEqual($expiresIn+2, $diff);
 
-        $this->getEntityManager()->detach($credentials);
+        $this->getEntityManager()->detach($amazonAlexa);
     }
 
     public function testUpdatingCredentials() {
@@ -107,41 +107,32 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
     public function testUpdatingWithIncompleteData() {
         $params = ['aeg_expires_in' => 600,
             'aeg_refresh_token' => 'vbn',
-            'aeg_region' => 'eu',
-            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
-
-        $this->assertUpdatingWithIncompleteData($params);
-
-        $params = ['aeg_access_token' => 'efgh',
-            'aeg_expires_in' => 600,
-            'aeg_region' => 'eu',
-            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
-
-        $this->assertUpdatingWithIncompleteData($params);
-
-        $params = ['aeg_access_token' => 'efgh',
-            'aeg_expires_in' => 600,
-            'aeg_refresh_token' => 'vbn',
             'aeg_region' => 'eu'];
 
         $this->assertUpdatingWithIncompleteData($params);
+
+        $params = ['aeg_access_token' => 'efgh',
+            'aeg_expires_in' => 600,
+            'aeg_region' => 'eu',];
+
+        $this->assertUpdatingWithIncompleteData($params);
+
     }
 
-    public function testDeleting() {
-        $this->client->apiRequestV23('DELETE', '/api/amazon-alexa');
-        $response = $this->client->getResponse();
-        $this->assertStatusCode('4xx', $response);
-
+    public function testGetingEndpointScope() {
         $params = ['aeg_access_token' => 'abcd',
             'aeg_expires_in' => 3600,
             'aeg_refresh_token' => 'xyz',
-            'aeg_region' => '',
-            'aeg_endpoint_scope' => '1DBB50AAC7EBCFBA'];
+            'aeg_region' => 'eu'];
 
         $this->assertUpdatingCredentials($params);
 
-        $this->client->apiRequestV23('DELETE', '/api/amazon-alexa');
+        $this->client->apiRequestV23('GET', '/api/amazon-alexa');
         $response = $this->client->getResponse();
         $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+
+        $amazonAlexa = $this->getAmazonAlexa();
+        $this->assertEquals($content['endpointScope'], $amazonAlexa->getEndpointScope());
     }
 }

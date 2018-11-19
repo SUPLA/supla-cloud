@@ -73,20 +73,14 @@ class AmazonAlexaController extends RestController {
 
     /**
      * @Security("has_role('ROLE_CHANNELS_EA')")
-     * @Rest\Delete("/amazon-alexa")
+     * @Rest\Get("/amazon-alexa")
      */
-    public function deleteAmazonAlexaAction(Request $request) {
+    public function getAmazonAlexaAction(Request $request) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
 
-        $this->transactional(function (EntityManagerInterface $em) {
-            $aegc = $this->amazonAlexaRepository->findForUser($this->getUser());
-            $em->remove($aegc);
-        });
-
-        $this->suplaServer->amazonAlexaCredentialsChanged();
-
-        return new Response('', Response::HTTP_NO_CONTENT);
+        $aegc = $this->amazonAlexaRepository->findForUser($this->getUser());
+        return $this->view($aegc);
     }
 }
