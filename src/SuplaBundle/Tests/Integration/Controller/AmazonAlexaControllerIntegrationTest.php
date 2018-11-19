@@ -116,7 +116,6 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
             'aeg_region' => 'eu',];
 
         $this->assertUpdatingWithIncompleteData($params);
-
     }
 
     public function testGetingEndpointScope() {
