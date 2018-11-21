@@ -17,7 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
+use SuplaBundle\Auth\AutodiscoverPublicClientStub;
+use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -37,6 +40,8 @@ services:
 */
 
 /**
+ * These tests are disabled by default because of the demand for the specific environment. To run them, change the group name below (this
+ * gruop name is excluded in app/phpunit.xml configuration file).
  * @group AutodiscoverIntegrationTest
  */
 class AutodiscoverIntegrationTest extends IntegrationTestCase {
@@ -46,6 +51,8 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
 
     /** @var SuplaAutodiscover */
     private $autodiscover;
+    private $clientId;
+    private $clientSecret;
 
     /** @before */
     public function clearState() {
@@ -54,6 +61,16 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $path = realpath(self::AD_PROJECT_PATH);
         exec("$path/vendor/bin/phpunit -c $path/tests --filter testInvalidUrl", $output); // clears the database
         $this->autodiscover = $this->container->get(SuplaAutodiscover::class);
+        $this->executeAdCommand('public-clients:create');
+        $publicClientConfigPath = $path . '/var/public-clients/0001.yml';
+        $config = file_get_contents($publicClientConfigPath);
+        $config = str_replace('enabled: false', 'enabled: true', $config);
+        preg_match('#clientId: (.+)#', $config, $matches);
+        $this->clientId = $matches[1];
+        preg_match('#secret: (.+)#', $config, $matches);
+        $this->clientSecret = $matches[1];
+        file_put_contents($publicClientConfigPath, $config);
+        $this->executeAdCommand('public-clients:update 1');
     }
 
     public function testRegisteringTargetCloud() {
@@ -79,6 +96,55 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $this->assertContains('has been deleted', $result);
         $server = $this->autodiscover->getAuthServerForUser('adtest@supla.org');
         $this->assertTrue($server->isLocal());
+    }
+
+    public function testGetTargetCloudClientId() {
+        $this->testRegisteringTargetCloud();
+        $this->treatAsBroker();
+        $targetCloud = new TargetSuplaCloud('http://supla.local', true);
+        $localClientId = $this->autodiscover->getTargetCloudClientId($targetCloud, $this->clientId);
+        $this->assertNotNull($localClientId);
+        return $localClientId;
+    }
+
+    public function testGetPublicIdBasedOnMappedId() {
+        $localClientId = $this->testGetTargetCloudClientId();
+        $publicId = $this->autodiscover->getPublicIdBasedOnMappedId($localClientId);
+        $this->assertEquals($publicId, $this->clientId);
+    }
+
+    public function testUpdateTargetCloudCredentials() {
+        $localClientId = $this->testGetTargetCloudClientId();
+        $clientMock = $this->createMock(ApiClient::class);
+        $clientMock->method('getPublicId')->willReturn('1_local');
+        $clientMock->method('getSecret')->willReturn('XXX');
+        $this->autodiscover->updateTargetCloudCredentials($localClientId, $clientMock);
+        $publicId = $this->autodiscover->getPublicIdBasedOnMappedId('1_local');
+        $this->assertEquals($publicId, $this->clientId);
+    }
+
+    public function testFetchTargetCloudClientSecret() {
+        $this->testUpdateTargetCloudCredentials();
+        $client = new AutodiscoverPublicClientStub($this->clientId);
+        $client->setSecret($this->clientSecret);
+        $data = $this->autodiscover->fetchTargetCloudClientSecret($client, new TargetSuplaCloud('http://supla.local', true));
+        $this->assertEquals('XXX', $data['secret']);
+        $this->assertEquals('1_local', $data['mappedClientId']);
+    }
+
+    public function testIssueRegistrationTokenForTargetCloud() {
+        $this->testRegisteringTargetCloud();
+        $this->treatAsBroker();
+        $targetCloud = new TargetSuplaCloud('http://supla2.local');
+        $token = $this->autodiscover->issueRegistrationTokenForTargetCloud($targetCloud, 'some@email.com');
+        $this->assertNotNull($token);
+    }
+
+    public function testGetPublicClient() {
+        $this->testRegisteringTargetCloud();
+        $clientData = $this->autodiscover->getPublicClient($this->clientId);
+        $this->assertNotNull($clientData);
+        $this->assertEquals('New Public Client', $clientData['name']);
     }
 
     private function registerUser() {

@@ -186,7 +186,7 @@ abstract class SuplaAutodiscover {
 
     public function issueRegistrationTokenForTargetCloud(TargetSuplaCloud $targetCloud, $email): string {
         $response = $this->remoteRequest('/target-cloud-registration-token', [
-            'targetCloud' => $targetCloud->getAddress(),
+            'targetCloudUrl' => $targetCloud->getAddress(),
             'email' => $email,
         ]);
         $this->logger->debug(__FUNCTION__, ['targetCloud' => $targetCloud->getAddress()]);

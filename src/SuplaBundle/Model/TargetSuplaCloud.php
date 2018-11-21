@@ -34,7 +34,7 @@ class TargetSuplaCloud {
         } else {
             $inputData = $request->query->all();
         }
-        $inputData = array_merge($inputData, $mappedClientData);
+        $inputData = array_merge($inputData, ['client_id' => $mappedClientData['mappedClientId'], 'secret' => $mappedClientData['secret']]);
         return $this->sendRequest('/oauth/v2/token', $inputData);
     }
 
