@@ -89,6 +89,7 @@ function createRequiredDirectories() {
     [
         'var',
         'var/cache',
+        'var/local',
         'var/logs',
         'var/sessions',
     ].forEach(function (dirname) {

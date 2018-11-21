@@ -21,6 +21,7 @@ use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -40,6 +41,7 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDeletingUser() {
+        SuplaAutodiscoverMock::clear(false);
         $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
         $this->assertContains('has been deleted', $output);
         $this->assertNull($this->getEntityManager()->find(Location::class, 2));
