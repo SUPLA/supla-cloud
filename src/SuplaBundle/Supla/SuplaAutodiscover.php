@@ -73,7 +73,13 @@ abstract class SuplaAutodiscover {
         return file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
     }
 
-    abstract protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = []);
+    abstract protected function remoteRequest(
+        $endpoint,
+        $post = false,
+        &$responseStatus = null,
+        array $headers = [],
+        string $method = null
+    );
 
     public function getAuthServerForUser(string $username): TargetSuplaCloud {
         if ($this->isBroker()) {
@@ -84,7 +90,10 @@ abstract class SuplaAutodiscover {
                 $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
             }
             if ($domainFromAutodiscover) {
-                $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+                $serverUrl = $domainFromAutodiscover;
+                if (strpos($serverUrl, 'http') !== 0) {
+                    $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $serverUrl;
+                }
                 return new TargetSuplaCloud($serverUrl);
             }
         }
@@ -99,7 +108,10 @@ abstract class SuplaAutodiscover {
                 $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
             }
             if ($domainFromAutodiscover) {
-                $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+                $serverUrl = $domainFromAutodiscover;
+                if (strpos($serverUrl, 'http') !== 0) {
+                    $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $serverUrl;
+                }
                 return new TargetSuplaCloud($serverUrl);
             }
         }
@@ -124,6 +136,15 @@ abstract class SuplaAutodiscover {
             $this->logger->debug(__FUNCTION__);
             $this->remoteRequest('/users', ['email' => $user->getUsername()]);
         }
+    }
+
+    public function deleteUser(User $user): bool {
+        if ($this->isBroker()) {
+            $this->logger->debug(__FUNCTION__);
+            $this->remoteRequest('/users/' . urlencode($user->getUsername()), false, $responseStatus, [], 'DELETE');
+            return $responseStatus === 204;
+        }
+        return true;
     }
 
     /** @return string|null */
@@ -184,11 +205,11 @@ abstract class SuplaAutodiscover {
             [
                 'targetCloud' => $this->localSuplaCloud->getAddress(),
                 'responseStatus' => $responseStatus,
-                'response' => array_diff_key($response, ['token' => '']),
+                'response' => array_diff_key(is_array($response) ? $response : [], ['token' => '']),
             ]
         );
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
-        Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
+        Assertion::notEmpty($token, "Could not contact Autodiscover service. Try again in a while. (Error: $responseStatus)");
         return $token;
     }
 

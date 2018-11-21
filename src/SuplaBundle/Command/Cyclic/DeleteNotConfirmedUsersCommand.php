@@ -17,8 +17,10 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use SuplaBundle\Entity\User;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
@@ -42,12 +44,17 @@ class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
 
         $qb = $this->userRepository
             ->createQueryBuilder('t')
-            ->delete()
+            ->select()
             ->where('t.enabled = ?1 AND t.token != ?2 AND t.regDate < ?3')
             ->setParameters([1 => 0, 2 => '', 3 => $now->format('Y-m-d')]);
 
-        $result = $qb->getQuery()->execute();
-        $output->writeln(sprintf('Removed <info>%d</info> items from <comment>Users</comment> storage.', $result));
+        /** @var User[] $usersToDelete */
+        $usersToDelete = $qb->getQuery()->execute();
+        $output->writeln(sprintf('Users to remove: <info>%d</info>.', count($usersToDelete)));
+
+        foreach ($usersToDelete as $userToDelete) {
+            $this->getApplication()->run(new StringInput("supla:delete-user {$userToDelete->getUsername()} --no-interaction"), $output);
+        }
     }
 
     public function getIntervalInMinutes(): int {
