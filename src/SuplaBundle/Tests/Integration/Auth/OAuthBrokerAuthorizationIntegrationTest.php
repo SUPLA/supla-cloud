@@ -162,7 +162,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
             $this->assertEquals('/oauth/v2/token', $endpoint);
-            $this->assertEquals('1_local', $data['clientId']);
+            $this->assertEquals('1_local', $data['client_id']);
             $this->assertEquals('target-secret', $data['secret']);
             $this->assertEquals($params['code'], $data['code']);
             $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
@@ -278,7 +278,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $targetCalled = false;
         TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
             $this->assertEquals('/oauth/v2/token', $endpoint);
-            $this->assertEquals('1_local', $data['clientId']);
+            $this->assertEquals('1_local', $data['client_id']);
             $this->assertEquals('target-secret', $data['secret']);
             $this->assertEquals($params['grant_type'], 'refresh_token');
             $this->assertEquals($params['refresh_token'], $data['refresh_token']);
