@@ -37,7 +37,7 @@ services:
 */
 
 /**
- * @Group AutodiscoverIntegrationTest
+ * @group AutodiscoverIntegrationTest
  */
 class AutodiscoverIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
@@ -76,7 +76,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     public function testDeletingUserDeletesItInAd() {
         $this->registerUser();
         $result = $this->executeCommand('supla:delete-user adtest@supla.org');
-        $this->assertContains('User has been deleted', $result);
+        $this->assertContains('has been deleted', $result);
         $server = $this->autodiscover->getAuthServerForUser('adtest@supla.org');
         $this->assertTrue($server->isLocal());
     }
