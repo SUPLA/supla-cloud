@@ -105,7 +105,9 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             if ($post) {
                 $secret = $post['secret'];
                 if (isset(self::$publicClients[$publicId]) && self::$publicClients[$publicId]['secret'] == $secret) {
-                    return $domainMaps[$publicId] ?? [];
+                    if ($domainMaps[$publicId]) {
+                        return ['mappedClientId' => $mappedClientId, 'secret' => $domainMaps[$publicId]['secret']];
+                    }
                 }
             } elseif ($mappedClientId) {
                 $responseStatus = 200;

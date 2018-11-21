@@ -74,7 +74,7 @@ class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
         $client->method('getPublicId')->willReturn('public-id');
         $client->method('getSecret')->willReturn('public-secret');
         $this->assertEquals(
-            ['clientId' => 'local-id', 'secret' => 'local-secret'],
+            ['mappedClientId' => 'local-id', 'secret' => 'local-secret'],
             $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud)
         );
     }
