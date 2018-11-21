@@ -1,10 +1,14 @@
 <template>
-    <span>{{ translatedText }}</span>
+    <span>
+        <span v-if="html"
+            v-html="translatedText"></span>
+        <span v-else>{{ translatedText }}</span>
+    </span>
 </template>
 
 <script>
     export default {
-        props: ['text'],
+        props: ['text', 'html'],
         computed: {
             translatedText() {
                 if (this.text) {

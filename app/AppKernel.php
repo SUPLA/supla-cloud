@@ -49,6 +49,10 @@ class AppKernel extends Kernel {
 
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+        $optionalLocalConfigFile = $this->getRootDir() . '/config/config_local.yml';
+        if (file_exists($optionalLocalConfigFile)) {
+            $loader->load($optionalLocalConfigFile);
+        }
         // optional webpack dev server: https://www.slideshare.net/nachomartin/webpacksf/60
         $loader->load(function ($container) {
             /** @var ContainerInterface $container */

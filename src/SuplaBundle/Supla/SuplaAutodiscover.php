@@ -176,10 +176,17 @@ abstract class SuplaAutodiscover {
 
     public function registerTargetCloud(string $registrationToken): string {
         $response = $this->remoteRequest('/register-target-cloud', [
-            'targetCloud' => $this->localSuplaCloud->getAddress(),
+            'targetCloudUrl' => $this->localSuplaCloud->getAddress(),
             'registrationToken' => $registrationToken,
-        ]);
-        $this->logger->debug(__FUNCTION__, ['targetCloud' => $this->localSuplaCloud->getAddress()]);
+        ], $responseStatus);
+        $this->logger->debug(
+            __FUNCTION__,
+            [
+                'targetCloud' => $this->localSuplaCloud->getAddress(),
+                'responseStatus' => $responseStatus,
+                'response' => array_diff_key($response, ['token' => '']),
+            ]
+        );
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
         Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
         return $token;
@@ -190,18 +197,18 @@ abstract class SuplaAutodiscover {
         if (file_exists(self::PUBLIC_CLIENTS_SAVE_PATH)) {
             $publicClients = json_decode(file_get_contents(self::PUBLIC_CLIENTS_SAVE_PATH), true);
         }
-        if (!is_array($publicClients) || !isset($publicClients['lastFetchedTimestamp'])) {
-            $publicClients = ['lastFetchedTimestamp' => 0, 'clients' => []];
+        if (!is_array($publicClients) || !isset($publicClients['lastFetchedDatetime'])) {
+            $publicClients = ['lastFetchedDatetime' => 0, 'clients' => []];
         }
         $response = $this->remoteRequest(
             '/public-clients',
             false,
             $responseStatus,
-            ['If-Modified-Since' => $publicClients['lastFetchedTimestamp']]
+            ['If-Modified-Since' => $publicClients['lastFetchedDatetime']]
         );
         $this->logger->debug(__FUNCTION__, ['responseStatus' => $responseStatus]);
         if ($responseStatus == Response::HTTP_OK) {
-            $publicClients = ['lastFetchedTimestamp' => time(), 'clients' => $response];
+            $publicClients = ['lastFetchedDatetime' => (new \DateTime())->format(\DateTime::RFC822), 'clients' => $response];
             $saved = file_put_contents(self::PUBLIC_CLIENTS_SAVE_PATH, json_encode($publicClients));
             Assertion::greaterThan($saved, 0, 'Could not save the public clients list from Autodiscover');
         } else {

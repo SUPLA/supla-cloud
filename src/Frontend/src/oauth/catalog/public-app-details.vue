@@ -6,7 +6,8 @@
                     :src="'https://api.thecatapi.com/v1/images/search?format=src&size=full&' + app.id">
             </div>
             <div class="col-sm-9">
-                <i18n-text :text="app.longDescription || app.description"></i18n-text>
+                <i18n-text :text="app.longDescription || app.description"
+                    html="true"></i18n-text>
             </div>
         </div>
         <div class="row">
@@ -58,7 +59,7 @@
             oauthLink() {
                 const server = 'http://supla.local';
                 // const server = 'https://cloud.supla.org';
-                return `${server}/oauth/v2/auth?client_id=${this.app.id}&redirect_uri=${this.app.defaultRedirectUri}` +
+                return `${server}/oauth/v2/auth?client_id=${this.app.clientId}&redirect_uri=${this.app.defaultRedirectUri}` +
                     `&scope=${this.app.defaultScope}&response_type=code`;
             }
         },

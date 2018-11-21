@@ -106,6 +106,7 @@ function clearLocalConfigFiles() {
     del.sync([
         'release/**/.gitignore',
         'release/app/config/config_dev.yml',
+        'release/app/config/config_local.yml',
         'release/app/config/config_test.yml',
         'release/app/config/parameters.yml',
         'release/app/config/parameters.yml.travis',

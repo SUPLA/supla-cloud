@@ -80,7 +80,7 @@ services:
 
   SuplaBundle\Supla\SuplaAutodiscoverReal:
     arguments:
-      $autodiscoverUrl: "%supla_autodiscover_server%"
+      $autodiscoverUrl: "%supla.autodiscover_url%"
       $actAsBrokerCloud: '%act_as_broker_cloud%'
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}

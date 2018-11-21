@@ -36,7 +36,6 @@
                             :app="app"></public-app-details>
                     </div>
                 </transition>
-                <!--<router-view :apps="apps"></router-view>-->
             </div>
             <div class="container"
                 v-if="apps && !apps.length">
@@ -71,7 +70,7 @@
             }
         },
         mounted() {
-            this.$http.get('public-oauth-apps')
+            this.$http.get('public-oauth-apps', {skipErrorHandler: [406]})
                 .then(({body: apps}) => this.apps = apps)
                 .then(() => this.displayRequestedApp())
                 .catch((response) => this.apps = response.status);
