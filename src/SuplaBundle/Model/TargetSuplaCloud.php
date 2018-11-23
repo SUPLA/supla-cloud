@@ -34,7 +34,7 @@ class TargetSuplaCloud {
         } else {
             $inputData = $request->query->all();
         }
-        $inputData = array_merge($inputData, $mappedClientData);
+        $inputData = array_merge($inputData, ['client_id' => $mappedClientData['mappedClientId'], 'secret' => $mappedClientData['secret']]);
         return $this->sendRequest('/oauth/v2/token', $inputData);
     }
 
@@ -85,6 +85,7 @@ class TargetSuplaCloud {
             curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Content-Length: ' . strlen($content)]);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
         $response = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if (curl_errno($ch) != 0) {

@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface {
         $rootNode
             ->children()
                 ->scalarNode('version')->defaultValue('?.?.?')->end()
+                ->scalarNode('autodiscover_url')->defaultValue('https://autodiscover.supla.org')->end()
                 ->arrayNode('webpack_hashes')->normalizeKeys(false)->defaultValue([])->useAttributeAsKey('name')->prototype('scalar')->end()->end()
                 ->arrayNode('clients_registration')->children()
                     ->arrayNode('registration_active_time')->children()

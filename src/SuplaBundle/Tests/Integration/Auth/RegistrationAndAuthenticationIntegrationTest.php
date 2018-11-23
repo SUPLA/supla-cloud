@@ -22,6 +22,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Model\Audit\Audit;
+use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\TestMailer;
@@ -43,6 +44,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     /** @before */
     public function initAudit() {
         $this->audit = $this->container->get(Audit::class);
+        SuplaAutodiscoverMock::clear();
     }
 
     public function testCannotLoginIfDoesNotExist() {
@@ -72,6 +74,19 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->createdUser->getEmail(), $data['email']);
         $this->assertNotNull($this->createdUser);
         $this->assertFalse($this->createdUser->isEnabled());
+    }
+
+    public function testNotifyingAdAboutNewUserIfBroker() {
+        SuplaAutodiscoverMock::clear();
+        $this->testCreatingUser();
+        $this->assertCount(2, SuplaAutodiscoverMock::$requests); // 1st - checking if exists, 2nd - registering
+        $this->assertEquals(['email' => self::EMAIL], SuplaAutodiscoverMock::$requests[1]['post']);
+    }
+
+    public function testDoesNotNotifyAdAboutNewUserIfNotBroker() {
+        SuplaAutodiscoverMock::clear(false);
+        $this->testCreatingUser();
+        $this->assertEmpty(SuplaAutodiscoverMock::$requests);
     }
 
     public function testCannotLoginIfNotConfirmed() {

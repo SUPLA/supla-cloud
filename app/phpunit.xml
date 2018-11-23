@@ -31,6 +31,12 @@
         </testsuite>
     </testsuites>
 
+    <groups>
+        <exclude>
+            <group>AutodiscoverIntegrationTest</group>
+        </exclude>
+    </groups>
+
     <filter>
         <whitelist>
             <directory>../src</directory>
