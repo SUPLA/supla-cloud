@@ -148,7 +148,8 @@ final class ChannelFunction extends Enum {
                 self::LIGHTSWITCH,
                 self::DIMMER,
                 self::RGBLIGHTING,
-                self::DIMMERANDRGBLIGHTING]
+                self::DIMMERANDRGBLIGHTING,
+                self::CONTROLLINGTHEROLLERSHUTTER]
         );
     }
 
