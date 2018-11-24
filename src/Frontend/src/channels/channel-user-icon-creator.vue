@@ -23,13 +23,23 @@
                 </div>
             </div>
         </div>
+        <div class="checkbox checkbox-green">
+            <label>
+                <input type="checkbox"
+                    v-model="filesAreOk">
+                <span class="checkmark"></span>
+                {{ $t('Uploaded files do not violate good customs, copyrights and third-party copy rights, and I have the right to use them.') }}
+            </label>
+        </div>
         <p class="text-muted">{{ $t('We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).', {width: 210, height: 156}) }}</p>
         <div class="row">
             <div class="col-xs-12">
-                <a class="btn btn-green"
+                <button class="btn btn-green"
+                    type="button"
+                    :disabled="!filesAreOk"
                     @click="uploadIcons()">
                     {{ $t(icon ? 'Save' : 'Add') }}
-                </a>
+                </button>
                 <a class="btn btn-red"
                     v-if="icon"
                     @click="deleteConfirm = true">
@@ -63,6 +73,7 @@
                 images: [],
                 previews: [],
                 uploading: false,
+                filesAreOk: false
             };
         },
         mounted() {
