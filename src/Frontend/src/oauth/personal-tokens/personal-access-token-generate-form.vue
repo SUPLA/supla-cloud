@@ -11,7 +11,7 @@
             <label>{{ $t('Scopes') }}</label>
             <p>{{ $t('Scopes define what parts of your account can be accessed when using the token.')}}</p>
             <div class="list-group scope-selector">
-                <div class="list-group-item col-xs-12 col-sm-6 col-md-4 col-lg-3"
+                <div class="list-group-item"
                     v-for="scope in availableScopes">
                     <h4>{{ $t(scope.label) }}</h4>
                     <div class="togglers">
@@ -82,7 +82,10 @@
 
 <style lang="scss">
     .scope-selector {
-        .list-group-item {
+        display: flex;
+        flex-flow: row wrap;
+        > div {
+            flex-grow: 1;
             border-radius: 0 !important;
             h4 {
                 margin-top: 0;
@@ -90,6 +93,15 @@
             .togglers {
                 display: flex;
                 justify-content: space-evenly;
+                > div {
+                    padding: 0 3px;
+                    &:first-child {
+                        padding-left: 0;
+                    }
+                    &:last-child {
+                        padding-right: 0;
+                    }
+                }
             }
         }
     }

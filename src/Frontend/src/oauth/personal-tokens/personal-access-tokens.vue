@@ -3,6 +3,10 @@
         <div class="clearfix left-right-header">
             <div>
                 <h5>{{ $t('Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.') }}</h5>
+                <p>
+                    {{ $t('Once you generate one, use it just like it was issued with OAuth authorization form - in the request header:')}}
+                    <code>Authorization: Bearer [YOUR_TOKEN_HERE]</code>
+                </p>
             </div>
             <div>
                 <a class="btn btn-white"

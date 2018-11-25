@@ -368,6 +368,9 @@ body.warning {
   .btn {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
 }
 
