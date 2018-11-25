@@ -31,7 +31,7 @@
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
 
     export default {
-        props: ['params', 'value'],
+        props: ['params', 'value', 'filter'],
         components: {ButtonLoadingDots},
         data() {
             return {
@@ -41,12 +41,15 @@
         },
         mounted() {
             this.fetchChannelGroups();
+            if (!this.filter) {
+                this.filter = () => true;
+            }
         },
         methods: {
             fetchChannelGroups() {
                 this.channelGroups = undefined;
                 this.$http.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
-                    this.channelGroups = channelGroups;
+                    this.channelGroups = channelGroups.filter(this.filter);
                     this.setChannelGroupFromModel();
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });

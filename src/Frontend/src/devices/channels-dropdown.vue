@@ -35,7 +35,7 @@
     import {channelTitle} from "../common/filters";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'initialId'],
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'initialId', 'filter'],
         components: {ButtonLoadingDots},
         data() {
             return {
@@ -45,12 +45,15 @@
         },
         mounted() {
             this.fetchChannels();
+            if (!this.filter) {
+                this.filter = () => true;
+            }
         },
         methods: {
             fetchChannels() {
                 this.channels = undefined;
                 this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
-                    this.channels = channels;
+                    this.channels = channels.filter(this.filter);
                     if (this.initialId) {
                         this.chosenChannel = this.channels.filter(ch => ch.id == this.initialId)[0];
                     }

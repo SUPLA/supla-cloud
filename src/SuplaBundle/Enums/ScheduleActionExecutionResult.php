@@ -41,6 +41,7 @@ final class ScheduleActionExecutionResult extends Enum {
     const SERVER_UNREACHABLE = 6;
     const FAILURE = 7;
     const CANCELLED = 8;
+    const EXECUTED_WITHOUT_CONFIRMATION = 9;
 
     public function __construct($value) {
         parent::__construct($value ?: 0);
@@ -64,6 +65,7 @@ final class ScheduleActionExecutionResult extends Enum {
             self::SERVER_UNREACHABLE => 'Server unreachable',
             self::FAILURE => 'Failed',
             self::CANCELLED => 'Cancelled',
+            self::EXECUTED_WITHOUT_CONFIRMATION => 'Executed without confirmation',
         ];
     }
 

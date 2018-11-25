@@ -11,9 +11,11 @@
         <channels-dropdown v-model="subject"
             v-if="subjectType == 'channel'"
             @input="subjectChanged()"
+            :filter="filter"
             :params="channelsDropdownParams"></channels-dropdown>
         <channel-groups-dropdown @input="subjectChanged"
             v-if="subjectType == 'channelGroup'"
+            :filter="filter"
             v-model="subject"></channel-groups-dropdown>
     </div>
 </template>
@@ -23,7 +25,7 @@
     import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
 
     export default {
-        props: ['value', 'channelsDropdownParams'],
+        props: ['value', 'channelsDropdownParams', 'filter'],
         components: {ChannelGroupsDropdown, ChannelsDropdown},
         data() {
             return {
