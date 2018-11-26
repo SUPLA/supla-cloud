@@ -7,7 +7,6 @@ Enabled: Abilitato
 Disabled: Disabilitato
 Search: Cerca
 Assigned Locations: Localizzazioni assegnate
-Password change: Cambio della password
 Timezone: Fuso orario
 Registration: Registrazione 
 Password Reset: Reset della password
@@ -18,18 +17,15 @@ Forgot your password?: Hai dimenticato la password?
 Server address: Indirizzo del server
 Cancel: Annulla 
 CANCEL: ANNULLA
-Are you sure you want to delete?: Sei sicuro di voler eliminare?
 Relay switching time: Tempo di commutazione del relè
 Full opening time: Tempo totale di apertura 
 Full closing time: Tempo totale di chiusura
 sec.: Sec.
 Download the history of measurement: Scarica lo storico delle misurazioni
-Open sensor: Sensore di apertura 
 None: Nessuno
 Channel for the sensor: Sensore per il canale
 Channel: Canale
-Channel No: Numero del canale 
-Channel properties: Proprietà del canale 
+Channel No: Numero del canale
 Device: Dispositivo
 Access Identifier: Identificatore dell’Accesso
 Location Identifier: Identificatore della Localizzazione
@@ -40,9 +36,6 @@ Function: Funzione
 Name: Nome
 Location: Localizzazione
 Locations: Localizzazioni
-No Locations assigned: Nessuna localizzazione assegnata 
-Location has been changed: La localizzazione è stata cambiata 
-Lack of Locations: Nessuna localizzazione
 SoftVer: VerSoft
 All: Tutto
 Electric: Elettricità
@@ -57,11 +50,9 @@ unknown: sconosciuto
 Comment: Commento
 Channels: Canali
 I/O Devices: Dispositivi I/O
-Assigned Access Identifiers: Identificatori dell’Accesso assegnati
 Start Here: Comincia qui
 Sign In: Log in 
 Sign Out: Log out
-Generate new password: Genera una nuova password
 Password: Password
 Confirm Password: Conferma della password
 SAVE: SALVA
@@ -73,20 +64,16 @@ CLICK TO ENABLE: CLICCA PER ABILITARE
 DELETE: ELIMINA
 Assign Locations: Assegna le Localizzazioni
 Confirm if you want to remove Access Identifier: Conferma se vuoi rimuovere l’Identificatore dell’Accesso
-Further connection with this Identifier will be impossible: L’ulteriore connessione tramite questo Identificatore sarà impossibile
-Choose locations to be assigned to Access Identifier: Seleziona le Localizzazioni che verranno assegnate a questo Identificatore dell’Accesso
 Access Identifiers: Identificatori dell’accesso
 Create New Access Identifier: Crea un nuovo Identificatore dell’Accesso
-No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Nessuna Localizzazione da assegnare a questo<br />Identificatore dell’Accesso. Vai alle Localizzazioni e aggiungi una.
-No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Nessun Identificatore dell’Accesso da assegnare a questa<br />Localizzazione. Vai agli Identificatori dell’Accesso e aggiungi uno. 
-Create New Location: Crea una nuova Localizzazione
+No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.Create New Location: Crea una nuova Localizzazione
 Assign Access Identifiers: Assegna gli Identificatori dell’Accesso
-Languages: Lingue 
-No I/O Devices: Nessun Dispositivo I/O
+Languages: Lingue
 Choose Access Identifiers to be assigned to this Location: Seleziona gli Identificatori dell’Accesso da assegnare a questa Localizzazione
 Are you sure?: Sei sicuro?
 Lighting: Illuminazione 
-Temperature: Temperatura 
+Temperature: Temperatura
+Humidity: Umidità
 Doors and gates: Porte e cancelli 
 Home appliances: Elettrodomestici
 And more: E molto di più
@@ -101,48 +88,15 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 Registered: Registrato
 Last connection: Ultima connessione
 Confirm if you want to remove {deviceName} device: Conferma se vuoi rimuovere il dispositivo {deviceName}
-All Your I/O Devices: Tutti i Tuoi dispositivi I/O
-Please select function for this channel: Seleziona la funzione per questo canale 
-No Access Identifiers assigned: Nessun Identificatore dell’Accesso assegnato 
-Lack of Access Identifiers: Nessun Identificatore dell’Accesso
-Change Your Password: Cambio della password 
-On your computer...: Nel Tuo computer...
-On your smartphone...: Nel Tuo smartphone...
 WELCOME_MESSAGE: |
   Connettere la Tua casa o l’ufficio con SUPLA è molto semplice.
   Tutto quello che devi fare è riscrivere nei Tuoi dispositivi di controllo (entrate/uscite) e nei smartphone i seguenti dati.
 Enter the data below in the settings of your control device (I/O Device).: Inserisci i seguenti dati nelle impostazioni del Tuo dispositivo di controllo (dispositivo I/U).
 Enter the data below in your mobile SUPLA application on your smartphone.: Inserisci i seguenti dati nell’applicazione mobile SUPLA installata nel Tuo smartphone.
-Make it work: Fallo funzionare
-You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Non puoi connettere i Dispositivi I/U finchè almeno un Identificatore dell’Accesso non sarà assegnato a qualsiasi Localizzazione
-Install SUPLA on your smartphone.: Installa SUPLA nel Tuo smartphone.
-Open SUPLA app.: Avvia l’applicazione.
-Fill in the fields with settings provided above.: Inserisci nelle impostazioni i dati riportati di sopra.
-Tap <strong>Done</strong> and wait until the app connects.: Tocca il tasto <strong>Pronto</strong> e attendi finchè l’applicazione non sarà connessa.
-Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Scarica <a href="https://www.supla.org/download">le schede SD</a> per Raspberry PI. 
-Transfer downloaded image onto the SD Card.: Trasferisci l’immagine scaricata sulla scheda SD.
-Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Apri il file <strong>boot\location.txt</strong>. 
-Done.: Pronto.
-For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Per maggiori dettagli visita il sito <a href="https://www.supla.org">www.supla.org</a>
-Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Scarica e carica il <a href="https://www.supla.org/download">firmware</a> nel microcontrollore
-Turn the device on: Accendi il dispositivo
-Press and hold the P1 button for 5 sec. (Default GPIO2): Premi e tieni premuto il tasto P1 per almeno 5 secondi (impostazione predefinita GPI02)
-Connect the computer to WiFi called SUPLA-ESP8266: Collega il computer alla rete WiFi recante il nome SUPLA-ESP8266
-Go to http://192.168.4.1: Apri il sito all’indirizzo http://192.168.4.1
-Enter location settings provided above: Inserisci le impostazioni della localizzazione riportate di sopra
-Enter access data to your WiFi: Inserisci i dati di accesso nella Tua rete WiFi
-Click "Save": Clicca "Save"
-Restart the device or press the P1 button: URiavvia il dispositivo o clicca il tasto P1
-
-Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Scarica <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">la libreria SuplaDevice</a> per Arduino
-Run Arduino IDE: Avvia Arduino IDE
-Click Sketch -> Include library -> Add .ZIP Library: Cicca Bozza -> Aggiungi una libreria -> Aggiungi una libreria .ZIP
-Open one of the examples. File -> Examples -> SuplaDevice: Apri uno degli esempi.  File -> Esempi -> SuplaDevice
-Complete the code (GUID, Server, Location ID, Location Password): Completa il codice (GUID, Server, ID della localizzazione, Password della localizzazione)
-Upload program to Arduino: Carica il programma in Arduino
 
 Previous login: Log in precedente
 From IP: Dall’indirizzo IP
+from IP: dall’indirizzo IP
 Current Password: Password attuale 
 New password: Nuova password 
 Change Password: Cambio della password 
@@ -154,51 +108,29 @@ register-slide2-text: Uno dei presupposti basilari del progetto è la semplicit�
 register-slide3-title: Gratuita e aperta!
 register-slide3-text: I sistemi di automazione disponibili sul mercato sono di solito molto complessi, chiusi e costosi. In molti casi richiedono l’installazione già in fase della creazione dell’oggetto. SUPLA è semplice, aperta e gratuita. Permette di creare gli elementi esecutivi in base alle piattaforme RaspberryPI, Arduino oppure ESP8266 e di unirli avvalendosi della rete LAN e WIFI. UnisciTi al progetto e crea la Tua versione del sistema per l’automazione degli edifici!
 
-#inside php code
 Data saved: I dati sono stati salvati
 Save: Salva 
 Save and enable: Salva e abilita
 Location limit has been exceeded: Il limite della localizzazione è stato superato
 Success: Successo
-New location has been created: La nuova localizzazione è stata creata 
 Error: Errore
-Location has been deleted: La localizzazione è stata rimossa
-Data saved!: I dati sono stati salvati!
 Access identifier limit has been exceeded: Il limite degli identificatori dell’accesso è stato superato
-New access identifier has been created: Il nuovo identificatore dell’accesso è stato creato
-Information: Informazione 
-Access identifier has been deleted: L’identificatore dell’accesso è stato rimosso
-I/O Device has been deleted: Il dispositivo I/O è stato rimosso 
+Information: Informazione
 Account has been activated. You can Sign In now.: L’account è stato attivato. Puoi effettuare il log in.
-Unknown error: Errore indeterminato
 Token does not exist: Il token non esiste
-Access identifier has been enabled: L’identificatore dell’Accesso è stato abilitato 
-Access identifier has been disabled: L’identificatore dell’Accesso è stato disabilitato
-Caption has been changed: Il titolo è stato cambiato
-Password has been changed: La password è stata cambiata 
-Location has been enabled: La localizzazione è stata abilitata 
-Location has been disabled: La localizzazione è stata disabilitata 
-Comment has been modified: Il commento è stato modificato
-I/O Device has been disabled: Il dispositivo I/O è stato disabilitato
-I/O Device has been enabled: Il dispositivo I/O è stato abilitato
-Password field cannot be left empty: La password non può essere vuota 
+Password has been changed: La password è stata cambiata
 Current password is incorrect: La password attuale non è valida 
 Password has been changed!: La password è stata cambiata!
 Create an account: Crea un account
 Your email: Tua email
 Enter your email: Inserisci la Tua email 
 Enter your email address: Inserisci il Tuo indirizzo email
-Repeat your email: Ripeti l’email 
-Enter password: Inserisci l’email
 Enter strong password: Inserisci la password sicura
 Repeat password: Ripeti la password
 Don't worry, you can always reset your password via email. Click here to do so.: Non Ti preoccupare. Puoi sempre resettare la password tramite la Tua posta email. Clicca qui per farlo.
 RESET: RESETTA
-Click RESET button when visible: Quando appare clicca il tasto RESETTA 
 Check your email box: Controlla la Tua posta email
-Please fill the field before continuing: Prima di continuare completa questo campo
-Please fill a valid email address: Inserisci un’email valida 
-Whoops, that's not an email address!: Upss, questa email non è valida 
+Please fill a valid email address: Inserisci un’email valida
 Supla for devices: Supla per dispositivi
 Next: Avanti
 Get SUPLA on your devices: Scarica SUPLA per i Tuoi dispositivi
@@ -243,45 +175,29 @@ Humidity sensor: Sensore di umidità
 Temperature and humidity sensor: Sensore di temperatura e umidità
 RGB lighting: Illuminazione RGB
 Dimmer and RGB lighting: Varialuce e illuminazione RGB
-Choose new device location for the: Seleziona una nuova localizzazione per il dispositivo
-Original location: Localizzazione originale 
-Change location: Cambia la localizzazione
-Choose the location: Seleziona la localizzazione
+Original location: Localizzazione originale
 Go to your account: Vai al Tuo account
 
 Service temporarily unavailable: Servizio temporaneamente non disponibile
 Try again later: Riprova più tardi
 
-Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Benvenuto Programmatore! Venendo incontro alle Tue esigenze, abbiamo sviluppato l’interfaccia  RESTful AP che Ti permetterà di integrare le Tue soluzioni IT con SUPLA.
-RESTful API has been enabled: RESTful API è stata abilitata
-RESTful API has been disabled: RESTful API è stata disabilitata
-The password should be 24 or more characters.: La password deve contenere almeno 24 caratteri.
-OAuth 2.0 Authentication: Autenticazione OAuth 2.0
 copy: copia
 
 Schedule: Scadenzario
 Schedules: Scadenzari
 Create New Schedule: Crea un nuovo scadenzario
 No future executions - schedule disabled: Nessuna esecuzione programmata - scadenzario disabilitato
-Enable schedule: Abilita lo scadenzario
 Schedule cannot be enabled: L’abilitazione dello scadenzario è fallita 
 Disable schedule: Disabilita lo scadenzario
-Delete schedule: Rimuovi lo scadenzario
 Executions: Esecuzioni
 Action: Azione
 Subject: Soggetto 
 Mode: Modalità
-Schedule has been deleted: Lo scadenzario è stato rimosso
-Schedule mode: Modalità dello scadenzario 
-Your timezone: Tuo fuso orario
-Choose your timezone: Seleziona il Tuo fuso orario
+Schedule mode: Modalità dello scadenzario
 change: cambia 
 When: Quando
 Start date: Data dell’inizio
-Start hour: Ora dell’inizio
 End date: Data della fine
-End hour: Ora della fine
-calculating the next available executions: calcolo la prossima esecuzione disponibile
 The next available executions: Prossime esecuzioni disponibili
 choose the channel: seleziona il canale
 Add: Aggiungi
@@ -350,10 +266,7 @@ The device is disabled: Il dispositivo è spento
 Existing schedules: Scadenzari esistenti 
 Turning this device off will result in disabling all the associated schedules.: Lo spegnimento di questo dispositivo causerà anche la disabilitazione degli scadenzari ad esso uniti.
 Are you sure you want to disable this device?: Sei sicuro di voler spegnere questo dispositivo?
-If you change the function of the channel, the following schedules will be removed: Se cambierai la funzione di questo canale, gli scadenzari ad esso assegnati verranno rimossi
 Please select the schedules that should also be enabled.: Seleziona gli scadenzari che, anch’essi, devono essere disabilitati.
-You have no devices that can be added to the schedule: Non hai nessun dispositivo che può essere aggiunto allo scadenzario
-You will be redirected back to the schedules list now.: Adesso verrai reindirizzato all’elenco degli scadenzari
 
 Choose: Seleziona
 White: Bianco
@@ -415,11 +328,9 @@ There are no more channels you can add to this group: Non ci sono altri canali d
 New channel group: Nuovo gruppo di canali
 Add first channel to set channel group function and save it: Scegli il primo canale per definire la funzione del gruppo e salvarla
 choose: scegli
-Are you sure you want to delete this channel group?: Sei sicuro di voler eliminare questo gruppo di canali?
 
 Retry on failure: Ripeti se fallito
 Status: Status
-RESTful API: RESTful API
 State: Stato
 Depth: Profondità 
 Distance: Distanza
@@ -456,11 +367,10 @@ Assign Client apps: Assegna le applicazioni client
 My SUPLA: Mio SUPLA
 Save changes to see Access IDs: Salva le modifiche per visualizzare gli identificatori di accesso
 The password and its confirm are not the same.: La password e la sua conferma non sono uguali.
-If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: La creazione di una nuova password causerà la necessità di riconfigurare tutte le applicazioni che usano API.
 
 Are you lost?: Ti sei perso? Cerchi qualcosa?
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Il server ha restituito l’errore HTTP 404. Ciò significa che l’elemento che stai cercando non esiste.
-It seems like a secret place: Sembra che tu non debba essere qui
+Seems like a secret place: Sembra che tu non debba essere qui
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Il server ha restituito l’errore HTTP 403. Ciò significa che non sei autorizzato a visualizzare questo elemento.
 
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Conferma se vuoi eliminare la Localizzazione ID{locationId}. Dopo non potrai più collegare i dispositivi Input/Output con questa localizzazione.

@@ -7,7 +7,6 @@ Enabled: Activé
 Disabled: Désactivé
 Search: Chercher
 Assigned Locations: Lieux attribués
-Password change: Modification de mot de passe
 Timezone: Fuseau horaire 
 Registration: Inscription
 Password Reset: Réinitialisation du mot de passe
@@ -18,18 +17,15 @@ Forgot your password?: J'ai oublié le mot de passe?
 Server address: Adresse du serveur
 Cancel: Annuler
 CANCEL: ANNULER
-Are you sure you want to delete?: Voulez-vous vraiment supprimer ?
 Relay switching time: Durée d'activation de relais
 Full opening time: Durée totale d'ouverture
 Full closing time: Durée totale de fermeture
 sec.: secondes
 Download the history of measurement: Télécharger l'historique des mesures
-Open sensor: Capteur d'ouverture
 None: Nul
 Channel for the sensor: Capteur chaîne
 Channel: Chaîne
 Channel No: N° chaîne
-Channel properties: Propriétés de la chaîne
 Device: Dispositif
 Access Identifier: Identifiant d'accès
 Location Identifier: Identifiant de lieu
@@ -40,9 +36,6 @@ Function: Fonction
 Name: Nom
 Location: Lieu
 Locations: Lieux
-No Locations assigned: Aucun lieu attribué
-Location has been changed: Le lieu a été modifié
-Lack of Locations: Aucun lieu
 SoftVer: Version du logiciel
 All: Tout
 Electric: Electricité
@@ -57,11 +50,9 @@ unknown: inconnu
 Comment: Commentaire
 Channels: Chaînes
 I/O Devices: Dispositifs d'E/S
-Assigned Access Identifiers: Identifiants d'accès attribués
 Start Here: Commencer ici
 Sign In: Se connecter
 Sign Out: Se déconnecter
-Generate new password: Créer un nouveau mot de passe
 Password: Mot de passe
 Confirm Password: Confirmation de mot de passe
 SAVE: SAUVEGARDER
@@ -73,20 +64,16 @@ CLICK TO ENABLE: CLIQUER ICI POUR ACTIVER
 DELETE: SUPPRIMER
 Assign Locations: Attribuer un lieu
 Confirm if you want to remove Access Identifier: Confirmer la suppression de mon Identifiant d'Accès
-Further connection with this Identifier will be impossible: Toute autre tentative de connexion avec cet identifiant ne sera plus possible
-Choose locations to be assigned to Access Identifier: Choisir des lieux qui vont être attribués à cet Identifiant d'Accès
 Access Identifiers: Identifiants d'accès
 Create New Access Identifier: Créer un nouvel Identifiant d'Accès
-No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Aucun lieu ne peut être attribué à cet identifiant d'accès.<br />Accédez à la liste de lieux afin de créer au moins un.
-No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Aucun Identifiant d'Accès ne peut être attribué à ce lieu.<br />Accédez à la liste d'Identifiants d'Accès afin de créer au moins un. 
 Create New Location: Créer un nouveau Lieu
 Assign Access Identifiers: Attribuer mes Identifiants d'Accès
 Languages: Langues
-No I/O Devices: Aucun dispositif E/S
 Choose Access Identifiers to be assigned to this Location: Choisir les Identifiants d'Accès qui vont être attribués à ce lieu
 Are you sure?: Êtes-vous sûrs ?
 Lighting: Éclairage
 Temperature: Température
+Humidity: Humidité
 Doors and gates: Portes, Portails
 Home appliances: Équipement ménager
 And more: Et beaucoup plus
@@ -101,48 +88,15 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 Registered: Enregistré
 Last connection: Dernière connexion
 Confirm if you want to remove {deviceName} device: Confirmez la suppression de dispositif {deviceName}
-All Your I/O Devices: Tous mes dispositifs E/S
-Please select function for this channel: Choisir une fonction pour cette chaîne
-No Access Identifiers assigned: Aucun Identifiant d'Accès attribué
-Lack of Access Identifiers: Aucun Identifiant d'Accès
-Change Your Password: Modification de mot de passe
-On your computer...: Sur votre ordinateur...
-On your smartphone...: Sur votre smartphone....
 WELCOME_MESSAGE: |
   Votre domicile ou votre bureau peuvent être facilement connectés à SUPLA.
   Il suffit d'introduire dans vos dispositifs entrée/sortie les données ci-dessous.
 Enter the data below in the settings of your control device (I/O Device).: Veuillez introduire les données ci-dessous dans les paramètres de votre dispositif E/S.
 Enter the data below in your mobile SUPLA application on your smartphone.: Veuillez introduire les données ci-dessous dans l'application mobile SUPLA installée sur votre smartphone.
-Make it work: Essayez de faire fonctionner
-You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Vous ne pouvez pas connecter vos Dispositifs entrée/sortie avant d'associer au moins un Identifiant d'Accès à un lieu quelconque
-Install SUPLA on your smartphone.: Installez SUPLA sur votre smartphone.
-Open SUPLA app.: Démarrer l'application.
-Fill in the fields with settings provided above.: Veuillez introduire les données ci-dessus dans les paramètres.
-Tap <strong>Done</strong> and wait until the app connects.: Touchez le boûton <strong>Terminé</strong> et attendez jusqu'à ce que l'application se connecte.
-Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Télécharger les <a href="https://www.supla.org/download">cartes SD</a> pour Raspberry Pl. 
-Transfer downloaded image onto the SD Card.: Déplacer l'image téléchargé vers la carte SD.
-Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Ouvrez le fichier <strong>boot\location.txt</strong>. Copiez et collez les paramètres ci-dessus.
-Done.: Terminé.
-For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Voir plus de détails sur <a href="https://www.supla.org">www.supla.org</a>
-Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Téléchargez le <a href="https://www.supla.org/download">firmware</a> et installez-le sur le microcontroleur
-Turn the device on: Activer le dispositif
-Press and hold the P1 button for 5 sec. (Default GPIO2): Appuyer et maintenir le boûton P1 pendant 5 secondes (GPIO2 à défaut)
-Connect the computer to WiFi called SUPLA-ESP8266: Connectez votre ordinateur au réseau WiFi SUPLA-ESP8266
-Go to http://192.168.4.1: Accédez au site web http://192.168.4.1
-Enter location settings provided above: Introduisez les paramètres du lieu qui s'affichent au-dessus
-Enter access data to your WiFi: Introduisez les données d'accès à votre réseau Wifi
-Click "Save": Appuyez "Sauvegarder"
-Restart the device or press the P1 button: Redémarrez votre dispositif ou appuyez le boûton P1
-
-Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Téléchargez la <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">bibliothèque SuplaDevice</a> pour Arduino
-Run Arduino IDE: Lancez Arduino IDE
-Click Sketch -> Include library -> Add .ZIP Library: Cliquez sur Esquisse -> Ajouter une bibliothèque -> Ajouter une bibliothèque .ZIP
-Open one of the examples. File -> Examples -> SuplaDevice: Ouvrez un exemple. Fichier -> Exemples -> SuplaDevice
-Complete the code (GUID, Server, Location ID, Location Password): Complétez le code (GUID, Serveur, ID lieu, mot de passe du lieu)
-Upload program to Arduino: Télécharger un programme vers Arduino
 
 Previous login: Dernière connexion
 From IP: Avec l'adresse IP
+from IP: avec l'adresse IP
 Current Password: Mot de passe actuel
 New password: Nouveau mot de passe
 Change Password: Modification de mot de passe
@@ -154,51 +108,29 @@ register-slide2-text: L'une des hypothèses principales du projet c'est simplici
 register-slide3-title: BGratuite et ouverte!
 register-slide3-text: Les systèmes d'automatisation bâtiment disponibles sur le marché, sont d'habitude très complexes, fermé et chers. Dans des nombreux cas ils exigent d'être installés déjà à l'étape de construction. SUPLA est simple, ouverte et gratuite. Elle permet de construire des composants pour systèmes d'actionnement à partir de plateforme RaspberryPl, Arduino ou bien ESP8266 et de les connecter au réseau LAN et Wifi. Rejoignez le projet et construisez votre propre version do système d'automatisation bâtiment!
 
-#inside php code
 Data saved: Vos données ont été enregistrées
 Save: Sauvegarder
 Save and enable: Sauvegarder et activer
 Location limit has been exceeded: Vous avez dépassé la limite des lieux
 Success: Succès
-New location has been created: Un nouveau lieu a été créé
 Error: Erreur
-Location has been deleted: Ce lieu a été supprimé
-Data saved!: Vos données ont été enregistrées!
 Access identifier limit has been exceeded: Vous avez dépassé la limite des identifiants
-New access identifier has been created: Un nouvel identifiant d'accès a été créé
 Information: Information
-Access identifier has been deleted: Cet identifiant a été supprimé
-I/O Device has been deleted: Ce dispositif E/S a été supprim
 Account has been activated. You can Sign In now.: Votre compte a été activé. Vous pouvez dorénavant vous connecter
-Unknown error: Erreur indéfinie
 Token does not exist: Ce tokken n'existe pas
-Access identifier has been enabled: Cet Identifiant d'Accès a été activé
-Access identifier has been disabled: Cet dentifiant d'Accès a été désactivé
-Caption has been changed: Votre signature a été modifiée
 Password has been changed: Votre mot de passe a été modifié
-Location has been enabled: Ce lieu a été activé
-Location has been disabled: Ce lieu a été désactivé
-Comment has been modified: Votre commentaire a été modifié
-I/O Device has been disabled: Ce dispositif E/S a été désactivé
-I/O Device has been enabled: Ce dispositif E/S a été activé
-Password field cannot be left empty: Le mot de passe ne peut pas rester vide
 Current password is incorrect: Votre mot de passe actuel est incorrect
 Password has been changed!: Votre mot de passe a été modifié!
 Create an account: Créer un nouveau compte
 Your email: Votre adresse e-mail
 Enter your email: Introduisez votre e-mail
 Enter your email address: Introduisez votre adresse e-mail
-Repeat your email: Répétez votre e-mail
-Enter password: Introduisez le mot de passe
 Enter strong password: Il faut que le mot de passe soit fort
-Repeat password: Répétez le mot de passe
+Repeat password: Répétez le mot de passe Cliquez ici pour le faire.
 Don't worry, you can always reset your password via email. Click here to do so.: Ne vous inquiétez pas. Vous pouvez toujours réinitaliser votre mot de passe par le biais de messagerie électronique. Cliquez ici pour le faire.
 RESET: RÉINITALISER
-Click RESET button when visible: Appuyez le boûton REINITIALISER une fois apparaît sur l'écran
 Check your email box: Vérifiez votre messagerie électronique
-Please fill the field before continuing: Complétez ce champ avant de continuer
-Please fill a valid email address: Introduisez une correcte adresse e-mail 
-Whoops, that's not an email address!: Aie, cette adresse e-mail est incorrecte
+Please fill a valid email address: Introduisez une correcte adresse e-mail
 Supla for devices: SUPLA pour vos dispositifs
 Next: Suivre
 Get SUPLA on your devices: Téléchargez SUPLA sur vos dispositifs
@@ -243,45 +175,29 @@ Humidity sensor: Capteur d'humidité
 Temperature and humidity sensor: Capteur de température et d'humidité
 RGB lighting: Éclairage RGB
 Dimmer and RGB lighting: Variateur de luminosité et éclairage RGB
-Choose new device location for the: Choisir un nouveau lieu pour ce dispositif
 Original location: Lieu d'origine
-Change location: Modifier le lieu
-Choose the location: Choisir un lieu
 Go to your account: Accéder à mon compte
 
 Service temporarily unavailable: Ce service est temporairement indisponible
 Try again later: Réessayez ultérieurement
 
-Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Bonjour Programmeur! En pensant à vous, nous avons rendu accès à l'interface RESTfulAPI avec qui vous pouvez intégrer vos propres solutions IT avec SUPLA.
-RESTful API has been enabled: RESTful API a été activé
-RESTful API has been disabled: RESTful API a été desactivé
-The password should be 24 or more characters.: Le mot de passe doit contenir au moins 24 caractères.
-OAuth 2.0 Authentication: Autorisation OAuth 2.0
 copy: copier
 
 Schedule: Calendrier de prog.
 Schedules: Calendriers de prog.
 Create New Schedule: Créer un nouveau calendrier
 No future executions - schedule disabled: Aucun programme planifié - le calendrier est désactivé
-Enable schedule: Activer le calendrier
 Schedule cannot be enabled: Échec d'activation de calendrier
 Disable schedule: Désactiver le calendrier
-Delete schedule: Supprimer le calendrier
 Executions: Programmes
 Action: Action
 Subject: Sujet
 Mode: Mode
-Schedule has been deleted: Ce calendrier a été supprimé
 Schedule mode: Mode de calendrier
-Your timezone: Votre fuseau horaire
-Choose your timezone: Choisir mon fuseau horaire
 change: modifier
 When: Quand
 Start date: Date d'activation
-Start hour: Heure d'activation
 End date: Date de désactivation
-End hour: Heure de désactivation
-calculating the next available executions: je calcule les prochains programmes
 The next available executions: Prochains programmes
 choose the channel: choisir la chaîne
 Add: Ajouter
@@ -350,10 +266,7 @@ The device is disabled: Ce dispositif est désactivé
 Existing schedules: Calendriers existants
 Turning this device off will result in disabling all the associated schedules.: La désactivation de ce dispositif provoquera aussi la désactivation de tous les calendriers qui y sont associés.
 Are you sure you want to disable this device?: Voulez-vous vraiement désactiver ce dispositif?
-If you change the function of the channel, the following schedules will be removed: Si vous modifiez la fonction de cette chaîne, tous les calendriers qui y sont associés seront supprimés
 Please select the schedules that should also be enabled.: Sélectionnez les calendriers qui doivent être aussi activés.
-You have no devices that can be added to the schedule: Vous n'avez aucun dispositif qui peut être ajouté au calendrier
-You will be redirected back to the schedules list now.: Vous allez être dirigés vers le calendrier de programmations
 
 Choose: Choisir
 White: Blanc
@@ -416,11 +329,9 @@ There are no more channels you can add to this group: Il n'y a pas d'autres cha�
 New channel group: Nouveau groupe de chaînes
 Add first channel to set channel group function and save it: Sélectionner la première chaîne pour spécifier la fonction du groupe et l'enregistrer.
 choose: sélectionner
-Are you sure you want to delete this channel group?: Voulez-vous vraiment supprimer ce groupe de chaînes?
 
 Retry on failure: Répéter lorsqu'il n'est pas exécuté
 Status: Statut
-RESTful API: RESTful API
 State: Etat
 Depth: Profondeur
 Distance: Distance
@@ -457,7 +368,6 @@ Assign Client apps: Attribuer des applications clients
 My SUPLA: Ma SUPLA
 Save changes to see Access IDs: Sauvegarder les modifications pour afficher les identifiants d'accès
 The password and its confirm are not the same.: Le mot de passe et sa confirmation sont différents.
-If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: La génération d'un nouveau mot de passe nécessitera la reconfiguration de toutes les applications qui utilisent l'API.
 
 Are you lost?: Tu t'es perdu ? Tu cherches quelque chose?
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Le serveur a renvoyé l'erreur HTTP 404, ce qui signifie que l'article que tu recherches n'existe pas.

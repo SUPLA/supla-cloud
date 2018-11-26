@@ -7,7 +7,6 @@ Enabled: Įjungta
 Disabled: Išjungta
 Search: Ieškok
 Assigned Locations: Priskirtos Vietos
-Password change: Slaptažodžio keitimas
 Timezone: Laiko juosta
 Registration: Registracija
 Password Reset: Slaptažodžio atstatymas
@@ -18,18 +17,15 @@ Forgot your password?: Pamiršote slaptažodį?
 Server address: Serverio adresas
 Cancel: Atšaukti
 CANCEL: ATŠAUKTI
-Are you sure you want to delete?: Ar tikrai norite pašalinti?
 Relay switching time: Relė perjungimo laikas
 Full opening time: Bendras atidarymo laikas
 Full closing time: Bendras uždarymo laikas
 sec.: sek.
 Download the history of measurement: Atsisiųsti matavimų istoriją
-Open sensor: Atidarymo jutiklis
 None: Nėra
 Channel for the sensor: Jutiklio kanalas
 Channel: Kanalas
 Channel No: Kanalo numeris
-Channel properties: Kanalo savybės
 Device: Įrenginys
 Access Identifier: Prieigos identifikatorius
 Location Identifier: Vietos identifikatorius
@@ -40,9 +36,6 @@ Function: Funkcija
 Name: Pavadinimas
 Location: Vieta
 Locations: Vietos
-No Locations assigned: Nėra priskirtų vietų
-Location has been changed: Vieta pakeista
-Lack of Locations: Nėra vietos
 SoftVer: ProgĮrVer
 All: Viskas
 Electric: Elektra
@@ -57,11 +50,9 @@ unknown: nežinoma
 Comment: Komentaras
 Channels: Kanalai
 I/O Devices: Įv/Iš įrenginiai
-Assigned Access Identifiers: Priskirti Prieigos Identifikatoriai
 Start Here: Pradėti čia
 Sign In: Prisijungti
 Sign Out: Atsijungti
-Generate new password: Išgeneruoti naują slaptažodį
 Password: Slaptažodis
 Confirm Password: Slaptažodžio patvirtinimas
 SAVE: IŠSAUGOTI
@@ -73,16 +64,11 @@ CLICK TO ENABLE: SPUSTELĖKITE, KAD ĮJUNGTI
 DELETE: PAŠALINTI
 Assign Locations: Priskirti Vietas
 Confirm if you want to remove Access Identifier: Patvirtinkite, kad norite pašalinti Prieigos Identifikatorių
-Further connection with this Identifier will be impossible: Tolesnis prisijungimas su šiuo identifikatoriumi bus neįmanomas
-Choose locations to be assigned to Access Identifier: Pasirinkite Vietas, kurios bus priskirtos šiam Prieigos Identifikatoriui
 Access Identifiers: Prieigos identifikatorius
 Create New Access Identifier: Sukurti naują Prieigos Identifikatorių
-No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Nėra vietų, kurias galite priskirti šiam Prieigos Identifikatoriui.<br />Eikite į Vietas ir sukurkite bent vieną.
-No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Nėra Prieigos Identifikatorių, kuriuos galite priskirti šiai vietai.<br />Eikite į Prieigos Identifikatorius ir sukurkite bent vieną.
 Create New Location: Sukurti naują Vietą
 Assign Access Identifiers: Priskirti Prieigos Identifikatorių
 Languages: Kalbos
-No I/O Devices: Nėra Įv/Iš Įrenginių
 Choose Access Identifiers to be assigned to this Location: Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai
 Are you sure?: Ar tikrai?
 Lighting: Apšvietimas
@@ -102,48 +88,15 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 Registered: Užregistruotas
 Last connection: Paskutinis sujungimas
 Confirm if you want to remove {deviceName} device: Patvirtinkite, kad norite pašalinti įrenginį {deviceName}
-All Your I/O Devices: Visi Jūsų Įv/Iš Įrenginiai
-Please select function for this channel: Pasirinkite funkciją šiam kanalui
-No Access Identifiers assigned: Nėra priskirtų Prieigos Identifikatorių
-Lack of Access Identifiers: Nėra Prieigos Identifikatorių
-Change Your Password: Slaptažodžio keitimas
-On your computer...: Jūsų kompiuteryje...
-On your smartphone...: Jūsų išmaniajame telefone...
 WELCOME_MESSAGE: |
   Jūsų namų ar ofiso prijungimas prie SUPLA yra paprastas. Viskas, ką turite padaryti, tai
   perrašyti į savo valdymo (įvesties/išvesties) įrenginius bei išmaniuosius telefonus žemiau pateiktus duomenis.
 Enter the data below in the settings of your control device (I/O Device).: Žemiau pateiktus duomenis įveskite savo valdymo (įv/iš įrenginys) įrenginyje.
 Enter the data below in your mobile SUPLA application on your smartphone.: Žemiau pateiktus duomenis įveskite mobilioje programoje SUPLA, įdegtoje Jūsų išmaniajame telefone.
-Make it work: Padarykite, kad veiktų
-You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Negalite prijungti įvesties/išvesties Įrenginių kol nesusiesite bent vieno Prieigos Identifikatoriaus su bet kokia Vietą
-Install SUPLA on your smartphone.: Įdiekite SUPLA savo išmaniajame telefone.
-Open SUPLA app.: Paleiskite programą.
-Fill in the fields with settings provided above.: Nustatymuose įveskite aukščiau pateiktus duomenis.
-Tap <strong>Done</strong> and wait until the app connects.: Palieskite mygtuką <strong>Paruošta</strong> ir palaukite kol programa susisies.
-Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Atsisiųskite <a href="https://www.supla.org/download">SD kortelės</a> vaizdą Raspberry PI.
-Transfer downloaded image onto the SD Card.: Atsisiųstą vaizdą perkelkite į SD kortelę.
-Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: Atidarykite failą <strong>boot\location.txt</strong>. Nukopijuokite ir įklijuokite aukščiau pateiktus nustatymus.
-Done.: Paruošta.
-For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Išsamiau <a href="https://www.supla.org">www.supla.org</a>
-Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: Atsisiųskite įmontuotąją <a href="https://www.supla.org/download">programinę</a> įrangą (ang. firmware) ir įkelkite ją į mikrovaldiklį
-Turn the device on: Įjunkite įrenginį
-Press and hold the P1 button for 5 sec. (Default GPIO2): Paspauskite ir palaikykite mygtuką P1 apie 5 sek. (Numatyta GPIO2)
-Connect the computer to WiFi called SUPLA-ESP8266: Kompiuterį prijunkite prie WiFi tinko pavadinimu SUPLA-ESP8266
-Go to http://192.168.4.1: Atidarykite puslapį adresu http://192.168.4.1
-Enter location settings provided above: Įveskite aukščiau pateiktus vietos nustatymus
-Enter access data to your WiFi: Įveskite Jūsų WiFi tinklo prieigos duomenis
-Click "Save": Paspauskite "Save"
-Restart the device or press the P1 button: Iš naujo paleiskite įrenginį arba paspauskite mygtuką P1
-
-Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Atsisiųskite <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice</a> biblioteką Arduino
-Run Arduino IDE: Paleiskite Arduino IDE
-Click Sketch -> Include library -> Add .ZIP Library: Spustelėkite Skečas -> Pridėti biblioteką -> Pridėti biblioteką .Zip
-Open one of the examples. File -> Examples -> SuplaDevice: Atidarykite vieną iš pavyzdžių. Failas -> Pavyzdžiai -> SuplaDevice
-Complete the code (GUID, Server, Location ID, Location Password): Užpildykite kodą (GUID, Serveris, Vietos ID, Vietos slaptažodis)
-Upload program to Arduino: Įkelkite programą į Arduino
 
 Previous login: Ankstesnis prisijungimas
 From IP: Iš IP adreso
+from IP: iš IP adreso
 Current Password: Dabartinis slaptažodis
 New password: Naujas slaptažodis
 Change Password: Slaptažodžio keitimas
@@ -155,51 +108,29 @@ register-slide2-text: Viena iš pagrindinių projekto prielaidų tai paprastumas
 register-slide3-title: Nemokama ir atvira!
 register-slide3-text: Prieinamos rinkoje pastatų automatikos sistemos dažniausiai yra sudėtingos, uždaros ir brangios. Daugelyje atvejų jau pastato statybų etape reikalingas montavimas. SUPLA yra paprasta, atvira ir nemokama. Leidžia kurti vykdomuosius elementus su RaspberryPI, Arduino ar ESP8266 platformomis ir jungti juos LAN bei WiFi tinklo pagalba. Prisijunkite prie projekto ir sukurkite savo pastato automatikos sistemos versiją!
 
-#inside php code
 Data saved: Duomenys išsaugoti
 Save: Išsaugoti
 Save and enable: Išsaugoti ir įjungti
 Location limit has been exceeded: Viršutinė vietų riba viršyta
 Success: Sėkmė
-New location has been created: Nauja vieta sukurta
 Error: Klaida
-Location has been deleted: Vieta pašalinta
-Data saved!: Duomenys išsaugoti!
 Access identifier limit has been exceeded: Viršutinė prieigos identifikatorių riba viršytany
-New access identifier has been created: Naujas prieigos identifikatorius sukurtas
 Information: Informacija
-Access identifier has been deleted: Prieigos identifikatorius pašalintas
-I/O Device has been deleted: Įvesties/išvesties įrenginys pašalintas
 Account has been activated. You can Sign In now.: Paskyra aktyvuota. Galite prisijungti
-Unknown error: Nenustatyta klaida
 Token does not exist: Atpažinimo ženklas neegzistuoja
-Access identifier has been enabled: Prieigos identifikatorius įjungtas
-Access identifier has been disabled: Prieigos identifikatorius išjungtas
-Caption has been changed: Parašas pakeistas
 Password has been changed: Slaptažodis pakeistas
-Location has been enabled: Vieta įjungta
-Location has been disabled: Vieta išjungta
-Comment has been modified: Komentaras pakeistas
-I/O Device has been disabled: Įv/iš įrenginys išjungtas
-I/O Device has been enabled: Įv/iš įrenginys įjungtas
-Password field cannot be left empty: Slaptažodis negali būtų tuščias
 Current password is incorrect: Dabartinis slaptažodis yra neteisingas
 Password has been changed!: Slaptažodis pakeistas!
 Create an account: Sukurti paskyrą
 Your email: Jūsų el. paštas
 Enter your email: Įveskite savo el. paštą
 Enter your email address: Įveskite savo el. pašto adresą
-Repeat your email: Pakartokite el. paštą
-Enter password: Įveskite slaptažodį
 Enter strong password: Įveskite stiprų slaptažodį
 Repeat password: Pakartokite slaptažodį
 Don't worry, you can always reset your password via email. Click here to do so.: Nesijaudinkite. Savo el. pašto pagalba visada galite atkurti slaptažodį. Norėdami tai atlikti spustelėkite čia.
 RESET: ATKURTI
-Click RESET button when visible: Paspauskite mygtuką ATKURTI kai atsiras
 Check your email box: Patikrinkite savo el. pašto dėžutę
-Please fill the field before continuing: Prieš tęsdami užpildykite šį laukelį
 Please fill a valid email address: Įveskite teisingą el. pašto adresą
-Whoops, that's not an email address!: Upss, tai neteisingas el. paštas
 Supla for devices: Supla įrenginiams
 Next: Toliau
 Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
@@ -244,45 +175,29 @@ Humidity sensor: Drėgmės jutiklis
 Temperature and humidity sensor: Temperatūros ir drėgmės jutiklis
 RGB lighting: RGB apšvietimas
 Dimmer and RGB lighting: Šviesos srauto reguliatorius ir RGB apšvietimas
-Choose new device location for the: Pasirinkite naują vietą įrenginiui
 Original location: Originali vieta
-Change location: Pakeisti vietą
-Choose the location: Pasirinkti vietą
 Go to your account: Eiti į savo paskyrą
 
 Service temporarily unavailable: Paslauga laikinai neprieinama
 Try again later: Pabandykite dar kartą vėliau
 
-Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Sveiki, Programuotojau! Galvodami apie Jus, pateikėme RESTful API sąsają, dėka ko galite integruoti savo IT sprendimus su SUPLA.
-RESTful API has been enabled: RESTful API įjungta
-RESTful API has been disabled: RESTful API išjungta
-The password should be 24 or more characters.: Slaptažodį turi sudaryti mažiausiai 24 simboliai.
-OAuth 2.0 Authentication: OAuth 2.0 autentifikavimas
 copy: kopijuoti
 
 Schedule: Tvarkaraštis
 Schedules: Tvarkaraščiai
 Create New Schedule: Sukurti naują tvarkaraštį
 No future executions - schedule disabled: Nėra suplanuotų atlikimų – tvarkaraštis išjungtasy
-Enable schedule: Įjungti tvarkaraštį
 Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
 Disable schedule: Išjungti tvarkaraštį
-Delete schedule: Pašalinti tvarkaraštį
 Executions: Atlikimai
 Action: Veiksmas
 Subject: Subjektas
 Mode: Režimas
-Schedule has been deleted: Tvarkaraštis pašalintas
 Schedule mode: Tvarkaraščio režimas
-Your timezone: Jūsų laiko juosta
-Choose your timezone: Pasirinkite savo laiko juostą
 change: keisti
 When: Kada
 Start date: Pradžios data
-Start hour: Pradžios laikas
 End date: Pabaigos data
-End hour: Pabaigos laikas
-calculating the next available executions: apskaičiuoju artimiausią atlikimą
 The next available executions: Artimiausiais atlikimas
 choose the channel: pasirinkite kanalą
 Add: Pridėti
@@ -351,10 +266,7 @@ The device is disabled: Įrenginys išjungtas
 Existing schedules: Egzistuojantys tvarkaraščiai
 Turning this device off will result in disabling all the associated schedules.: Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.
 Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
-If you change the function of the channel, the following schedules will be removed: Jei pakeisite šio kanalo funkciją, priskirti prie jo tvarkaraščiai bus pašalinti
 Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
-You have no devices that can be added to the schedule: Neturite jokių įrenginių, kuriuos galima priskirti prie tvarkaraščio
-You will be redirected back to the schedules list now.: Dabar busite nukreipti į tvarkaraščių sąrašą
 
 Choose: Pasirinkti
 White: Balta
@@ -416,11 +328,9 @@ There are no more channels you can add to this group: Nėra kitų kanalų, kuriu
 New channel group: Nauja kanalų grupė
 Add first channel to set channel group function and save it: Pasirinkite pirmą kanalą, kad nustatyti grupės funkciją ir ją išsaugoti
 choose: pasirinkti
-Are you sure you want to delete this channel group?: Ar tikrai norite pašalinti šią kanalų grupę?
 
 Retry on failure: Pakartokite kai neįvykdyta
 Status: Statusas
-RESTful API: RESTful API
 State: Būsena
 Depth: Gylis
 Distance: Atstumas
@@ -457,7 +367,6 @@ Assign Client apps: Priskirti klientų programas
 My SUPLA: Mano SUPLA
 Save changes to see Access IDs: Išsaugoti pakeitimus, kad peržiūrėti prieigos identifikatorius
 The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas nėra identiški.
-If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Išgeneravus naują slaptažodį reikės iš naujo konfigūruoti visas programas, kurios naudoja API.
 
 Are you lost?: Pasiklydote? Kažko ieškote?
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serveris grąžino HTTP 404 klaidą. Tai reiškia, kad elementas, kurio ieškote, neegzistuoja.

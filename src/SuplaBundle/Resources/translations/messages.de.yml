@@ -7,7 +7,6 @@ Enabled: Eingeschaltet
 Disabled: Ausgeschaltet
 Search: Suchen
 Assigned Locations: Zugeordnete Lokalisierungen
-Password change: Kennwort Änderung
 Registration: Registrierung
 Password Reset: Kennwort zurücksetzen
 Enter new password: Neues Kennwort eingeben
@@ -17,18 +16,15 @@ Forgot your password?: Kennwort vergessen?
 Server address: Server-Adresse
 Cancel: Abbrechen
 CANCEL: ABBRECHEN
-Are you sure you want to delete?: Bist du sicher, dass du es löschen möchtest?
 Relay switching time: Dauer der Befestigung des Relais
 Full opening time: Volle Öffnungszeit
 Full closing time: Volle Schließungszeit
 sec.: Sek.
 Download the history of measurement: Verlauf der Messung herunterladen
-Open sensor: Offen-Sensor
 None: Ohne
 Channel for the sensor: Sensor für den Kanal
 Channel: Kanal
 Channel No: Kanal Nummer
-Channel properties: Kanal Eigenschaften
 Device: Gerät
 Access Identifier: Zugriffskennung
 Location Identifier: ID der Lokalisierung
@@ -39,8 +35,6 @@ Function: Funktion
 Name: Name
 Location: Lokalisierung
 Locations: Lokalisierungen
-No Locations assigned: Keine Lokalisierungen zugeordnet
-Lack of Locations: Keine Lokalisierungen
 SoftVer: Soft/Ver
 All: Alles
 Electric: Strom
@@ -55,11 +49,9 @@ unknown: Unbekannt
 Comment: Kommentar
 Channels: Kanäle
 I/O Devices: E/A Geräte
-Assigned Access Identifiers: Zugeordnete Zugriffskennungen
 Start Here: Hier starten
 Sign In: Anmelden
 Sign Out: Abmelden
-Generate new password: Neuen Kennwort generieren
 Password: Kennwort
 Confirm Password: Kennwort bestätigen
 SAVE: SPEICHERN
@@ -71,20 +63,16 @@ CLICK TO ENABLE: KLICKEN UM EINZUSCHALTEN
 DELETE: LÖSCHEN
 Assign Locations: Lokalisierung zuordnen
 Confirm if you want to remove Access Identifier: Bestätigen Sie, wenn Sie Zugriffskennung löschen möchten
-Further connection with this Identifier will be impossible: Weitere Verbindung durch diese Zugriffskennung wird nicht möglich
-Choose locations to be assigned to Access Identifier: Bitte die Lokaliesierungen wählen, die zu dieser Zugriffskennung zugeordnen werden
 Access Identifiers: Zugriffskennungen
 Create New Access Identifier: Neue Zugriffskennung erstellen
-No Locations to be assigned to this Access Identifier.<br />Go to Locations and add one.: Keine Lokalisierungen, die du zu dieser<br />Zugriffskennung zuordnen kannst. Bitte mindestens eine Lokalisierung erstellen.
-No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.: Keine Zugriffserkennungen, die du zu dieser<br />Lokalisierung zuordnen kannst. Bitte mindestens eine Zugriffserkennung erstellen. 
 Create New Location: Neue Lokalisierung erstellen
 Assign Access Identifiers: Zugriffskennungen zuordnen
 Languages: Sprachen
-No I/O Devices: Keine E/A Geräte
 Choose Access Identifiers to be assigned to this Location: Die Zugriffskennungen wählen, die zu dieser Lokalisierung zugeordnet werden 
 Are you sure?: Bist du sicher?
 Lighting: Licht
 Temperature: Temperatur
+Humidity: Feuchtigkeit
 Doors and gates: Türen und Toren
 Home appliances: Haushaltwaren
 And more: Und viel mehr
@@ -99,45 +87,12 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 Registered: Registriert
 Last connection: Letzte Verbindung
 Confirm if you want to remove {deviceName} device: Bestätige, wenn du das Gerät löschen möchtest {deviceName}
-All Your I/O Devices: Alle deine E/A Geräte
-Please select function for this channel: Funktion für den Kanal wählen
-No Access Identifiers assigned: Keine zugeordnete Zugriffstkennungen
-Lack of Access Identifiers: Keine Zugriffskennungen
-Change Your Password: Kennwort Änderung
-On your computer...: In deinem PC...
-On your smartphone...: In deinem Smartphone...
 Enter the data below in the settings of your control device (I/O Device).: Tragen Sie nachfolgende Daten  in den Einstellungen Ihres Steuergerätes (Eingans-/Ausgangsgerät) ein.
 Enter the data below in your mobile SUPLA application on your smartphone.: Tragen Sie nachfolgende Daten  in der Mobilapplikation SUPLA ein, die auf Ihrer Smartphone installiert ist.
-Make it work: Lass es funktionieren!
-You can not connect your I/O Devices unless at least one Access Identifier is assigned to any Location: Du kannst die E/A Geräte erst verbinden, wenn du mindestens eine Zugriffskennung mit einer Lokalisierung assoziiert hast
-Install SUPLA on your smartphone.: SUPLA in deinem Smartphone installieren.
-Open SUPLA app.: SUPLA App öffnen.
-Fill in the fields with settings provided above.: O.g. Dateien in die Einstellungen eintragen.
-Tap <strong>Done</strong> and wait until the app connects.: <strong>Fertig</strong> drücken und warten bis die Applikation verbunden ist.
-Download RaspberryPI <a href="https://www.supla.org/download">SD Card Image</a>.: Herunterladen Raspberry PI <a href="https://www.supla.org/download">SD Karte Image</a>.
-Transfer downloaded image onto the SD Card.: Herunterladene Image auf SD Karte tragen.
-Open <strong>boot\location.txt</strong> file. Copy and paste the above settings.: <strong>boot\location.txt</strong> öffnen. Dann bitte kopieren und o.g. Einstellungen einfügen.
-Done.: Fertig.
-Download and flash <a href="https://www.supla.org/download">Firmware</a> for the microcontroller: <a href="https://www.supla.org/download">Firmware</a> herunterladen und zu dem Mikrocontroller laden
-Turn the device on: Das Gerät einschalten
-Press and hold the P1 button for 5 sec. (Default GPIO2): Die P1 Taste drücken und mindestens 5 Sekunden halten (default GPIO2)
-Connect the computer to WiFi called SUPLA-ESP8266: Computer zu WiFi Netz mit der Name SUPLA-ESP8266 verbinden
-Go to http://192.168.4.1: Auf die Seite http://192.168.4.1 gehen
-Enter location settings provided above: Die oben genannten Einstellungen der Lokalisierung einfügen
-Enter access data to your WiFi: Die Zugangsdaten in WiFi Netz einfügen
-Click "Save": Save drücken
-Restart the device or press the P1 button: Das Gerät neustarten oder die Taste P1 drücken.
-For more details please go to <a href="https://www.supla.org">www.supla.org</a>: Mehr Details auf <a href="https://www.supla.org">www.supla.org</a>
-
-Download <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">SuplaDevice library</a> for Arduino: Die <a href="https://www.supla.org/download/ArduinoSuplaDevice.zip">Bibliothek SUPLADevice</a> Arduino herunterladen 
-Run Arduino IDE: Arduino IDE starten
-Click Sketch -> Include library -> Add .ZIP Library: Klicken Sketch -> Bibliothek einbinden ->. ZIP-Bibliothek hinzufügen…
-Open one of the examples. File -> Examples -> SuplaDevice: Einen Beispiel öffnen.  Datei -> Beispiele -> SuplaDevice
-Complete the code (GUID, Server, Location ID, Location Password): Kod ergänzen (GUIG, Server, ID der Lokalisierung, Passwort der Lokalisierund)
-Upload program to Arduino: Hochladen Programm für Arduino
 
 Previous login: Vorletzte Anmeldung
 From IP: Aus der IP Adresse
+from IP: aus der IP Adresse
 Current Password: Aktueller Kennwort
 New password: Neuer Kennwort
 Change Password: Kennwort Änderung
@@ -156,45 +111,24 @@ Save: Speichern
 Save and enable: Speichern und aktivieren
 Location limit has been exceeded: Limit der Lokalisierungen wurde überschritten
 Success: Erfolg
-New location has been created: Neue Lokalisierung wurde erstellt
 Error: Fehler
-Location has been deleted: Lokalisierung wurde gelöscht
-Data saved!: Die Dateien wurden gespeichert!
 Access identifier limit has been exceeded: Limit der Zugriffskennungen wurde überschritten
-New access identifier has been created: Neue Zugriffskennung wurde erstellt
 Information: Information
-Access identifier has been deleted: Zugriffskennung wurde gelöscht
-I/O Device has been deleted: E/A Gerät wurde gelöscht
 Account has been activated. You can Sign In now.: Konto wurde aktiviert. Du kannst dich anmelden.
-Unknown error: Unbekannter Fehler
 Token does not exist: Token existiert nicht
-Access identifier has been enabled: Zugriffskennung  wurde eingeschaltet
-Access identifier has been disabled: Zugriffskennung wurde ausgeschaltet
-Caption has been changed: Bildunterschrift wurde geändert
-Password has been changed: Kennwort wurde geädert 
-Location has been enabled: Lokalisierung wurde eingeschaltet
-Location has been disabled: Lokalisierung wurde ausgeschaltet
-Comment has been modified: Kommentar wurde geändert
-I/O Device has been disabled: Das E/A Gerät wurde ausgeschaltet
-I/O Device has been enabled: Das E/A Gerät wurde eingeschaltet
-Password field cannot be left empty: Kennwort darf nicht leer sein
+Password has been changed: Kennwort wurde geädert
 Current password is incorrect: Aktuelles Kennwort ist nicht korrekt
 Password has been changed!: Kennwort wurde geädert!
 Create an account: Konto erstellen
 Your email: Deine E-mail
 Enter your email: Bitte deine E-mail eintragen
 Enter your email address: Bitte deine E-mail Adresse eintragen
-Repeat your email: Deine E-mail bitte wiederholen
-Enter password: Kennwort eintragen
 Enter strong password: Sicherer Kennwort eintragen
 Repeat password: Kennwort wiederholen
 Don't worry, you can always reset your password via email. Click here to do so.: Mach dir keine Sorgen. Du kannst dein Kennwort durch das Konto E-mail zurücksetzen. Hier klicken, um das zu machen.
 RESET: RÜCKSETZEN
-Click RESET button when visible: Die Taste RÜCKSETZEN drücken wenn es auftritt
 Check your email box: Deine E-mail überprüfen
-Please fill the field before continuing: Den Feld vor Kontinuation ergänzen
 Please fill a valid email address: Korrekte E-mail Adresse eintragen
-Whoops, that's not an email address!: Upsss, diese E-mail Adresse ist nicht korrekt
 Supla for devices: SUPLA für Geräte
 Next: Weiter
 Get SUPLA on your devices: SUPLA auf deine Mobilgeräte herunterladen
@@ -244,43 +178,27 @@ Timezone: Zeitzone
 WELCOME_MESSAGE: |
   Anschluss Deines Hauses oder Büros an SUPLI ist sehr einfach.
   Alles was Du tun musst besteht darin, dass du die unten aufgeführten Daten an die Steuergeräte (Eingang/Ausgang) der Smartfons umschreiben sollst.
-Choose new device location for the: Wähle einen neuen Standort für Dein Gerät aus
 Original location: Ursprünglicher Standort
-Change location: Wähle den Standort
-Choose the location: Wähle den Standort
 Go to your account: Geh zu deinem Konto
 Service temporarily unavailable: Dienstleistung ist temporär nicht verfügbar
 Try again later: Versuche später nochmals
-Welcome Software Developer! RESTfulAPI has been designed having your needs in mind! With this interface you can integrate your own IT solutions with SUPLA.: Willkommen Software Ingenieur! Wir haben im Gedanken an Dich das Interface RESFul API zur Verfügung gestellt, dank dem Du deine eigenen IT Lösungen mit SUPLA integrieren kannst.
-RESTful API has been enabled: RESTful API wurde eingeschaltet
-RESTful API has been disabled: RESTful API wurde ausgeschaltet
-The password should be 24 or more characters.: Das Kennwort sollte mindestens 24 Zeichen haben.
-OAuth 2.0 Authentication: OAuth 2.0 Authorisierung
 copy: Kopiere
 
 Schedule: Harmonogramm
 Schedules: Harmonogramme
 Create New Schedule: Schaffe ein neues Harmnonogramm 
 No future executions - schedule disabled: Keine vorausgeplanten Ausführungen- Harmonogramm ausgeschaltet
-Enable schedule: Schalte das Harmonogramm ein
 Schedule cannot be enabled: Es ist nicht gelungen das Harmonogramm einzuschalten
 Disable schedule: Schalte das Harmonogramm aus
-Delete schedule: Entferne das Harmonogramm
 Executions: Ausführungen
 Action: Aktion
 Subject: Subjekt
 Mode: Modus
-Schedule has been deleted: Harmonogramm wurde entfernt
 Schedule mode: Harmonogrammmodus
-Your timezone: Deine Zeitzone
-Choose your timezone: Wähle Deine Zeitzone
 change: Ändere
 When: Wann
 Start date: Beginndatum
-Start hour: Uhrzeitbeginn
 End date: Abschlussdatum
-End hour: Uhrzeitabschluss
-calculating the next available executions: Berechne die nächsten Ausführungen
 The next available executions: die nächsten Ausführungen
 choose the channel: Wähle den Kanal
 Add: Füge hinzu
@@ -342,10 +260,7 @@ The device is disabled: Das Gerät ist ausgeschaltet
 Existing schedules: Bestehende/existierende Harmonogramme
 Turning this device off will result in disabling all the associated schedules.: Das Ausschalten dieses Geräts verursacht auch das Ausschalten von Harmonogrammen, mit denen es in Verbindung steht.
 Are you sure you want to disable this device?: Willst Du dieses Gerät bestimmt ausschalten?
-If you change the function of the channel, the following schedules will be removed: Wenn Du die Funktion dieses Kanals änderst, werden die ihm zugeschriebenen Harmonogramme entfernt
 Please select the schedules that should also be enabled.: Markiere die Harmonogramme, die auch ausgeschaltet werden sollten.
-You have no devices that can be added to the schedule: Du besitzt keine Geräte, die man zum Harmonogramm hinzufügen kann.
-You will be redirected back to the schedules list now.: Du wirst jetzt zur Harmonogrammliste umgeleitet.
 
 Choose: Wählen
 White: Weiß
@@ -407,11 +322,9 @@ There are no more channels you can add to this group: Es gibt keine anderen Kan�
 New channel group: Neue Kanalgruppe
 Add first channel to set channel group function and save it: Wählen Sie den ersten Kanal aus, um die Funktion der Gruppe festzulegen und speichern Sie ihn
 choose: auswählen
-Are you sure you want to delete this channel group?: Wollen Sie diese Kanalgruppe wirklich löschen?
 
 Retry on failure: Wiederholen, wenn nicht ausgeführt
 Status: Status
-RESTful API: RESTful API
 State: Zustand
 Depth: Tiefe
 Distance: Entfernung
@@ -448,7 +361,6 @@ Assign Client apps: Client-Anwendungen zuordnen
 My SUPLA: Meine SUPLA
 Save changes to see Access IDs: Sichern Sie die Änderungen, um die Zugangskennung anzuzeigen
 The password and its confirm are not the same.: Das Passwort und seine Bestätigung sind nicht identisch.
-If you create new password, reconfiguration of  all the connected 3rd party applications will be required.: Die Generierung eines neuen Passworts macht es notwendig, alle Anwendungen über die API neu zu konfigurieren.
 
 Are you lost?: Hast du dich verlaufen?
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Der Server hat den Fehler HTTP 404 zurückgegeben, was bedeutet, dass das gesuchte Objekt nicht existiert.
