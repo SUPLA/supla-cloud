@@ -41,15 +41,12 @@
         },
         mounted() {
             this.fetchChannelGroups();
-            if (!this.filter) {
-                this.filter = () => true;
-            }
         },
         methods: {
             fetchChannelGroups() {
                 this.channelGroups = undefined;
                 this.$http.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
-                    this.channelGroups = channelGroups.filter(this.filter);
+                    this.channelGroups = channelGroups.filter(this.filter || (() => true));
                     this.setChannelGroupFromModel();
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });

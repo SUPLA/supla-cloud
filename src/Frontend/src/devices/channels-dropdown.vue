@@ -45,15 +45,12 @@
         },
         mounted() {
             this.fetchChannels();
-            if (!this.filter) {
-                this.filter = () => true;
-            }
         },
         methods: {
             fetchChannels() {
                 this.channels = undefined;
                 this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
-                    this.channels = channels.filter(this.filter);
+                    this.channels = channels.filter(this.filter || (() => true));
                     if (this.initialId) {
                         this.chosenChannel = this.channels.filter(ch => ch.id == this.initialId)[0];
                     }
