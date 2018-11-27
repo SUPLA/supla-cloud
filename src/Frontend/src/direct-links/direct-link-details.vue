@@ -97,7 +97,7 @@
                                             </div>
                                             <div class="btn-group btn-group-justified">
                                                 <a class="btn btn-default"
-                                                    @click="setExecutionsLimit(undefined)">No limit</a>
+                                                    @click="setExecutionsLimit(undefined)">{{ $t('No limit') }}</a>
                                                 <a class="btn btn-default"
                                                     @click="setExecutionsLimit(1)">1</a>
                                                 <a class="btn btn-default"
@@ -107,7 +107,7 @@
                                                 <a class="btn btn-default"
                                                     @click="setExecutionsLimit(100)">100</a>
                                                 <a :class="'btn btn-default ' + (choosingCustomLimit ? 'active' : '')"
-                                                    @click="choosingCustomLimit = !choosingCustomLimit">Custom</a>
+                                                    @click="choosingCustomLimit = !choosingCustomLimit">{{ $t('Custom') }}</a>
                                             </div>
                                             <div v-if="choosingCustomLimit">
                                                 <div class="form-group"></div>
