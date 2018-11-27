@@ -47,8 +47,8 @@
             this.unit = this.channel.textParam2;
             if (!this.unit) {
                 this.unit = this.getDefaultUnit();
-                this.$emit('input', this.unit);
             }
+            this.$emit('input', this.unit);
             this.textInput = this.unit;
         }
     };
