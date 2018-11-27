@@ -430,8 +430,8 @@ Unit: Jednostka
 Impulses: Impulsy
 choose a currency: wybierz walutę
 No results match {0}: Żadne wyniki nie pasują do {0}
-With function: z funkcją
-Drag your image(s) here or click to select from the disk: Przeciąg obraz tutaj lub kliknij aby wybrać z dysku
+With function: Z funkcją
+Drag your image(s) here or click to select from the disk: Przeciągnij obraz tutaj lub kliknij aby wybrać z dysku
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.
 Are you sure you want to delete this icon?: Czy na pewno chcesz usunąć tą ikonę ?
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Wszystkie kanały oraz grupy kanałów, które używają tej ikony, po jej usunięciu otrzymają ikony domyślne.
@@ -498,7 +498,7 @@ Register: Rejestruj
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 What this token is for?: Do czego służy ten token?
 Scopes: Do czego służy ten token?
-Scopes define which sections of your account can be accessed when using the token.: Zakresy określają, do których części konta można uzyskać dostęp za pomocą tokena.
+Scopes define which sections of your account can be accessed when using the token.: Zakresy określają, do których zasobów konta można uzyskać dostęp za pomocą tokena.
 Generate token: Generuj token
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.
 Generate new token: Generuj nowy token
@@ -507,3 +507,13 @@ Are you sure you want to revoke this token?: Czy na pewno chcesz odwołać token
 We will use it only in justified situations.: Użyjemy go wyłącznie w uzasadnionych przypadkach.
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Podaj tylko domenę razem z portem jeśli nie jest standardowy (443). Wymagamy połączenia HTTPS.
 Executed without confirmation: Wykonano bez potwierdzenia
+Electricity meter: Licznik energii elektrycznej
+Water meter: Licznik wody
+Gas meter: Licznik gazu
+Add new icon: Dodaj nową ikonę
+Create new direct link: Utwórz nowy link bezpośredni
+No limit: Bez limitu
+Custom: Niestandardowy
+If you are a developer that want to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.
+Full documentation: Pełna dokumentacja
+New OAuth application: Nowa aplikacja OAuth
