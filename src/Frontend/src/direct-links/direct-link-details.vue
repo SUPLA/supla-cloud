@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <h3>{{ $t('Performed history') }}</h3>
+                                    <h3>{{ $t('Execution history') }}</h3>
                                     <direct-link-audit :direct-link="directLink"></direct-link-audit>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="well">
-                                            <h4 class="text-center">{{ $t('Performed limit') }}</h4>
+                                            <h4 class="text-center">{{ $t('Execution limit') }}</h4>
 
                                             <div class="executions-limit">
                                                 {{ directLink.executionsLimit }}
@@ -111,7 +111,7 @@
                                             </div>
                                             <div v-if="choosingCustomLimit">
                                                 <div class="form-group"></div>
-                                                <label>{{ $t('Custom performed limit') }}</label>
+                                                <label>{{ $t('Custom execution limit') }}</label>
                                                 <input v-model="directLink.executionsLimit"
                                                     class="form-control"
                                                     type="number"
