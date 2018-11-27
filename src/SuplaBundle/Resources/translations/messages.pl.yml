@@ -485,8 +485,8 @@ Description: Opis
 Authorization callback URL: Autoryzacyjny URL zwrotny (callback)
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
 Configuration: Konfiguracja
-Public ID: Publiczny ID (public_id)
-Secret: Sekretny klucz (secret)
+Public ID: Publiczny ID
+Secret: Sekretny klucz
 Example Auth URL: Przykładowy URL autoryzacyjny
 Are you sure you want to delete this OAuth application?: Czy na pewno chcesz usunąć tą aplikację OAuth ?
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
