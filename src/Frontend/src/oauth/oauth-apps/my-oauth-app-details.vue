@@ -56,7 +56,7 @@
                                 </div>
                                 <h4>{{ $t('Secret') }}</h4>
                                 <div class="flex-left-full-width">
-                                    <pre><code>{{ app.secret }}</code></pre>
+                                    <pre style="user-select: none"><code>{{ secretPreview }}</code></pre>
                                     <copy-button :text="app.secret"></copy-button>
                                 </div>
                                 <h4>{{ $t('Example Auth URL') }}</h4>
@@ -111,8 +111,7 @@
                         .then(response => this.app = response.body)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
-                }
-                else {
+                } else {
                     this.app = {redirectUris: []};
                 }
             },
@@ -155,6 +154,10 @@
                     response_type: 'code',
                     redirect_uri: this.app.redirectUris[0],
                 });
+            },
+            secretPreview() {
+                const stars20 = '********************';
+                return this.app.secret.substr(0, 5) + stars20 + stars20 + this.app.secret.substr(this.app.secret.length - 5);
             }
         },
         watch: {
