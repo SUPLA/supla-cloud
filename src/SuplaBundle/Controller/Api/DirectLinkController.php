@@ -23,6 +23,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -49,7 +50,13 @@ class DirectLinkController extends RestController {
      */
     public function getDirectLinksAction(Request $request) {
         $directLinks = $this->getUser()->getDirectLinks();
-        $view = $this->view($directLinks, Response::HTTP_OK);
+        if (($subjectType = $request->get('subjectType')) && ($subjectId = $request->get('subjectId'))) {
+            $type = ActionableSubjectType::fromString($subjectType);
+            $directLinks = $directLinks->filter(function (DirectLink $directLink) use ($subjectId, $type) {
+                return $directLink->getSubjectType() == $type && $directLink->getSubject()->getId() == $subjectId;
+            });
+        }
+        $view = $this->view($directLinks->getValues(), Response::HTTP_OK);
         $this->setSerializationGroups($view, $request, ['subject']);
         return $view;
     }

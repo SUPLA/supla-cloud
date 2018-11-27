@@ -205,9 +205,11 @@
                         .then(() => this.calculateAllowedActions())
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
-                }
-                else {
+                } else {
                     this.directLink = {};
+                    if (this.$route.query.subjectId && this.$route.query.subjectType) {
+                        this.chooseSubjectForNewLink({subject: {id: this.$route.query.subjectId}, type: this.$route.query.subjectType});
+                    }
                 }
             },
             calculateAllowedActions() {
@@ -220,7 +222,6 @@
                 const toSend = {
                     subjectType: type,
                     subjectId: subject.id,
-                    caption: this.$t('Direct Link for #') + subject.id, // TODO generate it on backend when user has language in db
                     allowedActions: ['read'],
                 };
                 this.loading = true;
@@ -274,7 +275,7 @@
                 return actions;
             },
             possibleActions() {
-                if (this.directLink) {
+                if (this.directLink && this.directLink.subject) {
                     // OPEN and CLOSE actions are not supported for gates via API
                     const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
                     return [{

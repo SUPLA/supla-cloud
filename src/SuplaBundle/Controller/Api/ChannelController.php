@@ -102,7 +102,7 @@ class ChannelController extends RestController {
             $this->setSerializationGroups(
                 $view,
                 $request,
-                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'measurementLogsCount']
+                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'measurementLogsCount', 'relationsCount']
             );
             return $view;
         } else {
