@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <h1 v-title>{{ $t('Integrations') }}</h1>
-            <h4>{{$t('With integrations you can easily add features to your account, leveraging solutions provided by another developer or even better - by yourself.')}}</h4>
+            <h4>{{$t('Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.')}}</h4>
             <div class="form-group">
                 <div class="btn-filters">
                     <div class="btn-group btn-group-filters">

@@ -7,7 +7,7 @@
                 <img src="assets/img/logo.svg"
                     alt="SUPLA">
             </div>
-            <h3 class="text-center">{{ $t('Authorize application to use your SUPLA account')}}</h3>
+            <h3 class="text-center">{{ $t('Authorize the application, so that it can access your account.')}}</h3>
             <div class="form-group clearfix">
                 <div class="list-group scope-selector">
                     <div class="list-group-item col-xs-12 col-sm-6"
@@ -25,7 +25,7 @@
 
             <div class="alert alert-info">
                 <span class="pe-7s-info"></span>
-                {{ $t('After granting access, you can always change your mind in the account settings.') }}
+                {{ $t('After granting access, you can always change your mind, adapting the settings in your account settings section.') }}
             </div>
 
             <div class="buttons">

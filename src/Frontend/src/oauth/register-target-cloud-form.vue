@@ -36,7 +36,7 @@
                                 required
                                 :placeholder="$t('Enter your email address')"
                                 v-model="email">
-                            <span class="help-block">Użyjemy go wyłącznie w uzasadnionych przypadkach.</span>
+                            <span class="help-block">{{ $t('We will use it only in justified situations.') }}</span>
 
 
                             <input type="text"
@@ -46,7 +46,7 @@
                                 autocapitalize="none"
                                 :placeholder="$t('Where is your SUPLA Cloud?')"
                                 v-model="targetCloud">
-                            <span class="help-block">Podaj tylko domenę lub adres IP, razem z portem jeśli nie jest standardowy (443). Wymagamy połączenia HTTPS.</span>
+                            <span class="help-block">{{ $t('Enter the domain with the port only if it is not standard (443). We require HTTPS connection.') }}</span>
 
                             <regulations-checkbox v-model="regulationsAgreed"></regulations-checkbox>
 
@@ -110,7 +110,7 @@
             computedErrorMessage() {
                 let errorMessage;
                 if (this.email.indexOf('@') <= 0) {
-                    errorMessage = this.$t('Please fill a valid email address');
+                    errorMessage = this.$t('Please enter a valid email address');
                 } else if (this.targetCloud.indexOf('.') <= 0) {
                     errorMessage = this.$t('Please provide a valid domain name for your private SUPLA Cloud');
                 } else if (!this.regulationsAgreed) {

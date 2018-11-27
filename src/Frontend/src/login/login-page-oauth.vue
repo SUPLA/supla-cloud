@@ -15,7 +15,7 @@
                     <label>
                         <toggler v-model="ownCloud"
                             @input="error = undefined"></toggler>
-                        {{ $t('Connect to SUPLA Cloud instance hosted by myself') }}
+                        {{ $t('Connection with a private instance of the SUPLA cloud') }}
                     </label>
                 </div>
                 <div class="form-group form-group-lg"
@@ -28,13 +28,13 @@
                             required
                             autocorrect="off"
                             autocapitalize="none"
-                            :placeholder="$t('Your Cloud domain name')"
+                            :placeholder="$t('Private Cloud domain name')"
                             v-model="targetCloud"
                             name="targetCloud"
                             class="form-control">
                     </span>
                     <span class="help-block">
-                        {{ $t('Only domain name or IP address, port included, e.g. mysupla.org or 1.2.3.4:88. HTTPS is required.') }}
+                        {{ $t('Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.') }}
                     </span>
                 </div>
                 <transition name="fade">
@@ -42,7 +42,7 @@
                         v-if="error == 'autodiscover_fail'">
                         <div v-if="ownCloud">
                             <strong>{{ $t('We could not connect to your SUPLA Cloud instance.') }}</strong>
-                            {{ $t('You either did not register your instance or you are trying to authorize an application that is not public.') }}
+                            {{ $t('Your instance is not registered, or you are trying to authorize an application that is not public.') }}
                         </div>
                         <div v-else>
                             <strong>{{ $t('We were not able to find your account.') }}</strong>

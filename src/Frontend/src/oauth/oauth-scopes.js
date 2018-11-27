@@ -16,9 +16,9 @@ export function scopeId(scope, suffix) {
 
 export const scopeSuffixLabels = {
     'r': 'Read',
-    'rw': 'Modify',
-    'ea': 'Execute action',
-    'access': 'Use your account when you are away',
+    'rw': 'Modification',
+    'ea': 'Action execution',
+    'access': 'Account access when you are unavailable',
 };
 
 const SCOPE_DELIMITER = ' ';

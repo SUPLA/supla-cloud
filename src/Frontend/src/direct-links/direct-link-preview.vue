@@ -2,8 +2,8 @@
     <div class="alert alert-warning">
         <h3 class="no-margin-top">{{ $t('Direct link has been created successfully!') }}</h3>
         <div class="form-group">
-            <p>{{ $t('For security reasons, the full URL of this direct link is presented only once, during creation.')}}</p>
-            <p>{{ $t('Make sure to save it in safe place if you wish to access it in the future. We will not be able to show it to you after you leave this page.')}}</p>
+            <p>{{ $t('For security reasons, the full URL of this direct link will be displayed only once, during creation.')}}</p>
+            <p>{{ $t('Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.')}}</p>
         </div>
 
         <ul class="nav nav-tabs">

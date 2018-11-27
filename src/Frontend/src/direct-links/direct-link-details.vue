@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <h3>{{ $t('Executions history') }}</h3>
+                                    <h3>{{ $t('Performed history') }}</h3>
                                     <direct-link-audit :direct-link="directLink"></direct-link-audit>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="well">
-                                            <h4 class="text-center">{{ $t('Executions limit') }}</h4>
+                                            <h4 class="text-center">{{ $t('Performed limit') }}</h4>
 
                                             <div class="executions-limit">
                                                 {{ directLink.executionsLimit }}
@@ -111,7 +111,7 @@
                                             </div>
                                             <div v-if="choosingCustomLimit">
                                                 <div class="form-group"></div>
-                                                <label>{{ $t('Custom executions limit') }}</label>
+                                                <label>{{ $t('Custom performed limit') }}</label>
                                                 <input v-model="directLink.executionsLimit"
                                                     class="form-control"
                                                     type="number"
@@ -126,12 +126,12 @@
                     </pending-changes-page>
                 </div>
                 <div v-if="isNew">
-                    <h3 class="text-center">{{ $t('Choose an item that should be managed by this link') }}</h3>
+                    <h3 class="text-center">{{ $t('Select the item (subject) you want to control using this link') }}</h3>
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-4">
                             <subject-dropdown @input="chooseSubjectForNewLink($event)"></subject-dropdown>
                             <span class="help-block">
-                                {{ $t('After you choose a subject, direct link will be generated. You will set all other options after creation.') }}
+                                {{ $t('After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.') }}
                             </span>
                         </div>
                     </div>

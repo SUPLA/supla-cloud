@@ -18,7 +18,7 @@
                         <img v-if="previews[stateIndex]"
                             :src="previews[stateIndex]"
                             class="icon-preview">
-                        <p v-else>{{ $t('Drag your image(s) here or click to browse') }}</p>
+                        <p v-else>{{ $t('Drag your image(s) here or click to select from the disk') }}</p>
                     </div>
                 </div>
             </div>
@@ -28,10 +28,10 @@
                 <input type="checkbox"
                     v-model="filesAreOk">
                 <span class="checkmark"></span>
-                {{ $t('Uploaded files do not violate good customs, copyrights and third-party copy rights, and I have the right to use them.') }}
+                {{ $t('Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.') }}
             </label>
         </div>
-        <p class="text-muted">{{ $t('We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).', {width: 210, height: 156}) }}</p>
+        <p class="text-muted">{{ $t('We will try to display the received icons in the best possible way, however you will obtain greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.', {width: 210, height: 156}) }}</p>
         <div class="row">
             <div class="col-xs-12">
                 <button class="btn btn-green"
@@ -56,7 +56,7 @@
             @cancel="deleteConfirm = false"
             :header="$t('Are you sure you want to delete this icon?')"
             :loading="uploading">
-            <p>{{ $t('All channels or channel groups that use this icon will return to the default icon after deletion.') }}</p>
+            <p>{{ $t('After deletion of this icon all channels and channel groups that use this icon, will receive default icons.') }}</p>
         </modal-confirm>
     </loading-cover>
 </template>
@@ -110,7 +110,7 @@
                     }
                 }
                 if (!this.icon && addedImages < this.possibleStates.length) {
-                    return errorNotification(this.$t('Error'), 'You need to choose icons for all states.');
+                    return errorNotification(this.$t('Error'), 'You need to provide icons for all states.');
                 }
                 this.uploading = true;
                 formData.append('function', this.model.function.name);
