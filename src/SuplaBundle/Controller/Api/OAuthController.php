@@ -113,6 +113,7 @@ class OAuthController extends RestController {
     public function deleteOAuthClientAction(ApiClient $client) {
         return $this->transactional(function (EntityManagerInterface $em) use ($client) {
             $em->remove($client);
+            $this->suplaServer->onOAuthClientRemoved();
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }

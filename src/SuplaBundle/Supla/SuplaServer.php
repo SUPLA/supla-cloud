@@ -108,6 +108,10 @@ abstract class SuplaServer {
         return $this->userAction($userId, "ALEXA-CREDENTIALS-CHANGED");
     }
 
+    public function onOAuthClientRemoved($userId = null) {
+        $this->amazonAlexaCredentialsChanged($userId);
+    }
+
     public function clientReconnect(ClientApp $clientApp) {
         if ($this->connect() !== false) {
             $result = $this->command("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
