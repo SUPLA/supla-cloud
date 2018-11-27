@@ -92,6 +92,17 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
      */
     private $altIcon = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="channelGroup")
+     */
+    private $directLinks;
+
+    /**
+     * @var Schedule[]
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channelGroup", cascade={"remove"})
+     */
+    private $schedules;
+
     /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
         $this->channels = new ArrayCollection();
@@ -193,5 +204,13 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
         $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
         return "SET-CG-$type-VALUE:$params";
+    }
+
+    public function getDirectLinks(): Collection {
+        return $this->directLinks;
+    }
+
+    public function getSchedules(): Collection {
+        return $this->schedules;
     }
 }

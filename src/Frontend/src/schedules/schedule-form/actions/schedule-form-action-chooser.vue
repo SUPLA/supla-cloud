@@ -59,7 +59,7 @@
                 this.$store.commit('updateSubject', this.subjectWithType);
             },
             filterOutGateChannelGroups(subject) {
-                return !subject.channelIds || ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) === -1;
+                return !subject.channelsIds || ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) === -1;
             }
         },
         computed: {

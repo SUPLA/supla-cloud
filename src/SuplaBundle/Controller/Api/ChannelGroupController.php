@@ -62,7 +62,7 @@ class ChannelGroupController extends RestController {
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location', 'state']);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location', 'state', 'relationsCount']);
         return $view;
     }
 

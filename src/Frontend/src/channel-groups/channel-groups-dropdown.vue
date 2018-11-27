@@ -62,7 +62,7 @@
                     content += ` <span class='small text-muted'>${channelGroup.caption}</span>`;
                 }
                 content += '</h4>';
-                content += `<p>${this.$t('No. of channels')}: ${channelGroup.channelIds.length}</p></div>`;
+                content += `<p>${this.$t('No. of channels')}: ${channelGroup.channelsIds.length}</p></div>`;
                 content += `<div class="icon"><img src='assets/img/functions/${channelGroup.function.id}.svg'></div></div>`;
                 return content;
             },

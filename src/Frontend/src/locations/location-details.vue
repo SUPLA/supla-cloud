@@ -123,7 +123,7 @@
                                             <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
                                             <em v-else>{{ $t('None') }}</em>
                                         </td>
-                                        <td>{{ channelGroup.channelIds.length }}</td>
+                                        <td>{{ channelGroup.channelsIds.length }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

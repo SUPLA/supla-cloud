@@ -42,7 +42,7 @@
         },
         computed: {
             subjectType() {
-                return this.subject.channelsIds ? 'channel-group' : 'channel';
+                return this.subject.channelsIds ? 'channelGroup' : 'channel';
             },
             subjectId() {
                 return this.subject.id;

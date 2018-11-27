@@ -43,9 +43,8 @@ final class ActionableSubjectType extends Enum {
     }
 
     public static function fromString(string $subjectType): self {
-        $subjectType = strtoupper(trim($subjectType));
         try {
-            return self::$subjectType();
+            return new self($subjectType);
         } catch (\RuntimeException $e) {
             throw new ApiException('Invalid subjectType given: ' . $subjectType, 400, $e);
         }
