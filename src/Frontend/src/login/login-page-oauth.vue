@@ -10,6 +10,12 @@
             :error="error"
             :intitial-username="lastUsername"
             :submit-button-text="askForTargetCloud ? 'Proceed to authentication' : ''">
+            <template slot="aboveForm">
+                <h4 v-if="clientName"
+                    class="client-name-prompt">
+                    {{ $t('Authenticate before you can use {clientName}.', {clientName: clientName}) }}
+                </h4>
+            </template>
             <div v-if="askForTargetCloud">
                 <div class="form-group text-center">
                     <label>
@@ -61,7 +67,7 @@
     import LoginForm from "./login-form";
 
     export default {
-        props: ['lastUsername', 'error', 'askForTargetCloud', 'lastTargetCloud'],
+        props: ['lastUsername', 'error', 'askForTargetCloud', 'lastTargetCloud', 'clientName'],
         components: {LoginForm, LoginFooter},
         data() {
             return {
@@ -87,5 +93,10 @@
         .login-password {
             display: none;
         }
+    }
+
+    .client-name-prompt {
+        text-align: center;
+        margin-bottom: 25px;
     }
 </style>

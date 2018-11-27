@@ -4,5 +4,6 @@
     <router-view last-username="{{ last_username }}"
             error="{{ error }}"
             :ask-for-target-cloud="{{ askForTargetCloud ? 'true' : 'false' }}"
-            last-target-cloud="{{ lastTargetCloud }}"></router-view>
+            last-target-cloud="{{ lastTargetCloud }}"
+            client-name="{{ client.name | default('') }}"></router-view>
 {% endblock %}

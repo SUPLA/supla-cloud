@@ -4,7 +4,7 @@
             <img src="assets/img/logo.svg"
                 alt="SUPLA">
         </div>
-
+        <slot name="aboveForm"></slot>
         <div class="form-group form-group-lg">
             <span class="input-group">
                 <span class="input-group-addon">

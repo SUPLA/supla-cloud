@@ -19,6 +19,8 @@ namespace SuplaBundle\Tests\Integration\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
+use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\AuthCode;
 use SuplaBundle\Entity\User;
@@ -206,6 +208,18 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(403, $client->getResponse());
         $client->request('GET', '/api/unicorns');
         $this->assertStatusCode(404, $client->getResponse());
+    }
+
+    public function testAccessingApiWithExpiredToken() {
+        $this->makeOAuthAuthorizeRequest(['scope' => 'account_r']);
+        $response = $this->issueTokenBasedOnAuthCode();
+        $token = $this->getEntityManager()->find(AccessToken::class, 2);
+        EntityUtils::setField($token, 'expiresAt', strtotime('-1hour'));
+        $this->getEntityManager()->persist($token);
+        $this->getEntityManager()->flush();
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]);
+        $client->request('GET', '/api/users/current');
+        $this->assertStatusCode(401, $client->getResponse());
     }
 
     public function testRefreshingToken() {
