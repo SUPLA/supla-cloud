@@ -517,3 +517,32 @@ Custom: Niestandardowy
 If you are a developer that want to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.
 Full documentation: Pełna dokumentacja
 New OAuth application: Nowa aplikacja OAuth
+
+Your private SUPLA Cloud is almost registered.: ~
+You just need to execute the following command inside your host terminal.: ~
+OAuth application: ~
+Temperature sensor: ~
+Temperature & Humidity sensor: ~
+Impulse counter: ~
+New direct link: ~
+Direct link: ~
+"Direct link is not working right now. Reason:": ~
+Direct link is disabled.: ~
+No allowed actions have been chosen.: ~
+Direct link is not active yet.: ~
+Direct link has expired.: ~
+Execution limit has been exceeded.: ~
+Authenticate before you can use {clientName}.: ~
+"{applicationName} will not be able to interact with your account until you grant the access again.": ~
+Decline: ~
+Grant access: ~
+Offline access: ~
+Proceed to authentication: ~
+Login: ~
+
+register-target-cloud-slide1-title: ~
+register-target-cloud-slide1-text: ~
+register-target-cloud-slide2-title: ~
+register-target-cloud-slide2-text: ~
+register-target-cloud-slide3-title: ~
+register-target-cloud-slide3-text: ~

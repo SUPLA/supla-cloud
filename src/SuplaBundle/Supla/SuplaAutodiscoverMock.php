@@ -133,6 +133,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             return array_values(array_map(function ($client, $id) {
                 unset($client['secret']);
                 $client['id'] = $id;
+                $client['clientId'] = $id;
                 return $client;
             }, self::$publicClients, array_keys(self::$publicClients)));
         }
