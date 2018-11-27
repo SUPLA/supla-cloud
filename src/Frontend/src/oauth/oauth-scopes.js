@@ -2,6 +2,7 @@ export const availableScopes = [
     {prefix: 'account', suffixes: ['r', 'rw'], label: 'Account'},
     {prefix: 'channels', suffixes: ['r', 'rw', 'ea'], label: 'Channels'},
     {prefix: 'channelgroups', suffixes: ['r', 'rw', 'ea'], label: 'Channel groups'},
+    {prefix: 'directlinks', suffixes: ['r', 'rw'], label: 'Direct links'},
     {prefix: 'iodevices', suffixes: ['r', 'rw'], label: 'I/O Devices'},
     {prefix: 'clientapps', suffixes: ['r', 'rw'], label: 'Client\'s Apps'},
     {prefix: 'accessids', suffixes: ['r', 'rw'], label: 'Access Identifiers'},

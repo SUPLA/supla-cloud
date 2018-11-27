@@ -4,7 +4,8 @@
             <label>{{ $t('Subject') }}</label>
             <subject-dropdown v-model="subjectWithType"
                 channels-dropdown-params="io=output&hasFunction=1"
-                @input="subjectChanged()"></subject-dropdown>
+                @input="subjectChanged()"
+                :filter="filterOutGateChannelGroups"></subject-dropdown>
         </div>
         <div v-if="subject">
             <div v-for="possibleAction in subject.function.possibleActions">
@@ -56,6 +57,9 @@
             subjectChanged() {
                 this.$emit('subject-change', this.subjectWithType.subject);
                 this.$store.commit('updateSubject', this.subjectWithType);
+            },
+            filterOutGateChannelGroups(subject) {
+                return !subject.channelsIds || ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) === -1;
             }
         },
         computed: {

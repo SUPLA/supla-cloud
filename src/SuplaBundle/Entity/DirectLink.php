@@ -63,13 +63,13 @@ class DirectLink {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="directLinks")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channel;
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="directLinks")
-     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
 

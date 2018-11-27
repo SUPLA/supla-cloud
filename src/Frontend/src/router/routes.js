@@ -86,7 +86,7 @@ export default [
             {path: 'tokens', component: () => import("@/oauth/personal-tokens/personal-access-tokens"), name: 'personal-tokens'},
         ]
     },
-    {path: '/me', component: () => import("@/home/my-supla-page")},
+    {path: '/me', component: () => import("@/home/my-supla-page"), name: 'me'},
     {path: '/register-cloud', component: () => import("@/oauth/register-target-cloud-form"), meta: {unrestricted: true}},
     {path: '/schedules', component: () => import("@/schedules/schedule-list/schedule-list-page"), name: 'schedules'},
     {path: '/schedules/new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new'},

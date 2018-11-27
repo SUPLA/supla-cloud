@@ -21,6 +21,15 @@
                 </li>
             </ul>
         </div>
+        <div v-if="confirmationObject.directLinks.length">
+            <strong>{{ $t('Direct links below will be deleted') }}</strong>
+            <ul>
+                <li v-for="directLink in confirmationObject.directLinks">
+                    {{ $t('Direct link') }} ID{{ directLink.id }}
+                    <span class="small">{{ directLink.caption }}</span>
+                </li>
+            </ul>
+        </div>
     </modal-confirm>
 </template>
 

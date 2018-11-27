@@ -6,7 +6,10 @@
                 <ul class="nav nav-tabs">
                     <li :class="currentTab == tabDefinition.id ? 'active' : ''"
                         v-for="tabDefinition in availableTabs">
-                        <a @click="currentTab = tabDefinition.id">{{ $t(tabDefinition.header) }}</a>
+                        <a @click="changeTab(tabDefinition.id)">
+                            {{ $t(tabDefinition.header) }}
+                            <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count }})</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -14,6 +17,9 @@
         <div v-if="currentTab == 'schedules'">
             <schedule-list-page :subject-id="channel.id"
                 subject-type="channel"></schedule-list-page>
+        </div>
+        <div v-if="currentTab == 'directLinks'">
+            <direct-links-list :subject="channel"></direct-links-list>
         </div>
         <div v-if="currentTab == 'measurementsHistory'"
             class="text-center">
@@ -43,10 +49,11 @@
 <script>
     import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
     import {successNotification} from "../common/notifier";
+    import DirectLinksList from "../direct-links/direct-links-list";
 
     export default {
         props: ['channel'],
-        components: {ScheduleListPage},
+        components: {DirectLinksList, ScheduleListPage},
         data() {
             return {
                 currentTab: '',
@@ -59,12 +66,17 @@
                 this.deleteConfirm = false;
                 this.$http.delete('channels/' + this.channel.id + '/measurement-logs')
                     .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')));
+            },
+            changeTab(id) {
+                this.currentTab = id;
+                this.$router.push({query: {tab: id}});
             }
         },
         mounted() {
             if (this.channel.function.possibleActions.length) {
-                this.availableTabs.push({id: 'schedules', header: 'Schedules'});
+                this.availableTabs.push({id: 'schedules', header: 'Schedules', count: this.channel.relationsCount.schedules});
             }
+            this.availableTabs.push({id: 'directLinks', header: 'Direct links', count: this.channel.relationsCount.directLinks});
             var supporterFunctions = ['THERMOMETER',
                 'HUMIDITY',
                 'HUMIDITYANDTEMPERATURE',
@@ -75,9 +87,8 @@
             if (supporterFunctions.indexOf(this.channel.function.name) >= 0) {
                 this.availableTabs.push({id: 'measurementsHistory', header: 'History of measurements'});
             }
-            if (this.availableTabs.length) {
-                this.currentTab = this.availableTabs[0].id;
-            }
+            const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
+            this.currentTab = currentTab ? currentTab.id : this.availableTabs[0].id;
         },
     };
 </script>

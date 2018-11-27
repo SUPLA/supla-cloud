@@ -3,6 +3,10 @@
         <div class="clearfix left-right-header">
             <div>
                 <h5>{{ $t('Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.') }}</h5>
+                <p>
+                    {{ $t('Full documentation: ')}}
+                    <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#personal-access-tokens">GitHub</a>.
+                </p>
             </div>
             <div>
                 <a class="btn btn-white"

@@ -108,7 +108,7 @@
 </template>
 
 <script>
-    import {deviceTitle, withBaseUrl} from "../../common/filters";
+    import {deviceTitle} from "../../common/filters";
     import DotsRoute from "../../common/gui/dots-route.vue";
     import throttle from "lodash/throttle";
     import Toggler from "../../common/gui/toggler";
@@ -187,7 +187,9 @@
             }, 1000),
             deleteDevice() {
                 this.loading = true;
-                this.$http.delete(`iodevices/${this.id}`).then(() => window.location.assign(withBaseUrl('me')));
+                this.$http.delete(`iodevices/${this.id}`)
+                    .then(() => this.$router.push({name: 'me'}))
+                    .catch(() => this.loading = false);
             },
             onLocationChange(location) {
                 this.$set(this.device, 'location', location);

@@ -59,6 +59,13 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             if (in_array('state', $context[self::GROUPS])) {
                 $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
             }
+            if (in_array('relationsCount', $context[self::GROUPS])) {
+                $normalized['relationsCount'] = [
+                    'directLinks' => $channel->getDirectLinks()->count(),
+                    'schedules' => $channel->getSchedules()->count(),
+                    'channelGroups' => $channel->getChannelGroups()->count(),
+                ];
+            }
         }
         return $normalized;
     }

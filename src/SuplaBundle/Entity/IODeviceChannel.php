@@ -157,6 +157,11 @@ class IODeviceChannel implements HasFunction, HasLocation {
     private $channelGroups;
 
     /**
+     * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="channel")
+     */
+    private $directLinks;
+
+    /**
      * @ORM\Column(name="flags", type="integer", nullable=true)
      * @Groups({"basic"})
      */
@@ -359,6 +364,11 @@ class IODeviceChannel implements HasFunction, HasLocation {
     /** @return Collection|IODeviceChannelGroup[] */
     public function getChannelGroups(): Collection {
         return $this->channelGroups;
+    }
+
+    /** @return Collection|DirectLink[] */
+    public function getDirectLinks(): Collection {
+        return $this->directLinks;
     }
 
     public function removeFromAllChannelGroups(EntityManagerInterface $entityManager) {

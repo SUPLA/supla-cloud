@@ -10,7 +10,7 @@
             </div>
             <dl>
                 <dd>{{ $t('No. of channels') }}</dd>
-                <dt>{{ model.channelIds.length }}</dt>
+                <dt>{{ model.channelsIds.length }}</dt>
             </dl>
             <div v-if="model.caption">
                 <div class="separator"></div>

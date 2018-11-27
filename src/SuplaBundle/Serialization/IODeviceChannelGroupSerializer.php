@@ -43,7 +43,7 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         $context[self::GROUPS] = array_diff($context[self::GROUPS], ['state', 'channels']);
         $normalized = parent::normalize($group, $format, $context);
         $normalized['locationId'] = $group->getLocation()->getId();
-        $normalized['channelIds'] = $this->toIds($group->getChannels());
+        $normalized['channelsIds'] = $this->toIds($group->getChannels());
         $normalized['functionId'] = $group->getFunction()->getId();
         $normalized['userIconId'] = $group->getUserIcon() ? $group->getUserIcon()->getId() : null;
         if ($fetchChannels) {
@@ -51,6 +51,12 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         }
         if ($fetchState) {
             $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getStateForChannelGroup($group));
+        }
+        if (in_array('relationsCount', $context[self::GROUPS])) {
+            $normalized['relationsCount'] = [
+                'directLinks' => $group->getDirectLinks()->count(),
+                'schedules' => $group->getSchedules()->count(),
+            ];
         }
         return $normalized;
     }

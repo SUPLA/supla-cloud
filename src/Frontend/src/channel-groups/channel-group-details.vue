@@ -133,12 +133,11 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`channel-groups/${this.id}?include=channels,iodevice,location`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`channel-groups/${this.id}?include=channels,iodevice,location,relationsCount`, {skipErrorHandler: [403, 404]})
                         .then(response => this.channelGroup = response.body)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
-                }
-                else {
+                } else {
                     this.channelGroup = {};
                     if (!this.channelGroup.channels) {
                         this.$set(this.channelGroup, 'channels', []);
