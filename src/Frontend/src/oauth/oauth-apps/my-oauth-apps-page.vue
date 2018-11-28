@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <h5>{{ $t('If you are a developer that want to provide additional features for SUPLA, create an OAuth application that users can authorize and use.') }}</h5>
+            <h5>{{ $t('If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.') }}</h5>
             <p>
                 {{ $t('Full documentation')}}:&nbsp;
                 <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#oauth-apps">GitHub</a>.

@@ -398,7 +398,6 @@ Calibration: Kalibracja
 Percentage of closing: Procent zamknięcia
 Email already exists: Adres e-mail już istnieje
 
-
 Read: Odczyt
 Modification: Modyfikacja
 Action execution: Wykonywanie akcji
@@ -447,7 +446,7 @@ Direct link has been created successfully!: Link bezpośredni został z powodzen
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.
 Let me choose later: Pozwól mi wybrać później
-Direct link is not working right now. Reason: Link bezpośredni w tym momencie nie działa. Powód
+"Direct link is not working right now. Reason:": "Link bezpośredni w tym momencie nie działa. Powód:"
 Allowed actions: Dozwolone akcje
 Execution history: Historia wykonań
 Constraints: Ograniczenia
@@ -510,39 +509,28 @@ Executed without confirmation: Wykonano bez potwierdzenia
 Electricity meter: Licznik energii elektrycznej
 Water meter: Licznik wody
 Gas meter: Licznik gazu
-Add new icon: Dodaj nową ikonę
+Add a new icon: Dodaj nową ikonę
 Create new direct link: Utwórz nowy link bezpośredni
 No limit: Bez limitu
 Custom: Niestandardowy
-If you are a developer that want to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.
 Full documentation: Pełna dokumentacja
 New OAuth application: Nowa aplikacja OAuth
 
-Your private SUPLA Cloud is almost registered.: ~
-You just need to execute the following command inside your host terminal.: ~
-OAuth application: ~
-Temperature sensor: ~
-Temperature & Humidity sensor: ~
-Impulse counter: ~
-New direct link: ~
-Direct link: ~
-"Direct link is not working right now. Reason:": ~
-Direct link is disabled.: ~
-No allowed actions have been chosen.: ~
-Direct link is not active yet.: ~
-Direct link has expired.: ~
-Execution limit has been exceeded.: ~
-Authenticate before you can use {clientName}.: ~
-"{applicationName} will not be able to interact with your account until you grant the access again.": ~
-Decline: ~
-Grant access: ~
-Offline access: ~
-Proceed to authentication: ~
-Login: ~
-
-register-target-cloud-slide1-title: ~
-register-target-cloud-slide1-text: ~
-register-target-cloud-slide2-title: ~
-register-target-cloud-slide2-text: ~
-register-target-cloud-slide3-title: ~
-register-target-cloud-slide3-text: ~
+Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
+You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
+OAuth application: Aplikacja OAuth
+Impulse counter: Licznik impulsów
+New direct link: Nowy link bezpośredni
+Direct link: Link bezpośredni
+Direct link is disabled.: Link bezpośredni jest wyłączony
+No allowed actions have been chosen.: Nie wybrano żadnych dozwolonych akcji
+Direct link is not active yet.: Link bezpośredni nie jest jeszcze aktywny
+Direct link has expired.: Link bezpośredni jest przeterminowany
+Execution limit has been exceeded.: Limit wykonań został przekroczony
+"Authenticate before you can use {clientName}.": "Uwierzytelnij zanim użyjesz {clientName}."
+"{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu."
+Decline: Odmów
+Grant access: Przyznaj dostęp
+Offline access: Dostęp offline
+Proceed: Kontynuuj

@@ -5,7 +5,7 @@
             <span v-if="model.id == 'new'">
                 <i class="pe-7s-plus"
                     style="font-size: 3em"></i>
-                {{ $t('Add new icon' )}}
+                {{ $t('Add a new icon' )}}
             </span>
             <channel-user-icon-preview :icon="model"
                 v-else-if="model.function"></channel-user-icon-preview>
