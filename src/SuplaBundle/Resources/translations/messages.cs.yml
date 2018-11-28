@@ -484,7 +484,7 @@ Description: Popis
 Authorization callback URL: Adresa URL zpětného volání autorizace (callback)
 Register a new OAuth application: Registrovat novou aplikaci OAuth
 Configuration: Konfigurace
-Public ID: Veřejné ID (public_id)
+Public ID: Veřejné ID
 Secret: Tajný klíč (secret)
 Example Auth URL: Vzorová autorizační adresa URL
 Are you sure you want to delete this OAuth application?: Opravdu chcete smazat tuto aplikaci OAuth?
@@ -533,4 +533,4 @@ Execution limit has been exceeded.:
 Decline:
 Grant access:
 Offline access:
-Proceed: 
+Proceed:
