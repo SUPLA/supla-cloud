@@ -131,7 +131,6 @@ Repeat password: Powtórz hasło
 Don't worry, you can always reset your password via email. Click here to do so.: Nie martw się. Zawsze możesz zresetować hasło za pośrednictwem Twojej poczty email. Kliknij tutaj aby to zrobić.
 RESET: RESETUJ
 Check your email box: Sprawdź swoją skrzynkę email
-Please enter a valid email address: Wprowadź poprawny adres email
 Supla for devices: Supla na urządzenia
 Next: Dalej
 Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
@@ -519,6 +518,7 @@ New OAuth application: Nowa aplikacja OAuth
 
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
+Please enter a valid email address: Wprowadź poprawny adres email
 OAuth application: Aplikacja OAuth
 Impulse counter: Licznik impulsów
 New direct link: Nowy link bezpośredni
@@ -534,3 +534,4 @@ Decline: Odmów
 Grant access: Przyznaj dostęp
 Offline access: Dostęp offline
 Proceed: Kontynuuj
+Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte

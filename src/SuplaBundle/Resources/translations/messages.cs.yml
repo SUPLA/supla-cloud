@@ -517,8 +517,9 @@ If you are a developer who wants to provide additional features for SUPLA, creat
 Full documentation: Úplná dokumentace
 New OAuth application: Nová aplikace OAuth
 
-Your private SUPLA Cloud is almost registered.:
-You just need to execute the following command inside your host terminal.:
+Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
+You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
+Please enter a valid email address: Zadejte správnou mailovou adresu
 OAuth application:
 Impulse counter:
 New direct link:
@@ -534,3 +535,4 @@ Decline:
 Grant access:
 Offline access:
 Proceed:
+Direct links below will be deleted:
