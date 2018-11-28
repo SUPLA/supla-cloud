@@ -457,7 +457,7 @@ Select the item (subject) you want to control using this link: Wybierz element (
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz prowadzić zaraz po jego utworzeniu.
 Are you sure you want to delete this direct link?: Czy na pewno chcesz usunąć ten link bezpośredni ?
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
-Direct Link for \#: Link bezpośredni dla \#
+"Direct Link for #": "Link bezpośredni dla #"
 Direct links: Linki bezpośrednie
 Integrations: Integracje
 Could not reset the password. Please try again in a while.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
@@ -485,7 +485,7 @@ Authorization callback URL: Autoryzacyjny URL zwrotny (callback)
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
 Configuration: Konfiguracja
 Public ID: Publiczny ID
-Secret: Sekretny klucz
+Secret: Sekretny klucz (secret)
 Example Auth URL: Przykładowy URL autoryzacyjny
 Are you sure you want to delete this OAuth application?: Czy na pewno chcesz usunąć tą aplikację OAuth ?
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
@@ -496,7 +496,7 @@ Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
 Register: Rejestruj
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 What this token is for?: Do czego służy ten token?
-Scopes: Do czego służy ten token?
+Scopes: Zakresy
 Scopes define which sections of your account can be accessed when using the token.: Zakresy określają, do których zasobów konta można uzyskać dostęp za pomocą tokena.
 Generate token: Generuj token
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.
