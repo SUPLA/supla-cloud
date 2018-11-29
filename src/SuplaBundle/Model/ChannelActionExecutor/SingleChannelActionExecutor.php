@@ -26,8 +26,7 @@ abstract class SingleChannelActionExecutor {
     }
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
-        if (array_key_exists('alexaCorrelationToken', $actionParams)
-        && $subject->getFunction()->isAlexaIntegrationPossible()) {
+        if (array_key_exists('alexaCorrelationToken', $actionParams)) {
             Assertion::eq(
                 count($actionParams),
                 1,
