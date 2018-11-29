@@ -21,6 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -46,8 +47,15 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $id;
 
     /**
-     * @ORM\Column(name="salt", type="string", length=32)
+     * @ORM\Column(name="uuid", type="string", length=36, unique=true, columnDefinition="CHAR(36)")
+     * @Groups({"basic"})
      */
+    private $uuid;
+
+    /** @ORM\Column(name="random_id", type="string", length=200, unique=true, columnDefinition="CHAR(200)") */
+    private $randomId;
+
+    /** @ORM\Column(name="salt", type="string", length=32) */
     private $salt;
 
     /**
@@ -265,6 +273,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->clientApps = new ArrayCollection();
         $this->apiClientAuthorizations = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->uuid = Uuid::uuid4();
+        $this->randomId = bin2hex(random_bytes(100));
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
         $this->enabled = false;
@@ -274,6 +284,14 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getUuid(): string {
+        return $this->uuid;
+    }
+
+    public function getRandomId(): string {
+        return $this->randomId;
     }
 
     public function getUsername() {
