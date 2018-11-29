@@ -117,21 +117,4 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
 
         $this->assertUpdatingWithIncompleteData($params);
     }
-
-    public function testGetingEndpointScope() {
-        $params = ['aeg_access_token' => 'abcd',
-            'aeg_expires_in' => 3600,
-            'aeg_refresh_token' => 'xyz',
-            'aeg_region' => 'eu'];
-
-        $this->assertUpdatingCredentials($params);
-
-        $this->client->apiRequestV23('GET', '/api/amazon-alexa');
-        $response = $this->client->getResponse();
-        $this->assertStatusCode('2xx', $response);
-        $content = json_decode($response->getContent(), true);
-
-        $amazonAlexa = $this->getAmazonAlexa();
-        $this->assertEquals($content['endpointScope'], $amazonAlexa->getEndpointScope());
-    }
 }

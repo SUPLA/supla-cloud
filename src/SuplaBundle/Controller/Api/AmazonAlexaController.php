@@ -58,8 +58,6 @@ class AmazonAlexaController extends RestController {
         } catch (NotFoundHttpException $e) {
             $aegc = $source;
             $aegc->setRegDate(new \DateTime);
-            $bytes = random_bytes(16);
-            $aegc->setEndpointScope(bin2hex($bytes));
         };
 
         $this->transactional(function (EntityManagerInterface $em) use ($aegc) {
@@ -69,18 +67,5 @@ class AmazonAlexaController extends RestController {
         $this->suplaServer->amazonAlexaCredentialsChanged();
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
-    }
-
-    /**
-     * @Security("has_role('ROLE_CHANNELS_EA')")
-     * @Rest\Get("/amazon-alexa")
-     */
-    public function getAmazonAlexaAction(Request $request) {
-        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
-            throw new NotFoundHttpException();
-        }
-
-        $aegc = $this->amazonAlexaRepository->findForUser($this->getUser());
-        return $this->view($aegc);
     }
 }
