@@ -3,7 +3,8 @@
         <loading-cover :loading="loading">
             <div v-if="directLink">
                 <div class="container">
-                    <pending-changes-page :header="$t(directLink.id ? 'Direct link' : 'New direct link') + (directLink.id ? ' ID'+ directLink.id : '')"
+                    <pending-changes-page
+                        :header="directLink.id ? (directLink.caption || `${$t('Direct link')} ID${directLink.id}`) : $t('New direct link')"
                         @cancel="cancelChanges()"
                         @save="saveDirectLink()"
                         :deletable="!isNew"
@@ -40,7 +41,7 @@
                                             <dt>
                                                 <input type="text"
                                                     class="form-control"
-                                                    @keydown="channelGroupChanged()"
+                                                    @keydown="directLinkChanged()"
                                                     v-model="directLink.caption">
                                             </dt>
                                             <dd>{{ $t('Enabled') }}</dd>
