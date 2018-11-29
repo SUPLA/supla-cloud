@@ -57,8 +57,11 @@ abstract class IntegrationTestCase extends WebTestCase {
         $input = new StringInput("$command --env=test");
         $output = new BufferedOutput();
         $input->setInteractive(false);
-        $this->application->run($input, $output);
+        $error = $this->application->run($input, $output);
         $result = $output->fetch();
+        if ($error) {
+            $this->fail("Command error: $command\nReturn code: $error\nOutput:\n$result");
+        }
         return $result;
     }
 
