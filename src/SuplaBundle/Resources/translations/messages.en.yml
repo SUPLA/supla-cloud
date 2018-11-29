@@ -14,7 +14,7 @@ Any application or device that uses the {tokenName} token will not work anymore.
 
 state-on: On
 state-off: Off
-state-opened: Opened
+state-opened: Open
 state-closed: Closed
 state-partially_closed: Partially closed
 state-default: Default
@@ -26,7 +26,7 @@ state-rgb_on_dim_on: RGB and dimmer on
 state-rgb_on_dim_off: RGB on, dimmer off
 state-rgb_off_dim_on: RGB off, dimmer on
 state-rgb_off_dim_off: RGB and dimmer off
-We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).: We will do our best, but you will end up with the best icons if you upload PNG files with transparent background and size {width}px (width) and {height}px (height).
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.
 
 register-slide1-title: Develop your own building automation
 register-slide1-text: Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.
