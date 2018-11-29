@@ -86,6 +86,7 @@ class SuplaOAuth2 extends OAuth2 {
             );
             $token['download_token'] = $tokenUsedForFilesDownload['access_token'];
         }
+        $token['target_url'] = $this->localSuplaCloud->getAddress();
         return $token;
     }
 

@@ -21,6 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -46,8 +47,15 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $id;
 
     /**
-     * @ORM\Column(name="salt", type="string", length=32)
+     * @ORM\Column(name="short_unique_id", type="string", length=36, unique=true, options={"fixed" = true})
+     * @Groups({"basic"})
      */
+    private $shortUniqueId;
+
+    /** @ORM\Column(name="long_unique_id", type="string", length=200, unique=true, options={"fixed" = true}) */
+    private $longUniqueId;
+
+    /** @ORM\Column(name="salt", type="string", length=32) */
     private $salt;
 
     /**
@@ -265,6 +273,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->clientApps = new ArrayCollection();
         $this->apiClientAuthorizations = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->shortUniqueId = Uuid::uuid4();
+        $this->longUniqueId = bin2hex(random_bytes(100));
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
         $this->enabled = false;
@@ -274,6 +284,14 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getShortUniqueId(): string {
+        return $this->shortUniqueId;
+    }
+
+    public function getLongUniqueId(): string {
+        return $this->longUniqueId;
     }
 
     public function getUsername() {

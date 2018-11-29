@@ -37,6 +37,10 @@ abstract class NoWayBackMigration extends AbstractMigration implements Container
     }
 
     protected function fetchAll(string $sqlQuery): array {
-        return $this->container->get('doctrine.orm.entity_manager')->getConnection()->fetchAll($sqlQuery);
+        return $this->getConnection()->fetchAll($sqlQuery);
+    }
+
+    protected function getConnection(): \Doctrine\DBAL\Connection {
+        return $this->container->get('doctrine.orm.entity_manager')->getConnection();
     }
 }
