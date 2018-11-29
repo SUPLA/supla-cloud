@@ -47,13 +47,13 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $id;
 
     /**
-     * @ORM\Column(name="uuid", type="string", length=36, unique=true, options={"fixed" = true})
+     * @ORM\Column(name="short_unique_id", type="string", length=36, unique=true, options={"fixed" = true})
      * @Groups({"basic"})
      */
-    private $uuid;
+    private $shortUniqueId;
 
-    /** @ORM\Column(name="random_id", type="string", length=200, unique=true, options={"fixed" = true}) */
-    private $randomId;
+    /** @ORM\Column(name="long_unique_id", type="string", length=200, unique=true, options={"fixed" = true}) */
+    private $longUniqueId;
 
     /** @ORM\Column(name="salt", type="string", length=32) */
     private $salt;
@@ -273,8 +273,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->clientApps = new ArrayCollection();
         $this->apiClientAuthorizations = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->uuid = Uuid::uuid4();
-        $this->randomId = bin2hex(random_bytes(100));
+        $this->shortUniqueId = Uuid::uuid4();
+        $this->longUniqueId = bin2hex(random_bytes(100));
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
         $this->enabled = false;
@@ -286,12 +286,12 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->id;
     }
 
-    public function getUuid(): string {
-        return $this->uuid;
+    public function getShortUniqueId(): string {
+        return $this->shortUniqueId;
     }
 
-    public function getRandomId(): string {
-        return $this->randomId;
+    public function getLongUniqueId(): string {
+        return $this->longUniqueId;
     }
 
     public function getUsername() {
