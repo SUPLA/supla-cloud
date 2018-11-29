@@ -25,7 +25,7 @@
 
             <div class="alert alert-info">
                 <span class="pe-7s-info"></span>
-                {{ $t('After granting access, you can always change your mind, adapting the settings in your account settings section.') }}
+                {{ $t('After granting the access, you can always remove it by adjusting the settings in your account settings section.') }}
             </div>
 
             <div class="buttons">

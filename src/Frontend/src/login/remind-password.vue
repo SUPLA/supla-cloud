@@ -20,7 +20,7 @@
             </div>
 
             <p v-if="sent"><strong>{{ $t('Check your email box') }}</strong></p>
-            <p v-else-if="sentProblem"><strong>{{ $t('Could not reset the password. Please try again in a while.') }}</strong></p>
+            <p v-else-if="sentProblem"><strong>{{ $t('Could not reset the password. Please try again later.') }}</strong></p>
 
             <div class="text-center">
                 <router-link to="/"

@@ -25,7 +25,7 @@
                 return {template: `<span>${message}</span>`};
             },
             onlyCatalogMessage() {
-                const message = this.$t('If you wish to see the available integrations, head over to [cloud.supla.org/apps].')
+                const message = this.$t('If you wish to see the available integrations, go to [cloud.supla.org/apps].')
                     .replace(/\[(.+?)\]/, `<a href="https://cloud.supla.org/apps">$1</a>`);
                 return {template: `<span>${message}</span>`};
             },

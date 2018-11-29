@@ -48,7 +48,7 @@
                         v-if="error == 'autodiscover_fail'">
                         <div v-if="ownCloud">
                             <strong>{{ $t('We could not connect to your SUPLA Cloud instance.') }}</strong>
-                            {{ $t('Your instance is not registered, or you are trying to authorize an application that is not public.') }}
+                            {{ $t('Your instance is not registered or you are trying to authorize an application that is not public.') }}
                         </div>
                         <div v-else>
                             <strong>{{ $t('We were not able to find your account.') }}</strong>

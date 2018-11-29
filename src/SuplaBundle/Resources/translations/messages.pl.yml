@@ -416,7 +416,7 @@ state-rgb_on_dim_on: RGB i ściemniacz włączone
 state-rgb_on_dim_off: RGB włączone, ściemniacz wyłączony
 state-rgb_off_dim_on: RGB wyłączone, ściemniacz włączony
 state-rgb_off_dim_off: RGB i ściemniacz wyłączone
-We will try to display the received icons in the best possible way, however you will obtain greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.
 choose the timezone: wybierz strefę czasową
 choose the channel group: wybierz grupę kanałów
 Delete measurement history: Usuń historię pomiarów
@@ -459,24 +459,24 @@ You will not be able to generate a direct link with the same URL again.: Utworze
 "Direct Link for #": "Link bezpośredni dla #"
 Direct links: Linki bezpośrednie
 Integrations: Integracje
-Could not reset the password. Please try again in a while.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
+Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
 Connection with a private instance of the SUPLA cloud: Połaczenie z prywatną instancją chmury SUPLA.
 Private Cloud domain name: Nazwa domeny prywatnej chmury
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Dozwolone są tylko nazwy domen z opcjonalnym numerem portu. Na przykład. mysupla.org lub mysupla.org:88. HTTPS jest wymagany.
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
-Your instance is not registered, or you are trying to authorize an application that is not public.: Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.
+Your instance is not registered or you are trying to authorize an application that is not public.: Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.
 We were not able to find your account.: Nie udało nam się znaleźć Twojego konta.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.
 OAuth authorization: Autoryzacja OAuth
 Authorize the application, so that it can access your account.: Autoryzuj aplikację, aby mogła uzyskać dostęp do Twojego konta.
-After granting access, you can always change your mind, adapting the settings in your account settings section.: Po przyznaniu dostępu zawsze możesz zmienić zdanie odbierając dostęp w ustawieniach swojego konta.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po przyznaniu dostępu zawsze możesz zmienić zdanie odbierając dostęp w ustawieniach swojego konta.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 My OAuth apps: Moje aplikacje OAuth
 Personal access tokens: Osobiste tokeny dostępowe
 Back to apps list: Powrót do listy aplikacji
 If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Jeśli chcesz zintegrować prywatną chmurę SUPLA z publiczna aplikacją OAuth, musisz [zarejestrować swoją instancję].
-If you wish to see the available integrations, head over to [cloud.supla.org/apps].: Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].
+If you wish to see the available integrations, go to [cloud.supla.org/apps].: Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].
 Otherwise go to [the homepage].: W innym przypadku przejdź do [strony domowej].
 Application requirements: Wymagania aplikacji
 Description: Opis

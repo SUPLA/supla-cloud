@@ -417,7 +417,7 @@ state-rgb_on_dim_on: RGB a stmívač zapnuté
 state-rgb_on_dim_off: RGB zapnuté, stmívač vypnutý
 state-rgb_off_dim_on: RGB vypnuté, stmívač zapnutý
 state-rgb_off_dim_off: RGB a stmívač vypnutý
-We will try to display the received icons in the best possible way, however you will obtain greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Uděláme vše pro to, aby se zobrazené ikony zobrazovaly jak nejlépe, ale nejlepší výsledky dosáhnete tím, že nahrajete soubory PNG s průhledným pozadím, šířkou {width} a výškou {height} pixelů.
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Uděláme vše pro to, aby se zobrazené ikony zobrazovaly jak nejlépe, ale nejlepší výsledky dosáhnete tím, že nahrajete soubory PNG s průhledným pozadím, šířkou {width} a výškou {height} pixelů.
 choose the timezone: vyberte časové pásmo
 choose the channel group: vyberte skupinu kanálů
 Delete measurement history: Vymazat historii měření
@@ -460,24 +460,24 @@ You will not be able to generate a direct link with the same URL again.: Není m
 "Direct Link for #": "Přímý odkaz pro #"
 Direct links: Přímé odkazy
 Integrations: Integrace
-Could not reset the password. Please try again in a while.: Heslo nelze obnovit. Zkuste to prosím znovu.
+Could not reset the password. Please try again later.: Heslo nelze obnovit. Zkuste to prosím znovu.
 Connection with a private instance of the SUPLA cloud: Připojení k soukromé instanci cloudu SUPLA.
 Private Cloud domain name: Název soukromé domény cloud
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Pouze názvy domén s volitelným číslem portu jsou povoleny. Například. mysupla.org nebo mysupla.org:88. Je vyžadován protokol HTTPS.
 We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
-Your instance is not registered, or you are trying to authorize an application that is not public.: Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.
+Your instance is not registered or you are trying to authorize an application that is not public.: Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.
 We were not able to find your account.: Váš účet jsme nenašli.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Pokud jste si jisti, že máte účet na cloud.supla.org, zkontrolujte, zda je aplikace, kterou se pokoušíte autorizovat, veřejná.
 OAuth authorization: Autorizace OAuth
 Authorize the application, so that it can access your account.: Autorizujte aplikaci tak, aby měla přístup k vašemu účtu.
-After granting access, you can always change your mind, adapting the settings in your account settings section.: Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.
 Authorized OAuth apps: Autorizované aplikace OAuth
 My OAuth apps: Moje OAuth aplikace
 Personal access tokens: Osobní přístupové tokeny
 Back to apps list: Zpět na seznam aplikaci
 If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Pokud chcete integrovat soukromý cloud SUPLA s veřejnou aplikací OAuth, musíte [zaregistrovat svou instanci].
-If you wish to see the available integrations, head over to [cloud.supla.org/apps].: Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].
+If you wish to see the available integrations, go to [cloud.supla.org/apps].: Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].
 Otherwise go to [the homepage].: V opačném případě přejděte na [domovskou stránku].
 Application requirements: Požadavky aplikace
 Description: Popis

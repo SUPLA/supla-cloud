@@ -31,7 +31,7 @@
                 {{ $t('Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.') }}
             </label>
         </div>
-        <p class="text-muted">{{ $t('We will try to display the received icons in the best possible way, however you will obtain greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.', {width: 210, height: 156}) }}</p>
+        <p class="text-muted">{{ $t('We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.', {width: 210, height: 156}) }}</p>
         <div class="row">
             <div class="col-xs-12">
                 <button class="btn btn-green"
