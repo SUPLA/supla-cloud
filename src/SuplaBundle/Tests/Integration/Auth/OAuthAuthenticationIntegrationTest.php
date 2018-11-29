@@ -128,6 +128,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('access_token', $response);
         $this->assertArrayHasKey('refresh_token', $response);
         $this->assertArrayHasKey('scope', $response);
+        $this->assertArrayHasKey('target_url', $response);
         $this->assertEquals('account_r offline_access', $response['scope']);
     }
 
