@@ -44,4 +44,12 @@ class RevealActionExecutorTest extends \PHPUnit_Framework_TestCase {
         $validated = $executor->validateActionParams($subject, ['percent' => 99]);
         $this->assertSame(99, $validated['percentage']);
     }
+
+    public function testValidatingActionParamsWithCorrelationToken() {
+        $executor = new RevealActionExecutor();
+        $subject = $this->createMock(HasFunction::class);
+        $validated = $executor->validateActionParams($subject, ['percentage' => '55', 'alexaCorrelationToken' => 'abcd']);
+        $this->assertSame(55, $validated['percentage']);
+        $this->assertSame("abcd", $validated['alexaCorrelationToken']);
+    }
 }

@@ -63,4 +63,16 @@ class SetRgbwParametersActionExecutorTest extends \PHPUnit_Framework_TestCase {
         $validated = $executor->validateActionParams($subject, ['color' => '0xFFCC77', 'color_brightness' => '56']);
         $this->assertSame(0xFFCC77, $validated['color']);
     }
+
+    public function testValidatingActionParamsWithCorrelationToken() {
+        $executor = new SetRgbwParametersActionExecutor();
+        $subject = $this->createMock(HasFunction::class);
+        $validated = $executor->validateActionParams(
+            $subject,
+            ['color' => '0xFFCC77', 'color_brightness' => '56', 'brightness' => 99, 'alexaCorrelationToken' => 'xyz']
+        );
+        $this->assertSame(0xFFCC77, $validated['color']);
+        $this->assertSame(99, $validated['brightness']);
+        $this->assertSame("xyz", $validated['alexaCorrelationToken']);
+    }
 }
