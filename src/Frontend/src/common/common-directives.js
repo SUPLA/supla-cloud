@@ -1,4 +1,5 @@
 import Vue from "vue";
+import autosize from "autosize";
 
 Vue.directive('go-to-link-on-row-click', {
     inserted: function (el) {
@@ -19,4 +20,16 @@ const updatePageTitle = function (title) {
 Vue.directive('title', {
     inserted: (el, binding) => updatePageTitle(binding.value || el.innerText),
     update: (el, binding) => updatePageTitle(binding.value || el.innerText),
+});
+
+Vue.directive('autosize', {
+    bind(el) {
+        autosize(el);
+    },
+    componentUpdated(el) {
+        autosize(el);
+    },
+    unbind(el) {
+        autosize.destroy(el);
+    }
 });

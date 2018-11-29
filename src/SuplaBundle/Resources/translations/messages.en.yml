@@ -36,3 +36,4 @@ register-slide3-title: Free of charge and open!
 register-slide3-text: Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!
 
 Authenticate before you can use {clientName}.: Authenticate before you can use {clientName}.
+"Invalid redirect URI: {uri}": "Invalid redirect URI: {uri}"

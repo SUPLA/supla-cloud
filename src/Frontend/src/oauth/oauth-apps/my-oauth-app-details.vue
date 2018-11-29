@@ -27,14 +27,16 @@
                                                 <textarea
                                                     class="form-control"
                                                     @keydown="appChanged()"
+                                                    v-autosize
                                                     v-model="app.description"></textarea>
                                         </dt>
-                                        <dd>{{ $t('Authorization callback URL') }}</dd>
+                                        <dd>{{ $t('Authorization callback URLs (one per line)') }}</dd>
                                         <dt>
-                                            <input type="text"
+                                            <textarea type="text"
                                                 class="form-control"
                                                 @keydown="appChanged()"
-                                                v-model="app.redirectUris[0]">
+                                                v-autosize
+                                                v-model="redirectUris"></textarea>
                                         </dt>
                                     </dl>
                                 </div>
@@ -95,7 +97,8 @@
                 app: undefined,
                 error: false,
                 deleteConfirm: false,
-                hasPendingChanges: false
+                hasPendingChanges: false,
+                redirectUris: ''
             };
         },
         mounted() {
@@ -109,14 +112,16 @@
                     this.error = false;
                     this.$http.get(`oauth-clients/${this.id}?include=secret`, {skipErrorHandler: [403, 404]})
                         .then(response => this.app = response.body)
+                        .then(() => this.redirectUris = this.app.redirectUris.join("\n"))
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
-                    this.app = {redirectUris: []};
+                    this.app = {};
                 }
             },
             saveOauthApp() {
                 const toSend = Vue.util.extend({}, this.app);
+                toSend.redirectUris = this.redirectUris.split("\n").map(u => u.trim()).filter(u => u);
                 this.loading = true;
                 if (this.isNew) {
                     this.$http.post('oauth-clients', toSend).then(response => {
