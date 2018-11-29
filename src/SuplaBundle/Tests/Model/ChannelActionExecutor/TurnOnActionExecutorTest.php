@@ -18,20 +18,9 @@ class TurnOnActionExecutorTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function validatingActionParamsProvider() {
-        return [];
-    }
-
-    public function testEmptyActionParamArray() {
-        $executor = new TurnOnActionExecutor();
-        $subject = $this->createMock(HasFunction::class);
-        $validated = $executor->validateActionParams($subject, []);
-        $this->assertEmpty($validated);
-    }
-
-    public function testValidatingActionParamsWithCorrelationToken() {
-        $executor = new TurnOnActionExecutor();
-        $subject = $this->createMock(HasFunction::class);
-        $validated = $executor->validateActionParams($subject, ['alexaCorrelationToken' => 'abcd']);
-        $this->assertSame("abcd", $validated['alexaCorrelationToken']);
+        return [
+            [[], true],
+            [['alexaCorrelationToken' => 'abcd'], true],
+        ];
     }
 }
