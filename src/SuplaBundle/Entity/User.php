@@ -47,12 +47,12 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $id;
 
     /**
-     * @ORM\Column(name="uuid", type="string", length=36, unique=true, columnDefinition="CHAR(36)")
+     * @ORM\Column(name="uuid", type="string", length=36, unique=true)
      * @Groups({"basic"})
      */
     private $uuid;
 
-    /** @ORM\Column(name="random_id", type="string", length=200, unique=true, columnDefinition="CHAR(200)") */
+    /** @ORM\Column(name="random_id", type="string", length=200, unique=true) */
     private $randomId;
 
     /** @ORM\Column(name="salt", type="string", length=32) */
