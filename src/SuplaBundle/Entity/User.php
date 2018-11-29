@@ -21,7 +21,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Uuid;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -47,7 +46,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $id;
 
     /**
-     * @ORM\Column(name="short_unique_id", type="string", length=36, unique=true, options={"fixed" = true})
+     * @ORM\Column(name="short_unique_id", type="string", length=32, unique=true, options={"fixed" = true})
      * @Groups({"basic"})
      */
     private $shortUniqueId;
@@ -273,7 +272,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         $this->clientApps = new ArrayCollection();
         $this->apiClientAuthorizations = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->shortUniqueId = Uuid::uuid4();
+        $this->shortUniqueId = bin2hex(random_bytes(16));
         $this->longUniqueId = bin2hex(random_bytes(100));
         $this->regDate = new \DateTime();
         $this->passwordRequestedAt = null;
