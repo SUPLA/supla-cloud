@@ -481,7 +481,6 @@ If you wish to see the available integrations, go to [cloud.supla.org/apps].: Ch
 Otherwise go to [the homepage].: V opačném případě přejděte na [domovskou stránku].
 Application requirements: Požadavky aplikace
 Description: Popis
-Authorization callback URL: Adresa URL zpětného volání autorizace (callback)
 Register a new OAuth application: Registrovat novou aplikaci OAuth
 Configuration: Konfigurace
 Public ID: Veřejné ID
@@ -520,19 +519,21 @@ New OAuth application: Nová aplikace OAuth
 Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
 You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
 Please enter a valid email address: Zadejte správnou mailovou adresu
-OAuth application:
-Impulse counter:
-New direct link:
-Direct link:
-Direct link is disabled.:
-No allowed actions have been chosen.:
-Direct link is not active yet.:
-Direct link has expired.:
-Execution limit has been exceeded.:
-"Authenticate before you can use {clientName}.":
-"{applicationName} will not be able to interact with your account until you grant the access again.":
-Decline:
-Grant access:
-Offline access:
-Proceed:
-Direct links below will be deleted:
+OAuth application: Aplikace OAuth
+Impulse counter: Počítadlo implulzů
+New direct link: Nový přímý odkaz
+Direct link: Přímý odkaz
+Direct link is disabled.: Přímý odkaz je vypnutý
+No allowed actions have been chosen.: Nebyly vybrány žádné povolené akce
+Direct link is not active yet.: Přímý odkaz ještě není aktivní
+Direct link has expired.: Přímý odkaz je zastaralý
+Execution limit has been exceeded.: Limit výkonů byl překročen
+"Authenticate before you can use {clientName}.": "Před použitím ověřte {clientName}."
+"{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} nemůže komunikovat s Vaším účtem, dokud znovu neudělíte přístup."
+Decline: Odmítnout
+Grant access: Poskytněte přístup
+Offline access: Přístup offline
+Proceed: Pokračuj
+Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
+Authorization callback URLs (one per line): Autorizační zpětné URL adresy(jeden na řádek)
+"Invalid redirect URI: {uri}": "Neplatné přesměrování URI : {uri}"
