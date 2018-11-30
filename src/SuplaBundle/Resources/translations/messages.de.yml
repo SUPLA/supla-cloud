@@ -474,7 +474,6 @@ If you wish to see the available integrations, go to [cloud.supla.org/apps].: We
 Otherwise go to [the homepage].: Andernfalls gehen Sie zur [Startseite].
 Application requirements: Anwendungsanforderungen
 Description: Beschreibung
-Authorization callback URL: Autorisierungsrückruf-URL
 Register a new OAuth application: Registrieren Sie eine neue OAuth-Anwendung
 Configuration: Konfiguration
 Public ID: Öffentliche ID
@@ -528,4 +527,6 @@ Decline: Verweigere
 Grant access: Vewähre Zugriff
 Offline access: Offline-Zugriff
 Proceed: Weiter
-Direct links below will be deleted: Die unten aufgeführten direkten Links werden entfernt
+Direct links below will be deleted: Die unten aufgeführten direkten Links werden gelöscht
+Authorization callback URLs (one per line): Rückgabe URLs zur Autorisierung (eine pro Zeile)
+"Invalid redirect URI: {uri}": "Falsche Rückgabe-URL: {uri}"
