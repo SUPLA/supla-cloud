@@ -66,5 +66,4 @@ class SetRgbwParametersActionExecutorTest extends \PHPUnit_Framework_TestCase {
         $validated = $executor->validateActionParams($subject, ['color' => '0xFFCC77', 'color_brightness' => '56']);
         $this->assertSame(0xFFCC77, $validated['color']);
     }
-
 }
