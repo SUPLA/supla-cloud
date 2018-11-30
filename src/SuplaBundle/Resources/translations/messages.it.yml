@@ -481,7 +481,6 @@ If you wish to see the available integrations, go to [cloud.supla.org/apps].: Se
 Otherwise go to [the homepage].: Altrimenti passa a [home page].
 Application requirements: Requisiti dell’applicazione
 Description: Descrizione
-Authorization callback URL: URL di callback per l’autorizzazione
 Register a new OAuth application: Registra la nuova applicazione OAuth
 Configuration: Configurazione
 Public ID: ID pubblico
@@ -520,20 +519,21 @@ New OAuth application: Nowa aplikacja OAuth
 Your private SUPLA Cloud is almost registered.: La Tua nuvola privata SUPLA è quasi registrata.
 You just need to execute the following command inside your host terminal.: Basta eseguire il seguente ordine all’interno di un terminale del Tuo host.
 Please enter a valid email address: Inserisci l’indirizzo e-mail corretto
-OAuth application:
-Impulse counter:
-New direct link:
-Direct link:
-Direct link is disabled.:
-No allowed actions have been chosen.:
-Direct link is not active yet.:
-Direct link has expired.:
-Execution limit has been exceeded.:
-"Authenticate before you can use {clientName}.":
-"{applicationName} will not be able to interact with your account until you grant the access again.":
-Decline:
-Grant access:
-Offline access:
-Proceed:
-Direct links below will be deleted:
-
+OAuth application: Applicazione OAuth
+Impulse counter: Contatore di impulsi
+New direct link: Nuovo link diretto
+Direct link: Link diretto
+Direct link is disabled.: Il link diretto è disabilitato
+No allowed actions have been chosen.: Nessuna azione ammessa è stata selezionata.
+Direct link is not active yet.: Il link diretto non è ancora attivo.
+Direct link has expired.: Il link diretto è scaduto.
+Execution limit has been exceeded.: l limite delle esecuzioni è stato superato.
+"Authenticate before you can use {clientName}.": "Prima di usare {clientName}, autentica."
+"{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} non può interagire con il Tuo account finché non concederai di nuovo l’accesso."
+Decline: Rifiuta
+Grant access: Concedi l’accesso
+Offline access: Accesso offline
+Proceed: Continua
+Direct links below will be deleted: I link diretti di seguito elencati verranno rimossi
+Authorization callback URLs (one per line): URL di callback per l’autorizzazione
+"Invalid redirect URI: {uri}": "Invalid redirect URI: {uri}"
