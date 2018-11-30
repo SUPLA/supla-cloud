@@ -480,7 +480,6 @@ If you wish to see the available integrations, go to [cloud.supla.org/apps].: Je
 Otherwise go to [the homepage].: W innym przypadku przejdź do [strony domowej].
 Application requirements: Wymagania aplikacji
 Description: Opis
-Authorization callback URLs (one per line): Autoryzacyjne URLe zwrotne (jeden na linię)
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
 Configuration: Konfiguracja
 Public ID: Publiczny ID
@@ -535,5 +534,5 @@ Grant access: Przyznaj dostęp
 Offline access: Dostęp offline
 Proceed: Kontynuuj
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
-
+Authorization callback URLs (one per line): Zwrotne URLe autoryzacujne (jeden na linię)
 "Invalid redirect URI: {uri}": "Niepoprawny URL zwrotny: {uri}"
