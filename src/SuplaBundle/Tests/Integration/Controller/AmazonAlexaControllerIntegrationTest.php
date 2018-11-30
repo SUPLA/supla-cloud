@@ -51,7 +51,7 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
     }
 
     private function assertUpdatingCredentials(array $params) {
-        $this->client->apiRequestV23('PUT', '/api/amazon-alexa', $params);
+        $this->client->apiRequestV23('PUT', '/api/integrations/amazon-alexa', $params);
         $response = $this->client->getResponse();
         $this->assertStatusCode('2xx', $response);
 

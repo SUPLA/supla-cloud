@@ -42,7 +42,7 @@ class AmazonAlexaController extends RestController {
 
     /**
      * @Security("has_role('ROLE_CHANNELS_EA')")
-     * @Rest\Put("/amazon-alexa")
+     * @Rest\Put("/integrations/amazon-alexa")
      */
     public function putAmazonAlexaAction(Request $request, AmazonAlexa $source) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
