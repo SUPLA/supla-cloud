@@ -462,7 +462,7 @@ Integrations: Integrações
 Could not reset the password. Please try again later.: A senha não pode ser redefinida. Por favor, tente novamente mais tarde.
 Connection with a private instance of the SUPLA cloud: Conexão com uma instância privada da nuvem SUPLA.
 Private Cloud domain name: Nome do domínio da nuvem privada
-Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.:
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Somente são permitidos nomes de domínio com número de porta opcional. Por exemplo, mysupla.org ou mysupla.org:88. HTTPS é obrigatório.
 We could not connect to your SUPLA Cloud instance.: Não foi possível conectar-se à sua instância privada do SUPLA Cloud.
 Your instance is not registered or you are trying to authorize an application that is not public.: Sua instância não está registrada ou você está tentando autorizar um aplicativo que não é público.
 We were not able to find your account.: Não conseguimos encontrar sua conta.
@@ -517,7 +517,7 @@ New OAuth application: Novo aplicativo OAuth
 
 Your private SUPLA Cloud is almost registered.: Sua nuvem SUPLA privada está quase registrada.
 You just need to execute the following command inside your host terminal.: Basta executar o seguinte comando dentro do terminal do seu host.
-Please enter a valid email address:
+Please enter a valid email address: Insira endereço de e-mail válido
 OAuth application: Aplicação OAuth
 Impulse counter: Contador de pulsos
 New direct link: Novo link direto
