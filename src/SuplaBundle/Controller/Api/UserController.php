@@ -53,8 +53,10 @@ class UserController extends RestController {
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
-    public function currentUserAction() {
-        return $this->view($this->getUser(), Response::HTTP_OK);
+    public function currentUserAction(Request $request) {
+        $view = $this->view($this->getUser(), Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['longUniqueId']);
+        return $view;
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_RW')") */
@@ -88,7 +90,7 @@ class UserController extends RestController {
             } elseif ($data['action'] == 'change:userLocale') {
                 Assertion::inArray(
                     $data['locale'],
-                    ['en', 'pl', 'cs', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr'],
+                    ['en', 'pl', 'cs', 'sk', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr'],
                     'Language is not available'
                 );
                 $user->setLocale($data['locale']);
