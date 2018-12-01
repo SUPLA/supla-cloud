@@ -5,6 +5,7 @@ Vue.config.availableLanguages = [
     {value: 'en', text: 'English'},
     {value: 'pl', text: 'Polski'},
     {value: 'cs', text: 'Čeština'},
+    {value: 'sk', text: 'Slovenčina'},
     {value: 'lt', text: 'Lietuvių'},
     {value: 'ru', text: 'Русский'},
     {value: 'de', text: 'Deutsch'},
