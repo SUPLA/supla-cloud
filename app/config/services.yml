@@ -179,6 +179,10 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\AmazonAlexa]
 
+  SuplaBundle\Repository\GoogleHomeRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\GoogleHome]
+
   fos_oauth_server.server:
     class: SuplaBundle\Auth\SuplaOAuth2
     arguments:

@@ -108,8 +108,16 @@ abstract class SuplaServer {
         return $this->userAction($userId, "ALEXA-CREDENTIALS-CHANGED");
     }
 
+    public function googleHomeLinkChanged($userId = null) {
+        return $this->userAction($userId, "GOOGLE-HOME-LINK-CHANGED");
+    }
+
     public function onOAuthClientRemoved($userId = null) {
         $this->amazonAlexaCredentialsChanged($userId);
+    }
+
+    public function onDeviceDeleted($userId = null) {
+        return $this->userAction($userId, "ON-DEVICE-DELETED");
     }
 
     public function clientReconnect(ClientApp $clientApp) {

@@ -19,16 +19,16 @@ namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\AmazonAlexa;
+use SuplaBundle\Entity\GoogleHome;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AmazonAlexaRepository extends EntityRepository {
-    public function findForUser(User $user): AmazonAlexa {
-        /** @var AmazonAlexa $amazonAlexa */
-        $amazonAlexa = $this->findOneBy(['user' => $user]);
-        if (!$amazonAlexa) {
-            throw new NotFoundHttpException("AmazonAlexa could not be found.");
+class GoogleHomeRepository extends EntityRepository {
+    public function findForUser(User $user): GoogleHome {
+        /** @var GoogleHome $googleHome */
+        $googleHome = $this->findOneBy(['user' => $user]);
+        if (!$googleHome) {
+            throw new NotFoundHttpException("GoogleHome could not be found.");
         }
-        return $amazonAlexa;
+        return $googleHome;
     }
 }

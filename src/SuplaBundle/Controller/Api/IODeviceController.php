@@ -209,6 +209,7 @@ class IODeviceController extends RestController {
             $em->remove($ioDevice);
         });
         $this->suplaServer->reconnect();
+        $this->suplaServer->onDeviceDeleted();
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 
