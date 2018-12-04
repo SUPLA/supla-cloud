@@ -39,7 +39,7 @@
             };
         },
         mounted() {
-            let endpoint = 'channels?include=iodevice,location';
+            let endpoint = 'channels?include=iodevice,location,state';
             if (this.deviceId) {
                 endpoint = `iodevices/${this.deviceId}/${endpoint}`;
             }
