@@ -29,6 +29,7 @@ use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Idea of issuing tokens without client & secret taken from the gist: https://gist.github.com/johnpancoast/359bad0255cb50ccd6ab13e4ac18e4e8
@@ -50,13 +51,15 @@ class TokenController extends RestController {
         RouterInterface $router,
         ApiClientRepository $apiClientRepository,
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
-        SuplaAutodiscover $autodiscover
+        SuplaAutodiscover $autodiscover,
+        TokenStorageInterface $tokenStorage
     ) {
         $this->server = $server;
         $this->router = $router;
         $this->apiClientRepository = $apiClientRepository;
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /** @Rest\Post("/webapp-auth") */
@@ -108,5 +111,16 @@ class TokenController extends RestController {
                 return $e->getHttpResponse()->setStatusCode(401);
             }
         }
+    }
+
+    /** @Rest\Get("/token-info") */
+    public function tokenInfoAction() {
+        $token = $this->tokenStorage->getToken()->getCredentials();
+        $accessToken = $this->server->getStorage()->getAccessToken($token);
+        return $this->view([
+            'userShortUniqueId' => $this->getUser()->getShortUniqueId(),
+            'scope' => $accessToken->getScope(),
+            'expiresAt' => $accessToken->getExpiresAt(),
+        ]);
     }
 }
