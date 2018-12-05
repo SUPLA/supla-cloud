@@ -97,7 +97,7 @@ class IODeviceController extends RestController {
             $result = ['iodevices' => $result];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules']);
+        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'state']);
         return $view;
     }
 
@@ -158,7 +158,11 @@ class IODeviceController extends RestController {
         }
 
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids']);
+        $this->setSerializationGroups(
+            $view,
+            $request,
+            ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state']
+        );
         return $view;
     }
 
@@ -219,7 +223,7 @@ class IODeviceController extends RestController {
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
         $channels = $ioDevice->getChannels();
         $view = $this->view($channels, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['iodevice', 'location']);
+        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'state']);
         return $view;
     }
 }

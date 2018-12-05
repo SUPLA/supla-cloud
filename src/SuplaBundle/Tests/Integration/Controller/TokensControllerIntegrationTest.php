@@ -100,4 +100,17 @@ class TokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayNotHasKey('refresh_token', $content);
         return $content;
     }
+
+    public function testCheckingTokenInfo() {
+        $token = $this->testIssuingTokenForWebapp()['access_token'];
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('GET', '/api/token-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('userShortUniqueId', $content);
+        $this->assertArrayHasKey('scope', $content);
+        $this->assertArrayHasKey('expiresAt', $content);
+    }
 }

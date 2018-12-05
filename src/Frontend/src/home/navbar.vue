@@ -143,10 +143,11 @@
         components: {SuplaLogo},
         computed: {
             locales() {
-                let half = Math.ceil(Vue.config.availableLanguages.length / 2);
+                let third = Math.ceil(Vue.config.availableLanguages.length / 3);
                 return [
-                    Vue.config.availableLanguages.slice(0, half),
-                    Vue.config.availableLanguages.slice(half),
+                    Vue.config.availableLanguages.slice(0, third),
+                    Vue.config.availableLanguages.slice(third, third * 2),
+                    Vue.config.availableLanguages.slice(third * 2, third * 3),
                 ];
             }
         },
@@ -178,9 +179,11 @@
         @media only screen and (min-width: 768px) {
             .navbar-collapse {
                 display: flex !important;
+
                 > .nav {
                     flex: 1;
                     display: flex;
+
                     > li {
                         flex: 1;
                         display: flex;
@@ -191,16 +194,19 @@
                 }
             }
         }
+
         .navbar-brand {
             width: 160px;
             font-size: 2em;
             color: $supla-black;
             font-family: $supla-font-special;
+
             svg {
                 width: 45px;
                 height: 45px;
                 vertical-align: text-top;
             }
+
             @media only screen and (min-width: 992px) {
                 padding-top: 20px;
             }
@@ -212,30 +218,37 @@
                 }
             }
         }
+
         .nav > li {
             transition: all .3s;
+
             > a {
                 text-align: center;
                 font-size: 12px;
+
                 i {
                     font-size: 2em;
                     display: block;
                     margin: 0 auto;
                     margin-bottom: 10px;
                 }
+
                 &:hover, &:focus {
                     color: $supla-green;
                 }
             }
         }
+
         .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
             background: $supla-green;
             border-bottom-color: $supla-green;
+
             > a, > a:hover, > a:focus {
                 border-bottom-color: $supla-green;
                 background: transparent;
                 color: $supla-white;
             }
+
             @include on-xs-and-down {
                 background: transparent;
                 > a, > a:hover, > a:focus {
@@ -243,31 +256,38 @@
                 }
             }
         }
+
         .account-dropdown {
             .dropdown-menu {
                 border-top-left-radius: 4px;
                 min-width: 240px;
             }
+
             &, a {
                 text-align: center;
             }
+
             .username {
                 display: block;
                 text-align: center;
                 font-size: 1.3em;
                 font-family: $supla-font-special;
             }
+
             .flags {
                 text-align: center;
+
                 .link {
                     display: inline-block;
                     padding: 3px;
+
                     &.active {
                         img {
                             border-color: $supla-green;
                         }
                     }
                 }
+
                 img {
                     display: block;
                     width: 36px;
@@ -277,9 +297,11 @@
                     transition: all .2s ease-in-out;
                 }
             }
+
             .btn-group {
                 margin: 0;
                 padding: 0;
+
                 .btn {
                     border: 0;
                 }

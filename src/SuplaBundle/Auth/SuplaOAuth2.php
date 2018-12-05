@@ -134,4 +134,8 @@ class SuplaOAuth2 extends OAuth2 {
             }
         }
     }
+
+    public function getStorage(): IOAuth2Storage {
+        return $this->storage;
+    }
 }
