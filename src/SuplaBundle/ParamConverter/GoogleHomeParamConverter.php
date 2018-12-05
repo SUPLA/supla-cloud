@@ -38,8 +38,10 @@ class GoogleHomeParamConverter extends AbstractBodyParamConverter {
 
     public function convert(array $requestData) {
         $gh = new GoogleHome($this->getCurrentUserOrThrow());
-        $enabled = filter_var($requestData['gh_enabled'] ?? false, FILTER_VALIDATE_BOOLEAN);
-        $gh->setEnabled($enabled);
+        $accessToken = $requestData['gh_access_token'] ?? '';
+        Assertion::betweenLength($accessToken, 0, 255);
+        $gh->setAccessToken(strlen($accessToken) ? $accessToken : null);
+
         return $gh;
     }
 }

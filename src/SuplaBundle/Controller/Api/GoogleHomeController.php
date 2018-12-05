@@ -51,7 +51,7 @@ class GoogleHomeController extends RestController {
 
         try {
             $gh = $this->googleHomeRepository->findForUser($this->getUser());
-            $gh->setEnabled($source->getEnabled());
+            $gh->setAccessToken($source->getAccessToken());
         } catch (NotFoundHttpException $e) {
             $gh = $source;
             $gh->setRegDate(new \DateTime);
@@ -61,7 +61,7 @@ class GoogleHomeController extends RestController {
             $em->persist($gh);
         });
 
-        $this->suplaServer->googleHomeLinkChanged();
+        $this->suplaServer->googleHomeCredentialsChanged();
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
     }

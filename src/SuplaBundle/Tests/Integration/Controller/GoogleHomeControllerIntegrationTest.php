@@ -45,27 +45,23 @@ class GoogleHomeControllerIntegrationTest extends IntegrationTestCase {
             ->getRepository(GoogleHome::class)->findForUser($this->user);
     }
 
-    public function testNonexistingCredentials() {
-        $this->expectException(NotFoundHttpException::class);
-        $this->getGoogleHome();
-    }
 
-    private function assertSetEnabled(bool $enabled) {
-        $this->client->apiRequestV23('PUT', '/api/integrations/google-home', ['gh_enabled' => $enabled]);
+    private function assertUpdatingCredentials(string $accessToken) {
+        $this->client->apiRequestV23('PUT', '/api/integrations/google-home', ['gh_access_token'=>$accessToken]);
         $response = $this->client->getResponse();
         $this->assertStatusCode('2xx', $response);
 
         $gh = $this->getGoogleHome();
-        $this->assertEquals($enabled, $gh->getEnabled());
+        $this->assertEquals($accessToken ?? '', $gh->getAccessToken() ?? '');
 
         $this->getEntityManager()->detach($gh);
     }
 
-    public function testSetEnabled() {
-        $this->assertSetEnabled(true);
+    public function testSetAccessToken() {
+        $this->assertUpdatingCredentials('abcd');
     }
 
-    public function testSetDisabled() {
-        $this->assertSetEnabled(false);
+    public function testClearAccessToken() {
+        $this->assertUpdatingCredentials('');
     }
 }

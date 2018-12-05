@@ -46,9 +46,9 @@ class GoogleHome {
     private $regDate;
 
     /**
-     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @ORM\Column(name="access_token", type="string", length=255, nullable=true)
      */
-    private $enabled = true;
+    private $accessToken;
 
     public function __construct(User $user) {
         $this->user = $user;
@@ -82,5 +82,19 @@ class GoogleHome {
 
     public function setEnabled($enabled) {
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAccessToken() {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param string|null $accessToken
+     */
+    public function setAccessToken($accessToken) {
+        $this->accessToken = $accessToken;
     }
 }

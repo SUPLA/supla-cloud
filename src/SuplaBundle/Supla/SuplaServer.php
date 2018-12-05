@@ -108,8 +108,8 @@ abstract class SuplaServer {
         return $this->userAction($userId, "ALEXA-CREDENTIALS-CHANGED");
     }
 
-    public function googleHomeLinkChanged($userId = null) {
-        return $this->userAction($userId, "GOOGLE-HOME-LINK-CHANGED");
+    public function googleHomeCredentialsChanged($userId = null) {
+        return $this->userAction($userId, "GOOGLE-HOME-CREDENTIALS-CHANGED");
     }
 
     public function onOAuthClientRemoved($userId = null) {
