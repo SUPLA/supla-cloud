@@ -52,8 +52,7 @@
                     }
                     if (this.model.state.color_brightness !== undefined && this.model.state.brightness !== undefined) {
                         return '-' + (this.model.state.brightness ? 'on' : 'off') + (this.model.state.color_brightness ? 'on' : 'off');
-                    }
-                    else if (this.model.state.color_brightness || this.model.state.brightness) {
+                    } else if (this.model.state.color_brightness === 0 || this.model.state.brightness === 0) {
                         return '-off';
                     }
                 }
