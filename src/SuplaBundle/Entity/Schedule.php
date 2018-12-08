@@ -185,8 +185,8 @@ class Schedule {
         return $this->channel;
     }
 
-    public function isSubjectChannel(): bool {
-        return $this->getSubjectType() == ActionableSubjectType::CHANNEL();
+    public function isSubjectEnabled(): bool {
+        return $this->getSubjectType() != ActionableSubjectType::CHANNEL() || $this->getSubject()->getIoDevice()->getEnabled();
     }
 
     public function getSubjectType(): ActionableSubjectType {

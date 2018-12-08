@@ -121,7 +121,7 @@ class ScheduleController extends RestController {
         $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data);
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
-        if ($schedule->isSubjectChannel() && $schedule->getSubject()->getIoDevice()->getEnabled()) {
+        if ($schedule->isSubjectEnabled()) {
             $this->scheduleManager->enable($schedule);
         }
         return $this->view($schedule, Response::HTTP_CREATED);
@@ -138,8 +138,7 @@ class ScheduleController extends RestController {
             $em->persist($schedule);
             if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
                 $this->scheduleManager->enable($schedule);
-            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true)
-                    || ($schedule->isSubjectChannel() && !$schedule->getSubject()->getIoDevice()->getEnabled()))) {
+            } elseif ($schedule->getEnabled() && (!($data['enabled'] ?? true) || !$schedule->isSubjectEnabled())) {
                 $this->scheduleManager->disable($schedule);
             }
             if ($schedule->getEnabled()) {
