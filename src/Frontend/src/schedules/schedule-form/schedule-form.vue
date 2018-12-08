@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                         <div class="well">
                             <h3 class="no-margin-top">{{ $t('Action') }}</h3>
-                            <schedule-form-action-chooser @subject-change="canSetRetry = !$event || [20, 30].indexOf($event.function) < 0"></schedule-form-action-chooser>
+                            <schedule-form-action-chooser></schedule-form-action-chooser>
                         </div>
                     </div>
                 </div>
@@ -105,6 +105,7 @@
                 nextRunDates: [],
                 retry: true,
                 subjectId: undefined,
+                subjectType: undefined,
                 subject: undefined,
                 actionId: undefined,
                 actionParam: undefined,
@@ -117,11 +118,13 @@
         }),
         data() {
             return {
-                canSetRetry: false,
                 error: false,
             };
         },
         computed: {
+            canSetRetry() {
+                return this.subject && this.subjectType == 'channel' && [20, 30].indexOf(this.subject.functionId) === -1;
+            },
             caption: {
                 get() {
                     return this.$store.state.caption;
@@ -138,7 +141,7 @@
                     this.$store.commit('updateRetry', retry);
                 }
             },
-            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'subjectId', 'subject', 'actionId', 'submitting', 'schedule', 'timeExpression'])
+            ...mapState(['mode', 'nextRunDates', 'fetchingNextRunDates', 'subjectId', 'subject', 'subjectType', 'actionId', 'submitting', 'schedule', 'timeExpression'])
         },
         mounted() {
             this.resetState();
@@ -147,8 +150,7 @@
                 this.$http.get('schedules/' + this.id, {params: {include: 'subject'}, skipErrorHandler: [403, 404]})
                     .then(({body}) => this.loadScheduleToEdit(body))
                     .catch(response => this.error = response.status);
-            }
-            else if (this.$route.query.subjectId && this.$route.query.subjectType) {
+            } else if (this.$route.query.subjectId && this.$route.query.subjectType) {
                 if (['channel', 'channelGroup'].indexOf(this.$route.query.subjectType) < 0) {
                     this.error = 404;
                 } else {
@@ -189,6 +191,7 @@
                     nextRunDates: [],
                     retry: true,
                     subjectId: undefined,
+                    subjectType: undefined,
                     subject: undefined,
                     actionId: undefined,
                     actionParam: undefined,
