@@ -537,3 +537,4 @@ Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus 
 Authorization callback URLs (one per line): Autorizuojami grąžinami URL (vienas linijoje)
 "Invalid redirect URI: {uri}": "Invalid redirect URI: {uri}"
 
+Are you sure you want to delete this channel group?: Ar tikrai norite pašalinti šią kanalų grupę?

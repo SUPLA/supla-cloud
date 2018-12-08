@@ -536,3 +536,5 @@ Proceed: Continuar
 Direct links below will be deleted: Os links diretos listados abaixo serão removidos
 Authorization callback URLs (one per line): URLs  de autorização de retorno (uma por linha)
 "Invalid redirect URI: {uri}": "URI de redirecionamento inválido: {uri}"
+
+Are you sure you want to delete this channel group?: Você tem certeza que quer deletar esse grupo de canais?

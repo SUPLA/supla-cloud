@@ -537,3 +537,5 @@ Proceed: Pokračuj
 Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
 Authorization callback URLs (one per line): Autorizační zpětné URL adresy(jeden na řádek)
 "Invalid redirect URI: {uri}": "Neplatné přesměrování URI : {uri}"
+
+Are you sure you want to delete this channel group?: Opravdu chcete tuto skupinu kanálů smazat?

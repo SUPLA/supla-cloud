@@ -143,14 +143,14 @@ G5LA1A Relay: Реле G5LA1A
 G5LA1A Relay x2: Двойное реле G5LA1A
 DS18B20 Thermometer: Термометр DS18B20
 Thermometer: Термометр
-DHT11 Temperature & Humidity Sensor: Датчик температуры и влажности DHT11  
-DHT21 Temperature & Humidity Sensor: Датчик температуры и влажности DHT21  
-DHT22 Temperature & Humidity Sensor: Датчик температуры и влажности DHT22  
+DHT11 Temperature & Humidity Sensor: Датчик температуры и влажности DHT11
+DHT21 Temperature & Humidity Sensor: Датчик температуры и влажности DHT21
+DHT22 Temperature & Humidity Sensor: Датчик температуры и влажности DHT22
 AM2301 Temperature & Humidity Sensor: Датчик температуры и влажности AM2301
-AM2302 Temperature & Humidity Sensor: Датчик температуры и влажности AM2302  
-Dimmer: Диммер  
-RGB led controller: Контроллер освещения RGB  
-Dimmer & RGB led controller: Диммер и контроллер освещения RGB  
+AM2302 Temperature & Humidity Sensor: Датчик температуры и влажности AM2302
+Dimmer: Диммер
+RGB led controller: Контроллер освещения RGB
+Dimmer & RGB led controller: Диммер и контроллер освещения RGB
 Distance sensor: датчик расстояния
 Depth sensor: датчик глубины
 Gateway lock operation: Открытие калитки
@@ -167,16 +167,16 @@ No liquid sensor: Датчик наличия жидкости
 On/Off switch: Выключатель
 Light switch: Выключатель света
 Humidity sensor: Датчик влажности
-Temperature and humidity sensor: Датчик температуры и влажности 
-RGB lighting: Освещение RGB  
-Dimmer and RGB lighting: Диммер и освещение RGB  
+Temperature and humidity sensor: Датчик температуры и влажности
+RGB lighting: Освещение RGB
+Dimmer and RGB lighting: Диммер и освещение RGB
 
 Timezone: Часовой пояс
 WELCOME_MESSAGE: |
   Подключить Твой дом или офис к SUPLA очень легко.
   Для этого Тебе достаточно всего лишь перезаписать в своих устройствах управления (Вход/Выход) и смартфонах нижеприведенные данные.
 Original location: Исходное локализацию
-Go to your account: Перейди в свой аккаунт 
+Go to your account: Перейди в свой аккаунт
 Service temporarily unavailable: Сервис временно недоступен
 Try again later: Попытайся повторно задать команду
 copy: копировать
@@ -184,7 +184,7 @@ Schedule: График
 Schedules: Графики
 Create New Schedule: Создай новый график
 No future executions - schedule disabled: Нет запланированных исполнений – график выключен
-Schedule cannot be enabled: Не получилось запустить график 
+Schedule cannot be enabled: Не получилось запустить график
 Disable schedule: Выключи график
 Executions: Реализации
 Action: Акция
@@ -238,7 +238,7 @@ Sensor disconnected: Нет датчика
 Server unreachable: Соединить с сервером невозможно
 Failed: Не получилось
 Failed (zombie): Не получилось (зомби)
-Cancelled: Аннулировано 	
+Cancelled: Аннулировано
 Expired: Просрочен
 Processing: В реализации
 The gate sensor must function properly in order to execute the scheduled action.: Чтобы выполнить задачу, датчик открытия ворот должен работать правильно.
@@ -247,9 +247,9 @@ If you want to stay here, do something!: Если хочешь здесь ост
 Chosen hour: Заданное время
 before: до
 after: после
-sunrise-before: восхода 
+sunrise-before: восхода
 sunset-before: заката
-sunrise-after: восхода 
+sunrise-after: восхода
 sunset-after: заката
 Sunrise / Sunset: Восход/Закат
 The device is disabled: Оборудование выключено
@@ -328,7 +328,7 @@ History of measurements: История измерений
 Humidity adjustment: Регулировка влажности
 Temperature adjustment: Регулировка температуры
 Opening sensor: Датчик открытия
-Partial opening sensor: Датчик промежуточного открытия 
+Partial opening sensor: Датчик промежуточного открытия
 Channel for the partial opening sensor: Канал для датчика промежуточного открытия
 Inverted logic: Реверсивная логика
 
@@ -527,3 +527,5 @@ Proceed: Продолжить
 Direct links below will be deleted: Прямые ссылки, перечисленные ниже, будут удалены
 Authorization callback URLs (one per line): URL-адреса возврата авторизации (по одному в строке)
 "Invalid redirect URI: {uri}": "Invalid redirect URI: {uri}"
+
+Are you sure you want to delete this channel group?: Вы действительно хотите удалить эту группу?
