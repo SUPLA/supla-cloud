@@ -79,7 +79,7 @@ class DirectLinkController extends RestController {
         $user = $this->getUser();
         if (!$directLink->getCaption()) {
             $caption = $this->get('translator')->trans('Direct link', [], null, $user->getLocale());
-            $directLink->setCaption($caption . ' #' . $user->getDirectLinks()->count());
+            $directLink->setCaption($caption . ' #' . ($user->getDirectLinks()->count() + 1));
         }
         Assertion::false($user->isLimitDirectLinkExceeded(), 'Direct links limit has been exceeded');
         $slug = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {

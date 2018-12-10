@@ -220,16 +220,18 @@
                 });
             },
             chooseSubjectForNewLink({subject, type}) {
-                const toSend = {
-                    subjectType: type,
-                    subjectId: subject.id,
-                    allowedActions: ['read'],
-                };
-                this.loading = true;
-                this.$http.post('direct-links?include=subject', toSend).then(response => {
-                    const newLink = response.body;
-                    this.$emit('add', newLink);
-                }).catch(() => this.$emit('delete'));
+                if (subject) {
+                    const toSend = {
+                        subjectType: type,
+                        subjectId: subject.id,
+                        allowedActions: ['read'],
+                    };
+                    this.loading = true;
+                    this.$http.post('direct-links?include=subject', toSend).then(response => {
+                        const newLink = response.body;
+                        this.$emit('add', newLink);
+                    }).catch(() => this.$emit('delete'));
+                }
             },
             directLinkChanged() {
                 this.hasPendingChanges = true;
