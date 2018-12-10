@@ -23,7 +23,6 @@ use Assert\Assertion;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\RelayFunctionBits;
@@ -121,23 +120,6 @@ class IODeviceManager {
             return null;
         }
         return $this->dev_rep->findOneBy(['user' => $user, 'id' => intval($id)]);
-    }
-
-    /**
-     * @param int $id
-     * @param User $user
-     * @return IODeviceChannel|null
-     */
-    public function channelById($id, $user = null) {
-        if ($user === null) {
-            $user = $this->sec->getToken()->getUser();
-        }
-
-        if ($user === null) {
-            return null;
-        }
-
-        return $this->channel_rep->findOneBy(['user' => $user, 'id' => intval($id)]);
     }
 
     public function getChannels(IODevice $iodev) {

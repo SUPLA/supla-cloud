@@ -162,12 +162,11 @@ class ScheduleController extends RestController {
         } elseif ($data['subjectType'] == ActionableSubjectType::CHANNEL_GROUP) {
             $subject = $this->channelGroupRepository->findForUser($this->getUser(), $data['subjectId']);
         }
-        $channel = $this->get('iodevice_manager')->channelById($data['subjectId']);
         Assertion::notNull($subject, 'Invalid schedule subject.');
         $data['subject'] = $subject;
         if (isset($data['actionParam']) && $data['actionParam']) {
             $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
-                $channel,
+                $subject,
                 new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),
                 $data['actionParam']
             );

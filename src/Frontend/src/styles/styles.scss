@@ -90,7 +90,7 @@ a {
   border-radius: 0 !important;
 }
 
-input[type=text], input[type=password], input[type=email] {
+input[type=text], input[type=password], input[type=email], input[type=number] {
   &.form-control {
     box-shadow: initial;
     &:focus {
