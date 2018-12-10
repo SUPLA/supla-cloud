@@ -40,12 +40,15 @@
                                         <toggler v-model="schedule.enabled"
                                             @input="updateSchedule()"></toggler>
                                     </dt>
+                                </dl>
+                                <dl v-if="!retryOptionDisabled">
                                     <dd>{{ $t('Retry on failure') }}</dd>
                                     <dt>
                                         <toggler v-model="schedule.retry"
-                                            :disabled="retryOptionDisabled"
                                             @input="updateSchedule()"></toggler>
                                     </dt>
+                                </dl>
+                                <dl>
                                     <dd>{{ $t('Action') }}</dd>
                                     <dt>{{ $t(schedule.action.caption) }}</dt>
                                     <dd>{{ $t('Mode') }}</dd>
@@ -162,7 +165,7 @@
                     ['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].indexOf(this.schedule.subject.function.name) >= 0;
             },
             retryOptionDisabled() {
-                return this.displayOpeningSensorWarning;
+                return this.displayOpeningSensorWarning || this.schedule.subjectType != 'channel';
             }
         }
     };

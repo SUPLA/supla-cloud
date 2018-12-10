@@ -89,6 +89,11 @@
         }
         .btn.dropdown-toggle {
             background: $supla-white !important;
+            box-shadow: none !important;
+
+            &:focus {
+                outline-color: $supla-green !important;
+            }
         }
     }
 </style>

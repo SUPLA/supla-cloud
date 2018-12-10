@@ -306,6 +306,8 @@ class Schedule {
             if (in_array($this->getSubject()->getFunction(), $alwaysRetryFunctions)) {
                 $retry = true;
             }
+        } elseif ($this->channelGroup) {
+            $retry = false;
         }
         $this->retry = $retry;
     }
