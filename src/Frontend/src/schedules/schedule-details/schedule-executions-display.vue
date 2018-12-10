@@ -1,3 +1,4 @@
+NS
 <template>
     <loading-cover :loading="!executions">
         <ul class="schedule-times"
@@ -6,7 +7,7 @@
                 :class="'past past' + (executions.past.length - $index) + (execution.failed ? ' failed' : '')">
                 {{ (execution.resultTimestamp || execution.plannedTimestamp) | moment('LLLL') }}
                 <div class="small"
-                    v-if="execution.failed">
+                    v-if="execution.id != 1">
                     {{ $t(execution.result.caption) }}
                 </div>
             </li>
@@ -53,40 +54,50 @@
         padding: 0;
         text-align: center;
         font-size: 1.2em;
+
         li {
             margin-bottom: 5px;
         }
+
         .past2 {
             opacity: .6;
             font-size: 0.8em;
         }
+
         .past1 {
             opacity: .8;
             font-size: 0.9em;
         }
+
         .past0 {
             opacity: .9;
             font-size: 1em;
         }
+
         .past {
             color: darkgreen;
         }
+
         .failed {
             color: $supla-red;
         }
+
         .future0 {
             opacity: 1;
             font-size: 1.1em;
             font-weight: bold;
         }
+
         .future1 {
             opacity: .9;
             font-size: 1em;
         }
+
         .future2 {
             opacity: .8;
             font-size: .9em;
         }
+
         .future3 {
             opacity: .6;
             font-size: .8em;

@@ -30,6 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ScheduleActionExecutionResult SERVER_UNREACHABLE()
  * @method static ScheduleActionExecutionResult FAILURE()
  * @method static ScheduleActionExecutionResult CANCELLED()
+ * @method static ScheduleActionExecutionResult EXECUTED_WITHOUT_CONFIRMATION()
  */
 final class ScheduleActionExecutionResult extends Enum {
     const UNKNOWN = 0;
@@ -47,9 +48,12 @@ final class ScheduleActionExecutionResult extends Enum {
         parent::__construct($value ?: 0);
     }
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
+    public function getId() {
+        return $this->getValue();
+    }
+
+    /** @Groups({"basic"}) */
     public function getCaption(): string {
         return self::captions()[$this->getValue()];
     }
@@ -70,6 +74,6 @@ final class ScheduleActionExecutionResult extends Enum {
     }
 
     public function isSuccessful(): bool {
-        return $this->equals(self::SUCCESS());
+        return $this->equals(self::SUCCESS()) || $this->equals(self::EXECUTED_WITHOUT_CONFIRMATION());
     }
 }
