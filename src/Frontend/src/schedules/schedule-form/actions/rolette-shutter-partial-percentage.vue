@@ -1,5 +1,5 @@
 <template>
-    <div class="form-group">
+    <div>
         <span class="input-group">
             <input type="number"
                 min="0"
@@ -16,6 +16,7 @@
 
 <script type="text/babel">
     import Vue from "vue";
+
     export default {
         name: 'rolette-shutter-partial-percentage',
         props: ['value'],

@@ -1,72 +1,66 @@
 <template>
-    <div class="row">
+    <div>
         <div :class="brightnessClass">
-            <div class="form-group">
-                <label>{{ $t('Brightness') }}</label>
-                <span class="input-group">
-                    <input type="number"
-                        min="0"
-                        max="100"
-                        step="5"
-                        class="form-control"
-                        maxlength="3"
-                        v-model="brightness"
-                        @change="onChange()">
-                    <span class="input-group-addon">%</span>
-                </span>
-            </div>
+            <label>{{ $t('Brightness') }}</label>
+            <span class="input-group">
+                <input type="number"
+                    min="0"
+                    max="100"
+                    step="5"
+                    class="form-control"
+                    maxlength="3"
+                    v-model="brightness"
+                    @change="onChange()">
+                <span class="input-group-addon">%</span>
+            </span>
         </div>
         <div :class="hueClass">
-            <div class="form-group">
-                <label>{{ $t('Color') }}</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio"
-                            value="choose"
-                            v-model="hueMode"
-                            @change="onChange()">
-                        {{ $t('Choose') }}
-                    </label>
-                </div>
-                <div v-if="hueMode == 'choose'">
-                    <hue-colorpicker v-model="hue"
-                        @input="onChange()"></hue-colorpicker>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio"
-                            value="random"
-                            v-model="hueMode"
-                            @change="onChange()">
-                        {{ $t('Random') }}
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio"
-                            value="white"
-                            v-model="hueMode"
-                            @change="onChange()">
-                        {{ $t('White') }}
-                    </label>
-                </div>
+            <label>{{ $t('Color') }}</label>
+            <div class="radio">
+                <label>
+                    <input type="radio"
+                        value="choose"
+                        v-model="hueMode"
+                        @change="onChange()">
+                    {{ $t('Choose') }}
+                </label>
+            </div>
+            <div v-if="hueMode == 'choose'">
+                <hue-colorpicker v-model="hue"
+                    @input="onChange()"></hue-colorpicker>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio"
+                        value="random"
+                        v-model="hueMode"
+                        @change="onChange()">
+                    {{ $t('Random') }}
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio"
+                        value="white"
+                        v-model="hueMode"
+                        @change="onChange()">
+                    {{ $t('White') }}
+                </label>
             </div>
         </div>
         <div :class="colorBrightnessClass">
-            <div class="form-group">
-                <label>{{ $t('Color brightness') }}</label>
-                <span class="input-group">
-                    <input type="number"
-                        min="0"
-                        max="100"
-                        step="5"
-                        class="form-control"
-                        maxlength="3"
-                        v-model="colorBrightness"
-                        @change="onChange()">
-                    <span class="input-group-addon">%</span>
-                </span>
-            </div>
+            <label>{{ $t('Color brightness') }}</label>
+            <span class="input-group">
+                <input type="number"
+                    min="0"
+                    max="100"
+                    step="5"
+                    class="form-control"
+                    maxlength="3"
+                    v-model="colorBrightness"
+                    @change="onChange()">
+                <span class="input-group-addon">%</span>
+            </span>
         </div>
     </div>
 </template>
@@ -86,7 +80,7 @@
                 brightness: 0
             };
         },
-        mounted(){
+        mounted() {
             if (this.value) {
                 if (this.value.hue == 'random') {
                     this.hueMode = 'random';
@@ -117,19 +111,18 @@
             }
         },
         computed: {
-            // 180 - DIMMER, 190 - RGBLIGHTING, 200 - DIMMERANDRGBLIGHTING
             brightnessClass() {
-                return this.channelFunction == 180 ? 'col-xs-12' : (this.channelFunction == 190 ? 'hidden' : 'col-xs-4');
+                return {'DIMMER': 'col-xs-12', 'RGBLIGHTING': 'hidden'}[this.channelFunction.name] || 'col-xs-4';
             },
             hueClass() {
-                return this.channelFunction == 180 ? 'hidden' : (this.channelFunction == 190 ? 'col-xs-6' : 'col-xs-4');
+                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
             },
             colorBrightnessClass() {
-                return this.channelFunction == 180 ? 'hidden' : (this.channelFunction == 190 ? 'col-xs-6' : 'col-xs-4');
+                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
             },
         },
         watch: {
-            channelFunction(){
+            channelFunction() {
                 this.onChange();
             }
         }

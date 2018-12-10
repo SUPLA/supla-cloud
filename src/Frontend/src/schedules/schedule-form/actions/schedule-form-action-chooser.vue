@@ -18,13 +18,17 @@
                         {{ $t(possibleAction.caption) }}
                     </label>
                 </div>
-                <span v-if="possibleAction.id == 50 && actionId == possibleAction.id">
+                <div class="well clearfix"
+                    v-if="possibleAction.id == 50 && actionId == possibleAction.id">
                     <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
-                </span>
-                <span v-if="possibleAction.id == 80 && actionId == possibleAction.id">
-                    <rgbw-parameters-setter v-model="actionParam"
-                        :channel-function="subject.function"></rgbw-parameters-setter>
-                </span>
+                </div>
+                <transition-expand>
+                    <div v-if="possibleAction.id == 80 && actionId == possibleAction.id">
+                        <rgbw-parameters-setter v-model="actionParam"
+                            class="well clearfix"
+                            :channel-function="subject.function"></rgbw-parameters-setter>
+                    </div>
+                </transition-expand>
             </div>
         </div>
     </div>
@@ -36,9 +40,10 @@
     import ChannelsDropdown from "../../../devices/channels-dropdown";
     import SubjectDropdown from "../../../devices/subject-dropdown";
     import {mapState} from "vuex";
+    import TransitionExpand from "../../../common/gui/transition-expand";
 
     export default {
-        components: {SubjectDropdown, ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
+        components: {TransitionExpand, SubjectDropdown, ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
         data() {
             return {
                 subjectWithType: {}
