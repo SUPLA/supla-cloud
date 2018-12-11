@@ -99,11 +99,12 @@ class AccessIDController extends RestController {
      */
     public function deleteAccessidAction(AccessID $accessId) {
         Assertion::greaterThan($this->getUser()->getAccessIDS()->count(), 1, 'You cannot delete your last access identifier.');
-        return $this->transactional(function (EntityManagerInterface $em) use ($accessId) {
+        $result = $this->transactional(function (EntityManagerInterface $em) use ($accessId) {
             $em->remove($accessId);
-            $this->suplaServer->reconnect($this->getUser()->getId());
             return new Response('', Response::HTTP_NO_CONTENT);
         });
+        $this->suplaServer->reconnect($this->getUser()->getId());
+        return $result;
     }
 
     /**

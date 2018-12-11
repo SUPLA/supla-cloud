@@ -126,11 +126,12 @@ class LocationController extends RestController {
             'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.'
         );
         Assertion::greaterThan($this->getUser()->getLocations()->count(), 1, 'You cannot delete your last location.');
-        return $this->transactional(function (EntityManagerInterface $em) use ($location) {
+        $result = $this->transactional(function (EntityManagerInterface $em) use ($location) {
             $em->remove($location);
-            $this->suplaServer->reconnect($this->getUser()->getId());
             return new Response('', Response::HTTP_NO_CONTENT);
         });
+        $this->suplaServer->reconnect($this->getUser()->getId());
+        return $result;
     }
 
     private function ensureNoRelatedEntities($entities, string $message) {
@@ -153,10 +154,11 @@ class LocationController extends RestController {
         foreach ($updatedLocation->getAccessIds() as $accessId) {
             $location->getAccessIds()->add($accessId);
         }
-        return $this->transactional(function (EntityManagerInterface $em) use ($request, $location) {
+        $result = $this->transactional(function (EntityManagerInterface $em) use ($request, $location) {
             $em->persist($location);
-            $this->suplaServer->reconnect();
             return $this->getLocationAction($request, $location);
         });
+        $this->suplaServer->reconnect();
+        return $result;
     }
 }

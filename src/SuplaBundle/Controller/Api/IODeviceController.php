@@ -170,7 +170,7 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      */
     public function putIodeviceAction(Request $request, IODevice $ioDevice, IODevice $updatedDevice) {
-        return $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
+        $result = $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
             $enabledChanged = $ioDevice->getEnabled() != $updatedDevice->getEnabled();
             if ($enabledChanged) {
                 $schedules = $this->scheduleManager->findSchedulesForDevice($ioDevice);
@@ -189,11 +189,12 @@ class IODeviceController extends RestController {
             }
             $ioDevice->setLocation($updatedDevice->getLocation());
             $ioDevice->setComment($updatedDevice->getComment());
-            $this->suplaServer->reconnect();
             $view = $this->view($ioDevice, Response::HTTP_OK);
             $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
             return $view;
         });
+        $this->suplaServer->reconnect();
+        return $result;
     }
 
     /**

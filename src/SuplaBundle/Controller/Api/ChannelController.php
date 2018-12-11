@@ -148,7 +148,7 @@ class ChannelController extends RestController {
             $channel->setCaption($updatedChannel->getCaption());
             $channel->setHidden($updatedChannel->getHidden());
             $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
-            return $this->transactional(function (EntityManagerInterface $em) use ($functionHasBeenChanged, $request, $channel) {
+            $result = $this->transactional(function (EntityManagerInterface $em) use ($functionHasBeenChanged, $request, $channel) {
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
                     foreach ($channel->getSchedules() as $schedule) {
@@ -159,9 +159,10 @@ class ChannelController extends RestController {
                     }
                     $channel->removeFromAllChannelGroups($em);
                 }
-                $this->suplaServer->reconnect();
                 return $this->getChannelAction($request, $channel);
             });
+            $this->suplaServer->reconnect();
+            return $result;
         } else {
             $data = json_decode($request->getContent(), true);
             $this->channelActionExecutor->executeAction($channel, ChannelFunctionAction::SET_RGBW_PARAMETERS(), $data);
