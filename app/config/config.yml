@@ -108,7 +108,7 @@ parameters:
   act_as_broker_cloud: false
   fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\SuplaOAuthProvider
   supla_protocol: https
-  supla_server_socket: /tmp/supla-server-ctrl.sock
+  supla_server_socket: /var/run/supla/supla-server-ctrl.sock
   supla_url: '%supla_protocol%://%supla_server%'
   use_webpack_dev_server: false
 
