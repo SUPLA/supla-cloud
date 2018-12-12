@@ -17,6 +17,7 @@
     import ChannelParamsOpeningsensorDoor from "./channel-params-openingsensor-door";
     import ChannelParamsOpeningsensorGaragedoor from "./channel-params-openingsensor-garagedoor";
     import ChannelParamsOpeningsensorRollershutter from "./channel-params-openingsensor-rollershutter";
+    import ChannelParamsOpeningsensorWindow from "./channel-params-openingsensor-window";
     import ChannelParamsStaircasetimer from "./channel-params-staircasetimer";
     import ChannelParamsThermometer from "./channel-params-thermometer";
     import ChannelParamsHumidity from "./channel-params-humidity";
@@ -40,6 +41,7 @@
             ChannelParamsOpeningsensorDoor,
             ChannelParamsOpeningsensorRollershutter,
             ChannelParamsOpeningsensorGaragedoor,
+            ChannelParamsOpeningsensorWindow,
             ChannelParamsControllingtherollershutter,
             ChannelParamsStaircasetimer,
             ChannelParamsThermometer,
@@ -55,7 +57,7 @@
             additionalChannelParamsComponent() {
                 const fncName = changeCase.camelCase(this.channel.function.name);
                 let componentName = 'ChannelParams' + changeCase.upperCaseFirst(fncName);
-                //console.log(componentName);
+                // console.log(componentName);
                 if (this.$options.components[componentName]) {
                     return changeCase.headerCase(componentName);
                 } else {
