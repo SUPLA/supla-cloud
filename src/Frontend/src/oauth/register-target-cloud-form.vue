@@ -15,7 +15,7 @@
         </transition>
         <transition name="fade-router">
             <div v-if="!token">
-                <register-slider :texts="['register-target-cloud-slide1', 'register-target-cloud-slide2', 'register-target-cloud-slide3']"></register-slider>
+                <register-slider :texts="['register-slide1', 'register-slide2', 'register-slide3']"></register-slider>
                 <div class="create-form">
                     <div class="wrapper">
                         <h1 class="page-title"
