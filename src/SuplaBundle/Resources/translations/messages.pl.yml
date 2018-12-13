@@ -464,8 +464,7 @@ Connection with a private instance of the SUPLA cloud: Połaczenie z prywatną i
 Private Cloud domain name: Nazwa domeny prywatnej chmury
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Dozwolone są tylko nazwy domen z opcjonalnym numerem portu. Na przykład. mysupla.org lub mysupla.org:88. HTTPS jest wymagany.
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
-Your instance is not registered or you are trying to authorize an application that is not public.: Twoja instancja nie jest zarejestrowana lub próbujesz 
-zować aplikację, która nie jest publiczna.
+Your instance is not registered or you are trying to authorize an application that is not public.: Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.
 We were not able to find your account.: Nie udało nam się znaleźć Twojego konta.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.
 OAuth authorization: Autoryzacja OAuth
