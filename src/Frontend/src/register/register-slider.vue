@@ -31,7 +31,7 @@
                 const slides = [];
                 for (let [index, text] of this.texts.entries()) {
                     slides.push({
-                        img: `img: 'assets/img/${index + 1}.svg`,
+                        img: `assets/img/${index + 1}.svg`,
                         title: `${text}-title`,
                         description: `${text}-text`,
                     });
