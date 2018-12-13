@@ -10,7 +10,7 @@
             <h3 class="text-center">{{ $t('Authorize the application, so that it can access your account.')}}</h3>
             <div class="form-group clearfix">
                 <div class="list-group scope-selector">
-                    <div class="list-group-item col-xs-12 col-sm-6"
+                    <div class="list-group-item"
                         v-for="scope in desiredAvailableScopes">
                         <h4>{{ $t(scope.label) }}</h4>
                         <div class="permissions">
@@ -103,16 +103,13 @@
             margin-top: 30px;
         }
         .scope-selector {
-            .list-group-item {
+            display: flex;
+            flex-flow: row wrap;
+            > div {
+                flex-grow: 1;
                 border-radius: 0 !important;
                 h4 {
                     margin-top: 0;
-                }
-                &:nth-child(even) {
-                    border-left: 0;
-                }
-                &:last-child:nth-child(odd) {
-                    width: 100%;
                 }
                 .permissions {
                     display: flex;
