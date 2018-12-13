@@ -5,7 +5,7 @@ import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
 import Vuex from "vuex";
-import {i18n, checkUserLanguage} from './locale';
+import {i18n, setGuiLocale} from './locale';
 import router from './router';
 import VueLocalStorage from 'vue-localstorage';
 import VueMoment from "vue-moment";
@@ -47,7 +47,7 @@ Vue.http.headers.common['X-Accept-Version'] = '2.3.0';
 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
 Vue.prototype.$user = new CurrentUser();
 Vue.prototype.$user.fetchUser()
-    .then((userData) => checkUserLanguage(userData))
+    .then((userData) => setGuiLocale(userData))
     .then(() => {
         $(document).ready(() => {
             if ($('.vue-container').length) {
