@@ -28,6 +28,7 @@ Vue.use(VueLocalStorage);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 
 Vue.config.external = window.FRONTEND_CONFIG || {};
+Vue.prototype.$frontendConfig = Vue.config.external;
 if (!Vue.config.external.baseUrl) {
     Vue.config.external.baseUrl = '';
 }

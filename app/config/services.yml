@@ -125,6 +125,7 @@ services:
   twig.extension.intl:
     class: Twig_Extensions_Extension_Intl
 
+  SuplaBundle\Twig\FrontendConfig: ~
   SuplaBundle\Twig\IoDeviceAttributesToStringExtension: ~
 
   SuplaBundle\Repository\AccessIdRepository:

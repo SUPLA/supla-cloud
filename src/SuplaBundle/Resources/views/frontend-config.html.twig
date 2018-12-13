@@ -1,14 +1,7 @@
 <script>
-    window.FRONTEND_CONFIG = {
-        suplaUrl: '{{ app.request.getSchemeAndHttpHost() }}',
-        baseUrl: '{{ path('_homepage')[:-1] }}',
-        serverTime: '{{ "now"|date("Y-m-d\\TH:i:sP") }}',
-        renderStart: new Date(),
-        regulationsAcceptRequired: {{ supla_require_regulations_acceptance ? 'true' : 'false' }},
-        recaptchaEnabled: {{ recaptcha_enabled ? 'true' : 'false' }},
-        recaptchaSiteKey: '{{ recaptcha_site_key }}'
-        {% if act_as_broker_cloud %}
-        , actAsBrokerCloud: true
-        {% endif %}
-    };
+    window.FRONTEND_CONFIG = {{ getFrontendConfig() | json_encode | raw }};
+    window.FRONTEND_CONFIG['serverTime'] = '{{ "now"|date("Y-m-d\\TH:i:sP") }}';
+    window.FRONTEND_CONFIG['renderStart'] = new Date();
+    window.FRONTEND_CONFIG['suplaUrl'] = '{{ app.request.getSchemeAndHttpHost() }}';
+    window.FRONTEND_CONFIG['baseUrl'] = '{{ path('_homepage')[:-1] }}';
 </script>
