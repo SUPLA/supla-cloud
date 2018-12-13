@@ -96,7 +96,7 @@
                                             <div class="executions-limit">
                                                 {{ directLink.executionsLimit }}
                                             </div>
-                                            <div class="btn-group btn-group-justified">
+                                            <div class="text-center">
                                                 <a class="btn btn-default"
                                                     @click="setExecutionsLimit(undefined)">{{ $t('No limit') }}</a>
                                                 <a class="btn btn-default"
@@ -257,6 +257,7 @@
                 this.directLink = undefined;
             },
             setExecutionsLimit(limit) {
+                this.choosingCustomLimit = false;
                 this.directLink.executionsLimit = limit;
                 this.directLinkChanged();
             },
