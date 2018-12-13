@@ -34,6 +34,13 @@ body {
   }
 }
 
+@-webkit-keyframes autofill-white {
+  to {
+    color: #fff;
+    background: transparent;
+  }
+}
+
 input:-webkit-autofill {
   -webkit-animation-name: autofill;
   -webkit-animation-fill-mode: both;
@@ -45,6 +52,7 @@ h1 {
   font-weight: 300;
   text-transform: capitalize;
   letter-spacing: -3px;
+
   &.nocapitalize {
     text-transform: none;
   }
@@ -58,6 +66,7 @@ a {
   color: $supla-green;
   transition: all .3s;
   cursor: pointer;
+
   &:active, &:focus, &:hover {
     text-decoration: none;
     color: $supla-grey-dark;
@@ -93,6 +102,7 @@ a {
 input[type=text], input[type=password], input[type=email], input[type=number] {
   &.form-control {
     box-shadow: initial;
+
     &:focus {
       border-color: $supla-green;
     }
@@ -103,6 +113,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
   &-enter-active, &-leave-active {
     transition: opacity .5s
   }
+
   &-enter, &-leave-to {
     opacity: 0
   }
@@ -112,9 +123,11 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
   &-enter-active, &-leave-active {
     transition: opacity .3s;
   }
+
   &-enter-active {
     transition-delay: .3s;
   }
+
   &-enter, &-leave-to {
     opacity: 0
   }
@@ -125,13 +138,16 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
   text-transform: uppercase;
   font-size: .9em;
   line-height: initial;
+
   &.label-danger {
     background: #ff3939;
   }
+
   &.label-success {
     background: $supla-green;
     border: 1px solid white;
   }
+
   &.label-grey {
     background: $supla-grey-dark;
   }
@@ -147,23 +163,29 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 
 .grid-filters {
   text-align: right;
+
   ::-webkit-input-placeholder {
     text-align: center;
   }
+
   ::-moz-placeholder {
     text-align: center;
   }
+
   :-ms-input-placeholder {
     text-align: center;
   }
+
   input[type=text] {
     max-width: 150px;
     display: inline-block;
     margin-left: 5px;
   }
+
   > * {
     margin-bottom: 5px;
   }
+
   @include on-xs-and-down {
     text-align: center;
     margin: 5px 0;
@@ -174,6 +196,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
   > :first-child {
     float: left;
   }
+
   > :last-child {
     float: right;
     margin-top: 20px;
@@ -202,33 +225,41 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
         transition: border-color .3s;
         background-color: transparent;
       }
+
       .dropdown:not(.hovered) .caret, .chosen-single > div > b {
         visibility: hidden;
       }
     }
   }
+
   dl {
     margin-bottom: 0;
     font-size: .95em;
+
     dd, dt {
       display: inline-block;
       vertical-align: middle;
       margin-bottom: 4px;
     }
+
     dt:after {
       display: block;
       content: ' ';
     }
+
     dt {
       width: calc(100% - 105px);
     }
+
     dd {
       width: 100px;
     }
   }
+
   .form-control {
     border: 1px solid $supla-green;
   }
+
   .input-group-addon {
     border: 0 !important;
   }
@@ -251,16 +282,20 @@ table {
 body.green {
   background: $supla-green;
   color: $supla-white;
+
   nav.navbar-top {
     background: $supla-green;
+
     .navbar-brand {
       color: $supla-white;
       fill: $supla-white;
     }
+
     #supla-navbar > .nav > li > a {
       color: $supla-white;
     }
   }
+
   ::selection {
     background: $supla-yellow;
     color: $supla-white;
@@ -273,6 +308,10 @@ body.green {
 
   p a:not(.btn) {
     color: $supla-yellow;
+  }
+
+  input:-webkit-autofill {
+    -webkit-animation-name: autofill-white;
   }
 }
 
@@ -288,14 +327,17 @@ body.blue {
 body.red {
   nav.navbar-top {
     background: $supla-red;
+
     .navbar-brand {
       color: $supla-white;
       fill: $supla-white;
     }
+
     #supla-navbar > .nav > li {
       &.active {
         background: darken($supla-red, 5%);
       }
+
       > a {
         color: $supla-white;
       }
@@ -334,10 +376,12 @@ body.warning {
   .text {
     width: 100%;
   }
+
   .dropdown-menu > li {
     > a {
       white-space: normal;
     }
+
     &.active > a {
       &, &:focus, &:hover {
         background-color: $supla-green;
@@ -355,9 +399,11 @@ body.warning {
 
 .flex-left-full-width {
   display: flex;
+
   > :first-child {
     flex: 1;
   }
+
   > pre {
     padding: 7px;
     margin: 0;
@@ -365,6 +411,7 @@ body.warning {
     border-bottom-right-radius: 0;
     border-right: 0;
   }
+
   .btn {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -388,9 +435,11 @@ body.warning {
       border-bottom-color: $color;
     }
   }
+
   &-success {
     @include supla-list-group-item($supla-green);
   }
+
   &-danger {
     @include supla-list-group-item($supla-red);
   }
@@ -399,4 +448,3 @@ body.warning {
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";
-@import "./register";

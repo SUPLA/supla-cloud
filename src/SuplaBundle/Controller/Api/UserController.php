@@ -39,6 +39,8 @@ class UserController extends RestController {
     use Transactional;
     use AuditAware;
 
+    const AVAILABLE_LOCALES = ['en', 'pl', 'cs', 'sk', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr'];
+
     /** @var UserManager */
     private $userManager;
     /** @var AuditEntryRepository */
@@ -88,11 +90,7 @@ class UserController extends RestController {
                     throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
                 }
             } elseif ($data['action'] == 'change:userLocale') {
-                Assertion::inArray(
-                    $data['locale'],
-                    ['en', 'pl', 'cs', 'sk', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr'],
-                    'Language is not available'
-                );
+                Assertion::inArray($data['locale'], self::AVAILABLE_LOCALES, 'Language is not available');
                 $user->setLocale($data['locale']);
             } elseif ($data['action'] == 'change:password') {
                 $this->assertNotApiUser();
@@ -153,7 +151,6 @@ class UserController extends RestController {
      * @Rest\Post("/register")
      */
     public function accountCreateAction(Request $request) {
-
         $regulationsRequired = $this->container->getParameter('supla_require_regulations_acceptance');
         $recaptchaEnabled = $this->container->getParameter('recaptcha_enabled');
         if ($recaptchaEnabled) {
@@ -181,31 +178,35 @@ class UserController extends RestController {
             ], Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
+        $user = new User();
+        $user->setEmail($username);
+
         $data = $request->request->all();
         Assert::that($data)
             ->notEmptyKey('password')
             ->notEmptyKey('timezone');
 
-        if ($regulationsRequired) {
-            Assert::that($data)->notEmptyKey('regulationsAgreed');
-            Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.');
-        }
+        $user->setTimezone($data['timezone']);
 
         $newPassword = $data['password'];
         Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
+        $user->setPlainPassword($newPassword);
 
-        $user = new User();
+        $locale = $data['locale'] ?? 'en';
+        Assertion::inArray($locale, self::AVAILABLE_LOCALES, 'Language is not available');
+        $user->setLocale($locale);
+
         if ($regulationsRequired) {
+            Assert::that($data)->notEmptyKey('regulationsAgreed');
+            Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.');
             $user->agreeOnRules();
         }
-        $user->fill($data);
 
         $this->userManager->create($user);
         if ($this->autodiscover->enabled()) {
             $this->autodiscover->registerUser($user);
         }
 
-        // send email
         $mailer = $this->get('supla_mailer');
         $sent = $mailer->sendConfirmationEmailMessage($user);
 

@@ -61,17 +61,18 @@
                 {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
         </transition>
-        <div v-if="!oauth" class="additional-buttons form-group">
+        <div v-if="!oauth"
+            class="additional-buttons form-group">
             <router-link to="/devices"
                 class="btn btn-white btn-wrapped">
                 <img src="assets/img/devices.png">
                 {{ $t('Supla for devices') }}
             </router-link>
-            <a class="btn btn-white btn-wrapped"
-                href="/auth/create">
+            <router-link to="/register"
+                class="btn btn-white btn-wrapped">
                 <img src="/assets/img/user.png">
                 {{ $t('Create an account') }}
-            </a>
+            </router-link>
         </div>
     </div>
 </template>
@@ -119,17 +120,21 @@
             position: static;
             margin: 10px auto;
         }
+
         .logo {
             text-align: center;
             margin-bottom: 20px;
+
             img {
                 width: 150px;
                 height: 150px;
             }
         }
+
         .input-group-addon > span {
             font-size: 2em;
         }
+
         input[type=text], input[type=password], input[type=email] {
             &.form-control {
                 border: 0;
@@ -141,15 +146,18 @@
                 padding-right: 0;
             }
         }
+
         .additional-buttons {
             display: flex;
             justify-content: space-between;
+
             > .btn {
                 flex: 1;
                 max-width: 48%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
                 img {
                     float: left;
                     height: 23px;
@@ -157,6 +165,7 @@
                 }
             }
         }
+
         .error {
             display: inline-block;
             background: $supla-yellow;
@@ -165,6 +174,7 @@
             border-radius: 3px;
             color: $supla-black;
             margin-bottom: 20px;
+
             &.locked {
                 background: $supla-red;
                 color: $supla-white;

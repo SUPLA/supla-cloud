@@ -4,7 +4,7 @@
             <h1 class="page-title"
                 v-title>{{ $t('Create an account') }}</h1>
 
-            <div class="error"
+            <div class="alert error"
                 v-if="errorMessage">
                 {{ errorMessage }}
             </div>
@@ -134,3 +134,105 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../styles/variables.scss";
+
+    .create-form {
+        color: $supla-white;
+
+        .checkbox a {
+            color: $supla-yellow;
+        }
+
+        @media screen and (max-width: 899px) {
+            padding: 15px;
+        }
+
+        @media screen and (min-width: 900px) {
+            display: table;
+            height: 100%;
+            max-width: 400px;
+            position: absolute;
+            top: 0px;
+            left: 55%;
+            z-index: 50;
+        }
+
+        .register-form {
+            max-width: 305px;
+        }
+
+        .page-title {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: $supla-red;
+            margin: 3px 0 10px;
+        }
+
+        .form-input {
+            padding: 0px;
+            border: none;
+            border-bottom: solid 1px rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            line-height: 36px;
+            width: 100%;
+            background: none;
+            margin-bottom: 3px;
+            font-weight: 300;
+            transition: all 0.3s;
+            color: $supla-white;
+            margin-top: 10px;
+            max-width: 301px;
+            height: 37px;
+        }
+
+        .form-input::-webkit-input-placeholder {
+            color: $supla-white;
+            opacity: 0.8;
+        }
+
+        .form-input::-moz-placeholder {
+            color: $supla-white;
+            opacity: 0.8;
+        }
+
+        .form-input:-moz-placeholder {
+            color: $supla-white;
+            opacity: 0.8;
+        }
+
+        .form-input:-ms-input-placeholder {
+            color: $supla-white;
+            opacity: 0.8;
+        }
+
+        .form-input:focus,
+        .form-input:hover {
+            border-bottom-color: $supla-white;
+        }
+    }
+
+    @media screen and (max-width: 899px) {
+        .create-form {
+            h1 {
+                text-align: center;
+            }
+
+            form {
+                margin: 0 auto;
+            }
+        }
+    }
+
+    @media screen and (min-width: 900px) {
+        .create-form .wrapper {
+            display: table-cell;
+            height: 100%;
+            margin: 0 auto;
+            vertical-align: middle;
+        }
+    }
+</style>

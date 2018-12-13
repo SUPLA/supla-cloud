@@ -35,11 +35,16 @@ Vue.prototype.$setLocale = (lang) => {
             return loadLanguage(lang);
         }
         i18n.locale = lang;
+        if (Vue.prototype.$user.userData && Vue.prototype.$user.userData.locale != lang) {
+            Vue.prototype.$updateUserLocale(lang);
+        }
     }
 };
 
 Vue.prototype.$updateUserLocale = (lang) => {
-    return Vue.http.patch('users/current', {locale: lang, action: 'change:userLocale'});
+    return Vue.http.patch('users/current', {locale: lang, action: 'change:userLocale'}).then(() => {
+        Vue.prototype.$user.userData.locale = lang;
+    });
 };
 
 const loadedLanguages = [];

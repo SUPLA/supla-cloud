@@ -154,7 +154,6 @@
         methods: {
             setLocale(lang) {
                 this.$setLocale(lang);
-                this.$updateUserLocale(lang);
             },
             subIsActive(input) {
                 const paths = Array.isArray(input) ? input : [input];

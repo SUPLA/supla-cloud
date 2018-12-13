@@ -593,12 +593,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return null; // uses the default encoder
     }
 
-    public function fill(array $data) {
-        $this->setEmail($data['email']);
-        $this->setTimezone($data['timezone']);
-        $this->setPlainPassword($data['password']);
-    }
-
     public function getOauthCompatUserName() {
         return $this->oauthCompatUserName;
     }
