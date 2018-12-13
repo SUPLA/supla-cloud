@@ -1,10 +1,11 @@
 <template>
     <div>
-        <div class="checkbox">
+        <div class="checkbox checkbox-yellow">
             <label>
                 <input type="checkbox"
                     v-model="agreed"
                     @change="$emit('input', agreed)">
+                <span class="checkmark"></span>
                 <component :is="checkboxLabel"
                     @click="rulesShown = true"></component>
             </label>

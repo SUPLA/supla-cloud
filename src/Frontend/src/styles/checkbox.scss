@@ -1,4 +1,4 @@
-.checkbox-green {
+.checkbox-green, .checkbox-yellow {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -39,6 +39,17 @@
     background-color: $supla-green;
     &:after {
       display: block;
+    }
+  }
+  &.checkbox-yellow {
+    .checkmark {
+      &:after {
+        border-color: $supla-grey-dark;
+      }
+    }
+    input:checked ~ .checkmark {
+      background-color: $supla-yellow;
+
     }
   }
 }
