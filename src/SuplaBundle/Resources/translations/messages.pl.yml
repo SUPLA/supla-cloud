@@ -464,7 +464,8 @@ Connection with a private instance of the SUPLA cloud: Połaczenie z prywatną i
 Private Cloud domain name: Nazwa domeny prywatnej chmury
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Dozwolone są tylko nazwy domen z opcjonalnym numerem portu. Na przykład. mysupla.org lub mysupla.org:88. HTTPS jest wymagany.
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
-Your instance is not registered or you are trying to authorize an application that is not public.: Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.
+Your instance is not registered or you are trying to authorize an application that is not public.: Twoja instancja nie jest zarejestrowana lub próbujesz 
+zować aplikację, która nie jest publiczna.
 We were not able to find your account.: Nie udało nam się znaleźć Twojego konta.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.
 OAuth authorization: Autoryzacja OAuth
@@ -534,7 +535,7 @@ Grant access: Przyznaj dostęp
 Offline access: Dostęp offline
 Proceed: Kontynuuj
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
-Authorization callback URLs (one per line): Zwrotne URLe autoryzacujne (jeden na linię)
+Authorization callback URLs (one per line): Zwrotne URLe autoryzacyjne (jeden na linię)
 "Invalid redirect URI: {uri}": "Niepoprawny URL zwrotny: {uri}"
 
 Are you sure you want to delete this channel group?: Czy na pewno chcesz usunąć tę grupę kanałów?
