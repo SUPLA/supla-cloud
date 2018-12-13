@@ -9,9 +9,7 @@
             <router-view></router-view>
         </transition>
     </loading-cover>
-    {% if supla_require_cookie_policy_acceptance %}
-        <cookie-warning v-if="$user.username && !$user.userData.agreements.cookies"></cookie-warning>
-    {% endif %}
+    <cookie-warning v-if="$frontendConfig.supla_require_cookie_policy_acceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
     {% if not app.debug %}
         <idle-logout v-if="$user.username"></idle-logout>
     {% endif %}
