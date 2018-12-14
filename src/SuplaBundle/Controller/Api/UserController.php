@@ -27,6 +27,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
@@ -47,11 +48,19 @@ class UserController extends RestController {
     private $auditEntryRepository;
     /** @var SuplaAutodiscover */
     private $autodiscover;
+    /** @var SuplaMailer */
+    private $mailer;
 
-    public function __construct(UserManager $userManager, AuditEntryRepository $auditEntryRepository, SuplaAutodiscover $autodiscover) {
+    public function __construct(
+        UserManager $userManager,
+        AuditEntryRepository $auditEntryRepository,
+        SuplaAutodiscover $autodiscover,
+        SuplaMailer $mailer
+    ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
         $this->autodiscover = $autodiscover;
+        $this->mailer = $mailer;
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
@@ -169,9 +178,7 @@ class UserController extends RestController {
         Assertion::false($exists, 'Email already exists');
 
         if ($exists === null) {
-            $mailer = $this->get('supla_mailer');
-            $mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);
-
+            $this->mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);
             return $this->view([
                 'status' => Response::HTTP_SERVICE_UNAVAILABLE,
                 'message' => 'Service temporarily unavailable',
@@ -207,8 +214,7 @@ class UserController extends RestController {
             $this->autodiscover->registerUser($user);
         }
 
-        $mailer = $this->get('supla_mailer');
-        $sent = $mailer->sendConfirmationEmailMessage($user);
+        $sent = $this->mailer->sendConfirmationEmailMessage($user);
 
         $view = $this->view($user, Response::HTTP_CREATED);
         $view->setHeader('SUPLA-Email-Sent', $sent ? 'true' : 'false');
@@ -218,11 +224,10 @@ class UserController extends RestController {
     /**
      * @Rest\Patch("/confirm/{token}")
      */
-    public function confirmEmailAction($token) {
+    public function confirmEmailAction(string $token) {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
-        $mailer = $this->get('supla_mailer');
-        $mailer->sendActivationEmailMessage($user);
+        $this->mailer->sendActivationEmailMessage($user);
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
@@ -243,8 +248,7 @@ class UserController extends RestController {
             } elseif ($request->getMethod() == Request::METHOD_POST) {
                 $user = $this->userManager->userByEmail($username);
                 if ($user && $this->userManager->paswordRequest($user) === true) {
-                    $mailer = $this->get('supla_mailer');
-                    $mailer->sendResetPasswordEmailMessage($user);
+                    $this->mailer->sendResetPasswordEmailMessage($user);
                 }
             } else {
                 /** @var User $user */
