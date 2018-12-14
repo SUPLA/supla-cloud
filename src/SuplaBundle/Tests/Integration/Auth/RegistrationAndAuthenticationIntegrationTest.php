@@ -122,6 +122,26 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertContains($this->createdUser->getToken(), $confirmationMessage->getBody());
     }
 
+    public function testSendsEmailWithConfirmationTokenInPolish() {
+        $userData = [
+            'email' => self::EMAIL,
+            'regulationsAgreed' => true,
+            'password' => self::PASSWORD,
+            'timezone' => 'Europe/Warsaw',
+            'locale' => 'pl',
+        ];
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertStatusCode(201, $client->getResponse());
+        $messages = TestMailer::getMessages();
+        $this->assertCount(1, $messages);
+        $confirmationMessage = end($messages);
+        $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
+        $this->assertContains('Aktywacja konta', $confirmationMessage->getSubject());
+        $this->assertContains('kliknij', $confirmationMessage->getBody());
+        $this->assertContains('?lang=pl', $confirmationMessage->getBody());
+    }
+
     public function testConfirmingWithBadToken() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();

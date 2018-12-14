@@ -118,9 +118,9 @@ services:
     resource: '../../src/SuplaBundle/Serialization'
 
   SuplaBundle\Mailer\SuplaMailer:
-    $mailer_from: "%mailer_from%"
-    $email_admin: "%admin_email%"
-    $locale: "%locale%"
+    $mailerFrom: "%mailer_from%"
+    $adminEmail: "%admin_email%"
+    $defaultLocale: "%locale%"
 
   twig.extension.intl:
     class: Twig_Extensions_Extension_Intl

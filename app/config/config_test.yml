@@ -27,13 +27,11 @@ services:
   SuplaBundle\Mailer\SuplaMailer:
     $router: '@router'
     $templating: '@templating.engine.twig'
-    $requestStack: '@request_stack'
     $mailer: '@SuplaBundle\Tests\Integration\TestMailer'
-    $mailer_from: "%mailer_from%"
-    $email_admin: "%admin_email%"
-    $locale: "%locale%"
+    $mailerFrom: "%mailer_from%"
+    $adminEmail: "%admin_email%"
+    $defaultLocale: "%locale%"
     $localSuplaCloud: '@SuplaBundle\Model\LocalSuplaCloud'
-    $translator: '@translator'
   SuplaBundle\Model\TimeProvider:
     class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'

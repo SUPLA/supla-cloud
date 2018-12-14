@@ -17,28 +17,20 @@
 
 namespace SuplaBundle\Mailer;
 
+use Assert\Assertion;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\LocalSuplaCloud;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class SuplaMailer {
     protected $router;
     protected $templating;
-    protected $mailer_from;
+    protected $mailerFrom;
     protected $mailer;
-    protected $email_admin;
-    protected $default_locale;
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-    /** @var TranslatorInterface */
-    private $translator;
+    protected $adminEmail;
+    protected $defaultLocale;
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
 
@@ -46,144 +38,100 @@ class SuplaMailer {
         Router $router,
         TwigEngine $templating,
         \Swift_Mailer $mailer,
-        RequestStack $requestStack,
-        $mailer_from,
-        $email_admin,
+        $mailerFrom,
+        $adminEmail,
         LocalSuplaCloud $localSuplaCloud,
-        $locale,
-        TranslatorInterface $translator
+        $defaultLocale
     ) {
         $this->router = $router;
         $this->templating = $templating;
-        $this->mailer_from = $mailer_from;
-        $this->requestStack = $requestStack;
+        $this->mailerFrom = $mailerFrom;
         $this->mailer = $mailer;
-        $this->email_admin = $email_admin;
+        $this->adminEmail = $adminEmail;
         $this->localSuplaCloud = $localSuplaCloud;
-        $this->default_locale = $locale;
-        $this->translator = $translator;
+        $this->defaultLocale = $defaultLocale;
     }
 
-    private function extractSubjectAndBody($template, $params, &$subject) {
-        if ($template == '') {
+    private function extractSubjectAndBody(string $templateName, array $params, string $locale, &$subject = null) {
+        $templatePath = "SuplaBundle::Email/$locale/$templateName.twig";
+        if (!$this->templating->exists($templatePath)) {
             return '';
         }
-
-        $template = 'SuplaBundle:Email:' . $template;
-
-        $body = $this->templating->render($template, $params);
-
+        $body = $this->templating->render($templatePath, $params);
         if ($subject !== null) {
             $lines = explode("\n", trim($body));
             $subject = $lines[0];
             $body = implode("\n", array_slice($lines, 1));
         }
-
         return $body;
     }
 
-    private function sendEmailMessage($txtTmpl, $htmlTmpl, $fromEmail, $toEmail, $params, $locale = null) {
-        $this->translator->setLocale($locale ?? $this->default_locale);
-
-        $subject = null;
-        $bodyHtml = $this->extractSubjectAndBody($htmlTmpl, $params, $subject);
-
+    private function sendEmailMessage(string $templateName, $recipient, array $params, string $locale = null): bool {
+        if ($recipient instanceof User) {
+            $locale = $recipient->getLocale() ?? $this->defaultLocale;
+            if (!isset($params['user'])) {
+                $params['user'] = $recipient;
+            }
+            $recipient = $recipient->getEmail();
+        }
+        if (!$locale) {
+            $locale = $this->defaultLocale;
+        }
+        $bodyHtml = $this->extractSubjectAndBody($templateName . '.html', $params, $locale);
         $subject = '';
-        $bodyTxt = $this->extractSubjectAndBody($txtTmpl, $params, $subject);
-
+        $bodyTxt = $this->extractSubjectAndBody($templateName . '.txt', $params, $locale, $subject);
+        Assertion::notBlank($bodyTxt, 'Email "' . $templateName . '" has no TXT template.');
         $message = (new \Swift_Message($subject))
-            ->setFrom($fromEmail)
-            ->setTo($toEmail);
-
+            ->setFrom($this->mailerFrom)
+            ->setTo($recipient);
         if ($bodyHtml == '') {
             $message->setBody($bodyTxt, 'text/plain');
         } else {
             $message->setBody($bodyHtml, 'text/html');
             $message->addPart($bodyTxt, 'text/plain');
         }
-
-        return $this->mailer->send($message);
-    }
-
-    public function sendConfirmationEmailMessage(UserInterface $user) {
-        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'confirm/' . $user->getToken();
-        $url .= '?lang=' . $this->getLocale($user);
-
-        $sent = $this->sendEmailMessage(
-            'confirm.txt.twig',
-            '', // 'confirm.html.twig'
-            $this->mailer_from,
-            $user->getEmail(),
-            [
-                'user' => $user,
-                'confirmationUrl' => $url,
-            ],
-            $user->getLocale()
-        );
+        $sent = $this->mailer->send($message);
         return $sent > 0;
     }
 
-    public function sendResetPasswordEmailMessage(UserInterface $user) {
-        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'reset-password/' . $user->getToken();
-        $url .= '?lang=' . $this->getLocale($user);
+    public function sendConfirmationEmailMessage(User $user): bool {
+        $url = $this->linkWithLang($user, 'confirm/' . $user->getToken());
+        return $this->sendEmailMessage('confirm', $user, ['confirmationUrl' => $url]);
+    }
 
-        $this->sendEmailMessage(
-            'resetpwd.txt.twig',
-            '', // resetpwd.html.twig
-            $this->mailer_from,
-            $user->getEmail(),
-            [
-                'user' => $user,
-                'confirmationUrl' => $url,
-            ],
-            $user->getLocale()
+    public function sendResetPasswordEmailMessage(User $user): bool {
+        $url = $this->linkWithLang($user, 'reset-password/' . $user->getToken());
+        return $this->sendEmailMessage('resetpwd', $user, ['confirmationUrl' => $url]);
+    }
+
+    public function sendActivationEmailMessage(User $user): bool {
+        return $this->sendEmailMessage(
+            'activation',
+            $this->adminEmail,
+            ['user' => $user, 'supla_server' => $this->localSuplaCloud->getHost()],
+            'en'
         );
     }
 
-    public function sendActivationEmailMessage(UserInterface $user) {
-
-        $this->sendEmailMessage(
-            'activation.txt.twig',
-            '',
-            $this->mailer_from,
-            $this->email_admin,
-            [
-                'user' => $user,
-                'supla_server' => $this->localSuplaCloud->getHost(),
-            ],
-            $user->getLocale()
-        );
-    }
-
-    public function sendServiceUnavailableMessage($detail) {
-
-        $this->sendEmailMessage(
-            'service_unavailable.txt.twig',
-            '',
-            $this->mailer_from,
-            $this->email_admin,
+    public function sendServiceUnavailableMessage($detail): bool {
+        return $this->sendEmailMessage(
+            'service_unavailable',
+            $this->adminEmail,
             [
                 'detail' => $detail,
                 'supla_server' => $this->localSuplaCloud->getHost(),
-            ]
-        );
-    }
-
-    public function sendFailedAuthenticationAttemptWarning(User $user, $ip) {
-        $this->sendEmailMessage(
-            'failed_auth_attempt.txt.twig',
-            '',
-            $this->mailer_from,
-            $user->getEmail(),
-            [
-                'user' => $user,
-                'ip' => is_numeric($ip) ? long2ip($ip) : '',
             ],
-            $user->getLocale()
+            'en'
         );
     }
 
-    private function getLocale(User $user): string {
-        return $user->getLocale() ?? $this->default_locale;
+    public function sendFailedAuthenticationAttemptWarning(User $user, $ip): bool {
+        return $this->sendEmailMessage('failed_auth_attempt', $user, ['ip' => is_numeric($ip) ? long2ip($ip) : '']);
+    }
+
+    private function linkWithLang(User $user, string $suffix): string {
+        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . $suffix;
+        $url .= '?lang=' . ($user->getLocale() ?? $this->defaultLocale);
+        return $url;
     }
 }
