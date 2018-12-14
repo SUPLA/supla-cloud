@@ -235,7 +235,7 @@ final class ChannelFunction extends Enum {
             self::CONTROLLINGTHEGARAGEDOOR => ['opened', 'closed'],
             self::THERMOMETER => ['default'],
             self::OPENINGSENSOR_GATEWAY => ['opened', 'closed'],
-            self::OPENINGSENSOR_GATE => ['opened', 'partially_closed', 'closed'],
+            self::OPENINGSENSOR_GATE => ['opened', 'closed'],
             self::OPENINGSENSOR_GARAGEDOOR => ['opened', 'closed'],
             self::NOLIQUIDSENSOR => ['empty', 'full'],
             self::CONTROLLINGTHEDOORLOCK => ['opened', 'closed'],
