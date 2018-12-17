@@ -45,9 +45,9 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                     $actionParams['color'] = intval($color);
                 }
             }
-            Assertion::keyExists($actionParams, 'color_brightness');
-            Assert::that($actionParams['color_brightness'])->numeric()->between(0, 100);
-            $actionParams['color_brightness'] = intval($actionParams['color_brightness']);
+            $colorBrightness = $actionParams['color_brightness'] ?? 100;
+            Assert::that($colorBrightness)->numeric()->between(0, 100);
+            $actionParams['color_brightness'] = intval($colorBrightness);
         }
         if (isset($actionParams['brightness'])) {
             Assert::that($actionParams['brightness'])->numeric()->between(0, 100);

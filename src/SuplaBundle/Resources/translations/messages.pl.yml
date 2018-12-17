@@ -538,3 +538,8 @@ Authorization callback URLs (one per line): Zwrotne URLe autoryzacyjne (jeden na
 "Invalid redirect URI: {uri}": "Niepoprawny URL zwrotny: {uri}"
 
 Are you sure you want to delete this channel group?: Czy na pewno chcesz usunąć tę grupę kanałów?
+
+Invalid direct link parameters: Niepoprawne parametry linku bezpośredniego
+This direct link requires some parameters in order to be executed properly. See the examples below to get an idea what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
+Invalid request: Niepoprawne żądanie
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serwer zwrócił błąd 400, co oznacza że przesłane żądanie jest niepoprawne.

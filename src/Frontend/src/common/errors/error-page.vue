@@ -5,6 +5,7 @@
             <i :class="icon"
                 style="font-size: 160px"></i>
             <h5>{{ $t(message) }}</h5>
+            <slot></slot>
         </div>
         <login-footer v-if="!$user.username"></login-footer>
     </div>

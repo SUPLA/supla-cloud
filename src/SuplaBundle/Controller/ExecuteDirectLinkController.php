@@ -24,6 +24,7 @@ use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Exception\InvalidActionParamsException;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
@@ -95,6 +96,15 @@ class ExecuteDirectLinkController extends Controller {
                     return new Response(json_encode($state), Response::HTTP_OK, ['Content-Type' => 'application/json']);
                 } else {
                     $params = $request->query->all();
+                    try {
+                        $this->channelActionExecutor->validateActionParams($directLink->getSubject(), $action, $params);
+                    } catch (\InvalidArgumentException $e) {
+                        return $this->render(
+                            '@Supla/ExecuteDirectLink/directLinkParamsRequired.html.twig',
+                            ['directLink' => $directLink, 'action' => $action],
+                            new Response('', Response::HTTP_BAD_REQUEST)
+                        );
+                    }
                     $this->channelActionExecutor->executeAction($directLink->getSubject(), $action, $params);
                     return new Response('', Response::HTTP_ACCEPTED);
                 }

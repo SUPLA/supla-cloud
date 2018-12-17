@@ -5,7 +5,8 @@
             <option
                 v-for="locale in locales"
                 :key="locale.value"
-                :value="locale.value">{{ locale.text }}</option>
+                :value="locale.value">{{ locale.text }}
+            </option>
         </select>
     </div>
 </template>
@@ -30,6 +31,11 @@
         methods: {
             updateLocale() {
                 this.$setLocale(this.locale);
+            }
+        },
+        watch: {
+            '$i18n.locale'() {
+                this.locale = this.$i18n.locale;
             }
         }
     };
