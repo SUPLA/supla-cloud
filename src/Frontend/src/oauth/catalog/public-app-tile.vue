@@ -2,7 +2,7 @@
     <square-link class="clearfix pointer blue public-app">
         <router-link :to="linkSpec">
             <img class="app-image"
-                :src="'https://api.thecatapi.com/v1/images/search?format=src&size=full&' + app.id">
+                :src="'https://supla.org/images/AD/' + app.id">
             <h3>{{ app.name }}</h3>
             <p>
                 <i18n-text :text="app.description"></i18n-text>
