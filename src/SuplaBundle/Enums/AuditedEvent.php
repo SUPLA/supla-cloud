@@ -25,6 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static AuditedEvent AUTHENTICATION_FAILURE()
  * @method static AuditedEvent PASSWORD_RESET()
  * @method static AuditedEvent DIRECT_LINK_EXECUTION()
+ * @method static AuditedEvent DIRECT_LINK_EXECUTION_FAILURE()
  */
 final class AuditedEvent extends Enum {
     const AUTHENTICATION_SUCCESS = 1;
