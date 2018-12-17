@@ -24,11 +24,11 @@ class FrontendConfig extends \Twig_Extension {
     use ContainerAwareTrait;
 
     const PUBLIC_PARAMETERS = [
-        'supla_require_regulations_acceptance' => 'supla_require_regulations_acceptance',
-        'supla_require_cookie_policy_acceptance' => 'supla_require_cookie_policy_acceptance',
-        'recaptcha_enabled' => 'recaptcha_enabled',
-        'recaptcha_site_key' => 'recaptcha_site_key',
-        'act_as_broker_cloud' => 'act_as_broker_cloud',
+        'regulationsAcceptRequired' => 'supla_require_regulations_acceptance',
+        'requireCookiePolicyAcceptance' => 'supla_require_cookie_policy_acceptance',
+        'recaptchaEnabled' => 'recaptcha_enabled',
+        'recaptchaSiteKey' => 'recaptcha_site_key',
+        'actAsBrokerCloud' => 'act_as_broker_cloud',
     ];
 
     public function __construct(ContainerInterface $container) {
