@@ -32,7 +32,7 @@ class ShutActionExecutor extends StopActionExecutor {
     }
 
     protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
-        $percent = $actionParams['percentage'] ?? 0;
+        $percent = $actionParams['percentage'] ?? 100;
         return $percent + 10;
     }
 }

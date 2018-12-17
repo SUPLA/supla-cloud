@@ -10,7 +10,7 @@ class RevealActionExecutor extends ShutActionExecutor {
     }
 
     protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
-        $percent = $actionParams['percentage'] ?? 0;
+        $percent = $actionParams['percentage'] ?? 100;
         return 110 - $percent;
     }
 }

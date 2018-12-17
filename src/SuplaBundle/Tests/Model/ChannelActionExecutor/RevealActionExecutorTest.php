@@ -3,7 +3,9 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
 use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\ChannelActionExecutor\RevealActionExecutor;
+use SuplaBundle\Supla\SuplaServer;
 
 class RevealActionExecutorTest extends \PHPUnit_Framework_TestCase {
     /**
@@ -51,5 +53,30 @@ class RevealActionExecutorTest extends \PHPUnit_Framework_TestCase {
         $validated = $executor->validateActionParams($subject, ['percentage' => '55', 'alexaCorrelationToken' => 'abcd']);
         $this->assertSame(55, $validated['percentage']);
         $this->assertSame("abcd", $validated['alexaCorrelationToken']);
+    }
+
+    /**
+     * @dataProvider expectedServerCommandsProvider
+     */
+    public function testExpectedServerCommands($actionParams, string $expectCommand) {
+        $executor = new RevealActionExecutor();
+        $server = $this->createMock(SuplaServer::class);
+        $executor->setSuplaServer($server);
+        $server->expects($this->once())->method('executeSetCommand')->with($expectCommand);
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('buildServerSetCommand')->willReturnCallback(function ($type, $actionParams) {
+            return 'SET-CHAR-VALUE:1,2,3,' . $actionParams[0];
+        });
+        $executor->execute($channel, $actionParams);
+    }
+
+    public function expectedServerCommandsProvider() {
+        return [
+            [['percentage' => 0], 'SET-CHAR-VALUE:1,2,3,110'],
+            [['percentage' => 50], 'SET-CHAR-VALUE:1,2,3,60'],
+            [['percentage' => 60], 'SET-CHAR-VALUE:1,2,3,50'],
+            [['percentage' => 100], 'SET-CHAR-VALUE:1,2,3,10'],
+            [[], 'SET-CHAR-VALUE:1,2,3,10'],
+        ];
     }
 }
