@@ -541,3 +541,4 @@ Invalid direct link parameters: Neteisingi tiesioginės nuorodos parametrai
 This direct link requires some parameters in order to be executed properly. See the examples below to get an idea what you might do.: Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.
 Invalid request: Neteisinga užklausa
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.
+Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identifikatoriaus (tokeno) pavadinimą.
