@@ -541,3 +541,4 @@ Invalid direct link parameters: Parâmetros incorretos do link direto
 This direct link requires some parameters in order to be executed properly. See the examples below to get an idea what you might do.: Esse link direto requer que os parâmetros da ação que está sendo executada sejam melhor esclarecidos. Veja os exemplos abaixo para descobrir quais parâmetros você pode definir.
 Invalid request: Solicitação incorreta
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: O servidor retornou o erro 400, o que significa que a solicitação é incorreta.
+Personal token name is required.: Você deve proprocionar o nome do token pessoal.
