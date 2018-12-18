@@ -518,7 +518,7 @@ No allowed actions have been chosen.: Никаких допустимых дей
 Direct link is not active yet.: Прямая ссылка еще не активна
 Direct link has expired.: Прямая ссылка просрочена
 Execution limit has been exceeded.: Лимит исполнений превышен
-"Authenticate before you can use {clientName}.": "Аутентификация перед использованием  {clientName}."
+"{clientName} wants to use your account.": "Аутентификация перед использованием  {clientName}."
 "{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} мы не можем взаимодействовать с вашей учетной записью до повторного предоставления доступа."
 Decline: Отказать
 Grant access: Предоставить доступ

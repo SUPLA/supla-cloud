@@ -527,7 +527,7 @@ No allowed actions have been chosen.: Nebuvo pasirinkta jokių leidžiamų akcij
 Direct link is not active yet.: Tiesioginė nuoroda dar nėra aktyvi
 Direct link has expired.: Tiesioginė nuoroda prarado galiojimo laiką
 Execution limit has been exceeded.: Buvo viršytas atlikimų limitas
-"Authenticate before you can use {clientName}.": "Patvirtinkite prieigą prieš panaudojimą  {clientName}."
+"{clientName} wants to use your account.": "Patvirtinkite prieigą prieš panaudojimą  {clientName}."
 "{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} negalima atlikti jokių veiksmu Jūsų paskyroje, kol pakartotinai nepateiksite prieigos."
 Decline: Atsisakyti
 Grant access: Pateikti prieigą

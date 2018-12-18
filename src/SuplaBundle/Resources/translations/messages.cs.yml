@@ -528,7 +528,7 @@ No allowed actions have been chosen.: Nebyly vybrány žádné povolené akce
 Direct link is not active yet.: Přímý odkaz ještě není aktivní
 Direct link has expired.: Přímý odkaz je zastaralý
 Execution limit has been exceeded.: Limit výkonů byl překročen
-"Authenticate before you can use {clientName}.": "Před použitím ověřte {clientName}."
+"{clientName} wants to use your account.": "Před použitím ověřte {clientName}."
 "{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} nemůže komunikovat s Vaším účtem, dokud znovu neudělíte přístup."
 Decline: Odmítnout
 Grant access: Poskytněte přístup

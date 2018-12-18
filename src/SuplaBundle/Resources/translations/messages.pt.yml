@@ -527,7 +527,7 @@ No allowed actions have been chosen.: Nenhuma ação permitida foi selecionada
 Direct link is not active yet.: O link direto ainda não está ativo
 Direct link has expired.: O link direto está desatualizado
 Execution limit has been exceeded.: O limite de execuções foi excedido
-"Authenticate before you can use {clientName}.": "Autentique antes de usar {clientName}."
+"{clientName} wants to use your account.": "Autentique antes de usar {clientName}."
 "{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} não pode interagir com sua conta até você conceder novamente o acesso."
 Decline: Negar
 Grant access: Conceder acesso
