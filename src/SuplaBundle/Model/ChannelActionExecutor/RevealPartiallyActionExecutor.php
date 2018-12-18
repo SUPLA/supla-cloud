@@ -5,7 +5,7 @@ use Assert\Assertion;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class RevealPartiallyActionExecutor extends ShutActionExecutor {
+class RevealPartiallyActionExecutor extends RevealActionExecutor {
     public function getSupportedAction(): ChannelFunctionAction {
         return ChannelFunctionAction::REVEAL_PARTIALLY();
     }
