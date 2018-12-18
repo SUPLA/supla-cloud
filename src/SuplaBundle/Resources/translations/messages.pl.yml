@@ -536,9 +536,7 @@ Proceed: Kontynuuj
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
 Authorization callback URLs (one per line): Zwrotne URLe autoryzacyjne (jeden na linię)
 "Invalid redirect URI: {uri}": "Niepoprawny URL zwrotny: {uri}"
-
 Are you sure you want to delete this channel group?: Czy na pewno chcesz usunąć tę grupę kanałów?
-
 Invalid direct link parameters: Niepoprawne parametry linku bezpośredniego
 This direct link requires some parameters in order to be executed properly. See the examples below to get an idea what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
 Invalid request: Niepoprawne żądanie
