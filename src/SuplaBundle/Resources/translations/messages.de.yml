@@ -521,7 +521,7 @@ No allowed actions have been chosen.: Es wurde keine der zulässigen Aktivitäte
 Direct link is not active yet.: Der direkte Link ist noch nicht aktiv
 Direct link has expired.: Der direkte Link ist abgelaufen
 Execution limit has been exceeded.: Der Ausführungslimit wurde überschritten
-"{clientName} wants to use your account.": "Authentifizieren Sie vor der Verwendung von {clientName}."
+"{clientName} wants to access your account.": "Authentifizieren Sie vor der Verwendung von {clientName}."
 "{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} kann erst mit Ihrem Konto interagieren, wenn Sie den Zugriff erneut erteilen."
 Decline: Verweigere
 Grant access: Vewähre Zugriff
@@ -530,5 +530,8 @@ Proceed: Weiter
 Direct links below will be deleted: Die unten aufgeführten direkten Links werden gelöscht
 Authorization callback URLs (one per line): Rückgabe URLs zur Autorisierung (eine pro Zeile)
 "Invalid redirect URI: {uri}": "Falsche Rückgabe-URL: {uri}"
-
 Are you sure you want to delete this channel group?: Wollen Sie diese Kanalgruppe wirklich löschen?
+Incorrect direct link parameters:
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.:
+Invalid request:
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.:

@@ -527,7 +527,7 @@ No allowed actions have been chosen.: No se seleccionaron acciones permitidas
 Direct link is not active yet.: El enlace directo aún no está activo
 Direct link has expired.: El enlace directo ha expirado
 Execution limit has been exceeded.: Se ha superado el límite de acciones
-"{clientName} wants to use your account.": "{clientName} quiere acceder a tu cuenta."
+"{clientName} wants to access your account.": "{clientName} quiere acceder a tu cuenta."
 "{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} no puede interactuar con tu cuenta hasta que no vuelvas a otorgar el acceso."
 Decline: Rechazar
 Grant access: Otorgar acceso
@@ -537,7 +537,7 @@ Direct links below will be deleted: Los enlaces directos que figuran a continuac
 Authorization callback URLs (one per line): URLs de retollamada de autorización (uno por línea)
 "Invalid redirect URI: {uri}": "URI de redireccionamiento no válido: {uri}"
 Are you sure you want to delete this channel group?: ¿Seguro que quieres borrar este conjunto de canales?
-Invalid direct link parameters: Los parámetros de enlace directo incorrectos
-This direct link requires some parameters in order to be executed properly. See the examples below to get an idea what you might do.: Este enlace directo requiere una mayor aclaración de los parámetros de la acción que se está realizando. Vea los ejemplos a continuación para averiguar qué parámetros puede configurar.
+Incorrect direct link parameters: Los parámetros de enlace directo incorrectos
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Este enlace directo requiere una mayor aclaración de los parámetros de la acción que se está realizando. Vea los ejemplos a continuación para averiguar qué parámetros puede configurar.
 Invalid request: La solicitud incorrecta
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: El servidor devolvió el error 400, lo que significa que la solicitud solicitada es incorrecta.

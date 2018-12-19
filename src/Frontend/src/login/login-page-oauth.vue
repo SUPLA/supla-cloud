@@ -13,7 +13,7 @@
             <template slot="aboveForm">
                 <h4 v-if="clientName"
                     class="client-name-prompt">
-                    {{ $t('{clientName} wants to use your account.', {clientName: clientName}) }}
+                    {{ $t('{clientName} wants to access your account.', {clientName: clientName}) }}
                 </h4>
             </template>
             <div v-if="askForTargetCloud">
