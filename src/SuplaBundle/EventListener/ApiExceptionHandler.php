@@ -18,6 +18,8 @@
 namespace SuplaBundle\EventListener;
 
 use Assert\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,9 +29,12 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ApiExceptionHandler implements EventSubscriberInterface {
     private $isDebug;
+    /** @var LoggerInterface */
+    private $logger;
 
-    public function __construct($isDebug) {
+    public function __construct($isDebug, LoggerInterface $logger) {
         $this->isDebug = $isDebug;
+        $this->logger = $logger;
     }
 
     public function onException(GetResponseForExceptionEvent $event) {
@@ -38,6 +43,13 @@ class ApiExceptionHandler implements EventSubscriberInterface {
         if ($isApiRequest) {
             $errorResponse = $this->chooseErrorResponse($event->getException());
             $event->setResponse($errorResponse);
+            $exception = $event->getException();
+            $context = ['exceptionMessage' => $exception->getMessage(), 'trace' => $exception->getTraceAsString()];
+            if ($exception instanceof ApiException) {
+                $this->logger->notice('API Exception', $context);
+            } else {
+                $this->logger->error('API Error', $context);
+            }
         }
     }
 
