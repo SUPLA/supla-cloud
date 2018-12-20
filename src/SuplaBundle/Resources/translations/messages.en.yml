@@ -37,3 +37,5 @@ register-slide3-text: Building automation systems available on the market are us
 
 "{clientName} wants to access your account.": "{clientName} wants to access your account."
 "Invalid redirect URI: {uri}": "Invalid redirect URI: {uri}"
+"Maximum filesize limit is {limit}.": "Maximum filesize limit is {limit}."
+"The set of icons you chosen is too large. Maximum upload limit is {limit}.": "The set of icons you chosen is too large. Maximum upload limit is {limit}."
