@@ -25,6 +25,15 @@ export function channelTitle(channel, vue, withDevice = false) {
         + (withDevice && channel.iodevice ? ' (' + deviceTitle(channel.iodevice) + ')' : '');
 }
 
+export function channelIconUrl(channel) {
+    if (channel.userIconId) {
+        return withDownloadAccessToken(`/api/user-icons/${channel.userIconId}/0?`);
+    } else {
+        const alternative = channel.altIcon ? '_' + channel.altIcon : '';
+        return `assets/img/functions/${channel.function.id}${alternative}.svg`;
+    }
+}
+
 export function deviceTitle(device) {
     return `${device.location.caption} / ${device.comment || device.name}`;
 }

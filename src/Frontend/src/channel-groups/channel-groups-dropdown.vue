@@ -29,6 +29,7 @@
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import {channelIconUrl} from "../common/filters";
 
     export default {
         props: ['params', 'value', 'filter'],
@@ -57,13 +58,13 @@
             },
             channelGroupHtml(channelGroup) {
                 let content = `<div class='channel-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels"><h4>ID${channelGroup.id} ${ this.$t(channelGroup.function.caption) }`;
+                    + `<div class="labels"><h4>ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
                 if (channelGroup.caption) {
                     content += ` <span class='small text-muted'>${channelGroup.caption}</span>`;
                 }
                 content += '</h4>';
                 content += `<p>${this.$t('No. of channels')}: ${channelGroup.channelsIds.length}</p></div>`;
-                content += `<div class="icon"><img src='assets/img/functions/${channelGroup.function.id}.svg'></div></div>`;
+                content += `<div class="icon"><img src="${channelIconUrl(channelGroup)}"></div></div>`;
                 return content;
             },
             updateDropdownOptions() {
@@ -116,7 +117,9 @@
 
     .channel-dropdown-option {
         .icon {
-            img { height: 60px; }
+            img {
+                height: 60px;
+            }
         }
     }
 </style>
