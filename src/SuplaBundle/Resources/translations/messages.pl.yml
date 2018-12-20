@@ -546,3 +546,4 @@ Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
 File too large: Plik jest za duży
 "Maximum filesize limit is {limit}.": "Maksymalny rozmiar pliku to {limit}."
 "The set of icons you chosen is too large. Maximum upload limit is {limit}.": "Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}."
+Your private SUPLA Cloud instance is unreachable. Make sure it is online and that the HTTPS connection is working as expected.: ~
