@@ -543,3 +543,8 @@ This direct link requires further parameters in order to be executed properly. S
 Invalid request: Richiesta non corretta
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Il server ha restituito un errore 400, ciò significa che la richiesta trasmessa non è corretta.
 Personal token name is required.: Nome del token personale richiesto.
+
+File is too large: Il file è troppo grande
+"Maximum filesize limit is {limit}.": "La dimensione massima del file è {limit}."
+"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "I file delle icone che hai selezionato sono troppo grandi. La dimensione massima consentita di upload è {limit}."
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: La tua installazione privata di SUPLA cloud non è disponibile. Assicurati che il tuo server sia online e la connessione HTTPS funzioni correttamente.
