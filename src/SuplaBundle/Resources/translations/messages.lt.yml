@@ -542,3 +542,8 @@ This direct link requires further parameters in order to be executed properly. S
 Invalid request: Neteisinga užklausa
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.
 Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identifikatoriaus (tokeno) pavadinimą.
+
+File is too large: Failas yra per didelis
+"Maximum filesize limit is {limit}.": "Maksimalus failo dydis tai {limit}."
+"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Jūsų pasirinkti piktogramų failai yra per dideli. Maksimalus leistinas įkeliamo failo dydis tai {limit}."
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.
