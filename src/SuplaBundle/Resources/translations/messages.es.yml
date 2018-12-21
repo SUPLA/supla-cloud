@@ -541,3 +541,8 @@ Incorrect direct link parameters: Los parámetros de enlace directo incorrectos
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Este enlace directo requiere una mayor aclaración de los parámetros de la acción que se está realizando. Vea los ejemplos a continuación para averiguar qué parámetros puede configurar.
 Invalid request: La solicitud incorrecta
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: El servidor devolvió el error 400, lo que significa que la solicitud solicitada es incorrecta.
+
+File is too large: El archivo es demasiado grande
+"Maximum filesize limit is {limit}.": "El tamaño máximo del archivo es de {limit}."
+"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Los archivos seleccionados son demasiado grandes. El tamaño máximo del archivo permitido es de {limit}."
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Tu instancia privada SUPLA cloud no está disponible. Asegúrate de que tu servidor está online y la conexión HTTPS funciona correctamente.
