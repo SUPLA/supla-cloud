@@ -543,7 +543,7 @@ Invalid request: Nesprávna žiadosť
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Server signalizuje chybu 400, čo znamená, že požadovaná žiadosť je nesprávna.
 Personal token name is required.: Je potrebné poskytnúť názov osobného tokenu.
 
-File is too large: Súbor je príliš veľký
-"Maximum filesize limit is {limit}.": "Maximálna veľkosť súboru je {limit}."
-"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Súbory symbolov, ktoré ste vybrali, sú príliš veľké. Maximálna prípustná veľkosť nahrávania je {limit}."
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Vaša súkromná inštancia mraku SUPLA je nedostupná. Skontrolujte, či je váš server online, a či HTTPS pripojenie funguje správne.
+File is too large: Soubor je příliš velký
+"Maximum filesize limit is {limit}.": "Maximální velikost souboru je {limit}."
+"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Vybrané soubory ikon jsou příliš velké. Maximální povolená velikost uploadu je {limit}."
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Vaše soukromá instance SUPLA cloud  není k dispozici. Ujistěte se, že je Váš server online a Vaše připojení HTTPS funguje správně.
