@@ -14,7 +14,7 @@ class ShutActionExecutor extends StopActionExecutor {
         if ($actionParams) {
             Assertion::between(count($actionParams), 1, 2, 'Invalid number of action parameters');
             Assertion::count(
-                array_intersect_key($actionParams, array_flip(['percent', 'percentage', 'alexaCorrelationToken'])),
+                array_intersect_key($actionParams, array_flip(['percent', 'percentage', 'alexaCorrelationToken', 'googleRequestId'])),
                 count($actionParams),
                 'Invalid action parameters'
             );

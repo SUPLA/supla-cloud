@@ -49,6 +49,9 @@ class SetRgbwParametersActionExecutorTest extends \PHPUnit_Framework_TestCase {
             [['brightness' => 100, 'alexaCorrelationToken' => 'abcd'], true],
             [['color' => 1, 'color_brightness' => 0, 'alexaCorrelationToken' => 'abcd'], true],
             [['color' => 1, 'color_brightness' => 0, 'brightness' => 100, 'alexaCorrelationToken' => 'abcd'], true],
+            [['brightness' => 100, 'googleRequestId' => 'abcd'], true],
+            [['color' => 1, 'color_brightness' => 0, 'googleRequestId' => 'abcd'], true],
+            [['color' => 1, 'color_brightness' => 0, 'brightness' => 100, 'googleRequestId' => 'abcd'], true],
         ];
     }
 

@@ -23,7 +23,8 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::between(count($actionParams), 1, 4, 'Invalid number of action parameters');
         Assertion::count(
-            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color', 'alexaCorrelationToken'])),
+            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color',
+                'alexaCorrelationToken', 'googleRequestId'])),
             count($actionParams),
             'Invalid action parameters'
         );
