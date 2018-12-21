@@ -29,6 +29,7 @@ class FrontendConfig extends \Twig_Extension {
         'recaptchaEnabled' => 'recaptcha_enabled',
         'recaptchaSiteKey' => 'recaptcha_site_key',
         'actAsBrokerCloud' => 'act_as_broker_cloud',
+        'suplaUrl' => 'supla_url',
     ];
 
     public function __construct(ContainerInterface $container) {
