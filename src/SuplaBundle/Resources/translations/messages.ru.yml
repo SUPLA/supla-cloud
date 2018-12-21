@@ -533,3 +533,8 @@ This direct link requires further parameters in order to be executed properly. S
 Invalid request: Неверный запрос
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Сервер вернул ошибку 400, означающую, что высланный запрос неверен.
 Personal token name is required.: Необходимо указать имя персонального токена.
+
+File is too large: Размер файла слишком большой
+"Maximum filesize limit is {limit}.": "Максимальный размер файла - {limit}."
+"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Выбранный Вами файлы икон превышают максимальный размер. Максимальный размер загружаемого файла - {limit}."
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ваша пользовательская установка SUPLA cloud недоступна. Убедитесь в том, что сервер доступен, а соединение HTTPS действует корректно.
