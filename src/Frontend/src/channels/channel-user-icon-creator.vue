@@ -33,7 +33,7 @@
         </div>
         <p class="text-muted">{{ $t('We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.', {width: 210, height: 156}) }}</p>
         <p class="text-danger"
-            v-if="filesTooBig">{{ $t('The set of icons you chosen is too large. Maximum upload limit is {limit}.', {limit: maxUploadSizeTotalPretty}) }}</p>
+            v-if="filesTooBig">{{ $t('The set of icons you have chosen is too large. Maximum upload limit is {limit}.', {limit: maxUploadSizeTotalPretty}) }}</p>
         <div class="row">
             <div class="col-xs-12">
                 <button class="btn btn-green"
@@ -95,7 +95,7 @@
                     if (['image/jpg', 'image/jpeg', 'image/png', 'image/gif'].indexOf(file.type.toLowerCase()) >= 0) {
                         if (this.maxUploadSizePerFile && file.size > this.maxUploadSizePerFile) {
                             errorNotification(
-                                this.$t('File too large'),
+                                this.$t('File is too large'),
                                 this.$t('Maximum filesize limit is {limit}.', {limit: prettyBytes(this.maxUploadSizePerFile)})
                             );
                         } else {

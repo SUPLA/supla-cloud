@@ -543,7 +543,7 @@ Invalid request: Niepoprawne żądanie
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serwer zwrócił błąd 400, co oznacza że przesłane żądanie jest niepoprawne.
 Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
 
-File too large: Plik jest za duży
+File is too large: Plik jest za duży
 "Maximum filesize limit is {limit}.": "Maksymalny rozmiar pliku to {limit}."
-"The set of icons you chosen is too large. Maximum upload limit is {limit}.": "Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}."
-Your private SUPLA Cloud instance is unreachable. Make sure it is online and that the HTTPS connection is working as expected.: ~
+"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}."
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.
