@@ -116,7 +116,8 @@ class ExecuteDirectLinkController extends Controller {
                     } catch (ServiceUnavailableHttpException $e) {
                         $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
                         if ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL()) {
-                            $errorData['device_connected'] = $this->suplaServer->isDeviceConnected($directLink->getSubject()->getIoDevice());
+                            $errorData['device_connected'] =
+                                $this->suplaServer->isDeviceConnected($directLink->getSubject()->getIoDevice());
                         } elseif ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL_GROUP()) {
                             $errorData['devices_connected'] = [];
                             /** @var IODeviceChannelGroup $channelGroup */
