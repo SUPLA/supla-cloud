@@ -10,26 +10,20 @@
                     html="true"></i18n-text>
             </div>
         </div>
-        <div class="row">
+        <div class="row"
+            v-if="app.defaultScope">
             <div class="col-xs-12">
                 <h3>{{ $t('Application requirements') }}</h3>
                 <oauth-scope-preview :desired-scopes="app.defaultScope"></oauth-scope-preview>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 text-center">
+            <div class="col-sm-12 text-center">
                 <a :href="app.websiteUrl"
                     v-if="app.websiteUrl"
                     class="btn btn-lg btn-white">
                     <i class="pe-7s-global"></i>
                     {{ $t('Visit app webpage' )}}
-                </a>
-            </div>
-            <div class="col-sm-6 text-center">
-                <a :href="oauthLink"
-                    class="btn btn-lg btn-green">
-                    <i class="pe-7s-plus"></i>
-                    {{ $t('Add to your account' )}}
                 </a>
             </div>
         </div>
