@@ -4,7 +4,7 @@ export function withBaseUrl(url) {
     if (url[0] != '/') {
         url = '/' + url;
     }
-    return Vue.config.external.baseUrl + url;
+    return Vue.config.external.suplaUrl + Vue.config.external.baseUrl + url;
 }
 
 export function withDownloadAccessToken(url) {
@@ -30,7 +30,7 @@ export function channelIconUrl(channel) {
         return withDownloadAccessToken(`/api/user-icons/${channel.userIconId}/0?`);
     } else {
         const alternative = channel.altIcon ? '_' + channel.altIcon : '';
-        return `assets/img/functions/${channel.function.id}${alternative}.svg`;
+        return withBaseUrl(`assets/img/functions/${channel.function.id}${alternative}.svg`);
     }
 }
 
