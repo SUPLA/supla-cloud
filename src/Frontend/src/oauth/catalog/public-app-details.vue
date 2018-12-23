@@ -60,7 +60,7 @@
     };
 </script>
 
-<style lang="scss">ł
+<style lang="scss">
 .app-details-page {
     img {
         max-width: 100%;
