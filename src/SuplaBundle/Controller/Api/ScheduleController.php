@@ -207,7 +207,7 @@ class ScheduleController extends RestController {
      * @Security("has_role('ROLE_SCHEDULES_R')")
      */
     public function getNextRunDatesAction(Request $request) {
-        Assertion::true($request->isXmlHttpRequest());
+        Assertion::true($request->isXmlHttpRequest(), 'Endpoint available only for asynchronous requests.');
         $data = $request->request->all();
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
         $nextRunDates = $this->scheduleManager->getNextRunDates($temporarySchedule, '+7days', 3);
