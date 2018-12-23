@@ -18,6 +18,7 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -87,6 +88,10 @@ abstract class SuplaServer {
         return false;
     }
 
+    public function isDeviceConnected(IODevice $device) {
+        return $this->isConnected($device->getUser()->getId(), $device->getId());
+    }
+
     public function userAction($userId, $action) {
         if (!$userId) {
             $user = $this->getCurrentUserOrThrow();
@@ -94,7 +99,7 @@ abstract class SuplaServer {
         }
         $userId = intval($userId);
         if ($userId != 0 && $this->connect() !== false) {
-            $result = $this->command("USER-".$action.":" . $userId);
+            $result = $this->command("USER-" . $action . ":" . $userId);
             return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
         }
         return false;
