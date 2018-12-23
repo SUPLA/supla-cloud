@@ -131,19 +131,31 @@ class DirectLinkController extends RestController {
         $pageSize = $request->get('pageSize', 10);
         Assertion::greaterOrEqualThan($page, 1, 'Page should be at least 1.');
         Assertion::between($pageSize, 5, 100, 'Page size should be between 5 and 100.');
-        $query = $this->auditEntryRepository->createQueryBuilder('ae')
-            ->where('ae.event IN(:events)')
-            ->andWhere('ae.intParam = :directLinkId')
-            ->orderBy('ae.createdAt', 'DESC')
-            ->setFirstResult(($page - 1) * $pageSize)
-            ->setMaxResults($pageSize)
-            ->setParameters([
-                'events' => [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE],
-                'directLinkId' => $directLink->getId(),
-            ]);
-        $entries = new Paginator($query);
-        $view = $this->view($entries, Response::HTTP_OK);
-        $view->setHeader('X-Total-Count', count($entries));
-        return $view;
+        return $this->transactional(function (EntityManagerInterface $em) use ($directLink, $pageSize, $page) {
+            $this->fixMysqlDistinctMode($em);
+            $query = $this->auditEntryRepository->createQueryBuilder('ae')
+                ->where('ae.event IN(:events)')
+                ->andWhere('ae.intParam = :directLinkId')
+                ->orderBy('ae.createdAt', 'DESC')
+                ->setFirstResult(($page - 1) * $pageSize)
+                ->setMaxResults($pageSize)
+                ->setParameters([
+                    'events' => [AuditedEvent::DIRECT_LINK_EXECUTION, AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE],
+                    'directLinkId' => $directLink->getId(),
+                ]);
+            $entries = new Paginator($query);
+            $view = $this->view($entries, Response::HTTP_OK);
+            $view->setHeader('X-Total-Count', count($entries));
+            return $view;
+        });
+    }
+
+    /**
+     * Fixes "invalid syntax" error for correct SQL query with DISTINCT mode in MySQL 5.7+.
+     * @see https://stackoverflow.com/a/37508414/878514
+     * @see https://github.com/doctrine/doctrine2/issues/5622#issuecomment-231727355
+     */
+    private function fixMysqlDistinctMode(EntityManagerInterface $em) {
+        $em->getConnection()->exec("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
     }
 }
