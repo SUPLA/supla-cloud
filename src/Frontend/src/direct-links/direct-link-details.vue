@@ -130,7 +130,8 @@
                     <h3 class="text-center">{{ $t('Select the item (subject) you want to control using this link') }}</h3>
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-4">
-                            <subject-dropdown @input="chooseSubjectForNewLink($event)"></subject-dropdown>
+                            <subject-dropdown @input="chooseSubjectForNewLink($event)"
+                                channels-dropdown-params="hasFunction=1"></subject-dropdown>
                             <span class="help-block">
                                 {{ $t('After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.') }}
                             </span>
