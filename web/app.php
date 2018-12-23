@@ -11,6 +11,8 @@ if (APPLICATION_ENV === 'dev') {
     Symfony\Component\Debug\Debug::enable();
 }
 
+Request::setTrustedProxies(['172.18.0.1/27']); // Docker proxy
+
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
