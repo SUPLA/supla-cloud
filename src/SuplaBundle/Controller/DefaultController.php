@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -42,6 +43,7 @@ class DefaultController extends Controller {
      * @Route("/auth/login", name="_obsolete_login")
      * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/|direct/).*"}, methods={"GET"})
      * @Template()
+     * @Cache(expires="2016-01-01")
      */
     public function spaBoilerplateAction($suffix = null) {
         if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
