@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-3">
                 <img class="app-image"
-                    :src="'https://supla.org/images/AD/' + app.id">
+                    :src="'https://www.supla.org/assets/img/AD/' + app.id">
             </div>
             <div class="col-sm-9">
                 <i18n-text :text="app.longDescription || app.description"
