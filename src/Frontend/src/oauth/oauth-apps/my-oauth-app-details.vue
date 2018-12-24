@@ -152,7 +152,7 @@
                 return !this.app.id;
             },
             exampleAuthUrl() {
-                return Vue.config.external.suplaUrl + '/oauth/v2/auth?' + $.param({
+                return this.$user.serverUrl + '/oauth/v2/auth?' + $.param({
                     client_id: this.app.publicId,
                     scope: 'account_r',
                     state: 'example-state',

@@ -4,7 +4,7 @@ export function withBaseUrl(url) {
     if (url[0] != '/') {
         url = '/' + url;
     }
-    return Vue.config.external.suplaUrl + Vue.config.external.baseUrl + url;
+    return (Vue.prototype.$user ? (Vue.prototype.$user.serverUrl || '') : '') + Vue.config.external.baseUrl + url;
 }
 
 export function withDownloadAccessToken(url) {
