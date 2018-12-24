@@ -54,6 +54,7 @@ class Configuration implements ConfigurationInterface {
                         ->arrayNode('client_app')->prototype('integer')->end()->end()
                         ->arrayNode('admin')->prototype('integer')->end()->end()
                         ->arrayNode('user')->prototype('integer')->end()->end()
+                        ->arrayNode('broker')->prototype('integer')->end()->end()
                     ->end()->end()
                 ->end()->end()
             ->end();
