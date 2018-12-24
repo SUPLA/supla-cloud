@@ -33,7 +33,7 @@ class BrokerTokenController extends TokenController {
         } catch (ForwardRequestToTargetCloudException $e) {
             $targetCloud = $e->getTargetCloud();
             list($response, $status) = $targetCloud->issueOAuthToken($request, $e->getMappedClientData());
-            return new Response($response, $status);
+            return new Response(is_array($response) ? json_encode($response) : $response, $status);
         }
     }
 }
