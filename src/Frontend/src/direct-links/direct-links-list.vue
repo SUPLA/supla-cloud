@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="container text-right">
-            <router-link :to="{name: 'directLink', params: {id: 'new'}, query: {subjectType, subjectId}}"
+            <a @click="createNewDirectLink()"
                 class="btn btn-green btn-lg">
                 <i class="pe-7s-plus"></i> {{ $t('Create new direct link') }}
-            </router-link>
+            </a>
         </div>
         <loading-cover :loading="!directLinks">
             <div class="container"
@@ -27,6 +27,7 @@
 
 <script>
     import DirectLinkTile from "./direct-link-tile";
+    import AppState from "../router/app-state";
 
     export default {
         props: ['subject'],
@@ -46,6 +47,12 @@
             },
             subjectId() {
                 return this.subject.id;
+            }
+        },
+        methods: {
+            createNewDirectLink() {
+                AppState.addTask('directLinkCreate', {type: this.subjectType, id: this.subjectId});
+                this.$router.push({name: 'directLink', params: {id: 'new'}});
             }
         }
     };

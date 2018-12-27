@@ -165,6 +165,7 @@
     import DateRangePicker from "./date-range-picker";
     import DirectLinkAudit from "./direct-link-audit";
     import SubjectDropdown from "../devices/subject-dropdown";
+    import AppState from "../router/app-state";
 
     export default {
         props: ['id', 'item'],
@@ -209,8 +210,9 @@
                         .finally(() => this.loading = false);
                 } else {
                     this.directLink = {};
-                    if (this.$route.query.subjectId && this.$route.query.subjectType) {
-                        this.chooseSubjectForNewLink({subject: {id: this.$route.query.subjectId}, type: this.$route.query.subjectType});
+                    const subjectForNewLink = AppState.shiftTask('directLinkCreate');
+                    if (subjectForNewLink) {
+                        this.chooseSubjectForNewLink({subject: subjectForNewLink, type: subjectForNewLink.type});
                     }
                 }
             },
