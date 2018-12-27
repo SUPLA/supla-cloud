@@ -21,7 +21,7 @@
         props: ['channel'],
         data() {
             return {
-                unit: undefined
+                unit: this.channel.type.name == 'ELECTRICITYMETER' ? 'kWh' : undefined
             };
         }
     };
