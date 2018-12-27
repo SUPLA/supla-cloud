@@ -66,9 +66,9 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $config = file_get_contents($publicClientConfigPath);
         $config = str_replace('enabled: false', 'enabled: true', $config);
         preg_match('#clientId: (.+)#', $config, $matches);
-        $this->clientId = $matches[1];
+        $this->clientId = trim($matches[1]);
         preg_match('#secret: (.+)#', $config, $matches);
-        $this->clientSecret = $matches[1];
+        $this->clientSecret = trim($matches[1]);
         file_put_contents($publicClientConfigPath, $config);
         $this->executeAdCommand('public-clients:update 1');
     }
