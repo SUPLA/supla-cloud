@@ -18,8 +18,10 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ScheduleActionExecutionResult;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\ScheduleRepository;
@@ -55,12 +57,21 @@ class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
     protected function execute(InputInterface $input, OutputInterface $output) {
         $schedulesTableName = $this->entityManager->getClassMetadata(Schedule::class)->getTableName();
         $scheduleExecutionsTableName = $this->entityManager->getClassMetadata(ScheduledExecution::class)->getTableName();
+        $successfulResultsIds = implode(',', EntityUtils::mapToIds(
+            array_filter(
+                ScheduleActionExecutionResult::values(),
+                function (ScheduleActionExecutionResult $result) {
+                    return $result->isSuccessful();
+                }
+            )
+        ));
         $query = <<<QUERY
     SELECT id, 
     (SELECT COUNT(*) FROM `$scheduleExecutionsTableName` 
-        WHERE schedule_id = s.id AND result=0 AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) successful,
+        WHERE schedule_id = s.id AND result IS NOT NULL AND result IN($successfulResultsIds) 
+              AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) successful,
     (SELECT COUNT(*) FROM `$scheduleExecutionsTableName` 
-        WHERE schedule_id = s.id AND result!=0 AND result IS NOT NULL 
+        WHERE schedule_id = s.id AND result IS NOT NULL AND result NOT IN($successfulResultsIds) 
               AND planned_timestamp > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) failed
 	FROM `$schedulesTableName` s
 	WHERE enabled = 1 
