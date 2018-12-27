@@ -19,6 +19,7 @@
 <script type="text/babel">
     import {roundTo5} from "../schedule-helpers";
     import {mapState} from "vuex";
+
     export default {
         name: 'schedule-form-mode-minutely',
         data() {
@@ -34,7 +35,7 @@
             }
         },
         mounted() {
-            let currentMinutes = this.timeExpression.match(/^\*\/([01235]+)/);
+            let currentMinutes = this.timeExpression.match(/^\*\/([0-9]+)/);
             if (currentMinutes) {
                 this.minutes = +currentMinutes[1];
             }
