@@ -82,6 +82,17 @@
             listRouteName() {
                 return this.listRoute || this.detailsRoute + 's';
             }
+        },
+        watch: {
+            '$route.params.id'() {
+                if (this.$route.params.id) {
+                    let selected = this.items.find(item => item.id == this.$route.params.id);
+                    if (!selected) {
+                        selected = {};
+                    }
+                    this.itemChanged(selected);
+                }
+            }
         }
     };
 </script>
