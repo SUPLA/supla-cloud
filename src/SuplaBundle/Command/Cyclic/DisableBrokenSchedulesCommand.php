@@ -21,7 +21,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
+use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\ScheduleRepository;
@@ -36,16 +38,20 @@ class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
     private $scheduleManager;
     /** @var ScheduleRepository */
     private $scheduleRepository;
+    /** @var Audit */
+    private $audit;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ScheduleManager $scheduleManager,
-        ScheduleRepository $scheduleRepository
+        ScheduleRepository $scheduleRepository,
+        Audit $audit
     ) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->scheduleManager = $scheduleManager;
         $this->scheduleRepository = $scheduleRepository;
+        $this->audit = $audit;
     }
 
     protected function configure() {
@@ -80,8 +86,13 @@ QUERY;
         $stmt = $this->entityManager->getConnection()->prepare($query);
         $stmt->execute();
         while ($scheduleIdToDisable = $stmt->fetchColumn()) {
+            /** @var Schedule $schedule */
             $schedule = $this->scheduleRepository->find($scheduleIdToDisable);
             $this->scheduleManager->disable($schedule);
+            $this->audit->newEntry(AuditedEvent::SCHEDULE_BROKEN_DISABLED())
+                ->setIntParam($schedule->getId())
+                ->setUser($schedule->getUser())
+                ->buildAndFlush();
         }
         $output->writeln(sprintf('Disabled <info>%d</info> schedules due to failed executions.', $stmt->rowCount()));
     }

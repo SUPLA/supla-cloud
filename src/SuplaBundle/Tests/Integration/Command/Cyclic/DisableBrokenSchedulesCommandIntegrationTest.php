@@ -17,12 +17,15 @@
 
 namespace SuplaBundle\Tests\Integration\Command;
 
+use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 use SuplaBundle\Enums\ScheduleMode;
+use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -82,5 +85,20 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
         );
         $output = $this->executeCommand('supla:clean:disable-broken-schedules');
         $this->assertContains('Disabled 1 schedules', $output);
+    }
+
+    public function testSavesDisablingBrokenScheduleInAUdit() {
+        $this->testDisablingScheduleIfALotOfFailedExecutions();
+        $entry = $this->getLatestAuditEntry();
+        $this->assertEquals(AuditedEvent::SCHEDULE_BROKEN_DISABLED(), $entry->getEvent());
+        $this->assertEquals($this->schedule->getId(), $entry->getIntParam());
+    }
+
+    private function getLatestAuditEntry(): AuditEntry {
+        $entries = $this->container->get(Audit::class)->getRepository()->findAll();
+        $this->assertGreaterThanOrEqual(1, count($entries));
+        /** @var AuditEntry $entry */
+        $entry = end($entries);
+        return $entry;
     }
 }
