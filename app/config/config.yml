@@ -77,7 +77,7 @@ framework:
     enable_annotations: true
 
 monolog:
-  channels: [supla_autodiscover]
+  channels: [supla_autodiscover, supla_oauth]
   handlers:
     main:
       action_level: error
@@ -92,6 +92,16 @@ monolog:
       channels: ['supla_autodiscover']
       action_level: error
       path: "%kernel.logs_dir%/autodiscover.log"
+      type: rotating_file
+      max_files: 14
+    oauth:
+      channels: ['supla_oauth', 'supla_autodiscover']
+      action_level: error
+      handler: oauth_logger
+      type: fingers_crossed
+    oauth_logger:
+      level: debug
+      path: "%kernel.logs_dir%/oauth.log"
       type: rotating_file
       max_files: 14
 
