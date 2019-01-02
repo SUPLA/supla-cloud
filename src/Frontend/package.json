@@ -32,7 +32,6 @@
     "vue": "2.5.17",
     "vue-clipboard2": "^0.2.0",
     "vue-i18n": "^7.6.0",
-    "vue-localstorage": "^0.6.2",
     "vue-moment": "2.0.2",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",

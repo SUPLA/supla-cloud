@@ -7,11 +7,11 @@ export class CurrentUser {
     }
 
     getToken() {
-        return localStorage.getItem('_token');
+        return Vue.prototype.$localStorage.get('_token');
     }
 
     getFilesDownloadToken() {
-        return localStorage.getItem('_token_down');
+        return Vue.prototype.$localStorage.get('_token_down');
     }
 
     synchronizeAuthState() {
@@ -29,15 +29,15 @@ export class CurrentUser {
     }
 
     handleNewToken(response) {
-        localStorage.setItem('_token', response.body.access_token);
-        localStorage.setItem('_token_down', response.body.download_token);
+        Vue.prototype.$localStorage.set('_token', response.body.access_token);
+        Vue.prototype.$localStorage.set('_token_down', response.body.download_token);
         this.synchronizeAuthState();
         window.SS = () => this.synchronizeAuthState();
     }
 
     forget() {
-        localStorage.removeItem('_token');
-        localStorage.removeItem('_token_down');
+        Vue.prototype.$localStorage.remove('_token');
+        Vue.prototype.$localStorage.remove('_token_down');
         this.synchronizeAuthState();
         this.username = undefined;
         this.userData = undefined;
@@ -46,6 +46,7 @@ export class CurrentUser {
 
     fetchUser() {
         if (this.getToken()) {
+            this.synchronizeAuthState();
             return this.fetchUserData().then(() => this.synchronizeAuthState());
         } else {
             return Promise.resolve(false);
