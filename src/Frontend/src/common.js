@@ -46,6 +46,7 @@ Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 })();
 
 Vue.prototype.$user = new CurrentUser();
+Vue.prototype.$user.synchronizeAuthState();
 Vue.prototype.$user.fetchUser()
     .then((userData) => setGuiLocale(userData))
     .then(() => {
