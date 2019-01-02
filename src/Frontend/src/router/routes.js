@@ -14,6 +14,11 @@ export default [
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
     },
     {
+        path: '/privacy',
+        component: () => import("@/common/pages/privacy"),
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
+    },
+    {
         path: '/register',
         component: () => import("@/register/create-account"),
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
