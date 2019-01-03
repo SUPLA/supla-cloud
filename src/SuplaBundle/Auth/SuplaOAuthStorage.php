@@ -24,7 +24,6 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use OAuth2\Model\IOAuth2Client;
-use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ApiClientType;
@@ -44,8 +43,6 @@ class SuplaOAuthStorage extends OAuthStorage {
     private $userLoginAttemptListener;
     /** @var SuplaAutodiscover */
     private $autodiscover;
-    /** @var LoggerInterface */
-    private $logger;
 
     public function __construct(
         ClientManagerInterface $clientManager,
@@ -56,14 +53,12 @@ class SuplaOAuthStorage extends OAuthStorage {
         EncoderFactoryInterface $encoderFactory,
         EntityManagerInterface $entityManager,
         UserLoginAttemptListener $userLoginAttemptListener,
-        SuplaAutodiscover $autodiscover,
-        LoggerInterface $logger
+        SuplaAutodiscover $autodiscover
     ) {
         parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $encoderFactory);
         $this->entityManager = $entityManager;
         $this->userLoginAttemptListener = $userLoginAttemptListener;
         $this->autodiscover = $autodiscover;
-        $this->logger = $logger;
     }
 
     /**
@@ -118,10 +113,6 @@ class SuplaOAuthStorage extends OAuthStorage {
     public function getClient($clientId) {
         $client = parent::getClient($clientId);
         if (!$client && $this->autodiscover->isBroker()) { // maybe it exists in AD?
-            $this->logger->debug(
-                'BROKER: Decided to try to decode the token and find appropriate target cloud.',
-                ['clientId' => $clientId]
-            );
             $client = new AutodiscoverPublicClientStub($clientId);
         }
         return $client;
