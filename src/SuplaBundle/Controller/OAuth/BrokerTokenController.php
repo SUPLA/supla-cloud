@@ -18,12 +18,26 @@
 namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\TokenController;
+use OAuth2\OAuth2;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Auth\ForwardRequestToTargetCloudException;
+use SuplaBundle\Model\LocalSuplaCloud;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BrokerTokenController extends TokenController {
+    /** @var LoggerInterface */
+    private $logger;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
+
+    public function __construct(OAuth2 $server, LoggerInterface $logger, LocalSuplaCloud $localSuplaCloud) {
+        parent::__construct($server);
+        $this->logger = $logger;
+        $this->localSuplaCloud = $localSuplaCloud;
+    }
+
     /**
      * @Route("/oauth/v2/token", name="fos_oauth_server_token", methods={"GET", "POST"})
      */
@@ -33,7 +47,31 @@ class BrokerTokenController extends TokenController {
         } catch (ForwardRequestToTargetCloudException $e) {
             $targetCloud = $e->getTargetCloud();
             list($response, $status) = $targetCloud->issueOAuthToken($request, $e->getMappedClientData());
+            if ($status > 310) {
+                $this->logger->error('BROKER: forwarded the token issue request, but target refused to issue the token.', [
+                    'payload' => $request->request->all(),
+                    'query' => $request->query->all(),
+                    'instance' => $this->localSuplaCloud->getAddress(),
+                    'target' => $targetCloud->getAddress(),
+                    'mappedClientData' => $e->getMappedClientData(),
+                ]);
+            } else {
+                $this->logger->debug('BROKER: issued the token.', [
+                    'payload' => $request->request->all(),
+                    'query' => $request->query->all(),
+                    'instance' => $this->localSuplaCloud->getAddress(),
+                    'target' => $targetCloud->getAddress(),
+                    'mappedClientData' => $e->getMappedClientData(),
+                ]);
+            }
             return new Response(is_array($response) ? json_encode($response) : $response, $status);
+        } catch (\Exception $e) {
+            $this->logger->error('TARGET: refused to issue the token.', [
+                'payload' => $request->request->all(),
+                'query' => $request->query->all(),
+                'instance' => $this->localSuplaCloud->getAddress(),
+            ]);
+            throw $e;
         }
     }
 }

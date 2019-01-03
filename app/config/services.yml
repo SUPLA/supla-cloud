@@ -77,7 +77,6 @@ services:
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}
 
-
   SuplaBundle\Supla\SuplaAutodiscoverReal:
     arguments:
       $autodiscoverUrl: "%supla.autodiscover_url%"
@@ -97,8 +96,16 @@ services:
       - { name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure }
       - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveAuthenticationSuccess }
 
+  SuplaBundle\Controller\OAuth\BrokerTokenController:
+    public: true
+    tags:
+      - {name: monolog.logger, channel: supla_oauth}
+
   SuplaBundle\Auth\SuplaOAuthStorage:
-    $userProvider: '@SuplaBundle\Auth\UserProvider'
+    arguments:
+      $userProvider: '@SuplaBundle\Auth\UserProvider'
+    tags:
+      - {name: monolog.logger, channel: supla_oauth}
 
   SuplaBundle\Auth\OAuthEventListener:
     tags:
@@ -190,3 +197,5 @@ services:
       - '@fos_oauth_server.storage'
       - '%fos_oauth_server.server.options%'
       - '%supla.oauth.tokens_lifetime%'
+    tags:
+      - {name: monolog.logger, channel: supla_oauth}
