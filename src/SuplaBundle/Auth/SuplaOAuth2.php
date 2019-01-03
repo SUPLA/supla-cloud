@@ -117,19 +117,17 @@ class SuplaOAuth2 extends OAuth2 {
         if ($client instanceof AutodiscoverPublicClientStub && $authCodeOrRefreshToken) {
             $tokenParts = explode('.', $authCodeOrRefreshToken);
             if (count($tokenParts) === 2 && ($targetCloudUrl = base64_decode($tokenParts[1]))) {
-                if ($targetCloudUrl != $this->localSuplaCloud->getAddress()) {
-                    // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
-                    $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
-                    $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
-                    if ($mappedClientData) {
-                        throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
-                    } else {
-                        throw new OAuth2ServerException(
-                            self::HTTP_BAD_REQUEST,
-                            self::ERROR_INVALID_CLIENT,
-                            'The client credentials are invalid'
-                        );
-                    }
+                // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
+                $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
+                $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
+                if ($mappedClientData) {
+                    throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
+                } else {
+                    throw new OAuth2ServerException(
+                        self::HTTP_BAD_REQUEST,
+                        self::ERROR_INVALID_CLIENT,
+                        'The client credentials are invalid'
+                    );
                 }
             }
         }
