@@ -18,8 +18,10 @@
 namespace SuplaBundle\Tests\Integration\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use OAuth2\OAuth2;
 use PHPUnit_Framework_ExpectationFailedException;
 use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\AuthCode;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -160,7 +162,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'state' => 'unicorn',
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
+        TargetSuplaCloud::$requestExecutor = function (string $address, string $endpoint, array $data) use ($params, &$targetCalled) {
+            $this->assertEquals('https://target.cloud', $address);
             $this->assertEquals('/oauth/v2/token', $endpoint);
             $this->assertEquals('1_local', $data['client_id']);
             $this->assertEquals('target-secret', $data['client_secret']);
@@ -173,6 +176,65 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient(false);
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertTrue($targetCalled);
+    }
+
+    public function testMapsPublicIdToTargetItWhenTheTargetIsAlreadyHit() {
+        $client = $this->clientManager->createClient();
+        $client->setRedirectUris(['https://unicorns.pl']);
+        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $this->clientManager->updateClient($client);
+        $authCode = new AuthCode();
+        $authCode->setClient($client);
+        $authCode->setUser($this->createConfirmedUser());
+        $authCode->setScope('account_r');
+        $authCode->setExpiresAt(time() + 60);
+        $authCode->setRedirectUri('https://unicorns.pl');
+        $authCode->setToken('abcd.' . base64_encode('http://supla.local'));
+        $this->getEntityManager()->persist($authCode);
+
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['http://supla.local']['1_public'] =
+            ['clientId' => $client->getPublicId(), 'secret' => $client->getSecret()];
+        $params = [
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_public',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => $authCode->getRedirectUri(),
+            'code' => $authCode->getToken(),
+            'state' => 'unicorn',
+        ];
+
+        $targetCalled = false;
+        TargetSuplaCloud::$requestExecutor =
+            function (string $address, string $endpoint, array $data) use ($authCode, $client, $params, &$targetCalled) {
+                $this->assertEquals('http://supla.local', $address);
+                $this->assertEquals('/oauth/v2/token', $endpoint);
+                $this->assertEquals($client->getPublicId(), $data['client_id']);
+                $this->assertEquals($client->getSecret(), $data['client_secret']);
+                $this->assertEquals($authCode->getToken(), $data['code']);
+                $this->assertEquals($authCode->getRedirectUri(), $data['redirect_uri']);
+                $this->assertEquals($params['state'], $data['state']);
+                $targetCalled = true;
+                return ['OK', Response::HTTP_OK];
+            };
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertTrue($targetCalled);
+    }
+
+    public function testReturnsErrorForInvalidClientId() {
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        $params = [
+            'grant_type' => 'authorization_code',
+            'client_id' => '2_public',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://unicorns.pl',
+            'code' => 'ABC.' . base64_encode('http://supla.local'),
+        ];
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 
     public function testDoesNotForwardAuthAnywhereIfNotBroker() {
@@ -276,7 +338,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'refresh_token' => 'ABC.' . base64_encode('https://target.cloud'),
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function (string $endpoint, array $data) use ($params, &$targetCalled) {
+        TargetSuplaCloud::$requestExecutor = function (string $address, string $endpoint, array $data) use ($params, &$targetCalled) {
+            $this->assertEquals('https://target.cloud', $address);
             $this->assertEquals('/oauth/v2/token', $endpoint);
             $this->assertEquals('1_local', $data['client_id']);
             $this->assertEquals('target-secret', $data['client_secret']);

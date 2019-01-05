@@ -20,7 +20,6 @@ use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
-use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
@@ -36,23 +35,19 @@ class SuplaOAuth2 extends OAuth2 {
     private $autodiscover;
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
-    /** @var LoggerInterface */
-    private $logger;
 
     public function __construct(
         IOAuth2Storage $storage,
         array $config,
         array $tokensLifetime,
         LocalSuplaCloud $localSuplaCloud,
-        SuplaAutodiscover $autodiscover,
-        LoggerInterface $logger
+        SuplaAutodiscover $autodiscover
     ) {
         parent::__construct($storage, $config);
         $this->tokensLifetime = $tokensLifetime;
         $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, OAuthScope::getAllKnownScopes());
         $this->localSuplaCloud = $localSuplaCloud;
         $this->autodiscover = $autodiscover;
-        $this->logger = $logger;
     }
 
     protected function genAccessToken() {
@@ -122,45 +117,18 @@ class SuplaOAuth2 extends OAuth2 {
         if ($client instanceof AutodiscoverPublicClientStub && $authCodeOrRefreshToken) {
             $tokenParts = explode('.', $authCodeOrRefreshToken);
             if (count($tokenParts) === 2 && ($targetCloudUrl = base64_decode($tokenParts[1]))) {
-                if ($targetCloudUrl != $this->localSuplaCloud->getAddress()) {
-                    // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
-                    $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
-                    $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
-                    $this->logger->debug(
-                        'BROKER: Forwarding token request to the target cloud.',
-                        [
-                            'clientId' => $client->getPublicClientId(),
-                            'token' => $authCodeOrRefreshToken,
-                            'instance' => $this->localSuplaCloud->getAddress(),
-                            'targetInstance' => $targetCloudUrl,
-                            'mappedData' => $mappedClientData,
-                        ]
-                    );
-                    if ($mappedClientData) {
-                        throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
-                    } else {
-                        throw new OAuth2ServerException(
-                            self::HTTP_BAD_REQUEST,
-                            self::ERROR_INVALID_CLIENT,
-                            'The client credentials are invalid'
-                        );
-                    }
+                // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
+                $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
+                $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
+                if ($mappedClientData) {
+                    throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
                 } else {
-                    $this->logger->error(
-                        'BROKER: Requested non-existing and not-mapped client id.',
-                        [
-                            'clientId' => $client->getPublicClientId(),
-                            'token' => $authCodeOrRefreshToken,
-                            'instance' => $this->localSuplaCloud->getAddress(),
-                            'targetInstance' => $targetCloudUrl,
-                        ]
+                    throw new OAuth2ServerException(
+                        self::HTTP_BAD_REQUEST,
+                        self::ERROR_INVALID_CLIENT,
+                        'The client credentials are invalid'
                     );
                 }
-            } else {
-                $this->logger->error('BROKER: Requested invalid token or auth code.', [
-                    'token' => $authCodeOrRefreshToken,
-                    'instance' => $this->localSuplaCloud->getAddress(),
-                ]);
             }
         }
     }

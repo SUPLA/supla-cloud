@@ -74,7 +74,7 @@ class TargetSuplaCloud {
 
     private function sendRequest(string $apiEndpoint, array $data = null): array {
         if (self::$requestExecutor) {
-            return (self::$requestExecutor)($apiEndpoint, $data);
+            return (self::$requestExecutor)($this->address, $apiEndpoint, $data);
         }
         if (strpos($apiEndpoint, '/') !== 0) {
             $apiEndpoint = '/api/v' . ApiVersions::V2_2 . '/' . $apiEndpoint;
