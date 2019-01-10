@@ -17,7 +17,7 @@
         },
         mounted() {
             let rulesLang = 'en';
-            if (['pl', 'it', 'es', 'fr'].includes(this.$i18n.locale)) {
+            if (['pl', 'it', 'es', 'fr', 'ru', 'pt', 'de'].includes(this.$i18n.locale)) {
                 rulesLang = this.$i18n.locale;
             }
 
