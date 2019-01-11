@@ -29,6 +29,7 @@ use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Model\Audit\AuditAware;
+use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -50,17 +51,21 @@ class UserController extends RestController {
     private $autodiscover;
     /** @var SuplaMailer */
     private $mailer;
+    /** @var TargetSuplaCloudRequestForwarder */
+    private $suplaCloudRequestForwarder;
 
     public function __construct(
         UserManager $userManager,
         AuditEntryRepository $auditEntryRepository,
         SuplaAutodiscover $autodiscover,
-        SuplaMailer $mailer
+        SuplaMailer $mailer,
+        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
         $this->autodiscover = $autodiscover;
         $this->mailer = $mailer;
+        $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
@@ -151,7 +156,7 @@ class UserController extends RestController {
         if ($server->isLocal()) {
             return $this->accountCreateAction($request);
         } else {
-            list($response, $status) = $server->registerUser($request);
+            list($response, $status) = $this->suplaCloudRequestForwarder->registerUser($server, $request);
             return $this->view($response, $status);
         }
     }
@@ -243,7 +248,7 @@ class UserController extends RestController {
         if (preg_match('/@/', $username) || $token) {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $server = $this->autodiscover->getAuthServerForUser($username);
-                list(, $status) = $server->resetPasswordToken($username, $request->getLocale());
+                list(, $status) = $this->suplaCloudRequestForwarder->resetPasswordToken($server, $username);
                 Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.');
             } elseif ($request->getMethod() == Request::METHOD_POST) {
                 $user = $this->userManager->userByEmail($username);

@@ -136,6 +136,11 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                 $client['clientId'] = $id;
                 return $client;
             }, self::$publicClients, array_keys(self::$publicClients)));
+        } elseif (preg_match('#/broker-clouds#', $endpoint, $match)) {
+            return [
+                ['id' => 1, 'url' => 'https://broker1.supla', 'ip' => '127.0.0.2'],
+                ['id' => 2, 'url' => 'https://broker2.supla', 'ip' => '127.0.0.3'],
+            ];
         }
         $responseStatus = 404;
         return false;

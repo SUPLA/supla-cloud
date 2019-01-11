@@ -22,7 +22,7 @@ use OAuth2\OAuth2;
 use PHPUnit_Framework_ExpectationFailedException;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\AuthCode;
-use SuplaBundle\Model\TargetSuplaCloud;
+use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -162,17 +162,18 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'state' => 'unicorn',
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function (string $address, string $endpoint, array $data) use ($params, &$targetCalled) {
-            $this->assertEquals('https://target.cloud', $address);
-            $this->assertEquals('/oauth/v2/token', $endpoint);
-            $this->assertEquals('1_local', $data['client_id']);
-            $this->assertEquals('target-secret', $data['client_secret']);
-            $this->assertEquals($params['code'], $data['code']);
-            $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
-            $this->assertEquals($params['state'], $data['state']);
-            $targetCalled = true;
-            return ['OK', Response::HTTP_OK];
-        };
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint, array $data) use ($params, &$targetCalled) {
+                $this->assertEquals('https://target.cloud', $address);
+                $this->assertEquals('/oauth/v2/token', $endpoint);
+                $this->assertEquals('1_local', $data['client_id']);
+                $this->assertEquals('target-secret', $data['client_secret']);
+                $this->assertEquals($params['code'], $data['code']);
+                $this->assertEquals($params['redirect_uri'], $data['redirect_uri']);
+                $this->assertEquals($params['state'], $data['state']);
+                $targetCalled = true;
+                return ['OK', Response::HTTP_OK];
+            };
         $client = $this->createHttpsClient(false);
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertTrue($targetCalled);
@@ -205,7 +206,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         ];
 
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor =
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint, array $data) use ($authCode, $client, $params, &$targetCalled) {
                 $this->assertEquals('http://supla.local', $address);
                 $this->assertEquals('/oauth/v2/token', $endpoint);
@@ -253,7 +254,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
             return ['OK', Response::HTTP_OK];
         };
@@ -275,7 +276,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
             return ['OK', Response::HTTP_OK];
         };
@@ -295,7 +296,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'code' => 'ABC.' . base64_encode('https://target.cloud'),
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
             return ['OK', Response::HTTP_OK];
         };
@@ -317,7 +318,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'code' => 'ABC',
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function () use ($params, &$targetCalled) {
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use ($params, &$targetCalled) {
             $targetCalled = true;
             return ['OK', Response::HTTP_OK];
         };
@@ -338,16 +339,17 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'refresh_token' => 'ABC.' . base64_encode('https://target.cloud'),
         ];
         $targetCalled = false;
-        TargetSuplaCloud::$requestExecutor = function (string $address, string $endpoint, array $data) use ($params, &$targetCalled) {
-            $this->assertEquals('https://target.cloud', $address);
-            $this->assertEquals('/oauth/v2/token', $endpoint);
-            $this->assertEquals('1_local', $data['client_id']);
-            $this->assertEquals('target-secret', $data['client_secret']);
-            $this->assertEquals($params['grant_type'], 'refresh_token');
-            $this->assertEquals($params['refresh_token'], $data['refresh_token']);
-            $targetCalled = true;
-            return ['OK', Response::HTTP_OK];
-        };
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint, array $data) use ($params, &$targetCalled) {
+                $this->assertEquals('https://target.cloud', $address);
+                $this->assertEquals('/oauth/v2/token', $endpoint);
+                $this->assertEquals('1_local', $data['client_id']);
+                $this->assertEquals('target-secret', $data['client_secret']);
+                $this->assertEquals($params['grant_type'], 'refresh_token');
+                $this->assertEquals($params['refresh_token'], $data['refresh_token']);
+                $targetCalled = true;
+                return ['OK', Response::HTTP_OK];
+            };
         $client = $this->createHttpsClient(false);
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertTrue($targetCalled);
