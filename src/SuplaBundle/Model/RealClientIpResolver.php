@@ -38,7 +38,7 @@ class RealClientIpResolver {
         if ($request) {
             $ip = $request->getClientIp();
             $realIp = $request->headers->get('X-REAL-IP');
-            if ($realIp != $ip) {
+            if ($realIp && $realIp != $ip) {
                 if ($this->isBrokerCloud($ip)) {
                     $ip = $realIp;
                 }
