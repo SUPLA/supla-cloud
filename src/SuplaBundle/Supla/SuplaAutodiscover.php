@@ -32,6 +32,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class SuplaAutodiscover {
     const TARGET_CLOUD_TOKEN_SAVE_PATH = \AppKernel::VAR_PATH . '/local/target-cloud-token';
     const PUBLIC_CLIENTS_SAVE_PATH = \AppKernel::VAR_PATH . '/local/public-clients';
+    const BROKER_CLOUDS_SAVE_PATH = \AppKernel::VAR_PATH . '/local/broker-clouds';
 
     protected $autodiscoverUrl = null;
 
@@ -245,5 +246,25 @@ abstract class SuplaAutodiscover {
             return $publicClientData['id'] == $publicClientId;
         });
         return count($publicClient) ? current($publicClient) : null;
+    }
+
+    public function getBrokerClouds(): array {
+        if (!$this->isBroker()) {
+            return [];
+        }
+        if (file_exists(self::BROKER_CLOUDS_SAVE_PATH)) {
+            $brokerClouds = json_decode(file_get_contents(self::BROKER_CLOUDS_SAVE_PATH), true);
+            if (is_array($brokerClouds)) {
+                return $brokerClouds;
+            }
+        }
+        $url = '/broker-clouds';
+        $response = $this->remoteRequest($url, null, $responseStatus);
+        $brokerClouds = is_array($response) ? $response : [];
+        $this->logger->debug(__FUNCTION__, ['url' => $url, 'responseStatus' => $responseStatus, 'brokersCount' => count($brokerClouds)]);
+        if ($brokerClouds) {
+            file_put_contents(self::BROKER_CLOUDS_SAVE_PATH, json_encode($brokerClouds));
+        }
+        return $brokerClouds;
     }
 }

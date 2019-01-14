@@ -29,6 +29,7 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
+use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,17 +47,21 @@ class AuthorizeOAuthController extends Controller {
     const LAST_TARGET_CLOUD_ADDRESS_KEY = '_lastTargetCloud';
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
+    /** @var TargetSuplaCloudRequestForwarder */
+    private $suplaCloudRequestForwarder;
 
     public function __construct(
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
         SuplaAutodiscover $autodiscover,
         ClientManagerInterface $clientManager,
-        LocalSuplaCloud $localSuplaCloud
+        LocalSuplaCloud $localSuplaCloud,
+        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
         $this->clientManager = $clientManager;
         $this->localSuplaCloud = $localSuplaCloud;
+        $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
     }
 
     /**
@@ -184,7 +189,7 @@ class AuthorizeOAuthController extends Controller {
         Assertion::true(!!$validDomain, 'Please provide a valid domain name for your private SUPLA Cloud');
 
         $targetCloud = new TargetSuplaCloud($url, false);
-        $info = $targetCloud->getInfo();
+        $info = $this->suplaCloudRequestForwarder->getInfo($targetCloud);
         Assertion::isArray($info, 'Could not connect to the given address. Is the SUPLA Cloud working there?');
         Assertion::version(
             ApiVersions::V2_3,

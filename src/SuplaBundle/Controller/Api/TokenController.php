@@ -24,6 +24,7 @@ use OAuth2\OAuth2ServerException;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
+use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Repository\ApiClientRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +46,8 @@ class TokenController extends RestController {
     private $failedAuthAttemptsUserBlocker;
     /** @var SuplaAutodiscover */
     private $autodiscover;
+    /** @var TargetSuplaCloudRequestForwarder */
+    private $suplaCloudRequestForwarder;
 
     public function __construct(
         SuplaOAuth2 $server,
@@ -52,7 +55,8 @@ class TokenController extends RestController {
         ApiClientRepository $apiClientRepository,
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
         SuplaAutodiscover $autodiscover,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder
     ) {
         $this->server = $server;
         $this->router = $router;
@@ -60,6 +64,7 @@ class TokenController extends RestController {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
         $this->tokenStorage = $tokenStorage;
+        $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
     }
 
     /** @Rest\Post("/webapp-auth") */
@@ -72,7 +77,7 @@ class TokenController extends RestController {
         if ($server->isLocal()) {
             return $this->issueTokenForWebappAction($request);
         } else {
-            list($response, $status) = $server->issueWebappToken($username, $password);
+            list($response, $status) = $this->suplaCloudRequestForwarder->issueWebappToken($server, $username, $password);
             return $this->view($response, $status);
         }
     }

@@ -18,12 +18,22 @@
 namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\TokenController;
+use OAuth2\OAuth2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Auth\ForwardRequestToTargetCloudException;
+use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BrokerTokenController extends TokenController {
+    /** @var TargetSuplaCloudRequestForwarder */
+    private $suplaCloudRequestForwarder;
+
+    public function __construct(OAuth2 $server, TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder) {
+        parent::__construct($server);
+        $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
+    }
+
     /**
      * @Route("/oauth/v2/token", name="fos_oauth_server_token", methods={"GET", "POST"})
      */
@@ -32,8 +42,8 @@ class BrokerTokenController extends TokenController {
             return parent::tokenAction($request);
         } catch (ForwardRequestToTargetCloudException $e) {
             $targetCloud = $e->getTargetCloud();
-            list($response, $status) = $targetCloud->issueOAuthToken($request, $e->getMappedClientData());
-            return new Response(is_array($response) ? json_encode($response) : $response, $status);
+            list($resp, $status) = $this->suplaCloudRequestForwarder->issueOAuthToken($targetCloud, $request, $e->getMappedClientData());
+            return new Response(is_array($resp) ? json_encode($resp) : $resp, $status);
         }
     }
 }
