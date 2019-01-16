@@ -34,6 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction SET_RGBW_PARAMETERS()
  * @method static ChannelFunctionAction OPEN_CLOSE()
  * @method static ChannelFunctionAction STOP()
+ * @method static ChannelFunctionAction TOGGLE()
  */
 final class ChannelFunctionAction extends Enum {
     const READ = 1000;
@@ -47,6 +48,7 @@ final class ChannelFunctionAction extends Enum {
     const SET_RGBW_PARAMETERS = 80;
     const OPEN_CLOSE = 90;
     const STOP = 100;
+    const TOGGLE = 110;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -81,6 +83,7 @@ final class ChannelFunctionAction extends Enum {
             self::SET_RGBW_PARAMETERS => 'Adjust parameters',
             self::OPEN_CLOSE => 'Open / close',
             self::STOP => 'Stop',
+            self::TOGGLE => 'Toggle',
         ];
     }
 

@@ -10,7 +10,7 @@
         <div v-if="subject">
             <div v-for="possibleAction in subject.function.possibleActions">
                 <div class="radio"
-                    v-if="possibleAction.name != 'OPEN_CLOSE'">
+                    v-if="possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE'">
                     <label>
                         <input type="radio"
                             :value="possibleAction.id"

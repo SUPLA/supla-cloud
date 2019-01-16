@@ -160,22 +160,28 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
             ],
-            self::POWERSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
-            self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
-            self::STAIRCASETIMER => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF()],
+            self::POWERSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
+            self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
+            self::STAIRCASETIMER => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
 
             self::DIMMER => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
-                ChannelFunctionAction::TURN_OFF()],
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
             self::RGBLIGHTING => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
-                ChannelFunctionAction::TURN_OFF()],
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
             self::DIMMERANDRGBLIGHTING => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
-                ChannelFunctionAction::TURN_OFF()],
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
         ];
     }
 
