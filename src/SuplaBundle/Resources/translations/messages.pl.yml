@@ -552,4 +552,3 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 The action was prevented from being performed using an HTTP GET method that is not permitted.: Uniemożliwiono wykonanie akcji przy użyciu niedozwolonej metody HTTP GET.
 For devices: Dla urządzeń
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
-

@@ -110,7 +110,13 @@ class DirectLink {
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      * @Groups({"basic"})
      */
-    protected $enabled = true;
+    private $enabled = true;
+
+    /**
+     * @ORM\Column(name="disable_http_get", type="boolean", nullable=false, options={"default"=0})
+     * @Groups({"basic"})
+     */
+    private $disableHttpGet = false;
 
     public function __construct(HasFunction $subject) {
         if ($subject instanceof IODeviceChannel) {
@@ -231,6 +237,14 @@ class DirectLink {
         return $actionIds ? array_map(function ($actionId) {
             return new ChannelFunctionAction($actionId);
         }, $actionIds) : [];
+    }
+
+    public function getDisableHttpGet(): bool {
+        return $this->disableHttpGet;
+    }
+
+    public function setDisableHttpGet(bool $disableHttpGet) {
+        $this->disableHttpGet = $disableHttpGet;
     }
 
     /** @Groups({"basic"}) */

@@ -46,7 +46,7 @@ trait SuplaApiHelper {
         $username = $username instanceof User ? $username->getUsername() : $username;
         /** @var Client $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . base64_encode($username), 'HTTPS' => true]);
-        $client->followRedirects();
+//        $client->followRedirects();
         return $client;
     }
 

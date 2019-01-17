@@ -62,6 +62,16 @@
                                                     </div>
                                                 </div>
                                             </dt>
+                                            <dd>
+                                                {{ $t('For devices') }}
+                                                <i class="pe-7s-help1"
+                                                    :title="$t('Allows to perform an action only using the HTTP PATCH request.')"></i>
+                                            </dd>
+                                            <dt>
+                                                <toggler
+                                                    @input="directLinkChanged()"
+                                                    v-model="directLink.disableHttpGet"></toggler>
+                                            </dt>
                                         </dl>
                                     </div>
                                 </div>

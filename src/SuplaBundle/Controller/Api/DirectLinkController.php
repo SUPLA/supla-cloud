@@ -106,6 +106,7 @@ class DirectLinkController extends RestController {
             $directLink->setActiveTo($updated->getActiveTo());
             $directLink->setExecutionsLimit($updated->getExecutionsLimit());
             $directLink->setEnabled($updated->isEnabled());
+            $directLink->setDisableHttpGet($updated->getDisableHttpGet());
             $em->persist($directLink);
             return $this->view($directLink, Response::HTTP_OK);
         });

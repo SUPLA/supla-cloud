@@ -114,6 +114,58 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
     }
 
+    public function testExecutingDirectLinkWithPatch() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('PATCH', "/direct/$directLink[id]/$directLink[slug]/turn-on");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
+    public function testExecutingDirectLinkWithPut() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('PUT', "/direct/$directLink[id]/$directLink[slug]/turn-on");
+        $response = $client->getResponse();
+        $this->assertStatusCode(405, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertEmpty($commands);
+    }
+
+    public function testExecutingDirectLinkWithGetWhenGetDisabled() {
+        $directLinkDetails = $this->testCreatingDirectLink();
+        $directLink = $this->getEntityManager()->find(DirectLink::class, $directLinkDetails['id']);
+        $directLink->setDisableHttpGet(true);
+        $this->getEntityManager()->persist($directLink);
+        $this->getEntityManager()->flush();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLinkDetails[id]/$directLinkDetails[slug]/turn-on");
+        $response = $client->getResponse();
+        $this->assertStatusCode(405, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertEmpty($commands);
+    }
+
+    public function testExecutingDirectLinkWithPatchWhenGetDisabled() {
+        $directLinkDetails = $this->testCreatingDirectLink();
+        $directLink = $this->getEntityManager()->find(DirectLink::class, $directLinkDetails['id']);
+        $directLink->setDisableHttpGet(true);
+        $this->getEntityManager()->persist($directLink);
+        $this->getEntityManager()->flush();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('PATCH', "/direct/$directLinkDetails[id]/$directLinkDetails[slug]/turn-on");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
     public function testCannotExecuteForbiddenAction() {
         $directLink = $this->testCreatingDirectLink();
         $client = $this->createClient();

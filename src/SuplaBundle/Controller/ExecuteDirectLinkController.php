@@ -64,7 +64,7 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     /**
-     * @Route("/direct/{directLink}/{slug}")
+     * @Route("/direct/{directLink}/{slug}", methods={"GET"})
      * @Template()
      */
     public function directLinkOptionsAction(DirectLink $directLink, string $slug) {
@@ -73,9 +73,20 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     /**
-     * @Route("/direct/{directLink}/{slug}/{action}")
+     * @Route("/direct/{directLink}/{slug}/{action}", methods={"GET", "PATCH"})
      */
     public function executeDirectLinkAction(DirectLink $directLink, string $slug, string $action, Request $request) {
+        if ($directLink->getDisableHttpGet() && $request->isMethod(Request::METHOD_GET)) {
+            $errorMessage = 'The action was prevented from being performed using an HTTP GET method that is not permitted.'; // i18n
+            $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
+                ->setIntParam($directLink->getId())
+                ->setTextParam($errorMessage)
+                ->buildAndFlush();
+            return new JsonResponse(
+                ['success' => false, 'error' => $errorMessage . ' You need to use HTTP PATCH request to execute this link.'],
+                Response::HTTP_METHOD_NOT_ALLOWED
+            );
+        }
         try {
             try {
                 $action = ChannelFunctionAction::fromString($action);

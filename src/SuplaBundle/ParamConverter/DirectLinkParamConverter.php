@@ -42,6 +42,7 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
         $link = new DirectLink($subject);
         $link->setCaption($data['caption'] ?? '');
         $link->setEnabled($data['enabled'] ?? false);
+        $link->setDisableHttpGet($data['disableHttpGet'] ?? false);
         $possibleActions = EntityUtils::mapToIds($subject->getFunction()->getPossibleActions());
         $possibleActions[] = ChannelFunctionAction::READ;
         $allowedActions = array_map(function ($allowedActionName) use ($possibleActions) {

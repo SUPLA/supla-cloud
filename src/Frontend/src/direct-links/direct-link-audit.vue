@@ -9,7 +9,7 @@
                     <strong>{{ functionLabel(entry.textParam) }}</strong>
                 </div>
                 <div v-else>
-                    {{ entry.textParam }}
+                    {{ $t(entry.textParam) }}
                 </div>
                 <div class="text-muted small">
                     {{ entry.createdAt | moment('LLL') }}
