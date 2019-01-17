@@ -43,7 +43,7 @@
 
     export default {
         components: {ButtonLoadingDots, LoginFooter},
-        props: ['desiredScopes', 'clientName'],
+        props: ['desiredScopes', 'clientName', 'locale'],
         data() {
             return {
                 desiredAvailableScopes: [],
@@ -63,6 +63,9 @@
                 scope => scope.suffixes = scope.suffixes.filter(suffix => desiredScopes.indexOf(scopeId(scope, suffix)) !== -1)
             );
             this.desiredAvailableScopes = desiredAvailableScopes.filter(scope => scope.suffixes.length > 0);
+            if (this.locale) {
+                this.$setLocale(this.locale);
+            }
         },
         methods: {
             scopeId,

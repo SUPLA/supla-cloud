@@ -2,7 +2,8 @@
 
 {% block vue %}
     <oauth-authorize-form desired-scopes="{{ form.scope.vars.value }}"
-            client-name="{{ client.name }}">
+            client-name="{{ client.name }}"
+            locale="{{ app.user.locale }}">
         {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
         <input type="submit"
                 name="rejected"

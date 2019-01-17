@@ -32,7 +32,6 @@ export class CurrentUser {
         Vue.prototype.$localStorage.set('_token', response.body.access_token);
         Vue.prototype.$localStorage.set('_token_down', response.body.download_token);
         this.synchronizeAuthState();
-        window.SS = () => this.synchronizeAuthState();
     }
 
     forget() {
