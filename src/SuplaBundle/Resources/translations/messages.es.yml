@@ -548,3 +548,7 @@ File is too large: El archivo es demasiado grande
 "Maximum filesize limit is {limit}.": "El tamaño máximo del archivo es de {limit}."
 "The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Los archivos seleccionados son demasiado grandes. El tamaño máximo del archivo permitido es de {limit}."
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Tu instancia privada SUPLA cloud no está disponible. Asegúrate de que tu servidor está online y la conexión HTTPS funciona correctamente.
+
+The action was prevented from being performed using an HTTP GET method that is not permitted.: No se ha podido realizar la acción utilizando un método HTTP GET no permitido.
+For devices: Para dispositivos
+Allows to perform an action only using the HTTP PATCH request.: Permite realizar una acción solo mediante la solicitud HTTP PATCH.
