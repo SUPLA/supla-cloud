@@ -1,555 +1,570 @@
-# src/SuplaBundle/Resources/translations/messages.cz.yml
-
-Hi: Ahoj
-Delete: Vymazat
-Caption: Podpis
-Enabled: Aktivován
-Disabled: Deaktivován
-Search: Hledej
-Assigned Locations: Přiřazené umístění
-Timezone: Časová zóna
-Registration: Registrace
-Password Reset: Resetovat heslo
-Enter new password: Zadejte nové heslo
-The password should be 8 or more characters.: Heslo musí mít ninimum 8 znaků.
+# Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
+#<editor-fold desc="Complete translations" defaultstate="collapsed">
+...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
+...open and shut roller shutters: ...otevírat a zavírat rolety
+'...open gateways, gates or doors': '...otevřít branky, brány a dveře'
+...or control home appliances: ...nebo ovládat domácí spotřebiče
+...you can monitor temperature: ...můžete sledovat teplotu
+ACTIVE: AKTIVNÍ
+AM2301 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2301
+AM2302 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2302
+Access ID: Přístupové ID
+Access Identifier: Přístupový identifikátor
+Access Identifiers: Identifikátory přístupu
+Access identifier limit has been exceeded: Limit přístupových ID byl překročen
 Account: Ůčet
-Forgot your password?: Zapoměl jsi heslo?
-Server address: Adresa serveru
+Account access when you are unavailable: 'Přístup k účtu, pokud nejste dostupní'
+Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
+Action: Akce
+Action execution: Provedení akce
+Active: Aktivní
+Add: Přidat
+Add a new icon: Přidat novou ikonu
+Add first channel to set channel group function and save it: Vyberte první kanál pro definici funkce skupiny a uložte ji
+Add new channel group: Přidat novou skupinu kanálů
+Add new channel to this group: Přidejte nový kanál do skupiny
+Adjust parameters: Nastavte parametry
+'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Veškeré kanály a skupiny kanálů, které používají tuto ikonu, budou mít po smazání výchozí ikony.'
+'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.'
+'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Odkaz bude generován hned po výběru předmětu. Všechny ostatní možnosti můžete realizovat ihned po jejím vytvoření.
+All: Všechno
+All the above and many more can be done from your phone or tablet: 'To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu'
+Allowed actions: Dovolené akce
+Allows to perform an action only using the HTTP PATCH request.: Umožňuje provádět akci pouze pomocí žádosti HTTP PATCH.
+And more: a více
+Application requirements: Požadavky aplikace
+Are you lost?: Ztratili jste? Hledáte něco?
+Are you sure you want to delete the entire measurement history saved for this channel?: Opravdu chcete smazat celou historii měření shromážděnou pro tento kanál?
+Are you sure you want to delete this OAuth application?: Opravdu chcete smazat tuto aplikaci OAuth?
+Are you sure you want to delete this channel group?: Opravdu chcete tuto skupinu kanálů smazat?
+Are you sure you want to delete this client?: Opravdu chcete tuto klientskou aplikaci smazat?
+Are you sure you want to delete this direct link?: Opravdu chcete smazat tento přímý odkaz?
+Are you sure you want to delete this icon?: Opravdu chcete tuto ikonu smazat?
+Are you sure you want to delete this schedule?: Opravdu chcete tento plán smazat?
+Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
+Are you sure you want to revoke permissions granted to this OAuth application?: Opravdu chcete zrušit oprávnění udělená této aplikaci OAuth?
+Are you sure you want to revoke this token?: Opravdu chcete odvolat token?
+Are you sure?: Jste si jisti?
+Assign Access Identifiers: Připište přístupové ID
+Assign Client apps: Přiřaďte klientské aplikace
+Assign Locations: Připiš lokalizace
+Authorization callback URLs (one per line): Autorizační zpětné URL adresy(jeden na řádek)
+'Authorize the application, so that it can access your account.': 'Autorizujte aplikaci tak, aby měla přístup k vašemu účtu.'
+Authorized: Ověřeno
+Authorized OAuth apps: Autorizované aplikace OAuth
+Automation: Automatizace
+Back to apps list: Zpět na seznam aplikaci
+Brightness: Jas
+CLICK TO DISABLE: KLIKNI ABY VYPNOUT
+CLICK TO ENABLE: KLIKNI ABY ZAPNOUT
+Calibration: Kalibrace
 Cancel: Zrušit
-CANCEL: ZRUŠIT
-Relay switching time: Doba sepnutí relé
-Full opening time: Celkový čas otevření
-Full closing time: Celkový čas uzavření
-sec.: sek.
-Download the history of measurement: Stáhnout historii měření
-None: Žádný
-Channel for the sensor: Kanál pro snímač
+Cancel changes: Zrušit změny
+Cancelled: Zrušeno
+Caption: Podpis
+Change Password: Změna hesla
+Change icon: Změňte ikonu
 Channel: Kanál
 Channel No: Číslo kanálu
-Device: Zařízení
-Access Identifier: Přístupový identifikátor
-Location Identifier: Identifikátor lokalizace
-Type: Typ
-Number: Číslo
-I/O: Vstup/ Výstup
-Function: Funkce
-Name: Název
-Location: Lokalizace
-Locations: Lokalizace
-SoftVer: Software
-All: Všechno
-Electric: Elektrika
-Doors, Gates: Dveře, Brány
-Roller shutters: Rolety
-Liquid, Temp: Kapalina, Teplota
-Sensors: Senzory
-No function: Bez funkce
-Connected: Připojeno
-Disconnected: Odpojeno
-unknown: neznámý
-Comment: Komentář
+Channel for the partial opening sensor: Kanál pro snímač nepřímého otevření
+Channel for the sensor: Kanál pro snímač
+Channel group: Skupina kanálů
+Channel group limit has been exceeded: Limit skupin kanálů byl překročen
+Channel groups: Skupiny kanálů
+Channel is assigned to the I/O device location: Kanál je přiřazen k umístění zařízení
+Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
 Channels: Kanály
-I/O Devices: Zařízení vs/vý
-Start Here: Začni tady
-Sign In: Přihlas se
-Sign Out: Odhlas se
-Password: Heslo
+Check your email box: Zkontrolujte e-mailovou schránku
+Choose: Vybrat
+Choose Access Identifiers to be assigned to this Location: 'Vyberte ID přístupu, které budou k tomuto místu přiřazeny'
+Choose location: Vyberte umístění
+Chosen hour: Vybraný čas
+Close: Zavřít
+Color: Barvy
+Color brightness: Jas barev
+Comment: Komentář
+Configuration: Konfigurace
 Confirm Password: Potvrzení hesla
-SAVE: ULOŽ
-GENERATE: GENERUJ
-ENABLED: ZAPNUTO
-CLICK TO DISABLE: KLIKNI ABY VYPNOUT
-DISABLED: VYPNUTO
-CLICK TO ENABLE: KLIKNI ABY ZAPNOUT
-DELETE: VYMAZAT
-Assign Locations: Připiš lokalizace
-Confirm if you want to remove Access Identifier: Potvrď, jestli chceš odstranit identifikátor přístupu
-Access Identifiers: Identifikátory přístupu
+Confirm if you want to remove Access Identifier: 'Potvrď, jestli chceš odstranit identifikátor přístupu'
+'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Potvrďte, že chcete smazat identifikátor polohy Potvrďte, že chcete smazat identifikátor polohy {locationId}. Další připojení I / O zařízení na toto místo nebude možné.. Další připojení I / O zařízení na toto místo nebude možné.'
+'Confirm if you want to remove {deviceName} device': 'Potvrďte, že chcete odebrat zařízení {deviceName}'
+Connected: Připojeno
+Connection with a private instance of the SUPLA cloud: Připojení k soukromé instanci cloudu SUPLA.
+Constraints: Omezení
+Could not reset the password. Please try again later.: Heslo nelze obnovit. Zkuste to prosím znovu.
 Create New Access Identifier: Vytvoř nový přístupový identifikátor
 Create New Location: Vytvořte nové umístění
-Assign Access Identifiers: Připište přístupové ID
-Languages: Jazyky
-Choose Access Identifiers to be assigned to this Location: Vyberte ID přístupu, které budou k tomuto místu přiřazeny
-Are you sure?: Jste si jisti?
-Lighting: Osvětlení
-Temperature: Teplota
-Humidity: Vlhkost
-Doors and gates: Dveře a brány
-Home appliances: Domácí spotřebiče
-And more: a více
-From anywhere: Odkudkoliv
-With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete ovládat osvětlení ve Vašem domu nebo kanceláři
-...you can monitor temperature: ...můžete sledovat teplotu
-...open gateways, gates or doors: ...otevřít branky, brány a dveře
-...open and shut roller shutters: ...otevírat a zavírat rolety 
-...or control home appliances: ...nebo ovládat domácí spotřebiče
-All the above and many more can be done from your phone or tablet: To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu
-SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA je k dispozici kdykoli a kdekoli, takže se nebojte, když příště zapomenete vypnout světlo
-Registered: Registrován
-Last connection: Poslední připojení
-Confirm if you want to remove {deviceName} device: Potvrďte, že chcete odebrat zařízení {deviceName}
-WELCOME_MESSAGE: |
-  Připojení vašeho domova nebo kanceláře k SUPLI je snadné. Jediné, co musíte udělat, je
-  přepište následující údaje do ovládacích.
-Enter the data below in the settings of your control device (I/O Device).: Do nastavení ovládacího zařízení (zařízení I / O) zadejte následující údaje.
-Enter the data below in your mobile SUPLA application on your smartphone.: Do mobilní aplikace SUPLA nainstalované na smartphonu zadejte následující údaje.
-
-Previous login: Předchozí přihlášení
-From IP: Z adresy IP
-from IP: z adresy IP
-Current Password: Aktuální heslo
-New password: Nové heslo
-Change Password: Změna hesla
-Coming soon: Brzy k dispozici
-register-slide1-title: Vlastní inteligentní budova
-register-slide1-text: Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.
-register-slide2-title: SUPLA všude!
-register-slide2-text: Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!
-register-slide3-title: Zdarma a otevřená!
-register-slide3-text: Systémy automatizace budov dostupné na trhu jsou obvykle velmi složité, uzavřené a nákladné. V mnoha případech vyžadují instalaci již ve fázi výstavby budovy. SUPLA je jednoduchá, otevřená a zdarma. Umožňuje vytvářet výkonné prvky založené na platformách RaspberryPI, Arduino nebo ESP8266 a kombinovat je pomocí LAN a WiFi sítí. Připojte se k projektu a sestavte vlastní verzi systému automatizace budov!
-
-#inside php code
-Data saved: Data byla uložena
-Save: Ulož
-Save and enable: Uložit a povolit
-Location limit has been exceeded: Limit umístění byl překročen
-Success: Úspěch
-Error: Chyba
-Access identifier limit has been exceeded: Limit přístupových ID byl překročen
-Information: Informace
-Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
-Token does not exist: Token neexistuje
-Password has been changed: Heslo bylo změněno
-Current password is incorrect: Aktuální heslo je nesprávné
-Password has been changed!: Heslo bylo změněno!
+Create New Schedule: Vytvořte nový plán
 Create an account: Vytvořte si účet
-Your email: Váš e-mail
-Enter your email: Zadejte svůj e-mail
-Enter your email address: Zadejte svou e-mailovou adresu
-Enter strong password: Zadejte silné heslo
-Don't worry, you can always reset your password via email. Click here to do so.: Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
-Repeat password: Opakujte heslo
-RESET: RESET
-Check your email box: Zkontrolujte e-mailovou schránku
-Please fill a valid email address: Zadejte správnou e-mailovou adresu
-Supla for devices: Supla na zařízeních
-Next: Dále
-Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
-...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
-Mobile Apps: Mobilní aplikace
-Sources available from: Zdroje dostupné v
-
-Input: Vvstup
-Output: Výstup
-Sensor (normal open): Snímač (normálně otevřený)
-Sensor (normal closed): Snímač (normálně zavřený)
-Relay: Relé
-HFD4 Relay: Relé HFD4
-G5LA1A Relay: Relé G5LA1A
-G5LA1A Relay x2: Relé 2xG5LA1A
-DS18B20 Thermometer: Teploměr DS18B20
+Create new direct link: Vytvořte nový přímý odkaz
+Currency: Měna
+Current Password: Aktuální heslo
+Current password is incorrect: Aktuální heslo je nesprávné
+Custom: Nestandardní
+Custom execution limit: Nestandardní počet provedení
 DHT11 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT11
 DHT21 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT21
 DHT22 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT22
-AM2301 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2301
-AM2302 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2302
-Dimmer: Reostat
-RGB led controller: Kontroler oświetlenia RGB
-Dimmer & RGB led controller: Reostat a kontroler osvětlení RGB
-Distance sensor: Snímač vzdálenosti
-Depth sensor: Snímač hloubky
-Thermometer: Teploměr
-Gateway lock operation: Otevření branky
-Gate operation: Otevření / zavření vstupní brány
-Garage door operation: Otevření / zavření dveří garáže
-Door lock operation: Otevření dveří
-Roller shutter operation: Otevírání a zavírání rolet
-Gateway opening sensor: Snímač otevření branky
-Gate opening sensor: Snímač otevření vstupní brány
-Garage door opening sensor: Snímač otevření dveří garáže
-Door opening sensor: Snímač otevření dveří
-Roller shutter opening sensor: Snímač otevření rolet
-No liquid sensor: Snímač nedostatku kapaliny
-On/Off switch: Síťový spínač
-Light switch: Spínač světel
-Humidity sensor: Snímač vlhkosti
-Temperature and humidity sensor: Snímač teploty a vlhkosti
-RGB lighting: Osvětlení RGB
-Dimmer and RGB lighting: Reostat a RGB osvětlení
-Original location: Původní umístění
-Go to your account: Přejděte do účtu
-
-Service temporarily unavailable: Služba dočasně nedostupná
-Try again later: Zkuste to prosím později
-
-copy: kopíruj
-
-Schedule: Plán
-Schedules: Plány
-Create New Schedule: Vytvořte nový plán
-No future executions - schedule disabled: Žádné naplánované výkony - plán zakázán
-Schedule cannot be enabled: Plán nemohl být zapnutý
-Disable schedule: Vypnout plán
-Executions: Výkony
-Action: Akce
-Subject: Předmět
-Mode: Režim
-Schedule mode: Režim plánu
-change: změnit
-When: Kdy
-Start date: Datum zahájení
-End date: Datum ukončení
-The next available executions: Nejbližší výkony
-choose the channel: vyberte kanál
-Add: Přidat
-Date: Datum
-Hour: Hodina
-Interval: Interval
-Every: Každý
-minutes: minuty
-Hours: Hodiny
-Minute: Minuta
+DISABLED: VYPNUTO
+DS18B20 Thermometer: Teploměr DS18B20
+Data saved: Data byla uložena
 Days: Dny
-Are you sure you want to delete this schedule?: Opravdu chcete tento plán smazat?
-Next run date: Nejbližší výkon
-The latest execution: Poslední výkon
-
-Mondays: Pondělky
-Tuesdays: Úterky
-Wednesdays: Středy
-Thursdays: Čtvrtky
-Fridays: Pátky
-Saturdays: Soboty
-Sundays: Neděle
-
-once: Jednorázový
-minutely: Minutový cyklus
-hourly: Hodinový cyklus
-daily: Denní cyklus 
-
-Close: Zavřít
-Open: Otevřít 
-Adjust parameters: Nastavte parametry
-Brightness: Jas
-Color brightness: Jas barev
-Color: Barvy
-Random: Náhodný
-Off: Vypnout
-On: Zapnout
-Shut: Zakrýt
-Reveal: Odkrýt
-Reveal partially: Částečně odkrytí
-Toggle: Přepnout
-
-Successful: Úspěšný
+Decline: Odmítnout
+Delete: Vymazat
+Delete measurement history: Vymazat historii měření
+Depth: Hloubka
+Depth sensor: Snímač hloubky
+Description: Popis
+Details: Podrobnosti
+Device: Zařízení
 Device unavailable: Zařízení je nedostupné
-Sensor disconnected: Žádný snímač
-Server unreachable: Server není dosažitelný
+Dimmer: Reostat
+Dimmer & RGB led controller: Reostat a kontroler osvětlení RGB
+Dimmer and RGB lighting: Reostat a RGB osvětlení
+Direct link: Přímý odkaz
+Direct link has been created successfully!: Přímý odkaz byl úspěšně vytvořen!
+Direct link has expired.: Přímý odkaz je zastaralý
+Direct link is disabled.: Přímý odkaz je vypnutý
+Direct link is not active yet.: Přímý odkaz ještě není aktivní
+'Direct link is not working right now. Reason:': 'Přímý odkaz v tuto chvíli nefunguje. Důvod:'
+Direct links: Přímé odkazy
+Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
+Disabled: Deaktivován
+Disconnected: Odpojeno
+Distance: Vzdálenost
+Distance sensor: Snímač vzdálenosti
+Door lock operation: Otevření dveří
+Door opening sensor: Snímač otevření dveří
+Doors and gates: Dveře a brány
+'Doors, Gates': 'Dveře, Brány'
+Download the history of measurement: Stáhnout historii měření
+Drag your image(s) here or click to select from the disk: Přetáhněte obrázek zde nebo klepnutím vyberte z disku
+ENABLED: ZAPNUTO
+Edit: Editovat
+Electric: Elektrika
+Electricity meter: Elektroměr
+Email already exists: E-mailová adresa již existuje
+Empty!: Prázdný!
+Enabled: Aktivován
+End date: Datum ukončení
+Enter new password: Zadejte nové heslo
+Enter strong password: Zadejte silné heslo
+Enter the data below in the settings of your control device (I/O Device).: Do nastavení ovládacího zařízení (zařízení I / O) zadejte následující údaje.
+Enter the data below in your mobile SUPLA application on your smartphone.: Do mobilní aplikace SUPLA nainstalované na smartphonu zadejte následující údaje.
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Zadejte pouze doménu s portem, pokud není standardní (443). Vyžadujeme připojení HTTPS.'
+Enter your email address: Zadejte svou e-mailovou adresu
+Error: Chyba
+Error when communicating the server. Try again in a while.: Při komunikaci se serverem došlo k problému. Zkuste to prosím znovu.
+Every: Každý
+Example Auth URL: Vzorová autorizační adresa URL
+Executed action: Provedená akce
+Executed without confirmation: Provedeno bez potvrzení
+Execution history: Historie provedení
+Execution limit: Počet provedení
+Execution limit has been exceeded.: Limit výkonů byl překročen
+Executions: Výkony
+Existing schedules: Stávající plány
+Expired: Prošlý
 Failed: Neúspěšný
 Failed (zombie): Neúspěšný (zombie)
-Cancelled: Zrušeno
-Expired: Prošlý
-Processing: Zpracovává se
-The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
-
-You will be logged out shortly: Budete brzy odhlášeni 
-If you want to stay here, do something!: Pokud chcete zůstat, udělejte něco!
-
-Chosen hour: Vybraný čas
-before: před
-after: po
-sunrise-before: před východem slunce
-sunset-before: před západem slunce
-sunrise-after: po východu slunce
-sunset-after: po západu slunce
-Sunrise / Sunset: Východ / Západ
-
-The device is disabled: Zařízení je vypnuté
-Existing schedules: Stávající plány
-Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
-Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
-Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
-
-Choose: Vybrat
-White: Bílý
-
-Smartphones: Smartphony
-Client's Apps: Klientské aplikace
-smartphones, tablets, etc.: smartphony, tablety atd.
-Active: Aktivní
-Idle: Nečinný
-Client's app has been deleted: Klientská aplikace byla odstraněna
-Error when communicating the server. Try again in a while.: Při komunikaci se serverem došlo k problému. Zkuste to prosím znovu.
-Loading: Načítání
-if it takes too long, check if the JS scripts are loaded correctly: pokud bude akce trvat příliš dlouho, zkontrolujte, zda jsou JS skripty správně vloženy
-SUPLA-Cloud will not work without Javascript: SUPLA Cloud nebude fungovat bez zapnutí Javascriptu
-will expire: vyprší
-Registration of new clients: Registrace zákazníka
-Registration of new I/O devices: Registrace zařízení
-Empty!: Prázdný!
-Last access: Poslední hovor
-from the IP: z adresy
-Access ID: Přístupové ID
-Are you sure you want to delete this client?: Opravdu chcete tuto klientskou aplikaci smazat?
-The client will be automatically logged out when deleted.: Odstranění klienta bude mít za následek okamžité odhlášení.
-ACTIVE: AKTIVNÍ
-INACTIVE: NEAKTIVNÍ
-Sign in temporarily unavailable. Please try again later.: Přihlášení dočasně nedostupné. Zkuste to prosím později.
-
-Temperature Sensor: Snímač teploty
-Humidity Sensor: Snímač vlhkosti
-Temperature & Humidity Sensor: Snímač teploty a vlhkosti
-Mail sensor:  Poštovní snímač
-Wind sensor: Snímač větru
-Pressure sensor: Snímač tlaku
-Rain sensor: Snímač deště
-Weight sensor: Váha
-Weather Station: Meteorologická stanice
-Window opening sensor: Snímač otevření okna
-Staircase timer: Schodišťový automat 
-Change icon: Změňte ikonu
-Select icon: Vyberte ikonu
-
-Edit: Editovat
-Automation: Automatizace
-Channel group: Skupina kanálů
-Channel groups: Skupiny kanálů
-Show on the Client’s devices: Zobrazit v klientských zařízeních
-Disable: Vypnout
-Enable: Zapnout
-Add new channel group: Přidat novou skupinu kanálů
-No. of channels: Počet kanálů
-Details: Podrobnosti
-No. of devices: Počet zařízení
-Add new channel to this group: Přidejte nový kanál do skupiny
-Remove: Vymazat
-Go to channel details: Přejděte na detaily kanálu
+File is too large: Plik jest za duży
+For devices: Pro zařízení
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.'
+Forgot your password?: Zapoměl jsi heslo?
+Fridays: Pátky
+From IP: Z adresy IP
+From anywhere: Odkudkoliv
+Full closing time: Celkový čas uzavření
+Full documentation: Úplná dokumentace
+Full opening time: Celkový čas otevření
+Function: Funkce
+G5LA1A Relay: Relé G5LA1A
+G5LA1A Relay x2: Relé 2xG5LA1A
+GENERATE: GENERUJ
+Garage door opening sensor: Snímač otevření dveří garáže
+Garage door operation: Otevření / zavření dveří garáže
+Gas meter: Plynoměr
+Gate opening sensor: Snímač otevření vstupní brány
+Gate operation: Otevření / zavření vstupní brány
+Gateway lock operation: Otevření branky
+Gateway opening sensor: Snímač otevření branky
+Generate new token: Generovat nový token
+Generate token: Generovat token
+Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
 Go to I/O device details: Přejděte na detaily zařízení
-Choose location: Vyberte umístění
-There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
-New channel group: Nová skupina kanálů
-Add first channel to set channel group function and save it: Vyberte první kanál pro definici funkce skupiny a uložte ji
-choose: vybrat
-
-Retry on failure: Opakujte, když není hotovo
-Status: Stav
-State: Stav
-Depth: Hloubka
-Distance: Vzdálenost
+Go to channel details: Přejděte na detaily kanálu
+Go to your account: Přejděte do účtu
+Grant access: Poskytněte přístup
+HFD4 Relay: Relé HFD4
 History of measurements: Historie měření
+Home appliances: Domácí spotřebiče
+Hours: Hodiny
+Humidity: Vlhkost
 Humidity adjustment: Nastavení vlhkosti
-Temperature adjustment: Nastavení teploty
-Opening sensor: Snímač otevření
-Partial opening sensor: Snímač středního otevření
-Channel for the partial opening sensor: Kanál pro snímač nepřímého otevření
-Inverted logic: Obrácená logika
-
-Are you sure you want to change channel's function?: Opravdu chcete změnit funkci kanálu?
-Changing channel's function will also result in the following changes.: Změna funkce kanálu také způsobí následující změny.
-Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
-Schedules below will be deleted: Následující plány budou smazány
-Cancel changes: Zrušit změny
-Save changes: Zapiš změny
-Channel is assigned to the I/O device location: Kanál je přiřazen k umístění zařízení
+Humidity sensor: Snímač vlhkosti
+'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Souhlasím s  [Podmínky] a souhlasím se zpracováním mých osobních údajů za účelem a rozsahu stanoveným v [nařízení].'
+I agree: Souhlasím
+'I aree, taske me to the app': 'ZSouhlasím, vezmi mě do aplikace'
+'I do not agree, get me out of here': 'Nesouhlasím, opustit toto pole'
+I/O Devices: Zařízení vs/vý
+INACTIVE: NEAKTIVNÍ
+Idle: Nečinný
+'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Pokud jste programátor, který chce poskytnout další funkce pro službu SUPLI, vytvořte aplikaci OAuth, kterou uživatelé mohou autorizovat a používat.'
+'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Pokud jste si jisti, že máte účet na cloud.supla.org, zkontrolujte, zda je aplikace, kterou se pokoušíte autorizovat, veřejná.'
+'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Pokud chcete integrovat soukromý cloud SUPLA s veřejnou aplikací OAuth, musíte [zaregistrovat svou instanci].'
+'If you want to stay here, do something!': 'Pokud chcete zůstat, udělejte něco!'
+'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].'
+Impulse counter: Počítadlo implulzů
+Impulses: Impulzy
+Incorrect direct link parameters: Nesprávné parametry přímého odkazu
+Information: Informace
 Inherit I/O Device location: Použijte polohu zařízení
-No. of channel groups: Počet skupin kanálů
-Channel group limit has been exceeded: Limit skupin kanálů byl překročen
-Schedule limit has been exceeded: Limit plánu byl překročen
-Too many channels in this group: Příliš mnoho kanálů v této skupině
-
+Integrations: Integrace
+Interval: Interval
+'Invalid redirect URI: {uri}': 'Neplatné přesměrování URI : {uri}'
+Invalid request: Nesprávná žádost
+Inverted logic: Obrácená logika
 Invisible: Neviditelný
+Last access: Poslední hovor
+Last connection: Poslední připojení
+Last used: Poslední použití
+Let me choose later: Nechte mě vybrat později
+Light switch: Spínač světel
+Lighting: Osvětlení
+Limit has been exceeded: Limit byl překročen
+'Liquid, Temp': 'Kapalina, Teplota'
+Location: Lokalizace
+Location Identifier: Identifikátor lokalizace
+Location limit has been exceeded: Limit umístění byl překročen
+Locations: Lokalizace
+Mail sensor: Poštovní snímač
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.'
+'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
+Minute: Minuta
+Mobile Apps: Mobilní aplikace
+Mode: Režim
+Modification: Modifikace
+Mondays: Pondělky
+My OAuth apps: Moje OAuth aplikace
+My SUPLA: Moje SUPLA
+Name: Název
+Never: Nidky
+New OAuth application: Nová aplikace OAuth
+New channel group: Nová skupina kanálů
+New direct link: Nový přímý odkaz
+New password: Nové heslo
+Newer: Novější
+Next run date: Nejbližší výkon
+'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nemáte aktivní identifikátory přístupu. Přejděte na [seznam přístupových ID] nebo [přidat přístupové ID].'
+No allowed actions have been chosen.: Nebyly vybrány žádné povolené akce
+No function: Bez funkce
+No future executions - schedule disabled: Žádné naplánované výkony - plán zakázán
+No limit: Bez omezení
+No liquid sensor: Snímač nedostatku kapaliny
+'No location enabled. Go to [location list] or [add a new location].': 'Nemáte aktivní místa. Přejděte na [seznam míst] nebo [přidat nové umístění]..'
+'No results match {0}': 'Žádné výsledky neodpovídají výsledkům {0}'
+No. of Client’s apps: Počet klientských aplikací
+No. of access identifiers: Počet identifikátorů přístupu
+No. of channel groups: Počet skupin kanálů
+No. of channels: Počet kanálů
+No. of devices: Počet zařízení
+No. of locations: Počet umístění
+None: Žádný
+OAuth application: Aplikace OAuth
+OAuth authorization: Autorizace OAuth
+'Off': Vypnout
+Offline access: Přístup offline
+Older: Starší
+'On': Zapnout
+On/Off switch: Síťový spínač
+'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Pouze názvy domén s volitelným číslem portu jsou povoleny. Například. mysupla.org nebo mysupla.org:88. Je vyžadován protokol HTTPS.'
+Open: Otevřít
+Opening sensor: Snímač otevření
+Original location: Původní umístění
+'Otherwise go to [the homepage].': 'V opačném případě přejděte na [domovskou stránku].'
+Partial opening sensor: Snímač středního otevření
+Password: Heslo
+Password Reset: Resetovat heslo
+Password has been changed: Heslo bylo změněno
+Percentage of closing: Procento uzavření
+Personal access tokens: Osobní přístupové tokeny
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobní přístupové tokeny fungují stejně jako obyčejné tokeny s tím rozdílem, že fungují neomezeně.'
+Personal token name is required.: Je třeba poskytnout název osobního tokenu.
+Please enter a valid email address: Zadejte správnou mailovou adresu
+Please fill a valid email address: Zadejte správnou e-mailovou adresu
+Please provide a valid domain name for your private SUPLA Cloud: Zadejte správný název domény pro váš soukromý cloud SUPLA
+Please select the schedules that should also be enabled.: 'Vyberte plány, které by měly být také zahrnuty.'
+Please wait a moment before the next login attempt.: Počkejte chvíli na další pokus o přihlášení.
+Pressure sensor: Snímač tlaku
+Previous login: Předchozí přihlášení
+Price per: Cena za
+Private Cloud domain name: Název soukromé domény cloud
+Proceed: Pokračuj
+Processing: Zpracovává se
+Public ID: Veřejné ID
+RESET: RESET
+RGB led controller: Kontroler oświetlenia RGB
+RGB lighting: Osvětlení RGB
+Rain sensor: Snímač deště
+Random: Náhodný
+Read: Odečet
+Register: Registrovat
+Register a new OAuth application: Registrovat novou aplikaci OAuth
+Register private SUPLA Cloud: Registrovat soukromý cloud SUPLA
+Registered: Registrován
+Registration of new I/O devices: Registrace zařízení
+Registration of new clients: Registrace zákazníka
+Relay: Relé
+Relay switching time: Doba sepnutí relé
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Než odstraníte místo, musíte nejprve přesunout skupiny kanálů, které jsou v něm. Identifikátory: {relatedIds}.'
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Než odstraníte místo, musíte nejprve přesunout kanály, které jsou v něm. Identifikátory: {relatedIds}.'
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Před odstraněním tohoto umístění odstraňte související zařízení. Identifikátory: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Nejdříve odstraňte všechna zařízení, která používají toto umístění jako původní umístění. ID: {relatedIds}.'
+Repeat password: Opakujte heslo
+Retry on failure: 'Opakujte, když není hotovo'
+Reveal: Odkrýt
+Reveal partially: Částečně odkrytí
+Revoke: Zrušit
+Roller shutter opening sensor: Snímač otevření rolet
+Roller shutter operation: Otevírání a zavírání rolet
+Roller shutters: Rolety
+'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je k dispozici kdykoli a kdekoli, takže se nebojte, když příště zapomenete vypnout světlo'
+Saturdays: Soboty
+Save: Ulož
+Save and enable: Uložit a povolit
+Save changes: Zapiš změny
+Save changes to see Access IDs: Uložte změny a zobrazte ID přístupu
+Schedule: Plán
+Schedule cannot be enabled: Plán nemohl být zapnutý
+Schedule limit has been exceeded: Limit plánu byl překročen
+Schedule mode: Režim plánu
+Schedules: Plány
+Schedules below will be deleted: Následující plány budou smazány
+Scope: Rozsah (scope)
+Scopes: Rozsahy
+Scopes define which sections of your account can be accessed when using the token.: 'Rozsahy určí, které části účtu mohou být přístupné pomocí tokenu.'
+Search: Hledej
+Secret: Tajný klíč (secret)
+Seems like a secret place: 'Něco nám říká, že byste tady neměl být'
+Select icon: Vyberte ikonu
+Select the item (subject) you want to control using this link: 'Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu'
+Sensor (normal closed): Snímač (normálně zavřený)
+Sensor (normal open): Snímač (normálně otevřený)
+Sensor disconnected: Žádný snímač
+Sensors: Senzory
+Server address: Adresa serveru
+Server unreachable: Server není dosažitelný
+Show on the Client’s devices: Zobrazit v klientských zařízeních
+Shut: Zakrýt
+Sign In: Přihlas se
+Sign Out: Odhlas se
+Sign in temporarily unavailable. Please try again later.: Přihlášení dočasně nedostupné. Zkuste to prosím později.
+Smartphones: Smartphony
+SoftVer: Software
+Sources available from: Zdroje dostupné v
+Staircase timer: Schodišťový automat
+Start Here: Začni tady
+Start date: Datum zahájení
+State: Stav
+Subject: Předmět
+Subject type: Typ předmětu
+Success: Úspěch
+Successful: Úspěšný
+Sundays: Neděle
+Sunrise / Sunset: Východ / Západ
+Supla for devices: Supla na zařízeních
+Temperature: Teplota
+Temperature adjustment: Nastavení teploty
+Temperature and humidity sensor: Snímač teploty a vlhkosti
+'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.'
+The Terms and Conditions have changed: Podmínky se změnily
+The Terms and Conditions have changed – please read them and accept.: Podmínky servisu se změnily - vyžaduje se jejich přijetí.
+The action was prevented from being performed using an HTTP GET method that is not permitted.: Akci nebylo možné provést pomocí metody HTTP GET.
+The client will be automatically logged out when deleted.: Odstranění klienta bude mít za následek okamžité odhlášení.
+The device is disabled: Zařízení je vypnuté
+The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
+The latest execution: Poslední výkon
+The measurement history has been deleted.: Historie měření byla odstraněná.
+The next available executions: Nejbližší výkony
+The password and its confirm are not the same.: Heslo a jeho potvrzení nejsou stejné.
+The password should be 8 or more characters.: Heslo musí mít ninimum 8 znaků.
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Server signalizuje chybu 400, což znamená, že požadovaná žádost je nesprávná.'
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Server vrátil chybu HTTP 403. To znamená, že nemáte dostatečná oprávnění k zobrazení této položky.'
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.'
+'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
+There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
+Thermometer: Teploměr
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.'
+This is the list of applications you have granted access to your account.: 'Toto je seznam aplikací, kterým jste udělili přístup k vašemu účtu.'
+Thursdays: Čtvrtky
+Timezone: Časová zóna
+Toggle: Přepnout
+Token does not exist: Token neexistuje
+Too many channels in this group: Příliš mnoho kanálů v této skupině
+Tuesdays: Úterky
+Turning this device off will result in disabling all the associated schedules.: 'Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.'
+Type: Typ
+Unit: Jednotka
+'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.'
 Visible: Viditelný
+WELCOME_MESSAGE: |
+  Připojení vašeho domova nebo kanceláře k SUPLI je snadné. Jediné, co musíte udělat, je
+  přepište následující údaje do ovládacích.
+Water meter: Vodoměr
+We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
+'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].'
+We were not able to find your account.: Váš účet jsme nenašli.
+'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Uděláme vše pro to, aby se zobrazené ikony zobrazovaly jak nejlépe, ale nejlepší výsledky dosáhnete tím, že nahrajete soubory PNG s průhledným pozadím, šířkou {width} a výškou {height} pixelů.'
+We will use it only in justified situations.: Použijeme jej pouze v odůvodněných případech.
+Weather Station: Meteorologická stanice
+Wednesdays: Středy
+Weight sensor: Váha
+What this token is for?: K čemu je tento token?
+When: Kdy
+Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
+White: Bílý
+Wind sensor: Snímač větru
+Window opening sensor: Snímač otevření okna
+With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete ovládat osvětlení ve Vašem domu nebo kanceláři
+With function: S funkcí
+Working period: Období provozu
 You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
 You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
-No. of access identifiers: Počet identifikátorů přístupu
-No. of locations: Počet umístění
-No. of Client’s apps: Počet klientských aplikací
-Assign Client apps: Přiřaďte klientské aplikace
-
-My SUPLA: Moje SUPLA
-Save changes to see Access IDs: Uložte změny a zobrazte ID přístupu
-The password and its confirm are not the same.: Heslo a jeho potvrzení nejsou stejné.
-
-Are you lost?: Ztratili jste? Hledáte něco?
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.
-Seems like a secret place: Něco nám říká, že byste tady neměl být
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Server vrátil chybu HTTP 403. To znamená, že nemáte dostatečná oprávnění k zobrazení této položky.
-
-Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potvrďte, že chcete smazat identifikátor polohy Potvrďte, že chcete smazat identifikátor polohy {locationId}. Další připojení I / O zařízení na toto místo nebude možné.. Další připojení I / O zařízení na toto místo nebude možné.
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Před odstraněním tohoto umístění odstraňte související zařízení. Identifikátory: {relatedIds}."
-"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Nejdříve odstraňte všechna zařízení, která používají toto umístění jako původní umístění. ID: {relatedIds}."
-"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Než odstraníte místo, musíte nejprve přesunout kanály, které jsou v něm. Identifikátory: {relatedIds}."
-"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Než odstraníte místo, musíte nejprve přesunout skupiny kanálů, které jsou v něm. Identifikátory: {relatedIds}."
-
-No location enabled. Go to [location list] or [add a new location].: Nemáte aktivní místa. Přejděte na [seznam míst] nebo [přidat nové umístění]..
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nemáte aktivní identifikátory přístupu. Přejděte na [seznam přístupových ID] nebo [přidat přístupové ID].
-
-I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Souhlasím s  [Podmínky] a souhlasím se zpracováním mých osobních údajů za účelem a rozsahu stanoveným v [nařízení].
-The Terms and Conditions have changed – please read them and accept.: Podmínky servisu se změnily - vyžaduje se jejich přijetí.
-The Terms and Conditions have changed: Podmínky se změnily
-I do not agree, get me out of here: Nesouhlasím, opustit toto pole
-I aree, taske me to the app: ZSouhlasím, vezmi mě do aplikace
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].
-I agree: Souhlasím
+You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
 You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
-Limit has been exceeded: Limit byl překročen
+You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
+You will be logged out shortly: Budete brzy odhlášeni
+You will not be able to generate a direct link with the same URL again.: Není možné vytvořit odkaz se stejnou adresou URL.
 Your account has been locked.: Váš účet byl zablokován.
-Please wait a moment before the next login attempt.: Počkejte chvíli na další pokus o přihlášení.
-Calibration: Kalibrace
-Percentage of closing: Procento uzavření
-Email already exists: E-mailová adresa již existuje
-
-Read: Odečet
-Modification: Modifikace
-Action execution: Provedení akce
-Account access when you are unavailable: Přístup k účtu, pokud nejste dostupní
-Revoke: Zrušit
-state-on: Zapnuté
-state-off: Vypnuté
-state-opened: Otevřené
+Your email: Váš e-mail
+Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.'
+Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
+after: po
+before: před
+choose: vybrat
+choose a currency: vyberte měnu
+choose the channel: vyberte kanál
+choose the channel group: vyberte skupinu kanálů
+choose the timezone: vyberte časové pásmo
+copied: kopírováno
+copy: kopíruj
+daily: Denní cyklus
+from IP: z adresy IP
+from the IP: z adresy
+hourly: Hodinový cyklus
+minutely: Minutový cyklus
+minutes: minuty
+once: Jednorázový
+register-slide1-text: 'Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.'
+register-slide1-title: Vlastní inteligentní budova
+register-slide2-text: 'Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!'
+register-slide2-title: SUPLA všude!
+register-slide3-text: 'Systémy automatizace budov dostupné na trhu jsou obvykle velmi složité, uzavřené a nákladné. V mnoha případech vyžadují instalaci již ve fázi výstavby budovy. SUPLA je jednoduchá, otevřená a zdarma. Umožňuje vytvářet výkonné prvky založené na platformách RaspberryPI, Arduino nebo ESP8266 a kombinovat je pomocí LAN a WiFi sítí. Připojte se k projektu a sestavte vlastní verzi systému automatizace budov!'
+register-slide3-title: Zdarma a otevřená!
+sec.: sek.
+'smartphones, tablets, etc.': 'smartphony, tablety atd.'
 state-closed: Zavřené
-state-partially_closed: Částečně zavřené
 state-default: Výchozí
 state-empty: Prázdné
 state-full: Plné
+state-off: Vypnuté
+state-on: Zapnuté
+state-opened: Otevřené
+state-partially_closed: Částečně zavřené
 state-revealed: Odkryté
-state-shut: Zakryté
-state-rgb_on_dim_on: RGB a stmívač zapnuté
-state-rgb_on_dim_off: RGB zapnuté, stmívač vypnutý
-state-rgb_off_dim_on: RGB vypnuté, stmívač zapnutý
 state-rgb_off_dim_off: RGB a stmívač vypnutý
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Uděláme vše pro to, aby se zobrazené ikony zobrazovaly jak nejlépe, ale nejlepší výsledky dosáhnete tím, že nahrajete soubory PNG s průhledným pozadím, šířkou {width} a výškou {height} pixelů.
-choose the timezone: vyberte časové pásmo
-choose the channel group: vyberte skupinu kanálů
-Delete measurement history: Vymazat historii měření
-Are you sure you want to delete the entire measurement history saved for this channel?: Opravdu chcete smazat celou historii měření shromážděnou pro tento kanál?
-The measurement history has been deleted.: Historie měření byla odstraněná.
-Price per: Cena za
-Currency: Měna
-Unit: Jednotka
-Impulses: Impulzy
-choose a currency: vyberte měnu
-No results match {0}: Žádné výsledky neodpovídají výsledkům {0}
-With function: S funkcí
-Drag your image(s) here or click to select from the disk: Přetáhněte obrázek zde nebo klepnutím vyberte z disku
-Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.
-Are you sure you want to delete this icon?: Opravdu chcete tuto ikonu smazat?
-After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Veškeré kanály a skupiny kanálů, které používají tuto ikonu, budou mít po smazání výchozí ikony.
-You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
-copied: kopírováno
-Last used: Poslední použití
-Never: Nidky
-Subject type: Typ předmětu
-Executed action: Provedená akce
-Newer: Novější
-Older: Starší
-Direct link has been created successfully!: Přímý odkaz byl úspěšně vytvořen!
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.
-Let me choose later: Nechte mě vybrat později
-"Direct link is not working right now. Reason:": "Přímý odkaz v tuto chvíli nefunguje. Důvod:"
-Allowed actions: Dovolené akce
-Execution history: Historie provedení
-Constraints: Omezení
-Working period: Období provozu
-Execution limit: Počet provedení
-Custom execution limit: Nestandardní počet provedení
-Select the item (subject) you want to control using this link: Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu
-After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Odkaz bude generován hned po výběru předmětu. Všechny ostatní možnosti můžete realizovat ihned po jejím vytvoření.
-Are you sure you want to delete this direct link?: Opravdu chcete smazat tento přímý odkaz?
-You will not be able to generate a direct link with the same URL again.: Není možné vytvořit odkaz se stejnou adresou URL.
-"Direct Link for #": "Přímý odkaz pro #"
-Direct links: Přímé odkazy
-Integrations: Integrace
-Could not reset the password. Please try again later.: Heslo nelze obnovit. Zkuste to prosím znovu.
-Connection with a private instance of the SUPLA cloud: Připojení k soukromé instanci cloudu SUPLA.
-Private Cloud domain name: Název soukromé domény cloud
-Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Pouze názvy domén s volitelným číslem portu jsou povoleny. Například. mysupla.org nebo mysupla.org:88. Je vyžadován protokol HTTPS.
-We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
-Your instance is not registered or you are trying to authorize an application that is not public.: Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.
-We were not able to find your account.: Váš účet jsme nenašli.
-If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Pokud jste si jisti, že máte účet na cloud.supla.org, zkontrolujte, zda je aplikace, kterou se pokoušíte autorizovat, veřejná.
-OAuth authorization: Autorizace OAuth
-Authorize the application, so that it can access your account.: Autorizujte aplikaci tak, aby měla přístup k vašemu účtu.
-After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.
-Authorized OAuth apps: Autorizované aplikace OAuth
-My OAuth apps: Moje OAuth aplikace
-Personal access tokens: Osobní přístupové tokeny
-Back to apps list: Zpět na seznam aplikaci
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Pokud chcete integrovat soukromý cloud SUPLA s veřejnou aplikací OAuth, musíte [zaregistrovat svou instanci].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].
-Otherwise go to [the homepage].: V opačném případě přejděte na [domovskou stránku].
-Application requirements: Požadavky aplikace
-Description: Popis
-Register a new OAuth application: Registrovat novou aplikaci OAuth
-Configuration: Konfigurace
-Public ID: Veřejné ID
-Secret: Tajný klíč (secret)
-Example Auth URL: Vzorová autorizační adresa URL
-Are you sure you want to delete this OAuth application?: Opravdu chcete smazat tuto aplikaci OAuth?
-This is the list of applications you have granted access to your account.: Toto je seznam aplikací, kterým jste udělili přístup k vašemu účtu.
-Authorized: Ověřeno
-Are you sure you want to revoke permissions granted to this OAuth application?: Opravdu chcete zrušit oprávnění udělená této aplikaci OAuth?
-Register private SUPLA Cloud: Registrovat soukromý cloud SUPLA
-Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
-Register: Registrovat
-Please provide a valid domain name for your private SUPLA Cloud: Zadejte správný název domény pro váš soukromý cloud SUPLA
-What this token is for?: K čemu je tento token?
-Scopes: Rozsahy
-Scopes define which sections of your account can be accessed when using the token.: Rozsahy určí, které části účtu mohou být přístupné pomocí tokenu.
-Generate token: Generovat token
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobní přístupové tokeny fungují stejně jako obyčejné tokeny s tím rozdílem, že fungují neomezeně.
-Generate new token: Generovat nový token
-Scope: Rozsah (scope)
-Are you sure you want to revoke this token?: Opravdu chcete odvolat token?
-We will use it only in justified situations.: Použijeme jej pouze v odůvodněných případech.
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Zadejte pouze doménu s portem, pokud není standardní (443). Vyžadujeme připojení HTTPS.
-Executed without confirmation: Provedeno bez potvrzení
-Electricity meter: Elektroměr
-Water meter: Vodoměr
-Gas meter: Plynoměr
-Add a new icon: Přidat novou ikonu
-Create new direct link: Vytvořte nový přímý odkaz
-No limit: Bez omezení
-Custom: Nestandardní
-If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Pokud jste programátor, který chce poskytnout další funkce pro službu SUPLI, vytvořte aplikaci OAuth, kterou uživatelé mohou autorizovat a používat.
-Full documentation: Úplná dokumentace
-New OAuth application: Nová aplikace OAuth
+state-rgb_off_dim_on: 'RGB vypnuté, stmívač zapnutý'
+state-rgb_on_dim_off: 'RGB zapnuté, stmívač vypnutý'
+state-rgb_on_dim_on: RGB a stmívač zapnuté
+state-shut: Zakryté
+sunrise-after: po východu slunce
+sunrise-before: před východem slunce
+sunset-after: po západu slunce
+sunset-before: před západem slunce
+will expire: vyprší
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nemůže komunikovat s Vaším účtem, dokud znovu neudělíte přístup.'
+'{clientName} wants to access your account.': '{clientName} chce získat přístup k vašemu účtu.'
 
-Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
-You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
-Please enter a valid email address: Zadejte správnou mailovou adresu
-OAuth application: Aplikace OAuth
-Impulse counter: Počítadlo implulzů
-New direct link: Nový přímý odkaz
-Direct link: Přímý odkaz
-Direct link is disabled.: Přímý odkaz je vypnutý
-No allowed actions have been chosen.: Nebyly vybrány žádné povolené akce
-Direct link is not active yet.: Přímý odkaz ještě není aktivní
-Direct link has expired.: Přímý odkaz je zastaralý
-Execution limit has been exceeded.: Limit výkonů byl překročen
-"{clientName} wants to access your account.": "{clientName} chce získat přístup k vašemu účtu."
-"{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} nemůže komunikovat s Vaším účtem, dokud znovu neudělíte přístup."
-Decline: Odmítnout
-Grant access: Poskytněte přístup
-Offline access: Přístup offline
-Proceed: Pokračuj
-Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
-Authorization callback URLs (one per line): Autorizační zpětné URL adresy(jeden na řádek)
-"Invalid redirect URI: {uri}": "Neplatné přesměrování URI : {uri}"
-Are you sure you want to delete this channel group?: Opravdu chcete tuto skupinu kanálů smazat?
-Incorrect direct link parameters: Nesprávné parametry přímého odkazu
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.
-Invalid request: Nesprávná žádost
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Server signalizuje chybu 400, což znamená, že požadovaná žádost je nesprávná.
-Personal token name is required.: Je třeba poskytnout název osobního tokenu.
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+###
+Are you sure you want to change channel's function?: Opravdu chcete změnit funkci kanálu?
+Assigned Locations: Přiřazené umístění
+CANCEL: ZRUŠIT
+Changing channel's function will also result in the following changes.: Změna funkce kanálu také způsobí následující změny.
+Client's Apps: Klientské aplikace
+Client's app has been deleted: Klientská aplikace byla odstraněna
+Coming soon: Brzy k dispozici
+DELETE: VYMAZAT
+Date: Datum
+'Direct Link for #': 'Přímý odkaz pro #'
+Disable: Vypnout
+Disable schedule: Vypnout plán
+'Don''t worry, you can always reset your password via email. Click here to do so.': Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
+Enable: Zapnout
+Enter your email: Zadejte svůj e-mail
+Hi: Ahoj
+Hour: Hodina
+Humidity Sensor: Snímač vlhkosti
+I/O: Vstup/ Výstup
+Input: Vvstup
+Languages: Jazyky
+Loading: Načítání
+Next: Dále
+Number: Číslo
+Output: Výstup
+Password has been changed!: Heslo bylo změněno!
+Registration: Registrace
+Remove: Vymazat
+SAVE: ULOŽ
+SUPLA-Cloud will not work without Javascript: SUPLA Cloud nebude fungovat bez zapnutí Javascriptu
+Service temporarily unavailable: Služba dočasně nedostupná
+Status: Stav
+Temperature & Humidity Sensor: Snímač teploty a vlhkosti
+Temperature Sensor: Snímač teploty
+Try again later: Zkuste to prosím později
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
+change: změnit
+'if it takes too long, check if the JS scripts are loaded correctly': 'pokud bude akce trvat příliš dlouho, zkontrolujte, zda jsou JS skripty správně vloženy'
+unknown: neznámý
 
-File is too large: Plik jest za duży
-"Maximum filesize limit is {limit}.": "Maksymalny rozmiar pliku to {limit}."
-"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}."
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+###
+Access identifier password must be at least 8 characters.: ~
+Access identifier password must be no longer than 32 characters.: ~
+'Any application or device that uses the {tokenName} token will not work anymore.': ~
+Application name cannot be blank.: ~
+Are you sure you want to change channel’s function?: ~
+CLICK TO: ~
+Changing channel’s function will also result in the following changes.: ~
+Channel group must consist of at least one channel.: ~
+Choose client apps: ~
+Client’s Apps: ~
+Client’s app has been deleted: ~
+Coming Soon: ~
+Could not reset the password.: ~
+DISABLE: ~
+'Don’t worry, you can always reset your password via email. Click here to do so.': ~
+ENABLE: ~
+GUID: ~
+Language is not available: ~
+Location password must be at least 4 characters.: ~
+Location password must be no longer than 32 characters.: ~
+Login: ~
+Open / close: ~
+Service temporarily unavailable.: ~
+Stop: ~
+Temperature & Humidity sensor: ~
+Temperature sensor: ~
+'The server has returned an HTTP {statusCode} error.': ~
+Unknown: ~
+Visit app webpage: ~
+Your private SUPLA Cloud is not registered.: ~
+message: ~
+regulationsAgreed: ~
+state-: ~
 
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Akci nebylo možné provést pomocí metody HTTP GET.
-For devices: Pro zařízení
-Allows to perform an action only using the HTTP PATCH request.: Umožňuje provádět akci pouze pomocí žádosti HTTP PATCH.
+#</editor-fold>

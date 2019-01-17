@@ -1,554 +1,570 @@
-# src/SuplaBundle/Resources/translations/messages.lt.yml
-
-Hi: Sveiki
-Delete: Pašalinti
-Caption: Parašas
-Enabled: Įjungta
-Disabled: Išjungta
-Search: Ieškok
-Assigned Locations: Priskirtos Vietos
-Timezone: Laiko juosta
-Registration: Registracija
-Password Reset: Slaptažodžio atstatymas
-Enter new password: Įveskite naują slaptažodį
-The password should be 8 or more characters.: Slaptažodį turi sudaryti mažiausiai 8 simboliai.
+# Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
+#<editor-fold desc="Complete translations" defaultstate="collapsed">
+...and start your adventure with building automation today!: ...ir pradėkite savo nuotykius su išmaniaisiais pastatais jau šiandien!
+...open and shut roller shutters: ...uždengti ir atidengti žaliuzes
+'...open gateways, gates or doors': '...atidaryti dureles, vartus ar duris'
+...or control home appliances: ...ar valdyti buitinę techniką/RTV įrangą
+...you can monitor temperature: ...galite stebėti temperatūrą
+ACTIVE: AKTYVI
+AM2301 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2301
+AM2302 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2302
+Access ID: Prieigos ID
+Access Identifier: Prieigos identifikatorius
+Access Identifiers: Prieigos identifikatorius
+Access identifier limit has been exceeded: Viršutinė prieigos identifikatorių riba viršytany
 Account: Paskyra
-Forgot your password?: Pamiršote slaptažodį?
-Server address: Serverio adresas
+Account access when you are unavailable: Prieiga prie paskyros kuomet esate neprieinami
+Account has been activated. You can Sign In now.: Paskyra aktyvuota. Galite prisijungti
+Action: Veiksmas
+Action execution: Akcijos vykdymas
+Active: Aktyvios
+Add: Pridėti
+Add a new icon: Pridėti naują piktogramą
+Add first channel to set channel group function and save it: 'Pasirinkite pirmą kanalą, kad nustatyti grupės funkciją ir ją išsaugoti'
+Add new channel group: Pridėti naują kanalų grupę
+Add new channel to this group: Pridėti naują kanalą grupėje
+Adjust parameters: Parametrų nustatymas
+'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Visi kanalai, o taip pat kanalų grupės, kurios naudoja šią piktogramą, ją pašalinus gauna numatytas piktogramas.'
+'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Gavus prieigą visada galite pakeisti nuomonę, atšaukiant prieigą savo paskyros nustatymuose.'
+'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Nuoroda bus generuojama tuoj pat po subjekto pasirinkimo. Visas likusias parinktis galite įvesti tuoj pat po jo sukūrimo.
+All: Viskas
+All the above and many more can be done from your phone or tablet: Visa tai ir dar daugiau galite atlikti išmaniojo telefono ar planšetinio kompiuterio pagalba
+Allowed actions: Priimtinos akcijos
+Allows to perform an action only using the HTTP PATCH request.: Leidžia atlikti akcijas tik naudojant HTTP PATCH užklausą.
+And more: Ir dar daugiau
+Application requirements: Naudojimo reikalavimai
+Are you lost?: Pasiklydote? Kažko ieškote?
+Are you sure you want to delete the entire measurement history saved for this channel?: Ar tikrai norite pašalinti šio kanalo sukauptų matmenų visą istoriją?
+Are you sure you want to delete this OAuth application?: Ar tikrai norite pašalinti šią OAuth programą?
+Are you sure you want to delete this channel group?: Ar tikrai norite pašalinti šią kanalų grupę?
+Are you sure you want to delete this client?: Ar tikrai norite pašalinti šią kliento programą?
+Are you sure you want to delete this direct link?: Ar tikrai norite pašalinti šią tiesioginę nuorodą?
+Are you sure you want to delete this icon?: Ar tikrai norite pašalinti šią piktogramą?
+Are you sure you want to delete this schedule?: Ar tikrai norite pašalinti šį tvarkaraštį?
+Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
+Are you sure you want to revoke permissions granted to this OAuth application?: 'Ar tikrai norite atšaukti įgaliojimus, skirtus OAuth programai?'
+Are you sure you want to revoke this token?: Ar tikrai norite atšaukti tokeną?
+Are you sure?: Ar tikrai?
+Assign Access Identifiers: Priskirti Prieigos Identifikatorių
+Assign Client apps: Priskirti klientų programas
+Assign Locations: Priskirti Vietas
+Authorization callback URLs (one per line): Autorizuojami grąžinami URL (vienas linijoje)
+'Authorize the application, so that it can access your account.': 'Autorizuokite programą, kad galėtų gauti prieigą į Jūsų paskyrą.'
+Authorized: Autorizuota
+Authorized OAuth apps: Autorizuotos programos OAuth
+Automation: Automatika
+Back to apps list: Grįžti į programų sąrašą
+Brightness: Ryškumas
+CLICK TO DISABLE: 'SPUSTELĖKITE, KAD IŠJUNGTI'
+CLICK TO ENABLE: 'SPUSTELĖKITE, KAD ĮJUNGTI'
+Calibration: Kalibravimas
 Cancel: Atšaukti
-CANCEL: ATŠAUKTI
-Relay switching time: Relė perjungimo laikas
-Full opening time: Bendras atidarymo laikas
-Full closing time: Bendras uždarymo laikas
-sec.: sek.
-Download the history of measurement: Atsisiųsti matavimų istoriją
-None: Nėra
-Channel for the sensor: Jutiklio kanalas
+Cancel changes: Atšaukti pakeitimus
+Cancelled: Atšaukta
+Caption: Parašas
+Change Password: Slaptažodžio keitimas
+Change icon: Pakeisti piktogramą
 Channel: Kanalas
 Channel No: Kanalo numeris
-Device: Įrenginys
-Access Identifier: Prieigos identifikatorius
-Location Identifier: Vietos identifikatorius
-Type: Tipas
-Number: Numeris
-I/O: Įvestis/Išvestis
-Function: Funkcija
-Name: Pavadinimas
-Location: Vieta
-Locations: Vietos
-SoftVer: ProgĮrVer
-All: Viskas
-Electric: Elektra
-Doors, Gates: Durys, Vartai
-Roller shutters: Žaliuzės
-Liquid, Temp: Skystis, Temperatūra
-Sensors: Jutikliai
-No function: Funkcijų nėra
-Connected: Sujungta
-Disconnected: Atjungta
-unknown: nežinoma 
-Comment: Komentaras
+Channel for the partial opening sensor: Netiesioginio atidarymo jutiklio kanalas
+Channel for the sensor: Jutiklio kanalas
+Channel group: Kanalų grupė
+Channel group limit has been exceeded: Viršutinė kanalų grupių riba viršyta
+Channel groups: Kanalų grupės
+Channel is assigned to the I/O device location: Kanalas priskirtas prie įrenginio vietos
+Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
 Channels: Kanalai
-I/O Devices: Įv/Iš įrenginiai
-Start Here: Pradėti čia
-Sign In: Prisijungti
-Sign Out: Atsijungti
-Password: Slaptažodis
+Check your email box: Patikrinkite savo el. pašto dėžutę
+Choose: Pasirinkti
+Choose Access Identifiers to be assigned to this Location: 'Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai'
+Choose location: Pasirinkti vietą
+Chosen hour: Pasirinktas laikas
+Close: Uždaryti
+Color: Spalva
+Color brightness: Šviesos ryškumas
+Comment: Komentaras
+Configuration: Konfigūracija
 Confirm Password: Slaptažodžio patvirtinimas
-SAVE: IŠSAUGOTI
-GENERATE: GENERUOTI
-ENABLED: ĮJUNGTA
-CLICK TO DISABLE: SPUSTELĖKITE, KAD IŠJUNGTI
-DISABLED: IŠJUNGTA
-CLICK TO ENABLE: SPUSTELĖKITE, KAD ĮJUNGTI
-DELETE: PAŠALINTI
-Assign Locations: Priskirti Vietas
-Confirm if you want to remove Access Identifier: Patvirtinkite, kad norite pašalinti Prieigos Identifikatorių
-Access Identifiers: Prieigos identifikatorius
+Confirm if you want to remove Access Identifier: 'Patvirtinkite, kad norite pašalinti Prieigos Identifikatorių'
+'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Patvirtinkite, kad norite pašalinti Vietos ID{locationId}. Tolesnis įv/iš įrenginių jungimasis su šia vieta bus neįmanomas.'
+'Confirm if you want to remove {deviceName} device': 'Patvirtinkite, kad norite pašalinti įrenginį {deviceName}'
+Connected: Sujungta
+Connection with a private instance of the SUPLA cloud: Sujungimas su privačia SUPLA debesio instancija.
+Constraints: Apribojimai
+Could not reset the password. Please try again later.: Negalima nustatyti iš naujo slaptažodžio. Dar kartą bandykite vėliau.
 Create New Access Identifier: Sukurti naują Prieigos Identifikatorių
 Create New Location: Sukurti naują Vietą
-Assign Access Identifiers: Priskirti Prieigos Identifikatorių
-Languages: Kalbos
-Choose Access Identifiers to be assigned to this Location: Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai
-Are you sure?: Ar tikrai?
-Lighting: Apšvietimas
-Temperature: Temperatūra
-Humidity: Drėgmė
-Doors and gates: Durys ir vartai
-Home appliances: Buitinė technika/RTV įranga
-And more: Ir dar daugiau
-From anywhere: Iš kiekvienos vietos
-With SUPLA you can operate the lights in your home or office: Su SUPLA galite valdyti Savo namų ar ofiso apšvietimą
-...you can monitor temperature: ...galite stebėti temperatūrą
-...open gateways, gates or doors: ...atidaryti dureles, vartus ar duris
-...open and shut roller shutters: ...uždengti ir atidengti žaliuzes
-...or control home appliances: ...ar valdyti buitinę techniką/RTV įrangą
-All the above and many more can be done from your phone or tablet: Visa tai ir dar daugiau galite atlikti išmaniojo telefono ar planšetinio kompiuterio pagalba
-SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA prieinama visada ir vidur, todėl nesijaudinkite, kai sekantį kartą pamiršite išjungti šviesą
-Registered: Užregistruotas
-Last connection: Paskutinis sujungimas
-Confirm if you want to remove {deviceName} device: Patvirtinkite, kad norite pašalinti įrenginį {deviceName}
-WELCOME_MESSAGE: |
-  Jūsų namų ar ofiso prijungimas prie SUPLA yra paprastas. Viskas, ką turite padaryti, tai
-  perrašyti į savo valdymo (įvesties/išvesties) įrenginius bei išmaniuosius telefonus žemiau pateiktus duomenis.
-Enter the data below in the settings of your control device (I/O Device).: Žemiau pateiktus duomenis įveskite savo valdymo (įv/iš įrenginys) įrenginyje.
-Enter the data below in your mobile SUPLA application on your smartphone.: Žemiau pateiktus duomenis įveskite mobilioje programoje SUPLA, įdegtoje Jūsų išmaniajame telefone.
-
-Previous login: Ankstesnis prisijungimas
-From IP: Iš IP adreso
-from IP: iš IP adreso
-Current Password: Dabartinis slaptažodis
-New password: Naujas slaptažodis
-Change Password: Slaptažodžio keitimas
-Coming soon: Netrukus bus prieinami
-register-slide1-title: Nuosavas Išmanusis Pastatas
-register-slide1-text: Remiantis prieinama elektronika, SUPLA leis Jums sukurti paprastus modulius, leidžiančius valdyti ir kontroliuoti pastato automatikos elementus. SUPLA dėka galite be kita ko valdyti apšvietimą, įjungti ir išjungti buitinę techniką ir RTV įrangą, atidaryti ir uždaryti vartus ir duris, taip pat ir kontroliuoti temperatūrą patalpose. Viską tai galite atlikti vienu piršto perbraukimu.
-register-slide2-title: SUPLA visur!
-register-slide2-text: Viena iš pagrindinių projekto prielaidų tai paprastumas ir prieinamumas. SUPLA leidžia vienu piršto perbraukimu įjungti šviesą ar atidaryti įvažiavimo vartus tuo momentu, kai norime įvažiuoti į teritoriją. SUPLA prieinama visur, kur turite prieigą prie interneto ryšio ir turite prie savęs išmanųjį telefoną arba planšetinį kompiuterį. SUPLA vystoma Atviro Kodo Programinės Įrangos ir Atviros Įrangos principu, dėka ko ir Jūs galite vystyti šį projektą!
-register-slide3-title: Nemokama ir atvira!
-register-slide3-text: Prieinamos rinkoje pastatų automatikos sistemos dažniausiai yra sudėtingos, uždaros ir brangios. Daugelyje atvejų jau pastato statybų etape reikalingas montavimas. SUPLA yra paprasta, atvira ir nemokama. Leidžia kurti vykdomuosius elementus su RaspberryPI, Arduino ar ESP8266 platformomis ir jungti juos LAN bei WiFi tinklo pagalba. Prisijunkite prie projekto ir sukurkite savo pastato automatikos sistemos versiją!
-
-Data saved: Duomenys išsaugoti
-Save: Išsaugoti
-Save and enable: Išsaugoti ir įjungti
-Location limit has been exceeded: Viršutinė vietų riba viršyta
-Success: Sėkmė
-Error: Klaida
-Access identifier limit has been exceeded: Viršutinė prieigos identifikatorių riba viršytany
-Information: Informacija
-Account has been activated. You can Sign In now.: Paskyra aktyvuota. Galite prisijungti
-Token does not exist: Atpažinimo ženklas neegzistuoja
-Password has been changed: Slaptažodis pakeistas
-Current password is incorrect: Dabartinis slaptažodis yra neteisingas
-Password has been changed!: Slaptažodis pakeistas!
+Create New Schedule: Sukurti naują tvarkaraštį
 Create an account: Sukurti paskyrą
-Your email: Jūsų el. paštas
-Enter your email: Įveskite savo el. paštą
-Enter your email address: Įveskite savo el. pašto adresą
-Enter strong password: Įveskite stiprų slaptažodį
-Repeat password: Pakartokite slaptažodį
-Don't worry, you can always reset your password via email. Click here to do so.: Nesijaudinkite. Savo el. pašto pagalba visada galite atkurti slaptažodį. Norėdami tai atlikti spustelėkite čia.
-RESET: ATKURTI
-Check your email box: Patikrinkite savo el. pašto dėžutę
-Please fill a valid email address: Įveskite teisingą el. pašto adresą
-Supla for devices: Supla įrenginiams
-Next: Toliau
-Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
-...and start your adventure with building automation today!: ...ir pradėkite savo nuotykius su išmaniaisiais pastatais jau šiandien!
-Mobile Apps: Mobiliosios programos
-Sources available from: Šaltiniai prieinami
-
-Input: Įvestis
-Output: Išvestis
-Sensor (normal open): Jutiklis (normaliai atidarytas)
-Sensor (normal closed): Jutiklis (normaliai uždarytas)
-Relay: Relė
-HFD4 Relay: Relė HFD4
-G5LA1A Relay: Relė G5LA1A
-G5LA1A Relay x2: Relė 2xG5LA1A
-DS18B20 Thermometer: Termometras DS18B20
+Create new direct link: Sukurti naują tiesioginę nuorodą
+Currency: Valiuta
+Current Password: Dabartinis slaptažodis
+Current password is incorrect: Dabartinis slaptažodis yra neteisingas
+Custom: Nestandartinis
+Custom execution limit: Nestandartinis atlikimų limitas
 DHT11 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT11
 DHT21 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT21
 DHT22 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT22
-AM2301 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2301
-AM2302 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2302
-Dimmer: Šviesos srauto reguliatorius
-RGB led controller: RGB apšvietimo reguliatorius
-Dimmer & RGB led controller: Šviesos srauto ir RGB apšvietimo reguliatorius
-Distance sensor: Atstumo jutiklis
-Depth sensor: Gilio jutiklis
-Thermometer: Termometras
-Gateway lock operation: Durelių atidarymas
-Gate operation: Įvažiavimo vartų atidarymas/uždarymas
-Garage door operation: Garažo vartų atidarymas/uždarymas
-Door lock operation: Durų atidarymas
-Roller shutter operation: Žaliuzių atidengimas ir uždengimas
-Gateway opening sensor: Durelių atidarymo jutiklis
-Gate opening sensor: Įvažiavimo vartų atidarymo jutiklis
-Garage door opening sensor: Garažo vartų atidarymo jutiklis
-Door opening sensor: Durų atidarymo jutiklis
-Roller shutter opening sensor: Žaliuzių atidengimo jutiklis
-No liquid sensor: Skysčio stygiaus jutiklis
-On/Off switch: Maitinimo jungiklis
-Light switch: Šviesos jungiklis
-Humidity sensor: Drėgmės jutiklis
-Temperature and humidity sensor: Temperatūros ir drėgmės jutiklis
-RGB lighting: RGB apšvietimas
-Dimmer and RGB lighting: Šviesos srauto reguliatorius ir RGB apšvietimas
-Original location: Originali vieta
-Go to your account: Eiti į savo paskyrą
-
-Service temporarily unavailable: Paslauga laikinai neprieinama
-Try again later: Pabandykite dar kartą vėliau
-
-copy: kopijuoti
-
-Schedule: Tvarkaraštis
-Schedules: Tvarkaraščiai
-Create New Schedule: Sukurti naują tvarkaraštį
-No future executions - schedule disabled: Nėra suplanuotų atlikimų – tvarkaraštis išjungtasy
-Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
-Disable schedule: Išjungti tvarkaraštį
-Executions: Atlikimai
-Action: Veiksmas
-Subject: Subjektas
-Mode: Režimas
-Schedule mode: Tvarkaraščio režimas
-change: keisti
-When: Kada
-Start date: Pradžios data
-End date: Pabaigos data
-The next available executions: Artimiausiais atlikimas
-choose the channel: pasirinkite kanalą
-Add: Pridėti
-Date: Data
-Hour: Laikas
-Interval: Intervalas
-Every: Kas
-minutes: minutes
-Hours: Valandos
-Minute: Minutė
+DISABLED: IŠJUNGTA
+DS18B20 Thermometer: Termometras DS18B20
+Data saved: Duomenys išsaugoti
 Days: Dienos
-Are you sure you want to delete this schedule?: Ar tikrai norite pašalinti šį tvarkaraštį?
-Next run date: Artimiausias atlikimas
-The latest execution: Paskutinis atlikimas
-
-Mondays: Pirmadieniai
-Tuesdays: Antradieniai
-Wednesdays: Trečiadieniai
-Thursdays: Ketvirtadieniai
-Fridays: Penktadieniai
-Saturdays: Šeštadieniai
-Sundays: Sekmadieniai
-
-once: Vienkartinis
-minutely: Minutinis ciklas
-hourly: Valandinis ciklas
-daily: Dieninis ciklas
-
-Close: Uždaryti
-Open: Atidaryti
-Adjust parameters: Parametrų nustatymas
-Brightness: Ryškumas
-Color brightness: Šviesos ryškumas
-Color: Spalva
-Random: Atsitiktinis
-Off: Išjungti
-On: Įjungti
-Shut: Uždengti
-Reveal: Atidengti
-Reveal partially: Dalinai atidengti
-Toggle: Perjungti
-
-Successful: Sėkmingai
+Decline: Atsisakyti
+Delete: Pašalinti
+Delete measurement history: Pašalinti matavimų istoriją
+Depth: Gylis
+Depth sensor: Gilio jutiklis
+Description: Aprašas
+Details: Detalės
+Device: Įrenginys
 Device unavailable: Įrenginys nepasiekiamas
-Sensor disconnected: Nėra jutiklio
-Server unreachable: Serveris nepasiekiamas
+Dimmer: Šviesos srauto reguliatorius
+Dimmer & RGB led controller: Šviesos srauto ir RGB apšvietimo reguliatorius
+Dimmer and RGB lighting: Šviesos srauto reguliatorius ir RGB apšvietimas
+Direct link: Tiesioginė nuoroda
+Direct link has been created successfully!: Tiesioginė nuoroda buvo sėkmingai sukurta!
+Direct link has expired.: Tiesioginė nuoroda prarado galiojimo laiką
+Direct link is disabled.: Tiesioginė nuoroda yra išjungta
+Direct link is not active yet.: Tiesioginė nuoroda dar nėra aktyvi
+'Direct link is not working right now. Reason:': 'Tiesioginė nuoroda šiuo metu neveikia. Priežastis:'
+Direct links: Tiesioginės nuorodos
+Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
+Disabled: Išjungta
+Disconnected: Atjungta
+Distance: Atstumas
+Distance sensor: Atstumo jutiklis
+Door lock operation: Durų atidarymas
+Door opening sensor: Durų atidarymo jutiklis
+Doors and gates: Durys ir vartai
+'Doors, Gates': 'Durys, Vartai'
+Download the history of measurement: Atsisiųsti matavimų istoriją
+Drag your image(s) here or click to select from the disk: 'Įkelkite vaizdą čia arba paspauskite, kad pasirinkti iš disko'
+ENABLED: ĮJUNGTA
+Edit: Redaguoti
+Electric: Elektra
+Electricity meter: Elektros energijos skaitiklis
+Email already exists: El. pašto adresas jau egzistuoja
+Empty!: Tuščia!
+Enabled: Įjungta
+End date: Pabaigos data
+Enter new password: Įveskite naują slaptažodį
+Enter strong password: Įveskite stiprų slaptažodį
+Enter the data below in the settings of your control device (I/O Device).: Žemiau pateiktus duomenis įveskite savo valdymo (įv/iš įrenginys) įrenginyje.
+Enter the data below in your mobile SUPLA application on your smartphone.: 'Žemiau pateiktus duomenis įveskite mobilioje programoje SUPLA, įdegtoje Jūsų išmaniajame telefone.'
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Paduokite tik domeną kartu su portu jeigu nėra standartinis (443). Reikalaujame HTTPS sujungimo.
+Enter your email address: Įveskite savo el. pašto adresą
+Error: Klaida
+Error when communicating the server. Try again in a while.: Ryšio su serveriu metu įvyko klaida. Pabandykite dar kartą vėliau.
+Every: Kas
+Example Auth URL: Pavyzdinis URL autorizavimui
+Executed action: Atlikta akcija
+Executed without confirmation: Atlikta be patvirtinimo
+Execution history: Atlikimo istorija
+Execution limit: Atlikimo limitas
+Execution limit has been exceeded.: Buvo viršytas atlikimų limitas
+Executions: Atlikimai
+Existing schedules: Egzistuojantys tvarkaraščiai
+Expired: Pradelstas
 Failed: Nesėkmingai
 Failed (zombie): Nesėkmingai (zombis)
-Cancelled: Atšaukta
-Expired: Pradelstas
-Processing: Vykdoma
-The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
-
-You will be logged out shortly: Netrukus busite atjungti
-If you want to stay here, do something!: Jei norite likti čia, padarykite ką nors!
-
-Chosen hour: Pasirinktas laikas
-before: prieš
-after: po
-sunrise-before: saulėtekį
-sunset-before: saulėlydį
-sunrise-after: saulėtekio
-sunset-after: saulėlydžio
-Sunrise / Sunset: Saulėtekis / Saulėlydis
-
-The device is disabled: Įrenginys išjungtas
-Existing schedules: Egzistuojantys tvarkaraščiai
-Turning this device off will result in disabling all the associated schedules.: Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.
-Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
-Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
-
-Choose: Pasirinkti
-White: Balta
-
-Smartphones: Išmanieji telefonai
-Client's Apps: Klientų programos
-smartphones, tablets, etc.: išmanieji telefonai, planšetiniai kompiuteriai ir t.t.
-Active: Aktyvios
-Idle: Nenaudojamos
-Client's app has been deleted: Kliento programa pašalinta
-Error when communicating the server. Try again in a while.: Ryšio su serveriu metu įvyko klaida. Pabandykite dar kartą vėliau.
-Loading: Krovimas
-if it takes too long, check if the JS scripts are loaded correctly: jei tai trunka per ilgai, patikrinkite, ar JS skriptai kraunami teisingai
-SUPLA-Cloud will not work without Javascript: SUPLA-Cloud neveiks be įjungto Javascript
-will expire: baigsis
-Registration of new clients: Klientų registracija
-Registration of new I/O devices: Įrenginių registracija
-Empty!: Tuščia!
-Last access: Paskutinis prisijungimas
-from the IP: iš adreso
-Access ID: Prieigos ID
-Are you sure you want to delete this client?: Ar tikrai norite pašalinti šią kliento programą?
-The client will be automatically logged out when deleted.: Kliento pašalinimas sukels, kad jis iškart bus atjungtas.
-ACTIVE: AKTYVI
-INACTIVE: NEAKTYVI
-Sign in temporarily unavailable. Please try again later.: Prisijungimas laikinai negalimas. Pabandykite dar kartą vėliau.
-
-Temperature Sensor: Temperatūros jutiklis
-Humidity Sensor: Drėgmės jutiklis
-Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis
-Mail sensor:  Pašto jutiklis
-Wind sensor: Vėjo jutiklis
-Pressure sensor: Slėgio jutiklis
-Rain sensor: Lietaus jutiklis
-Weight sensor: Svoris
-Weather Station: Meteorologijos stotis
-Window opening sensor: Lango atidarymo jutiklis
-Staircase timer: Laiptų automatas
-Change icon: Pakeisti piktogramą
-Select icon: Pasirinkti piktogramą
-
-Edit: Redaguoti
-Automation: Automatika
-Channel group: Kanalų grupė
-Channel groups: Kanalų grupės
-Show on the Client’s devices: Rodyti klientų įrenginiuose
-Disable: Išjungti
-Enable: Įjungti
-Add new channel group: Pridėti naują kanalų grupę
-No. of channels: Kanalų skaičius
-Details: Detalės
-No. of devices: Įrenginių skaičius
-Add new channel to this group: Pridėti naują kanalą grupėje
-Remove: Pašalinti
-Go to channel details: Eiti į kanalo detalę informaciją
+File is too large: Failas yra per didelis
+For devices: Įrenginiams
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Dėl saugumo, pilnas URL šios tiesioginės nuorodos bus rodomas tik kartą, jos kūrimo metu.'
+Forgot your password?: Pamiršote slaptažodį?
+Fridays: Penktadieniai
+From IP: Iš IP adreso
+From anywhere: Iš kiekvienos vietos
+Full closing time: Bendras uždarymo laikas
+Full documentation: Išsamus dokumentų rinkinys
+Full opening time: Bendras atidarymo laikas
+Function: Funkcija
+G5LA1A Relay: Relė G5LA1A
+G5LA1A Relay x2: Relė 2xG5LA1A
+GENERATE: GENERUOTI
+Garage door opening sensor: Garažo vartų atidarymo jutiklis
+Garage door operation: Garažo vartų atidarymas/uždarymas
+Gas meter: Dujų skaitiklis
+Gate opening sensor: Įvažiavimo vartų atidarymo jutiklis
+Gate operation: Įvažiavimo vartų atidarymas/uždarymas
+Gateway lock operation: Durelių atidarymas
+Gateway opening sensor: Durelių atidarymo jutiklis
+Generate new token: Generuoti naują tokeną
+Generate token: Generuoti tokeną
+Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
 Go to I/O device details: Eiti į įrenginio detalę informaciją
-Choose location: Pasirinkti vietą
-There are no more channels you can add to this group: Nėra kitų kanalų, kuriuos būtų galima pridėti prie šios grupės
-New channel group: Nauja kanalų grupė
-Add first channel to set channel group function and save it: Pasirinkite pirmą kanalą, kad nustatyti grupės funkciją ir ją išsaugoti
-choose: pasirinkti
-
-Retry on failure: Pakartokite kai neįvykdyta
-Status: Statusas
-State: Būsena
-Depth: Gylis
-Distance: Atstumas
+Go to channel details: Eiti į kanalo detalę informaciją
+Go to your account: Eiti į savo paskyrą
+Grant access: Pateikti prieigą
+HFD4 Relay: Relė HFD4
 History of measurements: Matmenų istorija
+Home appliances: Buitinė technika/RTV įranga
+Hours: Valandos
+Humidity: Drėgmė
 Humidity adjustment: Drėgmės priderinimas
-Temperature adjustment: Temperatūros priderinimas
-Opening sensor: Atidarymo jutiklis
-Partial opening sensor: Netiesioginio atidarymo jutiklis
-Channel for the partial opening sensor: Netiesioginio atidarymo jutiklio kanalas
-Inverted logic: Atvirkštinė logika
-
-Are you sure you want to change channel's function?: Ar tikrai norite pakeisti kanalo funkciją?
-Changing channel's function will also result in the following changes.: Kanalo funkcijos pakeitimas sukels ir šiuos pakeitimus.
-Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
-Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
-Cancel changes: Atšaukti pakeitimus
-Save changes: Išsaugoti pakeitimus
-Channel is assigned to the I/O device location: Kanalas priskirtas prie įrenginio vietos
+Humidity sensor: Drėgmės jutiklis
+'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Sutinku su [Taisyklėmis] ir sutinku, kad mano asmens duomenys būtų apdorojami [Taisyklėse] nurodytu tikslu ir srityje.'
+I agree: Sutinku
+'I aree, taske me to the app': 'Sutinki, eiti į programą'
+'I do not agree, get me out of here': 'Nesutinku, pasiimkite mane iš čia'
+I/O Devices: Įv/Iš įrenginiai
+INACTIVE: NEAKTYVI
+Idle: Nenaudojamos
+'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA''I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.'
+'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.'
+'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite [registruoti savo instanciją].'
+'If you want to stay here, do something!': 'Jei norite likti čia, padarykite ką nors!'
+'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].'
+Impulse counter: Impulsų skaitiklis
+Impulses: Impulsai
+Incorrect direct link parameters: Neteisingi tiesioginės nuorodos parametrai
+Information: Informacija
 Inherit I/O Device location: Naudokitės įrenginio vietos aptikimu
-No. of channel groups: Kanalų grupių skaičius
-Channel group limit has been exceeded: Viršutinė kanalų grupių riba viršyta
-Schedule limit has been exceeded: Viršutinė tvarkaraščių riba viršyta
-Too many channels in this group: Šioje grupė per daug kanalų
-
+Integrations: Įtrauktis
+Interval: Intervalas
+'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
+Invalid request: Neteisinga užklausa
+Inverted logic: Atvirkštinė logika
 Invisible: Nematomi
+Last access: Paskutinis prisijungimas
+Last connection: Paskutinis sujungimas
+Last used: Paskutinis panaudotas
+Let me choose later: Leiskite man pasirinkti vėliau
+Light switch: Šviesos jungiklis
+Lighting: Apšvietimas
+Limit has been exceeded: Viršutinė riba viršyta
+'Liquid, Temp': 'Skystis, Temperatūra'
+Location: Vieta
+Location Identifier: Vietos identifikatorius
+Location limit has been exceeded: Viršutinė vietų riba viršyta
+Locations: Vietos
+Mail sensor: Pašto jutiklis
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Įsitikinkite ar yra įrašytas saugioje vietoje, jeigu norėsite ją panaudoti ateityje. Nuoroda nebus daugiau rodoma išėjus iš šio tinklalapio.'
+'Maximum filesize limit is {limit}.': 'Maksimalus failo dydis tai {limit}.'
+Minute: Minutė
+Mobile Apps: Mobiliosios programos
+Mode: Režimas
+Modification: Modifikavimas
+Mondays: Pirmadieniai
+My OAuth apps: Mano programos OAuth
+My SUPLA: Mano SUPLA
+Name: Pavadinimas
+Never: Niekada
+New OAuth application: Nauja OAuth programa
+New channel group: Nauja kanalų grupė
+New direct link: Nauja tiesioginė nuoroda
+New password: Naujas slaptažodis
+Newer: Naujesnės
+Next run date: Artimiausias atlikimas
+'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Neturite jokių aktyvių prieigos identifikatorių. Eikite į [prieigos identifikatorių sąrašą] ir [pridėkite naują prieigos identifikatorių].'
+No allowed actions have been chosen.: Nebuvo pasirinkta jokių leidžiamų akcijų
+No function: Funkcijų nėra
+No future executions - schedule disabled: Nėra suplanuotų atlikimų – tvarkaraštis išjungtasy
+No limit: Be limito
+No liquid sensor: Skysčio stygiaus jutiklis
+'No location enabled. Go to [location list] or [add a new location].': 'Neturite jokių aktyvių vietų. Eikite į [vietų sąrašą] ir [pridėkite naują vietą].'
+'No results match {0}': 'Jokie rezultatai netinka su {0}'
+No. of Client’s apps: Klientų programų skaičius
+No. of access identifiers: Prieigos identifikatorių skaičius
+No. of channel groups: Kanalų grupių skaičius
+No. of channels: Kanalų skaičius
+No. of devices: Įrenginių skaičius
+No. of locations: Vietų skaičius
+None: Nėra
+OAuth application: OAuth programa
+OAuth authorization: Autorizacija OAuth
+'Off': Išjungti
+Offline access: Offline prieiga
+Older: Senesnės
+'On': Įjungti
+On/Off switch: Maitinimo jungiklis
+'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Leidžiama naudoti domenų pavadinimus tik su pasirinktiniu prievado numeriu. Pavyzdžiui, mysupla.org ar mysupla.org:88. HTTPS būtinas.'
+Open: Atidaryti
+Opening sensor: Atidarymo jutiklis
+Original location: Originali vieta
+'Otherwise go to [the homepage].': 'Kitu atveju pereikite į [naminį tinklalapį].'
+Partial opening sensor: Netiesioginio atidarymo jutiklis
+Password: Slaptažodis
+Password Reset: Slaptažodžio atstatymas
+Password has been changed: Slaptažodis pakeistas
+Percentage of closing: Uždengimo procentas
+Personal access tokens: Asmeniški prieigos tokenai
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Asmeniniai tokenai veikia, tai kaip ir paprasti, skirtumas, toks, kad neturi nustatyto termino.'
+Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identifikatoriaus (tokeno) pavadinimą.
+Please enter a valid email address: Įveskite teisingą el. pašto adresą
+Please fill a valid email address: Įveskite teisingą el. pašto adresą
+Please provide a valid domain name for your private SUPLA Cloud: Pateikite taisyklingą domeno pavadinimą savo privačiam SUPLA debesiui
+Please select the schedules that should also be enabled.: 'Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.'
+Please wait a moment before the next login attempt.: Prieš pakartotiną bandymą prisijungti šiek tiek luktelėkite.
+Pressure sensor: Slėgio jutiklis
+Previous login: Ankstesnis prisijungimas
+Price per: Kaina už
+Private Cloud domain name: Privataus debesio domeno pavadinimas
+Proceed: Tęsti
+Processing: Vykdoma
+Public ID: Viešasis ID
+RESET: ATKURTI
+RGB led controller: RGB apšvietimo reguliatorius
+RGB lighting: RGB apšvietimas
+Rain sensor: Lietaus jutiklis
+Random: Atsitiktinis
+Read: Rodmenys
+Register: Registruoti
+Register a new OAuth application: Registruotis į OAuth programą
+Register private SUPLA Cloud: Įregistruokite privatų SUPLA debesį
+Registered: Užregistruotas
+Registration of new I/O devices: Įrenginių registracija
+Registration of new clients: Klientų registracija
+Relay: Relė
+Relay switching time: Relė perjungimo laikas
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Prieš pašalindami vietą pirmiau turite perkelti kanalų grupes, kurios yra joje. Identifikatoriai: {relatedIds}.'
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Prieš pašalindami vietas pirmiau turite perkelti kanalus, kurie joje yra. Identifikatoria: {relatedIds}.'
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Pašalinkite susietus įrenginius prieš pašalindami vietą. Identifikatoriai: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Pirmiau pašalinkite visus įrenginius, kurie naudoja šią vietą kaip originalią vietą. Identifikatoriai: {relatedIds}.'
+Repeat password: Pakartokite slaptažodį
+Retry on failure: Pakartokite kai neįvykdyta
+Reveal: Atidengti
+Reveal partially: Dalinai atidengti
+Revoke: Atšaukti
+Roller shutter opening sensor: Žaliuzių atidengimo jutiklis
+Roller shutter operation: Žaliuzių atidengimas ir uždengimas
+Roller shutters: Žaliuzės
+'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA prieinama visada ir vidur, todėl nesijaudinkite, kai sekantį kartą pamiršite išjungti šviesą'
+Saturdays: Šeštadieniai
+Save: Išsaugoti
+Save and enable: Išsaugoti ir įjungti
+Save changes: Išsaugoti pakeitimus
+Save changes to see Access IDs: 'Išsaugoti pakeitimus, kad peržiūrėti prieigos identifikatorius'
+Schedule: Tvarkaraštis
+Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
+Schedule limit has been exceeded: Viršutinė tvarkaraščių riba viršyta
+Schedule mode: Tvarkaraščio režimas
+Schedules: Tvarkaraščiai
+Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
+Scope: Apimtis (scope)
+Scopes: Taikymo sritis
+Scopes define which sections of your account can be accessed when using the token.: Sritys nustato į kokius išteklius paskyroje galima gauti prieigą panaudojant tokeną.
+Search: Ieškok
+Secret: Slaptas raktas (secret)
+Seems like a secret place: 'Kažkas mums sako, kad Jūs neturėtumėte čia būti'
+Select icon: Pasirinkti piktogramą
+Select the item (subject) you want to control using this link: 'Pasirinkite elementą (subjektas), kurį norite kontroliuoti su šios nuorodos pagalba'
+Sensor (normal closed): Jutiklis (normaliai uždarytas)
+Sensor (normal open): Jutiklis (normaliai atidarytas)
+Sensor disconnected: Nėra jutiklio
+Sensors: Jutikliai
+Server address: Serverio adresas
+Server unreachable: Serveris nepasiekiamas
+Show on the Client’s devices: Rodyti klientų įrenginiuose
+Shut: Uždengti
+Sign In: Prisijungti
+Sign Out: Atsijungti
+Sign in temporarily unavailable. Please try again later.: Prisijungimas laikinai negalimas. Pabandykite dar kartą vėliau.
+Smartphones: Išmanieji telefonai
+SoftVer: ProgĮrVer
+Sources available from: Šaltiniai prieinami
+Staircase timer: Laiptų automatas
+Start Here: Pradėti čia
+Start date: Pradžios data
+State: Būsena
+Subject: Subjektas
+Subject type: Subjekto tipas
+Success: Sėkmė
+Successful: Sėkmingai
+Sundays: Sekmadieniai
+Sunrise / Sunset: Saulėtekis / Saulėlydis
+Supla for devices: Supla įrenginiams
+Temperature: Temperatūra
+Temperature adjustment: Temperatūros priderinimas
+Temperature and humidity sensor: Temperatūros ir drėgmės jutiklis
+'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.'
+The Terms and Conditions have changed: Taisyklės pasikeitė
+The Terms and Conditions have changed – please read them and accept.: Svetainės Taisyklės pasikeitė – būtinas sutikimas su jomis.
+The action was prevented from being performed using an HTTP GET method that is not permitted.: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
+The client will be automatically logged out when deleted.: 'Kliento pašalinimas sukels, kad jis iškart bus atjungtas.'
+The device is disabled: Įrenginys išjungtas
+The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
+The latest execution: Paskutinis atlikimas
+The measurement history has been deleted.: Matmenų istorija pašalinta.
+The next available executions: Artimiausiais atlikimas
+The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas nėra identiški.
+The password should be 8 or more characters.: Slaptažodį turi sudaryti mažiausiai 8 simboliai.
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.'
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Serveris grąžino HTTP 403 klaidą. Tai reiškia, kad neturite pakankamai įgaliojimu šio elemento peržiūrai.'
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serveris grąžino HTTP 404 klaidą. Tai reiškia, kad elementas, kurio ieškote, neegzistuoja.'
+'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Jūsų pasirinkti piktogramų failai yra per dideli. Maksimalus leistinas įkeliamo failo dydis tai {limit}.'
+There are no more channels you can add to this group: 'Nėra kitų kanalų, kuriuos būtų galima pridėti prie šios grupės'
+Thermometer: Termometras
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.'
+This is the list of applications you have granted access to your account.: 'Tai programų sąrašas, kurioms suteikėte prieigą Jūsų paskyroje.'
+Thursdays: Ketvirtadieniai
+Timezone: Laiko juosta
+Toggle: Perjungti
+Token does not exist: Atpažinimo ženklas neegzistuoja
+Too many channels in this group: Šioje grupė per daug kanalų
+Tuesdays: Antradieniai
+Turning this device off will result in disabling all the associated schedules.: 'Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.'
+Type: Tipas
+Unit: Vienetas
+'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.'
 Visible: Matomi
+WELCOME_MESSAGE: |
+  Jūsų namų ar ofiso prijungimas prie SUPLA yra paprastas. Viskas, ką turite padaryti, tai
+  perrašyti į savo valdymo (įvesties/išvesties) įrenginius bei išmaniuosius telefonus žemiau pateiktus duomenis.
+Water meter: Vandens skaitiklis
+We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
+'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Jūsų naršyklėje saugojame informacijas apie Jūsų preferencijas, kad palengvintumėme naudojimąsi programa (pvz. slapukų mechanizmo pagalba). [Perskaitykite taisykles].'
+We were not able to find your account.: Mums nepavyko surasti Jūsų paskyros.
+'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.'
+We will use it only in justified situations.: Panaudosime jį tik pagrįstais atvejais.
+Weather Station: Meteorologijos stotis
+Wednesdays: Trečiadieniai
+Weight sensor: Svoris
+What this token is for?: Kam yra skirtas šis tokenas?
+When: Kada
+Where is your SUPLA Cloud?: Kur yra Jūsų SUPLA?
+White: Balta
+Wind sensor: Vėjo jutiklis
+Window opening sensor: Lango atidarymo jutiklis
+With SUPLA you can operate the lights in your home or office: Su SUPLA galite valdyti Savo namų ar ofiso apšvietimą
+With function: Su funkcija
+Working period: Veiklos trukmė
 You cannot delete your last access identifier.: Negalite pašalinti savo paskutinio prieigos identifikatoriaus.
 You cannot delete your last location.: Negalite pašalinti paskutinės savo vietos.
-No. of access identifiers: Prieigos identifikatorių skaičius
-No. of locations: Vietų skaičius
-No. of Client’s apps: Klientų programų skaičius
-Assign Client apps: Priskirti klientų programas
-
-My SUPLA: Mano SUPLA
-Save changes to see Access IDs: Išsaugoti pakeitimus, kad peržiūrėti prieigos identifikatorius
-The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas nėra identiški.
-
-Are you lost?: Pasiklydote? Kažko ieškote?
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serveris grąžino HTTP 404 klaidą. Tai reiškia, kad elementas, kurio ieškote, neegzistuoja.
-Seems like a secret place: Kažkas mums sako, kad Jūs neturėtumėte čia būti
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serveris grąžino HTTP 403 klaidą. Tai reiškia, kad neturite pakankamai įgaliojimu šio elemento peržiūrai.
-
-Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Patvirtinkite, kad norite pašalinti Vietos ID{locationId}. Tolesnis įv/iš įrenginių jungimasis su šia vieta bus neįmanomas.
-"Remove all the associated devices before you delete this location. Ids: {relatedIds}.": "Pašalinkite susietus įrenginius prieš pašalindami vietą. Identifikatoriai: {relatedIds}."
-"Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.": "Pirmiau pašalinkite visus įrenginius, kurie naudoja šią vietą kaip originalią vietą. Identifikatoriai: {relatedIds}."
-"Relocate all the associated channels before you delete this location. Ids: {relatedIds}.": "Prieš pašalindami vietas pirmiau turite perkelti kanalus, kurie joje yra. Identifikatoria: {relatedIds}."
-"Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.": "Prieš pašalindami vietą pirmiau turite perkelti kanalų grupes, kurios yra joje. Identifikatoriai: {relatedIds}."
-
-No location enabled. Go to [location list] or [add a new location].: Neturite jokių aktyvių vietų. Eikite į [vietų sąrašą] ir [pridėkite naują vietą].
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Neturite jokių aktyvių prieigos identifikatorių. Eikite į [prieigos identifikatorių sąrašą] ir [pridėkite naują prieigos identifikatorių].
-
-I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Sutinku su [Taisyklėmis] ir sutinku, kad mano asmens duomenys būtų apdorojami [Taisyklėse] nurodytu tikslu ir srityje.
-The Terms and Conditions have changed – please read them and accept.: Svetainės Taisyklės pasikeitė – būtinas sutikimas su jomis.
-The Terms and Conditions have changed: Taisyklės pasikeitė
-I do not agree, get me out of here: Nesutinku, pasiimkite mane iš čia
-I aree, taske me to the app: Sutinki, eiti į programą
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Jūsų naršyklėje saugojame informacijas apie Jūsų preferencijas, kad palengvintumėme naudojimąsi programa (pvz. slapukų mechanizmo pagalba). [Perskaitykite taisykles].
-I agree: Sutinku
+You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
 You must agree to the Terms and Conditions.: Sutikimas su taisyklėmis būtinas.
-Limit has been exceeded: Viršutinė riba viršyta
+You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
+You will be logged out shortly: Netrukus busite atjungti
+You will not be able to generate a direct link with the same URL again.: Nuorodos su tuo pačiu URL sukūrimas nebus įmanomas.
 Your account has been locked.: El. pašto adresas jau egzistuoja
-Please wait a moment before the next login attempt.: Prieš pakartotiną bandymą prisijungti šiek tiek luktelėkite.
-Calibration: Kalibravimas
-Percentage of closing: Uždengimo procentas
-Email already exists: El. pašto adresas jau egzistuoja
-
-Read: Rodmenys
-Modification: Modifikavimas
-Action execution: Akcijos vykdymas
-Account access when you are unavailable: Prieiga prie paskyros kuomet esate neprieinami
-Revoke: Atšaukti
-state-on: Įjungta
-state-off: Išjungta
-state-opened: Atidaryta
+Your email: Jūsų el. paštas
+Your instance is not registered or you are trying to authorize an application that is not public.: 'Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.'
+Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
+after: po
+before: prieš
+choose: pasirinkti
+choose a currency: pasirinkti valiutą
+choose the channel: pasirinkite kanalą
+choose the channel group: pasirinkti kanalų grupę
+choose the timezone: pasirinkti laiko zoną
+copied: nukopijuota
+copy: kopijuoti
+daily: Dieninis ciklas
+from IP: iš IP adreso
+from the IP: iš adreso
+hourly: Valandinis ciklas
+minutely: Minutinis ciklas
+minutes: minutes
+once: Vienkartinis
+register-slide1-text: 'Remiantis prieinama elektronika, SUPLA leis Jums sukurti paprastus modulius, leidžiančius valdyti ir kontroliuoti pastato automatikos elementus. SUPLA dėka galite be kita ko valdyti apšvietimą, įjungti ir išjungti buitinę techniką ir RTV įrangą, atidaryti ir uždaryti vartus ir duris, taip pat ir kontroliuoti temperatūrą patalpose. Viską tai galite atlikti vienu piršto perbraukimu.'
+register-slide1-title: Nuosavas Išmanusis Pastatas
+register-slide2-text: 'Viena iš pagrindinių projekto prielaidų tai paprastumas ir prieinamumas. SUPLA leidžia vienu piršto perbraukimu įjungti šviesą ar atidaryti įvažiavimo vartus tuo momentu, kai norime įvažiuoti į teritoriją. SUPLA prieinama visur, kur turite prieigą prie interneto ryšio ir turite prie savęs išmanųjį telefoną arba planšetinį kompiuterį. SUPLA vystoma Atviro Kodo Programinės Įrangos ir Atviros Įrangos principu, dėka ko ir Jūs galite vystyti šį projektą!'
+register-slide2-title: SUPLA visur!
+register-slide3-text: 'Prieinamos rinkoje pastatų automatikos sistemos dažniausiai yra sudėtingos, uždaros ir brangios. Daugelyje atvejų jau pastato statybų etape reikalingas montavimas. SUPLA yra paprasta, atvira ir nemokama. Leidžia kurti vykdomuosius elementus su RaspberryPI, Arduino ar ESP8266 platformomis ir jungti juos LAN bei WiFi tinklo pagalba. Prisijunkite prie projekto ir sukurkite savo pastato automatikos sistemos versiją!'
+register-slide3-title: Nemokama ir atvira!
+sec.: sek.
+'smartphones, tablets, etc.': 'išmanieji telefonai, planšetiniai kompiuteriai ir t.t.'
 state-closed: Uždaryta
-state-partially_closed: Iš dalies uždaryta
 state-default: Numatyta
 state-empty: Tuščia
 state-full: Pilna
+state-off: Išjungta
+state-on: Įjungta
+state-opened: Atidaryta
+state-partially_closed: Iš dalies uždaryta
 state-revealed: Atidengta
-state-shut: Uždengta
-state-rgb_on_dim_on: RGB ir apšvietimo reguliatorius įjungta
-state-rgb_on_dim_off: RGB įjungta, apšvietimo reguliatorius išjungta
-state-rgb_off_dim_on: RGB išjungta, apšvietimo reguliatorius įjungta
 state-rgb_off_dim_off: RGB ir apšvietimo reguliatorius išjungta
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.
-choose the timezone: pasirinkti laiko zoną
-choose the channel group: pasirinkti kanalų grupę
-Delete measurement history: Pašalinti matavimų istoriją
-Are you sure you want to delete the entire measurement history saved for this channel?: Ar tikrai norite pašalinti šio kanalo sukauptų matmenų visą istoriją?
-The measurement history has been deleted.: Matmenų istorija pašalinta.
-Price per: Kaina už
-Currency: Valiuta
-Unit: Vienetas
-Impulses: Impulsai
-choose a currency: pasirinkti valiutą
-No results match {0}: Jokie rezultatai netinka su {0}
-With function: Su funkcija
-Drag your image(s) here or click to select from the disk: Įkelkite vaizdą čia arba paspauskite, kad pasirinkti iš disko
-Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.
-Are you sure you want to delete this icon?: Ar tikrai norite pašalinti šią piktogramą?
-After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Visi kanalai, o taip pat kanalų grupės, kurios naudoja šią piktogramą, ją pašalinus gauna numatytas piktogramas.
-You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
-copied: nukopijuota
-Last used: Paskutinis panaudotas
-Never: Niekada
-Subject type: Subjekto tipas
-Executed action: Atlikta akcija
-Newer: Naujesnės
-Older: Senesnės
-Direct link has been created successfully!: Tiesioginė nuoroda buvo sėkmingai sukurta!
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: Dėl saugumo, pilnas URL šios tiesioginės nuorodos bus rodomas tik kartą, jos kūrimo metu.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Įsitikinkite ar yra įrašytas saugioje vietoje, jeigu norėsite ją panaudoti ateityje. Nuoroda nebus daugiau rodoma išėjus iš šio tinklalapio.
-Let me choose later: Leiskite man pasirinkti vėliau
-"Direct link is not working right now. Reason:": "Tiesioginė nuoroda šiuo metu neveikia. Priežastis:"
-Allowed actions: Priimtinos akcijos
-Execution history: Atlikimo istorija
-Constraints: Apribojimai
-Working period: Veiklos trukmė
-Execution limit: Atlikimo limitas
-Custom execution limit: Nestandartinis atlikimų limitas
-Select the item (subject) you want to control using this link: Pasirinkite elementą (subjektas), kurį norite kontroliuoti su šios nuorodos pagalba
-After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Nuoroda bus generuojama tuoj pat po subjekto pasirinkimo. Visas likusias parinktis galite įvesti tuoj pat po jo sukūrimo.
-Are you sure you want to delete this direct link?: Ar tikrai norite pašalinti šią tiesioginę nuorodą?
-You will not be able to generate a direct link with the same URL again.: Nuorodos su tuo pačiu URL sukūrimas nebus įmanomas.
-"Direct Link for #": "Tiesioginė nuoroda #"
-Direct links: Tiesioginės nuorodos
-Integrations: Įtrauktis
-Could not reset the password. Please try again later.: Negalima nustatyti iš naujo slaptažodžio. Dar kartą bandykite vėliau.
-Connection with a private instance of the SUPLA cloud: Sujungimas su privačia SUPLA debesio instancija.
-Private Cloud domain name: Privataus debesio domeno pavadinimas
-Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Leidžiama naudoti domenų pavadinimus tik su pasirinktiniu prievado numeriu. Pavyzdžiui, mysupla.org ar mysupla.org:88. HTTPS būtinas.
-We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
-Your instance is not registered or you are trying to authorize an application that is not public.: Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.
-We were not able to find your account.: Mums nepavyko surasti Jūsų paskyros.
-If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.
-OAuth authorization: Autorizacija OAuth
-Authorize the application, so that it can access your account.: Autorizuokite programą, kad galėtų gauti prieigą į Jūsų paskyrą.
-After granting the access, you can always remove it by adjusting the settings in your account settings section.: Gavus prieigą visada galite pakeisti nuomonę, atšaukiant prieigą savo paskyros nustatymuose.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.
-Authorized OAuth apps: Autorizuotos programos OAuth
-My OAuth apps: Mano programos OAuth
-Personal access tokens: Asmeniški prieigos tokenai
-Back to apps list: Grįžti į programų sąrašą
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite [registruoti savo instanciją].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].
-Otherwise go to [the homepage].: Kitu atveju pereikite į [naminį tinklalapį].
-Application requirements: Naudojimo reikalavimai
-Description: Aprašas
-Register a new OAuth application: Registruotis į OAuth programą
-Configuration: Konfigūracija
-Public ID: Viešasis ID
-Secret: Slaptas raktas (secret)
-Example Auth URL: Pavyzdinis URL autorizavimui
-Are you sure you want to delete this OAuth application?: Ar tikrai norite pašalinti šią OAuth programą?
-This is the list of applications you have granted access to your account.: Tai programų sąrašas, kurioms suteikėte prieigą Jūsų paskyroje.
-Authorized: Autorizuota
-Are you sure you want to revoke permissions granted to this OAuth application?: Ar tikrai norite atšaukti įgaliojimus, skirtus OAuth programai?
-Register private SUPLA Cloud: Įregistruokite privatų SUPLA debesį
-Where is your SUPLA Cloud?: Kur yra Jūsų SUPLA?
-Register: Registruoti
-Please provide a valid domain name for your private SUPLA Cloud: Pateikite taisyklingą domeno pavadinimą savo privačiam SUPLA debesiui
-What this token is for?: Kam yra skirtas šis tokenas?
-Scopes: Taikymo sritis
-Scopes define which sections of your account can be accessed when using the token.: Sritys nustato į kokius išteklius paskyroje galima gauti prieigą panaudojant tokeną.
-Generate token: Generuoti tokeną
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Asmeniniai tokenai veikia, tai kaip ir paprasti, skirtumas, toks, kad neturi nustatyto termino.
-Generate new token: Generuoti naują tokeną
-Scope: Apimtis (scope)
-Are you sure you want to revoke this token?: Ar tikrai norite atšaukti tokeną?
-We will use it only in justified situations.: Panaudosime jį tik pagrįstais atvejais.
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Paduokite tik domeną kartu su portu jeigu nėra standartinis (443). Reikalaujame HTTPS sujungimo.
-Executed without confirmation: Atlikta be patvirtinimo
-Electricity meter: Elektros energijos skaitiklis
-Water meter: Vandens skaitiklis
-Gas meter: Dujų skaitiklis
-Add a new icon: Pridėti naują piktogramą
-Create new direct link: Sukurti naują tiesioginę nuorodą
-No limit: Be limito
-Custom: Nestandartinis
-If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA'I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.
-Full documentation: Išsamus dokumentų rinkinys
-New OAuth application: Nauja OAuth programa
+state-rgb_off_dim_on: 'RGB išjungta, apšvietimo reguliatorius įjungta'
+state-rgb_on_dim_off: 'RGB įjungta, apšvietimo reguliatorius išjungta'
+state-rgb_on_dim_on: RGB ir apšvietimo reguliatorius įjungta
+state-shut: Uždengta
+sunrise-after: saulėtekio
+sunrise-before: saulėtekį
+sunset-after: saulėlydžio
+sunset-before: saulėlydį
+will expire: baigsis
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} negalima atlikti jokių veiksmu Jūsų paskyroje, kol pakartotinai nepateiksite prieigos.'
+'{clientName} wants to access your account.': '{clientName} nori gauti prieigą prie Tavo paskyros.'
 
-Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
-You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
-Please enter a valid email address: Įveskite teisingą el. pašto adresą
-OAuth application: OAuth programa
-Impulse counter: Impulsų skaitiklis
-New direct link: Nauja tiesioginė nuoroda
-Direct link: Tiesioginė nuoroda
-Direct link is disabled.: Tiesioginė nuoroda yra išjungta
-No allowed actions have been chosen.: Nebuvo pasirinkta jokių leidžiamų akcijų
-Direct link is not active yet.: Tiesioginė nuoroda dar nėra aktyvi
-Direct link has expired.: Tiesioginė nuoroda prarado galiojimo laiką
-Execution limit has been exceeded.: Buvo viršytas atlikimų limitas
-"{clientName} wants to access your account.": "{clientName} nori gauti prieigą prie Tavo paskyros."
-"{applicationName} will not be able to interact with your account until you grant the access again.": "{applicationName} negalima atlikti jokių veiksmu Jūsų paskyroje, kol pakartotinai nepateiksite prieigos."
-Decline: Atsisakyti
-Grant access: Pateikti prieigą
-Offline access: Offline prieiga
-Proceed: Tęsti
-Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
-Authorization callback URLs (one per line): Autorizuojami grąžinami URL (vienas linijoje)
-"Invalid redirect URI: {uri}": "Invalid redirect URI: {uri}"
-Are you sure you want to delete this channel group?: Ar tikrai norite pašalinti šią kanalų grupę?
-Incorrect direct link parameters: Neteisingi tiesioginės nuorodos parametrai
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.
-Invalid request: Neteisinga užklausa
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.
-Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identifikatoriaus (tokeno) pavadinimą.
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+###
+Are you sure you want to change channel's function?: Ar tikrai norite pakeisti kanalo funkciją?
+Assigned Locations: Priskirtos Vietos
+CANCEL: ATŠAUKTI
+Changing channel's function will also result in the following changes.: Kanalo funkcijos pakeitimas sukels ir šiuos pakeitimus.
+Client's Apps: Klientų programos
+Client's app has been deleted: Kliento programa pašalinta
+Coming soon: Netrukus bus prieinami
+DELETE: PAŠALINTI
+Date: Data
+'Direct Link for #': 'Tiesioginė nuoroda #'
+Disable: Išjungti
+Disable schedule: Išjungti tvarkaraštį
+'Don''t worry, you can always reset your password via email. Click here to do so.': Nesijaudinkite. Savo el. pašto pagalba visada galite atkurti slaptažodį. Norėdami tai atlikti spustelėkite čia.
+Enable: Įjungti
+Enter your email: Įveskite savo el. paštą
+Hi: Sveiki
+Hour: Laikas
+Humidity Sensor: Drėgmės jutiklis
+I/O: Įvestis/Išvestis
+Input: Įvestis
+Languages: Kalbos
+Loading: Krovimas
+Next: Toliau
+Number: Numeris
+Output: Išvestis
+Password has been changed!: Slaptažodis pakeistas!
+Registration: Registracija
+Remove: Pašalinti
+SAVE: IŠSAUGOTI
+SUPLA-Cloud will not work without Javascript: SUPLA-Cloud neveiks be įjungto Javascript
+Service temporarily unavailable: Paslauga laikinai neprieinama
+Status: Statusas
+Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis
+Temperature Sensor: Temperatūros jutiklis
+Try again later: Pabandykite dar kartą vėliau
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.'
+change: keisti
+'if it takes too long, check if the JS scripts are loaded correctly': 'jei tai trunka per ilgai, patikrinkite, ar JS skriptai kraunami teisingai'
+unknown: nežinoma
 
-File is too large: Failas yra per didelis
-"Maximum filesize limit is {limit}.": "Maksimalus failo dydis tai {limit}."
-"The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Jūsų pasirinkti piktogramų failai yra per dideli. Maksimalus leistinas įkeliamo failo dydis tai {limit}."
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+###
+Access identifier password must be at least 8 characters.: ~
+Access identifier password must be no longer than 32 characters.: ~
+'Any application or device that uses the {tokenName} token will not work anymore.': ~
+Application name cannot be blank.: ~
+Are you sure you want to change channel’s function?: ~
+CLICK TO: ~
+Changing channel’s function will also result in the following changes.: ~
+Channel group must consist of at least one channel.: ~
+Choose client apps: ~
+Client’s Apps: ~
+Client’s app has been deleted: ~
+Coming Soon: ~
+Could not reset the password.: ~
+DISABLE: ~
+'Don’t worry, you can always reset your password via email. Click here to do so.': ~
+ENABLE: ~
+GUID: ~
+Language is not available: ~
+Location password must be at least 4 characters.: ~
+Location password must be no longer than 32 characters.: ~
+Login: ~
+Open / close: ~
+Service temporarily unavailable.: ~
+Stop: ~
+Temperature & Humidity sensor: ~
+Temperature sensor: ~
+'The server has returned an HTTP {statusCode} error.': ~
+Unknown: ~
+Visit app webpage: ~
+Your private SUPLA Cloud is not registered.: ~
+message: ~
+regulationsAgreed: ~
+state-: ~
 
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
-For devices: Įrenginiams
-Allows to perform an action only using the HTTP PATCH request.: Leidžia atlikti akcijas tik naudojant HTTP PATCH užklausą.
+#</editor-fold>
