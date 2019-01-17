@@ -4,8 +4,8 @@
             <whole-screen-message v-if="token"
                 class="container"
                 icon="pe-7s-global"
-                header="Your private SUPLA Cloud is almost registered."
-                message="You just need to execute the following command inside your host terminal.">
+                header-i18n="Your private SUPLA Cloud is almost registered."
+                :message="$t('You just need to execute the following command inside your host terminal.')">
                 <div class="flex-left-full-width">
                     <pre style="overflow: hidden"><code style="white-space: nowrap; overflow: hidden">{{ tokenCommand }}</code></pre>
                     <copy-button :text="tokenCommand"
@@ -15,6 +15,7 @@
         </transition>
         <transition name="fade-router">
             <div v-if="!token">
+                <!-- i18n:['register-slide1-text','register-slide1-title','register-slide2-text','register-slide2-title','register-slide3-text','register-slide3-title'] -->
                 <register-slider :texts="['register-slide1', 'register-slide2', 'register-slide3']"></register-slider>
                 <div class="create-form">
                     <div class="wrapper">

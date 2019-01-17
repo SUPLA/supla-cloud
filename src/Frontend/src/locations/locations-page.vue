@@ -1,9 +1,9 @@
 <template>
-    <carousel-page header="Locations"
+    <carousel-page header-i18n="Locations"
         tile="location-tile"
         filters="location-filters"
         endpoint="locations"
-        create-new-label="Create New Location"
+        create-new-label-i18n="Create New Location"
         :limit="$user.userData.limits.location"
         details-route="location"></carousel-page>
 </template>

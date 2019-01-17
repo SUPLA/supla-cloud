@@ -2,7 +2,7 @@
     <div class="grid-filters">
         <btn-filters v-model="sort"
             @input="$emit('filter')"
-            :filters="[{label: $t('A-Z'), value: 'az'}, {label: $t('Next run date'), value: 'nextRunDate'}]"></btn-filters>
+            :filters="[{label: 'A-Z', value: 'az'}, {label: $t('Next run date'), value: 'nextRunDate'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>

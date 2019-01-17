@@ -4,6 +4,8 @@
             <div class="row">
                 <div :class="'col-sm-' + (12 / possibleStates.length)"
                     v-for="(possibleState, stateIndex) in possibleStates">
+                    <!-- i18n:['state-on','state-off','state-opened','state-closed','state-partially_closed','state-default','state-empty','state-full'] -->
+                    <!-- i18n:['state-revealed','state-shut','state-rgb_on_dim_on','state-rgb_on_dim_off','state-rgb_off_dim_on','state-rgb_off_dim_off'] -->
                     <h5 class="no-margin-top"
                         v-if="possibleStates.length > 1">
                         {{ $t('state-' + possibleState) }}
@@ -125,7 +127,7 @@
                     }
                 }
                 if (!this.icon && addedImages < this.possibleStates.length) {
-                    return errorNotification(this.$t('Error'), 'You need to provide icons for all states.');
+                    return errorNotification(this.$t('Error'), this.$t('You need to provide icons for all states.'));
                 }
                 this.uploading = true;
                 formData.append('function', this.model.function.name);

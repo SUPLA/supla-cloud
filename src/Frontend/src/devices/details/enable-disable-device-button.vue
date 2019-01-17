@@ -3,11 +3,11 @@
         <a :class="'btn btn-default ' + (isEnabled ? 'btn-enable' : 'btn-disable')"
             @click="toggleEnabled()"
             v-show="!loading && !showSchedulesDisablingConfirmation">
-            <strong class="clearfix">{{ $t(isEnabled ? 'ENABLED' : 'DISABLED') }}</strong>
-            {{ $t('CLICK TO ' + (isEnabled ? 'DISABLE' : 'ENABLE')) }}
+            <strong class="clearfix">{{ isEnabled ? $t('ENABLED') : $t('DISABLED') }}</strong>
+            {{ $t('CLICK TO') + ' ' + (isEnabled ? $t('DISABLE') : $t('ENABLE')) }}
         </a>
         <button-loading v-if="loading || showSchedulesDisablingConfirmation"></button-loading>
-        <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
+        <disabling-schedules-modal message-i18n="Turning this device off will result in disabling all the associated schedules."
             v-if="showSchedulesDisablingConfirmation"
             :schedules="schedules"
             @confirm="toggleEnabled(true)"

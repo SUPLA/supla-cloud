@@ -1,6 +1,6 @@
 <template>
     <square-modal-chooser
-        title="Choose location"
+        title-i18n="Choose location"
         endpoint="locations"
         tile="location-tile"
         filters="location-filters"

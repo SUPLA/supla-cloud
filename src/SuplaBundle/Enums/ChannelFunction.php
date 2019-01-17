@@ -104,7 +104,7 @@ final class ChannelFunction extends Enum {
 
     /** @Groups({"basic"}) */
     public function getCaption(): string {
-        return self::captions()[$this->value] ?? 'Unknown';
+        return self::captions()[$this->value] ?? 'Unknown'; // i18n
     }
 
     /**
@@ -187,39 +187,39 @@ final class ChannelFunction extends Enum {
 
     public static function captions(): array {
         return [
-            self::NONE => 'None',
-            self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation',
-            self::CONTROLLINGTHEGATE => 'Gate operation',
-            self::CONTROLLINGTHEGARAGEDOOR => 'Garage door operation',
-            self::THERMOMETER => 'Thermometer',
-            self::OPENINGSENSOR_GATEWAY => 'Gateway opening sensor',
-            self::OPENINGSENSOR_GATE => 'Gate opening sensor',
-            self::OPENINGSENSOR_GARAGEDOOR => 'Garage door opening sensor',
-            self::NOLIQUIDSENSOR => 'No liquid sensor',
-            self::CONTROLLINGTHEDOORLOCK => 'Door lock operation',
-            self::OPENINGSENSOR_DOOR => 'Door opening sensor',
-            self::CONTROLLINGTHEROLLERSHUTTER => 'Roller shutter operation',
-            self::OPENINGSENSOR_ROLLERSHUTTER => 'Roller shutter opening sensor',
-            self::POWERSWITCH => 'On/Off switch',
-            self::LIGHTSWITCH => 'Light switch',
-            self::HUMIDITY => 'Humidity sensor',
-            self::HUMIDITYANDTEMPERATURE => 'Temperature and humidity sensor',
-            self::DIMMER => 'Dimmer',
-            self::RGBLIGHTING => 'RGB lighting',
-            self::DIMMERANDRGBLIGHTING => 'Dimmer and RGB lighting',
-            self::DISTANCESENSOR => 'Distance sensor',
-            self::DEPTHSENSOR => 'Depth sensor',
-            self::OPENINGSENSOR_WINDOW => 'Window opening sensor',
-            self::MAILSENSOR => 'Mail sensor',
-            self::WINDSENSOR => 'Wind sensor',
-            self::PRESSURESENSOR => 'Pressure sensor',
-            self::RAINSENSOR => 'Rain sensor',
-            self::WEIGHTSENSOR => 'Weight sensor',
-            self::WEATHER_STATION => 'Weather Station',
-            self::STAIRCASETIMER => 'Staircase timer',
-            self::ELECTRICITYMETER => 'Electricity meter',
-            self::GASMETER => 'Gas meter',
-            self::WATERMETER => 'Water meter',
+            self::NONE => 'None', // i18n
+            self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation', // i18n
+            self::CONTROLLINGTHEGATE => 'Gate operation', // i18n
+            self::CONTROLLINGTHEGARAGEDOOR => 'Garage door operation', // i18n
+            self::THERMOMETER => 'Thermometer', // i18n
+            self::OPENINGSENSOR_GATEWAY => 'Gateway opening sensor', // i18n
+            self::OPENINGSENSOR_GATE => 'Gate opening sensor',  // i18n
+            self::OPENINGSENSOR_GARAGEDOOR => 'Garage door opening sensor', // i18n
+            self::NOLIQUIDSENSOR => 'No liquid sensor', // i18n
+            self::CONTROLLINGTHEDOORLOCK => 'Door lock operation', // i18n
+            self::OPENINGSENSOR_DOOR => 'Door opening sensor', // i18n
+            self::CONTROLLINGTHEROLLERSHUTTER => 'Roller shutter operation', // i18n
+            self::OPENINGSENSOR_ROLLERSHUTTER => 'Roller shutter opening sensor', // i18n
+            self::POWERSWITCH => 'On/Off switch', // i18n
+            self::LIGHTSWITCH => 'Light switch', // i18n
+            self::HUMIDITY => 'Humidity sensor', // i18n
+            self::HUMIDITYANDTEMPERATURE => 'Temperature and humidity sensor', // i18n
+            self::DIMMER => 'Dimmer', // i18n
+            self::RGBLIGHTING => 'RGB lighting', // i18n
+            self::DIMMERANDRGBLIGHTING => 'Dimmer and RGB lighting', // i18n
+            self::DISTANCESENSOR => 'Distance sensor', // i18n
+            self::DEPTHSENSOR => 'Depth sensor', // i18n
+            self::OPENINGSENSOR_WINDOW => 'Window opening sensor', // i18n
+            self::MAILSENSOR => 'Mail sensor', // i18n
+            self::WINDSENSOR => 'Wind sensor', // i18n
+            self::PRESSURESENSOR => 'Pressure sensor', // i18n
+            self::RAINSENSOR => 'Rain sensor', // i18n
+            self::WEIGHTSENSOR => 'Weight sensor', // i18n
+            self::WEATHER_STATION => 'Weather Station', // i18n
+            self::STAIRCASETIMER => 'Staircase timer', // i18n
+            self::ELECTRICITYMETER => 'Electricity meter', // i18n
+            self::GASMETER => 'Gas meter', // i18n
+            self::WATERMETER => 'Water meter', // i18n
         ];
     }
 

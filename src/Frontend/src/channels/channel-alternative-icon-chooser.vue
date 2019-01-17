@@ -5,7 +5,7 @@
             {{ $t('Change icon') }}
         </a>
 
-        <modal :header="$t(addingNewIcon ? 'Add a new icon' : 'Select icon')"
+        <modal :header="addingNewIcon ? $t('Add a new icon') : $t('Select icon')"
             v-if="choosing">
             <loading-cover :loading="!icons.length">
                 <div v-if="icons.length">

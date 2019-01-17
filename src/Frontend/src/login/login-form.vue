@@ -41,7 +41,7 @@
                 @click="$emit('input', {username: username, password: password})"
                 :disabled="authenticating">
                 <span v-if="!authenticating">
-                    {{ $t(buttonText) }}
+                    {{ buttonText }}
                 </span>
                 <button-loading-dots v-else></button-loading-dots>
             </button>
@@ -58,7 +58,7 @@
                 class="error"
                 v-if="error == 'error'">
                 <strong>{{ $t('Forgot your password?') }}</strong>
-                {{ $t('Don\'t worry, you can always reset your password via email. Click here to do so.') }}
+                {{ $t('Don’t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
         </transition>
         <div v-if="!oauth"
@@ -92,7 +92,7 @@
         },
         mounted() {
             this.username = this.intitialUsername || '';
-            this.buttonText = this.submitButtonText || 'Sign In';
+            this.buttonText = this.submitButtonText || this.$t('Sign In');
         }
     };
 </script>

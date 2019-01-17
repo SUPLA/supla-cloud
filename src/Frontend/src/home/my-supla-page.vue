@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <devices-registration-button field="ioDevicesRegistrationEnabled"
-                    caption="Registration of new I/O devices"></devices-registration-button>
+                    caption-i18n="Registration of new I/O devices"></devices-registration-button>
             </div>
         </div>
         <devices-list-page v-if="listType == 'devices'"></devices-list-page>

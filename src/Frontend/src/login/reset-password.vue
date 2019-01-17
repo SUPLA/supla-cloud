@@ -50,21 +50,21 @@
             this.$http.head('forgotten-password/' + this.token, {skipErrorHandler: [400]})
                 .then(() => this.tokenValid = true)
                 .catch(() => {
-                    errorNotification('Error', 'Token does not exist', this);
+                    errorNotification(this.$t('Error'), this.$t('Token does not exist'));
                     this.$router.push({name: 'login'});
                 });
         },
         methods: {
             reset() {
                 if (this.password.length < 8) {
-                    return errorNotification('Error', 'The password should be 8 or more characters.', this);
+                    return errorNotification(this.$t('Error'), this.$t('The password should be 8 or more characters.'));
                 } else if (this.password != this.passwordConfirm) {
-                    return errorNotification('Error', 'The password and its confirm are not the same.', this);
+                    return errorNotification(this.$t('Error'), this.$t('The password and its confirm are not the same.'));
                 }
                 this.loading = true;
                 this.$http.put('forgotten-password/' + this.token, {password: this.password})
                     .then(() => {
-                        successNotification('Success', 'Password has been changed!', this);
+                        successNotification(this.$t('Success'), this.$t('Password has been changed'));
                         this.$router.push({name: 'login'});
                     })
                     .finally(() => this.loading = false);

@@ -3,7 +3,7 @@
         <transition name="fade-router">
             <whole-screen-message v-if="registeredEmail"
                 icon="pe-7s-mail-open-file"
-                header="Check your email box"
+                header-i18n="Check your email box"
                 :message="registeredEmail"></whole-screen-message>
         </transition>
         <transition name="fade-router">

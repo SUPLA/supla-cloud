@@ -1,9 +1,9 @@
 <template>
-    <carousel-page header="Channel groups"
+    <carousel-page header-i18n="Channel groups"
         tile="channel-group-tile"
         filters="channel-group-filters"
         endpoint="channel-groups"
-        create-new-label="Add new channel group"
+        create-new-label-i18n="Add new channel group"
         :limit="$user.userData.limits.channelGroup"
         details-route="channelGroup"></carousel-page>
 </template>

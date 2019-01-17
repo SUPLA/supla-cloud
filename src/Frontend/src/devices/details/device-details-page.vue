@@ -87,7 +87,7 @@
         </loading-cover>
         <channel-list-page :device-id="id"
             v-if="device"></channel-list-page>
-        <disabling-schedules-modal message="Turning this device off will result in disabling all the associated schedules."
+        <disabling-schedules-modal message-i18n="Turning this device off will result in disabling all the associated schedules."
             v-if="showSchedulesDisablingConfirmation"
             :schedules="schedules"
             @confirm="saveChanges(true)"

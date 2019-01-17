@@ -187,7 +187,7 @@ class ScheduleManager {
     }
 
     public function enable(Schedule $schedule) {
-        Assertion::true($schedule->isSubjectEnabled(), 'The device is disabled');
+        Assertion::true($schedule->isSubjectEnabled(), 'The device is disabled'); // i18n
         $schedule->setEnabled(true);
         $this->generateScheduledExecutions($schedule, '+2days');
     }

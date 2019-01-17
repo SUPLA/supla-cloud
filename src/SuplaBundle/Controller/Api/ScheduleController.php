@@ -112,7 +112,7 @@ class ScheduleController extends RestController {
 
     /** @Security("has_role('ROLE_SCHEDULES_RW')") */
     public function postScheduleAction(Request $request) {
-        Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded');
+        Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded'); // i18n
         $data = $request->request->all();
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             $data['subjectId'] = $data['channelId'] ?? null;
@@ -175,7 +175,7 @@ class ScheduleController extends RestController {
         $errors = iterator_to_array($this->get('validator')->validate($schedule));
         Assertion::count($errors, 0, implode(', ', $errors));
         $nextRunDates = $this->scheduleManager->getNextRunDates($schedule, '+5days', 1, true);
-        Assertion::notEmpty($nextRunDates, 'Schedule cannot be enabled');
+        Assertion::notEmpty($nextRunDates, 'Schedule cannot be enabled'); // i18n
         return $schedule;
     }
 

@@ -1,8 +1,8 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
 {% block vue %}
-    <error-page header="Incorrect direct link parameters"
-            message="This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do."
+    <error-page header-i18n="Incorrect direct link parameters"
+            message-i18n="This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do."
             icon="pe-7s-edit">
         <div style="font-size: 1.3em">
             {% if action.name == 'REVEAL_PARTIALLY' %}

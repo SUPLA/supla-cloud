@@ -70,20 +70,40 @@
                 filterFunction: () => true,
                 compareFunction: () => -1,
                 possibleDevices: [
-                    {icon: 'pe-7s-light', title: 'Lighting', description: 'With SUPLA you can operate the lights in your home or office'},
-                    {image: 'thermometer.svg', title: 'Temperature', description: '...you can monitor temperature'},
-                    {image: 'gate.svg', title: 'Doors and gates', description: '...open gateways, gates or doors'},
-                    {image: 'window-rollers.svg', title: 'Roller shutters', description: '...open and shut roller shutters'},
-                    {icon: 'pe-7s-radio', title: 'Home appliances', description: '...or control home appliances'},
+                    {
+                        icon: 'pe-7s-light',
+                        title: 'Lighting', // i18n
+                        description: 'With SUPLA you can operate the lights in your home or office', // i18n
+                    },
+                    {
+                        image: 'thermometer.svg',
+                        title: 'Temperature', // i18n
+                        description: '...you can monitor temperature', // i18n
+                    },
+                    {
+                        image: 'gate.svg',
+                        title: 'Doors and gates', // i18n
+                        description: '...open gateways, gates or doors', // i18n
+                    },
+                    {
+                        image: 'window-rollers.svg',
+                        title: 'Roller shutters', // i18n
+                        description: '...open and shut roller shutters', // i18n
+                    },
+                    {
+                        icon: 'pe-7s-radio',
+                        title: 'Home appliances', // i18n
+                        description: '...or control home appliances', // i18n
+                    },
                     {
                         icon: 'pe-7s-smile',
-                        title: 'And more',
-                        description: 'All the above and many more can be done from your phone or tablet'
+                        title: 'And more',// i18n
+                        description: 'All the above and many more can be done from your phone or tablet', // i18n
                     },
                     {
                         icon: 'pe-7s-plane',
-                        title: 'From anywhere',
-                        description: 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time'
+                        title: 'From anywhere', // i18n
+                        description: 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time', // i18n
                     },
                 ]
             };

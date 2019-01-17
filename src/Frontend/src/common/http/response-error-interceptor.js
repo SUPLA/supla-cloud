@@ -11,7 +11,7 @@ export default function (vue) {
                         window.location.assign(window.location.toString());
                     } else {
                         const message = (response.body && response.body.message)
-                            || 'Error when communicating the server. Try again in a while.';
+                            || 'Error when communicating the server. Try again in a while.'; // i18n
                         const details = (response.body && response.body.details) || {};
                         errorNotification(vue.$t('Error'), vue.$t(message, details));
                     }

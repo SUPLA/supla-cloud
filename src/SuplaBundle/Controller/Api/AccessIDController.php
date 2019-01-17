@@ -86,7 +86,7 @@ class AccessIDController extends RestController {
     public function postAccessidAction(Request $request) {
         $user = $this->getUser();
         $accessIdCount = $user->getAccessIDS()->count();
-        Assertion::lessThan($accessIdCount, $user->getLimitAid(), 'Access identifier limit has been exceeded');
+        Assertion::lessThan($accessIdCount, $user->getLimitAid(), 'Access identifier limit has been exceeded'); // i18n
         return $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
             $aid = $this->accessIdManager->createID($user);
             $em->persist($aid);
@@ -98,7 +98,7 @@ class AccessIDController extends RestController {
      * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_RW')")
      */
     public function deleteAccessidAction(AccessID $accessId) {
-        Assertion::greaterThan($this->getUser()->getAccessIDS()->count(), 1, 'You cannot delete your last access identifier.');
+        Assertion::greaterThan($this->getUser()->getAccessIDS()->count(), 1, 'You cannot delete your last access identifier.'); //i18n
         $result = $this->transactional(function (EntityManagerInterface $em) use ($accessId) {
             $em->remove($accessId);
             return new Response('', Response::HTTP_NO_CONTENT);
@@ -115,8 +115,8 @@ class AccessIDController extends RestController {
         $accessId->setEnabled($updatedAccessId->getEnabled());
         if ($updatedAccessId->getPassword()) {
             $newPassword = $updatedAccessId->getPassword();
-            Assertion::minLength($newPassword, 8, 'Access identifier password must be at least 8 characters.');
-            Assertion::maxLength($newPassword, 32, 'Access identifier password must be no longer than 32 characters.');
+            Assertion::minLength($newPassword, 8, 'Access identifier password must be at least 8 characters.'); // i18n
+            Assertion::maxLength($newPassword, 32, 'Access identifier password must be no longer than 32 characters.'); // i18n
             $accessId->setPassword($newPassword);
         }
         $this->transactional(function (EntityManagerInterface $em) use ($updatedAccessId, $request, $accessId) {

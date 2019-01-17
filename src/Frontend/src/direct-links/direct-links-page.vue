@@ -1,8 +1,8 @@
 <template>
-    <carousel-page header="Direct links"
+    <carousel-page header-i18n="Direct links"
         tile="direct-link-tile"
         endpoint="direct-links?include=subject"
-        create-new-label="Create new direct link"
+        create-new-label-i18n="Create new direct link"
         :limit="$user.userData.limits.directLink"
         details-route="directLink"></carousel-page>
 </template>

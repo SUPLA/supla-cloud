@@ -15,7 +15,7 @@
                 <dd>{{ scheduleLabel }}</dd>
                 <dt></dt>
                 <dd>{{ $t('Subject type') }}</dd>
-                <dt>{{ $t(model.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</dt>
+                <dt>{{ model.subjectType == 'channel' ? $t('Channel') : $t('Channel group') }}</dt>
                 <dd>{{ $t('The latest execution') }}</dd>
                 <dt v-if="latestExecution && latestExecution.resultTimestamp"
                     :class="latestExecution.failed ? 'text-danger' : ''"

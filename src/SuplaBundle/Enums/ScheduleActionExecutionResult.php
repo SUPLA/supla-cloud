@@ -60,16 +60,16 @@ final class ScheduleActionExecutionResult extends Enum {
 
     public static function captions(): array {
         return [
-            self::UNKNOWN => 'Processing',
-            self::SUCCESS => 'Successful',
-            self::DEVICE_UNREACHABLE => 'Device unavailable',
-            self::NO_SENSOR => 'Sensor disconnected',
-            self::EXPIRED => 'Expired',
-            self::ZOMBIE => 'Failed (zombie)',
-            self::SERVER_UNREACHABLE => 'Server unreachable',
-            self::FAILURE => 'Failed',
-            self::CANCELLED => 'Cancelled',
-            self::EXECUTED_WITHOUT_CONFIRMATION => 'Executed without confirmation',
+            self::UNKNOWN => 'Processing', // i18n
+            self::SUCCESS => 'Successful', // i18n
+            self::DEVICE_UNREACHABLE => 'Device unavailable', // i18n
+            self::NO_SENSOR => 'Sensor disconnected', // i18n
+            self::EXPIRED => 'Expired', // i18n
+            self::ZOMBIE => 'Failed (zombie)', // i18n
+            self::SERVER_UNREACHABLE => 'Server unreachable', // i18n
+            self::FAILURE => 'Failed', // i18n
+            self::CANCELLED => 'Cancelled', // i18n
+            self::EXECUTED_WITHOUT_CONFIRMATION => 'Executed without confirmation', // i18n
         ];
     }
 

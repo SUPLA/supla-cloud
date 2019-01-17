@@ -1,14 +1,54 @@
 export const availableScopes = [
-    {prefix: 'account', suffixes: ['r', 'rw'], label: 'Account'},
-    {prefix: 'channels', suffixes: ['r', 'rw', 'ea'], label: 'Channels'},
-    {prefix: 'channelgroups', suffixes: ['r', 'rw', 'ea'], label: 'Channel groups'},
-    {prefix: 'directlinks', suffixes: ['r', 'rw'], label: 'Direct links'},
-    {prefix: 'iodevices', suffixes: ['r', 'rw'], label: 'I/O Devices'},
-    {prefix: 'clientapps', suffixes: ['r', 'rw'], label: 'Client\'s Apps'},
-    {prefix: 'accessids', suffixes: ['r', 'rw'], label: 'Access Identifiers'},
-    {prefix: 'locations', suffixes: ['r', 'rw'], label: 'Locations'},
-    {prefix: 'schedules', suffixes: ['r', 'rw'], label: 'Schedules'},
-    {prefix: 'offline', suffixes: ['access'], label: 'Offline access'},
+    {
+        prefix: 'account',
+        suffixes: ['r', 'rw'],
+        label: 'Account' // i18n
+    },
+    {
+        prefix: 'channels',
+        suffixes: ['r', 'rw', 'ea'],
+        label: 'Channels' // i18n
+    },
+    {
+        prefix: 'channelgroups',
+        suffixes: ['r', 'rw', 'ea'],
+        label: 'Channel groups' // i18n
+    },
+    {
+        prefix: 'directlinks',
+        suffixes: ['r', 'rw'],
+        label: 'Direct links' // i18n
+    },
+    {
+        prefix: 'iodevices',
+        suffixes: ['r', 'rw'],
+        label: 'I/O Devices' // i18n
+    },
+    {
+        prefix: 'clientapps',
+        suffixes: ['r', 'rw'],
+        label: 'Client’s Apps' // i18n
+    },
+    {
+        prefix: 'accessids',
+        suffixes: ['r', 'rw'],
+        label: 'Access Identifiers' // i18n
+    },
+    {
+        prefix: 'locations',
+        suffixes: ['r', 'rw'],
+        label: 'Locations' // i18n
+    },
+    {
+        prefix: 'schedules',
+        suffixes: ['r', 'rw'],
+        label: 'Schedules' // i18n
+    },
+    {
+        prefix: 'offline',
+        suffixes: ['access'],
+        label: 'Offline access' // i18n
+    },
 ];
 
 export function scopeId(scope, suffix) {
@@ -16,10 +56,10 @@ export function scopeId(scope, suffix) {
 }
 
 export const scopeSuffixLabels = {
-    'r': 'Read',
-    'rw': 'Modification',
-    'ea': 'Action execution',
-    'access': 'Account access when you are unavailable',
+    r: 'Read', // i18n
+    rw: 'Modification', // i18n
+    ea: 'Action execution', // i18n
+    access: 'Account access when you are unavailable', // i18n
 };
 
 const SCOPE_DELIMITER = ' ';

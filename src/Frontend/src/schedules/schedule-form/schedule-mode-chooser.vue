@@ -14,9 +14,14 @@
 
     export default {
         name: 'schedule-form-chooser',
-        data () {
+        data() {
             return {
-                availableModes: ['once', 'minutely', 'hourly', 'daily']
+                availableModes: [
+                    'once', // i18n
+                    'minutely', // i18n
+                    'hourly', // i18n
+                    'daily', // i18n
+                ]
             };
         },
         computed: mapState(['mode']),

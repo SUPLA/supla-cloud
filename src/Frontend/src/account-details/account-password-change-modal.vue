@@ -45,10 +45,10 @@
         methods: {
             changePassword() {
                 if (!this.oldPassword) {
-                    return errorNotification('Error', 'Current password is incorrect', this);
+                    return errorNotification(this.$t('Error'), this.$t('Current password is incorrect'));
                 }
                 if (this.newPassword != this.newPasswordConfirm) {
-                    return errorNotification('Error', 'The password and its confirm are not the same.', this);
+                    return errorNotification(this.$t('Error'), this.$t('The password and its confirm are not the same.'));
                 }
                 this.loading = true;
                 this.$http.patch(`users/current`, {
@@ -57,7 +57,7 @@
                     oldPassword: this.oldPassword
                 })
                     .then(() => {
-                        successNotification('Successful', 'Password has been changed', this);
+                        successNotification(this.$t('Successful'), this.$t('Password has been changed'));
                         this.$emit('cancel');
                     })
                     .finally(() => this.loading = false);

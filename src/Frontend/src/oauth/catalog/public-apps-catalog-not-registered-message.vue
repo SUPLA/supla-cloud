@@ -1,6 +1,6 @@
 <template>
     <whole-screen-message icon="pe-7s-mouse"
-        header="Your private SUPLA Cloud is not registered.">
+        header-i18n="Your private SUPLA Cloud is not registered.">
         <p>
             <component :is="registerCloudMessage"></component>
         </p>

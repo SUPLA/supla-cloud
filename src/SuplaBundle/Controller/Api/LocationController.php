@@ -88,7 +88,7 @@ class LocationController extends RestController {
     public function postLocationAction(Request $request) {
         $user = $this->getUser();
         $locationsCount = $user->getLocations()->count();
-        Assertion::lessThan($locationsCount, $user->getLimitLoc(), 'Location limit has been exceeded');
+        Assertion::lessThan($locationsCount, $user->getLimitLoc(), 'Location limit has been exceeded'); // i18n
         return $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
             $location = $this->locationManager->createLocation($user);
             $em->persist($location);
@@ -111,21 +111,21 @@ class LocationController extends RestController {
     public function deleteLocationAction(Location $location) {
         $this->ensureNoRelatedEntities(
             $location->getIoDevices(),
-            'Remove all the associated devices before you delete this location. Ids: {relatedIds}.'
+            'Remove all the associated devices before you delete this location. Ids: {relatedIds}.' // i18n
         );
         $this->ensureNoRelatedEntities(
             $location->getIoDevicesByOriginalLocation(),
-            'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.'
+            'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.' // i18n
         );
         $this->ensureNoRelatedEntities(
             $location->getChannels(),
-            'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.'
+            'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.' // i18n
         );
         $this->ensureNoRelatedEntities(
             $location->getChannelGroups(),
-            'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.'
+            'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.' // i18n
         );
-        Assertion::greaterThan($this->getUser()->getLocations()->count(), 1, 'You cannot delete your last location.');
+        Assertion::greaterThan($this->getUser()->getLocations()->count(), 1, 'You cannot delete your last location.'); // i18n
         $result = $this->transactional(function (EntityManagerInterface $em) use ($location) {
             $em->remove($location);
             return new Response('', Response::HTTP_NO_CONTENT);
@@ -146,8 +146,8 @@ class LocationController extends RestController {
         $location->setEnabled($updatedLocation->getEnabled());
         if ($updatedLocation->getPassword()) {
             $newPassword = $updatedLocation->getPassword();
-            Assertion::minLength($newPassword, 4, 'Location password must be at least 4 characters.');
-            Assertion::maxLength($newPassword, 32, 'Location password must be no longer than 32 characters.');
+            Assertion::minLength($newPassword, 4, 'Location password must be at least 4 characters.'); // i18n
+            Assertion::maxLength($newPassword, 32, 'Location password must be no longer than 32 characters.'); // i18n
             $location->setPassword($newPassword);
         }
         $location->getAccessIds()->clear();

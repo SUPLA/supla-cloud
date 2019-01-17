@@ -2,7 +2,7 @@
     <modal-confirm @confirm="$emit('confirm')"
         @cancel="$emit('cancel')"
         :header="$t('Existing schedules')">
-        {{ $t(message) }}
+        {{ $t(messageI18n) }}
         <ul>
             <li v-for="schedule in schedules">
                 {{ $t('Schedule') }} ID{{ schedule.id }}
@@ -15,6 +15,6 @@
 
 <script>
     export default {
-        props: ['message', 'schedules']
+        props: ['messageI18n', 'schedules']
     };
 </script>

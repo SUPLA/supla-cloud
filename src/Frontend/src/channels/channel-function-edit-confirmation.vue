@@ -1,8 +1,8 @@
 <template>
     <modal-confirm @confirm="$emit('confirm')"
         @cancel="$emit('cancel')"
-        :header="$t('Are you sure you want to change channel\'s function?')">
-        <p>{{ $t('Changing channel\'s function will also result in the following changes.') }}</p>
+        :header="$t('Are you sure you want to change channel’s function?')">
+        <p>{{ $t('Changing channel’s function will also result in the following changes.') }}</p>
         <div v-if="confirmationObject.groups.length">
             <strong>{{ $t('Channel will be deleted from the channel group below') }}</strong>
             <ul>

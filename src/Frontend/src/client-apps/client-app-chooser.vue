@@ -1,6 +1,6 @@
 <template>
     <square-modal-chooser
-        title="Choose client apps"
+        title-i18n="Choose client apps"
         endpoint="client-apps?include=accessId"
         tile="client-app-tile"
         filters="client-app-filters"

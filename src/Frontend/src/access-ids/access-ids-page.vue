@@ -1,9 +1,9 @@
 <template>
-    <carousel-page header="Access Identifiers"
+    <carousel-page header-i18n="Access Identifiers"
         tile="access-id-tile"
         filters="access-id-filters"
         endpoint="accessids"
-        create-new-label="Create New Access Identifier"
+        create-new-label-i18n="Create New Access Identifier"
         :limit="$user.userData.limits.accessId"
         details-route="accessId"></carousel-page>
 </template>

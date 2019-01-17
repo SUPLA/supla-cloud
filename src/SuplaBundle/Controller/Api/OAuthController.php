@@ -159,7 +159,10 @@ class OAuthController extends RestController {
         $data = $request->request->all();
         Assertion::keyExists($data, 'name');
         Assertion::keyExists($data, 'scope');
-        Assertion::notBlank($data['name'], 'Personal token name is required.');
+        Assertion::notBlank(
+            $data['name'],
+            'Personal token name is required.' // i18n
+        );
         $scope = new OAuthScope($data['scope']);
         $token = $this->transactional(function (EntityManagerInterface $entityManager) use ($data, $scope) {
             $token = $this->oauthServer->createPersonalAccessToken($this->getUser(), $data['name'], $scope);

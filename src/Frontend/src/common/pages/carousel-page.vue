@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h1 class="carousel-title"
-                        v-title>{{ $t(header) }}</h1>
+                        v-title>{{ $t(headerI18n) }}</h1>
                     <loading-cover :loading="!items">
                         <div v-if="items">
                             <square-links-carousel-with-filters
@@ -13,7 +13,7 @@
                                 :items="items"
                                 :selected="item"
                                 @select="itemChanged"
-                                :new-item-tile="createNewLabel"></square-links-carousel-with-filters>
+                                :new-item-tile="createNewLabelI18n"></square-links-carousel-with-filters>
                         </div>
                     </loading-cover>
                 </div>
@@ -33,7 +33,7 @@
     import {warningNotification} from "../notifier";
 
     export default {
-        props: ['header', 'tile', 'filters', 'endpoint', 'createNewLabel', 'detailsRoute', 'listRoute', 'limit'],
+        props: ['headerI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'listRoute', 'limit'],
         components: {SquareLinksCarouselWithFilters},
         data() {
             return {

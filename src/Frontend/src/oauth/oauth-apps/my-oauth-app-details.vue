@@ -3,7 +3,7 @@
         <loading-cover :loading="loading">
             <div v-if="app">
                 <div class="container">
-                    <pending-changes-page :header="$t(app.id ? 'OAuth application' : 'New OAuth application') + (app.id ? ' ID'+ app.id : '')"
+                    <pending-changes-page :header="app.id ? $t('OAuth application') : $t('New OAuth application') + (app.id ? ' ID'+ app.id : '')"
                         @cancel="cancelChanges()"
                         @save="saveOauthApp()"
                         :deletable="app.id"

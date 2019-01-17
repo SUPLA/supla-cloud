@@ -259,19 +259,19 @@ class DirectLink {
 
     public function ensureIsActive() {
         if (!$this->isEnabled()) {
-            throw new InactiveDirectLinkException('Direct link is disabled.');
+            throw new InactiveDirectLinkException('Direct link is disabled.'); // i18n
         }
         if ($this->getActiveFrom() && $this->getActiveFrom() > new \DateTime()) {
-            throw new InactiveDirectLinkException('Direct link is not active yet.');
+            throw new InactiveDirectLinkException('Direct link is not active yet.'); // i18n
         }
         if ($this->getActiveTo() && $this->getActiveTo() < new \DateTime()) {
-            throw new InactiveDirectLinkException('Direct link has expired.');
+            throw new InactiveDirectLinkException('Direct link has expired.'); // i18n
         }
         if ($this->getExecutionsLimit() !== null && $this->getExecutionsLimit() <= 0) {
-            throw new InactiveDirectLinkException('Execution limit has been exceeded.');
+            throw new InactiveDirectLinkException('Execution limit has been exceeded.'); // i18n
         }
         if (!$this->getAllowedActions()) {
-            throw new InactiveDirectLinkException('No allowed actions have been chosen.');
+            throw new InactiveDirectLinkException('No allowed actions have been chosen.'); // i18n
         }
     }
 

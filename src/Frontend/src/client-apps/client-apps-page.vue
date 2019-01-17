@@ -3,12 +3,12 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1 v-title>{{ $t('Client\'s Apps') }}</h1>
+                    <h1 v-title>{{ $t('Client’s Apps') }}</h1>
                     <h4 class="text-muted">{{ $t('smartphones, tablets, etc.') }}</h4>
                 </div>
                 <div>
                     <devices-registration-button field="clientsRegistrationEnabled"
-                        caption="Registration of new clients"></devices-registration-button>
+                        caption-i18n="Registration of new clients"></devices-registration-button>
                 </div>
             </div>
         </div>

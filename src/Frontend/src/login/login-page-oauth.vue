@@ -9,7 +9,7 @@
             :oauth="true"
             :error="error"
             :intitial-username="lastUsername"
-            :submit-button-text="askForTargetCloud ? 'Proceed' : ''">
+            :submit-button-text="askForTargetCloud ? $t('Proceed') : ''">
             <template slot="aboveForm">
                 <h4 v-if="clientName"
                     class="client-name-prompt">

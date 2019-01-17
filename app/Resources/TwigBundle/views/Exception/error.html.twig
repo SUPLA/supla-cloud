@@ -1,7 +1,7 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
 {% block vue %}
-    <error-page header="Error"
-            message="The server has returned an HTTP {{ status_code }} error."
+    <error-page header-i18n="Error"
+            :message-i18n="$t('The server has returned an HTTP {statusCode} error.', {statusCode: {{ status_code }}})"
             icon="pe-7s-gleam"></error-page>
 {% endblock %}

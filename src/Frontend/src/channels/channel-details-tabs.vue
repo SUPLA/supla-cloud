@@ -74,9 +74,17 @@
         },
         mounted() {
             if (this.channel.function.possibleActions.length) {
-                this.availableTabs.push({id: 'schedules', header: 'Schedules', count: this.channel.relationsCount.schedules});
+                this.availableTabs.push({
+                    id: 'schedules',
+                    header: 'Schedules', // i18n
+                    count: this.channel.relationsCount.schedules,
+                });
             }
-            this.availableTabs.push({id: 'directLinks', header: 'Direct links', count: this.channel.relationsCount.directLinks});
+            this.availableTabs.push({
+                id: 'directLinks',
+                header: 'Direct links', // i18n
+                count: this.channel.relationsCount.directLinks,
+            });
             var supporterFunctions = ['THERMOMETER',
                 'HUMIDITY',
                 'HUMIDITYANDTEMPERATURE',
@@ -85,7 +93,10 @@
                 'WATERMETER'];
 
             if (supporterFunctions.indexOf(this.channel.function.name) >= 0) {
-                this.availableTabs.push({id: 'measurementsHistory', header: 'History of measurements'});
+                this.availableTabs.push({
+                    id: 'measurementsHistory',
+                    header: 'History of measurements', // i18n
+                });
             }
             const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
             this.currentTab = currentTab ? currentTab.id : this.availableTabs[0].id;

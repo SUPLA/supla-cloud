@@ -71,7 +71,7 @@
                                 @confirm="updateLocations($event)"></location-chooser>
                         </div>
                         <div class="col-sm-6">
-                            <h3>{{ $t('Client\'s Apps') }} ({{ accessId.clientApps.length }})</h3>
+                            <h3>{{ $t('Client’s Apps') }} ({{ accessId.clientApps.length }})</h3>
                             <table class="table table-hover"
                                 v-if="accessId.clientApps.length">
                                 <thead>

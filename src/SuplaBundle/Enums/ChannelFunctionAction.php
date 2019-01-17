@@ -72,18 +72,18 @@ final class ChannelFunctionAction extends Enum {
 
     public static function captions(): array {
         return [
-            self::READ => 'Read',
-            self::OPEN => 'Open',
-            self::CLOSE => 'Close',
-            self::SHUT => 'Shut',
-            self::REVEAL => 'Reveal',
-            self::REVEAL_PARTIALLY => 'Reveal partially',
-            self::TURN_ON => 'On',
-            self::TURN_OFF => 'Off',
-            self::SET_RGBW_PARAMETERS => 'Adjust parameters',
-            self::OPEN_CLOSE => 'Open / close',
-            self::STOP => 'Stop',
-            self::TOGGLE => 'Toggle',
+            self::READ => 'Read', // i18n
+            self::OPEN => 'Open', // i18n
+            self::CLOSE => 'Close', // i18n
+            self::SHUT => 'Shut', // i18n
+            self::REVEAL => 'Reveal', // i18n
+            self::REVEAL_PARTIALLY => 'Reveal partially', // i18n
+            self::TURN_ON => 'On', // i18n
+            self::TURN_OFF => 'Off', // i18n
+            self::SET_RGBW_PARAMETERS => 'Adjust parameters', // i18n
+            self::OPEN_CLOSE => 'Open / close', // i18n
+            self::STOP => 'Stop', // i18n
+            self::TOGGLE => 'Toggle', // i18n
         ];
     }
 

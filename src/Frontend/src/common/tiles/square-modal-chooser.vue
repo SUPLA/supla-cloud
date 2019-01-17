@@ -1,6 +1,6 @@
 <template>
     <modal class="square-modal-chooser"
-        :header="$t(title)"
+        :header="$t(titleI18n)"
         cancellable="true"
         @cancel="$emit('cancel')"
         @confirm="$emit('confirm', selectedItems)">
@@ -21,7 +21,7 @@
 
     export default {
         components: {SquareLinksCarouselWithFilters},
-        props: ['selected', 'title', 'tile', 'filters', 'endpoint'],
+        props: ['selected', 'titleI18n', 'tile', 'filters', 'endpoint'],
         data() {
             return {
                 items: undefined,

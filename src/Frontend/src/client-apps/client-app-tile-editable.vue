@@ -111,7 +111,7 @@
                 this.$http.delete(`client-apps/${this.app.id}`)
                     .then(() => this.editingModel = null)
                     .then(() => this.deleteConfirm = false)
-                    .then(() => warningNotification(this.$t('Information'), this.$t('Client\'s app has been deleted')))
+                    .then(() => warningNotification(this.$t('Information'), this.$t('Client’s app has been deleted')))
                     .then(() => this.$emit('delete'))
                     .finally(() => this.saving = false);
             }

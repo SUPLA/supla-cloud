@@ -1,6 +1,6 @@
 <template>
     <square-modal-chooser
-        title="Choose Access Identifiers to be assigned to this Location"
+        title-i18n="Choose Access Identifiers to be assigned to this Location"
         endpoint="accessids"
         tile="access-id-tile"
         filters="access-id-filters"

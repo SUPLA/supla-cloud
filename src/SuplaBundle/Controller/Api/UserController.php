@@ -110,8 +110,8 @@ class UserController extends RestController {
                 $this->assertNotApiUser();
                 $newPassword = $data['newPassword'] ?? '';
                 $oldPassword = $data['oldPassword'] ?? '';
-                Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect');
-                Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
+                Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect'); // i18n
+                Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.'); // i18n
                 $this->userManager->setPassword($newPassword, $user);
             } elseif ($data['action'] == 'agree:rules') {
                 $this->assertNotApiUser();
@@ -176,17 +176,17 @@ class UserController extends RestController {
         }
 
         $username = $request->get('email');
-        Assertion::email($username, 'Please fill a valid email address');
+        Assertion::email($username, 'Please fill a valid email address'); // i18n
 
         $remoteServer = '';
         $exists = $this->autodiscover->userExists($username, $remoteServer);
-        Assertion::false($exists, 'Email already exists');
+        Assertion::false($exists, 'Email already exists'); // i18n
 
         if ($exists === null) {
             $this->mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);
             return $this->view([
                 'status' => Response::HTTP_SERVICE_UNAVAILABLE,
-                'message' => 'Service temporarily unavailable',
+                'message' => 'Service temporarily unavailable', // i18n
             ], Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
@@ -201,16 +201,16 @@ class UserController extends RestController {
         $user->setTimezone($data['timezone']);
 
         $newPassword = $data['password'];
-        Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.');
+        Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.'); // i18n
         $user->setPlainPassword($newPassword);
 
         $locale = $data['locale'] ?? 'en';
-        Assertion::inArray($locale, self::AVAILABLE_LOCALES, 'Language is not available');
+        Assertion::inArray($locale, self::AVAILABLE_LOCALES, 'Language is not available'); // i18n
         $user->setLocale($locale);
 
         if ($regulationsRequired) {
             Assert::that($data)->notEmptyKey('regulationsAgreed');
-            Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.');
+            Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.'); // i18n
             $user->agreeOnRules();
         }
 
@@ -249,7 +249,7 @@ class UserController extends RestController {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $server = $this->autodiscover->getAuthServerForUser($username);
                 list(, $status) = $this->suplaCloudRequestForwarder->resetPasswordToken($server, $username);
-                Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.');
+                Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.'); // i18n
             } elseif ($request->getMethod() == Request::METHOD_POST) {
                 $user = $this->userManager->userByEmail($username);
                 if ($user && $this->userManager->paswordRequest($user) === true) {
@@ -258,10 +258,10 @@ class UserController extends RestController {
             } else {
                 /** @var User $user */
                 $user = $this->userManager->userByPasswordToken($token);
-                Assertion::notNull($user, 'Token does not exist');
+                Assertion::notNull($user, 'Token does not exist'); // i18n
                 $password = $data['password'] ?? '';
                 if ($password) {
-                    Assertion::minLength($password, 8, 'The password should be 8 or more characters.');
+                    Assertion::minLength($password, 8, 'The password should be 8 or more characters.'); // i18n
                     $user->setToken(null);
                     $user->setPasswordRequestedAt(null);
                     $this->userManager->setPassword($password, $user, true);

@@ -27,7 +27,7 @@ class CreateConfirmedUserCommand extends Command {
             ->setName('supla:create-confirmed-user')
             ->addArgument('username', InputArgument::OPTIONAL)
             ->addArgument('password', InputArgument::OPTIONAL)
-            ->addOption('if-not-exists', null, InputOption::VALUE_NONE, 'Don\'t throw an exception if no migration is available (CI).')
+            ->addOption('if-not-exists', null, InputOption::VALUE_NONE, 'Don’t throw an exception if no migration is available (CI).')
             ->setDescription('Create a confirmed user account.');
     }
 

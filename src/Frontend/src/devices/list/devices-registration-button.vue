@@ -11,11 +11,12 @@
                             :class="enabledUntil ? 'pe-7s-attention' : 'pe-7s-close-circle'"></i>
                     </td>
                     <td>
-                        <span v-if="saving">{{ $t(caption) }}</span>
-                        <span v-else>{{ $t(caption) }}: <span class="big">{{ $t(enabledUntil ? 'ACTIVE' : 'INACTIVE') }}</span></span>
+                        <span v-if="saving">{{ $t(captionI18n) }}</span>
+                        <span v-else>{{ $t(captionI18n) }}:
+                            <span class="big">{{ enabledUntil ? $t('ACTIVE') : $t('INACTIVE') }}</span></span>
                         <div v-if="enabledUntil">{{ $t('will expire') }} : {{ enabledUntilCalendar }}</div>
                         <div class="small text-muted"
-                            v-if="!saving">{{ $t(enabledUntil ? 'CLICK TO DISABLE' : 'CLICK TO ENABLE') }}
+                            v-if="!saving">{{ enabledUntil ? $t('CLICK TO DISABLE') : $t('CLICK TO ENABLE') }}
                         </div>
                     </td>
                 </tr>
@@ -53,7 +54,7 @@
     import ButtonLoadingDots from "src/common/gui/loaders/button-loading-dots.vue";
 
     export default {
-        props: ['field', 'caption'],
+        props: ['field', 'captionI18n'],
         components: {Switches, ButtonLoadingDots},
         data() {
             return {

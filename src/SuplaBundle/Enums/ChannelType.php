@@ -118,33 +118,33 @@ final class ChannelType extends Enum {
 
     public static function captions(): array {
         return [
-            self::SENSORNO => 'Sensor (normal open)',
-            self::SENSORNC => 'Sensor (normal closed)',
-            self::RELAY => 'Relay',
-            self::RELAYHFD4 => 'HFD4 Relay',
-            self::RELAYG5LA1A => 'G5LA1A Relay',
-            self::RELAY2XG5LA1A => 'G5LA1A Relay x2',
-            self::THERMOMETERDS18B20 => 'DS18B20 Thermometer',
-            self::DHT11 => 'DHT11 Temperature & Humidity Sensor',
-            self::DHT21 => 'DHT21 Temperature & Humidity Sensor',
-            self::DHT22 => 'DHT22 Temperature & Humidity Sensor',
-            self::AM2301 => 'AM2301 Temperature & Humidity Sensor',
-            self::AM2302 => 'AM2302 Temperature & Humidity Sensor',
-            self::THERMOMETER => 'Temperature sensor',
-            self::HUMIDITYSENSOR => 'Humidity sensor',
-            self::HUMIDITYANDTEMPSENSOR => 'Temperature & Humidity sensor',
-            self::WINDSENSOR => 'Wind sensor',
-            self::PRESSURESENSOR => 'Pressure sensor',
-            self::RAINSENSOR => 'Rain sensor',
-            self::WEIGHTSENSOR => 'Weight sensor',
-            self::WEATHER_STATION => 'Weather Station',
-            self::DIMMER => 'Dimmer',
-            self::RGBLEDCONTROLLER => 'RGB led controller',
-            self::DIMMERANDRGBLED => 'Dimmer & RGB led controller',
-            self::DISTANCESENSOR => 'Distance sensor',
-            self::CALLBUTTON => 'Distance sensor',
-            self::ELECTRICITYMETER => 'Electricity meter',
-            self::IMPULSECOUNTER => 'Impulse counter',
+            self::SENSORNO => 'Sensor (normal open)', // i18n
+            self::SENSORNC => 'Sensor (normal closed)', // i18n
+            self::RELAY => 'Relay', // i18n
+            self::RELAYHFD4 => 'HFD4 Relay', // i18n
+            self::RELAYG5LA1A => 'G5LA1A Relay', // i18n
+            self::RELAY2XG5LA1A => 'G5LA1A Relay x2', // i18n
+            self::THERMOMETERDS18B20 => 'DS18B20 Thermometer', // i18n
+            self::DHT11 => 'DHT11 Temperature & Humidity Sensor', // i18n
+            self::DHT21 => 'DHT21 Temperature & Humidity Sensor', // i18n
+            self::DHT22 => 'DHT22 Temperature & Humidity Sensor', // i18n
+            self::AM2301 => 'AM2301 Temperature & Humidity Sensor', // i18n
+            self::AM2302 => 'AM2302 Temperature & Humidity Sensor', // i18n
+            self::THERMOMETER => 'Temperature sensor', // i18n
+            self::HUMIDITYSENSOR => 'Humidity sensor', // i18n
+            self::HUMIDITYANDTEMPSENSOR => 'Temperature & Humidity sensor', // i18n
+            self::WINDSENSOR => 'Wind sensor', // i18n
+            self::PRESSURESENSOR => 'Pressure sensor', // i18n
+            self::RAINSENSOR => 'Rain sensor', // i18n
+            self::WEIGHTSENSOR => 'Weight sensor', // i18n
+            self::WEATHER_STATION => 'Weather Station', // i18n
+            self::DIMMER => 'Dimmer', // i18n
+            self::RGBLEDCONTROLLER => 'RGB led controller', // i18n
+            self::DIMMERANDRGBLED => 'Dimmer & RGB led controller', // i18n
+            self::DISTANCESENSOR => 'Distance sensor', // i18n
+            self::CALLBUTTON => 'Distance sensor', // i18n
+            self::ELECTRICITYMETER => 'Electricity meter', // i18n
+            self::IMPULSECOUNTER => 'Impulse counter', // i18n
         ];
     }
 
