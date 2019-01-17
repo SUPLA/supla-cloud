@@ -539,3 +539,7 @@ File is too large: Размер файла слишком большой
 "Maximum filesize limit is {limit}.": "Максимальный размер файла - {limit}."
 "The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Выбранный Вами файлы икон превышают максимальный размер. Максимальный размер загружаемого файла - {limit}."
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ваша пользовательская установка SUPLA cloud недоступна. Убедитесь в том, что сервер доступен, а соединение HTTPS действует корректно.
+
+The action was prevented from being performed using an HTTP GET method that is not permitted.: Не удалось выполнить действия с использованием запрещенного метода HTTP GET.
+For devices: Для устройств
+Allows to perform an action only using the HTTP PATCH request.: Позволяет выполнять действия только с помощью запроса HTTP PATCH.
