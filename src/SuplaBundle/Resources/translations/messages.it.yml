@@ -34,6 +34,7 @@ Allows to perform an action only using the HTTP PATCH request.: Consente di  ese
 And more: E molto di più
 Application requirements: Requisiti dell’applicazione
 Are you lost?: Ti sei perso? Cerchi qualcosa?
+Are you sure you want to change channel’s function?: Sei sicuro di voler cambiare la funzione del canale?
 Are you sure you want to delete the entire measurement history saved for this channel?: Sei sicuro di voler cancellare tutto lo storico delle misurazioni salvato per questo canale?
 Are you sure you want to delete this OAuth application?: Sei sicuro di voler cancellare questa applicazione Oauth?
 Are you sure you want to delete this channel group?: Sei sicuro di voler eliminare questo gruppo di canali?
@@ -64,6 +65,7 @@ Cancelled: Cancellati
 Caption: Titolo
 Change Password: Cambio della password
 Change icon: Cambia l’icona
+Changing channel’s function will also result in the following changes.: Il cambio della funzione del canale comporterà anche le seguenti modifiche.
 Channel: Canale
 Channel No: Numero del canale
 Channel for the partial opening sensor: Canale per il sensore di apertura  parziale
@@ -79,9 +81,12 @@ Choose: Seleziona
 Choose Access Identifiers to be assigned to this Location: Seleziona gli Identificatori dell’Accesso da assegnare a questa Localizzazione
 Choose location: Scegli una localizzazione
 Chosen hour: Orario selezionato
+Client’s Apps: Applicazioni del cliente
+Client’s app has been deleted: Applicazione del cliente è stata rimossa
 Close: Chiudi
 Color: Colore
 Color brightness: Luminosità del colore
+Coming Soon: Disponibile prossimamente
 Comment: Commento
 Configuration: Configurazione
 Confirm Password: Conferma della password
@@ -132,6 +137,7 @@ Disabled: Disabilitato
 Disconnected: Disconnesso
 Distance: Distanza
 Distance sensor: Sensore di distanza
+'Don’t worry, you can always reset your password via email. Click here to do so.': Non Ti preoccupare. Puoi sempre resettare la password tramite la Tua posta email. Clicca qui per farlo.
 Door lock operation: Apertura della porta
 Door opening sensor: Sensore di apertura della porta
 Doors and gates: Porte e cancelli
@@ -488,19 +494,13 @@ will expire: scade
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ###
-Are you sure you want to change channel's function?: Sei sicuro di voler cambiare la funzione del canale?
 Assigned Locations: Localizzazioni assegnate
 CANCEL: ANNULLA
-Changing channel's function will also result in the following changes.: Il cambio della funzione del canale comporterà anche le seguenti modifiche.
-Client's Apps: Applicazioni del cliente
-Client's app has been deleted: Applicazione del cliente è stata rimossa
-Coming soon: Disponibile prossimamente
 DELETE: ELIMINA
 Date: Data
 'Direct Link for #': 'Link diretto per #'
 Disable: Disabilita
 Disable schedule: Disabilita lo scadenzario
-'Don''t worry, you can always reset your password via email. Click here to do so.': Non Ti preoccupare. Puoi sempre resettare la password tramite la Tua posta email. Clicca qui per farlo.
 Enable: Abilita
 Enter your email: Inserisci la Tua email
 Hi: Ciao
@@ -537,19 +537,10 @@ Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
 Application name cannot be blank.: ~
-Are you sure you want to change channel’s function?: ~
-CLICK TO: ~
-Changing channel’s function will also result in the following changes.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
-Client’s Apps: ~
-Client’s app has been deleted: ~
-Coming Soon: ~
 Could not reset the password.: ~
 Create New Location: ~
-DISABLE: ~
-'Don’t worry, you can always reset your password via email. Click here to do so.': ~
-ENABLE: ~
 GUID: ~
 Language is not available: ~
 Location password must be at least 4 characters.: ~

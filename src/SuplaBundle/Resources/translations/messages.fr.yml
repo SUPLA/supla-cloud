@@ -34,6 +34,7 @@ Allows to perform an action only using the HTTP PATCH request.: Vous permet d'ef
 And more: Et beaucoup plus
 Application requirements: Exigences de l'application
 Are you lost?: Tu t'es perdu ? Tu cherches quelque chose?
+Are you sure you want to change channel’s function?: Voulez-vous vraiment changer la fonction de la chaîne?
 Are you sure you want to delete this OAuth application?: Êtes-vous sûr de vouloir supprimer cette application OAuth ?
 Are you sure you want to delete this channel group?: Voulez-vous vraiment supprimer ce groupe de chaînes?
 Are you sure you want to delete this client?: Voulez-vous vraiment supprimer cette application client?
@@ -63,6 +64,7 @@ Cancelled: Annulé
 Caption: Signature
 Change Password: Modification de mot de passe
 Change icon: Changer d'icône
+Changing channel’s function will also result in the following changes.: La modification de la fonction de la chaîne entraînera également les changements suivants.
 Channel: Chaîne
 Channel No: N° chaîne
 Channel for the partial opening sensor: Chaîne pour capteur d'ouverture partielle
@@ -78,9 +80,12 @@ Choose: Choisir
 Choose Access Identifiers to be assigned to this Location: Choisir les Identifiants d'Accès qui vont être attribués à ce lieu
 Choose location: Sélectionner le lieu
 Chosen hour: Heure choisie
+Client’s Apps: Applications client
+Client’s app has been deleted: L’application client a été supprimée
 Close: Fermer
 Color: Couleur
 Color brightness: Luminosité de la couleur
+Coming Soon: Prochainement disponible
 Comment: Commentaire
 Configuration: Configuration
 Confirm Password: Confirmation de mot de passe
@@ -130,6 +135,7 @@ Disabled: Désactivé
 Disconnected: Déconnecté
 Distance: Distance
 Distance sensor: Capteur de distance
+'Don’t worry, you can always reset your password via email. Click here to do so.': Ne vous inquiétez pas. Vous pouvez toujours réinitaliser votre mot de passe par le biais de messagerie électronique. Cliquez ici pour le faire.
 Door lock operation: Ouverture de porte
 Door opening sensor: Capteur d'ouverture de porte
 Doors and gates: 'Portes, Portails'
@@ -475,19 +481,13 @@ will expire: expirera
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ###
-Are you sure you want to change channel's function?: Voulez-vous vraiment changer la fonction de la chaîne?
 Assigned Locations: Lieux attribués
 CANCEL: ANNULER
-Changing channel's function will also result in the following changes.: La modification de la fonction de la chaîne entraînera également les changements suivants.
-Client's Apps: Applications client
-Client's app has been deleted: L’application client a été supprimée
-Coming soon: Prochainement disponible
 DELETE: SUPPRIMER
 Date: Date
 'Direct Link for #': 'Lien direct pour #'
 Disable: Désactiver
 Disable schedule: Désactiver le calendrier
-'Don''t worry, you can always reset your password via email. Click here to do so.': Ne vous inquiétez pas. Vous pouvez toujours réinitaliser votre mot de passe par le biais de messagerie électronique. Cliquez ici pour le faire.
 Enable: Activer
 Enter your email: Introduisez votre e-mail
 Hi: Bonjour
@@ -524,22 +524,13 @@ Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
 Application name cannot be blank.: ~
-Are you sure you want to change channel’s function?: ~
 Are you sure you want to delete the entire measurement history saved for this channel?: ~
-CLICK TO: ~
-Changing channel’s function will also result in the following changes.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
-Client’s Apps: ~
-Client’s app has been deleted: ~
-Coming Soon: ~
 Could not reset the password.: ~
 Currency: ~
-DISABLE: ~
 Delete measurement history: ~
-'Don’t worry, you can always reset your password via email. Click here to do so.': ~
 Drag your image(s) here or click to select from the disk: ~
-ENABLE: ~
 GUID: ~
 Impulses: ~
 Language is not available: ~

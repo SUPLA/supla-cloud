@@ -34,6 +34,7 @@ Allows to perform an action only using the HTTP PATCH request.: Ermöglicht das 
 And more: Und viel mehr
 Application requirements: Anwendungsanforderungen
 Are you lost?: Hast du dich verlaufen?
+Are you sure you want to change channel’s function?: Wollen Sie wirklich die Funktion des Kanals ändern?
 Are you sure you want to delete the entire measurement history saved for this channel?: 'Sind Sie sicher, dass sie den ganzen Messverlauf für diese Kanalgruppe löschen wollen?'
 Are you sure you want to delete this OAuth application?: Möchten Sie diese OAuth-Anwendung wirklich löschen?
 Are you sure you want to delete this channel group?: Wollen Sie diese Kanalgruppe wirklich löschen?
@@ -64,6 +65,7 @@ Cancelled: Anulliert
 Caption: Bildunterschrift
 Change Password: Kennwort Änderung
 Change icon: Symbol ändern
+Changing channel’s function will also result in the following changes.: Eine Änderung der Funktion des Kanals führt auch zu folgenden Änderungen.
 Channel: Kanal
 Channel No: Kanal Nummer
 Channel for the partial opening sensor: Kanal für indirekt öffnenden Sensor
@@ -79,9 +81,12 @@ Choose: Wählen
 Choose Access Identifiers to be assigned to this Location: 'Die Zugriffskennungen wählen, die zu dieser Lokalisierung zugeordnet werden'
 Choose location: Wählen Sie eine Lokalisierung
 Chosen hour: Ausgewählte Uhrzeit
+Client’s Apps: Client-Anwendungen
+Client’s app has been deleted: Die Client-Anwendung wurde gelöscht
 Close: Schliesse
 Color: Farbe
 Color brightness: Helligkeit des Farbtons
+Coming Soon: Bald erreichbar
 Comment: Kommentar
 Configuration: Konfiguration
 Confirm Password: Kennwort bestätigen
@@ -133,6 +138,7 @@ Disabled: Ausgeschaltet
 Disconnected: Nicht verbunden
 Distance: Entfernung
 Distance sensor: Abstandssensor
+'Don’t worry, you can always reset your password via email. Click here to do so.': 'Mach dir keine Sorgen. Du kannst dein Kennwort durch das Konto E-mail zurücksetzen. Hier klicken, um das zu machen.'
 Door lock operation: Tür aufmachen
 Door opening sensor: Tür-Öffnungssensor
 Doors and gates: Türen und Toren
@@ -489,19 +495,13 @@ will expire: es erlischt
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ###
-Are you sure you want to change channel's function?: Wollen Sie wirklich die Funktion des Kanals ändern?
 Assigned Locations: Zugeordnete Lokalisierungen
 CANCEL: ABBRECHEN
-Changing channel's function will also result in the following changes.: Eine Änderung der Funktion des Kanals führt auch zu folgenden Änderungen.
-Client's Apps: Client-Anwendungen
-Client's app has been deleted: Die Client-Anwendung wurde gelöscht
-Coming soon: Bald erreichbar
 DELETE: LÖSCHEN
 Date: "Data \tDatum"
 'Direct Link for #': 'Direkter Link für #'
 Disable: Ausschalten
 Disable schedule: Schalte das Harmonogramm aus
-'Don''t worry, you can always reset your password via email. Click here to do so.': 'Mach dir keine Sorgen. Du kannst dein Kennwort durch das Konto E-mail zurücksetzen. Hier klicken, um das zu machen.'
 Enable: Einschalten
 Enter your email: Bitte deine E-mail eintragen
 Hi: Hallo
@@ -537,18 +537,9 @@ Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
 Application name cannot be blank.: ~
-Are you sure you want to change channel’s function?: ~
-CLICK TO: ~
-Changing channel’s function will also result in the following changes.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
-Client’s Apps: ~
-Client’s app has been deleted: ~
-Coming Soon: ~
 Could not reset the password.: ~
-DISABLE: ~
-'Don’t worry, you can always reset your password via email. Click here to do so.': ~
-ENABLE: ~
 GUID: ~
 Language is not available: ~
 Location password must be at least 4 characters.: ~

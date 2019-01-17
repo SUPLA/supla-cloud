@@ -34,6 +34,7 @@ Allows to perform an action only using the HTTP PATCH request.: Umožňuje prov�
 And more: a více
 Application requirements: Požadavky aplikace
 Are you lost?: Ztratili jste? Hledáte něco?
+Are you sure you want to change channel’s function?: Opravdu chcete změnit funkci kanálu?
 Are you sure you want to delete the entire measurement history saved for this channel?: Opravdu chcete smazat celou historii měření shromážděnou pro tento kanál?
 Are you sure you want to delete this OAuth application?: Opravdu chcete smazat tuto aplikaci OAuth?
 Are you sure you want to delete this channel group?: Opravdu chcete tuto skupinu kanálů smazat?
@@ -64,6 +65,7 @@ Cancelled: Zrušeno
 Caption: Podpis
 Change Password: Změna hesla
 Change icon: Změňte ikonu
+Changing channel’s function will also result in the following changes.: Změna funkce kanálu také způsobí následující změny.
 Channel: Kanál
 Channel No: Číslo kanálu
 Channel for the partial opening sensor: Kanál pro snímač nepřímého otevření
@@ -79,9 +81,12 @@ Choose: Vybrat
 Choose Access Identifiers to be assigned to this Location: 'Vyberte ID přístupu, které budou k tomuto místu přiřazeny'
 Choose location: Vyberte umístění
 Chosen hour: Vybraný čas
+Client’s Apps: Klientské aplikace
+Client’s app has been deleted: Klientská aplikace byla odstraněna
 Close: Zavřít
 Color: Barvy
 Color brightness: Jas barev
+Coming Soon: Brzy k dispozici
 Comment: Komentář
 Configuration: Konfigurace
 Confirm Password: Potvrzení hesla
@@ -133,6 +138,7 @@ Disabled: Deaktivován
 Disconnected: Odpojeno
 Distance: Vzdálenost
 Distance sensor: Snímač vzdálenosti
+'Don’t worry, you can always reset your password via email. Click here to do so.': Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
 Door lock operation: Otevření dveří
 Door opening sensor: Snímač otevření dveří
 Doors and gates: Dveře a brány
@@ -489,19 +495,13 @@ will expire: vyprší
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ###
-Are you sure you want to change channel's function?: Opravdu chcete změnit funkci kanálu?
 Assigned Locations: Přiřazené umístění
 CANCEL: ZRUŠIT
-Changing channel's function will also result in the following changes.: Změna funkce kanálu také způsobí následující změny.
-Client's Apps: Klientské aplikace
-Client's app has been deleted: Klientská aplikace byla odstraněna
-Coming soon: Brzy k dispozici
 DELETE: VYMAZAT
 Date: Datum
 'Direct Link for #': 'Přímý odkaz pro #'
 Disable: Vypnout
 Disable schedule: Vypnout plán
-'Don''t worry, you can always reset your password via email. Click here to do so.': Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
 Enable: Zapnout
 Enter your email: Zadejte svůj e-mail
 Hi: Ahoj
@@ -537,18 +537,9 @@ Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
 Application name cannot be blank.: ~
-Are you sure you want to change channel’s function?: ~
-CLICK TO: ~
-Changing channel’s function will also result in the following changes.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
-Client’s Apps: ~
-Client’s app has been deleted: ~
-Coming Soon: ~
 Could not reset the password.: ~
-DISABLE: ~
-'Don’t worry, you can always reset your password via email. Click here to do so.': ~
-ENABLE: ~
 GUID: ~
 Language is not available: ~
 Location password must be at least 4 characters.: ~

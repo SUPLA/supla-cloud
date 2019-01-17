@@ -34,6 +34,7 @@ Allows to perform an action only using the HTTP PATCH request.: Leidžia atlikti
 And more: Ir dar daugiau
 Application requirements: Naudojimo reikalavimai
 Are you lost?: Pasiklydote? Kažko ieškote?
+Are you sure you want to change channel’s function?: Ar tikrai norite pakeisti kanalo funkciją?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ar tikrai norite pašalinti šio kanalo sukauptų matmenų visą istoriją?
 Are you sure you want to delete this OAuth application?: Ar tikrai norite pašalinti šią OAuth programą?
 Are you sure you want to delete this channel group?: Ar tikrai norite pašalinti šią kanalų grupę?
@@ -64,6 +65,7 @@ Cancelled: Atšaukta
 Caption: Parašas
 Change Password: Slaptažodžio keitimas
 Change icon: Pakeisti piktogramą
+Changing channel’s function will also result in the following changes.: Kanalo funkcijos pakeitimas sukels ir šiuos pakeitimus.
 Channel: Kanalas
 Channel No: Kanalo numeris
 Channel for the partial opening sensor: Netiesioginio atidarymo jutiklio kanalas
@@ -79,9 +81,12 @@ Choose: Pasirinkti
 Choose Access Identifiers to be assigned to this Location: 'Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai'
 Choose location: Pasirinkti vietą
 Chosen hour: Pasirinktas laikas
+Client’s Apps: Klientų programos
+Client’s app has been deleted: Kliento programa pašalinta
 Close: Uždaryti
 Color: Spalva
 Color brightness: Šviesos ryškumas
+Coming Soon: Netrukus bus prieinami
 Comment: Komentaras
 Configuration: Konfigūracija
 Confirm Password: Slaptažodžio patvirtinimas
@@ -133,6 +138,7 @@ Disabled: Išjungta
 Disconnected: Atjungta
 Distance: Atstumas
 Distance sensor: Atstumo jutiklis
+'Don’t worry, you can always reset your password via email. Click here to do so.': Nesijaudinkite. Savo el. pašto pagalba visada galite atkurti slaptažodį. Norėdami tai atlikti spustelėkite čia.
 Door lock operation: Durų atidarymas
 Door opening sensor: Durų atidarymo jutiklis
 Doors and gates: Durys ir vartai
@@ -489,19 +495,13 @@ will expire: baigsis
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ###
-Are you sure you want to change channel's function?: Ar tikrai norite pakeisti kanalo funkciją?
 Assigned Locations: Priskirtos Vietos
 CANCEL: ATŠAUKTI
-Changing channel's function will also result in the following changes.: Kanalo funkcijos pakeitimas sukels ir šiuos pakeitimus.
-Client's Apps: Klientų programos
-Client's app has been deleted: Kliento programa pašalinta
-Coming soon: Netrukus bus prieinami
 DELETE: PAŠALINTI
 Date: Data
 'Direct Link for #': 'Tiesioginė nuoroda #'
 Disable: Išjungti
 Disable schedule: Išjungti tvarkaraštį
-'Don''t worry, you can always reset your password via email. Click here to do so.': Nesijaudinkite. Savo el. pašto pagalba visada galite atkurti slaptažodį. Norėdami tai atlikti spustelėkite čia.
 Enable: Įjungti
 Enter your email: Įveskite savo el. paštą
 Hi: Sveiki
@@ -537,18 +537,9 @@ Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
 Application name cannot be blank.: ~
-Are you sure you want to change channel’s function?: ~
-CLICK TO: ~
-Changing channel’s function will also result in the following changes.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
-Client’s Apps: ~
-Client’s app has been deleted: ~
-Coming Soon: ~
 Could not reset the password.: ~
-DISABLE: ~
-'Don’t worry, you can always reset your password via email. Click here to do so.': ~
-ENABLE: ~
 GUID: ~
 Language is not available: ~
 Location password must be at least 4 characters.: ~

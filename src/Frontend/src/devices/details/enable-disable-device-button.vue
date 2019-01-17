@@ -4,7 +4,7 @@
             @click="toggleEnabled()"
             v-show="!loading && !showSchedulesDisablingConfirmation">
             <strong class="clearfix">{{ isEnabled ? $t('ENABLED') : $t('DISABLED') }}</strong>
-            {{ $t('CLICK TO') + ' ' + (isEnabled ? $t('DISABLE') : $t('ENABLE')) }}
+            {{ isEnabled ? $t('CLICK TO DISABLE') : $t('CLICK TO ENABLE') }}
         </a>
         <button-loading v-if="loading || showSchedulesDisablingConfirmation"></button-loading>
         <disabling-schedules-modal message-i18n="Turning this device off will result in disabling all the associated schedules."

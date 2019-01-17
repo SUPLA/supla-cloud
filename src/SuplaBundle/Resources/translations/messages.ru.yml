@@ -34,6 +34,7 @@ Allows to perform an action only using the HTTP PATCH request.: Позволяе
 And more: И прочее
 Application requirements: Требования приложения
 Are you lost?: Вы потерялись? Что-то ищете?
+Are you sure you want to change channel’s function?: Вы действительно хотите изменить функцию канала?
 Are you sure you want to delete the entire measurement history saved for this channel?: 'Вы уверены, что хотите удалить всю историю измерений, созданную для этого канала ?'
 Are you sure you want to delete this OAuth application?: 'Вы уверены, что хотите удалить это приложение OAuth ?'
 Are you sure you want to delete this channel group?: Вы действительно хотите удалить эту группу?
@@ -64,6 +65,7 @@ Cancelled: Аннулировано
 Caption: Подпись
 Change Password: Смена пароля
 Change icon: Сменить значок
+Changing channel’s function will also result in the following changes.: Изменение функции канала повлечет также следующие изменения.
 Channel: Канал
 Channel No: Номер канала
 Channel for the partial opening sensor: Канал для датчика промежуточного открытия
@@ -79,9 +81,12 @@ Choose: выберите
 Choose Access Identifiers to be assigned to this Location: Выберите Ключи Доступа для этой Позиции
 Choose location: Выбрать местоположение
 Chosen hour: Заданное время
+Client’s Apps: Клиентские приложения
+Client’s app has been deleted: Клиентское приложение было удалено
 Close: Закрыть
 Color: Цвет
 Color brightness: Яркость цвета
+Coming Soon: Скоро будет
 Comment: Коментарий
 Configuration: Конфигурация
 Confirm Password: Подтвердить пароль
@@ -133,6 +138,7 @@ Disabled: Неиспользуется
 Disconnected: Отключено
 Distance: Расстояние
 Distance sensor: датчик расстояния
+'Don’t worry, you can always reset your password via email. Click here to do so.': 'Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого нажмите здесь.'
 Door lock operation: Открытие двери
 Door opening sensor: Датчик открытия двери
 Doors and gates: Двери и калитки
@@ -488,19 +494,13 @@ will expire: Истечет
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ###
-Are you sure you want to change channel's function?: Вы действительно хотите изменить функцию канала?
 Assigned Locations: Подключенные Области
 CANCEL: ОТМЕНА
-Changing channel's function will also result in the following changes.: Изменение функции канала повлечет также следующие изменения.
-Client's Apps: Клиентские приложения
-Client's app has been deleted: Клиентское приложение было удалено
-Coming soon: Скоро будет
 DELETE: УДАЛИТЬ
 Date: Дата
 'Direct Link for #': 'Прямая ссылка для #'
 Disable: Выключить
 Disable schedule: Выключи график
-'Don''t worry, you can always reset your password via email. Click here to do so.': 'Не беспокойтесь, Вы сможете восстановить пароль по почте. Для этого нажмите здесь.'
 Enable: Включить
 Enter your email: Введите почту
 Hi: Привет
@@ -536,18 +536,9 @@ Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
 Application name cannot be blank.: ~
-Are you sure you want to change channel’s function?: ~
-CLICK TO: ~
-Changing channel’s function will also result in the following changes.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
-Client’s Apps: ~
-Client’s app has been deleted: ~
-Coming Soon: ~
 Could not reset the password.: ~
-DISABLE: ~
-'Don’t worry, you can always reset your password via email. Click here to do so.': ~
-ENABLE: ~
 GUID: ~
 Humidity: ~
 Language is not available: ~
