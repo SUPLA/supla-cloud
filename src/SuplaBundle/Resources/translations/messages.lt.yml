@@ -548,3 +548,7 @@ File is too large: Failas yra per didelis
 "Maximum filesize limit is {limit}.": "Maksimalus failo dydis tai {limit}."
 "The set of icons you have chosen is too large. Maximum upload limit is {limit}.": "Jūsų pasirinkti piktogramų failai yra per dideli. Maksimalus leistinas įkeliamo failo dydis tai {limit}."
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.
+
+The action was prevented from being performed using an HTTP GET method that is not permitted.: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
+For devices: Įrenginiams
+Allows to perform an action only using the HTTP PATCH request.: Leidžia atlikti akcijas tik naudojant HTTP PATCH užklausą.
