@@ -353,6 +353,7 @@ Sensor disconnected: Aucun capteur
 Sensors: Capteurs
 Server address: Adresse du serveur
 Server unreachable: Ce serveur est injoignable
+Service temporarily unavailable: Ce service est temporairement indisponible
 Show on the Client’s devices: Afficher dans les dispositifs client
 Shut: Voiler
 Sign In: Se connecter
@@ -402,6 +403,7 @@ Too many channels in this group: Trop de canaux dans ce groupe
 Tuesdays: Mardi
 Turning this device off will result in disabling all the associated schedules.: La désactivation de ce dispositif provoquera aussi la désactivation de tous les calendriers qui y sont associés.
 Type: Type
+Unknown: Inconnu
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Les fichiers téléchargés ne violent pas les bonnes mœurs, les droits d''auteur et les droits des tiers, et j''ai le droit de les utiliser.'
 Visible: Affichés
 WELCOME_MESSAGE: |
@@ -411,6 +413,7 @@ Water meter: Compteur d'eau
 We could not connect to your SUPLA Cloud instance.: Nous n'avons pas pu nous connecter à votre instance privée de SUPLA Cloud.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Nous enregistrons des informations sur vos préférences dans votre navigateur afin de faciliter l''utilisation de l''application (par exemple au moyen de cookies). [Lire le règlement].'
 We were not able to find your account.: Nous n'avons pas pu trouver votre compte.
+'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.Nous ferons de notre mieux pour nous assurer que les icônes sont affichées aussi bien que possible, mais vous obtiendrez les meilleurs résultats en téléchargeant des fichiers PNG avec un fond transparent et une largeur de {width} pixels et une hauteur de {height} pixels.'
 We will use it only in justified situations.: Nous ne l'utiliserons que dans des cas justifiés.
 Weather Station: Station météo
 Wednesdays: Mercredi
@@ -480,7 +483,6 @@ will expire: expirera
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-###
 Assigned Locations: Lieux attribués
 Date: Date
 Disable: Désactiver
@@ -501,21 +503,17 @@ Registration: Inscription
 Remove: Supprimer
 SAVE: SAUVEGARDER
 SUPLA-Cloud will not work without Javascript: SUPLA-Cloud ne fonctionnera pas sans Javascript activé.
-Service temporarily unavailable: Ce service est temporairement indisponible
 Status: Statut
 Temperature & Humidity Sensor: Capteur de température et humidité
 Temperature Sensor: Capteur de température
 Try again later: Réessayez ultérieurement
-'We willWe will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.Nous ferons de notre mieux pour nous assurer que les icônes sont affichées aussi bien que possible, mais vous obtiendrez les meilleurs résultats en téléchargeant des fichiers PNG avec un fond transparent et une largeur de {width} pixels et une hauteur de {height} pixels.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Votre instance privée SUPLA cloud n'est pas disponible. Assurez-vous que votre serveur est en ligne et que la connexion HTTPS fonctionne correctement.
 change: modifier
 'if it takes too long, check if the JS scripts are loaded correctly': 'Si cela prend trop de temps, vérifiez que les scripts JS sont chargés correctement.'
-unknown: inconnu
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-###
 Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
@@ -527,7 +525,6 @@ Could not reset the password.: ~
 Currency: ~
 Delete measurement history: ~
 Drag your image(s) here or click to select from the disk: ~
-GUID: ~
 Impulses: ~
 Language is not available: ~
 Location password must be at least 4 characters.: ~
@@ -536,23 +533,18 @@ Login: ~
 'No results match {0}': ~
 Open / close: ~
 Price per: ~
-Service temporarily unavailable.: ~
 Stop: ~
 Temperature & Humidity sensor: ~
 Temperature sensor: ~
 The measurement history has been deleted.: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Unit: ~
-Unknown: ~
 Visit app webpage: ~
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': ~
 With function: ~
 Your private SUPLA Cloud is not registered.: ~
 choose a currency: ~
 choose the channel group: ~
 choose the timezone: ~
-message: ~
-regulationsAgreed: ~
 state-: ~
 
 #</editor-fold>

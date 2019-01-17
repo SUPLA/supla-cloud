@@ -83,12 +83,12 @@ readFiles()
             fs.appendFileSync(translationFilePath, matchedYml);
             fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
             if (extraCount) {
-                fs.appendFileSync(translationFilePath, '#<editor-fold desc="Extra translations">\n# Translations below have not been found in sources. You might want to delete them.\n###\n');
+                fs.appendFileSync(translationFilePath, '#<editor-fold desc="Extra translations">\n# Translations below have not been found in sources. You might want to delete them.\n');
                 fs.appendFileSync(translationFilePath, extraYml);
                 fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
             }
             if (missingCount) {
-                fs.appendFileSync(translationFilePath, '#<editor-fold desc="Missing translations">\n# Translations below are missing. You want to translate them.\n###\n');
+                fs.appendFileSync(translationFilePath, '#<editor-fold desc="Missing translations">\n# Translations below are missing. You want to translate them.\n');
                 fs.appendFileSync(translationFilePath, missingYml);
                 fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
             }

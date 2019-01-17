@@ -358,6 +358,7 @@ Sensor disconnected: Žiadny snímač
 Sensors: Senzory
 Server address: Adresa servera
 Server unreachable: Server je nedostupný
+Service temporarily unavailable: Služba je dočasne nedostupná
 Show on the Client’s devices: Zobraziť v klientských zariadeniach
 Shut: Zatvoriť
 Sign In: Prihlásiť sa
@@ -408,6 +409,7 @@ Tuesdays: Utorky
 Turning this device off will result in disabling all the associated schedules.: 'Vypnutím tohto zariadenia sa vypnú aj harmonogramy, ktoré sú s týmto zariadením previazané.'
 Type: Typ
 Unit: Jednotka
+Unknown: neznámy
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Zaslané súbory neporušujú dobré zvyky, autorské práva a práva tretích osôb, a mám právo používať tieto súbory.'
 Visible: Viditeľné
 WELCOME_MESSAGE: |
@@ -491,7 +493,6 @@ will expire: uplynie
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-###
 Assigned Locations: Priradené Polohy
 Date: Dátum
 Disable: Vypnúť
@@ -512,7 +513,6 @@ Registration: Registrácia
 Remove: Odstrániť
 SAVE: ULOŽIŤ
 SUPLA-Cloud will not work without Javascript: 'SUPLA-Cloud nefunguje, ak nie je zapnutý Javascript'
-Service temporarily unavailable: Služba je dočasne nedostupná
 Status: Status
 Temperature & Humidity Sensor: Snímač teploty a vlhkosti
 Temperature Sensor: Snímač teploty
@@ -520,12 +520,10 @@ Try again later: Skúste opäť neskôr.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Vaše soukromá instance SUPLA cloud  není k dispozici. Ujistěte se, že je Váš server online a Vaše připojení HTTPS funguje správně.'
 change: zmeniť
 'if it takes too long, check if the JS scripts are loaded correctly': 'ak to trvá príliš dlho, skontrolujte, či sa JS skripty načítali správne'
-unknown: neznámy
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-###
 Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 Allows to perform an action only using the HTTP PATCH request.: ~
@@ -535,23 +533,18 @@ Channel group must consist of at least one channel.: ~
 Choose client apps: ~
 Could not reset the password.: ~
 For devices: ~
-GUID: ~
 Location password must be at least 4 characters.: ~
 Location password must be no longer than 32 characters.: ~
 Login: ~
 Open / close: ~
 Please fill a valid email address: ~
-Service temporarily unavailable.: ~
 Stop: ~
 Temperature & Humidity sensor: ~
 Temperature sensor: ~
 The action was prevented from being performed using an HTTP GET method that is not permitted.: ~
 'The server has returned an HTTP {statusCode} error.': ~
-Unknown: ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-message: ~
-regulationsAgreed: ~
 state-: ~
 
 #</editor-fold>

@@ -186,7 +186,7 @@ class UserController extends RestController {
             $this->mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);
             return $this->view([
                 'status' => Response::HTTP_SERVICE_UNAVAILABLE,
-                'message' => 'Service temporarily unavailable', // i18n
+                'message' => 'Service temporarily unavailable',
             ], Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
@@ -210,7 +210,10 @@ class UserController extends RestController {
 
         if ($regulationsRequired) {
             Assert::that($data)->notEmptyKey('regulationsAgreed');
-            Assertion::true($data['regulationsAgreed'], 'You must agree to the Terms and Conditions.'); // i18n
+            Assertion::true(
+                $data['regulationsAgreed'],
+                'You must agree to the Terms and Conditions.' // i18n
+            );
             $user->agreeOnRules();
         }
 

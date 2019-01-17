@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="hover-editable text-left">
                                     <dl>
-                                        <dd>{{ $t('GUID') }}</dd>
+                                        <dd>GUID</dd>
                                         <dt>{{ this.device.gUIDString }}</dt>
                                         <dd>{{ $t('Registered') }}</dd>
                                         <dt>{{ this.device.regDate | moment("LT L")}}</dt>

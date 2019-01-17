@@ -103,7 +103,7 @@ class TargetSuplaCloudRequestForwarder {
                 'Target Cloud does not respond.',
                 ['address' => $target->getAddress(), 'responseStatus' => $status, 'response' => var_export($response, true)]
             );
-            throw new ApiException('Service temporarily unavailable.', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
+            throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
         }
         curl_close($ch);
         $response = json_decode($response, true);

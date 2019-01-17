@@ -360,6 +360,7 @@ Sensor disconnected: Fehlender Sensor
 Sensors: Sensoren
 Server address: Server-Adresse
 Server unreachable: Serwer unerreichbar
+Service temporarily unavailable: Dienstleistung ist temporär nicht verfügbar
 Show on the Client’s devices: In Client-Geräten anzeigen
 Shut: Abdecken
 Sign In: Anmelden
@@ -411,6 +412,7 @@ Tuesdays: Dienstage
 Turning this device off will result in disabling all the associated schedules.: 'Das Ausschalten dieses Geräts verursacht auch das Ausschalten von Harmonogrammen, mit denen es in Verbindung steht.'
 Type: Typ
 Unit: Einheit
+Unknown: Unbekannt
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Die hochgeladenen Dateien verstosen nicht gegen die guten Sittent, verletzen keine Urheberrechte und Rechte Dritter. Ich habe das Recht die Dateien zu verwenden.'
 Visible: Sichtlich
 WELCOME_MESSAGE: |
@@ -494,7 +496,6 @@ will expire: es erlischt
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-###
 Assigned Locations: Zugeordnete Lokalisierungen
 Date: "Data \tDatum"
 Disable: Ausschalten
@@ -515,7 +516,6 @@ Registration: Registrierung
 Remove: Löschen
 SAVE: SPEICHERN
 SUPLA-Cloud will not work without Javascript: SUPLA-Cloud funktioniert nicht ohne aktiviertes Javascript.
-Service temporarily unavailable: Dienstleistung ist temporär nicht verfügbar
 Status: Status
 Temperature & Humidity Sensor: Temperatur- und Feuchtesensor
 Temperature Sensor: Temperatursensor
@@ -523,12 +523,10 @@ Try again later: Versuche später nochmals
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Ihre private SUPLA-Cloud-Instanz ist nicht verfügbar. Stellen Sie sicher, dass Ihr Server online ist und die HTTPS-Verbindung ordnungsgemäß funktioniert.'
 change: Ändere
 'if it takes too long, check if the JS scripts are loaded correctly': 'Wenn das zu lange dauert, prüfen Sie, ob die JS-Skripts korrekt geladen sind.'
-unknown: Unbekannt
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-###
 Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
@@ -536,22 +534,17 @@ Application name cannot be blank.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
 Could not reset the password.: ~
-GUID: ~
 Language is not available: ~
 Location password must be at least 4 characters.: ~
 Location password must be no longer than 32 characters.: ~
 Login: ~
 Open / close: ~
-Service temporarily unavailable.: ~
 Stop: ~
 Temperature & Humidity sensor: ~
 Temperature sensor: ~
 'The server has returned an HTTP {statusCode} error.': ~
-Unknown: ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-message: ~
-regulationsAgreed: ~
 state-: ~
 
 #</editor-fold>
