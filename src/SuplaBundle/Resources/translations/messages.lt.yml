@@ -381,6 +381,8 @@ Sundays: Sekmadieniai
 Sunrise / Sunset: Saulėtekis / Saulėlydis
 Supla for devices: Supla įrenginiams
 Temperature: Temperatūra
+Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis
+Temperature Sensor: Temperatūros jutiklis
 Temperature adjustment: Temperatūros priderinimas
 Temperature and humidity sensor: Temperatūros ir drėgmės jutiklis
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.'
@@ -514,15 +516,9 @@ Output: Išvestis
 Password has been changed!: Slaptažodis pakeistas!
 Registration: Registracija
 Remove: Pašalinti
-SAVE: IŠSAUGOTI
-SUPLA-Cloud will not work without Javascript: SUPLA-Cloud neveiks be įjungto Javascript
 Status: Statusas
-Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis
-Temperature Sensor: Temperatūros jutiklis
 Try again later: Pabandykite dar kartą vėliau
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.'
-change: keisti
-'if it takes too long, check if the JS scripts are loaded correctly': 'jei tai trunka per ilgai, patikrinkite, ar JS skriptai kraunami teisingai'
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
@@ -540,8 +536,6 @@ Location password must be no longer than 32 characters.: ~
 Login: ~
 Open / close: ~
 Stop: ~
-Temperature & Humidity sensor: ~
-Temperature sensor: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~

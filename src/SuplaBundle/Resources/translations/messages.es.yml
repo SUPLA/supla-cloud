@@ -381,6 +381,8 @@ Sundays: Los domingos
 Sunrise / Sunset: Puesta del sol / Salida del sol
 Supla for devices: Supla para dispositivos
 Temperature: Temperatura
+Temperature & Humidity Sensor: Sensor de temperatura y humedad
+Temperature Sensor: Sensor de temperatura
 Temperature adjustment: Ajuste de temperatura
 Temperature and humidity sensor: Sensor de temperatura y humedad
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Gracias a las integraciones puedes agregar fácilmente nuevas funciones a tu cuenta utilizando soluciones proporcionadas por proveedores externos, programadores o por tí mismo/a.'
@@ -514,15 +516,9 @@ Output: Salida
 Password has been changed!: ¡Se ha cambiado la contraseña!
 Registration: Registro
 Remove: Eliminar
-SAVE: GUARDAR
-SUPLA-Cloud will not work without Javascript: SUPLA-Cloud no funcionará sin Javascript activado
 Status: Estatus
-Temperature & Humidity Sensor: Sensor de temperatura y humedad
-Temperature Sensor: Sensor de temperatura
 Try again later: Intenta más tarde
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Tu instancia privada SUPLA cloud no está disponible. Asegúrate de que tu servidor está online y la conexión HTTPS funciona correctamente.
-change: cambiar
-'if it takes too long, check if the JS scripts are loaded correctly': 'si tarda demasiado, comprueba que los scripts JS se carguen correctamente'
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
@@ -540,8 +536,6 @@ Location password must be no longer than 32 characters.: ~
 Login: ~
 Open / close: ~
 Stop: ~
-Temperature & Humidity sensor: ~
-Temperature sensor: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~

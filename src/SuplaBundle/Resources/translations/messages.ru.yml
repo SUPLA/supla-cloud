@@ -380,6 +380,8 @@ Sundays: Воскресенья
 Sunrise / Sunset: Восход/Закат
 Supla for devices: Supla для устройств
 Temperature: Температура
+Temperature & Humidity Sensor: Датчик температуры и влажности
+Temperature Sensor: Датчик температуры
 Temperature adjustment: Регулировка температуры
 Temperature and humidity sensor: Датчик температуры и влажности
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Благодаря интеграциям вы можете легко добавлять новые функции в свою учетную запись, используя решения, предоставляемые сторонними поставщиками, разработчиками, или свои собственные.'
@@ -513,15 +515,9 @@ Output: Выход
 Password has been changed!: Пароль изменен!
 Registration: Регистрация
 Remove: Удалить
-SAVE: СОХРАНИТЬ
-SUPLA-Cloud will not work without Javascript: SUPLA-Cloud не будет работать без включенного Javascript
 Status: Статус
-Temperature & Humidity Sensor: Датчик температуры и влажности
-Temperature Sensor: Датчик температуры
 Try again later: Попытайся повторно задать команду
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Ваша пользовательская установка SUPLA cloud недоступна. Убедитесь в том, что сервер доступен, а соединение HTTPS действует корректно.'
-change: изменить
-'if it takes too long, check if the JS scripts are loaded correctly': 'если это длится слишком долго, проверьте, загружаются ли скрипты JS правильно'
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
@@ -540,8 +536,6 @@ Location password must be no longer than 32 characters.: ~
 Login: ~
 Open / close: ~
 Stop: ~
-Temperature & Humidity sensor: ~
-Temperature sensor: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~

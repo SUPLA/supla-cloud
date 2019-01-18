@@ -130,9 +130,9 @@ final class ChannelType extends Enum {
             self::DHT22 => 'DHT22 Temperature & Humidity Sensor', // i18n
             self::AM2301 => 'AM2301 Temperature & Humidity Sensor', // i18n
             self::AM2302 => 'AM2302 Temperature & Humidity Sensor', // i18n
-            self::THERMOMETER => 'Temperature sensor', // i18n
+            self::THERMOMETER => 'Temperature Sensor', // i18n
             self::HUMIDITYSENSOR => 'Humidity sensor', // i18n
-            self::HUMIDITYANDTEMPSENSOR => 'Temperature & Humidity sensor', // i18n
+            self::HUMIDITYANDTEMPSENSOR => 'Temperature & Humidity Sensor', // i18n
             self::WINDSENSOR => 'Wind sensor', // i18n
             self::PRESSURESENSOR => 'Pressure sensor', // i18n
             self::RAINSENSOR => 'Rain sensor', // i18n

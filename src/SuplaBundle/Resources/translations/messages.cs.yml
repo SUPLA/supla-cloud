@@ -381,6 +381,8 @@ Sundays: Neděle
 Sunrise / Sunset: Východ / Západ
 Supla for devices: Supla na zařízeních
 Temperature: Teplota
+Temperature & Humidity Sensor: Snímač teploty a vlhkosti
+Temperature Sensor: Snímač teploty
 Temperature adjustment: Nastavení teploty
 Temperature and humidity sensor: Snímač teploty a vlhkosti
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.'
@@ -514,15 +516,9 @@ Output: Výstup
 Password has been changed!: Heslo bylo změněno!
 Registration: Registrace
 Remove: Vymazat
-SAVE: ULOŽ
-SUPLA-Cloud will not work without Javascript: SUPLA Cloud nebude fungovat bez zapnutí Javascriptu
 Status: Stav
-Temperature & Humidity Sensor: Snímač teploty a vlhkosti
-Temperature Sensor: Snímač teploty
 Try again later: Zkuste to prosím později
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
-change: změnit
-'if it takes too long, check if the JS scripts are loaded correctly': 'pokud bude akce trvat příliš dlouho, zkontrolujte, zda jsou JS skripty správně vloženy'
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
@@ -540,8 +536,6 @@ Location password must be no longer than 32 characters.: ~
 Login: ~
 Open / close: ~
 Stop: ~
-Temperature & Humidity sensor: ~
-Temperature sensor: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~

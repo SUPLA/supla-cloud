@@ -67,6 +67,12 @@ readFiles()
                 delete existingMessages[text];
             }
 
+            for (const extraTranslation in existingMessages) {
+                if (!existingMessages[extraTranslation]) {
+                    delete existingMessages[extraTranslation];
+                }
+            }
+
             const matchedYml = yaml.safeDump(matched, yamlDumpConfig);
             const missingYml = yaml.safeDump(missing, yamlDumpConfig);
             const extraYml = yaml.safeDump(existingMessages, yamlDumpConfig);
