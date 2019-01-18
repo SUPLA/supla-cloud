@@ -206,6 +206,7 @@ History of measurements: Matmenų istorija
 Home appliances: Buitinė technika/RTV įranga
 Hours: Valandos
 Humidity: Drėgmė
+Humidity Sensor: Drėgmės jutiklis
 Humidity adjustment: Drėgmės priderinimas
 Humidity sensor: Drėgmės jutiklis
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Sutinku su [Taisyklėmis] ir sutinku, kad mano asmens duomenys būtų apdorojami [Taisyklėse] nurodytu tikslu ir srityje.'
@@ -502,10 +503,8 @@ Assigned Locations: Priskirtos Vietos
 Date: Data
 Disable: Išjungti
 Enable: Įjungti
-Enter your email: Įveskite savo el. paštą
 Hi: Sveiki
 Hour: Laikas
-Humidity Sensor: Drėgmės jutiklis
 I/O: Įvestis/Išvestis
 Input: Įvestis
 Languages: Kalbos
@@ -513,7 +512,6 @@ Loading: Krovimas
 Next: Toliau
 Number: Numeris
 Output: Išvestis
-Password has been changed!: Slaptažodis pakeistas!
 Registration: Registracija
 Remove: Pašalinti
 Status: Statusas
@@ -539,6 +537,5 @@ Stop: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-state-: ~
 
 #</editor-fold>

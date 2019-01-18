@@ -8,7 +8,7 @@
                     <!-- i18n:['state-revealed','state-shut','state-rgb_on_dim_on','state-rgb_on_dim_off','state-rgb_off_dim_on','state-rgb_off_dim_off'] -->
                     <h5 class="no-margin-top"
                         v-if="possibleStates.length > 1">
-                        {{ $t('state-' + possibleState) }}
+                        {{ $t(`state-${possibleState}`) }}
                     </h5>
                     <div class="dropbox">
                         <input type="file"

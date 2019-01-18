@@ -206,6 +206,7 @@ History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
 Hours: Godziny
 Humidity: Wilgotność
+Humidity Sensor: Czujnik wilgotności
 Humidity adjustment: Dostosowanie wilgotności
 Humidity sensor: Czujnik wilgotności
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Akceptuję [Regulamin] oraz wyrażam zgodę na przetwarzanie moich danych osobowych w celu i zakresie wskazanym w [Regulaminie].'
@@ -502,10 +503,8 @@ Assigned Locations: Przypisane Lokalizacje
 Date: Data
 Disable: Wyłącz
 Enable: Włącz
-Enter your email: Wprowadź Twój email
 Hi: Cześć
 Hour: Godzina
-Humidity Sensor: Czujnik wilgotności
 I/O: Wejście/Wyjście
 Input: Wejście
 Languages: Języki
@@ -513,7 +512,6 @@ Loading: Ładowanie
 Next: Dalej
 Number: Numer
 Output: Wyjście
-Password has been changed!: Hasło zostało zmienione!
 Registration: Rejestracja
 Remove: Usuń
 Status: Status
@@ -539,6 +537,5 @@ Stop: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-state-: ~
 
 #</editor-fold>

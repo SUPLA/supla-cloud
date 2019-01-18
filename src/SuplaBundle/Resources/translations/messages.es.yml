@@ -206,6 +206,7 @@ History of measurements: Mediciones anteriores
 Home appliances: Electrodomésticos
 Hours: Horas
 Humidity: Humedad
+Humidity Sensor: Sensor de humedad
 Humidity adjustment: Ajuste de humedad
 Humidity sensor: Sensor de humedad
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Acepto [el reglamento] y autorizo que se puede tratar mis datos personales con fines y en ámbito determinado en [el Reglamento].'
@@ -502,10 +503,8 @@ Assigned Locations: Localizaciones asignadas
 Date: Fecha
 Disable: Desactiva
 Enable: Activa
-Enter your email: Introduce tu correo electrónico
 Hi: Hola
 Hour: Hora
-Humidity Sensor: Sensor de humedad
 I/O: Entrada/Salida
 Input: Entrada
 Languages: Idiomas
@@ -513,7 +512,6 @@ Loading: Carga
 Next: Siguiente
 Number: Número
 Output: Salida
-Password has been changed!: ¡Se ha cambiado la contraseña!
 Registration: Registro
 Remove: Eliminar
 Status: Estatus
@@ -539,6 +537,5 @@ Stop: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-state-: ~
 
 #</editor-fold>

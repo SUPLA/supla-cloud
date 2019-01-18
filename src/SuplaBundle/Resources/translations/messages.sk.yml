@@ -204,6 +204,7 @@ History of measurements: História meraní
 Home appliances: Spotrebiče
 Hours: Hodiny
 Humidity: Vlhkosť
+Humidity Sensor: Snímač vlhkosti
 Humidity adjustment: Prispôsobenie vlhkosti
 Humidity sensor: Snímač vlhkosti
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Súhlasím s [Podmienkami] a súhlasím so spracúvaním mojich osobných údajov na účely a v rozsahu stanovenom v [Podmienkach].'
@@ -499,10 +500,8 @@ Assigned Locations: Priradené Polohy
 Date: Dátum
 Disable: Vypnúť
 Enable: Zapnúť
-Enter your email: Zadajte váš email
 Hi: Dobrý deň
 Hour: Čas
-Humidity Sensor: Snímač vlhkosti
 I/O: Vstup/Výstup
 Input: Vstup
 Languages: Jazyky
@@ -510,7 +509,6 @@ Loading: Načítavanie
 Next: Ďalej
 Number: Číslo
 Output: Výstup
-Password has been changed!: Heslo bolo zmenené!
 Registration: Registrácia
 Remove: Odstrániť
 Status: Status
@@ -539,6 +537,5 @@ The action was prevented from being performed using an HTTP GET method that is n
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-state-: ~
 
 #</editor-fold>

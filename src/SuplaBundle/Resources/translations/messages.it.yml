@@ -98,6 +98,7 @@ Connection with a private instance of the SUPLA cloud: Connessione con l’istan
 Constraints: Restrizioni
 Could not reset the password. Please try again later.: Non è possibile resettare la password. Riprova tra poco.
 Create New Access Identifier: Crea un nuovo Identificatore dell’Accesso
+Create New Location: Crea una nuova Localizzazione
 Create New Schedule: Crea un nuovo scadenzario
 Create an account: Crea un account
 Create new direct link: Utwórz nowy link bezpośredni
@@ -205,6 +206,7 @@ History of measurements: Storia delle misurazioni
 Home appliances: Elettrodomestici
 Hours: Ore
 Humidity: Umidità
+Humidity Sensor: Sensore di umidità
 Humidity adjustment: Regolazione dell’umidità
 Humidity sensor: Sensore di umidità
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Accetto il [regolamento] e acconsento al trattamento dei miei dati personali per le finalità indicate nel suddetto [Regolamento].'
@@ -501,19 +503,15 @@ Assigned Locations: Localizzazioni assegnate
 Date: Data
 Disable: Disabilita
 Enable: Abilita
-Enter your email: Inserisci la Tua email
 Hi: Ciao
 Hour: Ora
-Humidity Sensor: Sensore di umidità
 I/O: Entrata/Uscita
 Input: Entrata
 Languages: Lingue
 Loading: Caricamento
 Next: Avanti
-No Access Identifiers to be assigned to this<br /> Location. Go to Access Identifier and add one.Create New Location: Crea una nuova Localizzazione
 Number: Numero
 Output: Uscita
-Password has been changed!: La password è stata cambiata!
 Registration: Registrazione
 Remove: Elimina
 Status: Status
@@ -530,7 +528,6 @@ Application name cannot be blank.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
 Could not reset the password.: ~
-Create New Location: ~
 Language is not available: ~
 Location password must be at least 4 characters.: ~
 Location password must be no longer than 32 characters.: ~
@@ -540,6 +537,5 @@ Stop: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-state-: ~
 
 #</editor-fold>

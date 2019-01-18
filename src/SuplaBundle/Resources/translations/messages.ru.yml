@@ -205,6 +205,7 @@ HFD4 Relay: Реле HFD4
 History of measurements: История измерений
 Home appliances: Бытовая техника
 Hours: Часов
+Humidity Sensor: Датчик влажности
 Humidity adjustment: Регулировка влажности
 Humidity sensor: Датчик влажности
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Я принимаю [правила] и даю согласие на обработку моих персональных данных в целях и объеме, указанном в [Правилах].'
@@ -501,10 +502,8 @@ Assigned Locations: Подключенные Области
 Date: Дата
 Disable: Выключить
 Enable: Включить
-Enter your email: Введите почту
 Hi: Привет
 Hour: Час
-Humidity Sensor: Датчик влажности
 I/O: Ввод/Вывод
 Input: Вход
 Languages: Язык
@@ -512,7 +511,6 @@ Loading: Зарядка
 Next: Далее
 Number: Номер
 Output: Выход
-Password has been changed!: Пароль изменен!
 Registration: Регистрация
 Remove: Удалить
 Status: Статус
@@ -539,6 +537,5 @@ Stop: ~
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
-state-: ~
 
 #</editor-fold>
