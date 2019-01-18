@@ -1,6 +1,8 @@
 const findInFiles = require('find-in-files');
 const yaml = require('js-yaml');
 const fs = require('fs');
+const chalk = require('chalk');
+const ora = require('ora');
 
 const regexes = [
     "\\$t\\([\"'](.+?)[\"'].*?\\)", // $t('...')
@@ -14,6 +16,8 @@ const locations = [
     '../SuplaBundle',
     '../../app/Resources'
 ];
+
+let spinner = ora({text: 'Search for strings to translate in sources...', color: 'yellow'}).start();
 
 async function readFiles() {
     const texts = [];
@@ -43,14 +47,14 @@ async function readFiles() {
 
 readFiles()
     .then(textsInSources => {
+        spinner.succeed(chalk.green('Total strings to translate found: ' + textsInSources.length));
+        console.log('');
         const translationsDirectory = '../SuplaBundle/Resources/translations/';
         const yamlDumpConfig = {
             styles: {'!!null': 'canonical'},
             sortKeys: true,
             lineWidth: 1000
         };
-        console.log(`Total translations: ${textsInSources.length}`);
-        console.log('');
         fs.readdirSync(translationsDirectory).forEach(file => {
             let translationFilePath = `${translationsDirectory}/${file}`;
             const existingMessages = yaml.safeLoad(fs.readFileSync(translationFilePath, 'utf8'));
@@ -81,7 +85,8 @@ readFiles()
             const extraCount = Object.keys(existingMessages).length;
             const missingCount = Object.keys(missing).length;
 
-            console.log(`${file}: correct: ${matchedCount}, extra: ${extraCount}, missing: ${missingCount}`);
+            const color = missingCount > 20 ? chalk.bgRed : (missingCount > 0 ? chalk.yellow : chalk.green);
+            console.log(color(`${file}: correct: ${matchedCount}, extra: ${extraCount}, missing: ${missingCount}`));
 
             fs.writeFileSync(translationFilePath, '# Do not add new translation keys manually. Run npm run collect-translations in order to update this file.\n#<editor-fold desc="Complete translations" defaultstate="collapsed">\n');
             fs.appendFileSync(translationFilePath, matchedYml);
