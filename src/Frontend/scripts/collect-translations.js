@@ -67,6 +67,8 @@ readFiles()
                     matched[text] = existingMessages[text];
                 } else if (file != 'messages.en.yml') {
                     missing[text] = null;
+                } else if (text.indexOf('{') >= 0) {
+                    matched[text] = text; // english dynamic strings need to be declared explicite
                 }
                 delete existingMessages[text];
             }
