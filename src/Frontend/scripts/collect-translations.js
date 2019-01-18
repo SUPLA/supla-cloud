@@ -49,6 +49,8 @@ readFiles()
             sortKeys: true,
             lineWidth: 1000
         };
+        console.log(`Total translations: ${textsInSources.length}`);
+        console.log('');
         fs.readdirSync(translationsDirectory).forEach(file => {
             let translationFilePath = `${translationsDirectory}/${file}`;
             const existingMessages = yaml.safeLoad(fs.readFileSync(translationFilePath, 'utf8'));
@@ -73,25 +75,21 @@ readFiles()
             const extraCount = Object.keys(existingMessages).length;
             const missingCount = Object.keys(missing).length;
 
-            console.log(file);
-            console.log(`Correct translations: ${matchedCount}`);
-            console.log(`Extra translations: ${extraCount}`);
-            console.log(`Missing translations: ${missingCount}`);
-            console.log('');
+            console.log(`${file}: correct: ${matchedCount}, extra: ${extraCount}, missing: ${missingCount}`);
 
             fs.writeFileSync(translationFilePath, '# Do not add new translation keys manually. Run npm run collect-translations in order to update this file.\n#<editor-fold desc="Complete translations" defaultstate="collapsed">\n');
             fs.appendFileSync(translationFilePath, matchedYml);
             fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
+            fs.appendFileSync(translationFilePath, '#<editor-fold desc="Extra translations">\n# Translations below have not been found in sources. You might want to delete them.\n');
             if (extraCount) {
-                fs.appendFileSync(translationFilePath, '#<editor-fold desc="Extra translations">\n# Translations below have not been found in sources. You might want to delete them.\n');
                 fs.appendFileSync(translationFilePath, extraYml);
-                fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
             }
+            fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
+            fs.appendFileSync(translationFilePath, '#<editor-fold desc="Missing translations">\n# Translations below are missing. You want to translate them.\n');
             if (missingCount) {
-                fs.appendFileSync(translationFilePath, '#<editor-fold desc="Missing translations">\n# Translations below are missing. You want to translate them.\n');
                 fs.appendFileSync(translationFilePath, missingYml);
-                fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
             }
+            fs.appendFileSync(translationFilePath, '\n#</editor-fold>\n');
         });
     });
 
