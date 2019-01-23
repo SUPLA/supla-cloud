@@ -520,20 +520,20 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 # Translations below are missing. You want to translate them.
 Access identifier password must be at least 8 characters.: ~
 Access identifier password must be no longer than 32 characters.: ~
-Allows to perform an action only using the HTTP PATCH request.: ~
+Allows to perform an action only using the HTTP PATCH request.: Umožňuje vykonať akciu iba s použitím príkazu HTTP PATCH.
 'Any application or device that uses the {tokenName} token will not work anymore.': ~
 Application name cannot be blank.: ~
 Channel group must consist of at least one channel.: ~
 Choose client apps: ~
 Could not reset the password.: ~
-For devices: ~
+For devices: Pre zariadenia
 Location password must be at least 4 characters.: ~
 Location password must be no longer than 32 characters.: ~
 Login: ~
 Open / close: ~
 Please fill a valid email address: ~
 Stop: ~
-The action was prevented from being performed using an HTTP GET method that is not permitted.: ~
+The action was prevented from being performed using an HTTP GET method that is not permitted.: Vykonanie akcie je chránené pred vykonaním zakázaním použitia metódy HTTP GET.
 'The server has returned an HTTP {statusCode} error.': ~
 Visit app webpage: ~
 Your private SUPLA Cloud is not registered.: ~
