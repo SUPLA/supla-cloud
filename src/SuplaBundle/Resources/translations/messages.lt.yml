@@ -521,21 +521,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: ~
-Access identifier password must be no longer than 32 characters.: ~
-'Any application or device that uses the {tokenName} token will not work anymore.': ~
-Application name cannot be blank.: ~
-Channel group must consist of at least one channel.: ~
-Choose client apps: ~
-Could not reset the password.: ~
-Language is not available: ~
-Location password must be at least 4 characters.: ~
-Location password must be no longer than 32 characters.: ~
-Login: ~
-Open / close: ~
-Stop: ~
-'The server has returned an HTTP {statusCode} error.': ~
-Visit app webpage: ~
-Your private SUPLA Cloud is not registered.: ~
+Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
+Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Visas lietojumprogrammas vai ierīces, kuras izmanto marķieri {tokenName} pārstās darboties.'
+Application name cannot be blank.: Lietojumprogrammas nosaukums nevar būt tukšs
+Channel group must consist of at least one channel.: Kanālu grupā jābūt iekļautam vismaz vienam kanālam.
+Choose client apps: Izvēlieties klienta lietojumprogrammas
+Could not reset the password.: Paroles atiestatīšana neizdevās.
+Language is not available: Valoda nav pieejama
+Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
+Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
+Login: Pieteikšanās
+Open / close: Atvērt / aizvērt
+Stop: Apturēt
+'The server has returned an HTTP {statusCode} error.': 'Serveris atgrieza kļūdu {statusCode}.'
+Visit app webpage: Atveriet lietojumprogrammas vietni
+Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
 
 #</editor-fold>
