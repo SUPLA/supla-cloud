@@ -508,34 +508,34 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: ~
-Access identifier password must be no longer than 32 characters.: ~
-'Any application or device that uses the {tokenName} token will not work anymore.': ~
-Application name cannot be blank.: ~
-Are you sure you want to delete the entire measurement history saved for this channel?: ~
-Channel group must consist of at least one channel.: ~
-Choose client apps: ~
-Could not reset the password.: ~
-Currency: ~
-Delete measurement history: ~
-Drag your image(s) here or click to select from the disk: ~
-Impulses: ~
-Language is not available: ~
-Location password must be at least 4 characters.: ~
-Location password must be no longer than 32 characters.: ~
-Login: ~
-'No results match {0}': ~
-Open / close: ~
-Price per: ~
-Stop: ~
-The measurement history has been deleted.: ~
-'The server has returned an HTTP {statusCode} error.': ~
-Unit: ~
-Visit app webpage: ~
-With function: ~
-Your private SUPLA Cloud is not registered.: ~
-choose a currency: ~
-choose the channel group: ~
-choose the timezone: ~
+Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
+Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
+'Any application or device that uses the {tokenName} token will not work anymore.': Toutes les applications ou appareils qui utilisent ce jeton {tokenName} cesseront de fonctionner.
+Application name cannot be blank.: Nom de l'application ne peut être vide.
+Are you sure you want to delete the entire measurement history saved for this channel?: Etes-vous sûr de vouloir supprimer tout l'historique de mesures rassemblé pour cette chaîne ?
+Channel group must consist of at least one channel.: Groupe de chaînes doit contenir au moins une chaîne.
+Choose client apps: Choisissez les applications  pour les clients
+Could not reset the password.: Mot de passe n'a pas pu être réinitialisé.
+Currency: Devise
+Delete measurement history: Supprimez l'historique de mesures
+Drag your image(s) here or click to select from the disk: Faites glisser l'image ici ou cliquez pour la choisir depuis le disque
+Impulses: Impulses
+Language is not available: Langue n'est pas disponible
+Location password must be at least 4 characters.: Mot de passe pour la localisation doit être composé d'au moins 4 caractères.
+Location password must be no longer than 32 characters.: Mot de passe pour la localisation ne peut être composé de plus de 32 caractères.
+Login: Connexion
+'No results match {0}': 'Aucun résultat ne correspond à {0}'
+Open / close: Ouvrez / fermez
+Price per: Prix pour
+Stop: Arrêtez
+The measurement history has been deleted.: Historique de mesures a été supprimé.
+'The server has returned an HTTP {statusCode} error.': 'Serveur a renvoyé une erreur {statusCode}.'
+Unit: Unité
+Visit app webpage: Ouvrez le site de l'application.
+With function: Avec la fonction
+Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est pas enregistré.
+choose a currency: choisissez la devise
+choose the channel group: choisissez le groupe de chaînes
+choose the timezone: choisissez le fuseau horaire
 
 #</editor-fold>
