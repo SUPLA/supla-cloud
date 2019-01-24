@@ -521,21 +521,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: ~
-Access identifier password must be no longer than 32 characters.: ~
-'Any application or device that uses the {tokenName} token will not work anymore.': ~
-Application name cannot be blank.: ~
-Channel group must consist of at least one channel.: ~
-Choose client apps: ~
-Could not reset the password.: ~
-Language is not available: ~
-Location password must be at least 4 characters.: ~
-Location password must be no longer than 32 characters.: ~
-Login: ~
-Open / close: ~
-Stop: ~
-'The server has returned an HTTP {statusCode} error.': ~
-Visit app webpage: ~
-Your private SUPLA Cloud is not registered.: ~
+Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
+Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Todas las aplicaciones o dispositivos que usen el token {tokenName} dejarán de funcionar.'
+Application name cannot be blank.: El nombre de la aplicación no puede estar vacío
+Channel group must consist of at least one channel.: El grupo de canales debe contener al menos un canal.
+Choose client apps: Selecciona las aplicaciones del cliente
+Could not reset the password.: La contraseña no se pudo restablecer.
+Language is not available: El idioma no está disponible.
+Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
+Location password must be no longer than 32 characters.: La contraseña para la ubicación no puede tener más de 32 caracteres.
+Login: Iniciar sesión
+Open / close: Abrir / Cerrar
+Stop: Detener
+'The server has returned an HTTP {statusCode} error.': 'El servidor devolvió el error {statusCode}.'
+Visit app webpage: Abre el sitio de la aplicación
+Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está registrada.
 
 #</editor-fold>
