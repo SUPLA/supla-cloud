@@ -521,21 +521,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: ~
-Access identifier password must be no longer than 32 characters.: ~
-'Any application or device that uses the {tokenName} token will not work anymore.': ~
-Application name cannot be blank.: ~
-Channel group must consist of at least one channel.: ~
-Choose client apps: ~
-Could not reset the password.: ~
-Language is not available: ~
-Location password must be at least 4 characters.: ~
-Location password must be no longer than 32 characters.: ~
-Login: ~
-Open / close: ~
-Stop: ~
-'The server has returned an HTTP {statusCode} error.': ~
-Visit app webpage: ~
-Your private SUPLA Cloud is not registered.: ~
+Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
+Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.'
+Application name cannot be blank.: Název aplikace nesmí být prázdný
+Channel group must consist of at least one channel.: Skupina kanálů musí obsahovat alespoň jeden kanál.
+Choose client apps: Vyberte klientské aplikace
+Could not reset the password.: Heslo se nepodařilo obnovit.
+Language is not available: Jazyk není k dispozici
+Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
+Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
+Login: Přihlášení
+Open / close: Otevřít / zavřít
+Stop: Zastavit
+'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
+Visit app webpage: Otevřete okno aplikace
+Your private SUPLA Cloud is not registered.: Váš soukromý cloud SUPLA není registrován.
 
 #</editor-fold>
