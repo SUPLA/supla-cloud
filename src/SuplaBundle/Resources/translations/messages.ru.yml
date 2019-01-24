@@ -520,22 +520,22 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: ~
-Access identifier password must be no longer than 32 characters.: ~
-'Any application or device that uses the {tokenName} token will not work anymore.': ~
-Application name cannot be blank.: ~
-Channel group must consist of at least one channel.: ~
-Choose client apps: ~
-Could not reset the password.: ~
-Humidity: ~
-Language is not available: ~
-Location password must be at least 4 characters.: ~
-Location password must be no longer than 32 characters.: ~
-Login: ~
-Open / close: ~
-Stop: ~
-'The server has returned an HTTP {statusCode} error.': ~
-Visit app webpage: ~
-Your private SUPLA Cloud is not registered.: ~
+Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
+Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Все программы или устройства, которые используют токен {tokenName}, перестанут работать.'
+Application name cannot be blank.: Название приложения не может быть пустым
+Channel group must consist of at least one channel.: Группа каналов должна содержать, по крайней мере, один канал.
+Choose client apps: Выберите клиентские приложения
+Could not reset the password.: Не удалось сбросить пароль.
+Humidity: Влажность
+Language is not available: Язык недоступен
+Location password must be at least 4 characters.: Пароль для локализации должен быть не менее 4 символов.
+Location password must be no longer than 32 characters.: Пароль для локализации не может быть длиннее 32 символов.
+Login: Вход в систему
+Open / close: Открыть / закрыть
+Stop: Остановить
+'The server has returned an HTTP {statusCode} error.': 'Сервер вернул ошибку {statusCode}.'
+Visit app webpage: 'Открыть веб-сайт приложения'
+Your private SUPLA Cloud is not registered.: Ваше личное облако SUPLA не зарегистрировано.
 
 #</editor-fold>
