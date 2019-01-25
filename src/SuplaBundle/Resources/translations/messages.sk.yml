@@ -518,24 +518,24 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: ~
-Access identifier password must be no longer than 32 characters.: ~
+Access identifier password must be at least 8 characters.: Heslo pre identifikátor prístupu musí mať dĺžku aspoň 8 znakov.
+Access identifier password must be no longer than 32 characters.: Heslo pre identifikátor prístupu nesmie byť dlhšie ako 32 znakov.
 Allows to perform an action only using the HTTP PATCH request.: Umožňuje vykonať akciu iba s použitím príkazu HTTP PATCH.
-'Any application or device that uses the {tokenName} token will not work anymore.': ~
-Application name cannot be blank.: ~
-Channel group must consist of at least one channel.: ~
-Choose client apps: ~
-Could not reset the password.: ~
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Všetky aplikácie alebo zariadenia, ktoré používajú token {token Name}, prestanú fungovať.'
+Application name cannot be blank.: Názov aplikácie nesmú byť prázdny
+Channel group must consist of at least one channel.: Skupina kanálov musí obsahovať aspoň jeden kanál.
+Choose client apps: Vyberte klientské aplikácie
+Could not reset the password.: Heslo sa nepodarilo obnoviť.
 For devices: Pre zariadenia
-Location password must be at least 4 characters.: ~
-Location password must be no longer than 32 characters.: ~
-Login: ~
-Open / close: ~
-Please fill a valid email address: ~
-Stop: ~
+Location password must be at least 4 characters.: Heslo pre umiestnenie musí mať dĺžku aspoň 4 znakov.
+Location password must be no longer than 32 characters.: Heslo pre umiestnenie nesmie byť dlhší ako 32 znakov.
+Login: Prihlásenie
+Open / close: Otvoriť / zavrieť
+Please fill a valid email address: Prosíme Vás o uvedenie správnej e-mailovej adresy.
+Stop: Zastaviť
 The action was prevented from being performed using an HTTP GET method that is not permitted.: Vykonanie akcie je chránené pred vykonaním zakázaním použitia metódy HTTP GET.
-'The server has returned an HTTP {statusCode} error.': ~
-Visit app webpage: ~
-Your private SUPLA Cloud is not registered.: ~
+'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
+Visit app webpage: Otvorte miesto aplikácie
+Your private SUPLA Cloud is not registered.: Váš súkromný cloud SUPLA nie je registrovaný.
 
 #</editor-fold>
