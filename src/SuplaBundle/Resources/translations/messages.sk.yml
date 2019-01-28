@@ -12,6 +12,8 @@ Access ID: ID prístupu
 Access Identifier: Identifikátor Prístupu
 Access Identifiers: Identifikátor Prístupu
 Access identifier limit has been exceeded: Bol prekročený limit identifikátorov prístupu
+Access identifier password must be at least 8 characters.: Heslo pre identifikátor prístupu musí mať dĺžku aspoň 8 znakov.
+Access identifier password must be no longer than 32 characters.: Heslo pre identifikátor prístupu nesmie byť dlhšie ako 32 znakov.
 Account: Účet
 Account access when you are unavailable: Prístup k účtu keď nie ste dostupný/-á
 Account has been activated. You can Sign In now.: Účet bol aktivovaný. Môžete sa prihlásiť
@@ -30,7 +32,10 @@ Adjust parameters: Nastaviť parametre
 All: Všetko
 All the above and many more can be done from your phone or tablet: Toto všetko a ešte oveľa viac môžete robiť na chytrom zariadení
 Allowed actions: Povolené akcie
+Allows to perform an action only using the HTTP PATCH request.: Umožňuje vykonať akciu iba s použitím príkazu HTTP PATCH.
 And more: A oveľa viac
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Všetky aplikácie alebo zariadenia, ktoré používajú token {token Name}, prestanú fungovať.'
+Application name cannot be blank.: Názov aplikácie nesmú byť prázdny
 Application requirements: Požiadavky aplikácie
 Are you lost?: Stratili ste sa? Niečo hľadáte?
 Are you sure you want to change channel’s function?: Naozaj chcete zmeniť funkciu kanálu?
@@ -71,6 +76,7 @@ Channel for the partial opening sensor: Kanál pre snímač prostredného otvore
 Channel for the sensor: Snímač pre kanál
 Channel group: Skupina kanálov
 Channel group limit has been exceeded: Bol prekročený limit skupín kanálov
+Channel group must consist of at least one channel.: Skupina kanálov musí obsahovať aspoň jeden kanál.
 Channel groups: Skupiny kanálov
 Channel is assigned to the I/O device location: Kanál je priradený k polohe zariadenia
 Channel will be deleted from the channel group below: Kanál bude odstránený z nasledujúcich skupín kanálov
@@ -78,6 +84,7 @@ Channels: Kanály
 Check your email box: Skontrolujte vašu emailovú schránku
 Choose: Vybrať
 Choose Access Identifiers to be assigned to this Location: 'Vyberte Identifikátory Prístupu, ktoré budú priradené k tejto Polohe'
+Choose client apps: Vyberte klientské aplikácie
 Choose location: Vyberať polohu
 Chosen hour: Vybraná hodina
 Client’s Apps: Zákaznícke aplikácie
@@ -95,6 +102,7 @@ Confirm if you want to remove Access Identifier: Naozaj chcete odstrániť Ident
 Connected: Spojené
 Connection with a private instance of the SUPLA cloud: Pripojenie k súkromnej inštalácii mraku SUPLA
 Constraints: Obmedzenia
+Could not reset the password.: Heslo sa nepodarilo obnoviť.
 Could not reset the password. Please try again later.: Nedá sa zresetovať heslo. Skúste opäť o chvíľu.
 Create New Access Identifier: Vytvoriť nový Identifikátor Prístupu
 Create New Location: Vytvoriť novú Polohu
@@ -173,6 +181,7 @@ Expired: Po termíne
 Failed: Neúspešné
 Failed (zombie): Neúspešné (zombi)
 File is too large: Soubor je příliš velký
+For devices: Pre zariadenia
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostných dôvodov bude úplná URL adresa tohto priameho odkazu zobrazená iba raz, a to pri jej vytvorení.'
 Forgot your password?: Nepamätáte si heslo?
 Fridays: Piatky
@@ -242,7 +251,10 @@ Limit has been exceeded: Bol prekročený limit
 Location: Poloha
 Location Identifier: Identifikátor Polohy
 Location limit has been exceeded: Bol prekročený limit polôh
+Location password must be at least 4 characters.: Heslo pre umiestnenie musí mať dĺžku aspoň 4 znakov.
+Location password must be no longer than 32 characters.: Heslo pre umiestnenie nesmie byť dlhší ako 32 znakov.
 Locations: Polohy
+Login: Prihlásenie
 Mail sensor: Snímač pošty
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ak ju chcete použiť v budúcnosti, uistite sa, či je zapísaná na bezpečnom mieste. Keď opustíte túto stránku, odkaz sa už nezobrazí.'
 'Maximum filesize limit is {limit}.': 'Maximální velikost souboru je {limit}.'
@@ -285,6 +297,7 @@ Older: Staršie
 On/Off switch: Zapínač napájania
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': "Povolené sú iba názvy domén s\_opčným číslom portu. Napríklad mysupla.org alebo mysupla.org:88. HTTPS je povinný."
 Open: Otvoriť
+Open / close: Otvoriť / zavrieť
 Opening sensor: Snímač otvorenia
 Original location: Originálna poloha
 'Otherwise go to [the homepage].': 'V inom prípade prejdite na [domovskú stránku].'
@@ -297,6 +310,7 @@ Personal access tokens: Osobné prístupové tokeny
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobné prístupové tokeny fungujú tak isto ako obyčajné s tým rozdielom, že nemajú určenú lehotu platnosti.'
 Personal token name is required.: Je potrebné poskytnúť názov osobného tokenu.
 Please enter a valid email address: Zadajte správnu emailovú adresu
+Please fill a valid email address: Prosíme Vás o uvedenie správnej e-mailovej adresy.
 Please provide a valid domain name for your private SUPLA Cloud: Uveďte správny názov domény vášho súkromného mraku SUPLA
 Please select the schedules that should also be enabled.: 'Zaznačte harmonogramy, ktoré tiež majú byť zapnuté.'
 Please wait a moment before the next login attempt.: 'Predtým, než sa opäť pokúsite prihlásiť, počkajte chvíľu.'
@@ -372,6 +386,7 @@ Staircase timer: Schodiskový automat
 Start Here: Začnite tu
 Start date: Dátum začatia
 State: Stav
+Stop: Zastaviť
 Subject: Subjekt
 Subject type: Typ subjektu
 Success: Úspech
@@ -387,6 +402,7 @@ Temperature and humidity sensor: Snímač teploty a vlhkosti
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Vďaka integráciám môžete k vášmu účtu jednoduchým spôsobom pridávať nové funkcie, používať riešenia dodávané externými dodávateľmi, programátormi alebo vlastné riešenia.'
 The Terms and Conditions have changed: Podmienky sa zmenili
 The Terms and Conditions have changed – please read them and accept.: Podmienky služby sa zmenili – je potrebný opätovný súhlas.
+The action was prevented from being performed using an HTTP GET method that is not permitted.: Vykonanie akcie je chránené pred vykonaním zakázaním použitia metódy HTTP GET.
 The client will be automatically logged out when deleted.: 'Keď odstránite klienta, bude okamžite odhlásený.'
 The device is disabled: Zariadenie je vypnuté
 The gate sensor must function properly in order to execute the scheduled action.: Na vykonanie akcie musí snímač otvorenia brány fungovať správne.
@@ -398,6 +414,7 @@ The password should be 8 or more characters.: Heslo musí mať minimálne 8 znak
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Server signalizuje chybu 400, čo znamená, že požadovaná žiadosť je nesprávna.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Server vrátil chybu HTTP 403. Znamená to, že na zobrazenie tohto prvku nemáte potrebné oprávnenia.'
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server vrátil chybu HTTP 404. Znamená to, že prvok, ktorý hľadáte, neexistuje.'
+'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Vybrané soubory ikon jsou příliš velké. Maximální povolená velikost uploadu je {limit}.'
 There are no more channels you can add to this group: 'Nie sú iné kanály, ktoré sa dajú pridať k tejto skupine'
 Thermometer: Teplomer
@@ -415,6 +432,7 @@ Unit: Jednotka
 Unknown: neznámy
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Zaslané súbory neporušujú dobré zvyky, autorské práva a práva tretích osôb, a mám právo používať tieto súbory.'
 Visible: Viditeľné
+Visit app webpage: Otvorte miesto aplikácie
 WELCOME_MESSAGE: |
   Pripojenie vášho domu alebo kancelárie k SUPLA je jednoduché. Všetko, čo musíte urobiť, je
   prepísať do svojich ovládacích zariadení (vstupy/výstupy) a do chytrých zariadení nasledovné údaje.
@@ -447,6 +465,7 @@ Your account has been locked.: Váš účet bol zablokovaný.
 Your email: Vaša emailová adresa
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaša inštalácia nie je zaregistrovaná alebo sa pokúšate autorizovať aplikáciu, ktorá nie je verejná.'
 Your private SUPLA Cloud is almost registered.: Váš súkromný mrak SUPLA je skoro zaregistrovaný.
+Your private SUPLA Cloud is not registered.: Váš súkromný cloud SUPLA nie je registrovaný.
 after: po
 before: pred
 choose: vybrať
@@ -518,24 +537,5 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: Heslo pre identifikátor prístupu musí mať dĺžku aspoň 8 znakov.
-Access identifier password must be no longer than 32 characters.: Heslo pre identifikátor prístupu nesmie byť dlhšie ako 32 znakov.
-Allows to perform an action only using the HTTP PATCH request.: Umožňuje vykonať akciu iba s použitím príkazu HTTP PATCH.
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Všetky aplikácie alebo zariadenia, ktoré používajú token {token Name}, prestanú fungovať.'
-Application name cannot be blank.: Názov aplikácie nesmú byť prázdny
-Channel group must consist of at least one channel.: Skupina kanálov musí obsahovať aspoň jeden kanál.
-Choose client apps: Vyberte klientské aplikácie
-Could not reset the password.: Heslo sa nepodarilo obnoviť.
-For devices: Pre zariadenia
-Location password must be at least 4 characters.: Heslo pre umiestnenie musí mať dĺžku aspoň 4 znakov.
-Location password must be no longer than 32 characters.: Heslo pre umiestnenie nesmie byť dlhší ako 32 znakov.
-Login: Prihlásenie
-Open / close: Otvoriť / zavrieť
-Please fill a valid email address: Prosíme Vás o uvedenie správnej e-mailovej adresy.
-Stop: Zastaviť
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Vykonanie akcie je chránené pred vykonaním zakázaním použitia metódy HTTP GET.
-'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
-Visit app webpage: Otvorte miesto aplikácie
-Your private SUPLA Cloud is not registered.: Váš súkromný cloud SUPLA nie je registrovaný.
 
 #</editor-fold>

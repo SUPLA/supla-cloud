@@ -12,6 +12,8 @@ Access ID: ID de acceso
 Access Identifier: Identificador de Acceso
 Access Identifiers: Identificadores de acceso
 Access identifier limit has been exceeded: Se ha superado el límite de identificadores de acceso
+Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
+Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
 Account: Cuenta
 Account access when you are unavailable: Acceso a la cuenta cuando estás desconectado/a
 Account has been activated. You can Sign In now.: Se ha activado la cuenta. Puedes entrar en sesión
@@ -32,6 +34,8 @@ All the above and many more can be done from your phone or tablet: Puedes hacer 
 Allowed actions: Acciones permitidas
 Allows to perform an action only using the HTTP PATCH request.: Permite realizar una acción solo mediante la solicitud HTTP PATCH.
 And more: Y mucho más
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Todas las aplicaciones o dispositivos que usen el token {tokenName} dejarán de funcionar.'
+Application name cannot be blank.: El nombre de la aplicación no puede estar vacío
 Application requirements: Requisitos de la aplicación
 Are you lost?: ¿Te has pedido? ¿Buscas algo?
 Are you sure you want to change channel’s function?: ¿Seguro que quieres cambiar función del canal?
@@ -72,6 +76,7 @@ Channel for the partial opening sensor: Canal para el sensor de apertura interme
 Channel for the sensor: Sensor para el canal
 Channel group: Conjunto de canales
 Channel group limit has been exceeded: Se ha superado el límite de grupos de canales
+Channel group must consist of at least one channel.: El grupo de canales debe contener al menos un canal.
 Channel groups: Conjunto de canales
 Channel is assigned to the I/O device location: El canal es asignado a la localización del dispositivo
 Channel will be deleted from the channel group below: El canal será borrado de los grupos de canales siguientes
@@ -79,6 +84,7 @@ Channels: Canales
 Check your email box: Comprueba tu correo electrónico
 Choose: Seleccionar
 Choose Access Identifiers to be assigned to this Location: Selecciona Identificadores de Acceso que serán asignados a esta Localizació
+Choose client apps: Selecciona las aplicaciones del cliente
 Choose location: Elige localización
 Chosen hour: Hora seleccionada
 Client’s Apps: Aplicaciones cliente
@@ -96,6 +102,7 @@ Confirm if you want to remove Access Identifier: Confirma que quieres eliminar e
 Connected: Conectado
 Connection with a private instance of the SUPLA cloud: Conexión con la instancia privada de la nube SUPLA.
 Constraints: Limitaciones
+Could not reset the password.: La contraseña no se pudo restablecer.
 Could not reset the password. Please try again later.: 'La contraseña no se puede restablecer. Por favor, inténtalo de nuevo más tarde.'
 Create New Access Identifier: Crear nuevo Identificador de Acceso
 Create New Location: Crea nueva Localización
@@ -232,6 +239,7 @@ Interval: Intervalo
 Invalid request: La solicitud incorrecta
 Inverted logic: Lógica inversa
 Invisible: Invisible
+Language is not available: El idioma no está disponible.
 Last access: Última conexión
 Last connection: Última conexión
 Last used: Utilizado por última vez
@@ -243,7 +251,10 @@ Limit has been exceeded: Se ha superado el límite
 Location: Localización
 Location Identifier: Identificador de Localización
 Location limit has been exceeded: Se ha superado el límite de localizaciones
+Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
+Location password must be no longer than 32 characters.: La contraseña para la ubicación no puede tener más de 32 caracteres.
 Locations: Localizaciones
+Login: Iniciar sesión
 Mail sensor: Sensor de correo
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Asegúrate de guardarlo en un lugar seguro si deseas volver a utilizarlo en el futuro. El enlace ya no se mostrará cuando salgas de esta página.
 'Maximum filesize limit is {limit}.': 'El tamaño máximo del archivo es de {limit}.'
@@ -286,6 +297,7 @@ Older: Más antiguos
 On/Off switch: Interruptor de alimentación
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Solo se permiten nombres de dominio con un número de puerto opcional. Por ejemplo. mysupla.org o mysupla.org:88. Se requiere HTTPS.'
 Open: Abrir
+Open / close: Abrir / Cerrar
 Opening sensor: Sensor de apertura
 Original location: Localización original
 'Otherwise go to [the homepage].': 'En cualquier otro caso ve a [página de inicio].'
@@ -374,6 +386,7 @@ Staircase timer: Automático de escalera
 Start Here: Inicia aquí
 Start date: Fecha de inicio
 State: Estado
+Stop: Detener
 Subject: Sujeto
 Subject type: Tipo de entidad
 Success: Éxito
@@ -401,6 +414,7 @@ The password should be 8 or more characters.: La contraseña debe tener al menos
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'El servidor devolvió el error 400, lo que significa que la solicitud solicitada es incorrecta.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: El servidor ha devuelto el error HTTP 403. Esto quiere decir que no tienes los permisos necesarios para visualizar este elemento.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: El servidor ha devuelto el error HTTP 404. Esto quiere decir que el elemento que buscas no existe.
+'The server has returned an HTTP {statusCode} error.': 'El servidor devolvió el error {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Los archivos seleccionados son demasiado grandes. El tamaño máximo del archivo permitido es de {limit}.'
 There are no more channels you can add to this group: No hay otros canales que se puede añadir a este conjunto
 Thermometer: Termómetro
@@ -418,6 +432,7 @@ Unit: Unidad
 Unknown: Desconocido
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Los archivos cargados no violan los buenos modales, derechos de autor y derechos de terceros, y tengo el derecho de usarlos.'
 Visible: Visible
+Visit app webpage: Abre el sitio de la aplicación
 WELCOME_MESSAGE: |
   Conectar tu casa u oficina a SUPLA es fácil.
   Lo único que tienes que hacer es introducir los siguientes datos en tus dispositivos de control (de entrada/salida) y smartphones.
@@ -450,6 +465,7 @@ Your account has been locked.: Su cuenta está bloqueada.
 Your email: Tu correo electrónico
 Your instance is not registered or you are trying to authorize an application that is not public.: Tu instancia no está registrada o estás intentando autorizar una aplicación que no es pública.
 Your private SUPLA Cloud is almost registered.: Tu nube privada SUPLA está casi registrada.
+Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está registrada.
 after: Después de
 before: Antes de
 choose: elige
@@ -521,21 +537,5 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
-Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Todas las aplicaciones o dispositivos que usen el token {tokenName} dejarán de funcionar.'
-Application name cannot be blank.: El nombre de la aplicación no puede estar vacío
-Channel group must consist of at least one channel.: El grupo de canales debe contener al menos un canal.
-Choose client apps: Selecciona las aplicaciones del cliente
-Could not reset the password.: La contraseña no se pudo restablecer.
-Language is not available: El idioma no está disponible.
-Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
-Location password must be no longer than 32 characters.: La contraseña para la ubicación no puede tener más de 32 caracteres.
-Login: Iniciar sesión
-Open / close: Abrir / Cerrar
-Stop: Detener
-'The server has returned an HTTP {statusCode} error.': 'El servidor devolvió el error {statusCode}.'
-Visit app webpage: Abre el sitio de la aplicación
-Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está registrada.
 
 #</editor-fold>

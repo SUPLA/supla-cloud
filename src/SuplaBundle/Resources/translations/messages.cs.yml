@@ -12,6 +12,8 @@ Access ID: Přístupové ID
 Access Identifier: Přístupový identifikátor
 Access Identifiers: Identifikátory přístupu
 Access identifier limit has been exceeded: Limit přístupových ID byl překročen
+Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
+Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
 Account: Ůčet
 Account access when you are unavailable: 'Přístup k účtu, pokud nejste dostupní'
 Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
@@ -32,6 +34,8 @@ All the above and many more can be done from your phone or tablet: 'To vše a mn
 Allowed actions: Dovolené akce
 Allows to perform an action only using the HTTP PATCH request.: Umožňuje provádět akci pouze pomocí žádosti HTTP PATCH.
 And more: a více
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.'
+Application name cannot be blank.: Název aplikace nesmí být prázdný
 Application requirements: Požadavky aplikace
 Are you lost?: Ztratili jste? Hledáte něco?
 Are you sure you want to change channel’s function?: Opravdu chcete změnit funkci kanálu?
@@ -72,6 +76,7 @@ Channel for the partial opening sensor: Kanál pro snímač nepřímého otevře
 Channel for the sensor: Kanál pro snímač
 Channel group: Skupina kanálů
 Channel group limit has been exceeded: Limit skupin kanálů byl překročen
+Channel group must consist of at least one channel.: Skupina kanálů musí obsahovat alespoň jeden kanál.
 Channel groups: Skupiny kanálů
 Channel is assigned to the I/O device location: Kanál je přiřazen k umístění zařízení
 Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
@@ -79,6 +84,7 @@ Channels: Kanály
 Check your email box: Zkontrolujte e-mailovou schránku
 Choose: Vybrat
 Choose Access Identifiers to be assigned to this Location: 'Vyberte ID přístupu, které budou k tomuto místu přiřazeny'
+Choose client apps: Vyberte klientské aplikace
 Choose location: Vyberte umístění
 Chosen hour: Vybraný čas
 Client’s Apps: Klientské aplikace
@@ -96,6 +102,7 @@ Confirm if you want to remove Access Identifier: 'Potvrď, jestli chceš odstran
 Connected: Připojeno
 Connection with a private instance of the SUPLA cloud: Připojení k soukromé instanci cloudu SUPLA.
 Constraints: Omezení
+Could not reset the password.: Heslo se nepodařilo obnovit.
 Could not reset the password. Please try again later.: Heslo nelze obnovit. Zkuste to prosím znovu.
 Create New Access Identifier: Vytvoř nový přístupový identifikátor
 Create New Location: Vytvořte nové umístění
@@ -232,6 +239,7 @@ Interval: Interval
 Invalid request: Nesprávná žádost
 Inverted logic: Obrácená logika
 Invisible: Neviditelný
+Language is not available: Jazyk není k dispozici
 Last access: Poslední hovor
 Last connection: Poslední připojení
 Last used: Poslední použití
@@ -243,7 +251,10 @@ Limit has been exceeded: Limit byl překročen
 Location: Lokalizace
 Location Identifier: Identifikátor lokalizace
 Location limit has been exceeded: Limit umístění byl překročen
+Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
+Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
 Locations: Lokalizace
+Login: Přihlášení
 Mail sensor: Poštovní snímač
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.'
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
@@ -286,6 +297,7 @@ Older: Starší
 On/Off switch: Síťový spínač
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Pouze názvy domén s volitelným číslem portu jsou povoleny. Například. mysupla.org nebo mysupla.org:88. Je vyžadován protokol HTTPS.'
 Open: Otevřít
+Open / close: Otevřít / zavřít
 Opening sensor: Snímač otevření
 Original location: Původní umístění
 'Otherwise go to [the homepage].': 'V opačném případě přejděte na [domovskou stránku].'
@@ -374,6 +386,7 @@ Staircase timer: Schodišťový automat
 Start Here: Začni tady
 Start date: Datum zahájení
 State: Stav
+Stop: Zastavit
 Subject: Předmět
 Subject type: Typ předmětu
 Success: Úspěch
@@ -401,6 +414,7 @@ The password should be 8 or more characters.: Heslo musí mít ninimum 8 znaků.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Server signalizuje chybu 400, což znamená, že požadovaná žádost je nesprávná.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Server vrátil chybu HTTP 403. To znamená, že nemáte dostatečná oprávnění k zobrazení této položky.'
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.'
+'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
 There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
 Thermometer: Teploměr
@@ -418,6 +432,7 @@ Unit: Jednotka
 Unknown: Neznámý
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.'
 Visible: Viditelný
+Visit app webpage: Otevřete okno aplikace
 WELCOME_MESSAGE: |
   Připojení vašeho domova nebo kanceláře k SUPLI je snadné. Jediné, co musíte udělat, je
   přepište následující údaje do ovládacích.
@@ -450,6 +465,7 @@ Your account has been locked.: Váš účet byl zablokován.
 Your email: Váš e-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.'
 Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
+Your private SUPLA Cloud is not registered.: Váš soukromý cloud SUPLA není registrován.
 after: po
 before: před
 choose: vybrat
@@ -521,21 +537,5 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
-Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.'
-Application name cannot be blank.: Název aplikace nesmí být prázdný
-Channel group must consist of at least one channel.: Skupina kanálů musí obsahovat alespoň jeden kanál.
-Choose client apps: Vyberte klientské aplikace
-Could not reset the password.: Heslo se nepodařilo obnovit.
-Language is not available: Jazyk není k dispozici
-Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
-Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
-Login: Přihlášení
-Open / close: Otevřít / zavřít
-Stop: Zastavit
-'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
-Visit app webpage: Otevřete okno aplikace
-Your private SUPLA Cloud is not registered.: Váš soukromý cloud SUPLA není registrován.
 
 #</editor-fold>

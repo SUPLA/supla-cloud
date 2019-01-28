@@ -12,6 +12,8 @@ Access ID: ID доступа
 Access Identifier: Ключи доступа
 Access Identifiers: Ключ Доступа
 Access identifier limit has been exceeded: Достигнут лимит Ключей Доступа
+Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
+Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
 Account: Учетка
 Account access when you are unavailable: 'Доступ к учетной записи, когда вы недоступны'
 Account has been activated. You can Sign In now.: Аккаунт создан. Можете войти
@@ -32,6 +34,8 @@ All the above and many more can be done from your phone or tablet: Все это
 Allowed actions: Допустимые действия
 Allows to perform an action only using the HTTP PATCH request.: Позволяет выполнять действия только с помощью запроса HTTP PATCH.
 And more: И прочее
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Все программы или устройства, которые используют токен {tokenName}, перестанут работать.'
+Application name cannot be blank.: Название приложения не может быть пустым
 Application requirements: Требования приложения
 Are you lost?: Вы потерялись? Что-то ищете?
 Are you sure you want to change channel’s function?: Вы действительно хотите изменить функцию канала?
@@ -72,6 +76,7 @@ Channel for the partial opening sensor: Канал для датчика про�
 Channel for the sensor: Канал датчика
 Channel group: Группа каналов
 Channel group limit has been exceeded: Лимит групп каналов превышен
+Channel group must consist of at least one channel.: 'Группа каналов должна содержать, по крайней мере, один канал.'
 Channel groups: Группы каналов
 Channel is assigned to the I/O device location: Канал назначен по местоположению устройства
 Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
@@ -79,6 +84,7 @@ Channels: Каналы
 Check your email box: Проверьте почтовый ящик
 Choose: выберите
 Choose Access Identifiers to be assigned to this Location: Выберите Ключи Доступа для этой Позиции
+Choose client apps: Выберите клиентские приложения
 Choose location: Выбрать местоположение
 Chosen hour: Заданное время
 Client’s Apps: Клиентские приложения
@@ -96,6 +102,7 @@ Confirm if you want to remove Access Identifier: Подтвердите удал
 Connected: Подключено
 Connection with a private instance of the SUPLA cloud: Подключение к персональной инстанции облака SUPLA.
 Constraints: Ограничения
+Could not reset the password.: Не удалось сбросить пароль.
 Could not reset the password. Please try again later.: Не удается сбросить пароль. Повторите попытку позже.
 Create New Access Identifier: Создать новый ключ доступа
 Create New Location: Создать новую Область
@@ -205,6 +212,7 @@ HFD4 Relay: Реле HFD4
 History of measurements: История измерений
 Home appliances: Бытовая техника
 Hours: Часов
+Humidity: Влажность
 Humidity Sensor: Датчик влажности
 Humidity adjustment: Регулировка влажности
 Humidity sensor: Датчик влажности
@@ -231,6 +239,7 @@ Interval: Интервал
 Invalid request: Неверный запрос
 Inverted logic: Реверсивная логика
 Invisible: Невидимые
+Language is not available: Язык недоступен
 Last access: Последний звонок
 Last connection: Последнее соединение
 Last used: Поледним использовался
@@ -242,7 +251,10 @@ Limit has been exceeded: Лимит был превышен
 Location: Область
 Location Identifier: ID Позиции
 Location limit has been exceeded: Достигнуто ограничение числа Областей
+Location password must be at least 4 characters.: Пароль для локализации должен быть не менее 4 символов.
+Location password must be no longer than 32 characters.: Пароль для локализации не может быть длиннее 32 символов.
 Locations: Область
+Login: Вход в систему
 Mail sensor: Сигнализатор наличия почты
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Убедитесь, что он сохранен в надежном месте, если вы хотите использовать его снова в будущем. Ссылка не будет отображаться, когда вы покинете эту страницу.'
 'Maximum filesize limit is {limit}.': 'Максимальный размер файла - {limit}.'
@@ -285,6 +297,7 @@ Older: Старые
 On/Off switch: Выключатель
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Разрешены только доменные имена с дополнительным номером порта. Например, mysupla.org или mysupla.org:88. HTTPS обязателен.'
 Open: Открыть
+Open / close: Открыть / закрыть
 Opening sensor: Датчик открытия
 Original location: Исходное локализацию
 'Otherwise go to [the homepage].': 'В противном случае перейдите на [домашнюю страницу].'
@@ -373,6 +386,7 @@ Staircase timer: Лестничный автомат
 Start Here: Начни отсюда
 Start date: Дата начала
 State: Состояние
+Stop: Остановить
 Subject: Субъект
 Subject type: Тип субъекта
 Success: Успешно
@@ -400,6 +414,7 @@ The password should be 8 or more characters.: Пароль должен быть
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Сервер вернул ошибку 400, означающую, что высланный запрос неверен.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Сервер вернул ошибку HTTP 403. Это означает, что у вас нет достаточных прав для просмотра данного ресурса.'
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Сервер вернул ошибку HTTP 404. Это означает, что ресурс, который вы ищете, не существует.'
+'The server has returned an HTTP {statusCode} error.': 'Сервер вернул ошибку {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Выбранный Вами файлы икон превышают максимальный размер. Максимальный размер загружаемого файла - {limit}.'
 There are no more channels you can add to this group: 'Нет других каналов, которые можно добавить в эту группу'
 Thermometer: Термометр
@@ -417,6 +432,7 @@ Unit: Единица
 Unknown: неизвестно
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Загруженные файлы не нарушают норм нравственности, авторских прав и прав третьих лиц, и я имею право их использовать.'
 Visible: идимые
+Visit app webpage: Открыть веб-сайт приложения
 WELCOME_MESSAGE: |
   Подключить Твой дом или офис к SUPLA очень легко.
   Для этого Тебе достаточно всего лишь перезаписать в своих устройствах управления (Вход/Выход) и смартфонах нижеприведенные данные.
@@ -449,6 +465,7 @@ Your account has been locked.: Ваша учетная запись заблок
 Your email: Введите почту
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Ваша инстанция не зарегистрирована или вы пытаетесь авторизовать приложение, которое не является публичным.'
 Your private SUPLA Cloud is almost registered.: Ваше персональное облако SUPLA почти зарегистрировано.
+Your private SUPLA Cloud is not registered.: Ваше личное облако SUPLA не зарегистрировано.
 after: после
 before: до
 choose: выбрать
@@ -520,22 +537,5 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
-Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Все программы или устройства, которые используют токен {tokenName}, перестанут работать.'
-Application name cannot be blank.: Название приложения не может быть пустым
-Channel group must consist of at least one channel.: Группа каналов должна содержать, по крайней мере, один канал.
-Choose client apps: Выберите клиентские приложения
-Could not reset the password.: Не удалось сбросить пароль.
-Humidity: Влажность
-Language is not available: Язык недоступен
-Location password must be at least 4 characters.: Пароль для локализации должен быть не менее 4 символов.
-Location password must be no longer than 32 characters.: Пароль для локализации не может быть длиннее 32 символов.
-Login: Вход в систему
-Open / close: Открыть / закрыть
-Stop: Остановить
-'The server has returned an HTTP {statusCode} error.': 'Сервер вернул ошибку {statusCode}.'
-Visit app webpage: 'Открыть веб-сайт приложения'
-Your private SUPLA Cloud is not registered.: Ваше личное облако SUPLA не зарегистрировано.
 
 #</editor-fold>

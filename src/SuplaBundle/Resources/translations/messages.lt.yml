@@ -12,6 +12,8 @@ Access ID: Prieigos ID
 Access Identifier: Prieigos identifikatorius
 Access Identifiers: Prieigos identifikatorius
 Access identifier limit has been exceeded: Viršutinė prieigos identifikatorių riba viršytany
+Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
+Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
 Account: Paskyra
 Account access when you are unavailable: Prieiga prie paskyros kuomet esate neprieinami
 Account has been activated. You can Sign In now.: Paskyra aktyvuota. Galite prisijungti
@@ -32,6 +34,8 @@ All the above and many more can be done from your phone or tablet: Visa tai ir d
 Allowed actions: Priimtinos akcijos
 Allows to perform an action only using the HTTP PATCH request.: Leidžia atlikti akcijas tik naudojant HTTP PATCH užklausą.
 And more: Ir dar daugiau
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Visas lietojumprogrammas vai ierīces, kuras izmanto marķieri {tokenName} pārstās darboties.'
+Application name cannot be blank.: Lietojumprogrammas nosaukums nevar būt tukšs
 Application requirements: Naudojimo reikalavimai
 Are you lost?: Pasiklydote? Kažko ieškote?
 Are you sure you want to change channel’s function?: Ar tikrai norite pakeisti kanalo funkciją?
@@ -72,6 +76,7 @@ Channel for the partial opening sensor: Netiesioginio atidarymo jutiklio kanalas
 Channel for the sensor: Jutiklio kanalas
 Channel group: Kanalų grupė
 Channel group limit has been exceeded: Viršutinė kanalų grupių riba viršyta
+Channel group must consist of at least one channel.: Kanālu grupā jābūt iekļautam vismaz vienam kanālam.
 Channel groups: Kanalų grupės
 Channel is assigned to the I/O device location: Kanalas priskirtas prie įrenginio vietos
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
@@ -79,6 +84,7 @@ Channels: Kanalai
 Check your email box: Patikrinkite savo el. pašto dėžutę
 Choose: Pasirinkti
 Choose Access Identifiers to be assigned to this Location: 'Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai'
+Choose client apps: Izvēlieties klienta lietojumprogrammas
 Choose location: Pasirinkti vietą
 Chosen hour: Pasirinktas laikas
 Client’s Apps: Klientų programos
@@ -96,6 +102,7 @@ Confirm if you want to remove Access Identifier: 'Patvirtinkite, kad norite paš
 Connected: Sujungta
 Connection with a private instance of the SUPLA cloud: Sujungimas su privačia SUPLA debesio instancija.
 Constraints: Apribojimai
+Could not reset the password.: Paroles atiestatīšana neizdevās.
 Could not reset the password. Please try again later.: Negalima nustatyti iš naujo slaptažodžio. Dar kartą bandykite vėliau.
 Create New Access Identifier: Sukurti naują Prieigos Identifikatorių
 Create New Location: Sukurti naują Vietą
@@ -232,6 +239,7 @@ Interval: Intervalas
 Invalid request: Neteisinga užklausa
 Inverted logic: Atvirkštinė logika
 Invisible: Nematomi
+Language is not available: Valoda nav pieejama
 Last access: Paskutinis prisijungimas
 Last connection: Paskutinis sujungimas
 Last used: Paskutinis panaudotas
@@ -243,7 +251,10 @@ Limit has been exceeded: Viršutinė riba viršyta
 Location: Vieta
 Location Identifier: Vietos identifikatorius
 Location limit has been exceeded: Viršutinė vietų riba viršyta
+Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
+Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
 Locations: Vietos
+Login: Pieteikšanās
 Mail sensor: Pašto jutiklis
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Įsitikinkite ar yra įrašytas saugioje vietoje, jeigu norėsite ją panaudoti ateityje. Nuoroda nebus daugiau rodoma išėjus iš šio tinklalapio.'
 'Maximum filesize limit is {limit}.': 'Maksimalus failo dydis tai {limit}.'
@@ -286,6 +297,7 @@ Older: Senesnės
 On/Off switch: Maitinimo jungiklis
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Leidžiama naudoti domenų pavadinimus tik su pasirinktiniu prievado numeriu. Pavyzdžiui, mysupla.org ar mysupla.org:88. HTTPS būtinas.'
 Open: Atidaryti
+Open / close: Atvērt / aizvērt
 Opening sensor: Atidarymo jutiklis
 Original location: Originali vieta
 'Otherwise go to [the homepage].': 'Kitu atveju pereikite į [naminį tinklalapį].'
@@ -374,6 +386,7 @@ Staircase timer: Laiptų automatas
 Start Here: Pradėti čia
 Start date: Pradžios data
 State: Būsena
+Stop: Apturēt
 Subject: Subjektas
 Subject type: Subjekto tipas
 Success: Sėkmė
@@ -401,6 +414,7 @@ The password should be 8 or more characters.: Slaptažodį turi sudaryti mažiau
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Serveris grąžino HTTP 403 klaidą. Tai reiškia, kad neturite pakankamai įgaliojimu šio elemento peržiūrai.'
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serveris grąžino HTTP 404 klaidą. Tai reiškia, kad elementas, kurio ieškote, neegzistuoja.'
+'The server has returned an HTTP {statusCode} error.': 'Serveris atgrieza kļūdu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Jūsų pasirinkti piktogramų failai yra per dideli. Maksimalus leistinas įkeliamo failo dydis tai {limit}.'
 There are no more channels you can add to this group: 'Nėra kitų kanalų, kuriuos būtų galima pridėti prie šios grupės'
 Thermometer: Termometras
@@ -418,6 +432,7 @@ Unit: Vienetas
 Unknown: Nežinoma
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.'
 Visible: Matomi
+Visit app webpage: Atveriet lietojumprogrammas vietni
 WELCOME_MESSAGE: |
   Jūsų namų ar ofiso prijungimas prie SUPLA yra paprastas. Viskas, ką turite padaryti, tai
   perrašyti į savo valdymo (įvesties/išvesties) įrenginius bei išmaniuosius telefonus žemiau pateiktus duomenis.
@@ -450,6 +465,7 @@ Your account has been locked.: El. pašto adresas jau egzistuoja
 Your email: Jūsų el. paštas
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.'
 Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
+Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
 after: po
 before: prieš
 choose: pasirinkti
@@ -521,21 +537,5 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
-Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Visas lietojumprogrammas vai ierīces, kuras izmanto marķieri {tokenName} pārstās darboties.'
-Application name cannot be blank.: Lietojumprogrammas nosaukums nevar būt tukšs
-Channel group must consist of at least one channel.: Kanālu grupā jābūt iekļautam vismaz vienam kanālam.
-Choose client apps: Izvēlieties klienta lietojumprogrammas
-Could not reset the password.: Paroles atiestatīšana neizdevās.
-Language is not available: Valoda nav pieejama
-Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
-Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
-Login: Pieteikšanās
-Open / close: Atvērt / aizvērt
-Stop: Apturēt
-'The server has returned an HTTP {statusCode} error.': 'Serveris atgrieza kļūdu {statusCode}.'
-Visit app webpage: Atveriet lietojumprogrammas vietni
-Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
 
 #</editor-fold>

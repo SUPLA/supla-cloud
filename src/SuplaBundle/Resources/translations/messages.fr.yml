@@ -12,6 +12,8 @@ Access ID: ID d’accès
 Access Identifier: Identifiant d'accès
 Access Identifiers: Identifiants d'accès
 Access identifier limit has been exceeded: Vous avez dépassé la limite des identifiants
+Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
+Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
 Account: Mon compte
 Account access when you are unavailable: Accès à votre compte en cas d'indisponibilité
 Account has been activated. You can Sign In now.: Votre compte a été activé. Vous pouvez dorénavant vous connecter
@@ -32,9 +34,12 @@ All the above and many more can be done from your phone or tablet: Tout cela et 
 Allowed actions: Actions autorisées
 Allows to perform an action only using the HTTP PATCH request.: Vous permet d'effectuer une action seulement à l'aide de la demande HTTP PATCH.
 And more: Et beaucoup plus
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Toutes les applications ou appareils qui utilisent ce jeton {tokenName} cesseront de fonctionner.'
+Application name cannot be blank.: Nom de l'application ne peut être vide.
 Application requirements: Exigences de l'application
 Are you lost?: Tu t'es perdu ? Tu cherches quelque chose?
 Are you sure you want to change channel’s function?: Voulez-vous vraiment changer la fonction de la chaîne?
+Are you sure you want to delete the entire measurement history saved for this channel?: Etes-vous sûr de vouloir supprimer tout l'historique de mesures rassemblé pour cette chaîne ?
 Are you sure you want to delete this OAuth application?: Êtes-vous sûr de vouloir supprimer cette application OAuth ?
 Are you sure you want to delete this channel group?: Voulez-vous vraiment supprimer ce groupe de chaînes?
 Are you sure you want to delete this client?: Voulez-vous vraiment supprimer cette application client?
@@ -71,6 +76,7 @@ Channel for the partial opening sensor: Chaîne pour capteur d'ouverture partiel
 Channel for the sensor: Capteur chaîne
 Channel group: Groupe de chaînes
 Channel group limit has been exceeded: La limite des groupes de canaux a été dépassée
+Channel group must consist of at least one channel.: Groupe de chaînes doit contenir au moins une chaîne.
 Channel groups: Groupes de chaînes
 Channel is assigned to the I/O device location: La chaîne est attribuée au lieu du dispositif
 Channel will be deleted from the channel group below: La chaîne sera supprimée des groupes de chaînes suivants
@@ -78,6 +84,7 @@ Channels: Chaînes
 Check your email box: Vérifiez votre messagerie électronique
 Choose: Choisir
 Choose Access Identifiers to be assigned to this Location: Choisir les Identifiants d'Accès qui vont être attribués à ce lieu
+Choose client apps: Choisissez les applications  pour les clients
 Choose location: Sélectionner le lieu
 Chosen hour: Heure choisie
 Client’s Apps: Applications client
@@ -95,12 +102,14 @@ Confirm if you want to remove Access Identifier: Confirmer la suppression de mon
 Connected: Connecté
 Connection with a private instance of the SUPLA cloud: Connexion avec l'instance privée du nuage SUPLA.
 Constraints: Limitations
+Could not reset the password.: Mot de passe n'a pas pu être réinitialisé.
 Could not reset the password. Please try again later.: Impossible de réinitialiser le mot de passe Réessayez dans un moment.
 Create New Access Identifier: Créer un nouvel Identifiant d'Accès
 Create New Location: Créer un nouveau Lieu
 Create New Schedule: Créer un nouveau calendrier
 Create an account: Créer un nouveau compte
 Create new direct link: Créer un nouveau lien direct.
+Currency: Devise
 Current Password: Mot de passe actuel
 Current password is incorrect: Votre mot de passe actuel est incorrect
 Custom: Personnalisé
@@ -114,6 +123,7 @@ Data saved: Vos données ont été enregistrées
 Days: Jours
 Decline: Refuser
 Delete: Supprimer
+Delete measurement history: Supprimez l'historique de mesures
 Depth: Profondeur
 Depth sensor: Capteur de profondeur
 Description: Description
@@ -141,6 +151,7 @@ Door opening sensor: Capteur d'ouverture de porte
 Doors and gates: 'Portes, Portails'
 'Doors, Gates': 'Portes, Portails'
 Download the history of measurement: Télécharger l'historique des mesures
+Drag your image(s) here or click to select from the disk: Faites glisser l'image ici ou cliquez pour la choisir depuis le disque
 ENABLED: ACTIVÉ
 Edit: Modifier
 Electric: Electricité
@@ -218,6 +229,7 @@ Idle: Inactif
 'If you want to stay here, do something!': 'Si vous voulez rester ici, faites quelque chose!'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Si vous voulez voir les intégrations disponibles, allez à [cloud.supla.org/apps].'
 Impulse counter: Compteur d’impulsions
+Impulses: Impulses
 Incorrect direct link parameters: Paramètres du lien direct incorrects
 Information: Information
 Inherit I/O Device location: Utiliser le lieu du dispositif
@@ -227,6 +239,7 @@ Interval: Laps de temps
 Invalid request: Requête incorrecte.
 Inverted logic: Logique inversée
 Invisible: Non affichés
+Language is not available: Langue n'est pas disponible
 Last access: Dernière connexion
 Last connection: Dernière connexion
 Last used: Dernière utilisation
@@ -238,7 +251,10 @@ Limit has been exceeded: La limite a été dépassée
 Location: Lieu
 Location Identifier: Identifiant de lieu
 Location limit has been exceeded: Vous avez dépassé la limite des lieux
+Location password must be at least 4 characters.: Mot de passe pour la localisation doit être composé d'au moins 4 caractères.
+Location password must be no longer than 32 characters.: Mot de passe pour la localisation ne peut être composé de plus de 32 caractères.
 Locations: Lieux
+Login: Connexion
 Mail sensor: Détecteur de courrier
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Assurez-vous qu''il est stocké dans un endroit sûr si vous voulez l''utiliser à l''avenir. Une fois que vous aurez quitté ce site, le lien ne sera plus affiché.'
 'Maximum filesize limit is {limit}.': 'La taille maximale du fichier est {limit}.'
@@ -264,6 +280,7 @@ No future executions - schedule disabled: Aucun programme planifié - le calendr
 No limit: Pas de limite
 No liquid sensor: Capteur d'absence de liquide
 'No location enabled. Go to [location list] or [add a new location].': 'Vous n''avez pas de lieux actifs. Aller à [liste des lieux] ou [ajouter un nouveau lieu].'
+'No results match {0}': 'Aucun résultat ne correspond à {0}'
 No. of Client’s apps: Nombre des applications clientes
 No. of access identifiers: Nombre d'identifiants d'accès
 No. of channel groups: Nombre de groupes de chaînes
@@ -280,6 +297,7 @@ Older: Plus ancien
 On/Off switch: Interrputeur d'alimentation
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Seuls les noms de domaine avec un numéro de port optionnel sont autorisés. Par exemple, mysupla.org ou mysupla.org:88. HTTPS est nécessaire.'
 Open: Ouvrir
+Open / close: Ouvrez / fermez
 Opening sensor: Détecteur d'ouverture
 Original location: Lieu d'origine
 'Otherwise go to [the homepage].': 'Sinon, allez à [page d''accueil].'
@@ -298,6 +316,7 @@ Please select the schedules that should also be enabled.: Sélectionnez les cale
 Please wait a moment before the next login attempt.: Attendez un moment avant la prochaine tentative de connexion.
 Pressure sensor: Capteur de pression
 Previous login: Dernière connexion
+Price per: Prix pour
 Private Cloud domain name: Nom de domaine privé du nuage
 Proceed: Continuer
 Processing: En cours
@@ -367,6 +386,7 @@ Staircase timer: Minuterie d'escalier
 Start Here: Commencer ici
 Start date: Date d'activation
 State: Etat
+Stop: Arrêtez
 Subject: Sujet
 Subject type: Type d'entité
 Success: Succès
@@ -387,12 +407,14 @@ The client will be automatically logged out when deleted.: 'Si le client est ret
 The device is disabled: Ce dispositif est désactivé
 The gate sensor must function properly in order to execute the scheduled action.: 'Afin d''actionner, le capteur d''ouverture de portail doit fonctionner correctement.'
 The latest execution: Dernier programme
+The measurement history has been deleted.: Historique de mesures a été supprimé.
 The next available executions: Prochains programmes
 The password and its confirm are not the same.: Le mot de passe et sa confirmation sont différents.
 The password should be 8 or more characters.: Le mot de passe doit contenir au moins 8 caractères.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Le serveur a renvoyé une erreur 400, ce qui signifie que la requête envoyée est incorrecte.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Le serveur a renvoyé l''erreur HTTP 403, ce qui signifie que tu n’as pas suffisamment de permissions pour afficher cet élément.'
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Le serveur a renvoyé l''erreur HTTP 404, ce qui signifie que l''article que tu recherches n''existe pas.'
+'The server has returned an HTTP {statusCode} error.': 'Serveur a renvoyé une erreur {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Les fichiers d''icônes que vous avez sélectionnés sont trop volumineux. La taille maximale autorisée de téléchargement est {limit}.'
 There are no more channels you can add to this group: Il n'y a pas d'autres chaînes qui peuvent être ajoutées à ce groupe.
 Thermometer: Thermomètre
@@ -406,9 +428,11 @@ Too many channels in this group: Trop de canaux dans ce groupe
 Tuesdays: Mardi
 Turning this device off will result in disabling all the associated schedules.: La désactivation de ce dispositif provoquera aussi la désactivation de tous les calendriers qui y sont associés.
 Type: Type
+Unit: Unité
 Unknown: Inconnu
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Les fichiers téléchargés ne violent pas les bonnes mœurs, les droits d''auteur et les droits des tiers, et j''ai le droit de les utiliser.'
 Visible: Affichés
+Visit app webpage: Ouvrez le site de l'application.
 WELCOME_MESSAGE: |
   Votre domicile ou votre bureau peuvent être facilement connectés à SUPLA.
   Il suffit d'introduire dans vos dispositifs entrée/sortie les données ci-dessous.
@@ -428,6 +452,7 @@ White: Blanc
 Wind sensor: Capteur de vent
 Window opening sensor: Capteur d'ouverture de fenêtre
 With SUPLA you can operate the lights in your home or office: Avec SUPLA vous pouvez gérer votre éclairage à votre domicile ou au bureau
+With function: Avec la fonction
 Working period: Durée
 You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d'accès.
 You cannot delete your last location.: Vous ne pouvez pas supprimer votre dernier lieu.
@@ -440,10 +465,14 @@ Your account has been locked.: Votre compte a été bloqué.
 Your email: Votre adresse e-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: Votre instance n'est pas enregistrée ou vous essayez d'autoriser une application qui n'est pas publique.
 Your private SUPLA Cloud is almost registered.: Votre nuage SUPLA privé est presque enregistré.
+Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est pas enregistré.
 after: après
 before: avant
 choose: sélectionner
+choose a currency: choisissez la devise
 choose the channel: choisir la chaîne
+choose the channel group: choisissez le groupe de chaînes
+choose the timezone: choisissez le fuseau horaire
 copied: copié
 copy: copier
 daily: Cycle par jours
@@ -508,34 +537,5 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
-Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
-'Any application or device that uses the {tokenName} token will not work anymore.': Toutes les applications ou appareils qui utilisent ce jeton {tokenName} cesseront de fonctionner.
-Application name cannot be blank.: Nom de l'application ne peut être vide.
-Are you sure you want to delete the entire measurement history saved for this channel?: Etes-vous sûr de vouloir supprimer tout l'historique de mesures rassemblé pour cette chaîne ?
-Channel group must consist of at least one channel.: Groupe de chaînes doit contenir au moins une chaîne.
-Choose client apps: Choisissez les applications  pour les clients
-Could not reset the password.: Mot de passe n'a pas pu être réinitialisé.
-Currency: Devise
-Delete measurement history: Supprimez l'historique de mesures
-Drag your image(s) here or click to select from the disk: Faites glisser l'image ici ou cliquez pour la choisir depuis le disque
-Impulses: Impulses
-Language is not available: Langue n'est pas disponible
-Location password must be at least 4 characters.: Mot de passe pour la localisation doit être composé d'au moins 4 caractères.
-Location password must be no longer than 32 characters.: Mot de passe pour la localisation ne peut être composé de plus de 32 caractères.
-Login: Connexion
-'No results match {0}': 'Aucun résultat ne correspond à {0}'
-Open / close: Ouvrez / fermez
-Price per: Prix pour
-Stop: Arrêtez
-The measurement history has been deleted.: Historique de mesures a été supprimé.
-'The server has returned an HTTP {statusCode} error.': 'Serveur a renvoyé une erreur {statusCode}.'
-Unit: Unité
-Visit app webpage: Ouvrez le site de l'application.
-With function: Avec la fonction
-Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est pas enregistré.
-choose a currency: choisissez la devise
-choose the channel group: choisissez le groupe de chaînes
-choose the timezone: choisissez le fuseau horaire
 
 #</editor-fold>
