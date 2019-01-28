@@ -87,8 +87,8 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('SET-CHAR-VALUE:1,1,3,0', $setCommand);
     }
 
-    public function testToggleRgbOfOn() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,10,0\n");
+    public function testToggleRgbOffOn() {
+        SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[2], ChannelFunctionAction::TOGGLE());
         $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = SuplaServerMock::$executedCommands[1];
