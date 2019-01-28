@@ -25,6 +25,8 @@ use SuplaBundle\Model\LocalSuplaCloud;
 class SuplaServerMock extends SuplaServer {
     private static $nextResponse;
 
+    public static $executedCommands = [];
+
     /** @var SuplaServerMockCommandsCollector */
     private $commandsCollector;
 
@@ -43,6 +45,7 @@ class SuplaServerMock extends SuplaServer {
 
     protected function command($command) {
         $this->commandsCollector->addCommand($command);
+        self::$executedCommands[] = $command;
         return $this->tryToHandleCommand($command);
     }
 
