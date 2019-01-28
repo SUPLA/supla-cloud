@@ -44,10 +44,6 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::RGBLIGHTING],
         ]);
         $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
-    }
-
-    /** @after */
-    public function clearCommands() {
         SuplaServerMock::$executedCommands = [];
     }
 
