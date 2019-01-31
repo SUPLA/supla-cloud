@@ -166,6 +166,18 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
     }
 
+    public function testExecutingDirectLinkWithPatchAndCredentialsInRequestBody() {
+        $directLinkDetails = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $requestData = ['code' => $directLinkDetails['slug'], 'action' => 'turn-on'];
+        $client->request('PATCH', "/direct/$directLinkDetails[id]", $requestData, [], ['CONTENT_TYPE' => 'application/json']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
     public function testCannotExecuteForbiddenAction() {
         $directLink = $this->testCreatingDirectLink();
         $client = $this->createClient();
