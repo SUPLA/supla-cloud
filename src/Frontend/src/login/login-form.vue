@@ -41,7 +41,8 @@
                 @click="$emit('input', {username: username, password: password})"
                 :disabled="authenticating">
                 <span v-if="!authenticating">
-                    {{ buttonText }}
+                    <span v-if="submitButtonText">{{ submitButtonText }}</span>
+                    <span v-else>{{ $t('Sign In') }}</span>
                 </span>
                 <button-loading-dots v-else></button-loading-dots>
             </button>
@@ -87,12 +88,10 @@
             return {
                 username: '',
                 password: '',
-                buttonText: '',
             };
         },
         mounted() {
             this.username = this.intitialUsername || '';
-            this.buttonText = this.submitButtonText || this.$t('Sign In');
         }
     };
 </script>
