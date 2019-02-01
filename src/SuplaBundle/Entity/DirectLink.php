@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Exception\InactiveDirectLinkException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
@@ -259,19 +260,19 @@ class DirectLink {
 
     public function ensureIsActive() {
         if (!$this->isEnabled()) {
-            throw new InactiveDirectLinkException('Direct link is disabled.'); // i18n
+            throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::DISABLED());
         }
         if ($this->getActiveFrom() && $this->getActiveFrom() > new \DateTime()) {
-            throw new InactiveDirectLinkException('Direct link is not active yet.'); // i18n
+            throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::NOT_ACTIVE_YET());
         }
         if ($this->getActiveTo() && $this->getActiveTo() < new \DateTime()) {
-            throw new InactiveDirectLinkException('Direct link has expired.'); // i18n
+            throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::EXPIRED());
         }
         if ($this->getExecutionsLimit() !== null && $this->getExecutionsLimit() <= 0) {
-            throw new InactiveDirectLinkException('Execution limit has been exceeded.'); // i18n
+            throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::EXECUTION_LIMIT_EXCEEDED());
         }
         if (!$this->getAllowedActions()) {
-            throw new InactiveDirectLinkException('No allowed actions have been chosen.'); // i18n
+            throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::NO_ALLOWED_ACTIONS());
         }
     }
 
