@@ -37,11 +37,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Translation\Translator;
 
 class ExecuteDirectLinkController extends Controller {
     use Transactional;
     use SuplaServerAware;
-    const OK = 'OK';
 
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
@@ -53,19 +53,23 @@ class ExecuteDirectLinkController extends Controller {
     private $audit;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var Translator */
+    private $translator;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ChannelActionExecutor $channelActionExecutor,
         EncoderFactoryInterface $encoderFactory,
         ChannelStateGetter $channelStateGetter,
-        Audit $audit
+        Audit $audit,
+        Translator $translator
     ) {
         $this->entityManager = $entityManager;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->encoderFactory = $encoderFactory;
         $this->channelStateGetter = $channelStateGetter;
         $this->audit = $audit;
+        $this->translator = $translator;
     }
 
     /**
@@ -91,7 +95,7 @@ class ExecuteDirectLinkController extends Controller {
                 ->setTextParam($action->getValue())
                 ->buildAndSave();
             $responseStatus = $action == ChannelFunctionAction::READ() ? Response::HTTP_OK : Response::HTTP_ACCEPTED;
-            $response = $this->directLinkResponse($responseType, $responseStatus, self::OK, $executionResult);
+            $response = $this->directLinkResponse($responseType, $responseStatus, $executionResult);
         } catch (DirectLinkExecutionFailureException $executionException) {
         } catch (\Exception $otherException) {
             $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
@@ -128,13 +132,13 @@ class ExecuteDirectLinkController extends Controller {
                 $response = $this->directLinkResponse(
                     $responseType,
                     $executionException->getStatusCode(),
-                    $executionException->getMessage(),
-                    $executionException->getDetails()
+                    $executionException->getDetails(),
+                    $reason
                 );
             }
             $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
                 ->setIntParam($directLink->getId())
-                ->setTextParam($reason->getValue())
+                ->setTextParam(json_encode(['reason' => $reason->getValue(), 'details' => $executionException->getDetails()]))
                 ->buildAndSave();
         }
         $this->entityManager->flush();
@@ -172,8 +176,8 @@ class ExecuteDirectLinkController extends Controller {
         }
         if (!in_array($action, $directLink->getAllowedActions())) {
             throw new DirectLinkExecutionFailureException(
-                DirectLinkExecutionFailureReason::UNSUPPORTED_ACTION(),
-                ['action' => $action->getValue()]
+                DirectLinkExecutionFailureReason::FORBIDDEN_ACTION(),
+                ['action_id' => $action->getValue(), 'action_name' => $action->getNameSlug()]
             );
         }
         $this->ensureLinkCanBeUsed($directLink, $slug);
@@ -183,8 +187,6 @@ class ExecuteDirectLinkController extends Controller {
     private function executeDirectLink(DirectLink $directLink, Request $request, ChannelFunctionAction $action): array {
         if ($action->getId() === ChannelFunctionAction::READ) {
             return $this->channelStateGetter->getState($directLink->getSubject());
-//            return $state;
-//            return new JsonResponse($state, Response::HTTP_OK, ['Content-Type' => 'application/json']);
         } else {
             $params = $request->query->all();
             try {
@@ -194,12 +196,6 @@ class ExecuteDirectLinkController extends Controller {
             }
             $this->channelActionExecutor->executeAction($directLink->getSubject(), $action, $params);
             return [];
-//            if ($responseType == 'html' || $responseType == 'plain') {
-//                $message = $responseType == 'html' ? '<span style="color: green">OK</span>' : 'OK';
-//                return new Response($message, Response::HTTP_ACCEPTED, ['Content-Type' => 'text/' . $responseType]);
-//            } else {
-//                return new JsonResponse(['success' => true], Response::HTTP_ACCEPTED);
-//            }
         }
     }
 
@@ -220,34 +216,39 @@ class ExecuteDirectLinkController extends Controller {
         }
     }
 
-    private function directLinkResponse(string $responseType, int $responseCode, $message, array $data = []): Response {
-        $success = $responseCode >= 200 && $responseCode < 300;
+    private function directLinkResponse(
+        string $responseType,
+        int $responseCode,
+        array $data = [],
+        DirectLinkExecutionFailureReason $failureReason = null
+    ): Response {
         if ($responseType == 'html' || $responseType == 'plain') {
+            $message = '';
             if ($data) {
                 $data = array_map(function ($value, $key) {
                     return strtoupper($key) . ': ' . (is_string($value) ? $value : json_encode($value));
                 }, $data, array_keys($data));
                 $data = implode(PHP_EOL, $data);
-                if ($message == self::OK) {
-                    $message = $data;
-                } else {
-                    $message .= PHP_EOL . $data;
-                }
+                $message = $data;
+            }
+            if ($failureReason) {
+                $message = trim($this->translator->trans($failureReason->getValue()) . PHP_EOL . $message);
+            }
+            if (!$message) {
+                $message = 'OK';
             }
             if ($responseType == 'html') {
-                $htmlColor = $success ? 'green' : 'red';
+                $htmlColor = $failureReason ? 'red' : 'green';
                 $message = '<div style="color: ' . $htmlColor . '">' . nl2br($message) . '</div>';
             }
             return new Response($message, $responseCode, ['Content-Type' => 'text/' . $responseType]);
         } else {
-            if (is_string($message)) {
-                $message = ['error' => $message];
+            $response = $data ?: ['success' => !$failureReason];
+            if ($failureReason) {
+                $response['reason'] = $failureReason->getValue();
+                $response['message'] = $this->translator->trans($failureReason->getValue());
             }
-            $response = ['success' => $success];
-            if ($message != self::OK) {
-                $response['message'] = $message;
-            }
-            return new JsonResponse(array_merge($response, $data), $responseCode);
+            return new JsonResponse($response, $responseCode);
         }
     }
 }

@@ -135,9 +135,6 @@ Dimmer & RGB led controller: Ściemniacz i kontroler oświetlenia RGB
 Dimmer and RGB lighting: Ściemniacz i oświetlenie RGB
 Direct link: Link bezpośredni
 Direct link has been created successfully!: Link bezpośredni został z powodzeniem utworzony!
-Direct link has expired.: Link bezpośredni jest przeterminowany
-Direct link is disabled.: Link bezpośredni jest wyłączony
-Direct link is not active yet.: Link bezpośredni nie jest jeszcze aktywny
 'Direct link is not working right now. Reason:': 'Link bezpośredni w tym momencie nie działa. Powód:'
 Direct links: Linki bezpośrednie
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
@@ -174,7 +171,6 @@ Executed action: Wykonana akcja
 Executed without confirmation: Wykonano bez potwierdzenia
 Execution history: Historia wykonań
 Execution limit: Limit wykonań
-Execution limit has been exceeded.: Limit wykonań został przekroczony
 Executions: Wykonania
 Existing schedules: Istniejące harmonogramy
 Expired: Przeterminowany
@@ -230,7 +226,6 @@ Idle: Bezczynne
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].'
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
-Incorrect direct link parameters: Niepoprawne parametry linku bezpośredniego
 Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
 Integrations: Integracje
@@ -274,7 +269,6 @@ New password: Nowe hasło
 Newer: Nowsze
 Next run date: Najbliższe wykonanie
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nie masz żadnych aktywnych identyfikatorów dostępu. Przejdź do [listy identyfikatorów dostępu] lub [dodaj nowy identyfikator dostępu].'
-No allowed actions have been chosen.: Nie wybrano żadnych dozwolonych akcji
 No function: Brak funkcji
 No future executions - schedule disabled: Brak zaplanowanych wykonań - harmonogram wyłączony
 No limit: Bez limitu
@@ -402,7 +396,6 @@ Temperature and humidity sensor: Czujnik temperatury i wilgotności
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.'
 The Terms and Conditions have changed: Regulamin uległ zmianie
 The Terms and Conditions have changed – please read them and accept.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Uniemożliwiono wykonanie akcji przy użyciu niedozwolonej metody HTTP GET.
 The client will be automatically logged out when deleted.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
 The device is disabled: Urządzenie jest wyłączone
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
@@ -478,6 +471,18 @@ choose the timezone: wybierz strefę czasową
 copied: skopiowano
 copy: kopiuj
 daily: Cykl dzienny
+directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
+directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
+directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
+directLinkExecutionFailureReason_forbiddenAction: Link nie pozwala na wykonanie tej akcji
+directLinkExecutionFailureReason_httpGetForbidden: Uniemożliwiono wykonanie akcji przy użyciu niedozwolonej metody HTTP GET
+directLinkExecutionFailureReason_invalidActionParameters: Niepoprawne parametry linku bezpośredniego
+directLinkExecutionFailureReason_invalidSlug: Przesłany kod weryfikacyjny jest niepoprawny.
+directLinkExecutionFailureReason_noAllowedActions: Nie wybrano żadnych dozwolonych akcji
+directLinkExecutionFailureReason_noSlugOrAction: Niepoprawne żądanie - kod linku oraz akcja są wymagane
+directLinkExecutionFailureReason_notActiveYet: Link bezpośredni nie jest jeszcze aktywny
+directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
+directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
 from IP: z adresu IP
 from the IP: z adresu
 hourly: Cykl godzinny
