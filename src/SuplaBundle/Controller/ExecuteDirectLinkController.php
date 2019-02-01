@@ -78,14 +78,54 @@ class ExecuteDirectLinkController extends Controller {
      * @Route("/direct/{directLink}/{slug}/{action}", methods={"GET", "PATCH"})
      */
     public function executeDirectLinkAction(DirectLink $directLink, Request $request, string $slug = null, string $action = null) {
+        $responseType = $this->determineResponseType($request);
         if ($directLink->getDisableHttpGet() && $request->isMethod(Request::METHOD_GET)) {
             $errorMessage = 'The action was prevented from being performed using an HTTP GET method that is not permitted.'; // i18n
             $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
                 ->setIntParam($directLink->getId())
                 ->setTextParam($errorMessage)
                 ->buildAndFlush();
-            return new JsonResponse(
-                ['success' => false, 'error' => $errorMessage . ' You need to use HTTP PATCH request to execute this link.'],
+            return $this->errorResponse(
+                $responseType,
+                $errorMessage . ' You need to use HTTP PATCH request to execute this link.',
+                Response::HTTP_METHOD_NOT_ALLOWED
+            );
+        }
+        if (!$slug) {
+            $requestPayload = $request->request->all();
+            if (!is_array($requestPayload) || !isset($requestPayload['code']) || !isset($requestPayload['action'])) {
+                return $this->errorResponseWithAudit($directLink, $responseType, 'Invalid request data: code and action required.'); // i18n
+            }
+            $slug = $requestPayload['code'];
+            $action = $requestPayload['action'];
+            if (!$slug || !is_string($slug) || !is_string($action) || !$action) {
+                return $this->errorResponseWithAudit($directLink, $responseType, 'Invalid request data: invalid slug or action.'); // i18n
+            }
+        }
+        return $this->transactional(function (EntityManagerInterface $entityManager) use ($directLink, $request, $slug, $action) {
+            try {
+                $response = $this->executeDirectLink($directLink, $request, $slug, $action);
+            } catch (ApiException $e) {
+
+            } catch (ServiceUnavailableHttpException $e) {
+
+            } catch (\Exception $e) {
+
+            }
+        };
+    }
+
+    private function executeDirectLink(DirectLink $directLink, Request $request, string $slug = null, string $action = null) {
+        $responseType = $this->determineResponseType($request);
+        if ($directLink->getDisableHttpGet() && $request->isMethod(Request::METHOD_GET)) {
+            $errorMessage = 'The action was prevented from being performed using an HTTP GET method that is not permitted.'; // i18n
+            $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
+                ->setIntParam($directLink->getId())
+                ->setTextParam($errorMessage)
+                ->buildAndFlush();
+            return $this->errorResponse(
+                $responseType,
+                $errorMessage . ' You need to use HTTP PATCH request to execute this link.',
                 Response::HTTP_METHOD_NOT_ALLOWED
             );
         }
@@ -101,13 +141,24 @@ class ExecuteDirectLinkController extends Controller {
             try {
                 $action = ChannelFunctionAction::fromString($action);
             } catch (\InvalidArgumentException $e) {
-                throw new ApiException("Action $action is not supported.", Response::HTTP_NOT_FOUND, $e);
+                return $this->errorResponse($responseType, "Action $action is not supported.");
             }
             if (!in_array($action, $directLink->getAllowedActions())) {
-                throw new ApiException("The action $action is not allowed for this direct link.", Response::HTTP_FORBIDDEN);
+                return $this->errorResponse(
+                    $responseType,
+                    "The action {$action->getNameSlug()} is not allowed for this direct link.",
+                    Response::HTTP_FORBIDDEN
+                );
             }
             $this->ensureLinkCanBeUsed($directLink, $slug);
-            return $this->transactional(function (EntityManagerInterface $entityManager) use ($request, $action, $slug, $directLink) {
+            return $this->transactional(function (EntityManagerInterface $entityManager) use (
+                $request,
+                $action,
+                $slug,
+                $directLink,
+                $responseType
+            ) {
+
                 $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION())
                     ->setIntParam($directLink->getId())
                     ->setTextParam($action)
@@ -125,15 +176,24 @@ class ExecuteDirectLinkController extends Controller {
                     try {
                         $this->channelActionExecutor->validateActionParams($directLink->getSubject(), $action, $params);
                     } catch (\InvalidArgumentException $e) {
-                        return $this->render(
-                            '@Supla/ExecuteDirectLink/directLinkParamsRequired.html.twig',
-                            ['directLink' => $directLink, 'action' => $action],
-                            new Response('', Response::HTTP_BAD_REQUEST)
-                        );
+                        if ($responseType == 'html') {
+                            return $this->render(
+                                '@Supla/ExecuteDirectLink/directLinkParamsRequired.html.twig',
+                                ['directLink' => $directLink, 'action' => $action],
+                                new Response('', Response::HTTP_BAD_REQUEST)
+                            );
+                        } else {
+                            return $this->errorResponse($responseType, $e->getMessage());
+                        }
                     }
                     try {
                         $this->channelActionExecutor->executeAction($directLink->getSubject(), $action, $params);
-                        return new JsonResponse(['success' => true], Response::HTTP_ACCEPTED);
+                        if ($responseType == 'html' || $responseType == 'plain') {
+                            $message = $responseType == 'html' ? '<span style="color: green">OK</span>' : 'OK';
+                            return new Response($message, Response::HTTP_ACCEPTED, ['Content-Type' => 'text/' . $responseType]);
+                        } else {
+                            return new JsonResponse(['success' => true], Response::HTTP_ACCEPTED);
+                        }
                     } catch (ServiceUnavailableHttpException $e) {
                         $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
                         if ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL()) {
@@ -148,7 +208,7 @@ class ExecuteDirectLinkController extends Controller {
                                     $this->suplaServer->isDeviceConnected($channel->getIoDevice());
                             }
                         }
-                        return new JsonResponse($errorData, Response::HTTP_SERVICE_UNAVAILABLE);
+                        return $this->errorResponse($responseType, $errorData, Response::HTTP_SERVICE_UNAVAILABLE);
                     }
                 }
             });
@@ -166,5 +226,42 @@ class ExecuteDirectLinkController extends Controller {
             throw new ApiException("Given verification code is invalid.", Response::HTTP_FORBIDDEN);
         }
         $directLink->ensureIsActive();
+    }
+
+    private function determineResponseType(Request $request): string {
+        if (in_array('text/html', $request->getAcceptableContentTypes())) {
+            return 'html';
+        } else if (in_array('text/plain', $request->getAcceptableContentTypes())) {
+            return 'plain';
+        } else {
+            return 'json';
+        }
+    }
+
+    private function errorResponseWithAudit(
+        DirectLink $directLink,
+        string $responseType,
+        $message,
+        int $responseStatus = Response::HTTP_BAD_REQUEST
+    ): Response {
+        $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
+            ->setIntParam($directLink->getId())
+            ->setTextParam($message)
+            ->buildAndFlush();
+        return $this->errorResponse($responseType, $message, $responseStatus);
+    }
+
+    private function errorResponse(string $responseType, $message, int $responseStatus = Response::HTTP_BAD_REQUEST): Response {
+        if (is_string($message) && $responseType == 'html' || $responseType == 'plain') {
+            if ($responseType == 'html') {
+                $message = '<span style="color: red">' . $message . '</span>';
+            }
+            return new Response($message, $responseStatus, ['Content-Type' => 'text/' . $responseType]);
+        } else {
+            if (is_string($message)) {
+                $message = ['error' => $message];
+            }
+            return new JsonResponse(array_merge(['success' => false], $message), $responseStatus);
+        }
     }
 }
