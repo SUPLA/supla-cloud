@@ -60,6 +60,7 @@ Vue.prototype.$user.fetchUser()
                     components: {
                         OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
                         ErrorPage: () => import("./common/errors/error-page"),
+                        DirectLinkExecutionResult: () => import("./direct-links/direct-link-execution-result"),
                     },
                     mounted() {
                         document.getElementById('page-preloader').remove();
