@@ -39,6 +39,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Translation\Translator;
 
 class ExecuteDirectLinkController extends Controller {
@@ -59,6 +60,8 @@ class ExecuteDirectLinkController extends Controller {
     private $translator;
     /** @var LoggerInterface */
     private $logger;
+    /** @var NormalizerInterface */
+    private $normalizer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -67,7 +70,8 @@ class ExecuteDirectLinkController extends Controller {
         ChannelStateGetter $channelStateGetter,
         Audit $audit,
         Translator $translator,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        NormalizerInterface $normalizer
     ) {
         $this->entityManager = $entityManager;
         $this->channelActionExecutor = $channelActionExecutor;
@@ -76,6 +80,7 @@ class ExecuteDirectLinkController extends Controller {
         $this->audit = $audit;
         $this->translator = $translator;
         $this->logger = $logger;
+        $this->normalizer = $normalizer;
     }
 
     /**
@@ -228,9 +233,15 @@ class ExecuteDirectLinkController extends Controller {
         DirectLinkExecutionFailureReason $failureReason = null
     ): Response {
         if ($responseType == 'html') {
+            $normalized = [
+                'id' => $directLink->getId(),
+                'subject' => $this->normalizer->normalize($directLink->getSubject(), null, ['groups' => ['basic']]),
+                'state' => $data ?: null
+//                'userIcon' => $this->normalizer->normalize($directLink->getSubject()->getUserIcon(), null, ['groups' => ['images']])
+            ];
             return $this->render(
                 '@Supla/ExecuteDirectLink/directLinkHtmlResponse.html.twig',
-                ['directLink' => $directLink, 'action' => $action, 'failureReason' => $failureReason, 'details' => $data],
+                ['directLink' => $normalized, 'action' => $action, 'failureReason' => $failureReason],
                 new Response('', $responseCode)
             );
         }
