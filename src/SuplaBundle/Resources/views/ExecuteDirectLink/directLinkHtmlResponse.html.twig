@@ -1,8 +1,12 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
+{% block beforeVue %}
+    <script>
+        window.directLink = {{ directLink | json_encode | raw }};
+    </script>
+{% endblock %}
+
 {% block vue %}
     <direct-link-execution-result {% if failureReason %}failure-reason="{{ failureReason.value }}"{% endif %}
-            action="{{ action.name is defined ? action.name : action }}"
-            function-id="{{ directLink.subject.function.id }}"
-            :details='{{ details|json_encode|raw }}'></direct-link-execution-result>
+            action="{{ action.name is defined ? action.name : action }}"></direct-link-execution-result>
 {% endblock %}

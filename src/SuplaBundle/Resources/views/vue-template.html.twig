@@ -1,6 +1,7 @@
 {% extends 'SuplaBundle::empty-layout.html.twig' %}
 
 {% block body %}
+    {% block beforeVue %}{% endblock %}
     <div class="vue-container invisible">
         {% block vue %}{% endblock %}
     </div>
@@ -80,6 +81,7 @@
             width: 120px;
             margin: 100px auto;
         }
+
         .loader-dots div {
             background: none;
             border: solid 2px black;
@@ -91,15 +93,17 @@
             top: 50%;
             margin-top: -15px;
         }
+
         .loader-dots div:nth-child(2) {
-             animation-delay: 0.25s;
-             left: 50%;
-             margin-left: -15px;
-         }
+            animation-delay: 0.25s;
+            left: 50%;
+            margin-left: -15px;
+        }
+
         .loader-dots div:nth-child(3) {
-             animation-delay: 0.5s;
-             right: 0;
-         }
+            animation-delay: 0.5s;
+            right: 0;
+        }
 
 
         @keyframes dots-bounce {

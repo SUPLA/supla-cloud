@@ -1,7 +1,6 @@
 <template>
-    <div>
-        <div class="container text-center"
-            v-if="directLink">
+    <div v-if="directLink">
+        <div class="container text-center">
             <div v-if="failureReason">
                 <h1 class="nocapitalize">{{ $t(failureReason) }}</h1>
                 <div v-if="failureReason == 'directLinkExecutionFailureReason_invalidActionParameters'">
@@ -35,6 +34,7 @@
             </div>
             <div v-else>
                 <div v-if="directLink.state">
+                    <h1>{{ stateCaption }}</h1>
                     <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state}"
                         width="100"></function-icon>
                     <channel-state-table :single-state="directLink.state"></channel-state-table>
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <login-footer></login-footer>
+        <login-footer v-if="!directLink.state"></login-footer>
     </div>
 </template>
 
@@ -54,6 +54,7 @@
     import LoginFooter from "../login/login-footer";
     import FunctionIcon from "../channels/function-icon";
     import ChannelStateTable from "../channels/channel-state-table";
+    import {channelTitle} from "../common/filters";
 
     export default {
         props: ['failureReason', 'action'],
@@ -69,6 +70,9 @@
         computed: {
             currentUrl() {
                 return window.location.protocol + "//" + window.location.host + window.location.pathname;
+            },
+            stateCaption() {
+                return channelTitle(this.directLink.subject, this, false).replace(/^ID[0-9]+/, '');
             }
         }
     };
