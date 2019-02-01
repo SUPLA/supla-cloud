@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\DirectLink;
@@ -36,6 +37,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Translation\Translator;
 
@@ -55,6 +57,8 @@ class ExecuteDirectLinkController extends Controller {
     private $entityManager;
     /** @var Translator */
     private $translator;
+    /** @var LoggerInterface */
+    private $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -62,7 +66,8 @@ class ExecuteDirectLinkController extends Controller {
         EncoderFactoryInterface $encoderFactory,
         ChannelStateGetter $channelStateGetter,
         Audit $audit,
-        Translator $translator
+        Translator $translator,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->channelActionExecutor = $channelActionExecutor;
@@ -70,6 +75,7 @@ class ExecuteDirectLinkController extends Controller {
         $this->channelStateGetter = $channelStateGetter;
         $this->audit = $audit;
         $this->translator = $translator;
+        $this->logger = $logger;
     }
 
     /**
@@ -95,7 +101,7 @@ class ExecuteDirectLinkController extends Controller {
                 ->setTextParam($action->getValue())
                 ->buildAndSave();
             $responseStatus = $action == ChannelFunctionAction::READ() ? Response::HTTP_OK : Response::HTTP_ACCEPTED;
-            $response = $this->directLinkResponse($responseType, $responseStatus, $executionResult);
+            $response = $this->directLinkResponse($directLink, $action, $responseType, $responseStatus, $executionResult);
         } catch (DirectLinkExecutionFailureException $executionException) {
         } catch (\Exception $otherException) {
             $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
@@ -111,6 +117,9 @@ class ExecuteDirectLinkController extends Controller {
                         $this->suplaServer->isDeviceConnected($channel->getIoDevice());
                 }
             }
+            if (!($otherException instanceof ServiceUnavailableHttpException) || !$errorData['supla_server_alive']) {
+                $this->logger->error($otherException->getMessage(), array_merge(['exception' => $otherException], $errorData));
+            }
             $executionException = new DirectLinkExecutionFailureException(
                 DirectLinkExecutionFailureReason::OTHER_FAILURE(),
                 $errorData,
@@ -122,20 +131,14 @@ class ExecuteDirectLinkController extends Controller {
         $this->entityManager->persist($directLink);
         if (isset($executionException)) {
             $reason = $executionException->getReason();
-            if ($reason == DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS()) {
-                $response = $this->render(
-                    '@Supla/ExecuteDirectLink/directLinkParamsRequired.html.twig',
-                    ['directLink' => $directLink, 'action' => $action],
-                    new Response('', Response::HTTP_BAD_REQUEST)
-                );
-            } else {
-                $response = $this->directLinkResponse(
-                    $responseType,
-                    $executionException->getStatusCode(),
-                    $executionException->getDetails(),
-                    $reason
-                );
-            }
+            $response = $this->directLinkResponse(
+                $directLink,
+                $action,
+                $responseType,
+                $executionException->getStatusCode(),
+                $executionException->getDetails(),
+                $reason
+            );
             $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
                 ->setIntParam($directLink->getId())
                 ->setTextParam(json_encode(['reason' => $reason->getValue(), 'details' => $executionException->getDetails()]))
@@ -217,11 +220,20 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     private function directLinkResponse(
+        DirectLink $directLink,
+        $action,
         string $responseType,
         int $responseCode,
         array $data = [],
         DirectLinkExecutionFailureReason $failureReason = null
     ): Response {
+        if ($responseType == 'html') {
+            return $this->render(
+                '@Supla/ExecuteDirectLink/directLinkHtmlResponse.html.twig',
+                ['directLink' => $directLink, 'action' => $action, 'failureReason' => $failureReason, 'details' => $data],
+                new Response('', $responseCode)
+            );
+        }
         if ($responseType == 'html' || $responseType == 'plain') {
             $message = '';
             if ($data) {
