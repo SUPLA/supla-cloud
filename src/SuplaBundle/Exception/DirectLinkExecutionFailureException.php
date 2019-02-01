@@ -20,8 +20,21 @@ namespace SuplaBundle\Exception;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use Symfony\Component\HttpFoundation\Response;
 
-class InactiveDirectLinkException extends DirectLinkExecutionFailureException {
-    public function __construct(DirectLinkExecutionFailureReason $reason) {
-        parent::__construct($reason, [], Response::HTTP_CONFLICT);
+class DirectLinkExecutionFailureException extends ApiExceptionWithDetails {
+    /** @var DirectLinkExecutionFailureReason */
+    private $reason;
+
+    public function __construct(
+        DirectLinkExecutionFailureReason $reason,
+        array $data = [],
+        int $statusCode = Response::HTTP_BAD_REQUEST,
+        \Exception $previous = null
+    ) {
+        parent::__construct($reason->getLabel(), $data, $statusCode, $previous);
+        $this->reason = $reason;
+    }
+
+    public function getReason(): DirectLinkExecutionFailureReason {
+        return $this->reason;
     }
 }
