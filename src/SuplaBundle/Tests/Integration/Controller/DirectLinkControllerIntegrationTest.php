@@ -24,6 +24,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -193,9 +194,13 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $directLink = $this->testCreatingDirectLink();
         $client = $this->createClient();
         $client->enableProfiler();
-        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]X/turn-on");
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]X/turn-on", [], [], ['HTTP_ACCEPT' => '*/*']);
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertFalse($content['success']);
+        $this->assertEquals(DirectLinkExecutionFailureReason::INVALID_SLUG, $content['reason']);
+        $this->assertEquals('Given verification code is not valid.', $content['message']);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
     }
@@ -236,19 +241,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
     }
 
-    public function testReadingDirectDefaultsToJson() {
-        $directLink = $this->testCreatingDirectLink();
-        $client = $this->createClient();
-        $client->enableProfiler();
-        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => '*/*']);
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $content = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('on', $content);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
-    }
-
     public function testCreatingDirectLinkForChannelGroup() {
         $response = $this->createDirectLink([
             'caption' => 'My link',
@@ -281,7 +273,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $directLink = $this->testCreatingDirectLinkForChannelGroup();
         $client = $this->createClient();
         $client->enableProfiler();
-        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read");
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => '*/*']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
