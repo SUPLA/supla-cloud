@@ -1,5 +1,7 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
+{% set page_title = directLink.caption %}
+
 {% block beforeVue %}
     <script>
         window.directLink = {{ directLink | json_encode | raw }};

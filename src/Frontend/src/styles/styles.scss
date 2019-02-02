@@ -423,6 +423,10 @@ body.warning {
     justify-content: center;
     flex-direction: column;
   }
+
+  .btn-group {
+    display: flex;
+  }
 }
 
 .list-group-item {
