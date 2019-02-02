@@ -36,37 +36,25 @@
                 class="form-group">
                 <div v-if="!action">
                     <h1>{{ directLink.caption }}</h1>
-
-                    <div v-if="directLink.state"
-                        class="form-group">
-                        <h3>{{ stateCaption }}</h3>
-                        <div class="form-group">
-                            <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state}"
-                                width="100"></function-icon>
-                            <channel-state-table :state="directLink.state"></channel-state-table>
-                        </div>
-                        <button type="button"
-                            :disabled="refreshingState"
-                            @click="refreshState()"
-                            class="btn btn-xs btn-default">
-                            <i class="pe-7s-refresh-2"></i>
-                            {{ $t('Refresh') }}
-                        </button>
-                    </div>
-
-                    <div style="max-width: 600px; margin: 0 auto"
+                    <direct-link-channel-status v-if="directLink.allowedActions.filter(f => f.name === 'READ').length"
+                        :direct-link="directLink"></direct-link-channel-status>
+                    <div style="max-width: 850px; margin: 0 auto"
                         class="text-left">
                         <div v-for="allowedAction in directLink.allowedActions"
                             class="form-group">
                             <div class="flex-left-full-width">
-                                <pre><code>{{ currentUrl }}/{{ allowedAction.nameSlug }}</code></pre>
+                                <pre><code>{{ exampleUrl(allowedAction) }}</code></pre>
                                 <div class="btn-group">
-                                    <copy-button :text="currentUrl"></copy-button>
-                                    <button class="btn btn-success"
+                                    <copy-button :text="currentUrl + '/' + allowedAction.nameSlug"></copy-button>
+                                    <button :class="'btn btn-' + (allowedAction.executed ? 'success' : 'default')"
+                                        :disabled="allowedAction.executing"
                                         type="button"
                                         v-if="['READ', 'SET_RGBW_PARAMETERS', 'REVEAL_PARTIALLY'].indexOf(allowedAction.name) === -1"
                                         @click="executeAction(allowedAction)">
-                                        Wykonaj
+                                        <span>
+                                            <i :class="'pe-7s-' + (allowedAction.executed ? 'check' : 'rocket')"></i>
+                                            {{ allowedAction.executed ? $t('executed') : $t('execute') }}
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -74,19 +62,7 @@
                     </div>
                 </div>
                 <div v-else-if="directLink.state">
-                    <h1>{{ stateCaption }}</h1>
-                    <div class="form-group">
-                        <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state}"
-                            width="100"></function-icon>
-                        <channel-state-table :state="directLink.state"></channel-state-table>
-                    </div>
-                    <button type="button"
-                        :disabled="refreshingState"
-                        @click="refreshState()"
-                        class="btn btn-xs btn-default">
-                        <i class="pe-7s-refresh-2"></i>
-                        {{ $t('Refresh') }}
-                    </button>
+                    <direct-link-channel-status :direct-link="directLink"></direct-link-channel-status>
                 </div>
                 <div v-else>
                     <h1 class="nocapitalize">{{ $t('Direct link has been executed') }}</h1>
@@ -114,48 +90,45 @@
 </template>
 
 <script type="text/babel">
-    import LoginFooter from "../login/login-footer";
-    import FunctionIcon from "../channels/function-icon";
-    import ChannelStateTable from "../channels/channel-state-table";
-    import {channelTitle} from "../common/filters";
-    import CopyButton from "../common/copy-button";
+    import LoginFooter from "../../login/login-footer";
+    import CopyButton from "../../common/copy-button";
+    import DirectLinkChannelStatus from "./direct-link-channel-status";
 
     export default {
         props: ['failureReason', 'action'],
-        components: {CopyButton, ChannelStateTable, FunctionIcon, LoginFooter},
+        components: {DirectLinkChannelStatus, CopyButton, LoginFooter},
         data() {
             return {
                 directLink: undefined,
-                jsonHintVisible: false,
-                refreshingState: false
+                jsonHintVisible: false
             };
         },
         mounted() {
             this.directLink = window.directLink;
-            if (!this.action && this.directLink.allowedActions.filter(f => f.name === 'READ').length) {
-                this.refreshState();
-            }
         },
         methods: {
-            refreshState() {
-                this.refreshingState = true;
-                this.$http.get(this.readStateUrl)
-                    .then(response => this.directLink.state = response.body)
-                    .finally(() => this.refreshingState = false);
-            },
             executeAction(action) {
-                this.$http.get(this.currentUrl + '/' + action.nameSlug);
+                this.$set(action, 'executing', true);
+                this.$http.get(this.currentUrl + '/' + action.nameSlug)
+                    .then(() => {
+                        this.$set(action, 'executed', true);
+                        setTimeout(() => this.$set(action, 'executed', false), 3000);
+                    })
+                    .finally(() => this.$set(action, 'executing', false));
+            },
+            exampleUrl(action) {
+                let url = this.currentUrl + '/' + action.nameSlug;
+                if (action.nameSlug === 'set-rgbw-parameters') {
+                    if (this.directLink.subject.function.name === 'RGBLIGHTING') {
+                        url += '?color_brightness=40&color=0x00FF33';
+                    }
+                }
+                return url;
             }
         },
         computed: {
             currentUrl() {
                 return window.location.protocol + "//" + window.location.host + window.location.pathname;
-            },
-            readStateUrl() {
-                return this.currentUrl.indexOf('/read') > 0 ? this.currentUrl : this.currentUrl + '/read';
-            },
-            stateCaption() {
-                return channelTitle(this.directLink.subject, this, false).replace(/^ID[0-9]+/, '');
             }
         }
     };

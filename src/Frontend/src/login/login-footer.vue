@@ -50,6 +50,7 @@
         z-index: 10;
         @include on-and-down(500px) {
             position: static;
+            margin-top: 10px;
             .col-sm-4 {
                 padding-top: 5px;
                 text-align: center !important;
@@ -57,6 +58,7 @@
         }
         @media (max-height: 500px) {
             position: static;
+            margin-top: 10px;
             .col-sm-4 {
                 padding-top: 5px;
                 text-align: center !important;
