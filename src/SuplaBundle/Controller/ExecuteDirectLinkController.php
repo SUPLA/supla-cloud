@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -73,9 +74,10 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     /**
+     * @Route("/direct/{directLink}", methods={"PATCH"})
      * @Route("/direct/{directLink}/{slug}/{action}", methods={"GET", "PATCH"})
      */
-    public function executeDirectLinkAction(DirectLink $directLink, string $slug, string $action, Request $request) {
+    public function executeDirectLinkAction(DirectLink $directLink, Request $request, string $slug = null, string $action = null) {
         if ($directLink->getDisableHttpGet() && $request->isMethod(Request::METHOD_GET)) {
             $errorMessage = 'The action was prevented from being performed using an HTTP GET method that is not permitted.'; // i18n
             $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
@@ -86,6 +88,14 @@ class ExecuteDirectLinkController extends Controller {
                 ['success' => false, 'error' => $errorMessage . ' You need to use HTTP PATCH request to execute this link.'],
                 Response::HTTP_METHOD_NOT_ALLOWED
             );
+        }
+        if (!$slug) {
+            $requestPayload = $request->request->all();
+            Assertion::isArray($requestPayload, 'Invalid request data.');
+            Assertion::keyExists($requestPayload, 'code', 'The code value is required in request body.');
+            Assertion::keyExists($requestPayload, 'action', 'The action value is required in request body.');
+            $slug = $requestPayload['code'];
+            $action = $requestPayload['action'];
         }
         try {
             try {

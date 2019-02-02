@@ -447,6 +447,7 @@ Wednesdays: Środy
 Weight sensor: Waga
 What this token is for?: Do czego służy ten token?
 When: Kiedy
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.': 'Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziej przykładowe wykonanie za pomocą narzędzia cURL.'
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
 White: Biały
 Wind sensor: Czujnik wiatru
@@ -454,6 +455,7 @@ Window opening sensor: Czujnik otwarcia okna
 With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz sterować oświetleniem w Twoim domu lub biurze
 With function: Z funkcją
 Working period: Okres działania
+YOUR LINK CODE: KOD TWOJEGO LINKU
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
