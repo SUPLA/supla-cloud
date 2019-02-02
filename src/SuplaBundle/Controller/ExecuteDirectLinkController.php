@@ -20,7 +20,6 @@ namespace SuplaBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -85,11 +84,10 @@ class ExecuteDirectLinkController extends Controller {
 
     /**
      * @Route("/direct/{directLink}/{slug}", methods={"GET"})
-     * @Template()
      */
     public function directLinkOptionsAction(DirectLink $directLink, string $slug) {
         $this->ensureLinkCanBeUsed($directLink, $slug);
-        return ['directLink' => $directLink];
+        return $this->directLinkResponse($directLink, null, 'html', Response::HTTP_OK);
     }
 
     /**
@@ -215,9 +213,11 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     private function determineResponseType(Request $request): string {
-        if (in_array('text/html', $request->getAcceptableContentTypes())) {
+        if ($request->isMethod(Request::METHOD_PATCH) || in_array('application/json', $request->getAcceptableContentTypes())) {
+            return 'json';
+        } elseif (in_array('text/html', $request->getAcceptableContentTypes())) {
             return 'html';
-        } else if (in_array('text/plain', $request->getAcceptableContentTypes())) {
+        } elseif (in_array('text/plain', $request->getAcceptableContentTypes())) {
             return 'plain';
         } else {
             return 'json';
@@ -235,6 +235,8 @@ class ExecuteDirectLinkController extends Controller {
         if ($responseType == 'html') {
             $normalized = [
                 'id' => $directLink->getId(),
+                'caption' => $directLink->getCaption(),
+                'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, ['groups' => ['basic']]),
                 'subject' => $this->normalizer->normalize($directLink->getSubject(), null, ['groups' => ['basic']]),
                 'state' => $data ?: null
 //                'userIcon' => $this->normalizer->normalize($directLink->getSubject()->getUserIcon(), null, ['groups' => ['images']])
@@ -244,8 +246,7 @@ class ExecuteDirectLinkController extends Controller {
                 ['directLink' => $normalized, 'action' => $action, 'failureReason' => $failureReason],
                 new Response('', $responseCode)
             );
-        }
-        if ($responseType == 'html' || $responseType == 'plain') {
+        } elseif ($responseType == 'plain') {
             $message = '';
             if ($data) {
                 $data = array_map(function ($value, $key) {
@@ -259,10 +260,6 @@ class ExecuteDirectLinkController extends Controller {
             }
             if (!$message) {
                 $message = 'OK';
-            }
-            if ($responseType == 'html') {
-                $htmlColor = $failureReason ? 'red' : 'green';
-                $message = '<div style="color: ' . $htmlColor . '">' . nl2br($message) . '</div>';
             }
             return new Response($message, $responseCode, ['Content-Type' => 'text/' . $responseType]);
         } else {

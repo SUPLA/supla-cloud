@@ -1,55 +1,55 @@
 <template>
-    <div v-if="state">
-        <dl v-if="state.temperature !== undefined">
+    <div v-if="currentState">
+        <dl v-if="currentState.temperature !== undefined">
             <dd>{{ $t('Temperature') }}</dd>
-            <dt>{{ state.temperature }}&deg;C</dt>
+            <dt>{{ currentState.temperature }}&deg;C</dt>
         </dl>
-        <dl v-if="state.humidity !== undefined">
+        <dl v-if="currentState.humidity !== undefined">
             <dd>{{ $t('Humidity') }}</dd>
-            <dt>{{ state.humidity }}%</dt>
+            <dt>{{ currentState.humidity }}%</dt>
         </dl>
-        <dl v-if="state.depth !== undefined">
+        <dl v-if="currentState.depth !== undefined">
             <dd>{{ $t('Depth') }}</dd>
-            <dt>{{ state.depth }}m</dt>
+            <dt>{{ currentState.depth }}m</dt>
         </dl>
-        <dl v-if="state.distance !== undefined">
+        <dl v-if="currentState.distance !== undefined">
             <dd>{{ $t('Distance') }}</dd>
-            <dt>{{ state.distance }}m</dt>
+            <dt>{{ currentState.distance }}m</dt>
         </dl>
-        <dl v-if="state.color_brightness">
+        <dl v-if="currentState.color_brightness">
             <dd>{{ $t('Color') }}</dd>
             <dt>
                 <span class="rgb-color-preview"
-                    :style="{'background-color': cssColor(state.color)}"></span>
+                    :style="{'background-color': cssColor(currentState.color)}"></span>
             </dt>
             <dd>{{ $t('Color brightness') }}</dd>
-            <dt>{{state.color_brightness}}%</dt>
+            <dt>{{currentState.color_brightness}}%</dt>
         </dl>
-        <dl v-if="state.brightness">
+        <dl v-if="currentState.brightness">
             <dd>{{ $t('Brightness') }}</dd>
-            <dt>{{state.brightness}}%</dt>
+            <dt>{{currentState.brightness}}%</dt>
         </dl>
-        <dl v-if="state.is_calibrating">
+        <dl v-if="currentState.is_calibrating">
             <dd>{{ $t('Calibration') }}</dd>
             <dt></dt>
         </dl>
-        <dl v-if="state.shut !== undefined">
+        <dl v-if="currentState.shut !== undefined">
             <dd>{{ $t('Percentage of closing') }}</dd>
-            <dt>{{state.shut}}%</dt>
+            <dt>{{currentState.shut}}%</dt>
         </dl>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['channel', 'singleState'],
+        props: ['channel', 'state'],
         data() {
             return {
                 timer: undefined,
             };
         },
         mounted() {
-            if (!this.singleState) {
+            if (!this.state) {
                 this.fetchState();
                 this.timer = setInterval(() => this.fetchState(), 7000);
             }
@@ -65,8 +65,8 @@
             }
         },
         computed: {
-            state() {
-                return this.singleState || this.channel.state;
+            currentState() {
+                return this.state || this.channel.state;
             }
         },
         beforeDestroy() {
