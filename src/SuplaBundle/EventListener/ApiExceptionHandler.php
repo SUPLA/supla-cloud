@@ -39,8 +39,8 @@ class ApiExceptionHandler implements EventSubscriberInterface {
 
     public function onException(GetResponseForExceptionEvent $event) {
         $request = $event->getRequest();
-        $isApiRequest = preg_match('#/api/#', $request->getRequestUri());
-        if ($isApiRequest || in_array('application/json', $request->getAcceptableContentTypes())) {
+        $isApiRequest = preg_match('#/(web-)?api/#', $request->getRequestUri());
+        if ($isApiRequest) {
             $errorResponse = $this->chooseErrorResponse($event->getException());
             $event->setResponse($errorResponse);
             $exception = $event->getException();

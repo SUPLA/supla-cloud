@@ -73,11 +73,6 @@
                                                     v-model="directLink.disableHttpGet"></toggler>
                                             </dt>
                                         </dl>
-                                        <div class="help-block small"
-                                            v-if="directLink.disableHttpGet">
-                                            {{ $t('When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.') }}
-                                            <pre style="margin-top: 5px"><code>{{examplePatchBody}}</code></pre>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -312,16 +307,6 @@
             },
             fullUrl() {
                 return this.item && this.item.url || '';
-            },
-            urlWithoutSecret() {
-                return this.$user.serverUrl + '/direct/' + this.directLink.id;
-            },
-            linkSecret() {
-                return this.fullUrl ? this.fullUrl.substr(this.fullUrl.lastIndexOf('/') + 1) : this.$t('YOUR LINK CODE');
-            },
-            examplePatchBody() {
-                return `curl -s -H "Content-Type: application/json" -H "Accept: application/json" -X PATCH ` +
-                    `-d '{"code":"${this.linkSecret}","action":"read"}' ${this.urlWithoutSecret}`;
             }
         },
         watch: {
