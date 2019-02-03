@@ -85,26 +85,40 @@ class ExecuteDirectLinkController extends Controller {
     /**
      * @Route("/direct/{directLink}/{slug}", methods={"GET"})
      */
-    public function directLinkOptionsAction(DirectLink $directLink, string $slug) {
-        $this->ensureLinkCanBeUsed($directLink, $slug);
-        return $this->directLinkResponse($directLink, null, 'html', Response::HTTP_OK);
+    public function directLinkOptionsAction(Request $request, DirectLink $directLink) {
+        return $this->returnDirectLinkErrorIfException($request, $directLink, function () use ($directLink, $request) {
+            $this->ensureLinkCanBeUsed($request, $directLink, $request->get('slug', ''));
+            return $this->directLinkResponse($directLink, null, 'html', Response::HTTP_OK);
+        });
     }
 
     /**
      * @Route("/direct/{directLink}", methods={"PATCH"})
      * @Route("/direct/{directLink}/{slug}/{action}", methods={"GET", "PATCH"})
      */
-    public function executeDirectLinkAction(DirectLink $directLink, Request $request, string $slug = null, string $action = null) {
-        $responseType = $this->determineResponseType($request);
-        try {
-            $action = $this->ensureLinkCanBeExecuted($directLink, $request, $slug, $action);
+    public function executeDirectLinkAction(Request $request, DirectLink $directLink) {
+        return $this->returnDirectLinkErrorIfException($request, $directLink, function () use ($directLink, $request) {
+            $responseType = $this->determineResponseType($request);
+            list($slug, $action) = $this->getSlugAndAction($request);
+            $this->ensureLinkCanBeExecuted($directLink, $request, $slug, $action);
             $executionResult = $this->executeDirectLink($directLink, $request, $action);
             $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION())
                 ->setIntParam($directLink->getId())
                 ->setTextParam($action->getValue())
                 ->buildAndSave();
+            $directLink->markExecution($request);
+            $this->entityManager->persist($directLink);
             $responseStatus = $action == ChannelFunctionAction::READ() ? Response::HTTP_OK : Response::HTTP_ACCEPTED;
-            $response = $this->directLinkResponse($directLink, $action, $responseType, $responseStatus, $executionResult);
+            return $this->directLinkResponse($directLink, $action, $responseType, $responseStatus, $executionResult);
+        });
+    }
+
+    private function returnDirectLinkErrorIfException(Request $request, DirectLink $directLink, callable $callback) {
+        $responseType = $this->determineResponseType($request);
+        try {
+            $result = $callback();
+            $this->entityManager->flush();
+            return $result;
         } catch (DirectLinkExecutionFailureException $executionException) {
         } catch (\Exception $otherException) {
             $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
@@ -130,33 +144,39 @@ class ExecuteDirectLinkController extends Controller {
                 $otherException
             );
         }
-        $directLink->markExecution($request);
-        $this->entityManager->persist($directLink);
-        if (isset($executionException)) {
-            $reason = $executionException->getReason();
-            $response = $this->directLinkResponse(
-                $directLink,
-                $action,
-                $responseType,
-                $executionException->getStatusCode(),
-                $executionException->getDetails(),
-                $reason
-            );
-            $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
-                ->setIntParam($directLink->getId())
-                ->setTextParam(json_encode(['reason' => $reason->getValue(), 'details' => $executionException->getDetails()]))
-                ->buildAndSave();
+        $reason = $executionException->getReason();
+        try {
+            $action = $this->getSlugAndAction($request)[1];
+        } catch (\Exception $e) {
+            $action = $request->get('action', null);
         }
+        $response = $this->directLinkResponse(
+            $directLink,
+            $action,
+            $responseType,
+            $executionException->getStatusCode(),
+            $executionException->getDetails(),
+            $reason
+        );
+        $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
+            ->setIntParam($directLink->getId())
+            ->setTextParam(json_encode(['reason' => $reason->getValue(), 'details' => $executionException->getDetails()]))
+            ->buildAndSave();
         $this->entityManager->flush();
         return $response;
     }
 
-    private function ensureLinkCanBeExecuted(
-        DirectLink $directLink,
-        Request $request,
-        string $slug = null,
-        string $action = null
-    ): ChannelFunctionAction {
+    private function ensureLinkCanBeExecuted(DirectLink $directLink, Request $request, string $slug, ChannelFunctionAction $action) {
+        $this->ensureLinkCanBeUsed($request, $directLink, $slug);
+        if (!in_array($action, $directLink->getAllowedActions())) {
+            throw new DirectLinkExecutionFailureException(
+                DirectLinkExecutionFailureReason::FORBIDDEN_ACTION(),
+                ['action_id' => $action->getValue(), 'action_name' => $action->getNameSlug()]
+            );
+        }
+    }
+
+    private function ensureLinkCanBeUsed(Request $request, DirectLink $directLink, string $slug) {
         if ($directLink->getDisableHttpGet() && $request->isMethod(Request::METHOD_GET)) {
             throw new DirectLinkExecutionFailureException(
                 DirectLinkExecutionFailureReason::HTTP_GET_FORBIDDEN(),
@@ -164,30 +184,32 @@ class ExecuteDirectLinkController extends Controller {
                 Response::HTTP_METHOD_NOT_ALLOWED
             );
         }
-        if (!$slug) {
+        if (!$directLink->isValidSlug($slug, $this->encoderFactory->getEncoder($directLink))) {
+            throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::INVALID_SLUG(), [], Response::HTTP_FORBIDDEN);
+        }
+        $directLink->ensureIsActive();
+    }
+
+    private function getSlugAndAction(Request $request): array {
+        $slug = $request->get('slug');
+        $action = $request->get('action');
+        if (!$slug && $request->isMethod(Request::METHOD_PATCH)) {
             $requestPayload = $request->request->all();
             if (!is_array($requestPayload) || !isset($requestPayload['code']) || !isset($requestPayload['action'])) {
                 throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::NO_SLUG_OR_ACTION());
             }
             $slug = $requestPayload['code'];
             $action = $requestPayload['action'];
-            if (!$slug || !is_string($slug) || !is_string($action) || !$action) {
-                throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::NO_SLUG_OR_ACTION());
-            }
+        }
+        if (!$slug || !is_string($slug) || !is_string($action) || !$action) {
+            throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::NO_SLUG_OR_ACTION());
         }
         try {
             $action = ChannelFunctionAction::fromString($action);
         } catch (\InvalidArgumentException $e) {
             throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::UNSUPPORTED_ACTION(), ['action' => $action]);
         }
-        if (!in_array($action, $directLink->getAllowedActions())) {
-            throw new DirectLinkExecutionFailureException(
-                DirectLinkExecutionFailureReason::FORBIDDEN_ACTION(),
-                ['action_id' => $action->getValue(), 'action_name' => $action->getNameSlug()]
-            );
-        }
-        $this->ensureLinkCanBeUsed($directLink, $slug);
-        return $action;
+        return [$slug, $action];
     }
 
     private function executeDirectLink(DirectLink $directLink, Request $request, ChannelFunctionAction $action): array {
@@ -203,13 +225,6 @@ class ExecuteDirectLinkController extends Controller {
             $this->channelActionExecutor->executeAction($directLink->getSubject(), $action, $params);
             return [];
         }
-    }
-
-    private function ensureLinkCanBeUsed(DirectLink $directLink, string $slug) {
-        if (!$directLink->isValidSlug($slug, $this->encoderFactory->getEncoder($directLink))) {
-            throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::INVALID_SLUG(), [], Response::HTTP_FORBIDDEN);
-        }
-        $directLink->ensureIsActive();
     }
 
     private function determineResponseType(Request $request): string {
@@ -265,8 +280,8 @@ class ExecuteDirectLinkController extends Controller {
         } else {
             $response = $data ?: ['success' => !$failureReason];
             if ($failureReason) {
-                $response['reason'] = $failureReason->getValue();
-                $response['message'] = $this->translator->trans($failureReason->getValue());
+                $response['message'] = $failureReason->getValue();
+                $response['messageText'] = $this->translator->trans($failureReason->getValue());
             }
             return new JsonResponse($response, $responseCode);
         }

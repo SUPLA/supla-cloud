@@ -58,7 +58,7 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
             try {
                 $directLink->ensureIsActive();
             } catch (InactiveDirectLinkException $e) {
-                $normalized['inactiveReason'] = $e->getMessage();
+                $normalized['inactiveReason'] = $e->getReason()->getValue();
             }
         }
         return $normalized;

@@ -30,7 +30,7 @@ class DirectLinkExecutionFailureException extends ApiExceptionWithDetails {
         int $statusCode = Response::HTTP_BAD_REQUEST,
         \Exception $previous = null
     ) {
-        parent::__construct($reason->getLabel(), $data, $statusCode, $previous);
+        parent::__construct($reason->getValue(), $data, $statusCode, $previous);
         $this->reason = $reason;
     }
 
