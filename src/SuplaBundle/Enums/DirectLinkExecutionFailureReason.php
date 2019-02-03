@@ -46,25 +46,4 @@ final class DirectLinkExecutionFailureReason extends Enum {
     const INVALID_SLUG = 'directLinkExecutionFailureReason_invalidSlug'; // i18n
     const INVALID_ACTION_PARAMETERS = 'directLinkExecutionFailureReason_invalidActionParameters'; // i18n
     const OTHER_FAILURE = 'directLinkExecutionFailureReason_otherFailure'; // i18n
-
-    public function getLabel(): string {
-        return self::getLabels()[$this->getValue()];
-    }
-
-    public static function getLabels(): array {
-        return [
-            self::DISABLED => 'Direct link is disabled.',
-            self::NOT_ACTIVE_YET => 'Direct link is not active yet.',
-            self::EXPIRED => 'Direct link has expired.',
-            self::EXECUTION_LIMIT_EXCEEDED => 'Execution limit has been exceeded.',
-            self::NO_ALLOWED_ACTIONS => 'No allowed actions have been chosen.',
-            self::HTTP_GET_FORBIDDEN => 'The action was prevented from being performed using an HTTP GET method that is not permitted.',
-            self::NO_SLUG_OR_ACTION => 'Invalid request data: code and action required.',
-            self::UNSUPPORTED_ACTION => 'Requested action is not supported.',
-            self::FORBIDDEN_ACTION => 'The requested action is not allowed for this direct link.',
-            self::INVALID_SLUG => 'Given verification code is invalid.',
-            self::INVALID_ACTION_PARAMETERS => 'Invalid action parameters.',
-            self::OTHER_FAILURE => 'Direct link execution failure.',
-        ];
-    }
 }
