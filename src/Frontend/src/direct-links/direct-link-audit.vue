@@ -9,7 +9,7 @@
                     <strong>{{ functionLabel(entry.textParam) }}</strong>
                 </div>
                 <div v-else>
-                    {{ $t(entry.textParam) }}
+                    {{ errorEntryMessage(entry.textParam) }}
                 </div>
                 <div class="text-muted small">
                     {{ entry.createdAt | moment('LLL') }}
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+    import {safeJsonParse} from "../common/utils";
+
     export default {
         props: ['directLink'],
         data() {
@@ -64,6 +66,18 @@
             },
             functionLabel(functionId) {
                 return this.$t(this.possibleActions.filter(action => action.id == functionId)[0].caption);
+            },
+            errorEntryMessage(text) {
+                const failureData = safeJsonParse(text);
+                if (failureData) {
+                    let message = this.$t(failureData.reason);
+                    if (failureData.details && (failureData.details.action_name || failureData.details.action)) {
+                        message += ': ' + (failureData.details.action_name || failureData.details.action);
+                    }
+                    return message;
+                } else {
+                    return this.$t(text);
+                }
             }
         },
         computed: {
