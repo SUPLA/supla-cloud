@@ -5,7 +5,14 @@
             <p>{{ $t('For security reasons, the full URL of this direct link will be displayed only once, during creation.')}}</p>
             <p>{{ $t('Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.')}}</p>
         </div>
-
+        <div class="form-group text-center">
+            <a :href="url"
+                target="_blank"
+                class="btn btn-green">
+                <i class="pe-7s-next-2"></i>
+                {{ $t('See direct link possibilities') }}
+            </a>
+        </div>
         <ul class="nav nav-tabs">
             <li :class="currentAction == undefined ? 'active' : ''">
                 <a @click="currentAction = undefined">{{ $t('Let me choose later') }}</a>
