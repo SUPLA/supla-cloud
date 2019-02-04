@@ -225,7 +225,7 @@ Idle: Bezczynne
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeśli chcesz zintegrować prywatną chmurę SUPLA z publiczna aplikacją OAuth, musisz [zarejestrować swoją instancję].'
 'If you want to stay here, do something!': 'Jeśli chcesz tu zostać, zrób coś!'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jeśli chcesz użyć linku bezpośredniego w innym oprogoramiowaniu, dodaj odpowiedni nagłówek żądania by otrzymać odpowiedź łatwiejszą w przetworzeniu.'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jeśli chcesz użyć linku bezpośredniego w innym oprogramowaniu, dodaj odpowiedni nagłówek żądania by otrzymać odpowiedź łatwiejszą w przetworzeniu.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].'
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
