@@ -135,9 +135,6 @@ Dimmer & RGB led controller: Varialuce e controllore
 Dimmer and RGB lighting: Varialuce e illuminazione RGB
 Direct link: Link diretto
 Direct link has been created successfully!: Il link diretto è stato creato con successo!
-Direct link has expired.: Il link diretto è scaduto.
-Direct link is disabled.: Il link diretto è disabilitato
-Direct link is not active yet.: Il link diretto non è ancora attivo.
 'Direct link is not working right now. Reason:': 'In questo momento il link diretto non funziona. Causa. Powód:'
 Direct links: Link diretti
 Direct links below will be deleted: I link diretti di seguito elencati verranno rimossi
@@ -174,7 +171,6 @@ Executed action: Azione svolta
 Executed without confirmation: Eseguito senza confermare
 Execution history: Storico delle esecuzioni
 Execution limit: Limite delle esecuzioni
-Execution limit has been exceeded.: l limite delle esecuzioni è stato superato.
 Executions: Esecuzioni
 Existing schedules: Scadenzari esistenti
 Expired: Scaduto
@@ -230,7 +226,6 @@ Idle: Inattivi
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Se vuoi vedere le integrazioni disponibili, passa a [cloud.supla.org/apps].'
 Impulse counter: Contatore di impulsi
 Impulses: Impulsi
-Incorrect direct link parameters: Parametri del link diretto non corretti
 Information: Informazione
 Inherit I/O Device location: Utilizza la localizzazione del dispositivo I/O
 Integrations: Integrazioni
@@ -274,7 +269,6 @@ New password: Nuova password
 Newer: Più recenti
 Next run date: Prossima esecuzione
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nessun identificatore di accesso abilitato. Vai alla [Lista di identificatori di accesso] o [aggiungi un nuovo identificatore di accesso].'
-No allowed actions have been chosen.: Nessuna azione ammessa è stata selezionata.
 No function: Nessuna funzione
 No future executions - schedule disabled: Nessuna esecuzione programmata - scadenzario disabilitato
 No limit: Bez limitu
@@ -402,7 +396,6 @@ Temperature and humidity sensor: Sensore di temperatura e umidità
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Grazie alle integrazioni, puoi aggiungere facilmente le nuove funzioni al Tuo account, sfruttando le soluzioni fornite dai provider esterni, dai programmatori o da Te stesso.'
 The Terms and Conditions have changed: Il regolamento ha subito una modifica
 The Terms and Conditions have changed – please read them and accept.: Il regolamento ha subito una modifica – è richiesta la sua accettazione.
-The action was prevented from being performed using an HTTP GET method that is not permitted.: È stata impedita l'esecuzione dell'azione utilizzando il metodo  HTTP GET non autorizzato.
 The client will be automatically logged out when deleted.: Eliminare il cliente causerà la sua immediata disconnessione.
 The device is disabled: Il dispositivo è spento
 The gate sensor must function properly in order to execute the scheduled action.: 'Per effettuare un’azione programmata, il sensore di apertura del cancello deve funzionare correttamente.'
@@ -476,6 +469,13 @@ choose the timezone: seleziona il fusorario
 copied: copiato
 copy: copia
 daily: Ogni giorno
+directLinkExecutionFailureReason_disabled: Il link diretto è disabilitato
+directLinkExecutionFailureReason_executionLimitExceeded: l limite delle esecuzioni è stato superato.
+directLinkExecutionFailureReason_expired: Il link diretto è scaduto.
+directLinkExecutionFailureReason_httpGetForbidden: È stata impedita l'esecuzione dell'azione utilizzando il metodo  HTTP GET non autorizzato.
+directLinkExecutionFailureReason_invalidActionParameters: Parametri del link diretto non corretti
+directLinkExecutionFailureReason_noAllowedActions: Nessuna azione ammessa è stata selezionata.
+directLinkExecutionFailureReason_notActiveYet: Il link diretto non è ancora attivo.
 from IP: dall’indirizzo IP
 from the IP: dall’indirizzo
 hourly: Ogni ora
@@ -537,7 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Check the direct link you used and try again.: ~
+Direct link has been executed: ~
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
+Refresh: ~
+See direct link possibilities: ~
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.': ~
+Where is the JSON?: ~
 YOUR LINK CODE: ~
+directLinkExecutionFailureReason_forbiddenAction: ~
+directLinkExecutionFailureReason_invalidSlug: ~
+directLinkExecutionFailureReason_noSlugOrAction: ~
+directLinkExecutionFailureReason_otherFailure: ~
+directLinkExecutionFailureReason_unsupportedAction: ~
+execute: ~
+executed: ~
 
 #</editor-fold>

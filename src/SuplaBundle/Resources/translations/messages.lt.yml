@@ -135,9 +135,6 @@ Dimmer & RGB led controller: Šviesos srauto ir RGB apšvietimo reguliatorius
 Dimmer and RGB lighting: Šviesos srauto reguliatorius ir RGB apšvietimas
 Direct link: Tiesioginė nuoroda
 Direct link has been created successfully!: Tiesioginė nuoroda buvo sėkmingai sukurta!
-Direct link has expired.: Tiesioginė nuoroda prarado galiojimo laiką
-Direct link is disabled.: Tiesioginė nuoroda yra išjungta
-Direct link is not active yet.: Tiesioginė nuoroda dar nėra aktyvi
 'Direct link is not working right now. Reason:': 'Tiesioginė nuoroda šiuo metu neveikia. Priežastis:'
 Direct links: Tiesioginės nuorodos
 Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
@@ -174,7 +171,6 @@ Executed action: Atlikta akcija
 Executed without confirmation: Atlikta be patvirtinimo
 Execution history: Atlikimo istorija
 Execution limit: Atlikimo limitas
-Execution limit has been exceeded.: Buvo viršytas atlikimų limitas
 Executions: Atlikimai
 Existing schedules: Egzistuojantys tvarkaraščiai
 Expired: Pradelstas
@@ -230,7 +226,6 @@ Idle: Nenaudojamos
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].'
 Impulse counter: Impulsų skaitiklis
 Impulses: Impulsai
-Incorrect direct link parameters: Neteisingi tiesioginės nuorodos parametrai
 Information: Informacija
 Inherit I/O Device location: Naudokitės įrenginio vietos aptikimu
 Integrations: Įtrauktis
@@ -274,7 +269,6 @@ New password: Naujas slaptažodis
 Newer: Naujesnės
 Next run date: Artimiausias atlikimas
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Neturite jokių aktyvių prieigos identifikatorių. Eikite į [prieigos identifikatorių sąrašą] ir [pridėkite naują prieigos identifikatorių].'
-No allowed actions have been chosen.: Nebuvo pasirinkta jokių leidžiamų akcijų
 No function: Funkcijų nėra
 No future executions - schedule disabled: Nėra suplanuotų atlikimų – tvarkaraštis išjungtasy
 No limit: Be limito
@@ -402,7 +396,6 @@ Temperature and humidity sensor: Temperatūros ir drėgmės jutiklis
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.'
 The Terms and Conditions have changed: Taisyklės pasikeitė
 The Terms and Conditions have changed – please read them and accept.: Svetainės Taisyklės pasikeitė – būtinas sutikimas su jomis.
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
 The client will be automatically logged out when deleted.: 'Kliento pašalinimas sukels, kad jis iškart bus atjungtas.'
 The device is disabled: Įrenginys išjungtas
 The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
@@ -476,6 +469,13 @@ choose the timezone: pasirinkti laiko zoną
 copied: nukopijuota
 copy: kopijuoti
 daily: Dieninis ciklas
+directLinkExecutionFailureReason_disabled: Tiesioginė nuoroda yra išjungta
+directLinkExecutionFailureReason_executionLimitExceeded: Buvo viršytas atlikimų limitas
+directLinkExecutionFailureReason_expired: Tiesioginė nuoroda prarado galiojimo laiką
+directLinkExecutionFailureReason_httpGetForbidden: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
+directLinkExecutionFailureReason_invalidActionParameters: Neteisingi tiesioginės nuorodos parametrai
+directLinkExecutionFailureReason_noAllowedActions: Nebuvo pasirinkta jokių leidžiamų akcijų
+directLinkExecutionFailureReason_notActiveYet: Tiesioginė nuoroda dar nėra aktyvi
 from IP: iš IP adreso
 from the IP: iš adreso
 hourly: Valandinis ciklas
@@ -537,7 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Check the direct link you used and try again.: ~
+Direct link has been executed: ~
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
+Refresh: ~
+See direct link possibilities: ~
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.': ~
+Where is the JSON?: ~
 YOUR LINK CODE: ~
+directLinkExecutionFailureReason_forbiddenAction: ~
+directLinkExecutionFailureReason_invalidSlug: ~
+directLinkExecutionFailureReason_noSlugOrAction: ~
+directLinkExecutionFailureReason_otherFailure: ~
+directLinkExecutionFailureReason_unsupportedAction: ~
+execute: ~
+executed: ~
 
 #</editor-fold>

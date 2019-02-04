@@ -81,6 +81,7 @@ Channel groups: Grupy kanałów
 Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels: Kanały
+Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
 Check your email box: Sprawdź swoją skrzynkę email
 Choose: Wybierz
 Choose Access Identifiers to be assigned to this Location: 'Wybierz Identyfikatory Dostępu, które zostaną przypisane do tej Lokalizacji'
@@ -135,6 +136,7 @@ Dimmer & RGB led controller: Ściemniacz i kontroler oświetlenia RGB
 Dimmer and RGB lighting: Ściemniacz i oświetlenie RGB
 Direct link: Link bezpośredni
 Direct link has been created successfully!: Link bezpośredni został z powodzeniem utworzony!
+Direct link has been executed: Link bezpośredni został wykonany
 'Direct link is not working right now. Reason:': 'Link bezpośredni w tym momencie nie działa. Powód:'
 Direct links: Linki bezpośrednie
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
@@ -223,6 +225,7 @@ Idle: Bezczynne
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeśli chcesz zintegrować prywatną chmurę SUPLA z publiczna aplikacją OAuth, musisz [zarejestrować swoją instancję].'
 'If you want to stay here, do something!': 'Jeśli chcesz tu zostać, zrób coś!'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jeśli chcesz użyć linku bezpośredniego w innym oprogoramiowaniu, dodaj odpowiedni nagłówek żądania by otrzymać odpowiedź łatwiejszą w przetworzeniu.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].'
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
@@ -321,6 +324,7 @@ RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
 Random: Losowy
 Read: Odczyt
+Refresh: Odśwież
 Register: Rejestruj
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
 Register private SUPLA Cloud: Zarejestruj prywatną chmurę SUPLA
@@ -358,6 +362,7 @@ Scopes: Zakresy
 Scopes define which sections of your account can be accessed when using the token.: 'Zakresy określają, do których zasobów konta można uzyskać dostęp za pomocą tokena.'
 Search: Szukaj
 Secret: Sekretny klucz (secret)
+See direct link possibilities: Zobacz możliwości linku bezpośredniego
 Seems like a secret place: 'Coś nam mówi, że nie powinno Cię tu być'
 Select icon: Wybierz ikonę
 Select the item (subject) you want to control using this link: 'Wybierz element (podmiot), który chcesz kontrolować za pomocą tego linka'
@@ -400,6 +405,7 @@ The client will be automatically logged out when deleted.: Usunięcie klienta sp
 The device is disabled: Urządzenie jest wyłączone
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 The latest execution: Ostatnie wykonanie
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
 The measurement history has been deleted.: Historia pomiarów została usunięta.
 The next available executions: Najbliższe wykonania
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
@@ -441,6 +447,7 @@ Weight sensor: Waga
 What this token is for?: Do czego służy ten token?
 When: Kiedy
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.': 'Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziej przykładowe wykonanie za pomocą narzędzia cURL.'
+Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
 White: Biały
 Wind sensor: Czujnik wiatru
@@ -483,6 +490,8 @@ directLinkExecutionFailureReason_noSlugOrAction: Niepoprawne żądanie - kod lin
 directLinkExecutionFailureReason_notActiveYet: Link bezpośredni nie jest jeszcze aktywny
 directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
 directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
+execute: wykonaj
+executed: wykonano
 from IP: z adresu IP
 from the IP: z adresu
 hourly: Cykl godzinny
