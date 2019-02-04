@@ -446,7 +446,7 @@ Wednesdays: Środy
 Weight sensor: Waga
 What this token is for?: Do czego służy ten token?
 When: Kiedy
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziej przykładowe wykonanie za pomocą narzędzia cURL.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziesz przykładowe wykonanie za pomocą narzędzia cURL.'
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
 White: Biały
