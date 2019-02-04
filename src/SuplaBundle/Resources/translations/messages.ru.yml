@@ -135,9 +135,6 @@ Dimmer & RGB led controller: Диммер и контроллер освещен
 Dimmer and RGB lighting: Диммер и освещение RGB
 Direct link: Прямая ссылка
 Direct link has been created successfully!: Прямая ссылка успешно создана!
-Direct link has expired.: Прямая ссылка просрочена
-Direct link is disabled.: Прямая ссылка отключена
-Direct link is not active yet.: Прямая ссылка еще не активна
 'Direct link is not working right now. Reason:': 'Прямая ссылка в данный момент не работает. Причина:'
 Direct links: Прямые ссылки
 Direct links below will be deleted: 'Прямые ссылки, перечисленные ниже, будут удалены'
@@ -174,7 +171,6 @@ Executed action: Выполненное действие
 Executed without confirmation: Выполнено без подтверждения
 Execution history: История исполнений
 Execution limit: Лимит исполнений
-Execution limit has been exceeded.: Лимит исполнений превышен
 Executions: Реализации
 Existing schedules: Существующие графики
 Expired: Просрочен
@@ -230,7 +226,6 @@ Idle: Бездействующие
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Если вы хотите увидеть доступные интеграции, перейдите на [cloud.supla.org/apps].'
 Impulse counter: Счетчик импульсов
 Impulses: Импульсы
-Incorrect direct link parameters: Неверные параметры прямой ссылки
 Information: Информация
 Inherit I/O Device location: Использовать местоположение устройства
 Integrations: Интеграции
@@ -274,7 +269,6 @@ New password: Новый пароль
 Newer: Новые
 Next run date: Ближайшее исполнение
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'У вас нет активных идентификаторов доступа. Перейти к [списку идентификаторов доступа] или [добавить новый идентификатор доступа].'
-No allowed actions have been chosen.: Никаких допустимых действий не выбрано
 No function: Не назначено
 No future executions - schedule disabled: Нет запланированных исполнений – график выключен
 No limit: Без лимита
@@ -402,7 +396,6 @@ Temperature and humidity sensor: Датчик температуры и влаж
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Благодаря интеграциям вы можете легко добавлять новые функции в свою учетную запись, используя решения, предоставляемые сторонними поставщиками, разработчиками, или свои собственные.'
 The Terms and Conditions have changed: Правила изменились
 The Terms and Conditions have changed – please read them and accept.: Правила сайта изменились - требуется согласие.
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Не удалось выполнить действия с использованием запрещенного метода HTTP GET.
 The client will be automatically logged out when deleted.: Удаление клиента приведет к его немедленному выходу из системы.
 The device is disabled: Оборудование выключено
 The gate sensor must function properly in order to execute the scheduled action.: 'Чтобы выполнить задачу, датчик открытия ворот должен работать правильно.'
@@ -476,6 +469,13 @@ choose the timezone: выбрать часовой пояс
 copied: скопировано
 copy: копировать
 daily: Дневной цикл
+directLinkExecutionFailureReason_disabled: Прямая ссылка отключена
+directLinkExecutionFailureReason_executionLimitExceeded: Лимит исполнений превышен
+directLinkExecutionFailureReason_expired: Прямая ссылка просрочена
+directLinkExecutionFailureReason_httpGetForbidden: Не удалось выполнить действия с использованием запрещенного метода HTTP GET.
+directLinkExecutionFailureReason_invalidActionParameters: Неверные параметры прямой ссылки
+directLinkExecutionFailureReason_noAllowedActions: Никаких допустимых действий не выбрано
+directLinkExecutionFailureReason_notActiveYet: Прямая ссылка еще не активна
 from IP: c IP
 from the IP: с адреса
 hourly: Ежечасный цикл
@@ -537,7 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Check the direct link you used and try again.: ~
+Direct link has been executed: ~
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
+Refresh: ~
+See direct link possibilities: ~
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.': ~
+Where is the JSON?: ~
 YOUR LINK CODE: ~
+directLinkExecutionFailureReason_forbiddenAction: ~
+directLinkExecutionFailureReason_invalidSlug: ~
+directLinkExecutionFailureReason_noSlugOrAction: ~
+directLinkExecutionFailureReason_otherFailure: ~
+directLinkExecutionFailureReason_unsupportedAction: ~
+execute: ~
+executed: ~
 
 #</editor-fold>

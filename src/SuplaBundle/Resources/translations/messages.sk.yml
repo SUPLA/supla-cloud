@@ -135,9 +135,6 @@ Dimmer & RGB led controller: Stmievač a radič RGB osvetlenia
 Dimmer and RGB lighting: Stmievač a RGB osvetlenie
 Direct link: Priamy odkaz
 Direct link has been created successfully!: Priamy odkaz bol úspešne vytvorený!
-Direct link has expired.: Platnosť priameho odkazu uplynula
-Direct link is disabled.: Priamy odkaz je vypnutý
-Direct link is not active yet.: Priamy odkaz ešte nie je aktívny
 'Direct link is not working right now. Reason:': 'Priamy odkaz v tejto chvíli nefunguje. Dôvod:'
 Direct links: Prieme odkazy
 Direct links below will be deleted: Nižšie vymenované priame odkaz budú odstránené
@@ -174,7 +171,6 @@ Executed action: Vykonaná akcia
 Executed without confirmation: Vykonané bez potvrdenia
 Execution history: História vykonaní
 Execution limit: Limit vykonaní
-Execution limit has been exceeded.: Bol prekročený limit vykonaní
 Executions: Vykonania
 Existing schedules: Existujúce harmonogramy
 Expired: Po termíne
@@ -230,7 +226,6 @@ Idle: Nečinné
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Ak si chcete pozrieť dostupné integrácie, prejdite na [cloud.supla.org/apps].'
 Impulse counter: Počítadlo impulzov
 Impulses: Impulzy
-Incorrect direct link parameters: Nesprávne parametre priameho odkazu
 Information: Informácia
 Inherit I/O Device location: Používajte polohu zariadenia
 Integrations: Integrácie
@@ -274,7 +269,6 @@ New password: Nové heslo
 Newer: Novšie
 Next run date: Najbližšie vykonanie
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nemáte žiadne aktívne identifikátory prístupu. Prejdite na [zoznam identifikátorov prístupu] alebo [pridajte nový identifikátor prístupu].'
-No allowed actions have been chosen.: Nie sú vybrané žiadny povolené akcie
 No function: Žiadna funkcia
 No future executions - schedule disabled: Žiadne naplánované vykonania – harmonogram je vypnutý
 No limit: Bez limitu
@@ -402,7 +396,6 @@ Temperature and humidity sensor: Snímač teploty a vlhkosti
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Vďaka integráciám môžete k vášmu účtu jednoduchým spôsobom pridávať nové funkcie, používať riešenia dodávané externými dodávateľmi, programátormi alebo vlastné riešenia.'
 The Terms and Conditions have changed: Podmienky sa zmenili
 The Terms and Conditions have changed – please read them and accept.: Podmienky služby sa zmenili – je potrebný opätovný súhlas.
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Vykonanie akcie je chránené pred vykonaním zakázaním použitia metódy HTTP GET.
 The client will be automatically logged out when deleted.: 'Keď odstránite klienta, bude okamžite odhlásený.'
 The device is disabled: Zariadenie je vypnuté
 The gate sensor must function properly in order to execute the scheduled action.: Na vykonanie akcie musí snímač otvorenia brány fungovať správne.
@@ -476,6 +469,13 @@ choose the timezone: vyberte časové pásmo
 copied: skopírované
 copy: kopírovať
 daily: Denný cyklus
+directLinkExecutionFailureReason_disabled: Priamy odkaz je vypnutý
+directLinkExecutionFailureReason_executionLimitExceeded: Bol prekročený limit vykonaní
+directLinkExecutionFailureReason_expired: Platnosť priameho odkazu uplynula
+directLinkExecutionFailureReason_httpGetForbidden: Vykonanie akcie je chránené pred vykonaním zakázaním použitia metódy HTTP GET.
+directLinkExecutionFailureReason_invalidActionParameters: Nesprávne parametre priameho odkazu
+directLinkExecutionFailureReason_noAllowedActions: Nie sú vybrané žiadny povolené akcie
+directLinkExecutionFailureReason_notActiveYet: Priamy odkaz ešte nie je aktívny
 from IP: z IP adresy
 from the IP: z adresy
 hourly: Hodinový cyklus
@@ -537,7 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Check the direct link you used and try again.: ~
+Direct link has been executed: ~
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
+Refresh: ~
+See direct link possibilities: ~
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.': ~
+Where is the JSON?: ~
 YOUR LINK CODE: ~
+directLinkExecutionFailureReason_forbiddenAction: ~
+directLinkExecutionFailureReason_invalidSlug: ~
+directLinkExecutionFailureReason_noSlugOrAction: ~
+directLinkExecutionFailureReason_otherFailure: ~
+directLinkExecutionFailureReason_unsupportedAction: ~
+execute: ~
+executed: ~
 
 #</editor-fold>

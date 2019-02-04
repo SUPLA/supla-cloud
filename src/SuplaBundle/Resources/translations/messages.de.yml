@@ -135,9 +135,6 @@ Dimmer & RGB led controller: Helligkeitsregler und RGB-Beleuchtungskontroller
 Dimmer and RGB lighting: Helligkeitsregler und RGB-Beleuchtung
 Direct link: Direkter Link
 Direct link has been created successfully!: Direkter Link wurde erfolgreich erstellt
-Direct link has expired.: Der direkte Link ist abgelaufen
-Direct link is disabled.: Direkter link ist deaktiviert
-Direct link is not active yet.: Der direkte Link ist noch nicht aktiv
 'Direct link is not working right now. Reason:': 'Der direkte Link funktioniert momentan nicht. Grund:'
 Direct links: Direkte Links
 Direct links below will be deleted: Die unten aufgeführten direkten Links werden gelöscht
@@ -174,7 +171,6 @@ Executed action: Ausgeführte Handlung
 Executed without confirmation: Ohne Bestätigung ausgeführt
 Execution history: Verlauf der Ausführungen
 Execution limit: Ausführungslimit
-Execution limit has been exceeded.: Der Ausführungslimit wurde überschritten
 Executions: Ausführungen
 Existing schedules: Bestehende/existierende Harmonogramme
 Expired: abgelaufen
@@ -230,7 +226,6 @@ Idle: Untätig
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Wenn Sie die verfügbaren Integrationen sehen möchten, gehen Sie zu [cloud.supla.org/apps].'
 Impulse counter: Impulszähler
 Impulses: Impulse
-Incorrect direct link parameters: Falsche Link Parameter
 Information: Information
 Inherit I/O Device location: Verwenden Sie die Lokalisierung des Geräts
 Integrations: Integrationen
@@ -274,7 +269,6 @@ New password: Neuer Kennwort
 Newer: Neuere
 Next run date: Nächste Ausführung
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Sie haben keine aktive Zugriffskennung. Gehen Sie zu [Liste der Zugriffskennungen] oder[neue Zugriffskennung hinzufügen].'
-No allowed actions have been chosen.: Es wurde keine der zulässigen Aktivitäten ausgewählt
 No function: Keine Funktion
 No future executions - schedule disabled: Keine vorausgeplanten Ausführungen- Harmonogramm ausgeschaltet
 No limit: Unbegrenzt
@@ -402,7 +396,6 @@ Temperature and humidity sensor: Temperatur- und Feuchtigkeitssensor
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dank Integrationen können Sie Ihrem Konto problemlos neue Funktionen hinzufügen, indem Sie Lösungen von externen Anbietern, Programmierern oder von Ihnen selbst verwenden.'
 The Terms and Conditions have changed: Die Vorschriften wurden geändert
 The Terms and Conditions have changed – please read them and accept.: Die Bestimmungen des Dienstes wurden geändert - seine Zustimmung ist erforderlich.
-The action was prevented from being performed using an HTTP GET method that is not permitted.: Das Ausführen dieser Aktion mithilfe einer ungültigen HTTP-GET-Methode wurde verhindert.
 The client will be automatically logged out when deleted.: Das Löschen von Client- Anwendung  führt zum sofortigen Logout.
 The device is disabled: Das Gerät ist ausgeschaltet
 The gate sensor must function properly in order to execute the scheduled action.: Zwecks der Ausführung einer Aktion muss der Tor-Öffnungssensor einwandfrei funktionieren.
@@ -476,6 +469,13 @@ choose the timezone: wählen Sie eine Zeitzone
 copied: wurde kopiert
 copy: Kopiere
 daily: Tageszyklus
+directLinkExecutionFailureReason_disabled: Direkter link ist deaktiviert
+directLinkExecutionFailureReason_executionLimitExceeded: Der Ausführungslimit wurde überschritten
+directLinkExecutionFailureReason_expired: Der direkte Link ist abgelaufen
+directLinkExecutionFailureReason_httpGetForbidden: Das Ausführen dieser Aktion mithilfe einer ungültigen HTTP-GET-Methode wurde verhindert.
+directLinkExecutionFailureReason_invalidActionParameters: Falsche Link Parameter
+directLinkExecutionFailureReason_noAllowedActions: Es wurde keine der zulässigen Aktivitäten ausgewählt
+directLinkExecutionFailureReason_notActiveYet: Der direkte Link ist noch nicht aktiv
 from IP: aus der IP Adresse
 from the IP: aus der IP
 hourly: Stundenzyklus
@@ -537,7 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Check the direct link you used and try again.: ~
+Direct link has been executed: ~
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
+Refresh: ~
+See direct link possibilities: ~
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.': ~
+Where is the JSON?: ~
 YOUR LINK CODE: ~
+directLinkExecutionFailureReason_forbiddenAction: ~
+directLinkExecutionFailureReason_invalidSlug: ~
+directLinkExecutionFailureReason_noSlugOrAction: ~
+directLinkExecutionFailureReason_otherFailure: ~
+directLinkExecutionFailureReason_unsupportedAction: ~
+execute: ~
+executed: ~
 
 #</editor-fold>

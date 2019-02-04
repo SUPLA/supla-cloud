@@ -2,6 +2,8 @@
     <div v-if="directLink">
         <div class="container text-center">
             <div v-if="failureReason">
+                <span class="hidden"
+                    v-title>{{ $t('Error') }}</span>
                 <h1 class="nocapitalize">{{ $t(failureReason) }}</h1>
                 <div v-if="failureReason == 'directLinkExecutionFailureReason_invalidActionParameters'">
                     <i class="pe-7s-edit"
