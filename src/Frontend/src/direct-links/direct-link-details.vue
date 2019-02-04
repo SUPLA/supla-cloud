@@ -75,7 +75,7 @@
                                         </dl>
                                         <div class="help-block small"
                                             v-if="directLink.disableHttpGet">
-                                            {{ $t('When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an example cURL request below.') }}
+                                            {{ $t('When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.') }}
                                             <pre style="margin-top: 5px"><code>{{examplePatchBody}}</code></pre>
                                         </div>
                                     </div>
