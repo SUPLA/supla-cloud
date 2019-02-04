@@ -199,8 +199,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(403, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertFalse($content['success']);
-        $this->assertEquals(DirectLinkExecutionFailureReason::INVALID_SLUG, $content['reason']);
-        $this->assertEquals('Given verification code is not valid.', $content['message']);
+        $this->assertEquals(DirectLinkExecutionFailureReason::INVALID_SLUG, $content['message']);
+        $this->assertEquals('Given verification code is not valid.', $content['messageText']);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
     }
@@ -229,6 +229,18 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
     }
 
+    public function testPreferJson() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $acceptHeader = ['HTTP_ACCEPT' => 'text/html, text/plain, application/json'];
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], $acceptHeader);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('on', $content);
+    }
+
     public function testReadingDirectLinkAsText() {
         $directLink = $this->testCreatingDirectLink();
         $client = $this->createClient();
@@ -239,6 +251,32 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('ON: ', $response->getContent());
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+    }
+
+    public function testReadingDirectLinkAsHtml() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'text/html']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
+        $this->assertContains('"on":', $response->getContent());
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+    }
+
+    public function testReadingDoNotExposeLinkDataIfInvalidSlug() {
+        $directLink = $this->testCreatingDirectLink();
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]X/read", [], [], ['HTTP_ACCEPT' => 'text/html']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(403, $response);
+        $this->assertNotContains('directLink = {"id":' . $directLink['id'], $response->getContent());
+        $this->assertNotContains('"on":', $response->getContent());
+        $this->assertContains('directLink = [];', $response->getContent());
+        $this->assertEmpty($this->getSuplaServerCommands($client));
     }
 
     public function testCreatingDirectLinkForChannelGroup() {
