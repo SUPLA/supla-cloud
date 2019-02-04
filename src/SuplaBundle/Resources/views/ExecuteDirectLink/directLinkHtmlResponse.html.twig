@@ -1,6 +1,6 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
-{% set page_title = directLink.caption %}
+{% set page_title = directLink.caption ?? 'Error' %}
 
 {% block beforeVue %}
     <script>
