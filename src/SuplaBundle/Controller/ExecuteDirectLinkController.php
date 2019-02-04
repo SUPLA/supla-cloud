@@ -83,23 +83,25 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     /**
-     * @Route("/direct/{directLink}/{slug}", methods={"GET"})
+     * @Route("/direct/{directLinkId}/{slug}", methods={"GET"})
      */
-    public function directLinkOptionsAction(Request $request, DirectLink $directLink) {
-        return $this->returnDirectLinkErrorIfException($request, $directLink, function () use ($directLink, $request) {
+    public function directLinkOptionsAction(Request $request) {
+        return $this->returnDirectLinkErrorIfException($request, function () use ($request) {
+            $directLink = $this->getDirectLink($request);
             $this->ensureLinkCanBeUsed($request, $directLink, $request->get('slug', ''));
             return $this->directLinkResponse($directLink, null, 'html', Response::HTTP_OK);
         });
     }
 
     /**
-     * @Route("/direct/{directLink}", methods={"PATCH"})
-     * @Route("/direct/{directLink}/{slug}/{action}", methods={"GET", "PATCH"})
+     * @Route("/direct/{directLinkId}", methods={"PATCH"})
+     * @Route("/direct/{directLinkId}/{slug}/{action}", methods={"GET", "PATCH"})
      */
-    public function executeDirectLinkAction(Request $request, DirectLink $directLink) {
-        return $this->returnDirectLinkErrorIfException($request, $directLink, function () use ($directLink, $request) {
-            $responseType = $this->determineResponseType($request);
+    public function executeDirectLinkAction(Request $request) {
+        return $this->returnDirectLinkErrorIfException($request, function () use ($request) {
             list($slug, $action) = $this->getSlugAndAction($request);
+            $directLink = $this->getDirectLink($request);
+            $responseType = $this->determineResponseType($request);
             $this->ensureLinkCanBeExecuted($directLink, $request, $slug, $action);
             $executionResult = $this->executeDirectLink($directLink, $request, $action);
             $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION())
@@ -113,8 +115,21 @@ class ExecuteDirectLinkController extends Controller {
         });
     }
 
-    private function returnDirectLinkErrorIfException(Request $request, DirectLink $directLink, callable $callback) {
+    private function getDirectLink(Request $request): DirectLink {
+        $directLink = $this->entityManager->find(DirectLink::class, $request->get('directLinkId'));
+        if (!$directLink) {
+            throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::INVALID_SLUG(), [], Response::HTTP_FORBIDDEN);
+        }
+        return $directLink;
+    }
+
+    private function returnDirectLinkErrorIfException(Request $request, callable $callback) {
         $responseType = $this->determineResponseType($request);
+        try {
+            $directLink = $this->getDirectLink($request);
+        } catch (\Exception $e) {
+            $directLink = null;
+        }
         try {
             $result = $callback();
             $this->entityManager->flush();
@@ -122,16 +137,18 @@ class ExecuteDirectLinkController extends Controller {
         } catch (DirectLinkExecutionFailureException $executionException) {
         } catch (\Exception $otherException) {
             $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
-            if ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL()) {
-                $errorData['device_connected'] =
-                    $this->suplaServer->isDeviceConnected($directLink->getSubject()->getIoDevice());
-            } elseif ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL_GROUP()) {
-                $errorData['devices_connected'] = [];
-                /** @var IODeviceChannelGroup $channelGroup */
-                $channelGroup = $directLink->getSubject();
-                foreach ($channelGroup->getChannels() as $channel) {
-                    $errorData['devices_connected'][$channel->getId()] =
-                        $this->suplaServer->isDeviceConnected($channel->getIoDevice());
+            if ($directLink) {
+                if ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL()) {
+                    $errorData['device_connected'] =
+                        $this->suplaServer->isDeviceConnected($directLink->getSubject()->getIoDevice());
+                } elseif ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL_GROUP()) {
+                    $errorData['devices_connected'] = [];
+                    /** @var IODeviceChannelGroup $channelGroup */
+                    $channelGroup = $directLink->getSubject();
+                    foreach ($channelGroup->getChannels() as $channel) {
+                        $errorData['devices_connected'][$channel->getId()] =
+                            $this->suplaServer->isDeviceConnected($channel->getIoDevice());
+                    }
                 }
             }
             if (!($otherException instanceof ServiceUnavailableHttpException) || !$errorData['supla_server_alive']) {
@@ -158,10 +175,12 @@ class ExecuteDirectLinkController extends Controller {
             $executionException->getDetails(),
             $reason
         );
-        $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
-            ->setIntParam($directLink->getId())
-            ->setTextParam(json_encode(['reason' => $reason->getValue(), 'details' => $executionException->getDetails()]))
-            ->buildAndSave();
+        if ($directLink) {
+            $this->audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION_FAILURE())
+                ->setIntParam($directLink->getId())
+                ->setTextParam(json_encode(['reason' => $reason->getValue(), 'details' => $executionException->getDetails()]))
+                ->buildAndSave();
+        }
         $this->entityManager->flush();
         return $response;
     }
@@ -239,8 +258,11 @@ class ExecuteDirectLinkController extends Controller {
         }
     }
 
+    /**
+     * @param DirectLink|null $directLink
+     */
     private function directLinkResponse(
-        DirectLink $directLink,
+        $directLink,
         $action,
         string $responseType,
         int $responseCode,
@@ -248,14 +270,18 @@ class ExecuteDirectLinkController extends Controller {
         DirectLinkExecutionFailureReason $failureReason = null
     ): Response {
         if ($responseType == 'html') {
-            $normalized = [
-                'id' => $directLink->getId(),
-                'caption' => $directLink->getCaption(),
-                'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, ['groups' => ['basic']]),
-                'subject' => $this->normalizer->normalize($directLink->getSubject(), null, ['groups' => ['basic']]),
-                'state' => $data ?: null
+            if ($failureReason && $failureReason != DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS()) {
+                $normalized = [];
+            } else {
+                $normalized = [
+                    'id' => $directLink->getId(),
+                    'caption' => $directLink->getCaption(),
+                    'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, ['groups' => ['basic']]),
+                    'subject' => $this->normalizer->normalize($directLink->getSubject(), null, ['groups' => ['basic']]),
+                    'state' => $data ?: null
 //                'userIcon' => $this->normalizer->normalize($directLink->getSubject()->getUserIcon(), null, ['groups' => ['images']])
-            ];
+                ];
+            }
             return $this->render(
                 '@Supla/ExecuteDirectLink/directLinkHtmlResponse.html.twig',
                 ['directLink' => $normalized, 'action' => $action, 'failureReason' => $failureReason],
