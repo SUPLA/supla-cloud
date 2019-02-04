@@ -81,4 +81,8 @@ class SuplaServerMock extends SuplaServer {
     public static function mockTheNextResponse($response) {
         self::$nextResponse = $response;
     }
+
+    public function isAlive(): bool {
+        return true;
+    }
 }

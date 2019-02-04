@@ -25,7 +25,7 @@ class SuplaServerMockCommandsCollector extends DataCollector {
     const NAME = 'supla.supla_server_mock_data_collector';
 
     public function __construct() {
-        $this->data['commands'] = [];
+        $this->reset();
     }
 
     public function collect(Request $request, Response $response, \Exception $exception = null) {
@@ -41,5 +41,9 @@ class SuplaServerMockCommandsCollector extends DataCollector {
 
     public function getName() {
         return self::NAME;
+    }
+
+    public function reset() {
+        $this->data['commands'] = [];
     }
 }
