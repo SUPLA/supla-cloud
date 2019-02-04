@@ -21,6 +21,8 @@ monolog:
     autodiscover:
       level: debug
       max_files: 1
+    direct_links:
+      max_files: 1
 
 services:
   SuplaBundle\Tests\Integration\TestMailer: ~

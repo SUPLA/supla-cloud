@@ -36,6 +36,9 @@ services:
     resource: '../../src/SuplaBundle/Controller'
     public: true
 
+  SuplaBundle\Controller\ExecuteDirectLinkController:
+    $logger: '@monolog.logger.supla_direct_links'
+
   SuplaBundle\Model\:
     resource: '../../src/SuplaBundle/Model'
 

@@ -152,7 +152,10 @@ class ExecuteDirectLinkController extends Controller {
                 }
             }
             if (!($otherException instanceof ServiceUnavailableHttpException) || !$errorData['supla_server_alive']) {
-                $this->logger->error($otherException->getMessage(), array_merge(['exception' => $otherException], $errorData));
+                $this->logger->error(
+                    $otherException->getMessage(),
+                    array_merge(['stackTrace' => $otherException->getTraceAsString()], $errorData)
+                );
             }
             $executionException = new DirectLinkExecutionFailureException(
                 DirectLinkExecutionFailureReason::OTHER_FAILURE(),
