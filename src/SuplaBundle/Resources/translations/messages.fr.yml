@@ -537,21 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: ~
-Direct link has been executed: ~
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
-Refresh: ~
-See direct link possibilities: ~
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': ~
-Where is the JSON?: ~
-YOUR LINK CODE: ~
-directLinkExecutionFailureReason_forbiddenAction: ~
-directLinkExecutionFailureReason_invalidSlug: ~
-directLinkExecutionFailureReason_noSlugOrAction: ~
-directLinkExecutionFailureReason_otherFailure: ~
-directLinkExecutionFailureReason_unsupportedAction: ~
-execute: ~
-executed: ~
+Check the direct link you used and try again.: Vérifiez le lien direct et réessayez
+Direct link has been executed: Lien direct a été exécuté
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Si vous souhaitez utiliser le lien direct dans un autre logiciel, ajoutez l`en-tête de requête approprié pour obtenir  la réponse  plus facile au traitement.'
+Refresh: Rafraîchir
+See direct link possibilities: Voir les possibilités d'un lien direct
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Le résultat de la mise en œuvre est présenté sous forme d’un site Web vu que vous (ou votre navigateur) avez demandé une réponse au format HTML.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Vous pouvez réaliser une action du lien direct en fournissant son identifiant unique dans le contenu de la demande HTTP PATCH. C`est plus sûr et empêche de sauvegarder l`adresse complète de votre lien dans les fichiers journaux d`accès des serveurs par lesquels votre requête est transmise. Vous trouverez ci-dessous un exemple de réalisation à l’aide de l`outil cURL.'
+Where is the JSON?: Où est JSON?
+YOUR LINK CODE: CODE DE VOTRE LIEN
+directLinkExecutionFailureReason_forbiddenAction: Le lien ne permet pas cette action
+directLinkExecutionFailureReason_invalidSlug: Code de vérification incorrect
+directLinkExecutionFailureReason_noSlugOrAction: Requête incorrecte - code de lien et action requis
+directLinkExecutionFailureReason_otherFailure: Erreur d'exécution de l'action
+directLinkExecutionFailureReason_unsupportedAction: Action sélectionnée  incorrecte
+execute: exécuter
+executed: exécuté
 
 #</editor-fold>
