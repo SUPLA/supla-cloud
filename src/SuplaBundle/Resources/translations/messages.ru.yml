@@ -537,21 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: ~
-Direct link has been executed: ~
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
-Refresh: ~
-See direct link possibilities: ~
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': ~
-Where is the JSON?: ~
-YOUR LINK CODE: ~
-directLinkExecutionFailureReason_forbiddenAction: ~
-directLinkExecutionFailureReason_invalidSlug: ~
-directLinkExecutionFailureReason_noSlugOrAction: ~
-directLinkExecutionFailureReason_otherFailure: ~
-directLinkExecutionFailureReason_unsupportedAction: ~
-execute: ~
-executed: ~
+Check the direct link you used and try again.: Проверь ссылку и повтори попытку.
+Direct link has been executed: Ссылка создана
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Для использования ссылки в другом программном обеспечении, добавь соответствующий заголовок запроса, чтобы получить ответ, который будет легче обрабатывать.'
+Refresh: Обнови
+See direct link possibilities: Посмотри возможности ссылки
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Результат отображается в виде веб-сайта, потому что Вы (или Ваш браузер) запросили ответ в формате HTML.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Ссылка может быть открыта при подаче ее уникального идентификатора в тексте запроса HTTP PATCH. Это безопаснее, так как предотвращает сохранение полного адреса Вашей ссылки в журналах доступа серверов, через которые проходит Ваш запрос. Пример выполнения при помощи инструмента cURL приведен ниже.'
+Where is the JSON?: Где находится ДЖЕЙСОН?
+YOUR LINK CODE: КОД ТВОЕЙ ССЫЛКИ
+directLinkExecutionFailureReason_forbiddenAction: Ссылка не разрешает выполнить это действие
+directLinkExecutionFailureReason_invalidSlug: Отправленный код подтверждения неверный
+directLinkExecutionFailureReason_noSlugOrAction: Неправильный запрос - требуется код ссылки либо действия
+directLinkExecutionFailureReason_otherFailure: Ошибка при выполнении действия
+directLinkExecutionFailureReason_unsupportedAction: Выбранное действие неверно
+execute: выполни
+executed: выполнено
 
 #</editor-fold>
