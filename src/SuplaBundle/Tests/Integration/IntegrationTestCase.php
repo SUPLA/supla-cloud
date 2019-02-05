@@ -18,6 +18,10 @@
 namespace SuplaBundle\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
+use ReflectionClass;
+use ReflectionProperty;
+use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -27,14 +31,19 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\DependencyInjection\ResettableContainerInterface;
 
 abstract class IntegrationTestCase extends WebTestCase {
+    private static $dataForTests = [];
+
     /** @var ResettableContainerInterface */
     protected $container;
     /** @var Application */
     private $application;
 
     public function prepareIntegrationTest() {
-        TestTimeProvider::reset();
-        TestMailer::reset();
+        if (!$this->hasDependencies()) {
+            TestTimeProvider::reset();
+            TestMailer::reset();
+            SuplaServerMock::$executedCommands = [];
+        }
         $client = self::createClient(['debug' => false]);
         $this->container = $client->getContainer();
         $kernel = $client->getKernel();
@@ -48,9 +57,30 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function clearDatabase() {
-        $this->executeCommand('doctrine:schema:drop --force');
-        $this->executeCommand('doctrine:schema:create');
-        $this->executeCommand('supla:oauth:create-webapp-client');
+        self::$dataForTests = array_intersect_key(self::$dataForTests, [static::class => '']);
+        $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
+        if (!$initializedAtLeastOnce || (!$this->hasDependencies() && !$this->isSmall())) {
+            $this->executeCommand('doctrine:schema:drop --force');
+            $this->executeCommand('doctrine:schema:create');
+            $this->executeCommand('supla:oauth:create-webapp-client');
+            $this->initializeDatabaseForTests();
+            $reflection = new ReflectionClass($this);
+            $vars = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
+            $testState = [];
+            foreach ($vars as $var) {
+                $var->setAccessible(true);
+                $testState[$var->getName()] = $var->getValue($this);
+            }
+            self::$dataForTests[static::class] = $testState;
+        }
+        if (isset(self::$dataForTests[static::class])) {
+            foreach (self::$dataForTests[static::class] as $fieldName => $value) {
+                EntityUtils::setField($this, $fieldName, $value);
+            }
+        }
+    }
+
+    protected function initializeDatabaseForTests() {
     }
 
     protected function executeCommand(string $command): string {

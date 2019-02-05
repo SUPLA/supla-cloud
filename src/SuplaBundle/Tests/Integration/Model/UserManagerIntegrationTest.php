@@ -21,11 +21,12 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
+/** @small */
 class UserManagerIntegrationTest extends IntegrationTestCase {
     /** @var UserManager */
     private $userManager;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->userManager = $this->container->get(UserManager::class);
     }
 
@@ -42,8 +43,8 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
         return $user;
     }
 
-    public function testCheckingPasswordValidity() {
-        $user = $this->testCreatingUser();
+    /** @depends testCreatingUser */
+    public function testCheckingPasswordValidity(User $user) {
         $this->userManager->setPassword('ala', $user, true);
         $this->assertTrue($this->userManager->isPasswordValid($user, 'ala'));
         $this->assertFalse($this->userManager->isPasswordValid($user, 'Ala'));
