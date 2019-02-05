@@ -537,21 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: ~
-Direct link has been executed: ~
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
-Refresh: ~
-See direct link possibilities: ~
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': ~
-Where is the JSON?: ~
-YOUR LINK CODE: ~
-directLinkExecutionFailureReason_forbiddenAction: ~
-directLinkExecutionFailureReason_invalidSlug: ~
-directLinkExecutionFailureReason_noSlugOrAction: ~
-directLinkExecutionFailureReason_otherFailure: ~
-directLinkExecutionFailureReason_unsupportedAction: ~
-execute: ~
-executed: ~
+Check the direct link you used and try again.: Patikrink iškviestą tiesioginę nuorodą ir pabandyk vėl.
+Direct link has been executed: Tiesioginė nuoroda atlikta
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.'
+Refresh: Atnaujink
+See direct link possibilities: Pamatyk tiesioginės nuorodos galimybes
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.'
+Where is the JSON?: Kur yra JSON?
+YOUR LINK CODE: TAVO NUORODOS KODAS
+directLinkExecutionFailureReason_forbiddenAction: Nuoroda neleidžia atlikti šios akcijos
+directLinkExecutionFailureReason_invalidSlug: Pateiktas patikros kodas neteisingas
+directLinkExecutionFailureReason_noSlugOrAction: Neteisinga užklausa – būtina pateikti nuorodos kodą ir akciją
+directLinkExecutionFailureReason_otherFailure: Akcijos vykdymo klaida
+directLinkExecutionFailureReason_unsupportedAction: Pasirinkta akcija neteisinga
+execute: atlik
+executed: atlikta
 
 #</editor-fold>
