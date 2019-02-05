@@ -551,7 +551,7 @@ directLinkExecutionFailureReason_invalidSlug: Der gesendete Bestätigungscode is
 directLinkExecutionFailureReason_noSlugOrAction: Falsche Anfrage - Link-Code und Aktion sind erforderlich.
 directLinkExecutionFailureReason_otherFailure: Fehler bei der Ausführung der Aktion
 directLinkExecutionFailureReason_unsupportedAction: Die ausgewählte Aktion ist nicht korrekt.
-execute: Ausführen
-executed: Ausgeführt
+execute: ausführen
+executed: ausgeführt
 
 #</editor-fold>
