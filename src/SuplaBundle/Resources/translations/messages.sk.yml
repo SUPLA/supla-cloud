@@ -537,21 +537,21 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: ~
-Direct link has been executed: ~
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
-Refresh: ~
-See direct link possibilities: ~
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': ~
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': ~
-Where is the JSON?: ~
-YOUR LINK CODE: ~
-directLinkExecutionFailureReason_forbiddenAction: ~
-directLinkExecutionFailureReason_invalidSlug: ~
-directLinkExecutionFailureReason_noSlugOrAction: ~
-directLinkExecutionFailureReason_otherFailure: ~
-directLinkExecutionFailureReason_unsupportedAction: ~
-execute: ~
-executed: ~
+Check the direct link you used and try again.: Skontrolujte volaný odkaz a skúste znovu.
+Direct link has been executed: Priamy odkaz sa vykonal
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Ak chcete priamy odkaz použiť v inom softvéri, vhodne doplňte hlavičku dopytu, aby ste dostali odpoveď, ktorá sa dá ľahšie spracovať.'
+Refresh: Obnoviť
+See direct link possibilities: Pozrite si možnosti priameho odkazu
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Výsledok vykonania je predstavený formou webovej stránky, pretože ste vy (alebo váš prehliadač) požiadali o odpoveď vo formáte HTML.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Môžete vykonať akciu priameho odkazu uvádzajúc v obsahu dopytu HTTP PATCH jedinečných identifikátor daného dopytu. Je to bezpečnejšie, keďže sa v prístupových logoch na serveroch nezapisuje kompletná adresa vášho odkazu, cez ktorý prichádza váš dopyt. Nižšie uvádzame príklady vykonania s použitím nástroja cURL.'
+Where is the JSON?: Kde je JSON?
+YOUR LINK CODE: KÓD VÁŠHO ODKAZU
+directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje vykonať túto akciu
+directLinkExecutionFailureReason_invalidSlug: Zaslaný autentifikačný kód nie je správny
+directLinkExecutionFailureReason_noSlugOrAction: Nesprávny dopyt – musia byť uvedené kód odkazu a akcia
+directLinkExecutionFailureReason_otherFailure: Chyby pri vykonávaní akcie
+directLinkExecutionFailureReason_unsupportedAction: Zvolená akcia je nesprávna
+execute: vykonať
+executed: vykonané
 
 #</editor-fold>
