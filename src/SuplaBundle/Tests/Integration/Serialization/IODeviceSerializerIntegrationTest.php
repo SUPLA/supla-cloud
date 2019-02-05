@@ -22,6 +22,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
@@ -30,7 +31,7 @@ class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
     /** @var IODevice */
     private $device;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDeviceFull($location);

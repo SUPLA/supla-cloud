@@ -26,6 +26,7 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
@@ -34,8 +35,7 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
 
-    /** @before */
-    public function createDeviceForTests() {
+    public function initializeDatabaseForTests() {
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
@@ -44,7 +44,6 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::RGBLIGHTING],
         ]);
         $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
-        SuplaServerMock::$executedCommands = [];
     }
 
     public function testTogglePowerSwitchOnOff() {

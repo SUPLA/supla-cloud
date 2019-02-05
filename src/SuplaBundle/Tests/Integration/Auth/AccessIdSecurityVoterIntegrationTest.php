@@ -43,7 +43,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
     /** @var AccessID */
     private $accessId;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $this->location1 = $this->createLocation($this->user);
         $this->location2 = $this->createLocation($this->user);
@@ -64,11 +64,21 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
+    /** @small */
     public function testGettingChannelInfoOfChannelNotIncludedInAccessIdIsFailed() {
         $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
         $client->request('GET', '/api/channels/1');
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
+    }
+
+    /** @small */
+    public function testGettingChannelsListWithNoLocationsAccessId() {
+        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client->request('GET', '/api/channels');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertEmpty(json_decode($response->getContent(), true));
     }
 
     public function testGettingChannelInfoOfChannelIncludedInAccessIdIsSuccessful() {
@@ -79,14 +89,6 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
         $client->request('GET', '/api/channels/1');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-    }
-
-    public function testGettingChannelsListWithNoLocationsAccessId() {
-        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
-        $client->request('GET', '/api/channels');
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertEmpty(json_decode($response->getContent(), true));
     }
 
     public function testGettingChannelsListWithOneLocationInAccessId() {

@@ -25,6 +25,7 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class PercentageChannelStateGetterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
@@ -33,8 +34,7 @@ class PercentageChannelStateGetterIntegrationTest extends IntegrationTestCase {
     /** @var ChannelStateGetter */
     private $channelStateGetter;
 
-    /** @before */
-    public function createDeviceForTests() {
+    public function initializeDatabaseForTests() {
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [

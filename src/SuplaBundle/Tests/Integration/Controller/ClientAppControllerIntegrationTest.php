@@ -23,6 +23,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class ClientAppControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
     use SuplaApiHelper;
@@ -30,7 +31,7 @@ class ClientAppControllerIntegrationTest extends IntegrationTestCase {
     /** @var ClientApp */
     private $clientApp;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $user = $this->createConfirmedUser();
         $this->clientApp = new ClientApp();
         $this->clientApp->setEnabled(true);

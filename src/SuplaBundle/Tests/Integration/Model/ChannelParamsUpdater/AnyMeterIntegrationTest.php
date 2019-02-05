@@ -25,6 +25,7 @@ use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class AnyMeterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
@@ -33,8 +34,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
     /** @var ChannelParamsUpdater */
     private $updater;
 
-    /** @before */
-    public function createDeviceForTests() {
+    public function initializeDatabaseForTests() {
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
@@ -44,7 +44,6 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
         ]);
         $this->updater = $this->container->get(ChannelParamsUpdater::class);
-        $this->simulateAuthentication($user);
     }
 
     public function testUpdatingPricePerUnit() {
