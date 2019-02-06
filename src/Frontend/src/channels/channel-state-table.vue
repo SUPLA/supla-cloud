@@ -37,6 +37,10 @@
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{currentState.shut}}%</dt>
         </dl>
+        <span class="label label-danger"
+            v-if="currentState.connected === false">
+            {{ $t('Disconnected') }}
+        </span>
     </div>
 </template>
 
