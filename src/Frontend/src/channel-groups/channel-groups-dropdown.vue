@@ -58,7 +58,7 @@
             },
             channelGroupHtml(channelGroup) {
                 let content = `<div class='channel-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels"><h4>ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
+                    + `<div class="labels full"><h4>ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
                 if (channelGroup.caption) {
                     content += ` <span class='small text-muted'>${channelGroup.caption}</span>`;
                 }

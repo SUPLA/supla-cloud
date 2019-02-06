@@ -45,6 +45,7 @@
                         <div v-for="allowedAction in directLink.allowedActions"
                             class="form-group">
                             <div class="flex-left-full-width">
+                                <span class="label label-default hidden-xs">{{ $t(allowedAction.caption) }}</span>
                                 <pre><code>{{ exampleUrl(allowedAction) }}</code></pre>
                                 <div class="btn-group">
                                     <copy-button :text="currentUrl + '/' + allowedAction.nameSlug"></copy-button>
@@ -55,7 +56,7 @@
                                         @click="executeAction(allowedAction)">
                                         <span>
                                             <i :class="'pe-7s-' + (allowedAction.executed ? 'check' : 'rocket')"></i>
-                                            {{ allowedAction.executed ? $t('executed') : $t('execute') }}
+                                            {{ allowedAction.executed ? $t('executed') : $t(allowedAction.caption) }}
                                         </span>
                                     </button>
                                 </div>

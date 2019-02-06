@@ -63,7 +63,7 @@
             },
             channelHtml(channel) {
                 let content = `<div class='channel-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels"><h4>ID${channel.id} ${this.$t(channel.function.caption)}`;
+                    + `<div class="labels full"><h4>ID${channel.id} ${this.$t(channel.function.caption)}`;
                 if (channel.caption) {
                     content += ` <span class='small text-muted'>${channel.caption}</span>`;
                 }

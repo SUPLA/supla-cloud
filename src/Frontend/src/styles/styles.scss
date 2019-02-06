@@ -404,21 +404,22 @@ body.warning {
 .flex-left-full-width {
   display: flex;
 
-  > :first-child {
+  > * {
+    border-radius: 0;
+  }
+
+  > .full, > pre {
     flex: 1;
   }
 
   > pre {
     padding: 7px;
     margin: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
     border-right: 0;
   }
 
-  .btn {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+  .btn, .label {
+    border-radius: 0;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -426,6 +427,15 @@ body.warning {
 
   .btn-group {
     display: flex;
+  }
+
+  > :first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  > :last-child, .btn:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 }
 
