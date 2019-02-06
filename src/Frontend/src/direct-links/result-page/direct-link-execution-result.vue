@@ -124,7 +124,13 @@
                 if (action.nameSlug === 'set-rgbw-parameters') {
                     if (this.directLink.subject.function.name === 'RGBLIGHTING') {
                         url += '?color_brightness=40&color=0x00FF33';
+                    } else if (this.directLink.subject.function.name === 'DIMMERANDRGBLIGHTING') {
+                        url += '?color_brightness=40&color=0x00FF33&brightness=60';
+                    } else {
+                        url += '?brightness=60';
                     }
+                } else if (action.nameSlug === 'reveal-partially') {
+                    url += '?percentage=60';
                 }
                 return url;
             }
