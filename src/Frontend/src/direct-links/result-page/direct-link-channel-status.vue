@@ -2,7 +2,18 @@
     <div v-if="directLink.state"
         class="form-group">
         <h3>{{ stateCaption }}</h3>
-        <div class="form-group">
+        <div v-if="directLink.subject.channelsIds">
+            <div style="display: inline-block"
+                v-for="channelId in directLink.subject.channelsIds">
+                <div class="form-group">
+                    <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state[channelId]}"
+                        width="100"></function-icon>
+                    <channel-state-table :state="directLink.state[channelId]"></channel-state-table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group"
+            v-else>
             <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state}"
                 width="100"></function-icon>
             <channel-state-table :state="directLink.state"></channel-state-table>

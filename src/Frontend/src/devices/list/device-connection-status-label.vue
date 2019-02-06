@@ -1,7 +1,7 @@
 <template>
     <span :class="'label ' + (connected ? 'label-success' : 'label-danger')"
         v-if="connected !== undefined">
-        {{ $t(connected ? 'Connected' : 'Disconnected') }}
+        {{ connected ? $t('Connected') : $t('Disconnected') }}
     </span>
 </template>
 
