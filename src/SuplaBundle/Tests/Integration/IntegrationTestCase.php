@@ -102,4 +102,13 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function getEntityManager(): EntityManagerInterface {
         return $this->getDoctrine()->getEntityManager();
     }
+
+    /** @after */
+    public function ensureSuplaServerValidState() {
+        if (SuplaServerMock::$mockedResponses) {
+            $error = 'Some of command you mocked were not used. ' . var_export(SuplaServerMock::$mockedResponses, true);
+            SuplaServerMock::$mockedResponses = [];
+            $this->fail($error);
+        }
+    }
 }

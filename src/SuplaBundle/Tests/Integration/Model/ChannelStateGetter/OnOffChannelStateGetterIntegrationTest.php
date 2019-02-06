@@ -46,64 +46,64 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
     }
 
-    public function testGettingOnromPowerSwitch() {
-        SuplaServerMock::mockTheNextResponse("VALUE:1\n");
+    public function testGettingOnFromPowerSwitch() {
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
     }
 
     public function testGettingOffFromPowerSwitch() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0\n");
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('on', $state);
         $this->assertFalse($state['on']);
     }
 
     public function testGettingOnFromDimmer() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,0,10\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,0,10\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[1]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
     }
 
     public function testGettingOffFromDimmer() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,0,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[1]);
         $this->assertArrayHasKey('on', $state);
         $this->assertFalse($state['on']);
     }
 
     public function testGettingOnFromRgb() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,10,0\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,10,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[2]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
     }
 
     public function testGettingOnFromDimmerRgbWhenBothOn() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,10,10\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,10,10\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[3]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
     }
 
     public function testGettingOnFromDimmerRgbWhenColorOn() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,10,0\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,10,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[3]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
     }
 
     public function testGettingOnFromDimmerRgbWhenDimOn() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,0,10\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,0,10\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[3]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
     }
 
     public function testGettingOffFromDimmerRgbWhen() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,0,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[3]);
         $this->assertArrayHasKey('on', $state);
         $this->assertFalse($state['on']);

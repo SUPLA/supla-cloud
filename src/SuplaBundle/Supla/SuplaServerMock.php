@@ -23,7 +23,7 @@ use SuplaBundle\Model\LocalSuplaCloud;
  * SuplaServer implementation to be used during development.
  */
 class SuplaServerMock extends SuplaServer {
-    private static $nextResponse;
+    public static $mockedResponses = [];
 
     public static $executedCommands = [];
 
@@ -50,10 +50,11 @@ class SuplaServerMock extends SuplaServer {
     }
 
     private function tryToHandleCommand($cmd) {
-        if (self::$nextResponse) {
-            $response = self::$nextResponse;
-            self::$nextResponse = null;
-            return $response;
+        foreach (self::$mockedResponses as $command => $response) {
+            if (preg_match("#$command#i", $cmd)) {
+                unset(self::$mockedResponses[$command]);
+                return $response;
+            }
         }
         if (preg_match('#^IS-(IODEV|CLIENT)-CONNECTED:(\d+),(\d+)$#', $cmd, $match)) {
             return "CONNECTED:$match[3]\n";
@@ -78,11 +79,11 @@ class SuplaServerMock extends SuplaServer {
         return false;
     }
 
-    public static function mockTheNextResponse($response) {
-        self::$nextResponse = $response;
-    }
-
     public function isAlive(): bool {
         return true;
+    }
+
+    public static function mockResponse(string $command, string $response) {
+        self::$mockedResponses[$command] = $response;
     }
 }

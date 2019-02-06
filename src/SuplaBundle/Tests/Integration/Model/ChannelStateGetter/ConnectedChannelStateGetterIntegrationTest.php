@@ -26,7 +26,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
 /** @small */
-class PercentageChannelStateGetterIntegrationTest extends IntegrationTestCase {
+class ConnectedChannelStateGetterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
     /** @var IODevice */
@@ -38,33 +38,22 @@ class PercentageChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
-            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER],
+            [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
         ]);
         $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
     }
 
-    public function testGettingCalibratingState() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:-1\n");
+    public function testGettingConnectedFalse() {
+        SuplaServerMock::mockResponse('IS-', "CONNECTED:FALSE\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
-        $this->assertArrayHasKey('is_calibrating', $state);
-        $this->assertArrayHasKey('shut', $state);
-        $this->assertTrue($state['is_calibrating']);
-        $this->assertEquals(0, $state['shut']);
+        $this->assertArrayHasKey('connected', $state);
+        $this->assertFalse($state['connected']);
     }
 
-    public function testPercentageState() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:42\n");
+    public function testGettingConnectedTrue() {
+        SuplaServerMock::mockResponse('IS-', "CONNECTED:{$this->device->getChannels()[0]->getId()}\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
-        $this->assertArrayHasKey('is_calibrating', $state);
-        $this->assertArrayHasKey('shut', $state);
-        $this->assertFalse($state['is_calibrating']);
-        $this->assertEquals(42, $state['shut']);
-    }
-
-    public function testNoPercentageForOtherFunctionChannel() {
-        $state = $this->channelStateGetter->getState($this->device->getChannels()[1]);
-        $this->assertArrayNotHasKey('is_calibrating', $state);
-        $this->assertArrayNotHasKey('shut', $state);
+        $this->assertArrayHasKey('connected', $state);
+        $this->assertTrue($state['connected']);
     }
 }

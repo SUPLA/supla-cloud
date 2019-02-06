@@ -47,50 +47,46 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     }
 
     public function testTogglePowerSwitchOnOff() {
-        SuplaServerMock::mockTheNextResponse("VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[0], ChannelFunctionAction::TOGGLE());
-        $this->assertCount(2, SuplaServerMock::$executedCommands);
-        $setCommand = SuplaServerMock::$executedCommands[1];
+        $this->assertCount(3, SuplaServerMock::$executedCommands);
+        $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,1,0', $setCommand);
     }
 
     public function testTogglePowerSwitchOffOn() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0\n");
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:0\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[0], ChannelFunctionAction::TOGGLE());
-        $this->assertCount(2, SuplaServerMock::$executedCommands);
-        $setCommand = SuplaServerMock::$executedCommands[1];
+        $this->assertCount(3, SuplaServerMock::$executedCommands);
+        $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,1,1', $setCommand);
     }
 
     public function testToggleDimmerOnOff() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,0,10\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,0,10\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[1], ChannelFunctionAction::TOGGLE());
-        $this->assertCount(2, SuplaServerMock::$executedCommands);
-        $setCommand = SuplaServerMock::$executedCommands[1];
+        $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,2,0', $setCommand);
     }
 
     public function testToggleDimmerOffOn() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,0,0\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[1], ChannelFunctionAction::TOGGLE());
-        $this->assertCount(2, SuplaServerMock::$executedCommands);
-        $setCommand = SuplaServerMock::$executedCommands[1];
+        $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,2,1', $setCommand);
     }
 
     public function testToggleRgbOnOff() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,10,0\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,10,0\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[2], ChannelFunctionAction::TOGGLE());
-        $this->assertCount(2, SuplaServerMock::$executedCommands);
-        $setCommand = SuplaServerMock::$executedCommands[1];
+        $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,3,0', $setCommand);
     }
 
     public function testToggleRgbOffOn() {
-        SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:0,0,0\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[2], ChannelFunctionAction::TOGGLE());
-        $this->assertCount(2, SuplaServerMock::$executedCommands);
-        $setCommand = SuplaServerMock::$executedCommands[1];
+        $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,3,1', $setCommand);
     }
 }
