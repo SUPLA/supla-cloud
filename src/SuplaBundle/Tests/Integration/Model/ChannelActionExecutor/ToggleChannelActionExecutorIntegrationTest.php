@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Model\ChannelActionExecutor;
 
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -34,6 +35,8 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /** @var IODeviceChannelGroup */
+    private $channelGroup;
 
     public function initializeDatabaseForTests() {
         $user = $this->createConfirmedUser();
@@ -42,8 +45,15 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
             [ChannelType::RELAY, ChannelFunction::DIMMER],
             [ChannelType::RELAY, ChannelFunction::RGBLIGHTING],
+            [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
         ]);
         $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
+        $this->channelGroup = new IODeviceChannelGroup($user, $location, [
+            $this->device->getChannels()[0],
+            $this->device->getChannels()[3],
+        ]);
+        $this->getEntityManager()->persist($this->channelGroup);
+        $this->getEntityManager()->flush();
     }
 
     public function testTogglePowerSwitchOnOff() {
@@ -88,5 +98,13 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->channelActionExecutor->executeAction($this->device->getChannels()[2], ChannelFunctionAction::TOGGLE());
         $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,3,1', $setCommand);
+    }
+
+    public function testToggleOnChannelGroup() {
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE:1,1,1', "VALUE:0\n");
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE:1,1,4', "VALUE:1\n");
+        $this->channelActionExecutor->executeAction($this->channelGroup, ChannelFunctionAction::TOGGLE());
+        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', SuplaServerMock::$executedCommands);
+        $this->assertContains('SET-CHAR-VALUE:1,1,4,0', SuplaServerMock::$executedCommands);
     }
 }

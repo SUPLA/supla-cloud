@@ -2,6 +2,7 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 
@@ -24,11 +25,17 @@ class ToggleActionExecutor extends TurnOnActionExecutor {
     }
 
     public function execute(HasFunction $subject, array $actionParams = []) {
-        $state = $this->channelStateGetter->getState($subject);
-        if ($state['on'] ?? false) {
-            $this->off->execute($subject);
+        if ($subject instanceof IODeviceChannelGroup) {
+            foreach ($subject->getChannels() as $channel) {
+                $this->execute($channel);
+            }
         } else {
-            $this->on->execute($subject);
+            $state = $this->channelStateGetter->getState($subject);
+            if ($state['on'] ?? false) {
+                $this->off->execute($subject);
+            } else {
+                $this->on->execute($subject);
+            }
         }
     }
 }
