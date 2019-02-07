@@ -1,7 +1,7 @@
 <template>
     <div v-if="directLink.state"
         class="form-group">
-        <h3>{{ stateCaption }}</h3>
+        <h3 class="nocapitalize">{{ stateCaption }}</h3>
         <div v-if="directLink.subject.channelsIds">
             <div style="display: inline-block"
                 v-for="channelId in directLink.subject.channelsIds">
