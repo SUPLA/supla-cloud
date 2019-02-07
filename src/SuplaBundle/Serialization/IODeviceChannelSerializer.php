@@ -18,7 +18,6 @@
 namespace SuplaBundle\Serialization;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
@@ -54,7 +53,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['userIconId'] = $channel->getUserIcon() ? $channel->getUserIcon()->getId() : null;
             $normalized['typeId'] = $channel->getType()->getId();
             if (in_array('connected', $context[self::GROUPS])) {
-                $normalized['connected'] = $this->isDeviceConnected($channel->getIoDevice());
+                $normalized['connected'] = $this->suplaServer->isDeviceConnected($channel->getIoDevice());
             }
             if (in_array('state', $context[self::GROUPS])) {
                 $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
@@ -68,15 +67,6 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             }
         }
         return $normalized;
-    }
-
-    private function isDeviceConnected(IODevice $ioDevice): bool {
-        if (!$ioDevice->getEnabled()) {
-            return false;
-        }
-        $user = $this->getCurrentUserOrThrow();
-        $connectedIds = $this->suplaServer->checkDevicesConnection($user->getId(), [$ioDevice->getId()]);
-        return in_array($ioDevice->getId(), $connectedIds);
     }
 
     public function supportsNormalization($entity, $format = null) {

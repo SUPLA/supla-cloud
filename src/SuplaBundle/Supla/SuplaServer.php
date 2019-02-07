@@ -54,7 +54,11 @@ abstract class SuplaServer {
     abstract protected function command($command);
 
     private function executeCommand(string $command) {
-        $result = $this->command($command);
+        if ($this->connect() !== false) {
+            $result = $this->command($command);
+        } else {
+            throw new ServiceUnavailableHttpException(10, 'SUPLA Server is down.');
+        }
         $this->logger->debug('SuplaServer command', ['command' => $command, 'result' => $result]);
         return $result;
     }
@@ -68,37 +72,27 @@ abstract class SuplaServer {
         return $result !== false && preg_match("/^CONNECTED:" . $id . "\n/", $result) === 1 ? true : false;
     }
 
-    public function checkDevicesConnection(int $userId, array $ids) {
-        $result = [];
-        if ($userId != 0 && $this->connect() !== false) {
-            foreach ($ids as $id) {
-                if ($this->isConnected($userId, $id) === true) {
-                    $result[] = $id;
-                }
-            }
-            $this->disconnect();
-        }
-        return $result;
-    }
-
     public function isClientAppConnected(ClientApp $clientApp): bool {
-        if ($this->connect() !== false) {
-            return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
+        if (!$clientApp->getEnabled()) {
+            return false;
         }
-        return false;
+        return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
     }
 
     public function isDeviceConnected(IODevice $device) {
+        if (!$device->getEnabled()) {
+            return false;
+        }
         return $this->isConnected($device->getUser()->getId(), $device->getId());
     }
 
-    public function userAction($userId, $action) {
+    private function userAction($userId, $action) {
         if (!$userId) {
             $user = $this->getCurrentUserOrThrow();
             $userId = $user->getId();
         }
         $userId = intval($userId);
-        if ($userId != 0 && $this->connect() !== false) {
+        if ($userId != 0) {
             $result = $this->executeCommand("USER-" . $action . ":" . $userId);
             return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
         }
@@ -126,21 +120,15 @@ abstract class SuplaServer {
     }
 
     public function clientReconnect(ClientApp $clientApp) {
-        if ($this->connect() !== false) {
-            $result = $this->executeCommand("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
-            return $result !== false && preg_match("/^OK:" . $clientApp->getId() . "\n/", $result) === 1 ? true : false;
-        }
-        return false;
+        $result = $this->executeCommand("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
+        return $result !== false && preg_match("/^OK:" . $clientApp->getId() . "\n/", $result) === 1 ? true : false;
     }
 
     private function getRawValue($type, IODeviceChannel $channel) {
-        if ($this->connect() !== false) {
-            $args = [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()];
-            $result = $this->executeCommand("GET-" . $type . "-VALUE:" . implode(',', $args));
-
-            if ($result !== false && preg_match("/^VALUE:/", $result) === 1) {
-                return $result;
-            }
+        $args = [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()];
+        $result = $this->executeCommand("GET-" . $type . "-VALUE:" . implode(',', $args));
+        if ($result !== false && preg_match("/^VALUE:/", $result) === 1) {
+            return $result;
         }
         return false;
     }
@@ -191,13 +179,9 @@ abstract class SuplaServer {
     }
 
     public function executeSetCommand(string $command) {
-        if ($this->connect()) {
-            $result = $this->executeCommand($command);
-            if (!$result || preg_match("/^OK:/", $result) !== 1) {
-                throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.');
-            }
-        } else {
-            throw new ServiceUnavailableHttpException(10, 'SUPLA Server is down.');
+        $result = $this->executeCommand($command);
+        if (!$result || preg_match("/^OK:/", $result) !== 1) {
+            throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.');
         }
     }
 }

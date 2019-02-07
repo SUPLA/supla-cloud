@@ -108,14 +108,8 @@ class IODeviceController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $result = $ioDevice;
         } else {
-            $enabled = false;
-            $connected = false;
-
-            if ($ioDevice->getEnabled()) {
-                $enabled = true;
-                $cids = $this->suplaServer->checkDevicesConnection($this->getUser()->getId(), [$ioDevice->getId()]);
-                $connected = in_array($ioDevice->getId(), $cids);
-            }
+            $enabled = $ioDevice->getEnabled();
+            $connected = $this->suplaServer->isDeviceConnected($ioDevice);
 
             $channels = [];
 

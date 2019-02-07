@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Serialization;
 
-use Assert\Assertion;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -48,7 +47,7 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
         $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
         if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
             if (in_array('connected', $context[self::GROUPS])) {
-                $normalized['connected'] = $this->isDeviceConnected($ioDevice);
+                $normalized['connected'] = $this->suplaServer->isDeviceConnected($ioDevice);
             }
             if (in_array('schedules', $context[self::GROUPS])) {
                 $normalized['schedules'] = $this->findSchedulesForDevice($ioDevice, $format, $context);
@@ -59,16 +58,6 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
 
     public function supportsNormalization($entity, $format = null) {
         return $entity instanceof IODevice;
-    }
-
-    private function isDeviceConnected(IODevice $ioDevice): bool {
-        if (!$ioDevice->getEnabled()) {
-            return false;
-        }
-        $user = $this->getCurrentUser();
-        Assertion::notNull($user, 'User not authenticated');
-        $connectedIds = $this->suplaServer->checkDevicesConnection($user->getId(), [$ioDevice->getId()]);
-        return in_array($ioDevice->getId(), $connectedIds);
     }
 
     private function findSchedulesForDevice(IODevice $ioDevice, $format = null, array $context = []): array {

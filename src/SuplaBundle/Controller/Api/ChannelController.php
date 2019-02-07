@@ -108,12 +108,9 @@ class ChannelController extends RestController {
         } else {
             $enabled = false;
             $connected = false;
-            $devid = $channel->getIoDevice()->getId();
-            $userid = $this->getUser()->getId();
             if ($channel->getIoDevice()->getEnabled()) {
                 $enabled = true;
-                $cids = $this->suplaServer->checkDevicesConnection($userid, [$devid]);
-                $connected = in_array($devid, $cids);
+                $connected = $this->suplaServer->isDeviceConnected($channel->getIoDevice());
             }
             $result = array_merge(['connected' => $connected, 'enabled' => $enabled], $this->channelStateGetter->getState($channel));
             return $this->handleView($this->view($result, Response::HTTP_OK));
