@@ -19,6 +19,9 @@ monolog:
       max_files: 2
     direct_links:
       max_files: 2
+    supla_server:
+      level: debug
+      max_files: 2
 
 parameters:
   supla_protocol: http

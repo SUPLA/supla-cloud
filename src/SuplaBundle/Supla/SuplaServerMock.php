@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Model\LocalSuplaCloud;
 
 /**
@@ -30,8 +31,8 @@ class SuplaServerMock extends SuplaServer {
     /** @var SuplaServerMockCommandsCollector */
     private $commandsCollector;
 
-    public function __construct(SuplaServerMockCommandsCollector $commandsCollector) {
-        parent::__construct('', new LocalSuplaCloud('http://supla.local'));
+    public function __construct(SuplaServerMockCommandsCollector $commandsCollector, LoggerInterface $logger) {
+        parent::__construct('', new LocalSuplaCloud('http://supla.local'), $logger);
         $this->commandsCollector = $commandsCollector;
     }
 

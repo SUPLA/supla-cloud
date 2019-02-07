@@ -73,8 +73,14 @@ services:
   SuplaBundle\Supla\:
     resource: '../../src/SuplaBundle/Supla'
 
+  SuplaBundle\Supla\SuplaServerMock:
+    tags:
+      - {name: monolog.logger, channel: supla_server}
   SuplaBundle\Supla\SuplaServerReal:
-    $socketPath: '%supla_server_socket%'
+    arguments:
+      $socketPath: '%supla_server_socket%'
+    tags:
+      - {name: monolog.logger, channel: supla_server}
 
   SuplaBundle\Supla\SuplaAutodiscoverMock:
     tags:

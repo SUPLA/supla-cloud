@@ -77,10 +77,10 @@ framework:
     enable_annotations: true
 
 monolog:
-  channels: [supla_autodiscover, supla_direct_links]
+  channels: [supla_autodiscover, supla_direct_links, supla_server]
   handlers:
     main:
-      channels: '!supla_direct_links'
+      channels: ['!supla_direct_links', '!supla_server']
       action_level: error
       handler: main_logger
       type: fingers_crossed
@@ -99,6 +99,12 @@ monolog:
       channels: [supla_direct_links]
       level: notice
       path: "%kernel.logs_dir%/direct-links.log"
+      type: rotating_file
+      max_files: 14
+    supla_server:
+      channels: [supla_server]
+      level: warning
+      path: "%kernel.logs_dir%/supla-server.log"
       type: rotating_file
       max_files: 14
 
