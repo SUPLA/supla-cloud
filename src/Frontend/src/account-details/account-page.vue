@@ -2,7 +2,7 @@
     <div class="account-page"
         v-title="$t('Account')">
         <animated-svg id="user-account-bg"
-            :file="'assets/img/user-account-bg.svg' | withBaseUrl"></animated-svg>
+            :file="'assets/img/user-account-bg.svg' | withBaseUrl(false)"></animated-svg>
         <div :class="'user-account-container ' + (animationFinished ? 'animation-finished' : '')">
             <loading-cover :loading="!user">
                 <span class="supla-version">supla cloud {{ version }}</span>

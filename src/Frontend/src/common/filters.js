@@ -1,10 +1,10 @@
 import Vue from "vue";
 
-export function withBaseUrl(url) {
+export function withBaseUrl(url, absolute = true) {
     if (url[0] != '/') {
         url = '/' + url;
     }
-    return (Vue.prototype.$user ? (Vue.prototype.$user.serverUrl || '') : '') + Vue.config.external.baseUrl + url;
+    return (Vue.prototype.$user ? ((absolute && Vue.prototype.$user.serverUrl) || '') : '') + Vue.config.external.baseUrl + url;
 }
 
 export function withDownloadAccessToken(url) {
