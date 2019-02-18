@@ -30,9 +30,11 @@ class DispatchCyclicTasksCommand extends Command {
         $this->getApplication()->setAutoExit(false);
         foreach ($this->cyclicCommands as $command) {
             if ($command->shouldRunNow($this->timeProvider)) {
-                $output->writeln($command->getName() . ': RUN:');
+                if (!$output->isQuiet()) {
+                    $output->writeln($command->getName() . ': RUN:');
+                }
                 $this->getApplication()->run(new StringInput($command->getName()), $output);
-            } else {
+            } elseif ($output->isVerbose()) {
                 $output->writeln($command->getName() . ': NOT NOW');
             }
         }
