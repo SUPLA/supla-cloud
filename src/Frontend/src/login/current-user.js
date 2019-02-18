@@ -16,7 +16,11 @@ export class CurrentUser {
 
     synchronizeAuthState() {
         Vue.http.headers.common['Authorization'] = this.getToken() ? 'Bearer ' + this.getToken() : undefined;
-        this.serverUrl = Base64.decode((this.getToken() || '').split('.')[1] || '') || Vue.config.external.suplaUrl;
+        if (Vue.config.external.actAsBrokerCloud) {
+            this.serverUrl = Base64.decode((this.getToken() || '').split('.')[1] || '') || Vue.config.external.suplaUrl;
+        } else {
+            this.serverUrl = location.origin || '';
+        }
         Vue.http.options.root = this.serverUrl + Vue.config.external.baseUrl + '/api';
         moment.tz.setDefault(this.userData && this.userData.timezone || undefined);
         return this.userData;
