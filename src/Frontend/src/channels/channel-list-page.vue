@@ -26,6 +26,7 @@
 <script type="text/babel">
     import ChannelFilters from "./channel-filters";
     import ChannelTile from "./channel-tile";
+    import EventBus from "src/common/event-bus";
 
     export default {
         components: {ChannelTile, ChannelFilters},
@@ -36,17 +37,13 @@
                 filteredChannels: undefined,
                 filterFunction: () => true,
                 compareFunction: () => -1,
+                loadNewChannelsListener: undefined
             };
         },
         mounted() {
-            let endpoint = 'channels?include=iodevice,location,state';
-            if (this.deviceId) {
-                endpoint = `iodevices/${this.deviceId}/${endpoint}`;
-            }
-            this.$http.get(endpoint).then(({body}) => {
-                this.channels = body;
-                this.filter();
-            });
+            this.loadNewChannelsListener = () => this.loadChannels();
+            EventBus.$on('device-count-changed', this.loadNewChannelsListener);
+            this.loadChannels();
         },
         methods: {
             filter() {
@@ -55,6 +52,24 @@
                     this.filteredChannels = this.filteredChannels.sort(this.compareFunction);
                 }
             },
+            loadChannels() {
+                this.$http.get(this.endpoint).then(({body}) => {
+                    this.channels = body;
+                    this.filter();
+                });
+            }
+        },
+        computed: {
+            endpoint() {
+                let endpoint = 'channels?include=iodevice,location,state';
+                if (this.deviceId) {
+                    endpoint = `iodevices/${this.deviceId}/${endpoint}`;
+                }
+                return endpoint;
+            }
+        },
+        beforeDestroy() {
+            EventBus.$off('device-count-changed', this.loadNewChannelsListener);
         }
     };
 </script>

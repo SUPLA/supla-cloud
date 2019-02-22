@@ -53,6 +53,7 @@
     import DevicesRegistrationButton from "./devices-registration-button.vue";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
     import DeviceFilters from "./device-filters";
+    import EventBus from "src/common/event-bus";
 
     export default {
         components: {
@@ -69,6 +70,7 @@
                 filteredDevices: undefined,
                 filterFunction: () => true,
                 compareFunction: () => -1,
+                loadNewDevicesListener: undefined,
                 possibleDevices: [
                     {
                         icon: 'pe-7s-light',
@@ -109,9 +111,9 @@
             };
         },
         mounted() {
-            this.$http.get('iodevices?include=location')
-                .then(({body}) => this.devices = body)
-                .then(() => this.filter());
+            this.loadNewDevicesListener = () => this.loadDevices();
+            EventBus.$on('device-count-changed', this.loadNewDevicesListener);
+            this.loadDevices();
         },
         computed: {
             showPossibleDevices() {
@@ -125,12 +127,14 @@
                     this.filteredDevices = this.filteredDevices.sort(this.compareFunction);
                 }
             },
-            fetchConnectedClientApps() {
-                this.$http.get('client-apps?onlyConnected=true').then(({body}) => {
-                    const connectedIds = body.map(app => app.id);
-                    this.clientApps.forEach(app => app.connected = connectedIds.indexOf(app.id) >= 0);
-                });
+            loadDevices() {
+                this.$http.get('iodevices?include=location')
+                    .then(({body}) => this.devices = body)
+                    .then(() => this.filter());
             }
+        },
+        beforeDestroy() {
+            EventBus.$off('device-count-changed', this.loadNewDevicesListener);
         }
     };
 </script>
