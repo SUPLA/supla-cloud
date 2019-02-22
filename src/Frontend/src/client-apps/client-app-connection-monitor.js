@@ -1,4 +1,5 @@
 import Vue from "vue";
+import EventBus from "../common/event-bus";
 
 export class ClientAppConnectionMonitor {
     constructor() {
@@ -59,6 +60,10 @@ export class ClientAppConnectionMonitor {
                     }
                 }
             }
+            if (this.totalClientApps !== undefined && this.totalClientApps !== clientApps.length) {
+                EventBus.$emit('client-apps-count-changed');
+            }
+            this.totalClientApps = clientApps.length;
         });
     }
 

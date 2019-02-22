@@ -47,6 +47,7 @@
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
     import ClientAppTileEditable from "./client-app-tile-editable";
     import ClientAppFilters from "./client-app-filters";
+    import EventBus from "src/common/event-bus";
 
     export default {
         components: {
@@ -63,14 +64,13 @@
                 filteredClientApps: [],
                 filterFunction: () => true,
                 compareFunction: () => 1,
+                loadNewClientAppsListener: undefined,
             };
         },
         mounted() {
-            this.$http.get('client-apps?include=accessId')
-                .then(({body}) => {
-                    this.clientApps = body;
-                    this.filter();
-                });
+            this.loadNewClientAppsListener = () => this.loadClientApps();
+            EventBus.$on('client-apps-count-changed', this.loadNewClientAppsListener);
+            this.loadClientApps();
         },
         methods: {
             filter() {
@@ -82,7 +82,17 @@
             removeClientFromList(app) {
                 this.clientApps.splice(this.clientApps.indexOf(app), 1);
                 this.filter();
+            },
+            loadClientApps() {
+                this.$http.get('client-apps?include=accessId')
+                    .then(({body}) => {
+                        this.clientApps = body;
+                        this.filter();
+                    });
             }
+        },
+        beforeDestroy() {
+            EventBus.$off('client-apps-count-changed', this.loadNewClientAppsListener);
         }
     };
 </script>
