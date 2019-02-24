@@ -81,6 +81,7 @@ Channel groups: Kanalų grupės
 Channel is assigned to the I/O device location: Kanalas priskirtas prie įrenginio vietos
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
 Channels: Kanalai
+Check the direct link you used and try again.: Patikrink iškviestą tiesioginę nuorodą ir pabandyk vėl.
 Check your email box: Patikrinkite savo el. pašto dėžutę
 Choose: Pasirinkti
 Choose Access Identifiers to be assigned to this Location: 'Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai'
@@ -135,6 +136,7 @@ Dimmer & RGB led controller: Šviesos srauto ir RGB apšvietimo reguliatorius
 Dimmer and RGB lighting: Šviesos srauto reguliatorius ir RGB apšvietimas
 Direct link: Tiesioginė nuoroda
 Direct link has been created successfully!: Tiesioginė nuoroda buvo sėkmingai sukurta!
+Direct link has been executed: Tiesioginė nuoroda atlikta
 'Direct link is not working right now. Reason:': 'Tiesioginė nuoroda šiuo metu neveikia. Priežastis:'
 Direct links: Tiesioginės nuorodos
 Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
@@ -223,6 +225,7 @@ Idle: Nenaudojamos
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite [registruoti savo instanciją].'
 'If you want to stay here, do something!': 'Jei norite likti čia, padarykite ką nors!'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].'
 Impulse counter: Impulsų skaitiklis
 Impulses: Impulsai
@@ -321,6 +324,7 @@ RGB lighting: RGB apšvietimas
 Rain sensor: Lietaus jutiklis
 Random: Atsitiktinis
 Read: Rodmenys
+Refresh: Atnaujink
 Register: Registruoti
 Register a new OAuth application: Registruotis į OAuth programą
 Register private SUPLA Cloud: Įregistruokite privatų SUPLA debesį
@@ -358,6 +362,7 @@ Scopes: Taikymo sritis
 Scopes define which sections of your account can be accessed when using the token.: Sritys nustato į kokius išteklius paskyroje galima gauti prieigą panaudojant tokeną.
 Search: Ieškok
 Secret: Slaptas raktas (secret)
+See direct link possibilities: Pamatyk tiesioginės nuorodos galimybes
 Seems like a secret place: 'Kažkas mums sako, kad Jūs neturėtumėte čia būti'
 Select icon: Pasirinkti piktogramą
 Select the item (subject) you want to control using this link: 'Pasirinkite elementą (subjektas), kurį norite kontroliuoti su šios nuorodos pagalba'
@@ -400,6 +405,7 @@ The client will be automatically logged out when deleted.: 'Kliento pašalinimas
 The device is disabled: Įrenginys išjungtas
 The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
 The latest execution: Paskutinis atlikimas
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.'
 The measurement history has been deleted.: Matmenų istorija pašalinta.
 The next available executions: Artimiausiais atlikimas
 The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas nėra identiški.
@@ -440,6 +446,8 @@ Wednesdays: Trečiadieniai
 Weight sensor: Svoris
 What this token is for?: Kam yra skirtas šis tokenas?
 When: Kada
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.'
+Where is the JSON?: Kur yra JSON?
 Where is your SUPLA Cloud?: Kur yra Jūsų SUPLA?
 White: Balta
 Wind sensor: Vėjo jutiklis
@@ -447,6 +455,7 @@ Window opening sensor: Lango atidarymo jutiklis
 With SUPLA you can operate the lights in your home or office: Su SUPLA galite valdyti Savo namų ar ofiso apšvietimą
 With function: Su funkcija
 Working period: Veiklos trukmė
+YOUR LINK CODE: TAVO NUORODOS KODAS
 You cannot delete your last access identifier.: Negalite pašalinti savo paskutinio prieigos identifikatoriaus.
 You cannot delete your last location.: Negalite pašalinti paskutinės savo vietos.
 You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
@@ -457,6 +466,7 @@ You will not be able to generate a direct link with the same URL again.: Nuorodo
 Your account has been locked.: El. pašto adresas jau egzistuoja
 Your email: Jūsų el. paštas
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.'
 Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
 Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
 after: po
@@ -472,10 +482,16 @@ daily: Dieninis ciklas
 directLinkExecutionFailureReason_disabled: Tiesioginė nuoroda yra išjungta
 directLinkExecutionFailureReason_executionLimitExceeded: Buvo viršytas atlikimų limitas
 directLinkExecutionFailureReason_expired: Tiesioginė nuoroda prarado galiojimo laiką
+directLinkExecutionFailureReason_forbiddenAction: Nuoroda neleidžia atlikti šios akcijos
 directLinkExecutionFailureReason_httpGetForbidden: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
 directLinkExecutionFailureReason_invalidActionParameters: Neteisingi tiesioginės nuorodos parametrai
+directLinkExecutionFailureReason_invalidSlug: Pateiktas patikros kodas neteisingas
 directLinkExecutionFailureReason_noAllowedActions: Nebuvo pasirinkta jokių leidžiamų akcijų
+directLinkExecutionFailureReason_noSlugOrAction: Neteisinga užklausa – būtina pateikti nuorodos kodą ir akciją
 directLinkExecutionFailureReason_notActiveYet: Tiesioginė nuoroda dar nėra aktyvi
+directLinkExecutionFailureReason_otherFailure: Akcijos vykdymo klaida
+directLinkExecutionFailureReason_unsupportedAction: Pasirinkta akcija neteisinga
+executed: atlikta
 from IP: iš IP adreso
 from the IP: iš adreso
 hourly: Valandinis ciklas
@@ -532,26 +548,13 @@ Registration: Registracija
 Remove: Pašalinti
 Status: Statusas
 Try again later: Pabandykite dar kartą vėliau
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.'
+execute: atlik
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: Patikrink iškviestą tiesioginę nuorodą ir pabandyk vėl.
-Direct link has been executed: Tiesioginė nuoroda atlikta
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.'
-Refresh: Atnaujink
-See direct link possibilities: Pamatyk tiesioginės nuorodos galimybes
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.'
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.'
-Where is the JSON?: Kur yra JSON?
-YOUR LINK CODE: TAVO NUORODOS KODAS
-directLinkExecutionFailureReason_forbiddenAction: Nuoroda neleidžia atlikti šios akcijos
-directLinkExecutionFailureReason_invalidSlug: Pateiktas patikros kodas neteisingas
-directLinkExecutionFailureReason_noSlugOrAction: Neteisinga užklausa – būtina pateikti nuorodos kodą ir akciją
-directLinkExecutionFailureReason_otherFailure: Akcijos vykdymo klaida
-directLinkExecutionFailureReason_unsupportedAction: Pasirinkta akcija neteisinga
-execute: atlik
-executed: atlikta
+Captcha token is not valid.: ~
+Invalid SUPLA Cloud URL.: ~
+You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
 
 #</editor-fold>

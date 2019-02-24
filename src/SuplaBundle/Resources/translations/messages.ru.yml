@@ -81,6 +81,7 @@ Channel groups: Группы каналов
 Channel is assigned to the I/O device location: Канал назначен по местоположению устройства
 Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
 Channels: Каналы
+Check the direct link you used and try again.: Проверь ссылку и повтори попытку.
 Check your email box: Проверьте почтовый ящик
 Choose: выберите
 Choose Access Identifiers to be assigned to this Location: Выберите Ключи Доступа для этой Позиции
@@ -135,6 +136,7 @@ Dimmer & RGB led controller: Диммер и контроллер освещен
 Dimmer and RGB lighting: Диммер и освещение RGB
 Direct link: Прямая ссылка
 Direct link has been created successfully!: Прямая ссылка успешно создана!
+Direct link has been executed: Ссылка создана
 'Direct link is not working right now. Reason:': 'Прямая ссылка в данный момент не работает. Причина:'
 Direct links: Прямые ссылки
 Direct links below will be deleted: 'Прямые ссылки, перечисленные ниже, будут удалены'
@@ -223,6 +225,7 @@ Idle: Бездействующие
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Если вы уверены, что у вас есть учетная запись на cloud.supla.org, убедитесь, что приложение, которое вы пытаетесь авторизовать, является публичным.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Если вы хотите интегрировать персональное облако SUPLA с публичным приложением OAuth, вам необходимо [зарегистрировать свою инстанцию].'
 'If you want to stay here, do something!': 'Если хочешь здесь остаться, сделай что-нибудь!'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Для использования ссылки в другом программном обеспечении, добавь соответствующий заголовок запроса, чтобы получить ответ, который будет легче обрабатывать.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Если вы хотите увидеть доступные интеграции, перейдите на [cloud.supla.org/apps].'
 Impulse counter: Счетчик импульсов
 Impulses: Импульсы
@@ -321,6 +324,7 @@ RGB lighting: Освещение RGB
 Rain sensor: Датчик дождя
 Random: Произвольный
 Read: Показание
+Refresh: Обнови
 Register: Регистрация
 Register a new OAuth application: Зарегистрировать новое приложение OAuth
 Register private SUPLA Cloud: Зарегистрировать персональное облако SUPLA
@@ -358,6 +362,7 @@ Scopes: Диапазоны
 Scopes define which sections of your account can be accessed when using the token.: 'Диапазоны определяют, к каким ресурсам учетной записи можно получить доступ с помощью токена.'
 Search: Поиск
 Secret: Секретный ключ (secret)
+See direct link possibilities: Посмотри возможности ссылки
 Seems like a secret place: 'Что-то нам подсказывает, что вас здесь быть не должно'
 Select icon: Выбрать значок
 Select the item (subject) you want to control using this link: 'Выберите элемент (субъект), который хотите контролировать с помощью этой ссылки'
@@ -400,6 +405,7 @@ The client will be automatically logged out when deleted.: Удаление кл
 The device is disabled: Оборудование выключено
 The gate sensor must function properly in order to execute the scheduled action.: 'Чтобы выполнить задачу, датчик открытия ворот должен работать правильно.'
 The latest execution: Последнее исполнение
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Результат отображается в виде веб-сайта, потому что Вы (или Ваш браузер) запросили ответ в формате HTML.'
 The measurement history has been deleted.: История измерений удалена.
 The next available executions: Ближайшие исполнения
 The password and its confirm are not the same.: Пароль и его подтверждение не совпадают.
@@ -440,6 +446,8 @@ Wednesdays: Среды
 Weight sensor: Весы
 What this token is for?: Для чего служит этот токен?
 When: Когда
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Ссылка может быть открыта при подаче ее уникального идентификатора в тексте запроса HTTP PATCH. Это безопаснее, так как предотвращает сохранение полного адреса Вашей ссылки в журналах доступа серверов, через которые проходит Ваш запрос. Пример выполнения при помощи инструмента cURL приведен ниже.'
+Where is the JSON?: Где находится ДЖЕЙСОН?
 Where is your SUPLA Cloud?: Где находится ваша SUPLA?
 White: белый
 Wind sensor: Датчик ветра
@@ -447,6 +455,7 @@ Window opening sensor: Датчик открытия окна
 With SUPLA you can operate the lights in your home or office: С SUPLĄ можно управлять светом в доме или офисе
 With function: С функцией
 Working period: Срок действия
+YOUR LINK CODE: КОД ТВОЕЙ ССЫЛКИ
 You cannot delete your last access identifier.: Невозможно удалить свой последний идентификатор доступа.
 You cannot delete your last location.: Невозможно удалить свое последнее местоположение.
 You just need to execute the following command inside your host terminal.: Достаточно выполнить следующую команду внутри терминала вашего хоста.
@@ -457,6 +466,7 @@ You will not be able to generate a direct link with the same URL again.: Соз�
 Your account has been locked.: Ваша учетная запись заблокирована.
 Your email: Введите почту
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Ваша инстанция не зарегистрирована или вы пытаетесь авторизовать приложение, которое не является публичным.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Ваша пользовательская установка SUPLA cloud недоступна. Убедитесь в том, что сервер доступен, а соединение HTTPS действует корректно.'
 Your private SUPLA Cloud is almost registered.: Ваше персональное облако SUPLA почти зарегистрировано.
 Your private SUPLA Cloud is not registered.: Ваше личное облако SUPLA не зарегистрировано.
 after: после
@@ -472,10 +482,16 @@ daily: Дневной цикл
 directLinkExecutionFailureReason_disabled: Прямая ссылка отключена
 directLinkExecutionFailureReason_executionLimitExceeded: Лимит исполнений превышен
 directLinkExecutionFailureReason_expired: Прямая ссылка просрочена
+directLinkExecutionFailureReason_forbiddenAction: Ссылка не разрешает выполнить это действие
 directLinkExecutionFailureReason_httpGetForbidden: Не удалось выполнить действия с использованием запрещенного метода HTTP GET.
 directLinkExecutionFailureReason_invalidActionParameters: Неверные параметры прямой ссылки
+directLinkExecutionFailureReason_invalidSlug: Отправленный код подтверждения неверный
 directLinkExecutionFailureReason_noAllowedActions: Никаких допустимых действий не выбрано
+directLinkExecutionFailureReason_noSlugOrAction: Неправильный запрос - требуется код ссылки либо действия
 directLinkExecutionFailureReason_notActiveYet: Прямая ссылка еще не активна
+directLinkExecutionFailureReason_otherFailure: Ошибка при выполнении действия
+directLinkExecutionFailureReason_unsupportedAction: Выбранное действие неверно
+executed: выполнено
 from IP: c IP
 from the IP: с адреса
 hourly: Ежечасный цикл
@@ -532,26 +548,13 @@ Registration: Регистрация
 Remove: Удалить
 Status: Статус
 Try again later: Попытайся повторно задать команду
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Ваша пользовательская установка SUPLA cloud недоступна. Убедитесь в том, что сервер доступен, а соединение HTTPS действует корректно.'
+execute: выполни
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: Проверь ссылку и повтори попытку.
-Direct link has been executed: Ссылка создана
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Для использования ссылки в другом программном обеспечении, добавь соответствующий заголовок запроса, чтобы получить ответ, который будет легче обрабатывать.'
-Refresh: Обнови
-See direct link possibilities: Посмотри возможности ссылки
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Результат отображается в виде веб-сайта, потому что Вы (или Ваш браузер) запросили ответ в формате HTML.'
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Ссылка может быть открыта при подаче ее уникального идентификатора в тексте запроса HTTP PATCH. Это безопаснее, так как предотвращает сохранение полного адреса Вашей ссылки в журналах доступа серверов, через которые проходит Ваш запрос. Пример выполнения при помощи инструмента cURL приведен ниже.'
-Where is the JSON?: Где находится ДЖЕЙСОН?
-YOUR LINK CODE: КОД ТВОЕЙ ССЫЛКИ
-directLinkExecutionFailureReason_forbiddenAction: Ссылка не разрешает выполнить это действие
-directLinkExecutionFailureReason_invalidSlug: Отправленный код подтверждения неверный
-directLinkExecutionFailureReason_noSlugOrAction: Неправильный запрос - требуется код ссылки либо действия
-directLinkExecutionFailureReason_otherFailure: Ошибка при выполнении действия
-directLinkExecutionFailureReason_unsupportedAction: Выбранное действие неверно
-execute: выполни
-executed: выполнено
+Captcha token is not valid.: ~
+Invalid SUPLA Cloud URL.: ~
+You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
 
 #</editor-fold>

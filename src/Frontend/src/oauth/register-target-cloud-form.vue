@@ -135,7 +135,7 @@
                     captcha
                 };
                 this.isBusy = true;
-                this.$http.post('register-target-cloud', data)
+                this.$http.post('register-target-cloud', data, {skipErrorHandler: [400]})
                     .then(({body}) => this.token = body.token)
                     .catch(({body}) => this.errorMessage = this.$t(body.message))
                     .finally(() => this.isBusy = false);

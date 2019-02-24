@@ -66,6 +66,7 @@ Calibration: Kalibracja
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
 Cancelled: Anulowane
+Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
 Change Password: Zmiana hasła
 Change icon: Zmień ikonę
@@ -233,6 +234,7 @@ Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
 Integrations: Integracje
 Interval: Interwał
+Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
 Inverted logic: Odwrócona logika
@@ -460,12 +462,14 @@ You cannot delete your last access identifier.: Nie możesz usunąć swojego ost
 You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
+You must upgrade your private SUPLA Cloud to be at least v2.3.0.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
 Your account has been locked.: Twoje konto zostało zablokowane.
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
 after: po
@@ -490,7 +494,6 @@ directLinkExecutionFailureReason_noSlugOrAction: Niepoprawne żądanie - kod lin
 directLinkExecutionFailureReason_notActiveYet: Link bezpośredni nie jest jeszcze aktywny
 directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
 directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
-execute: wykonaj
 executed: wykonano
 from IP: z adresu IP
 from the IP: z adresu
@@ -548,7 +551,7 @@ Registration: Rejestracja
 Remove: Usuń
 Status: Status
 Try again later: Spróbuj ponownie później
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
+execute: wykonaj
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">

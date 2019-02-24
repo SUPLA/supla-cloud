@@ -1,6 +1,8 @@
 <?php
 namespace SuplaBundle\Model;
 
+use Assert\Assertion;
+
 class TargetSuplaCloud {
     /** @var string */
     private $address;
@@ -30,5 +32,19 @@ class TargetSuplaCloud {
 
     public function isLocal(): bool {
         return $this->local;
+    }
+
+    public static function forHost(string $scheme, $domainName): self {
+        Assertion::notBlank($domainName, 'Invalid SUPLA Cloud URL.'); // i18n
+        $scheme .= '://';
+        $url = $domainName;
+        if (strpos($domainName, $scheme) !== 0) {
+            $url = $scheme . $domainName;
+        }
+        $domainName = parse_url($url, PHP_URL_HOST);
+        $port = parse_url($url, PHP_URL_PORT);
+        Assertion::string($domainName, 'Invalid SUPLA Cloud URL.'); // i18n
+        Assertion::contains($domainName, '.', 'Invalid SUPLA Cloud URL.');
+        return new self($scheme . $domainName . ($port ? ':' . $port : ''));
     }
 }

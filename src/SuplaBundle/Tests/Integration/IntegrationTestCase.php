@@ -21,6 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use ReflectionClass;
 use ReflectionProperty;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -43,6 +44,7 @@ abstract class IntegrationTestCase extends WebTestCase {
             TestTimeProvider::reset();
             TestMailer::reset();
             SuplaServerMock::$executedCommands = [];
+            SuplaAutodiscoverMock::clear();
         }
         $client = self::createClient(['debug' => false]);
         $this->container = $client->getContainer();
