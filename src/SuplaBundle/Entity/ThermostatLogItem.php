@@ -52,64 +52,16 @@ class ThermostatLogItem {
     private $on = false;
 
     /**
-     * @ORM\Column(name="temperature1", type="decimal", precision=8, scale=4, nullable=true)
+     * @ORM\Column(name="measured_temperature", type="decimal", precision=5, scale=2)
      * @Groups({"basic"})
      */
-    private $temperature1;
+    private $measuredTemperature;
 
     /**
-     * @ORM\Column(name="temperature2", type="decimal", precision=8, scale=4, nullable=true)
+     * @ORM\Column(name="preset_temperature", type="decimal", precision=5, scale=2)
      * @Groups({"basic"})
      */
-    private $temperature2;
-
-    /**
-     * @ORM\Column(name="temperature3", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature3;
-
-    /**
-     * @ORM\Column(name="temperature4", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature4;
-
-    /**
-     * @ORM\Column(name="temperature5", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature5;
-
-    /**
-     * @ORM\Column(name="temperature6", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature6;
-
-    /**
-     * @ORM\Column(name="temperature7", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature7;
-
-    /**
-     * @ORM\Column(name="temperature8", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature8;
-
-    /**
-     * @ORM\Column(name="temperature9", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature9;
-
-    /**
-     * @ORM\Column(name="temperature10", type="decimal", precision=8, scale=4, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $temperature10;
+    private $presetTemperature;
 
 
     public function __construct() {
@@ -131,43 +83,11 @@ class ThermostatLogItem {
         return $this->on;
     }
 
-    public function getTemperature1() {
-        return $this->temperature1;
+    public function getMeasuredTemperature() {
+        return $this->measuredTemperature;
     }
 
-    public function getTemperature2() {
-        return $this->temperature2;
-    }
-
-    public function getTemperature3() {
-        return $this->temperature3;
-    }
-
-    public function getTemperature4() {
-        return $this->temperature4;
-    }
-
-    public function getTemperature5() {
-        return $this->temperature5;
-    }
-
-    public function getTemperature6() {
-        return $this->temperature6;
-    }
-
-    public function getTemperature7() {
-        return $this->temperature7;
-    }
-
-    public function getTemperature8() {
-        return $this->temperature8;
-    }
-
-    public function getTemperature9() {
-        return $this->temperature9;
-    }
-
-    public function getTemperature10() {
-        return $this->temperature10;
+    public function getPresetTemperature() {
+        return $this->presetTemperature;
     }
 }
