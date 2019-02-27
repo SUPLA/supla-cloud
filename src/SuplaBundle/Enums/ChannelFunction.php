@@ -237,7 +237,7 @@ final class ChannelFunction extends Enum {
             self::OPENINGSENSOR_GATE => 2,
             self::STAIRCASETIMER => 1,
             self::THERMOSTAT => 3,
-            self::THERMOSTATHPHOMEPLUS() => 3,
+            self::THERMOSTATHPHOMEPLUS => 3,
         ];
     }
 
