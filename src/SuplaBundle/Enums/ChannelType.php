@@ -50,7 +50,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelType ELECTRICITYMETER();
  * @method static ChannelType IMPULSECOUNTER();
  * @method static ChannelType THERMOSTAT();
- * @method static ChannelType THERMOSTATHPHOMEPLUS();
+ * @method static ChannelType THERMOSTATHEATPOLHOMEPLUS();
  */
 final class ChannelType extends Enum {
     const SENSORNO = 1000;
@@ -82,7 +82,7 @@ final class ChannelType extends Enum {
     const ELECTRICITYMETER = 5000;
     const IMPULSECOUNTER = 5010;
     const THERMOSTAT = 6000;
-    const THERMOSTATHPHOMEPLUS = 6010;
+    const THERMOSTATHEATPOLHOMEPLUS = 6010;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -154,7 +154,7 @@ final class ChannelType extends Enum {
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
             self::IMPULSECOUNTER => 'Impulse counter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
-            self::THERMOSTATHPHOMEPLUS => 'Home+ Heater', // i18n
+            self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
         ];
     }
 
@@ -221,7 +221,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::WATERMETER(),
             ],
             self::THERMOSTAT => [ChannelFunction::THERMOSTAT()],
-            self::THERMOSTATHPHOMEPLUS => [ChannelFunction::THERMOSTATHPHOMEPLUS()],
+            self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {

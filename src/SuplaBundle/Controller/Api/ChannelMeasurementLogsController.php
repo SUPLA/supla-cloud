@@ -81,7 +81,7 @@ class ChannelMeasurementLogsController extends RestController {
                 $repoName = 'ImpulseCounterLogItem';
                 break;
             case ChannelFunction::THERMOSTAT:
-            case ChannelFunction::THERMOSTATHPHOMEPLUS:
+            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 $repoName = 'ThermostatLogItem';
                 break;
         }

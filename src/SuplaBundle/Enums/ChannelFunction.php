@@ -58,7 +58,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction GASMETER()
  * @method static ChannelFunction WATERMETER()
  * @method static ChannelFunction THERMOSTAT()
- * @method static ChannelFunction THERMOSTATHPHOMEPLUS()
+ * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  */
 final class ChannelFunction extends Enum {
     const NONE = 0;
@@ -95,7 +95,7 @@ final class ChannelFunction extends Enum {
     const GASMETER = 320;
     const WATERMETER = 330;
     const THERMOSTAT = 400;
-    const THERMOSTATHPHOMEPLUS = 410;
+    const THERMOSTATHEATPOLHOMEPLUS = 410;
     const VLDIMMER = 500;
 
     /** @Groups({"basic"}) */
@@ -234,7 +234,7 @@ final class ChannelFunction extends Enum {
             self::GASMETER => 'Gas meter', // i18n
             self::WATERMETER => 'Water meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
-            self::THERMOSTATHPHOMEPLUS => 'Home+ Heater', // i18n
+            self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
         ];
     }
 
@@ -246,7 +246,7 @@ final class ChannelFunction extends Enum {
             self::OPENINGSENSOR_GATE => 2,
             self::STAIRCASETIMER => 1,
             self::THERMOSTAT => 3,
-            self::THERMOSTATHPHOMEPLUS => 3,
+            self::THERMOSTATHEATPOLHOMEPLUS => 3,
         ];
     }
 
@@ -287,7 +287,7 @@ final class ChannelFunction extends Enum {
             self::GASMETER => ['default'],
             self::WATERMETER => ['default'],
             self::THERMOSTAT => ['default'],
-            self::THERMOSTATHPHOMEPLUS => ['default'],
+            self::THERMOSTATHEATPOLHOMEPLUS => ['default'],
         ];
     }
 

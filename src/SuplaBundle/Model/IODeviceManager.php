@@ -177,7 +177,7 @@ class IODeviceManager {
             ChannelFunction::GASMETER()->getId(),
             ChannelFunction::WATERMETER()->getId(),
             ChannelFunction::THERMOSTAT()->getId(),
-            ChannelFunction::THERMOSTATHPHOMEPLUS()->getId(),
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()->getId(),
         ]);
 
         $temp_file = tempnam(sys_get_temp_dir(), 'supla_csv_');
@@ -186,7 +186,7 @@ class IODeviceManager {
             $handle = fopen($temp_file, 'w+');
 
             if ($channel->getType()->getId() == ChannelType::THERMOSTAT
-                || $channel->getType()->getId() == ChannelType::THERMOSTATHPHOMEPLUS ) {
+                || $channel->getType()->getId() == ChannelType::THERMOSTATHEATPOLHOMEPLUS ) {
 
                 fputcsv($handle, ['Timestamp', 'Date and time', 'On', 'MeasuredTemperature', 'PresetTemperature']);
 
