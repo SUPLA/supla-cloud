@@ -25,6 +25,7 @@ use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\TemperatureLogItem;
 use SuplaBundle\Entity\TempHumidityLogItem;
+use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
@@ -78,6 +79,10 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::GASMETER:
             case ChannelFunction::WATERMETER:
                 $repoName = 'ImpulseCounterLogItem';
+                break;
+            case ChannelFunction::THERMOSTAT:
+            case ChannelFunction::THERMOSTATHPHOMEPLUS:
+                $repoName = 'ThermostatLogItem';
                 break;
         }
 
@@ -335,6 +340,7 @@ class ChannelMeasurementLogsController extends RestController {
 
         $this->ensureChannelHasMeasurementLogs($channel);
 
+        $this->deleteMeasurementLogs(ThermostatLogItem::class, $channel);
         $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);
         $this->deleteMeasurementLogs(ImpulseCounterLogItem::class, $channel);
         $this->deleteMeasurementLogs(TemperatureLogItem::class, $channel);
