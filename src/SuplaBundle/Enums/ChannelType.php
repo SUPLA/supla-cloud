@@ -46,6 +46,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelType DIMMER()
  * @method static ChannelType RGBLEDCONTROLLER()
  * @method static ChannelType DIMMERANDRGBLED()
+ * @method static ChannelType VLDIMMER();
  * @method static ChannelType ELECTRICITYMETER();
  * @method static ChannelType IMPULSECOUNTER();
  * @method static ChannelType THERMOSTAT();
@@ -77,6 +78,7 @@ final class ChannelType extends Enum {
     const DIMMER = 4000;
     const RGBLEDCONTROLLER = 4010;
     const DIMMERANDRGBLED = 4020;
+    const VLDIMMER = 4100;
     const ELECTRICITYMETER = 5000;
     const IMPULSECOUNTER = 5010;
     const THERMOSTAT = 6000;
@@ -108,6 +110,7 @@ final class ChannelType extends Enum {
             self::DIMMER,
             self::RGBLEDCONTROLLER,
             self::DIMMERANDRGBLED,
+            self::VLDIMMER,
             self::RELAY,
             self::RELAYG5LA1A,
             self::RELAY2XG5LA1A,
@@ -145,6 +148,7 @@ final class ChannelType extends Enum {
             self::DIMMER => 'Dimmer', // i18n
             self::RGBLEDCONTROLLER => 'RGB led controller', // i18n
             self::DIMMERANDRGBLED => 'Dimmer & RGB led controller', // i18n
+            self::VLDIMMER => 'Dimmer', // i18n
             self::DISTANCESENSOR => 'Distance sensor', // i18n
             self::CALLBUTTON => 'Distance sensor', // i18n
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
@@ -196,6 +200,7 @@ final class ChannelType extends Enum {
             self::DIMMER => [ChannelFunction::DIMMER()],
             self::RGBLEDCONTROLLER => [ChannelFunction::RGBLIGHTING()],
             self::DIMMERANDRGBLED => [ChannelFunction::DIMMERANDRGBLIGHTING()],
+            self::VLDIMMER => [ChannelFunction::VLDIMMER()],
             self::DISTANCESENSOR => [
                 ChannelFunction::DEPTHSENSOR(),
                 ChannelFunction::DISTANCESENSOR(),

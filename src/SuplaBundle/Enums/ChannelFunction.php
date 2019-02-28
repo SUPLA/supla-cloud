@@ -43,6 +43,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction DIMMER()
  * @method static ChannelFunction RGBLIGHTING()
  * @method static ChannelFunction DIMMERANDRGBLIGHTING()
+ * @method static ChannelFunction VLDIMMER()
  * @method static ChannelFunction DEPTHSENSOR()
  * @method static ChannelFunction DISTANCESENSOR()
  * @method static ChannelFunction OPENINGSENSOR_WINDOW()
@@ -95,6 +96,7 @@ final class ChannelFunction extends Enum {
     const WATERMETER = 330;
     const THERMOSTAT = 400;
     const THERMOSTATHPHOMEPLUS = 410;
+    const VLDIMMER = 500;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -186,6 +188,12 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
+            self::VLDIMMER => [
+                ChannelFunctionAction::SET_RGBW_PARAMETERS(),
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
         ];
     }
 
@@ -211,6 +219,7 @@ final class ChannelFunction extends Enum {
             self::DIMMER => 'Dimmer', // i18n
             self::RGBLIGHTING => 'RGB lighting', // i18n
             self::DIMMERANDRGBLIGHTING => 'Dimmer and RGB lighting', // i18n
+            self::VLDIMMER => 'Dimmer', // i18n
             self::DISTANCESENSOR => 'Distance sensor', // i18n
             self::DEPTHSENSOR => 'Depth sensor', // i18n
             self::OPENINGSENSOR_WINDOW => 'Window opening sensor', // i18n
@@ -263,6 +272,7 @@ final class ChannelFunction extends Enum {
             self::DIMMER => ['on', 'off'],
             self::RGBLIGHTING => ['on', 'off'],
             self::DIMMERANDRGBLIGHTING => ['rgb_on_dim_on', 'rgb_on_dim_off', 'rgb_off_dim_on', 'rgb_off_dim_off'],
+            self::VLDIMMER => ['on', 'off'],
             self::DISTANCESENSOR => ['default'],
             self::DEPTHSENSOR => ['default'],
             self::OPENINGSENSOR_WINDOW => ['opened', 'closed'],
