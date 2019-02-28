@@ -90,7 +90,9 @@
                 'HUMIDITYANDTEMPERATURE',
                 'ELECTRICITYMETER',
                 'GASMETER',
-                'WATERMETER'];
+                'WATERMETER',
+                'THERMOSTAT',
+                'THERMOSTATHOMEPLUS'];
 
             if (supporterFunctions.indexOf(this.channel.function.name) >= 0) {
                 this.availableTabs.push({
