@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Grpc\Channel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
@@ -55,7 +56,8 @@ class ChannelMeasurementLogsController extends RestController {
         Assertion::inArray(
             $functionId,
             [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER],
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
+                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
 
@@ -140,7 +142,8 @@ class ChannelMeasurementLogsController extends RestController {
     private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, $allowedFuncList = null) {
         if ($allowedFuncList == null) {
             $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER];
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
+                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS];
         }
 
         Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');
@@ -209,6 +212,19 @@ class ChannelMeasurementLogsController extends RestController {
                     "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
                     . "`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
                     . "`phase3_rae`, `phase3_fre`, `phase3_rre`",
+                    $channel->getId(),
+                    $offset,
+                    $limit,
+                    $afterTimestamp,
+                    $beforeTimestamp,
+                    $orderDesc
+                );
+                break;
+            case ChannelFunction::THERMOSTAT:
+            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
+                $result = $this->logItems(
+                    "`supla_thermostat_log`",
+                    "`on`,`measured_temperature`,`preset_temperature`",
                     $channel->getId(),
                     $offset,
                     $limit,
