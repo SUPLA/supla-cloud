@@ -46,7 +46,7 @@ class ThermostatLogItem {
     private $date;
 
     /**
-     * @ORM\Column(name="on", type="boolean", nullable=false)
+     * @ORM\Column(name="`on`", type="boolean", nullable=false)
      * @Groups({"basic"})
      */
     private $on = false;
