@@ -92,7 +92,7 @@
                 'GASMETER',
                 'WATERMETER',
                 'THERMOSTAT',
-                'THERMOSTATHOMEPLUS'];
+                'THERMOSTATHEATPOLHOMEPLUS'];
 
             if (supporterFunctions.indexOf(this.channel.function.name) >= 0) {
                 this.availableTabs.push({
