@@ -11,6 +11,7 @@ class TurnOnActionExecutor extends SetCharValueActionExecutor {
             ChannelFunction::LIGHTSWITCH(),
             ChannelFunction::STAIRCASETIMER(),
             ChannelFunction::DIMMER(),
+            ChannelFunction::VLDIMMER(),
             ChannelFunction::RGBLIGHTING(),
             ChannelFunction::DIMMERANDRGBLIGHTING(),
         ];

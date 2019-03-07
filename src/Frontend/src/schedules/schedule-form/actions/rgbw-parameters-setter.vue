@@ -112,13 +112,13 @@
         },
         computed: {
             brightnessClass() {
-                return {'DIMMER': 'col-xs-12', 'RGBLIGHTING': 'hidden'}[this.channelFunction.name] || 'col-xs-4';
+                return {'DIMMER': 'col-xs-12', 'VLDIMMER': 'col-xs-12','RGBLIGHTING': 'hidden'}[this.channelFunction.name] || 'col-xs-4';
             },
             hueClass() {
-                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
+                return {'DIMMER': 'hidden', 'VLDIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
             },
             colorBrightnessClass() {
-                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
+                return {'DIMMER': 'hidden', 'VLDIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
             },
         },
         watch: {

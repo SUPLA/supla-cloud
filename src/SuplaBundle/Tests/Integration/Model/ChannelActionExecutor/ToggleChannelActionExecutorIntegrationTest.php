@@ -42,6 +42,7 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
             [ChannelType::RELAY, ChannelFunction::DIMMER],
             [ChannelType::RELAY, ChannelFunction::RGBLIGHTING],
+            [ChannelType::RELAY, ChannelFunction::VLDIMMER],
         ]);
         $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
         SuplaServerMock::$executedCommands = [];
@@ -93,5 +94,21 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = SuplaServerMock::$executedCommands[1];
         $this->assertEquals('SET-CHAR-VALUE:1,1,3,1', $setCommand);
+    }
+
+    public function testToggleVLDimmerOnOff() {
+        SuplaServerMock::mockTheNextResponse("VALUE:0,0,10\n");
+        $this->channelActionExecutor->executeAction($this->device->getChannels()[3], ChannelFunctionAction::TOGGLE());
+        $this->assertCount(2, SuplaServerMock::$executedCommands);
+        $setCommand = SuplaServerMock::$executedCommands[1];
+        $this->assertEquals('SET-CHAR-VALUE:1,1,2,0', $setCommand);
+    }
+
+    public function testToggleVLDimmerOffOn() {
+        SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
+        $this->channelActionExecutor->executeAction($this->device->getChannels()[3], ChannelFunctionAction::TOGGLE());
+        $this->assertCount(2, SuplaServerMock::$executedCommands);
+        $setCommand = SuplaServerMock::$executedCommands[1];
+        $this->assertEquals('SET-CHAR-VALUE:1,1,2,1', $setCommand);
     }
 }

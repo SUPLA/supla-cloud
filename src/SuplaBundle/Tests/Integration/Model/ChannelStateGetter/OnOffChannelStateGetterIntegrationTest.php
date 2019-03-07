@@ -42,6 +42,7 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::DIMMER],
             [ChannelType::RELAY, ChannelFunction::RGBLIGHTING],
             [ChannelType::RELAY, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::RELAY, ChannelFunction::VLDIMMER],
         ]);
         $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
     }
@@ -105,6 +106,20 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
     public function testGettingOffFromDimmerRgbWhen() {
         SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[3]);
+        $this->assertArrayHasKey('on', $state);
+        $this->assertFalse($state['on']);
+    }
+
+    public function testGettingOnFromVLDimmer() {
+        SuplaServerMock::mockTheNextResponse("VALUE:0,0,10\n");
+        $state = $this->channelStateGetter->getState($this->device->getChannels()[4]);
+        $this->assertArrayHasKey('on', $state);
+        $this->assertTrue($state['on']);
+    }
+
+    public function testGettingOffFromVLDimmer() {
+        SuplaServerMock::mockTheNextResponse("VALUE:0,0,0\n");
+        $state = $this->channelStateGetter->getState($this->device->getChannels()[4]);
         $this->assertArrayHasKey('on', $state);
         $this->assertFalse($state['on']);
     }

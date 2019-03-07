@@ -15,7 +15,7 @@
                             <div><code>{{currentUrl}}?percentage=60</code></div>
                         </div>
                         <div v-if="action == 'SET_RGBW_PARAMETERS'">
-                            <div v-if="['DIMMER', 'DIMMERANDRGBLIGHTING'].indexOf(directLink.subject.function.name) !== -1">
+                            <div v-if="['DIMMER', 'VLDIMMER', 'DIMMERANDRGBLIGHTING'].indexOf(directLink.subject.function.name) !== -1">
                                 <div><code>{{currentUrl}}?brightness=40</code></div>
                                 <div><code>{{currentUrl}}?brightness=100</code></div>
                             </div>

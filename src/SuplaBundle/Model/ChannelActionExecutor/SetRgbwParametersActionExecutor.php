@@ -11,6 +11,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::DIMMER(),
+            ChannelFunction::VLDIMMER(),
             ChannelFunction::RGBLIGHTING(),
             ChannelFunction::DIMMERANDRGBLIGHTING(),
         ];
