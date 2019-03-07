@@ -17,8 +17,7 @@ class ColorAndBrightnessChannelStateGetter implements SingleChannelStateGetter {
                 $result['color_brightness'] = $value['color_brightness'];
                 $result['on'] = $value['color_brightness'] > 0;
             }
-            if (in_array($channel->getFunction(), [ChannelFunction::DIMMER(), ChannelFunction::VLDIMMER(),
-                ChannelFunction::DIMMERANDRGBLIGHTING()])) {
+            if (in_array($channel->getFunction(), [ChannelFunction::DIMMER(), ChannelFunction::DIMMERANDRGBLIGHTING()])) {
                 $result['brightness'] = $value['brightness'];
                 $result['on'] = ($result['on'] ?? false) || $value['brightness'] > 0;
             }
@@ -29,7 +28,6 @@ class ColorAndBrightnessChannelStateGetter implements SingleChannelStateGetter {
     public function supportedFunctions(): array {
         return [
             ChannelFunction::DIMMER(),
-            ChannelFunction::VLDIMMER(),
             ChannelFunction::RGBLIGHTING(),
             ChannelFunction::DIMMERANDRGBLIGHTING(),
         ];
