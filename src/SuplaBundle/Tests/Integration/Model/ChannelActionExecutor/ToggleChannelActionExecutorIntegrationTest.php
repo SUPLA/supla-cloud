@@ -101,7 +101,7 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->channelActionExecutor->executeAction($this->device->getChannels()[3], ChannelFunctionAction::TOGGLE());
         $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = SuplaServerMock::$executedCommands[1];
-        $this->assertEquals('SET-CHAR-VALUE:1,1,2,0', $setCommand);
+        $this->assertEquals('SET-CHAR-VALUE:1,1,4,0', $setCommand);
     }
 
     public function testToggleVLDimmerOffOn() {
@@ -109,6 +109,6 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->channelActionExecutor->executeAction($this->device->getChannels()[3], ChannelFunctionAction::TOGGLE());
         $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = SuplaServerMock::$executedCommands[1];
-        $this->assertEquals('SET-CHAR-VALUE:1,1,2,1', $setCommand);
+        $this->assertEquals('SET-CHAR-VALUE:1,1,4,1', $setCommand);
     }
 }
