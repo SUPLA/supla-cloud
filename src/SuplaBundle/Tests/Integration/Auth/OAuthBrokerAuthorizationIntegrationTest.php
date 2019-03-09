@@ -390,6 +390,26 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($targetCalled);
     }
 
+    public function testForwardsIssueTokenRequestErrorBasedOnRefreshToken() {
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => '1_public',
+            'client_secret' => 'public-secret',
+            'refresh_token' => 'ABC.' . base64_encode('https://target.cloud'),
+        ];
+        $targetCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function () use ($params, &$targetCalled) {
+                return [null, Response::HTTP_SERVICE_UNAVAILABLE];
+            };
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $response = $client->getResponse();
+        $this->assertStatusCode(503, $response);
+    }
+
     public function testForcesReauthorizationIfUserIsAlreadyLoggedInButHitsPublicId() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
