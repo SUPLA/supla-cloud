@@ -18,9 +18,11 @@
 namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Enums\ChannelFunction;
 
 class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
     public function testSettingParams() {
@@ -49,7 +51,7 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         $location = $this->createMock(Location::class);
         $ioDevice = $this->createMock(IODevice::class);
         $ioDevice->method('getLocation')->willReturn($location);
-        \SuplaBundle\Entity\EntityUtils::setField($channel, 'iodevice', $ioDevice);
+        EntityUtils::setField($channel, 'iodevice', $ioDevice);
         $this->assertEquals($location, $channel->getLocation());
         $this->assertTrue($channel->hasInheritedLocation());
     }
@@ -59,9 +61,15 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         $location = $this->createMock(Location::class);
         $ioDevice = $this->createMock(IODevice::class);
         $ioDevice->method('getLocation')->willReturn($location);
-        \SuplaBundle\Entity\EntityUtils::setField($channel, 'iodevice', $ioDevice);
+        EntityUtils::setField($channel, 'iodevice', $ioDevice);
         $channel->setLocation($location);
         $this->assertEquals($location, $channel->getLocation());
         $this->assertFalse($channel->hasInheritedLocation());
+    }
+
+    public function testGettingUnknownFunction() {
+        $channel = new IODeviceChannel();
+        EntityUtils::setField($channel, 'function', -1);
+        $this->assertEquals(ChannelFunction::NONE(), $channel->getFunction());
     }
 }

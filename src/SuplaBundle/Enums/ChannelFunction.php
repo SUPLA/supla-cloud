@@ -292,4 +292,12 @@ final class ChannelFunction extends Enum {
     public static function fromStrings(array $functionNames): array {
         return array_map(self::class . '::fromString', $functionNames);
     }
+
+    public static function safeInstance($functionId): self {
+        try {
+            return new self($functionId);
+        } catch (\UnexpectedValueException $e) {
+            return self::NONE();
+        }
+    }
 }
