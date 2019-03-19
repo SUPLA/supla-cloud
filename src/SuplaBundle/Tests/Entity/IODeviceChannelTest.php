@@ -69,7 +69,8 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
 
     public function testGettingUnknownFunction() {
         $channel = new IODeviceChannel();
-        EntityUtils::setField($channel, 'function', -1);
-        $this->assertEquals(ChannelFunction::NONE(), $channel->getFunction());
+        EntityUtils::setField($channel, 'function', 123);
+        $this->assertEquals(ChannelFunction::UNSUPPORTED()->getName(), $channel->getFunction()->getName());
+        $this->assertEquals(123, $channel->getFunction()->getId());
     }
 }

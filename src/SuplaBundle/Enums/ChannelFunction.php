@@ -23,6 +23,7 @@ use SuplaBundle\Exception\ApiException;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @method static ChannelFunction UNSUPPORTED()
  * @method static ChannelFunction NONE()
  * @method static ChannelFunction CONTROLLINGTHEGATEWAYLOCK()
  * @method static ChannelFunction CONTROLLINGTHEGATE()
@@ -58,6 +59,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction WATERMETER()
  */
 final class ChannelFunction extends Enum {
+    const UNSUPPORTED = -1;
     const NONE = 0;
     const CONTROLLINGTHEGATEWAYLOCK = 10;
     const CONTROLLINGTHEGATE = 20;
@@ -92,9 +94,11 @@ final class ChannelFunction extends Enum {
     const GASMETER = 320;
     const WATERMETER = 330;
 
+    private $unsupportedFunctionId;
+
     /** @Groups({"basic"}) */
     public function getId(): int {
-        return $this->value;
+        return $this->value == self::UNSUPPORTED ? $this->unsupportedFunctionId : $this->value;
     }
 
     /** @Groups({"basic"}) */
@@ -187,6 +191,7 @@ final class ChannelFunction extends Enum {
 
     public static function captions(): array {
         return [
+            self::UNSUPPORTED => 'Unsupported function', // i18n
             self::NONE => 'None', // i18n
             self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation', // i18n
             self::CONTROLLINGTHEGATE => 'Gate operation', // i18n
@@ -235,6 +240,7 @@ final class ChannelFunction extends Enum {
 
     public static function possibleVisualStates(): array {
         return [
+            self::UNSUPPORTED => [],
             self::NONE => [],
             self::CONTROLLINGTHEGATEWAYLOCK => ['opened', 'closed'],
             self::CONTROLLINGTHEGATE => ['opened', 'closed', 'partially_closed'],
@@ -294,10 +300,13 @@ final class ChannelFunction extends Enum {
     }
 
     public static function safeInstance($functionId): self {
+        $functionId = intval($functionId);
         try {
             return new self($functionId);
         } catch (\UnexpectedValueException $e) {
-            return self::NONE();
+            $function = self::UNSUPPORTED();
+            $function->unsupportedFunctionId = $functionId;
+            return $function;
         }
     }
 }

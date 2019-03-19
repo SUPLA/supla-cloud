@@ -47,7 +47,7 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
 
     public function testInvalidFunction() {
         $this->expectException(\InvalidArgumentException::class);
-        $this->converter->convert(['functionId' => -1]);
+        $this->converter->convert(['functionId' => 123]);
     }
 
     public function testAltIcon() {

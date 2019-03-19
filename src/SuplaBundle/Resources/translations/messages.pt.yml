@@ -555,6 +555,7 @@ execute: realizar
 # Translations below are missing. You want to translate them.
 Captcha token is not valid.: ~
 Invalid SUPLA Cloud URL.: ~
+Unsupported function: ~
 You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
 
 #</editor-fold>

@@ -25,7 +25,10 @@
                                         <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
                                             type="button"
                                             data-toggle="dropdown">
-                                            <h4>{{ $t(channel.function.caption) }}</h4>
+                                            <h4>
+                                                {{ $t(channel.function.caption) }}
+                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{channel.functionId}})</span>
+                                            </h4>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
