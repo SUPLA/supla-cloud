@@ -68,6 +68,9 @@ USERINFO;
                     $user->getUserIcons()->forAll($remove);
                     $em->remove($user);
                 });
+
+                $this->suplaServer->reconnect($user->getId());
+
                 $output->writeln("<info>User {$user->getUsername()} has been deleted along with his data.</info>");
             } else {
                 $output->writeln('Delete operation cancelled, no changes made.');
