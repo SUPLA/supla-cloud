@@ -1,10 +1,7 @@
 <?php
 namespace SuplaBundle\Command;
 
-use Assert\Assertion;
-use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Model\UserManager;
-use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,16 +12,10 @@ use Symfony\Component\Console\Question\Question;
 class DeleteUserCommand extends ContainerAwareCommand {
     /** @var UserManager */
     private $userManager;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var SuplaAutodiscover */
-    private $autodiscover;
 
-    public function __construct(UserManager $userManager, EntityManagerInterface $entityManager, SuplaAutodiscover $autodiscover) {
+    public function __construct(UserManager $userManager) {
         parent::__construct();
         $this->userManager = $userManager;
-        $this->entityManager = $entityManager;
-        $this->autodiscover = $autodiscover;
     }
 
     protected function configure() {
@@ -50,27 +41,7 @@ Channels quantity: {$user->getChannels()->count()}
 Are you absolutely sure you want to delete this account along with its data? [y/N]
 USERINFO;
             if ($helper->ask($input, $output, new ConfirmationQuestion($info . ' ', !$input->isInteractive()))) {
-                $this->entityManager->transactional(function (EntityManagerInterface $em) use ($user) {
-                    $deletedFromAd = $this->autodiscover->deleteUser($user);
-                    Assertion::true($deletedFromAd, "Could not delete user {$user->getUsername()} in Autodiscover.");
-                    $remove = function ($key, $entity) use ($em) {
-                        $em->remove($entity);
-                        return true;
-                    };
-                    $user->getAccessIDS()->forAll($remove);
-                    $user->getClientApps()->forAll($remove);
-                    $user->getChannelGroups()->forAll($remove);
-                    $user->getChannels()->forAll($remove);
-                    $user->getDirectLinks()->forAll($remove);
-                    $user->getIODevices()->forAll($remove);
-                    $user->getLocations()->forAll($remove);
-                    $user->getSchedules()->forAll($remove);
-                    $user->getUserIcons()->forAll($remove);
-                    $em->remove($user);
-                });
-
-                $this->suplaServer->reconnect($user->getId());
-
+                $this->userManager->deleteAccount($user);
                 $output->writeln("<info>User {$user->getUsername()} has been deleted along with his data.</info>");
             } else {
                 $output->writeln('Delete operation cancelled, no changes made.');

@@ -51,6 +51,15 @@
     background: $supla-red;
     color: $supla-white;
     border: 1px solid $supla-red;
+    &-outline {
+      border: 1px solid $supla-red;
+      background: $supla-white;
+      color: $supla-red;
+      &:hover {
+        background: $supla-red;
+        color: $supla-white;
+      }
+    }
   }
   &-orange {
     background: $supla-orange;
@@ -98,7 +107,9 @@
 }
 
 .btn-toolbar {
-  .btn { margin-bottom: 5px; }
+  .btn {
+    margin-bottom: 5px;
+  }
   @include on-xs-and-down {
     text-align: center;
     .btn {

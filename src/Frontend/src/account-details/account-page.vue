@@ -26,11 +26,20 @@
                                 <timezone-picker :timezone="user.timezone"></timezone-picker>
                             </dd>
                         </dl>
-                        <a class="btn btn-default"
-                            @click="changingPassword = true">{{ $t('Change Password') }}</a>
+                        <div class="form-group">
+                            <a class="btn btn-default"
+                                @click="changingPassword = true">{{ $t('Change Password') }}</a>
+                        </div>
+                        <div class="text-right">
+                            <a class="btn btn-red-outline btn-xs"
+                                @click="deletingAccount = true">{{ $t('Delete my account') }}</a>
+                        </div>
                         <account-password-change-modal v-if="changingPassword"
                             @cancel="changingPassword = false"
                             :user="user"></account-password-change-modal>
+                        <account-delete-modal v-if="deletingAccount"
+                            @cancel="deletingAccount = false"
+                            :user="user"></account-delete-modal>
                     </div>
                 </transition>
             </loading-cover>
@@ -42,10 +51,12 @@
     import AnimatedSvg from "./animated-svg";
     import TimezonePicker from "./timezone-picker";
     import AccountPasswordChangeModal from "./account-password-change-modal";
+    import AccountDeleteModal from "./account-delete-modal";
 
     export default {
         components: {
             AccountPasswordChangeModal,
+            AccountDeleteModal,
             TimezonePicker,
             AnimatedSvg
         },
@@ -55,6 +66,7 @@
                 authAttempts: [],
                 animationFinished: false,
                 changingPassword: false,
+                deletingAccount: false,
                 version: VERSION, // eslint-disable-line no-undef
             };
         },

@@ -125,7 +125,7 @@
             h4 {
                 color: $color;
             }
-            .modal-footer a {
+            .modal-footer a:not(.btn) {
                 color: $color;
             }
         }

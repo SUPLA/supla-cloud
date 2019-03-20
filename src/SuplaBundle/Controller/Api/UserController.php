@@ -113,6 +113,12 @@ class UserController extends RestController {
                 Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect'); // i18n
                 Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.'); // i18n
                 $this->userManager->setPassword($newPassword, $user);
+            } elseif ($data['action'] == 'delete') {
+                $this->assertNotApiUser();
+                $password = $data['password'] ?? '';
+                Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
+                $this->userManager->deleteAccount($user);
+                return $this->view(null, Response::HTTP_NO_CONTENT);
             } elseif ($data['action'] == 'agree:rules') {
                 $this->assertNotApiUser();
                 $user->agreeOnRules();

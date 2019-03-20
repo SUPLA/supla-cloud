@@ -17,16 +17,20 @@
 
 namespace SuplaBundle\Model;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\UserRepository;
+use SuplaBundle\Supla\SuplaAutodiscover;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class UserManager {
     use Transactional;
+    use SuplaServerAware;
 
     protected $encoder_factory;
     /** @var UserRepository */
@@ -40,6 +44,8 @@ class UserManager {
     private $defaultIoDevicesRegistrationTime;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
 
     public function __construct(
         UserRepository $userRepository,
@@ -57,6 +63,11 @@ class UserManager {
         $this->scheduleManager = $scheduleManager;
         $this->defaultClientsRegistrationTime = $defaultClientsRegistrationTime;
         $this->defaultIoDevicesRegistrationTime = $defaultIoDevicesRegistrationTime;
+    }
+
+    /** @required */
+    public function setAutodiscover(SuplaAutodiscover $autodiscover) {
+        $this->autodiscover = $autodiscover;
     }
 
     public function create(User $user) {
@@ -177,5 +188,28 @@ class UserManager {
                 }
             }
         });
+    }
+
+    public function deleteAccount(User $user) {
+        $userId = $user->getId();
+        $this->transactional(function (EntityManagerInterface $em) use ($user) {
+            $deletedFromAd = $this->autodiscover->deleteUser($user);
+            Assertion::true($deletedFromAd, "Could not delete user {$user->getUsername()} in Autodiscover.");
+            $remove = function ($key, $entity) use ($em) {
+                $em->remove($entity);
+                return true;
+            };
+            $user->getAccessIDS()->forAll($remove);
+            $user->getClientApps()->forAll($remove);
+            $user->getChannelGroups()->forAll($remove);
+            $user->getChannels()->forAll($remove);
+            $user->getDirectLinks()->forAll($remove);
+            $user->getIODevices()->forAll($remove);
+            $user->getLocations()->forAll($remove);
+            $user->getSchedules()->forAll($remove);
+            $user->getUserIcons()->forAll($remove);
+            $em->remove($user);
+        });
+        $this->suplaServer->reconnect($userId);
     }
 }
