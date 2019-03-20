@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
+use SuplaBundle\Supla\SuplaServerAware;
 
 class DeleteUserCommand extends ContainerAwareCommand {
     /** @var UserManager */
@@ -19,6 +20,8 @@ class DeleteUserCommand extends ContainerAwareCommand {
     private $entityManager;
     /** @var SuplaAutodiscover */
     private $autodiscover;
+
+    use SuplaServerAware;
 
     public function __construct(UserManager $userManager, EntityManagerInterface $entityManager, SuplaAutodiscover $autodiscover) {
         parent::__construct();
@@ -68,6 +71,9 @@ USERINFO;
                     $user->getUserIcons()->forAll($remove);
                     $em->remove($user);
                 });
+
+                $this->suplaServer->reconnect($user->getId());
+
                 $output->writeln("<info>User {$user->getUsername()} has been deleted along with his data.</info>");
             } else {
                 $output->writeln('Delete operation cancelled, no changes made.');
