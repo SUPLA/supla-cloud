@@ -17,7 +17,7 @@
             functionId() {
                 if (this.model) {
                     if (this.model.function) {
-                        return this.model.function.id;
+                        return this.model.function.name == 'UNSUPPORTED' ? 0 : this.model.function.id;
                     } else if (this.model.functionId) {
                         return this.model.functionId;
                     } else if (this.model.id) {

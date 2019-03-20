@@ -10,7 +10,11 @@
                     @cancel="cancelChanges()"
                     @save="saveChanges()"
                     :is-pending="hasPendingChanges">
-                    <h4>{{ $t(channel.type.caption) }}, {{ $t('Channel No') }}: {{ channel.channelNumber }}</h4>
+                    <h4>
+                        {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',')}}
+                        <span v-if="channel.type.name == 'UNSUPPORTED'">{{channel.type.id}},</span>
+                        {{ $t('Channel No') }}: {{ channel.channelNumber }}
+                    </h4>
                     <div class="row hidden-xs">
                         <div class="col-xs-12">
                             <dots-route></dots-route>
@@ -25,7 +29,10 @@
                                         <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
                                             type="button"
                                             data-toggle="dropdown">
-                                            <h4>{{ $t(channel.function.caption) }}</h4>
+                                            <h4>
+                                                {{ $t(channel.function.caption) }}
+                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{channel.functionId}})</span>
+                                            </h4>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
@@ -77,9 +84,10 @@
                             <function-icon :model="channel"
                                 width="100"></function-icon>
                             <channel-alternative-icon-chooser :channel="channel"
+                                v-if="channelFunctionIsChosen"
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
-                                v-if="!changedFunction"></channel-state-table>
+                                v-if="!changedFunction && channelFunctionIsChosen"></channel-state-table>
                         </div>
                     </div>
                 </pending-changes-page>
@@ -202,6 +210,9 @@
                     return false;
                 }
             },
+            channelFunctionIsChosen() {
+                return this.channel.function.id > 0 && this.channel.function.name != 'UNSUPPORTED';
+            }
         }
     };
 </script>

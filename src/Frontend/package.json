@@ -1,7 +1,7 @@
 {
   "name": "supla-cloud",
   "description": "",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "private": true,
   "scripts": {
     "build": "rm -fr ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules",

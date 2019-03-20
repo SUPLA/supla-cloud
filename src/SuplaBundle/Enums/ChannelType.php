@@ -21,6 +21,7 @@ use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @method static ChannelType UNSUPPORTED()
  * @method static ChannelType SENSORNO()
  * @method static ChannelType SENSORNC()
  * @method static ChannelType DISTANCESENSOR()
@@ -50,6 +51,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelType IMPULSECOUNTER();
  */
 final class ChannelType extends Enum {
+    const UNSUPPORTED = -1;
     const SENSORNO = 1000;
     const SENSORNC = 1010;
     const DISTANCESENSOR = 1020;
@@ -78,9 +80,11 @@ final class ChannelType extends Enum {
     const ELECTRICITYMETER = 5000;
     const IMPULSECOUNTER = 5010;
 
+    private $unsupportedTypeId;
+
     /** @Groups({"basic"}) */
     public function getId(): int {
-        return $this->value;
+        return $this->value == self::UNSUPPORTED ? $this->unsupportedTypeId : $this->value;
     }
 
     /** @Groups({"basic"}) */
@@ -118,6 +122,7 @@ final class ChannelType extends Enum {
 
     public static function captions(): array {
         return [
+            self::UNSUPPORTED => 'Unsupported type', // i18n
             self::SENSORNO => 'Sensor (normal open)', // i18n
             self::SENSORNC => 'Sensor (normal closed)', // i18n
             self::RELAY => 'Relay', // i18n
@@ -151,6 +156,7 @@ final class ChannelType extends Enum {
     /** @return ChannelFunction[][] */
     public static function functions(): array {
         $map = [
+            self::UNSUPPORTED => [],
             self::SENSORNO => [
                 ChannelFunction::OPENINGSENSOR_GATEWAY(),
                 ChannelFunction::OPENINGSENSOR_GATE(),
@@ -215,5 +221,16 @@ final class ChannelType extends Enum {
             $map[$humidityAndTemperatureType] = $map[self::HUMIDITYANDTEMPSENSOR];
         }
         return $map;
+    }
+
+    public static function safeInstance($typeId): self {
+        $typeId = intval($typeId);
+        try {
+            return new self($typeId);
+        } catch (\UnexpectedValueException $e) {
+            $type = self::UNSUPPORTED();
+            $type->unsupportedTypeId = $typeId;
+            return $type;
+        }
     }
 }

@@ -225,7 +225,7 @@
         }
         .hover-editable {
             .form-control {
-                color: $supla-white;
+                color: $supla-white !important;
                 background: transparent !important;
             }
             &:hover {

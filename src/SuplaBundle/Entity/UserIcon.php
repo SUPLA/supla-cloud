@@ -94,7 +94,7 @@ class UserIcon {
     }
 
     public function getFunction(): ChannelFunction {
-        return new ChannelFunction($this->function);
+        return ChannelFunction::safeInstance($this->function);
     }
 
     /** @return IODeviceChannel[] */

@@ -175,6 +175,7 @@
 
     nav.navbar-top {
         background: $supla-white;
+        border: 0;
         @media only screen and (min-width: 768px) {
             .navbar-collapse {
                 display: flex !important;
@@ -224,6 +225,7 @@
             > a {
                 text-align: center;
                 font-size: 12px;
+                width: 100%;
 
                 i {
                     font-size: 2em;

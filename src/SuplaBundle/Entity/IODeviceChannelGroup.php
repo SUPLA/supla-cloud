@@ -154,7 +154,7 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
     }
 
     public function getFunction(): ChannelFunction {
-        return new ChannelFunction($this->function);
+        return ChannelFunction::safeInstance($this->function);
     }
 
     public function getAltIcon(): int {

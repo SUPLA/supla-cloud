@@ -81,6 +81,7 @@ Channel groups: Grupos de canais
 Channel is assigned to the I/O device location: O canal está atribuído à localização do dispositivo
 Channel will be deleted from the channel group below: O canal será apagado do grupo de canais abaixo
 Channels: Canais
+Check the direct link you used and try again.: Verifique o link direto que foi chamado e tente novamente.
 Check your email box: Veja o seu correio eletrónico
 Choose: Selecione
 Choose Access Identifiers to be assigned to this Location: Selecione os Identificadores do Acesso que serão atribuídos a esta Localização
@@ -135,6 +136,7 @@ Dimmer & RGB led controller: Controlador da luz e da iluminação RGB
 Dimmer and RGB lighting: Controlador da luz e iluminação RGB
 Direct link: Link direto
 Direct link has been created successfully!: O link direto foi criado com sucesso!
+Direct link has been executed: O link direto foi realizado
 'Direct link is not working right now. Reason:': 'O link direto não funciona neste momento. Motivo:'
 Direct links: Links diretos
 Direct links below will be deleted: Os links diretos listados abaixo serão removidos
@@ -223,6 +225,7 @@ Idle: Inativos
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Se você tem certeza de que você tem uma conta no cloud.supla.org, verifique se o aplicativo que você está tentando autorizar é público.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Se você deseja integrar aplicativos em nuvem SUPL privada com aplicações OAuth públicas, você tem que [registar o seu exemplo].'
 'If you want to stay here, do something!': 'Se quiser ficar aqui, faça alguma coisa!'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Se você quiser usar o link direto em outro software, adicione o cabeçalho de solicitação apropriado para ter a resposta mais rápida ao processo.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Se você quiser ver as integrações disponíveis, vá para [cloud.supla.org/apps].'
 Impulse counter: Contador de pulsos
 Impulses: Pulsos
@@ -321,6 +324,7 @@ RGB lighting: Iluminação RGB
 Rain sensor: Sensor de chuva
 Random: Randômico
 Read: Leitura
+Refresh: Refrescar
 Register: Registrar
 Register a new OAuth application: Registre um novo aplicativo OAuth
 Register private SUPLA Cloud: Registre uma nuvem SUPLA privada
@@ -358,6 +362,7 @@ Scopes: Escopo
 Scopes define which sections of your account can be accessed when using the token.: O escopo especifica quais recursos da conta podem ser acessados ​​usando o token.
 Search: Procurar
 Secret: Chave secreta (secret)
+See direct link possibilities: Veja as possibilidades de um link direto
 Seems like a secret place: Parece ser um local secreto
 Select icon: Selecionar uma ícone
 Select the item (subject) you want to control using this link: Selecione o elemento (item) que você deseja controlar usando este link
@@ -400,6 +405,7 @@ The client will be automatically logged out when deleted.: Suprimir um cliente c
 The device is disabled: O dispositivo está desligado
 The gate sensor must function properly in order to execute the scheduled action.: Para executar uma ação o sensor da abertura do portão tem de funcionar corretamente.
 The latest execution: Última execução
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': O resultado da implementação é apresentado como um página da internet porque você (ou seu navegador) solicitou uma resposta no formato HTML.
 The measurement history has been deleted.: O histórico de medições foi removido.
 The next available executions: Próximas execuções
 The password and its confirm are not the same.: A senha e sua confirmação não são o mesmo.
@@ -440,6 +446,8 @@ Wednesdays: Quartas
 Weight sensor: Peso
 What this token is for?: Para que serve esse token?
 When: Quando
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Você pode executar uma ação de link direto fornecendo seu identificador exclusivo no corpo da solicitação HTTP PATCH. É mais seguro, porque impede que você escreva o endereço completo do seu link nos registros de acesso dos servidores pelos quais passa a sua solicitação. Abaixo você pode encontrar um exemplo de como implementar tal serviço com a ferramenta cURL.'
+Where is the JSON?: Onde está o JSON?
 Where is your SUPLA Cloud?: Onde está seu Supla?
 White: Branco
 Wind sensor: Sensor de vento
@@ -447,6 +455,7 @@ Window opening sensor: Sensor de abertura para uma janela
 With SUPLA you can operate the lights in your home or office: Com SUPLA pode pilotar a iluminação da sua casa ou do seu escritório
 With function: Com a função
 Working period: Príodo de operação
+YOUR LINK CODE: O CÓDIGO DE SEU LINK
 You cannot delete your last access identifier.: Você não pode deletar seu último identificador de acesso.
 You cannot delete your last location.: Você não pode deletar sua última localização.
 You just need to execute the following command inside your host terminal.: Basta executar o seguinte comando dentro do terminal do seu host.
@@ -457,6 +466,7 @@ You will not be able to generate a direct link with the same URL again.: Não se
 Your account has been locked.: A sua conta foi bloqueada.
 Your email: O seu endereço email
 Your instance is not registered or you are trying to authorize an application that is not public.: Sua instância não está registrada ou você está tentando autorizar um aplicativo que não é público.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Sua instância privada de nuvem SUPLA não está disponível. Certifique-se de que seu servidor esteja on-line e de que sua conexão HTTPS esteja funcionando corretamente.
 Your private SUPLA Cloud is almost registered.: Sua nuvem SUPLA privada está quase registrada.
 Your private SUPLA Cloud is not registered.: Sua nuvem SUPLA privada não está registrada.
 after: após
@@ -472,10 +482,16 @@ daily: Ciclo diário
 directLinkExecutionFailureReason_disabled: O link direto está desativado
 directLinkExecutionFailureReason_executionLimitExceeded: O limite de execuções foi excedido
 directLinkExecutionFailureReason_expired: O link direto está desatualizado
+directLinkExecutionFailureReason_forbiddenAction: O link não permite que essa ação seja executada
 directLinkExecutionFailureReason_httpGetForbidden: Foi impedida a execução da ação usando um método HTTP GET não autorizado.
 directLinkExecutionFailureReason_invalidActionParameters: Parâmetros incorretos do link direto
+directLinkExecutionFailureReason_invalidSlug: O código de verificação que você enviou está incorreto
 directLinkExecutionFailureReason_noAllowedActions: Nenhuma ação permitida foi selecionada
+directLinkExecutionFailureReason_noSlugOrAction: Solicitação incorreta - código de link e ação são obrigatórios
 directLinkExecutionFailureReason_notActiveYet: O link direto ainda não está ativo
+directLinkExecutionFailureReason_otherFailure: Erro ao executar a ação
+directLinkExecutionFailureReason_unsupportedAction: A ação selecionada está incorreta
+executed: realizado
 from IP: desde o endereço IP
 from the IP: a partir do endereço
 hourly: Ciclo horário
@@ -532,26 +548,15 @@ Registration: Registar
 Remove: Suprimir
 Status: Status
 Try again later: Tente novamente mais tarde
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Sua instância privada de nuvem SUPLA não está disponível. Certifique-se de que seu servidor esteja on-line e de que sua conexão HTTPS esteja funcionando corretamente.
+execute: realizar
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: Verifique o link direto que foi chamado e tente novamente.
-Direct link has been executed: O link direto foi realizado
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Se você quiser usar o link direto em outro software, adicione o cabeçalho de solicitação apropriado para ter a resposta mais rápida ao processo.'
-Refresh: Refrescar
-See direct link possibilities: Veja as possibilidades de um link direto
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'O resultado da implementação é apresentado como um página da internet porque você (ou seu navegador) solicitou uma resposta no formato HTML.'
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Você pode executar uma ação de link direto fornecendo seu identificador exclusivo no corpo da solicitação HTTP PATCH. É mais seguro, porque impede que você escreva o endereço completo do seu link nos registros de acesso dos servidores pelos quais passa a sua solicitação. Abaixo você pode encontrar um exemplo de como implementar tal serviço com a ferramenta cURL.'
-Where is the JSON?: Onde está o JSON?
-YOUR LINK CODE: O CÓDIGO DE SEU LINK
-directLinkExecutionFailureReason_forbiddenAction: O link não permite que essa ação seja executada
-directLinkExecutionFailureReason_invalidSlug: O código de verificação que você enviou está incorreto
-directLinkExecutionFailureReason_noSlugOrAction: Solicitação incorreta - código de link e ação são obrigatórios
-directLinkExecutionFailureReason_otherFailure: Erro ao executar a ação
-directLinkExecutionFailureReason_unsupportedAction: A ação selecionada está incorreta
-execute: realizar
-executed: realizado
+Captcha token is not valid.: ~
+Invalid SUPLA Cloud URL.: ~
+Unsupported function: ~
+Unsupported type: ~
+You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
 
 #</editor-fold>

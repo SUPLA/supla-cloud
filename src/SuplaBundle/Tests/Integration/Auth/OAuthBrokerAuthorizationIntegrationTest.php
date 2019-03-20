@@ -22,6 +22,7 @@ use OAuth2\OAuth2;
 use PHPUnit_Framework_ExpectationFailedException;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\AuthCode;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -32,6 +33,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
+/** @small */
 class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
     use SuplaApiHelper;
@@ -41,12 +43,13 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     /** @var ClientManagerInterface */
     private $clientManager;
+    /** @var User */
+    private $user;
 
-    /** @before */
-    public function initAutodiscover() {
+    public function initializeDatabaseForTests() {
         $this->autodiscover = $this->container->get(SuplaAutodiscover::class);
         $this->clientManager = $this->container->get(ClientManagerInterface::class);
-        SuplaAutodiscoverMock::clear();
+        $this->user = $this->createConfirmedUser();
     }
 
     public function testDisplaysNormalLoginFormIfLocalClientExists() {
@@ -82,6 +85,14 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient(false);
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $client->followRedirect();
+        $targetCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint) use (&$targetCalled) {
+                $this->assertEquals('https://target.cloud', $address);
+                $this->assertEquals('server-info', $endpoint);
+                $targetCalled = true;
+                return [['version' => '2.3.0'], Response::HTTP_OK];
+            };
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect());
@@ -91,6 +102,21 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('scope=account_r', $targetUrl);
         $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
         $this->assertContains('state=some-state', $targetUrl);
+        $this->assertTrue($targetCalled);
+    }
+
+    public function testDoesNotRedirectToGivenTargetCloudIfItDoesNotWork() {
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
+        $client = $this->createHttpsClient();
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function () {
+                return [null, Response::HTTP_SERVICE_UNAVAILABLE];
+            };
+        $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
+        $routerView = $crawler->filter('router-view')->getNode(0);
+        $errorName = $routerView->getAttribute('error');
+        $this->assertEquals('private_cloud_fail', $errorName);
     }
 
     public function testRedirectsToTargetCloudByAutodiscoveredUsername() {
@@ -115,8 +141,17 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $routerView = $crawler->filter('router-view')->getNode(0);
-        $askForTargetCloud = $routerView->getAttribute('error');
-        $this->assertEquals('autodiscover_fail', $askForTargetCloud);
+        $errorName = $routerView->getAttribute('error');
+        $this->assertEquals('autodiscover_fail', $errorName);
+    }
+
+    public function testDisplaysErrorIfTargetCloudUrlIsWrong() {
+        $client = $this->createHttpsClient();
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'xxx']);
+        $routerView = $crawler->filter('router-view')->getNode(0);
+        $errorName = $routerView->getAttribute('error');
+        $this->assertEquals('autodiscover_fail', $errorName);
     }
 
     public function testDisplaysErrorIfUserCannotBeAutodiscovered() {
@@ -186,7 +221,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->clientManager->updateClient($client);
         $authCode = new AuthCode();
         $authCode->setClient($client);
-        $authCode->setUser($this->createConfirmedUser());
+        $authCode->setUser($this->user);
         $authCode->setScope('account_r');
         $authCode->setExpiresAt(time() + 60);
         $authCode->setRedirectUri('https://unicorns.pl');
@@ -355,6 +390,26 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($targetCalled);
     }
 
+    public function testForwardsIssueTokenRequestErrorBasedOnRefreshToken() {
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => '1_public',
+            'client_secret' => 'public-secret',
+            'refresh_token' => 'ABC.' . base64_encode('https://target.cloud'),
+        ];
+        $targetCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function () use ($params, &$targetCalled) {
+                return [null, Response::HTTP_SERVICE_UNAVAILABLE];
+            };
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $response = $client->getResponse();
+        $this->assertStatusCode(503, $response);
+    }
+
     public function testForcesReauthorizationIfUserIsAlreadyLoggedInButHitsPublicId() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
@@ -362,7 +417,6 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'description' => 'Cool app',
             'redirectUris' => ['https://cool.app'],
         ];
-        $this->createConfirmedUser();
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
         /** @var Crawler $crawler */
@@ -385,7 +439,6 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'redirectUris' => ['https://cool.app'],
         ];
         SuplaAutodiscoverMock::$publicClients['2_public'] = SuplaAutodiscoverMock::$publicClients['1_public'];
-        $this->createConfirmedUser();
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
         /** @var Crawler $crawler */
@@ -401,6 +454,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('false', $askForTargetCloud);
     }
 
+    /** @large */
     public function testUpdatesMappedClientNameAndDescriptionIfUpdatedInAd() {
         $localClient = $this->clientManager->createClient();
         $localClient->setName('Local App');
@@ -412,7 +466,6 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'description' => ['pl' => 'Spoko apka', 'en' => 'Cooler app'],
             'redirectUris' => ['https://cooler.app'],
         ];
-        $this->createConfirmedUser();
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
         $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);

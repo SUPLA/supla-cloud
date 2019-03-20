@@ -45,14 +45,19 @@
                 </div>
                 <transition name="fade">
                     <div class="error"
-                        v-if="error == 'autodiscover_fail'">
-                        <div v-if="ownCloud">
-                            <strong>{{ $t('We could not connect to your SUPLA Cloud instance.') }}</strong>
-                            {{ $t('Your instance is not registered or you are trying to authorize an application that is not public.') }}
+                        v-if="error">
+                        <div v-if="error == 'autodiscover_fail'">
+                            <div v-if="ownCloud">
+                                <strong>{{ $t('We could not connect to your SUPLA Cloud instance.') }}</strong>
+                                {{ $t('Your instance is not registered or you are trying to authorize an application that is not public.') }}
+                            </div>
+                            <div v-else>
+                                <strong>{{ $t('We were not able to find your account.') }}</strong>
+                                {{ $t('If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.') }}
+                            </div>
                         </div>
-                        <div v-else>
-                            <strong>{{ $t('We were not able to find your account.') }}</strong>
-                            {{ $t('If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.') }}
+                        <div v-if="error == 'private_cloud_fail'">
+                            {{ $t('Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.') }}
                         </div>
                     </div>
                 </transition>

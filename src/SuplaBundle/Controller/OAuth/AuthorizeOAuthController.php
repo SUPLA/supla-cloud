@@ -25,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -107,7 +108,7 @@ class AuthorizeOAuthController extends Controller {
         }
 
         $lastTargetCloudAddress = $session->get(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
-        if ($error && $error != 'autodiscover_fail') {
+        if ($error && !in_array($error, ['autodiscover_fail', 'private_cloud_fail'])) {
             $error = 'error';
             if ($lastUsername && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername)) {
                 $error = 'locked';
@@ -126,14 +127,22 @@ class AuthorizeOAuthController extends Controller {
     private function handleBrokerAuth(Request $request, array $oauthParams): Response {
         $session = $request->getSession();
         $username = $request->get('_username');
-        $targetCloud = $request->get('targetCloud', null);
-        if ($targetCloud) {
-            $session->set(self::LAST_TARGET_CLOUD_ADDRESS_KEY, $targetCloud);
-            $targetCloud = new TargetSuplaCloud($this->localSuplaCloud->getProtocol() . '://' . $targetCloud, false);
+        $targetCloud = null;
+        $targetCloudUrl = $request->get('targetCloud', null);
+        $privateCloud = false;
+        $error = null;
+        if ($targetCloudUrl) {
+            $session->set(self::LAST_TARGET_CLOUD_ADDRESS_KEY, $targetCloudUrl);
+            try {
+                $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $targetCloudUrl);
+            } catch (\InvalidArgumentException $e) {
+                $error = 'autodiscover_fail';
+            }
+            $privateCloud = true;
         } else {
             $session->remove(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
         }
-        if (!$targetCloud) {
+        if (!$targetCloud && !$error) {
             if ($this->autodiscover->userExists($username)) {
                 $targetCloud = $this->autodiscover->getAuthServerForUser($username);
             }
@@ -144,11 +153,15 @@ class AuthorizeOAuthController extends Controller {
                 $oauthParams['client_id'] = $mappedClientId;
                 $oauthParams['ad_username'] = $username;
                 $redirectUrl = $targetCloud->getOauthAuthUrl($oauthParams);
-                return $this->redirect($redirectUrl);
+                if ($privateCloud && !$this->getTargetCloudInfo($targetCloud)) {
+                    $error = 'private_cloud_fail';
+                } else {
+                    return $this->redirect($redirectUrl);
+                }
             }
         }
         $session->set(Security::LAST_USERNAME, $username);
-        $session->set(Security::AUTHENTICATION_ERROR, 'autodiscover_fail');
+        $session->set(Security::AUTHENTICATION_ERROR, $error ?: 'autodiscover_fail');
         return $this->redirectToRoute('_oauth_login');
     }
 
@@ -178,28 +191,32 @@ class AuthorizeOAuthController extends Controller {
         $gRecaptchaResponse = $request->get('captcha');
         $recaptcha = new ReCaptcha($recaptchaSecret);
         $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
-        Assertion::true($resp->isSuccess(), 'Captcha token is not valid.');
+        Assertion::true($resp->isSuccess(), 'Captcha token is not valid.'); // i18n
 
         $email = $request->get('email');
-        Assertion::email($email, 'Please fill a valid email address');
+        Assertion::email($email, 'Please fill a valid email address'); // i18n
 
-        $domain = $request->get('targetCloud');
-        $url = $this->localSuplaCloud->getProtocol() . '://' . $domain;
-        $validDomain = filter_var($url, FILTER_VALIDATE_URL);
-        Assertion::true(!!$validDomain, 'Please provide a valid domain name for your private SUPLA Cloud');
-
-        $targetCloud = new TargetSuplaCloud($url, false);
-        $info = $this->suplaCloudRequestForwarder->getInfo($targetCloud);
-        Assertion::isArray($info, 'Could not connect to the given address. Is the SUPLA Cloud working there?');
+        $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $request->get('targetCloud'));
+        $info = $this->getTargetCloudInfo($targetCloud);
+        Assertion::isArray(
+            $info,
+            'Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.' // i18n
+        );
         Assertion::version(
             ApiVersions::V2_3,
             '<=',
             $info['cloudVersion'] ?? '0.0.0',
-            'You must upgrade your private SUPLA Cloud to be at least v2.3.0.'
+            'You must upgrade your private SUPLA Cloud to be at least v2.3.0.' // i18n
         );
-
         $token = $this->autodiscover->issueRegistrationTokenForTargetCloud($targetCloud, $email);
-
         return $this->json(['token' => $token]);
+    }
+
+    private function getTargetCloudInfo(TargetSuplaCloud $targetCloud) {
+        try {
+            return $this->suplaCloudRequestForwarder->getInfo($targetCloud);
+        } catch (ApiException $e) {
+            return null;
+        }
     }
 }

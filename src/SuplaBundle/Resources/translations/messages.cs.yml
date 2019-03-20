@@ -81,6 +81,7 @@ Channel groups: Skupiny kanálů
 Channel is assigned to the I/O device location: Kanál je přiřazen k umístění zařízení
 Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
 Channels: Kanály
+Check the direct link you used and try again.: Zkontrolujte zda-li se vytvořil odkaz a zkuste to ještě jednou.
 Check your email box: Zkontrolujte e-mailovou schránku
 Choose: Vybrat
 Choose Access Identifiers to be assigned to this Location: 'Vyberte ID přístupu, které budou k tomuto místu přiřazeny'
@@ -135,6 +136,7 @@ Dimmer & RGB led controller: Reostat a kontroler osvětlení RGB
 Dimmer and RGB lighting: Reostat a RGB osvětlení
 Direct link: Přímý odkaz
 Direct link has been created successfully!: Přímý odkaz byl úspěšně vytvořen!
+Direct link has been executed: Došlo k vytvoření přímého odkazu
 'Direct link is not working right now. Reason:': 'Přímý odkaz v tuto chvíli nefunguje. Důvod:'
 Direct links: Přímé odkazy
 Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
@@ -223,6 +225,7 @@ Idle: Nečinný
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Pokud jste si jisti, že máte účet na cloud.supla.org, zkontrolujte, zda je aplikace, kterou se pokoušíte autorizovat, veřejná.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Pokud chcete integrovat soukromý cloud SUPLA s veřejnou aplikací OAuth, musíte [zaregistrovat svou instanci].'
 'If you want to stay here, do something!': 'Pokud chcete zůstat, udělejte něco!'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Pokud chcete používat přímý odkaz v jiném programu, tak musíte dodat odpovědný nadpis požadavané akce , proto abyste mohli dostat odpověď, která se bude jednodušeji přetvářet. '
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].'
 Impulse counter: Počítadlo implulzů
 Impulses: Impulzy
@@ -321,6 +324,7 @@ RGB lighting: Osvětlení RGB
 Rain sensor: Snímač deště
 Random: Náhodný
 Read: Odečet
+Refresh: Obnovit
 Register: Registrovat
 Register a new OAuth application: Registrovat novou aplikaci OAuth
 Register private SUPLA Cloud: Registrovat soukromý cloud SUPLA
@@ -358,6 +362,7 @@ Scopes: Rozsahy
 Scopes define which sections of your account can be accessed when using the token.: 'Rozsahy určí, které části účtu mohou být přístupné pomocí tokenu.'
 Search: Hledej
 Secret: Tajný klíč (secret)
+See direct link possibilities: Prohlédněte si možnosti přímého linku
 Seems like a secret place: 'Něco nám říká, že byste tady neměl být'
 Select icon: Vyberte ikonu
 Select the item (subject) you want to control using this link: 'Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu'
@@ -400,6 +405,7 @@ The client will be automatically logged out when deleted.: Odstranění klienta 
 The device is disabled: Zařízení je vypnuté
 The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
 The latest execution: Poslední výkon
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Výsledek je prezentovaný ve formě internetové stránky, poněvadž Vy (nebo Váš prohlížeč) požádal o odpověď ve formátu HTML.'
 The measurement history has been deleted.: Historie měření byla odstraněná.
 The next available executions: Nejbližší výkony
 The password and its confirm are not the same.: Heslo a jeho potvrzení nejsou stejné.
@@ -440,6 +446,8 @@ Wednesdays: Středy
 Weight sensor: Váha
 What this token is for?: K čemu je tento token?
 When: Kdy
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Proces vytvoření přímého linku můžete vyvolat tím, že podáte jeho unikátní identifikátor v obsahu požadavku  HTTP PATCH. Tato cesta je bezpečnější, protože neumožňuje uložit celou Vaší adresu odkazu v loginech dostupných serverů, pomocí kterých přechází Tvůj požadavek. Níže se nacházejí příkladové požadované akce dostupné pomocí nástroje  cURL.'
+Where is the JSON?: Kde je JSON?
 Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
 White: Bílý
 Wind sensor: Snímač větru
@@ -447,6 +455,7 @@ Window opening sensor: Snímač otevření okna
 With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete ovládat osvětlení ve Vašem domu nebo kanceláři
 With function: S funkcí
 Working period: Období provozu
+YOUR LINK CODE: KÓD VAŠEHO ODKAZU
 You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
 You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
 You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
@@ -457,6 +466,7 @@ You will not be able to generate a direct link with the same URL again.: Není m
 Your account has been locked.: Váš účet byl zablokován.
 Your email: Váš e-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
 Your private SUPLA Cloud is not registered.: Váš soukromý cloud SUPLA není registrován.
 after: po
@@ -472,10 +482,16 @@ daily: Denní cyklus
 directLinkExecutionFailureReason_disabled: Přímý odkaz je vypnutý
 directLinkExecutionFailureReason_executionLimitExceeded: Limit výkonů byl překročen
 directLinkExecutionFailureReason_expired: Přímý odkaz je zastaralý
+directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje provedení této akce
 directLinkExecutionFailureReason_httpGetForbidden: Akci nebylo možné provést pomocí metody HTTP GET.
 directLinkExecutionFailureReason_invalidActionParameters: Nesprávné parametry přímého odkazu
+directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
 directLinkExecutionFailureReason_noAllowedActions: Nebyly vybrány žádné povolené akce
+directLinkExecutionFailureReason_noSlugOrAction: 'Nesprávný požadavek, je nutné provést akci a zadat kód linku'
 directLinkExecutionFailureReason_notActiveYet: Přímý odkaz ještě není aktivní
+directLinkExecutionFailureReason_otherFailure: Chyba při provádění akce
+directLinkExecutionFailureReason_unsupportedAction: Vybraná akce byla špatně provedena
+executed: hotovo
 from IP: z adresy IP
 from the IP: z adresy
 hourly: Hodinový cyklus
@@ -532,26 +548,15 @@ Registration: Registrace
 Remove: Vymazat
 Status: Stav
 Try again later: Zkuste to prosím později
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
+execute: proveď
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Check the direct link you used and try again.: Zkontrolujte zda-li se vytvořil odkaz a zkuste to ještě jednou.
-Direct link has been executed: Došlo k vytvoření přímého odkazu
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Pokud chcete používat přímý odkaz v jiném programu, tak musíte dodat odpovědný nadpis požadavané akce , proto abyste mohli dostat odpověď, která se bude jednodušeji přetvářet. '
-Refresh: Obnovit
-See direct link possibilities: Prohlédněte si možnosti přímého linku
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Výsledek je prezentovaný ve formě internetové stránky, poněvadž Vy (nebo Váš prohlížeč) požádal o odpověď ve formátu HTML.'
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Proces vytvoření přímého linku můžete vyvolat tím, že podáte jeho unikátní identifikátor v obsahu požadavku  HTTP PATCH. Tato cesta je bezpečnější, protože neumožňuje uložit celou Vaší adresu odkazu v loginech dostupných serverů, pomocí kterých přechází Tvůj požadavek. Níže se nacházejí příkladové požadované akce dostupné pomocí nástroje  cURL.'
-Where is the JSON?: Kde je JSON?
-YOUR LINK CODE: KÓD VAŠEHO ODKAZU
-directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje provedení této akce
-directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
-directLinkExecutionFailureReason_noSlugOrAction: Nesprávný požadavek, je nutné provést akci a zadat kód linku
-directLinkExecutionFailureReason_otherFailure: Chyba při provádění akce
-directLinkExecutionFailureReason_unsupportedAction: Vybraná akce byla špatně provedena
-execute: proveď
-executed: hotovo
+Captcha token is not valid.: ~
+Invalid SUPLA Cloud URL.: ~
+Unsupported function: ~
+Unsupported type: ~
+You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
 
 #</editor-fold>
