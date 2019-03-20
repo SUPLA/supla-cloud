@@ -50,6 +50,7 @@
         data() {
             return {
                 timer: undefined,
+                fetching: false,
             };
         },
         mounted() {
@@ -60,9 +61,12 @@
         },
         methods: {
             fetchState() {
-                this.$http.get(`channels/${this.channel.id}?include=state`).then(({body}) => {
-                    this.$set(this.channel, 'state', body.state);
-                });
+                if (!this.fetching) {
+                    this.fetching = true;
+                    this.$http.get(`channels/${this.channel.id}?include=state`)
+                        .then(({body}) => this.$set(this.channel, 'state', body.state))
+                        .finally(() => this.fetching = false);
+                }
             },
             cssColor(hexStringColor) {
                 return hexStringColor.replace('0x', '#');

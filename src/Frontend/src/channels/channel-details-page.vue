@@ -84,9 +84,10 @@
                             <function-icon :model="channel"
                                 width="100"></function-icon>
                             <channel-alternative-icon-chooser :channel="channel"
+                                v-if="channelFunctionIsChosen"
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
-                                v-if="!changedFunction"></channel-state-table>
+                                v-if="!changedFunction && channelFunctionIsChosen"></channel-state-table>
                         </div>
                     </div>
                 </pending-changes-page>
@@ -209,6 +210,9 @@
                     return false;
                 }
             },
+            channelFunctionIsChosen() {
+                return this.channel.function.id > 0 && this.channel.function.name != 'UNSUPPORTED';
+            }
         }
     };
 </script>
