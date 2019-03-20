@@ -94,5 +94,4 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $setCommand = SuplaServerMock::$executedCommands[1];
         $this->assertEquals('SET-CHAR-VALUE:1,1,3,1', $setCommand);
     }
-
 }
