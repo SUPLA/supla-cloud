@@ -556,6 +556,7 @@ execute: proveď
 Captcha token is not valid.: ~
 Invalid SUPLA Cloud URL.: ~
 Unsupported function: ~
+Unsupported type: ~
 You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
 
 #</editor-fold>

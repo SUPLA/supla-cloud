@@ -10,7 +10,11 @@
                     @cancel="cancelChanges()"
                     @save="saveChanges()"
                     :is-pending="hasPendingChanges">
-                    <h4>{{ $t(channel.type.caption) }}, {{ $t('Channel No') }}: {{ channel.channelNumber }}</h4>
+                    <h4>
+                        {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',')}}
+                        <span v-if="channel.type.name == 'UNSUPPORTED'">{{channel.type.id}},</span>
+                        {{ $t('Channel No') }}: {{ channel.channelNumber }}
+                    </h4>
                     <div class="row hidden-xs">
                         <div class="col-xs-12">
                             <dots-route></dots-route>

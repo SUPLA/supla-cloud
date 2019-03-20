@@ -23,6 +23,7 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 
 class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
     public function testSettingParams() {
@@ -72,5 +73,12 @@ class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
         EntityUtils::setField($channel, 'function', 123);
         $this->assertEquals(ChannelFunction::UNSUPPORTED()->getName(), $channel->getFunction()->getName());
         $this->assertEquals(123, $channel->getFunction()->getId());
+    }
+
+    public function testGettingUnknownType() {
+        $channel = new IODeviceChannel();
+        EntityUtils::setField($channel, 'type', 123);
+        $this->assertEquals(ChannelType::UNSUPPORTED()->getName(), $channel->getType()->getName());
+        $this->assertEquals(123, $channel->getType()->getId());
     }
 }

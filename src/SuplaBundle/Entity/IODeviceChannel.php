@@ -184,7 +184,7 @@ class IODeviceChannel implements HasFunction, HasLocation {
     }
 
     public function getType(): ChannelType {
-        return new ChannelType($this->type);
+        return ChannelType::safeInstance($this->type);
     }
 
     /** @return IODevice */
