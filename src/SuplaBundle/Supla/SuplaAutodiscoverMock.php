@@ -89,6 +89,10 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
     protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = [], string $method = null) {
         self::$requests[] = ['endpoint' => $endpoint, 'post' => $post, 'headers' => $headers];
         if (preg_match('#/users/(.+)#', $endpoint, $match)) {
+            if ($method == 'DELETE') {
+                $responseStatus = 204;
+                return;
+            }
             $server = self::$userMapping[urldecode($match[1])] ?? null;
             if ($server) {
                 $responseStatus = 200;

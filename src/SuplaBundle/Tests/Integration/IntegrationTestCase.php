@@ -61,7 +61,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function clearDatabase() {
         self::$dataForTests = array_intersect_key(self::$dataForTests, [static::class => '']);
         $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
-        if (!$initializedAtLeastOnce || (!$this->hasDependencies() && !$this->isSmall())) {
+        if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->hasDependencies() && !$this->isSmall())) {
             $this->executeCommand('doctrine:schema:drop --force');
             $this->executeCommand('doctrine:schema:create');
             $this->executeCommand('supla:oauth:create-webapp-client');

@@ -553,10 +553,17 @@ execute: esegui
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': ~
 Captcha token is not valid.: ~
+'Confirm, delete my account, please': ~
+Delete my account: ~
+Incorrect password: ~
 Invalid SUPLA Cloud URL.: ~
+'To finally confirm your account deletion, please provide your password.': ~
 Unsupported function: ~
 Unsupported type: ~
+We hope to see you soon!: ~
+We will miss you: ~
 You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
 
 #</editor-fold>
