@@ -553,17 +553,17 @@ execute: vykonať
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': ~
-Captcha token is not valid.: ~
-'I confirm! Delete my account.': ~
-Delete my account: ~
-Incorrect password: ~
-Invalid SUPLA Cloud URL.: ~
-'In order to confirm account deletion, enter your password.': ~
-Unsupported function: ~
-Unsupported type: ~
-Your account has been deleted. We hope you will come back to us soon.: ~
-We will miss you: ~
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: ~
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Zmazanie Vášho účtu vymaže tiež všetky Vaše dáta vrátane pripojených zariadení, nakonfigurovaných kanálov, priamych odkazov a histórie merania. Zmazanie účtu je nevratné.'
+Captcha token is not valid.: Nesprávny captcha.
+'I confirm! Delete my account.': 'Potvrdzujem! Zmazať môj účet.'
+Delete my account: Zmazať môj účet
+Incorrect password: Nesprávne heslo
+Invalid SUPLA Cloud URL.: Nesprávna URL adresa inštancie Šuplata Cloud.
+'In order to confirm account deletion, enter your password.': 'Ak chcete potvrdiť zmazanie Vášho účtu, zadajte heslo.'
+Unsupported function: Nepodporovaná funkcia
+Unsupported type: Nepodporovaný typ
+Your account has been deleted. We hope you will come back to us soon.: Účet bol zmazaný. Dúfame, že sa k nám čoskoro vrátite.
+We will miss you: Budete nám chýbať
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovať inštaláciu programu Šuplata Cloud aspoň na verziu 2.3.0.
 
 #</editor-fold>
