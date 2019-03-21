@@ -553,17 +553,17 @@ execute: exécuter
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': ~
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': ~
 Captcha token is not valid.: ~
-'Confirm, delete my account, please': ~
+'I confirm! Delete my account.': ~
 Delete my account: ~
 Incorrect password: ~
 Invalid SUPLA Cloud URL.: ~
-'To finally confirm your account deletion, please provide your password.': ~
+'In order to confirm account deletion, enter your password.': ~
 Unsupported function: ~
 Unsupported type: ~
-We hope to see you soon!: ~
+Your account has been deleted. We hope you will come back to us soon.: ~
 We will miss you: ~
-You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: ~
 
 #</editor-fold>

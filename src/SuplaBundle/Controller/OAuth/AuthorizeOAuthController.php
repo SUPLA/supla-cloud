@@ -206,7 +206,7 @@ class AuthorizeOAuthController extends Controller {
             ApiVersions::V2_3,
             '<=',
             $info['cloudVersion'] ?? '0.0.0',
-            'You must upgrade your private SUPLA Cloud to be at least v2.3.0.' // i18n
+            'You need to update your SUPLA Cloud to version 2.3.0. or newer.' // i18n
         );
         $token = $this->autodiscover->issueRegistrationTokenForTargetCloud($targetCloud, $email);
         return $this->json(['token' => $token]);

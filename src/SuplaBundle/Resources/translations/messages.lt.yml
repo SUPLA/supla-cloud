@@ -553,17 +553,17 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
 Captcha token is not valid.: Neteisingai įvestas captcha kodas.
-'Confirm, delete my account, please': 'Patvirtinu! Pašalinti mano paskyrą.'
+'I confirm! Delete my account.': 'Patvirtinu! Pašalinti mano paskyrą.'
 Delete my account: Pašalinti mano paskyrą
 Incorrect password: Neteisingas slaptažodis
 Invalid SUPLA Cloud URL.: Neteisingas SUPLA Cloud diegimo URL adresas.
-'To finally confirm your account deletion, please provide your password.': 'Jei norite patvirtinti norą pašalinti savo paskyrą, įveskite savo slaptažodį.'
+'In order to confirm account deletion, enter your password.': 'Jei norite patvirtinti norą pašalinti savo paskyrą, įveskite savo slaptažodį.'
 Unsupported function: Funkcija nepalaikoma
 Unsupported type: Tipas nepalaikomas
-We hope to see you soon!: Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.
+Your account has been deleted. We hope you will come back to us soon.: Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.
 We will miss you: Ilgėsimės Jūsų
-You must upgrade your private SUPLA Cloud to be at least v2.3.0.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
 
 #</editor-fold>

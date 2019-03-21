@@ -553,17 +553,17 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': 'Wenn Sie Ihr Konto löschen, werden auch alle Ihre Daten gelöscht, einschließlich der angeschlossenen Geräte, der konfigurierten Kanäle, der Direktverbindungen und des Messverlaufs. Das Löschen Ihres Kontos ist unwiderruflich.'
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Wenn Sie Ihr Konto löschen, werden auch alle Ihre Daten gelöscht, einschließlich der angeschlossenen Geräte, der konfigurierten Kanäle, der Direktverbindungen und des Messverlaufs. Das Löschen Ihres Kontos ist unwiderruflich.'
 Captcha token is not valid.: Falsches Captcha.
-'Confirm, delete my account, please': 'Ich bestätige! Mein Konto löschen.'
+'I confirm! Delete my account.': 'Ich bestätige! Mein Konto löschen.'
 Delete my account: 'Mein Konto löschen.'
 Incorrect password: 'Falsches Passwort'
 Invalid SUPLA Cloud URL.: 'Falsche URL der SUPLA-Cloud-Instanz.'
-'To finally confirm your account deletion, please provide your password.': 'Um zu bestätigen, dass Sie Ihr Konto löschen möchten, geben Sie bitte Ihr Passwort ein.'
+'In order to confirm account deletion, enter your password.': 'Um zu bestätigen, dass Sie Ihr Konto löschen möchten, geben Sie bitte Ihr Passwort ein.'
 Unsupported function: Nicht unterstützte Funktion
 Unsupported type: Nicht unterstützter Typ
-We hope to see you soon!: Das Konto wurde gelöscht. Wir hoffen, dass Sie bald zu uns zurückkehren werden.
+Your account has been deleted. We hope you will come back to us soon.: Das Konto wurde gelöscht. Wir hoffen, dass Sie bald zu uns zurückkehren werden.
 We will miss you: Wir werden Sie vermissen.
-You must upgrade your private SUPLA Cloud to be at least v2.3.0.: Sie müssen Ihre SUPLA-Cloud-Instanz auf mindestens Version 2.3.0 aktualisieren.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Sie müssen Ihre SUPLA-Cloud-Instanz auf mindestens Version 2.3.0 aktualisieren.
 
 #</editor-fold>
