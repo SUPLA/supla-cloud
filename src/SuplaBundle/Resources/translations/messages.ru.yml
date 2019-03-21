@@ -553,17 +553,17 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': ~
-Captcha token is not valid.: ~
-'Confirm, delete my account, please': ~
-Delete my account: ~
-Incorrect password: ~
-Invalid SUPLA Cloud URL.: ~
-'To finally confirm your account deletion, please provide your password.': ~
-Unsupported function: ~
-Unsupported type: ~
-We hope to see you soon!: ~
-We will miss you: ~
-You must upgrade your private SUPLA Cloud to be at least v2.3.0.: ~
+'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': 'Удаление учетной записи приведет к удалению всех ваших данных, включая ваши подключенные устройства, настроенные каналы, прямые ссылки и историю измерений. Удаление учетной записи является необратимым.'
+Captcha token is not valid.: Неправильная капча.
+'Confirm, delete my account, please': 'Подтверждаю! Удалить мою учетную запись.'
+Delete my account: Удалить мою учетную запись
+Incorrect password: Неверный пароль
+Invalid SUPLA Cloud URL.: Неверный URL-адрес экземпляра SUPLA Cloud.
+'To finally confirm your account deletion, please provide your password.': 'Для подтверждения удаления вашей учетной записи введите свой пароль.'
+Unsupported function: Неподдерживаемая функция
+Unsupported type: Неподдерживаемый тип
+We hope to see you soon!: Учетная запись удалена. Надеемся, вы скоро к нам вернетесь.
+We will miss you: Мы будем скучать без вас
+You must upgrade your private SUPLA Cloud to be at least v2.3.0.: Вы должны обновить свой экземпляр SUPLA Cloud до версии не ниже 2.3.0.
 
 #</editor-fold>
