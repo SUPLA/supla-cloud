@@ -16,7 +16,7 @@ Access identifier password must be at least 8 characters.: Hasło dla identyfika
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
-'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': 'Usunięcie Twojego konta spowoduje także usunięcie Twoich danych, między innymi Twoich połączonych urządzeń, skonfigurowanych kanałów, linków bezpośrednich i historii pomiarów. Ta akcja jest nieodwracalna.'
+'Account deletion will also delete all your data from the application. It includes, but is not limited to: your linked devices, configured channels, schedules, direct links and measurements history. This action is irreversible.': 'Usunięcie Twojego konta spowoduje także usunięcie wszystkich Twoich danych, między innymi Twoich połączonych urządzeń, skonfigurowanych kanałów, linków bezpośrednich i historii pomiarów. Usunięcie konta jest nieodwracalne.'
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
 Action: Akcja
 Action execution: Wykonywanie akcji
@@ -102,7 +102,7 @@ Confirm Password: Potwierdzenie hasła
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.'
 'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
-'Confirm, delete my account, please': 'Potwierdzam, proszę usunąć moje konto'
+'Confirm, delete my account, please': 'Potwierdzam! Usuń moje konto.'
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połaczenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
@@ -427,7 +427,7 @@ This direct link requires further parameters in order to be executed properly. S
 This is the list of applications you have granted access to your account.: 'To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.'
 Thursdays: Czwartki
 Timezone: Strefa czasowa
-'To finally confirm your account deletion, please provide your password.': W celu potwierdzenia akcji podaj swoje hasło.
+'To finally confirm your account deletion, please provide your password.': W celu potwierdzenia chęci usunięcia Twojego konta podaj swoje hasło.
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
@@ -446,7 +446,7 @@ WELCOME_MESSAGE: |
   przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
 Water meter: Licznik wody
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
-We hope to see you soon!: Do zobaczenia wkrótce!
+We hope to see you soon!: Konto zostało usunięte. Mamy nadzieję, że wkrótce do nas wrócisz.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek). [Przeczytaj regulamin].'
 We were not able to find your account.: Nie udało nam się znaleźć Twojego konta.
 We will miss you: Będziemy za Tobą tęsknić
