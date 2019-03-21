@@ -553,17 +553,17 @@ execute: exécuter
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': ~
-Captcha token is not valid.: ~
-'I confirm! Delete my account.': ~
-Delete my account: ~
-Incorrect password: ~
-Invalid SUPLA Cloud URL.: ~
-'In order to confirm account deletion, enter your password.': ~
-Unsupported function: ~
-Unsupported type: ~
-Your account has been deleted. We hope you will come back to us soon.: ~
-We will miss you: ~
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: ~
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'La suppression de votre compte supprimera également toutes vos données, y compris vos appareils connectés, les canaux configurés, les liens directs et l’historique des mesures. La suppression d’un compte est irréversible.'
+Captcha token is not valid.: Captcha incorrect.
+'I confirm! Delete my account.': 'Je confirme! Supprimer mon compte.'
+Delete my account: Supprimer mon compte
+Incorrect password: Mauvais mot de passe
+Invalid SUPLA Cloud URL.: URL incorrecte de l'instance SUPLA Cloud.
+'In order to confirm account deletion, enter your password.': 'Afin de confirmer que vous souhaitez supprimer votre compte, veuillez entrer votre mot de passe.'
+Unsupported function: Fonction non supportée
+Unsupported type: Type non supporté
+Your account has been deleted. We hope you will come back to us soon.: Le compte a été supprimé. Nous espérons que vous reviendrez bientôt chez nous.
+We will miss you: Vous nous manquerez
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Vous devez mettre à jour votre instance SUPLA Cloud vers au moins la version 2.3.0.
 
 #</editor-fold>
