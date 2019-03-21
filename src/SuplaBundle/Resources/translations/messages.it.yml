@@ -66,6 +66,7 @@ Calibration: Calibrazione
 Cancel: Annulla
 Cancel changes: Annulla le modifiche
 Cancelled: Cancellati
+Captcha token is not valid.: Captcha non valido.
 Caption: Titolo
 Change Password: Cambio della password
 Change icon: Cambia l’icona
@@ -125,6 +126,8 @@ Days: Giorni
 Decline: Rifiuta
 Delete: Elimina
 Delete measurement history: cancella lo storico delle misurazioni
+Delete my account: Cancella il mio account
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'La cancellazione del Tuo account comporterà la cancellazione di tutti i Tuoi dati, ad esempio:  Tuoi dispositivi collegati, canali configurati, link diretti e storico delle misurazioni. La cancellazione dell’account è irreversibile.'
 Depth: Profondità
 Depth sensor: Sensore di profondità
 Description: Descrizione
@@ -217,6 +220,7 @@ Humidity sensor: Sensore di umidità
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Accetto il [regolamento] e acconsento al trattamento dei miei dati personali per le finalità indicate nel suddetto [Regolamento].'
 I agree: Accetto
 'I aree, taske me to the app': 'Accetto, vai all’applicazione'
+I confirm! Delete my account.: Confermo! Cancella il mio account.
 'I do not agree, get me out of here': 'Non accetto, portami via da qui'
 I/O Devices: Dispositivi I/O
 INACTIVE: INATTIVA
@@ -229,10 +233,13 @@ Idle: Inattivi
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Se vuoi vedere le integrazioni disponibili, passa a [cloud.supla.org/apps].'
 Impulse counter: Contatore di impulsi
 Impulses: Impulsi
+'In order to confirm account deletion, enter your password.': 'Per confermare la cancellazione del Tuo account, inserisci la password.'
+Incorrect password: Password non corretta
 Information: Informazione
 Inherit I/O Device location: Utilizza la localizzazione del dispositivo I/O
 Integrations: Integrazioni
 Interval: Intervallo
+Invalid SUPLA Cloud URL.: Indirizzo URL dell’istanza SUPLA Cloud non valido.
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Richiesta non corretta
 Inverted logic: Logica invertita
@@ -429,6 +436,8 @@ Turning this device off will result in disabling all the associated schedules.: 
 Type: Tipo
 Unit: Unità
 Unknown: Sconosciuto
+Unsupported function: Funzione non supportata
+Unsupported type: Tipo non supportato
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'I file inviati non contengono contenuti inappropriati, non violano i diritti d’autore od i diritti di terzi, ed io ho il diritto di utilizzarli.'
 Visible: Visibile
 Visit app webpage: Apri il sito web dell’applicazione
@@ -439,6 +448,7 @@ Water meter: Licznik wody
 We could not connect to your SUPLA Cloud instance.: Non riuscivamo a connetterci con la Tua istanza privata SUPLA Cloud.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Conserviamo nel Tuo broswer le informazioni sulle Tue preferenze al fine di facilitare l’uso dell’applicazione (ad esempio mediante un meccanismo di cookies). [Leggi il Regolamento].'
 We were not able to find your account.: Non siamo riusciti a trovare il Tuo account.
+We will miss you: Ci mancherai
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Faremo del nostro meglio affinché le icone inviate possano essere visualizzate nel modo migliore possibile. Tuttavia otterrai i migliori risultati inviando i file PNG con uno sfondo trasparente e con una larghezza di{width} e altezza di {height} pixel.'
 We will use it only in justified situations.: Lo useremo solo nei casi giustificati.
 Weather Station: Stazione meteo
@@ -461,8 +471,10 @@ You cannot delete your last location.: Non puoi eliminare la Tua ultima localizz
 You just need to execute the following command inside your host terminal.: Basta eseguire il seguente ordine all’interno di un terminale del Tuo host.
 You must agree to the Terms and Conditions.: L’accettazione del Regolamento è obbligatoria.
 You need to provide icons for all states.: Devi fornire le icone a tutti gli stati.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Devi aggiornare la Tua istanza SUPLA Cloud alla versione minima 2.3.0.
 You will be logged out shortly: A breve verrà eseguito il log out
 You will not be able to generate a direct link with the same URL again.: La creazione del link con lo stesso URL non sarà possibile.
+Your account has been deleted. We hope you will come back to us soon.: L’account è stato cancellato. Speriamo che tornerai presto.
 Your account has been locked.: Il Tuo account è stato bloccato.
 Your email: Tua email
 Your instance is not registered or you are trying to authorize an application that is not public.: La Tua istanza non è registrata oppure stai cercando di autorizzare un’applicazione che non è pubblica.
@@ -553,17 +565,5 @@ execute: esegui
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'La cancellazione del Tuo account comporterà la cancellazione di tutti i Tuoi dati, ad esempio:  Tuoi dispositivi collegati, canali configurati, link diretti e storico delle misurazioni. La cancellazione dell’account è irreversibile.'
-Captcha token is not valid.: Captcha non valido.
-'I confirm! Delete my account.': Confermo! Cancella il mio account.
-Delete my account: Cancella il mio account
-Incorrect password: Password non corretta
-Invalid SUPLA Cloud URL.: Indirizzo URL dell’istanza SUPLA Cloud non valido.
-'In order to confirm account deletion, enter your password.': 'Per confermare la cancellazione del Tuo account, inserisci la password.'
-Unsupported function: Funzione non supportata
-Unsupported type: Tipo non supportato
-Your account has been deleted. We hope you will come back to us soon.: L’account è stato cancellato. Speriamo che tornerai presto.
-We will miss you: Ci mancherai
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Devi aggiornare la Tua istanza SUPLA Cloud alla versione minima 2.3.0.
 
 #</editor-fold>

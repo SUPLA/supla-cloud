@@ -66,6 +66,7 @@ Calibration: калибровка
 Cancel: Отмена
 Cancel changes: Отменить изменения
 Cancelled: Аннулировано
+Captcha token is not valid.: Неправильная капча.
 Caption: Подпись
 Change Password: Смена пароля
 Change icon: Сменить значок
@@ -125,6 +126,8 @@ Days: Дней
 Decline: Отказать
 Delete: Удалить
 Delete measurement history: Удалить историю измерений
+Delete my account: Удалить мою учетную запись
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Удаление учетной записи приведет к удалению всех ваших данных, включая ваши подключенные устройства, настроенные каналы, прямые ссылки и историю измерений. Удаление учетной записи является необратимым.'
 Depth: Глубина
 Depth sensor: датчик глубины
 Description: Описание
@@ -217,6 +220,7 @@ Humidity sensor: Датчик влажности
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Я принимаю [правила] и даю согласие на обработку моих персональных данных в целях и объеме, указанном в [Правилах].'
 I agree: Я согласен
 'I aree, taske me to the app': 'Я согласен, перейти к приложению'
+I confirm! Delete my account.: Подтверждаю! Удалить мою учетную запись.
 'I do not agree, get me out of here': 'Я не согласен, уберите меня отсюда'
 I/O Devices: Устройства
 INACTIVE: НЕАКТИВНА
@@ -229,10 +233,13 @@ Idle: Бездействующие
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Если вы хотите увидеть доступные интеграции, перейдите на [cloud.supla.org/apps].'
 Impulse counter: Счетчик импульсов
 Impulses: Импульсы
+'In order to confirm account deletion, enter your password.': Для подтверждения удаления вашей учетной записи введите свой пароль.
+Incorrect password: Неверный пароль
 Information: Информация
 Inherit I/O Device location: Использовать местоположение устройства
 Integrations: Интеграции
 Interval: Интервал
+Invalid SUPLA Cloud URL.: Неверный URL-адрес экземпляра SUPLA Cloud.
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Неверный запрос
 Inverted logic: Реверсивная логика
@@ -429,6 +436,8 @@ Turning this device off will result in disabling all the associated schedules.: 
 Type: Тип
 Unit: Единица
 Unknown: неизвестно
+Unsupported function: Неподдерживаемая функция
+Unsupported type: Неподдерживаемый тип
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Загруженные файлы не нарушают норм нравственности, авторских прав и прав третьих лиц, и я имею право их использовать.'
 Visible: идимые
 Visit app webpage: Открыть веб-сайт приложения
@@ -439,6 +448,7 @@ Water meter: Счетчик воды
 We could not connect to your SUPLA Cloud instance.: Не удалось подключиться к персональной инстанции облака SUPLA Cloud.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Мы сохраняем в вашем браузере информацию о ваших предпочтениях для облегчения использования приложения (например, с помощью механизма куки). [Читать правила].'
 We were not able to find your account.: Не удалось найти вашу учетную запись.
+We will miss you: Мы будем скучать без вас
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Мы сделаем все возможное, чтобы загруженные значки отображались оптимально, но наилучшие результаты вы получите, загрузив PNG-файлы с прозрачным фоном и шириной {width} и высотой {height} пикселей.'
 We will use it only in justified situations.: Он используется только в обоснованных случаях.
 Weather Station: Метеостанция
@@ -461,8 +471,10 @@ You cannot delete your last location.: Невозможно удалить св�
 You just need to execute the following command inside your host terminal.: Достаточно выполнить следующую команду внутри терминала вашего хоста.
 You must agree to the Terms and Conditions.: Принятие правил является обязательным.
 You need to provide icons for all states.: Вы должны назначить значки для всех состояний.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Вы должны обновить свой экземпляр SUPLA Cloud до версии не ниже 2.3.0.
 You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
 You will not be able to generate a direct link with the same URL again.: Создание ссылки с одинаковым URL невозможно.
+Your account has been deleted. We hope you will come back to us soon.: 'Учетная запись удалена. Надеемся, вы скоро к нам вернетесь.'
 Your account has been locked.: Ваша учетная запись заблокирована.
 Your email: Введите почту
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Ваша инстанция не зарегистрирована или вы пытаетесь авторизовать приложение, которое не является публичным.'
@@ -553,17 +565,5 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Удаление учетной записи приведет к удалению всех ваших данных, включая ваши подключенные устройства, настроенные каналы, прямые ссылки и историю измерений. Удаление учетной записи является необратимым.'
-Captcha token is not valid.: Неправильная капча.
-'I confirm! Delete my account.': 'Подтверждаю! Удалить мою учетную запись.'
-Delete my account: Удалить мою учетную запись
-Incorrect password: Неверный пароль
-Invalid SUPLA Cloud URL.: Неверный URL-адрес экземпляра SUPLA Cloud.
-'In order to confirm account deletion, enter your password.': 'Для подтверждения удаления вашей учетной записи введите свой пароль.'
-Unsupported function: Неподдерживаемая функция
-Unsupported type: Неподдерживаемый тип
-Your account has been deleted. We hope you will come back to us soon.: Учетная запись удалена. Надеемся, вы скоро к нам вернетесь.
-We will miss you: Мы будем скучать без вас
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Вы должны обновить свой экземпляр SUPLA Cloud до версии не ниже 2.3.0.
 
 #</editor-fold>

@@ -66,6 +66,7 @@ Calibration: Kalibravimas
 Cancel: Atšaukti
 Cancel changes: Atšaukti pakeitimus
 Cancelled: Atšaukta
+Captcha token is not valid.: Neteisingai įvestas captcha kodas.
 Caption: Parašas
 Change Password: Slaptažodžio keitimas
 Change icon: Pakeisti piktogramą
@@ -125,6 +126,8 @@ Days: Dienos
 Decline: Atsisakyti
 Delete: Pašalinti
 Delete measurement history: Pašalinti matavimų istoriją
+Delete my account: Pašalinti mano paskyrą
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
 Depth: Gylis
 Depth sensor: Gilio jutiklis
 Description: Aprašas
@@ -217,6 +220,7 @@ Humidity sensor: Drėgmės jutiklis
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Sutinku su [Taisyklėmis] ir sutinku, kad mano asmens duomenys būtų apdorojami [Taisyklėse] nurodytu tikslu ir srityje.'
 I agree: Sutinku
 'I aree, taske me to the app': 'Sutinki, eiti į programą'
+I confirm! Delete my account.: Patvirtinu! Pašalinti mano paskyrą.
 'I do not agree, get me out of here': 'Nesutinku, pasiimkite mane iš čia'
 I/O Devices: Įv/Iš įrenginiai
 INACTIVE: NEAKTYVI
@@ -229,10 +233,13 @@ Idle: Nenaudojamos
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].'
 Impulse counter: Impulsų skaitiklis
 Impulses: Impulsai
+'In order to confirm account deletion, enter your password.': 'Jei norite patvirtinti norą pašalinti savo paskyrą, įveskite savo slaptažodį.'
+Incorrect password: Neteisingas slaptažodis
 Information: Informacija
 Inherit I/O Device location: Naudokitės įrenginio vietos aptikimu
 Integrations: Įtrauktis
 Interval: Intervalas
+Invalid SUPLA Cloud URL.: Neteisingas SUPLA Cloud diegimo URL adresas.
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Neteisinga užklausa
 Inverted logic: Atvirkštinė logika
@@ -429,6 +436,8 @@ Turning this device off will result in disabling all the associated schedules.: 
 Type: Tipas
 Unit: Vienetas
 Unknown: Nežinoma
+Unsupported function: Funkcija nepalaikoma
+Unsupported type: Tipas nepalaikomas
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.'
 Visible: Matomi
 Visit app webpage: Atveriet lietojumprogrammas vietni
@@ -439,6 +448,7 @@ Water meter: Vandens skaitiklis
 We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Jūsų naršyklėje saugojame informacijas apie Jūsų preferencijas, kad palengvintumėme naudojimąsi programa (pvz. slapukų mechanizmo pagalba). [Perskaitykite taisykles].'
 We were not able to find your account.: Mums nepavyko surasti Jūsų paskyros.
+We will miss you: Ilgėsimės Jūsų
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.'
 We will use it only in justified situations.: Panaudosime jį tik pagrįstais atvejais.
 Weather Station: Meteorologijos stotis
@@ -461,8 +471,10 @@ You cannot delete your last location.: Negalite pašalinti paskutinės savo viet
 You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
 You must agree to the Terms and Conditions.: Sutikimas su taisyklėmis būtinas.
 You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
 You will be logged out shortly: Netrukus busite atjungti
 You will not be able to generate a direct link with the same URL again.: Nuorodos su tuo pačiu URL sukūrimas nebus įmanomas.
+Your account has been deleted. We hope you will come back to us soon.: 'Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.'
 Your account has been locked.: El. pašto adresas jau egzistuoja
 Your email: Jūsų el. paštas
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.'
@@ -553,17 +565,5 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
-Captcha token is not valid.: Neteisingai įvestas captcha kodas.
-'I confirm! Delete my account.': 'Patvirtinu! Pašalinti mano paskyrą.'
-Delete my account: Pašalinti mano paskyrą
-Incorrect password: Neteisingas slaptažodis
-Invalid SUPLA Cloud URL.: Neteisingas SUPLA Cloud diegimo URL adresas.
-'In order to confirm account deletion, enter your password.': 'Jei norite patvirtinti norą pašalinti savo paskyrą, įveskite savo slaptažodį.'
-Unsupported function: Funkcija nepalaikoma
-Unsupported type: Tipas nepalaikomas
-Your account has been deleted. We hope you will come back to us soon.: Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.
-We will miss you: Ilgėsimės Jūsų
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
 
 #</editor-fold>

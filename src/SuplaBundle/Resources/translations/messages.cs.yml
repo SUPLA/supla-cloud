@@ -66,6 +66,7 @@ Calibration: Kalibrace
 Cancel: Zrušit
 Cancel changes: Zrušit změny
 Cancelled: Zrušeno
+Captcha token is not valid.: Nesprávná captcha
 Caption: Podpis
 Change Password: Změna hesla
 Change icon: Změňte ikonu
@@ -125,6 +126,8 @@ Days: Dny
 Decline: Odmítnout
 Delete: Vymazat
 Delete measurement history: Vymazat historii měření
+Delete my account: Odstranit můj účet.
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Odstranění Vašeho účtu způsobí odstranění všech Vaších osobních údajů včetně Vaších připojených zařízení, nakonfigurovaných kanálů, bezprostředních odkazů a měřenou historii. Odstranění účtu je již nevratné.'
 Depth: Hloubka
 Depth sensor: Snímač hloubky
 Description: Popis
@@ -217,6 +220,7 @@ Humidity sensor: Snímač vlhkosti
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Souhlasím s  [Podmínky] a souhlasím se zpracováním mých osobních údajů za účelem a rozsahu stanoveným v [nařízení].'
 I agree: Souhlasím
 'I aree, taske me to the app': 'ZSouhlasím, vezmi mě do aplikace'
+I confirm! Delete my account.: Potvrzuji! Odstranit můj účet.
 'I do not agree, get me out of here': 'Nesouhlasím, opustit toto pole'
 I/O Devices: Zařízení vs/vý
 INACTIVE: NEAKTIVNÍ
@@ -229,10 +233,13 @@ Idle: Nečinný
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].'
 Impulse counter: Počítadlo implulzů
 Impulses: Impulzy
+'In order to confirm account deletion, enter your password.': 'Pro potvrzení, že chcete odstranit Váš účet zadejte Vaše heslo.'
+Incorrect password: Nesprávné heslo
 Information: Informace
 Inherit I/O Device location: Použijte polohu zařízení
 Integrations: Integrace
 Interval: Interval
+Invalid SUPLA Cloud URL.: Nesprávná adresa URL instance SUPLA Cloud
 'Invalid redirect URI: {uri}': 'Neplatné přesměrování URI : {uri}'
 Invalid request: Nesprávná žádost
 Inverted logic: Obrácená logika
@@ -429,6 +436,8 @@ Turning this device off will result in disabling all the associated schedules.: 
 Type: Typ
 Unit: Jednotka
 Unknown: Neznámý
+Unsupported function: Nepodporovaná funkce
+Unsupported type: Nepodporavný typ
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.'
 Visible: Viditelný
 Visit app webpage: Otevřete okno aplikace
@@ -439,6 +448,7 @@ Water meter: Vodoměr
 We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].'
 We were not able to find your account.: Váš účet jsme nenašli.
+We will miss you: Budete nám chybět.
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Uděláme vše pro to, aby se zobrazené ikony zobrazovaly jak nejlépe, ale nejlepší výsledky dosáhnete tím, že nahrajete soubory PNG s průhledným pozadím, šířkou {width} a výškou {height} pixelů.'
 We will use it only in justified situations.: Použijeme jej pouze v odůvodněných případech.
 Weather Station: Meteorologická stanice
@@ -461,8 +471,10 @@ You cannot delete your last location.: Nemůžete smazat vaše poslední umíst�
 You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
 You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
 You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovat svojí instanci SUPLA Cloud do minimální verze 2.3.0.
 You will be logged out shortly: Budete brzy odhlášeni
 You will not be able to generate a direct link with the same URL again.: Není možné vytvořit odkaz se stejnou adresou URL.
+Your account has been deleted. We hope you will come back to us soon.: 'Účet był odstraněn. Doufáme, že se k nám zase vrátite.'
 Your account has been locked.: Váš účet byl zablokován.
 Your email: Váš e-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.'
@@ -553,17 +565,5 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Odstranění Vašeho účtu způsobí odstranění všech Vaších osobních údajů včetně Vaších připojených zařízení, nakonfigurovaných kanálů, bezprostředních odkazů a měřenou historii. Odstranění účtu je již nevratné.'
-Captcha token is not valid.: Nesprávná captcha
-'I confirm! Delete my account.': 'Potvrzuji! Odstranit můj účet.'
-Delete my account: Odstranit můj účet.
-Incorrect password: Nesprávné heslo
-Invalid SUPLA Cloud URL.: Nesprávná adresa URL instance SUPLA Cloud
-'In order to confirm account deletion, enter your password.': 'Pro potvrzení, že chcete odstranit Váš účet zadejte Vaše heslo.'
-Unsupported function: Nepodporovaná funkce
-Unsupported type: Nepodporavný typ
-Your account has been deleted. We hope you will come back to us soon.: Účet był odstraněn. Doufáme, že se k nám zase vrátite.
-We will miss you: Budete nám chybět.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovat svojí instanci SUPLA Cloud do minimální verze 2.3.0.
 
 #</editor-fold>
