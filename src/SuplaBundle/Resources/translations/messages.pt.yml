@@ -553,17 +553,17 @@ execute: realizar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': ~
-Captcha token is not valid.: ~
-'I confirm! Delete my account.': ~
-Delete my account: ~
-Incorrect password: ~
-Invalid SUPLA Cloud URL.: ~
-'In order to confirm account deletion, enter your password.': ~
-Unsupported function: ~
-Unsupported type: ~
-Your account has been deleted. We hope you will come back to us soon.: ~
-We will miss you: ~
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: ~
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Ao excluir a sua conta você também excluirá todos os seus dados, incluindo dados sobre os dispositivos conectados, canais configurados, links diretos e o histórico de medições. A exclusão da conta é irreversível.'
+Captcha token is not valid.: Captcha incorreto.
+'I confirm! Delete my account.': 'Confirmo! Desejo excluir minha conta.'
+Delete my account: Excluir minha conta
+Incorrect password: Senha Incorreta
+Invalid SUPLA Cloud URL.: URL incorreta da instância do SUPLA Cloud.
+'In order to confirm account deletion, enter your password.': 'Para confirmar que você realmente deseja excluir sua conta, insira sua senha.'
+Unsupported function: Função não suportada
+Unsupported type: Tipo não suportado
+Your account has been deleted. We hope you will come back to us soon.: A conta foi excluída. Esperamos que você volte para nós em breve.
+We will miss you: Sentiremos sua falta
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Você precisa atualizar sua instância do SUPLA Cloud pelo menos para a versão 2.3.0.
 
 #</editor-fold>
