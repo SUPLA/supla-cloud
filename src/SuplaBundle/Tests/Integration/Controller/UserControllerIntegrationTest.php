@@ -17,7 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -59,5 +62,15 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingUserAccount */
     public function testDeletingUserAccountReconnectsSuplaServer() {
         $this->assertContains('USER-RECONNECT:1', SuplaServerMock::$executedCommands);
+    }
+
+    /** @depends testDeletingUserAccount */
+    public function testDeletingUserAccountEventIsSavedInAudit() {
+        /** @var AuditEntry $lastEntry */
+        $entries = $this->container->get(AuditEntryRepository::class)->findAll();
+        $lastEntry = end($entries);
+        $this->assertEquals(AuditedEvent::USER_ACCOUNT_DELETED, $lastEntry->getEvent()->getId());
+        $this->assertEquals(1, $lastEntry->getIntParam());
+        $this->assertEquals('supler@supla.org', $lastEntry->getTextParam());
     }
 }

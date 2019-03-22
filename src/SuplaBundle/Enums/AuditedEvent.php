@@ -27,6 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static AuditedEvent DIRECT_LINK_EXECUTION()
  * @method static AuditedEvent DIRECT_LINK_EXECUTION_FAILURE()
  * @method static AuditedEvent SCHEDULE_BROKEN_DISABLED()
+ * @method static AuditedEvent USER_ACCOUNT_DELETED()
  */
 final class AuditedEvent extends Enum {
     const AUTHENTICATION_SUCCESS = 1;
@@ -35,6 +36,7 @@ final class AuditedEvent extends Enum {
     const DIRECT_LINK_EXECUTION = 4;
     const DIRECT_LINK_EXECUTION_FAILURE = 5;
     const SCHEDULE_BROKEN_DISABLED = 6;
+    const USER_ACCOUNT_DELETED = 7;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
