@@ -253,7 +253,7 @@ final class ChannelFunction extends Enum {
             self::CONTROLLINGTHEDOORLOCK => ['opened', 'closed'],
             self::OPENINGSENSOR_DOOR => ['opened', 'closed'],
             self::CONTROLLINGTHEROLLERSHUTTER => ['revealed', 'shut'],
-            self::OPENINGSENSOR_ROLLERSHUTTER => ['revealted', 'shut'],
+            self::OPENINGSENSOR_ROLLERSHUTTER => ['revealed', 'shut'],
             self::POWERSWITCH => ['on', 'off'],
             self::LIGHTSWITCH => ['on', 'off'],
             self::HUMIDITY => ['default'],
