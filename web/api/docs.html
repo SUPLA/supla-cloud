@@ -21,15 +21,6 @@
         url: '/api/swagger.yaml',
         displayRequestDuration: true,
         tagsSorter: 'alpha',
-        requestInterceptor: function (request) {
-            if (request.headers.Authorization && request.headers.Authorization.indexOf('Bearer ') != 0) {
-                request.headers.Authorization = 'Bearer ' + request.headers.Authorization;
-            }
-            if (request.url.indexOf('.yaml') < 0) {
-                request.url = request.url.replace(/cloud\.supla\.org/, window.location.host);
-            }
-            return request;
-        }
     });
 </script>
 </body>

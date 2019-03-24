@@ -74,4 +74,12 @@ class ServerController extends RestController {
             return $this->view(['status' => 'DOWN'], Response::HTTP_SERVICE_UNAVAILABLE);
         }
     }
+
+    /** @Get("/swagger.yaml") */
+    public function getApiDocsAction() {
+        $yaml = file_get_contents(\AppKernel::VAR_PATH . '/../web/api/supla-api-docs.yaml');
+        $suplaDomain = $this->container->getParameter('supla_server');
+        $yaml = str_replace('cloud.supla.org', $suplaDomain, $yaml);
+        return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
+    }
 }

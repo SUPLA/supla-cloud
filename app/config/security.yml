@@ -27,7 +27,7 @@ security:
       stateless: true
 
   access_control:
-    - path: ^/(api/(v?\d\.\d\.\d/)?(server-status|server-info|register|forgotten-password|confirm|webapp-tokens|webapp-auth|public-oauth-apps))
+    - path: ^/(api/(v?\d\.\d\.\d/)?(server-status|server-info|register|forgotten-password|confirm|webapp-tokens|webapp-auth|public-oauth-apps|swagger\.yaml))
       role: [IS_AUTHENTICATED_ANONYMOUSLY]
       requires_channel: '%supla_protocol%'
     - path: ^/api
