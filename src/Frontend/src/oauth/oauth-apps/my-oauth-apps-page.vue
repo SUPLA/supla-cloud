@@ -2,10 +2,20 @@
     <div>
         <div class="container">
             <h5>{{ $t('If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.') }}</h5>
-            <p>
-                {{ $t('Full documentation')}}:&nbsp;
-                <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#oauth-apps">GitHub</a>.
-            </p>
+            <div class="form-group">
+                <div class="btn-group">
+                    <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#oauth-apps"
+                        class="btn btn-white">
+                        {{ $t('Full documentation')}} @ GitHub
+                    </a>
+                    <a :href="'/api/docs.html' | withBaseUrl"
+                        target="_blank"
+                        class="btn btn-white">
+                        {{ $t('API documentation')}}
+                        <i class="pe-7s-exapnd2"></i>
+                    </a>
+                </div>
+            </div>
         </div>
         <carousel-page header-i18n="My OAuth apps"
             tile="my-oauth-app-tile"
