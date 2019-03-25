@@ -107,13 +107,16 @@ class UserIcon {
         return $this->channels;
     }
 
-    public function getImages(): array {
+    public function getImages($streamContentsGetter = null): array {
+        if (!$streamContentsGetter) {
+            $streamContentsGetter = 'stream_get_contents';
+        }
         if (!$this->fetchedImages) {
             $this->fetchedImages = [];
             for ($i = 1; $i <= 4; $i++) {
                 $imageField = 'image' . $i;
                 if ($this->{$imageField}) {
-                    $this->fetchedImages[] = stream_get_contents($this->{$imageField});
+                    $this->fetchedImages[] = $streamContentsGetter($this->{$imageField});
                 }
             }
         }
