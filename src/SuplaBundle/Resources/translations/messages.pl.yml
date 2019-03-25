@@ -522,6 +522,7 @@ state-closed: Zamknięte
 state-default: Domyślnie
 state-empty: Puste
 state-full: Pełne
+state-humidity: Wilgotność
 state-off: Wyłączone
 state-on: Włączone
 state-opened: Otwarte
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB wyłączone, ściemniacz włączony'
 state-rgb_on_dim_off: 'RGB włączone, ściemniacz wyłączony'
 state-rgb_on_dim_on: RGB i ściemniacz włączone
 state-shut: Zasłonięte
+state-temperature: Temperatura
 sunrise-after: wschodzie
 sunrise-before: wschodem
 sunset-after: zachodzie

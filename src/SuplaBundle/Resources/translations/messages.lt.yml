@@ -522,6 +522,7 @@ state-closed: Uždaryta
 state-default: Numatyta
 state-empty: Tuščia
 state-full: Pilna
+state-humidity: Drėgmė
 state-off: Išjungta
 state-on: Įjungta
 state-opened: Atidaryta
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB išjungta, apšvietimo reguliatorius įjungta'
 state-rgb_on_dim_off: 'RGB įjungta, apšvietimo reguliatorius išjungta'
 state-rgb_on_dim_on: RGB ir apšvietimo reguliatorius įjungta
 state-shut: Uždengta
+state-temperature: Temperatūra
 sunrise-after: saulėtekio
 sunrise-before: saulėtekį
 sunset-after: saulėlydžio

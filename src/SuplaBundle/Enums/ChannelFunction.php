@@ -257,7 +257,7 @@ final class ChannelFunction extends Enum {
             self::POWERSWITCH => ['on', 'off'],
             self::LIGHTSWITCH => ['on', 'off'],
             self::HUMIDITY => ['default'],
-            self::HUMIDITYANDTEMPERATURE => ['default'],
+            self::HUMIDITYANDTEMPERATURE => ['humidity', 'temperature'],
             self::DIMMER => ['on', 'off'],
             self::RGBLIGHTING => ['on', 'off'],
             self::DIMMERANDRGBLIGHTING => ['rgb_on_dim_on', 'rgb_on_dim_off', 'rgb_off_dim_on', 'rgb_off_dim_off'],

@@ -522,6 +522,7 @@ state-closed: Zatvorené
 state-default: Predvolene
 state-empty: Prázdne
 state-full: Úplné
+state-humidity: Vlhkosť
 state-off: Vypnuté
 state-on: Zapnuté
 state-opened: Otvorené
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB vypnuté, stmievač zapnutý'
 state-rgb_on_dim_off: 'RGB zapnuté, stmievač vypnutý'
 state-rgb_on_dim_on: RGB a stmievač zapnuté
 state-shut: Zakryté
+state-temperature: Teplota
 sunrise-after: východe
 sunrise-before: východom
 sunset-after: západe

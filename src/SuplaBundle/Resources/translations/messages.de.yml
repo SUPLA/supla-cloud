@@ -522,6 +522,7 @@ state-closed: Geschlossen
 state-default: Als Standard
 state-empty: Leer
 state-full: Voll
+state-humidity: Feuchtigkeit
 state-off: Ausgeschaltet
 state-on: Eingeschaltet
 state-opened: Offen
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB aus, Dimmer an'
 state-rgb_on_dim_off: 'RGB an, Dimmer aus'
 state-rgb_on_dim_on: RGB und Dimmer an
 state-shut: Abgedeckt
+state-temperature: Temperatur
 sunrise-after: Sonnenaufgang
 sunrise-before: Sonnenaufgang
 sunset-after: Sonnenuntergang

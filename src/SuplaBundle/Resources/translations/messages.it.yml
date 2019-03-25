@@ -522,6 +522,7 @@ state-closed: Chiuso
 state-default: Default
 state-empty: Vuoto
 state-full: Pieno
+state-humidity: Umidità
 state-off: Disabilitato
 state-on: Abilitato
 state-opened: Aperto
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB disabilitate, varialuce abilitato'
 state-rgb_on_dim_off: 'RGB abilitate, varialuce disabilitato'
 state-rgb_on_dim_on: RGB e varialuce abilitati
 state-shut: Chiuso
+state-temperature: Temperatura
 sunrise-after: alba
 sunrise-before: alba
 sunset-after: tramonto

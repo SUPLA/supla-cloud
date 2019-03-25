@@ -522,6 +522,7 @@ state-closed: Fermé
 state-default: Défaut
 state-empty: Vide
 state-full: Complet
+state-humidity: Humidité
 state-off: Désactivé
 state-on: Activé
 state-opened: Ouvert
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB désactivé, gradateur allumé'
 state-rgb_on_dim_off: 'RGB activé, gradateur désactivé'
 state-rgb_on_dim_on: RGB et gradateur allumé
 state-shut: Couvert
+state-temperature: Température
 sunrise-after: le lever du soleil
 sunrise-before: le lever du soleil
 sunset-after: le coucher du soleil

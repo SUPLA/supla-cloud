@@ -522,6 +522,7 @@ state-closed: Fechado
 state-default: Implicitamente
 state-empty: Vazio
 state-full: Cheio
+state-humidity: Umidade
 state-off: Desativos
 state-on: Ativos
 state-opened: Aberto
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB desligado, regulador de intensidade ligado'
 state-rgb_on_dim_off: 'RGB ligado, regulador de intensidade desligado'
 state-rgb_on_dim_on: RGB e regulador de intensidade ligados
 state-shut: Bloqueado
+state-temperature: Temperatura
 sunrise-after: nascer do sol
 sunrise-before: nascer do sol
 sunset-after: pôr-do-sol

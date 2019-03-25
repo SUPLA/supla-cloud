@@ -4,9 +4,13 @@
         <img :src="`/api/user-icons/${model.userIconId}/${stateIndex}?` | withDownloadAccessToken"
             v-if="model.userIconId"
             :class="`icon-size-${width}`">
+        <!-- Double icon display for HUMIDITYANDTEMPERATURE function. -->
+        <img :src="`/api/user-icons/${model.userIconId}/1?` | withDownloadAccessToken"
+            v-if="model.userIconId && functionId == 45"
+            :class="`icon-size-${width}`">
         <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
             :width="width"
-            v-else>
+            v-if="!model.userIconId">
     </span>
 </template>
 

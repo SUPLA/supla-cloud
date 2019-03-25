@@ -38,6 +38,7 @@ state-closed: Closed
 state-default: Default
 state-empty: Empty
 state-full: Full
+state-humidity: Humidity
 state-off: 'Off'
 state-on: 'On'
 state-opened: Open
@@ -48,6 +49,7 @@ state-rgb_off_dim_on: 'RGB off, dimmer on'
 state-rgb_on_dim_off: 'RGB on, dimmer off'
 state-rgb_on_dim_on: RGB and dimmer on
 state-shut: Shut
+state-temperature: Temperature
 sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset

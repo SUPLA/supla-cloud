@@ -522,6 +522,7 @@ state-closed: Закрыто
 state-default: По умолчанию
 state-empty: Пустые
 state-full: Полные
+state-humidity: Влажность
 state-off: Выключено
 state-on: Включено
 state-opened: Открыто
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB выключен, диммер включен'
 state-rgb_on_dim_off: 'RGB включен, диммер выключен'
 state-rgb_on_dim_on: RGB и диммер включены
 state-shut: Закрытые
+state-temperature: Температура
 sunrise-after: восхода
 sunrise-before: восхода
 sunset-after: заката

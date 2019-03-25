@@ -522,6 +522,7 @@ state-closed: Cerrado
 state-default: Por defecto
 state-empty: Vacío
 state-full: Lleno
+state-humidity: Humedad
 state-off: Apagado
 state-on: Encendido
 state-opened: Abierto
@@ -532,6 +533,7 @@ state-rgb_off_dim_on: 'RGB apagado, atenuador encendido'
 state-rgb_on_dim_off: 'RGB encendido, atenuador apagado'
 state-rgb_on_dim_on: RGB y atenuador encendidos
 state-shut: Cubierto
+state-temperature: Temperatura
 sunrise-after: la salida del sol
 sunrise-before: la salida del sol
 sunset-after: la puesta del sol
