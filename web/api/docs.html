@@ -33,12 +33,13 @@
         url: '/api/swagger.yaml',
         displayRequestDuration: true,
         tagsSorter: 'alpha',
+        oauth2RedirectUrl: 'http://supla.local/api/oauth2-redirect.html',
     });
-    if (localStorage && localStorage.getItem('_token')) {
-        setTimeout(function () {
-            ui.preauthorizeApiKey("BearerAuth", localStorage.getItem('_token'));
-        }, 100);
-    }
+    // if (localStorage && localStorage.getItem('_token')) {
+    //     setTimeout(function () {
+    //         ui.preauthorizeApiKey("BearerAuth", localStorage.getItem('_token'));
+    //     }, 100);
+    // }
 </script>
 </body>
 </html>
