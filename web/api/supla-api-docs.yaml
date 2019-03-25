@@ -1,0 +1,2201 @@
+openapi: 3.0.0
+servers:
+  - url: 'https://cloud.supla.org/api/v2.3.0'
+info:
+  version: "2.3.0"
+  title: SUPLA Cloud API
+paths:
+  /accessids:
+    get:
+      security:
+        - BearerAuth: []
+        - OAuth2: [accessids_r]
+      tags:
+        - Access Identifiers
+      summary: Get Access Identifiers list
+      operationId: getAccessIdentifiers
+      parameters:
+        - $ref: '#/components/parameters/AccessIdIncludes'
+      responses:
+        '200':
+          description: List of Access Identifiers owned by the current user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccessIdentifier'
+    post:
+      summary: Create a new Access Identifier
+      tags:
+        - Access Identifiers
+      operationId: createAccessIdentifier
+      responses:
+        '201':
+          description: Newely created AccessIdentifier with automatic name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessIdentifier'
+  '/accessids/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get Access Identifier
+      tags:
+        - Access Identifiers
+      operationId: getAccessIdentifier
+      parameters:
+        - $ref: '#/components/parameters/AccessIdIncludes'
+      responses:
+        '200':
+          description: Get Access Identifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessIdentifier'
+    put:
+      summary: Update Access Identifier
+      tags:
+        - Access Identifiers
+      operationId: updateAccessIdentifier
+      responses:
+        '200':
+          description: Definition generated from Swagger Inspector
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessIdentifier'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Access Identifier update request
+              properties:
+                enabled:
+                  type: boolean
+                caption:
+                  type: string
+                password:
+                  type: string
+                  description: Provide new password if you want to change it.
+                locationsIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: Locations identifiers to assign to this Access Identifier.
+                clientAppsIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: >-
+                    Client Apps identifiers to assign to this Access Identifier.
+                    If client app is connected to any other Client ID, it will
+                    be disconnected from the old one before assigning.
+              type: object
+        required: true
+    delete:
+      summary: Delete Access Identifier
+      tags:
+        - Access Identifiers
+      operationId: deleteAccessIdentifier
+      responses:
+        '204':
+          description: Access Identifier has been successfully deleted
+  /channels:
+    get:
+      tags:
+        - Channels
+      summary: Get channels list
+      operationId: getChannels
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - iodevice
+                - location
+                - connected
+                - state
+        - name: function
+          in: query
+          style: form
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ChannelFunctionEnumNames'
+        - name: io
+          in: query
+          description: Return only `input` or `output` channels.
+          schema:
+            type: string
+            enum:
+              - input
+              - output
+        - name: hasFunction
+          in: query
+          description: >-
+            Return only channels with (`true`) or without (`false`) chosen
+            functions.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: List of channels owned by the current user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Channel'
+  '/channels/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get channel by ID
+      tags:
+        - Channels
+      operationId: getChannel
+      parameters:
+        - name: include
+          in: query
+          required: false
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - iodevice
+                - location
+                - connected
+                - state
+                - supportedFunctions
+                - measurementLogsCount
+                - relationsCount
+      responses:
+        '200':
+          description: Get channel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+    put:
+      summary: Update channel
+      operationId: updateChannel
+      tags:
+        - Channels
+      responses:
+        '200':
+          description: Updated channel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+        '409':
+          description: >-
+            Channel update will result in data loss. Please confirm the request
+            with `confirm=true` GET param to force.
+          content:
+            application/json:
+              schema:
+                title: Channel update confirmation response
+                properties:
+                  schedules:
+                    type: array
+                    description: Schedules that will be deleted after this request.
+                    items:
+                      $ref: '#/components/schemas/Schedule'
+                  groups:
+                    type: array
+                    description: >-
+                      Channel groups that this channel will be removed from
+                      after this request.
+                    items:
+                      $ref: '#/components/schemas/ChannelGroup'
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Channel update request
+              properties:
+                functionId:
+                  type: integer
+                param1:
+                  type: integer
+                param2:
+                  type: integer
+                param3:
+                  type: integer
+                textParam1: {type: string}
+                textParam2: {type: string}
+                textParam3: {type: string}
+                caption:
+                  type: string
+                altIcon:
+                  type: integer
+                hidden:
+                  type: boolean
+                locationId:
+                  type: integer
+                inheritedLocation:
+                  type: boolean
+                userIconId: {type: integer}
+              type: object
+        required: true
+    patch:
+      summary: Execute action on the channel
+      operationId: executeAction
+      tags:
+        - Channels
+      responses:
+        '202':
+          description: Action has been executed.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                title: Channel action execution failed response
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Cannot execute requested action on this channel.
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelExecuteActionRequest'
+        description: >-
+          Defines an action to execute on channel. The `action` key is always
+          required. The rest of the keys are params depending on the chosen
+          action. Read more on [Github
+          Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
+        required: true
+  '/channels/{id}/schedules':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Channels
+      summary: Get schedules list of the channel
+      operationId: getChannelSchedules
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channel
+                - iodevice
+                - location
+                - closestExecutions
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule'
+  '/channels/{id}/measurement-logs-csv':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get measurement logs as zipped CSV file.
+      description: >-
+        Supported channel functions: `THERMOMETER` and `HUMIDITYANDTEMPERATURE`.
+        Logs ordered by date, descending.
+      tags:
+        - Channels
+      operationId: getChannelMeasurementLogsCsvFile
+      responses:
+        '200':
+          description: Success
+          content:
+            application/zip: {}
+            application/json: {}
+        '400':
+          description: Unsupported channel
+          content:
+            application/zip:
+              schema:
+                title: Channel unsupported function response
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: The requested function is not available on this channel
+                type: object
+            application/json:
+              schema:
+                title: Channel unsupported function response
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: The requested function is not available on this channel
+                type: object
+  '/channels/{id}/measurement-logs':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get measurement logs.
+      description: >-
+        Supported channel functions: `THERMOMETER` and `HUMIDITYANDTEMPERATURE`.
+        Logs ordered by date, descending.
+      tags:
+        - Channels
+      operationId: getChannelMeasurementLogs
+      parameters:
+        - name: limit
+          in: query
+          description: 'Maximum items count in response, from 1 to 5000'
+          schema:
+            type: integer
+            default: 5000
+        - name: offset
+          in: query
+          description: Pagination offset
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total count of logs for this channel.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  title: Channel measurement log
+                  properties:
+                    date_timestamp:
+                      type: integer
+                    temperature:
+                      type: number
+                      format: float
+                      example: 21.56
+                      description: Temperature in Celsius
+                    humidity:
+                      type: number
+                      format: float
+                      example: 48.8
+                      description: >-
+                        Humidity percent. Available only if channel function is
+                        `HUMIDITYANDTEMPERATURE`.
+                  type: object
+        '400':
+          description: Unsupoorted channel
+          content:
+            application/json:
+              schema:
+                title: Channel unsupported function response
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: The requested function is not available on this channel
+                type: object
+  /channel-groups:
+    get:
+      tags:
+        - Channel Groups
+      summary: Get channels list
+      operationId: getChannelGroups
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channels
+      responses:
+        '200':
+          description: List of channels oroups owned by the current user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChannelGroup'
+    post:
+      summary: Create a new channel group
+      operationId: createChannelGroup
+      tags:
+        - Channel Groups
+      responses:
+        '201':
+          description: Newely created channel group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelGroup'
+      requestBody:
+        $ref: '#/components/requestBodies/ChannelGroupRequest'
+  '/channel-groups/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get channel group by ID
+      tags:
+        - Channel Groups
+      operationId: getChannelGroup
+      parameters:
+        - name: include
+          in: query
+          required: false
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channels
+                - iodevice
+                - location
+                - state
+                - relationsCount
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelGroup'
+    put:
+      summary: Update channel group
+      tags:
+        - Channel Groups
+      operationId: updateChannelGroup
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelGroup'
+      requestBody:
+        $ref: '#/components/requestBodies/ChannelGroupRequest'
+    patch:
+      summary: Execute action on the channel group
+      operationId: executeChannelGroupAction
+      tags:
+        - Channel Groups
+      responses:
+        '204':
+          description: Action has been executed.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Cannot execute requested action on this channel.
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelExecuteActionRequest'
+        description: >-
+          Defines an action to execute on channel group. The `action` key is
+          always required. The rest of the keys are params depending on the
+          chosen action. Read more on [Github
+          Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions).
+        required: true
+    delete:
+      summary: Delete Channel Group
+      tags:
+        - Channel Groups
+      operationId: deleteChannelGroup
+      responses:
+        '204':
+          description: Channel Group has been successfully deleted
+  /client-apps:
+    get:
+      tags:
+        - Client Apps
+      summary: Get client apps
+      operationId: getClientApps
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - accessId
+                - connected
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientApp'
+  '/client-apps/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      summary: Update client app
+      tags:
+        - Client Apps
+      operationId: updateClientApp
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientApp'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Client App update request
+              properties:
+                caption:
+                  type: string
+                enabled:
+                  type: boolean
+                accessIdId:
+                  type: integer
+              type: object
+        required: true
+    delete:
+      summary: Delete Client App
+      tags:
+        - Client Apps
+      operationId: deleteClientApp
+      responses:
+        '204':
+          description: Success
+  /direct-links:
+    get:
+      tags:
+        - Direct Links
+      summary: Get Direct Links list
+      operationId: getDirectLinks
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - subject
+        - name: subjectType
+          in: query
+          description: Filter direct links by subjectType and subjectId (must go together).
+          schema:
+            $ref: '#/components/schemas/ActionableSubjectTypeEnum'
+        - name: subjectId
+          in: query
+          description: Filter direct links by subjectType and subjectId (must go together).
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of Direct Links owned by the current user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DirectLink'
+    post:
+      summary: Create a new Direct Link
+      tags:
+        - Direct Links
+      operationId: createDirectLink
+      responses:
+        '201':
+          description: Newely created DirectLink
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectLink'
+      requestBody:
+        $ref: '#/components/requestBodies/DirectLinkRequest'
+  /direct-links/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get Direct Link
+      tags:
+        - Direct Links
+      operationId: getDirectLink
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - subject
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectLink'
+    put:
+      summary: Update Direct Link
+      tags: [Direct Links]
+      operationId: updateDirectLink
+      requestBody:
+        $ref: '#/components/requestBodies/DirectLinkRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectLink'
+    delete:
+      summary: Delete Direct Link
+      tags: [Direct Links]
+      operationId: deleteDirectLink
+      responses:
+        '204':
+          description: Success
+  /direct-links/{id}/audit:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get Direct Link audit
+      tags:
+        - Direct Links
+      operationId: getDirectLinkAudit
+      parameters:
+        - name: page
+          in: query
+          description: Page number, starting from 1.
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          description: Page size, default 10.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              description: Total number of audit entries for this Direct Link.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditEntry'
+  /iodevices:
+    get:
+      tags:
+        - IO Devices
+      summary: Get IO Devices
+      operationId: getIoDevices
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channels
+                - location
+                - originalLocation
+                - connected
+                - schedules
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+  '/iodevices/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get IO Device
+      tags:
+        - IO Devices
+      operationId: getIoDevice
+      parameters:
+        - name: include
+          in: query
+          required: false
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channels
+                - location
+                - originalLocation
+                - connected
+                - schedules
+                - accessids
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+    put:
+      summary: Update IO Device
+      tags:
+        - IO Devices
+      operationId: updateIoDevice
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: IO Device update request
+              properties:
+                comment:
+                  type: string
+                enabled:
+                  type: boolean
+                locationId:
+                  type: integer
+              type: object
+        required: true
+    delete:
+      summary: Delete IO Device
+      tags:
+        - IO Devices
+      operationId: deleteIoDevice
+      responses:
+        '204':
+          description: Success
+  '/iodevices/{id}/channels':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get Channels that belong to IO Deice
+      tags:
+        - IO Devices
+      operationId: getIoDeviceChannels
+      parameters:
+        - name: include
+          in: query
+          required: false
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - iodevice
+                - location
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+  /locations:
+    get:
+      tags:
+        - Locations
+      summary: Get locations list
+      operationId: getLocations
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          required: false
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channels
+                - iodevices
+                - accessids
+                - channelGroups
+                - password
+      responses:
+        '200':
+          description: List of locations owned by the current user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+    post:
+      summary: Create a new location
+      operationId: createLocation
+      tags:
+        - Locations
+      responses:
+        '201':
+          description: Newely created location with automatic name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+  '/locations/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: include
+        in: query
+        description: Specify what extra fields to include in the response.
+        required: false
+        style: form
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+              - channels
+              - iodevices
+              - accessids
+              - channelGroups
+              - password
+    get:
+      summary: Get location by ID
+      tags:
+        - Locations
+      operationId: getLocation
+      responses:
+        '200':
+          description: Get location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+    put:
+      summary: Update location
+      tags:
+        - Locations
+      operationId: updateLocation
+      responses:
+        '200':
+          description: Definition generated from Swagger Inspector
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Location update request
+              properties:
+                enabled:
+                  type: boolean
+                caption:
+                  type: string
+                password:
+                  type: string
+                  description: Provide new password if you want to change it.
+                accessIdsIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: Access Identifiers identifiers to assign to this location.
+              type: object
+        required: true
+    delete:
+      summary: Delete location
+      tags:
+        - Locations
+      operationId: deleteLocation
+      responses:
+        '204':
+          description: Location has been successfully deleted
+  /server-status:
+    get:
+      tags:
+        - Server
+      summary: Get the SUPLA Server status
+      operationId: getSuplaServerStatus
+      security: []
+      responses:
+        '200':
+          description: Supla Server is alive
+        '503':
+          description: SUPLA Server is down
+  /server-info:
+    get:
+      tags:
+        - Server
+      summary: Get server info
+      operationId: getServerInfo
+      security: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Server Info
+                properties:
+                  address:
+                    type: string
+                    example: svr1.supla.org
+                    description: SUPLA Server address (to be used in smartphones)
+                  time:
+                    type: string
+                    format: date-time
+                    description: Current server time
+                  timezone:
+                    properties:
+                      name:
+                        type: string
+                        example: UTC
+                      offset:
+                        type: integer
+                        description: Timezone offset in minutes
+                    type: object
+                  authenticated:
+                    type: boolean
+                  username:
+                    type: string
+                    example: supler@supla.org
+                    description: Present only if `authenticated=true`
+                  cloudVersion:
+                    type: string
+                    example: 2.2.0
+                  apiVersion:
+                    type: string
+                    example: 2.2.0
+                  supportedApiVersions:
+                    type: array
+                    example:
+                      - 2.0.0
+                      - 2.1.0
+                      - 2.2.0
+                    items:
+                      type: string
+                type: object
+  /schedules:
+    get:
+      tags:
+        - Schedules
+      summary: Get schedules list
+      operationId: getSchedules
+      parameters:
+        - name: include
+          in: query
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channel
+                - iodevice
+                - location
+                - closestExecutions
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule'
+    post:
+      summary: Create a new schedule
+      operationId: createSchedule
+      tags:
+        - Schedules
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleRequest'
+    patch:
+      summary: Enable schedules
+      operationId: enableSchedules
+      tags:
+        - Schedules
+      responses:
+        '204':
+          description: Success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Schedules enable request
+              properties:
+                enable:
+                  type: array
+                  description: Array of schedule identifiers to enable
+                  items:
+                    type: integer
+              type: object
+        required: true
+  '/schedules/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get Schedule
+      tags:
+        - Schedules
+      operationId: getSchedule
+      parameters:
+        - name: include
+          in: query
+          required: false
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - channel
+                - iodevice
+                - location
+                - closestExecutions
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+    put:
+      summary: Update schedule
+      operationId: updateSchedule
+      tags:
+        - Schedules
+      parameters:
+        - name: enable
+          in: query
+          description: Set to `true` to enable the schedule after saving.
+          schema:
+            type: boolean
+            enum:
+              - true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleRequest'
+    delete:
+      summary: Delete Schedule
+      tags:
+        - Schedules
+      operationId: deleteSchedule
+      responses:
+        '204':
+          description: Success
+  /user-icons:
+    get:
+      tags: [User Icons]
+      summary: Get user icons
+      operationId: getUserIcons
+      parameters:
+        - name: include
+          in: query
+          required: false
+          description: Specify what extra fields to include in the response.
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - images
+        - name: function
+          in: query
+          required: false
+          description: Return only icons for given function
+          style: form
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ChannelFunctionEnumNames'
+        - name: ids
+          in: query
+          required: false
+          description: Return only icons with given identifiers
+          style: form
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: List of user icons owned by the current user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserIcon'
+    post:
+      summary: Create a new User Icon
+      tags: [User Icons]
+      operationId: createUserIcon
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: Multipart request with files to save as a new icon. The number of images required to be sent with the request is determined by the chosen function identifier (it must match the `function.possibleVisualStates` count). Each image represents the respective visual state from `function.possibleVisualStates` array.
+              properties:
+                function:
+                  $ref: '#/components/schemas/ChannelFunctionEnumNames'
+                sourceIcon:
+                  type: integer
+                  description: ID of an existing user icon to replace with these new files. Optional.
+                image1:
+                  type: string
+                  format: binary
+                image2:
+                  type: string
+                  format: binary
+                image3:
+                  type: string
+                  format: binary
+                image4:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Newely created UserIcon
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessIdentifier'
+  /user-icons/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    delete:
+      summary: Delete User Icon
+      tags: [User Icons]
+      operationId: deleteUserIcon
+      responses:
+        '204':
+          description: User Icon has been successfully deleted
+  /user-icons/{id}/{imageIndex}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: imageIndex
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get User Icon image at specified index
+      tags: [User Icons]
+      responses:
+        '200':
+          description: User Icon image
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+  /users/current:
+    get:
+      tags:
+        - Users
+      summary: Get current user
+      operationId: getCurrentUser
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: User data
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                    format: email
+                  timezone:
+                    type: string
+                    example: Europe/Warsaw
+                  clientsRegistrationEnabled:
+                    type: string
+                    format: date-time
+                  ioDevicesRegistrationEnabled:
+                    type: string
+                    format: date-time
+                type: object
+    patch:
+      tags:
+        - Users
+      summary: Update current user
+      operationId: updateCurrentUser
+      responses:
+        '200':
+          description: Success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: User update request
+              properties:
+                action:
+                  type: string
+                  description: >-
+                    The `change:userTimezone` requires to provide also a
+                    `timezone` value in the request. The `change:password`
+                    requires to provide also a `newPassword` and `oldPassword`
+                    in the request.
+                  enum:
+                    - 'change:clientsRegistrationEnabled'
+                    - 'change:ioDevicesRegistrationEnabled'
+                    - 'change:userTimezone'
+                    - 'change:password'
+                    - 'agree:rules'
+                    - 'agree:cookies'
+              type: object
+        required: true
+security:
+  - BearerAuth: []
+  - OAuth2: []
+components:
+  schemas:
+    AccessIdentifier:
+      properties:
+        id:
+          type: integer
+          description: Access Identifier identifier
+        caption:
+          type: string
+          description: Location caption
+        enabled:
+          type: boolean
+          description: '`true` if the location is enabled, `false` otherwise'
+        locationsIds:
+          type: array
+          items:
+            type: integer
+          description: array containing the location idenfifiers assigned to this access ID
+        clientAppsIds:
+          type: array
+          items:
+            type: integer
+          description: >-
+            array containing the client apps idenfifiers assigned to this access
+            ID
+        locations:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/Location'
+        clientApps:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/ClientApp'
+      type: object
+    AuditEntry:
+      properties:
+        id: {type: integer}
+        event: {type: integer}
+        createdAt: {type: string, format: date-time}
+        ipv4: {type: integer}
+        intParam: {type: integer}
+        textParam: {type: string}
+    ActionableSubjectTypeEnum:
+      type: string
+      enum:
+        - channel
+        - channelGroup
+    ClientApp:
+      properties:
+        id:
+          type: integer
+          description: Client application identifier
+        name:
+          type: string
+        caption:
+          type: string
+        enabled:
+          type: boolean
+        regIpv4:
+          type: integer
+        regDate:
+          type: string
+          format: date-time
+        lastAccessIpv4:
+          type: integer
+        lastAccessDate:
+          type: string
+          format: date-time
+        softwareVersion:
+          type: string
+        protocolVersion:
+          type: integer
+        accessIdId:
+          type: integer
+        connected:
+          type: boolean
+        accessId:
+          $ref: '#/components/schemas/AccessIdentifier'
+      type: object
+    Channel:
+      properties:
+        id:
+          type: integer
+          description: Channel identifier
+        channelNumber:
+          type: integer
+          description: Channel ordinal number in its IO Device
+        caption:
+          type: string
+          description: Channel caption
+        type:
+          $ref: '#/components/schemas/ChannelType'
+        function:
+          $ref: '#/components/schemas/ChannelFunction'
+        param1:
+          $ref: '#/components/schemas/ChannelParam'
+        param2:
+          $ref: '#/components/schemas/ChannelParam'
+        param3:
+          $ref: '#/components/schemas/ChannelParam'
+        textParam1:
+          type: string
+        textParam2:
+          type: string
+        textParam3:
+          type: string
+        altIcon:
+          type: integer
+          description: >-
+            Chosen alternative icon idenifier. Should not be greater than
+            `funciton.maxAlternativeIconIndex`
+        hidden:
+          type: boolean
+          description: Whether this channel is shown on client apps or not
+        inheritedLocation:
+          type: boolean
+          description: >-
+            Whether this channel inherits its IO Device's location (`true`) or
+            not (`false`)
+        iodeviceId:
+          type: integer
+        locationId:
+          type: integer
+        functionId:
+          type: integer
+          example: 60
+        typeId:
+          type: integer
+          example: 1000
+        userIconId:
+          type: integer
+          example: 100
+        iodevice:
+          $ref: '#/components/schemas/Device'
+        location:
+          $ref: '#/components/schemas/Location'
+        connected:
+          type: boolean
+        state:
+          description: >-
+            The channel's state. The value and the format is dependend on the
+            channel's function. Read more on [Github
+            Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
+          example: {}
+        supportedFunctions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelFunction'
+      type: object
+    ChannelGroup:
+      properties:
+        id:
+          type: integer
+          description: Channel group identifier
+          example: 1
+        hidden:
+          type: boolean
+          description: Whether this channel group is shown on client apps or not
+        caption:
+          type: string
+          description: Channel caption
+        function:
+          $ref: '#/components/schemas/ChannelFunction'
+        functionId:
+          type: integer
+          example: 60
+        userIconId:
+          type: integer
+        locationId:
+          type: integer
+        location:
+          $ref: '#/components/schemas/Location'
+        channelIds:
+          type: array
+          items:
+            type: integer
+        channels:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/Channel'
+        altIcon:
+          type: integer
+          description: >-
+            Chosen alternative icon idenifier. Should not be greater than
+            `funciton.maxAlternativeIconIndex`
+      type: object
+    ChannelGroupRequest:
+      required:
+        - channelIds
+      properties:
+        caption:
+          type: string
+        altIcon:
+          type: integer
+        userIconId:
+          type: integer
+        hidden:
+          type: boolean
+        locationId:
+          type: integer
+        channelIds:
+          type: array
+          items:
+            type: integer
+      type: object
+    ChannelType:
+      properties:
+        id:
+          type: integer
+          enum:
+            - 1000
+            - 1010
+            - 1020
+            - 1500
+            - 2000
+            - 2010
+            - 2020
+            - 2900
+            - 3000
+            - 3010
+            - 3022
+            - 3020
+            - 3032
+            - 3030
+            - 3034
+            - 3036
+            - 3038
+            - 3042
+            - 3044
+            - 3048
+            - 3050
+            - 3100
+            - 4000
+            - 4010
+            - 4020
+          description: Channel type identifier
+        name:
+          type: string
+          enum:
+            - SENSORNO
+            - SENSORNC
+            - DISTANCESENSOR
+            - CALLBUTTON
+            - RELAYHFD4
+            - RELAYG5LA1A
+            - RELAY2XG5LA1A
+            - RELAY
+            - THERMOMETERDS18B20
+            - DHT11
+            - DHT21
+            - DHT22
+            - AM2301
+            - AM2302
+            - THERMOMETER
+            - HUMIDITYSENSOR
+            - HUMIDITYANDTEMPSENSOR
+            - WINDSENSOR
+            - PRESSURESENSOR
+            - RAINSENSOR
+            - WEIGHTSENSOR
+            - WEATHER_STATION
+            - DIMMER
+            - RGBLEDCONTROLLER
+            - DIMMERANDRGBLED
+        caption:
+          type: string
+          example: Sensor (normal open)
+        output:
+          type: boolean
+          example: false
+          description: >-
+            Whether the channel is output type (i.e. can take action) or input
+            (i.e. provide data)
+      type: object
+    ChannelFunction:
+      properties:
+        id:
+          type: integer
+          example: 60
+          enum:
+            - 0
+            - 10
+            - 20
+            - 30
+            - 40
+            - 42
+            - 45
+            - 50
+            - 60
+            - 70
+            - 80
+            - 90
+            - 100
+            - 110
+            - 120
+            - 130
+            - 140
+            - 180
+            - 190
+            - 200
+            - 210
+            - 220
+            - 230
+            - 240
+            - 250
+            - 260
+            - 270
+            - 280
+            - 290
+            - 300
+        name:
+          $ref: '#/components/schemas/ChannelFunctionEnumNames'
+        caption:
+          type: string
+          example: Gate opening sensor
+        maxAlternativeIconIndex:
+          type: integer
+        possibleActions:
+          type: array
+          description: What can you with with this channel?
+          items:
+            $ref: '#/components/schemas/ChannelFunctionAction'
+        possibleVisualStates:
+          type: array
+          description: Possible visual states of channel with this function. Ordered.
+          items:
+            type: string
+            enum:
+              - opened
+              - closed
+              - partially_closed
+              - default
+              - empty
+              - full
+              - revealed
+              - shut
+              - on
+              - off
+              - rgb_on_dim_on
+              - rgb_on_dim_off
+              - rgb_off_dim_off
+              - rgb_off_dim_on
+      type: object
+    ChannelFunctionEnumNames:
+      type: string
+      example: OPENINGSENSOR_GATE
+      enum:
+        - NONE
+        - CONTROLLINGTHEGATEWAYLOCK
+        - CONTROLLINGTHEGATE
+        - CONTROLLINGTHEGARAGEDOOR
+        - THERMOMETER
+        - HUMIDITY
+        - HUMIDITYANDTEMPERATURE
+        - OPENINGSENSOR_GATEWAY
+        - OPENINGSENSOR_GATE
+        - OPENINGSENSOR_GARAGEDOOR
+        - NOLIQUIDSENSOR
+        - CONTROLLINGTHEDOORLOCK
+        - OPENINGSENSOR_DOOR
+        - CONTROLLINGTHEROLLERSHUTTER
+        - OPENINGSENSOR_ROLLERSHUTTER
+        - POWERSWITCH
+        - LIGHTSWITCH
+        - DIMMER
+        - RGBLIGHTING
+        - DIMMERANDRGBLIGHTING
+        - DEPTHSENSOR
+        - DISTANCESENSOR
+        - OPENINGSENSOR_WINDOW
+        - MAILSENSOR
+        - WINDSENSOR
+        - PRESSURESENSOR
+        - RAINSENSOR
+        - WEIGHTSENSOR
+        - WEATHER_STATION
+        - STAIRCASETIMER
+    ChannelFunctionAction:
+      properties:
+        id:
+          type: integer
+          enum:
+            - 10
+            - 20
+            - 30
+            - 40
+            - 50
+            - 60
+            - 70
+            - 80
+            - 90
+            - 100
+        name:
+          $ref: '#/components/schemas/ChannelFunctionActionEnum'
+        caption:
+          type: string
+      type: object
+    ChannelFunctionActionEnum:
+      type: string
+      enum:
+        - OPEN
+        - CLOSE
+        - SHUT
+        - REVEAL
+        - REVEAL_PARTIALLY
+        - TURN_ON
+        - TURN_OFF
+        - SET_RGBW_PARAMETERS
+        - OPEN_CLOSE
+        - STOP
+        - TOGGLE
+        - READ
+    ChannelExecuteActionRequest:
+      required:
+        - action
+      properties:
+        action:
+          $ref: '#/components/schemas/ChannelFunctionActionEnum'
+        percentage:
+          type: integer
+          example: 40
+        color:
+          type: string
+          example: '0x00FF00'
+        color_brightness:
+          type: integer
+        brightness:
+          type: integer
+      type: object
+    ChannelParam:
+      type: integer
+      description: >-
+        Configuration of the channel behavior. Value meaning depends on the
+        chosen channel function. See more details on [Github
+        Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-parameters).
+    Device:
+      properties:
+        id:
+          type: integer
+          description: Device identifier
+        name:
+          type: string
+        enabled:
+          type: boolean
+        comment:
+          type: string
+        regDate:
+          type: string
+          format: date-time
+        regIpv4:
+          type: integer
+        lastConnected:
+          type: string
+          format: date-time
+        lastIpv4:
+          type: integer
+        softwareVersion:
+          type: string
+        gUIDString:
+          type: string
+        locationId:
+          type: integer
+        originalLocationId:
+          type: integer
+        channelsIds:
+          type: array
+          items:
+            type: integer
+        connected:
+          type: boolean
+        location:
+          $ref: '#/components/schemas/Location'
+        originalLocation:
+          $ref: '#/components/schemas/Location'
+        channels:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/Channel'
+        schedules:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/Schedule'
+      type: object
+    DirectLink:
+      properties:
+        id:
+          type: integer
+          description: Direct Link identifier
+          example: 1
+        caption:
+          type: string
+          description: Direct Link caption
+        executionsLimit:
+          type: integer
+          example: 10
+        lastUsed:
+          type: string
+          format: date-time
+        lastIpv4:
+          type: integer
+        enabled: {type: boolean}
+        disableHttpGet: {type: boolean}
+        activeDateRange:
+          type: object
+          properties:
+            dateStart:
+              type: string
+              format: date-time
+            dateEnd:
+              type: string
+              format: date-time
+        slug: {type: string, description: Returned only immediately after creation}
+        url: {type: string, description: Returned only immediately after creation}
+        subjectId: {type: integer}
+        subjectType: {$ref: '#/components/schemas/ActionableSubjectTypeEnum'}
+        allowedActions: {type: array, items: {$ref: '#/components/schemas/ChannelFunctionActionEnum'}}
+        active: {type: boolean}
+        inactiveReason: {type: string, description: Returned only if active is `false`}
+      type: object
+    DirectLinkRequest:
+      properties:
+        subjectId: {type: integer}
+        subjectType: {$ref: '#/components/schemas/ActionableSubjectTypeEnum'}
+        allowedActions: {type: array, items: {$ref: '#/components/schemas/ChannelFunctionActionEnum'}}
+        activeDateRange:
+          type: object
+          properties:
+            dateStart:
+              type: string
+              format: date-time
+            dateEnd:
+              type: string
+              format: date-time
+        executionsLimit:
+          type: integer
+          example: 10
+        caption: {type: string}
+        enabled: {type: boolean}
+        disableHttpGet: {type: boolean}
+    Location:
+      properties:
+        id:
+          type: integer
+          description: Location identifier
+        caption:
+          type: string
+          description: Location caption
+        enabled:
+          type: boolean
+          description: '`true` if the location is enabled, `false` otherwise'
+        iodevicesIds:
+          type: array
+          items:
+            type: integer
+          description: >-
+            array containing the IO Devices identifiers assigned to this
+            location
+        channelGroupsIds:
+          type: array
+          items:
+            type: integer
+          description: >-
+            array containing the Channel groups identifiers assigned to this
+            location
+        channelsIds:
+          type: array
+          items:
+            type: integer
+          description: >-
+            array containing the Channels identifiers expicitely assigned to
+            this location
+        accessIdsIds:
+          type: array
+          items:
+            type: integer
+          description: >-
+            array containing the Access Identifiers identifiers assigned to this
+            location
+        password:
+          type: string
+          description: >-
+            Location password (plain text). Returned only if requested by the
+            `include` parameter.
+        iodevices:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/Device'
+        channelGroups:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          example: []
+          items:
+            $ref: '#/components/schemas/ChannelGroup'
+        accessIds:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/AccessIdentifier'
+        channels:
+          type: array
+          description: Returned only if requested by the `include` parameter.
+          items:
+            $ref: '#/components/schemas/Channel'
+      type: object
+    Schedule:
+      properties:
+        id:
+          type: integer
+          description: Schedule identifier
+        timeExpression:
+          type: string
+          description: >-
+            Schedule time expression in crontab notation (with some custom
+            additions).
+          example: '*/5 * * * *'
+        action:
+          $ref: '#/components/schemas/ChannelFunctionAction'
+        actionParam:
+          example: {}
+          description: Depends on the action.
+        mode:
+          type: string
+          enum:
+            - minutely
+            - hourly
+            - daily
+            - once
+        dateStart:
+          type: string
+          format: date-time
+        dateEnd:
+          type: string
+          format: date-time
+        enabled:
+          type: boolean
+        caption:
+          type: string
+        retry:
+          type: boolean
+        channelId:
+          type: integer
+        actionId:
+          type: integer
+        channel:
+          $ref: '#/components/schemas/Channel'
+        closestExecutions:
+          type: array
+          description: >-
+            Returned only if requested by the `include` parameter. Contains two
+            arrays of maximum 3 closest past and future executions.
+          items:
+            properties:
+              past:
+                type: array
+                items:
+                  properties:
+                    plannedTimestamp:
+                      type: string
+                      format: date-time
+                    resultTimestamp:
+                      type: string
+                      format: date-time
+                    failed:
+                      type: boolean
+                      example: false
+                    result:
+                      properties:
+                        caption:
+                          type: string
+                          example: Successful
+                      type: object
+                  type: object
+              future:
+                type: array
+                items:
+                  properties:
+                    plannedTimestamp:
+                      type: string
+                      format: date-time
+                  type: object
+            type: object
+      type: object
+    ScheduleRequest:
+      required:
+        - channelId
+        - actionId
+        - mode
+        - timeExpression
+      properties:
+        channelId:
+          type: integer
+        actionId:
+          type: integer
+        mode:
+          type: string
+          enum:
+            - once
+            - minutely
+            - daily
+            - hourly
+        timeExpression:
+          type: string
+          description: >-
+            Schedule time expression in crontab notation (with some custom
+            additions).
+        actionParam:
+          example: {}
+        dateStart:
+          type: string
+          format: date-time
+        dateEnd:
+          type: string
+          format: date-time
+        caption:
+          type: string
+        retry:
+          type: boolean
+      type: object
+    UserIcon:
+      properties:
+        id:
+          type: integer
+          description: Schedule identifier
+        images:
+          type: array
+          description: >-
+            Returned only if requested by the `include` parameter. Array contains
+            images blobs encoded with Base64.
+          items:
+            type: string
+            format: base64
+  parameters:
+    AccessIdIncludes:
+      name: include
+      in: query
+      description: Specify what extra fields to include in the response.
+      required: false
+      style: form
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - locations
+            - clientApps
+            - password
+  requestBodies:
+    ChannelGroupRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ChannelGroupRequest'
+      required: true
+    DirectLinkRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DirectLinkRequest'
+    ScheduleRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScheduleRequest'
+      required: true
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://cloud.supla.org/oauth/v2/auth'
+          tokenUrl: 'https://cloud.supla.org/oauth/v2/token'
+          scopes:
+            accessids_r: Access Identifiers (Read)
+            accessids_rw: Access Identifiers (Read/Write)
+            account_r: User Account (Read)
+            account_rw: User Account (Read/Write)
+            channels_r: Channels (Read)
+            channels_rw: Channels (Read/Write)
+            channels_ea: Channels (Execute Actions)
+            channels_files: Channels (download files, e.g. icons, measurement logs)
+            channelgroups_r: Channel Groups (Read)
+            channelgroups_rw: Channel Groups (Read/Write)
+            channelgroups_ea: Channel Groups (Execute Actions)
+            clientapps_r: Client Apps (Read)
+            clientapps_rw: Client Apps (Read/Write)
+            directlinks_r: Direct Links (Read)
+            directlinks_rw: Direct Links (Read/Write)
+            iodevices_r: IO Devices (Read)
+            iodevices_rw: IO Devices (Read/Write)
+            locations_r: Locations (Read)
+            locations_rw: Locations (Read/Write)
+            schedules_r: Schedules (Read)
+            schedules_rw: Schedules (Read/Write)
+            offline_access: Request refresh token
