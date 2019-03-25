@@ -82,11 +82,6 @@ final class OAuthScope {
         return $this;
     }
 
-    public function addWebappScope(): self {
-        $this->scopes[] = 'webapp';
-        return $this;
-    }
-
     public function hasScope(string $scope, bool $respectImplicit = true): bool {
         $scopes = new self($this);
         if ($respectImplicit) {
@@ -123,8 +118,12 @@ final class OAuthScope {
         return array_diff(self::getAllKnownScopes(), ['restapi']);
     }
 
+    public static function getScopeForWebappToken(): self {
+        return (new self(self::getSupportedScopes()))->remove('offline_access')->remove('state_webhook');
+    }
+
     public static function getAllKnownScopes(): array {
-        $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea', 'channels_files'];
+        $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea', 'channels_files', 'state_webhook'];
         foreach ([
                      'accessids',
                      'account',

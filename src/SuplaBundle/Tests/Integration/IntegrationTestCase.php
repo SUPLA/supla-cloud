@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 use ReflectionProperty;
 use SuplaBundle\Entity\EntityUtils;
@@ -78,6 +79,9 @@ abstract class IntegrationTestCase extends WebTestCase {
         if (isset(self::$dataForTests[static::class])) {
             foreach (self::$dataForTests[static::class] as $fieldName => $value) {
                 EntityUtils::setField($this, $fieldName, $value);
+                if ($value instanceof EntityRepository) {
+                    EntityUtils::setField($value, '_em', $this->getEntityManager());
+                }
             }
         }
     }
