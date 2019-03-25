@@ -78,8 +78,8 @@ class ServerController extends RestController {
     /** @Get("/swagger.yaml") */
     public function getApiDocsAction() {
         $yaml = file_get_contents(\AppKernel::VAR_PATH . '/../web/api/supla-api-docs.yaml');
-        $suplaDomain = $this->container->getParameter('supla_server');
-        $yaml = str_replace('cloud.supla.org', $suplaDomain, $yaml);
+        $suplaDomain = $this->container->getParameter('supla_url');
+        $yaml = str_replace('https://cloud.supla.org', $suplaDomain, $yaml);
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
 }

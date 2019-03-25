@@ -13,15 +13,32 @@
 </head>
 <body>
 
+<div style="max-width: 1000px; margin: 10px auto; border: 1px solid darkorange; background: lightyellow; padding: 10px">
+    <p>You can use the <code>Authorize</code> button below to authenticate yourself in the API and use the <code>Try it out</code>
+        buttons to test the endpoints.</p>
+    <p>
+        You will need to either generate <a href="/integrations/tokens">a personal access token</a> and use it as
+        <code>BearerAuth</code> or create a private
+        <a href="/integrations/apps">OAuth application</a> that will enable you to access your account. This is the same flow that your
+        custom applications intergrating with SUPLA should follow.
+    </p>
+    <p>Beware, that all modifying requests you do here CHANGE the state of your account.</p>
+</div>
+
 <div id="api"></div>
 
 <script>
-    SwaggerUIBundle({
+    var ui = SwaggerUIBundle({
         dom_id: '#api',
         url: '/api/swagger.yaml',
         displayRequestDuration: true,
         tagsSorter: 'alpha',
     });
+    if (localStorage && localStorage.getItem('_token')) {
+        setTimeout(function () {
+            ui.preauthorizeApiKey("BearerAuth", localStorage.getItem('_token'));
+        }, 100);
+    }
 </script>
 </body>
 </html>
