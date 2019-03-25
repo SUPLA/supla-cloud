@@ -8,21 +8,42 @@
         content="ie=edge">
     <title>SUPLA Cloud API</title>
     <script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jqlite@0.2.42/jqlite.min.js"></script>
     <link rel="stylesheet"
         href="//unpkg.com/swagger-ui-dist@3/swagger-ui.css">
+    <style>
+        .alert-instructions {
+            max-width: 1200px;
+            margin: 0 auto !important;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<div style="max-width: 1000px; margin: 10px auto; border: 1px solid darkorange; background: lightyellow; padding: 10px">
-    <p>You can use the <code>Authorize</code> button below to authenticate yourself in the API and use the <code>Try it out</code>
-        buttons to test the endpoints.</p>
-    <p>
-        You will need to either generate <a href="/integrations/tokens">a personal access token</a> and use it as
-        <code>BearerAuth</code> or create a private
-        <a href="/integrations/apps">OAuth application</a> that will enable you to access your account. This is the same flow that your
-        custom applications intergrating with SUPLA should follow.
-    </p>
-    <p>Beware, that all modifying requests you do here CHANGE the state of your account.</p>
+<div style="display: none"
+    id="instructions">
+    <a style="float: right; cursor: pointer"
+        class="close">[x]</a>
+    <p>This is an interactive API docs for SUPLA Cloud. There are three ways you can use the
+        <code>Try it out</code> buttons below to test the endpoints with your account.</p>
+    <ul>
+        <li>
+            As long as you are authenticated in the SUPLA Cloud with your password, you can reuse the same token here by clicking the
+            <code>Authorize with your webapp token</code> button below.
+        </li>
+        <li>
+            Generate <a href="/integrations/tokens">a personal access token</a> and use it as
+            <code>BearerAuth</code> after clicking <code>Authorize</code>.
+        </li>
+        <li>
+            Create a private
+            <a href="/integrations/apps">OAuth application</a> that will enable you to access your account.
+        </li>
+    </ul>
+    <p>When you try to integrate your code with the SUPLA API, you should issue a personal access token or follow the OAuth2 flow. Rear more at
+        <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations">GitHub Wiki</a>.</p>
+    <p style="font-weight: bold;">Beware, that all modifying requests you do here CHANGE the state of your account.</p>
 </div>
 
 <div id="api"></div>
@@ -34,6 +55,22 @@
         displayRequestDuration: true,
         tagsSorter: 'alpha',
         oauth2RedirectUrl: 'http://supla.local/api/oauth2-redirect.html',
+        onComplete: function (a) {
+            if (localStorage && localStorage.getItem('_token')) {
+                var btn = $('<button class="btn authorize"><span>Authorize with your webapp token</span><svg width="20" height="20"><use href="#unlocked" xlink:href="#unlocked"></use></svg></button>');
+                btn.click(function () {
+                    ui.preauthorizeApiKey("BearerAuth", localStorage.getItem('_token'));
+                    btn.remove();
+                });
+                $(".auth-wrapper").prepend(btn);
+                var alert = $('<div class="opblock opblock-options alert-instructions"></div>');
+                alert.html($('#instructions').html());
+                $(".scheme-container").before(alert);
+                $(".close").click(function () {
+                    alert.remove();
+                });
+            }
+        }
     });
     // if (localStorage && localStorage.getItem('_token')) {
     //     setTimeout(function () {
