@@ -5,7 +5,7 @@
                 <h5>{{ $t('Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.') }}</h5>
                 <div class="form-group">
                     <div class="btn-group">
-                        <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#oauth-apps"
+                        <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#personal-access-tokens"
                             class="btn btn-white">
                             {{ $t('Full documentation')}} @ GitHub
                         </a>
