@@ -5,6 +5,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel {
+    const ROOT_PATH = __DIR__;
     const VAR_PATH = __DIR__ . '/../var';
 
     public function registerBundles() {

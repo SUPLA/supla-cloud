@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller {
@@ -49,5 +50,30 @@ class DefaultController extends Controller {
         if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
             throw new NotFoundHttpException("$suffix file could not be found");
         }
+    }
+
+    /**
+     * @Route("/api-docs", methods={"GET"})
+     * @Template()
+     */
+    public function apiDocsAction() {
+        return ['supla_url' => $this->container->getParameter('supla_url')];
+    }
+
+    /**
+     * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
+     */
+    public function getApiDocsSchemaAction() {
+        $yaml = file_get_contents(\AppKernel::ROOT_PATH . '/config/supla-api-docs.yaml');
+        $suplaDomain = $this->container->getParameter('supla_url');
+        $yaml = str_replace('https://cloud.supla.org', $suplaDomain, $yaml);
+        return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
+    }
+
+    /**
+     * @Route("/api-docs/oauth2-redirect.html", methods={"GET"})
+     * @Template()
+     */
+    public function apiDocsOAuth2RedirectAction() {
     }
 }

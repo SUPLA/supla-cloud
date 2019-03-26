@@ -9,7 +9,7 @@
                             class="btn btn-white">
                             {{ $t('Full documentation')}} @ GitHub
                         </a>
-                        <a :href="'/api/docs.html' | withBaseUrl"
+                        <a :href="'/api-docs' | withBaseUrl"
                             target="_blank"
                             class="btn btn-white">
                             {{ $t('API documentation')}}
