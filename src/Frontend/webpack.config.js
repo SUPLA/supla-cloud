@@ -18,7 +18,7 @@ module.exports = {
             name: "commons"
         }),
         new webpack.DefinePlugin({
-            VERSION: JSON.stringify(process.env.npm_package_version)
+            VERSION: process.env.RELEASE_VERSION || JSON.stringify(process.env.npm_package_version)
         })
     ],
     module: {
@@ -95,6 +95,7 @@ if (process.env.NODE_ENV === 'production') {
                 var hashes = stats.toJson().assetsByChunkName;
                 var phpConfig = "# Config generated automatically by running composer run-script webpack\n\nsupla:\n";
                 phpConfig += '  version: ' + (require('./package.json').version) + "\n";
+                phpConfig += '  version_full: ' + (process.env.RELEASE_VERSION || '~') + "\n";
                 phpConfig += '  webpack_hashes:\n';
                 for (var chunkName in hashes) {
                     phpConfig += `    ${chunkName}: "${hashes[chunkName]}"\n`;
