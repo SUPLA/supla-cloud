@@ -18,7 +18,7 @@ module.exports = {
             name: "commons"
         }),
         new webpack.DefinePlugin({
-            VERSION: process.env.RELEASE_VERSION || JSON.stringify(process.env.npm_package_version)
+            VERSION: JSON.stringify(process.env.RELEASE_VERSION || process.env.npm_package_version)
         })
     ],
     module: {
