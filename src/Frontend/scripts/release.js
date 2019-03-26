@@ -12,7 +12,7 @@ console.log(process.cwd());
 
 
 var version = require('../package.json').version;
-var releasePackageName = 'supla-cloud-v' + version + '.tar.gz';
+var releasePackageName = process.env.RELEASE_FILENAME || 'supla-cloud-v' + version + '.tar.gz';
 
 project.printAsciiLogoAndVersion();
 
