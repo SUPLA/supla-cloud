@@ -7,9 +7,6 @@ info:
 paths:
   /accessids:
     get:
-      security:
-        - BearerAuth: []
-        - OAuth2: [accessids_r]
       tags:
         - Access Identifiers
       summary: Get Access Identifiers list
