@@ -39,21 +39,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/", name="_homepage")
-     * @Route("/register", name="_register")
-     * @Route("/auth/login", name="_obsolete_login")
-     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/|direct/).*"}, methods={"GET"})
-     * @Template()
-     * @Cache(expires="2016-01-01")
-     */
-    public function spaBoilerplateAction($suffix = null) {
-        if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
-            throw new NotFoundHttpException("$suffix file could not be found");
-        }
-    }
-
-    /**
-     * @Route("/api-docs", methods={"GET"})
+     * @Route("/api-docs/docs.html", methods={"GET"})
      * @Template()
      */
     public function apiDocsAction() {
@@ -75,5 +61,19 @@ class DefaultController extends Controller {
      * @Template()
      */
     public function apiDocsOAuth2RedirectAction() {
+    }
+
+    /**
+     * @Route("/", name="_homepage")
+     * @Route("/register", name="_register")
+     * @Route("/auth/login", name="_obsolete_login")
+     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/|direct/).*"}, methods={"GET"})
+     * @Template()
+     * @Cache(expires="2016-01-01")
+     */
+    public function spaBoilerplateAction($suffix = null) {
+        if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
+            throw new NotFoundHttpException("$suffix file could not be found");
+        }
     }
 }
