@@ -1091,6 +1091,21 @@ paths:
                     items:
                       type: string
                 type: object
+  /token-info:
+    get:
+      tags: [Server]
+      summary: Returns information about used access token
+      operationId: getTokenInfo
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  userShortUniqueId: {type: string}
+                  scope: {type: string}
+                  expiresAt: {type: integer}
   /schedules:
     get:
       tags:
@@ -1350,6 +1365,7 @@ paths:
                 properties:
                   id:
                     type: integer
+                  shortUniqueId: {type: string}
                   email:
                     type: string
                     format: email
