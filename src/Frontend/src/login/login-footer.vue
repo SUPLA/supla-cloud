@@ -5,7 +5,7 @@
                 <language-selector></language-selector>
             </div>
             <div class="col-sm-4 text-center">
-                <span class="text-muted">SUPLA Cloud v{{ version }}</span>
+                <span class="text-muted">SUPLA Cloud {{ version }}</span>
                 <a class="brand nav-link"
                     href="https://www.supla.org">www.supla.org</a>
             </div>
