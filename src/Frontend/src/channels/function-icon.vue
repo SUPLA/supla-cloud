@@ -64,9 +64,9 @@
             },
             stateIndex() {
                 const suffix = this.stateSuffix;
-                if (['-closed', '-off', '-onoff'].indexOf(suffix) !== -1) {
+                if (['-closed', '-off', '-offon'].indexOf(suffix) !== -1) {
                     return 1;
-                } else if (['-offon', '-partial'].indexOf(suffix) !== -1) {
+                } else if (['-onoff', '-partial'].indexOf(suffix) !== -1) {
                     return 2;
                 } else if ('-offoff' === suffix) {
                     return 3;
