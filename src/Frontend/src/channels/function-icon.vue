@@ -11,7 +11,6 @@
         <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
             :width="width"
             v-if="!model.userIconId">
-        {{ model.state }}
     </span>
 </template>
 
