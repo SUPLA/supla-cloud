@@ -64,11 +64,11 @@
             },
             stateIndex() {
                 const suffix = this.stateSuffix;
-                if (['-closed', '-on', '-offon'].indexOf(suffix) !== -1) {
+                if (['-closed', '-on', '-onoff'].indexOf(suffix) !== -1) {
                     return 1;
-                } else if (['-onoff', '-partial'].indexOf(suffix) !== -1) {
+                } else if (['-offon', '-partial'].indexOf(suffix) !== -1) {
                     return 2;
-                } else if ('-offoff' === suffix) {
+                } else if ('-onon' === suffix) {
                     return 3;
                 } else {
                     return 0;
