@@ -11,6 +11,7 @@
         <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
             :width="width"
             v-if="!model.userIconId">
+        {{ model.state }}
     </span>
 </template>
 
@@ -53,18 +54,18 @@
                     }
                     if (this.model.state.color_brightness !== undefined && this.model.state.brightness !== undefined) {
                         return '-' + (this.model.state.brightness ? 'on' : 'off') + (this.model.state.color_brightness ? 'on' : 'off');
-                    } else if (this.model.state.color_brightness === 0 || this.model.state.brightness === 0) {
-                        return '-off';
+                    } else if (this.model.state.color_brightness > 0 || this.model.state.brightness > 0) {
+                        return '-on';
                     }
-                    if (this.model.state.on === false) {
-                        return '-off';
+                    if (this.model.state.on === true) {
+                        return '-on';
                     }
                 }
                 return '';
             },
             stateIndex() {
                 const suffix = this.stateSuffix;
-                if (['-closed', '-off', '-offon'].indexOf(suffix) !== -1) {
+                if (['-closed', '-on', '-offon'].indexOf(suffix) !== -1) {
                     return 1;
                 } else if (['-onoff', '-partial'].indexOf(suffix) !== -1) {
                     return 2;
