@@ -53,22 +53,22 @@
                     }
                     if (this.model.state.color_brightness !== undefined && this.model.state.brightness !== undefined) {
                         return '-' + (this.model.state.brightness ? 'on' : 'off') + (this.model.state.color_brightness ? 'on' : 'off');
-                    } else if (this.model.state.color_brightness === 0 || this.model.state.brightness === 0) {
-                        return '-off';
+                    } else if (this.model.state.color_brightness > 0 || this.model.state.brightness > 0) {
+                        return '-on';
                     }
-                    if (this.model.state.on === false) {
-                        return '-off';
+                    if (this.model.state.on === true) {
+                        return '-on';
                     }
                 }
                 return '';
             },
             stateIndex() {
                 const suffix = this.stateSuffix;
-                if (['-closed', '-off', '-offon'].indexOf(suffix) !== -1) {
+                if (['-closed', '-on', '-onoff'].indexOf(suffix) !== -1) {
                     return 1;
-                } else if (['-onoff', '-partial'].indexOf(suffix) !== -1) {
+                } else if (['-offon', '-partial'].indexOf(suffix) !== -1) {
                     return 2;
-                } else if ('-offoff' === suffix) {
+                } else if ('-onon' === suffix) {
                     return 3;
                 } else {
                     return 0;
