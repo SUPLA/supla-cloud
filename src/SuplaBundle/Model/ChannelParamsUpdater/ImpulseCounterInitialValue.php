@@ -5,7 +5,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 
 class ImpulseCounterInitialValue extends RangeParamsUpdater {
-    const MIN_COUNT = -1000000;
+    const MIN_COUNT = 0;
     const MAX_COUNT = 1000000;
 
     public function __construct() {
