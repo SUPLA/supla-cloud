@@ -18,8 +18,7 @@
     import ChannelParamsMeterInitialValue from "./channel-params-meter-initial-value";
 
     export default {
-        components: {ChannelParamsMeterInitialValue, ChannelParamsAnyMeter,
-            ChannelParamsMeterUnit, ChannelParamsMeterImpulses, ChannelParamsMeterInitialValue},
+        components: {ChannelParamsAnyMeter, ChannelParamsMeterUnit, ChannelParamsMeterImpulses, ChannelParamsMeterInitialValue},
         props: ['channel'],
         data() {
             return {
