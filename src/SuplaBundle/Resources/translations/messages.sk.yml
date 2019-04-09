@@ -8,6 +8,7 @@
 ACTIVE: AKTÍVNE
 AM2301 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2301
 AM2302 Temperature & Humidity Sensor: Snímač teploty a vlhkosti AM2302
+API documentation: Dokumentacija API
 Access ID: ID prístupu
 Access Identifier: Identifikátor Prístupu
 Access Identifiers: Identifikátor Prístupu
@@ -237,6 +238,7 @@ Impulses: Impulzy
 Incorrect password: Nesprávne heslo
 Information: Informácia
 Inherit I/O Device location: Používajte polohu zariadenia
+Initial value: Začetna vrednost
 Integrations: Integrácie
 Interval: Interval
 Invalid SUPLA Cloud URL.: Nesprávna URL adresa inštancie Šuplata Cloud.
@@ -567,6 +569,5 @@ execute: vykonať
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-API documentation: ~
 
 #</editor-fold>

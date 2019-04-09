@@ -8,6 +8,7 @@
 ACTIVE: ATTIVA
 AM2301 Temperature & Humidity Sensor: Termometro di temperatura e umidità AM2301
 AM2302 Temperature & Humidity Sensor: Termometro di temperatura e umidità AM2302
+API documentation: Documentazione API
 Access ID: ID di accesso
 Access Identifier: Identificatore dell’Accesso
 Access Identifiers: Identificatori dell’accesso
@@ -110,7 +111,7 @@ Create New Access Identifier: Crea un nuovo Identificatore dell’Accesso
 Create New Location: Crea una nuova Localizzazione
 Create New Schedule: Crea un nuovo scadenzario
 Create an account: Crea un account
-Create new direct link: Utwórz nowy link bezpośredni
+Create new direct link: Crea un nuovo link diretto
 Currency: Valuta
 Current Password: Password attuale
 Current password is incorrect: La password attuale non è valida
@@ -237,6 +238,7 @@ Impulses: Impulsi
 Incorrect password: Password non corretta
 Information: Informazione
 Inherit I/O Device location: Utilizza la localizzazione del dispositivo I/O
+Initial value: Valore iniziale
 Integrations: Integrazioni
 Interval: Intervallo
 Invalid SUPLA Cloud URL.: Indirizzo URL dell’istanza SUPLA Cloud non valido.
@@ -567,6 +569,5 @@ execute: esegui
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-API documentation: ~
 
 #</editor-fold>

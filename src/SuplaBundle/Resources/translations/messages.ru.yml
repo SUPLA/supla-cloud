@@ -8,6 +8,7 @@
 ACTIVE: АКТИВНА
 AM2301 Temperature & Humidity Sensor: Датчик температуры и влажности AM2301
 AM2302 Temperature & Humidity Sensor: Датчик температуры и влажности AM2302
+API documentation: API документация
 Access ID: ID доступа
 Access Identifier: Ключи доступа
 Access Identifiers: Ключ Доступа
@@ -237,6 +238,7 @@ Impulses: Импульсы
 Incorrect password: Неверный пароль
 Information: Информация
 Inherit I/O Device location: Использовать местоположение устройства
+Initial value: Начальное значение
 Integrations: Интеграции
 Interval: Интервал
 Invalid SUPLA Cloud URL.: Неверный URL-адрес экземпляра SUPLA Cloud.
@@ -567,6 +569,5 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-API documentation: ~
 
 #</editor-fold>

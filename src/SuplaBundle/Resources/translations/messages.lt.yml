@@ -8,6 +8,7 @@
 ACTIVE: AKTYVI
 AM2301 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2301
 AM2302 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2302
+API documentation: API dokumentacija
 Access ID: Prieigos ID
 Access Identifier: Prieigos identifikatorius
 Access Identifiers: Prieigos identifikatorius
@@ -237,6 +238,7 @@ Impulses: Impulsai
 Incorrect password: Neteisingas slaptažodis
 Information: Informacija
 Inherit I/O Device location: Naudokitės įrenginio vietos aptikimu
+Initial value: Pradinė vertė
 Integrations: Įtrauktis
 Interval: Intervalas
 Invalid SUPLA Cloud URL.: Neteisingas SUPLA Cloud diegimo URL adresas.
@@ -567,6 +569,5 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-API documentation: ~
 
 #</editor-fold>
