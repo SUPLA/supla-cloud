@@ -8,7 +8,7 @@
                     min="-1000000"
                     max="1000000"
                     class="form-control text-center"
-                    v-model="initial-value">
+                    v-model="initialvalue">
                 <span class="input-group-addon">
                     {{ unit }}
                 </span>
@@ -21,7 +21,7 @@
     export default {
         props: ['channel', 'unit'],
         computed: {
-            impulses: {
+            initialvalue: {
                 set(value) {
                     this.channel.param1 = value;
                     this.$emit('change');
