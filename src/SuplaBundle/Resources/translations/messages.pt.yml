@@ -8,6 +8,7 @@
 ACTIVE: ATIVA
 AM2301 Temperature & Humidity Sensor: Sensor da temperatura e da humidade AM2301
 AM2302 Temperature & Humidity Sensor: Sensor da temperatura e da humidade AM2302
+API documentation: Documentação da API
 Access ID: ID do acesso
 Access Identifier: Identificador do Acesso
 Access Identifiers: Identificadores do acesso
@@ -237,6 +238,7 @@ Impulses: Pulsos
 Incorrect password: Senha Incorreta
 Information: Informação
 Inherit I/O Device location: Adquira a localização do dispositivo
+Initial value: Valor inicial
 Integrations: Integrações
 Interval: Intervalo
 Invalid SUPLA Cloud URL.: URL incorreta da instância do SUPLA Cloud.
@@ -567,7 +569,5 @@ execute: realizar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-API documentation: Documentação da API
-Initial value: Valor inicial
 
 #</editor-fold>
