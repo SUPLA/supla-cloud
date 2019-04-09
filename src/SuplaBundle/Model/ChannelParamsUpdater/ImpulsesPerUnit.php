@@ -3,7 +3,7 @@ namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
 
-class AnyMeterImpulsesPerUnit extends RangeParamsUpdater {
+class ImpulsesPerUnit extends RangeParamsUpdater {
 
     public function __construct() {
         parent::__construct(
