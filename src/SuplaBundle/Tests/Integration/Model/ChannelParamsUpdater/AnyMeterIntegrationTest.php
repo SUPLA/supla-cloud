@@ -104,6 +104,40 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
         }
     }
 
+    public function testUpdatingInitialValue() {
+
+        foreach ($this->device->getChannels() as $channel) {
+            if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
+                $this->assertEquals(0, $channel->getParam1());
+                $newChannel = new IODeviceChannel();
+
+                $newChannel->setParam1(1000000);
+                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->assertEquals(1000000, $channel->getParam1());
+
+                $newChannel->setParam1(1);
+                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->assertEquals(1, $channel->getParam1());
+
+                $newChannel->setParam1(1000001);
+                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->assertEquals(1000000, $channel->getParam1());
+
+                $newChannel->setParam1(0);
+                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->assertEquals(0, $channel->getParam1());
+
+                $newChannel->setParam1(-1000000);
+                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->assertEquals(-1000000, $channel->getParam1());
+
+                $newChannel->setParam1(-1000001);
+                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->assertEquals(-1000000, $channel->getParam1());
+            }
+        }
+    }
+
     public function testUpdatingCurrency() {
 
         foreach ($this->device->getChannels() as $channel) {
