@@ -1450,7 +1450,7 @@ components:
         id: {type: integer}
         event: {type: integer}
         createdAt: {type: string, format: date-time}
-        ipv4: {type: integer}
+        ipv4: {type: integer, format: int64}
         intParam: {type: integer}
         textParam: {type: string}
     ActionableSubjectTypeEnum:
@@ -1471,11 +1471,13 @@ components:
           type: boolean
         regIpv4:
           type: integer
+          format: int64
         regDate:
           type: string
           format: date-time
         lastAccessIpv4:
           type: integer
+          format: int64
         lastAccessDate:
           type: string
           format: date-time
@@ -1863,11 +1865,13 @@ components:
           format: date-time
         regIpv4:
           type: integer
+          format: int64
         lastConnected:
           type: string
           format: date-time
         lastIpv4:
           type: integer
+          format: int64
         softwareVersion:
           type: string
         gUIDString:
@@ -1914,6 +1918,7 @@ components:
           format: date-time
         lastIpv4:
           type: integer
+          format: int64
         enabled: {type: boolean}
         disableHttpGet: {type: boolean}
         activeDateRange:
