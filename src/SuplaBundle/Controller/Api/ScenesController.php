@@ -61,7 +61,7 @@ class ScenesController extends RestController {
                 ->trans('Scene', [], null, $user->getLocale()); // i18n
             $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
         }
-        Assertion::false($user->isLimitScenesExceeded(), 'Scenes limit has been exceeded'); // i18n
+        Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $scene->setEnabled(true);
             $em->persist($scene);

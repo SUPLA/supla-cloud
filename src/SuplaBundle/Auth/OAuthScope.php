@@ -134,6 +134,7 @@ final class OAuthScope {
                      'directlinks',
                      'iodevices',
                      'locations',
+                     'scenes',
                      'schedules',
                  ] as $rwScope) {
             $supportedScopes[] = $rwScope . '_r';

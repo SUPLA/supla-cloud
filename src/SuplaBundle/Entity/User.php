@@ -156,9 +156,9 @@ class User implements UserInterface, EncoderAwareInterface {
     private $limitDirectLink;
 
     /**
-     * @ORM\Column(name="limit_scenes", type="integer", options={"default"=50})
+     * @ORM\Column(name="limit_scene", type="integer", options={"default"=50})
      */
-    private $limitScenes;
+    private $limitScene;
 
     /**
      * @ORM\Column(name="limit_oauth_client", type="integer", options={"default"=20})
@@ -283,6 +283,7 @@ class User implements UserInterface, EncoderAwareInterface {
         $this->limitChannelPerGroup = 10;
         $this->limitDirectLink = 50;
         $this->limitOAuthClient = 20;
+        $this->limitScene = 50;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
@@ -512,8 +513,8 @@ class User implements UserInterface, EncoderAwareInterface {
         return $this->limitDirectLink > 0 && count($this->getDirectLinks()) >= $this->limitDirectLink;
     }
 
-    public function isLimitScenesExceeded() {
-        return $this->limitScenes > 0 && count($this->getScenes()) >= $this->limitScenes;
+    public function isLimitSceneExceeded() {
+        return $this->limitScene > 0 && count($this->getScenes()) >= $this->limitScene;
     }
 
     public function isLimitOAuthClientExceeded() {
@@ -609,7 +610,7 @@ class User implements UserInterface, EncoderAwareInterface {
             'schedule' => $this->limitSchedule,
             'directLink' => $this->limitDirectLink,
             'oauthClient' => $this->limitOAuthClient,
-            'scene' => $this->limitScenes,
+            'scene' => $this->limitScene,
         ];
     }
 

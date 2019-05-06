@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="row text-center">
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <h3>{{ $t('Details') }}</h3>
                                     <div class="hover-editable text-left">
@@ -39,9 +39,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h3 class="text-center">{{ $t('Operations') }}</h3>
-                                    <div class="text-left">
-
-                                    </div>
+                                    <scene-operations-editor :scene="scene"></scene-operations-editor>
                                 </div>
                             </div>
                         </div>
@@ -66,12 +64,12 @@
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
-    import SubjectDropdown from "../devices/subject-dropdown";
+    import SceneOperationsEditor from "./scene-operations-editor";
 
     export default {
         props: ['id', 'item'],
         components: {
-            SubjectDropdown,
+            SceneOperationsEditor,
             PageContainer,
             PendingChangesPage,
             Toggler,
