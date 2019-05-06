@@ -47,6 +47,7 @@ class ChangeUserLimitsCommand extends Command {
                      'limitDirectLink' => 'Direct Links',
                      'limitLoc' => 'Locations',
                      'limitOAuthClient' => 'OAuth Clients',
+                     'limitScenes' => 'Scenes',
                      'limitSchedule' => 'Schedules',
                  ] as $field => $label) {
             $currentLimit = EntityUtils::getField($user, $field);

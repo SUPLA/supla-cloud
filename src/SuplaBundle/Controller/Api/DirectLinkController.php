@@ -88,7 +88,7 @@ class DirectLinkController extends RestController {
             $caption = $translator->trans('Direct link', [], null, $user->getLocale());
             $directLink->setCaption($caption . ' #' . ($user->getDirectLinks()->count() + 1));
         }
-        Assertion::false($user->isLimitDirectLinkExceeded(), 'Direct links limit has been exceeded');
+        Assertion::false($user->isLimitDirectLinkExceeded(), 'Direct links limit has been exceeded'); // i18n
         $slug = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
             $slug = $directLink->generateSlug($this->encoderFactory->getEncoder($directLink));
             $directLink->setEnabled(true);

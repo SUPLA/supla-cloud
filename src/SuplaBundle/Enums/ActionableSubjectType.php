@@ -20,23 +20,26 @@ namespace SuplaBundle\Enums;
 use MyCLabs\Enum\Enum;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Exception\ApiException;
 
 /**
  * @method static ActionableSubjectType CHANNEL()
  * @method static ActionableSubjectType CHANNEL_GROUP()
+ * @method static ActionableSubjectType SCENE()
  */
 final class ActionableSubjectType extends Enum {
     const CHANNEL = 'channel';
     const CHANNEL_GROUP = 'channelGroup';
-
-//    const SCENE = 'scene';
+    const SCENE = 'scene';
 
     public static function forEntity($entity): self {
         if ($entity instanceof IODeviceChannel) {
             return self::CHANNEL();
         } elseif ($entity instanceof IODeviceChannelGroup) {
             return self::CHANNEL_GROUP();
+        } elseif ($entity instanceof Scene) {
+            return self::SCENE();
         } else {
             throw new \InvalidArgumentException('Invalid entity given: ' . get_class($entity));
         }
