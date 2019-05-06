@@ -609,6 +609,7 @@ class User implements UserInterface, EncoderAwareInterface {
             'schedule' => $this->limitSchedule,
             'directLink' => $this->limitDirectLink,
             'oauthClient' => $this->limitOAuthClient,
+            'scene' => $this->limitScenes,
         ];
     }
 
