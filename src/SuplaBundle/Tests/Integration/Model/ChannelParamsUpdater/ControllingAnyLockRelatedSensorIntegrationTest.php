@@ -108,6 +108,15 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
         $this->assertEquals(0, $this->device->getChannels()[1]->getParam1());
     }
 
+    public function testClearingOpeningSensorIfWrongIdIsInDevice() {
+        $this->device->getChannels()[0]->setParam2(1234);
+        $this->getEntityManager()->persist($this->device->getChannels()[0]);
+        // unpair invalid channel
+        $this->updater->updateChannelParams($this->device->getChannels()[0], new IODeviceChannelWithParams());
+        $this->getEntityManager()->refresh($this->device);
+        $this->assertEquals(0, $this->device->getChannels()[0]->getParam2());
+    }
+
     public function testTryingToPairInvalidChannelsIsNotSuccessful() {
         $this->updater->updateChannelParams(
             $this->device->getChannels()[0],

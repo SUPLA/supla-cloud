@@ -7,6 +7,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class ControllingAnyLockRelatedSensor implements SingleChannelParamsUpdater {
     use CurrentUserAware;
@@ -61,14 +62,20 @@ abstract class ControllingAnyLockRelatedSensor implements SingleChannelParamsUpd
                 $sensorId = $controllingId = 0;
             }
             if ($currentSensorId && $currentSensorId != $sensorId) {
-                $currentSensor = $this->channelRepository->findForUser($user, $currentSensorId);
-                $currentSensor->setParam($this->sensorParamNo, 0);
-                $em->persist($currentSensor);
+                try {
+                    $currentSensor = $this->channelRepository->findForUser($user, $currentSensorId);
+                    $currentSensor->setParam($this->sensorParamNo, 0);
+                    $em->persist($currentSensor);
+                } catch (NotFoundHttpException $e) {
+                }
             }
             if ($currentControllingId && $currentControllingId != $controllingId) {
-                $currentControlling = $this->channelRepository->findForUser($user, $currentControllingId);
-                $currentControlling->setParam($this->controllingParamNo, 0);
-                $em->persist($currentControlling);
+                try {
+                    $currentControlling = $this->channelRepository->findForUser($user, $currentControllingId);
+                    $currentControlling->setParam($this->controllingParamNo, 0);
+                    $em->persist($currentControlling);
+                } catch (NotFoundHttpException $e) {
+                }
             }
             if ($controlling && $currentSensorId != $sensorId) {
                 $controlling->setParam($this->controllingParamNo, $sensorId);
