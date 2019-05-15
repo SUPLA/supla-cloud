@@ -21,4 +21,4 @@ See [how to install the SUPLA Cloud for development](https://github.com/SUPLA/su
 
 ## RestAPI
 
-[Swagger] (https://app.swaggerhub.com/apis/supla/supla-cloud-api/2.3.0)
+[Swagger](https://app.swaggerhub.com/apis/supla/supla-cloud-api/2.3.0)
