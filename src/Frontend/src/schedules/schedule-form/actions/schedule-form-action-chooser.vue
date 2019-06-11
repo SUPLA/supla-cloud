@@ -8,51 +8,37 @@
                 :filter="filterOutGateChannelGroups"></subject-dropdown>
         </div>
         <div v-if="subject">
-            <div v-for="possibleAction in subject.function.possibleActions">
-                <div class="radio"
-                    v-if="possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE'">
-                    <label>
-                        <input type="radio"
-                            :value="possibleAction.id"
-                            v-model="actionId">
-                        {{ $t(possibleAction.caption) }}
-                    </label>
-                </div>
-                <div class="well clearfix"
-                    v-if="possibleAction.id == 50 && actionId == possibleAction.id">
-                    <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
-                </div>
-                <transition-expand>
-                    <div v-if="possibleAction.id == 80 && actionId == possibleAction.id">
-                        <rgbw-parameters-setter v-model="actionParam"
-                            class="well clearfix"
-                            :channel-function="subject.function"></rgbw-parameters-setter>
-                    </div>
-                </transition-expand>
-            </div>
+            <channel-action-chooser :subject="subject"
+                v-model="action"
+                :possible-action-filter="possibleActionFilter"
+                @change="updateAction()"></channel-action-chooser>
         </div>
     </div>
 </template>
 
 <script>
-    import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
-    import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage.vue";
+
     import ChannelsDropdown from "../../../devices/channels-dropdown";
     import SubjectDropdown from "../../../devices/subject-dropdown";
     import {mapState} from "vuex";
-    import TransitionExpand from "../../../common/gui/transition-expand";
+    import ChannelActionChooser from "../../../channels/action/channel-action-chooser";
 
     export default {
-        components: {TransitionExpand, SubjectDropdown, ChannelsDropdown, RgbwParametersSetter, RoletteShutterPartialPercentage},
+        components: {ChannelActionChooser, SubjectDropdown, ChannelsDropdown},
         data() {
             return {
-                subjectWithType: {}
+                subjectWithType: {},
+                action: {}
             };
         },
         mounted() {
             this.subjectWithType = {
                 subject: this.subject,
                 type: this.subjectType,
+            };
+            this.action = {
+                id: this.actionId,
+                param: this.actionParam,
             };
         },
         methods: {
@@ -65,6 +51,13 @@
             },
             filterOutGateChannelGroups(subject) {
                 return !subject.channelsIds || ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) === -1;
+            },
+            updateAction() {
+                this.actionId = this.action.id;
+                this.actionParam = this.action.param;
+            },
+            possibleActionFilter(possibleAction) {
+                return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
             }
         },
         computed: {
