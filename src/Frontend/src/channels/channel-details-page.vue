@@ -88,6 +88,7 @@
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
                                 v-if="!changedFunction && channelFunctionIsChosen"></channel-state-table>
+                            <channel-action-executor :subject="channel"></channel-action-executor>
                         </div>
                     </div>
                 </pending-changes-page>
@@ -116,10 +117,12 @@
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
+    import ChannelActionExecutor from "./action/channel-action-executor";
 
     export default {
         props: ['id'],
         components: {
+            ChannelActionExecutor,
             PageContainer,
             PendingChangesPage,
             ChannelFunctionEditConfirmation,
