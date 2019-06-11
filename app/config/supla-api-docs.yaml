@@ -905,7 +905,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Channel'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Channel'
   /locations:
     get:
       tags:
