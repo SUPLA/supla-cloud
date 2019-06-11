@@ -88,13 +88,15 @@
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
                                 v-if="!changedFunction && channelFunctionIsChosen"></channel-state-table>
-                            <channel-action-executor :subject="channel"></channel-action-executor>
                         </div>
                     </div>
                 </pending-changes-page>
             </div>
+
+
             <channel-details-tabs v-if="channel && (!changedFunction || !loading)"
                 :channel="channel"></channel-details-tabs>
+
         </loading-cover>
         <channel-function-edit-confirmation :confirmation-object="changeFunctionConfirmationObject"
             v-if="changeFunctionConfirmationObject"

@@ -1,18 +1,20 @@
 <template>
     <div>
         <div v-for="possibleAction in actionsToShow">
-            <div class="radio"
-                v-if="actionsToShow.length > 1">
-                <label>
-                    <input type="radio"
-                        :value="possibleAction.id"
-                        v-model="action.id">
+            <slot :possibleAction="possibleAction">
+                <div class="radio"
+                    v-if="actionsToShow.length > 1">
+                    <label>
+                        <input type="radio"
+                            :value="possibleAction.id"
+                            v-model="action.id">
+                        {{ $t(possibleAction.caption) }}
+                    </label>
+                </div>
+                <div v-else>
                     {{ $t(possibleAction.caption) }}
-                </label>
-            </div>
-            <div v-else>
-                {{ $t(possibleAction.caption) }}
-            </div>
+                </div>
+            </slot>
             <div class="well clearfix"
                 v-if="possibleAction.id == 50 && action.id == possibleAction.id">
                 <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>

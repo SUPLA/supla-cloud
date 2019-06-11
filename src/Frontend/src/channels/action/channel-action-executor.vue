@@ -1,6 +1,11 @@
 <template>
     <channel-action-chooser :subject="subject"
-        v-model="actionToExecute"></channel-action-chooser>
+        v-model="actionToExecute"
+        v-slot="{possibleAction}">
+        <button class="btn btn-white">
+            {{ $t(possibleAction.caption) }}
+        </button>
+    </channel-action-chooser>
 </template>
 
 <script>

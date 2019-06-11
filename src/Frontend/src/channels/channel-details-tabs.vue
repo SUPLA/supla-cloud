@@ -14,6 +14,11 @@
                 </ul>
             </div>
         </div>
+        <div v-if="currentTab == 'actions'">
+            <div class="container">
+                <channel-action-executor :subject="channel"></channel-action-executor>
+            </div>
+        </div>
         <div v-if="currentTab == 'schedules'">
             <schedule-list-page :subject-id="channel.id"
                 subject-type="channel"></schedule-list-page>
@@ -23,8 +28,7 @@
         </div>
         <div v-if="currentTab == 'measurementsHistory'"
             class="text-center">
-
-            <div class="button-container ">
+            <div class="button-container">
                 <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
                     class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
 
@@ -50,10 +54,11 @@
     import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
     import {successNotification} from "../common/notifier";
     import DirectLinksList from "../direct-links/direct-links-list";
+    import ChannelActionExecutor from "./action/channel-action-executor";
 
     export default {
         props: ['channel'],
-        components: {DirectLinksList, ScheduleListPage},
+        components: {ChannelActionExecutor, DirectLinksList, ScheduleListPage},
         data() {
             return {
                 currentTab: '',
@@ -74,6 +79,10 @@
         },
         mounted() {
             if (this.channel.function.possibleActions.length) {
+                this.availableTabs.push({
+                    id: 'actions',
+                    header: 'Actions', // i18n
+                });
                 this.availableTabs.push({
                     id: 'schedules',
                     header: 'Schedules', // i18n
