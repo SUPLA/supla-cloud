@@ -1715,7 +1715,6 @@ components:
             Whether the channel is output type (i.e. can take action) or input
             (i.e. provide data)
       type: object
-
     ChannelFunction:
       properties:
         id:
