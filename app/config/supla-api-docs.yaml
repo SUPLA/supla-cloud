@@ -1550,6 +1550,7 @@ components:
         connected:
           type: boolean
         state:
+          $ref: '#/components/schemas/ChannelState'
           description: >-
             The channel's state. The value and the format is dependend on the
             channel's function. Read more on [Github
@@ -1560,6 +1561,34 @@ components:
           items:
             $ref: '#/components/schemas/ChannelFunction'
       type: object
+    ChannelState:
+      properties:
+        hi:
+          type: boolean
+        partialHi:
+          type: boolean
+        temperature:
+          type: integer
+        humidity:
+          type: integer
+        isCalibrating:
+          type: boolean
+        shut:
+          type: integer
+        on:
+          type: boolean
+        brightness:
+          type: integer
+          min: 0
+          max: 100
+        colorBrightness:
+          type: integer
+          min: 0
+          max: 100
+        depth:
+          type integer
+        distance:
+          type: integer
     ChannelGroup:
       properties:
         id:
@@ -1686,6 +1715,7 @@ components:
             Whether the channel is output type (i.e. can take action) or input
             (i.e. provide data)
       type: object
+
     ChannelFunction:
       properties:
         id:
