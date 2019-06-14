@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <div v-for="possibleAction in actionsToShow">
+    <div class="possible-actions">
+        <div v-for="possibleAction in actionsToShow"
+            class="possible-action">
             <slot :possibleAction="possibleAction">
                 <div class="radio"
                     v-if="actionsToShow.length > 1">

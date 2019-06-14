@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="channel-details-tabs">
         <div class="container"
             v-if="availableTabs.length">
             <div class="form-group">
@@ -112,3 +112,15 @@
         },
     };
 </script>
+
+<style lang="scss">
+    .channel-details-tabs {
+        .possible-actions {
+            text-align: center;
+            .possible-action {
+                margin: 5px 15px;
+                display: inline-block;
+            }
+        }
+    }
+</style>
