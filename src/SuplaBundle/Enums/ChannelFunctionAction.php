@@ -88,8 +88,13 @@ final class ChannelFunctionAction extends Enum {
     }
 
     public static function fromString(string $action): ChannelFunctionAction {
-        $action = str_replace('-', '_', strtoupper($action));
-        Assertion::true(self::isValidKey($action), 'Invalid action: ' . $action);
-        return self::$action();
+        if (is_numeric($action)) {
+            Assertion::true(self::isValid(intval($action)), 'Invalid action: ' . $action);
+            return new self(intval($action));
+        } else {
+            $action = str_replace('-', '_', strtoupper($action));
+            Assertion::true(self::isValidKey($action), 'Invalid action: ' . $action);
+            return self::$action();
+        }
     }
 }

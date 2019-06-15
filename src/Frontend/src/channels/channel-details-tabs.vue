@@ -120,6 +120,10 @@
             .possible-action {
                 margin: 5px 15px;
                 display: inline-block;
+                .possible-action-params {
+                    margin: 5px auto;
+                    max-width: 600px;
+                }
             }
         }
     }
