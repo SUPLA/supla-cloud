@@ -6,6 +6,9 @@ services:
     autowire: true
     autoconfigure: true
     public: false
+    bind:
+      $suplaUrl: '%supla_url%'
+      $recaptchaSecret: '%recaptcha_secret%'
 
   _instanceof:
     SuplaBundle\ParamConverter\AbstractBodyParamConverter:
@@ -23,10 +26,6 @@ services:
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
 
-  SuplaBundle\Form\Type\ChannelFunctionType:
-    tags:
-      - { alias: channelfunction, name: form.type }
-
   SuplaBundle\Command\:
     resource: '../../src/SuplaBundle/Command'
   SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
@@ -36,8 +35,25 @@ services:
     resource: '../../src/SuplaBundle/Controller'
     public: true
 
+  SuplaBundle\Controller\Api\ServerController:
+    $suplaServerAddress: '%supla_server%'
+    $suplaVersion: '%supla.version%'
+    $actAsBrokerCloud: '%act_as_broker_cloud%'
+
+  SuplaBundle\Controller\Api\UserController:
+    $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
+    $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
+    $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
+    $recaptchaEnabled: '%recaptcha_enabled%'
+
   SuplaBundle\Controller\ExecuteDirectLinkController:
     $logger: '@monolog.logger.supla_direct_links'
+
+  SuplaBundle\Controller\OAuth\BrokerAuthorizeController:
+    public: true
+    arguments:
+      $authorizeForm: '@fos_oauth_server.authorize.form'
+      $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
 
   SuplaBundle\Model\:
     resource: '../../src/SuplaBundle/Model'
@@ -130,9 +146,6 @@ services:
     $mailerFrom: "%mailer_from%"
     $adminEmail: "%admin_email%"
     $defaultLocale: "%locale%"
-
-  twig.extension.intl:
-    class: Twig_Extensions_Extension_Intl
 
   SuplaBundle\Twig\FrontendConfig: ~
 

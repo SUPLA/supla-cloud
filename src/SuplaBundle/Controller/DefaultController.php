@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use AppKernel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -26,6 +27,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller {
+    /** @var string */
+    private $suplaUrl;
+
+    public function __construct(string $suplaUrl) {
+        $this->suplaUrl = $suplaUrl;
+    }
+
     /**
      * @Route("/auth/create", name="_auth_create")
      * @Route("/account/create", name="_account_create")
@@ -43,16 +51,15 @@ class DefaultController extends Controller {
      * @Template()
      */
     public function apiDocsAction() {
-        return ['supla_url' => $this->container->getParameter('supla_url')];
+        return ['supla_url' => $this->suplaUrl];
     }
 
     /**
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
      */
     public function getApiDocsSchemaAction() {
-        $yaml = file_get_contents(\AppKernel::ROOT_PATH . '/config/supla-api-docs.yaml');
-        $suplaDomain = $this->container->getParameter('supla_url');
-        $yaml = str_replace('https://cloud.supla.org', $suplaDomain, $yaml);
+        $yaml = file_get_contents(AppKernel::ROOT_PATH . '/config/supla-api-docs.yaml');
+        $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
 

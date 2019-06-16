@@ -364,28 +364,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->token;
     }
 
-    public function genToken() {
-        $bytes = false;
-
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            $crypto_strong = true;
-            $bytes = openssl_random_pseudo_bytes(32, $crypto_strong);
-        }
-
-        if ($bytes === false) {
-            $logger = $this->get('logger');
-
-            if ($logger !== null) {
-                $logger->info('OpenSSL did not produce a secure random number.');
-            }
-
-            $bytes = hash('sha256', uniqid(mt_rand(), true), true);
-        }
-
-        $this->setToken(rtrim(strtr(base64_encode($bytes), '+/', '-_'), '='));
-        return $this->getToken();
-    }
-
     public function setToken($token) {
         $this->token = $token;
         return $this;
@@ -405,8 +383,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         return $this->passwordRequestedAt;
     }
 
-    public function generateTokenForAccountRemoval(): string {
-        $token = $this->genToken();
+    public function setTokenForAccountRemoval(string $token): string {
+        $this->setToken($token);
         $this->accountRemovalRequestedAt = new \DateTime();
         return $token;
     }

@@ -20,6 +20,7 @@ namespace SuplaBundle\Model;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
@@ -53,6 +54,8 @@ class UserManager {
     private $audit;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var LoggerInterface */
+    private $logger;
 
     public function __construct(
         UserRepository $userRepository,
@@ -61,6 +64,7 @@ class UserManager {
         LocationManager $location_manager,
         ScheduleManager $scheduleManager,
         TimeProvider $timeProvider,
+        LoggerInterface $logger,
         int $defaultClientsRegistrationTime,
         int $defaultIoDevicesRegistrationTime
     ) {
@@ -72,6 +76,7 @@ class UserManager {
         $this->defaultClientsRegistrationTime = $defaultClientsRegistrationTime;
         $this->defaultIoDevicesRegistrationTime = $defaultIoDevicesRegistrationTime;
         $this->timeProvider = $timeProvider;
+        $this->logger = $logger;
     }
 
     /** @required */
@@ -86,7 +91,7 @@ class UserManager {
 
     public function create(User $user) {
         $this->setPassword($user->getPlainPassword(), $user);
-        $user->genToken();
+        $this->genToken($user);
         $this->transactional(function (EntityManagerInterface $em) use ($user) {
             $em->persist($user);
         });
@@ -118,7 +123,7 @@ class UserManager {
                     return false;
                 }
             }
-            $user->genToken();
+            $this->genToken($user);
             $user->setPasswordRequestedAt($this->timeProvider->getDateTime());
 
             $this->transactional(function (EntityManagerInterface $em) use ($user) {
@@ -133,13 +138,28 @@ class UserManager {
 
     public function accountDeleteRequest(User $user) {
         if ($user->isEnabled() === true) {
-            $user->generateTokenForAccountRemoval();
+            $user->setTokenForAccountRemoval($this->genToken($user));
             $this->transactional(function (EntityManagerInterface $em) use ($user) {
                 $em->persist($user);
             });
             return true;
         }
         return false;
+    }
+
+    private function genToken(User $user) {
+        $bytes = false;
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            $crypto_strong = true;
+            $bytes = openssl_random_pseudo_bytes(32, $crypto_strong);
+        }
+        if ($bytes === false) {
+            $this->logger->info('OpenSSL did not produce a secure random number.');
+            $bytes = hash('sha256', uniqid(mt_rand(), true), true);
+        }
+        $token = rtrim(strtr(base64_encode($bytes), '+/', '-_'), '=');
+        $user->setToken($token);
+        return $token;
     }
 
     public function confirm($token) {

@@ -18,7 +18,7 @@
 namespace SuplaBundle\Controller\Api;
 
 use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\CurrentUserAware;
@@ -28,19 +28,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Each entity controller must extends this class.
+ *
+ * @method User|null getUser()
  */
-abstract class RestController extends FOSRestController {
+abstract class RestController extends AbstractFOSRestController {
     use CurrentUserAware;
-
-    /** @deprecated use getUser() */
-    public function getParentUser() {
-        return $this->getUser();
-    }
-
-    /** @return null|User */
-    protected function getUser() {
-        return $this->getCurrentUser();
-    }
 
     protected function setSerializationGroups(View $view, Request $request, array $allowedGroups, array $extraGroups = []): Context {
         $context = new Context();

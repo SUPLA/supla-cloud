@@ -17,20 +17,36 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use DateTime;
 use FOS\RestBundle\Controller\Annotations\Get;
+use SuplaBundle\Model\APIManager;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ServerController extends RestController {
     use SuplaServerAware;
 
+    /** @var string */
+    private $suplaVersion;
+    /** @var bool */
+    private $actAsBrokerCloud;
+    /** @var string */
+    private $suplaServerAddress;
+
+    public function __construct(string $suplaServerAddress, string $suplaVersion, bool $actAsBrokerCloud) {
+        $this->suplaServerAddress = $suplaServerAddress;
+        $this->suplaVersion = $suplaVersion;
+        $this->actAsBrokerCloud = $actAsBrokerCloud;
+    }
+
     /** @Get("/server-info") */
     public function getServerInfoAction(Request $request) {
-        $dt = new \DateTime();
+        $dt = new DateTime();
         $result = [
-            'address' => $this->container->getParameter('supla_server'),
+            'address' => $this->suplaServerAddress,
             'time' => $dt,
             'timezone' => [
                 'name' => $dt->getTimezone()->getName(),
@@ -43,10 +59,10 @@ class ServerController extends RestController {
             if ($user) { // TODO if has read user access
                 $result['username'] = $user->getUsername();
             }
-            $result['cloudVersion'] = $this->container->getParameter('supla.version');
+            $result['cloudVersion'] = $this->suplaVersion;
             $result['apiVersion'] = ApiVersions::fromRequest($request)->getValue();
             $result['supportedApiVersions'] = array_values(array_unique(ApiVersions::toArray()));
-            if ($this->getParameter('act_as_broker_cloud')) {
+            if ($this->actAsBrokerCloud) {
                 $result['broker'] = true;
             }
         } else {
@@ -58,10 +74,8 @@ class ServerController extends RestController {
     /**
      * @Get("/logout/{refreshToken}", name="api_logout")
      */
-    public function logoutAction($refreshToken) {
-        $api_man = $this->container->get('api_manager');
-        $ts = $this->container->get('security.token_storage')->getToken();
-        $api_man->userLogout($ts->getUser(), $ts->getToken(), $refreshToken);
+    public function logoutAction($refreshToken, APIManager $apiManager, TokenStorageInterface $tokenStorage) {
+        $apiManager->userLogout($tokenStorage->getUser(), $tokenStorage->getToken(), $refreshToken);
         return $this->view(null, Response::HTTP_OK);
     }
 

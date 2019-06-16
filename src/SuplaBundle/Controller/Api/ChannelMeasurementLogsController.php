@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
@@ -45,9 +46,12 @@ class ChannelMeasurementLogsController extends RestController {
 
     /** @var IODeviceManager */
     private $deviceManager;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
-    public function __construct(IODeviceManager $deviceManager) {
+    public function __construct(IODeviceManager $deviceManager, EntityManagerInterface $entityManager) {
         $this->deviceManager = $deviceManager;
+        $this->entityManager = $entityManager;
     }
 
     private function getMeasureLogsCount(IODeviceChannel $channel) {
@@ -115,7 +119,7 @@ class ChannelMeasurementLogsController extends RestController {
             $sql .= "$order LIMIT ? OFFSET ?";
         }
 
-        $stmt = $this->container->get('doctrine')->getManager()->getConnection()->prepare($sql);
+        $stmt = $this->entityManager->getConnection()->prepare($sql);
         $stmt->bindValue(1, $channelid, 'integer');
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
