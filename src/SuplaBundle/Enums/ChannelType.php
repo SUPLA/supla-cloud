@@ -49,6 +49,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelType DIMMERANDRGBLED()
  * @method static ChannelType ELECTRICITYMETER();
  * @method static ChannelType IMPULSECOUNTER();
+ * @method static ChannelType THERMOSTAT();
+ * @method static ChannelType THERMOSTATHEATPOLHOMEPLUS();
  */
 final class ChannelType extends Enum {
     const UNSUPPORTED = -1;
@@ -79,6 +81,8 @@ final class ChannelType extends Enum {
     const DIMMERANDRGBLED = 4020;
     const ELECTRICITYMETER = 5000;
     const IMPULSECOUNTER = 5010;
+    const THERMOSTAT = 6000;
+    const THERMOSTATHEATPOLHOMEPLUS = 6010;
 
     private $unsupportedTypeId;
 
@@ -150,6 +154,8 @@ final class ChannelType extends Enum {
             self::CALLBUTTON => 'Distance sensor', // i18n
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
             self::IMPULSECOUNTER => 'Impulse counter', // i18n
+            self::THERMOSTAT => 'Thermostat', // i18n
+            self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
         ];
     }
 
@@ -215,6 +221,8 @@ final class ChannelType extends Enum {
                 ChannelFunction::GASMETER(),
                 ChannelFunction::WATERMETER(),
             ],
+            self::THERMOSTAT => [ChannelFunction::THERMOSTAT()],
+            self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
