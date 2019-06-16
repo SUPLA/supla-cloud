@@ -68,7 +68,7 @@ class IODeviceChannel implements HasFunction, HasLocation {
     private $schedules;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDeviceChannels")
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="channels")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=true)
      * @Groups({"location"})
      */

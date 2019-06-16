@@ -19,12 +19,10 @@ namespace SuplaBundle\Model;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class APIManager {
 
     protected $doctrine;
-    protected $encoder_factory;
     protected $user_rep;
     protected $oauth_client_rep;
     protected $oauth_token_rep;
@@ -32,9 +30,8 @@ class APIManager {
     protected $oauth_code_rep;
     protected $container;
 
-    public function __construct(ManagerRegistry $doctrine, EncoderFactory $encoder_factory, ContainerInterface $container) {
+    public function __construct(ManagerRegistry $doctrine, ContainerInterface $container) {
         $this->doctrine = $doctrine;
-        $this->encoder_factory = $encoder_factory;
         $this->user_rep = $doctrine->getRepository('SuplaBundle:User');
         $this->oauth_client_rep = $doctrine->getRepository('SuplaBundle:OAuth\ApiClient');
         $this->oauth_token_rep = $doctrine->getRepository('SuplaBundle:OAuth\AccessToken');

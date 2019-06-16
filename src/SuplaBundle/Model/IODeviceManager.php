@@ -24,7 +24,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use ZipArchive;
 
@@ -36,7 +36,7 @@ class IODeviceManager {
     public function __construct(
         TranslatorInterface $translator,
         ManagerRegistry $doctrine,
-        TokenStorage $security_token
+        TokenStorageInterface $security_token
     ) {
         $this->translator = $translator;
         $this->doctrine = $doctrine;

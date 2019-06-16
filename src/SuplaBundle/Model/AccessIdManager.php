@@ -17,11 +17,10 @@
 
 namespace SuplaBundle\Model;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use SuplaBundle\Repository\AccessIdRepository;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class AccessIdManager {
     protected $translator;
@@ -29,18 +28,16 @@ class AccessIdManager {
     protected $rep;
     protected $sec;
 
-    public function __construct(Translator $translator, ManagerRegistry $doctrine, TokenStorage $security_token) {
+    public function __construct(TranslatorInterface $translator, AccessIdRepository $accessIdRepository) {
         $this->translator = $translator;
-        $this->doctrine = $doctrine;
-        $this->rep = $doctrine->getRepository('SuplaBundle:AccessID');
-        $this->sec = $security_token;
+        $this->rep = $accessIdRepository;
     }
 
-    public function anyIdExists(User $user) {
+    private function anyIdExists(User $user) {
         return $user !== null && ($user->getAccessIDS()->count() > 0 || $this->rep->findOneBy(['user' => $user]) !== null);
     }
 
-    public function totalCount(User $user) {
+    private function totalCount(User $user) {
         $qb = $this->rep->createQueryBuilder('a');
 
         return intval($qb->select('count(a.id)')

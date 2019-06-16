@@ -17,10 +17,9 @@
 
 namespace SuplaBundle\Model;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use SuplaBundle\Repository\LocationRepository;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class LocationManager {
@@ -29,18 +28,16 @@ class LocationManager {
     protected $rep;
     protected $sec;
 
-    public function __construct(TranslatorInterface $translator, ManagerRegistry $doctrine, TokenStorage $security_token) {
+    public function __construct(TranslatorInterface $translator, LocationRepository $locationRepository) {
         $this->translator = $translator;
-        $this->doctrine = $doctrine;
-        $this->rep = $doctrine->getRepository('SuplaBundle:Location');
-        $this->sec = $security_token;
+        $this->rep = $locationRepository;
     }
 
-    public function anyLocationExists(User $user) {
+    private function anyLocationExists(User $user) {
         return $this->rep->findOneBy(['user' => $user]) !== null;
     }
 
-    public function totalCount(User $user) {
+    private function totalCount(User $user) {
         $qb = $this->rep->createQueryBuilder('l');
 
         return intval($qb->select('count(l.id)')
@@ -58,15 +55,5 @@ class LocationManager {
             return $loc;
         }
         return null;
-    }
-
-    public function locationById($id) {
-        $user = $this->sec->getToken()->getUser();
-
-        if ($user === null) {
-            return null;
-        }
-
-        return $this->rep->findOneBy(['user' => $user, 'id' => $id]);
     }
 }

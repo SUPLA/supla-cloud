@@ -135,7 +135,6 @@ services:
     class: Twig_Extensions_Extension_Intl
 
   SuplaBundle\Twig\FrontendConfig: ~
-  SuplaBundle\Twig\IoDeviceAttributesToStringExtension: ~
 
   SuplaBundle\Repository\AccessIdRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
@@ -197,9 +196,11 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\GoogleHome]
 
-  fos_oauth_server.server:
-    class: SuplaBundle\Auth\SuplaOAuth2
+  SuplaBundle\Auth\SuplaOAuth2:
     arguments:
       - '@fos_oauth_server.storage'
       - '%fos_oauth_server.server.options%'
       - '%supla.oauth.tokens_lifetime%'
+
+  fos_oauth_server.server: '@SuplaBundle\Auth\SuplaOAuth2'
+  OAuth2\OAuth2: '@SuplaBundle\Auth\SuplaOAuth2'

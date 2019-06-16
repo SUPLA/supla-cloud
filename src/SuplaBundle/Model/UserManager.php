@@ -29,7 +29,7 @@ use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager {
     use Transactional;
@@ -56,7 +56,7 @@ class UserManager {
 
     public function __construct(
         UserRepository $userRepository,
-        EncoderFactory $encoder_factory,
+        EncoderFactoryInterface $encoder_factory,
         AccessIdManager $accessid_manager,
         LocationManager $location_manager,
         ScheduleManager $scheduleManager,
