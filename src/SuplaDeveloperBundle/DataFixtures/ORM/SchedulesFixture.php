@@ -37,6 +37,12 @@ class SchedulesFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
     private $scheduleFactories;
+    /** @var ScheduleManager */
+    private $scheduleManager;
+
+    public function __construct(ScheduleManager $scheduleManager) {
+        $this->scheduleManager = $scheduleManager;
+    }
 
     public function load(ObjectManager $manager) {
         $this->faker = Factory::create('pl_PL');
@@ -65,7 +71,6 @@ class SchedulesFixture extends SuplaFixture {
             $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
         }
 
-        $scheduleManager = $this->container->get(ScheduleManager::class);
         for ($i = 0; $i < 20; $i++) {
             /** @var IODeviceChannel $channel */
             $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
@@ -75,7 +80,7 @@ class SchedulesFixture extends SuplaFixture {
             $schedule->setSubject($channel);
             $schedule->setDateStart($this->faker->dateTimeBetween('now', '+1 week'));
             $this->entityManager->persist($schedule);
-            $scheduleManager->enable($schedule);
+            $this->scheduleManager->enable($schedule);
         }
     }
 

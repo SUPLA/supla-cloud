@@ -80,7 +80,7 @@ class UserController extends RestController {
         int $ioDevicesRegistrationEnableTime,
         bool $requireRegulationsAcceptance,
         bool $recaptchaEnabled,
-        $recaptchaSecret,
+        ?string $recaptchaSecret,
         array $availableLanguages
     ) {
         $this->userManager = $userManager;

@@ -32,6 +32,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleMode;
+use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
 
@@ -63,7 +64,7 @@ trait UserFixtures {
     }
 
     protected function createLocation(User $user): Location {
-        $location = $this->container->get('location_manager')->createLocation($user);
+        $location = $this->container->get(LocationManager::class)->createLocation($user);
         $this->getEntityManager()->persist($location);
         $this->getEntityManager()->flush();
         return $location;

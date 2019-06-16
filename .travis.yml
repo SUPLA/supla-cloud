@@ -1,6 +1,6 @@
 language: php
 php:
-  - '7.0.28'
+  - '7.1.30'
 before_install:
   - nvm install 8.15.1
 before_script:
