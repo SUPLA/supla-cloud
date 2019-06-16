@@ -1,8 +1,7 @@
 <template>
     <channel-action-chooser :subject="subject"
         v-model="actionToExecute"
-        v-slot="{possibleAction}"
-        :possible-action-filter="possibleActionFilter">
+        v-slot="{possibleAction}">
         <button :class="'btn ' + (requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id ? 'btn-green' : 'btn-default')"
             :disabled="executing"
             @click="executeAction(possibleAction)"
@@ -68,12 +67,6 @@
             },
             requiresParams({id}) {
                 return id == 50 || id == 80;
-            },
-            possibleActionFilter(possibleAction) {
-                if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].includes(this.subject.function.name)) {
-                    return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
-                }
-                return true;
             }
         }
     };
