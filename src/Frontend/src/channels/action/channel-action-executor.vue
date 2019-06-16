@@ -52,7 +52,7 @@
                 this.executing = true;
                 const toSend = Vue.util.extend({}, this.actionToExecute.param);
                 toSend.action = action.name;
-                this.$http.patch('channels/' + this.subject.id, toSend)
+                this.$http.patch(`${this.endpoint}/${this.subject.id}`, toSend)
                     .then(() => {
                         this.$set(action, 'executed', true);
                         setTimeout(() => this.$set(action, 'executed', false), 3000);
@@ -68,10 +68,28 @@
             requiresParams({id}) {
                 return id == 50 || id == 80;
             }
+        },
+        computed: {
+            subjectType() {
+                return this.subject.channelsIds ? 'channelGroup' : 'channel';
+            },
+            endpoint() {
+                return this.subjectType === 'channel' ? 'channels' : 'channel-groups';
+            }
         }
     };
 </script>
 
 <style lang="scss">
-
+    .possible-actions {
+        text-align: center;
+        .possible-action {
+            margin: 5px 15px;
+            display: inline-block;
+            .possible-action-params {
+                margin: 5px auto;
+                max-width: 600px;
+            }
+        }
+    }
 </style>

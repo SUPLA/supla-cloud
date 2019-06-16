@@ -14,6 +14,11 @@
                 </ul>
             </div>
         </div>
+        <div v-if="currentTab == 'actions'">
+            <div class="container">
+                <channel-action-executor :subject="channelGroup"></channel-action-executor>
+            </div>
+        </div>
         <div v-if="currentTab == 'schedules'">
             <schedule-list-page :subject-id="channelGroup.id"
                 subject-type="channelGroup"></schedule-list-page>
@@ -27,10 +32,11 @@
 <script>
     import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
     import DirectLinksList from "../direct-links/direct-links-list";
+    import ChannelActionExecutor from "../channels/action/channel-action-executor";
 
     export default {
         props: ['channelGroup'],
-        components: {DirectLinksList, ScheduleListPage},
+        components: {ChannelActionExecutor, DirectLinksList, ScheduleListPage},
         data() {
             return {
                 currentTab: '',
@@ -44,6 +50,7 @@
             }
         },
         mounted() {
+            this.availableTabs.push({id: 'actions', header: 'Actions'});
             this.availableTabs.push({id: 'schedules', header: 'Schedules', count: this.channelGroup.relationsCount.schedules});
             this.availableTabs.push({id: 'directLinks', header: 'Direct links', count: this.channelGroup.relationsCount.directLinks});
             const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
