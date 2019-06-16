@@ -1553,17 +1553,14 @@ components:
           type: boolean
         state:
           $ref: '#/components/schemas/ChannelState'
-          description: >-
-            The channel's state. The value and the format is dependend on the
-            channel's function. Read more on [Github
-            Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
-          example: {}
         supportedFunctions:
           type: array
           items:
             $ref: '#/components/schemas/ChannelFunction'
       type: object
     ChannelState:
+      description: >-
+        The channel's state. The value and the format is depended on the channel's function. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
       oneOf:
         - $ref: '#/components/schemas/BrightnessState'
         - $ref: '#/components/schemas/ColorAndBrightnessState'
