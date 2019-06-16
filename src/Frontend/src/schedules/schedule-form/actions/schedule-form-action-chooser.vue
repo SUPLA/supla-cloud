@@ -11,7 +11,7 @@
             <channel-action-chooser :subject="subject"
                 v-model="action"
                 :possible-action-filter="possibleActionFilter"
-                @change="updateAction()"></channel-action-chooser>
+                @input="updateAction()"></channel-action-chooser>
         </div>
     </div>
 </template>
