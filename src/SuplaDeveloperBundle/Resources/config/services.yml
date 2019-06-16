@@ -6,3 +6,6 @@ services:
 
   SuplaDeveloperBundle\Command\:
     resource: '../../Command'
+
+  SuplaDeveloperBundle\DataFixtures\ORM\:
+    resource: '../../DataFixtures/ORM'
