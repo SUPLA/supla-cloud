@@ -1568,13 +1568,15 @@ components:
         partialHi:
           type: boolean
         temperature:
-          type: integer
+          type: number
         humidity:
-          type: integer
+          type: number
         isCalibrating:
           type: boolean
         shut:
           type: integer
+          min: 0
+          max: 100
         on:
           type: boolean
         brightness:
@@ -1586,9 +1588,11 @@ components:
           min: 0
           max: 100
         depth:
-          type integer
+          type: number
         distance:
-          type: integer
+          type: number
+        color:
+          type: string
     ChannelGroup:
       properties:
         id:
