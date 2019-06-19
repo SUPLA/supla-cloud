@@ -882,7 +882,7 @@ paths:
         schema:
           type: integer
     get:
-      summary: Get Channels that belong to IO Deice
+      summary: Get Channels that belong to IO Device
       tags:
         - IO Devices
       operationId: getIoDeviceChannels
@@ -905,7 +905,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Channel'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Channel'
   /locations:
     get:
       tags:
@@ -1550,16 +1552,190 @@ components:
         connected:
           type: boolean
         state:
-          description: >-
-            The channel's state. The value and the format is dependend on the
-            channel's function. Read more on [Github
-            Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
-          example: {}
+          $ref: '#/components/schemas/ChannelState'
         supportedFunctions:
           type: array
           items:
             $ref: '#/components/schemas/ChannelFunction'
       type: object
+    ChannelState:
+      description: >-
+        The channel's state. The value and the format is depended on the channel's function. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
+      oneOf:
+        - $ref: '#/components/schemas/BrightnessState'
+        - $ref: '#/components/schemas/ColorAndBrightnessState'
+        - $ref: '#/components/schemas/ColorState'
+        - $ref: '#/components/schemas/DepthState'
+        - $ref: '#/components/schemas/DistanceState'
+        - $ref: '#/components/schemas/HumidityState'
+        - $ref: '#/components/schemas/OnState'
+        - $ref: '#/components/schemas/HiState'
+        - $ref: '#/components/schemas/PartialOpenState'
+        - $ref: '#/components/schemas/RollerShutterState'
+        - $ref: '#/components/schemas/TemperatureAndHumidityState'
+        - $ref: '#/components/schemas/TemperatureState'
+    BrightnessState:
+      properties:
+        connected:
+          type: boolean
+        brightness:
+          type: integer
+          description: >-
+            `brightness` contains current dimmer brightness value in percent, integer from 0 to 100
+          minimum: 0
+          maximum: 100
+      required:
+        - connected
+    ColorAndBrightnessState:
+      properties:
+        connected:
+          type: boolean
+        brightness:
+          type: integer
+          description: >-
+            `brightness` contains current dimmer brightness value in percent, integer from 0 to 100
+          minimum: 0
+          maximum: 100
+        color_brightness:
+          type: integer
+          description: >-
+            `color_brightness` is a color brightness in percent, integer from 0 to 100
+          minimum: 0
+          maximum: 100
+        color:
+          type: string
+          description: >-
+            `color` contains the integer (hex) value of a current color, ranging from `0x000001` to `0xFFFFFF`
+      required:
+        - connected
+    ColorState:
+      properties:
+        connected:
+          type: boolean
+        color_brightness:
+          type: integer
+          description: >-
+            `color_brightness` is a color brightness in percent, integer from 0 to 100
+          minimum: 0
+          maximum: 100
+        color:
+          type: string
+          description: >-
+            `color` contains the integer (hex) value of a current color, ranging from `0x000001` to `0xFFFFFF`
+      required:
+        - connected
+    DepthState:
+      properties:
+        connected:
+          type: boolean
+        depth:
+          type: number
+          description: >-
+            `depth` contains current sensor value
+      required:
+        - connected
+    DistanceState:
+      properties:
+        connected:
+          type: boolean
+        distance:
+          type: number
+          description: >-
+            `distance` contains current sensor value
+      required:
+        - connected
+    HumidityState:
+      properties:
+        connected:
+          type: boolean
+        humidity:
+          type: number
+          description: >-
+            `humidity` contains current value of humidity provided by the sensor (including possibly configured delta adjustment), in percent; possible values from 0 to 100
+          minimum: 0
+          maximum: 100
+      required:
+        - connected
+    OnState:
+      properties:
+        connected:
+          type: boolean
+        on:
+          type: boolean
+          description: >-
+            `on` is either `true` or `false` depending on the switch state
+      required:
+        - connected
+    HiState:
+      properties:
+        connected:
+          type: boolean
+        hi:
+          type: boolean
+          description: >-
+            `hi` is either `true` or `false` depending on sensor state
+      required:
+        - connected
+    PartialOpenState:
+      properties:
+        connected:
+          type: boolean
+        hi:
+          type: boolean
+          description: >-
+            `hi` is either `true` or `false` depending on sensor state
+        partial_hi:
+          type: boolean
+          description: >-
+            `partial_hi` is either `true` or `false` depending on paired secondary opening sensor state
+      required:
+        - connected
+    RollerShutterState:
+      properties:
+        connected:
+          type: boolean
+        hi:
+          type: boolean
+          description: >-
+            `hi` is either `true` or `false` depending on sensor state
+        is_calibrating:
+          type: boolean
+          description: >-
+            `is_calibrating` is `true` if the roller shutter has calibration in progres or if it hasn't been finished for whatever reason
+        shut:
+          type: integer
+          description: >-
+            `shut` is provided regardles off `is_calibrating` state and is an integer from 0 to 100, meaning the percantage of rolette being closed
+          minimum: 0
+          maximum: 100
+      required:
+        - connected
+    TemperatureAndHumidityState:
+      properties:
+        connected:
+          type: boolean
+        temperature:
+          type: number
+          description: >-
+            `temperature` contains current value of temperature provided by the sensor (including possibly configured delta adjustment), in Celsius
+        humidity:
+          type: number
+          description: >-
+            `humidity` contains current value of humidity provided by the sensor (including possibly configured delta adjustment), in percent; possible values from 0 to 100
+          minimum: 0
+          maximum: 100
+      required:
+        - connected
+    TemperatureState:
+      properties:
+        connected:
+          type: boolean
+        temperature:
+          type: number
+          description: >-
+            `temperature` contains current value of temperature provided by the sensor (including possibly configured delta adjustment), in Celsius
+      required:
+        - connected
     ChannelGroup:
       properties:
         id:
@@ -1863,11 +2039,13 @@ components:
           format: date-time
         regIpv4:
           type: integer
+          format: int64
         lastConnected:
           type: string
           format: date-time
         lastIpv4:
           type: integer
+          format: int64
         softwareVersion:
           type: string
         gUIDString:
