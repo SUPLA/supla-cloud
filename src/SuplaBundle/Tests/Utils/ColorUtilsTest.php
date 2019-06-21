@@ -21,19 +21,35 @@ use PHPUnit_Framework_TestCase;
 use SuplaBundle\Utils\ColorUtils;
 
 class ColorUtilsTest extends PHPUnit_Framework_TestCase {
-    /** @dataProvider hueToDecExamples */
+    /** @dataProvider colorExamples */
     public function testHueToDec(int $hue, int $dec) {
         $this->assertEquals($dec, ColorUtils::hueToDec($hue));
     }
 
-    public function hueToDecExamples(): array {
+    /** @dataProvider colorExamples */
+    public function testDecToHue(int $hue, int $dec) {
+        $this->assertEquals($hue, ColorUtils::decToHue($dec));
+    }
+
+    /** @dataProvider colorExamples */
+    public function testDecToHex(int $hue, int $dec, string $hex) {
+        $this->assertEquals($hex, ColorUtils::decToHex($dec));
+    }
+
+    /** @dataProvider colorExamples */
+    public function testHexToDec(int $hue, int $dec, string $hex) {
+        $this->assertEquals($dec, ColorUtils::hexToDec($hex));
+    }
+
+    public function colorExamples(): array {
         return [
-            [0, 16711680],
-            [1, 16712704],
-            [10, 16722688],
-            [100, 5635840],
-            [200, 43775],
-            [333, 16711795],
+            [0, 16711680, '0xFF0000'],
+            [1, 16712704, '0xFF0400'],
+            [10, 16722688, '0xFF2B00'],
+            [100, 5635840, '0x55FF00'],
+            [200, 43775, '0x00AAFF'],
+            [333, 16711795, '0xFF0073'],
+            [359, 16711684, '0xFF0004'],
         ];
     }
 }

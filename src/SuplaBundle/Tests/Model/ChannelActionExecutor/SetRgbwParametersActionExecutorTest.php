@@ -2,10 +2,20 @@
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Model\ChannelActionExecutor\SetRgbwParametersActionExecutor;
+use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
+use SuplaBundle\Supla\SuplaServer;
+use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
-class SetRgbwParametersActionExecutorTest extends \PHPUnit_Framework_TestCase {
+class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
+    use UnitTestHelper;
+
     /**
      * @dataProvider validatingActionParamsProvider
      */
@@ -13,7 +23,7 @@ class SetRgbwParametersActionExecutorTest extends \PHPUnit_Framework_TestCase {
         if (!$expectValid) {
             $this->expectException(InvalidArgumentException::class);
         }
-        $executor = new SetRgbwParametersActionExecutor();
+        $executor = new SetRgbwParametersActionExecutor($this->createMock(ColorAndBrightnessChannelStateGetter::class));
         $executor->validateActionParams($this->createMock(HasFunction::class), $actionParams);
     }
 
@@ -56,7 +66,7 @@ class SetRgbwParametersActionExecutorTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testConvertingStringColorToInt() {
-        $executor = new SetRgbwParametersActionExecutor();
+        $executor = new SetRgbwParametersActionExecutor($this->createMock(ColorAndBrightnessChannelStateGetter::class));
         $subject = $this->createMock(HasFunction::class);
         $validated = $executor->validateActionParams($subject, ['color' => '12', 'color_brightness' => '56']);
         $this->assertSame(12, $validated['color']);
@@ -64,9 +74,39 @@ class SetRgbwParametersActionExecutorTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testConvertingHexColorToInt() {
-        $executor = new SetRgbwParametersActionExecutor();
+        $executor = new SetRgbwParametersActionExecutor($this->createMock(ColorAndBrightnessChannelStateGetter::class));
         $subject = $this->createMock(HasFunction::class);
         $validated = $executor->validateActionParams($subject, ['color' => '0xFFCC77', 'color_brightness' => '56']);
         $this->assertSame(0xFFCC77, $validated['color']);
+    }
+
+    /** @dataProvider exampleRgbwParameters */
+    public function testSettingRgbwParameters(array $params, string $expectedCommand, array $currentState = []) {
+        $stateGetter = $this->createMock(ColorAndBrightnessChannelStateGetter::class);
+        $stateGetter->method('getState')->willReturn($currentState);
+        $executor = new SetRgbwParametersActionExecutor($stateGetter);
+        $suplaServer = $this->createMock(SuplaServer::class);
+        $executor->setSuplaServer($suplaServer);
+        $suplaServer->expects($this->once())->method('executeSetCommand')->willReturnCallback(
+            function (string $command) use ($expectedCommand) {
+                $this->assertEquals($command, 'SET-RGBW-VALUE:1,1,1,' . $expectedCommand);
+            }
+        );
+        $channel = new IODeviceChannel();
+        EntityUtils::setField($channel, 'id', 1);
+        EntityUtils::setField($channel, 'user', $this->createEntityMock(User::class));
+        EntityUtils::setField($channel, 'iodevice', $this->createEntityMock(IODevice::class));
+        $executor->execute($channel, $params);
+    }
+
+    public function exampleRgbwParameters() {
+        return [
+            [['hue' => 0, 'color_brightness' => 0], '16711680,0,0'],
+            [['hue' => 0], '16711680,0,0'],
+            [['hue' => 0], '16711680,50,0', ['color_brightness' => 50]],
+            [['hue' => 0], '16711680,50,70', ['color_brightness' => 50, 'brightness' => 70]],
+            [['color' => '0xFF0000'], '16711680,50,70', ['color_brightness' => 50, 'brightness' => 70]],
+            [['color' => '0xFF0000', 'brightness' => 40], '16711680,50,40', ['color_brightness' => 50, 'brightness' => 70]],
+        ];
     }
 }

@@ -4,11 +4,20 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 use Assert\Assert;
 use Assert\Assertion;
 use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Utils\ColorUtils;
 
 class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
+    /** @var ColorAndBrightnessChannelStateGetter */
+    private $channelStateGetter;
+
+    public function __construct(ColorAndBrightnessChannelStateGetter $channelStateGetter) {
+        $this->channelStateGetter = $channelStateGetter;
+    }
+
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::DIMMER(),
@@ -61,10 +70,17 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function execute(HasFunction $subject, array $actionParams = []) {
         if (isset($actionParams['color'])) {
             $color = $actionParams['color'];
+            if (strpos($color, '0x') === 0) {
+                $color = ColorUtils::hexToDec($color);
+            }
         } elseif (isset($actionParams['hue'])) {
             $color = ColorUtils::hueToDec($actionParams['hue']);
-        } else {
-            $color = 1;
+        }
+        $channel = $subject instanceof IODeviceChannel ? $subject : $subject->getChannels()[0];
+        $currentState = $this->channelStateGetter->getState($channel);
+        $actionParams = array_merge($currentState, $actionParams);
+        if (!isset($color)) {
+            $color = $currentState['color'];
         }
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;
