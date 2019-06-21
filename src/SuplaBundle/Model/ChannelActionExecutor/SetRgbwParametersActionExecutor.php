@@ -85,6 +85,9 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             if (strpos($color, '0x') === 0) {
                 $color = ColorUtils::hexToDec($color);
             }
+            if (!isset($actionParams['color_brightness'])) {
+                $actionParams['color_brightness'] = ColorUtils::decToHsv($color)[2];
+            }
         } elseif (isset($actionParams['hue'])) {
             $color = ColorUtils::hueToDec($actionParams['hue']);
         } elseif (isset($actionParams['hsv'])) {
