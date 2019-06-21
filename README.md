@@ -18,3 +18,7 @@ Application is written with [Symfony](https://symfony.com/) and [Doctrine](http:
 Frontend uses [jQuery](https://jquery.com/) and [Vue.js](https://vuejs.org/).
 
 See [how to install the SUPLA Cloud for development](https://github.com/SUPLA/supla-cloud/blob/master/Development.md).
+
+## RestAPI
+
+[Swagger](https://app.swaggerhub.com/apis/supla/supla-cloud-api/2.3.0)
