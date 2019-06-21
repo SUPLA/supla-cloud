@@ -25,12 +25,14 @@ final class ColorUtils {
 
     public static function hueToDec(int $hue): int {
         Assertion::between($hue, 0, 359, 'Hue value must be between 0 and 359');
-        list($r, $g, $b) = self::hsvToRgb($hue);
-        return ($r << 16) + ($g << 8) + $b;
+        return self::hsvToDec([$hue, 100, 100]);
     }
 
     /** @see https://gist.github.com/vkbo/2323023 */
-    private static function hsvToRgb(int $iH, int $iS = 1, int $iV = 1): array {
+    public static function hsvToDec(array $hsv): int {
+        list($iH, $iS, $iV) = $hsv;
+        $iS /= 100;
+        $iV /= 100;
         $dS = $iS;
         $dV = $iV;
         $dC = $dV * $dS;
@@ -79,45 +81,45 @@ final class ColorUtils {
         $dR += $dM;
         $dG += $dM;
         $dB += $dM;
-        $dR *= 255;
-        $dG *= 255;
-        $dB *= 255;
-        return [round($dR), round($dG), round($dB)];
+        list($r, $g, $b) = array_map('intval', array_map('round', [$dR * 255, $dG * 255, $dB * 255]));
+        return ($r << 16) + ($g << 8) + $b;
     }
 
     public static function decToHue(int $dec): int {
-        list($hue, ,) = self::hexToHsl(self::decToHex($dec, ''));
+        list($hue, ,) = self::hexToHsv(self::decToHex($dec));
         return $hue;
     }
 
-    /** @see https://gist.github.com/bedeabza/10463089 */
-    private static function hexToHsl(string $hex): array {
-        $hex = [$hex[0] . $hex[1], $hex[2] . $hex[3], $hex[4] . $hex[5]];
-        $rgb = array_map(function ($part) {
+    public static function decToHsv(int $dec): array {
+        return self::hexToHsv(self::decToHex($dec));
+    }
+
+    /** @see https://stackoverflow.com/a/13887939/878514 */
+    public static function hexToHsv(string $hex): array {
+        if ($hex{1} == 'x') {
+            $hex = substr($hex, 2);
+        }
+        $hex = [$hex{0} . $hex{1}, $hex{2} . $hex{3}, $hex{4} . $hex{5}];
+        list($R, $G, $B) = array_map(function ($part) {
             return hexdec($part) / 255;
         }, $hex);
-        $max = max($rgb);
-        $min = min($rgb);
-        $l = ($max + $min) / 2;
-        if ($max == $min) {
-            $h = $s = 0;
-        } else {
-            $diff = $max - $min;
-            $s = $l > 0.5 ? $diff / (2 - $max - $min) : $diff / ($max + $min);
-            switch ($max) {
-                case $rgb[0]:
-                    $h = ($rgb[1] - $rgb[2]) / $diff + ($rgb[1] < $rgb[2] ? 6 : 0);
-                    break;
-                case $rgb[1]:
-                    $h = ($rgb[2] - $rgb[0]) / $diff + 2;
-                    break;
-                case $rgb[2]:
-                    $h = ($rgb[0] - $rgb[1]) / $diff + 4;
-                    break;
-            }
-            $h /= 6;
+        $maxRGB = max($R, $G, $B);
+        $minRGB = min($R, $G, $B);
+        $chroma = $maxRGB - $minRGB;
+        $computedV = 100 * $maxRGB;
+        if ($chroma == 0) {
+            return [0, 0, $computedV];
         }
-        return [round($h * 360), $s, $l];
+        $computedS = 100 * ($chroma / $maxRGB);
+        if ($R == $minRGB) {
+            $h = 3 - (($G - $B) / $chroma);
+        } elseif ($B == $minRGB) {
+            $h = 1 - (($R - $G) / $chroma);
+        } else {
+            $h = 5 - (($B - $R) / $chroma);
+        }
+        $computedH = 60 * $h;
+        return array_map('intval', array_map('round', [$computedH, $computedS, $computedV]));
     }
 
     public static function decToHex(int $dec, string $prefix = '0x'): string {

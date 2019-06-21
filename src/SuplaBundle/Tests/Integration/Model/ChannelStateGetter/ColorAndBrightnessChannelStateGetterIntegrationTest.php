@@ -48,10 +48,12 @@ class ColorAndBrightnessChannelStateGetterIntegrationTest extends IntegrationTes
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('color', $state);
         $this->assertArrayHasKey('hue', $state);
+        $this->assertArrayHasKey('hsv', $state);
         $this->assertArrayHasKey('color_brightness', $state);
         $this->assertArrayHasKey('brightness', $state);
         $this->assertEquals('0xFF0000', $state['color']);
         $this->assertEquals(0, $state['hue']);
+        $this->assertEquals(['hue' => 0, 'saturation' => 100, 'value' => 100], $state['hsv']);
         $this->assertEquals(80, $state['color_brightness']);
         $this->assertEquals(90, $state['brightness']);
     }
@@ -61,5 +63,6 @@ class ColorAndBrightnessChannelStateGetterIntegrationTest extends IntegrationTes
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertEquals('0x55FF00', $state['color']);
         $this->assertEquals(100, $state['hue']);
+        $this->assertEquals(['hue' => 100, 'saturation' => 100, 'value' => 100], $state['hsv']);
     }
 }

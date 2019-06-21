@@ -16,6 +16,8 @@ class ColorAndBrightnessChannelStateGetter implements SingleChannelStateGetter {
             if (in_array($channel->getFunction(), [ChannelFunction::RGBLIGHTING(), ChannelFunction::DIMMERANDRGBLIGHTING()])) {
                 $result['color'] = ColorUtils::decToHex($value['color']);
                 $result['hue'] = ColorUtils::decToHue($value['color']);
+                list($h, $s, $v) = ColorUtils::decToHsv($value['color']);
+                $result['hsv'] = ['hue' => $h, 'saturation' => $s, 'value' => $v];
                 $result['color_brightness'] = $value['color_brightness'];
                 $result['on'] = $value['color_brightness'] > 0;
             }

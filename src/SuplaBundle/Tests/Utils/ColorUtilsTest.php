@@ -22,34 +22,53 @@ use SuplaBundle\Utils\ColorUtils;
 
 class ColorUtilsTest extends PHPUnit_Framework_TestCase {
     /** @dataProvider colorExamples */
-    public function testHueToDec(int $hue, int $dec) {
-        $this->assertEquals($dec, ColorUtils::hueToDec($hue));
+    public function testHueToDec(array $hsv, int $dec) {
+        if ($hsv[1] == 100 && $hsv[2] == 100) {
+            $this->assertEquals($dec, ColorUtils::hueToDec($hsv[0]));
+        }
     }
 
     /** @dataProvider colorExamples */
-    public function testDecToHue(int $hue, int $dec) {
-        $this->assertEquals($hue, ColorUtils::decToHue($dec));
+    public function testDecToHue(array $hsv, int $dec) {
+        $this->assertEquals($hsv[0], ColorUtils::decToHue($dec));
     }
 
     /** @dataProvider colorExamples */
-    public function testDecToHex(int $hue, int $dec, string $hex) {
+    public function testDecToHex(array $hsv, int $dec, string $hex) {
         $this->assertEquals($hex, ColorUtils::decToHex($dec));
     }
 
     /** @dataProvider colorExamples */
-    public function testHexToDec(int $hue, int $dec, string $hex) {
+    public function testHexToDec(array $hsv, int $dec, string $hex) {
         $this->assertEquals($dec, ColorUtils::hexToDec($hex));
+    }
+
+    /** @dataProvider colorExamples */
+    public function testDecToHsv(array $hsv, int $dec, string $hex) {
+        $this->assertEquals($hsv, ColorUtils::decToHsv($dec));
+    }
+
+    /** @dataProvider colorExamples */
+    public function testHsvToDec(array $hsv, int $dec, string $hex) {
+        $this->assertEquals($dec, ColorUtils::hsvToDec($hsv), '', 1.0);
+    }
+
+    /** @dataProvider colorExamples */
+    public function testHexToHsv(array $hsv, int $dec, string $hex) {
+        $this->assertEquals($hsv, ColorUtils::hexToHsv($hex));
     }
 
     public function colorExamples(): array {
         return [
-            [0, 16711680, '0xFF0000'],
-            [1, 16712704, '0xFF0400'],
-            [10, 16722688, '0xFF2B00'],
-            [100, 5635840, '0x55FF00'],
-            [200, 43775, '0x00AAFF'],
-            [333, 16711795, '0xFF0073'],
-            [359, 16711684, '0xFF0004'],
+            [[0, 100, 100], 16711680, '0xFF0000'],
+            [[1, 100, 100], 16712704, '0xFF0400'],
+            [[10, 100, 100], 16722688, '0xFF2B00'],
+            [[100, 100, 100], 5635840, '0x55FF00'],
+            [[200, 100, 100], 43775, '0x00AAFF'],
+            [[333, 100, 100], 16711795, '0xFF0073'],
+            [[359, 100, 100], 16711684, '0xFF0004'],
+            [[203, 46, 98], 8900346, '0x87CEFA'],
+            [[143, 100, 82], 53585, '0x00D151'],
         ];
     }
 }

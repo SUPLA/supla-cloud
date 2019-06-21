@@ -33,7 +33,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::between(count($actionParams), 1, 4, 'Invalid number of action parameters');
         Assertion::count(
-            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color',
+            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color', 'hsv',
                 'alexaCorrelationToken', 'googleRequestId'])),
             count($actionParams),
             'Invalid action parameters'
@@ -64,6 +64,18 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             Assert::that($actionParams['brightness'])->numeric()->between(0, 100);
             $actionParams['brightness'] = intval($actionParams['brightness']);
         }
+        if (isset($actionParams['hsv'])) {
+            $hsv = $actionParams['hsv'];
+            Assert::that($hsv)->isArray()->notEmptyKey('hue')->notEmptyKey('saturation')->notEmptyKey('value');
+            $actionParams['hsv'] = [
+                'hue' => intval($hsv['hue']),
+                'saturation' => intval($hsv['saturation']),
+                'value' => intval($hsv['value']),
+            ];
+            Assertion::between($actionParams['hsv']['hue'], 0, 359);
+            Assertion::between($actionParams['hsv']['saturation'], 0, 100);
+            Assertion::between($actionParams['hsv']['value'], 0, 100);
+        }
         return $actionParams;
     }
 
@@ -75,12 +87,18 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             }
         } elseif (isset($actionParams['hue'])) {
             $color = ColorUtils::hueToDec($actionParams['hue']);
+        } elseif (isset($actionParams['hsv'])) {
+            $hsv = $actionParams['hsv'];
+            $color = ColorUtils::hsvToDec([$hsv['hue'], $hsv['saturation'], 100]);
+            if (!isset($actionParams['color_brightness'])) {
+                $actionParams['color_brightness'] = $hsv['value'];
+            }
         }
         $channel = $subject instanceof IODeviceChannel ? $subject : $subject->getChannels()[0];
         $currentState = $this->channelStateGetter->getState($channel);
         $actionParams = array_merge($currentState, $actionParams);
         if (!isset($color)) {
-            $color = $currentState['color'];
+            $color = $currentState['color'] ?? 1;
         }
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;

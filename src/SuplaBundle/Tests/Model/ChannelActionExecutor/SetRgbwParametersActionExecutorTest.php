@@ -62,6 +62,9 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             [['brightness' => 100, 'googleRequestId' => 'abcd'], true],
             [['color' => 1, 'color_brightness' => 0, 'googleRequestId' => 'abcd'], true],
             [['color' => 1, 'color_brightness' => 0, 'brightness' => 100, 'googleRequestId' => 'abcd'], true],
+            [['hsv' => ['hue' => 100, 'saturation' => 50, 'value' => 50]], true],
+            [['hsv' => ['hue' => 100, 'saturation' => 50, 'value' => 150]], false],
+            [['hsv' => ['hue' => 100, 'saturation' => 50]], false],
         ];
     }
 
@@ -89,7 +92,7 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
         $executor->setSuplaServer($suplaServer);
         $suplaServer->expects($this->once())->method('executeSetCommand')->willReturnCallback(
             function (string $command) use ($expectedCommand) {
-                $this->assertEquals($command, 'SET-RGBW-VALUE:1,1,1,' . $expectedCommand);
+                $this->assertEquals('SET-RGBW-VALUE:1,1,1,' . $expectedCommand, $command);
             }
         );
         $channel = new IODeviceChannel();
@@ -107,6 +110,10 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             [['hue' => 0], '16711680,50,70', ['color_brightness' => 50, 'brightness' => 70]],
             [['color' => '0xFF0000'], '16711680,50,70', ['color_brightness' => 50, 'brightness' => 70]],
             [['color' => '0xFF0000', 'brightness' => 40], '16711680,50,40', ['color_brightness' => 50, 'brightness' => 70]],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 100]], '16711680,100,0'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0', ['color_brightness' => 50]],
+            [['hsv' => ['hue' => 100, 'saturation' => 50, 'value' => 60], 'color_brightness' => 40], '11206528,40,0', ['color_brightness' => 50]],
         ];
     }
 }
