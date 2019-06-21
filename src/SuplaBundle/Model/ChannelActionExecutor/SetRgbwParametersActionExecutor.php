@@ -66,7 +66,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         }
         if (isset($actionParams['hsv'])) {
             $hsv = $actionParams['hsv'];
-            Assert::that($hsv)->isArray()->notEmptyKey('hue')->notEmptyKey('saturation')->notEmptyKey('value');
+            Assert::that($hsv)->isArray()->keyIsset('hue')->keyIsset('saturation')->keyIsset('value');
             $actionParams['hsv'] = [
                 'hue' => intval($hsv['hue']),
                 'saturation' => intval($hsv['saturation']),
@@ -85,7 +85,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             if (stripos($color, '0x') === 0) {
                 $color = ColorUtils::hexToDec($color);
             }
-            if (!isset($actionParams['color_brightness'])) {
+            if (!isset($actionParams['color_brightness']) && is_numeric($color)) {
                 $actionParams['color_brightness'] = ColorUtils::decToHsv($color)[2];
             }
         } elseif (isset($actionParams['hue'])) {

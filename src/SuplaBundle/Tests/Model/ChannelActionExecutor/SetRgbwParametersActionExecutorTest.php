@@ -92,7 +92,10 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
         $executor->setSuplaServer($suplaServer);
         $suplaServer->expects($this->once())->method('executeSetCommand')->willReturnCallback(
             function (string $command) use ($expectedCommand) {
-                $this->assertEquals('SET-RGBW-VALUE:1,1,1,' . $expectedCommand, $command);
+                if (strpos($expectedCommand, 'SET-') !== 0) {
+                    $expectedCommand = 'SET-RGBW-VALUE:1,1,1,' . $expectedCommand;
+                }
+                $this->assertEquals($expectedCommand, $command);
             }
         );
         $channel = new IODeviceChannel();
@@ -114,8 +117,10 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 100]], '16711680,100,0'],
             [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0'],
             [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0', ['color_brightness' => 50]],
-            [['hsv' => ['hue' => 100, 'saturation' => 50, 'value' => 60], 'color_brightness' => 40], '11206528,40,0', ['color_brightness' => 50]],
+            [['hsv' => ['hue' => 100, 'saturation' => 50, 'value' => 60], 'color_brightness' => 40], '11206528,40,0'],
             [['color_brightness' => 40], '16711680,40,0', ['color' => '0xFF0000']],
+            [['color' => 'random'], 'SET-RAND-RGBW-VALUE:1,1,1,99,0', ['color_brightness' => '99']],
+            [['color' => 'random', 'color_brightness' => 98], 'SET-RAND-RGBW-VALUE:1,1,1,98,0', ['color_brightness' => '99']],
         ];
     }
 }

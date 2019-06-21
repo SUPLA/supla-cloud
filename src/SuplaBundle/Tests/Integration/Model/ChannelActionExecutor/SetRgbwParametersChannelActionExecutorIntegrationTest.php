@@ -55,7 +55,7 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
             ChannelFunctionAction::SET_RGBW_PARAMETERS(),
             ['color' => '0xFF0000', 'color_brightness' => 55]
         );
-        $this->assertCount(1, SuplaServerMock::$executedCommands);
+        $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-RGBW-VALUE:1,1,1,16711680,55,0', $setCommand);
     }
@@ -66,7 +66,18 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
             ChannelFunctionAction::SET_RGBW_PARAMETERS(),
             ['hue' => 0, 'color_brightness' => 55]
         );
-        $this->assertCount(1, SuplaServerMock::$executedCommands);
+        $this->assertCount(2, SuplaServerMock::$executedCommands);
+        $setCommand = end(SuplaServerMock::$executedCommands);
+        $this->assertEquals('SET-RGBW-VALUE:1,1,1,16711680,55,0', $setCommand);
+    }
+
+    public function testUpdateColorWithHsvValue() {
+        $this->channelActionExecutor->executeAction(
+            $this->device->getChannels()[0],
+            ChannelFunctionAction::SET_RGBW_PARAMETERS(),
+            ['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 55]]
+        );
+        $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-RGBW-VALUE:1,1,1,16711680,55,0', $setCommand);
     }
@@ -77,7 +88,7 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
             ChannelFunctionAction::SET_RGBW_PARAMETERS(),
             ['color' => '16711680', 'color_brightness' => 55]
         );
-        $this->assertCount(1, SuplaServerMock::$executedCommands);
+        $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-RGBW-VALUE:1,1,1,16711680,55,0', $setCommand);
     }
