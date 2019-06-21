@@ -82,7 +82,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function execute(HasFunction $subject, array $actionParams = []) {
         if (isset($actionParams['color'])) {
             $color = $actionParams['color'];
-            if (strpos($color, '0x') === 0) {
+            if (stripos($color, '0x') === 0) {
                 $color = ColorUtils::hexToDec($color);
             }
             if (!isset($actionParams['color_brightness'])) {
@@ -101,7 +101,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         $currentState = $this->channelStateGetter->getState($channel);
         $actionParams = array_merge($currentState, $actionParams);
         if (!isset($color)) {
-            $color = $currentState['color'] ?? 1;
+            $color = ColorUtils::hexToDec($currentState['color'] ?? '0x1');
         }
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;

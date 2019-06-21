@@ -25,6 +25,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -324,6 +325,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingDirectLinkWithParameters() {
+        SuplaServerMock::mockResponse('GET-RGBW', "VALUE:1,0,100\n");
         $response = $this->createDirectLink([
             'subjectId' => $this->device->getChannels()[3]->getId(),
             'allowedActions' => ['set-rgbw-parameters'],
@@ -336,5 +338,21 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66', $commands);
+    }
+
+    public function testExecutingDirectLinkWithComplexParameters() {
+        SuplaServerMock::mockResponse('GET-RGBW', "VALUE:1,0,100\n");
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[3]->getId(),
+            'allowedActions' => ['set-rgbw-parameters'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?hsv[saturation]=66&hsv[value]=67&hsv[hue]=100");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,9437015,67,100', $commands);
     }
 }

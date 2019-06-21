@@ -115,6 +115,7 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0'],
             [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0', ['color_brightness' => 50]],
             [['hsv' => ['hue' => 100, 'saturation' => 50, 'value' => 60], 'color_brightness' => 40], '11206528,40,0', ['color_brightness' => 50]],
+            [['color_brightness' => 40], '16711680,40,0', ['color' => '0xFF0000']],
         ];
     }
 }

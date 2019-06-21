@@ -38,7 +38,9 @@ final class ColorUtils {
         $dC = $dV * $dS;
         $dH = $iH / 60.0;
         $dT = $dH;
-        while ($dT >= 2.0) $dT -= 2.0;
+        while ($dT >= 2.0) {
+            $dT -= 2.0;
+        }
         $dX = $dC * (1 - abs($dT - 1));
         switch (floor($dH)) {
             case 0:
