@@ -570,5 +570,8 @@ execute: proveď
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Actions: ~
+Home+ Heater: ~
+The gate sensor must function properly in order to execute the Open and Close actions.: ~
+Thermostat: ~
 
 #</editor-fold>
