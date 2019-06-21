@@ -6,6 +6,7 @@ use Assert\Assertion;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Utils\ColorUtils;
 
 class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
@@ -58,7 +59,13 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function execute(HasFunction $subject, array $actionParams = []) {
-        $color = $actionParams['color'] ?? 1;
+        if (isset($actionParams['color'])) {
+            $color = $actionParams['color'];
+        } elseif (isset($actionParams['hue'])) {
+            $color = ColorUtils::hueToDec($actionParams['hue']);
+        } else {
+            $color = 1;
+        }
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;
         $command = $subject->buildServerSetCommand(
