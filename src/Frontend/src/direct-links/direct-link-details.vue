@@ -62,16 +62,6 @@
                                                     </div>
                                                 </div>
                                             </dt>
-                                        </dl>
-                                        <transition-expand>
-                                            <div class="form-group"
-                                                v-if="displayOpeningSensorWarning">
-                                                <div class="alert alert-warning text-center">
-                                                    {{ $t('The gate sensor must function properly in order to execute the Open and Close actions.') }}
-                                                </div>
-                                            </div>
-                                        </transition-expand>
-                                        <dl>
                                             <dd>
                                                 {{ $t('For devices') }}
                                                 <i class="pe-7s-help1"
@@ -191,12 +181,10 @@
     import DirectLinkAudit from "./direct-link-audit";
     import SubjectDropdown from "../devices/subject-dropdown";
     import AppState from "../router/app-state";
-    import TransitionExpand from "../common/gui/transition-expand";
 
     export default {
         props: ['id', 'item'],
         components: {
-            TransitionExpand,
             SubjectDropdown,
             DirectLinkAudit,
             DateRangePicker,
@@ -310,17 +298,16 @@
             },
             possibleActions() {
                 if (this.directLink && this.directLink.subject) {
+                    // OPEN and CLOSE actions are not supported for gates via API
+                    const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
                     return [{
                         id: 1000,
                         name: 'READ',
                         caption: 'Read',
                         nameSlug: 'read'
-                    }].concat(this.directLink.subject.function.possibleActions);
+                    }].concat(this.directLink.subject.function.possibleActions)
+                        .filter(action => !isGate || (action.name != 'OPEN' && action.name != 'CLOSE'));
                 }
-            },
-            displayOpeningSensorWarning() {
-                const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
-                return isGate && this.currentlyAllowedActions.includes('OPEN') || this.currentlyAllowedActions.includes('CLOSE');
             },
             fullUrl() {
                 return this.item && this.item.url || '';
