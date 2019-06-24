@@ -49,11 +49,13 @@ class ColorAndBrightnessChannelStateGetterIntegrationTest extends IntegrationTes
         $this->assertArrayHasKey('color', $state);
         $this->assertArrayHasKey('hue', $state);
         $this->assertArrayHasKey('hsv', $state);
+        $this->assertArrayHasKey('rgb', $state);
         $this->assertArrayHasKey('color_brightness', $state);
         $this->assertArrayHasKey('brightness', $state);
         $this->assertEquals('0xFF0000', $state['color']);
         $this->assertEquals(0, $state['hue']);
-        $this->assertEquals(['hue' => 0, 'saturation' => 100, 'value' => 100], $state['hsv']);
+        $this->assertEquals(['hue' => 0, 'saturation' => 100, 'value' => 80], $state['hsv']);
+        $this->assertEquals(['red' => 204, 'green' => 0, 'blue' => 0], $state['rgb']);
         $this->assertEquals(80, $state['color_brightness']);
         $this->assertEquals(90, $state['brightness']);
     }
@@ -62,7 +64,9 @@ class ColorAndBrightnessChannelStateGetterIntegrationTest extends IntegrationTes
         SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:5635840,80,90\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertEquals('0x55FF00', $state['color']);
+        $this->assertEquals(80, $state['color_brightness']);
         $this->assertEquals(100, $state['hue']);
-        $this->assertEquals(['hue' => 100, 'saturation' => 100, 'value' => 100], $state['hsv']);
+        $this->assertEquals(['hue' => 100, 'saturation' => 100, 'value' => 80], $state['hsv']);
+        $this->assertEquals(['red' => 68, 'green' => 204, 'blue' => 0], $state['rgb']);
     }
 }

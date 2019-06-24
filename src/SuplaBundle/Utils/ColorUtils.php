@@ -83,8 +83,8 @@ final class ColorUtils {
         $dR += $dM;
         $dG += $dM;
         $dB += $dM;
-        list($r, $g, $b) = array_map('intval', array_map('round', [$dR * 255, $dG * 255, $dB * 255]));
-        return ($r << 16) + ($g << 8) + $b;
+        $rgb = array_map('intval', array_map('round', [$dR * 255, $dG * 255, $dB * 255]));
+        return self::rgbToDec($rgb);
     }
 
     public static function decToHue(int $dec): int {
@@ -130,5 +130,21 @@ final class ColorUtils {
 
     public static function hexToDec(string $color): int {
         return hexdec($color);
+    }
+
+    public static function rgbToDec(array $rgb): int {
+        return ($rgb[0] << 16) + ($rgb[1] << 8) + $rgb[2];
+    }
+
+    public static function decToRgb(int $rgb): array {
+        $r = ($rgb >> 16) & 0xFF;
+        $g = ($rgb >> 8) & 0xFF;
+        $b = $rgb & 0xFF;
+        return [$r, $g, $b];
+    }
+
+    public static function hsvToRgb(array $hsv): array {
+        $dec = self::hsvToDec($hsv);
+        return self::decToRgb($dec);
     }
 }

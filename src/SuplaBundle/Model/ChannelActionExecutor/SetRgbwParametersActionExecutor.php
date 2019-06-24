@@ -33,11 +33,35 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::between(count($actionParams), 1, 4, 'Invalid number of action parameters');
         Assertion::count(
-            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color', 'hsv',
+            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color', 'hsv', 'rgb',
                 'alexaCorrelationToken', 'googleRequestId'])),
             count($actionParams),
             'Invalid action parameters'
         );
+        $possibleKeyCombinations = [
+            ['color', 'color_brightness'],
+            ['hue', 'color_brightness'],
+            ['hsv'],
+            ['rgb'],
+        ];
+        $possibleColorSettings = array_unique(call_user_func_array('array_merge', $possibleKeyCombinations));
+        foreach ($possibleKeyCombinations as $possibleKeyCombination) {
+            if (isset($actionParams[$possibleKeyCombination[0]])) {
+                foreach ($possibleColorSettings as $possibleColorSetting) {
+                    if (isset($actionParams[$possibleColorSetting])) {
+                        Assertion::inArray(
+                            $possibleColorSetting,
+                            $possibleKeyCombination,
+                            sprintf(
+                                'You cant set %s when you use new color format with %s parameter.',
+                                $possibleColorSetting,
+                                $possibleKeyCombination[0]
+                            )
+                        );
+                    }
+                }
+            }
+        }
         if (isset($actionParams['hue']) || isset($actionParams['color'])) {
             if (isset($actionParams['hue'])) { // hue is supported in schedules only
                 Assertion::true(is_numeric($actionParams['hue']) || in_array($actionParams['hue'], ['random', 'white']));
@@ -76,6 +100,18 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             Assertion::between($actionParams['hsv']['saturation'], 0, 100);
             Assertion::between($actionParams['hsv']['value'], 0, 100);
         }
+        if (isset($actionParams['rgb'])) {
+            $rgb = $actionParams['rgb'];
+            Assert::that($rgb)->isArray()->keyIsset('red')->keyIsset('green')->keyIsset('blue');
+            $actionParams['rgb'] = [
+                'red' => intval($rgb['red']),
+                'green' => intval($rgb['green']),
+                'blue' => intval($rgb['blue']),
+            ];
+            Assertion::between($actionParams['rgb']['red'], 0, 255);
+            Assertion::between($actionParams['rgb']['green'], 0, 255);
+            Assertion::between($actionParams['rgb']['blue'], 0, 255);
+        }
         return $actionParams;
     }
 
@@ -85,17 +121,18 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             if (stripos($color, '0x') === 0) {
                 $color = ColorUtils::hexToDec($color);
             }
-            if (!isset($actionParams['color_brightness']) && is_numeric($color)) {
-                $actionParams['color_brightness'] = ColorUtils::decToHsv($color)[2];
-            }
         } elseif (isset($actionParams['hue'])) {
             $color = ColorUtils::hueToDec($actionParams['hue']);
-        } elseif (isset($actionParams['hsv'])) {
+        } elseif (isset($actionParams['rgb'])) {
+            $rgb = $actionParams['rgb'];
+            $color = ColorUtils::rgbToDec([$rgb['red'], $rgb['green'], $rgb['blue']]);
+            list($h, $s, $v) = ColorUtils::decToHsv($color);
+            $actionParams['hsv'] = ['hue' => $h, 'saturation' => $s, 'value' => $v];
+        }
+        if (isset($actionParams['hsv'])) {
             $hsv = $actionParams['hsv'];
             $color = ColorUtils::hsvToDec([$hsv['hue'], $hsv['saturation'], 100]);
-            if (!isset($actionParams['color_brightness'])) {
-                $actionParams['color_brightness'] = $hsv['value'];
-            }
+            $actionParams['color_brightness'] = $hsv['value'];
         }
         $channel = $subject instanceof IODeviceChannel ? $subject : $subject->getChannels()[0];
         $currentState = $this->channelStateGetter->getState($channel);
