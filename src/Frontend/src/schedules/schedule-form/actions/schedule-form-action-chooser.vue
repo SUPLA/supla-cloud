@@ -50,7 +50,7 @@
                 this.$store.commit('updateSubject', this.subjectWithType);
             },
             filterOutNotSchedulableSubjects(subject) {
-                if (['THERMOSTAT', 'THERMOSTATHEATPOLHOMEPLUS'].indexOf(subject.function.name) !== -1) {
+                if (subject.function.possibleActions.length === 0) {
                     return false;
                 }
                 if (subject.channelsIds && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
