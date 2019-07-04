@@ -132,6 +132,31 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getId(), $content['id']);
     }
 
+    public function testGettingDevicesDetailsByGuid() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/iodevices/' . $this->device->getGUIDString());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = current(json_decode($response->getContent(), true));
+        $this->assertEquals($this->device->getId(), $content['id']);
+    }
+
+    public function testGettingDevicesDetailsByGuidWith0xPrefix() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/iodevices/0x' . $this->device->getGUIDString());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = current(json_decode($response->getContent(), true));
+        $this->assertEquals($this->device->getId(), $content['id']);
+    }
+
+    public function testGettingDevicesDetailsByUnknownGuid() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/iodevices/badguid' . $this->device->getGUIDString());
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+    }
+
     public function test404OnGettingInvalidIoDevice() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/api/iodevices/123245');

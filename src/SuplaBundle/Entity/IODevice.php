@@ -24,7 +24,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceRepository")
  * @ORM\Table(name="supla_iodevice")
  * @UniqueEntity(fields="id", message="IODevice already exists")
  */
@@ -212,20 +212,15 @@ class IODevice implements HasLocation {
 
     public function getGUID() {
         $guid = $this->guid;
-
         if (get_resource_type($guid) == 'stream') {
             $guid = bin2hex(stream_get_contents($guid, -1, 0));
         };
-
         return $guid;
     }
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
     public function getGUIDString(): string {
         $guid = $this->getGUID();
-
         return strtoupper(substr($guid, 0, 8) . '-'
             . substr($guid, 8, 4) . '-'
             . substr($guid, 12, 4) . '-'

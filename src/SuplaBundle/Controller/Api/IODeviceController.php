@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
@@ -26,6 +27,7 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,6 +108,7 @@ class IODeviceController extends RestController {
 
     /**
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_R') and is_granted('accessIdContains', ioDevice)")
+     * @Rest\Get("/iodevices/{ioDevice}", requirements={"ioDevice"="^\d+$"})
      */
     public function getIodeviceAction(Request $request, IODevice $ioDevice) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -161,6 +164,15 @@ class IODeviceController extends RestController {
             ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state']
         );
         return $view;
+    }
+
+    /**
+     * @Security("has_role('ROLE_IODEVICES_R')")
+     * @Rest\Get("/iodevices/{guid}")
+     */
+    public function getIodeviceByGuidAction(Request $request, string $guid, IODeviceRepository $repository) {
+        $ioDevice = $repository->findForUserByGuid($this->getUser(), $guid);
+        return $this->getIodeviceAction($request, $ioDevice);
     }
 
     /**
