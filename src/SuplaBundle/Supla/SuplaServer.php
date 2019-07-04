@@ -172,7 +172,7 @@ abstract class SuplaServer {
         if ($value !== false) {
             list($color, $color_brightness, $brightness) = sscanf($value, "VALUE:%i,%i,%i\n");
             if (is_numeric($color) && is_numeric($color_brightness) && is_numeric($brightness)) {
-                return ['color' => sprintf('0x%06X', $color), 'color_brightness' => $color_brightness, 'brightness' => $brightness];
+                return ['color' => $color, 'color_brightness' => $color_brightness, 'brightness' => $brightness];
             }
         }
         return false;

@@ -18,9 +18,15 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater\IODeviceChannelWithParams;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -33,11 +39,13 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     private $user;
     /** @var IODevice */
     private $device;
+    /** @var Location */
+    private $location;
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
-        $location = $this->createLocation($this->user);
-        $this->device = $this->createDeviceFull($location);
+        $this->location = $this->createLocation($this->user);
+        $this->device = $this->createDeviceFull($this->location);
     }
 
     public function testGettingDevicesList() {
@@ -124,6 +132,31 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getId(), $content['id']);
     }
 
+    public function testGettingDevicesDetailsByGuid() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/iodevices/' . $this->device->getGUIDString());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = current(json_decode($response->getContent(), true));
+        $this->assertEquals($this->device->getId(), $content['id']);
+    }
+
+    public function testGettingDevicesDetailsByGuidWith0xPrefix() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/iodevices/0x' . $this->device->getGUIDString());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = current(json_decode($response->getContent(), true));
+        $this->assertEquals($this->device->getId(), $content['id']);
+    }
+
+    public function testGettingDevicesDetailsByUnknownGuid() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/iodevices/badguid' . $this->device->getGUIDString());
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+    }
+
     public function test404OnGettingInvalidIoDevice() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/api/iodevices/123245');
@@ -137,5 +170,103 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', '/api/iodevices/' . $this->device->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
+    }
+
+    public function testDeletingDevice() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+        $this->assertEmpty($this->user->getIODevices());
+    }
+
+    /** @large */
+    public function testDeletingDeviceClearsRelatedGateOtherDevices() {
+        $client = $this->createAuthenticatedClient();
+        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
+        })->first();
+        // assign sensor to the gate from other device
+        $channelParamsUpdater->updateChannelParams($gateChannel, new IODeviceChannelWithParams(0, $sensorChannel->getId()));
+        $this->getEntityManager()->refresh($sensorChannel);
+        $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam1());
+        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->getEntityManager()->refresh($sensorChannel);
+        $this->assertEquals(0, $sensorChannel->getParam1(), 'The paired sensor has not been cleared.');
+    }
+
+    /** @large */
+    public function testDeletingDeviceClearsRelatedSensorInOtherDevices() {
+        $client = $this->createAuthenticatedClient();
+        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
+        })->first();
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        // assign sensor to the gate from other device
+        $channelParamsUpdater->updateChannelParams($gateChannel, new IODeviceChannelWithParams(0, $sensorChannel->getId()));
+        $this->getEntityManager()->refresh($gateChannel);
+        $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
+        $client->request('DELETE', '/api/iodevices/' . $anotherDevice->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->getEntityManager()->refresh($gateChannel);
+        $this->assertEquals(0, $gateChannel->getParam2(), 'The paired sensor has not been cleared.');
+    }
+
+    /** @large */
+    public function testDeletingDeviceClearsRelatedSecondaryGateOtherDevices() {
+        $client = $this->createAuthenticatedClient();
+        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
+        })->first();
+        // assign sensor to the gate from other device
+        $channelParamsUpdater->updateChannelParams($gateChannel, new IODeviceChannelWithParams(0, 0, $sensorChannel->getId()));
+        $this->getEntityManager()->refresh($sensorChannel);
+        $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam2());
+        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->getEntityManager()->refresh($sensorChannel);
+        $this->assertEquals(0, $sensorChannel->getParam2(), 'The paired sensor has not been cleared.');
+    }
+
+    /** @large */
+    public function testDeletingDeviceClearsRelatedSecondarySensorInOtherDevices() {
+        $client = $this->createAuthenticatedClient();
+        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
+        })->first();
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        // assign sensor to the gate from other device
+        $channelParamsUpdater->updateChannelParams($gateChannel, new IODeviceChannelWithParams(0, 0, $sensorChannel->getId()));
+        $this->getEntityManager()->refresh($gateChannel);
+        $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam3());
+        $client->request('DELETE', '/api/iodevices/' . $anotherDevice->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->getEntityManager()->refresh($gateChannel);
+        $this->assertEquals(0, $gateChannel->getParam3(), 'The paired sensor has not been cleared.');
     }
 }

@@ -307,7 +307,6 @@
                         nameSlug: 'read'
                     }].concat(this.directLink.subject.function.possibleActions)
                         .filter(action => !isGate || (action.name != 'OPEN' && action.name != 'CLOSE'));
-
                 }
             },
             fullUrl() {

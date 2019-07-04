@@ -92,8 +92,11 @@
                     </div>
                 </pending-changes-page>
             </div>
+
+
             <channel-details-tabs v-if="channel && (!changedFunction || !loading)"
                 :channel="channel"></channel-details-tabs>
+
         </loading-cover>
         <channel-function-edit-confirmation :confirmation-object="changeFunctionConfirmationObject"
             v-if="changeFunctionConfirmationObject"
@@ -116,10 +119,12 @@
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
+    import ChannelActionExecutor from "./action/channel-action-executor";
 
     export default {
         props: ['id'],
         components: {
+            ChannelActionExecutor,
             PageContainer,
             PendingChangesPage,
             ChannelFunctionEditConfirmation,

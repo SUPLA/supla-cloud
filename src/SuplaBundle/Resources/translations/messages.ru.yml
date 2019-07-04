@@ -569,5 +569,9 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Actions: ~
+Cannot execute an action when the device is disconnected.: ~
+Home+ Heater: ~
+Thermostat: ~
 
 #</editor-fold>

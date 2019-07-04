@@ -45,6 +45,8 @@
 </template>
 
 <script>
+    import EventBus from "../common/event-bus";
+
     export default {
         props: ['channel', 'state'],
         data() {
@@ -58,6 +60,7 @@
                 this.fetchState();
                 this.timer = setInterval(() => this.fetchState(), 7000);
             }
+            EventBus.$on('channel-state-updated', this.fetchState);
         },
         methods: {
             fetchState() {
@@ -79,6 +82,7 @@
         },
         beforeDestroy() {
             clearInterval(this.timer);
+            EventBus.$off('channel-state-updated', this.loadNewClientAppsListener);
         }
     };
 </script>

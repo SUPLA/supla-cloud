@@ -25,6 +25,7 @@ use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\TemperatureLogItem;
 use SuplaBundle\Entity\TempHumidityLogItem;
+use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
@@ -54,7 +55,8 @@ class ChannelMeasurementLogsController extends RestController {
         Assertion::inArray(
             $functionId,
             [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER],
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
+                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
 
@@ -78,6 +80,10 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::GASMETER:
             case ChannelFunction::WATERMETER:
                 $repoName = 'ImpulseCounterLogItem';
+                break;
+            case ChannelFunction::THERMOSTAT:
+            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
+                $repoName = 'ThermostatLogItem';
                 break;
         }
 
@@ -135,7 +141,8 @@ class ChannelMeasurementLogsController extends RestController {
     private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, $allowedFuncList = null) {
         if ($allowedFuncList == null) {
             $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER];
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
+                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS];
         }
 
         Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');
@@ -204,6 +211,19 @@ class ChannelMeasurementLogsController extends RestController {
                     "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
                     . "`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
                     . "`phase3_rae`, `phase3_fre`, `phase3_rre`",
+                    $channel->getId(),
+                    $offset,
+                    $limit,
+                    $afterTimestamp,
+                    $beforeTimestamp,
+                    $orderDesc
+                );
+                break;
+            case ChannelFunction::THERMOSTAT:
+            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
+                $result = $this->logItems(
+                    "`supla_thermostat_log`",
+                    "`on`,`measured_temperature`,`preset_temperature`",
                     $channel->getId(),
                     $offset,
                     $limit,
@@ -335,6 +355,7 @@ class ChannelMeasurementLogsController extends RestController {
 
         $this->ensureChannelHasMeasurementLogs($channel);
 
+        $this->deleteMeasurementLogs(ThermostatLogItem::class, $channel);
         $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);
         $this->deleteMeasurementLogs(ImpulseCounterLogItem::class, $channel);
         $this->deleteMeasurementLogs(TemperatureLogItem::class, $channel);
