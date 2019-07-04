@@ -19,6 +19,7 @@ namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
 use Symfony\Component\Serializer\Annotation\Groups;
+use UnexpectedValueException;
 
 /**
  * @method static ChannelType UNSUPPORTED()
@@ -116,12 +117,14 @@ final class ChannelType extends Enum {
             self::RELAYG5LA1A,
             self::RELAY2XG5LA1A,
             self::RELAYHFD4,
+            self::THERMOSTAT,
+            self::THERMOSTATHEATPOLHOMEPLUS,
         ];
     }
 
     /** @return int[] */
     public static function inputTypes(): array {
-        return array_diff(self::toArray(), self::outputTypes());
+        return array_merge(array_diff(self::toArray(), self::outputTypes()), [self::THERMOSTAT, self::THERMOSTATHEATPOLHOMEPLUS]);
     }
 
     public static function captions(): array {
@@ -235,7 +238,7 @@ final class ChannelType extends Enum {
         $typeId = intval($typeId);
         try {
             return new self($typeId);
-        } catch (\UnexpectedValueException $e) {
+        } catch (UnexpectedValueException $e) {
             $type = self::UNSUPPORTED();
             $type->unsupportedTypeId = $typeId;
             return $type;
