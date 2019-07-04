@@ -5,7 +5,7 @@
             <subject-dropdown v-model="subjectWithType"
                 channels-dropdown-params="io=output&hasFunction=1"
                 @input="subjectChanged()"
-                :filter="filterOutGateChannelGroups"></subject-dropdown>
+                :filter="filterOutNotSchedulableSubjects"></subject-dropdown>
         </div>
         <div v-if="subject">
             <channel-action-chooser :subject="subject"
@@ -49,8 +49,14 @@
                 this.$emit('subject-change', this.subjectWithType.subject);
                 this.$store.commit('updateSubject', this.subjectWithType);
             },
-            filterOutGateChannelGroups(subject) {
-                return !subject.channelsIds || ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) === -1;
+            filterOutNotSchedulableSubjects(subject) {
+                if (subject.function.possibleActions.length === 0) {
+                    return false;
+                }
+                if (subject.channelsIds && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
+                    return false;
+                }
+                return true;
             },
             updateAction() {
                 this.actionId = this.action.id;
