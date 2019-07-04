@@ -172,6 +172,7 @@ class IODeviceController extends RestController {
      */
     public function getIodeviceByGuidAction(Request $request, string $guid, IODeviceRepository $repository) {
         $ioDevice = $repository->findForUserByGuid($this->getUser(), $guid);
+        $this->denyAccessUnlessGranted('accessIdContains', $ioDevice);
         return $this->getIodeviceAction($request, $ioDevice);
     }
 
