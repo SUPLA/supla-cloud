@@ -17,6 +17,7 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\IODevice;
@@ -43,6 +44,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
+        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
         $manager->flush();
     }
 
@@ -70,7 +72,7 @@ class DevicesFixture extends SuplaFixture {
         ], self::DEVICE_FULL);
     }
 
-    protected function createEveryFunctionDevice(Location $location): IODevice {
+    protected function createEveryFunctionDevice(Location $location, $name = 'ALL-IN-ONE MEGA DEVICE'): IODevice {
         $functionableTypes = array_filter(ChannelType::values(), function (ChannelType $type) {
             return count(ChannelType::functions()[$type->getValue()] ?? []);
         });
@@ -80,7 +82,7 @@ class DevicesFixture extends SuplaFixture {
             }, ChannelType::functions()[$type->getValue()]);
         }, $functionableTypes));
         $channels = call_user_func_array('array_merge', $channels);
-        return $this->createDevice('ALL-IN-ONE MEGA DEVICE', $location, $channels, 'megadevice');
+        return $this->createDevice($name, $location, $channels, 'megadevice');
     }
 
     protected function createDeviceRgb(Location $location): IODevice {
@@ -95,8 +97,8 @@ class DevicesFixture extends SuplaFixture {
         AnyFieldSetter::set($device, [
             'name' => $name,
             'guid' => rand(0, 9999999),
-            'regDate' => new \DateTime(),
-            'lastConnected' => new \DateTime(),
+            'regDate' => new DateTime(),
+            'lastConnected' => new DateTime(),
             'regIpv4' => rand(0, 9999999),
             'softwareVersion' => '2.' . rand(0, 50),
             'protocolVersion' => '2.' . rand(0, 50),
