@@ -104,6 +104,11 @@
   &.active {
     box-shadow: none;
   }
+  &[disabled], &[disabled]:hover {
+    border-color: $supla-grey-dark;
+    background-color: $supla-white;
+    color: $supla-grey-dark;
+  }
 }
 
 .btn-toolbar {

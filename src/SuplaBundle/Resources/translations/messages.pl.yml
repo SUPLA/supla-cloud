@@ -68,6 +68,7 @@ Calibration: Kalibracja
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
 Cancelled: Anulowane
+Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
 Change Password: Zmiana hasła
@@ -427,6 +428,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
 There are no more channels you can add to this group: 'Nie ma innych kanałów, które można by dodać do tej grupy'
 Thermometer: Termometr
+Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.'
 This is the list of applications you have granted access to your account.: 'To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.'
 Thursdays: Czwartki
@@ -571,6 +573,5 @@ execute: wykonaj
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Home+ Heater: ~
-Thermostat: ~
 
 #</editor-fold>

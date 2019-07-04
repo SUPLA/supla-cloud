@@ -1,30 +1,40 @@
 <template>
-    <channel-action-chooser :subject="subject"
-        v-model="actionToExecute"
-        v-slot="{possibleAction}"
-        :possible-action-filter="possibleActionFilter">
-        <button :class="'btn ' + (requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id ? 'btn-green' : 'btn-default')"
-            :disabled="executing"
-            @click="executeAction(possibleAction)"
-            v-show="!requiresParams(actionToExecute) || possibleAction.id == actionToExecute.id">
-            <span v-if="!possibleAction.executing">
-                <i v-if="possibleAction.executed"
-                    class="pe-7s-check"></i>
-                <i v-else-if="requiresParams(possibleAction) && possibleAction.id != actionToExecute.id"
-                    class="pe-7s-angle-down-circle"></i>
-                <i v-else
-                    class="pe-7s-rocket"></i>
-                {{ possibleAction.executed ? $t('executed') : $t(possibleAction.caption) }}
-            </span>
-            <button-loading-dots v-else></button-loading-dots>
-        </button>
-        <button v-if="requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id"
-            class="btn btn-grey"
-            @click="actionToExecute = {}">
-            <i class="pe-7s-close"></i>
-            {{ $t('Cancel') }}
-        </button>
-    </channel-action-chooser>
+    <div>
+        <transition-expand>
+            <div class="row"
+                v-if="!isConnected">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="alert alert-warning text-center">
+                        {{ $t('Cannot execute an action when the device is disconnected.') }}
+                    </div>
+                </div>
+            </div>
+        </transition-expand>
+        <channel-action-chooser :subject="subject"
+            v-model="actionToExecute"
+            v-slot="{possibleAction}"
+            :possible-action-filter="possibleActionFilter">
+            <button :class="'btn ' + (requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id ? 'btn-green' : 'btn-default')"
+                :disabled="!isConnected || executing"
+                @click="executeAction(possibleAction)"
+                v-show="!requiresParams(actionToExecute) || possibleAction.id == actionToExecute.id">
+                <span v-if="!possibleAction.executing">
+                    <i v-if="possibleAction.executed"
+                        class="pe-7s-check"></i>
+                    <i v-else-if="requiresParams(possibleAction) && possibleAction.id != actionToExecute.id"
+                        class="pe-7s-angle-down-circle"></i>
+                    {{ possibleAction.executed ? $t('executed') : $t(possibleAction.caption) }}
+                </span>
+                <button-loading-dots v-else></button-loading-dots>
+            </button>
+            <button v-if="requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id"
+                class="btn btn-grey"
+                @click="actionToExecute = {}">
+                <i class="pe-7s-close"></i>
+                {{ $t('Cancel') }}
+            </button>
+        </channel-action-chooser>
+    </div>
 </template>
 
 <script>
@@ -32,9 +42,10 @@
     import EventBus from "src/common/event-bus";
     import ButtonLoadingDots from "src/common/gui/loaders/button-loading-dots.vue";
     import Vue from "vue";
+    import TransitionExpand from "../../common/gui/transition-expand";
 
     export default {
-        components: {ButtonLoadingDots, ChannelActionChooser},
+        components: {TransitionExpand, ButtonLoadingDots, ChannelActionChooser},
         props: ['subject'],
         data() {
             return {
@@ -82,6 +93,9 @@
             },
             endpoint() {
                 return this.subjectType === 'channel' ? 'channels' : 'channel-groups';
+            },
+            isConnected() {
+                return this.subject.state && this.subject.state.connected;
             }
         }
     };
