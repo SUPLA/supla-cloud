@@ -47,6 +47,7 @@ services:
   test.client:
     class: SuplaBundle\Tests\Integration\TestClient
     shared: false
+    public: true
     arguments:
       - '@kernel'
       - '%test.client.parameters%'

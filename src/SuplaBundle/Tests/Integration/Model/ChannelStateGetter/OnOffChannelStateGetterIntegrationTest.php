@@ -43,7 +43,7 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::RGBLIGHTING],
             [ChannelType::RELAY, ChannelFunction::DIMMERANDRGBLIGHTING],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGettingOnFromPowerSwitch() {

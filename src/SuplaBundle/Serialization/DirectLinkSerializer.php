@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
+use DateTime;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\InactiveDirectLinkException;
@@ -51,8 +52,8 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
             $normalized['url'] = $directLink->buildUrl($this->localSuplaCloud->getAddress(), $context['slug']);
         }
         $normalized['activeDateRange'] = [
-            'dateStart' => $directLink->getActiveFrom() ? $directLink->getActiveFrom()->format(\DateTime::ATOM) : null,
-            'dateEnd' => $directLink->getActiveTo() ? $directLink->getActiveTo()->format(\DateTime::ATOM) : null,
+            'dateStart' => $directLink->getActiveFrom() ? $directLink->getActiveFrom()->format(DateTime::ATOM) : null,
+            'dateEnd' => $directLink->getActiveTo() ? $directLink->getActiveTo()->format(DateTime::ATOM) : null,
         ];
         if (!$normalized['active']) {
             try {

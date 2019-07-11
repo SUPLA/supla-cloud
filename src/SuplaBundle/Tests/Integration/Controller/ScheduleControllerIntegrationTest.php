@@ -54,7 +54,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
         $scheduleFromResponse = json_decode($client->getResponse()->getContent());
         $this->assertGreaterThan(0, $scheduleFromResponse->id);
-        $schedule = $this->container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
+        $schedule = self::$container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
         $this->assertEquals($scheduleFromResponse->timeExpression, $schedule->getTimeExpression());
         return $schedule;
     }

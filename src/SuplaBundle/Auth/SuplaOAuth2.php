@@ -27,6 +27,7 @@ use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use Symfony\Component\HttpFoundation\Response;
 
 class SuplaOAuth2 extends OAuth2 {
     /** @var array */
@@ -124,7 +125,7 @@ class SuplaOAuth2 extends OAuth2 {
                     throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
                 } else {
                     throw new OAuth2ServerException(
-                        self::HTTP_BAD_REQUEST,
+                        Response::HTTP_BAD_REQUEST,
                         self::ERROR_INVALID_CLIENT,
                         'The client credentials are invalid'
                     );

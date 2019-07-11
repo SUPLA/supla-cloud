@@ -40,7 +40,7 @@ class ConnectedChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGettingConnectedFalse() {

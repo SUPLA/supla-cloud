@@ -105,7 +105,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingWithGoodToken */
     public function testDeletingUserAccountEventIsSavedInAudit() {
         /** @var AuditEntry $lastEntry */
-        $entries = $this->container->get(AuditEntryRepository::class)->findAll();
+        $entries = self::$container->get(AuditEntryRepository::class)->findAll();
         $lastEntry = end($entries);
         $this->assertEquals(AuditedEvent::USER_ACCOUNT_DELETED, $lastEntry->getEvent()->getId());
         $this->assertEquals(1, $lastEntry->getIntParam());

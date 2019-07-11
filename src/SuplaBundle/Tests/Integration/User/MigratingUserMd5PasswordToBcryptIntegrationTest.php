@@ -34,7 +34,7 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
 
     protected function setUp() {
         $this->user = $this->createConfirmedUser();
-        $this->encoderFactory = $this->container->get('security.encoder_factory');
+        $this->encoderFactory = self::$container->get('security.encoder_factory');
         $encoderFactory = $this->encoderFactory;
         $legacyPasswordSetter = function ($password) use ($encoderFactory) {
             $this->password = null;

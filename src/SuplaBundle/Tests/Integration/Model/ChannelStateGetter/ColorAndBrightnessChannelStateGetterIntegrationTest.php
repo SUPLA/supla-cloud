@@ -40,7 +40,7 @@ class ColorAndBrightnessChannelStateGetterIntegrationTest extends IntegrationTes
         $this->device = $this->createDevice($location, [
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGettingRgbValue() {

@@ -28,7 +28,7 @@ class AuditIntegrationTest extends IntegrationTestCase {
 
     /** @before */
     public function init() {
-        $this->audit = $this->container->get(Audit::class);
+        $this->audit = self::$container->get(Audit::class);
     }
 
     public function testSavingSimpleAuditEntry() {

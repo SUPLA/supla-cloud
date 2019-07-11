@@ -27,8 +27,6 @@ class AppKernel extends Kernel {
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
             $bundles[] = new SuplaDeveloperBundle\SuplaDeveloperBundle();
         }
@@ -70,12 +68,5 @@ class AppKernel extends Kernel {
                 ]);
             }
         });
-    }
-
-    protected function build(\Symfony\Component\DependencyInjection\ContainerBuilder $container) {
-        parent::build($container);
-        if ($this->getEnvironment() === 'test') {
-            $container->addCompilerPass(new SuplaBundle\Tests\Integration\TestContainerPass(), \Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_OPTIMIZE);
-        }
     }
 }

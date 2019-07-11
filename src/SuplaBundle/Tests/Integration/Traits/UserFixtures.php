@@ -18,7 +18,6 @@
 namespace SuplaBundle\Tests\Integration\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
@@ -36,12 +35,9 @@ use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
 
-/**
- * @property ContainerInterface $container
- */
 trait UserFixtures {
     protected function createConfirmedUser(string $username = 'supler@supla.org', string $password = 'supla123'): User {
-        $userManager = $this->container->get(UserManager::class);
+        $userManager = self::$container->get(UserManager::class);
         $user = new User();
         $user->setEmail($username);
         $userManager->create($user);
@@ -49,14 +45,14 @@ trait UserFixtures {
         $userManager->confirm($user->getToken());
 
         // create valid access token to speed up integration tests
-        $webappClient = $this->container->get(ApiClientRepository::class)->getWebappClient();
+        $webappClient = self::$container->get(ApiClientRepository::class)->getWebappClient();
         $token = new AccessToken();
         EntityUtils::setField($token, 'client', $webappClient);
         EntityUtils::setField($token, 'user', $user);
         EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
         EntityUtils::setField($token, 'token', base64_encode($username));
         EntityUtils::setField($token, 'scope', (string)(new OAuthScope(OAuthScope::getSupportedScopes())));
-        $em = $this->container->get('doctrine')->getManager();
+        $em = self::$container->get('doctrine')->getManager();
         $em->persist($token);
         $em->flush();
 
@@ -64,7 +60,7 @@ trait UserFixtures {
     }
 
     protected function createLocation(User $user): Location {
-        $location = $this->container->get(LocationManager::class)->createLocation($user);
+        $location = self::$container->get(LocationManager::class)->createLocation($user);
         $this->getEntityManager()->persist($location);
         $this->getEntityManager()->flush();
         return $location;
@@ -135,6 +131,6 @@ trait UserFixtures {
     }
 
     protected function getEntityManager(): EntityManagerInterface {
-        return $this->container->get('doctrine')->getManager();
+        return self::$container->get('doctrine')->getManager();
     }
 }

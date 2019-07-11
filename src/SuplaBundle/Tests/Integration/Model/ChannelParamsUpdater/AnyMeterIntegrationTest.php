@@ -43,7 +43,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
         ]);
-        $this->updater = $this->container->get(ChannelParamsUpdater::class);
+        $this->updater = self::$container->get(ChannelParamsUpdater::class);
     }
 
     public function testUpdatingPricePerUnit() {

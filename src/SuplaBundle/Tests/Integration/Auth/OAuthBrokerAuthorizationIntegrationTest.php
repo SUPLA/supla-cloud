@@ -46,8 +46,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     private $user;
 
     public function initializeDatabaseForTests() {
-        $this->autodiscover = $this->container->get(SuplaAutodiscover::class);
-        $this->clientManager = $this->container->get(ClientManagerInterface::class);
+        $this->autodiscover = self::$container->get(SuplaAutodiscover::class);
+        $this->clientManager = self::$container->get(ClientManagerInterface::class);
         $this->user = $this->createConfirmedUser();
     }
 

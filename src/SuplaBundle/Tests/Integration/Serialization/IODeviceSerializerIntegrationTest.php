@@ -38,14 +38,14 @@ class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSerializingIODevice() {
-        $serializedDevice = $this->container->get('serializer')->serialize($this->device, 'json', ['groups' => ['basic']]);
+        $serializedDevice = self::$container->get('serializer')->serialize($this->device, 'json', ['groups' => ['basic']]);
         $deviceJson = json_decode($serializedDevice, true);
         $this->assertEquals($this->device->getId(), $deviceJson['id']);
         $this->assertFalse(isset($deviceJson['location']));
     }
 
     public function testSerializingIODeviceWithLocation() {
-        $serializedDevice = $this->container->get('serializer')
+        $serializedDevice = self::$container->get('serializer')
             ->serialize($this->device, 'json', ['groups' => ['basic', 'iodevice.location']]);
         $deviceJson = json_decode($serializedDevice, true);
         $this->assertEquals($this->device->getId(), $deviceJson['id']);

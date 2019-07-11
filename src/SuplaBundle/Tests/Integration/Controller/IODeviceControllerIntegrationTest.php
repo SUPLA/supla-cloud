@@ -202,7 +202,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     /** @large */
     public function testDeletingDeviceClearsRelatedGateOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $channelParamsUpdater = self::$container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
@@ -224,7 +224,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     /** @large */
     public function testDeletingDeviceClearsRelatedSensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $channelParamsUpdater = self::$container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
@@ -247,7 +247,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     /** @large */
     public function testDeletingDeviceClearsRelatedSecondaryGateOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $channelParamsUpdater = self::$container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
@@ -269,7 +269,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     /** @large */
     public function testDeletingDeviceClearsRelatedSecondarySensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $channelParamsUpdater = self::$container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],

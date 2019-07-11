@@ -45,7 +45,7 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
         $this->device = $this->createDevice($location, [
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::RGBLIGHTING],
         ]);
-        $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
+        $this->channelActionExecutor = self::$container->get(ChannelActionExecutor::class);
         $this->simulateAuthentication($this->user);
     }
 

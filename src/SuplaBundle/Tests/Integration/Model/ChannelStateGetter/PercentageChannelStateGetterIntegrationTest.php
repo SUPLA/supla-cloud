@@ -41,7 +41,7 @@ class PercentageChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGettingCalibratingState() {

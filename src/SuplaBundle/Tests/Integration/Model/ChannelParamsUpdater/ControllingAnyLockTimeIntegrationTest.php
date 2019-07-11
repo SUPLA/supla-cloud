@@ -41,7 +41,7 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
         ]);
-        $this->updater = $this->container->get(ChannelParamsUpdater::class);
+        $this->updater = self::$container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($user);
     }
 

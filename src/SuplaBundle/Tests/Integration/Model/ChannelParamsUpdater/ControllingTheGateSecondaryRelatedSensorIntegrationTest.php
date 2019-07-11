@@ -42,7 +42,7 @@ class ControllingTheGateSecondaryRelatedSensorIntegrationTest extends Integratio
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_GATE],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
         ]);
-        $this->updater = $this->container->get(ChannelParamsUpdater::class);
+        $this->updater = self::$container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($user);
     }
 

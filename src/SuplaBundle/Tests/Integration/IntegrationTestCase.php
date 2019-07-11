@@ -29,13 +29,10 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\DependencyInjection\ResettableContainerInterface;
 
 abstract class IntegrationTestCase extends WebTestCase {
     private static $dataForTests = [];
 
-    /** @var ResettableContainerInterface */
-    protected $container;
     /** @var Application */
     private $application;
 
@@ -47,7 +44,6 @@ abstract class IntegrationTestCase extends WebTestCase {
             SuplaAutodiscoverMock::clear();
         }
         $client = self::createClient(['debug' => false]);
-        $this->container = $client->getContainer();
         $kernel = $client->getKernel();
         $this->application = new Application($kernel);
         $this->application->setAutoExit(false);
@@ -98,7 +94,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function getDoctrine(): RegistryInterface {
-        return $this->container->get('doctrine');
+        return self::$container->get('doctrine');
     }
 
     protected function getEntityManager(): EntityManagerInterface {
