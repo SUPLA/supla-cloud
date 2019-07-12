@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 
-class EntityUtilsTest extends \PHPUnit_Framework_TestCase {
+class EntityUtilsTest extends TestCase {
     public function testSetField() {
         $entity = new IODeviceChannel();
         EntityUtils::setField($entity, 'id', 123);

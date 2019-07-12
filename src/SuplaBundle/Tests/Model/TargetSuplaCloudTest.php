@@ -17,9 +17,10 @@
 
 namespace SuplaBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\TargetSuplaCloud;
 
-class TargetSuplaCloudTest extends \PHPUnit_Framework_TestCase {
+class TargetSuplaCloudTest extends TestCase {
 
     /** @dataProvider creatingFromDomainNameData */
     public function testCreatingFromDomainName(string $scheme, $domainName, $expectedAddress) {

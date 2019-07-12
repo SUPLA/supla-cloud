@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -25,7 +26,7 @@ use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 
-class IODeviceChannelTest extends \PHPUnit_Framework_TestCase {
+class IODeviceChannelTest extends TestCase {
     public function testSettingParams() {
         $channel = new IODeviceChannel();
         $channel->setParam(2, 3);

@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
-class IntervalSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
+class IntervalSchedulePlannerTest extends TestCase {
     /**
      * @dataProvider calculatingNextRunDateProvider
      */

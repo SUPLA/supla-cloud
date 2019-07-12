@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Auth;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Exception\ApiException;
 
-class OauthScopeTest extends \PHPUnit_Framework_TestCase {
+class OauthScopeTest extends TestCase {
     public function testGetSupportedScopes() {
         $scopes = OAuthScope::getSupportedScopes();
         $this->assertContains('offline_access', $scopes);

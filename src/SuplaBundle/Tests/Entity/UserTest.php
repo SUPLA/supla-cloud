@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\AnyFieldSetter;
 
-class UserTest extends \PHPUnit_Framework_TestCase {
+class UserTest extends TestCase {
     public function testSettingDefaultTimezoneByDefault() {
         $user = new User();
         $this->assertEquals(date_default_timezone_get(), $user->getTimezone());

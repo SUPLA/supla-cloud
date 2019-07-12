@@ -19,16 +19,18 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityRepository;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
-class ScheduleManagerTest extends \PHPUnit_Framework_TestCase {
+class ScheduleManagerTest extends TestCase {
     private $doctrine;
     private $deviceManager;
-    /** @var CompositeSchedulePlanner|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var CompositeSchedulePlanner|MockObject */
     private $schedulePlanner;
     /** @var ScheduleManager */
     private $manager;

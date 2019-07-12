@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Enums;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\RelayFunctionBits;
 
-class RelayFunctionBitsTest extends \PHPUnit_Framework_TestCase {
+class RelayFunctionBitsTest extends TestCase {
     /** @dataProvider supportedFunctionsTestCases */
     public function testGettingSupportedFunctions(int $functionList, array $expectedFuncions) {
         $this->assertEquals($expectedFuncions, RelayFunctionBits::getSupportedFunctions($functionList));

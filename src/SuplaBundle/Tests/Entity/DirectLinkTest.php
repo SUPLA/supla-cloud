@@ -17,12 +17,13 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
-class DirectLinkTest extends \PHPUnit_Framework_TestCase {
+class DirectLinkTest extends TestCase {
     public function testGeneratingSlug() {
         $directLink = new DirectLink($this->createMock(IODeviceChannel::class));
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());

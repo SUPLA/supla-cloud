@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 
-class CronExpressionSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
+class CronExpressionSchedulePlannerTest extends TestCase {
     /**
      * @dataProvider calculatingNextRunDateProvider
      */

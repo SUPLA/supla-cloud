@@ -17,11 +17,12 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 
-class IODeviceTestTest extends \PHPUnit_Framework_TestCase {
+class IODeviceTestTest extends TestCase {
     /** @var User */
     private $user;
 

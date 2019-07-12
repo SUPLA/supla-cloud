@@ -17,9 +17,10 @@
 
 namespace SuplaBundle\Tests\Enums;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Enums\ChannelType;
 
-class ChannelTypeTest extends \PHPUnit_Framework_TestCase {
+class ChannelTypeTest extends TestCase {
     public function testEveryTypeHasFunctions() {
         $diff = array_map(function (ChannelType $type) {
             return $type->getKey();

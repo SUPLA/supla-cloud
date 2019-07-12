@@ -17,9 +17,10 @@
 
 namespace SuplaBundle\Tests\Enums;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 
-class ScheduleActionExecutionResultTest extends \PHPUnit_Framework_TestCase {
+class ScheduleActionExecutionResultTest extends TestCase {
     public function testEveryValueHasCaption() {
         $this->assertCount(
             count(ScheduleActionExecutionResult::values()),

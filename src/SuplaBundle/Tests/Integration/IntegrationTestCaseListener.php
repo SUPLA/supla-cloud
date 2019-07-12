@@ -17,8 +17,14 @@
 
 namespace SuplaBundle\Tests\Integration;
 
-class IntegrationTestCaseListener extends \PHPUnit_Framework_BaseTestListener {
-    public function startTest(\PHPUnit_Framework_Test $test) {
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestListenerDefaultImplementation;
+
+class IntegrationTestCaseListener implements TestListener {
+    use TestListenerDefaultImplementation;
+
+    public function startTest(Test $test) {
         if ($test instanceof IntegrationTestCase) {
             $test->prepareIntegrationTest();
         }

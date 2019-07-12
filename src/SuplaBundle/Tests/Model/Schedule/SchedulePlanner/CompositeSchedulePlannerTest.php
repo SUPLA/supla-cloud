@@ -17,12 +17,13 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
-class CompositeSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
+class CompositeSchedulePlannerTest extends TestCase {
     /** @var CompositeSchedulePlanner */
     private $planner;
 
