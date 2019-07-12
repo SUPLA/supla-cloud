@@ -33,7 +33,7 @@
     "gumlet/php-image-resize": "^1.9",
     "incenteev/composer-parameter-handler": "^2.0",
     "mtdowling/cron-expression": "^1.1",
-    "myclabs/php-enum": "^1.5",
+    "myclabs/php-enum": "1.5.*",
     "nelmio/cors-bundle": "^1.5",
     "sensio/distribution-bundle": "^5.0",
     "sensio/framework-extra-bundle": "^3.0.2",
