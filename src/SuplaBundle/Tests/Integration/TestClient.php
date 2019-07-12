@@ -2,9 +2,9 @@
 namespace SuplaBundle\Tests\Integration;
 
 use SuplaBundle\Model\ApiVersions;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class TestClient extends Client {
+class TestClient extends KernelBrowser {
     public function apiRequest(
         string $method,
         string $uri,

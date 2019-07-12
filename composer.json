@@ -38,14 +38,14 @@
     "symfony/monolog-bundle": "^3.2",
     "symfony/polyfill-apcu": "^1.0",
     "symfony/swiftmailer-bundle": "^3.0",
-    "symfony/symfony": "4.2.*"
+    "symfony/symfony": "^4.3"
   },
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.0",
     "fzaninotto/faker": "^1.8",
     "phpunit/phpunit": "^5.7",
     "squizlabs/php_codesniffer": "^2.8",
-    "symfony/phpunit-bridge": "4.2.*"
+    "symfony/phpunit-bridge": "^4.3"
   },
   "scripts": {
     "test": [

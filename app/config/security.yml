@@ -1,6 +1,6 @@
 security:
   encoders:
-    SuplaBundle\Entity\User: bcrypt
+    SuplaBundle\Entity\User: bcrypt # changing this to auto, as deprecation suggests, breaks our OAuth tests
     SuplaBundle\Entity\DirectLink:
       algorithm: bcrypt
       cost: 4
