@@ -19,7 +19,6 @@ namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\AuthorizeController;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -27,6 +26,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class BrokerAuthorizeController extends AuthorizeController {

@@ -25,7 +25,7 @@ use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -36,7 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     @ORM\Index(name="iodevice_reg_enabled_idx", columns={"iodevice_reg_enabled"})
  * })
  */
-class User implements AdvancedUserInterface, EncoderAwareInterface {
+class User implements UserInterface, EncoderAwareInterface {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -401,18 +401,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     public function setEnabled($boolean) {
         $this->enabled = (Boolean)$boolean;
         return $this;
-    }
-
-    public function isAccountNonExpired() {
-        return true;
-    }
-
-    public function isAccountNonLocked() {
-        return true;
-    }
-
-    public function isCredentialsNonExpired() {
-        return true;
     }
 
     public function getAccessIDS() {

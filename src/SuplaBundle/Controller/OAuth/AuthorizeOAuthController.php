@@ -22,7 +22,6 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use InvalidArgumentException;
 use OAuth2\OAuth2;
 use ReCaptcha\ReCaptcha;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
@@ -37,6 +36,7 @@ use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 class AuthorizeOAuthController extends Controller {
