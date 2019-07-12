@@ -22,11 +22,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface {
     public function getConfigTreeBuilder() {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('supla');
+        $treeBuilder = new TreeBuilder('supla');
         // @codingStandardsIgnoreStart
         // @formatter:off because indentation makes config structure way clearer
-        $rootNode
+        $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('version')->defaultValue('?.?.?')->end()
                 ->scalarNode('version_full')->defaultValue(null)->end()
