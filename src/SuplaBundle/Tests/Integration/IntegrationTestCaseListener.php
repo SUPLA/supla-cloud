@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestListenerDefaultImplementation;
 class IntegrationTestCaseListener implements TestListener {
     use TestListenerDefaultImplementation;
 
-    public function startTest(Test $test) {
+    public function startTest(Test $test): void {
         if ($test instanceof IntegrationTestCase) {
             $test->prepareIntegrationTest();
         }

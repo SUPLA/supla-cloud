@@ -43,7 +43,7 @@
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.0",
     "fzaninotto/faker": "^1.8",
-    "phpunit/phpunit": "^6.0",
+    "phpunit/phpunit": "^7.0",
     "squizlabs/php_codesniffer": "^2.8",
     "symfony/phpunit-bridge": "^4.3"
   },
