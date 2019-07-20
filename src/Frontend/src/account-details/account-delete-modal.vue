@@ -5,6 +5,7 @@
         <p class="text-center">{{ $t('Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.') }}</p>
         <p class="text-center">{{ $t('In order to confirm account deletion, enter your password.') }}</p>
         <input type="password"
+            autocomplete="new-password"
             class="form-control"
             v-model="password"
             id="password">
