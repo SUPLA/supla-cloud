@@ -25,6 +25,7 @@ use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
+use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -47,24 +48,58 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->assertEmpty(TestMailer::getMessages());
     }
 
     /** @depends testDeletingUserAccountWithInvalidPasswordFails */
+    public function testDeletingUserAccountWithNoPasswordFails() {
+        SuplaAutodiscoverMock::clear(false);
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'delete']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+        $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->assertEmpty(TestMailer::getMessages());
+    }
+
+    /** @depends testDeletingUserAccountWithNoPasswordFails */
     public function testDeletingUserAccount() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
         $client->apiRequest('PATCH', '/api/users/current', ['action' => 'delete', 'password' => 'supla123']);
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
-        $this->assertNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->assertNotNull($this->user = $this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->assertNotEmpty(TestMailer::getMessages());
+        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertArrayHasKey($this->user->getEmail(), $confirmationMessage->getTo());
+        $this->assertContains('Removal', $confirmationMessage->getSubject());
+        $this->assertContains($this->user->getToken(), $confirmationMessage->getBody());
     }
 
     /** @depends testDeletingUserAccount */
+    public function testDeletingWithBadToken() {
+        $client = $this->createHttpsClient();
+        $client->apiRequest('PATCH', 'api/confirm-deletion/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdlj');
+        $this->assertStatusCode(404, $client->getResponse());
+        $this->assertNotNull($this->user = $this->getEntityManager()->find(User::class, $this->user->getId()));
+    }
+
+    /** @depends testDeletingWithBadToken */
+    public function testDeletingWithGoodToken() {
+        $client = $this->createHttpsClient();
+        $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->user = $this->getEntityManager()->find(User::class, $this->user->getId()));
+    }
+
+    /** @depends testDeletingWithGoodToken */
     public function testDeletingUserAccountReconnectsSuplaServer() {
         $this->assertContains('USER-RECONNECT:1', SuplaServerMock::$executedCommands);
     }
 
-    /** @depends testDeletingUserAccount */
+    /** @depends testDeletingWithGoodToken */
     public function testDeletingUserAccountEventIsSavedInAudit() {
         /** @var AuditEntry $lastEntry */
         $entries = $this->container->get(AuditEntryRepository::class)->findAll();

@@ -100,6 +100,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      */
     private $passwordRequestedAt;
 
+    /**
+     * @ORM\Column(name="account_removal_requested_at", type="utcdatetime", nullable=true)
+     */
+    private $accountRemovalRequestedAt;
+
     private $recaptcha;
 
     /**
@@ -378,6 +383,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
         }
 
         $this->setToken(rtrim(strtr(base64_encode($bytes), '+/', '-_'), '='));
+        return $this->getToken();
     }
 
     public function setToken($token) {
@@ -397,6 +403,12 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      */
     public function getPasswordRequestedAt() {
         return $this->passwordRequestedAt;
+    }
+
+    public function generateTokenForAccountRemoval(): string {
+        $token = $this->genToken();
+        $this->accountRemovalRequestedAt = new \DateTime();
+        return $token;
     }
 
     public function getRoles() {

@@ -395,16 +395,6 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         ]);
     }
 
-    private function createHttpsClient($ipAddress = '1.2.3.4'): TestClient {
-        $client = self::createClient(['debug' => false], [
-            'HTTPS' => true,
-            'HTTP_Accept' => 'application/json',
-            'REMOTE_ADDR' => $ipAddress,
-        ]);
-        $client->followRedirects();
-        return $client;
-    }
-
     private function getLatestAuditEntry(): AuditEntry {
         $entries = $this->audit->getRepository()->findAll();
         $this->assertGreaterThanOrEqual(1, count($entries));

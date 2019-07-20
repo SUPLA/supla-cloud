@@ -28,6 +28,7 @@ use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class UserManager {
@@ -120,6 +121,17 @@ class UserManager {
         return false;
     }
 
+    public function accountDeleteRequest(User $user) {
+        if ($user->isEnabled() === true) {
+            $user->generateTokenForAccountRemoval();
+            $this->transactional(function (EntityManagerInterface $em) use ($user) {
+                $em->persist($user);
+            });
+            return true;
+        }
+        return false;
+    }
+
     public function confirm($token) {
         $user = $this->UserByConfirmationToken($token);
 
@@ -199,7 +211,24 @@ class UserManager {
         });
     }
 
-    public function deleteAccount(User $user) {
+    public function deleteAccount(string $token) {
+        $date = new \DateTime();
+        $date->setTimeZone(new \DateTimeZone('UTC'));
+        $date->sub(new \DateInterval('PT1H'));
+        $qb = $this->rep->createQueryBuilder('u');
+        try {
+            $user = $qb->where($qb->expr()->eq('u.token', ':token'))
+                ->andWhere("u.token != ''")
+                ->andWhere("u.token IS NOT NULL")
+                ->andWhere("u.enabled = 1")
+                ->andWhere($qb->expr()->gte('u.accountRemovalRequestedAt', ':date'))
+                ->setParameter('token', $token)
+                ->setParameter('date', $date)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NoResultException $e) {
+            throw new NotFoundHttpException('Token does not exist', $e);
+        }
         $userId = $user->getId();
         $this->transactional(function (EntityManagerInterface $em) use ($user) {
             $deletedFromAd = $this->autodiscover->deleteUser($user);
