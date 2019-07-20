@@ -83,7 +83,9 @@ class UserController extends RestController {
             $this->assertNotApiUser();
             $password = $data['password'] ?? '';
             Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
-            $this->userManager->deleteAccount($user);
+//            $this->userManager->deleteAccount($user);
+            $this->userManager->accountDeleteRequest($user);
+            $this->mailer->sendDeleteAccountConfirmationEmailMessage($user);
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
         $user = $this->transactional(function (EntityManagerInterface $em) use ($user, $data) {
@@ -243,6 +245,14 @@ class UserController extends RestController {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
         $this->mailer->sendActivationEmailMessage($user);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Rest\Patch("/confirm-deletion/{token}")
+     */
+    public function confirmDeletingAccountAction(string $token) {
+        $this->userManager->deleteAccount($token);
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
