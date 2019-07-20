@@ -9,6 +9,7 @@ defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV
 $kernel = new AppKernel(APPLICATION_ENV, APPLICATION_ENV == 'dev');
 if (APPLICATION_ENV === 'dev') {
     Symfony\Component\Debug\Debug::enable();
+    umask(0000);
 }
 
 Request::setTrustedProxies(['172.18.0.1/27'], Request::HEADER_FORWARDED | Request::HEADER_X_FORWARDED_FOR); // Docker proxy
