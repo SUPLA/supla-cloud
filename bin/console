@@ -12,6 +12,7 @@ defined('APPLICATION_ENV') || define('APPLICATION_ENV', $input->getParameterOpti
 $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(['--no-debug', '']) && APPLICATION_ENV !== 'prod';
 if ($debug) {
     Debug::enable();
+    umask(0000);
 }
 $kernel = new AppKernel(APPLICATION_ENV, $debug);
 $application = new Application($kernel);
