@@ -27,7 +27,6 @@ use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\DomCrawler\Crawler;
@@ -484,15 +483,5 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
                 'response_type' => $responseType,
                 'state' => 'some-state',
             ]);
-    }
-
-    private function createHttpsClient($followRedirects = true): TestClient {
-        $client = self::createClient(['debug' => false], [
-            'HTTPS' => true,
-        ]);
-        if ($followRedirects) {
-            $client->followRedirects();
-        }
-        return $client;
     }
 }

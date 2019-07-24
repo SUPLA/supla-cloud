@@ -114,13 +114,15 @@ abstract class IntegrationTestCase extends WebTestCase {
         }
     }
 
-    protected function createHttpsClient($ipAddress = '1.2.3.4'): TestClient {
+    protected function createHttpsClient(bool $followRedirects = true, string $ipAddress = '1.2.3.4'): TestClient {
         $client = self::createClient(['debug' => false], [
             'HTTPS' => true,
             'HTTP_Accept' => 'application/json',
             'REMOTE_ADDR' => $ipAddress,
         ]);
-        $client->followRedirects();
+        if ($followRedirects) {
+            $client->followRedirects();
+        }
         return $client;
     }
 }

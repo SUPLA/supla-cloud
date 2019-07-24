@@ -46,7 +46,10 @@
                 this.loading = true;
                 this.$http.patch(`users/current`, {action: 'delete', password: this.password})
                     .then(() => {
-                        successNotification(this.$t('Successful'), this.$t('Check your email box'));
+                        successNotification(
+                            this.$t('Successful'),
+                            this.$t('We have sent you an e-mail message with a delete confirmation link. Just to be sure!')
+                        );
                         this.$emit('cancel');
                         $("#logoutButton")[0].click();
                     })

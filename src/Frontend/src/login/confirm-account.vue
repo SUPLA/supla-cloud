@@ -1,5 +1,5 @@
 <template>
-    <loading-cover loading="true"></loading-cover>
+    <loading-cover :loading="true"></loading-cover>
 </template>
 
 <script>

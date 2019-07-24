@@ -371,7 +371,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client);
-        $client = $this->createHttpsClient('10.0.0.1');
+        $client = $this->createHttpsClient(true, '10.0.0.1');
         $this->assertSuccessfulLoginRequest($client);
     }
 
