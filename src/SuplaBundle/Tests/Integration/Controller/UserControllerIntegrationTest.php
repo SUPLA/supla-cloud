@@ -83,15 +83,17 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest('PATCH', 'api/confirm-deletion/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdlj');
         $this->assertStatusCode(404, $client->getResponse());
-        $this->assertNotNull($this->user = $this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
 
     /** @depends testDeletingWithBadToken */
     public function testDeletingWithGoodToken() {
         $client = $this->createHttpsClient();
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
         $this->assertStatusCode(204, $client->getResponse());
-        $this->assertNull($this->user = $this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->getDoctrine()->resetEntityManager();
+        $this->assertNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
 
     /** @depends testDeletingWithGoodToken */

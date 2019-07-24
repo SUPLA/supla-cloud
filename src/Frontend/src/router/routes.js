@@ -53,6 +53,12 @@ export default [
         props: true
     },
     {
+        path: '/confirm-deletion/:token',
+        component: () => import("@/login/confirm-account-deletion"),
+        meta: {unrestricted: true},
+        props: true
+    },
+    {
         path: '/access-identifiers', component: () => import("@/access-ids/access-ids-page"), name: "accessIds", children: [
             {path: ':id', component: () => import("@/access-ids/access-id-details"), name: 'accessId', props: true}
         ]
