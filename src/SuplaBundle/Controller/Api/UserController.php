@@ -252,7 +252,7 @@ class UserController extends RestController {
      * @Rest\Patch("/confirm-deletion/{token}")
      */
     public function confirmDeletingAccountAction(string $token) {
-        $this->userManager->deleteAccount($token);
+        $this->userManager->deleteAccountByToken($token);
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
