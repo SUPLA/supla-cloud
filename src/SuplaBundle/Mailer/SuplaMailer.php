@@ -55,7 +55,11 @@ class SuplaMailer {
     private function extractSubjectAndBody(string $templateName, array $params, string $locale, &$subject = null) {
         $templatePath = "SuplaBundle::Email/$locale/$templateName.twig";
         if (!$this->templating->exists($templatePath)) {
-            return '';
+            if ($locale !== 'en') {
+                return $this->extractSubjectAndBody($templateName, $params, 'en', $subject);
+            } else {
+                return '';
+            }
         }
         $body = $this->templating->render($templatePath, $params);
         if ($subject !== null) {
