@@ -569,10 +569,10 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Actions: ~
-Cannot execute an action when the device is disconnected.: ~
-Home+ Heater: ~
-Thermostat: ~
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: ~
+Actions: Veiksmai
+Cannot execute an action when the device is disconnected.: Kai įrenginys atjungtas negalima atlikti veiksmo.
+Home+ Heater: Šildytuvas Home+
+Thermostat: Termostatas
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Išsiuntėme Tau el. laišką su nuorodą, patvirtinančią norą pašalinti paskyrą. Gal dar apsigalvosi!
 
 #</editor-fold>
