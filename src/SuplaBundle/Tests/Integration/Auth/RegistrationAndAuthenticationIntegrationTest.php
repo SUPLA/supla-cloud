@@ -229,6 +229,39 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertContains($this->createdUser->getToken(), $message->getBody());
     }
 
+    public function testDoesNotSendResetPasswordEmailTwiceInARow() {
+        $this->testConfirmingWithGoodToken();
+        TestMailer::reset();
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getDoctrine()->getManager()->refresh($this->createdUser);
+        $initialToken = $this->createdUser->getToken();
+        $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $messages = TestMailer::getMessages();
+        $this->assertCount(1, $messages);
+        $this->getDoctrine()->getManager()->refresh($this->createdUser);
+        $this->assertEquals($initialToken, $this->createdUser->getToken());
+    }
+
+    public function testSendsAnotherResetMessageIfTimePasses() {
+        $this->testConfirmingWithGoodToken();
+        TestMailer::reset();
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
+        $this->assertStatusCode(200, $client->getResponse());
+        TestTimeProvider::setTime('+10 minutes');
+        $this->getDoctrine()->getManager()->refresh($this->createdUser);
+        $initialToken = $this->createdUser->getToken();
+        $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $messages = TestMailer::getMessages();
+        $this->assertCount(2, $messages);
+        $this->getDoctrine()->getManager()->refresh($this->createdUser);
+        $this->assertNotEquals($initialToken, $this->createdUser->getToken());
+    }
+
     public function testCanLoginAfterPasswordResetAsked() {
         $this->testGeneratesForgottenPasswordTokenForValidUser();
         $client = $this->createHttpsClient();

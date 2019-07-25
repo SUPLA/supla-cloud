@@ -28,6 +28,7 @@ use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 class UserControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
@@ -109,5 +110,15 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(AuditedEvent::USER_ACCOUNT_DELETED, $lastEntry->getEvent()->getId());
         $this->assertEquals(1, $lastEntry->getIntParam());
         $this->assertEquals('supler@supla.org', $lastEntry->getTextParam());
+    }
+
+    public function testCannotDeleteAfterOneHour() {
+        $this->testDeletingUserAccount();
+        TestTimeProvider::setTime('+61 minutes');
+        $client = $this->createHttpsClient();
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
+        $this->assertStatusCode(404, $client->getResponse());
+        $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
 }
