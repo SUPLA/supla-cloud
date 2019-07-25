@@ -569,10 +569,10 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Actions: ~
-Cannot execute an action when the device is disconnected.: ~
-Home+ Heater: ~
-Thermostat: ~
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: ~
+Actions: Действия
+Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
+Home+ Heater: Дом + обогреватель
+Thermostat: Термостат
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Вам отправлено электронное письмо с ссылкой для подтверждения удаления учетной записи. Может, Вы еще передумаете!
 
 #</editor-fold>
