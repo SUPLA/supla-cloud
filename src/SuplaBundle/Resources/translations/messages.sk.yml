@@ -569,10 +569,10 @@ execute: vykonať
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Actions: ~
-Cannot execute an action when the device is disconnected.: ~
-Home+ Heater: ~
-Thermostat: ~
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: ~
+Actions: Akcie
+Cannot execute an action when the device is disconnected.: Nie je možné vykonávať akcie, keď je zariadenie odpojené.
+Home+ Heater: Špirála Home+
+Thermostat: Termostat
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Odoslali sme Vám emailovú správu s odkazom na potvrdenie zrušenia účtu. Možno si to ešte rozmyslíte!
 
 #</editor-fold>
