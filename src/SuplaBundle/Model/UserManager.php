@@ -51,6 +51,8 @@ class UserManager {
     private $autodiscover;
     /** @var Audit */
     private $audit;
+    /** @var TimeProvider */
+    private $timeProvider;
 
     public function __construct(
         UserRepository $userRepository,
@@ -58,6 +60,7 @@ class UserManager {
         AccessIdManager $accessid_manager,
         LocationManager $location_manager,
         ScheduleManager $scheduleManager,
+        TimeProvider $timeProvider,
         int $defaultClientsRegistrationTime,
         int $defaultIoDevicesRegistrationTime
     ) {
@@ -68,6 +71,7 @@ class UserManager {
         $this->scheduleManager = $scheduleManager;
         $this->defaultClientsRegistrationTime = $defaultClientsRegistrationTime;
         $this->defaultIoDevicesRegistrationTime = $defaultIoDevicesRegistrationTime;
+        $this->timeProvider = $timeProvider;
     }
 
     /** @required */
@@ -108,8 +112,14 @@ class UserManager {
 
     public function paswordRequest(User $user) {
         if ($user->isEnabled() === true) {
+            if ($user->getPasswordRequestedAt()) {
+                $diff = abs($this->timeProvider->getDateTime()->getTimestamp() - $user->getPasswordRequestedAt()->getTimestamp());
+                if ($diff < 300) {
+                    return false;
+                }
+            }
             $user->genToken();
-            $user->setPasswordRequestedAt(new \DateTime());
+            $user->setPasswordRequestedAt($this->timeProvider->getDateTime());
 
             $this->transactional(function (EntityManagerInterface $em) use ($user) {
                 $em->persist($user);
@@ -173,7 +183,7 @@ class UserManager {
             return null;
         }
 
-        $date = new \DateTime();
+        $date = $this->timeProvider->getDateTime();
         $date->setTimeZone(new \DateTimeZone('UTC'));
         $date->sub(new \DateInterval('PT1H'));
 
@@ -199,7 +209,7 @@ class UserManager {
         $user->setTimezone($timezone->getName());
         $this->transactional(function (EntityManagerInterface $em) use ($timezone, $currentTimezone, $user) {
             $em->persist($user);
-            $now = new \DateTime();
+            $now = $this->timeProvider->getDateTime();
             if ($currentTimezone->getOffset($now) != $timezone->getOffset($now)) {
                 foreach ($user->getSchedules() as $schedule) {
                     /** @var Schedule $schedule */
@@ -239,7 +249,7 @@ class UserManager {
     }
 
     public function deleteAccountByToken(string $token) {
-        $date = new \DateTime();
+        $date = $this->timeProvider->getDateTime();
         $date->setTimeZone(new \DateTimeZone('UTC'));
         $date->sub(new \DateInterval('PT1H'));
         $qb = $this->rep->createQueryBuilder('u');
