@@ -292,8 +292,8 @@ final class ChannelFunction extends Enum {
             self::ELECTRICITYMETER => ['default'],
             self::GASMETER => ['default'],
             self::WATERMETER => ['default'],
-            self::THERMOSTAT => ['default'],
-            self::THERMOSTATHEATPOLHOMEPLUS => ['default'],
+            self::THERMOSTAT => ['off', 'on'],
+            self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
         ];
     }
 
