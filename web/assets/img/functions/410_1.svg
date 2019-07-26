@@ -8,8 +8,8 @@
 	 
 	<defs>
 	<linearGradient spreadMethod="pad" id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-	<stop offset="0%" style="stop-color:rgb(255, 200, 12);stop-opacity:1;" />
-		<stop offset="100%" style="stop-color:rgb(237, 39, 36);stop-opacity:1;" />
+	<stop offset="0%" style="stop-color:rgb(10, 119, 245);stop-opacity:1;" />
+		<stop offset="100%" style="stop-color:rgb(230, 233, 237);stop-opacity:1;" />
 	</linearGradient>
 	</defs>
 	
@@ -57,7 +57,7 @@
              436.00,147.00 346.00,147.00 346.00,147.00 Z" />
 			 
   <path id="CONTROLLER"
-        fill="#ED2724" stroke="#ED2724" stroke-width="1"
+        fill="#0a77f5" stroke="#0a77f5" stroke-width="1"
         d="M 162.86,797.22
            C 170.66,805.58 172.26,800.64 180.02,818.46
              190.26,841.98 186.07,1000.13 186.00,1037.00
