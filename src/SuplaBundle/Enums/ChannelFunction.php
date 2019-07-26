@@ -190,6 +190,16 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
+
+            self::THERMOSTAT => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE()],
+
+            self::THERMOSTATHEATPOLHOMEPLUS => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE()],
         ];
     }
 
