@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Supla;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Utils\StringUtils;
 
-class StringUtilsTest extends PHPUnit_Framework_TestCase {
+class StringUtilsTest extends TestCase {
     /** @dataProvider snakeCaseToCamelCaseExamples */
     public function testSnakeCaseToCamelCase(string $snakeCase, string $camelCase) {
         $this->assertEquals($camelCase, StringUtils::snakeCaseToCamelCase($snakeCase));

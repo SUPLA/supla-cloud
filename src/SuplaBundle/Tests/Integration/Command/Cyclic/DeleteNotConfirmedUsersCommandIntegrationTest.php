@@ -34,7 +34,7 @@ class DeleteNotConfirmedUsersCommandIntegrationTest extends IntegrationTestCase 
     private $userId;
 
     protected function initializeDatabaseForTests() {
-        $userManager = $this->container->get(UserManager::class);
+        $userManager = self::$container->get(UserManager::class);
         $user = new User();
         $user->setEmail('janusz@supla.org');
         $user->setPlainPassword('januszowe');

@@ -90,11 +90,12 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingWithBadToken */
     public function testDeletingWithGoodToken() {
         $client = $this->createHttpsClient();
-        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $userId = $this->user->getId();
+        $this->user = $this->getEntityManager()->find(User::class, $userId);
         $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
         $this->assertStatusCode(204, $client->getResponse());
         $this->getDoctrine()->resetEntityManager();
-        $this->assertNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->assertNull($this->getEntityManager()->find(User::class, $userId));
     }
 
     /** @depends testDeletingWithGoodToken */

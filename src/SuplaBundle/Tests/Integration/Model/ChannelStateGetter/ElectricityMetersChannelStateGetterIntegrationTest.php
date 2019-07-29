@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -42,7 +42,7 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
             [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGettingStateForImpulseCounterElectricity() {
@@ -58,15 +58,15 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
     private function validateImpulseCounterHasAllKeys(array $state) {
         $this->assertArrayHasKey('totalCost', $state);
         $this->assertGreaterThan(0, $state['totalCost']);
-        $this->assertInternalType('float', $state['totalCost']);
+        $this->assertIsFloat($state['totalCost']);
         $this->assertArrayHasKey('pricePerUnit', $state);
-        $this->assertInternalType('float', $state['pricePerUnit']);
+        $this->assertIsFloat($state['pricePerUnit']);
         $this->assertArrayHasKey('impulsesPerUnit', $state);
-        $this->assertInternalType('int', $state['impulsesPerUnit']);
+        $this->assertIsInt($state['impulsesPerUnit']);
         $this->assertArrayHasKey('counter', $state);
-        $this->assertInternalType('int', $state['counter']);
+        $this->assertIsInt($state['counter']);
         $this->assertArrayHasKey('calculatedValue', $state);
-        $this->assertInternalType('float', $state['calculatedValue']);
+        $this->assertIsFloat($state['calculatedValue']);
         $this->assertArrayHasKey('currency', $state);
         $this->assertArrayHasKey('unit', $state);
         $this->assertArrayNotHasKey('currentPhase1', $state);

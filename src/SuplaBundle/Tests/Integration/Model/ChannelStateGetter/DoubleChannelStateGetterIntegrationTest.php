@@ -41,7 +41,7 @@ class DoubleChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [ChannelType::WINDSENSOR, ChannelFunction::WINDSENSOR],
             [ChannelType::DISTANCESENSOR, ChannelFunction::DEPTHSENSOR],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGetGettingWindDouble() {

@@ -16,10 +16,10 @@
 
 namespace SuplaBundle\Tests\Supla;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Utils\ArrayUtils;
 
-class ArrayUtilsTest extends PHPUnit_Framework_TestCase {
+class ArrayUtilsTest extends TestCase {
     public function testFlattenOnce() {
         $this->assertEquals(['A', 'B', 'C'], ArrayUtils::flattenOnce([['A'], ['B', 'C']]));
         $this->assertEquals(['A', 'B', ['C']], ArrayUtils::flattenOnce([['A'], [], ['B', ['C']]]));

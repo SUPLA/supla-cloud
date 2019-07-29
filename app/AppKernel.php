@@ -69,4 +69,11 @@ class AppKernel extends Kernel {
             }
         });
     }
+
+    protected function build(\Symfony\Component\DependencyInjection\ContainerBuilder $container) {
+        parent::build($container);
+        if ($this->getEnvironment() === 'test') {
+            $container->addCompilerPass(new SuplaBundle\Tests\Integration\TestContainerPass(), \Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_OPTIMIZE);
+        }
+    }
 }

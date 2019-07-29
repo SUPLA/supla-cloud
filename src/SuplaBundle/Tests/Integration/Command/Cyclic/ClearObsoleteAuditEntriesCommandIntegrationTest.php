@@ -34,7 +34,7 @@ class ClearObsoleteAuditEntriesCommandIntegrationTest extends IntegrationTestCas
     private $auditEntryRepository;
 
     protected function initializeDatabaseForTests() {
-        $audit = $this->container->get(Audit::class);
+        $audit = self::$container->get(Audit::class);
         $audit->newEntry(AuditedEvent::DIRECT_LINK_EXECUTION())->buildAndFlush();
         $audit->newEntry(AuditedEvent::SCHEDULE_BROKEN_DISABLED())->buildAndFlush();
         $this->auditEntryRepository = $audit->getRepository();

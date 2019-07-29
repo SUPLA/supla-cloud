@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Tests\Model;
 
-use SuplaBundle\Controller\ClientAppController;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 
-class ElectricityMeterChannelStateTest extends \PHPUnit_Framework_TestCase {
+class ElectricityMeterChannelStateTest extends TestCase {
     /** @dataProvider clearUnsupportedMeasurementsTestCases */
     public function testClearUnsupportedMeasurements(int $supportMask, array $expectNotCleared) {
         $state = array_merge([$supportMask, 50], range(1, 33), [5, 6, 'PLN']);

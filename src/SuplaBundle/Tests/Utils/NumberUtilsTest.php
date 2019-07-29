@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Supla;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Utils\NumberUtils;
 
-class NumberUtilsTest extends PHPUnit_Framework_TestCase {
+class NumberUtilsTest extends TestCase {
     /** @dataProvider maximumDecimalPrecisionExamples */
     public function testMaximumDecimalPrecision($number, float $expected, int $decimals = 2) {
         $this->assertEquals($expected, NumberUtils::maximumDecimalPrecision($number, $decimals));
