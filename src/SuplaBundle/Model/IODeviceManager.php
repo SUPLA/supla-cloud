@@ -114,13 +114,29 @@ class IODeviceManager {
                 }
             } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
 
-                fputcsv($handle, ['Timestamp', 'Date and time', `Phase1FAE`, `Phase1RAE`, `Phase1FRE`, `Phase1RRE`,
-                    `Phase2FAE`, `Phase2RAE`, `Phase2FRE`, `Phase2RRE`, `Phase3FAE`, `Phase3RAE`, `Phase3FRE`, `Phase3RRE`]);
+                fputcsv($handle, ['Timestamp',
+                    'Date and time',
+                    'Phase 1 Forward active Energy kWh',
+                    'Phase 1 Reverse active Energy kWh',
+                    'Phase 1 Forward reactive Energy kvarh',
+                    'Phase 1 Reverse reactive Energy kvarh',
+                    'Phase 2 Forward active Energy kWh',
+                    'Phase 2 Reverse active Energy kWh',
+                    'Phase 2 Forward reactive Energy kvarh',
+                    'Phase 2 Reverse reactive Energy kvarh',
+                    'Phase 3 Forward active Energy kWh',
+                    'Phase 3 Reverse active Energy kWh',
+                    'Phase 3 Forward reactive Energy kvarh',
+                    'Phase 3 Reverse reactive Energy kvarh']);
 
-                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
-                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
-                $sql .= "`phase1_fae`, `phase1_rae`, `phase1_fre`, `phase1_rre`, `phase2_fae`, ";
-                $sql .= "`phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, `phase3_rae`, `phase3_fre`, `phase3_rre` ";
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) date,";
+                $sql .= "`phase1_fae` / 100000.00 phase1_fae, `phase1_rae` / 100000.00 phase1_rae, ";
+                $sql .= "`phase1_fre` / 100000.00 phase1_fre, `phase1_rre` / 100000.00 phase1_rre, ";
+                $sql .= "`phase2_fae` / 100000.00 phase2_fae, `phase2_rae` / 100000.00 phase2_rae, ";
+                $sql .= "`phase2_fre` / 100000.00 phase2_fre, `phase2_rre` / 100000.00 phase2_rre, ";
+                $sql .= "`phase3_fae` / 100000.00 phase3_fae, `phase3_rae` / 100000.00 phase3_rae, ";
+                $sql .= "`phase3_fre` / 100000.00 phase3_fre, `phase3_rre` / 100000.00 phase3_rre ";
                 $sql .= "FROM `supla_em_log` WHERE channel_id = ?";
 
                 $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
@@ -133,12 +149,15 @@ class IODeviceManager {
                     fputcsv($handle, [$row['date_ts'], $row['date'],
                         $row['phase1_fae'],
                         $row['phase1_rae'],
+                        $row['phase1_fre'],
                         $row['phase1_rre'],
                         $row['phase2_fae'],
                         $row['phase2_rae'],
+                        $row['phase2_fre'],
                         $row['phase2_rre'],
                         $row['phase3_fae'],
                         $row['phase3_rae'],
+                        $row['phase3_fre'],
                         $row['phase3_rre'],
                     ]);
                 }
