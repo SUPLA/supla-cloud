@@ -30,6 +30,7 @@
         }
         > .valign-center {
             display: table;
+            table-layout: fixed;
             > * {
                 display: table-cell;
                 vertical-align: middle;

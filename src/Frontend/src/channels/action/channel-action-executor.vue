@@ -95,7 +95,7 @@
                 return this.subjectType === 'channel' ? 'channels' : 'channel-groups';
             },
             isConnected() {
-                return this.subject.state && this.subject.state.connected;
+                return !this.subject.state || this.subject.state.connected;
             }
         }
     };

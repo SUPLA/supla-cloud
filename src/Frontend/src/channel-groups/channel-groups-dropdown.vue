@@ -16,8 +16,7 @@
             @change="$emit('input', chosenChannelGroup)">
             <option v-for="channelGroup in channelGroupsForDropdown"
                 :value="channelGroup"
-                :data-content="channelGroupHtml(channelGroup)"
-                :title="channelGroupTitle(channelGroup)">
+                :data-content="channelGroupHtml(channelGroup)">
                 {{ channelGroupTitle(channelGroup) }}
             </option>
         </select>
