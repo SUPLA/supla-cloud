@@ -13,6 +13,8 @@ class TurnOnActionExecutor extends SetCharValueActionExecutor {
             ChannelFunction::DIMMER(),
             ChannelFunction::RGBLIGHTING(),
             ChannelFunction::DIMMERANDRGBLIGHTING(),
+            ChannelFunction::THERMOSTAT(),
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
         ];
     }
 
