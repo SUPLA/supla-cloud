@@ -18,6 +18,8 @@ class OnOffChannelStateGetter implements SingleChannelStateGetter {
             ChannelFunction::POWERSWITCH(),
             ChannelFunction::LIGHTSWITCH(),
             ChannelFunction::STAIRCASETIMER(),
+            ChannelFunction::THERMOSTAT(),
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
         ];
     }
 }
