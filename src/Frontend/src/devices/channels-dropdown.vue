@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width: 100%">
         <div class="select-loader"
             v-if="!channels">
             <button-loading-dots></button-loading-dots>
@@ -19,8 +19,7 @@
             </option>
             <option v-for="channel in channelsForDropdown"
                 :value="channel"
-                :data-content="channelHtml(channel)"
-                :title="channelTitle(channel)">
+                :data-content="channelHtml(channel)">
                 {{ channelTitle(channel) }}
             </option>
         </select>
@@ -50,7 +49,7 @@
             fetchChannels() {
                 this.channels = undefined;
                 this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
-                    this.channels = channels.filter(this.filter || (() => true));
+                    this.channels = channels;
                     if (this.initialId) {
                         this.chosenChannel = this.channels.filter(ch => ch.id == this.initialId)[0];
                     }
@@ -85,7 +84,6 @@
         },
         computed: {
             channelsForDropdown() {
-                this.updateDropdownOptions();
                 if (!this.channels) {
                     return [];
                 }
@@ -96,7 +94,9 @@
                 } else {
                     channels = this.channels;
                 }
+                channels = channels.filter(this.filter || (() => true));
                 this.$emit('update', channels);
+                this.updateDropdownOptions();
                 return channels;
             }
         },
@@ -115,6 +115,10 @@
 <style lang="scss">
     @import "../styles/variables";
 
+    .bootstrap-select {
+        max-width: 100%;
+    }
+
     .select-loader {
         position: relative;
         text-align: center;
@@ -130,6 +134,7 @@
     .channel-dropdown-option {
         padding: 5px 3px;
         .icon {
+            margin-left: 10px;
             img {
                 height: 60px;
             }

@@ -34,6 +34,11 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_SONOFF = 'deviceSonoff';
     const DEVICE_FULL = 'deviceFull';
     const DEVICE_RGB = 'deviceRgb';
+    const FULL_RELAY_BITS =
+        RelayFunctionBits::CONTROLLINGTHEDOORLOCK |
+        RelayFunctionBits::CONTROLLINGTHEGARAGEDOOR |
+        RelayFunctionBits::CONTROLLINGTHEGATE |
+        RelayFunctionBits::CONTROLLINGTHEGATEWAYLOCK;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -45,6 +50,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
+        $this->createDeviceManyGates($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $manager->flush();
     }
 
@@ -56,15 +62,10 @@ class DevicesFixture extends SuplaFixture {
     }
 
     protected function createDeviceFull(Location $location): IODevice {
-        $controllingBits =
-            RelayFunctionBits::CONTROLLINGTHEDOORLOCK |
-            RelayFunctionBits::CONTROLLINGTHEGARAGEDOOR |
-            RelayFunctionBits::CONTROLLINGTHEGATE |
-            RelayFunctionBits::CONTROLLINGTHEGATEWAYLOCK;
         return $this->createDevice('UNI-MODULE', $location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, RelayFunctionBits::LIGHTSWITCH | RelayFunctionBits::POWERSWITCH],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, $controllingBits],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, $controllingBits],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, self::FULL_RELAY_BITS],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, RelayFunctionBits::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
@@ -90,6 +91,14 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::RGBLEDCONTROLLER, ChannelFunction::RGBLIGHTING],
         ], self::DEVICE_RGB);
+    }
+
+    private function createDeviceManyGates(Location $location) {
+        $channels = [];
+        for ($i = 0; $i < 10; $i++) {
+            $channels[] = [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS];
+        }
+        return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
     }
 
     private function createDevice(string $name, Location $location, array $channelTypes, string $registerAs): IODevice {
