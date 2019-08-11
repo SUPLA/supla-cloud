@@ -26,7 +26,7 @@ use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
 class SecurityIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
@@ -50,7 +50,7 @@ class SecurityIntegrationTest extends IntegrationTestCase {
             $channelGroup = new IODeviceChannelGroup($user, $location, [$device->getChannels()[0], $device->getChannels()[1]]);
             $this->getEntityManager()->persist($channelGroup);
             $directLink = new DirectLink($device->getChannels()[0]);
-            $directLink->generateSlug(new NativePasswordEncoder());
+            $directLink->generateSlug(new BCryptPasswordEncoder(4));
             $this->getEntityManager()->persist($directLink);
         }
         $this->getEntityManager()->flush();
@@ -60,7 +60,7 @@ class SecurityIntegrationTest extends IntegrationTestCase {
      * @small
      * @dataProvider urlUserAssignments
      */
-    public function testGettingLocationDetails(string $method, string $url, string $username, bool $shouldBeSuccessful) {
+    public function testMatrixPermissions(string $method, string $url, string $username, bool $shouldBeSuccessful) {
         $username .= '@supla.org';
         $client = $this->createAuthenticatedClient($username);
         $client->apiRequestV23($method, $url);
