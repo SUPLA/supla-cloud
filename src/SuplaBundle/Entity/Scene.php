@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -53,8 +54,15 @@ class Scene {
      */
     private $enabled = true;
 
+    /**
+     * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="owningScene", cascade={"persist"})
+     * @Groups({"operations"})
+     */
+    private $operations;
+
     public function __construct(User $user) {
         $this->user = $user;
+        $this->operations = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -79,5 +87,10 @@ class Scene {
 
     public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
+    }
+
+    /** @return SceneOperation[]|ArrayCollection */
+    public function getOperations() {
+        return $this->operations;
     }
 }

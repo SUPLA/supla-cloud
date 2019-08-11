@@ -37,9 +37,9 @@ class SceneOperation {
 
     /**
      * @ORM\ManyToOne(targetEntity="Scene", inversedBy="operations")
-     * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="owning_scene_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $scene;
+    private $owningScene;
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="directLinks")
@@ -52,6 +52,12 @@ class SceneOperation {
      * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="operations")
+     * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $scene;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
@@ -85,6 +91,10 @@ class SceneOperation {
 
     public function getId(): int {
         return $this->id;
+    }
+
+    public function getOwningScene(): Scene {
+        return $this->owningScene;
     }
 
     /** @Groups({"subject"}) */

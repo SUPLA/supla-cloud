@@ -15,27 +15,16 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Serialization;
+namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use SuplaBundle\Entity\Scene;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class SceneSerializer extends AbstractSerializer implements NormalizerAwareInterface {
-    use NormalizerAwareTrait;
+class ScenesFixture extends SuplaFixture {
+    const ORDER = DevicesFixture::ORDER + 1;
 
-    /**
-     * @param Scene $scene
-     * @inheritdoc
-     */
-    public function normalize($scene, $format = null, array $context = []) {
-        $normalized = parent::normalize($scene, $format, $context);
-        $normalized['userId'] = $scene->getUser()->getId();
-        $normalized['operationsIds'] = $this->toIds($scene->getOperations());
-        return $normalized;
-    }
-
-    public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof Scene;
+    public function load(ObjectManager $manager) {
+        $scene = new Scene($this->getReference(UsersFixture::USER));
+        $manager->flush();
     }
 }

@@ -36,7 +36,7 @@ class ScenesController extends RestController {
     public function getScenesAction(Request $request) {
         $scenes = $this->getUser()->getScenes();
         $view = $this->view($scenes, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['subject']);
+        $this->setSerializationGroups($view, $request, ['subject', 'operations']);
         return $view;
     }
 
@@ -46,7 +46,7 @@ class ScenesController extends RestController {
      */
     public function getSceneAction(Request $request, Scene $scene) {
         $view = $this->view($scene, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['subject']);
+        $this->setSerializationGroups($view, $request, ['subject', 'operations']);
         return $view;
     }
 
@@ -68,8 +68,21 @@ class ScenesController extends RestController {
             return $scene;
         });
         $view = $this->view($scene, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, ['subject']);
+        $this->setSerializationGroups($view, $request, ['subject', 'operations']);
         return $view;
+    }
+
+    /**
+     * @Rest\Put("/scenes/{scene}")
+     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
+     */
+    public function putSceneAction(Scene $scene, Scene $updated) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($scene, $updated) {
+            $scene->setCaption($updated->getCaption());
+            $scene->setEnabled($updated->isEnabled());
+            $em->persist($scene);
+            return $this->view($scene, Response::HTTP_OK);
+        });
     }
 
     /**
