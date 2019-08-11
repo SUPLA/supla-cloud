@@ -93,4 +93,12 @@ class Scene {
     public function getOperations() {
         return $this->operations;
     }
+
+    public function setOpeartions($operations) {
+        $this->operations->clear();
+        foreach ($operations as $operation) {
+            EntityUtils::setField($operation, 'owningScene', $this);
+            $this->operations->add($operation);
+        }
+    }
 }

@@ -22,6 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,12 +77,16 @@ class ScenesController extends RestController {
      * @Rest\Put("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
-    public function putSceneAction(Scene $scene, Scene $updated) {
-        return $this->transactional(function (EntityManagerInterface $em) use ($scene, $updated) {
+    public function putSceneAction(Scene $scene, Scene $updated, Request $request) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
             $scene->setCaption($updated->getCaption());
             $scene->setEnabled($updated->isEnabled());
+            $scene->getOperations()->forAll(function (int $index, SceneOperation $sceneOperation) use ($em) {
+                $em->remove($sceneOperation);
+            });
+            $scene->setOpeartions($updated->getOperations());
             $em->persist($scene);
-            return $this->view($scene, Response::HTTP_OK);
+            return $this->getSceneAction($request, $scene);
         });
     }
 

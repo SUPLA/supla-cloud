@@ -75,10 +75,9 @@ class SceneOperation {
      * @ORM\Column(name="delay_ms", type="integer", nullable=false, options={"default" : 0})
      * @Groups({"basic"})
      */
-    private $delayMs;
+    private $delayMs = 0;
 
-    public function __construct(Scene $scene, HasFunction $subject, array $actionParam = []) {
-        $this->scene = $scene;
+    public function __construct(HasFunction $subject, ChannelFunctionAction $action, array $actionParam = [], $delayMs = 0) {
         if ($subject instanceof IODeviceChannel) {
             $this->channel = $subject;
         } elseif ($subject instanceof IODeviceChannelGroup) {
@@ -86,7 +85,9 @@ class SceneOperation {
         } else {
             throw new \InvalidArgumentException('Invalid scene operation subject given: ' . get_class($subject));
         }
-        $this->actionParam = $actionParam;
+        $this->action = $action->getId();
+        $this->setActionParam($actionParam);
+        $this->delayMs = $delayMs;
     }
 
     public function getId(): int {
@@ -106,13 +107,23 @@ class SceneOperation {
         return ActionableSubjectType::forEntity($this->getSubject());
     }
 
+    public function getAction(): ChannelFunctionAction {
+        return new ChannelFunctionAction($this->action);
+    }
+
     /** @return array|null */
     public function getActionParam() {
         return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
     }
 
-    public function getAction(): ChannelFunctionAction {
-        return new ChannelFunctionAction($this->action);
+    /** @param array|null */
+    public function setActionParam($actionParam) {
+        if ($actionParam) {
+            $params = json_encode($actionParam);
+        } else {
+            $params = null;
+        }
+        $this->actionParam = $params;
     }
 
     public function getDelayMs(): int {

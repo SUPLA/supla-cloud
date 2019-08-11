@@ -20,7 +20,9 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -58,8 +60,6 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $data = array_merge([
             'caption' => 'My scene',
             'enabled' => true,
-//            'subjectType' => 'channel',
-//            'subjectId' => $this->device->getChannels()[0]->getId(),
         ], $data);
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV23('POST', '/api/scenes', $data);
@@ -88,5 +88,216 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('My scene', $content['caption']);
         $this->assertEmpty($content['operationsIds']);
         $this->assertEmpty($content['operations']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testUpdatingSceneDetails($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id, [
+            'caption' => 'My scene 2',
+            'enabled' => false,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals('My scene 2', $content['caption']);
+        $this->assertFalse($content['enabled']);
+        $this->assertEmpty($content['operationsIds']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testAddingOperationsToScene($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id . '?include=operations,subject', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[0]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::TURN_ON,
+                ],
+                [
+                    'subjectId' => $this->device->getChannels()[1]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::TURN_OFF,
+                    'delayMs' => 1000,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertCount(2, $content['operations']);
+        $operation = $content['operations'][0];
+        $this->assertEquals($this->device->getChannels()[0]->getId(), $operation['subjectId']);
+        $this->assertEquals($this->device->getChannels()[0]->getId(), $operation['subject']['id']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $operation['subjectType']);
+        $this->assertEquals(ChannelFunctionAction::TURN_ON, $operation['actionId']);
+        $this->assertNull($operation['actionParam']);
+        $this->assertEquals(0, $operation['delayMs']);
+        $operation = $content['operations'][1];
+        $this->assertEquals($this->device->getChannels()[1]->getId(), $operation['subjectId']);
+        $this->assertEquals($this->device->getChannels()[1]->getId(), $operation['subject']['id']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $operation['subjectType']);
+        $this->assertEquals(ChannelFunctionAction::TURN_OFF, $operation['actionId']);
+        $this->assertNull($operation['actionParam']);
+        $this->assertEquals(1000, $operation['delayMs']);
+        return $sceneDetails;
+    }
+
+    /** @depends testCreatingScene */
+    public function testAddingOperationsWithParamsToScene($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id . '?include=operations,subject', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[2]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS,
+                    'actionParam' => ['brightness' => 55],
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertCount(1, $content['operations']);
+        $operation = $content['operations'][0];
+        $this->assertEquals($this->device->getChannels()[2]->getId(), $operation['subjectId']);
+        $this->assertEquals($this->device->getChannels()[2]->getId(), $operation['subject']['id']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $operation['subjectType']);
+        $this->assertEquals(ChannelFunctionAction::SET_RGBW_PARAMETERS, $operation['actionId']);
+        $this->assertEquals(['brightness' => 55], $operation['actionParam']);
+        $this->assertEquals(0, $operation['delayMs']);
+    }
+
+    /** @depends testAddingOperationsToScene */
+    public function testGettingSceneDetailsWithOperations($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('GET', '/api/scenes/' . $id . '?include=subject,operations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content['operationsIds']);
+        $this->assertCount(2, $content['operations']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testAddingOperationsWithChannelAndChannelGroupToScene($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id . '?include=operations,subject', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[0]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::TURN_ON,
+                ],
+                [
+                    'subjectId' => $this->channelGroup->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL_GROUP,
+                    'action' => ChannelFunctionAction::TURN_ON,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertCount(2, $content['operations']);
+        $operation = $content['operations'][1];
+        $this->assertEquals($this->channelGroup->getId(), $operation['subjectId']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $operation['subjectType']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testAddingInvalidActionToOperation($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id . '?include=operations,subject', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[0]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::OPEN,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    /** @depends testCreatingScene */
+    public function testAddingInvalidActionParamToOperation($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id . '?include=operations,subject', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[2]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    /** @depends testCreatingScene */
+    public function testAddingInvalidSubjectParamToOperation($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id . '?include=operations,subject', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => 666,
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::TURN_ON,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+    }
+
+    /** @depends testCreatingScene */
+    public function testAddingNotMineChannelToOperation($sceneDetails) {
+        $user = $this->createConfirmedUser('another@supla.org');
+        $location = $this->createLocation($user);
+        $device = $this->createDevice($location, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $id . '?include=operations,subject', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $device->getChannels()[0]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'action' => ChannelFunctionAction::TURN_ON,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
     }
 }

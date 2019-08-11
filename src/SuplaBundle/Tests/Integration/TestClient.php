@@ -19,6 +19,7 @@ class TestClient extends KernelBrowser {
         }
         $server['HTTP_X-Requested-With'] = 'XMLHttpRequest';
         $server['ACCEPT'] = 'application/json';
+        $server['HTTP_Accept'] = 'application/json';
         $server['CONTENT_TYPE'] = 'application/json';
         if ($version !== null) {
             $server['HTTP_X_ACCEPT_VERSION'] = $version;
