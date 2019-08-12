@@ -26,10 +26,10 @@ trait ResponseAssertions {
      * @param $expectedStatus int|string|int[] representing code (eg. 200, 404) or string representing code family (eg. '2xx', '4xx')
      * @param Response $clientResponse
      */
-    protected function assertStatusCode($expectedStatus, Response $clientResponse) {
+    protected function assertStatusCode($expectedStatus, Response $clientResponse, string $message = '') {
         $actualStatus = $clientResponse->getStatusCode();
         $fullStatusLine = $this->getResponseStatusLine($clientResponse);
-        $message = "Response status $actualStatus isn't %s: $fullStatusLine. Response content: \n"
+        $message = ($message ? $message . PHP_EOL : '') . "Response status $actualStatus isn't %s: $fullStatusLine. Response content: \n"
             . str_replace('%', 'p', $clientResponse->getContent());
         if (is_int($expectedStatus)) {
             Assert::assertEquals($expectedStatus, $actualStatus, sprintf($message, $expectedStatus));
