@@ -128,7 +128,7 @@ export function scheduleTransformer(request, next) {
 
 export function sceneTransformer(request, next) {
     if (request.url.startsWith('scenes')) {
-        if (request.body && request.body.id) {
+        if (request.body) {
             const toSend = Vue.util.extend({}, request.body);
             if (toSend.location) {
                 toSend.locationId = toSend.location.id;
@@ -136,6 +136,9 @@ export function sceneTransformer(request, next) {
             }
             if (toSend.operations) {
                 toSend.operations.forEach(operation => {
+                    if (operation.id) {
+                        delete operation.id;
+                    }
                     if (operation.subject) {
                         operation.subjectId = operation.subject.id;
                         delete operation.subject;

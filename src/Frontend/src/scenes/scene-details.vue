@@ -9,7 +9,7 @@
                         @save="saveScene()"
                         :deletable="!isNew"
                         @delete="deleteConfirm = true"
-                        :is-pending="hasPendingChanges && !isNew">
+                        :is-pending="hasPendingChanges && (!isNew || scene.operations.length)">
                         <div class="row hidden-xs">
                             <div class="col-xs-12">
                                 <dots-route></dots-route>
@@ -99,7 +99,7 @@
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
-                    this.scene = {};
+                    this.scene = {enabled: true, operations: []};
                 }
             },
             sceneChanged() {
@@ -108,14 +108,19 @@
             saveScene() {
                 const toSend = Vue.util.extend({}, this.scene);
                 this.loading = true;
-                this.$http
-                    .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
-                    .then(response => {
-                        this.$emit('update', response.body);
-                        this.scene.operations = response.body.operations;
-                    })
-                    .then(() => this.hasPendingChanges = false)
-                    .finally(() => this.loading = false);
+                if (this.isNew) {
+                    this.$http.post('scenes', toSend)
+                        .then(response => this.$emit('add', response.body));
+                } else {
+                    this.$http
+                        .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
+                        .then(response => {
+                            this.$emit('update', response.body);
+                            this.scene.operations = response.body.operations;
+                        })
+                        .then(() => this.hasPendingChanges = false)
+                        .finally(() => this.loading = false);
+                }
             },
             deleteScene() {
                 this.loading = true;

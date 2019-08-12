@@ -26,6 +26,7 @@ use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ScenesController extends RestController {
     use Transactional;
@@ -56,16 +57,14 @@ class ScenesController extends RestController {
      * @Rest\Post("/scenes")
      * @Security("has_role('ROLE_SCENES_RW')")
      */
-    public function postSceneAction(Request $request, Scene $scene) {
+    public function postSceneAction(Request $request, Scene $scene, TranslatorInterface $translator) {
         $user = $this->getUser();
         if (!$scene->getCaption()) {
-            $caption = $this->get('translator')
-                ->trans('Scene', [], null, $user->getLocale()); // i18n
+            $caption = $translator->trans('Scene', [], null, $user->getLocale()); // i18n
             $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
         }
         Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
-            $scene->setEnabled(true);
             $em->persist($scene);
             return $scene;
         });
