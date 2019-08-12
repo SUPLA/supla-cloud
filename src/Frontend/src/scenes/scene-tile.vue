@@ -7,7 +7,7 @@
             </div>
             <dl>
                 <dd>{{ $t('No of operations') }}</dd>
-                <dt>5</dt>
+                <dt>{{ model.operationsIds.length || 0 }}</dt>
             </dl>
             <div v-if="model.caption">
                 <div class="separator"></div>

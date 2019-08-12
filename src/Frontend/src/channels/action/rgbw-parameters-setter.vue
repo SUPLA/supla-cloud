@@ -91,7 +91,8 @@
                 }
                 this.colorBrightness = this.value.color_brightness || 0;
                 this.brightness = this.value.brightness || 0;
-
+            }
+            if (!this.value || Object.keys(this.value).length == 0) {
                 this.onChange();
             }
         },
@@ -112,13 +113,13 @@
         },
         computed: {
             brightnessClass() {
-                return {'DIMMER': 'col-xs-12', 'RGBLIGHTING': 'hidden'}[this.channelFunction.name] || 'col-xs-4';
+                return {'DIMMER': 'col-sm-12', 'RGBLIGHTING': 'hidden'}[this.channelFunction.name] || 'col-sm-4';
             },
             hueClass() {
-                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
+                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-sm-6'}[this.channelFunction.name] || 'col-sm-4';
             },
             colorBrightnessClass() {
-                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-xs-6'}[this.channelFunction.name] || 'col-xs-4';
+                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-sm-6'}[this.channelFunction.name] || 'col-sm-4';
             },
         },
         watch: {

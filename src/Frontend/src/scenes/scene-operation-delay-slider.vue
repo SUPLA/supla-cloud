@@ -11,6 +11,7 @@
             <div class="controls">
                 <a @click="more()"><i class="glyphicon glyphicon-plus"></i></a>
                 <a @click="less()"><i class="glyphicon glyphicon-minus"></i></a>
+                <a @click="$emit('delete')"><i class="glyphicon glyphicon-trash"></i></a>
             </div>
         </div>
     </div>

@@ -1,39 +1,5 @@
 <template>
     <div>
-        <!--        <table class="table">-->
-        <!--            <thead>-->
-        <!--            <tr>-->
-        <!--                <th>{{ $t('Subject') }}</th>-->
-        <!--                <th>{{ $t('Action') }}</th>-->
-        <!--                <th>{{ $t('Delay') }}</th>-->
-        <!--            </tr>-->
-        <!--            </thead>-->
-        <!--            <tbody>-->
-        <!--            <tr v-for="operation in scene.operations">-->
-        <!--                <td>-->
-        <!--                    <function-icon :model="operation.subject"-->
-        <!--                        width="40"></function-icon>-->
-        <!--                    {{ channelTitle(operation.subject) }}-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <channel-action-chooser :subject="operation.subject"-->
-        <!--                        v-model="operation.action"-->
-        <!--                        :possible-action-filter="possibleActionFilter(operation.subject)"></channel-action-chooser>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="input-group">-->
-        <!--                        <input type="number"-->
-        <!--                            min="0"-->
-        <!--                            class="form-control"-->
-        <!--                            maxlength="4"-->
-        <!--                            v-model="operation.delay">-->
-        <!--                        <span class="input-group-addon">s</span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--            </tr>-->
-        <!--            </tbody>-->
-        <!--        </table>-->
-
         <draggable v-model="operations"
             handle=".timeline-badge"
             direction="vertical"
@@ -71,6 +37,7 @@
                     <div class="timeline-badge"><i class="pe-7s-stopwatch"></i></div>
                     <div class="timeline-panel-container">
                         <scene-operation-delay-slider v-model="operation.delayMs"
+                            @delete="deleteOperation(operation)"
                             @input="updateModel()"></scene-operation-delay-slider>
                     </div>
 
@@ -85,6 +52,7 @@
                         <div class="form-group">
                             <label>{{ $t('Add new item to use in the scene') }}</label>
                             <subject-dropdown @input="addSceneOperation($event)"
+                                v-model="chosenNewSubject"
                                 channelsDropdownParams="io=output"></subject-dropdown>
                         </div>
                         <div class="form-group">
@@ -114,6 +82,7 @@
     import SceneOperationAction from "./scene-operation-action";
     import draggable from 'vuedraggable';
     import SceneOperationDelaySlider from "./scene-operation-delay-slider";
+    import Vue from 'vue';
 
     let UNIQUE_OPERATION_ID = 0;
 
@@ -127,7 +96,8 @@
             return {
                 dragging: false,
                 lastValue: undefined,
-                operations: []
+                operations: [],
+                chosenNewSubject: undefined,
             };
         },
         mounted() {
@@ -137,7 +107,9 @@
             buildOperations() {
                 if (this.value != this.lastValue) {
                     this.operations = [];
-                    for (const operation of (this.value || [])) {
+                    for (const op of (this.value || [])) {
+                        const operation = Vue.util.extend({}, op);
+                        operation.action = {id: operation.actionId, param: operation.actionParam};
                         operation.id = UNIQUE_OPERATION_ID++;
                         if (operation.delayMs) {
                             this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: operation.delayMs});
@@ -151,7 +123,10 @@
                 this.updateModel();
             },
             addSceneOperation({subject, type}) {
-                this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: type, delay: 0});
+                if (subject) {
+                    this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: type, delayMs: 0});
+                    Vue.nextTick(() => this.chosenNewSubject = {type});
+                }
             },
             channelTitle(subject) {
                 return channelTitle(subject, this, true);
@@ -164,9 +139,12 @@
                 this.dragging = false;
                 const operations = [];
                 let delay = 0;
-                for (const operation of this.operations) {
+                for (const op of this.operations) {
+                    const operation = Vue.util.extend({}, op);
                     if (operation.subject) {
                         operation.delayMs = delay;
+                        operation.actionId = operation.action.id;
+                        operation.actionParam = operation.action.param;
                         operations.push(operation);
                         delay = 0;
                     } else if (operation.delayMs) {
@@ -288,19 +266,19 @@
                 background-color: #999;
                 border-radius: 50%;
                 color: #fff;
-                font-size: 1.4em;
+                font-size: 1.8em;
                 height: 50px;
-                left: 50px;
-                line-height: 52px;
-                margin-left: -25px;
+                width: 50px;
+                left: 25px;
                 position: absolute;
                 text-align: center;
                 top: 16px;
-                width: 50px;
                 z-index: 100;
                 cursor: move;
                 cursor: -webkit-grabbing;
-
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
                 &.primary {
                     background-color: #2e6da4 !important;
                 }

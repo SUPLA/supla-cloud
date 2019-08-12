@@ -12,7 +12,7 @@
         name: 'hue-colorpicker',
         props: ['value'],
         mounted() {
-            if (!this.value) {
+            if (this.value === undefined) {
                 this.value = 0;
                 this.$emit('input', this.value);
             }
