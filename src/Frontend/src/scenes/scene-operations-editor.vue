@@ -34,37 +34,45 @@
         <!--            </tbody>-->
         <!--        </table>-->
 
-        <draggable v-model="scene.operations"
+        <draggable v-model="operations"
             handle=".timeline-badge"
             direction="vertical"
             animation="200"
             class="scene-timeline"
             @start="dragging = true"
             @end="dragging = false">
-            <div class="timeline-item"
-                v-for="operation of scene.operations"
+            <div :class="['timeline-item', {'timeline-item-delay': !operation.subject}]"
+                v-for="operation of operations"
                 :key="operation.id">
-                <div class="timeline-badge action">
-                    <function-icon :model="operation.subject"
-                        width="38"></function-icon>
-                </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">{{ channelTitle(operation.subject) }}</h4>
-                        <div class="timeline-panel-controls">
-                            <div class="controls">
-                                <a class="drag-handle"><i class="glyphicon glyphicon-move"></i></a>
-                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>
+                <template v-if="operation.subject">
+                    <div class="timeline-badge action">
+                        <function-icon :model="operation.subject"
+                            width="38"></function-icon>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ channelTitle(operation.subject) }}</h4>
+                            <div class="timeline-panel-controls">
+                                <div class="controls">
+                                    <a class="drag-handle"><i class="glyphicon glyphicon-move"></i></a>
+                                    <a href="#"><i class="glyphicon glyphicon-trash"></i></a>
+                                </div>
                             </div>
                         </div>
+                        <div class="timeline-body drag-handle">
+                            <channel-action-chooser :subject="operation.subject"
+                                v-model="operation.action"
+                                :possible-action-filter="possibleActionFilter">
+                            </channel-action-chooser>
+                        </div>
                     </div>
-                    <div class="timeline-body drag-handle">
-                        <channel-action-chooser :subject="operation.subject"
-                            v-model="operation.action"
-                            :possible-action-filter="possibleActionFilter">
-                        </channel-action-chooser>
+                </template>
+                <template v-else>
+                    <div class="timeline-badge"><i class="pe-7s-stopwatch"></i></div>
+                    <div class="timeline-panel-container">
+                        <scene-operation-delay-slider v-model="operation.delayMs"></scene-operation-delay-slider>
                     </div>
-                </div>
+                </template>
             </div>
         </draggable>
         <div class="form-group">
@@ -252,20 +260,32 @@
     import ChannelActionChooser from "../channels/action/channel-action-chooser";
     import RgbwParametersSetter from "../channels/action/rgbw-parameters-setter";
     import SceneOperationAction from "./scene-operation-action";
-    import draggable from 'vuedraggable'
+    import draggable from 'vuedraggable';
+    import SceneOperationDelaySlider from "./scene-operation-delay-slider";
 
     export default {
         props: ['scene'],
-        components: {SceneOperationAction, RgbwParametersSetter, ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable},
+        components: {
+            SceneOperationDelaySlider,
+            SceneOperationAction, RgbwParametersSetter, ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable
+        },
         data() {
             return {
-                dragging: false
+                dragging: false,
+                operations: []
             };
         },
         mounted() {
             if (!this.scene.operations) {
                 this.$set(this.scene, 'operations', []);
             }
+            for (const operation of this.scene.operations) {
+                if (operation.delayMs) {
+                    this.operations.push({id: Math.random(), delayMs: operation.delayMs});
+                }
+                this.operations.push(operation);
+            }
+            console.log(this.operations);
         },
         methods: {
             addSceneOperation({subject, type}) {
@@ -336,12 +356,9 @@
                 clear: both;
             }
 
-            > .timeline-separator {
-                border-top: 3px solid $supla-grey-dark;
+            > .timeline-panel-container {
                 margin-left: 100px;
-                /*padding: 20px;*/
                 margin-top: 30px;
-                padding-top: 5px;
                 position: relative;
             }
 
@@ -358,32 +375,25 @@
                         position: absolute;
                         right: 8px;
                         top: 5px;
+                    }
+                }
+            }
 
-                        .timestamp {
-                            display: inline-block;
-                        }
+            .controls {
+                display: inline-block;
+                padding-right: 5px;
+                user-select: none;
+                /*border-right: 1px solid #aaa;*/
 
-                        .controls {
-                            display: inline-block;
-                            padding-right: 5px;
-                            /*border-right: 1px solid #aaa;*/
+                a {
+                    color: #999;
+                    font-size: 11px;
+                    padding: 0 5px;
 
-                            a {
-                                color: #999;
-                                font-size: 11px;
-                                padding: 0 5px;
-
-                                &:hover {
-                                    color: #333;
-                                    text-decoration: none;
-                                    cursor: pointer;
-                                }
-                            }
-                        }
-
-                        .controls + .timestamp {
-                            padding-left: 5px;
-                        }
+                    &:hover {
+                        color: #333;
+                        text-decoration: none;
+                        cursor: pointer;
                     }
                 }
             }
@@ -402,6 +412,8 @@
                 top: 16px;
                 width: 50px;
                 z-index: 100;
+                cursor: move;
+                cursor: -webkit-grabbing;
 
                 &.primary {
                     background-color: #2e6da4 !important;

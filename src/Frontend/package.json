@@ -39,6 +39,7 @@
     "vue-moment": "2.0.2",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
+    "vue-slider-component": "^3.0.35",
     "vue-switches": "2.0.1",
     "vuedraggable": "^2.23.0",
     "vuex": "2.3.1"
