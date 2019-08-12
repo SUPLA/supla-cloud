@@ -29,7 +29,7 @@ class ScenesFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
 
     public function load(ObjectManager $manager) {
-        $scene = new Scene($this->getReference(UsersFixture::USER));
+        $scene = new Scene($this->getReference(UsersFixture::USER)->getLocations()[0]);
         /** @var IODevice $deviceFull */
         $deviceFull = $this->getReference(DevicesFixture::DEVICE_MEGA);
         $rgb = $deviceFull->getChannels()->filter(function (IODeviceChannel $channel) {

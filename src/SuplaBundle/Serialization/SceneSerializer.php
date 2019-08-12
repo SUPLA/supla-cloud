@@ -18,21 +18,16 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Scene;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class SceneSerializer extends AbstractSerializer implements NormalizerAwareInterface {
-    use NormalizerAwareTrait;
-
+class SceneSerializer extends AbstractSerializer {
     /**
      * @param Scene $scene
      * @inheritdoc
      */
-    public function normalize($scene, $format = null, array $context = []) {
-        $normalized = parent::normalize($scene, $format, $context);
+    protected function addExtraFields(array &$normalized, $scene, array $context) {
         $normalized['userId'] = $scene->getUser()->getId();
+        $normalized['locationId'] = $scene->getLocation()->getId();
         $normalized['operationsIds'] = $this->toIds($scene->getOperations());
-        return $normalized;
     }
 
     public function supportsNormalization($entity, $format = null) {

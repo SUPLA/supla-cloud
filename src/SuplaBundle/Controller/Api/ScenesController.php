@@ -81,6 +81,7 @@ class ScenesController extends RestController {
         return $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
             $scene->setCaption($updated->getCaption());
             $scene->setEnabled($updated->isEnabled());
+            $scene->setLocation($updated->getLocation());
             $scene->getOperations()->forAll(function (int $index, SceneOperation $sceneOperation) use ($em) {
                 $em->remove($sceneOperation);
             });

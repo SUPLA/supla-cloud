@@ -12,6 +12,7 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
+use SuplaBundle\Repository\LocationRepository;
 
 class SceneParamConverter extends AbstractBodyParamConverter {
     use CurrentUserAware;
@@ -22,15 +23,21 @@ class SceneParamConverter extends AbstractBodyParamConverter {
     private $channelGroupRepository;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /**
+     * @var LocationRepository
+     */
+    private $locationRepository;
 
     public function __construct(
         IODeviceChannelRepository $channelRepository,
         ChannelGroupRepository $channelGroupRepository,
-        ChannelActionExecutor $channelActionExecutor
+        ChannelActionExecutor $channelActionExecutor,
+        LocationRepository $locationRepository
     ) {
         $this->channelRepository = $channelRepository;
         $this->channelGroupRepository = $channelGroupRepository;
         $this->channelActionExecutor = $channelActionExecutor;
+        $this->locationRepository = $locationRepository;
     }
 
     public function getConvertedClass(): string {
@@ -39,7 +46,12 @@ class SceneParamConverter extends AbstractBodyParamConverter {
 
     public function convert(array $data) {
         $user = $this->getCurrentUserOrThrow();
-        $scene = new Scene($user);
+        if (isset($data['locationId']) && $data['locationId']) {
+            $location = $this->locationRepository->findForUser($user, $data['locationId']);
+        } else {
+            $location = $user->getLocations()[0];
+        }
+        $scene = new Scene($location);
         $scene->setCaption($data['caption'] ?? '');
         $scene->setEnabled($data['enabled'] ?? false);
         $operations = $data['operations'] ?? [];

@@ -43,6 +43,13 @@ class Scene {
     private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="scenes")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
+     * @Groups({"location"})
+     */
+    private $location;
+
+    /**
      * @ORM\Column(name="caption", type="string", length=255, nullable=true)
      * @Groups({"basic"})
      */
@@ -60,8 +67,9 @@ class Scene {
      */
     private $operations;
 
-    public function __construct(User $user) {
-        $this->user = $user;
+    public function __construct(Location $location) {
+        $this->user = $location->getUser();
+        $this->location = $location;
         $this->operations = new ArrayCollection();
     }
 
@@ -79,6 +87,14 @@ class Scene {
 
     public function getUser(): User {
         return $this->user;
+    }
+
+    public function getLocation(): Location {
+        return $this->location;
+    }
+
+    public function setLocation(Location $location): void {
+        $this->location = $location;
     }
 
     public function isEnabled(): bool {
