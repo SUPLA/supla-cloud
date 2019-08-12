@@ -118,12 +118,12 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectId' => $this->device->getChannels()[0]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::TURN_ON,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
                 ],
                 [
                     'subjectId' => $this->device->getChannels()[1]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::TURN_OFF,
+                    'actionId' => ChannelFunctionAction::TURN_OFF,
                     'delayMs' => 1000,
                 ],
             ],
@@ -151,6 +151,19 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingScene */
+    public function testUpdatingSceneMultipleTimes(array $sceneDetails) {
+        $this->testAddingOperationsToScene($sceneDetails);
+        $this->testAddingOperationsToScene($sceneDetails);
+        $this->testAddingOperationsToScene($sceneDetails);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('GET', '/api/scenes/' . $sceneDetails['id'] . '?include=subject,operations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content['operations']);
+    }
+
+    /** @depends testCreatingScene */
     public function testAddingOperationsWithParamsToScene($sceneDetails) {
         $id = $sceneDetails['id'];
         $client = $this->createAuthenticatedClient($this->user);
@@ -161,7 +174,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectId' => $this->device->getChannels()[2]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS,
+                    'actionId' => ChannelFunctionAction::SET_RGBW_PARAMETERS,
                     'actionParam' => ['brightness' => 55],
                 ],
             ],
@@ -203,12 +216,12 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectId' => $this->device->getChannels()[0]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::TURN_ON,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
                 ],
                 [
                     'subjectId' => $this->channelGroup->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL_GROUP,
-                    'action' => ChannelFunctionAction::TURN_ON,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
                 ],
             ],
         ]);
@@ -233,7 +246,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectId' => $this->device->getChannels()[0]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::OPEN,
+                    'actionId' => ChannelFunctionAction::OPEN,
                 ],
             ],
         ]);
@@ -252,7 +265,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectId' => $this->device->getChannels()[2]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::SET_RGBW_PARAMETERS,
+                    'actionId' => ChannelFunctionAction::SET_RGBW_PARAMETERS,
                 ],
             ],
         ]);
@@ -271,7 +284,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectId' => 666,
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::TURN_ON,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
                 ],
             ],
         ]);
@@ -293,7 +306,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectId' => $device->getChannels()[0]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
-                    'action' => ChannelFunctionAction::TURN_ON,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
                 ],
             ],
         ]);

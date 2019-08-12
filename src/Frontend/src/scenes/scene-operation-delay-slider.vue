@@ -1,7 +1,9 @@
 <template>
     <div>
         <vue-slider v-model="sliderValue"
+            @change="$emit('input', sliderValue)"
             :data="possibleValues"
+            :lazy="true"
             tooltip="always"
             tooltip-placement="top"
             :tooltip-formatter="formattedValue"></vue-slider>
@@ -36,6 +38,7 @@
             this.sliderValue = this.value;
             if (this.possibleValues.indexOf(this.sliderValue) === -1) {
                 this.sliderValue = 1000;
+                this.$emit('input', this.sliderValue);
             }
         },
         methods: {
@@ -55,7 +58,6 @@
             },
             more() {
                 const index = this.possibleValues.indexOf(this.sliderValue);
-                console.log(index, this.sliderValue);
                 this.sliderValue = this.possibleValues[Math.min(this.possibleValues.length - 1, index + 1)];
             }
         }

@@ -85,6 +85,7 @@ class ScenesController extends RestController {
             $scene->setLocation($updated->getLocation());
             $scene->getOperations()->forAll(function (int $index, SceneOperation $sceneOperation) use ($em) {
                 $em->remove($sceneOperation);
+                return true;
             });
             $scene->setOpeartions($updated->getOperations());
             $em->persist($scene);

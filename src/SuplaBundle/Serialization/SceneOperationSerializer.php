@@ -30,6 +30,7 @@ class SceneOperationSerializer extends AbstractSerializer implements NormalizerA
      */
     public function normalize($sceneOperation, $format = null, array $context = []) {
         $normalized = parent::normalize($sceneOperation, $format, $context);
+        unset($normalized['id']);
         $normalized['subjectType'] = $sceneOperation->getSubjectType()->getValue();
         $normalized['subjectId'] = $sceneOperation->getSubject()->getId();
         $normalized['actionId'] = $sceneOperation->getAction()->getId();
