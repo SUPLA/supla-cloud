@@ -131,12 +131,12 @@ class IODeviceManager {
 
                 $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) date_ts, ";
                 $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) date,";
-                $sql .= "`phase1_fae` / 100000.00 phase1_fae, `phase1_rae` / 100000.00 phase1_rae, ";
-                $sql .= "`phase1_fre` / 100000.00 phase1_fre, `phase1_rre` / 100000.00 phase1_rre, ";
-                $sql .= "`phase2_fae` / 100000.00 phase2_fae, `phase2_rae` / 100000.00 phase2_rae, ";
-                $sql .= "`phase2_fre` / 100000.00 phase2_fre, `phase2_rre` / 100000.00 phase2_rre, ";
-                $sql .= "`phase3_fae` / 100000.00 phase3_fae, `phase3_rae` / 100000.00 phase3_rae, ";
-                $sql .= "`phase3_fre` / 100000.00 phase3_fre, `phase3_rre` / 100000.00 phase3_rre ";
+                $sql .= "IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, ";
+                $sql .= "IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, ";
+                $sql .= "IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, ";
+                $sql .= "IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, ";
+                $sql .= "IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, ";
+                $sql .= "IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre ";
                 $sql .= "FROM `supla_em_log` WHERE channel_id = ?";
 
                 $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
