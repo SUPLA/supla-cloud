@@ -37,18 +37,24 @@
             <li class="timeline-item"
                 v-for="operation of scene.operations">
                 <div class="timeline-badge action">
-                    <function-icon :model="{id: 20}"
+                    <function-icon :model="operation.subject"
                         width="38"></function-icon>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4 class="timeline-title">Brama wjazdowa ID45</h4>
+                        <h4 class="timeline-title">{{ channelTitle(operation.subject) }}</h4>
                         <div class="timeline-panel-controls">
                             <div class="controls">
                                 <a href="#"><i class="glyphicon glyphicon-move"></i></a>
                                 <a href="#"><i class="glyphicon glyphicon-trash"></i></a>
                             </div>
                         </div>
+                    </div>
+                    <div class="timeline-body">
+                        <channel-action-chooser :subject="operation.subject"
+                            v-model="operation.action"
+                            :possible-action-filter="possibleActionFilter">
+                        </channel-action-chooser>
                     </div>
                 </div>
             </li>
@@ -243,10 +249,6 @@
             if (!this.scene.operations) {
                 this.$set(this.scene, 'operations', []);
             }
-            this.scene.operations = [
-                {subjectId: 105, subjectType: 'channel', action: 60},
-                {subjectId: 105, subjectType: 'channel', action: 70},
-            ];
         },
         methods: {
             addSceneOperation({subject, type}) {
@@ -257,9 +259,8 @@
             },
             possibleActionFilter(subject) {
                 return (possibleAction) =>
-                    (possibleAction.name != 'OPEN' || subject.function.possibleActions.length == 1)
-                    && possibleAction.name != 'CLOSE';
-            }
+                    (possibleAction.name != 'OPEN' || subject.function.possibleActions.length == 1) && possibleAction.name != 'CLOSE';
+            },
         }
     };
 </script>

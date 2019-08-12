@@ -36,9 +36,9 @@ class ScenesFixture extends SuplaFixture {
             return $channel->getFunction()->getId() == ChannelFunction::DIMMERANDRGBLIGHTING;
         })->first();
         $gate = $deviceFull->getChannels()->filter(function (IODeviceChannel $channel) {
-            return $channel->getFunction()->getId() == ChannelFunction::OPENINGSENSOR_GATE;
+            return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
-        $op1 = new SceneOperation($this->getReference(DevicesFixture::DEVICE_SONOFF)->getChannels()[0], ChannelFunctionAction::TURN_ON());
+        $op1 = new SceneOperation($this->getReference(DevicesFixture::DEVICE_SONOFF)->getChannels()[0], ChannelFunctionAction::TOGGLE());
         $op2 = new SceneOperation($rgb, ChannelFunctionAction::SET_RGBW_PARAMETERS(), ['brightness' => 55], 2000);
         $op3 = new SceneOperation($gate, ChannelFunctionAction::OPEN_CLOSE());
         $scene->setEnabled(true);

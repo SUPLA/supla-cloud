@@ -19,14 +19,14 @@ namespace SuplaBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class SceneTest extends TestCase {
     public function testSettingOwningScene() {
-        $scene = new Scene($this->createMock(User::class));
+        $scene = new Scene($this->createMock(Location::class));
         $operation = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
         $operation2 = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
         $scene->setOpeartions([$operation, $operation2]);
@@ -37,7 +37,7 @@ class SceneTest extends TestCase {
     }
 
     public function testAddingOperationsManyTimes() {
-        $scene = new Scene($this->createMock(User::class));
+        $scene = new Scene($this->createMock(Location::class));
         $operation = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
         $operation2 = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
         $scene->setOpeartions([$operation, $operation2]);

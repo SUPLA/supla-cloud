@@ -29,6 +29,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ScenesController extends RestController {
     use Transactional;
+    private const DEFAULT_INCLUDES = ['subject', 'operations', 'location'];
 
     /**
      * @Rest\Get("/scenes")
@@ -37,7 +38,7 @@ class ScenesController extends RestController {
     public function getScenesAction(Request $request) {
         $scenes = $this->getUser()->getScenes();
         $view = $this->view($scenes, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['subject', 'operations']);
+        $this->setSerializationGroups($view, $request, self::DEFAULT_INCLUDES);
         return $view;
     }
 
@@ -47,7 +48,7 @@ class ScenesController extends RestController {
      */
     public function getSceneAction(Request $request, Scene $scene) {
         $view = $this->view($scene, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['subject', 'operations']);
+        $this->setSerializationGroups($view, $request, self::DEFAULT_INCLUDES);
         return $view;
     }
 
@@ -69,7 +70,7 @@ class ScenesController extends RestController {
             return $scene;
         });
         $view = $this->view($scene, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, ['subject', 'operations']);
+        $this->setSerializationGroups($view, $request, self::DEFAULT_INCLUDES);
         return $view;
     }
 
