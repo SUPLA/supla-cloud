@@ -27,8 +27,8 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\HttpFoundation\Response;
 
+/** @small */
 class SceneControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
@@ -56,23 +56,25 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
-    private function createScene(array $data = []): Response {
-        $data = array_merge([
+    public function testCreatingScene() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,
-        ], $data);
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV23('POST', '/api/scenes', $data);
-        return $client->getResponse();
-    }
-
-    public function testCreatingScene() {
-        $response = $this->createScene();
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[0]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
         $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertTrue($content['enabled']);
         $this->assertEquals('My scene', $content['caption']);
-        $this->assertEmpty($content['operationsIds']);
+        $this->assertCount(1, $content['operationsIds']);
         return $content;
     }
 
@@ -86,8 +88,9 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($id, $content['id']);
         $this->assertEquals('My scene', $content['caption']);
-        $this->assertEmpty($content['operationsIds']);
-        $this->assertEmpty($content['operations']);
+        $this->assertCount(1, $content['operationsIds']);
+        $this->assertCount(1, $content['operations']);
+        $this->assertArrayNotHasKey('id', $content['operations'][0]);
     }
 
     /** @depends testCreatingScene */
@@ -97,6 +100,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV23('PUT', '/api/scenes/' . $id, [
             'caption' => 'My scene 2',
             'enabled' => false,
+            'operations' => $sceneDetails['operations'],
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -104,7 +108,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($id, $content['id']);
         $this->assertEquals('My scene 2', $content['caption']);
         $this->assertFalse($content['enabled']);
-        $this->assertEmpty($content['operationsIds']);
+        $this->assertCount(1, $content['operationsIds']);
     }
 
     /** @depends testCreatingScene */
@@ -150,6 +154,18 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         return $sceneDetails;
     }
 
+    /** @depends testAddingOperationsToScene */
+    public function testGettingSceneDetailsWithOperations($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('GET', '/api/scenes/' . $id . '?include=subject,operations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content['operationsIds']);
+        $this->assertCount(2, $content['operations']);
+    }
+
     /** @depends testCreatingScene */
     public function testUpdatingSceneMultipleTimes(array $sceneDetails) {
         $this->testAddingOperationsToScene($sceneDetails);
@@ -191,18 +207,6 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunctionAction::SET_RGBW_PARAMETERS, $operation['actionId']);
         $this->assertEquals(['brightness' => 55], $operation['actionParam']);
         $this->assertEquals(0, $operation['delayMs']);
-    }
-
-    /** @depends testAddingOperationsToScene */
-    public function testGettingSceneDetailsWithOperations($sceneDetails) {
-        $id = $sceneDetails['id'];
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV23('GET', '/api/scenes/' . $id . '?include=subject,operations');
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $content = json_decode($response->getContent(), true);
-        $this->assertCount(2, $content['operationsIds']);
-        $this->assertCount(2, $content['operations']);
     }
 
     /** @depends testCreatingScene */
@@ -312,5 +316,16 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(404, $response);
+    }
+
+    public function testCreatingSceneWithoutOperationsFails() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 }

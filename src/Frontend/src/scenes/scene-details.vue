@@ -109,9 +109,10 @@
                 const toSend = Vue.util.extend({}, this.scene);
                 this.loading = true;
                 this.$http
-                    .put('scenes/' + this.scene.id, toSend)
+                    .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
                     .then(response => {
                         this.$emit('update', response.body);
+                        this.scene.operations = response.body.operations;
                     })
                     .then(() => this.hasPendingChanges = false)
                     .finally(() => this.loading = false);

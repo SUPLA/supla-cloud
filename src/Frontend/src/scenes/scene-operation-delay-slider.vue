@@ -1,7 +1,7 @@
 <template>
     <div>
         <vue-slider v-model="sliderValue"
-            @change="$emit('input', sliderValue)"
+            @change="updateModel()"
             :data="possibleValues"
             :lazy="true"
             tooltip="always"
@@ -38,7 +38,7 @@
             this.sliderValue = this.value;
             if (this.possibleValues.indexOf(this.sliderValue) === -1) {
                 this.sliderValue = 1000;
-                this.$emit('input', this.sliderValue);
+                this.updateModel();
             }
         },
         methods: {
@@ -47,18 +47,23 @@
                 if (ms < 1000) {
                     return ms + ' ms';
                 } else if (ms < 60000) {
-                    return Math.round(ms / 1000) + ' s';
+                    return Math.round(ms / 1000) + ' ' + this.$t('sec.');
                 } else {
-                    return Math.round(ms / 60000) + ' min';
+                    return Math.round(ms / 60000) + ' ' + this.$t('min.');
                 }
             },
             less() {
                 const index = this.possibleValues.indexOf(this.sliderValue);
                 this.sliderValue = this.possibleValues[Math.max(0, index - 1)];
+                this.updateModel();
             },
             more() {
                 const index = this.possibleValues.indexOf(this.sliderValue);
                 this.sliderValue = this.possibleValues[Math.min(this.possibleValues.length - 1, index + 1)];
+                this.updateModel();
+            },
+            updateModel() {
+                this.$emit('input', this.sliderValue);
             }
         }
     };

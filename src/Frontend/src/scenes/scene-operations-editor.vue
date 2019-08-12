@@ -58,10 +58,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="timeline-body drag-handle">
+                        <div class="timeline-body">
                             <channel-action-chooser :subject="operation.subject"
                                 v-model="operation.action"
-                                :possible-action-filter="possibleActionFilter">
+                                @input="updateModel()"
+                                :possible-action-filter="possibleActionFilter(operation.subject)">
                             </channel-action-chooser>
                         </div>
                     </div>
@@ -72,13 +73,34 @@
                         <scene-operation-delay-slider v-model="operation.delayMs"
                             @input="updateModel()"></scene-operation-delay-slider>
                     </div>
+
                 </template>
             </div>
         </draggable>
-        <div class="form-group">
-            <label>{{ $t('Choose item to use in scene') }}</label>
-            <subject-dropdown @input="addSceneOperation($event)"
-                channelsDropdownParams="io=output"></subject-dropdown>
+        <div class="scene-timeline">
+            <div class="timeline-item timeline-item-new">
+                <div class="timeline-badge"><i class="pe-7s-plus"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-body">
+                        <div class="form-group">
+                            <label>{{ $t('Add new item to use in the scene') }}</label>
+                            <subject-dropdown @input="addSceneOperation($event)"
+                                channelsDropdownParams="io=output"></subject-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ $t('or add a delay') }}</label>
+                            <div>
+                                <button type="button"
+                                    @click="addDelay()"
+                                    class="btn btn-default">
+                                    <i class="pe-7s-stopwatch"></i>
+                                    {{ $t('Add a delay') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -104,6 +126,7 @@
         data() {
             return {
                 dragging: false,
+                lastValue: undefined,
                 operations: []
             };
         },
@@ -112,13 +135,15 @@
         },
         methods: {
             buildOperations() {
-                this.operations = [];
-                for (const operation of (this.value || [])) {
-                    operation.id = UNIQUE_OPERATION_ID++;
-                    if (operation.delayMs) {
-                        this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: operation.delayMs});
+                if (this.value != this.lastValue) {
+                    this.operations = [];
+                    for (const operation of (this.value || [])) {
+                        operation.id = UNIQUE_OPERATION_ID++;
+                        if (operation.delayMs) {
+                            this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: operation.delayMs});
+                        }
+                        this.operations.push(operation);
                     }
-                    this.operations.push(operation);
                 }
             },
             deleteOperation(operation) {
@@ -148,7 +173,11 @@
                         delay += operation.delayMs;
                     }
                 }
+                this.lastValue = operations;
                 this.$emit('input', operations);
+            },
+            addDelay() {
+                this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: 5000});
             }
         },
         watch: {

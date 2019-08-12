@@ -57,7 +57,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
         $operations = $data['operations'] ?? [];
         Assertion::isArray($operations, 'Invalid operations spec.');
         Assertion::allIsArray($operations, 'Invalid operations spec.');
-//        Assertion::greaterThan(count($channelIds), 0, 'Channel group must consist of at least one channel.'); // i18n
+        Assertion::greaterThan(count($operations), 0, 'Scene must consist of at least one operation.'); // i18n
         $operations = array_map(function (array $operationData) use ($scene, $user) {
             Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
             Assertion::keyExists($operationData, 'subjectType', 'You must set subjectType for each scene operation.');
