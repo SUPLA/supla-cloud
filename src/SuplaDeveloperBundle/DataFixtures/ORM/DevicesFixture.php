@@ -36,6 +36,7 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_SONOFF = 'deviceSonoff';
     const DEVICE_FULL = 'deviceFull';
     const DEVICE_RGB = 'deviceRgb';
+    const DEVICE_MEGA = 'deviceMega';
     const DEVICE_SUPLER = 'deviceSupler';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
@@ -57,7 +58,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
-        $device = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
+        $device = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE', '');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
             $this->entityManager->persist($noFunctionChannel);
@@ -73,7 +74,7 @@ class DevicesFixture extends SuplaFixture {
             }
             $this->setReference(self::RANDOM_DEVICE_PREFIX . $i, $device);
         }
-        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE');
+        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE', '');
         $this->setReference(self::DEVICE_SUPLER, $suplerDevice);
         $manager->flush();
     }
@@ -97,7 +98,11 @@ class DevicesFixture extends SuplaFixture {
         ], self::DEVICE_FULL);
     }
 
-    protected function createEveryFunctionDevice(Location $location, $name = 'ALL-IN-ONE MEGA DEVICE'): IODevice {
+    protected function createEveryFunctionDevice(
+        Location $location,
+        $name = 'ALL-IN-ONE MEGA DEVICE',
+        $registerAs = self::DEVICE_MEGA
+    ): IODevice {
         $functionableTypes = array_filter(ChannelType::values(), function (ChannelType $type) {
             return count(ChannelType::functions()[$type->getValue()] ?? []);
         });
@@ -107,7 +112,7 @@ class DevicesFixture extends SuplaFixture {
             }, ChannelType::functions()[$type->getValue()]);
         }, $functionableTypes));
         $channels = call_user_func_array('array_merge', $channels);
-        return $this->createDevice($name, $location, $channels, 'megadevice');
+        return $this->createDevice($name, $location, $channels, $registerAs);
     }
 
     protected function createDeviceRgb(Location $location): IODevice {
@@ -156,7 +161,9 @@ class DevicesFixture extends SuplaFixture {
             $this->entityManager->flush();
         }
         $this->entityManager->refresh($device);
-        $this->setReference($registerAs, $device);
+        if ($registerAs) {
+            $this->setReference($registerAs, $device);
+        }
         return $device;
     }
 }
