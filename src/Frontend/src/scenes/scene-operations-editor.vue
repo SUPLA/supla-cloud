@@ -33,9 +33,17 @@
         <!--            </tr>-->
         <!--            </tbody>-->
         <!--        </table>-->
-        <ol class="scene-timeline">
-            <li class="timeline-item"
-                v-for="operation of scene.operations">
+
+        <draggable v-model="scene.operations"
+            handle=".timeline-badge"
+            direction="vertical"
+            animation="200"
+            class="scene-timeline"
+            @start="dragging = true"
+            @end="dragging = false">
+            <div class="timeline-item"
+                v-for="operation of scene.operations"
+                :key="operation.id">
                 <div class="timeline-badge action">
                     <function-icon :model="operation.subject"
                         width="38"></function-icon>
@@ -45,184 +53,190 @@
                         <h4 class="timeline-title">{{ channelTitle(operation.subject) }}</h4>
                         <div class="timeline-panel-controls">
                             <div class="controls">
-                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>
+                                <a class="drag-handle"><i class="glyphicon glyphicon-move"></i></a>
                                 <a href="#"><i class="glyphicon glyphicon-trash"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="timeline-body">
+                    <div class="timeline-body drag-handle">
                         <channel-action-chooser :subject="operation.subject"
                             v-model="operation.action"
                             :possible-action-filter="possibleActionFilter">
                         </channel-action-chooser>
                     </div>
                 </div>
-            </li>
-            <!--            <li class="timeline-item"-->
-            <!--                style="margin-bottom: 0;">-->
-            <!--                <div class="timeline-badge action">-->
-            <!--                    <function-icon :model="{id: 20}"-->
-            <!--                        width="38"></function-icon>-->
-            <!--                </div>-->
-            <!--                <div class="timeline-panel">-->
-            <!--                    <div class="timeline-heading">-->
-            <!--                        <h4 class="timeline-title">Brama wjazdowa ID45</h4>-->
-            <!--                        <div class="timeline-panel-controls">-->
-            <!--                            <div class="controls">-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                    <div class="timeline-body">Otwórz/zamknij</div>-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="timeline-item">-->
-            <!--                <div class="timeline-badge"><i class="pe-7s-stopwatch"></i></div>-->
-            <!--                <div class="timeline-separator">-->
-            <!--                    20 sekund-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="timeline-item">-->
-            <!--                <div class="timeline-badge action">-->
-            <!--                    <function-icon :model="{id: 130}"-->
-            <!--                        width="38"></function-icon>-->
-            <!--                </div>-->
-            <!--                <div class="timeline-panel">-->
-            <!--                    <div class="timeline-heading">-->
-            <!--                        <h4 class="timeline-title">Podlewajka ogródka ID100</h4>-->
-            <!--                        <div class="timeline-panel-controls">-->
-            <!--                            <div class="controls">-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                    <div class="timeline-body">-->
-            <!--                        <div class="btn-group">-->
-            <!--                            <button class="btn btn-white">Wyłącz</button>-->
-            <!--                            <button class="btn btn-green">Włącz</button>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="timeline-item">-->
-            <!--                <div class="timeline-badge action">-->
-            <!--                    <function-icon :model="{id: 140}"-->
-            <!--                        width="38"></function-icon>-->
-            <!--                </div>-->
-            <!--                <div class="timeline-panel">-->
-            <!--                    <div class="timeline-heading">-->
-            <!--                        <h4 class="timeline-title">Lampki na podjeździe do mojej rezydencji ID120</h4>-->
-            <!--                        <div class="timeline-panel-controls">-->
-            <!--                            <div class="controls">-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                    <div class="timeline-body">-->
-            <!--                        <div class="btn-group">-->
-            <!--                            <button class="btn btn-green">Wyłącz</button>-->
-            <!--                            <button class="btn btn-white">Włącz</button>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="timeline-item">-->
-            <!--                <div class="timeline-badge condition">-->
-            <!--                    <function-icon :model="{id: 40}"-->
-            <!--                        width="38"></function-icon>-->
-            <!--                </div>-->
-            <!--                <div class="timeline-panel">-->
-            <!--                    <div class="timeline-heading">-->
-            <!--                        <h4 class="timeline-title">Termometr zewnętrzny ID1230</h4>-->
-            <!--                        <div class="timeline-panel-controls">-->
-            <!--                            <div class="controls">-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                    <div class="timeline-body">-->
-            <!--                        <p style="padding-bottom: 5px;">Wykonuj scenę dalej, jeśli temperatura jest</p>-->
-            <!--                        <div class="input-group">-->
-            <!--                            <span class="input-group-btn">-->
-            <!--                                <button class="btn btn-white">mniejsza niż</button>-->
-            <!--                            </span>-->
-            <!--                            <input type="text"-->
-            <!--                                class="form-control">-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="timeline-item">-->
-            <!--                <div class="timeline-badge action">-->
-            <!--                    <function-icon :model="{id: 200}"-->
-            <!--                        width="38"></function-icon>-->
-            <!--                </div>-->
-            <!--                <div class="timeline-panel">-->
-            <!--                    <div class="timeline-heading">-->
-            <!--                        <h4 class="timeline-title">Dyskoteka ID999</h4>-->
-            <!--                        <div class="timeline-panel-controls">-->
-            <!--                            <div class="controls">-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
-            <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                    <div class="timeline-body">-->
-            <!--                        <div class="form-group">-->
-            <!--                            <div class="btn-group">-->
-            <!--                                <button class="btn btn-white">Wyłącz</button>-->
-            <!--                                <button class="btn btn-white">Włącz</button>-->
-            <!--                                <button class="btn btn-white">Przełącz</button>-->
-            <!--                                <button class="btn btn-green">Ustaw parametry</button>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                        <div class="clearfix">-->
-            <!--                            <rgbw-parameters-setter :channel-function="{name: 'DIMMERANDRGBLIGHTING'}"></rgbw-parameters-setter>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="timeline-item"-->
-            <!--                style="margin-top: 60px; opacity: .8">-->
-            <!--                <div class="timeline-badge"><i class="glyphicon glyphicon-plus"></i></div>-->
-            <!--                <div class="timeline-panel">-->
-            <!--                    <div class="timeline-heading">-->
-            <!--                        <h4 class="timeline-title">Dodaj element do sceny</h4>-->
-            <!--                        &lt;!&ndash;                        <div class="timeline-panel-controls">&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                            <div class="controls">&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                                <a href="#">&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                                    <i class="glyphicon glyphicon-pencil"></i>&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                                </a><a href="#">&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                                <i class="glyphicon glyphicon-trash"></i>&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                            </a>&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                            </div>&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                            <div class="timestamp">&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                                <small class="text-muted">24. Sep 17:03</small>&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                            </div>&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
-            <!--                    </div>-->
-            <!--                    <div class="timeline-body">-->
-            <!--                        <button class="btn btn-white">-->
-            <!--                            <span class="pe-7s-rocket"></span>-->
-            <!--                            Akcja-->
-            <!--                        </button>-->
-            <!--                        <button class="btn btn-white">-->
-            <!--                            <span class="pe-7s-stopwatch"></span>-->
-            <!--                            Opóźnienie-->
-            <!--                        </button>-->
-            <!--                        <button class="btn btn-white">-->
-            <!--                            <span class="pe-7s-help1"></span>-->
-            <!--                            Warunek-->
-            <!--                        </button>-->
-            <!--                    </div>-->
-            <!--                </div>-->
+            </div>
+        </draggable>
+        <div class="form-group">
+            <label>{{ $t('Choose item to use in scene') }}</label>
+            <subject-dropdown @input="addSceneOperation($event)"
+                channelsDropdownParams="io=output"></subject-dropdown>
+        </div>
+        <!--            <li class="timeline-item"-->
+        <!--                style="margin-bottom: 0;">-->
+        <!--                <div class="timeline-badge action">-->
+        <!--                    <function-icon :model="{id: 20}"-->
+        <!--                        width="38"></function-icon>-->
+        <!--                </div>-->
+        <!--                <div class="timeline-panel">-->
+        <!--                    <div class="timeline-heading">-->
+        <!--                        <h4 class="timeline-title">Brama wjazdowa ID45</h4>-->
+        <!--                        <div class="timeline-panel-controls">-->
+        <!--                            <div class="controls">-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="timeline-body">Otwórz/zamknij</div>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--            <li class="timeline-item">-->
+        <!--                <div class="timeline-badge"><i class="pe-7s-stopwatch"></i></div>-->
+        <!--                <div class="timeline-separator">-->
+        <!--                    20 sekund-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--            <li class="timeline-item">-->
+        <!--                <div class="timeline-badge action">-->
+        <!--                    <function-icon :model="{id: 130}"-->
+        <!--                        width="38"></function-icon>-->
+        <!--                </div>-->
+        <!--                <div class="timeline-panel">-->
+        <!--                    <div class="timeline-heading">-->
+        <!--                        <h4 class="timeline-title">Podlewajka ogródka ID100</h4>-->
+        <!--                        <div class="timeline-panel-controls">-->
+        <!--                            <div class="controls">-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="timeline-body">-->
+        <!--                        <div class="btn-group">-->
+        <!--                            <button class="btn btn-white">Wyłącz</button>-->
+        <!--                            <button class="btn btn-green">Włącz</button>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--            <li class="timeline-item">-->
+        <!--                <div class="timeline-badge action">-->
+        <!--                    <function-icon :model="{id: 140}"-->
+        <!--                        width="38"></function-icon>-->
+        <!--                </div>-->
+        <!--                <div class="timeline-panel">-->
+        <!--                    <div class="timeline-heading">-->
+        <!--                        <h4 class="timeline-title">Lampki na podjeździe do mojej rezydencji ID120</h4>-->
+        <!--                        <div class="timeline-panel-controls">-->
+        <!--                            <div class="controls">-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="timeline-body">-->
+        <!--                        <div class="btn-group">-->
+        <!--                            <button class="btn btn-green">Wyłącz</button>-->
+        <!--                            <button class="btn btn-white">Włącz</button>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--            <li class="timeline-item">-->
+        <!--                <div class="timeline-badge condition">-->
+        <!--                    <function-icon :model="{id: 40}"-->
+        <!--                        width="38"></function-icon>-->
+        <!--                </div>-->
+        <!--                <div class="timeline-panel">-->
+        <!--                    <div class="timeline-heading">-->
+        <!--                        <h4 class="timeline-title">Termometr zewnętrzny ID1230</h4>-->
+        <!--                        <div class="timeline-panel-controls">-->
+        <!--                            <div class="controls">-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="timeline-body">-->
+        <!--                        <p style="padding-bottom: 5px;">Wykonuj scenę dalej, jeśli temperatura jest</p>-->
+        <!--                        <div class="input-group">-->
+        <!--                            <span class="input-group-btn">-->
+        <!--                                <button class="btn btn-white">mniejsza niż</button>-->
+        <!--                            </span>-->
+        <!--                            <input type="text"-->
+        <!--                                class="form-control">-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--            <li class="timeline-item">-->
+        <!--                <div class="timeline-badge action">-->
+        <!--                    <function-icon :model="{id: 200}"-->
+        <!--                        width="38"></function-icon>-->
+        <!--                </div>-->
+        <!--                <div class="timeline-panel">-->
+        <!--                    <div class="timeline-heading">-->
+        <!--                        <h4 class="timeline-title">Dyskoteka ID999</h4>-->
+        <!--                        <div class="timeline-panel-controls">-->
+        <!--                            <div class="controls">-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-move"></i></a>-->
+        <!--                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="timeline-body">-->
+        <!--                        <div class="form-group">-->
+        <!--                            <div class="btn-group">-->
+        <!--                                <button class="btn btn-white">Wyłącz</button>-->
+        <!--                                <button class="btn btn-white">Włącz</button>-->
+        <!--                                <button class="btn btn-white">Przełącz</button>-->
+        <!--                                <button class="btn btn-green">Ustaw parametry</button>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                        <div class="clearfix">-->
+        <!--                            <rgbw-parameters-setter :channel-function="{name: 'DIMMERANDRGBLIGHTING'}"></rgbw-parameters-setter>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--            <li class="timeline-item"-->
+        <!--                style="margin-top: 60px; opacity: .8">-->
+        <!--                <div class="timeline-badge"><i class="glyphicon glyphicon-plus"></i></div>-->
+        <!--                <div class="timeline-panel">-->
+        <!--                    <div class="timeline-heading">-->
+        <!--                        <h4 class="timeline-title">Dodaj element do sceny</h4>-->
+        <!--                        &lt;!&ndash;                        <div class="timeline-panel-controls">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            <div class="controls">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                <a href="#">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                    <i class="glyphicon glyphicon-pencil"></i>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                </a><a href="#">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                <i class="glyphicon glyphicon-trash"></i>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            </a>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            </div>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            <div class="timestamp">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                <small class="text-muted">24. Sep 17:03</small>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            </div>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--                    </div>-->
+        <!--                    <div class="timeline-body">-->
+        <!--                        <button class="btn btn-white">-->
+        <!--                            <span class="pe-7s-rocket"></span>-->
+        <!--                            Akcja-->
+        <!--                        </button>-->
+        <!--                        <button class="btn btn-white">-->
+        <!--                            <span class="pe-7s-stopwatch"></span>-->
+        <!--                            Opóźnienie-->
+        <!--                        </button>-->
+        <!--                        <button class="btn btn-white">-->
+        <!--                            <span class="pe-7s-help1"></span>-->
+        <!--                            Warunek-->
+        <!--                        </button>-->
+        <!--                    </div>-->
+        <!--                </div>-->
 
-            <!--            </li>-->
-        </ol>
+        <!--            </li>-->
+        <!--        </ol>-->
         <!--        <div class="form-group">-->
         <!--            <label>{{ $t('Choose item to use in scene') }}</label>-->
         <!--            <subject-dropdown @input="addSceneOperation($event)"-->
@@ -238,12 +252,15 @@
     import ChannelActionChooser from "../channels/action/channel-action-chooser";
     import RgbwParametersSetter from "../channels/action/rgbw-parameters-setter";
     import SceneOperationAction from "./scene-operation-action";
+    import draggable from 'vuedraggable'
 
     export default {
         props: ['scene'],
-        components: {SceneOperationAction, RgbwParametersSetter, ChannelActionChooser, FunctionIcon, SubjectDropdown},
+        components: {SceneOperationAction, RgbwParametersSetter, ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable},
         data() {
-            return {};
+            return {
+                dragging: false
+            };
         },
         mounted() {
             if (!this.scene.operations) {
@@ -289,7 +306,7 @@
          }*/
     }
 
-    ol.scene-timeline {
+    .scene-timeline {
         list-style: none;
         padding: 20px 0 20px;
         position: relative;
@@ -305,7 +322,7 @@
             width: 3px;
         }
 
-        > li {
+        .timeline-item {
             margin-bottom: 20px;
             position: relative;
 
@@ -452,11 +469,9 @@
     }
 
     .timeline-body {
-        > p,
-        > ul {
+        > p, > ul {
             margin-bottom: 0;
         }
-
         > p + p {
             margin-top: 5px;
         }
@@ -470,6 +485,16 @@
         font-size: 11px;
         > * {
             color: #444;
+        }
+    }
+
+    .flip-list-move {
+        transition: transform 0.5s;
+    }
+
+    .sortable-ghost {
+        .timeline-panel {
+            opacity: .5;
         }
     }
 </style>
