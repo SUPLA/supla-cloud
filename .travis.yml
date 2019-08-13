@@ -19,3 +19,5 @@ cache:
   directories:
     - vendor
     - src/Frontend/node_modules
+services:
+  - mysql
