@@ -169,7 +169,7 @@ class UserManager {
             $this->aid_man->CreateID($user, true);
             $this->loc_man->CreateLocation($user, true);
 
-            $user->setToken('');
+            $user->setToken(null);
             $user->setEnabled(true);
             $user->enableClientsRegistration($this->defaultClientsRegistrationTime);
             $user->enableIoDevicesRegistration($this->defaultClientsRegistrationTime);

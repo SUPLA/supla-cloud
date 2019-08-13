@@ -52,7 +52,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $shortUniqueId;
 
     /** @ORM\Column(name="long_unique_id", type="string", length=200, unique=true, options={"fixed" = true})
-     *  @Groups({"longUniqueId"})
+     * @Groups({"longUniqueId"})
      */
     private $longUniqueId;
 
@@ -91,7 +91,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $regDate;
 
     /**
-     * @ORM\Column(name="token", type="string")
+     * @ORM\Column(name="token", type="string", nullable=true)
      */
     private $token;
 
@@ -179,7 +179,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $userIcons;
 
     /**
-     * /**
      * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"})
      */
     private $locations;
