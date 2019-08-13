@@ -60,7 +60,7 @@ class AuthorizeOAuthController extends Controller {
         ClientManagerInterface $clientManager,
         LocalSuplaCloud $localSuplaCloud,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
-        string $recaptchaSecret
+        $recaptchaSecret
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;

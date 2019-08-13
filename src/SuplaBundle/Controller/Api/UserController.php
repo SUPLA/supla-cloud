@@ -76,7 +76,7 @@ class UserController extends RestController {
         int $ioDevicesRegistrationEnableTime,
         bool $requireRegulationsAcceptance,
         bool $recaptchaEnabled,
-        string $recaptchaSecret
+        $recaptchaSecret
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
