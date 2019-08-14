@@ -268,19 +268,20 @@ class UserController extends RestController {
         if (preg_match('/@/', $username)) {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $server = $this->autodiscover->getAuthServerForUser($username);
-                list($content, $status) = $this->suplaCloudRequestForwarder->resendActivationEmail($server, $username);
-                return new JsonResponse($content, $status);
-            } elseif ($request->getMethod() == Request::METHOD_POST) {
-                $user = $this->userManager->userByEmail($username);
-                if ($user) {
-                    try {
-                        $sent = $this->userManager->sendConfirmationEmailMessage($user);
-                        if (!$sent) {
-                            throw new ServiceUnavailableHttpException(10, 'Cannot send an activation e-mail. Try again later.'); // i18n
-                        }
-                    } catch (\InvalidArgumentException $e) {
-                        throw new ConflictHttpException($e->getMessage(), $e);
+                if (!$server->isLocal()) {
+                    list($content, $status) = $this->suplaCloudRequestForwarder->resendActivationEmail($server, $username);
+                    return new JsonResponse($content, $status);
+                }
+            }
+            $user = $this->userManager->userByEmail($username);
+            if ($user) {
+                try {
+                    $sent = $this->userManager->sendConfirmationEmailMessage($user);
+                    if (!$sent) {
+                        throw new ServiceUnavailableHttpException(10, 'Cannot send an activation e-mail. Try again later.'); // i18n
                     }
+                } catch (\InvalidArgumentException $e) {
+                    throw new ConflictHttpException($e->getMessage(), $e);
                 }
             }
         }
