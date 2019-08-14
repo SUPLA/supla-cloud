@@ -22,12 +22,14 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Model\Audit\Audit;
+use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
@@ -175,10 +177,11 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCanResendActivationEmailAfter5Minutes */
     public function testCannotResendActivationEmailImmediatelyAfterResend(User $createdUser) {
+        $countBefore = count(TestMailer::getMessages());
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/register-resend', ['email' => $createdUser->getEmail()]);
         $this->assertStatusCode(409, $client->getResponse());
-        $this->assertCount(2, TestMailer::getMessages());
+        $this->assertCount($countBefore, TestMailer::getMessages());
     }
 
     /** @small */
@@ -187,6 +190,28 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $countBefore = count(TestMailer::getMessages());
         $client->apiRequest('POST', '/api/register-resend', ['email' => 'unicorn@supla.org']);
         $this->assertStatusCode(202, $client->getResponse());
+        $this->assertCount($countBefore, TestMailer::getMessages());
+    }
+
+    /** @small */
+    public function testSendsResendRequestToTargetCloud() {
+        $countBefore = count(TestMailer::getMessages());
+        SuplaAutodiscoverMock::clear();
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$userMapping['unicorn@supla.org'] = 'target.cloud';
+        $targetCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint, array $data) use (&$targetCalled) {
+                $this->assertEquals('https://target.cloud', $address);
+                $this->assertEquals('register-resend', $endpoint);
+                $this->assertEquals(['email' => 'unicorn@supla.org'], $data);
+                $targetCalled = true;
+                return [null, Response::HTTP_ACCEPTED];
+            };
+        $client = $this->createHttpsClient();
+        $client->apiRequest('PATCH', '/api/register-resend', ['email' => 'unicorn@supla.org']);
+        $this->assertStatusCode(202, $client->getResponse());
+        $this->assertTrue($targetCalled);
         $this->assertCount($countBefore, TestMailer::getMessages());
     }
 
@@ -335,6 +360,18 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty($this->createdUser->getToken());
     }
 
+    /** @depends testCanResetPasswordWithValidToken */
+    public function testCanLoginWithResetPassword() {
+        $client = $this->createHttpsClient();
+        $this->assertSuccessfulLoginRequest($client, self::EMAIL, 'alamapsa');
+    }
+
+    /** @depends testCanResetPasswordWithValidToken */
+    public function testCannotLoginWithOldPasswordAfterReset() {
+        $client = $this->createHttpsClient();
+        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
+    }
+
     public function testCannotResetPasswordTwiceWithTheSameToken() {
         $this->testGeneratesForgottenPasswordTokenForValidUser();
         $client = $this->createHttpsClient();
@@ -342,18 +379,6 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $client->apiRequest('PUT', '/api/forgotten-password/' . $this->createdUser->getToken(), ['password' => 'alamapsa']);
         $this->assertStatusCode(400, $client->getResponse());
-    }
-
-    public function testCanLoginWithResetPassword() {
-        $this->testCanResetPasswordWithValidToken();
-        $client = $this->createHttpsClient();
-        $this->assertSuccessfulLoginRequest($client, self::EMAIL, 'alamapsa');
-    }
-
-    public function testCannotLoginWithOldPasswordAfterReset() {
-        $this->testCanResetPasswordWithValidToken();
-        $client = $this->createHttpsClient();
-        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
     }
 
     public function testCanLoginWithInvalidAndThenValidPassword() {
