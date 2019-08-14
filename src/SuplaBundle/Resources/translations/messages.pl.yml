@@ -69,6 +69,7 @@ Cancel: Anuluj
 Cancel changes: Anuluj zmiany
 Cancelled: Anulowane
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
+Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
 Change Password: Zmiana hasła
@@ -213,8 +214,10 @@ Go to channel details: Przejdź do szczegółów kanału
 Go to your account: Przejdź do swojego konta
 Grant access: Przyznaj dostęp
 HFD4 Relay: Przekaźnik HFD4
+'Having problems with account activation? Click [here] to resend the account activation link.': 'Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Kliknij [tutaj], by wysłać ją ponownie.'
 History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
+Home+ Heater: Grzałka Home+
 Hours: Godziny
 Humidity: Wilgotność
 Humidity Sensor: Czujnik wilgotności
@@ -317,6 +320,7 @@ Percentage of closing: Procent zamknięcia
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.'
 Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
+Please click the link we have sent you after the registration to proceed.: 'Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.'
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
@@ -412,6 +416,7 @@ Temperature and humidity sensor: Czujnik temperatury i wilgotności
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.'
 The Terms and Conditions have changed: Regulamin uległ zmianie
 The Terms and Conditions have changed – please read them and accept.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
+The activation link has been sent again. Check the inbox.: Wiadomość z linkiem aktywującym Twoje konto została wysłana ponownie. Sprawdź skrzynkę odbiorczą.
 The client will be automatically logged out when deleted.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
 The device is disabled: Urządzenie jest wyłączone
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
@@ -451,6 +456,7 @@ WELCOME_MESSAGE: |
   przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
 Water meter: Licznik wody
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
+We have just sent you an activation link. Be patient.: Wiadomość z linkiem aktywującym Twoje konto została dopiero co wysłana. Cierpliwości.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Wysłaliśmy do Ciebie wiadomość e-mail z linkiem potwierdzającym usunięcie konta. Może się jeszcze rozmyślisz!
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek). [Przeczytaj regulamin].'
 We were not able to find your account.: Nie udało nam się znaleźć Twojego konta.
@@ -482,6 +488,7 @@ You will be logged out shortly: Za chwilę zostaniesz wylogowany
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
 Your account has been deleted. We hope you will come back to us soon.: 'Konto zostało usunięte. Mamy nadzieję, że wkrótce do nas wrócisz.'
 Your account has been locked.: Twoje konto zostało zablokowane.
+Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
@@ -573,6 +580,5 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Home+ Heater: Grzałka Home+
 
 #</editor-fold>

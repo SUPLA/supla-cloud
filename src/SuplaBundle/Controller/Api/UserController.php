@@ -208,7 +208,7 @@ class UserController extends RestController {
         Assertion::email($username, 'Please fill a valid email address'); // i18n
 
         $remoteServer = '';
-        $exists = $this->autodiscover->userExists($username, $remoteServer);
+        $exists = $this->autodiscover->userExists($username);
         Assertion::false($exists, 'Email already exists'); // i18n
 
         if ($exists === null) {

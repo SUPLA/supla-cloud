@@ -20,6 +20,7 @@ Account access when you are unavailable: Accesso all’account mentre non sei di
 Account has been activated. You can Sign In now.: L’account è stato attivato. Puoi effettuare il log in.
 Action: Azione
 Action execution: Esecuzione dell’azione
+Actions: Azioni
 Active: Attivi
 Add: Aggiungi
 Add a new icon: Dodaj nową ikonę
@@ -67,6 +68,7 @@ Calibration: Calibrazione
 Cancel: Annulla
 Cancel changes: Annulla le modifiche
 Cancelled: Cancellati
+Cannot execute an action when the device is disconnected.: Non è possibile eseguire le azioni se l’apparecchio è disconnesso.
 Captcha token is not valid.: Captcha non valido.
 Caption: Titolo
 Change Password: Cambio della password
@@ -213,6 +215,7 @@ Grant access: Concedi l’accesso
 HFD4 Relay: Relè HFD4
 History of measurements: Storia delle misurazioni
 Home appliances: Elettrodomestici
+Home+ Heater: Riscaldatore Home+
 Hours: Ore
 Humidity: Umidità
 Humidity Sensor: Sensore di umidità
@@ -426,6 +429,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'I file delle icone che hai selezionato sono troppo grandi. La dimensione massima consentita di upload è {limit}.'
 There are no more channels you can add to this group: Non ci sono altri canali da aggiungere a questo gruppo
 Thermometer: Termometro
+Thermostat: Termostato
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Questo link diretto richiede una precisazione dei parametri dell’azione eseguita. Vedi i seguenti esempi per scoprire quali parametri puoi impostare.
 This is the list of applications you have granted access to your account.: Questo è un elenco delle applicazioni a cui hai dato un accesso al Tuo account.
 Thursdays: Giovedì
@@ -448,6 +452,7 @@ WELCOME_MESSAGE: |
   Tutto quello che devi fare è riscrivere nei Tuoi dispositivi di controllo (entrate/uscite) e nei smartphone i seguenti dati.
 Water meter: Licznik wody
 We could not connect to your SUPLA Cloud instance.: Non riuscivamo a connetterci con la Tua istanza privata SUPLA Cloud.
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ti abbiamo inviato un messaggio e-mail contenente il link di conferma della cancellazione dell’account. Forse cambierai la Tua decisione!
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Conserviamo nel Tuo broswer le informazioni sulle Tue preferenze al fine di facilitare l’uso dell’applicazione (ad esempio mediante un meccanismo di cookies). [Leggi il Regolamento].'
 We were not able to find your account.: Non siamo riusciti a trovare il Tuo account.
 We will miss you: Ci mancherai
@@ -569,10 +574,11 @@ execute: esegui
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Actions: Azioni
-Cannot execute an action when the device is disconnected.: Non è possibile eseguire le azioni se l’apparecchio è disconnesso.
-Home+ Heater: Riscaldatore Home+
-Thermostat: Termostato
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ti abbiamo inviato un messaggio e-mail contenente il link di conferma della cancellazione dell’account. Forse cambierai la Tua decisione!
+Cannot send an activation e-mail. Try again later.: ~
+'Having problems with account activation? Click [here] to resend the account activation link.': ~
+Please click the link we have sent you after the registration to proceed.: ~
+The activation link has been sent again. Check the inbox.: ~
+We have just sent you an activation link. Be patient.: ~
+Your account has not been confirmed yet.: ~
 
 #</editor-fold>

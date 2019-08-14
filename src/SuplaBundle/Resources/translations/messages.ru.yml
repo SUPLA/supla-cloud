@@ -20,6 +20,7 @@ Account access when you are unavailable: 'Доступ к учетной зап�
 Account has been activated. You can Sign In now.: Аккаунт создан. Можете войти
 Action: Акция
 Action execution: Выполнение действий
+Actions: Действия
 Active: Активные
 Add: Добавь
 Add a new icon: Добавить новый значок
@@ -67,6 +68,7 @@ Calibration: калибровка
 Cancel: Отмена
 Cancel changes: Отменить изменения
 Cancelled: Аннулировано
+Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
 Captcha token is not valid.: Неправильная капча.
 Caption: Подпись
 Change Password: Смена пароля
@@ -213,6 +215,7 @@ Grant access: Предоставить доступ
 HFD4 Relay: Реле HFD4
 History of measurements: История измерений
 Home appliances: Бытовая техника
+Home+ Heater: Дом + обогреватель
 Hours: Часов
 Humidity: Влажность
 Humidity Sensor: Датчик влажности
@@ -426,6 +429,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Выбранный Вами файлы икон превышают максимальный размер. Максимальный размер загружаемого файла - {limit}.'
 There are no more channels you can add to this group: 'Нет других каналов, которые можно добавить в эту группу'
 Thermometer: Термометр
+Thermostat: Термостат
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Эта прямая ссылка требует уточнения параметров выполняемого действия. Смотрите приведенные ниже примеры, чтобы узнать, какие параметры вы можете задать.'
 This is the list of applications you have granted access to your account.: 'Это список приложений, которым вы предоставили доступ к вашей учетной записи.'
 Thursdays: Четверги
@@ -448,6 +452,7 @@ WELCOME_MESSAGE: |
   Для этого Тебе достаточно всего лишь перезаписать в своих устройствах управления (Вход/Выход) и смартфонах нижеприведенные данные.
 Water meter: Счетчик воды
 We could not connect to your SUPLA Cloud instance.: Не удалось подключиться к персональной инстанции облака SUPLA Cloud.
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Вам отправлено электронное письмо с ссылкой для подтверждения удаления учетной записи. Может, Вы еще передумаете!'
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Мы сохраняем в вашем браузере информацию о ваших предпочтениях для облегчения использования приложения (например, с помощью механизма куки). [Читать правила].'
 We were not able to find your account.: Не удалось найти вашу учетную запись.
 We will miss you: Мы будем скучать без вас
@@ -569,10 +574,11 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Actions: Действия
-Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
-Home+ Heater: Дом + обогреватель
-Thermostat: Термостат
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Вам отправлено электронное письмо с ссылкой для подтверждения удаления учетной записи. Может, Вы еще передумаете!
+Cannot send an activation e-mail. Try again later.: ~
+'Having problems with account activation? Click [here] to resend the account activation link.': ~
+Please click the link we have sent you after the registration to proceed.: ~
+The activation link has been sent again. Check the inbox.: ~
+We have just sent you an activation link. Be patient.: ~
+Your account has not been confirmed yet.: ~
 
 #</editor-fold>

@@ -43,10 +43,11 @@
                         .catch((error) => {
                             if (error.status == 401) {
                                 this.displayError = 'error';
+                            } else if (error.status == 409) {
+                                this.displayError = 'disabled';
                             } else if (error.status == 429) {
                                 this.displayError = 'locked';
-                            }
-                            else {
+                            } else {
                                 console.warn(error); // eslint-disable-line no-console
                                 errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             }

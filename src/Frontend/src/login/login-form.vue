@@ -55,6 +55,16 @@
             </div>
         </transition>
         <transition name="fade">
+            <div class="error disabled"
+                v-if="error === 'disabled'">
+                <p><strong>{{ $t('Your account has not been confirmed yet.') }}</strong></p>
+                <p>{{ $t('Please click the link we have sent you after the registration to proceed.') }}</p>
+                <p>
+                    <resend-account-activation-link :username="username"></resend-account-activation-link>
+                </p>
+            </div>
+        </transition>
+        <transition name="fade">
             <router-link to="/forgotten-password"
                 class="error"
                 v-if="error == 'error'">
@@ -80,10 +90,11 @@
 
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import ResendAccountActivationLink from "../register/resend-account-activation-link";
 
     export default {
         props: ['authenticating', 'oauth', 'error', 'value', 'intitialUsername', 'submitButtonText'],
-        components: {ButtonLoadingDots},
+        components: {ResendAccountActivationLink, ButtonLoadingDots},
         data() {
             return {
                 username: '',
@@ -173,6 +184,10 @@
             border-radius: 3px;
             color: $supla-black;
             margin-bottom: 20px;
+
+            p a {
+                color: darken($supla-green, 10%);
+            }
 
             &.locked {
                 background: $supla-red;

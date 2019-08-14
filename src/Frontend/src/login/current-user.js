@@ -34,7 +34,7 @@ export class CurrentUser {
     }
 
     authenticate(username, password) {
-        return Vue.http.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 429]})
+        return Vue.http.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 409, 429]})
             .then(response => this.handleNewToken(response))
             .then(() => this.fetchUserData());
     }
