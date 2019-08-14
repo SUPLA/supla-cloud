@@ -575,7 +575,7 @@ execute: proveď
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Cannot send an activation e-mail. Try again later.: ~
-'Having problems with account activation? Click [here] to resend the account activation link.': ~
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': ~
 Please click the link we have sent you after the registration to proceed.: ~
 The activation link has been sent again. Check the inbox.: ~
 User is already confirmed. Try to log in.: ~

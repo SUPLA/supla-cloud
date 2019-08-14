@@ -132,7 +132,7 @@
                 }
 
                 this.isBusy = true;
-                this.$http.post('register-account', data)
+                this.$http.post('register-account', data, {skipErrorHandler: [400, 409]})
                     .then(({body}) => this.$emit('registered', body.email))
                     .catch(({body}) => {
                         this.usernameTaken = body.message == 'Email already exists';
