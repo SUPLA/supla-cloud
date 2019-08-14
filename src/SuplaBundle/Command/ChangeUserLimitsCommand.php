@@ -25,7 +25,8 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
 
     protected function configure() {
         $this
-            ->setName('supla:change-user-limits')
+            ->setName('supla:user:change-limits')
+            ->setAliases(['supla:change-user-limits'])
             ->setDescription('Allows to change user limits.');
     }
 

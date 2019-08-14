@@ -57,7 +57,7 @@ class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
         $output->writeln(sprintf('Users to remove: <info>%d</info>.', count($usersToDelete)));
 
         foreach ($usersToDelete as $userToDelete) {
-            $this->getApplication()->run(new StringInput("supla:delete-user {$userToDelete->getUsername()} --no-interaction"), $output);
+            $this->getApplication()->run(new StringInput("supla:user:delete {$userToDelete->getUsername()} --no-interaction"), $output);
         }
     }
 
