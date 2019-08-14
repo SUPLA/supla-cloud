@@ -24,6 +24,7 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\UserRepository;
@@ -56,6 +57,10 @@ class UserManager {
     private $timeProvider;
     /** @var LoggerInterface */
     private $logger;
+    /**
+     * @var SuplaMailer
+     */
+    private $mailer;
 
     public function __construct(
         UserRepository $userRepository,
@@ -65,6 +70,7 @@ class UserManager {
         ScheduleManager $scheduleManager,
         TimeProvider $timeProvider,
         LoggerInterface $logger,
+        SuplaMailer $mailer,
         int $defaultClientsRegistrationTime,
         int $defaultIoDevicesRegistrationTime
     ) {
@@ -77,6 +83,7 @@ class UserManager {
         $this->defaultIoDevicesRegistrationTime = $defaultIoDevicesRegistrationTime;
         $this->timeProvider = $timeProvider;
         $this->logger = $logger;
+        $this->mailer = $mailer;
     }
 
     /** @required */
@@ -95,6 +102,29 @@ class UserManager {
         $this->transactional(function (EntityManagerInterface $em) use ($user) {
             $em->persist($user);
         });
+    }
+
+    public function sendConfirmationEmailMessage(User $user): bool {
+        $date = $this->timeProvider->getDateTime();
+        $date->setTimeZone(new \DateTimeZone('UTC'));
+        $date->sub(new \DateInterval('PT5M'));
+        $qb = $this->audit->getRepository()->createQueryBuilder('ae');
+        $recentEmail = $qb
+                ->where('ae.event IN(:events)')
+                ->andWhere('ae.user = :user')
+                ->andWhere($qb->expr()->gte('ae.createdAt', ':date'))
+                ->setParameters([
+                    'user' => $user,
+                    'events' => [AuditedEvent::USER_ACTIVATION_EMAIL_SENT],
+                    'date' => $date,
+                ])
+                ->getQuery()
+                ->getResult()[0] ?? null;
+        Assertion::null($recentEmail, 'We have just sent you an activation link. Be patient.'); // i18n
+        $this->audit->newEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT())
+            ->setUser($user)
+            ->buildAndFlush();
+        return $this->mailer->sendConfirmationEmailMessage($user);
     }
 
     public function setPassword($password, User $user, $flush = false) {

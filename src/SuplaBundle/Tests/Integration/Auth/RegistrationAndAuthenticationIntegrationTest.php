@@ -41,8 +41,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     /** @var Audit */
     private $audit;
 
-    /** @before */
-    public function initAudit() {
+    public function initializeDatabaseForTests() {
         $this->audit = $this->container->get(Audit::class);
         SuplaAutodiscoverMock::clear();
     }
@@ -74,6 +73,24 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->createdUser->getEmail(), $data['email']);
         $this->assertNotNull($this->createdUser);
         $this->assertFalse($this->createdUser->isEnabled());
+        return $this->createdUser;
+    }
+
+    /** @depends testCreatingUser */
+    public function testCannotLoginIfNotConfirmed(User $user) {
+        $client = $this->createHttpsClient();
+        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
+        return $user;
+    }
+
+    /** @depends testCannotLoginIfNotConfirmed */
+    public function testSavesIncorrectLoginAttemptInAudit(User $createdUser) {
+        $entry = $this->getLatestAuditEntry();
+        $this->assertEquals(AuditedEvent::AUTHENTICATION_FAILURE(), $entry->getEvent());
+        $this->assertEquals($createdUser->getUsername(), $entry->getTextParam());
+        $this->assertEquals(AuthenticationFailureReason::DISABLED, $entry->getIntParam());
+        $this->assertNotNull($entry->getUser());
+        $this->assertEquals($createdUser->getId(), $entry->getUser()->getId());
     }
 
     public function testNotifyingAdAboutNewUserIfBroker() {
@@ -89,27 +106,11 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty(SuplaAutodiscoverMock::$requests);
     }
 
-    public function testCannotLoginIfNotConfirmed() {
-        $this->testCreatingUser();
-        $client = $this->createHttpsClient();
-        $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
-    }
-
     public function testNoFailedAttemptNotificationIfAccountNotConfirmed() {
         $this->testCreatingUser();
         TestMailer::reset();
         $this->assertFailedLoginRequest($this->createHttpsClient(), self::EMAIL, self::PASSWORD);
         $this->assertEmpty(TestMailer::getMessages());
-    }
-
-    public function testSavesIncorrectLoginAttemptInAudit() {
-        $this->testCannotLoginIfNotConfirmed();
-        $entry = $this->getLatestAuditEntry();
-        $this->assertEquals(AuditedEvent::AUTHENTICATION_FAILURE(), $entry->getEvent());
-        $this->assertEquals($this->createdUser->getUsername(), $entry->getTextParam());
-        $this->assertEquals(AuthenticationFailureReason::DISABLED, $entry->getIntParam());
-        $this->assertNotNull($entry->getUser());
-        $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
     }
 
     public function testSendsEmailWithConfirmationToken() {
@@ -120,6 +121,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
         $this->assertContains('Activation', $confirmationMessage->getSubject());
         $this->assertContains($this->createdUser->getToken(), $confirmationMessage->getBody());
+        return $this->createdUser;
     }
 
     public function testSendsEmailWithConfirmationTokenInPolish() {
@@ -142,21 +144,68 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('?lang=pl', $confirmationMessage->getBody());
     }
 
+    /** @depends testSendsEmailWithConfirmationToken */
+    public function testAddsAuditEntryAboutSendingConfirmationLink(User $createdUser) {
+        $entry = $this->getLatestAuditEntry();
+        $this->assertEquals(AuditedEvent::USER_ACTIVATION_EMAIL_SENT(), $entry->getEvent());
+        $this->assertNull($entry->getTextParam());
+        $this->assertNull($entry->getIntParam());
+        $this->assertNotNull($entry->getUser());
+        $this->assertEquals($createdUser->getId(), $entry->getUser()->getId());
+        return $createdUser;
+    }
+
+    /** @depends testAddsAuditEntryAboutSendingConfirmationLink */
+    public function testCannotResendActivationEmailImmediately(User $createdUser) {
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/register-resend', ['email' => $createdUser->getEmail()]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $this->assertCount(1, TestMailer::getMessages());
+    }
+
+    /** @depends testAddsAuditEntryAboutSendingConfirmationLink */
+    public function testCanResendActivationEmailAfter5Minutes(User $createdUser) {
+        TestTimeProvider::setTime('+6 minutes');
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/register-resend', ['email' => $createdUser->getEmail()]);
+        $this->assertStatusCode(202, $client->getResponse());
+        $this->assertCount(2, TestMailer::getMessages());
+        return $createdUser;
+    }
+
+    /** @depends testCanResendActivationEmailAfter5Minutes */
+    public function testCannotResendActivationEmailImmediatelyAfterResend(User $createdUser) {
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/register-resend', ['email' => $createdUser->getEmail()]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $this->assertCount(2, TestMailer::getMessages());
+    }
+
+    /** @small */
+    public function testPretendsSuccessForRegisterResendForNonexistingUser() {
+        $client = $this->createHttpsClient();
+        $countBefore = count(TestMailer::getMessages());
+        $client->apiRequest('POST', '/api/register-resend', ['email' => 'unicorn@supla.org']);
+        $this->assertStatusCode(202, $client->getResponse());
+        $this->assertCount($countBefore, TestMailer::getMessages());
+    }
+
+    /** @depends testSendsEmailWithConfirmationToken */
     public function testConfirmingWithBadToken() {
-        $this->testCreatingUser();
         $client = $this->createHttpsClient();
         $client->request('PATCH', '/api/confirm/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdljf');
         $this->assertStatusCode(400, $client->getResponse());
     }
 
     public function testConfirmingWithGoodToken() {
-        $this->testCreatingUser();
+        $createdUser = $this->testCreatingUser();
         $client = $this->createHttpsClient();
-        $client->request('PATCH', '/api/confirm/' . $this->createdUser->getToken());
+        $client->request('PATCH', '/api/confirm/' . $createdUser->getToken());
         $this->assertStatusCode('2XX', $client->getResponse());
-        $this->getDoctrine()->getManager()->refresh($this->createdUser);
-        $this->assertTrue($this->createdUser->isEnabled());
-        $this->assertEmpty($this->createdUser->getToken());
+        $createdUser = $this->refreshCreatedUser($createdUser);
+        $this->assertTrue($createdUser->isEnabled());
+        $this->assertEmpty($createdUser->getToken());
+        return $createdUser;
     }
 
     public function testConfirmingTwiceWithGoodTokenIsForbidden() {
@@ -230,7 +279,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDoesNotSendResetPasswordEmailTwiceInARow() {
-        $this->testConfirmingWithGoodToken();
+        $this->testConfirmingWithGoodToken($this->createdUser);
         TestMailer::reset();
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
@@ -246,7 +295,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSendsAnotherResetMessageIfTimePasses() {
-        $this->testConfirmingWithGoodToken();
+        $this->testConfirmingWithGoodToken($this->createdUser);
         TestMailer::reset();
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
@@ -312,7 +361,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $this->assertFailedLoginRequest($client);
         $this->assertSuccessfulLoginRequest($client);
-        $this->assertCount(2, $this->audit->getRepository()->findAll());
+        $this->assertCount(3, $this->audit->getRepository()->findAll());
     }
 
     public function testAccountIsBlockedAfterThreeUnsuccessfulLogins() {
@@ -322,7 +371,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
-        $this->assertCount(4, $this->audit->getRepository()->findAll());
+        $this->assertCount(5, $this->audit->getRepository()->findAll());
         $latestEntry = $this->getLatestAuditEntry();
         $this->assertEquals(AuthenticationFailureReason::BLOCKED, $latestEntry->getIntParam());
     }
@@ -337,7 +386,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client);
         $this->assertFailedLoginRequest($client, self::EMAIL, self::PASSWORD);
-        $this->assertCount(7, $this->audit->getRepository()->findAll());
+        $this->assertCount(8, $this->audit->getRepository()->findAll());
         $latestEntry = $this->getLatestAuditEntry();
         $this->assertEquals(AuthenticationFailureReason::BLOCKED, $latestEntry->getIntParam());
     }
@@ -434,5 +483,13 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         /** @var AuditEntry $entry */
         $entry = end($entries);
         return $entry;
+    }
+
+    private function refreshCreatedUser($createdUser = null): User {
+        $this->getEntityManager()->clear();
+        if (!$createdUser) {
+            $createdUser = $this->createdUser;
+        }
+        return $this->createdUser = $this->getEntityManager()->find(User::class, $createdUser->getId());
     }
 }

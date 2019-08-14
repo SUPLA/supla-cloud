@@ -110,7 +110,7 @@ class SuplaMailer {
         return $this->sendEmailMessage('resetpwd', $user, ['confirmationUrl' => $url]);
     }
 
-    public function sendActivationEmailMessage(User $user): bool {
+    public function sendUserConfirmationSuccessEmailMessage(User $user): bool {
         return $this->sendEmailMessage(
             'activation',
             $this->adminEmail,

@@ -36,8 +36,11 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 class UserController extends RestController {
     use Transactional;
@@ -248,11 +251,40 @@ class UserController extends RestController {
             $this->autodiscover->registerUser($user);
         }
 
-        $sent = $this->mailer->sendConfirmationEmailMessage($user);
+        $sent = $this->userManager->sendConfirmationEmailMessage($user);
 
         $view = $this->view($user, Response::HTTP_CREATED);
         $view->setHeader('SUPLA-Email-Sent', $sent ? 'true' : 'false');
         return $view;
+    }
+
+    /**
+     * @Rest\Post("/register-resend", name="resend_activation_email_post")
+     * @Rest\Patch("/register-resend", name="resend_activation_email_patch")
+     */
+    public function resendActivationEmailAction(Request $request) {
+        $data = $request->request->all();
+        $username = $data['email'] ?? '';
+        if (preg_match('/@/', $username)) {
+            if ($request->getMethod() == Request::METHOD_PATCH) {
+                $server = $this->autodiscover->getAuthServerForUser($username);
+                list($content, $status) = $this->suplaCloudRequestForwarder->resendActivationEmail($server, $username);
+                return new JsonResponse($content, $status);
+            } elseif ($request->getMethod() == Request::METHOD_POST) {
+                $user = $this->userManager->userByEmail($username);
+                if ($user) {
+                    try {
+                        $sent = $this->userManager->sendConfirmationEmailMessage($user);
+                        if (!$sent) {
+                            throw new ServiceUnavailableHttpException(10, 'Cannot send an activation e-mail. Try again later.'); // i18n
+                        }
+                    } catch (\InvalidArgumentException $e) {
+                        throw new ConflictHttpException($e->getMessage(), $e);
+                    }
+                }
+            }
+        }
+        return new Response(null, Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -261,7 +293,7 @@ class UserController extends RestController {
     public function confirmEmailAction(string $token) {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
-        $this->mailer->sendActivationEmailMessage($user);
+        $this->mailer->sendUserConfirmationSuccessEmailMessage($user);
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 

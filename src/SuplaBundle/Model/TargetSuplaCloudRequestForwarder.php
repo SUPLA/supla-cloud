@@ -59,6 +59,10 @@ class TargetSuplaCloudRequestForwarder {
         return $this->sendRequest($target, 'forgotten-password', ['email' => $username]);
     }
 
+    public function resendActivationEmail(TargetSuplaCloud $target, string $username): array {
+        return $this->sendRequest($target, 'register-resend', ['email' => $username]);
+    }
+
     public function registerUser(TargetSuplaCloud $target, Request $request): array {
         return $this->sendRequest($target, 'register', $request->request->all());
     }

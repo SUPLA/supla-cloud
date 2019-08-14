@@ -15,6 +15,7 @@ class TestMailer extends \Swift_Mailer {
 
     public function send(\Swift_Mime_SimpleMessage $message, &$failedRecipients = null) {
         self::$messages[] = $message;
+        return count($message->getTo());
     }
 
     public static function reset() {
