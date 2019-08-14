@@ -233,6 +233,16 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         return $createdUser;
     }
 
+    /** @depends testConfirmingWithGoodToken */
+    public function testCannotResendActivationEmailForConfirmedUser() {
+        TestTimeProvider::setTime('+6 minutes');
+        $client = $this->createHttpsClient();
+        $countBefore = count(TestMailer::getMessages());
+        $client->apiRequest('POST', '/api/register-resend', ['email' => self::EMAIL]);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertCount($countBefore, TestMailer::getMessages());
+    }
+
     public function testConfirmingTwiceWithGoodTokenIsForbidden() {
         $this->testCreatingUser();
         $client = $this->createHttpsClient();

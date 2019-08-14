@@ -275,6 +275,7 @@ class UserController extends RestController {
             }
             $user = $this->userManager->userByEmail($username);
             if ($user) {
+                Assertion::false($user->isEnabled(), 'User is already confirmed. Try to log in.'); // i18n
                 try {
                     $sent = $this->userManager->sendConfirmationEmailMessage($user);
                     if (!$sent) {
