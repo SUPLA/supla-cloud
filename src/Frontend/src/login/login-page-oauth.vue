@@ -4,7 +4,7 @@
         ref="loginForm"
         method="post"
         v-title="$t('Login')"
-        :class="'login-oauth-form ' + (askForTargetCloud ? 'login-oauth-form-broker' : '')">
+        :class="'login-form-container login-oauth-form ' + (askForTargetCloud ? 'login-oauth-form-broker' : '')">
         <login-form :authenticating="authenticating"
             :oauth="true"
             :error="error"
@@ -63,17 +63,15 @@
                 </transition>
             </div>
         </login-form>
-        <login-footer remind-password-link="true"></login-footer>
     </form>
 </template>
 
 <script>
-    import LoginFooter from "./login-footer.vue";
     import LoginForm from "./login-form";
 
     export default {
         props: ['lastUsername', 'error', 'askForTargetCloud', 'lastTargetCloud', 'clientName'],
-        components: {LoginForm, LoginFooter},
+        components: {LoginForm},
         data() {
             return {
                 ownCloud: false,

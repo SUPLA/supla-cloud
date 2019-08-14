@@ -1,5 +1,5 @@
 <template>
-    <div class="login-footer">
+    <div class="page-footer">
         <div class="container-fluid">
             <div class="col-sm-4">
                 <language-selector></language-selector>
@@ -9,8 +9,13 @@
                 <a class="brand nav-link"
                     href="https://www.supla.org">www.supla.org</a>
             </div>
-            <div class="col-sm-4 text-right">
-                <router-link v-if="remindPasswordLink"
+            <div class="col-sm-4 text-right text-muted">
+                <span v-if="$user.username">
+                    <!--                    Do końca Twojej sesji pozostało 3:45-->
+                    <!--                    <a href="">przedłuż</a>-->
+                    :-)
+                </span>
+                <router-link v-else-if="isPageActive(['/login', '/oauth-authorize'])"
                     to="/forgotten-password"
                     class="brand nav-link">
                     {{ $t('Forgot your password?') }}
@@ -29,41 +34,45 @@
     import LanguageSelector from "./language-selector.vue";
 
     export default {
-        props: ['remindPasswordLink'],
         components: {LanguageSelector},
         data() {
             return {
                 version: VERSION, // eslint-disable-line no-undef
             };
+        },
+        methods: {
+            isPageActive(input) {
+                const paths = Array.isArray(input) ? input : [input];
+                return paths.some(path => {
+                    return this.$route.path.indexOf(path) === 0;
+                });
+            },
         }
     };
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
-    @import "../styles/mixins";
+    @import "../../styles/variables";
+    @import "../../styles/mixins";
 
-    .login-footer {
-        width: 100%;
-        position: absolute;
-        bottom: 5px;
-        z-index: 10;
-        @include on-and-down(500px) {
-            position: static;
-            margin-top: 10px;
-            .col-sm-4 {
-                padding-top: 5px;
-                text-align: center !important;
-            }
+    @media (min-height: 500px) and (min-width: 768px) {
+        $footerHeight: 50px;
+        html, body, .vue-container {
+            height: 100%;
         }
-        @media (max-height: 500px) {
-            position: static;
-            margin-top: 10px;
-            .col-sm-4 {
-                padding-top: 5px;
-                text-align: center !important;
-            }
+        .page-content {
+            min-height: 100%;
+            height: auto;
+            margin-bottom: -$footerHeight;
+            padding: 0 0 $footerHeight;
         }
+        .page-footer {
+            height: $footerHeight;
+        }
+    }
+
+    .page-footer {
+        padding-top: 15px;
         a {
             font-weight: 400;
             color: $supla-black;
@@ -73,6 +82,12 @@
                 background: rgba(0, 2, 4, 0.08);
                 color: $supla-black;
             }
+        }
+    }
+
+    .green .page-footer {
+        &, & a, & select {
+            color: $supla-white !important;
         }
     }
 </style>

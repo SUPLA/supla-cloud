@@ -29,17 +29,14 @@
                 </router-link>
             </div>
         </form>
-
-        <login-footer></login-footer>
     </div>
 </template>
 
 <script>
-    import LoginFooter from "./login-footer.vue";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
 
     export default {
-        components: {LoginFooter, ButtonLoadingDots},
+        components: {ButtonLoadingDots},
         data() {
             return {
                 loading: false,

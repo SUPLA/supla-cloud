@@ -88,18 +88,16 @@
                 <pre><code>Accept: application/json</code></pre>
             </div>
         </div>
-        <login-footer v-if="action !== 'READ'"></login-footer>
     </div>
 </template>
 
 <script type="text/babel">
-    import LoginFooter from "../../login/login-footer";
     import CopyButton from "../../common/copy-button";
     import DirectLinkChannelStatus from "./direct-link-channel-status";
 
     export default {
         props: ['failureReason', 'action'],
-        components: {DirectLinkChannelStatus, CopyButton, LoginFooter},
+        components: {DirectLinkChannelStatus, CopyButton},
         data() {
             return {
                 directLink: undefined,

@@ -4,10 +4,15 @@ export default [
         path: '/login',
         component: () => import("@/login/login-page"),
         alias: '/auth/login',
-        meta: {unrestricted: true, onlyUnauthenticated: true},
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'login-page'},
         name: 'login'
     },
-    {path: '/oauth-authorize', component: () => import("@/login/login-page-oauth"), meta: {unrestricted: true}, name: 'oauthAuthorize'},
+    {
+        path: '/oauth-authorize',
+        component: () => import("@/login/login-page-oauth"),
+        meta: {unrestricted: true, bodyClass: 'login-page'},
+        name: 'oauthAuthorize'
+    },
     {
         path: '/terms',
         component: () => import("@/common/pages/terms"),

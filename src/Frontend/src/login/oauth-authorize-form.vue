@@ -37,12 +37,11 @@
 
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import LoginFooter from "./login-footer.vue";
     import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../oauth/oauth-scopes";
     import {cloneDeep} from "lodash";
 
     export default {
-        components: {ButtonLoadingDots, LoginFooter},
+        components: {ButtonLoadingDots},
         props: ['desiredScopes', 'clientName', 'locale'],
         data() {
             return {

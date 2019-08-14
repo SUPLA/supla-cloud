@@ -112,24 +112,10 @@
     @import "../styles/mixins";
 
     .login-form {
-        $height: 500px;
         width: 90%;
         max-width: 400px;
-        height: $height;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -$height/2;
-        margin-left: -200px;
-        @include on-and-down(500px) {
-            position: static;
-            margin: 10px auto;
-            height: auto;
-        }
-        @media (max-height: $height) {
-            position: static;
-            margin: 10px auto;
-        }
+        margin: 0 auto;
+        padding: 15px 0;
 
         .logo {
             text-align: center;

@@ -3,7 +3,10 @@
 {% block body %}
     {% block beforeVue %}{% endblock %}
     <div class="vue-container invisible">
-        {% block vue %}{% endblock %}
+        <div class="page-content">
+            {% block vue %}{% endblock %}
+        </div>
+        <page-footer></page-footer>
     </div>
     <div id="page-preloader">
         {% include "@Supla/supla-logo-svg.html.twig" %}

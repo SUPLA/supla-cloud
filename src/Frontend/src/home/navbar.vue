@@ -101,19 +101,6 @@
                                 </a>
                             </router-link>
                             <li class="divider"></li>
-                            <li class="flags"
-                                v-for="(localesRow, index) in locales"
-                                :key="index">
-                                <a v-for="locale in localesRow"
-                                    :key="locale.value"
-                                    :title="locale.text"
-                                    :class="($i18n.locale == locale.value ? 'active' : '')"
-                                    class="link">
-                                    <img :src="`assets/img/flags/${locale.value}.svg` | withBaseUrl"
-                                        @click="setLocale(locale.value)">
-                                </a>
-                            </li>
-                            <li class="divider"></li>
                             <li class="bottom">
                                 <div class="btn-group btn-group-justified">
                                     <router-link :to="{name: 'authorized-oauth-apps'}"
@@ -137,24 +124,10 @@
 
 <script>
     import SuplaLogo from "./supla-logo";
-    import Vue from "vue";
 
     export default {
         components: {SuplaLogo},
-        computed: {
-            locales() {
-                let third = Math.ceil(Vue.config.availableLanguages.length / 3);
-                return [
-                    Vue.config.availableLanguages.slice(0, third),
-                    Vue.config.availableLanguages.slice(third, third * 2),
-                    Vue.config.availableLanguages.slice(third * 2, third * 3),
-                ];
-            }
-        },
         methods: {
-            setLocale(lang) {
-                this.$setLocale(lang);
-            },
             subIsActive(input) {
                 const paths = Array.isArray(input) ? input : [input];
                 return paths.some(path => {
@@ -273,30 +246,6 @@
                 text-align: center;
                 font-size: 1.3em;
                 font-family: $supla-font-special;
-            }
-
-            .flags {
-                text-align: center;
-
-                .link {
-                    display: inline-block;
-                    padding: 3px;
-
-                    &.active {
-                        img {
-                            border-color: $supla-green;
-                        }
-                    }
-                }
-
-                img {
-                    display: block;
-                    width: 36px;
-                    height: 36px;
-                    border: solid 2px $supla-grey-light;
-                    border-radius: 100%;
-                    transition: all .2s ease-in-out;
-                }
             }
 
             .btn-group {

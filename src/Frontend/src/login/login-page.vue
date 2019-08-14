@@ -1,22 +1,21 @@
 <template>
     <form @submit.prevent="login()"
+        class="login-form-container"
         ref="loginForm"
         method="post"
         v-title="$t('Login')">
         <login-form v-model="user"
             :authenticating="authenticating"
             :error="displayError"></login-form>
-        <login-footer remind-password-link="true"></login-footer>
     </form>
 </template>
 
 <script>
     import LoginForm from "./login-form.vue";
-    import LoginFooter from "./login-footer.vue";
     import {errorNotification} from "../common/notifier";
 
     export default {
-        components: {LoginFooter, LoginForm},
+        components: {LoginForm},
         data() {
             return {
                 authenticating: false,

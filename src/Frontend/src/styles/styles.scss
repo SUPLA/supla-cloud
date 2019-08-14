@@ -371,7 +371,7 @@ body.warning {
 }
 
 .in-app-register {
-  .login-footer {
+  .page-footer {
     display: none;
   }
 }
@@ -460,6 +460,17 @@ body.warning {
 
   &-danger {
     @include supla-list-group-item($supla-red);
+  }
+}
+
+.login-page {
+  .page-content, .loading-cover, .loading-content, .login-form-container {
+    height: 100%;
+  }
+  .login-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
