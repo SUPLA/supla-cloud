@@ -48,6 +48,13 @@
             </button>
         </div>
         <transition name="fade">
+            <div class="error session-expired"
+                v-if="error === 'sessionExpired'">
+                <strong>{{ $t('Your session has been expired.') }}</strong>
+                {{ $t('Please log in again to proceed.') }}
+            </div>
+        </transition>
+        <transition name="fade">
             <div class="error locked"
                 v-if="error === 'locked'">
                 <strong>{{ $t('Your account has been locked.') }}</strong>

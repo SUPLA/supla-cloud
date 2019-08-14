@@ -13,6 +13,7 @@
 <script>
     import LoginForm from "./login-form.vue";
     import {errorNotification} from "../common/notifier";
+    import AppState from "../router/app-state";
 
     export default {
         components: {LoginForm},
@@ -22,6 +23,11 @@
                 user: undefined,
                 displayError: false,
             };
+        },
+        mounted() {
+            if (AppState.shiftTask('sessionExpired')) {
+                this.displayError = 'sessionExpired';
+            }
         },
         methods: {
             login() {

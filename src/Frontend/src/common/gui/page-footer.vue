@@ -8,12 +8,11 @@
                 <span class="text-muted">SUPLA Cloud {{ version }}</span>
                 <a class="brand nav-link"
                     href="https://www.supla.org">www.supla.org</a>
+                {{ $user.username }}
             </div>
-            <div class="col-sm-4 text-right text-muted">
+            <div class="col-sm-4 text-right">
                 <span v-if="$user.username">
-                    <!--                    Do końca Twojej sesji pozostało 3:45-->
-                    <!--                    <a href="">przedłuż</a>-->
-                    :-)
+                    <session-countdown></session-countdown>
                 </span>
                 <router-link v-else-if="isPageActive(['/login', '/oauth-authorize'])"
                     to="/forgotten-password"
@@ -32,9 +31,10 @@
 
 <script>
     import LanguageSelector from "./language-selector.vue";
+    import SessionCountdown from "./session-countdown";
 
     export default {
-        components: {LanguageSelector},
+        components: {LanguageSelector, SessionCountdown},
         data() {
             return {
                 version: VERSION, // eslint-disable-line no-undef

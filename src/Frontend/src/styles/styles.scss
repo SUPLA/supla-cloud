@@ -399,6 +399,11 @@ body.warning {
     border-color: darken($supla-yellow, 10%);
     background: lighten($supla-yellow, 10%);
   }
+  &.alert-danger {
+    border-color: darken($supla-red, 10%);
+    background: lighten($supla-red, 10%);
+    color: $supla-white;
+  }
 }
 
 .flex-left-full-width {
