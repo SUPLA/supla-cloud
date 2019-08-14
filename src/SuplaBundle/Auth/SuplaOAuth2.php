@@ -67,7 +67,7 @@ class SuplaOAuth2 extends OAuth2 {
         $refreshTokenLifetime = null
     ) {
         $clientType = $client->getType()->getValue();
-        $accessTokenLifetime = 10;//$this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']);
+        $accessTokenLifetime = $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']);
         $token = parent::createAccessToken(
             $client,
             $data,

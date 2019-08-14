@@ -6,7 +6,8 @@
         <div class="page-content">
             {% block vue %}{% endblock %}
         </div>
-        <page-footer></page-footer>
+        {# the :username binding is required, because the page-footer component is created before $user prototype variable, so it cannot use it directly #}
+        <page-footer :username="$user.username"></page-footer>
     </div>
     <div id="page-preloader">
         {% include "@Supla/supla-logo-svg.html.twig" %}

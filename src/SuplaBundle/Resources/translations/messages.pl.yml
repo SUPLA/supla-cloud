@@ -323,6 +323,7 @@ Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
 Please click the link we have sent you after the registration to proceed.: 'Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.'
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
+Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
@@ -339,6 +340,7 @@ RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
 Random: Losowy
 Read: Odczyt
+Reenter your password to prevent automatic logout.: Podaj swoje hasło by zapobiec automatycznemu wylogowaniu.
 Refresh: Odśwież
 Register: Rejestruj
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
@@ -495,6 +497,9 @@ Your instance is not registered or you are trying to authorize an application th
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
+Your session has been expired.: Twoja sesja wygasła.
+Your session is about to expire: Twoja sesja za chwilę wygaśnie
+'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
 after: po
 before: przed
 choose: wybierz
@@ -518,6 +523,7 @@ directLinkExecutionFailureReason_notActiveYet: Link bezpośredni nie jest jeszcz
 directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
 directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
 executed: wykonano
+extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
 hourly: Cykl godzinny

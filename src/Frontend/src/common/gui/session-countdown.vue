@@ -19,6 +19,7 @@
             <form @submit.prevent="extendSession()">
                 <div class="form-group text-left">
                     <input type="password"
+                        required
                         class="form-control"
                         v-model="password"
                         id="extend-password">
@@ -107,6 +108,7 @@
                     }
                     if (this.secondsLeft <= 0) {
                         this.cancel();
+                        clearInterval(this.interval);
                         this.expirationTimestamp = undefined;
                         AppState.addTask('sessionExpired', true);
                         $("#logoutButton")[0].click();

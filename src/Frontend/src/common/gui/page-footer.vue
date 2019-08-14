@@ -8,10 +8,9 @@
                 <span class="text-muted">SUPLA Cloud {{ version }}</span>
                 <a class="brand nav-link"
                     href="https://www.supla.org">www.supla.org</a>
-                {{ $user.username }}
             </div>
             <div class="col-sm-4 text-right">
-                <span v-if="$user.username">
+                <span v-if="username">
                     <session-countdown></session-countdown>
                 </span>
                 <router-link v-else-if="isPageActive(['/login', '/oauth-authorize'])"
@@ -34,6 +33,7 @@
     import SessionCountdown from "./session-countdown";
 
     export default {
+        props: ['username'],
         components: {LanguageSelector, SessionCountdown},
         data() {
             return {
