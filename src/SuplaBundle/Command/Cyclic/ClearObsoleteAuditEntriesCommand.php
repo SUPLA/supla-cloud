@@ -25,15 +25,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ClearObsoleteAuditEntriesCommand extends AbstractCyclicCommand {
     /** @var AuditEntryRepository */
     private $auditEntryRepository;
-    /**
-     * @var TimeProvider
-     */
+    /** @var TimeProvider */
     private $timeProvider;
+    /** @var int */
+    private $deleteOlderThanDays;
 
-    public function __construct(AuditEntryRepository $auditEntryRepository, TimeProvider $timeProvider) {
+    public function __construct(AuditEntryRepository $auditEntryRepository, TimeProvider $timeProvider, int $deleteOlderThanDays) {
         parent::__construct();
         $this->auditEntryRepository = $auditEntryRepository;
         $this->timeProvider = $timeProvider;
+        $this->deleteOlderThanDays = $deleteOlderThanDays;
     }
 
     protected function configure() {
@@ -44,7 +45,7 @@ class ClearObsoleteAuditEntriesCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $now = $this->timeProvider->getDateTime();
-        $now->sub(new \DateInterval('P60D'));
+        $now->sub(new \DateInterval("P{$this->deleteOlderThanDays}D"));
 
         $deletedRows = $this->auditEntryRepository
             ->createQueryBuilder('ae')

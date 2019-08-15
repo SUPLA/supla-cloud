@@ -143,6 +143,9 @@ supla:
     registration_active_time:
       initial: 604800 # 1 week
       manual: 86400 # 24 hours
+  maintenance:
+    delete_non_confirmed_users_older_than_hours: 24
+    delete_audit_entries_older_than_days: 60
   oauth:
     tokens_lifetime:
       webapp: [3600]

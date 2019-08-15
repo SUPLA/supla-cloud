@@ -58,6 +58,10 @@ class Configuration implements ConfigurationInterface {
                         ->arrayNode('broker')->prototype('integer')->end()->end()
                     ->end()->end()
                 ->end()->end()
+                ->arrayNode('maintenance')->children()
+                    ->integerNode('delete_non_confirmed_users_older_than_hours')->defaultValue(24)->end()
+                    ->integerNode('delete_audit_entries_older_than_days')->defaultValue(60)->end()
+                ->end()->end()
             ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd

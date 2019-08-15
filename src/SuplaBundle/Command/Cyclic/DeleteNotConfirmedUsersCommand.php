@@ -29,11 +29,14 @@ class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
     private $userRepository;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var int */
+    private $deleteOlderThanHours;
 
-    public function __construct(UserRepository $userRepository, TimeProvider $timeProvider) {
+    public function __construct(UserRepository $userRepository, TimeProvider $timeProvider, int $deleteOlderThanHours) {
         parent::__construct();
         $this->userRepository = $userRepository;
         $this->timeProvider = $timeProvider;
+        $this->deleteOlderThanHours = $deleteOlderThanHours;
     }
 
     protected function configure() {
@@ -44,13 +47,13 @@ class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $now = $this->timeProvider->getDateTime();
-        $now->sub(new \DateInterval('PT24H'));
+        $now->sub(new \DateInterval("PT{$this->deleteOlderThanHours}H"));
 
         $qb = $this->userRepository
             ->createQueryBuilder('u')
             ->select()
             ->where('u.enabled = 0 AND u.token IS NOT NULL AND u.regDate < :regDate')
-            ->setParameters(['regDate' => $now->format('Y-m-d')]);
+            ->setParameters(['regDate' => $now->format(\DateTime::ATOM)]);
 
         /** @var User[] $usersToDelete */
         $usersToDelete = $qb->getQuery()->execute();

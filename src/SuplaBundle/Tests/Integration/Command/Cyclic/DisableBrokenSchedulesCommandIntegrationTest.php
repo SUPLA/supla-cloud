@@ -41,7 +41,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
     private $resultSuccess = ScheduleActionExecutionResult::SUCCESS;
     private $resultFailure = ScheduleActionExecutionResult::DEVICE_UNREACHABLE;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $device = $this->createDevice($location, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
@@ -49,6 +49,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
         $this->container->get(ScheduleManager::class)->generateScheduledExecutions($this->schedule, '+1day');
     }
 
+    /** @small */
     public function testNotDisablingScheduleWithFutureExecutionsOnly() {
         $output = $this->executeCommand('supla:clean:disable-broken-schedules');
         $this->assertContains('Disabled 0 schedules', $output);
@@ -56,14 +57,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($this->schedule->getEnabled());
     }
 
-    public function testDisablingScheduleIfALotOfFailedExecutions() {
-        $this->getEntityManager()->getConnection()->executeQuery("UPDATE supla_scheduled_executions SET result=$this->resultFailure");
-        $output = $this->executeCommand('supla:clean:disable-broken-schedules');
-        $this->assertContains('Disabled 1 schedules', $output);
-        $this->getEntityManager()->refresh($this->schedule);
-        $this->assertFalse($this->schedule->getEnabled());
-    }
-
+    /** @small */
     public function testDoNotDisablingScheduleIfAtLeastOneSuccessful() {
         $this->getEntityManager()->getConnection()->executeQuery("UPDATE supla_scheduled_executions SET result=$this->resultFailure");
         $this->getEntityManager()->getConnection()->executeQuery(
@@ -73,6 +67,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
         $this->assertContains('Disabled 0 schedules', $output);
     }
 
+    /** @small */
     public function testDoNotDisablingScheduleIfAllExecutedWithoutConfirmation() {
         $this->getEntityManager()->getConnection()->executeQuery(
             'UPDATE supla_scheduled_executions SET result=' . ScheduleActionExecutionResult::EXECUTED_WITHOUT_CONFIRMATION
@@ -91,8 +86,16 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
         $this->assertContains('Disabled 1 schedules', $output);
     }
 
+    public function testDisablingScheduleIfALotOfFailedExecutions() {
+        $this->getEntityManager()->getConnection()->executeQuery("UPDATE supla_scheduled_executions SET result=$this->resultFailure");
+        $output = $this->executeCommand('supla:clean:disable-broken-schedules');
+        $this->assertContains('Disabled 1 schedules', $output);
+        $this->getEntityManager()->refresh($this->schedule);
+        $this->assertFalse($this->schedule->getEnabled());
+    }
+
+    /** @depends testDisablingScheduleIfALotOfFailedExecutions */
     public function testSavesDisablingBrokenScheduleInAUdit() {
-        $this->testDisablingScheduleIfALotOfFailedExecutions();
         $entry = $this->getLatestAuditEntry();
         $this->assertEquals(AuditedEvent::SCHEDULE_BROKEN_DISABLED(), $entry->getEvent());
         $this->assertEquals($this->schedule->getId(), $entry->getIntParam());

@@ -30,6 +30,10 @@ services:
     resource: '../../src/SuplaBundle/Command'
   SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
     - !tagged supla.cyclic_command
+  SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand:
+    $deleteOlderThanHours: '%supla.maintenance.delete_non_confirmed_users_older_than_hours%'
+  SuplaBundle\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
+    $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
 
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'

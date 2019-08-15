@@ -51,6 +51,14 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.brute_force_auth_prevention.block_time_seconds',
             $mergedConfig['brute_force_auth_prevention']['block_time_seconds']
         );
+        $container->setParameter(
+            'supla.maintenance.delete_non_confirmed_users_older_than_hours',
+            $mergedConfig['maintenance']['delete_non_confirmed_users_older_than_hours']
+        );
+        $container->setParameter(
+            'supla.maintenance.delete_audit_entries_older_than_days',
+            $mergedConfig['maintenance']['delete_audit_entries_older_than_days']
+        );
         $container->setParameter('supla.oauth.tokens_lifetime', $this->buildOauthTokensConfig($mergedConfig['oauth']['tokens_lifetime']));
     }
 
