@@ -48,7 +48,7 @@
         max-width: 300px;
         margin: 0 auto;
         position: fixed;
-        bottom: 5px;
+        bottom: 45px;
         right: 5px;
         background: $supla-yellow;
         border-color: darken($supla-yellow, 10%);

@@ -15,7 +15,7 @@
             <p>
                 <component :is="expireText"></component>
             </p>
-            <p>{{ $t('Reenter your password to prevent automatic logout.') }}</p>
+            <p>{{ $t('Enter your password to prevent automatic logout.') }}</p>
             <form @submit.prevent="extendSession()">
                 <div class="form-group text-left">
                     <input type="password"

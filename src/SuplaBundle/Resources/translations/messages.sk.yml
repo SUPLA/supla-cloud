@@ -575,10 +575,10 @@ execute: vykonať
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Cannot send an activation e-mail. Try again later.: ~
+Enter your password to prevent automatic logout.: ~
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': ~
 Please click the link we have sent you after the registration to proceed.: ~
 Please log in again to proceed.: ~
-Reenter your password to prevent automatic logout.: ~
 The activation link has been sent again. Check the inbox.: ~
 User is already confirmed. Try to log in.: ~
 We have just sent you an activation link. Be patient.: ~

@@ -172,6 +172,7 @@ Enter the data below in the settings of your control device (I/O Device).: Poni�
 Enter the data below in your mobile SUPLA application on your smartphone.: Poniższe dane wprowadź w aplikacji mobilnej SUPLA zainstalowanej w Twoim smartfonie.
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Podaj tylko domenę razem z portem jeśli nie jest standardowy (443). Wymagamy połączenia HTTPS.
 Enter your email address: Wprowadź Twój adres email
+Enter your password to prevent automatic logout.: Podaj swoje hasło by zapobiec automatycznemu wylogowaniu.
 Error: Błąd
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
 Every: Co
@@ -340,7 +341,6 @@ RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
 Random: Losowy
 Read: Odczyt
-Reenter your password to prevent automatic logout.: Podaj swoje hasło by zapobiec automatycznemu wylogowaniu.
 Refresh: Odśwież
 Register: Rejestruj
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
