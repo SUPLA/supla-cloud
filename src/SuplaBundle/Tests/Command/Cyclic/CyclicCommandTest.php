@@ -30,7 +30,7 @@ class CyclicCommandTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testIntervalRun() {
-        $command = new DeleteNotConfirmedUsersCommand($this->createMock(UserRepository::class), new TestTimeProvider());
+        $command = new DeleteNotConfirmedUsersCommand($this->createMock(UserRepository::class), new TestTimeProvider(), 24);
         $timeProvider = new TestTimeProvider();
         TestTimeProvider::setTime('2018-11-02 00:00:00');
         $this->assertTrue($command->shouldRunNow($timeProvider));
