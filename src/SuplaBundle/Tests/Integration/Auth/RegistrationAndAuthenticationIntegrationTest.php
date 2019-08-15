@@ -150,7 +150,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testAddsAuditEntryAboutSendingConfirmationLink(User $createdUser) {
         $entry = $this->getLatestAuditEntry();
         $this->assertEquals(AuditedEvent::USER_ACTIVATION_EMAIL_SENT(), $entry->getEvent());
-        $this->assertNull($entry->getTextParam());
+        $this->assertEquals($createdUser->getUsername(), $entry->getTextParam());
         $this->assertNull($entry->getIntParam());
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($createdUser->getId(), $entry->getUser()->getId());

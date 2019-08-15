@@ -123,6 +123,7 @@ class UserManager {
         Assertion::null($recentEmail, 'We have just sent you an activation link. Be patient.'); // i18n
         $this->audit->newEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT())
             ->setUser($user)
+            ->setTextParam($user->getUsername())
             ->buildAndFlush();
         return $this->mailer->sendConfirmationEmailMessage($user);
     }
