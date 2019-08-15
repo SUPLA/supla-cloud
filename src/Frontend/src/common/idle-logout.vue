@@ -9,6 +9,8 @@
 
 <script>
     // idea based on http://stackoverflow.com/a/4029518/878514
+    import AppState from "../router/app-state";
+
     const LOGOUT_AFTER_IDLE_MINUTES = 15;
 
     export default {
@@ -32,6 +34,7 @@
             incrementIdleTime() {
                 ++this.idleTime;
                 if (this.idleTime >= LOGOUT_AFTER_IDLE_MINUTES) {
+                    AppState.addTask('sessionExpired', true);
                     $("#logoutButton")[0].click();
                     this.stop();
                 }
