@@ -5,7 +5,7 @@
         <i class="pe-7s-note2"
             style="font-size: 160px"></i>
         <h5>{{ $t('The Terms and Conditions have changed – please read them and accept.') }}</h5>
-        <regulations-checkbox v-model="agreed"></regulations-checkbox>
+        <regulations-checkbox :implicit-agreement="true"></regulations-checkbox>
         <div class="form-group">
             <a class="btn btn-yellow"
                 @click="disagree()">
@@ -13,7 +13,6 @@
                 {{ $t('I do not agree, get me out of here') }}
             </a>
             <button class="btn btn-green"
-                :disabled="!agreed"
                 @click="agree()">
                 <i class="pe-7s-check"></i>
                 {{ $t('I aree, taske me to the app') }}
@@ -29,7 +28,6 @@
         components: {RegulationsCheckbox},
         data() {
             return {
-                agreed: false,
                 loading: false,
             };
         },
