@@ -1,15 +1,10 @@
 <template>
     <div class="page-footer">
         <div class="container-fluid">
-            <div class="col-sm-4">
+            <div class="footer-left">
                 <language-selector></language-selector>
             </div>
-            <div class="col-sm-4 text-center">
-                <span class="text-muted">SUPLA Cloud {{ version }}</span>
-                <a class="brand nav-link"
-                    href="https://www.supla.org">www.supla.org</a>
-            </div>
-            <div class="col-sm-4 text-right">
+            <div class="footer-right">
                 <span v-if="username">
                     <session-countdown></session-countdown>
                 </span>
@@ -23,6 +18,11 @@
                     class="nav-link">
                     {{ $t('Sign In') }}
                 </a>
+            </div>
+            <div class="footer-center">
+                <span class="text-muted">SUPLA Cloud {{ version }}</span>
+                <a class="brand nav-link"
+                    href="https://www.supla.org">www.supla.org</a>
             </div>
         </div>
     </div>
@@ -83,6 +83,24 @@
                 color: $supla-black;
             }
         }
+        .footer-center {
+            text-align: center;
+        }
+        @include on-xs-and-up {
+            .footer-left {
+                float: left;
+            }
+            .footer-right {
+                text-align: right;
+                float: right;
+            }
+        }
+        @include on-xs-and-down {
+            text-align: center;
+            .footer-left, .footer-right {
+                padding-bottom: 7px;
+            }
+        }
     }
 
     .green .page-footer {
@@ -90,4 +108,6 @@
             color: $supla-white !important;
         }
     }
+
+
 </style>

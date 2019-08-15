@@ -5,6 +5,8 @@
 html {
   overflow: -moz-scrollbars-vertical;
   overflow-y: scroll;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -14,6 +16,8 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: subpixel-antialiased;
   transition: background-color .5s;
+  margin: 0;
+  padding: 0;
 }
 
 ::selection {
@@ -468,14 +472,20 @@ body.warning {
   }
 }
 
-.login-page {
-  .page-content, .loading-cover, .loading-content, .login-form-container {
+.centered-form-page {
+  .page-content, .loading-cover, .loading-content, .centered-form-container {
     height: 100%;
   }
-  .login-form-container {
+  .centered-form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    .centered-form {
+      width: 90%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 15px 0;
+    }
   }
 }
 

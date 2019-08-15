@@ -1,5 +1,5 @@
 <template>
-    <div class="login-form">
+    <div class="centered-form login-form">
         <div class="logo">
             <img src="assets/img/logo.svg"
                 alt="SUPLA">
@@ -119,11 +119,6 @@
     @import "../styles/mixins";
 
     .login-form {
-        width: 90%;
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 15px 0;
-
         .logo {
             text-align: center;
             margin-bottom: 20px;

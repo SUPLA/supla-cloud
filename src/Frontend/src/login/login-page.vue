@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="login()"
-        class="login-form-container"
+        class="centered-form-container"
         ref="loginForm"
         method="post"
         v-title="$t('Login')">

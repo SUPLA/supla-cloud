@@ -79,7 +79,8 @@
     .authorize-form {
         width: 90%;
         max-width: 600px;
-        margin: 10px auto;
+        margin: 0 auto;
+        padding-top: 10px;
         .authorization-logo {
             .app-name {
                 font-size: 40px;

@@ -106,7 +106,7 @@ Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Id
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.'
 'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
 Connected: Połączony
-Connection with a private instance of the SUPLA cloud: Połaczenie z prywatną instancją chmury SUPLA.
+Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
 Could not reset the password.: Nie udało się zresetować hasła.
 Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
