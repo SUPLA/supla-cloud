@@ -56,7 +56,7 @@
     @import "../../styles/mixins";
 
     @media (min-height: 500px) and (min-width: 768px) {
-        $footerHeight: 50px;
+        $footerHeight: 60px;
         html, body, .vue-container {
             height: 100%;
         }
@@ -72,7 +72,7 @@
     }
 
     .page-footer {
-        padding-top: 15px;
+        padding-top: 25px;
         a {
             font-weight: 400;
             color: $supla-black;
