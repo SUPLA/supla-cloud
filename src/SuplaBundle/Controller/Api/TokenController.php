@@ -76,8 +76,8 @@ class TokenController extends RestController {
     public function webappAuthAction(Request $request) {
         $username = $request->get('username');
         $password = $request->get('password');
-        Assertion::notBlank($username, 'Username is required.');
-        Assertion::notEmpty($password, 'Password is required.');
+        Assertion::notBlank($username, 'Please enter a valid email address'); // i18n
+        Assertion::notEmpty($password, 'The password should be 8 or more characters.'); // i18n
         $server = $this->autodiscover->getAuthServerForUser($username);
         if ($server->isLocal()) {
             return $this->issueTokenForWebappAction($request);
