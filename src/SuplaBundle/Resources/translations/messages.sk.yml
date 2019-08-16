@@ -574,18 +574,18 @@ execute: vykonať
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: ~
-Enter your password to prevent automatic logout.: ~
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': ~
-Please click the link we have sent you after the registration to proceed.: ~
-Please log in again to proceed.: ~
-The activation link has been sent again. Check the inbox.: ~
-User is already confirmed. Try to log in.: ~
-We have just sent you an activation link. Be patient.: ~
-Your account has not been confirmed yet.: ~
-Your session has been expired.: ~
-Your session is about to expire: ~
-'Your session will expire in [time].': ~
-extend: ~
+Cannot send an activation e-mail. Try again later.: Nie je možné odoslať správu s aktivačným odkazom. Skúste to znova neskôr.
+Enter your password to prevent automatic logout.: Uveďte svoje heslo, aby ste zabránili automatickému odhláseniu.
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nedostali ste správu s odkazom na aktiváciu Vášho účtu? Uistite sa, že neskončila v zložke SPAM (nevyžiadaná pošta). Môžete tiež kliknúť [tu] a odoslať ju znova.'
+Please click the link we have sent you after the registration to proceed.: Kliknite na odkaz zo správy, ktorú sme Vám zaslali po vytvorení účtu.
+Please log in again to proceed.: Ak chcete pokračovať, prihláste sa znova.
+The activation link has been sent again. Check the inbox.: Správa s odkazom na aktiváciu Vášho účtu bola znova odoslaná. Skontrolujte svoju doručenú poštu.
+User is already confirmed. Try to log in.: Tento účet je už potvrdený. Prihláste sa.
+We have just sent you an activation link. Be patient.: Práve bola odoslaná správa s odkazom na aktiváciu Vášho účtu. Prosíme o trpezlivosť.
+Your account has not been confirmed yet.: Váš účet doteraz nebol potvrdený.
+Your session has been expired.: Vaša relácia vypršala.
+Your session is about to expire: Vaša relácia čoskoro vyprší
+'Your session will expire in [time].': 'Vaša relácia vyprší za [time].'
+extend: predĺžiť
 
 #</editor-fold>
