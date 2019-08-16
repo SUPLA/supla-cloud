@@ -574,18 +574,18 @@ execute: esegui
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: ~
-Enter your password to prevent automatic logout.: ~
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': ~
-Please click the link we have sent you after the registration to proceed.: ~
-Please log in again to proceed.: ~
-The activation link has been sent again. Check the inbox.: ~
-User is already confirmed. Try to log in.: ~
-We have just sent you an activation link. Be patient.: ~
-Your account has not been confirmed yet.: ~
-Your session has been expired.: ~
-Your session is about to expire: ~
-'Your session will expire in [time].': ~
-extend: ~
+Cannot send an activation e-mail. Try again later.: Impossibile inviare il messaggio con il link di attivazione. Riprova più tardi.
+Enter your password to prevent automatic logout.: Inserisci la Tua password per impedire il logout automatico.
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Non hai ricevuto il messaggio con il link di attivazione del Tuo account? Assicurati che esso non sia finito nella casella SPAM (posta indesiderata). Puoi anche cliccare [qui], per inviarlo di nuovo.'
+Please click the link we have sent you after the registration to proceed.: Clicca il link all’interno del messaggio che Ti abbiamo inviato dopo aver creato l’account.
+Please log in again to proceed.: Accedi di nuovo per continuare.
+The activation link has been sent again. Check the inbox.: Il messaggio con il link di attivazione del Tuo account è stato inviato di nuovo. Controlla la posta elettronica.
+User is already confirmed. Try to log in.: Questo account è già confermato. Accedi.
+We have just sent you an activation link. Be patient.: Il messaggio con il link di attivazione del Tuo account è stato appena inviato. Attendi con pazienza.
+Your account has not been confirmed yet.: Il Tuo account non è stato ancora confermato.
+Your session has been expired.: La Tua sessione è scaduta.
+Your session is about to expire: La tua sessione sta per scadere
+'Your session will expire in [time].': 'La Tua sessione scadrà fra [time].'
+extend: prolunga la durata
 
 #</editor-fold>
