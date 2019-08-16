@@ -574,18 +574,18 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: ~
-Enter your password to prevent automatic logout.: ~
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': ~
-Please click the link we have sent you after the registration to proceed.: ~
-Please log in again to proceed.: ~
-The activation link has been sent again. Check the inbox.: ~
-User is already confirmed. Try to log in.: ~
-We have just sent you an activation link. Be patient.: ~
-Your account has not been confirmed yet.: ~
-Your session has been expired.: ~
-Your session is about to expire: ~
-'Your session will expire in [time].': ~
-extend: ~
+Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
+Enter your password to prevent automatic logout.: Norėdami išvengti automatinio atsijungimo įveskite savo slaptažodį.
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite paspausti [čia], kad jį išsiųstumėte dar kartą.'
+Please click the link we have sent you after the registration to proceed.: Paspauskite nuorodą pranešime, kurį Jums išsiuntėme, kai paskyra buvo sukurta.
+Please log in again to proceed.: Prisijunkite dar kartą, kad galėtumėte tęsti toliau.
+The activation link has been sent again. Check the inbox.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda buvo išsiųstas dar kartą. Patikrinkite el. pašto dėžutę.
+User is already confirmed. Try to log in.: Ši paskyra jau patvirtinta. Prisijungti.
+We have just sent you an activation link. Be patient.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda ką tik buvo išsiųstas. Kantrybės.
+Your account has not been confirmed yet.: Jūsų paskyra dar nepatvirtinta.
+Your session has been expired.: Jūsų sesija baigėsi.
+Your session is about to expire: Jūsų sesija baigsis.
+'Your session will expire in [time].': 'Jūsų sesija baigsis po [time].'
+extend: tęsti
 
 #</editor-fold>
