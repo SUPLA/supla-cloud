@@ -574,18 +574,18 @@ execute: ejecutar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: ~
-Enter your password to prevent automatic logout.: ~
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': ~
-Please click the link we have sent you after the registration to proceed.: ~
-Please log in again to proceed.: ~
-The activation link has been sent again. Check the inbox.: ~
-User is already confirmed. Try to log in.: ~
-We have just sent you an activation link. Be patient.: ~
-Your account has not been confirmed yet.: ~
-Your session has been expired.: ~
-Your session is about to expire: ~
-'Your session will expire in [time].': ~
-extend: ~
+Cannot send an activation e-mail. Try again later.: No se puede enviar el mensaje con el enlace de activación. Por favor inténtalo de nuevo más tarde.
+Enter your password to prevent automatic logout.: Introduce tu contraseña para evitar el cierre de sesión automático.
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': '¿El mensaje con el enlace para activar tu cuenta no ha llegado? Asegúrate de que no esté en la bandeja de correo no deseado. También puedes hacer clic [aquí] para enviarlo de nuevo.'
+Please click the link we have sent you after the registration to proceed.: Haz clic en el enlace del mensaje que te hemos enviado al crear la cuenta.
+Please log in again to proceed.: Vuelve a iniciar sesión para continuar.
+The activation link has been sent again. Check the inbox.: Hemos vuelto a enviar el mensaje con el enlace para activar tu cuenta. Revisa tu bandeja de entrada.
+User is already confirmed. Try to log in.: Esta cuenta ya está confirmada. Inicia sesión.
+We have just sent you an activation link. Be patient.: El mensaje con el enlace para activar tu cuenta acaba de ser enviado. Ten paciencia.
+Your account has not been confirmed yet.: Tu cuenta aún no ha sido confirmada.
+Your session has been expired.: Tu sesión ha expirado.
+Your session is about to expire: Tu sesión está a punto de caducar
+'Your session will expire in [time].': 'Tu sesión va a expirar en [time].'
+extend: prolongar
 
 #</editor-fold>
