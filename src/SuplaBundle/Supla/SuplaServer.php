@@ -198,10 +198,35 @@ abstract class SuplaServer {
         return [];
     }
 
+    public function getElectricityMeterValue(IODeviceChannel $channel): array {
+        $value = $this->getRawValue('EM', $channel);
+        if ($value !== false) {
+            $numberPlaceholders = str_repeat('(\d+),', 37);
+            $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*)$#', $value, $match);
+            if ($matched) {
+                unset($match[0]);
+                $keys = ['support',
+                    'frequency', 'voltagePhase1', 'voltagePhase2', 'voltagePhase3', 'currentPhase1', 'currentPhase2', 'currentPhase3',
+                    'powerActivePhase1', 'powerActivePhase2', 'powerActivePhase3', 'powerReactivePhase1', 'powerReactivePhase2',
+                    'powerReactivePhase3', 'powerApparentPhase1', 'powerApparentPhase2', 'powerApparentPhase3', 'powerFactorPhase1',
+                    'powerFactorPhase2', 'powerFactorPhase3', 'phaseAnglePhase1', 'phaseAnglePhase2', 'phaseAnglePhase3',
+                    'totalForwardActiveEnergyPhase1', 'totalForwardActiveEnergyPhase2', 'totalForwardActiveEnergyPhase3',
+                    'totalReverseActiveEnergyPhase1', 'totalReverseActiveEnergyPhase2', 'totalReverseActiveEnergyPhase3',
+                    'totalForwardReactiveEnergyPhase1', 'totalForwardReactiveEnergyPhase2', 'totalForwardReactiveEnergyPhase3',
+                    'totalReverseReactiveEnergyPhase1', 'totalReverseReactiveEnergyPhase2', 'totalReverseReactiveEnergyPhase3',
+                    'totalCost', 'pricePerUnit', 'currency'];
+                $state = array_combine($keys, $match);
+//                return ElectricityMeterSupportBits::nullifyUnsupportedFeatures($state['support'], $state);
+                return $state;
+            }
+        }
+        return [];
+    }
+
     public function executeSetCommand(string $command) {
         $result = $this->executeCommand($command);
         if (!$result || preg_match("/^OK:/", $result) !== 1) {
-            throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.');
+            throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.'); // i18n
         }
     }
 }

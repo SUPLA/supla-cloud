@@ -46,15 +46,15 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
 
     public function testGettingStateForImpulseCounterElectricity() {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
-        $this->validateImpulseCoutnerHasAllKeys($state);
+        $this->validateImpulseCounterHasAllKeys($state);
     }
 
     public function testGettingStateForImpulseCounterGas() {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[1]);
-        $this->validateImpulseCoutnerHasAllKeys($state);
+        $this->validateImpulseCounterHasAllKeys($state);
     }
 
-    private function validateImpulseCoutnerHasAllKeys(array $state): void {
+    private function validateImpulseCounterHasAllKeys(array $state): void {
         $this->assertArrayHasKey('totalCost', $state);
         $this->assertGreaterThan(0, $state['totalCost']);
         $this->assertArrayHasKey('pricePerUnit', $state);
@@ -63,11 +63,17 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('calculatedValue', $state);
         $this->assertArrayHasKey('currency', $state);
         $this->assertArrayHasKey('unit', $state);
+        $this->assertArrayNotHasKey('currentPhase1', $state);
     }
 
     public function testGettingStateForNotImpulseCounterElectricity() {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[2]);
-        $this->assertArrayNotHasKey('totalCost', $state);
+        $this->assertArrayHasKey('totalCost', $state);
+        $this->assertGreaterThan(0, $state['totalCost']);
+        $this->assertArrayHasKey('currentPhase1', $state);
+        $this->assertArrayHasKey('powerActivePhase3', $state);
+        $this->assertArrayHasKey('totalForwardReactiveEnergyPhase1', $state);
+        $this->assertArrayHasKey('pricePerUnit', $state);
     }
 
     public function testTransformingServerResponse() {

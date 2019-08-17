@@ -94,6 +94,48 @@ class SuplaServerMock extends SuplaServer {
                 $this->faker->boolean ? $this->faker->currencyCode : '', // currency
                 $this->faker->boolean ? base64_encode($this->faker->randomElement(['m', 'wahnięć', 'l'])) : '' // base-64 encoded unit name
             );
+        } elseif (preg_match('#^GET-EM-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // ELECTRICITY_METER
+            return sprintf(
+                'VALUE:' . str_repeat('%d,', 37) . '%s',
+                rand(0, 0x0800),
+                rand(4950, 5500), // Freq * 100
+                rand(22000, 24000), // VoltagePhase1 * 100
+                rand(22000, 24000), // VoltagePhase2 * 100
+                rand(22000, 24000), // VoltagePhase3 * 100
+                rand(0, 30000), // CurrentPhase1 * 1000
+                rand(0, 30000), // CurrentPhase2 * 1000
+                rand(0, 30000), // CurrentPhase3 * 1000
+                rand(0, 30000000), // PowerActivePhase1 * 100000
+                rand(0, 30000000), // PowerActivePhase2 * 100000
+                rand(0, 30000000), // PowerActivePhase3 * 100000
+                rand(0, 10000000), // PowerRectivePhase1 * 100000
+                rand(0, 10000000), // PowerRectivePhase2 * 100000
+                rand(0, 10000000), // PowerRectivePhase3 * 100000
+                rand(0, 10000000), // PowerApparentPhase1 * 100000
+                rand(0, 10000000), // PowerApparentPhase2 * 100000
+                rand(0, 10000000), // PowerApparentPhase3 * 100000
+                rand(0, 100000), // PowerFactorPhase1 * 1000
+                rand(0, 100000), // PowerFactorPhase2 * 1000
+                rand(0, 100000), // PowerFactorPhase3 * 1000
+                rand(0, 3600), // PhaseAnglePhase1 * 10
+                rand(0, 3600), // PhaseAnglePhase2 * 10
+                rand(0, 3600), // PhaseAnglePhase2 * 10
+                rand(0, 100000000), // TotalForwardActiveEnergyPhase1 * 100000
+                rand(0, 100000000), // TotalForwardActiveEnergyPhase2 * 100000
+                rand(0, 100000000), // TotalForwardActiveEnergyPhase3 * 100000
+                rand(0, 10000000), // TotalReverseActiveEnergyPhase1 * 100000
+                rand(0, 10000000), // TotalReverseActiveEnergyPhase2 * 100000
+                rand(0, 10000000), // TotalReverseActiveEnergyPhase3 * 100000
+                rand(0, 10000000), // TotalForwardReactiveEnergyPhase1 * 100000
+                rand(0, 10000000), // TotalForwardReactiveEnergyPhase2 * 100000
+                rand(0, 10000000), // TotalForwardReactiveEnergyPhase3 * 100000
+                rand(0, 10000000), // TotalReverseReactiveEnergyPhase1 * 100000
+                rand(0, 10000000), // TotalReverseReactiveEnergyPhase2 * 100000
+                rand(0, 10000000), // TotalReverseReactiveEnergyPhase3 * 100000
+                rand(0, 10000), // TotalCost * 100
+                rand(0, 100000), // PricePerUnit * 10000
+                $this->faker->currencyCode
+            );
         }
         return false;
     }
