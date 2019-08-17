@@ -178,6 +178,26 @@ abstract class SuplaServer {
         return false;
     }
 
+    public function getImpulseCounterValue(IODeviceChannel $channel): array {
+        $value = $this->getRawValue('IC', $channel);
+        if ($value !== false) {
+            $matched = preg_match('#^VALUE:(\d+),(\d+),(\d+),(\d+),(\d+),([A-Z]*),(.*)$#', $value, $match);
+            if ($matched) {
+                list(, $totalCost, $pricePerUnit, $impulsesPerUnit, $counter, $calculatedValue, $currency, $unit) = $match;
+                return [
+                    'totalCost' => $totalCost / 100,
+                    'pricePerUnit' => $pricePerUnit / 10000,
+                    'impulsesPerUnit' => $impulsesPerUnit,
+                    'counter' => $counter,
+                    'calculatedValue' => $calculatedValue / 1000,
+                    'currency' => $currency ?: null,
+                    'unit' => $unit ? trim(base64_decode($unit)) ?: null : null,
+                ];
+            }
+        }
+        return [];
+    }
+
     public function executeSetCommand(string $command) {
         $result = $this->executeCommand($command);
         if (!$result || preg_match("/^OK:/", $result) !== 1) {

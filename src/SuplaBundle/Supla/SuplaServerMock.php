@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Supla;
 
+use Faker\Factory;
+use Faker\Generator;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Model\LocalSuplaCloud;
 
@@ -30,10 +32,13 @@ class SuplaServerMock extends SuplaServer {
 
     /** @var SuplaServerMockCommandsCollector */
     private $commandsCollector;
+    /** @var Generator */
+    private $faker;
 
     public function __construct(SuplaServerMockCommandsCollector $commandsCollector, LoggerInterface $logger) {
         parent::__construct('', new LocalSuplaCloud('http://supla.local'), $logger);
         $this->commandsCollector = $commandsCollector;
+        $this->faker = Factory::create();
     }
 
     protected function connect() {
@@ -76,6 +81,19 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(-2000, 2000) / 1000);
         } elseif (preg_match('#^GET-((HUMIDITY)|(DOUBLE))-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(0, 1000) / 10);
+        } elseif (preg_match('#^GET-IC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // IMPULSE_COUNTER
+            $counter = $this->faker->randomNumber(4);
+            $impulsesPerUnit = $this->faker->randomNumber(3);
+            return sprintf(
+                'VALUE:%d,%d,%d,%d,%d,%s,%s',
+                $this->faker->randomNumber(7), // TotalCost * 100
+                $this->faker->randomNumber(7), // PricePerUnit * 10000
+                $impulsesPerUnit, // ImpulsesPerUnit
+                $counter, // Counter
+                round($counter * 1000 / $impulsesPerUnit), // CalculatedValue * 1000
+                $this->faker->boolean ? $this->faker->currencyCode : '', // currency
+                $this->faker->boolean ? base64_encode($this->faker->randomElement(['m', 'wahnięć', 'l'])) : '' // base-64 encoded unit name
+            );
         }
         return false;
     }
