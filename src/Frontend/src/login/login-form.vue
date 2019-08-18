@@ -1,5 +1,5 @@
 <template>
-    <div class="login-form">
+    <div class="centered-form login-form">
         <div class="logo">
             <img src="assets/img/logo.svg"
                 alt="SUPLA">
@@ -48,10 +48,27 @@
             </button>
         </div>
         <transition name="fade">
+            <div class="error session-expired"
+                v-if="error === 'sessionExpired'">
+                <strong>{{ $t('Your session has been expired.') }}</strong>
+                {{ $t('Please log in again to proceed.') }}
+            </div>
+        </transition>
+        <transition name="fade">
             <div class="error locked"
                 v-if="error === 'locked'">
                 <strong>{{ $t('Your account has been locked.') }}</strong>
                 {{ $t('Please wait a moment before the next login attempt.') }}
+            </div>
+        </transition>
+        <transition name="fade">
+            <div class="error disabled"
+                v-if="error === 'disabled'">
+                <p><strong>{{ $t('Your account has not been confirmed yet.') }}</strong></p>
+                <p>{{ $t('Please click the link we have sent you after the registration to proceed.') }}</p>
+                <p>
+                    <resend-account-activation-link :username="username"></resend-account-activation-link>
+                </p>
             </div>
         </transition>
         <transition name="fade">
@@ -80,10 +97,11 @@
 
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import ResendAccountActivationLink from "../register/resend-account-activation-link";
 
     export default {
         props: ['authenticating', 'oauth', 'error', 'value', 'intitialUsername', 'submitButtonText'],
-        components: {ButtonLoadingDots},
+        components: {ResendAccountActivationLink, ButtonLoadingDots},
         data() {
             return {
                 username: '',
@@ -101,25 +119,6 @@
     @import "../styles/mixins";
 
     .login-form {
-        $height: 500px;
-        width: 90%;
-        max-width: 400px;
-        height: $height;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -$height/2;
-        margin-left: -200px;
-        @include on-and-down(500px) {
-            position: static;
-            margin: 10px auto;
-            height: auto;
-        }
-        @media (max-height: $height) {
-            position: static;
-            margin: 10px auto;
-        }
-
         .logo {
             text-align: center;
             margin-bottom: 20px;
@@ -173,6 +172,10 @@
             border-radius: 3px;
             color: $supla-black;
             margin-bottom: 20px;
+
+            p a {
+                color: darken($supla-green, 10%);
+            }
 
             &.locked {
                 background: $supla-red;

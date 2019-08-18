@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity\OAuth;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use SuplaBundle\Auth\OAuthScope;
@@ -47,7 +48,7 @@ class ApiClientAuthorization {
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ApiClient", inversedBy="apiClientAuthorizations")
+     * @ORM\ManyToOne(targetEntity="ApiClient")
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Groups({"client"})
      */
@@ -93,11 +94,11 @@ class ApiClientAuthorization {
         $this->scope = (string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes();
     }
 
-    public function getAuthorizationDate(): \DateTime {
+    public function getAuthorizationDate(): DateTime {
         return $this->authorizationDate;
     }
 
-    public function setAuthorizationDate(\DateTime $authorizationDate) {
+    public function setAuthorizationDate(DateTime $authorizationDate) {
         $this->authorizationDate = $authorizationDate;
     }
 

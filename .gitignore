@@ -5,8 +5,7 @@
 /composer.phar
 /vendor/
 /var/
-/web/*
-!/web/assets/img
+/web/assets/dist
 /*.sh
 .idea/
 *.log

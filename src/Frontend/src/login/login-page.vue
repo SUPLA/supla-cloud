@@ -1,28 +1,33 @@
 <template>
     <form @submit.prevent="login()"
+        class="centered-form-container"
         ref="loginForm"
         method="post"
         v-title="$t('Login')">
         <login-form v-model="user"
             :authenticating="authenticating"
             :error="displayError"></login-form>
-        <login-footer remind-password-link="true"></login-footer>
     </form>
 </template>
 
 <script>
     import LoginForm from "./login-form.vue";
-    import LoginFooter from "./login-footer.vue";
     import {errorNotification} from "../common/notifier";
+    import AppState from "../router/app-state";
 
     export default {
-        components: {LoginFooter, LoginForm},
+        components: {LoginForm},
         data() {
             return {
                 authenticating: false,
                 user: undefined,
                 displayError: false,
             };
+        },
+        mounted() {
+            if (AppState.shiftTask('sessionExpired')) {
+                this.displayError = 'sessionExpired';
+            }
         },
         methods: {
             login() {
@@ -43,10 +48,11 @@
                         .catch((error) => {
                             if (error.status == 401) {
                                 this.displayError = 'error';
+                            } else if (error.status == 409) {
+                                this.displayError = 'disabled';
                             } else if (error.status == 429) {
                                 this.displayError = 'locked';
-                            }
-                            else {
+                            } else {
                                 console.warn(error); // eslint-disable-line no-console
                                 errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
                             }

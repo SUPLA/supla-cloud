@@ -20,16 +20,18 @@ namespace SuplaBundle\Model;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager {
     use Transactional;
@@ -53,14 +55,22 @@ class UserManager {
     private $audit;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var LoggerInterface */
+    private $logger;
+    /**
+     * @var SuplaMailer
+     */
+    private $mailer;
 
     public function __construct(
         UserRepository $userRepository,
-        EncoderFactory $encoder_factory,
+        EncoderFactoryInterface $encoder_factory,
         AccessIdManager $accessid_manager,
         LocationManager $location_manager,
         ScheduleManager $scheduleManager,
         TimeProvider $timeProvider,
+        LoggerInterface $logger,
+        SuplaMailer $mailer,
         int $defaultClientsRegistrationTime,
         int $defaultIoDevicesRegistrationTime
     ) {
@@ -72,6 +82,8 @@ class UserManager {
         $this->defaultClientsRegistrationTime = $defaultClientsRegistrationTime;
         $this->defaultIoDevicesRegistrationTime = $defaultIoDevicesRegistrationTime;
         $this->timeProvider = $timeProvider;
+        $this->logger = $logger;
+        $this->mailer = $mailer;
     }
 
     /** @required */
@@ -86,10 +98,34 @@ class UserManager {
 
     public function create(User $user) {
         $this->setPassword($user->getPlainPassword(), $user);
-        $user->genToken();
+        $this->genToken($user);
         $this->transactional(function (EntityManagerInterface $em) use ($user) {
             $em->persist($user);
         });
+    }
+
+    public function sendConfirmationEmailMessage(User $user): bool {
+        $date = $this->timeProvider->getDateTime();
+        $date->setTimeZone(new \DateTimeZone('UTC'));
+        $date->sub(new \DateInterval('PT5M'));
+        $qb = $this->audit->getRepository()->createQueryBuilder('ae');
+        $recentEmail = $qb
+                ->where('ae.event IN(:events)')
+                ->andWhere('ae.user = :user')
+                ->andWhere($qb->expr()->gte('ae.createdAt', ':date'))
+                ->setParameters([
+                    'user' => $user,
+                    'events' => [AuditedEvent::USER_ACTIVATION_EMAIL_SENT],
+                    'date' => $date,
+                ])
+                ->getQuery()
+                ->getResult()[0] ?? null;
+        Assertion::null($recentEmail, 'We have just sent you an activation link. Be patient.'); // i18n
+        $this->audit->newEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT())
+            ->setUser($user)
+            ->setTextParam($user->getUsername())
+            ->buildAndFlush();
+        return $this->mailer->sendConfirmationEmailMessage($user);
     }
 
     public function setPassword($password, User $user, $flush = false) {
@@ -118,7 +154,7 @@ class UserManager {
                     return false;
                 }
             }
-            $user->genToken();
+            $this->genToken($user);
             $user->setPasswordRequestedAt($this->timeProvider->getDateTime());
 
             $this->transactional(function (EntityManagerInterface $em) use ($user) {
@@ -133,13 +169,28 @@ class UserManager {
 
     public function accountDeleteRequest(User $user) {
         if ($user->isEnabled() === true) {
-            $user->generateTokenForAccountRemoval();
+            $user->setTokenForAccountRemoval($this->genToken($user));
             $this->transactional(function (EntityManagerInterface $em) use ($user) {
                 $em->persist($user);
             });
             return true;
         }
         return false;
+    }
+
+    private function genToken(User $user) {
+        $bytes = false;
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            $crypto_strong = true;
+            $bytes = openssl_random_pseudo_bytes(32, $crypto_strong);
+        }
+        if ($bytes === false) {
+            $this->logger->info('OpenSSL did not produce a secure random number.');
+            $bytes = hash('sha256', uniqid(mt_rand(), true), true);
+        }
+        $token = rtrim(strtr(base64_encode($bytes), '+/', '-_'), '=');
+        $user->setToken($token);
+        return $token;
     }
 
     public function confirm($token) {
@@ -149,7 +200,7 @@ class UserManager {
             $this->aid_man->CreateID($user, true);
             $this->loc_man->CreateLocation($user, true);
 
-            $user->setToken('');
+            $user->setToken(null);
             $user->setEnabled(true);
             $user->enableClientsRegistration($this->defaultClientsRegistrationTime);
             $user->enableIoDevicesRegistration($this->defaultClientsRegistrationTime);

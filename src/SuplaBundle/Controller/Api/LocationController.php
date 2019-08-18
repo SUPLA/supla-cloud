@@ -44,7 +44,7 @@ class LocationController extends RestController {
     protected function getLocations() {
 
         $result = [];
-        $parent = $this->getParentUser();
+        $parent = $this->getUser();
 
         if ($parent !== null) {
             foreach ($parent->getLocations() as $location) {

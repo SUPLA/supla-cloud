@@ -1,6 +1,12 @@
 <template>
     <div>
-        <div class="checkbox checkbox-yellow">
+        <div class="form-group"
+            v-if="implicitAgreement">
+            <component :is="checkboxLabel"
+                @click="rulesShown = true"></component>
+        </div>
+        <div class="checkbox checkbox-yellow"
+            v-else>
             <label>
                 <input type="checkbox"
                     v-model="agreed"
@@ -19,7 +25,7 @@
     import RegulationsModal from "./regulations-modal";
 
     export default {
-        props: ['value'],
+        props: ['value', 'implicitAgreement'],
         components: {RegulationsModal},
         data() {
             return {

@@ -19,8 +19,10 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assert;
 use Assert\Assertion;
+use DateTimeZone;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -34,8 +36,11 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 class UserController extends RestController {
     use Transactional;
@@ -53,19 +58,39 @@ class UserController extends RestController {
     private $mailer;
     /** @var TargetSuplaCloudRequestForwarder */
     private $suplaCloudRequestForwarder;
+    /** @var int */
+    private $clientsRegistrationEnableTime;
+    /** @var int */
+    private $ioDevicesRegistrationEnableTime;
+    /** @var bool */
+    private $requireRegulationsAcceptance;
+    /** @var bool */
+    private $recaptchaEnabled;
+    /** @var string */
+    private $recaptchaSecret;
 
     public function __construct(
         UserManager $userManager,
         AuditEntryRepository $auditEntryRepository,
         SuplaAutodiscover $autodiscover,
         SuplaMailer $mailer,
-        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder
+        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
+        int $clientsRegistrationEnableTime,
+        int $ioDevicesRegistrationEnableTime,
+        bool $requireRegulationsAcceptance,
+        bool $recaptchaEnabled,
+        $recaptchaSecret
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
         $this->autodiscover = $autodiscover;
         $this->mailer = $mailer;
         $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
+        $this->clientsRegistrationEnableTime = $clientsRegistrationEnableTime;
+        $this->ioDevicesRegistrationEnableTime = $ioDevicesRegistrationEnableTime;
+        $this->requireRegulationsAcceptance = $requireRegulationsAcceptance;
+        $this->recaptchaEnabled = $recaptchaEnabled;
+        $this->recaptchaSecret = $recaptchaSecret;
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
@@ -92,24 +117,22 @@ class UserController extends RestController {
             if ($data['action'] == 'change:clientsRegistrationEnabled') {
                 $enable = $data['enable'] ?? false;
                 if ($enable) {
-                    $enableForTime = $this->container->getParameter('supla.clients_registration.registration_active_time.manual');
-                    $user->enableClientsRegistration($enableForTime);
+                    $user->enableClientsRegistration($this->clientsRegistrationEnableTime);
                 } else {
                     $user->disableClientsRegistration();
                 }
             } elseif ($data['action'] == 'change:ioDevicesRegistrationEnabled') {
                 $enable = $data['enable'] ?? false;
                 if ($enable) {
-                    $enableForTime = $this->container->getParameter('supla.io_devices_registration.registration_active_time.manual');
-                    $user->enableIoDevicesRegistration($enableForTime);
+                    $user->enableIoDevicesRegistration($this->ioDevicesRegistrationEnableTime);
                 } else {
                     $user->disableIoDevicesRegistration();
                 }
             } elseif ($data['action'] == 'change:userTimezone') {
                 try {
-                    $timezone = new \DateTimeZone($data['timezone']);
+                    $timezone = new DateTimeZone($data['timezone']);
                     $this->userManager->updateTimeZone($this->getUser(), $timezone);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
                 }
             } elseif ($data['action'] == 'change:userLocale') {
@@ -174,12 +197,9 @@ class UserController extends RestController {
      * @Rest\Post("/register")
      */
     public function accountCreateAction(Request $request) {
-        $regulationsRequired = $this->container->getParameter('supla_require_regulations_acceptance');
-        $recaptchaEnabled = $this->container->getParameter('recaptcha_enabled');
-        if ($recaptchaEnabled) {
-            $recaptchaSecret = $this->container->getParameter('recaptcha_secret');
+        if ($this->recaptchaEnabled) {
             $gRecaptchaResponse = $request->get('captcha');
-            $recaptcha = new ReCaptcha($recaptchaSecret);
+            $recaptcha = new ReCaptcha($this->recaptchaSecret);
             $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
             Assertion::true($resp->isSuccess(), 'Captcha token is not valid.');
         }
@@ -188,7 +208,7 @@ class UserController extends RestController {
         Assertion::email($username, 'Please fill a valid email address'); // i18n
 
         $remoteServer = '';
-        $exists = $this->autodiscover->userExists($username, $remoteServer);
+        $exists = $this->autodiscover->userExists($username);
         Assertion::false($exists, 'Email already exists'); // i18n
 
         if ($exists === null) {
@@ -217,7 +237,7 @@ class UserController extends RestController {
         Assertion::inArray($locale, self::AVAILABLE_LOCALES, 'Language is not available'); // i18n
         $user->setLocale($locale);
 
-        if ($regulationsRequired) {
+        if ($this->requireRegulationsAcceptance) {
             Assert::that($data)->notEmptyKey('regulationsAgreed');
             Assertion::true(
                 $data['regulationsAgreed'],
@@ -231,11 +251,42 @@ class UserController extends RestController {
             $this->autodiscover->registerUser($user);
         }
 
-        $sent = $this->mailer->sendConfirmationEmailMessage($user);
+        $sent = $this->userManager->sendConfirmationEmailMessage($user);
 
         $view = $this->view($user, Response::HTTP_CREATED);
         $view->setHeader('SUPLA-Email-Sent', $sent ? 'true' : 'false');
         return $view;
+    }
+
+    /**
+     * @Rest\Post("/register-resend", name="resend_activation_email_post")
+     * @Rest\Patch("/register-resend", name="resend_activation_email_patch")
+     */
+    public function resendActivationEmailAction(Request $request) {
+        $data = $request->request->all();
+        $username = $data['email'] ?? '';
+        if (preg_match('/@/', $username)) {
+            if ($request->getMethod() == Request::METHOD_PATCH) {
+                $server = $this->autodiscover->getAuthServerForUser($username);
+                if (!$server->isLocal()) {
+                    list($content, $status) = $this->suplaCloudRequestForwarder->resendActivationEmail($server, $username);
+                    return new JsonResponse($content, $status);
+                }
+            }
+            $user = $this->userManager->userByEmail($username);
+            if ($user) {
+                Assertion::false($user->isEnabled(), 'User is already confirmed. Try to log in.'); // i18n
+                try {
+                    $sent = $this->userManager->sendConfirmationEmailMessage($user);
+                    if (!$sent) {
+                        throw new ServiceUnavailableHttpException(10, 'Cannot send an activation e-mail. Try again later.'); // i18n
+                    }
+                } catch (\InvalidArgumentException $e) {
+                    throw new ConflictHttpException($e->getMessage(), $e);
+                }
+            }
+        }
+        return new Response(null, Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -244,7 +295,7 @@ class UserController extends RestController {
     public function confirmEmailAction(string $token) {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
-        $this->mailer->sendActivationEmailMessage($user);
+        $this->mailer->sendUserConfirmationSuccessEmailMessage($user);
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 

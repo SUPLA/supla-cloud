@@ -20,9 +20,11 @@ namespace SuplaBundle\Mailer;
 use Assert\Assertion;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\LocalSuplaCloud;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Bundle\TwigBundle\TwigEngine;
+use Swift_Mailer;
+use Swift_Message;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 class SuplaMailer {
     protected $router;
@@ -35,9 +37,9 @@ class SuplaMailer {
     private $localSuplaCloud;
 
     public function __construct(
-        Router $router,
-        TwigEngine $templating,
-        \Swift_Mailer $mailer,
+        RouterInterface $router,
+        EngineInterface $templating,
+        Swift_Mailer $mailer,
         $mailerFrom,
         $adminEmail,
         LocalSuplaCloud $localSuplaCloud,
@@ -85,7 +87,7 @@ class SuplaMailer {
         $subject = '';
         $bodyTxt = $this->extractSubjectAndBody($templateName . '.txt', $params, $locale, $subject);
         Assertion::notBlank($bodyTxt, 'Email "' . $templateName . '" has no TXT template.');
-        $message = (new \Swift_Message($subject))
+        $message = (new Swift_Message($subject))
             ->setFrom($this->mailerFrom)
             ->setTo($recipient);
         if ($bodyHtml == '') {
@@ -108,7 +110,7 @@ class SuplaMailer {
         return $this->sendEmailMessage('resetpwd', $user, ['confirmationUrl' => $url]);
     }
 
-    public function sendActivationEmailMessage(User $user): bool {
+    public function sendUserConfirmationSuccessEmailMessage(User $user): bool {
         return $this->sendEmailMessage(
             'activation',
             $this->adminEmail,

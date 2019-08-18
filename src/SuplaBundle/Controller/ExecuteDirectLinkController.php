@@ -18,6 +18,8 @@
 namespace SuplaBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
+use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\DirectLink;
@@ -39,7 +41,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ExecuteDirectLinkController extends Controller {
     use Transactional;
@@ -55,7 +57,7 @@ class ExecuteDirectLinkController extends Controller {
     private $audit;
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var Translator */
+    /** @var TranslatorInterface */
     private $translator;
     /** @var LoggerInterface */
     private $logger;
@@ -68,7 +70,7 @@ class ExecuteDirectLinkController extends Controller {
         EncoderFactoryInterface $encoderFactory,
         ChannelStateGetter $channelStateGetter,
         Audit $audit,
-        Translator $translator,
+        TranslatorInterface $translator,
         LoggerInterface $logger,
         NormalizerInterface $normalizer
     ) {
@@ -127,7 +129,7 @@ class ExecuteDirectLinkController extends Controller {
         $responseType = $this->determineResponseType($request);
         try {
             $directLink = $this->getDirectLink($request);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $directLink = null;
         }
         try {
@@ -135,7 +137,7 @@ class ExecuteDirectLinkController extends Controller {
             $this->entityManager->flush();
             return $result;
         } catch (DirectLinkExecutionFailureException $executionException) {
-        } catch (\Exception $otherException) {
+        } catch (Exception $otherException) {
             $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
             if ($directLink) {
                 if ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL()) {
@@ -167,7 +169,7 @@ class ExecuteDirectLinkController extends Controller {
         $reason = $executionException->getReason();
         try {
             $action = $this->getSlugAndAction($request)[1];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $action = $request->get('action', null);
         }
         $response = $this->directLinkResponse(
@@ -228,7 +230,7 @@ class ExecuteDirectLinkController extends Controller {
         }
         try {
             $action = ChannelFunctionAction::fromString($action);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::UNSUPPORTED_ACTION(), ['action' => $action]);
         }
         return [$slug, $action];
@@ -241,7 +243,7 @@ class ExecuteDirectLinkController extends Controller {
             $params = $request->query->all();
             try {
                 $this->channelActionExecutor->validateActionParams($directLink->getSubject(), $action, $params);
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
                 throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS());
             }
             $this->channelActionExecutor->executeAction($directLink->getSubject(), $action, $params);

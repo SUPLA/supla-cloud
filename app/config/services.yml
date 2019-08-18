@@ -6,6 +6,9 @@ services:
     autowire: true
     autoconfigure: true
     public: false
+    bind:
+      $suplaUrl: '%supla_url%'
+      $recaptchaSecret: '%recaptcha_secret%'
 
   _instanceof:
     SuplaBundle\ParamConverter\AbstractBodyParamConverter:
@@ -23,21 +26,38 @@ services:
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
 
-  SuplaBundle\Form\Type\ChannelFunctionType:
-    tags:
-      - { alias: channelfunction, name: form.type }
-
   SuplaBundle\Command\:
     resource: '../../src/SuplaBundle/Command'
   SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
     - !tagged supla.cyclic_command
+  SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand:
+    $deleteOlderThanHours: '%supla.maintenance.delete_non_confirmed_users_older_than_hours%'
+  SuplaBundle\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
+    $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
 
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'
     public: true
 
+  SuplaBundle\Controller\Api\ServerController:
+    $suplaServerAddress: '%supla_server%'
+    $suplaVersion: '%supla.version%'
+    $actAsBrokerCloud: '%act_as_broker_cloud%'
+
+  SuplaBundle\Controller\Api\UserController:
+    $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
+    $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
+    $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
+    $recaptchaEnabled: '%recaptcha_enabled%'
+
   SuplaBundle\Controller\ExecuteDirectLinkController:
     $logger: '@monolog.logger.supla_direct_links'
+
+  SuplaBundle\Controller\OAuth\BrokerAuthorizeController:
+    public: true
+    arguments:
+      $authorizeForm: '@fos_oauth_server.authorize.form'
+      $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
 
   SuplaBundle\Model\:
     resource: '../../src/SuplaBundle/Model'
@@ -131,11 +151,7 @@ services:
     $adminEmail: "%admin_email%"
     $defaultLocale: "%locale%"
 
-  twig.extension.intl:
-    class: Twig_Extensions_Extension_Intl
-
   SuplaBundle\Twig\FrontendConfig: ~
-  SuplaBundle\Twig\IoDeviceAttributesToStringExtension: ~
 
   SuplaBundle\Repository\AccessIdRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
@@ -197,9 +213,11 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\GoogleHome]
 
-  fos_oauth_server.server:
-    class: SuplaBundle\Auth\SuplaOAuth2
+  SuplaBundle\Auth\SuplaOAuth2:
     arguments:
       - '@fos_oauth_server.storage'
       - '%fos_oauth_server.server.options%'
       - '%supla.oauth.tokens_lifetime%'
+
+  fos_oauth_server.server: '@SuplaBundle\Auth\SuplaOAuth2'
+  OAuth2\OAuth2: '@SuplaBundle\Auth\SuplaOAuth2'

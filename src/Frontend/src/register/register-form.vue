@@ -6,7 +6,10 @@
 
             <div class="alert error"
                 v-if="errorMessage">
-                {{ errorMessage }}
+                <p>{{ errorMessage }}</p>
+                <p v-if="usernameTaken">
+                    <resend-account-activation-link :username="username"></resend-account-activation-link>
+                </p>
             </div>
 
             <form @submit.prevent="submit()"
@@ -70,9 +73,10 @@
     import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
     import InvisibleRecaptcha from './invisible-recaptcha.vue';
     import RegulationsCheckbox from "../common/errors/regulations-checkbox";
+    import ResendAccountActivationLink from "./resend-account-activation-link";
 
     export default {
-        components: {RegulationsCheckbox, ButtonLoadingDots, InvisibleRecaptcha},
+        components: {ResendAccountActivationLink, RegulationsCheckbox, ButtonLoadingDots, InvisibleRecaptcha},
 
         data() {
             return {
@@ -86,7 +90,8 @@
                 captchaEnabled: Vue.config.external.recaptchaEnabled,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
                 captchaToken: null,
-                regulationsAgreed: false
+                regulationsAgreed: false,
+                usernameTaken: false
             };
         },
         computed: {
@@ -110,6 +115,7 @@
                 this.submit();
             },
             submit() {
+                this.usernameTaken = false;
                 this.errorMessage = this.computedErrorMessage;
                 if (this.errorMessage) {
                     return;
@@ -126,9 +132,12 @@
                 }
 
                 this.isBusy = true;
-                this.$http.post('register-account', data)
+                this.$http.post('register-account', data, {skipErrorHandler: [400, 409]})
                     .then(({body}) => this.$emit('registered', body.email))
-                    .catch(({body}) => this.errorMessage = this.$t(body.message))
+                    .catch(({body}) => {
+                        this.usernameTaken = body.message == 'Email already exists';
+                        this.errorMessage = this.$t(body.message);
+                    })
                     .finally(() => this.isBusy = false);
             }
         }

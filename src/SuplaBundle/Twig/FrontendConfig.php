@@ -19,8 +19,10 @@ namespace SuplaBundle\Twig;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class FrontendConfig extends \Twig_Extension {
+class FrontendConfig extends AbstractExtension {
     use ContainerAwareTrait;
 
     const PUBLIC_PARAMETERS = [
@@ -38,7 +40,7 @@ class FrontendConfig extends \Twig_Extension {
 
     public function getFunctions() {
         return [
-            new \Twig_Function('getFrontendConfig', [$this, 'getConfig']),
+            new TwigFunction('getFrontendConfig', [$this, 'getConfig']),
         ];
     }
 

@@ -34,13 +34,15 @@ export class CurrentUser {
     }
 
     authenticate(username, password) {
-        return Vue.http.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 429]})
+        return Vue.http.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 409, 429]})
             .then(response => this.handleNewToken(response))
             .then(() => this.fetchUserData());
     }
 
     handleNewToken(response) {
         Vue.prototype.$localStorage.set('_token', response.body.access_token);
+        const tokenExpiration = moment().add(response.body.expires_in, 'seconds').format();
+        Vue.prototype.$localStorage.set('_token_expiration', tokenExpiration);
         Vue.prototype.$localStorage.set('_token_down', response.body.download_token);
         this.synchronizeAuthState();
     }
@@ -48,10 +50,11 @@ export class CurrentUser {
     forget() {
         Vue.prototype.$localStorage.remove('_token');
         Vue.prototype.$localStorage.remove('_token_down');
-        this.synchronizeAuthState();
+        Vue.prototype.$localStorage.remove('_token_expiration');
         this.username = undefined;
         this.userData = undefined;
         this.serverUrl = undefined;
+        this.synchronizeAuthState();
     }
 
     fetchUser() {

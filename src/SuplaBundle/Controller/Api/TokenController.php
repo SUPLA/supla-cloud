@@ -26,6 +26,7 @@ use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Repository\ApiClientRepository;
+use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +49,8 @@ class TokenController extends RestController {
     private $autodiscover;
     /** @var TargetSuplaCloudRequestForwarder */
     private $suplaCloudRequestForwarder;
+    /** @var UserRepository */
+    private $userRepository;
 
     public function __construct(
         SuplaOAuth2 $server,
@@ -56,7 +59,8 @@ class TokenController extends RestController {
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
         SuplaAutodiscover $autodiscover,
         TokenStorageInterface $tokenStorage,
-        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder
+        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
+        UserRepository $userRepository
     ) {
         $this->server = $server;
         $this->router = $router;
@@ -65,14 +69,15 @@ class TokenController extends RestController {
         $this->autodiscover = $autodiscover;
         $this->tokenStorage = $tokenStorage;
         $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
+        $this->userRepository = $userRepository;
     }
 
     /** @Rest\Post("/webapp-auth") */
     public function webappAuthAction(Request $request) {
         $username = $request->get('username');
         $password = $request->get('password');
-        Assertion::notBlank($username, 'Username is required.');
-        Assertion::notEmpty($password, 'Password is required.');
+        Assertion::notBlank($username, 'Please enter a valid email address'); // i18n
+        Assertion::notEmpty($password, 'The password should be 8 or more characters.'); // i18n
         $server = $this->autodiscover->getAuthServerForUser($username);
         if ($server->isLocal()) {
             return $this->issueTokenForWebappAction($request);
@@ -107,10 +112,16 @@ class TokenController extends RestController {
             return $this->server->grantAccessToken($tokenRequest);
         } catch (OAuth2ServerException $e) {
             $username = $request->get('username');
+            $user = $this->userRepository->findOneByEmail($username);
             if ($username && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($username)) {
                 return $this->view(
                     ['error' => 'locked', 'error_description' => 'Your account has been blocked for a while.'],
                     Response::HTTP_TOO_MANY_REQUESTS
+                );
+            } elseif ($user && !$user->isEnabled()) {
+                return $this->view(
+                    ['error' => 'disabled', 'error_description' => 'Your account has not been confirmed.'],
+                    Response::HTTP_CONFLICT
                 );
             } else {
                 return $e->getHttpResponse()->setStatusCode(401);

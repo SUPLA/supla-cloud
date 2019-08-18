@@ -1,13 +1,14 @@
 <?php
 namespace SuplaBundle\Command;
 
-use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
+use RuntimeException;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CheckDbConnectionCommand extends DoctrineCommand {
+class CheckDbConnectionCommand extends Command {
     protected function configure() {
         $this
             ->setName('supla:check-db-connection')
@@ -24,7 +25,7 @@ class CheckDbConnectionCommand extends DoctrineCommand {
             $connectionStatus = $this->getApplication()->run($createDbCommand, $dbConnectionRetries ? new NullOutput() : $output);
             if ($connectionStatus !== 0) {
                 if ($dbConnectionRetries <= 0) {
-                    throw new \RuntimeException('Could not connect to to the database.');
+                    throw new RuntimeException('Could not connect to to the database.');
                 } else {
                     $output->writeln("Waiting for database connection ($dbConnectionRetries)...");
                     --$dbConnectionRetries;

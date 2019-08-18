@@ -20,6 +20,7 @@ Account access when you are unavailable: Acesso à conta quando você está indi
 Account has been activated. You can Sign In now.: A conta foi ativada. Pode fazer o seu login
 Action: Ação
 Action execution: Execução ações
+Actions: Ação
 Active: Ativos
 Add: Juntar
 Add a new icon: Adicione um novo ícone
@@ -67,6 +68,7 @@ Calibration: Calibrar
 Cancel: Cancelar
 Cancel changes: Cancelar modificações
 Cancelled: Anulado
+Cannot execute an action when the device is disconnected.: Não é possível realizar tal ação enquanto o dispositivo estover desligado.
 Captcha token is not valid.: Captcha incorreto.
 Caption: Denominação
 Change Password: Alterar a senha
@@ -213,6 +215,7 @@ Grant access: Conceder acesso
 HFD4 Relay: Relé HFD4
 History of measurements: Histórico de medições
 Home appliances: Eletrónico de consumo
+Home+ Heater: Aquecedor Home+
 Hours: Horas
 Humidity: Umidade
 Humidity Sensor: Sensor de humidade
@@ -426,6 +429,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Os arquivos de ícones selecionados por você são muito grande. O tamanho máximo permitido para upload é {limit}.'
 There are no more channels you can add to this group: Não há mais canais para adicionar a esse grupo
 Thermometer: Termómetro
+Thermostat: Termostato
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Esse link direto requer que os parâmetros da ação que está sendo executada sejam melhor esclarecidos. Veja os exemplos abaixo para descobrir quais parâmetros você pode definir.
 This is the list of applications you have granted access to your account.: Esta é a lista de aplicativos aos quais você concedeu acesso à sua conta.
 Thursdays: Quintas
@@ -448,6 +452,7 @@ WELCOME_MESSAGE: |
   Basta copiar os dados abaixo para os seus dispositivos de comando (entrada/saída) e smartphones.
 Water meter: Medidor de água
 We could not connect to your SUPLA Cloud instance.: Não foi possível conectar-se à sua instância privada do SUPLA Cloud.
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Enviamos para você uma mensagem de e-mail com o link pata confirmar a deleção da conta. Você aindapode mudar de opinião!
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Nós guardamos alguns dados no seu navegador (e.g. cookies) para se lembrar de suas preferências e para fazer o uso da aplicação mais fácil. [Por favor, leio os termos e condições].'
 We were not able to find your account.: Não conseguimos encontrar sua conta.
 We will miss you: Sentiremos sua falta
@@ -569,10 +574,18 @@ execute: realizar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Actions: Ação
-Cannot execute an action when the device is disconnected.: Não é possível realizar tal ação enquanto o dispositivo estover desligado.
-Home+ Heater: Aquecedor Home+
-Thermostat: Termostato
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Enviamos para você uma mensagem de e-mail com o link pata confirmar a deleção da conta. Você aindapode mudar de opinião!
+Cannot send an activation e-mail. Try again later.: Não é possível enviar a mensagem com um link de ativação. Volte a tentar mais tarde.
+Enter your password to prevent automatic logout.: Digite a sua senha para não ficar desconectado automaticamente.
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Não recebeu a mensagem com um link para ativar a sua conta? Certifique-se que não foi para o SPAM (correio eletrónico de lixo). Também pode clicar [aqui] para a enviar novamente.'
+Please click the link we have sent you after the registration to proceed.: Clique no link da mensagem que lhe enviámos depois da criação da conta.
+Please log in again to proceed.: Ligue-se de novo para continuar.
+The activation link has been sent again. Check the inbox.: A mensagem com um link para ativar a sua conta foi enviada novamente.  Verifique a sua caixa de mensagens.
+User is already confirmed. Try to log in.: A conta já foi confirmada. Faça o seu login.
+We have just sent you an activation link. Be patient.: A mensagem com o link para ativar a sua conta acabou de ser enviada. Paciência.
+Your account has not been confirmed yet.: A sua conta ainda não foi confirmada.
+Your session has been expired.: A sua sessão expirou.
+Your session is about to expire: Sua sessão está prestes a expirar
+'Your session will expire in [time].': 'A sua sessão vai expirar daqui a [time].'
+extend: prolongue o tempo de sessão
 
 #</editor-fold>

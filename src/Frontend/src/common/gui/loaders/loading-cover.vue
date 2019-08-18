@@ -82,12 +82,8 @@
         }
         .loading {
             display: none;
-            .loader-dots {
-                position: absolute;
-                left: 50%;
-                margin: 0 0 0 -60px;
-                top: 50%;
-                z-index: 1000;
+            .supla-loader {
+                margin-bottom: -250px;
             }
             &:before, &:after {
                 content: " ";
@@ -97,7 +93,6 @@
                 right: 0;
                 bottom: 0;
                 min-height: 50px;
-                min-width: 50px;
                 z-index: 1000;
             }
             &:before {

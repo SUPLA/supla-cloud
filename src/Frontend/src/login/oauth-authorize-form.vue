@@ -37,12 +37,11 @@
 
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import LoginFooter from "./login-footer.vue";
     import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../oauth/oauth-scopes";
     import {cloneDeep} from "lodash";
 
     export default {
-        components: {ButtonLoadingDots, LoginFooter},
+        components: {ButtonLoadingDots},
         props: ['desiredScopes', 'clientName', 'locale'],
         data() {
             return {
@@ -80,7 +79,8 @@
     .authorize-form {
         width: 90%;
         max-width: 600px;
-        margin: 10px auto;
+        margin: 0 auto;
+        padding-top: 10px;
         .authorization-logo {
             .app-name {
                 font-size: 40px;

@@ -30,6 +30,8 @@ use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class DirectLinkController extends RestController {
     use Transactional;
@@ -39,7 +41,7 @@ class DirectLinkController extends RestController {
     /** @var AuditEntryRepository */
     private $auditEntryRepository;
 
-    public function __construct(EncoderFactory $encoderFactory, AuditEntryRepository $auditEntryRepository) {
+    public function __construct(EncoderFactoryInterface $encoderFactory, AuditEntryRepository $auditEntryRepository) {
         $this->encoderFactory = $encoderFactory;
         $this->auditEntryRepository = $auditEntryRepository;
     }
@@ -75,10 +77,10 @@ class DirectLinkController extends RestController {
      * @Rest\Post("/direct-links")
      * @Security("has_role('ROLE_DIRECTLINKS_RW')")
      */
-    public function postDirectLinkAction(Request $request, DirectLink $directLink) {
+    public function postDirectLinkAction(Request $request, DirectLink $directLink, TranslatorInterface $translator) {
         $user = $this->getUser();
         if (!$directLink->getCaption()) {
-            $caption = $this->get('translator')->trans('Direct link', [], null, $user->getLocale());
+            $caption = $translator->trans('Direct link', [], null, $user->getLocale());
             $directLink->setCaption($caption . ' #' . ($user->getDirectLinks()->count() + 1));
         }
         Assertion::false($user->isLimitDirectLinkExceeded(), 'Direct links limit has been exceeded');

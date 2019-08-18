@@ -5,12 +5,14 @@ import Modal from "./modal";
 import ModalConfirm from "./modal-confirm";
 import Navbar from "../home/navbar";
 import LoadingCover from "./gui/loaders/loading-cover";
+import PageFooter from "./gui/page-footer";
 import Flipper from "./tiles/flipper";
 import SquareLink from "./tiles/square-link";
 import SquareLinksGrid from "./tiles/square-links-grid";
 import Toggler from "./gui/toggler";
 
 Vue.component('cookieWarning', () => import("./errors/cookie-warning"));
+Vue.component('pageFooter', PageFooter);
 Vue.component('emptyListPlaceholder', EmptyListPlaceholder);
 Vue.component('idleLogout', IdleLogout);
 Vue.component('modal', Modal);

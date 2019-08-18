@@ -24,7 +24,8 @@ class CreateConfirmedUserCommand extends Command {
 
     protected function configure() {
         $this
-            ->setName('supla:create-confirmed-user')
+            ->setName('supla:user:create')
+            ->setAliases(['supla:create-confirmed-user'])
             ->addArgument('username', InputArgument::OPTIONAL)
             ->addArgument('password', InputArgument::OPTIONAL)
             ->addOption('if-not-exists', null, InputOption::VALUE_NONE, 'Don’t throw an exception if no migration is available (CI).')

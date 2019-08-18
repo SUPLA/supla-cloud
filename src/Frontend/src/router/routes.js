@@ -4,10 +4,15 @@ export default [
         path: '/login',
         component: () => import("@/login/login-page"),
         alias: '/auth/login',
-        meta: {unrestricted: true, onlyUnauthenticated: true},
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'centered-form-page'},
         name: 'login'
     },
-    {path: '/oauth-authorize', component: () => import("@/login/login-page-oauth"), meta: {unrestricted: true}, name: 'oauthAuthorize'},
+    {
+        path: '/oauth-authorize',
+        component: () => import("@/login/login-page-oauth"),
+        meta: {unrestricted: true, bodyClass: 'centered-form-page'},
+        name: 'oauthAuthorize'
+    },
     {
         path: '/terms',
         component: () => import("@/common/pages/terms"),
@@ -38,12 +43,12 @@ export default [
     {
         path: '/forgotten-password',
         component: () => import("@/login/remind-password"),
-        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow'}
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow centered-form-page'}
     },
     {
         path: '/reset-password/:token',
         component: () => import("@/login/reset-password"),
-        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow'},
+        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow centered-form-page'},
         props: true
     },
     {

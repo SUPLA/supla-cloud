@@ -42,7 +42,6 @@
                 <public-apps-catalog-not-registered-message></public-apps-catalog-not-registered-message>
             </div>
         </loading-cover>
-        <login-footer v-if="!$user.username"></login-footer>
     </page-container>
 </template>
 
@@ -51,11 +50,10 @@
     import PublicAppTile from "./public-app-tile";
     import PublicAppDetails from "./public-app-details";
     import PageContainer from "../../common/pages/page-container";
-    import LoginFooter from "../../login/login-footer";
 
     export default {
         props: ['id'],
-        components: {LoginFooter, PageContainer, PublicAppDetails, PublicAppTile, PublicAppsCatalogNotRegisteredMessage},
+        components: {PageContainer, PublicAppDetails, PublicAppTile, PublicAppsCatalogNotRegisteredMessage},
         data() {
             return {
                 app: undefined,

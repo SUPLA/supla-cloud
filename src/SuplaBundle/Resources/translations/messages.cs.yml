@@ -20,6 +20,7 @@ Account access when you are unavailable: 'Přístup k účtu, pokud nejste dostu
 Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
 Action: Akce
 Action execution: Provedení akce
+Actions: Akce
 Active: Aktivní
 Add: Přidat
 Add a new icon: Přidat novou ikonu
@@ -67,6 +68,7 @@ Calibration: Kalibrace
 Cancel: Zrušit
 Cancel changes: Zrušit změny
 Cancelled: Zrušeno
+Cannot execute an action when the device is disconnected.: 'Je zakázané provádět akci, pokud je zařízení vypnuté.'
 Captcha token is not valid.: Nesprávná captcha
 Caption: Podpis
 Change Password: Změna hesla
@@ -213,6 +215,7 @@ Grant access: Poskytněte přístup
 HFD4 Relay: Relé HFD4
 History of measurements: Historie měření
 Home appliances: Domácí spotřebiče
+Home+ Heater: Topení Home+
 Hours: Hodiny
 Humidity: Vlhkost
 Humidity Sensor: Snímač vlhkosti
@@ -426,6 +429,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
 There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
 Thermometer: Teploměr
+Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.'
 This is the list of applications you have granted access to your account.: 'Toto je seznam aplikací, kterým jste udělili přístup k vašemu účtu.'
 Thursdays: Čtvrtky
@@ -448,6 +452,7 @@ WELCOME_MESSAGE: |
   přepište následující údaje do ovládacích.
 Water meter: Vodoměr
 We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vyslali jsme Vám e-mail s potvrzením odkazu pro odstranění účtu. Nechceš si to ještě rozmyslet?
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].'
 We were not able to find your account.: Váš účet jsme nenašli.
 We will miss you: Budete nám chybět.
@@ -569,10 +574,18 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Actions: Akce
-Cannot execute an action when the device is disconnected.: Je zakázané provádět akci, pokud je zařízení vypnuté.
-Home+ Heater: Topení Home+
-Thermostat: Termostat
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vyslali jsme Vám e-mail s potvrzením odkazu pro odstranění účtu. Nechceš si to ještě rozmyslet?
+Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s aktivačním odkazem. Zkuste to prosím znovu později.
+Enter your password to prevent automatic logout.: Uveďte své heslo, aby jste zabránili automatickému odhlášení.
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Neobdrželi jste zprávu s odkazem aktivujícím Váš účet? Ujistěte se, že neskončila ve složce SPAM (nevyžádaná pošta). Můžete také kliknout [zde] a odeslat ji znovu.'
+Please click the link we have sent you after the registration to proceed.: Klikněte na odkaz ze zprávy, kterou jsme Vám zaslali po vytvoření účtu.
+Please log in again to proceed.: Chcete-li pokračovat, přihlaste se znovu.
+The activation link has been sent again. Check the inbox.: Zpráva s odkazem k aktivaci Vašeho účtu byla znovu odeslána. Zkontrolujte svou doručenou poštu.
+User is already confirmed. Try to log in.: Tento účet je již potvrzen. Přihlaste se.
+We have just sent you an activation link. Be patient.: Právě byla odeslána zpráva s odkazem k aktivaci Vašeho účtu. Trpělivost.
+Your account has not been confirmed yet.: Váš účet dosud nebyl potvrzen.
+Your session has been expired.: Vaše relace vypršela.
+Your session is about to expire: Vaše relace brzy vyprší
+'Your session will expire in [time].': 'Vaše relace vyprší za [time].'
+extend: prodloužit
 
 #</editor-fold>

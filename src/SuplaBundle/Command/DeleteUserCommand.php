@@ -20,7 +20,8 @@ class DeleteUserCommand extends ContainerAwareCommand {
 
     protected function configure() {
         $this
-            ->setName('supla:delete-user')
+            ->setName('supla:user:delete')
+            ->setAliases(['supla:delete-user'])
             ->addArgument('username', InputArgument::OPTIONAL)
             ->setDescription('Deletes user account and all his dependencies from database.');
     }

@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\OAuth;
 
 use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use InvalidArgumentException;
 use OAuth2\OAuth2;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -50,19 +51,23 @@ class AuthorizeOAuthController extends Controller {
     private $localSuplaCloud;
     /** @var TargetSuplaCloudRequestForwarder */
     private $suplaCloudRequestForwarder;
+    /** @var string */
+    private $recaptchaSecret;
 
     public function __construct(
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
         SuplaAutodiscover $autodiscover,
         ClientManagerInterface $clientManager,
         LocalSuplaCloud $localSuplaCloud,
-        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder
+        TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
+        $recaptchaSecret
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
         $this->clientManager = $clientManager;
         $this->localSuplaCloud = $localSuplaCloud;
         $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
+        $this->recaptchaSecret = $recaptchaSecret;
     }
 
     /**
@@ -135,7 +140,7 @@ class AuthorizeOAuthController extends Controller {
             $session->set(self::LAST_TARGET_CLOUD_ADDRESS_KEY, $targetCloudUrl);
             try {
                 $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $targetCloudUrl);
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
                 $error = 'autodiscover_fail';
             }
             $privateCloud = true;
@@ -187,9 +192,8 @@ class AuthorizeOAuthController extends Controller {
      * @Route("/api/register-target-cloud", methods={"POST"})
      */
     public function registerTargetCloudAction(Request $request) {
-        $recaptchaSecret = $this->getParameter('recaptcha_secret');
         $gRecaptchaResponse = $request->get('captcha');
-        $recaptcha = new ReCaptcha($recaptchaSecret);
+        $recaptcha = new ReCaptcha($this->recaptchaSecret);
         $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
         Assertion::true($resp->isSuccess(), 'Captcha token is not valid.'); // i18n
 

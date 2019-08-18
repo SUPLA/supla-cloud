@@ -4,7 +4,7 @@
         ref="loginForm"
         method="post"
         v-title="$t('Login')"
-        :class="'login-oauth-form ' + (askForTargetCloud ? 'login-oauth-form-broker' : '')">
+        :class="'centered-form-container login-oauth-form ' + (askForTargetCloud ? 'login-oauth-form-broker' : '')">
         <login-form :authenticating="authenticating"
             :oauth="true"
             :error="error"
@@ -19,30 +19,38 @@
             <div v-if="askForTargetCloud">
                 <div class="form-group text-center">
                     <label>
-                        <toggler v-model="ownCloud"
-                            @input="error = undefined"></toggler>
-                        {{ $t('Connection with a private instance of the SUPLA cloud') }}
+                        <div class="checkbox checkbox-green">
+                            <label>
+                                <input type="checkbox"
+                                    v-model="ownCloud"
+                                    @change="error = undefined">
+                                <span class="checkmark"></span>
+                                {{ $t('Connection with a private instance of the SUPLA cloud') }}
+                            </label>
+                        </div>
                     </label>
                 </div>
-                <div class="form-group form-group-lg"
-                    v-if="ownCloud">
-                    <span class="input-group">
-                        <span class="input-group-addon">
-                            <span class="pe-7s-global"></span>
+                <transition-expand>
+                    <div class="form-group form-group-lg"
+                        v-if="ownCloud">
+                        <span class="input-group">
+                            <span class="input-group-addon">
+                                <span class="pe-7s-global"></span>
+                            </span>
+                            <input type="text"
+                                required
+                                autocorrect="off"
+                                autocapitalize="none"
+                                :placeholder="$t('Private Cloud domain name')"
+                                v-model="targetCloud"
+                                name="targetCloud"
+                                class="form-control">
                         </span>
-                        <input type="text"
-                            required
-                            autocorrect="off"
-                            autocapitalize="none"
-                            :placeholder="$t('Private Cloud domain name')"
-                            v-model="targetCloud"
-                            name="targetCloud"
-                            class="form-control">
-                    </span>
-                    <span class="help-block">
-                        {{ $t('Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.') }}
-                    </span>
-                </div>
+                        <span class="help-block">
+                            {{ $t('Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.') }}
+                        </span>
+                    </div>
+                </transition-expand>
                 <transition name="fade">
                     <div class="error"
                         v-if="error">
@@ -63,17 +71,16 @@
                 </transition>
             </div>
         </login-form>
-        <login-footer remind-password-link="true"></login-footer>
     </form>
 </template>
 
 <script>
-    import LoginFooter from "./login-footer.vue";
     import LoginForm from "./login-form";
+    import TransitionExpand from "../common/gui/transition-expand";
 
     export default {
         props: ['lastUsername', 'error', 'askForTargetCloud', 'lastTargetCloud', 'clientName'],
-        components: {LoginForm, LoginFooter},
+        components: {TransitionExpand, LoginForm},
         data() {
             return {
                 ownCloud: false,
