@@ -574,18 +574,18 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: ~
-Enter your password to prevent automatic logout.: ~
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': ~
-Please click the link we have sent you after the registration to proceed.: ~
-Please log in again to proceed.: ~
-The activation link has been sent again. Check the inbox.: ~
-User is already confirmed. Try to log in.: ~
-We have just sent you an activation link. Be patient.: ~
-Your account has not been confirmed yet.: ~
-Your session has been expired.: ~
-Your session is about to expire: ~
-'Your session will expire in [time].': ~
-extend: ~
+Cannot send an activation e-mail. Try again later.: Невозможно отправить сообщение со ссылкой для активации. Пожалуйста, попробуйте позже.
+Enter your password to prevent automatic logout.: Введите свой пароль, чтобы предотвратить автоматический выход из системы.
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете нажать [здесь], чтобы отправить его снова.'
+Please click the link we have sent you after the registration to proceed.: Нажмите на ссылку из сообщения, которое мы отправили Вам после создания учетной записи.
+Please log in again to proceed.: Войдите снова, чтобы продолжить.
+The activation link has been sent again. Check the inbox.: Сообщение со ссылкой для активации Вашей учетной записи было отправлено снова. Проверьте входящие сообщения.
+User is already confirmed. Try to log in.: Эта учетная запись уже подтверждена. Войдите.
+We have just sent you an activation link. Be patient.: Сообщение со ссылкой для активации Вашей учетной записи было только что отправлено. Немного терпения.
+Your account has not been confirmed yet.: Ваша учетная запись ещё не подтверждена.
+Your session has been expired.: Ваш сеанс завершен.
+Your session is about to expire: Ваша сессия истекает
+'Your session will expire in [time].': 'Ваш сеанс будет завершен через [время].'
+extend: Продолжить
 
 #</editor-fold>
