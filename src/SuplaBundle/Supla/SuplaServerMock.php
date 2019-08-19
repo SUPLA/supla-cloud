@@ -17,7 +17,10 @@
 
 namespace SuplaBundle\Supla;
 
+use Faker\Factory;
+use Faker\Generator;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Model\LocalSuplaCloud;
 
 /**
@@ -30,10 +33,13 @@ class SuplaServerMock extends SuplaServer {
 
     /** @var SuplaServerMockCommandsCollector */
     private $commandsCollector;
+    /** @var Generator */
+    private $faker;
 
     public function __construct(SuplaServerMockCommandsCollector $commandsCollector, LoggerInterface $logger) {
         parent::__construct('', new LocalSuplaCloud('http://supla.local'), $logger);
         $this->commandsCollector = $commandsCollector;
+        $this->faker = Factory::create();
     }
 
     protected function connect() {
@@ -76,6 +82,64 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(-2000, 2000) / 1000);
         } elseif (preg_match('#^GET-((HUMIDITY)|(DOUBLE))-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(0, 1000) / 10);
+        } elseif (preg_match('#^GET-IC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // IMPULSE_COUNTER
+            $counter = $this->faker->randomNumber(4);
+            $impulsesPerUnit = $this->faker->randomNumber(3);
+            return sprintf(
+                'VALUE:%d,%d,%d,%d,%d,%s,%s',
+                $this->faker->randomNumber(7), // TotalCost * 100
+                $this->faker->randomNumber(7), // PricePerUnit * 10000
+                $impulsesPerUnit, // ImpulsesPerUnit
+                $counter, // Counter
+                round($counter * 1000 / $impulsesPerUnit), // CalculatedValue * 1000
+                $this->faker->boolean ? $this->faker->currencyCode : '', // currency
+                $this->faker->boolean ? base64_encode($this->faker->randomElement(['m³', 'wahnięć', 'l'])) : '' // base-64 unit name
+            );
+        } elseif (preg_match('#^GET-EM-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // ELECTRICITY_METER
+            $fullSupportMask = array_reduce(ElectricityMeterSupportBits::toArray(), function (int $acc, int $bit) {
+                return $acc | $bit;
+            }, 0);
+            return sprintf(
+                'VALUE:' . str_repeat('%d,', 37) . '%s',
+                $fullSupportMask,
+                rand(4950, 5500), // Freq * 100
+                rand(22000, 24000), // VoltagePhase1 * 100
+                rand(22000, 24000), // VoltagePhase2 * 100
+                rand(22000, 24000), // VoltagePhase3 * 100
+                rand(0, 30000), // CurrentPhase1 * 1000
+                rand(0, 30000), // CurrentPhase2 * 1000
+                rand(0, 30000), // CurrentPhase3 * 1000
+                rand(0, 30000000), // PowerActivePhase1 * 100000
+                rand(0, 30000000), // PowerActivePhase2 * 100000
+                rand(0, 30000000), // PowerActivePhase3 * 100000
+                rand(0, 10000000), // PowerRectivePhase1 * 100000
+                rand(0, 10000000), // PowerRectivePhase2 * 100000
+                rand(0, 10000000), // PowerRectivePhase3 * 100000
+                rand(0, 10000000), // PowerApparentPhase1 * 100000
+                rand(0, 10000000), // PowerApparentPhase2 * 100000
+                rand(0, 10000000), // PowerApparentPhase3 * 100000
+                rand(0, 100000), // PowerFactorPhase1 * 1000
+                rand(0, 100000), // PowerFactorPhase2 * 1000
+                rand(0, 100000), // PowerFactorPhase3 * 1000
+                rand(0, 3600), // PhaseAnglePhase1 * 10
+                rand(0, 3600), // PhaseAnglePhase2 * 10
+                rand(0, 3600), // PhaseAnglePhase2 * 10
+                rand(0, 100000000), // TotalForwardActiveEnergyPhase1 * 100000
+                rand(0, 100000000), // TotalForwardActiveEnergyPhase2 * 100000
+                rand(0, 100000000), // TotalForwardActiveEnergyPhase3 * 100000
+                rand(0, 10000000), // TotalReverseActiveEnergyPhase1 * 100000
+                rand(0, 10000000), // TotalReverseActiveEnergyPhase2 * 100000
+                rand(0, 10000000), // TotalReverseActiveEnergyPhase3 * 100000
+                rand(0, 10000000), // TotalForwardReactiveEnergyPhase1 * 100000
+                rand(0, 10000000), // TotalForwardReactiveEnergyPhase2 * 100000
+                rand(0, 10000000), // TotalForwardReactiveEnergyPhase3 * 100000
+                rand(0, 10000000), // TotalReverseReactiveEnergyPhase1 * 100000
+                rand(0, 10000000), // TotalReverseReactiveEnergyPhase2 * 100000
+                rand(0, 10000000), // TotalReverseReactiveEnergyPhase3 * 100000
+                rand(0, 10000), // TotalCost * 100
+                rand(0, 100000), // PricePerUnit * 10000
+                $this->faker->currencyCode
+            );
         }
         return false;
     }

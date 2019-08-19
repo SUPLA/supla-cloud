@@ -57,7 +57,7 @@
         computed: {
             expireText() {
                 const template = this.$t('Your session will expire in [time].')
-                    .replace(/\[time\]/g, `<span class="session-timeout-countdown"></span>`);
+                    .replace(/\[.+\]/g, `<span class="session-timeout-countdown"></span>`);
                 return {template: `<span>${template}</span>`};
             },
             timeLeft() {

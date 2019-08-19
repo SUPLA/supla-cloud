@@ -10,11 +10,11 @@
         </dl>
         <dl v-if="currentState.depth !== undefined">
             <dd>{{ $t('Depth') }}</dd>
-            <dt>{{ currentState.depth }}m</dt>
+            <dt>{{ currentState.depth }} m</dt>
         </dl>
         <dl v-if="currentState.distance !== undefined">
             <dd>{{ $t('Distance') }}</dd>
-            <dt>{{ currentState.distance }}m</dt>
+            <dt>{{ currentState.distance }} m</dt>
         </dl>
         <dl v-if="currentState.color_brightness">
             <dd>{{ $t('Color') }}</dd>
@@ -36,6 +36,14 @@
         <dl v-if="currentState.shut !== undefined">
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{currentState.shut}}%</dt>
+        </dl>
+        <dl v-if="currentState.calculatedValue !== undefined">
+            <dd>{{ $t('Meter value') }}</dd>
+            <dt>{{currentState.calculatedValue|roundToDecimals}} {{currentState.unit || ''}}</dt>
+        </dl>
+        <dl v-if="currentState.totalForwardActiveEnergyPhase1 !== undefined">
+            <dd>{{ $t('Forward active energy') }}</dd>
+            <dt>{{(currentState.totalForwardActiveEnergyPhase1 + currentState.totalForwardActiveEnergyPhase2 + currentState.totalForwardActiveEnergyPhase3) | roundToDecimals}} kWh</dt>
         </dl>
         <span class="label label-danger"
             v-if="currentState.connected === false">

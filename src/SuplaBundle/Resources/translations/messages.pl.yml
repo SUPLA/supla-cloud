@@ -190,6 +190,7 @@ File is too large: Plik jest za duży
 For devices: Dla urządzeń
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.'
 Forgot your password?: Nie pamiętasz hasła?
+Forward active energy: Energia czynna pobrana
 Fridays: Piątki
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
@@ -271,6 +272,7 @@ Login: Logowanie
 Mail sensor: Czujnik poczty
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
+Meter value: Stan licznika
 Minute: Minuta
 Mobile Apps: Aplikacje mobilne
 Mode: Tryb
@@ -362,6 +364,7 @@ Revoke: Unieważnij
 Roller shutter opening sensor: Czujnik otwarcia rolet
 Roller shutter operation: Otwieranie i zamykanie rolet
 Roller shutters: Rolety
+SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło'
 Saturdays: Soboty
 Save: Zapisz

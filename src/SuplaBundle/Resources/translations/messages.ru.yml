@@ -69,6 +69,7 @@ Cancel: Отмена
 Cancel changes: Отменить изменения
 Cancelled: Аннулировано
 Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
+Cannot send an activation e-mail. Try again later.: 'Невозможно отправить сообщение со ссылкой для активации. Пожалуйста, попробуйте позже.'
 Captcha token is not valid.: Неправильная капча.
 Caption: Подпись
 Change Password: Смена пароля
@@ -171,6 +172,7 @@ Enter the data below in the settings of your control device (I/O Device).: Вв�
 Enter the data below in your mobile SUPLA application on your smartphone.: 'Введите данные ниже в мобильное приложение SUPLA, установленное на вашем смартфоне.'
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Введите только домен вместе с портом, если он не является стандартным (443). Требуется соединение HTTPS.'
 Enter your email address: Введите адрес почты
+Enter your password to prevent automatic logout.: 'Введите свой пароль, чтобы предотвратить автоматический выход из системы.'
 Error: Ошибка
 Error when communicating the server. Try again in a while.: Произошла ошибка во время связи с сервером. Повторите попытку позже.
 Every: каждые
@@ -188,6 +190,7 @@ File is too large: Размер файла слишком большой
 For devices: Для устройств
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'По соображениям безопасности, полный URL этой прямой ссылки будет отображаться только один раз при ее создании.'
 Forgot your password?: Не помнишь пароль?
+Forward active energy: Продвижение активной энергии
 Fridays: Пятницы
 From IP: C IP
 From anywhere: Отовсюду
@@ -213,6 +216,7 @@ Go to channel details: Перейти к подробной информации
 Go to your account: Перейди в свой аккаунт
 Grant access: Предоставить доступ
 HFD4 Relay: Реле HFD4
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете нажать [здесь], чтобы отправить его снова.'
 History of measurements: История измерений
 Home appliances: Бытовая техника
 Home+ Heater: Дом + обогреватель
@@ -268,6 +272,7 @@ Login: Вход в систему
 Mail sensor: Сигнализатор наличия почты
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Убедитесь, что он сохранен в надежном месте, если вы хотите использовать его снова в будущем. Ссылка не будет отображаться, когда вы покинете эту страницу.'
 'Maximum filesize limit is {limit}.': 'Максимальный размер файла - {limit}.'
+Meter value: Состояние счетчика
 Minute: Минута
 Mobile Apps: Мобильное приложение
 Mode: Режим
@@ -318,8 +323,10 @@ Percentage of closing: Процент закрытия
 Personal access tokens: Персональные токены доступа
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Личные токены доступа работают так же, как и обычные, но являются бессрочными.'
 Personal token name is required.: Необходимо указать имя персонального токена.
+Please click the link we have sent you after the registration to proceed.: 'Нажмите на ссылку из сообщения, которое мы отправили Вам после создания учетной записи.'
 Please enter a valid email address: Введите правильный адрес электронной почты
 Please fill a valid email address: Впишите корретный почтовый адрес
+Please log in again to proceed.: 'Войдите снова, чтобы продолжить.'
 Please provide a valid domain name for your private SUPLA Cloud: Введите правильное имя домена для вашего персонального облака SUPLA
 Please select the schedules that should also be enabled.: 'Отметь графики, которые тоже должны быть включены.'
 Please wait a moment before the next login attempt.: Подождите минуту перед следующей попыткой входа.
@@ -413,6 +420,7 @@ Temperature and humidity sensor: Датчик температуры и влаж
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Благодаря интеграциям вы можете легко добавлять новые функции в свою учетную запись, используя решения, предоставляемые сторонними поставщиками, разработчиками, или свои собственные.'
 The Terms and Conditions have changed: Правила изменились
 The Terms and Conditions have changed – please read them and accept.: Правила сайта изменились - требуется согласие.
+The activation link has been sent again. Check the inbox.: Сообщение со ссылкой для активации Вашей учетной записи было отправлено снова. Проверьте входящие сообщения.
 The client will be automatically logged out when deleted.: Удаление клиента приведет к его немедленному выходу из системы.
 The device is disabled: Оборудование выключено
 The gate sensor must function properly in order to execute the scheduled action.: 'Чтобы выполнить задачу, датчик открытия ворот должен работать правильно.'
@@ -445,6 +453,7 @@ Unknown: неизвестно
 Unsupported function: Неподдерживаемая функция
 Unsupported type: Неподдерживаемый тип
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Загруженные файлы не нарушают норм нравственности, авторских прав и прав третьих лиц, и я имею право их использовать.'
+User is already confirmed. Try to log in.: Эта учетная запись уже подтверждена. Войдите.
 Visible: идимые
 Visit app webpage: Открыть веб-сайт приложения
 WELCOME_MESSAGE: |
@@ -452,6 +461,7 @@ WELCOME_MESSAGE: |
   Для этого Тебе достаточно всего лишь перезаписать в своих устройствах управления (Вход/Выход) и смартфонах нижеприведенные данные.
 Water meter: Счетчик воды
 We could not connect to your SUPLA Cloud instance.: Не удалось подключиться к персональной инстанции облака SUPLA Cloud.
+We have just sent you an activation link. Be patient.: Сообщение со ссылкой для активации Вашей учетной записи было только что отправлено. Немного терпения.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Вам отправлено электронное письмо с ссылкой для подтверждения удаления учетной записи. Может, Вы еще передумаете!'
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Мы сохраняем в вашем браузере информацию о ваших предпочтениях для облегчения использования приложения (например, с помощью механизма куки). [Читать правила].'
 We were not able to find your account.: Не удалось найти вашу учетную запись.
@@ -483,11 +493,15 @@ You will be logged out shortly: В течение нескольких секу�
 You will not be able to generate a direct link with the same URL again.: Создание ссылки с одинаковым URL невозможно.
 Your account has been deleted. We hope you will come back to us soon.: 'Учетная запись удалена. Надеемся, вы скоро к нам вернетесь.'
 Your account has been locked.: Ваша учетная запись заблокирована.
+Your account has not been confirmed yet.: Ваша учетная запись ещё не подтверждена.
 Your email: Введите почту
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Ваша инстанция не зарегистрирована или вы пытаетесь авторизовать приложение, которое не является публичным.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Ваша пользовательская установка SUPLA cloud недоступна. Убедитесь в том, что сервер доступен, а соединение HTTPS действует корректно.'
 Your private SUPLA Cloud is almost registered.: Ваше персональное облако SUPLA почти зарегистрировано.
 Your private SUPLA Cloud is not registered.: Ваше личное облако SUPLA не зарегистрировано.
+Your session has been expired.: Ваш сеанс завершен.
+Your session is about to expire: Ваша сессия истекает
+'Your session will expire in [time].': 'Ваш сеанс будет завершен через [время].'
 after: после
 before: до
 choose: выбрать
@@ -511,6 +525,7 @@ directLinkExecutionFailureReason_notActiveYet: Прямая ссылка еще 
 directLinkExecutionFailureReason_otherFailure: Ошибка при выполнении действия
 directLinkExecutionFailureReason_unsupportedAction: Выбранное действие неверно
 executed: выполнено
+extend: Продолжить
 from IP: c IP
 from the IP: с адреса
 hourly: Ежечасный цикл
@@ -574,18 +589,6 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: Невозможно отправить сообщение со ссылкой для активации. Пожалуйста, попробуйте позже.
-Enter your password to prevent automatic logout.: Введите свой пароль, чтобы предотвратить автоматический выход из системы.
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете нажать [здесь], чтобы отправить его снова.'
-Please click the link we have sent you after the registration to proceed.: Нажмите на ссылку из сообщения, которое мы отправили Вам после создания учетной записи.
-Please log in again to proceed.: Войдите снова, чтобы продолжить.
-The activation link has been sent again. Check the inbox.: Сообщение со ссылкой для активации Вашей учетной записи было отправлено снова. Проверьте входящие сообщения.
-User is already confirmed. Try to log in.: Эта учетная запись уже подтверждена. Войдите.
-We have just sent you an activation link. Be patient.: Сообщение со ссылкой для активации Вашей учетной записи было только что отправлено. Немного терпения.
-Your account has not been confirmed yet.: Ваша учетная запись ещё не подтверждена.
-Your session has been expired.: Ваш сеанс завершен.
-Your session is about to expire: Ваша сессия истекает
-'Your session will expire in [time].': 'Ваш сеанс будет завершен через [время].'
-extend: Продолжить
+SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>

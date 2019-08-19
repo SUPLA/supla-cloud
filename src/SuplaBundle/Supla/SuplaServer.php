@@ -21,8 +21,10 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
+use SuplaBundle\Utils\NumberUtils;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 abstract class SuplaServer {
@@ -178,10 +180,53 @@ abstract class SuplaServer {
         return false;
     }
 
+    public function getImpulseCounterValue(IODeviceChannel $channel): array {
+        $value = $this->getRawValue('IC', $channel);
+        if ($value !== false) {
+            $matched = preg_match('#^VALUE:(\d+),(\d+),(\d+),(\d+),(\d+),([A-Z]*),(.*)$#', $value, $match);
+            if ($matched) {
+                list(, $totalCost, $pricePerUnit, $impulsesPerUnit, $counter, $calculatedValue, $currency, $unit) = $match;
+                return [
+                    'totalCost' => NumberUtils::maximumDecimalPrecision($totalCost * 0.01, 2),
+                    'pricePerUnit' => NumberUtils::maximumDecimalPrecision($pricePerUnit * 0.0001, 4),
+                    'impulsesPerUnit' => intval($impulsesPerUnit),
+                    'counter' => intval($counter),
+                    'calculatedValue' => NumberUtils::maximumDecimalPrecision($calculatedValue * 0.001, 3),
+                    'currency' => $currency ?: null,
+                    'unit' => $unit ? trim(base64_decode($unit)) ?: null : null,
+                ];
+            }
+        }
+        return [];
+    }
+
+    public function getElectricityMeterValue(IODeviceChannel $channel): array {
+        $value = $this->getRawValue('EM', $channel);
+        if ($value !== false) {
+            $numberPlaceholders = str_repeat('(\d+),', 37);
+            $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*)$#', $value, $match);
+            if ($matched) {
+                unset($match[0]);
+                $keys = array_merge(
+                    ['support'],
+                    ElectricityMeterSupportBits::$POSSIBLE_STATE_KEYS,
+                    ['totalCost', 'pricePerUnit', 'currency']
+                );
+                $state = array_combine($keys, $match);
+                $state = ElectricityMeterSupportBits::transformValuesFromServer($state);
+                $state['support'] *= 1; // intval
+                $state['totalCost'] *= NumberUtils::maximumDecimalPrecision(0.01, 2);
+                $state['pricePerUnit'] *= NumberUtils::maximumDecimalPrecision(0.0001, 4);
+                return ElectricityMeterSupportBits::clearUnsupportedMeasurements($state['support'], $state);
+            }
+        }
+        return [];
+    }
+
     public function executeSetCommand(string $command) {
         $result = $this->executeCommand($command);
         if (!$result || preg_match("/^OK:/", $result) !== 1) {
-            throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.');
+            throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.'); // i18n
         }
     }
 }

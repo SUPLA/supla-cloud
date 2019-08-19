@@ -69,6 +69,7 @@ Cancel: Zrušiť
 Cancel changes: Zrušiť zmeny
 Cancelled: Zrušené
 Cannot execute an action when the device is disconnected.: 'Nie je možné vykonávať akcie, keď je zariadenie odpojené.'
+Cannot send an activation e-mail. Try again later.: Nie je možné odoslať správu s aktivačným odkazom. Skúste to znova neskôr.
 Captcha token is not valid.: Nesprávny captcha.
 Caption: Podpis
 Change Password: Zmena hesla
@@ -171,6 +172,7 @@ Enter the data below in the settings of your control device (I/O Device).: 'Nasl
 Enter the data below in your mobile SUPLA application on your smartphone.: Nasledujúce údaje zadajte v mobilnej aplikácii SUPLA nainštalovanej vo vašom chytrom zariadení.
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Uveďte iba doménu spolu s portom, ak sa nepoužíva štandardný port (443). Vyžadované pripojenia HTTPS.'
 Enter your email address: Zadajte vašu emailovú adresu
+Enter your password to prevent automatic logout.: 'Uveďte svoje heslo, aby ste zabránili automatickému odhláseniu.'
 Error: Chyba
 Error when communicating the server. Try again in a while.: Počas komunikácie so serverom sa vyskytol problém Skúste opäť o chvíľu.
 Every: Každých
@@ -188,6 +190,7 @@ File is too large: Soubor je příliš velký
 For devices: Pre zariadenia
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostných dôvodov bude úplná URL adresa tohto priameho odkazu zobrazená iba raz, a to pri jej vytvorení.'
 Forgot your password?: Nepamätáte si heslo?
+Forward active energy: Činná energia prijatá
 Fridays: Piatky
 From IP: Z IP adresy
 From anywhere: Z každého miesta
@@ -213,6 +216,7 @@ Go to channel details: Prejsť na podrobnosti kanálu
 Go to your account: Prejdite na váš účet
 Grant access: Povoliť prístup
 HFD4 Relay: Relé HFD4
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nedostali ste správu s odkazom na aktiváciu Vášho účtu? Uistite sa, že neskončila v zložke SPAM (nevyžiadaná pošta). Môžete tiež kliknúť [tu] a odoslať ju znova.'
 History of measurements: História meraní
 Home appliances: Spotrebiče
 Home+ Heater: Špirála Home+
@@ -268,6 +272,7 @@ Login: Prihlásenie
 Mail sensor: Snímač pošty
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ak ju chcete použiť v budúcnosti, uistite sa, či je zapísaná na bezpečnom mieste. Keď opustíte túto stránku, odkaz sa už nezobrazí.'
 'Maximum filesize limit is {limit}.': 'Maximální velikost souboru je {limit}.'
+Meter value: Stav počítadla
 Minute: Minúta
 Mobile Apps: Mobilné aplikácie
 Mode: Režim
@@ -318,8 +323,10 @@ Percentage of closing: Percento zatvorenia
 Personal access tokens: Osobné prístupové tokeny
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobné prístupové tokeny fungujú tak isto ako obyčajné s tým rozdielom, že nemajú určenú lehotu platnosti.'
 Personal token name is required.: Je potrebné poskytnúť názov osobného tokenu.
+Please click the link we have sent you after the registration to proceed.: 'Kliknite na odkaz zo správy, ktorú sme Vám zaslali po vytvorení účtu.'
 Please enter a valid email address: Zadajte správnu emailovú adresu
 Please fill a valid email address: Prosíme Vás o uvedenie správnej e-mailovej adresy.
+Please log in again to proceed.: 'Ak chcete pokračovať, prihláste sa znova.'
 Please provide a valid domain name for your private SUPLA Cloud: Uveďte správny názov domény vášho súkromného mraku SUPLA
 Please select the schedules that should also be enabled.: 'Zaznačte harmonogramy, ktoré tiež majú byť zapnuté.'
 Please wait a moment before the next login attempt.: 'Predtým, než sa opäť pokúsite prihlásiť, počkajte chvíľu.'
@@ -413,6 +420,7 @@ Temperature and humidity sensor: Snímač teploty a vlhkosti
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Vďaka integráciám môžete k vášmu účtu jednoduchým spôsobom pridávať nové funkcie, používať riešenia dodávané externými dodávateľmi, programátormi alebo vlastné riešenia.'
 The Terms and Conditions have changed: Podmienky sa zmenili
 The Terms and Conditions have changed – please read them and accept.: Podmienky služby sa zmenili – je potrebný opätovný súhlas.
+The activation link has been sent again. Check the inbox.: Správa s odkazom na aktiváciu Vášho účtu bola znova odoslaná. Skontrolujte svoju doručenú poštu.
 The client will be automatically logged out when deleted.: 'Keď odstránite klienta, bude okamžite odhlásený.'
 The device is disabled: Zariadenie je vypnuté
 The gate sensor must function properly in order to execute the scheduled action.: Na vykonanie akcie musí snímač otvorenia brány fungovať správne.
@@ -445,6 +453,7 @@ Unknown: neznámy
 Unsupported function: Nepodporovaná funkcia
 Unsupported type: Nepodporovaný typ
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Zaslané súbory neporušujú dobré zvyky, autorské práva a práva tretích osôb, a mám právo používať tieto súbory.'
+User is already confirmed. Try to log in.: Tento účet je už potvrdený. Prihláste sa.
 Visible: Viditeľné
 Visit app webpage: Otvorte miesto aplikácie
 WELCOME_MESSAGE: |
@@ -452,6 +461,7 @@ WELCOME_MESSAGE: |
   prepísať do svojich ovládacích zariadení (vstupy/výstupy) a do chytrých zariadení nasledovné údaje.
 Water meter: Vodomer
 We could not connect to your SUPLA Cloud instance.: Nepodarilo sa pripojiť s vašou súkromnou inštaláciou SUPLA Cloud.
+We have just sent you an activation link. Be patient.: Práve bola odoslaná správa s odkazom na aktiváciu Vášho účtu. Prosíme o trpezlivosť.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Odoslali sme Vám emailovú správu s odkazom na potvrdenie zrušenia účtu. Možno si to ešte rozmyslíte!
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Vo vašom webovom prehliadači uchovávame informácie o vašich preferenciách na účely uľahčenia používania aplikácie (napr. pomocou koláčikov (tzn. súborov cookies)). [Prečítať podmienky].'
 We were not able to find your account.: Nepodarilo sa nájsť váš účet.
@@ -483,11 +493,15 @@ You will be logged out shortly: O chvíľu budete odhlásený
 You will not be able to generate a direct link with the same URL again.: Odkaz z takou istou URL adresou sa nebude dať vytvoriť.
 Your account has been deleted. We hope you will come back to us soon.: 'Účet bol zmazaný. Dúfame, že sa k nám čoskoro vrátite.'
 Your account has been locked.: Váš účet bol zablokovaný.
+Your account has not been confirmed yet.: Váš účet doteraz nebol potvrdený.
 Your email: Vaša emailová adresa
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaša inštalácia nie je zaregistrovaná alebo sa pokúšate autorizovať aplikáciu, ktorá nie je verejná.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Vaše soukromá instance SUPLA cloud  není k dispozici. Ujistěte se, že je Váš server online a Vaše připojení HTTPS funguje správně.'
 Your private SUPLA Cloud is almost registered.: Váš súkromný mrak SUPLA je skoro zaregistrovaný.
 Your private SUPLA Cloud is not registered.: Váš súkromný cloud SUPLA nie je registrovaný.
+Your session has been expired.: Vaša relácia vypršala.
+Your session is about to expire: Vaša relácia čoskoro vyprší
+'Your session will expire in [time].': 'Vaša relácia vyprší za [time].'
 after: po
 before: pred
 choose: vybrať
@@ -511,6 +525,7 @@ directLinkExecutionFailureReason_notActiveYet: Priamy odkaz ešte nie je aktívn
 directLinkExecutionFailureReason_otherFailure: Chyby pri vykonávaní akcie
 directLinkExecutionFailureReason_unsupportedAction: Zvolená akcia je nesprávna
 executed: vykonané
+extend: predĺžiť
 from IP: z IP adresy
 from the IP: z adresy
 hourly: Hodinový cyklus
@@ -574,18 +589,6 @@ execute: vykonať
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: Nie je možné odoslať správu s aktivačným odkazom. Skúste to znova neskôr.
-Enter your password to prevent automatic logout.: Uveďte svoje heslo, aby ste zabránili automatickému odhláseniu.
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nedostali ste správu s odkazom na aktiváciu Vášho účtu? Uistite sa, že neskončila v zložke SPAM (nevyžiadaná pošta). Môžete tiež kliknúť [tu] a odoslať ju znova.'
-Please click the link we have sent you after the registration to proceed.: Kliknite na odkaz zo správy, ktorú sme Vám zaslali po vytvorení účtu.
-Please log in again to proceed.: Ak chcete pokračovať, prihláste sa znova.
-The activation link has been sent again. Check the inbox.: Správa s odkazom na aktiváciu Vášho účtu bola znova odoslaná. Skontrolujte svoju doručenú poštu.
-User is already confirmed. Try to log in.: Tento účet je už potvrdený. Prihláste sa.
-We have just sent you an activation link. Be patient.: Práve bola odoslaná správa s odkazom na aktiváciu Vášho účtu. Prosíme o trpezlivosť.
-Your account has not been confirmed yet.: Váš účet doteraz nebol potvrdený.
-Your session has been expired.: Vaša relácia vypršala.
-Your session is about to expire: Vaša relácia čoskoro vyprší
-'Your session will expire in [time].': 'Vaša relácia vyprší za [time].'
-extend: predĺžiť
+SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>
