@@ -21,6 +21,7 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
@@ -185,11 +186,11 @@ abstract class SuplaServer {
             if ($matched) {
                 list(, $totalCost, $pricePerUnit, $impulsesPerUnit, $counter, $calculatedValue, $currency, $unit) = $match;
                 return [
-                    'totalCost' => $totalCost / 100,
-                    'pricePerUnit' => $pricePerUnit / 10000,
+                    'totalCost' => $totalCost * 0.01,
+                    'pricePerUnit' => $pricePerUnit * 0.0001,
                     'impulsesPerUnit' => $impulsesPerUnit,
                     'counter' => $counter,
-                    'calculatedValue' => $calculatedValue / 1000,
+                    'calculatedValue' => $calculatedValue * 0.001,
                     'currency' => $currency ?: null,
                     'unit' => $unit ? trim(base64_decode($unit)) ?: null : null,
                 ];
@@ -205,19 +206,16 @@ abstract class SuplaServer {
             $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*)$#', $value, $match);
             if ($matched) {
                 unset($match[0]);
-                $keys = ['support',
-                    'frequency', 'voltagePhase1', 'voltagePhase2', 'voltagePhase3', 'currentPhase1', 'currentPhase2', 'currentPhase3',
-                    'powerActivePhase1', 'powerActivePhase2', 'powerActivePhase3', 'powerReactivePhase1', 'powerReactivePhase2',
-                    'powerReactivePhase3', 'powerApparentPhase1', 'powerApparentPhase2', 'powerApparentPhase3', 'powerFactorPhase1',
-                    'powerFactorPhase2', 'powerFactorPhase3', 'phaseAnglePhase1', 'phaseAnglePhase2', 'phaseAnglePhase3',
-                    'totalForwardActiveEnergyPhase1', 'totalForwardActiveEnergyPhase2', 'totalForwardActiveEnergyPhase3',
-                    'totalReverseActiveEnergyPhase1', 'totalReverseActiveEnergyPhase2', 'totalReverseActiveEnergyPhase3',
-                    'totalForwardReactiveEnergyPhase1', 'totalForwardReactiveEnergyPhase2', 'totalForwardReactiveEnergyPhase3',
-                    'totalReverseReactiveEnergyPhase1', 'totalReverseReactiveEnergyPhase2', 'totalReverseReactiveEnergyPhase3',
-                    'totalCost', 'pricePerUnit', 'currency'];
+                $keys = array_merge(
+                    ['support'],
+                    ElectricityMeterSupportBits::$POSSIBLE_STATE_KEYS,
+                    ['totalCost', 'pricePerUnit', 'currency']
+                );
                 $state = array_combine($keys, $match);
-//                return ElectricityMeterSupportBits::nullifyUnsupportedFeatures($state['support'], $state);
-                return $state;
+                $state = ElectricityMeterSupportBits::transformValuesFromServer($state);
+                $state['totalCost'] *= 0.01;
+                $state['pricePerUnit'] *= 0.0001;
+                return ElectricityMeterSupportBits::nullifyUnsupportedFeatures($state['support'], $state);
             }
         }
         return [];
