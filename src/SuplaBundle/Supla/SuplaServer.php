@@ -183,7 +183,8 @@ abstract class SuplaServer {
     public function getImpulseCounterValue(IODeviceChannel $channel): array {
         $value = $this->getRawValue('IC', $channel);
         if ($value !== false) {
-            $matched = preg_match('#^VALUE:(\d+),(\d+),(\d+),(\d+),(\d+),([A-Z]*),(.*)$#', $value, $match);
+            $numberPlaceholders = str_repeat('(-?\d+),', 5);
+            $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*),(.*)$#', $value, $match);
             if ($matched) {
                 list(, $totalCost, $pricePerUnit, $impulsesPerUnit, $counter, $calculatedValue, $currency, $unit) = $match;
                 return [
@@ -203,7 +204,7 @@ abstract class SuplaServer {
     public function getElectricityMeterValue(IODeviceChannel $channel): array {
         $value = $this->getRawValue('EM', $channel);
         if ($value !== false) {
-            $numberPlaceholders = str_repeat('(\d+),', 37);
+            $numberPlaceholders = str_repeat('(-?\d+),', 37);
             $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*)$#', $value, $match);
             if ($matched) {
                 unset($match[0]);
