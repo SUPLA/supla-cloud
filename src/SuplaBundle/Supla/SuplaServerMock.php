@@ -93,7 +93,7 @@ class SuplaServerMock extends SuplaServer {
                 $counter, // Counter
                 round($counter * 1000 / $impulsesPerUnit), // CalculatedValue * 1000
                 $this->faker->boolean ? $this->faker->currencyCode : '', // currency
-                $this->faker->boolean ? base64_encode($this->faker->randomElement(['m', 'wahnięć', 'l'])) : '' // base-64 unit name
+                $this->faker->boolean ? base64_encode($this->faker->randomElement(['m³', 'wahnięć', 'l'])) : '' // base-64 unit name
             );
         } elseif (preg_match('#^GET-EM-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // ELECTRICITY_METER
             $fullSupportMask = array_reduce(ElectricityMeterSupportBits::toArray(), function (int $acc, int $bit) {
