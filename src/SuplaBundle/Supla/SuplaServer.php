@@ -24,6 +24,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
+use SuplaBundle\Utils\NumberUtils;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 abstract class SuplaServer {
@@ -186,11 +187,11 @@ abstract class SuplaServer {
             if ($matched) {
                 list(, $totalCost, $pricePerUnit, $impulsesPerUnit, $counter, $calculatedValue, $currency, $unit) = $match;
                 return [
-                    'totalCost' => $totalCost * 0.01,
-                    'pricePerUnit' => $pricePerUnit * 0.0001,
+                    'totalCost' => NumberUtils::maximumDecimalPrecision($totalCost * 0.01, 2),
+                    'pricePerUnit' => NumberUtils::maximumDecimalPrecision($pricePerUnit * 0.0001, 4),
                     'impulsesPerUnit' => intval($impulsesPerUnit),
                     'counter' => intval($counter),
-                    'calculatedValue' => $calculatedValue * 0.001,
+                    'calculatedValue' => NumberUtils::maximumDecimalPrecision($calculatedValue * 0.001, 3),
                     'currency' => $currency ?: null,
                     'unit' => $unit ? trim(base64_decode($unit)) ?: null : null,
                 ];
@@ -214,8 +215,8 @@ abstract class SuplaServer {
                 $state = array_combine($keys, $match);
                 $state = ElectricityMeterSupportBits::transformValuesFromServer($state);
                 $state['support'] *= 1; // intval
-                $state['totalCost'] *= 0.01;
-                $state['pricePerUnit'] *= 0.0001;
+                $state['totalCost'] *= NumberUtils::maximumDecimalPrecision(0.01, 2);
+                $state['pricePerUnit'] *= NumberUtils::maximumDecimalPrecision(0.0001, 4);
                 return ElectricityMeterSupportBits::nullifyUnsupportedFeatures($state['support'], $state);
             }
         }

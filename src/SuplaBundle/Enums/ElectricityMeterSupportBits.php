@@ -18,6 +18,7 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use SuplaBundle\Utils\NumberUtils;
 use SuplaBundle\Utils\StringUtils;
 
 final class ElectricityMeterSupportBits extends Enum {
@@ -88,9 +89,7 @@ final class ElectricityMeterSupportBits extends Enum {
         foreach ($state as $key => &$value) {
             $key = preg_replace('#(Phase\d)?$#', '', $key);
             if ($value && ($multiplier = self::$SUPLA_SERVER_VALUES_MULTIPLIERS[$key] ?? 0)) {
-                $value = $value / $multiplier;
-                $value = number_format($value, round(log10($multiplier)));
-                $value = floatval($value);
+                $value = NumberUtils::maximumDecimalPrecision($value / $multiplier, round(log10($multiplier)));
             }
         }
         return $state;

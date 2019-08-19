@@ -37,6 +37,14 @@
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{currentState.shut}}%</dt>
         </dl>
+        <dl v-if="currentState.calculatedValue !== undefined">
+            <dd>{{ $t('Meter value') }}</dd>
+            <dt>{{currentState.calculatedValue|roundToDecimals}} {{currentState.unit || ''}}</dt>
+        </dl>
+        <dl v-if="currentState.totalForwardActiveEnergyPhase1 !== undefined">
+            <dd>{{ $t('Forward active energy') }}</dd>
+            <dt>{{(currentState.totalForwardActiveEnergyPhase1 + currentState.totalForwardActiveEnergyPhase2 + currentState.totalForwardActiveEnergyPhase3) | roundToDecimals}}W</dt>
+        </dl>
         <span class="label label-danger"
             v-if="currentState.connected === false">
             {{ $t('Disconnected') }}

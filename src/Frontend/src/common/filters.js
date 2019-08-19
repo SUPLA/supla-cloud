@@ -56,6 +56,11 @@ export function prettyBytes(bytes) {
     return `${bytes} ${unit}`;
 }
 
+export function roundToDecimals(num, decimals = 2) {
+    const multiplier = Math.pow(10, decimals);
+    return Math.round(num * multiplier) / multiplier;
+}
+
 Vue.filter('withBaseUrl', withBaseUrl);
 Vue.filter('withDownloadAccessToken', withDownloadAccessToken);
 Vue.filter('intToIp', intToIp);
@@ -64,3 +69,4 @@ Vue.filter('deviceTitle', deviceTitle);
 Vue.filter('toUpperCase', (text) => text.toUpperCase());
 Vue.filter('ellipsis', ellipsis);
 Vue.filter('prettyBytes', prettyBytes);
+Vue.filter('roundToDecimals', roundToDecimals);
