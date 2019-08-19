@@ -188,8 +188,8 @@ abstract class SuplaServer {
                 return [
                     'totalCost' => $totalCost * 0.01,
                     'pricePerUnit' => $pricePerUnit * 0.0001,
-                    'impulsesPerUnit' => $impulsesPerUnit,
-                    'counter' => $counter,
+                    'impulsesPerUnit' => intval($impulsesPerUnit),
+                    'counter' => intval($counter),
                     'calculatedValue' => $calculatedValue * 0.001,
                     'currency' => $currency ?: null,
                     'unit' => $unit ? trim(base64_decode($unit)) ?: null : null,
@@ -213,6 +213,7 @@ abstract class SuplaServer {
                 );
                 $state = array_combine($keys, $match);
                 $state = ElectricityMeterSupportBits::transformValuesFromServer($state);
+                $state['support'] *= 1; // intval
                 $state['totalCost'] *= 0.01;
                 $state['pricePerUnit'] *= 0.0001;
                 return ElectricityMeterSupportBits::nullifyUnsupportedFeatures($state['support'], $state);

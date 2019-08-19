@@ -20,6 +20,7 @@ namespace SuplaBundle\Supla;
 use Faker\Factory;
 use Faker\Generator;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Model\LocalSuplaCloud;
 
 /**
@@ -95,9 +96,12 @@ class SuplaServerMock extends SuplaServer {
                 $this->faker->boolean ? base64_encode($this->faker->randomElement(['m', 'wahnięć', 'l'])) : '' // base-64 encoded unit name
             );
         } elseif (preg_match('#^GET-EM-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // ELECTRICITY_METER
+            $fullSupportMask = array_reduce(ElectricityMeterSupportBits::toArray(), function (int $acc, int $bit) {
+                return $acc | $bit;
+            }, 0);
             return sprintf(
                 'VALUE:' . str_repeat('%d,', 37) . '%s',
-                rand(0, 0x0800),
+                $fullSupportMask,
                 rand(4950, 5500), // Freq * 100
                 rand(22000, 24000), // VoltagePhase1 * 100
                 rand(22000, 24000), // VoltagePhase2 * 100

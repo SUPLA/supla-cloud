@@ -55,13 +55,18 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $this->validateImpulseCounterHasAllKeys($state);
     }
 
-    private function validateImpulseCounterHasAllKeys(array $state): void {
+    private function validateImpulseCounterHasAllKeys(array $state) {
         $this->assertArrayHasKey('totalCost', $state);
         $this->assertGreaterThan(0, $state['totalCost']);
+        $this->assertInternalType('float', $state['totalCost']);
         $this->assertArrayHasKey('pricePerUnit', $state);
+        $this->assertInternalType('float', $state['pricePerUnit']);
         $this->assertArrayHasKey('impulsesPerUnit', $state);
+        $this->assertInternalType('int', $state['impulsesPerUnit']);
         $this->assertArrayHasKey('counter', $state);
+        $this->assertInternalType('int', $state['counter']);
         $this->assertArrayHasKey('calculatedValue', $state);
+        $this->assertInternalType('float', $state['calculatedValue']);
         $this->assertArrayHasKey('currency', $state);
         $this->assertArrayHasKey('unit', $state);
         $this->assertArrayNotHasKey('currentPhase1', $state);
@@ -121,10 +126,17 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[2]);
         $this->assertArrayHasKey('totalCost', $state);
         $this->assertGreaterThan(0, $state['totalCost']);
+        $this->assertInternalType('float', $state['totalCost']);
         $this->assertArrayHasKey('currentPhase1', $state);
+        $this->assertInternalType('float', $state['currentPhase1']);
         $this->assertArrayHasKey('powerActivePhase3', $state);
+        $this->assertInternalType('float', $state['powerActivePhase3']);
         $this->assertArrayHasKey('totalForwardReactiveEnergyPhase1', $state);
+        $this->assertInternalType('float', $state['totalForwardReactiveEnergyPhase1']);
         $this->assertArrayHasKey('pricePerUnit', $state);
+        $this->assertInternalType('float', $state['pricePerUnit']);
+        $this->assertArrayHasKey('support', $state);
+        $this->assertInternalType('int', $state['support']);
     }
 
     /** @dataProvider transformingNonImpulseCounterElectricityMeterResponsesExamples */
@@ -133,9 +145,7 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[2]);
         $missingKeys = array_diff(array_keys($expectedState), array_keys($state));
         $this->assertEmpty($missingKeys, 'The resulting state does not contain some required keys: ' . implode(', ', $missingKeys));
-        foreach ($expectedState as $key => $value) {
-            $this->assertEquals($value, $state[$key], $key . ' is different.', floatval($value) * 0.1);
-        }
+        $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
     }
 
     public function transformingNonImpulseCounterElectricityMeterResponsesExamples() {
@@ -146,15 +156,16 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [
                 'VALUE:' . $fullSupportMask . ',' . implode(',', range(2, 37)) . ',PLN',
                 [
+                    'frequency' => 0.02,
                     'voltagePhase1' => 0.03,
                     'voltagePhase2' => 0.04,
                     'voltagePhase3' => 0.05,
                     'currentPhase1' => 0.006,
                     'currentPhase2' => 0.007,
                     'currentPhase3' => 0.008,
-                    'powerActivePhase1' => 0.0001,
-                    'powerActivePhase2' => 0.0001,
-                    'powerActivePhase3' => 0.0001,
+                    'powerActivePhase1' => 0.00009,
+                    'powerActivePhase2' => 0.00010,
+                    'powerActivePhase3' => 0.00011,
                     'powerReactivePhase1' => 0.00012,
                     'powerReactivePhase2' => 0.00013,
                     'powerReactivePhase3' => 0.00014,
@@ -163,7 +174,7 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
                     'powerApparentPhase3' => 0.00017,
                     'powerFactorPhase1' => 0.018,
                     'powerFactorPhase2' => 0.019,
-                    'powerFactorPhase3' => 0.02,
+                    'powerFactorPhase3' => 0.020,
                     'phaseAnglePhase1' => 2.1,
                     'phaseAnglePhase2' => 2.2,
                     'phaseAnglePhase3' => 2.3,
@@ -182,6 +193,91 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
                     'totalCost' => 0.36,
                     'pricePerUnit' => 0.0037,
                     'currency' => 'PLN',
+                ],
+            ],
+            [
+                'VALUE:' . (ElectricityMeterSupportBits::POWER_FACTOR | ElectricityMeterSupportBits::TOTAL_FORWARD_ACTIVE_ENERGY)
+                . ',' . implode(',', range(2, 37)) . ',PLN',
+                [
+                    'frequency' => null,
+                    'voltagePhase1' => null,
+                    'voltagePhase2' => null,
+                    'voltagePhase3' => null,
+                    'currentPhase1' => null,
+                    'currentPhase2' => null,
+                    'currentPhase3' => null,
+                    'powerActivePhase1' => null,
+                    'powerActivePhase2' => null,
+                    'powerActivePhase3' => null,
+                    'powerReactivePhase1' => null,
+                    'powerReactivePhase2' => null,
+                    'powerReactivePhase3' => null,
+                    'powerApparentPhase1' => null,
+                    'powerApparentPhase2' => null,
+                    'powerApparentPhase3' => null,
+                    'powerFactorPhase1' => 0.018,
+                    'powerFactorPhase2' => 0.019,
+                    'powerFactorPhase3' => 0.020,
+                    'phaseAnglePhase1' => null,
+                    'phaseAnglePhase2' => null,
+                    'phaseAnglePhase3' => null,
+                    'totalForwardActiveEnergyPhase1' => 0.00024,
+                    'totalForwardActiveEnergyPhase2' => 0.00025,
+                    'totalForwardActiveEnergyPhase3' => 0.00026,
+                    'totalReverseActiveEnergyPhase1' => null,
+                    'totalReverseActiveEnergyPhase2' => null,
+                    'totalReverseActiveEnergyPhase3' => null,
+                    'totalForwardReactiveEnergyPhase1' => null,
+                    'totalForwardReactiveEnergyPhase2' => null,
+                    'totalForwardReactiveEnergyPhase3' => null,
+                    'totalReverseReactiveEnergyPhase1' => null,
+                    'totalReverseReactiveEnergyPhase2' => null,
+                    'totalReverseReactiveEnergyPhase3' => null,
+                    'totalCost' => 0.36,
+                    'pricePerUnit' => 0.0037,
+                    'currency' => 'PLN',
+                ],
+            ],
+            [
+                'VALUE:3583,5204,22236,23658,22010,4327,18314,26734,9403971,4414093,22055246,5371061,9606801,8810954,8083181,1105777,6898797,83914,47928,92799,506,1019,95,53064359,57198474,2512057,1338299,1233842,2742607,5130437,4273139,9967795,7681364,8560780,8708398,9814,87466,VEF',
+                [
+                    'frequency' => 52.04,
+                    'voltagePhase1' => 222.36,
+                    'voltagePhase2' => 236.58,
+                    'voltagePhase3' => 220.1,
+                    'currentPhase1' => 4.327,
+                    'currentPhase2' => 18.314,
+                    'currentPhase3' => 26.734,
+                    'powerActivePhase1' => 94.03971,
+                    'powerActivePhase2' => 44.14093,
+                    'powerActivePhase3' => 220.55246,
+                    'powerReactivePhase1' => 53.71061,
+                    'powerReactivePhase2' => 96.06801,
+                    'powerReactivePhase3' => 88.10954,
+                    'powerApparentPhase1' => 80.83181,
+                    'powerApparentPhase2' => 11.05777,
+                    'powerApparentPhase3' => 68.98797,
+                    'powerFactorPhase1' => 83.914,
+                    'powerFactorPhase2' => 47.928,
+                    'powerFactorPhase3' => 92.799,
+                    'phaseAnglePhase1' => 50.6,
+                    'phaseAnglePhase2' => 101.9,
+                    'phaseAnglePhase3' => 9.5,
+                    'totalForwardActiveEnergyPhase1' => 530.64359,
+                    'totalForwardActiveEnergyPhase2' => 571.98474,
+                    'totalForwardActiveEnergyPhase3' => 25.12057,
+                    'totalReverseActiveEnergyPhase1' => null,
+                    'totalReverseActiveEnergyPhase2' => null,
+                    'totalReverseActiveEnergyPhase3' => null,
+                    'totalForwardReactiveEnergyPhase1' => 51.30437,
+                    'totalForwardReactiveEnergyPhase2' => 42.73139,
+                    'totalForwardReactiveEnergyPhase3' => 99.67795,
+                    'totalReverseReactiveEnergyPhase1' => 76.81364,
+                    'totalReverseReactiveEnergyPhase2' => 85.6078,
+                    'totalReverseReactiveEnergyPhase3' => 87.08398,
+                    'totalCost' => 98.14,
+                    'pricePerUnit' => 8.7466,
+                    'currency' => 'VEF',
                 ],
             ],
         ];

@@ -55,18 +55,18 @@ final class ElectricityMeterSupportBits extends Enum {
      * @var array
      */
     private static $SUPLA_SERVER_VALUES_MULTIPLIERS = [
-        'frequency' => 0.01,
-        'voltage' => 0.01,
-        'current' => 0.001,
-        'powerActive' => 0.00001,
-        'powerReactive' => 0.00001,
-        'powerApparent' => 0.00001,
-        'powerFactor' => 0.001,
-        'phaseAngle' => 0.1,
-        'totalForwardActiveEnergy' => 0.00001,
-        'totalReverseActiveEnergy' => 0.00001,
-        'totalForwardReactiveEnergy' => 0.00001,
-        'totalReverseReactiveEnergy' => 0.00001,
+        'frequency' => 100,
+        'voltage' => 100,
+        'current' => 1000,
+        'powerActive' => 100000,
+        'powerReactive' => 100000,
+        'powerApparent' => 100000,
+        'powerFactor' => 1000,
+        'phaseAngle' => 10,
+        'totalForwardActiveEnergy' => 100000,
+        'totalReverseActiveEnergy' => 100000,
+        'totalForwardReactiveEnergy' => 100000,
+        'totalReverseReactiveEnergy' => 100000,
     ];
 
     public static function nullifyUnsupportedFeatures(int $supportMask, array $state): array {
@@ -87,8 +87,10 @@ final class ElectricityMeterSupportBits extends Enum {
     public static function transformValuesFromServer(array $state): array {
         foreach ($state as $key => &$value) {
             $key = preg_replace('#(Phase\d)?$#', '', $key);
-            if (isset(self::$SUPLA_SERVER_VALUES_MULTIPLIERS[$key])) {
-                $value = $value * self::$SUPLA_SERVER_VALUES_MULTIPLIERS[$key];
+            if ($value && ($multiplier = self::$SUPLA_SERVER_VALUES_MULTIPLIERS[$key] ?? 0)) {
+                $value = $value / $multiplier;
+                $value = number_format($value, round(log10($multiplier)));
+                $value = floatval($value);
             }
         }
         return $state;
