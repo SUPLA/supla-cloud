@@ -23,28 +23,24 @@ use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 class ElectricityMeterSupportBitsTest extends \PHPUnit_Framework_TestCase {
     use UnitTestHelper;
 
-    /** @dataProvider supportedFunctionsTestCases */
-    public function testNullifyingUnsupportedFeatures(int $supportMask, array $expectNotNulls) {
+    /** @dataProvider clearUnsupportedMeasurementsTestCases */
+    public function testClearUnsupportedMeasurements(int $supportMask, array $expectNotCleared) {
         $state = array_combine(
             ElectricityMeterSupportBits::$POSSIBLE_STATE_KEYS,
             range(1, count(ElectricityMeterSupportBits::$POSSIBLE_STATE_KEYS))
         );
-        $state = ElectricityMeterSupportBits::nullifyUnsupportedFeatures($supportMask, $state);
-        $this->assertGreaterThan(30, count($state));
+        $state = ElectricityMeterSupportBits::clearUnsupportedMeasurements($supportMask, $state);
         unset($state['support']);
         unset($state['totalCost']);
         unset($state['pricePerUnit']);
         unset($state['currency']);
+        $this->assertCount(count($expectNotCleared), $state);
         foreach ($state as $key => $value) {
-            if (in_array($key, $expectNotNulls)) {
-                $this->assertNotNull($value, 'The value of ' . $key . ' should not be null.');
-            } else {
-                $this->assertNull($value, 'The value of ' . $key . ' should be null.');
-            }
+            $this->assertContains($key, $expectNotCleared);
         }
     }
 
-    public function supportedFunctionsTestCases() {
+    public function clearUnsupportedMeasurementsTestCases() {
         return [
             [0, []],
             [ElectricityMeterSupportBits::CURRENT, ['currentPhase1', 'currentPhase2', 'currentPhase3']],

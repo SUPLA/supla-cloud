@@ -70,14 +70,14 @@ final class ElectricityMeterSupportBits extends Enum {
         'totalReverseReactiveEnergy' => 100000,
     ];
 
-    public static function nullifyUnsupportedFeatures(int $supportMask, array $state): array {
+    public static function clearUnsupportedMeasurements(int $supportMask, array $state): array {
         foreach (self::toArray() as $name => $value) {
             if (!($supportMask & $value)) {
                 $key = StringUtils::snakeCaseToCamelCase($name);
                 $possibleKeys = [$key, $key . 'Phase1', $key . 'Phase2', $key . 'Phase3'];
-                foreach ($possibleKeys as $keyToNullify) {
-                    if (isset($state[$keyToNullify])) {
-                        $state[$keyToNullify] = null;
+                foreach ($possibleKeys as $keyToClear) {
+                    if (isset($state[$keyToClear])) {
+                        unset($state[$keyToClear]);
                     }
                 }
             }

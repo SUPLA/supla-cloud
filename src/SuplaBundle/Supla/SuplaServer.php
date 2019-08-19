@@ -217,7 +217,7 @@ abstract class SuplaServer {
                 $state['support'] *= 1; // intval
                 $state['totalCost'] *= NumberUtils::maximumDecimalPrecision(0.01, 2);
                 $state['pricePerUnit'] *= NumberUtils::maximumDecimalPrecision(0.0001, 4);
-                return ElectricityMeterSupportBits::nullifyUnsupportedFeatures($state['support'], $state);
+                return ElectricityMeterSupportBits::clearUnsupportedMeasurements($state['support'], $state);
             }
         }
         return [];

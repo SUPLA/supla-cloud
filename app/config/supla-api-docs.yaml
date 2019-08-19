@@ -1657,7 +1657,7 @@ components:
           description: >-
             A bitmask indicating which measurements are supported by the electricity meter.
             See https://github.com/SUPLA/supla-cloud/blob/master/src/SuplaBundle/Enums/ElectricityMeterSupportBits.php
-            for more info. All not supported measurements contain `null` values in the response.
+            for more info. All not supported measurements will not be present in the response.
         totalCost: {type: number}
         pricePerUnit: {type: number}
         currency: {type: string}
