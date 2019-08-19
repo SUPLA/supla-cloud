@@ -190,6 +190,7 @@ File is too large: Plik jest za duży
 For devices: Pro zařízení
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.'
 Forgot your password?: Zapoměl jsi heslo?
+Forward active energy: Pobíraná činná energie
 Fridays: Pátky
 From IP: Z adresy IP
 From anywhere: Odkudkoliv
@@ -271,6 +272,7 @@ Login: Přihlášení
 Mail sensor: Poštovní snímač
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.'
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
+Meter value: Stav měřiče
 Minute: Minuta
 Mobile Apps: Mobilní aplikace
 Mode: Režim
@@ -587,8 +589,6 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Forward active energy: ~
-Meter value: ~
 SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>

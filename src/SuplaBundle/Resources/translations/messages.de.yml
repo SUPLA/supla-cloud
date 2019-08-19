@@ -190,6 +190,7 @@ File is too large: Die Datei ist zu groß
 For devices: für Geräte
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Aus Sicherheitsgründen wird die vollständige URL dieses direkten Links beim Erstellen nur einmal angezeigt.
 Forgot your password?: Kennwort vergessen?
+Forward active energy: Wirkenergie aufgenommen
 Fridays: Freitage
 From IP: Aus der IP Adresse
 From anywhere: Aus jedem Ort
@@ -271,6 +272,7 @@ Login: Einloggen
 Mail sensor: Posteinwurferkennung
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Stellen Sie sicher, dass der Link an einer sicheren Stelle gespeichert ist, wenn Sie es in Zukunft erneut verwenden möchten. Der link wird nicht wieder angezeigt nachdem sie diese Seite verlassen.'
 'Maximum filesize limit is {limit}.': 'Die maximale Dateigröße ist {limit}.'
+Meter value: Zählerstand
 Minute: Minute
 Mobile Apps: Mobile Apps
 Mode: Modus
@@ -587,8 +589,6 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Forward active energy: ~
-Meter value: ~
 SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>

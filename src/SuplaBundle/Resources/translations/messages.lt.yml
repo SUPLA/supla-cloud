@@ -190,6 +190,7 @@ File is too large: Failas yra per didelis
 For devices: Įrenginiams
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Dėl saugumo, pilnas URL šios tiesioginės nuorodos bus rodomas tik kartą, jos kūrimo metu.'
 Forgot your password?: Pamiršote slaptažodį?
+Forward active energy: Aktyvioji energija parsisiųsta
 Fridays: Penktadieniai
 From IP: Iš IP adreso
 From anywhere: Iš kiekvienos vietos
@@ -271,6 +272,7 @@ Login: Pieteikšanās
 Mail sensor: Pašto jutiklis
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Įsitikinkite ar yra įrašytas saugioje vietoje, jeigu norėsite ją panaudoti ateityje. Nuoroda nebus daugiau rodoma išėjus iš šio tinklalapio.'
 'Maximum filesize limit is {limit}.': 'Maksimalus failo dydis tai {limit}.'
+Meter value: Skaitiklio būsena
 Minute: Minutė
 Mobile Apps: Mobiliosios programos
 Mode: Režimas
@@ -587,8 +589,6 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Forward active energy: ~
-Meter value: ~
 SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>
