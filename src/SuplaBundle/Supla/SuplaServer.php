@@ -21,7 +21,7 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ElectricityMeterSupportBits;
+use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Utils\NumberUtils;
@@ -208,17 +208,7 @@ abstract class SuplaServer {
             $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*)$#', $value, $match);
             if ($matched) {
                 unset($match[0]);
-                $keys = array_merge(
-                    ['support'],
-                    ElectricityMeterSupportBits::$POSSIBLE_STATE_KEYS,
-                    ['totalCost', 'pricePerUnit', 'currency']
-                );
-                $state = array_combine($keys, $match);
-                $state = ElectricityMeterSupportBits::transformValuesFromServer($state);
-                $state['support'] *= 1; // intval
-                $state['totalCost'] *= NumberUtils::maximumDecimalPrecision(0.01, 2);
-                $state['pricePerUnit'] *= NumberUtils::maximumDecimalPrecision(0.0001, 4);
-                return ElectricityMeterSupportBits::clearUnsupportedMeasurements($state['support'], $state);
+                return (new ElectricityMeterChannelState($match, 3))->toArray();
             }
         }
         return [];

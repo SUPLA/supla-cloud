@@ -41,9 +41,9 @@
             <dd>{{ $t('Meter value') }}</dd>
             <dt>{{currentState.calculatedValue|roundToDecimals}} {{currentState.unit || ''}}</dt>
         </dl>
-        <dl v-if="currentState.totalForwardActiveEnergyPhase1 !== undefined">
+        <dl v-if="currentState.phase1 && currentState.phase1.totalForwardActiveEnergy !== undefined">
             <dd>{{ $t('Forward active energy') }}</dd>
-            <dt>{{(currentState.totalForwardActiveEnergyPhase1 + currentState.totalForwardActiveEnergyPhase2 + currentState.totalForwardActiveEnergyPhase3) | roundToDecimals}} kWh</dt>
+            <dt>{{(currentState.phase1.totalForwardActiveEnergy + currentState.phase2.totalForwardActiveEnergy + currentState.phase3.totalForwardActiveEnergy) | roundToDecimals}} kWh</dt>
         </dl>
         <span class="label label-danger"
             v-if="currentState.connected === false">
