@@ -1661,42 +1661,27 @@ components:
         totalCost: {type: number}
         pricePerUnit: {type: number}
         currency: {type: string}
-        frequency: {type: number}
-        voltagePhase1: {type: number}
-        voltagePhase2: {type: number}
-        voltagePhase3: {type: number}
-        currentPhase1: {type: number}
-        currentPhase2: {type: number}
-        currentPhase3: {type: number}
-        powerActivePhase1: {type: number}
-        powerActivePhase2: {type: number}
-        powerActivePhase3: {type: number}
-        powerReactivePhase1: {type: number}
-        powerReactivePhase2: {type: number}
-        powerReactivePhase3: {type: number}
-        powerApparentPhase1: {type: number}
-        powerApparentPhase2: {type: number}
-        powerApparentPhase3: {type: number}
-        powerFactorPhase1: {type: number}
-        powerFactorPhase2: {type: number}
-        powerFactorPhase3: {type: number}
-        phaseAnglePhase1: {type: number}
-        phaseAnglePhase2: {type: number}
-        phaseAnglePhase3: {type: number}
-        totalForwardActiveEnergyPhase1: {type: number}
-        totalForwardActiveEnergyPhase2: {type: number}
-        totalForwardActiveEnergyPhase3: {type: number}
-        totalReverseActiveEnergyPhase1: {type: number}
-        totalReverseActiveEnergyPhase2: {type: number}
-        totalReverseActiveEnergyPhase3: {type: number}
-        totalForwardReactiveEnergyPhase1: {type: number}
-        totalForwardReactiveEnergyPhase2: {type: number}
-        totalForwardReactiveEnergyPhase3: {type: number}
-        totalReverseReactiveEnergyPhase1: {type: number}
-        totalReverseReactiveEnergyPhase2: {type: number}
-        totalReverseReactiveEnergyPhase3: {type: number}
+        phases:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElectricityMeterStatePhase'
       required:
         - connected
+    ElectricityMeterStatePhase:
+      properties:
+        number: {type: number}
+        frequency: {type: number}
+        voltage: {type: number}
+        current: {type: number}
+        powerActive: {type: number}
+        powerReactive: {type: number}
+        powerApparent: {type: number}
+        powerFactor: {type: number}
+        phaseAngle: {type: number}
+        totalForwardActiveEnergy: {type: number}
+        totalReverseActiveEnergy: {type: number}
+        totalForwardReactiveEnergy: {type: number}
+        totalReverseReactiveEnergy: {type: number}
     HumidityState:
       properties:
         connected:
