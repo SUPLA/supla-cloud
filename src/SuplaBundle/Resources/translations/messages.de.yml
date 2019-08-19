@@ -69,6 +69,7 @@ Cancel: Abbrechen
 Cancel changes: Änderungen rückgängig machen
 Cancelled: Anulliert
 Cannot execute an action when the device is disconnected.: 'Die Aktion kann nicht vorgenommen werden, wenn das Gerät getrennt ist.'
+Cannot send an activation e-mail. Try again later.: Nachricht mit Aktivierungslink kann nicht geschickt werden. Versuche später erneut.
 Captcha token is not valid.: Falsches Captcha.
 Caption: Bildunterschrift
 Change Password: Kennwort Änderung
@@ -171,6 +172,7 @@ Enter the data below in the settings of your control device (I/O Device).: Trage
 Enter the data below in your mobile SUPLA application on your smartphone.: 'Tragen Sie nachfolgende Daten  in der Mobilapplikation SUPLA ein, die auf Ihrer Smartphone installiert ist.'
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Geben Sie nur die Domäne mit dem Port an, wenn dies nicht Standard ist (443). Wir benötigen eine HTTPS-Verbindung.'
 Enter your email address: Bitte deine E-mail Adresse eintragen
+Enter your password to prevent automatic logout.: 'Gib Dein Passwort ein, um nicht automatisch abgemeldet zu werden.'
 Error: Fehler
 Error when communicating the server. Try again in a while.: Es gab ein Problem beim Kommunizieren mit dem Server. Bitte versuchen Sie es noch einmal.
 Every: jeden
@@ -213,6 +215,7 @@ Go to channel details: Gehen Sie zu den Kanaldetails
 Go to your account: Geh zu deinem Konto
 Grant access: Vewähre Zugriff
 HFD4 Relay: HFD4 Relais
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nachricht mit dem Link zur Aktivierung Deines Kontos nicht angekommen? Versichere Dich, dass es nicht in die SPAM-Datei (unerwünschte Mail) gelangt ist. Du kannst auch [hier] klicken, um sie erneut zu senden.'
 History of measurements: Messhistorie
 Home appliances: Haushaltwaren
 Home+ Heater: Heizelement Home+
@@ -318,8 +321,10 @@ Percentage of closing: Prozentsatz des Abschlusses
 Personal access tokens: Persönliche Zugriffstoken
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Persönliche Zugriffstoken funktionieren wie gewöhnliche Zugriffstoken mit dem Unterschied, dass sie unbefristet funktionieren.'
 Personal token name is required.: 'Es ist erforderlich, einen persönlichen Token-Namen anzugeben.'
+Please click the link we have sent you after the registration to proceed.: 'Klicke auf den Link in der Nachricht, die wir Dir nach Einrichtung des Kontos gesendet haben.'
 Please enter a valid email address: Geben Sie ihre korrekte E-Mail-Adresse ein
 Please fill a valid email address: Korrekte E-mail Adresse eintragen
+Please log in again to proceed.: 'Melde Dich wieder an, um fortzusetzen.'
 Please provide a valid domain name for your private SUPLA Cloud: Geben Sie den richtigen Domainnamen für Ihre private SUPLA-Cloud an
 Please select the schedules that should also be enabled.: 'Markiere die Harmonogramme, die auch ausgeschaltet werden sollten.'
 Please wait a moment before the next login attempt.: 'Bitte warten Sie einen Moment, bevor Sie sich erneut anmelden.'
@@ -413,6 +418,7 @@ Temperature and humidity sensor: Temperatur- und Feuchtigkeitssensor
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dank Integrationen können Sie Ihrem Konto problemlos neue Funktionen hinzufügen, indem Sie Lösungen von externen Anbietern, Programmierern oder von Ihnen selbst verwenden.'
 The Terms and Conditions have changed: Die Vorschriften wurden geändert
 The Terms and Conditions have changed – please read them and accept.: Die Bestimmungen des Dienstes wurden geändert - seine Zustimmung ist erforderlich.
+The activation link has been sent again. Check the inbox.: Nachricht mit dem Link zur Aktivierung Deines Kontos wurde wieder gesendet. Prüfe Deine Inbox.
 The client will be automatically logged out when deleted.: Das Löschen von Client- Anwendung  führt zum sofortigen Logout.
 The device is disabled: Das Gerät ist ausgeschaltet
 The gate sensor must function properly in order to execute the scheduled action.: Zwecks der Ausführung einer Aktion muss der Tor-Öffnungssensor einwandfrei funktionieren.
@@ -445,6 +451,7 @@ Unknown: Unbekannt
 Unsupported function: Nicht unterstützte Funktion
 Unsupported type: Nicht unterstützter Typ
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Die hochgeladenen Dateien verstosen nicht gegen die guten Sittent, verletzen keine Urheberrechte und Rechte Dritter. Ich habe das Recht die Dateien zu verwenden.'
+User is already confirmed. Try to log in.: Dieses Konto ist schon bestätigt. Melde Dich an.
 Visible: Sichtlich
 Visit app webpage: Öffnen Sie die Anwendungssite
 WELCOME_MESSAGE: |
@@ -452,6 +459,7 @@ WELCOME_MESSAGE: |
   Alles was Du tun musst besteht darin, dass du die unten aufgeführten Daten an die Steuergeräte (Eingang/Ausgang) der Smartfons umschreiben sollst.
 Water meter: Wasserzähler
 We could not connect to your SUPLA Cloud instance.: Wir konnten keine Verbindung zu Ihrer privaten SUPLA Cloud-Instanz herstellen.
+We have just sent you an activation link. Be patient.: Nachricht mit dem Link zur Aktivierung Deines Kontos wurde gerade erst gesendet. Hab Geduld.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Wir haben Dir eine E-Mail mit einem Bestätigungslink zur Kontolöschung geschickt. Vielleicht änderst Du noch deine Meinung!
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Wir speichern Informationen über Ihre Präferenzen in Ihrem Browser, um die Nutzung der Anwendung zu erleichtern (z.B. durch Cookies). [Vorschriften lesen].'
 We were not able to find your account.: Wir konnten Ihr Konto nicht finden.
@@ -483,11 +491,15 @@ You will be logged out shortly: Du wirst gleich ausgeloggt
 You will not be able to generate a direct link with the same URL again.: Das Erstellen eines Linkes mit der gleichen URL wird nicht möglich sein.
 Your account has been deleted. We hope you will come back to us soon.: 'Das Konto wurde gelöscht. Wir hoffen, dass Sie bald zu uns zurückkehren werden.'
 Your account has been locked.: Ihr Konto wurde gesperrt.
+Your account has not been confirmed yet.: Dein Konto wurde noch nicht bestätigt.
 Your email: Deine E-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Ihre Instanz ist nicht registriert oder Sie versuchen, eine Anwendung zu autorisieren, die nicht öffentlich ist.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Ihre private SUPLA-Cloud-Instanz ist nicht verfügbar. Stellen Sie sicher, dass Ihr Server online ist und die HTTPS-Verbindung ordnungsgemäß funktioniert.'
 Your private SUPLA Cloud is almost registered.: Ihre private SUPLA-Cloud ist fast registriert.
 Your private SUPLA Cloud is not registered.: Ihre private SUPLA-Cloud ist nicht registriert
+Your session has been expired.: Deine Sitzung ist abgelaufen.
+Your session is about to expire: Deine Sitzung wird in kürze ablaufen
+'Your session will expire in [time].': 'Deine Session läuft in [Zeit] ab.'
 after: Nach
 before: Vor
 choose: auswählen
@@ -511,6 +523,7 @@ directLinkExecutionFailureReason_notActiveYet: Der direkte Link ist noch nicht a
 directLinkExecutionFailureReason_otherFailure: Fehler bei der Ausführung der Aktion
 directLinkExecutionFailureReason_unsupportedAction: Die ausgewählte Aktion ist nicht korrekt.
 executed: ausgeführt
+extend: Verlängern
 from IP: aus der IP Adresse
 from the IP: aus der IP
 hourly: Stundenzyklus
@@ -574,18 +587,8 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: Nachricht mit Aktivierungslink kann nicht geschickt werden. Versuche später erneut.
-Enter your password to prevent automatic logout.: Gib Dein Passwort ein, um nicht automatisch abgemeldet zu werden.
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nachricht mit dem Link zur Aktivierung Deines Kontos nicht angekommen? Versichere Dich, dass es nicht in die SPAM-Datei (unerwünschte Mail) gelangt ist. Du kannst auch [hier] klicken, um sie erneut zu senden.'
-Please click the link we have sent you after the registration to proceed.: Klicke auf den Link in der Nachricht, die wir Dir nach Einrichtung des Kontos gesendet haben.
-Please log in again to proceed.: Melde Dich wieder an, um fortzusetzen.
-The activation link has been sent again. Check the inbox.: Nachricht mit dem Link zur Aktivierung Deines Kontos wurde wieder gesendet. Prüfe Deine Inbox.
-User is already confirmed. Try to log in.: Dieses Konto ist schon bestätigt. Melde Dich an.
-We have just sent you an activation link. Be patient.: Nachricht mit dem Link zur Aktivierung Deines Kontos wurde gerade erst gesendet. Hab Geduld.
-Your account has not been confirmed yet.: Dein Konto wurde noch nicht bestätigt.
-Your session has been expired.: Deine Sitzung ist abgelaufen.
-Your session is about to expire: Deine Sitzung wird in kürze ablaufen
-'Your session will expire in [time].': 'Deine Session läuft in [Zeit] ab.'
-extend: Verlängern
+Forward active energy: ~
+Meter value: ~
+SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>

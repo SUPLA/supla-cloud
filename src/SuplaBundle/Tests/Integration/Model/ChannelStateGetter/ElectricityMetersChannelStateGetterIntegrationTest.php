@@ -27,7 +27,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
 /** @small */
-class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
+class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
     /** @var IODevice */

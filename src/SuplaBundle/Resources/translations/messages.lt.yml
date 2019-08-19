@@ -69,6 +69,7 @@ Cancel: Atšaukti
 Cancel changes: Atšaukti pakeitimus
 Cancelled: Atšaukta
 Cannot execute an action when the device is disconnected.: Kai įrenginys atjungtas negalima atlikti veiksmo.
+Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
 Captcha token is not valid.: Neteisingai įvestas captcha kodas.
 Caption: Parašas
 Change Password: Slaptažodžio keitimas
@@ -171,6 +172,7 @@ Enter the data below in the settings of your control device (I/O Device).: Žemi
 Enter the data below in your mobile SUPLA application on your smartphone.: 'Žemiau pateiktus duomenis įveskite mobilioje programoje SUPLA, įdegtoje Jūsų išmaniajame telefone.'
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Paduokite tik domeną kartu su portu jeigu nėra standartinis (443). Reikalaujame HTTPS sujungimo.
 Enter your email address: Įveskite savo el. pašto adresą
+Enter your password to prevent automatic logout.: Norėdami išvengti automatinio atsijungimo įveskite savo slaptažodį.
 Error: Klaida
 Error when communicating the server. Try again in a while.: Ryšio su serveriu metu įvyko klaida. Pabandykite dar kartą vėliau.
 Every: Kas
@@ -213,6 +215,7 @@ Go to channel details: Eiti į kanalo detalę informaciją
 Go to your account: Eiti į savo paskyrą
 Grant access: Pateikti prieigą
 HFD4 Relay: Relė HFD4
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite paspausti [čia], kad jį išsiųstumėte dar kartą.'
 History of measurements: Matmenų istorija
 Home appliances: Buitinė technika/RTV įranga
 Home+ Heater: Šildytuvas Home+
@@ -318,8 +321,10 @@ Percentage of closing: Uždengimo procentas
 Personal access tokens: Asmeniški prieigos tokenai
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Asmeniniai tokenai veikia, tai kaip ir paprasti, skirtumas, toks, kad neturi nustatyto termino.'
 Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identifikatoriaus (tokeno) pavadinimą.
+Please click the link we have sent you after the registration to proceed.: 'Paspauskite nuorodą pranešime, kurį Jums išsiuntėme, kai paskyra buvo sukurta.'
 Please enter a valid email address: Įveskite teisingą el. pašto adresą
 Please fill a valid email address: Įveskite teisingą el. pašto adresą
+Please log in again to proceed.: 'Prisijunkite dar kartą, kad galėtumėte tęsti toliau.'
 Please provide a valid domain name for your private SUPLA Cloud: Pateikite taisyklingą domeno pavadinimą savo privačiam SUPLA debesiui
 Please select the schedules that should also be enabled.: 'Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.'
 Please wait a moment before the next login attempt.: Prieš pakartotiną bandymą prisijungti šiek tiek luktelėkite.
@@ -413,6 +418,7 @@ Temperature and humidity sensor: Temperatūros ir drėgmės jutiklis
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.'
 The Terms and Conditions have changed: Taisyklės pasikeitė
 The Terms and Conditions have changed – please read them and accept.: Svetainės Taisyklės pasikeitė – būtinas sutikimas su jomis.
+The activation link has been sent again. Check the inbox.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda buvo išsiųstas dar kartą. Patikrinkite el. pašto dėžutę.
 The client will be automatically logged out when deleted.: 'Kliento pašalinimas sukels, kad jis iškart bus atjungtas.'
 The device is disabled: Įrenginys išjungtas
 The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
@@ -445,6 +451,7 @@ Unknown: Nežinoma
 Unsupported function: Funkcija nepalaikoma
 Unsupported type: Tipas nepalaikomas
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.'
+User is already confirmed. Try to log in.: Ši paskyra jau patvirtinta. Prisijungti.
 Visible: Matomi
 Visit app webpage: Atveriet lietojumprogrammas vietni
 WELCOME_MESSAGE: |
@@ -452,6 +459,7 @@ WELCOME_MESSAGE: |
   perrašyti į savo valdymo (įvesties/išvesties) įrenginius bei išmaniuosius telefonus žemiau pateiktus duomenis.
 Water meter: Vandens skaitiklis
 We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
+We have just sent you an activation link. Be patient.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda ką tik buvo išsiųstas. Kantrybės.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Išsiuntėme Tau el. laišką su nuorodą, patvirtinančią norą pašalinti paskyrą. Gal dar apsigalvosi!'
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Jūsų naršyklėje saugojame informacijas apie Jūsų preferencijas, kad palengvintumėme naudojimąsi programa (pvz. slapukų mechanizmo pagalba). [Perskaitykite taisykles].'
 We were not able to find your account.: Mums nepavyko surasti Jūsų paskyros.
@@ -483,11 +491,15 @@ You will be logged out shortly: Netrukus busite atjungti
 You will not be able to generate a direct link with the same URL again.: Nuorodos su tuo pačiu URL sukūrimas nebus įmanomas.
 Your account has been deleted. We hope you will come back to us soon.: 'Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.'
 Your account has been locked.: El. pašto adresas jau egzistuoja
+Your account has not been confirmed yet.: Jūsų paskyra dar nepatvirtinta.
 Your email: Jūsų el. paštas
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.'
 Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
 Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
+Your session has been expired.: Jūsų sesija baigėsi.
+Your session is about to expire: Jūsų sesija baigsis.
+'Your session will expire in [time].': 'Jūsų sesija baigsis po [time].'
 after: po
 before: prieš
 choose: pasirinkti
@@ -511,6 +523,7 @@ directLinkExecutionFailureReason_notActiveYet: Tiesioginė nuoroda dar nėra akt
 directLinkExecutionFailureReason_otherFailure: Akcijos vykdymo klaida
 directLinkExecutionFailureReason_unsupportedAction: Pasirinkta akcija neteisinga
 executed: atlikta
+extend: tęsti
 from IP: iš IP adreso
 from the IP: iš adreso
 hourly: Valandinis ciklas
@@ -574,18 +587,8 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
-Enter your password to prevent automatic logout.: Norėdami išvengti automatinio atsijungimo įveskite savo slaptažodį.
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite paspausti [čia], kad jį išsiųstumėte dar kartą.'
-Please click the link we have sent you after the registration to proceed.: Paspauskite nuorodą pranešime, kurį Jums išsiuntėme, kai paskyra buvo sukurta.
-Please log in again to proceed.: Prisijunkite dar kartą, kad galėtumėte tęsti toliau.
-The activation link has been sent again. Check the inbox.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda buvo išsiųstas dar kartą. Patikrinkite el. pašto dėžutę.
-User is already confirmed. Try to log in.: Ši paskyra jau patvirtinta. Prisijungti.
-We have just sent you an activation link. Be patient.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda ką tik buvo išsiųstas. Kantrybės.
-Your account has not been confirmed yet.: Jūsų paskyra dar nepatvirtinta.
-Your session has been expired.: Jūsų sesija baigėsi.
-Your session is about to expire: Jūsų sesija baigsis.
-'Your session will expire in [time].': 'Jūsų sesija baigsis po [time].'
-extend: tęsti
+Forward active energy: ~
+Meter value: ~
+SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>
