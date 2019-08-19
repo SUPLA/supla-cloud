@@ -25,14 +25,15 @@ class ElectricityMeterChannelStateTest extends \PHPUnit_Framework_TestCase {
     /** @dataProvider clearUnsupportedMeasurementsTestCases */
     public function testClearUnsupportedMeasurements(int $supportMask, array $expectNotCleared) {
         $state = array_merge([$supportMask, 50], range(1, 33), [5, 6, 'PLN']);
-        $state = (new ElectricityMeterChannelState($state, 3))->toArray();
-        $this->assertCount(count($expectNotCleared), $state['phase1']);
-        $this->assertCount(count($expectNotCleared), $state['phase2']);
-        $this->assertCount(count($expectNotCleared), $state['phase3']);
+        $state = (new ElectricityMeterChannelState($state))->toArray();
+        $expectNotCleared[] = 'number';
+        $this->assertCount(count($expectNotCleared), $state['phases'][0]);
+        $this->assertCount(count($expectNotCleared), $state['phases'][1]);
+        $this->assertCount(count($expectNotCleared), $state['phases'][2]);
         foreach ($expectNotCleared as $key) {
-            $this->assertArrayHasKey($key, $state['phase1']);
-            $this->assertArrayHasKey($key, $state['phase2']);
-            $this->assertArrayHasKey($key, $state['phase3']);
+            $this->assertArrayHasKey($key, $state['phases'][0]);
+            $this->assertArrayHasKey($key, $state['phases'][1]);
+            $this->assertArrayHasKey($key, $state['phases'][2]);
         }
     }
 

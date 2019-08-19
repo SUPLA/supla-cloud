@@ -208,7 +208,7 @@ abstract class SuplaServer {
             $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*)$#', $value, $match);
             if ($matched) {
                 unset($match[0]);
-                return (new ElectricityMeterChannelState($match, 3))->toArray();
+                return (new ElectricityMeterChannelState($match))->toArray();
             }
         }
         return [];

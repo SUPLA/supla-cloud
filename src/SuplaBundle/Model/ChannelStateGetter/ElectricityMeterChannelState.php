@@ -29,26 +29,27 @@ class ElectricityMeterChannelState {
         'totalReverseReactiveEnergy' => 100000,
     ];
 
-    public function __construct(array $valuesFromSuplaServer, int $numberOfPhases) {
-        // 11 attributes per phase + totalCost, support, pricePerUnit, currency, frequency
-        Assertion::count($valuesFromSuplaServer, $numberOfPhases * 11 + 5);
+    public function __construct(array $valuesFromSuplaServer) {
         $this->state['support'] = intval(array_shift($valuesFromSuplaServer));
         $frequency = NumberUtils::maximumDecimalPrecision(array_shift($valuesFromSuplaServer) * 0.01, 2);
         $this->state['currency'] = array_pop($valuesFromSuplaServer);
         $this->state['pricePerUnit'] = NumberUtils::maximumDecimalPrecision(array_pop($valuesFromSuplaServer) * 0.0001, 4);
         $this->state['totalCost'] = NumberUtils::maximumDecimalPrecision(array_pop($valuesFromSuplaServer) * 0.01, 2);
+        Assertion::eq(0, count($valuesFromSuplaServer) % count(self::$SUPLA_SERVER_VALUES_MULTIPLIERS), 'Invalid EM state.');
+        $numberOfPhases = count($valuesFromSuplaServer) / count(self::$SUPLA_SERVER_VALUES_MULTIPLIERS);
         $measurementIndex = 0;
-        for ($phase = 1; $phase <= $numberOfPhases; $phase++) {
-            $this->state['phase' . $phase] = [];
+        $this->state['phases'] = [];
+        for ($phase = 0; $phase < $numberOfPhases; $phase++) {
+            $this->state['phases'][$phase] = ['number' => ($phase + 1)];
             if ($this->isSupported('frequency')) {
-                $this->state['phase' . $phase]['frequency'] = $frequency;
+                $this->state['phases'][$phase]['frequency'] = $frequency;
             }
         }
         foreach (self::$SUPLA_SERVER_VALUES_MULTIPLIERS as $name => $multiplier) {
             if ($this->isSupported($name)) {
                 for ($phase = 0; $phase < $numberOfPhases; $phase++) {
                     $value = ($valuesFromSuplaServer[$measurementIndex + $phase] ?? 0) / $multiplier;
-                    $this->state['phase' . ($phase + 1)][$name] =
+                    $this->state['phases'][$phase][$name] =
                         NumberUtils::maximumDecimalPrecision($value, round(log10($multiplier)));
                 }
             }
