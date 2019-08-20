@@ -10,6 +10,7 @@ import Flipper from "./tiles/flipper";
 import SquareLink from "./tiles/square-link";
 import SquareLinksGrid from "./tiles/square-links-grid";
 import Toggler from "./gui/toggler";
+import ButtonLoadingDots from "./gui/loaders/button-loading-dots.vue";
 
 Vue.component('cookieWarning', () => import("./errors/cookie-warning"));
 Vue.component('pageFooter', PageFooter);
@@ -23,3 +24,4 @@ Vue.component('flipper', Flipper);
 Vue.component('squareLink', SquareLink);
 Vue.component('squareLinksGrid', SquareLinksGrid);
 Vue.component('toggler', Toggler);
+Vue.component('buttonLoadingDots', ButtonLoadingDots);
