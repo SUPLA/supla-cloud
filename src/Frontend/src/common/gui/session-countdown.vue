@@ -4,7 +4,7 @@
             class="text-muted">
             <component :is="expireText"></component>
             <a @click="show()"
-                v-if="secondsLeft < 600">{{ $t('extend') }}</a>
+                v-if="secondsLeft < 300">{{ $t('extend') }}</a>
         </span>
         <modal-confirm v-if="showDialog"
             @confirm="extendSession()"
