@@ -119,6 +119,19 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
                     'unit' => 'm³',
                 ],
             ],
+            [
+                // https://github.com/SUPLA/supla-cloud/issues/306
+                'VALUE:5698982,152500,2500,9342595,3737038,PLN,a1do',
+                [
+                    'totalCost' => 56989.82,
+                    'pricePerUnit' => 15.25,
+                    'impulsesPerUnit' => 2500,
+                    'counter' => 9342595,
+                    'calculatedValue' => 3737.038,
+                    'currency' => 'PLN',
+                    'unit' => 'kWh',
+                ],
+            ],
         ];
     }
 
