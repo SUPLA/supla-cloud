@@ -62,6 +62,7 @@
             <p>{{ $t('The client will be automatically logged out when deleted.') }}</p>
         </modal-confirm>
         <access-id-chooser v-if="assignAccessIds"
+            title-i18n="Choose Access Identifier"
             :selected="editingModel.accessId"
             @cancel="assignAccessIds = false"
             @confirm="editingModel.accessId = $event; assignAccessIds = false"></access-id-chooser>

@@ -1,6 +1,6 @@
 <template>
     <square-modal-chooser
-        title-i18n="Choose Access Identifiers to be assigned to this Location"
+        :title-i18n="titleI18n"
         endpoint="accessids"
         tile="access-id-tile"
         filters="access-id-filters"
@@ -21,6 +21,6 @@
 
     export default {
         components: {SquareModalChooser},
-        props: ['selected'],
+        props: ['selected', 'titleI18n'],
     };
 </script>

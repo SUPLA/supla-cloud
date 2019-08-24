@@ -236,7 +236,6 @@ Idle: Бездействующие
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Если вы программист и хотите предоставить дополнительные возможности для SUPLI, создайте приложение OAuth, которое пользователи смогут авторизовать и использовать.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Если вы уверены, что у вас есть учетная запись на cloud.supla.org, убедитесь, что приложение, которое вы пытаетесь авторизовать, является публичным.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Если вы хотите интегрировать персональное облако SUPLA с публичным приложением OAuth, вам необходимо [зарегистрировать свою инстанцию].'
-'If you want to stay here, do something!': 'Если хочешь здесь остаться, сделай что-нибудь!'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Для использования ссылки в другом программном обеспечении, добавь соответствующий заголовок запроса, чтобы получить ответ, который будет легче обрабатывать.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Если вы хотите увидеть доступные интеграции, перейдите на [cloud.supla.org/apps].'
 Impulse counter: Счетчик импульсов
@@ -489,7 +488,6 @@ You just need to execute the following command inside your host terminal.: До�
 You must agree to the Terms and Conditions.: Принятие правил является обязательным.
 You need to provide icons for all states.: Вы должны назначить значки для всех состояний.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Вы должны обновить свой экземпляр SUPLA Cloud до версии не ниже 2.3.0.
-You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
 You will not be able to generate a direct link with the same URL again.: Создание ссылки с одинаковым URL невозможно.
 Your account has been deleted. We hope you will come back to us soon.: 'Учетная запись удалена. Надеемся, вы скоро к нам вернетесь.'
 Your account has been locked.: Ваша учетная запись заблокирована.
@@ -574,6 +572,7 @@ Enable: Включить
 Hi: Привет
 Hour: Час
 I/O: Ввод/Вывод
+'If you want to stay here, do something!': 'Если хочешь здесь остаться, сделай что-нибудь!'
 Input: Вход
 Languages: Язык
 Loading: Зарядка
@@ -584,11 +583,13 @@ Registration: Регистрация
 Remove: Удалить
 Status: Статус
 Try again later: Попытайся повторно задать команду
+You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
 execute: выполни
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose Access Identifier: ~
 SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>
