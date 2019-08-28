@@ -82,8 +82,12 @@
         }
         .loading {
             display: none;
-            .supla-loader {
-                margin-bottom: -250px;
+            .loader-dots {
+                position: absolute;
+                left: 50%;
+                margin: 0 0 0 -60px;
+                top: 50%;
+                z-index: 1000;
             }
             &:before, &:after {
                 content: " ";

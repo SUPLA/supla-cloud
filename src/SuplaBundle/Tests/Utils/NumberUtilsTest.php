@@ -36,6 +36,7 @@ class NumberUtilsTest extends PHPUnit_Framework_TestCase {
             [1.512, 1.512, 3],
             [0.000000009, 0],
             [0.0899999999999, 0.09],
+            [56989.82, 56989.82],
         ];
     }
 }

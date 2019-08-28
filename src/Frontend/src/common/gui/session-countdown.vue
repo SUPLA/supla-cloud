@@ -4,22 +4,27 @@
             class="text-muted">
             <component :is="expireText"></component>
             <a @click="show()"
-                v-if="secondsLeft < 600">{{ $t('extend') }}</a>
+                v-if="secondsLeft < 300">{{ $t('extend') }}</a>
         </span>
-        <modal-confirm v-if="showDialog"
-            @confirm="extendSession()"
-            @cancel="cancel()"
-            :loading="loading"
+        <modal v-if="showDialog"
+            class="modal-confirm"
             :header="$t('Your session is about to expire')"
             :class="['text-center session-countdown-modal', {expiring: secondsLeft < 60}]">
             <p>
                 <component :is="expireText"></component>
             </p>
-            <p>{{ $t('Enter your password to prevent automatic logout.') }}</p>
+            <div class="form-group">
+                <p>{{ $t('Enter your password to prevent automatic logout.') }}</p>
+            </div>
             <form @submit.prevent="extendSession()">
+                <div class="form-group text-left">
+                    <div>{{ $user.username }}</div>
+                    <label>{{ $t('Your email') }}</label>
+                </div>
                 <div class="form-group text-left">
                     <input type="password"
                         required
+                        v-focus="true"
                         class="form-control"
                         v-model="password"
                         id="extend-password">
@@ -30,7 +35,26 @@
             <div class="alert alert-danger"
                 v-if="error">{{ $t('Incorrect password') }}
             </div>
-        </modal-confirm>
+            <div slot="footer">
+                <button-loading-dots v-if="loading"></button-loading-dots>
+                <div v-else>
+                    <div class="pull-left">
+                        <a @click="logout()"
+                            class="btn btn-default">
+                            {{ $t('Sign Out') }}
+                        </a>
+                    </div>
+                    <a @click="cancel()"
+                        class="cancel">
+                        <i class="pe-7s-close"></i>
+                    </a>
+                    <a class="confirm"
+                        @click="extendSession()">
+                        <i class="pe-7s-check"></i>
+                    </a>
+                </div>
+            </div>
+        </modal>
     </span>
 </template>
 
@@ -107,13 +131,16 @@
                         this.show();
                     }
                     if (this.secondsLeft <= 0) {
-                        this.cancel();
-                        clearInterval(this.interval);
-                        this.expirationTimestamp = undefined;
                         AppState.addTask('sessionExpired', true);
-                        $("#logoutButton")[0].click();
+                        this.logout();
                     }
                 }
+            },
+            logout() {
+                this.cancel();
+                clearInterval(this.interval);
+                this.expirationTimestamp = undefined;
+                $("#logoutButton")[0].click();
             }
         },
         beforeDestroy() {

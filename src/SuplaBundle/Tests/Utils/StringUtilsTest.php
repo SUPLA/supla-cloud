@@ -26,6 +26,11 @@ class StringUtilsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($camelCase, StringUtils::snakeCaseToCamelCase($snakeCase));
     }
 
+    /** @dataProvider snakeCaseToCamelCaseExamples */
+    public function testCamelCaseToSnakeCase(string $snakeCase, string $camelCase) {
+        $this->assertEquals($snakeCase, StringUtils::camelCaseToSnakeCase($camelCase));
+    }
+
     public function snakeCaseToCamelCaseExamples(): array {
         return [
             ['', ''],

@@ -119,6 +119,32 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
                     'unit' => 'm³',
                 ],
             ],
+            [
+                // https://github.com/SUPLA/supla-cloud/issues/306
+                'VALUE:5698982,152500,2500,9342595,3737038,PLN,a1do',
+                [
+                    'totalCost' => 56989.82,
+                    'pricePerUnit' => 15.25,
+                    'impulsesPerUnit' => 2500,
+                    'counter' => 9342595,
+                    'calculatedValue' => 3737.038,
+                    'currency' => 'PLN',
+                    'unit' => 'kWh',
+                ],
+            ],
+            [
+                // tests for values higher than 2^64 (unsigned long)
+                'VALUE:92233720368547758079,92233720368547758079,9223372036854775807,9223372036854775807,92233720368547758079,PLN,a1do',
+                [
+                    'totalCost' => 922337203685477580.79,
+                    'pricePerUnit' => 9223372036854775.8079,
+                    'impulsesPerUnit' => 9223372036854775807,
+                    'counter' => 9223372036854775807,
+                    'calculatedValue' => 92233720368547758.079,
+                    'currency' => 'PLN',
+                    'unit' => 'kWh',
+                ],
+            ],
         ];
     }
 
@@ -127,12 +153,15 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
         $this->assertArrayHasKey('totalCost', $state);
         $this->assertGreaterThan(0, $state['totalCost']);
         $this->assertInternalType('float', $state['totalCost']);
-        $this->assertArrayHasKey('currentPhase1', $state);
-        $this->assertInternalType('float', $state['currentPhase1']);
-        $this->assertArrayHasKey('powerActivePhase3', $state);
-        $this->assertInternalType('float', $state['powerActivePhase3']);
-        $this->assertArrayHasKey('totalForwardReactiveEnergyPhase1', $state);
-        $this->assertInternalType('float', $state['totalForwardReactiveEnergyPhase1']);
+        $this->assertArrayHasKey('phases', $state);
+        $this->assertCount(3, $state['phases']);
+        $this->assertInternalType('array', $state['phases'][0]);
+        $this->assertArrayHasKey('number', $state['phases'][0]);
+        $this->assertEquals(1, $state['phases'][0]['number']);
+        $this->assertArrayHasKey('powerActive', $state['phases'][0]);
+        $this->assertInternalType('float', $state['phases'][0]['powerActive']);
+        $this->assertArrayHasKey('totalForwardReactiveEnergy', $state['phases'][1]);
+        $this->assertInternalType('float', $state['phases'][1]['totalForwardReactiveEnergy']);
         $this->assertArrayHasKey('pricePerUnit', $state);
         $this->assertInternalType('float', $state['pricePerUnit']);
         $this->assertArrayHasKey('support', $state);
@@ -156,40 +185,53 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
             [
                 'VALUE:' . $fullSupportMask . ',' . implode(',', range(2, 37)) . ',PLN',
                 [
-                    'frequency' => 0.02,
-                    'voltagePhase1' => 0.03,
-                    'voltagePhase2' => 0.04,
-                    'voltagePhase3' => 0.05,
-                    'currentPhase1' => 0.006,
-                    'currentPhase2' => 0.007,
-                    'currentPhase3' => 0.008,
-                    'powerActivePhase1' => 0.00009,
-                    'powerActivePhase2' => 0.00010,
-                    'powerActivePhase3' => 0.00011,
-                    'powerReactivePhase1' => 0.00012,
-                    'powerReactivePhase2' => 0.00013,
-                    'powerReactivePhase3' => 0.00014,
-                    'powerApparentPhase1' => 0.00015,
-                    'powerApparentPhase2' => 0.00016,
-                    'powerApparentPhase3' => 0.00017,
-                    'powerFactorPhase1' => 0.018,
-                    'powerFactorPhase2' => 0.019,
-                    'powerFactorPhase3' => 0.020,
-                    'phaseAnglePhase1' => 2.1,
-                    'phaseAnglePhase2' => 2.2,
-                    'phaseAnglePhase3' => 2.3,
-                    'totalForwardActiveEnergyPhase1' => 0.00024,
-                    'totalForwardActiveEnergyPhase2' => 0.00025,
-                    'totalForwardActiveEnergyPhase3' => 0.00026,
-                    'totalReverseActiveEnergyPhase1' => 0.00027,
-                    'totalReverseActiveEnergyPhase2' => 0.00028,
-                    'totalReverseActiveEnergyPhase3' => 0.00029,
-                    'totalForwardReactiveEnergyPhase1' => 0.00030,
-                    'totalForwardReactiveEnergyPhase2' => 0.00031,
-                    'totalForwardReactiveEnergyPhase3' => 0.00032,
-                    'totalReverseReactiveEnergyPhase1' => 0.00033,
-                    'totalReverseReactiveEnergyPhase2' => 0.00034,
-                    'totalReverseReactiveEnergyPhase3' => 0.00035,
+                    'phases' => [
+                        [
+                            'number' => 1,
+                            'frequency' => 0.02,
+                            'voltage' => 0.03,
+                            'current' => 0.006,
+                            'powerActive' => 0.00009,
+                            'powerReactive' => 0.00012,
+                            'powerApparent' => 0.00015,
+                            'powerFactor' => 0.018,
+                            'phaseAngle' => 2.1,
+                            'totalForwardActiveEnergy' => 0.00024,
+                            'totalReverseActiveEnergy' => 0.00027,
+                            'totalForwardReactiveEnergy' => 0.0003,
+                            'totalReverseReactiveEnergy' => 0.00033,
+                        ],
+                        [
+                            'number' => 2,
+                            'frequency' => 0.02,
+                            'voltage' => 0.04,
+                            'current' => 0.007,
+                            'powerActive' => 0.0001,
+                            'powerReactive' => 0.00013,
+                            'powerApparent' => 0.00016,
+                            'powerFactor' => 0.019,
+                            'phaseAngle' => 2.2,
+                            'totalForwardActiveEnergy' => 0.00025,
+                            'totalReverseActiveEnergy' => 0.00028,
+                            'totalForwardReactiveEnergy' => 0.00031,
+                            'totalReverseReactiveEnergy' => 0.00034,
+                        ],
+                        [
+                            'number' => 3,
+                            'frequency' => 0.02,
+                            'voltage' => 0.05,
+                            'current' => 0.008,
+                            'powerActive' => 0.00011,
+                            'powerReactive' => 0.00014,
+                            'powerApparent' => 0.00017,
+                            'powerFactor' => 0.02,
+                            'phaseAngle' => 2.3,
+                            'totalForwardActiveEnergy' => 0.00026,
+                            'totalReverseActiveEnergy' => 0.00029,
+                            'totalForwardReactiveEnergy' => 0.00032,
+                            'totalReverseReactiveEnergy' => 0.00035,
+                        ],
+                    ],
                     'totalCost' => 0.36,
                     'pricePerUnit' => 0.0037,
                     'currency' => 'PLN',
@@ -199,12 +241,23 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
                 'VALUE:' . (ElectricityMeterSupportBits::POWER_FACTOR | ElectricityMeterSupportBits::TOTAL_FORWARD_ACTIVE_ENERGY)
                 . ',' . implode(',', range(2, 37)) . ',PLN',
                 [
-                    'powerFactorPhase1' => 0.018,
-                    'powerFactorPhase2' => 0.019,
-                    'powerFactorPhase3' => 0.020,
-                    'totalForwardActiveEnergyPhase1' => 0.00024,
-                    'totalForwardActiveEnergyPhase2' => 0.00025,
-                    'totalForwardActiveEnergyPhase3' => 0.00026,
+                    'phases' => [
+                        [
+                            'number' => 1,
+                            'powerFactor' => 0.018,
+                            'totalForwardActiveEnergy' => 0.00024,
+                        ],
+                        [
+                            'number' => 2,
+                            'powerFactor' => 0.019,
+                            'totalForwardActiveEnergy' => 0.00025,
+                        ],
+                        [
+                            'number' => 3,
+                            'powerFactor' => 0.020,
+                            'totalForwardActiveEnergy' => 0.00026,
+                        ],
+                    ],
                     'totalCost' => 0.36,
                     'pricePerUnit' => 0.0037,
                     'currency' => 'PLN',
@@ -213,42 +266,82 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
             [
                 // 3583 = all support bits without totalReverseActiveEnergy
                 // @codingStandardsIgnoreLine
-                'VALUE:3583,5204,22236,23658,22010,4327,18314,26734,9403971,4414093,22055246,5371061,9606801,8810954,8083181,1105777,6898797,83914,47928,92799,506,1019,95,53064359,57198474,2512057,1338299,1233842,2742607,5130437,4273139,9967795,7681364,8560780,8708398,9814,87466,VEF',
+                'VALUE:3583,5204,22236,23658,22010,4327,18314,26734,9403971,4414093,22055246,5371061,9606801,8810954,8083181,1105777,6898797,83914,47928,92799,506,1019,95,5306664359,57198474,2512057,1338299,1233842,2742607,5130437,4273139,9967795,7681364,8560780,8708398,9814,87466,VEF',
                 [
-                    'frequency' => 52.04,
-                    'voltagePhase1' => 222.36,
-                    'voltagePhase2' => 236.58,
-                    'voltagePhase3' => 220.1,
-                    'currentPhase1' => 4.327,
-                    'currentPhase2' => 18.314,
-                    'currentPhase3' => 26.734,
-                    'powerActivePhase1' => 94.03971,
-                    'powerActivePhase2' => 44.14093,
-                    'powerActivePhase3' => 220.55246,
-                    'powerReactivePhase1' => 53.71061,
-                    'powerReactivePhase2' => 96.06801,
-                    'powerReactivePhase3' => 88.10954,
-                    'powerApparentPhase1' => 80.83181,
-                    'powerApparentPhase2' => 11.05777,
-                    'powerApparentPhase3' => 68.98797,
-                    'powerFactorPhase1' => 83.914,
-                    'powerFactorPhase2' => 47.928,
-                    'powerFactorPhase3' => 92.799,
-                    'phaseAnglePhase1' => 50.6,
-                    'phaseAnglePhase2' => 101.9,
-                    'phaseAnglePhase3' => 9.5,
-                    'totalForwardActiveEnergyPhase1' => 530.64359,
-                    'totalForwardActiveEnergyPhase2' => 571.98474,
-                    'totalForwardActiveEnergyPhase3' => 25.12057,
-                    'totalForwardReactiveEnergyPhase1' => 51.30437,
-                    'totalForwardReactiveEnergyPhase2' => 42.73139,
-                    'totalForwardReactiveEnergyPhase3' => 99.67795,
-                    'totalReverseReactiveEnergyPhase1' => 76.81364,
-                    'totalReverseReactiveEnergyPhase2' => 85.6078,
-                    'totalReverseReactiveEnergyPhase3' => 87.08398,
+                    'phases' => [
+                        [
+                            'number' => 1,
+                            'frequency' => 52.04,
+                            'voltage' => 222.36,
+                            'current' => 4.327,
+                            'powerActive' => 94.03971,
+                            'powerReactive' => 53.71061,
+                            'powerApparent' => 80.83181,
+                            'powerFactor' => 83.914,
+                            'phaseAngle' => 50.6,
+                            'totalForwardActiveEnergy' => 53066.64359,
+                            'totalForwardReactiveEnergy' => 51.30437,
+                            'totalReverseReactiveEnergy' => 76.81364,
+                        ],
+                        [
+                            'number' => 2,
+                            'frequency' => 52.04,
+                            'voltage' => 236.58,
+                            'current' => 18.314,
+                            'powerActive' => 44.14093,
+                            'powerReactive' => 96.06801,
+                            'powerApparent' => 11.05777,
+                            'powerFactor' => 47.928,
+                            'phaseAngle' => 101.9,
+                            'totalForwardActiveEnergy' => 571.98474,
+                            'totalForwardReactiveEnergy' => 42.73139,
+                            'totalReverseReactiveEnergy' => 85.6078,
+                        ],
+                        [
+                            'number' => 3,
+                            'frequency' => 52.04,
+                            'voltage' => 220.1,
+                            'current' => 26.734,
+                            'powerActive' => 220.55246,
+                            'powerReactive' => 88.10954,
+                            'powerApparent' => 68.98797,
+                            'powerFactor' => 92.799,
+                            'phaseAngle' => 9.5,
+                            'totalForwardActiveEnergy' => 25.12057,
+                            'totalForwardReactiveEnergy' => 99.67795,
+                            'totalReverseReactiveEnergy' => 87.08398,
+                        ],
+                    ],
                     'totalCost' => 98.14,
                     'pricePerUnit' => 8.7466,
                     'currency' => 'VEF',
+                ],
+            ],
+            [
+                // 7 = frequency & voltage & current
+                // @codingStandardsIgnoreLine
+                'VALUE:7,5204,22236,23658,22010,-4327,-18314,-26734,9403971,4414093,22055246,5371061,9606801,8810954,8083181,1105777,6898797,83914,47928,92799,506,1019,95,53064359,57198474,2512057,1338299,1233842,2742607,5130437,4273139,9967795,7681364,8560780,8708398,9814,87466,VEF',
+                [
+                    'phases' => [
+                        [
+                            'number' => 1,
+                            'frequency' => 52.04,
+                            'voltage' => 222.36,
+                            'current' => -4.327,
+                        ],
+                        [
+                            'number' => 2,
+                            'frequency' => 52.04,
+                            'voltage' => 236.58,
+                            'current' => -18.314,
+                        ],
+                        [
+                            'number' => 3,
+                            'frequency' => 52.04,
+                            'voltage' => 220.1,
+                            'current' => -26.734,
+                        ],
+                    ],
                 ],
             ],
         ];

@@ -92,6 +92,7 @@
                                     {{ $t('Assign Access Identifiers') }}
                                 </a>
                                 <access-id-chooser v-if="assignAccessIds"
+                                    title-i18n="Choose Access Identifiers to be assigned to this Location"
                                     :selected="location.accessIds"
                                     @cancel="assignAccessIds = false"
                                     @confirm="updateAccessIds($event)"></access-id-chooser>

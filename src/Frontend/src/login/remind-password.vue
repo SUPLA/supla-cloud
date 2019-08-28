@@ -7,6 +7,7 @@
                 <input autocomplete="off"
                     class="form-control"
                     required
+                    v-focus="true"
                     v-model="email"
                     type="email"
                     :placeholder="$t('Enter your email address')">
