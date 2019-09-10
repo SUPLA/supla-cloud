@@ -58,6 +58,10 @@ class ElectricityMeterChannelState {
     }
 
     private function isSupported(string $name): bool {
+        if ($name == "current") {
+            return $this->state['support'] & ElectricityMeterSupportBits::CURRENT()->getValue()
+                  || $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER64A()->getValue();
+        }
         $bitName = StringUtils::camelCaseToSnakeCase($name);
         return $this->state['support'] & ElectricityMeterSupportBits::$bitName()->getValue();
     }
