@@ -14,6 +14,7 @@
                     required
                     autocorrect="off"
                     autocapitalize="none"
+                    v-focus="true"
                     :placeholder="$t('Your email')"
                     v-model="username"
                     name="_username"

@@ -21,6 +21,7 @@
                 <input type="email"
                     class="form-input"
                     autocorrect="off"
+                    v-focus="true"
                     autocapitalize="none"
                     :placeholder="$t('Enter your email address')"
                     v-model="username">

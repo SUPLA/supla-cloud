@@ -236,7 +236,6 @@ Idle: Untätig
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Wenn Sie als Entwickler zusätzliche Funktionen für SUPLA bereitstellen möchten, erstellen Sie eine OAuth-Anwendung, die Benutzer autorisieren und verwenden können.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Wenn Sie sicher sind, dass Sie ein Konto bei cloud.supla.org haben, überprüfen Sie, ob die Anwendung, die Sie autorisieren möchten, öffentlich ist.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Wenn Sie eine private SUPLA-Cloud mit einer öffentlichen OAuth-Anwendung integrieren möchten, müssen Sie [Ihre Instanz registrieren].'
-'If you want to stay here, do something!': 'Wenn Du hier bleiben willst, tu etwas!'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Wenn Sie einen direkten Link in einer anderen Software verwenden möchten, fügen Sie den entsprechenden Anfragekopf hinzu, um eine leichter zu verarbeitende Antwort zu erhalten.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Wenn Sie die verfügbaren Integrationen sehen möchten, gehen Sie zu [cloud.supla.org/apps].'
 Impulse counter: Impulszähler
@@ -489,7 +488,6 @@ You just need to execute the following command inside your host terminal.: Führ
 You must agree to the Terms and Conditions.: Die Annahme der Richtlinie ist erforderlich.
 You need to provide icons for all states.: Sie müssen Symbole für alle Status bereitstellen.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Sie müssen Ihre SUPLA-Cloud-Instanz auf mindestens Version 2.3.0 aktualisieren.
-You will be logged out shortly: Du wirst gleich ausgeloggt
 You will not be able to generate a direct link with the same URL again.: Das Erstellen eines Linkes mit der gleichen URL wird nicht möglich sein.
 Your account has been deleted. We hope you will come back to us soon.: 'Das Konto wurde gelöscht. Wir hoffen, dass Sie bald zu uns zurückkehren werden.'
 Your account has been locked.: Ihr Konto wurde gesperrt.
@@ -574,6 +572,7 @@ Enable: Einschalten
 Hi: Hallo
 Hour: Uhrzeit
 I/O: E/A
+'If you want to stay here, do something!': 'Wenn Du hier bleiben willst, tu etwas!'
 Input: Eingabe
 Languages: Sprachen
 Loading: Laden
@@ -584,11 +583,13 @@ Registration: Registrierung
 Remove: Löschen
 Status: Status
 Try again later: Versuche später nochmals
+You will be logged out shortly: Du wirst gleich ausgeloggt
 execute: ausführen
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose Access Identifier: ~
 SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>

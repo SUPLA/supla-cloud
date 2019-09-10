@@ -119,6 +119,32 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
                     'unit' => 'm³',
                 ],
             ],
+            [
+                // https://github.com/SUPLA/supla-cloud/issues/306
+                'VALUE:5698982,152500,2500,9342595,3737038,PLN,a1do',
+                [
+                    'totalCost' => 56989.82,
+                    'pricePerUnit' => 15.25,
+                    'impulsesPerUnit' => 2500,
+                    'counter' => 9342595,
+                    'calculatedValue' => 3737.038,
+                    'currency' => 'PLN',
+                    'unit' => 'kWh',
+                ],
+            ],
+            [
+                // tests for values higher than 2^64 (unsigned long)
+                'VALUE:92233720368547758079,92233720368547758079,9223372036854775807,9223372036854775807,92233720368547758079,PLN,a1do',
+                [
+                    'totalCost' => 922337203685477580.79,
+                    'pricePerUnit' => 9223372036854775.8079,
+                    'impulsesPerUnit' => 9223372036854775807,
+                    'counter' => 9223372036854775807,
+                    'calculatedValue' => 92233720368547758.079,
+                    'currency' => 'PLN',
+                    'unit' => 'kWh',
+                ],
+            ],
         ];
     }
 
@@ -240,7 +266,7 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
             [
                 // 3583 = all support bits without totalReverseActiveEnergy
                 // @codingStandardsIgnoreLine
-                'VALUE:3583,5204,22236,23658,22010,4327,18314,26734,9403971,4414093,22055246,5371061,9606801,8810954,8083181,1105777,6898797,83914,47928,92799,506,1019,95,53064359,57198474,2512057,1338299,1233842,2742607,5130437,4273139,9967795,7681364,8560780,8708398,9814,87466,VEF',
+                'VALUE:3583,5204,22236,23658,22010,4327,18314,26734,9403971,4414093,22055246,5371061,9606801,8810954,8083181,1105777,6898797,83914,47928,92799,506,1019,95,5306664359,57198474,2512057,1338299,1233842,2742607,5130437,4273139,9967795,7681364,8560780,8708398,9814,87466,VEF',
                 [
                     'phases' => [
                         [
@@ -253,7 +279,7 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
                             'powerApparent' => 80.83181,
                             'powerFactor' => 83.914,
                             'phaseAngle' => 50.6,
-                            'totalForwardActiveEnergy' => 530.64359,
+                            'totalForwardActiveEnergy' => 53066.64359,
                             'totalForwardReactiveEnergy' => 51.30437,
                             'totalReverseReactiveEnergy' => 76.81364,
                         ],

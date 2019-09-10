@@ -236,7 +236,6 @@ Idle: Nenaudojamos
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA''I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite [registruoti savo instanciją].'
-'If you want to stay here, do something!': 'Jei norite likti čia, padarykite ką nors!'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].'
 Impulse counter: Impulsų skaitiklis
@@ -489,7 +488,6 @@ You just need to execute the following command inside your host terminal.: Pakan
 You must agree to the Terms and Conditions.: Sutikimas su taisyklėmis būtinas.
 You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
-You will be logged out shortly: Netrukus busite atjungti
 You will not be able to generate a direct link with the same URL again.: Nuorodos su tuo pačiu URL sukūrimas nebus įmanomas.
 Your account has been deleted. We hope you will come back to us soon.: 'Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.'
 Your account has been locked.: El. pašto adresas jau egzistuoja
@@ -574,6 +572,7 @@ Enable: Įjungti
 Hi: Sveiki
 Hour: Laikas
 I/O: Įvestis/Išvestis
+'If you want to stay here, do something!': 'Jei norite likti čia, padarykite ką nors!'
 Input: Įvestis
 Languages: Kalbos
 Loading: Krovimas
@@ -584,11 +583,13 @@ Registration: Registracija
 Remove: Pašalinti
 Status: Statusas
 Try again later: Pabandykite dar kartą vėliau
+You will be logged out shortly: Netrukus busite atjungti
 execute: atlik
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose Access Identifier: ~
 SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>

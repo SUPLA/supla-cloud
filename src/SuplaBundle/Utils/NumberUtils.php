@@ -7,6 +7,6 @@ final class NumberUtils {
     }
 
     public static function maximumDecimalPrecision($number, int $maxPrecision = 2): float {
-        return floatval(number_format(floatval($number), $maxPrecision));
+        return floatval(number_format(floatval($number), $maxPrecision, '.', ''));
     }
 }

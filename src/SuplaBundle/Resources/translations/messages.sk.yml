@@ -236,7 +236,6 @@ Idle: Nečinné
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ak ste programátor, ktorý chce vytvoriť dodatočné funkcie pre SUPLA, vytvorte aplikáciu OAuth, ktorú budú môcť používatelia autorizovať a používať.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ak ste presvedčený, že máte účet na cloud.supla.org, skontrolujte, či aplikácia, ktorú chcete autorizovať, je verejná.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Ak chcete integrovať súkromný mrak SUPLA s verejnou aplikáciou OAuth, musíte [zaregistrovať svoju inštaláciu].'
-'If you want to stay here, do something!': 'Ak tu chcete zostať, urobte niečo!'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Ak chcete priamy odkaz použiť v inom softvéri, vhodne doplňte hlavičku dopytu, aby ste dostali odpoveď, ktorá sa dá ľahšie spracovať.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Ak si chcete pozrieť dostupné integrácie, prejdite na [cloud.supla.org/apps].'
 Impulse counter: Počítadlo impulzov
@@ -489,7 +488,6 @@ You just need to execute the following command inside your host terminal.: 'Sta�
 You must agree to the Terms and Conditions.: "Súhlas s\_podmienkami je nutný."
 You need to provide icons for all states.: Musíte doručiť ikony pre všetky stavy.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovať inštaláciu programu Šuplata Cloud aspoň na verziu 2.3.0.
-You will be logged out shortly: O chvíľu budete odhlásený
 You will not be able to generate a direct link with the same URL again.: Odkaz z takou istou URL adresou sa nebude dať vytvoriť.
 Your account has been deleted. We hope you will come back to us soon.: 'Účet bol zmazaný. Dúfame, že sa k nám čoskoro vrátite.'
 Your account has been locked.: Váš účet bol zablokovaný.
@@ -574,6 +572,7 @@ Enable: Zapnúť
 Hi: Dobrý deň
 Hour: Čas
 I/O: Vstup/Výstup
+'If you want to stay here, do something!': 'Ak tu chcete zostať, urobte niečo!'
 Input: Vstup
 Languages: Jazyky
 Loading: Načítavanie
@@ -584,11 +583,13 @@ Registration: Registrácia
 Remove: Odstrániť
 Status: Status
 Try again later: Skúste opäť neskôr.
+You will be logged out shortly: O chvíľu budete odhlásený
 execute: vykonať
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose Access Identifier: ~
 SUPLA Server was unable to execute the action.: ~
 
 #</editor-fold>

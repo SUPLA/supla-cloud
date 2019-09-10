@@ -10,7 +10,4 @@
         </transition>
     </loading-cover>
     <cookie-warning v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
-    {% if not app.debug %}
-        <idle-logout v-if="$user.username"></idle-logout>
-    {% endif %}
 {% endblock %}
