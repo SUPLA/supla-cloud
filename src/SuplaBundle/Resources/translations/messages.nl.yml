@@ -469,123 +469,123 @@ We were not able to find your account.: We konden uw account niet vinden.
 We will miss you: We zullen je missen
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We zullen ons best doen om de weergegeven pictogrammen op de beste manier te verzenden, maar u krijgt de beste resultaten door PNG-bestanden met een transparante achtergrond en pixels met breedte {width} en hoogte {height} te verzenden.'
 We will use it only in justified situations.: We zullen het alleen gebruiken in gerechtvaardigde gevallen
-Weather Station: Stacja pogodowa
-Wednesdays: Środy
-Weight sensor: Waga
-What this token is for?: Do czego służy ten token?
-When: Kiedy
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziesz przykładowe wykonanie za pomocą narzędzia cURL.'
-Where is the JSON?: Gdzie jest JSON?
-Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
-White: Biały
-Wind sensor: Czujnik wiatru
-Window opening sensor: Czujnik otwarcia okna
-With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz sterować oświetleniem w Twoim domu lub biurze
-With function: Z funkcją
-Working period: Okres działania
-YOUR LINK CODE: KOD TWOJEGO LINKU
-You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
-You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
-You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
-You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
-You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
-You will be logged out shortly: Za chwilę zostaniesz wylogowany
-You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
-Your account has been deleted. We hope you will come back to us soon.: 'Konto zostało usunięte. Mamy nadzieję, że wkrótce do nas wrócisz.'
-Your account has been locked.: Twoje konto zostało zablokowane.
-Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
-Your email: Twój email
-Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
-Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
-Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
-Your session has been expired.: Twoja sesja wygasła.
-Your session is about to expire: Twoja sesja za chwilę wygaśnie
-'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
-after: po
-before: przed
-choose: wybierz
-choose a currency: wybierz walutę
-choose the channel: wybierz kanał
-choose the channel group: wybierz grupę kanałów
-choose the timezone: wybierz strefę czasową
-copied: skopiowano
-copy: kopiuj
-daily: Cykl dzienny
-directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
-directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
-directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
-directLinkExecutionFailureReason_forbiddenAction: Link nie pozwala na wykonanie tej akcji
-directLinkExecutionFailureReason_httpGetForbidden: Uniemożliwiono wykonanie akcji przy użyciu niedozwolonej metody HTTP GET
-directLinkExecutionFailureReason_invalidActionParameters: Niepoprawne parametry linku bezpośredniego
-directLinkExecutionFailureReason_invalidSlug: Przesłany kod weryfikacyjny jest niepoprawny.
-directLinkExecutionFailureReason_noAllowedActions: Nie wybrano żadnych dozwolonych akcji
-directLinkExecutionFailureReason_noSlugOrAction: Niepoprawne żądanie - kod linku oraz akcja są wymagane
-directLinkExecutionFailureReason_notActiveYet: Link bezpośredni nie jest jeszcze aktywny
-directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
-directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
-executed: wykonano
-extend: przedłuż
-from IP: z adresu IP
-from the IP: z adresu
-hourly: Cykl godzinny
-minutely: Cykl minutowy
-minutes: minut
-once: Jednorazowy
-register-slide1-text: 'W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.'
-register-slide1-title: Własny Inteligentny Budynek
-register-slide2-text: 'Jednymi z podstawowych założeń projektu są prostota i dostępność. SUPLA pozwala jednym przesunięciem palca włączyć światło czy też otworzyć bramę wjazdową w momencie, gdy chcemy wjechać na posesję. SUPLA dostępna jest wszędzie tam, gdzie posiadasz dostęp do sieci Internet i masz pod ręką smartfon lub tablet. SUPLA jest rozwijana na zasadach Otwartego Oprogramowania oraz Otwartego Sprzętu dzięki temu Ty również możesz rozwijać ten projekt!'
-register-slide2-title: SUPLA wszędzie!
-register-slide3-text: 'Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz WiFi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!'
-register-slide3-title: Bezpłatna i otwarta!
-sec.: sek.
-'smartphones, tablets, etc.': 'smartfony, tablety itp.'
-state-closed: Zamknięte
-state-default: Domyślnie
-state-empty: Puste
-state-full: Pełne
-state-humidity: Wilgotność
-state-off: Wyłączone
-state-on: Włączone
-state-opened: Otwarte
-state-partially_closed: Częściowo zamknięte
-state-revealed: Odsłonięte
-state-rgb_off_dim_off: RGB i ściemniacz wyłączone
-state-rgb_off_dim_on: 'RGB wyłączone, ściemniacz włączony'
-state-rgb_on_dim_off: 'RGB włączone, ściemniacz wyłączony'
-state-rgb_on_dim_on: RGB i ściemniacz włączone
-state-shut: Zasłonięte
-state-temperature: Temperatura
-sunrise-after: wschodzie
-sunrise-before: wschodem
-sunset-after: zachodzie
-sunset-before: zachodem
-will expire: wygaśnie
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
-'{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
+Weather Station: Weerstation
+Wednesdays: Woensdagen
+Weight sensor: Gewicht
+What this token is for?: Wat doet dit token?
+When: Wanneer
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.'
+Where is the JSON?: Waar is JSON?
+Where is your SUPLA Cloud?: Waar bevindt uw-Supla zich?
+White: Wit
+Wind sensor: Windsensor
+Window opening sensor: Raamopeningssensor
+With SUPLA you can operate the lights in your home or office: Met SUPLA kunt u de verlichting thuis of op kantoor regelen
+With function: Met functie
+Working period: Gebruiksperiode
+YOUR LINK CODE: UW LINKCODE
+You cannot delete your last access identifier.: U kunt uw laatste toegangs-ID niet verwijderen.
+You cannot delete your last location.: U kunt uw laatste locatie niet verwijderen.
+You just need to execute the following command inside your host terminal.: Voer gewoon de volgende opdracht uit in de terminal van uw host.
+You must agree to the Terms and Conditions.: Aanvaarding van reglement is vereist.
+You need to provide icons for all states.: U moet pictogrammen voor alle staten opgeven.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: U moet uw SUPLA Cloud-software naar ten minste versie 2.3.0. bijwerken
+You will be logged out shortly: U wordt zo uitgelogd
+You will not be able to generate a direct link with the same URL again.: Het is niet mogelijk om een link met dezelfde URL te maken.
+Your account has been deleted. We hope you will come back to us soon.: 'Account is verwijderd. We hopen dat je snel bij ons terugkomt.'
+Your account has been locked.: Uw account is geblokkeerd.
+Your account has not been confirmed yet.: Uw account is nog niet bevestigd.
+Your email: Uw e-mailadres
+Your instance is not registered or you are trying to authorize an application that is not public.: 'Uw exemplaar is niet geregistreerd of u probeert een toepassing te autoriseren die niet openbaar is.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Uw privé-exemplaar van SUPLA cloud is niet beschikbaar. Zorg ervoor dat uw server online is en dat de HTTPS-verbinding correct werkt.'
+Your private SUPLA Cloud is almost registered.: Uw privé SUPLA cloud is bijna geregistreerd.
+Your private SUPLA Cloud is not registered.: Uw private cloud SUPLA is niet geregistreerd.
+Your session has been expired.: Uw sessie is verlopen.
+Your session is about to expire: Je sessie verloopt zo
+'Your session will expire in [time].': 'Uw sessie verloopt over [tijd].'
+after: na
+before: voor
+choose: kies
+choose a currency: selecteer valuta
+choose the channel: selecteer kanaal
+choose the channel group: selecteer een kanaalgroep
+choose the timezone: selecteer tijdzone
+copied: gekopieerd
+copy: kopiëren
+daily: Dagelijkse cyclus
+directLinkExecutionFailureReason_disabled: Directe link is uitgeschakeld
+directLinkExecutionFailureReason_executionLimitExceeded: Prestatielimiet is overschreden
+directLinkExecutionFailureReason_expired: De directe link is verlopen
+directLinkExecutionFailureReason_forbiddenAction: De link staat deze actie niet toe
+directLinkExecutionFailureReason_httpGetForbidden: De uitvoering van handelingen door middel van een niet veroorloofde  HTTP GET-methode werd onmogelijk gemaakt.
+directLinkExecutionFailureReason_invalidActionParameters: Ongeldige directe link-parameters
+directLinkExecutionFailureReason_invalidSlug: De verificatiecode die u heeft opgegeven, is onjuist.
+directLinkExecutionFailureReason_noAllowedActions: Geen toegestane acties geselecteerd
+directLinkExecutionFailureReason_noSlugOrAction: Ongeldig verzoek - linkcode en actie zijn vereist
+directLinkExecutionFailureReason_notActiveYet: De directe link is nog niet actief
+directLinkExecutionFailureReason_otherFailure: Fout bij uitvoeren van actie
+directLinkExecutionFailureReason_unsupportedAction: De geselecteerde actie is ongeldig
+executed: afgehandeld
+extend: verlengen
+from IP: van een IP-adres
+from the IP: van het adres
+hourly: Uur cyclus
+minutely: Minuut cyclus
+minutes: minuten
+once: Eenmalig
+register-slide1-text: 'Op basis van de beschikbare elektronica kunt u met SUPLA eenvoudige modules bouwen waarmee u componenten van de gebouwautomatisering kunt besturen en controleren. Dankzij SUPLI kunt u onder andere de verlichting regelen, huishoudelijke apparaten en elektronica in- en uitschakelen, poorten en deuren openen en sluiten, of de temperatuur in de kamers regelen. Je kunt dit allemaal doen met één vingerbeweging.'
+register-slide1-title: Eigen intelligent gebouw
+register-slide2-text: 'JEen van de uitgangspunten van het project zijn eenvoud en beschikbaarheid. Met SUPLA kunt u het licht aandoen met één vingerbeweging of de toegangspoort openen wanneer u het pand wilt betreden. SUPLA is beschikbaar overal waar u toegang hebt tot internet en een smartphone of tablet bij de hand hebt. SUPLA is ontwikkeld op basis van Open Software en Open Equipment, waardoor u dit project ook kunt ontwikkelen!'
+register-slide2-title: SUPLA overal!
+register-slide3-text: 'Op de markt beschikbare gebouwautomatiseringssystemen zijn meestal erg complex, gesloten en duur. In veel gevallen vereisen ze installatie al in het stadium van het bouwen van de faciliteit. SUPLA is eenvoudig, open en gratis. Het maakt het mogelijk om executive-elementen te bouwen op basis van RaspberryPI, Arduino of ESP8266 platforms en deze te verbinden via LAN en WiFi. Doe mee met het project en bouw je eigen versie van het gebouwautomatiseringssysteem!'
+register-slide3-title: Gratis en open!
+sec.: sec.
+'smartphones, tablets, etc.': 'smartphones, tablets etc.'
+state-closed: Gesloten
+state-default: Standaard
+state-empty: Blanco
+state-full: Volledig
+state-humidity: Vochtigheid
+state-off: Uitgeschakeld
+state-on: Aan
+state-opened: Geopend
+state-partially_closed: Gedeeltelijk gesloten
+state-revealed: Open
+state-rgb_off_dim_off: RGB en dimmer uit
+state-rgb_off_dim_on: 'RGB uit, dimmer aan'
+state-rgb_on_dim_off: 'RGB aan, dimmer uit'
+state-rgb_on_dim_on: RGB en dimmer aan
+state-shut: Gesloten
+state-temperature: Temperatuur
+sunrise-after: oosten
+sunrise-before: oosten
+sunset-after: westen
+sunset-before: westen
+will expire: vervallen
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan pas met uw account werken als u opnieuw toegang verleent.'
+'{clientName} wants to access your account.': '{clientName} wil toegang tot uw account.'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-Assigned Locations: Przypisane Lokalizacje
-Date: Data
-Disable: Wyłącz
-Enable: Włącz
-Hi: Cześć
-Hour: Godzina
-I/O: Wejście/Wyjście
-Input: Wejście
-Languages: Języki
-Loading: Ładowanie
-Next: Dalej
-Number: Numer
-Output: Wyjście
-Registration: Rejestracja
-Remove: Usuń
+Assigned Locations: Wijs locaties toe
+Date: Datum
+Disable: Zet uit
+Enable: Zet in
+Hi: Hoi
+Hour: Uur
+I/O: Input / Outpt
+Input: Ingang
+Languages: Talen
+Loading: Opladen
+Next: Doorgaan
+Number: Nummer
+Output: Uitgang 
+Registration: Registratie
+Remove: Verwijder
 Status: Status
-Try again later: Spróbuj ponownie później
-execute: wykonaj
+Try again later: Probeer het later eens opnieuw
+execute: voer uit 
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
