@@ -1,7 +1,7 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 ...and start your adventure with building automation today!: ... en begin je avontuur met intelligente gebouwen al vandaag!
-...open and shut roller shutters: ... bedek en open de jaloezieën
+...open and shut roller shutters: ... bedek en open de rolluiken
 '...open gateways, gates or doors': '... open de tuinpoort, poort of deur'
 ...or control home appliances: ... of bedien huishoudelijke apparaten/elektronica
 ...you can monitor temperature: ... u kunt de temperatuur volgen
@@ -269,7 +269,7 @@ Location password must be at least 4 characters.: Locatiewachtwoord moet minimaa
 Location password must be no longer than 32 characters.: Locatiewachtwoord mag niet langer zijn dan 32 tekens.
 Locations: Locaties
 Login: Login
-Mail sensor: Czujnik poczty
+Mail sensor: Postsensor
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Zorg ervoor dat het op een veilige plaats wordt bewaard als u het in de toekomst wilt gebruiken. De link wordt niet meer weergegeven na het verlaten van deze pagina.'
 'Maximum filesize limit is {limit}.': 'De maximale bestandsgrootte is {limit}.'
 Meter value: Meterstand
@@ -361,9 +361,9 @@ Retry on failure: Herhaal als dit niet uitgevoerd is
 Reveal: Laat zien
 Reveal partially: Laat gedeeltelijk zien
 Revoke: Herroepen
-Roller shutter opening sensor: Jaloezieën openen sensor
-Roller shutter operation: Blinds openen en sluiten
-Roller shutters: Rolgordijnen
+Roller shutter opening sensor: Rolluik openen sensor
+Roller shutter operation: Rolluik openen en sluiten
+Roller shutters: Rolluiken
 SUPLA Server was unable to execute the action.: Fout tijdens het uitvoeren van actie in SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA is altijd en overal beschikbaar, dus maak je geen zorgen de volgende keer dat je vergeet het licht uit te doen'
 Saturdays: Zaterdagen
