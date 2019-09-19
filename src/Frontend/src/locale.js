@@ -14,7 +14,7 @@ Vue.config.availableLanguages = [
     {value: 'es', text: 'Español'},
     {value: 'fr', text: 'Français'},
     {value: 'nl', text: 'Nederlands'},
-    {value: 'no', text: 'Norsk'},
+    {value: 'nb', text: 'Norsk'},
     {value: 'sl', text: 'Slovenščina'},
     {value: 'el', text: 'Ελληνικά'}
 ];
