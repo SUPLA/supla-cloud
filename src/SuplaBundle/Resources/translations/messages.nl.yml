@@ -1,0 +1,594 @@
+# Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
+#<editor-fold desc="Complete translations" defaultstate="collapsed">
+...and start your adventure with building automation today!: ... en begin je avontuur met intelligente gebouwen al vandaag!
+...open and shut roller shutters: ... bedek en open de rolluiken
+'...open gateways, gates or doors': '... open de tuinpoort, poort of deur'
+...or control home appliances: ... of bedien huishoudelijke apparaten/elektronica
+...you can monitor temperature: ... u kunt de temperatuur volgen
+ACTIVE: ACTIEF
+AM2301 Temperature & Humidity Sensor: AM2301 temperatuur- en vochtigheidssensor
+AM2302 Temperature & Humidity Sensor: AM2302 temperatuur- en vochtigheidssensor
+API documentation: API-documentatie
+Access ID: Toegangs-ID
+Access Identifier: Toegangsidentificatie
+Access Identifiers: Toegangs-ID's
+Access identifier limit has been exceeded: De limiet van de toegangsbadges is overschreden
+Access identifier password must be at least 8 characters.: Het wachtwoord voor de toegangs-ID moet minimaal 8 tekens bevatten.
+Access identifier password must be no longer than 32 characters.: Het wachtwoord voor de toegangs-ID mag niet langer zijn dan 32 tekens.
+Account: Account
+Account access when you are unavailable: Toegang tot uw account wanneer u niet beschikbaar bent
+Account has been activated. You can Sign In now.: Uw account is geactiveerd. U kunt inloggen
+Action: Actie
+Action execution: Acties uitvoeren
+Actions: Actie
+Active: Actief
+Add: Voeg toe
+Add a new icon: Voeg een nieuw pictogram toe
+Add first channel to set channel group function and save it: Selecteer het eerste kanaal om de groepsfunctie op te geven en op te slaan
+Add new channel group: Voeg een nieuwe groep kanalen toe
+Add new channel to this group: Voeg een nieuw kanaal toe aan de groep
+Adjust parameters: Stel de parameters in
+'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Alle kanalen en kanaalgroepen die dit pictogram gebruiken, ontvangen de standaardpictogrammen wanneer ze worden verwijderd.'
+'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Nadat u toegang hebt verleend, kunt u altijd van gedachten veranderen door de toegang in uw accountinstellingen in te trekken.'
+'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': 'De link wordt direct na het selecteren van de entiteit gegenereerd. U kunt alle andere opties invoeren zodra u deze hebt gemaakt.'
+All: Alles
+All the above and many more can be done from your phone or tablet: Dit alles en nog veel meer kun je doen via een smartphone of tablet
+Allowed actions: Toegestane acties
+Allows to perform an action only using the HTTP PATCH request.: Hiermee kunt u acties alleen uitvoeren met een HTTP PATCH-verzoek.
+And more: En nog veel meer
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Alle toepassingen of apparaten die het token {tokenName} gebruiken, zullen niet meer werken.'
+Application name cannot be blank.: Naam van applicatie mag niet leeg zijn
+Application requirements: Vereisten van de applicatie
+Are you lost?: Bent u verdwaald? Zoekt u iets?
+Are you sure you want to change channel’s function?: Weet u zeker dat u de kanaalfunctie wilt wijzigen?
+Are you sure you want to delete the entire measurement history saved for this channel?: Weet u zeker dat u de bewaarde geschiedenis van dit kanaal volledig wilt verwijderen?
+Are you sure you want to delete this OAuth application?: Weet u zeker dat u deze OAuth-toepassing wilt verwijderen?
+Are you sure you want to delete this channel group?: Wilt u deze groep verwijderen?
+Are you sure you want to delete this client?: Weet u zeker dat u deze klantapplicatie  wilt verwijderen?
+Are you sure you want to delete this direct link?: Weet u zeker dat u deze directe link wilt verwijderen?
+Are you sure you want to delete this icon?: Weet u zeker dat u dit pictogram wilt verwijderen?
+Are you sure you want to delete this schedule?: Weet u zeker dat u dit schema wilt verwijderen?
+Are you sure you want to disable this device?: Weet u zeker dat u dit apparaat wilt uitschakelen?
+Are you sure you want to revoke permissions granted to this OAuth application?: Weet u zeker dat u de machtigingen die aan deze OAuth-appicatie zijn verleend wilt intrekken?
+Are you sure you want to revoke this token?: Weet u zeker dat u het token wilt intrekken?
+Are you sure?: Weet u het zeker?
+Assign Access Identifiers: Wijs toegangsidentificaties toe
+Assign Client apps: Wijs klant-applicaties toe
+Assign Locations: Wijs locaties toe
+Authorization callback URLs (one per line): Retourautorisatie-URL's (één per regel)
+'Authorize the application, so that it can access your account.': 'Autoriseer de applicatie zodat deze tot uw account toegang heeft.'
+Authorized: Geverifieerd
+Authorized OAuth apps: Geautoriseerde OAuth-applicaties
+Automation: Automatiek
+Back to apps list: Keer terug naar de applicatielijst
+Brightness: Helderheid
+CLICK TO DISABLE: KLIK OM UIT TE ZETTEN
+CLICK TO ENABLE: KLIK OM IN TE SCHAKELEN
+Calibration: Kalibreren
+Cancel: Annuleren
+Cancel changes: Wijzigingen annuleren
+Cancelled: Geannuleerd
+Cannot execute an action when the device is disconnected.: Wanneer het apparaat is losgekoppeld kunt u geen acties uitvoeren.
+Cannot send an activation e-mail. Try again later.: Het bericht met activeringslink kan niet verzonden worden. Probeer het later eens opnieuw.
+Captcha token is not valid.: Ongeldige captcha.
+Caption: Handtekening
+Change Password: Wachtwoord wijzigen
+Change icon: Pictogram wijzigen
+Changing channel’s function will also result in the following changes.: Het veranderen van de functie van het kanaal zal ook de volgende veranderingen veroorzaken.
+Channel: Kanaal
+Channel No: Kanaalnummer
+Channel for the partial opening sensor: Kanaal voor intermediaire openingssensor
+Channel for the sensor: Kanaalsensor
+Channel group: Kanaalgroep
+Channel group limit has been exceeded: Limiet kanaalgroepen overschreden
+Channel group must consist of at least one channel.: Kanaalgroep moet ten minste één kanaal bevatten.
+Channel groups: Kanaalgroepen
+Channel is assigned to the I/O device location: Het kanaal is reeds aan de apparaatlocatie toegewezen
+Channel will be deleted from the channel group below: Het kanaal wordt uit de volgende kanaalgroepen verwijderd
+Channels: Kanalen
+Check the direct link you used and try again.: Controleer de oproepen directe link en probeer het opnieuw.
+Check your email box: Controleer uw e-mailinbox
+Choose: Kiezen...
+Choose Access Identifiers to be assigned to this Location: 'Selecteer Toegangsidentificaties die aan deze Locatie zullen worden toegewezen'
+Choose client apps: Selecteer klant-applicaties
+Choose location: Nieuwe locatie selecteren
+Chosen hour: Geselecteerd uur
+Client’s Apps: Klant-applicaties
+Client’s app has been deleted: Klant-applicatie is verwijderd
+Close: Sluiten
+Color: Kleur
+Color brightness: Kleur helderheid
+Coming Soon: Binnenkort beschikbaar
+Comment: Commentaar
+Configuration: Configuratie
+Confirm Password: Bevestiging wachtwoord
+Confirm if you want to remove Access Identifier: Bevestig dat u de toegangs-ID wilt verwijderen
+'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Bevestig dat u locatie-ID {locationId} wilt verwijderen. Verdere verbindingen van I / O-apparaten met deze locatie zullen onmogelijk zijn'
+'Confirm if you want to remove {deviceName} device': 'Bevestig dat u {deviceName} wilt verwijderen'
+Connected: Online
+Connection with a private instance of the SUPLA cloud: Verbinding met een privé SUPLA cloud-exemplaar.
+Constraints: Beperkingen
+Could not reset the password.: Wachtwoord resetten mislukt.
+Could not reset the password. Please try again later.: Kan wachtwoord niet resetten. Probeer het later opnieuw.
+Create New Access Identifier: Maak een nieuwe toegangsidentificatie
+Create New Location: Maak een nieuwe locatie
+Create New Schedule: Maak een nieuw schema
+Create an account: Maak een account
+Create new direct link: Maak een nieuwe directe link
+Currency: Valuta
+Current Password: Huidig wachtwoord
+Current password is incorrect: Het huidige wachtwoord is onjuist
+Custom: Ongewoon
+Custom execution limit: Afwijkend prestatielimiet
+DHT11 Temperature & Humidity Sensor: DHT11 temperatuur- en vochtigheidssensor
+DHT21 Temperature & Humidity Sensor: DHT21 temperatuur- en vochtigheidssensor
+DHT22 Temperature & Humidity Sensor: DHT12 temperatuur- en vochtigheidssensor
+DISABLED: UITGESCHAKELD
+DS18B20 Thermometer: DS18B20-thermometer
+Data saved: DS18B20-thermometer
+Days: Dagen
+Decline: Wijs af
+Delete: Verwijder
+Delete measurement history: Verwijder meetgeschiedenis
+Delete my account: Verwijder Mijn account
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Als u uw account verwijdert, worden ook al uw gegevens verwijderd, inclusief de gegevens over uw verbonden apparaten, geconfigureerde kanalen, directe links en meetgeschiedenis. Het verwijderen van de account kan niet ongedaan worden.'
+Depth: Diepte
+Depth sensor: Dieptesensor
+Description: Beschrijving
+Details: Details
+Device: Toestel
+Device unavailable: Toestel is ontoegankelijk
+Dimmer: Dimmer 
+Dimmer & RGB led controller: Dimmer en RGB-verlichtingscontroller
+Dimmer and RGB lighting: Dimmer en RGB-verlichting
+Direct link: Directe link
+Direct link has been created successfully!: Een directe link is succesvol aangemaakt!
+Direct link has been executed: Er is een directe link aangemaakt
+'Direct link is not working right now. Reason:': 'De directe link werkt momenteel niet. Oorzaak:'
+Direct links: Directe links
+Direct links below will be deleted: De hieronder vermelde directe links worden verwijderd
+Disabled: Uitgeschakeld
+Disconnected: De verbinding werd verbroken
+Distance: Afstand
+Distance sensor: Afstandssensor
+'Don’t worry, you can always reset your password via email. Click here to do so.': Maak je geen zorgen. U kunt uw wachtwoord altijd opnieuw instellen via uw e-mail. Klik hier om dit te doen.
+Door lock operation: Deuropener
+Door opening sensor: Sensor deuropening
+Doors and gates: Deuren en poorten
+'Doors, Gates': 'Deuren, poorten'
+Download the history of measurement: Download meetgeschiedenis
+Drag your image(s) here or click to select from the disk: Sleep het beeld hierheen of klik hier om op de schijf te selecteren
+ENABLED: Ingeschakeld
+Edit: Bewerken
+Electric: Elektriciteit
+Electricity meter: Kilowattuurmeter
+Email already exists: Email adres bestaat al
+Empty!: Leeg!
+Enabled: Aan
+End date: Einddatum
+Enter new password: Voer een nieuw wachtwoord in
+Enter strong password: Voer een sterk wachtwoord in
+Enter the data below in the settings of your control device (I/O Device).: Onderstaande gegevens voer in de instellingen van uw bedieningsapparaat (I / O-apparaat) in.
+Enter the data below in your mobile SUPLA application on your smartphone.: Onderstaande gegevens voer in op de mobiele applicatie SUPLA die op uw smartphone is geïnstalleerd.
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Voer alleen het domein samen met de poort in als dit niet standaard is (443). We hebben een HTTPS-verbinding nodig.
+Enter your email address: Voer je e-mailadres in
+Enter your password to prevent automatic logout.: PVoer uw wachtwoord in om automatisch uitloggen te voorkomen.
+Error: Fout
+Error when communicating the server. Try again in a while.: Er is een probleem bij de communicatie met de server opgetreden. Probeer het later opnieuw.
+Every: Wat
+Example Auth URL: Voorbeeld van autorisatie-URL
+Executed action: Ondernomen actie
+Executed without confirmation: Uitgevoerd zonder bevestiging
+Execution history: Geschiedenis verrichtingen
+Execution limit: Limiet uitvoeringen
+Executions: Uitvoeringen
+Existing schedules: Bestaande schema's
+Expired: Verlopen
+Failed: Mislukt
+Failed (zombie): Mislukt (zombies)
+File is too large: Het bestand is te groot
+For devices: Voor apparaten
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Om veiligheidsredenen wordt de volledige URL van deze directe link slechts één keer - tijdens het aanmaken ervan - getoond.'
+Forgot your password?: Wachtwoord vergeten?
+Forward active energy: Opgenomen actieve energie
+Fridays: Vrijdagen
+From IP: Van een IP-adres
+From anywhere: Van een willekeurige plaats
+Full closing time: Totale sluitingstijd
+Full documentation: Volledige documentatie
+Full opening time: Totale openingstijd
+Function: Functie
+G5LA1A Relay: G5LA1A-relais
+G5LA1A Relay x2: 2xG5LA1A relais
+GENERATE: MAAK AAN
+Garage door opening sensor: Garagedeur openingssensor
+Garage door operation: Garagedeur openen / sluiten
+Gas meter: Gasmeter
+Gate opening sensor: Toegangssensor openingspoort
+Gate operation: Opritpoort openen / sluiten
+Gateway lock operation: Het openen van het poortje
+Gateway opening sensor: Openingssensor van het poortje
+Generate new token: Maak een nieuw token aan
+Generate token: Maak token aan
+Get SUPLA on your devices: Download SUPLA voor uw apparaten
+Go to I/O device details: Ga naar apparaatgegevens
+Go to channel details: Ga naar kanaaldetails
+Go to your account: Ga naar je account
+Grant access: Verleen toegang
+HFD4 Relay: HFD4-relais
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Geen bericht ontvangen met de activatie link voor uw account? Zorg ervoor dat deze niet in de map SPAM (ongewenste e-mail) staat. U kunt ook [hier] klikken om het opnieuw te verzenden.'
+History of measurements: Meetgeschiedenis
+Home appliances: Huishoudelijke toestellen / elektronica
+Home+ Heater: Verwarming Home +
+Hours: Uren
+Humidity: Vochtigheid
+Humidity Sensor: Vochtigheidssensor
+Humidity adjustment: Aanpassing vochtigheid
+Humidity sensor: Vochtigheidssensor
+'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Ik accepteer [Reglement] en ga akkoord met de verwerking van mijn persoonlijke gegevens voor het doel en de reikwijdte zoals in [Reglement] aangegeven.'
+I agree: Ik ben het er mee eens
+'I aree, taske me to the app': 'ZIk ga akkoord, ga naar de applicatie'
+I confirm! Delete my account.: Ik ga akkoord, ga naar de applicatie
+'I do not agree, get me out of here': 'Ik ga akkoord, ga naar de applicatie'
+I/O Devices: I / O-apparaten
+INACTIVE: INACTIVE
+Idle: Zonder activiteiten
+'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Als u een programmeur bent die extra functies voor SUPLI wil bieden, maakt u een OAuth-toepassing die gebruikers kunnen autoriseren en gebruiken.'
+'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Als je zeker weet dat je een account hebt bij cloud.supla.org, controleer dan of de applicatie die je probeert te autoriseren, publiekelijk beschikbaar is.'
+'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u [uw exemplaar registreren].'
+'If you want to stay here, do something!': 'Als je hier wilt blijven, doe dan iets!'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Als u de directe link in andere software wilt gebruiken, voegt de juiste koptekst toe om een antwoord te krijgen dat gemakkelijker te verwerken is.'
+'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Als u beschikbare integraties wilt zien, ga naar [cloud.supla.org/apps].'
+Impulse counter: Pulsteller
+Impulses: Pulsen
+'In order to confirm account deletion, enter your password.': Voer uw wachtwoord in om uw intentie om uw account te verwijderen te bevestigen.
+Incorrect password: Het wachtwoord is onjuist
+Information: Informatie
+Inherit I/O Device location: Gebruik apparaatlocatie
+Initial value: Beginwaarde
+Integrations: Integraties
+Interval: Interval
+Invalid SUPLA Cloud URL.: Ongeldige URL voor SUPLA Cloud-instantie
+'Invalid redirect URI: {uri}': 'Ongeldige retour-URL: {uri}'
+Invalid request: Ongeldig verzoek
+Inverted logic: Omgekeerde logica
+Invisible: Onzichtbaar
+Language is not available: Taal niet beschikbaar
+Last access: Recente verbinding
+Last connection: Recente verbinding
+Last used: Laatst gebruikt
+Let me choose later: Laat me later kiezen
+Light switch: Lichtschakelaar
+Lighting: Verlichting
+Limit has been exceeded: De limiet is overschreden
+'Liquid, Temp': 'Vloeistof, Temperatuur'
+Location: Localisatie
+Location Identifier: Locatie ID
+Location limit has been exceeded: Locatielimiet overschreden
+Location password must be at least 4 characters.: Locatiewachtwoord moet minimaal 4 tekens lang zijn.
+Location password must be no longer than 32 characters.: Locatiewachtwoord mag niet langer zijn dan 32 tekens.
+Locations: Locaties
+Login: Login
+Mail sensor: Postsensor
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Zorg ervoor dat het op een veilige plaats wordt bewaard als u het in de toekomst wilt gebruiken. De link wordt niet meer weergegeven na het verlaten van deze pagina.'
+'Maximum filesize limit is {limit}.': 'De maximale bestandsgrootte is {limit}.'
+Meter value: Meterstand
+Minute: Minuut
+Mobile Apps: Mobiele applicaties
+Mode: Modaliteiten
+Modification: Wijziging
+Mondays: Maandagen
+My OAuth apps: Mijn OAuth-applicaties
+My SUPLA: Mijn SUPLA
+Name: Naam
+Never: Nooit
+New OAuth application: De nieuwe OAuth-applicatie
+New channel group: Nieuwe kanaalgroep
+New direct link: Nieuwe directe link
+New password: Nieuw wachtwoord
+Newer: Nieuwere
+Next run date: Komende uitvoering
+'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'U hebt geen actieve toegangs-ID's. Ga naar [lijst met toegangs-ID] of [voeg nieuwe toegangs-ID toe].'
+No function: Geen functie beschikbaar
+No future executions - schedule disabled: Geen geplande uitvoeringen - schema uitgeschakeld
+No limit: Geen limiet
+No liquid sensor: Vloeistofniveau-sensor
+'No location enabled. Go to [location list] or [add a new location].': 'U heeft geen actieve locaties. Ga naar [locatielijst] of [nieuwe locatie toevoegen].'
+'No results match {0}': 'Geen resultaten gevonden die bij {0} passen'
+No. of Client’s apps: Het aantal klant-applicaties
+No. of access identifiers: Aantal toegangs-ID's
+No. of channel groups: Aantal kanaalgroepen
+No. of channels: Aantal kanalen
+No. of devices: Aantal apparaten
+No. of locations: Aantal locaties
+None: Geen
+OAuth application: OAuth-toepassing
+OAuth authorization: OAuth-autorisatie
+'Off': Zet uit
+Offline access: Offline toegang
+Older: Oudere
+'On': Zet in
+On/Off switch: Aan / uit schakelaar
+'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Alleen domeinnamen met het optionele poortnummer zijn toegestaan. Bijvoorbeeld. mysupla.org of mysupla.org:88. HTTPS is vereist.'
+Open: Openen
+Open / close: Openen / sluiten
+Opening sensor: Sensor openen
+Original location: Oorspronkelijke locatie
+'Otherwise go to [the homepage].': 'Ga anders naar [startpagina].'
+Partial opening sensor: Indirecte openingssensor
+Password: Wachtwoord
+Password Reset: Wachtwoord opnieuw instellen
+Password has been changed: Het wachtwoord is gewijzigd
+Percentage of closing: Percentage van sluiting
+Personal access tokens: Persoonlijke toegangstokens
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Persoonlijke toegangstokens werken als gewone toegangstokens, behalve dat ze voor onbepaalde tijd werken.'
+Personal token name is required.: Persoonlijke tokennaam is vereist.
+Please click the link we have sent you after the registration to proceed.: 'Klik op de link met het bericht dat we u hebben gestuurd nadat het account is gemaakt.'
+Please enter a valid email address: Voer alstublieft een geldig e-mailadres in
+Please fill a valid email address: Voer alstublieft een geldig e-mailadres in
+Please log in again to proceed.: Meld u opnieuw aan om door te gaan.
+Please provide a valid domain name for your private SUPLA Cloud: Voer de juiste domeinnaam in voor uw privé SUPLA-cloud
+Please select the schedules that should also be enabled.: 'Selecteer schema's die ook moeten worden opgenomen.'
+Please wait a moment before the next login attempt.: Wacht even voor de volgende inlogpoging.
+Pressure sensor: Druksensor
+Previous login: Vorige login
+Price per: Prijs voor
+Private Cloud domain name: Private cloud domeinnaam
+Proceed: Vervolg
+Processing: In uitvoering...
+Public ID: PublicID
+RESET: RESETTEN...
+RGB led controller: RGB-verlichtingscontroller
+RGB lighting: RGB-verlichting
+Rain sensor: Regensensor
+Random: Willekeurig
+Read: Stand
+Refresh: Herlaad
+Register: Registreer
+Register a new OAuth application: Registreer nieuwe OAuth-applicatie
+Register private SUPLA Cloud: Registreer private SUPLA-cloud
+Registered: geregistreerd
+Registration of new I/O devices: Apparaatregistratie
+Registration of new clients: Klantenregistratie
+Relay: Relais
+Relay switching time: Inschakeltijd relais
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}.'
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}.'
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID's: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID's: {relatedIds}.'
+Repeat password: Wachtwoord opnieuw invoeren
+Retry on failure: Herhaal als dit niet uitgevoerd is
+Reveal: Laat zien
+Reveal partially: Laat gedeeltelijk zien
+Revoke: Herroepen
+Roller shutter opening sensor: Rolluik openen sensor
+Roller shutter operation: Rolluik openen en sluiten
+Roller shutters: Rolluiken
+SUPLA Server was unable to execute the action.: Fout tijdens het uitvoeren van actie in SUPLA Server.
+'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA is altijd en overal beschikbaar, dus maak je geen zorgen de volgende keer dat je vergeet het licht uit te doen'
+Saturdays: Zaterdagen
+Save: Opslaan
+Save and enable: Opslaan en inschakelen
+Save changes: Wijzigingen opslaan
+Save changes to see Access IDs: Wijzigingen opslaan om toegangs-ID's weer te geven
+Schedule: Tijdschema
+Schedule cannot be enabled: Kan tijdschema niet inschakelen
+Schedule limit has been exceeded: De limiet voor tijdschema's is overschreden
+Schedule mode: Schemamodus
+Schedules: Tijdschema's
+Schedules below will be deleted: De volgende tijdschema's worden verwijderd
+Scope: Het toepassingsgebied (reikwijdte)
+Scopes: Bereiken
+Scopes define which sections of your account can be accessed when using the token.: 'Bereiken bepalen tot welke accountbronnen toegang kan worden verkregen met behulp van een token.'
+Search: Zoeken
+Secret: Geheime sleutel
+See direct link possibilities: Bekijk de mogelijkheden van de directe link
+Seems like a secret place: 'Iets zegt ons dat je hier niet zou moeten zijn'
+Select icon: Kies pictogram
+Select the item (subject) you want to control using this link: 'Selecteer het item (entiteit) dat u met behulp van deze link wilt beheren.'
+Sensor (normal closed): Sensor (normaal gesloten)
+Sensor (normal open): Sensor (normaal open)
+Sensor disconnected: Geen sensor
+Sensors: Sensoren
+Server address: Serveradres
+Server unreachable: Server onbereikbaar
+Service temporarily unavailable: Service tijdelijk niet beschikbaar
+Show on the Client’s devices: Geef weer op klantgenapparaten
+Shut: Sluit
+Sign In: Inloggen
+Sign Out: Uitloggen
+Sign in temporarily unavailable. Please try again later.: Inloggen tijdelijk niet beschikbaar. Probeer het later eens opnieuw.
+Smartphones: Smartphones
+SoftVer: WerOpr
+Sources available from: Bronnen beschikbaar in
+Staircase timer: Trap automaat
+Start Here: Begin hier
+Start date: Begindatum
+State: Status
+Stop: Stop
+Subject: Entiteit 
+Subject type: Typ podmiotu
+Success: Succes
+Successful: Geslaagd
+Sundays: Zondagen
+Sunrise / Sunset: Oost-West
+Supla for devices: Supla voor apparaten
+Temperature: Temperatuur
+Temperature & Humidity Sensor: Temperatuur- en vochtigheidssensor
+Temperature Sensor: emperatuursensor
+Temperature adjustment: Temperatuur aanpassing
+Temperature and humidity sensor: Temperatuur- en vochtigheidssensor
+'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dankzij integraties kunt u eenvoudig aan uw account nieuwe functies toevoegen met behulp van oplossingen van externe leveranciers, programmeurs of uzelf.'
+The Terms and Conditions have changed: Het reglement is gewijzigd
+The Terms and Conditions have changed – please read them and accept.: Website reglement is gewijzigd - goedkeuring is vereist.
+The activation link has been sent again. Check the inbox.: Een bericht met een link om uw account te activeren is opnieuw verzonden. Controleer je inbox.
+The client will be automatically logged out when deleted.: Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.
+The device is disabled: Het apparaat is uitgeschakeld
+The gate sensor must function properly in order to execute the scheduled action.: Om de actie uit te voeren, moet de poortopeningssensor correct werken.
+The latest execution: Laatste uitvoering
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.'
+The measurement history has been deleted.: Meetgeschiedenis is verwijderd.
+The next available executions: Komende uitvoering
+The password and its confirm are not the same.: Het wachtwoord en de bevestiging zijn niet hetzelfde.
+The password should be 8 or more characters.: Het wachtwoord moet minimaal 8 tekens bevatten.
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'De server heeft een 400-fout verzonden, wat betekent dat het verzonden verzoek ongeldig is.'
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'De server heeft een HTTP 403-fout verzonden. Dit betekent dat u niet voldoende rechten hebt om dit item te bekijken.'
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'De server heeft een HTTP 404-fout verzonden. Dit betekent dat het item dat u zoekt niet bestaat.'
+'The server has returned an HTTP {statusCode} error.': 'De server heeft de fout {statusCode} verzonden.'
+'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'De pictogrambestanden die u hebt geselecteerd, zijn te groot. De maximaal toegestane uploadgrootte is {limit}.'
+There are no more channels you can add to this group: 'Er zijn geen andere kanalen om aan deze groep toe te voegen'
+Thermometer: Thermometer
+Thermostat: Thermostaat
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Deze directe link vereist verduidelijking van de parameters van de actie die wordt uitgevoerd. Zie de onderstaande voorbeelden om erachter te komen welke parameters u kunt instellen.'
+This is the list of applications you have granted access to your account.: 'Dit is de lijst met applicaties die u toegang tot uw account hebt verleend.'
+Thursdays: Donderdagen
+Timezone: Tijdzone
+Toggle: Schakel
+Token does not exist: Het token bestaat niet
+Too many channels in this group: Te veel kanalen in deze groep
+Tuesdays: Diensdagen
+Turning this device off will result in disabling all the associated schedules.: 'Als u dit apparaat uitschakelt, wordt ook de bijbehorende harmongoram uitgeschakeld.'
+Type: Type
+Unit: Eenheid
+Unknown: Onbekend
+Unsupported function: Niet-ondersteunde functie
+Unsupported type: Niet-ondersteund type
+'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'op het zedelijkheid, het auteursrecht en de rechten van derden en ik heb het recht om ze te gebruiken.'
+User is already confirmed. Try to log in.: Dit account is al bevestigd. Log dan in!
+Visible: Zichtbaar
+Visit app webpage: Open de site van de applicatie
+WELCOME_MESSAGE: |
+  Uw huis of kantoor met SUPLI te verbinden, is eenvoudig. Het enige dat u moet doen, is de volgende 
+  gegevens naar uw besturingsapparaten (I / O) en smartphones te herschrijven.
+Water meter: Watermeter
+We could not connect to your SUPLA Cloud instance.: We kunnen geen verbinding maken met uw privé-SUPLA Cloud-exemplaar.
+We have just sent you an activation link. Be patient.: Er is zojuist een bericht verzonden met een link om uw account te activeren. Geduld.
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: We hebben u een e-mail gestuurd met een link om uw account te verwijderen. Misschien zul je van gedachten veranderen!
+'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'We slaan informatie over uw voorkeuren op in uw browser om het gebruik van de applicatie te vergemakkelijken (bijv. Met behulp van een cookiemechanisme). [Lees het reglement].'
+We were not able to find your account.: We konden uw account niet vinden.
+We will miss you: We zullen je missen
+'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We zullen ons best doen om de weergegeven pictogrammen op de beste manier te verzenden, maar u krijgt de beste resultaten door PNG-bestanden met een transparante achtergrond en pixels met breedte {width} en hoogte {height} te verzenden.'
+We will use it only in justified situations.: We zullen het alleen gebruiken in gerechtvaardigde gevallen
+Weather Station: Weerstation
+Wednesdays: Woensdagen
+Weight sensor: Gewicht
+What this token is for?: Wat doet dit token?
+When: Wanneer
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.'
+Where is the JSON?: Waar is JSON?
+Where is your SUPLA Cloud?: Waar bevindt uw-Supla zich?
+White: Wit
+Wind sensor: Windsensor
+Window opening sensor: Raamopeningssensor
+With SUPLA you can operate the lights in your home or office: Met SUPLA kunt u de verlichting thuis of op kantoor regelen
+With function: Met functie
+Working period: Gebruiksperiode
+YOUR LINK CODE: UW LINKCODE
+You cannot delete your last access identifier.: U kunt uw laatste toegangs-ID niet verwijderen.
+You cannot delete your last location.: U kunt uw laatste locatie niet verwijderen.
+You just need to execute the following command inside your host terminal.: Voer gewoon de volgende opdracht uit in de terminal van uw host.
+You must agree to the Terms and Conditions.: Aanvaarding van reglement is vereist.
+You need to provide icons for all states.: U moet pictogrammen voor alle staten opgeven.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: U moet uw SUPLA Cloud-software naar ten minste versie 2.3.0. bijwerken
+You will be logged out shortly: U wordt zo uitgelogd
+You will not be able to generate a direct link with the same URL again.: Het is niet mogelijk om een link met dezelfde URL te maken.
+Your account has been deleted. We hope you will come back to us soon.: 'Account is verwijderd. We hopen dat je snel bij ons terugkomt.'
+Your account has been locked.: Uw account is geblokkeerd.
+Your account has not been confirmed yet.: Uw account is nog niet bevestigd.
+Your email: Uw e-mailadres
+Your instance is not registered or you are trying to authorize an application that is not public.: 'Uw exemplaar is niet geregistreerd of u probeert een toepassing te autoriseren die niet openbaar is.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Uw privé-exemplaar van SUPLA cloud is niet beschikbaar. Zorg ervoor dat uw server online is en dat de HTTPS-verbinding correct werkt.'
+Your private SUPLA Cloud is almost registered.: Uw privé SUPLA cloud is bijna geregistreerd.
+Your private SUPLA Cloud is not registered.: Uw private cloud SUPLA is niet geregistreerd.
+Your session has been expired.: Uw sessie is verlopen.
+Your session is about to expire: Je sessie verloopt zo
+'Your session will expire in [time].': 'Uw sessie verloopt over [tijd].'
+after: na
+before: voor
+choose: kies
+choose a currency: selecteer valuta
+choose the channel: selecteer kanaal
+choose the channel group: selecteer een kanaalgroep
+choose the timezone: selecteer tijdzone
+copied: gekopieerd
+copy: kopiëren
+daily: Dagelijkse cyclus
+directLinkExecutionFailureReason_disabled: Directe link is uitgeschakeld
+directLinkExecutionFailureReason_executionLimitExceeded: Prestatielimiet is overschreden
+directLinkExecutionFailureReason_expired: De directe link is verlopen
+directLinkExecutionFailureReason_forbiddenAction: De link staat deze actie niet toe
+directLinkExecutionFailureReason_httpGetForbidden: De uitvoering van handelingen door middel van een niet veroorloofde  HTTP GET-methode werd onmogelijk gemaakt.
+directLinkExecutionFailureReason_invalidActionParameters: Ongeldige directe link-parameters
+directLinkExecutionFailureReason_invalidSlug: De verificatiecode die u heeft opgegeven, is onjuist.
+directLinkExecutionFailureReason_noAllowedActions: Geen toegestane acties geselecteerd
+directLinkExecutionFailureReason_noSlugOrAction: Ongeldig verzoek - linkcode en actie zijn vereist
+directLinkExecutionFailureReason_notActiveYet: De directe link is nog niet actief
+directLinkExecutionFailureReason_otherFailure: Fout bij uitvoeren van actie
+directLinkExecutionFailureReason_unsupportedAction: De geselecteerde actie is ongeldig
+executed: afgehandeld
+extend: verlengen
+from IP: van een IP-adres
+from the IP: van het adres
+hourly: Uur cyclus
+minutely: Minuut cyclus
+minutes: minuten
+once: Eenmalig
+register-slide1-text: 'Op basis van de beschikbare elektronica kunt u met SUPLA eenvoudige modules bouwen waarmee u componenten van de gebouwautomatisering kunt besturen en controleren. Dankzij SUPLI kunt u onder andere de verlichting regelen, huishoudelijke apparaten en elektronica in- en uitschakelen, poorten en deuren openen en sluiten, of de temperatuur in de kamers regelen. Je kunt dit allemaal doen met één vingerbeweging.'
+register-slide1-title: Eigen intelligent gebouw
+register-slide2-text: 'JEen van de uitgangspunten van het project zijn eenvoud en beschikbaarheid. Met SUPLA kunt u het licht aandoen met één vingerbeweging of de toegangspoort openen wanneer u het pand wilt betreden. SUPLA is beschikbaar overal waar u toegang hebt tot internet en een smartphone of tablet bij de hand hebt. SUPLA is ontwikkeld op basis van Open Software en Open Equipment, waardoor u dit project ook kunt ontwikkelen!'
+register-slide2-title: SUPLA overal!
+register-slide3-text: 'Op de markt beschikbare gebouwautomatiseringssystemen zijn meestal erg complex, gesloten en duur. In veel gevallen vereisen ze installatie al in het stadium van het bouwen van de faciliteit. SUPLA is eenvoudig, open en gratis. Het maakt het mogelijk om executive-elementen te bouwen op basis van RaspberryPI, Arduino of ESP8266 platforms en deze te verbinden via LAN en WiFi. Doe mee met het project en bouw je eigen versie van het gebouwautomatiseringssysteem!'
+register-slide3-title: Gratis en open!
+sec.: sec.
+'smartphones, tablets, etc.': 'smartphones, tablets etc.'
+state-closed: Gesloten
+state-default: Standaard
+state-empty: Blanco
+state-full: Volledig
+state-humidity: Vochtigheid
+state-off: Uitgeschakeld
+state-on: Aan
+state-opened: Geopend
+state-partially_closed: Gedeeltelijk gesloten
+state-revealed: Open
+state-rgb_off_dim_off: RGB en dimmer uit
+state-rgb_off_dim_on: 'RGB uit, dimmer aan'
+state-rgb_on_dim_off: 'RGB aan, dimmer uit'
+state-rgb_on_dim_on: RGB en dimmer aan
+state-shut: Gesloten
+state-temperature: Temperatuur
+sunrise-after: oosten
+sunrise-before: oosten
+sunset-after: westen
+sunset-before: westen
+will expire: vervallen
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan pas met uw account werken als u opnieuw toegang verleent.'
+'{clientName} wants to access your account.': '{clientName} wil toegang tot uw account.'
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+Assigned Locations: Wijs locaties toe
+Date: Datum
+Disable: Zet uit
+Enable: Zet in
+Hi: Hoi
+Hour: Uur
+I/O: Input / Outpt
+Input: Ingang
+Languages: Talen
+Loading: Opladen
+Next: Doorgaan
+Number: Nummer
+Output: Uitgang 
+Registration: Registratie
+Remove: Verwijder
+Status: Status
+Try again later: Probeer het later eens opnieuw
+execute: voer uit 
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+
+#</editor-fold>

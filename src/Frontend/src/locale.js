@@ -12,7 +12,11 @@ Vue.config.availableLanguages = [
     {value: 'it', text: 'Italiano'},
     {value: 'pt', text: 'Português'},
     {value: 'es', text: 'Español'},
-    {value: 'fr', text: 'Français'}
+    {value: 'fr', text: 'Français'},
+    {value: 'nl', text: 'Nederlands'},
+    {value: 'no', text: 'Norsk'},
+    {value: 'sl', text: 'Slovenščina'},
+    {value: 'el', text: 'Ελληνικά'}
 ];
 
 Vue.use(VueI18N);
