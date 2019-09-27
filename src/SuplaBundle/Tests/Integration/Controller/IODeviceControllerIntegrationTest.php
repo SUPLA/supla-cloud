@@ -269,4 +269,28 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals(0, $gateChannel->getParam3(), 'The paired sensor has not been cleared.');
     }
+
+    /** @large */
+    public function testGettingDevicesWithAllPossibleIncludesDoesNotCauseRecursion() {
+        $newLocation = $this->createLocation($this->user);
+        $channel = $this->device->getChannels()[0];
+        $channel->setLocation($newLocation);
+        $this->getEntityManager()->persist($channel);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV23('GET', '/api/iodevices?include=channels,location,originalLocation,connected,state');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent());
+        $this->assertCount(1, $content);
+        $this->assertEquals($this->device->getId(), $content[0]->id);
+        $this->assertTrue(property_exists($content[0], 'location'));
+        $this->assertTrue(property_exists($content[0], 'channels'));
+        $this->assertTrue(property_exists($content[0]->channels[0], 'location'));
+        $this->assertTrue(property_exists($content[0]->channels[0], 'state'));
+        $this->assertTrue(property_exists($content[0]->channels[0]->location, 'channels'));
+        $this->assertCount(1, $content[0]->channels[0]->location->channels);
+        // here - recursive serialization of channel to its identifier instead of an object
+        $this->assertEquals([$channel->getId()], $content[0]->channels[0]->location->channels);
+    }
 }

@@ -18,19 +18,21 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Location;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class LocationSerializer extends AbstractSerializer {
+class LocationSerializer extends AbstractSerializer implements NormalizerAwareInterface {
+    use NormalizerAwareTrait;
+
     /**
      * @param Location $location
      * @inheritdoc
      */
-    public function normalize($location, $format = null, array $context = []) {
-        $normalized = parent::normalize($location, $format, $context);
+    protected function addExtraFields(array &$normalized, $location, array $context) {
         $normalized['iodevicesIds'] = $this->toIds($location->getIoDevices());
         $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
         $normalized['channelsIds'] = $this->toIds($location->getChannels());
         $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
-        return $normalized;
     }
 
     public function supportsNormalization($entity, $format = null) {

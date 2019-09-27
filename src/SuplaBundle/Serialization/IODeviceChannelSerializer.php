@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Serialization;
 
-use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
@@ -29,44 +28,37 @@ class IODeviceChannelSerializer extends AbstractSerializer {
 
     /** @var ChannelStateGetter */
     private $channelStateGetter;
-    /** @var EntityManagerInterface */
-    private $entityManager;
 
     /**
      * IODeviceChannelSerializer constructor.
      */
-    public function __construct(ChannelStateGetter $channelStateGetter, EntityManagerInterface $entityManager) {
+    public function __construct(ChannelStateGetter $channelStateGetter) {
         $this->channelStateGetter = $channelStateGetter;
-        $this->entityManager = $entityManager;
     }
 
     /**
      * @param IODeviceChannel $channel
      * @inheritdoc
      */
-    public function normalize($channel, $format = null, array $context = []) {
-        $normalized = parent::normalize($channel, $format, $context);
-        if (is_array($normalized)) {
-            $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
-            $normalized['locationId'] = $channel->getLocation()->getId();
-            $normalized['functionId'] = $channel->getFunction()->getId();
-            $normalized['userIconId'] = $channel->getUserIcon() ? $channel->getUserIcon()->getId() : null;
-            $normalized['typeId'] = $channel->getType()->getId();
-            if (in_array('connected', $context[self::GROUPS])) {
-                $normalized['connected'] = $this->suplaServer->isDeviceConnected($channel->getIoDevice());
-            }
-            if (in_array('state', $context[self::GROUPS])) {
-                $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
-            }
-            if (in_array('relationsCount', $context[self::GROUPS])) {
-                $normalized['relationsCount'] = [
-                    'directLinks' => $channel->getDirectLinks()->count(),
-                    'schedules' => $channel->getSchedules()->count(),
-                    'channelGroups' => $channel->getChannelGroups()->count(),
-                ];
-            }
+    protected function addExtraFields(array &$normalized, $channel, array $context) {
+        $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
+        $normalized['locationId'] = $channel->getLocation()->getId();
+        $normalized['functionId'] = $channel->getFunction()->getId();
+        $normalized['userIconId'] = $channel->getUserIcon() ? $channel->getUserIcon()->getId() : null;
+        $normalized['typeId'] = $channel->getType()->getId();
+        if (in_array('connected', $context[self::GROUPS])) {
+            $normalized['connected'] = $this->suplaServer->isDeviceConnected($channel->getIoDevice());
         }
-        return $normalized;
+        if (in_array('state', $context[self::GROUPS])) {
+            $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
+        }
+        if (in_array('relationsCount', $context[self::GROUPS])) {
+            $normalized['relationsCount'] = [
+                'directLinks' => $channel->getDirectLinks()->count(),
+                'schedules' => $channel->getSchedules()->count(),
+                'channelGroups' => $channel->getChannelGroups()->count(),
+            ];
+        }
     }
 
     public function supportsNormalization($entity, $format = null) {

@@ -121,4 +121,15 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(404, $client->getResponse());
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
+
+    public function testGettingUserWithLongUniqueId() {
+        SuplaAutodiscoverMock::clear(false);
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest('GET', '/api/users/current?include=longUniqueId');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('longUniqueId', $body);
+    }
 }

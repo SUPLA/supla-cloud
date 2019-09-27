@@ -47,8 +47,17 @@ abstract class AbstractSerializer extends ObjectNormalizer {
         return EntityUtils::mapToIds($collection);
     }
 
-    protected function shouldInclude(string $groupName, array $context): bool {
-        return in_array($groupName, $context[self::GROUPS]);
+    protected function isSerializationGroupRequested(string $groupName, array &$context): bool {
+        if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
+            $requested = in_array($groupName, $context[self::GROUPS]);
+            if ($requested) {
+                $index = array_search($groupName, $context[self::GROUPS]);
+                unset($context[self::GROUPS][$index]);
+                $context[self::GROUPS] = array_values($context[self::GROUPS]);
+            }
+            return $requested;
+        }
+        return false;
     }
 
     /**
@@ -60,4 +69,15 @@ abstract class AbstractSerializer extends ObjectNormalizer {
         }
         return $array;
     }
+
+    /** @inheritDoc */
+    final public function normalize($object, $format = null, array $context = []) {
+        $normalized = parent::normalize($object, $format, $context);
+        if (is_array($normalized)) {
+            $this->addExtraFields($normalized, $object, $context);
+        }
+        return $normalized;
+    }
+
+    abstract protected function addExtraFields(array &$normalized, $object, array $context);
 }

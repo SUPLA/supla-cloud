@@ -24,11 +24,11 @@ class AccessIdSerializer extends AbstractSerializer {
      * @param AccessID $accessId
      * @inheritdoc
      */
-    public function normalize($accessId, $format = null, array $context = []) {
-        $normalized = parent::normalize($accessId, $format, $context);
-        $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
+    protected function addExtraFields(array &$normalized, $accessId, array $context) {
+        $collection = $accessId->getLocations();
+        $toIds = $this->toIds($collection);
+        $normalized['locationsIds'] = $toIds;
         $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
-        return $normalized;
     }
 
     public function supportsNormalization($entity, $format = null) {

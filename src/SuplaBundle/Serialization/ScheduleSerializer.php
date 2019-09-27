@@ -40,25 +40,15 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
      * @param Schedule $schedule
      * @inheritdoc
      */
-    public function normalize($schedule, $format = null, array $context = []) {
-        $normalized = parent::normalize($schedule, $format, $context);
-        if (is_array($normalized)) {
-            $subjectType = $schedule->getSubjectType()->getValue();
-            $normalized['subjectType'] = $subjectType;
-            $normalized['subjectId'] = $schedule->getSubject()->getId();
-            $normalized['mode'] = $schedule->getMode()->getValue();
-            $normalized['actionId'] = $schedule->getAction()->getId();
-            if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
-                if (in_array('closestExecutions', $context[self::GROUPS])) {
-                    $normalized['closestExecutions'] = $this->getClosestExecutions($schedule, $format, $context);
-                }
-            }
+    protected function addExtraFields(array &$normalized, $schedule, array $context) {
+        $subjectType = $schedule->getSubjectType()->getValue();
+        $normalized['subjectType'] = $subjectType;
+        $normalized['subjectId'] = $schedule->getSubject()->getId();
+        $normalized['mode'] = $schedule->getMode()->getValue();
+        $normalized['actionId'] = $schedule->getAction()->getId();
+        if ($this->isSerializationGroupRequested('closestExecutions', $context)) {
+            $normalized['closestExecutions'] = $this->getClosestExecutions($schedule, null, $context);
         }
-        return $normalized;
-    }
-
-    public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof Schedule;
     }
 
     private function getClosestExecutions(Schedule $schedule, $format, array $context): array {
@@ -67,5 +57,9 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
             'past' => $this->normalizer->normalize($closest['past'], $format, $context),
             'future' => $this->normalizer->normalize($closest['future'], $format, $context),
         ];
+    }
+
+    public function supportsNormalization($entity, $format = null) {
+        return $entity instanceof Schedule;
     }
 }
