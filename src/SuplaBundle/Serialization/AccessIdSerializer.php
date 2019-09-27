@@ -25,9 +25,7 @@ class AccessIdSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $accessId, array $context) {
-        $collection = $accessId->getLocations();
-        $toIds = $this->toIds($collection);
-        $normalized['locationsIds'] = $toIds;
+        $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
         $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
     }
 

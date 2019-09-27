@@ -18,12 +18,8 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Location;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class LocationSerializer extends AbstractSerializer implements NormalizerAwareInterface {
-    use NormalizerAwareTrait;
-
+class LocationSerializer extends AbstractSerializer {
     /**
      * @param Location $location
      * @inheritdoc
