@@ -209,7 +209,18 @@ class UserController extends RestController {
 
         $remoteServer = '';
         $exists = $this->autodiscover->userExists($username);
-        Assertion::false($exists, 'Email already exists'); // i18n
+        if ($exists) {
+            $targetCloud = $this->autodiscover->getAuthServerForUser($username);
+            if ($targetCloud->isLocal()) {
+                $enabled = $this->userManager->userByEmail($username)->isEnabled();
+            } else {
+                list($response,) = $this->suplaCloudRequestForwarder->getUserInfo($targetCloud, $username);
+                $enabled = $response ? ($response['enabled'] ?? false) : false;
+            }
+            $view = $this->view(['status' => Response::HTTP_CONFLICT, 'message' => 'Email already exists'], Response::HTTP_CONFLICT);
+            $view->setHeader('SUPLA-Account-Enabled', $enabled ? 'true' : 'false');
+            return $view;
+        }
 
         if ($exists === null) {
             $this->mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);

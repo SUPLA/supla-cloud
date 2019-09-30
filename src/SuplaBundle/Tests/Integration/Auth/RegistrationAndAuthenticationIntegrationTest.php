@@ -102,6 +102,33 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(['email' => self::EMAIL], SuplaAutodiscoverMock::$requests[1]['post']);
     }
 
+    /** @small */
+    public function testQueryingForUserDetailsIfExistsInAd() {
+        SuplaAutodiscoverMock::clear();
+        $email = array_keys(SuplaAutodiscoverMock::$userMapping)[0];
+        $userData = [
+            'email' => $email,
+            'regulationsAgreed' => true,
+            'password' => self::PASSWORD,
+            'timezone' => 'Europe/Warsaw',
+        ];
+        $client = $this->createHttpsClient();
+        $targetCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint) use ($email, &$targetCalled) {
+                $targetCalled = true;
+                $this->assertEquals('https://supla.local', $address);
+                $this->assertEquals('user/' . $email, $endpoint);
+                return [['enabled' => true], Response::HTTP_OK];
+            };
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertTrue($targetCalled);
+        $this->assertStatusCode(409, $client->getResponse());
+        $headers = $client->getResponse()->headers;
+        $this->assertTrue($headers->has('SUPLA-Account-Enabled'));
+        $this->assertEquals('true', $headers->get('SUPLA-Account-Enabled'));
+    }
+
     public function testDoesNotNotifyAdAboutNewUserIfNotBroker() {
         SuplaAutodiscoverMock::clear(false);
         $this->testCreatingUser();

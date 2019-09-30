@@ -19,6 +19,7 @@ namespace SuplaBundle\Model;
 
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -63,6 +64,10 @@ class TargetSuplaCloudRequestForwarder {
         return $this->sendRequest($target, 'register-resend', ['email' => $username]);
     }
 
+    public function getUserInfo(TargetSuplaCloud $target, string $username): array {
+        return $this->sendRequest($target, 'user/' . $username);
+    }
+
     public function registerUser(TargetSuplaCloud $target, Request $request): array {
         return $this->sendRequest($target, 'register', $request->request->all());
     }
@@ -94,6 +99,9 @@ class TargetSuplaCloudRequestForwarder {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
             $headers[] = 'Content-Type: application/json';
             $headers[] = 'Content-Length: ' . strlen($content);
+        }
+        if (file_exists(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
+            $headers[] = 'Authorization: Bearer ' . file_get_contents(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
         }
         if ($headers) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
