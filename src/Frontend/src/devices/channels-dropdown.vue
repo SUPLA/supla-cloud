@@ -14,8 +14,9 @@
             :data-none-results-text="$t('No results match {0}')"
             v-model="chosenChannel"
             @change="$emit('input', chosenChannel)">
-            <option value="0"
-                v-if="!hideNone && chosenChannel">{{ $t('None') }}
+            <option :value="undefined"
+                :title="$t('choose the channel')"
+                v-show="!hideNone && chosenChannel">{{ $t('None') }}
             </option>
             <option v-for="channel in channelsForDropdown"
                 :value="channel"
