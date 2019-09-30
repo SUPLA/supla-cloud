@@ -95,17 +95,24 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($createdUser->getId(), $entry->getUser()->getId());
     }
 
-//    /** @depends testSavesIncorrectLoginAttemptInAudit */
+    /** @depends testSavesIncorrectLoginAttemptInAudit */
     public function testHandlingQueryForUserDetailsFromBroker() {
-        $this->testCreatingUser();
         SuplaAutodiscoverMock::clear();
         $client = $this->createHttpsClient();
-        $client->apiRequest('PATCH', '/api/user-info', ['username' => self::EMAIL]);
+        $client->apiRequest('PATCH', '/api/user-info', ['username' => self::EMAIL], [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
         $this->assertStatusCode(200, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals(self::EMAIL, $content['email']);
         $this->assertFalse($content['enabled']);
         $this->assertArrayHasKey('id', $content);
+    }
+
+    /** @depends testHandlingQueryForUserDetailsFromBroker */
+    public function testRejectingQueryForUserDetailsFromNotBroker() {
+        SuplaAutodiscoverMock::clear();
+        $client = $this->createHttpsClient();
+        $client->apiRequest('PATCH', '/api/user-info', ['username' => self::EMAIL], [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer TARGET']);
+        $this->assertStatusCode(401, $client->getResponse());
     }
 
     /** @small */

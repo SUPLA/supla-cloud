@@ -145,6 +145,19 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                 ['id' => 1, 'url' => 'https://broker1.supla', 'ip' => '127.0.0.2'],
                 ['id' => 2, 'url' => 'https://broker2.supla', 'ip' => '127.0.0.3'],
             ];
+        } elseif (preg_match('#/about#', $endpoint, $match)) {
+            $responseStatus = 200;
+            $authorization = $headers['Authorization'] ?? '';
+            if ($authorization === 'Bearer BROKER') {
+                return ['isBroker' => true, 'isTarget' => true];
+            } elseif ($authorization === 'Bearer TARGET') {
+                return ['isBroker' => false, 'isTarget' => true];
+            } elseif ($authorization) {
+                $responseStatus = 403;
+                return null;
+            } else {
+                return ['isBroker' => false, 'isTarget' => false];
+            }
         }
         $responseStatus = 404;
         return false;

@@ -101,7 +101,7 @@ class TargetSuplaCloudRequestForwarder {
             $headers[] = 'Content-Length: ' . strlen($content);
         }
         if (file_exists(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
-            $headers[] = 'Authorization: Bearer ' . file_get_contents(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
+            $headers[] = 'SUPLA-Broker-Token: Bearer ' . file_get_contents(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
         }
         if ($headers) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

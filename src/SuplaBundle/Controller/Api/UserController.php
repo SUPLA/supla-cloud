@@ -95,6 +95,7 @@ class UserController extends RestController {
 
     /**
      * @Rest\Patch("/user-info")
+     * @Security("is_granted('isRequestFromBroker', request)")
      */
     public function getUserAction(Request $request) {
         $username = $request->get('username');

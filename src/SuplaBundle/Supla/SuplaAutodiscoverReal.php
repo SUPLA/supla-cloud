@@ -36,7 +36,7 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
             $headers = array_merge(['Content-Type' => 'application/json', 'Content-Length' => strlen($content)], $headers);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
         }
-        if (file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
+        if (!isset($headers['Authorization']) && file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
             $headers['Authorization'] = 'Bearer ' . file_get_contents(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
         }
         $headers = array_map(function ($headerName, $headerValue) {
