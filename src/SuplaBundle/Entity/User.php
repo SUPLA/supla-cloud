@@ -83,6 +83,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="enabled", type="boolean")
+     * @Groups({"basic"})
      */
     private $enabled;
 

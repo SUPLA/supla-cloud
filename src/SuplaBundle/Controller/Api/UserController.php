@@ -93,6 +93,20 @@ class UserController extends RestController {
         $this->recaptchaSecret = $recaptchaSecret;
     }
 
+    /**
+     * @Rest\Patch("/user-info")
+     */
+    public function getUserAction(Request $request) {
+        $username = $request->get('username');
+        $user = $this->userManager->userByEmail($username);
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+        $view = $this->view($user, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['longUniqueId']);
+        return $view;
+    }
+
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
     public function currentUserAction(Request $request) {
         $view = $this->view($this->getUser(), Response::HTTP_OK);

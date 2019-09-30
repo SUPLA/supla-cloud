@@ -95,11 +95,17 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($createdUser->getId(), $entry->getUser()->getId());
     }
 
-    public function testNotifyingAdAboutNewUserIfBroker() {
-        SuplaAutodiscoverMock::clear();
+//    /** @depends testSavesIncorrectLoginAttemptInAudit */
+    public function testHandlingQueryForUserDetailsFromBroker() {
         $this->testCreatingUser();
-        $this->assertCount(2, SuplaAutodiscoverMock::$requests); // 1st - checking if exists, 2nd - registering
-        $this->assertEquals(['email' => self::EMAIL], SuplaAutodiscoverMock::$requests[1]['post']);
+        SuplaAutodiscoverMock::clear();
+        $client = $this->createHttpsClient();
+        $client->apiRequest('PATCH', '/api/user-info', ['username' => self::EMAIL]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(self::EMAIL, $content['email']);
+        $this->assertFalse($content['enabled']);
+        $this->assertArrayHasKey('id', $content);
     }
 
     /** @small */
@@ -127,6 +133,13 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $headers = $client->getResponse()->headers;
         $this->assertTrue($headers->has('SUPLA-Account-Enabled'));
         $this->assertEquals('true', $headers->get('SUPLA-Account-Enabled'));
+    }
+
+    public function testNotifyingAdAboutNewUserIfBroker() {
+        SuplaAutodiscoverMock::clear();
+        $this->testCreatingUser();
+        $this->assertCount(2, SuplaAutodiscoverMock::$requests); // 1st - checking if exists, 2nd - registering
+        $this->assertEquals(['email' => self::EMAIL], SuplaAutodiscoverMock::$requests[1]['post']);
     }
 
     public function testDoesNotNotifyAdAboutNewUserIfNotBroker() {
