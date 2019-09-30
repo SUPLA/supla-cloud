@@ -7,7 +7,7 @@
             <div class="alert error"
                 v-if="errorMessage">
                 <p>{{ errorMessage }}</p>
-                <p v-if="usernameTaken">
+                <p v-if="resendActivationLinkOption">
                     <resend-account-activation-link :username="username"></resend-account-activation-link>
                 </p>
             </div>
@@ -92,7 +92,7 @@
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
                 captchaToken: null,
                 regulationsAgreed: false,
-                usernameTaken: false
+                resendActivationLinkOption: false
             };
         },
         computed: {
@@ -116,7 +116,7 @@
                 this.submit();
             },
             submit() {
-                this.usernameTaken = false;
+                this.resendActivationLinkOption = false;
                 this.errorMessage = this.computedErrorMessage;
                 if (this.errorMessage) {
                     return;
@@ -136,7 +136,7 @@
                 this.$http.post('register-account', data, {skipErrorHandler: [400, 409]})
                     .then(({body}) => this.$emit('registered', body.email))
                     .catch(({body}) => {
-                        this.usernameTaken = body.message == 'Email already exists';
+                        this.resendActivationLinkOption = body.accountEnabled === false;
                         this.errorMessage = this.$t(body.message);
                     })
                     .finally(() => this.isBusy = false);
