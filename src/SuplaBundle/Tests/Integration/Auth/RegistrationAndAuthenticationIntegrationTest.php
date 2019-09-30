@@ -128,18 +128,18 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $targetCalled = false;
         TargetSuplaCloudRequestForwarder::$requestExecutor =
-            function (string $address, string $endpoint) use ($email, &$targetCalled) {
+            function (string $address, string $endpoint, array $data) use ($email, &$targetCalled) {
                 $targetCalled = true;
                 $this->assertEquals('https://supla.local', $address);
-                $this->assertEquals('user/' . $email, $endpoint);
+                $this->assertEquals('user-info', $endpoint);
+                $this->assertEquals(['username' => $email], $data);
                 return [['enabled' => true], Response::HTTP_OK];
             };
         $client->apiRequest('POST', '/api/register', $userData);
         $this->assertTrue($targetCalled);
         $this->assertStatusCode(409, $client->getResponse());
-        $headers = $client->getResponse()->headers;
-        $this->assertTrue($headers->has('SUPLA-Account-Enabled'));
-        $this->assertEquals('true', $headers->get('SUPLA-Account-Enabled'));
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($content['accountEnabled']);
     }
 
     public function testNotifyingAdAboutNewUserIfBroker() {

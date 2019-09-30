@@ -123,7 +123,6 @@ class UserController extends RestController {
             $this->assertNotApiUser();
             $password = $data['password'] ?? '';
             Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
-//            $this->userManager->deleteAccount($user);
             $this->userManager->accountDeleteRequest($user);
             $this->mailer->sendDeleteAccountConfirmationEmailMessage($user);
             return $this->view(null, Response::HTTP_NO_CONTENT);
@@ -232,9 +231,10 @@ class UserController extends RestController {
                 list($response,) = $this->suplaCloudRequestForwarder->getUserInfo($targetCloud, $username);
                 $enabled = $response ? ($response['enabled'] ?? false) : false;
             }
-            $view = $this->view(['status' => Response::HTTP_CONFLICT, 'message' => 'Email already exists'], Response::HTTP_CONFLICT);
-            $view->setHeader('SUPLA-Account-Enabled', $enabled ? 'true' : 'false');
-            return $view;
+            return $this->view(
+                ['status' => Response::HTTP_CONFLICT, 'message' => 'Email already exists', 'accountEnabled' => $enabled],
+                Response::HTTP_CONFLICT
+            );
         }
 
         if ($exists === null) {

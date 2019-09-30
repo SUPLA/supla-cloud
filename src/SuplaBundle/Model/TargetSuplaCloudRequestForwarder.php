@@ -89,7 +89,7 @@ class TargetSuplaCloudRequestForwarder {
             $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
         }
         $ch = curl_init($target->getAddress() . $apiEndpoint);
-        $method = $method ?: ($data ? 'POST' : 'GET');
+        $method = $method ?: ($data !== null ? 'POST' : 'GET');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         $headers = [];
         if ($ip = $this->clientIpResolver->getRealIp()) {
