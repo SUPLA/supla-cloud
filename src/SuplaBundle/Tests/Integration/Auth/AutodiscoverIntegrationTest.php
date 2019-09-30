@@ -90,6 +90,22 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($server->isLocal());
     }
 
+    public function testQueryingUserInfoAsBroker() {
+        $this->testRegisteringUserInAd();
+        $userData = [
+            'email' => 'adtest@supla.org',
+            'regulationsAgreed' => true,
+            'password' => 'alamakota',
+            'timezone' => 'Europe/Warsaw',
+        ];
+        $client = $this->createClient();
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertStatusCode(409, $client->getResponse());
+        $headers = $client->getResponse()->headers;
+        $this->assertTrue($headers->has('SUPLA-Account-Enabled'));
+        $this->assertEquals('false', $headers->get('SUPLA-Account-Enabled'));
+    }
+
     public function testDeletingUserDeletesItInAd() {
         $this->registerUser();
         $result = $this->executeCommand('supla:delete-user adtest@supla.org');

@@ -65,7 +65,7 @@ class TargetSuplaCloudRequestForwarder {
     }
 
     public function getUserInfo(TargetSuplaCloud $target, string $username): array {
-        return $this->sendRequest($target, 'user/' . $username);
+        return $this->sendRequest($target, 'user-info', ['username' => $username], 'PATCH');
     }
 
     public function registerUser(TargetSuplaCloud $target, Request $request): array {
@@ -81,15 +81,16 @@ class TargetSuplaCloudRequestForwarder {
         }
     }
 
-    private function sendRequest(TargetSuplaCloud $target, string $apiEndpoint, array $data = null): array {
+    private function sendRequest(TargetSuplaCloud $target, string $apiEndpoint, array $data = null, string $method = null): array {
         if (self::$requestExecutor) {
             return (self::$requestExecutor)($target->getAddress(), $apiEndpoint, $data);
         }
         if (strpos($apiEndpoint, '/') !== 0) {
-            $apiEndpoint = '/api/v' . ApiVersions::V2_2 . '/' . $apiEndpoint;
+            $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
         }
         $ch = curl_init($target->getAddress() . $apiEndpoint);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $data ? 'POST' : 'GET');
+        $method = $method ?: ($data ? 'POST' : 'GET');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         $headers = [];
         if ($ip = $this->clientIpResolver->getRealIp()) {
             $headers[] = 'X-Real-Ip: ' . $ip;
