@@ -329,6 +329,112 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(404, $response);
     }
 
+    /** @depends testCreatingScene */
+    public function testCreatingSceneWithOtherScene(array $scene1Details) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $scene1Details['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene', $content['caption']);
+        $this->assertCount(1, $content['operationsIds']);
+        return $content;
+    }
+
+    /** @depends testCreatingScene */
+    public function testCreatingSceneThatReferencesItselfIsForbidden(array $sceneDetails) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('PUT', '/api/scenes/' . $sceneDetails['id'], [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $sceneDetails['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    /**
+     * Trying to create 3 -> 2 -> 1 -> 3 scene execution cycle.
+     * @depends testCreatingSceneWithOtherScene
+     */
+    public function testCreatingSceneExecutionCycleIsForbidden(array $scene2Details) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $scene2Details['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+            ],
+        ]);
+        $this->assertStatusCode(201, $client->getResponse());
+        $scene3Details = json_decode($client->getResponse()->getContent(), true);
+        $scene1Id = $scene2Details['operations'][0]['subjectId'];
+        // at this point, we have 3 -> 2 -> 1, trying to add 1 -> 3
+        $client->apiRequestV23('PUT', '/api/scenes/' . $scene1Id, [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $scene3Details['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    /** @depends testCreatingSceneWithOtherScene */
+    public function testGettingDetailsOfSceneThatExecutesSceneThatExecutesSceneYouKnowWhatIMean(array $sceneDetails) {
+        $client = $this->createAuthenticatedClient($this->user);
+        for ($i = 0; $i < 10; $i++) {
+            $client->apiRequestV23('POST', '/api/scenes', [
+                'caption' => 'My scene',
+                'enabled' => true,
+                'operations' => [
+                    [
+                        'subjectId' => $sceneDetails['id'],
+                        'subjectType' => ActionableSubjectType::SCENE,
+                        'actionId' => ChannelFunctionAction::EXECUTE,
+                    ],
+                ],
+            ]);
+            $this->assertStatusCode(201, $client->getResponse());
+            $sceneDetails = json_decode($client->getResponse()->getContent(), true);
+        }
+        $client->apiRequestV23('GET', '/api/scenes/' . $sceneDetails['id'] . '?include=subject,operations,location');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertLessThan(5000, strlen($response->getContent()));
+        $body = json_decode($response->getContent(), 'true');
+        $this->assertArrayHasKey('operations', $body);
+        $this->assertArrayHasKey('operationsIds', $body);
+        $this->assertArrayNotHasKey('operations', $body['operations'][0]['subject']);
+        $this->assertArrayHasKey('operationsIds', $body['operations'][0]['subject']);
+    }
+
     public function testCreatingSceneWithoutOperationsFails() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV23('POST', '/api/scenes?include=operations', [

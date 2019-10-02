@@ -79,7 +79,6 @@
     import {channelTitle} from "../common/filters";
     import ChannelActionChooser from "../channels/action/channel-action-chooser";
     import RgbwParametersSetter from "../channels/action/rgbw-parameters-setter";
-    import SceneOperationAction from "./scene-operation-action";
     import draggable from 'vuedraggable';
     import SceneOperationDelaySlider from "./scene-operation-delay-slider";
     import Vue from 'vue';
@@ -90,7 +89,7 @@
         props: ['value'],
         components: {
             SceneOperationDelaySlider,
-            SceneOperationAction, RgbwParametersSetter, ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable
+            RgbwParametersSetter, ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable
         },
         data() {
             return {
@@ -132,8 +131,7 @@
                 return channelTitle(subject, this, true);
             },
             possibleActionFilter(subject) {
-                return (possibleAction) =>
-                    (possibleAction.name != 'OPEN' || subject.function.possibleActions.length == 1) && possibleAction.name != 'CLOSE';
+                return () => true;
             },
             updateModel() {
                 this.dragging = false;

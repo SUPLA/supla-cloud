@@ -66,6 +66,7 @@ class ScenesController extends RestController {
             $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
         }
         Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
+        $scene->ensureOperationsAreNotCyclic();
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->persist($scene);
             return $scene;
@@ -90,6 +91,7 @@ class ScenesController extends RestController {
                 return true;
             });
             $scene->setOpeartions($updated->getOperations());
+            $scene->ensureOperationsAreNotCyclic();
             $em->persist($scene);
             return $this->getSceneAction($request, $scene);
         });

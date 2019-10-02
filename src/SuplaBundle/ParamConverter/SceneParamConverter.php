@@ -10,6 +10,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
@@ -28,16 +29,18 @@ class SceneParamConverter extends AbstractBodyParamConverter {
     private $locationRepository;
     /** @var UserIconRepository */
     private $userIconRepository;
+    /**
+     * @var ActionableSubjectRepository
+     */
+    private $subjectRepository;
 
     public function __construct(
-        IODeviceChannelRepository $channelRepository,
-        ChannelGroupRepository $channelGroupRepository,
+        ActionableSubjectRepository $subjectRepository,
         ChannelActionExecutor $channelActionExecutor,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository
     ) {
-        $this->channelRepository = $channelRepository;
-        $this->channelGroupRepository = $channelGroupRepository;
+        $this->subjectRepository = $subjectRepository;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
@@ -67,9 +70,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             Assertion::keyExists($operationData, 'actionId', 'You must set action for each scene operation.');
             Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
             /** @var HasFunction $subject */
-            $subject = $operationData['subjectType'] === ActionableSubjectType::CHANNEL
-                ? $this->channelRepository->findForUser($user, $operationData['subjectId'])
-                : $this->channelGroupRepository->findForUser($user, $operationData['subjectId']);
+            $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
             $action = ChannelFunctionAction::fromString($operationData['actionId']);
             $actionParam = $operationData['actionParam'] ?? [] ?: [];
             $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);

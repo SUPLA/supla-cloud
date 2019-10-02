@@ -17,11 +17,14 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
@@ -72,6 +75,7 @@ class Scene implements HasLocation, HasFunction {
     /**
      * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="owningScene", cascade={"persist"})
      * @Groups({"operations"})
+     * @MaxDepth(1)
      */
     private $operations;
 
@@ -159,5 +163,20 @@ class Scene implements HasLocation, HasFunction {
         $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
         return "EXECUTE-SCENE:$params";
+    }
+
+    /** @param SceneOperation[] $operations */
+    public function ensureOperationsAreNotCyclic(?Scene $scene = null, array &$usedScenesIds = []) {
+        if (!$scene) {
+            $scene = $this;
+        }
+        $nextSceneId = $scene->id;
+        Assertion::notInArray($nextSceneId, $usedScenesIds, 'It is forbidden to have recursive execution of scenes.');
+        $usedScenesIds[] = $nextSceneId;
+        foreach ($scene->getOperations() as $operation) {
+            if ($operation->getSubjectType()->getValue() === ActionableSubjectType::SCENE) {
+                $this->ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds);
+            }
+        }
     }
 }
