@@ -64,6 +64,12 @@ class Scene implements HasLocation, HasFunction {
     private $enabled = true;
 
     /**
+     * @ORM\ManyToOne(targetEntity="UserIcon", inversedBy="scenes")
+     * @ORM\JoinColumn(name="user_icon_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $userIcon;
+
+    /**
      * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="owningScene", cascade={"persist"})
      * @Groups({"operations"})
      */
@@ -123,6 +129,14 @@ class Scene implements HasLocation, HasFunction {
             EntityUtils::setField($operation, 'owningScene', $this);
             $this->operations->add($operation);
         }
+    }
+
+    public function getUserIcon(): ?UserIcon {
+        return $this->userIcon;
+    }
+
+    public function setUserIcon(?UserIcon $userIcon) {
+        $this->userIcon = $userIcon;
     }
 
     public function getDirectLinks(): Collection {

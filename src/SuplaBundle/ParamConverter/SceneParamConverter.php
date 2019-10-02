@@ -13,6 +13,7 @@ use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
+use SuplaBundle\Repository\UserIconRepository;
 
 class SceneParamConverter extends AbstractBodyParamConverter {
     use CurrentUserAware;
@@ -23,21 +24,23 @@ class SceneParamConverter extends AbstractBodyParamConverter {
     private $channelGroupRepository;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /**
-     * @var LocationRepository
-     */
+    /** @var LocationRepository */
     private $locationRepository;
+    /** @var UserIconRepository */
+    private $userIconRepository;
 
     public function __construct(
         IODeviceChannelRepository $channelRepository,
         ChannelGroupRepository $channelGroupRepository,
         ChannelActionExecutor $channelActionExecutor,
-        LocationRepository $locationRepository
+        LocationRepository $locationRepository,
+        UserIconRepository $userIconRepository
     ) {
         $this->channelRepository = $channelRepository;
         $this->channelGroupRepository = $channelGroupRepository;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->locationRepository = $locationRepository;
+        $this->userIconRepository = $userIconRepository;
     }
 
     public function getConvertedClass(): string {
@@ -75,6 +78,11 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             return new SceneOperation($subject, $action, $actionParam, $delayMs);
         }, $operations);
         $scene->setOpeartions($operations);
+        if (isset($data['userIconId']) && $data['userIconId']) {
+            $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
+            Assertion::eq($icon->getFunction()->getId(), $scene->getFunction()->getId(), 'Chosen user icon is for other function.');
+            $scene->setUserIcon($icon);
+        }
         return $scene;
     }
 }

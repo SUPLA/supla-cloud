@@ -28,6 +28,7 @@
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import {channelIconUrl} from "../common/filters";
 
     export default {
         props: ['params', 'value', 'filter'],
@@ -61,7 +62,7 @@
                 }
                 content += '</h4>';
                 content += `<p>${this.$t('No of operations')}: ${scene.operationsIds.length}</p></div>`;
-                // content += `<div class="icon"><img src="${channelIconUrl(channelGroup)}"></div></div>`;
+                content += `<div class="icon"><img src="${channelIconUrl(scene)}"></div></div>`;
                 content += '</div>';
                 return content;
             },

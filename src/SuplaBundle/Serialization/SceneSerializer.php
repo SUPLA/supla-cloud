@@ -28,6 +28,8 @@ class SceneSerializer extends AbstractSerializer {
         $normalized['userId'] = $scene->getUser()->getId();
         $normalized['locationId'] = $scene->getLocation()->getId();
         $normalized['operationsIds'] = $this->toIds($scene->getOperations());
+        $normalized['functionId'] = $scene->getFunction()->getId();
+        $normalized['userIconId'] = $scene->getUserIcon() ? $scene->getUserIcon()->getId() : null;
     }
 
     public function supportsNormalization($entity, $format = null) {

@@ -264,7 +264,7 @@ final class ChannelFunction extends Enum {
         return [
             self::UNSUPPORTED => [],
             self::NONE => [],
-            self::SCENE => [],
+            self::SCENE => ['default'],
             self::CONTROLLINGTHEGATEWAYLOCK => ['opened', 'closed'],
             self::CONTROLLINGTHEGATE => ['opened', 'closed', 'partially_closed'],
             self::CONTROLLINGTHEGARAGEDOOR => ['opened', 'closed'],

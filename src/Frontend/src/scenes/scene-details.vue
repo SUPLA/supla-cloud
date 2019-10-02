@@ -42,6 +42,13 @@
                                             @input="sceneChanged()"></square-location-chooser>
                                     </div>
                                     <div v-if="scene.id">
+                                        <h3 class="text-center">{{ $t('Icon') }}</h3>
+                                        <div class="form-group text-center">
+                                            <function-icon :model="scene"
+                                                width="100"></function-icon>
+                                            <channel-alternative-icon-chooser :channel="scene"
+                                                @change="sceneChanged()"></channel-alternative-icon-chooser>
+                                        </div>
                                         <h3 class="text-center">{{ $t('Control') }}</h3>
                                         <div class="text-center">
                                             <button class="btn btn-default"
@@ -87,10 +94,14 @@
     import PageContainer from "../common/pages/page-container";
     import SceneOperationsEditor from "./scene-operations-editor";
     import SquareLocationChooser from "../locations/square-location-chooser";
+    import FunctionIcon from "../channels/function-icon";
+    import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
 
     export default {
         props: ['id', 'item'],
         components: {
+            ChannelAlternativeIconChooser,
+            FunctionIcon,
             SquareLocationChooser,
             SceneOperationsEditor,
             PageContainer,

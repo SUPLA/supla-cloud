@@ -3,7 +3,10 @@
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <div class="clearfix">
-                <h2 class="pull-left">ID<strong>{{ model.id }}</strong></h2>
+                <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
+                <function-icon :model="model"
+                    class="pull-right"
+                    width="60"></function-icon>
             </div>
             <dl>
                 <dd>{{ $t('No of operations') }}</dd>
@@ -18,7 +21,10 @@
 </template>
 
 <script>
+    import FunctionIcon from "../channels/function-icon";
+
     export default {
+        components: {FunctionIcon},
         props: ['model', 'noLink'],
         computed: {
             linkSpec() {
