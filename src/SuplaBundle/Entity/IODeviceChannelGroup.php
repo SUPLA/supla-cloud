@@ -24,6 +24,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
@@ -50,6 +51,7 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="channelGroups")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
      * @Groups({"location"})
+     * @MaxDepth(1)
      */
     private $location;
 
@@ -58,6 +60,7 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
      * @ORM\JoinTable(name="supla_rel_cg", joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")} )
      * @Groups({"channels"})
+     * @MaxDepth(1)
      * @var Collection|IODeviceChannel[]
      */
     private $channels;

@@ -21,6 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\LocationRepository")
@@ -68,12 +69,14 @@ class Location {
      * inverseJoinColumns={@ORM\JoinColumn(name="access_id", referencedColumnName="id")}
      * )
      * @Groups({"accessids"})
+     * @MaxDepth(1)
      */
     private $accessIds;
 
     /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="location")
      * @Groups({"iodevices"})
+     * @MaxDepth(1)
      */
     private $ioDevices;
 
@@ -86,6 +89,7 @@ class Location {
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="location")
      * @Groups({"channels"})
+     * @MaxDepth(1)
      */
     private $channels;
 

@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\Manufacturer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceRepository")
@@ -54,6 +55,7 @@ class IODevice implements HasLocation {
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
      * @Groups({"location"})
+     * @MaxDepth(1)
      */
     private $location;
 
@@ -61,6 +63,7 @@ class IODevice implements HasLocation {
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices_ol")
      * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
      * @Groups({"originalLocation"})
+     * @MaxDepth(1)
      */
     private $originalLocation;
 
@@ -68,6 +71,7 @@ class IODevice implements HasLocation {
      * @var IODeviceChannel[]
      * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="iodevice")
      * @Groups({"channels"})
+     * @MaxDepth(1)
      */
     private $channels;
 
@@ -243,7 +247,7 @@ class IODevice implements HasLocation {
     /**
      * @return integer
      */
-    public function getManufacturer() : Manufacturer {
+    public function getManufacturer(): Manufacturer {
         return new Manufacturer($this->manufacturer);
     }
 

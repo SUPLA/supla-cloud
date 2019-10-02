@@ -25,6 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\RelayFunctionBits;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceChannelRepository")
@@ -52,6 +53,7 @@ class IODeviceChannel implements HasFunction, HasLocation {
      * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="channels")
      * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Groups({"iodevice"})
+     * @MaxDepth(1)
      */
     private $iodevice;
 
@@ -71,6 +73,7 @@ class IODeviceChannel implements HasFunction, HasLocation {
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="channels")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=true)
      * @Groups({"location"})
+     * @MaxDepth(1)
      */
     private $location;
 
@@ -236,8 +239,8 @@ class IODeviceChannel implements HasFunction, HasLocation {
     }
 
     /**
-     * @see RelayFunctionBits
      * @return int
+     * @see RelayFunctionBits
      */
     public function getFuncList(): int {
         return $this->funcList ?: 0;

@@ -102,4 +102,54 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey(2, $content['state']);
         $this->assertArrayHasKey('on', $content['state'][2]);
     }
+
+    /**
+     * Also known as @wsosniak case.
+     *
+     * It appears that when API is queried for channel group with "channels,iodevice,location" includes, the channel's location causes many
+     * problems. It's because: group has channels, channel has location, location has iodevices, iodevices has channels, channels has
+     * locations. You know.
+     *
+     * @see https://forum.supla.org/viewtopic.php?p=50477#p50477
+     */
+    public function testSerializingChannelGroupWithLocationThatContainsChannelsWithTheirOwnLocationsDoesNotGoCrazy() {
+        for ($i = 0; $i < 12; $i++) {
+            $location = $this->createLocation($this->user);
+            $device = $this->createDevice($location, [
+                [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+                [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+                [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+                [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+                [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
+                [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+                [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+                [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+            ]);
+            for ($k = 0; $k < 8; $k++) {
+                $channelWithExplicitLocation = $device->getChannels()[$k];
+                $channelWithExplicitLocation->setLocation($this->device->getLocation());
+                $this->getEntityManager()->persist($channelWithExplicitLocation);
+            }
+            for ($j = 0; $j < 10; $j++) {
+                $group1 = new IODeviceChannelGroup($this->user, $this->device->getLocation(), [
+                    $device->getChannels()[0],
+                    $device->getChannels()[1],
+                ]);
+                $group2 = new IODeviceChannelGroup($this->user, $location, [
+                    $device->getChannels()[2],
+                    $device->getChannels()[3],
+                ]);
+                $this->getEntityManager()->persist($group1);
+                $this->getEntityManager()->persist($group2);
+            }
+        }
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->enableProfiler();
+        $client->apiRequestV22('GET', '/api/channel-groups/1?include=channels,iodevice,location,relationsCount');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('location', $content);
+    }
 }

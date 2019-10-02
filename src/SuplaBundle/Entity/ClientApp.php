@@ -20,6 +20,7 @@ namespace SuplaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ClientAppRepository")
@@ -45,6 +46,7 @@ class ClientApp {
      * @ORM\ManyToOne(targetEntity="AccessID", inversedBy="clientApps")
      * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Groups({"accessId"})
+     * @MaxDepth(1)
      */
     private $accessId;
 

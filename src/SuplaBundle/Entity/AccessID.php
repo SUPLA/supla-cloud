@@ -21,6 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\AccessIdRepository")
@@ -64,12 +65,14 @@ class AccessID {
     /**
      * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds", cascade={"persist"})
      * @Groups({"locations"})
+     * @MaxDepth(1)
      */
     private $locations;
 
     /**
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="accessId")
      * @Groups({"clientApps"})
+     * @MaxDepth(1)
      **/
     private $clientApps;
 

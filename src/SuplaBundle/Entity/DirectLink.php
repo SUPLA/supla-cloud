@@ -26,6 +26,7 @@ use SuplaBundle\Exception\InactiveDirectLinkException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity
@@ -143,7 +144,10 @@ class DirectLink {
         $this->caption = $caption;
     }
 
-    /** @Groups({"subject"}) */
+    /**
+     * @Groups({"subject"})
+     * @MaxDepth(1)
+     */
     public function getSubject(): HasFunction {
         return $this->channel ?: $this->channelGroup;
     }

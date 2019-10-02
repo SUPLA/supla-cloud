@@ -72,6 +72,7 @@ abstract class AbstractSerializer extends ObjectNormalizer {
 
     /** @inheritDoc */
     final public function normalize($object, $format = null, array $context = []) {
+        $context[self::ENABLE_MAX_DEPTH] = true;
         $normalized = parent::normalize($object, $format, $context);
         if (is_array($normalized)) {
             $this->addExtraFields($normalized, $object, $context);

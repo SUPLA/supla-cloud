@@ -25,6 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ScheduleRepository")
@@ -61,6 +62,7 @@ class Schedule {
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
      * @Groups({"channel", "iodevice", "location"})
+     * @MaxDepth(1)
      */
     private $channel;
 
@@ -175,7 +177,10 @@ class Schedule {
         }
     }
 
-    /** @Groups({"subject"}) */
+    /**
+     * @Groups({"subject"})
+     * @MaxDepth(1)
+     */
     public function getSubject(): HasFunction {
         return $this->channel ?: $this->channelGroup;
     }
