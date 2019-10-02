@@ -5,18 +5,18 @@ Vue.config.availableLanguages = [
     {value: 'en', text: 'English'},
     {value: 'pl', text: 'Polski'},
     {value: 'cs', text: 'Čeština'},
-    {value: 'sk', text: 'Slovenčina'},
-    {value: 'lt', text: 'Lietuvių'},
-    {value: 'ru', text: 'Русский'},
     {value: 'de', text: 'Deutsch'},
-    {value: 'it', text: 'Italiano'},
-    {value: 'pt', text: 'Português'},
     {value: 'es', text: 'Español'},
+    {value: 'el', text: 'Ελληνικά'},
     {value: 'fr', text: 'Français'},
+    {value: 'it', text: 'Italiano'},
+    {value: 'lt', text: 'Lietuvių'},
     {value: 'nl', text: 'Nederlands'},
     {value: 'nb', text: 'Norsk'},
+    {value: 'pt', text: 'Português'},
+    {value: 'ru', text: 'Русский'},
+    {value: 'sk', text: 'Slovenčina'},
     {value: 'sl', text: 'Slovenščina'},
-    {value: 'el', text: 'Ελληνικά'}
 ];
 
 Vue.use(VueI18N);

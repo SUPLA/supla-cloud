@@ -152,7 +152,7 @@ class UserController extends RestController {
                     throw new ApiException('Bad timezone: ' . $data['timezone'], 400, $e);
                 }
             } elseif ($data['action'] == 'change:userLocale') {
-                Assertion::inArray($data['locale'], self::AVAILABLE_LOCALES, 'Language is not available');
+                Assertion::inArray($data['locale'], $this->availableLanguages, 'Language is not available');
                 $user->setLocale($data['locale']);
             } elseif ($data['action'] == 'change:password') {
                 $this->assertNotApiUser();
@@ -262,7 +262,7 @@ class UserController extends RestController {
         $user->setPlainPassword($newPassword);
 
         $locale = $data['locale'] ?? 'en';
-        Assertion::inArray($locale, self::AVAILABLE_LOCALES, 'Language is not available'); // i18n
+        Assertion::inArray($locale, $this->availableLanguages, 'Language is not available'); // i18n
         $user->setLocale($locale);
 
         if ($this->requireRegulationsAcceptance) {
