@@ -111,6 +111,8 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
      * locations. You know.
      *
      * @see https://forum.supla.org/viewtopic.php?p=50477#p50477
+     *
+     * @large
      */
     public function testSerializingChannelGroupWithLocationThatContainsChannelsWithTheirOwnLocationsDoesNotGoCrazy() {
         for ($i = 0; $i < 12; $i++) {
