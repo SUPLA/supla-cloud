@@ -24,7 +24,7 @@ services:
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
 
   SuplaBundle\Command\:
-    resource: '../../src/SuplaBundle/Command'
+    resource: '../../../src/SuplaBundle/Command'
   SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
     - !tagged supla.cyclic_command
   SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand:
@@ -33,7 +33,7 @@ services:
     $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
 
   SuplaBundle\Controller\:
-    resource: '../../src/SuplaBundle/Controller'
+    resource: '../../../src/SuplaBundle/Controller'
     public: true
 
   SuplaBundle\Controller\Api\ServerController:
@@ -58,7 +58,7 @@ services:
       $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
 
   SuplaBundle\Model\:
-    resource: '../../src/SuplaBundle/Model'
+    resource: '../../../src/SuplaBundle/Model'
 
   SuplaBundle\Model\LocalSuplaCloud:
     $address: '%supla_url%'
@@ -89,7 +89,7 @@ services:
 
 
   SuplaBundle\Supla\:
-    resource: '../../src/SuplaBundle/Supla'
+    resource: '../../../src/SuplaBundle/Supla'
 
   SuplaBundle\Supla\SuplaServerMock:
     tags:
@@ -118,7 +118,7 @@ services:
       - "%supla.webpack_hashes%"
 
   SuplaBundle\Auth\Voter\:
-    resource: '../../src/SuplaBundle/Auth/Voter'
+    resource: '../../../src/SuplaBundle/Auth/Voter'
 
   SuplaBundle\Auth\UserProvider: ~
   SuplaBundle\Auth\UserLoginAttemptListener:
@@ -147,10 +147,10 @@ services:
       - { name: kernel.event_listener, event: kernel.controller, method: onKernelController}
 
   SuplaBundle\ParamConverter\:
-    resource: '../../src/SuplaBundle/ParamConverter'
+    resource: '../../../src/SuplaBundle/ParamConverter'
 
   SuplaBundle\Serialization\:
-    resource: '../../src/SuplaBundle/Serialization'
+    resource: '../../../src/SuplaBundle/Serialization'
 
   SuplaBundle\Mailer\SuplaMailer:
     $mailerFrom: "%mailer_from%"
@@ -158,66 +158,6 @@ services:
     $defaultLocale: "%locale%"
 
   SuplaBundle\Twig\FrontendConfig: ~
-
-  SuplaBundle\Repository\AccessIdRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\AccessID]
-
-  SuplaBundle\Repository\AccessTokenRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\OAuth\AccessToken]
-
-  SuplaBundle\Repository\ApiClientRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\OAuth\ApiClient]
-
-  SuplaBundle\Repository\ApiClientAuthorizationRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\OAuth\ApiClientAuthorization]
-
-  SuplaBundle\Repository\AuditEntryRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\AuditEntry]
-
-  SuplaBundle\Repository\ChannelGroupRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\IODeviceChannelGroup]
-
-  SuplaBundle\Repository\UserIconRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\UserIcon]
-
-  SuplaBundle\Repository\ClientAppRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\ClientApp]
-
-  SuplaBundle\Repository\LocationRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\Location]
-
-  SuplaBundle\Repository\ScheduleRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\Schedule]
-
-  SuplaBundle\Repository\UserRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\User]
-
-  SuplaBundle\Repository\IODeviceRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\IODevice]
-
-  SuplaBundle\Repository\IODeviceChannelRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\IODeviceChannel]
-
-  SuplaBundle\Repository\AmazonAlexaRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\AmazonAlexa]
-
-  SuplaBundle\Repository\GoogleHomeRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
-    arguments: [SuplaBundle\Entity\GoogleHome]
 
   SuplaBundle\Auth\SuplaOAuth2:
     arguments:
