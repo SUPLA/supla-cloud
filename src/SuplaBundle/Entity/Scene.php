@@ -51,6 +51,7 @@ class Scene implements HasLocation, HasFunction {
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="scenes")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
      * @Groups({"location"})
+     * @MaxDepth(1)
      */
     private $location;
 

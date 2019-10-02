@@ -70,6 +70,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     /**
      * @var Schedule[]
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
+     * @MaxDepth(1)
      */
     private $schedules;
 

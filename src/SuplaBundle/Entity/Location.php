@@ -86,12 +86,14 @@ class Location implements HasRelationsCount {
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="location")
      * @Groups({"location.channelGroups"})
+     * @MaxDepth(1)
      */
     private $channelGroups;
 
     /**
      * @ORM\OneToMany(targetEntity="Scene", mappedBy="location")
      * @Groups({"scenes"})
+     * @MaxDepth(1)
      */
     private $scenes;
 

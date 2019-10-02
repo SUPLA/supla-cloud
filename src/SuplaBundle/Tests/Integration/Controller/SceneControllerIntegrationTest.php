@@ -83,7 +83,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingSceneDetails($sceneDetails) {
         $id = $sceneDetails['id'];
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV23('GET', '/api/scenes/' . $id . '?include=subject,operations');
+        $client->apiRequestV23('GET', '/api/scenes/' . $id . '?include=subject,operations,iodevice');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);

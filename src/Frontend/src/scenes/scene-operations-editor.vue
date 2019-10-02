@@ -130,7 +130,7 @@
             channelTitle(subject) {
                 return channelTitle(subject, this, true);
             },
-            possibleActionFilter(subject) {
+            possibleActionFilter() {
                 return () => true;
             },
             updateModel() {
