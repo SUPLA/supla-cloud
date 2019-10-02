@@ -12,13 +12,13 @@
                         :is-pending="hasPendingChanges && (!isNew || scene.operations.length)">
                         <div class="row hidden-xs">
                             <div class="col-xs-12">
-                                <dots-route></dots-route>
+                                <dots-route num="2"></dots-route>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <h3>{{ $t('Details') }}</h3>
+                                    <h3 class="text-center">{{ $t('Details') }}</h3>
                                     <div class="hover-editable text-left">
                                         <dl>
                                             <dd>{{ $t('Caption') }}</dd>
@@ -36,18 +36,26 @@
                                             </dt>
                                         </dl>
                                     </div>
-                                    <div class="text-center">
-                                        <button class="btn btn-green"
-                                            type="button"
-                                            :disabled="executed || executing"
-                                            @click="executeScene()">
-                                            <span v-if="!executing">
-                                                <i v-if="executed"
-                                                    class="pe-7s-check"></i>
-                                                {{ executed ? $t('executed') : $t('Uruchom scenę') }}
-                                            </span>
-                                            <button-loading-dots v-else></button-loading-dots>
-                                        </button>
+                                    <h3 class="text-center">{{ $t('Location') }}</h3>
+                                    <div class="form-group text-center">
+                                        <square-location-chooser v-model="scene.location"
+                                            @input="onLocationChange($event)"></square-location-chooser>
+                                    </div>
+                                    <div v-if="scene.id">
+                                        <h3 class="text-center">{{ $t('Control') }}</h3>
+                                        <div class="text-center">
+                                            <button class="btn btn-default"
+                                                type="button"
+                                                :disabled="executed || executing"
+                                                @click="executeScene()">
+                                                <span v-if="!executing">
+                                                    <i v-if="executed"
+                                                        class="pe-7s-check"></i>
+                                                    {{ executed ? $t('executed') : $t('Execute the scene') }}
+                                                </span>
+                                                <button-loading-dots v-else></button-loading-dots>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -79,10 +87,12 @@
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
     import SceneOperationsEditor from "./scene-operations-editor";
+    import SquareLocationChooser from "../locations/square-location-chooser";
 
     export default {
         props: ['id', 'item'],
         components: {
+            SquareLocationChooser,
             SceneOperationsEditor,
             PageContainer,
             PendingChangesPage,

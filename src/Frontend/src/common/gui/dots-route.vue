@@ -1,8 +1,9 @@
 <template>
-    <div :class="'dots-route ' + (shown ? 'shown' : '')">
+    <div :class="'dots-route ' + (shown ? 'shown' : '') + ' dots-route-' + dotsNum">
         <div :class="'dot dot-' + dot1Color"></div>
         <div :class="'dot dot-' + dot2Color"></div>
-        <div :class="'dot dot-' + dot3Color"></div>
+        <div :class="'dot dot-' + dot3Color"
+            v-if="dotsNum > 2"></div>
     </div>
 </template>
 
@@ -46,6 +47,13 @@
         &.shown {
             width: $wholeWidth;
         }
+        &.dots-route-2 {
+            width: 50%;
+            .dot:nth-child(2) {
+                left: 100%;
+                margin-left: 0;
+            }
+        }
     }
 
     .bg-green .dots-route {
@@ -63,7 +71,7 @@
 
 <script>
     export default {
-        props: ['dot1Color', 'dot2Color', 'dot3Color'],
+        props: ['dot1Color', 'dot2Color', 'dot3Color', 'num'],
         data() {
             return {
                 shown: false,
@@ -71,6 +79,11 @@
         },
         mounted() {
             setTimeout(() => this.shown = true);
+        },
+        computed: {
+            dotsNum() {
+                return this.num || 3;
+            }
         }
     };
 </script>
