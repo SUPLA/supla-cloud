@@ -46,7 +46,7 @@ class UserController extends RestController {
     use Transactional;
     use AuditAware;
 
-    const AVAILABLE_LOCALES = ['en', 'pl', 'cs', 'sk', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr'];
+    const AVAILABLE_LOCALES = ['en', 'pl', 'cs', 'sk', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr', 'sl', 'nb', 'nl', 'el'];
 
     /** @var UserManager */
     private $userManager;
