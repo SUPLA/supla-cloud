@@ -24,12 +24,10 @@ class UserIconSerializer extends AbstractSerializer {
      * @param UserIcon $icon
      * @inheritdoc
      */
-    public function normalize($icon, $format = null, array $context = []) {
-        $normalized = parent::normalize($icon, $format, $context);
-        if (in_array('images', $context[self::GROUPS])) {
+    protected function addExtraFields(array &$normalized, $icon, array $context) {
+        if ($this->isSerializationGroupRequested('images', $context)) {
             $normalized['images'] = array_map('base64_encode', $icon->getImages());
         }
-        return $normalized;
     }
 
     public function supportsNormalization($entity, $format = null) {

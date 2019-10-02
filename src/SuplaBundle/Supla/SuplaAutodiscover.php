@@ -267,4 +267,9 @@ abstract class SuplaAutodiscover {
         }
         return $brokerClouds;
     }
+
+    public function getInfo(string $brokerToken = null): array {
+        $response = $this->remoteRequest('/about', null, $responseStatus, ['Authorization' => $brokerToken]);
+        return $response ?: ['isBroker' => false, 'isTarget' => false];
+    }
 }

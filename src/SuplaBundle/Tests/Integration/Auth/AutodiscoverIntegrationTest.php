@@ -90,6 +90,23 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($server->isLocal());
     }
 
+    public function testQueryingUserInfoAsBroker() {
+        $this->testRegisteringUserInAd();
+        @chmod(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH, 0777); // so user running test and apache can read these
+        @chmod(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH, 0777);
+        $userData = [
+            'email' => 'adtest@supla.org',
+            'regulationsAgreed' => true,
+            'password' => 'alamakota',
+            'timezone' => 'Europe/Warsaw',
+        ];
+        $client = $this->createClient();
+        $client->apiRequest('POST', '/api/register-account', $userData);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertFalse($content['accountEnabled']);
+    }
+
     public function testDeletingUserDeletesItInAd() {
         $this->registerUser();
         $result = $this->executeCommand('supla:delete-user adtest@supla.org');

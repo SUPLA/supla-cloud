@@ -36,29 +36,23 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
      * @param IODeviceChannelGroup $group
      * @inheritdoc
      */
-    public function normalize($group, $format = null, array $context = []) {
-        $fetchChannels = in_array('channels', $context[self::GROUPS]);
-        $fetchState = in_array('state', $context[self::GROUPS]);
-        // this prevents from fetching IODevice's channels or their recursively
-        $context[self::GROUPS] = array_diff($context[self::GROUPS], ['state', 'channels']);
-        $normalized = parent::normalize($group, $format, $context);
+    protected function addExtraFields(array &$normalized, $group, array $context) {
         $normalized['locationId'] = $group->getLocation()->getId();
         $normalized['channelsIds'] = $this->toIds($group->getChannels());
         $normalized['functionId'] = $group->getFunction()->getId();
         $normalized['userIconId'] = $group->getUserIcon() ? $group->getUserIcon()->getId() : null;
-        if ($fetchChannels) {
-            $normalized['channels'] = $this->normalizer->normalize($group->getChannels(), $format, $context);
+        if ($this->isSerializationGroupRequested('channels', $context)) {
+            $normalized['channels'] = $this->normalizer->normalize($group->getChannels(), null, $context);
         }
-        if ($fetchState) {
+        if ($this->isSerializationGroupRequested('state', $context)) {
             $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getStateForChannelGroup($group));
         }
-        if (in_array('relationsCount', $context[self::GROUPS])) {
+        if ($this->isSerializationGroupRequested('relationsCount', $context)) {
             $normalized['relationsCount'] = [
                 'directLinks' => $group->getDirectLinks()->count(),
                 'schedules' => $group->getSchedules()->count(),
             ];
         }
-        return $normalized;
     }
 
     public function supportsNormalization($entity, $format = null) {

@@ -19,6 +19,7 @@ namespace SuplaBundle\Model;
 
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -63,6 +64,10 @@ class TargetSuplaCloudRequestForwarder {
         return $this->sendRequest($target, 'register-resend', ['email' => $username]);
     }
 
+    public function getUserInfo(TargetSuplaCloud $target, string $username): array {
+        return $this->sendRequest($target, 'user-info', ['username' => $username], 'PATCH');
+    }
+
     public function registerUser(TargetSuplaCloud $target, Request $request): array {
         return $this->sendRequest($target, 'register', $request->request->all());
     }
@@ -76,15 +81,16 @@ class TargetSuplaCloudRequestForwarder {
         }
     }
 
-    private function sendRequest(TargetSuplaCloud $target, string $apiEndpoint, array $data = null): array {
+    private function sendRequest(TargetSuplaCloud $target, string $apiEndpoint, array $data = null, string $method = null): array {
         if (self::$requestExecutor) {
             return (self::$requestExecutor)($target->getAddress(), $apiEndpoint, $data);
         }
         if (strpos($apiEndpoint, '/') !== 0) {
-            $apiEndpoint = '/api/v' . ApiVersions::V2_2 . '/' . $apiEndpoint;
+            $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
         }
         $ch = curl_init($target->getAddress() . $apiEndpoint);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $data ? 'POST' : 'GET');
+        $method = $method ?: ($data !== null ? 'POST' : 'GET');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         $headers = [];
         if ($ip = $this->clientIpResolver->getRealIp()) {
             $headers[] = 'X-Real-Ip: ' . $ip;
@@ -94,6 +100,9 @@ class TargetSuplaCloudRequestForwarder {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
             $headers[] = 'Content-Type: application/json';
             $headers[] = 'Content-Length: ' . strlen($content);
+        }
+        if (file_exists(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
+            $headers[] = 'SUPLA-Broker-Token: Bearer ' . file_get_contents(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
         }
         if ($headers) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

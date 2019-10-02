@@ -30,19 +30,11 @@ class ClientAppSerializer extends AbstractSerializer {
      * @param ClientApp $clientApp
      * @inheritdoc
      */
-    public function normalize($clientApp, $format = null, array $context = []) {
-        $normalized = parent::normalize($clientApp, $format, $context);
+    protected function addExtraFields(array &$normalized, $clientApp, array $context) {
         $normalized['accessIdId'] = $clientApp->getAccessId() ? $clientApp->getAccessId()->getId() : null;
-        if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
-            if (in_array('connected', $context[self::GROUPS])) {
-                $normalized['connected'] = $this->isClientAppConnected($clientApp);
-            }
+        if ($this->isSerializationGroupRequested('connected', $context)) {
+            $normalized['connected'] = $this->isClientAppConnected($clientApp);
         }
-        return $normalized;
-    }
-
-    public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof ClientApp;
     }
 
     private function isClientAppConnected(ClientApp $clientApp): bool {
@@ -52,5 +44,9 @@ class ClientAppSerializer extends AbstractSerializer {
         $user = $this->getCurrentUser();
         Assertion::notNull($user, 'User not authenticated');
         return $this->suplaServer->isClientAppConnected($clientApp);
+    }
+
+    public function supportsNormalization($entity, $format = null) {
+        return $entity instanceof ClientApp;
     }
 }

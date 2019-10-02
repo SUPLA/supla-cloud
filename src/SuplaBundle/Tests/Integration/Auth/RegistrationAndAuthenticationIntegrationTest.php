@@ -95,6 +95,53 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($createdUser->getId(), $entry->getUser()->getId());
     }
 
+    /** @depends testSavesIncorrectLoginAttemptInAudit */
+    public function testHandlingQueryForUserDetailsFromBroker() {
+        SuplaAutodiscoverMock::clear();
+        $client = $this->createHttpsClient();
+        $client->apiRequest('PATCH', '/api/user-info', ['username' => self::EMAIL], [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(self::EMAIL, $content['email']);
+        $this->assertFalse($content['enabled']);
+        $this->assertArrayHasKey('id', $content);
+    }
+
+    /** @depends testHandlingQueryForUserDetailsFromBroker */
+    public function testRejectingQueryForUserDetailsFromNotBroker() {
+        SuplaAutodiscoverMock::clear();
+        $client = $this->createHttpsClient();
+        $client->apiRequest('PATCH', '/api/user-info', ['username' => self::EMAIL], [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer TARGET']);
+        $this->assertStatusCode(401, $client->getResponse());
+    }
+
+    /** @small */
+    public function testQueryingForUserDetailsIfExistsInAd() {
+        SuplaAutodiscoverMock::clear();
+        $email = array_keys(SuplaAutodiscoverMock::$userMapping)[0];
+        $userData = [
+            'email' => $email,
+            'regulationsAgreed' => true,
+            'password' => self::PASSWORD,
+            'timezone' => 'Europe/Warsaw',
+        ];
+        $client = $this->createHttpsClient();
+        $targetCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint, array $data) use ($email, &$targetCalled) {
+                $targetCalled = true;
+                $this->assertEquals('https://supla.local', $address);
+                $this->assertEquals('user-info', $endpoint);
+                $this->assertEquals(['username' => $email], $data);
+                return [['enabled' => true], Response::HTTP_OK];
+            };
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertTrue($targetCalled);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($content['accountEnabled']);
+    }
+
     public function testNotifyingAdAboutNewUserIfBroker() {
         SuplaAutodiscoverMock::clear();
         $this->testCreatingUser();

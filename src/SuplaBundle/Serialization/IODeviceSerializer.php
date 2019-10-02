@@ -40,28 +40,24 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
      * @param IODevice $ioDevice
      * @inheritdoc
      */
-    public function normalize($ioDevice, $format = null, array $context = []) {
-        $normalized = parent::normalize($ioDevice, $format, $context);
+    protected function addExtraFields(array &$normalized, $ioDevice, array $context) {
         $normalized['locationId'] = $ioDevice->getLocation()->getId();
         $normalized['originalLocationId'] = $ioDevice->getOriginalLocation() ? $ioDevice->getOriginalLocation()->getId() : null;
         $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
-        if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
-            if (in_array('connected', $context[self::GROUPS])) {
-                $normalized['connected'] = $this->suplaServer->isDeviceConnected($ioDevice);
-            }
-            if (in_array('schedules', $context[self::GROUPS])) {
-                $normalized['schedules'] = $this->findSchedulesForDevice($ioDevice, $format, $context);
-            }
+        if ($this->isSerializationGroupRequested('connected', $context)) {
+            $normalized['connected'] = $this->suplaServer->isDeviceConnected($ioDevice);
         }
-        return $normalized;
+        if ($this->isSerializationGroupRequested('schedules', $context)) {
+            $normalized['schedules'] = $this->serializeSchedules($ioDevice, $context);
+        }
+    }
+
+    private function serializeSchedules(IODevice $ioDevice, array $context = []): array {
+        $schedules = $this->scheduleManager->findSchedulesForDevice($ioDevice);
+        return $this->normalizer->normalize($schedules, null, $context);
     }
 
     public function supportsNormalization($entity, $format = null) {
         return $entity instanceof IODevice;
-    }
-
-    private function findSchedulesForDevice(IODevice $ioDevice, $format = null, array $context = []): array {
-        $schedules = $this->scheduleManager->findSchedulesForDevice($ioDevice);
-        return $this->normalizer->normalize($schedules, $format, $context);
     }
 }

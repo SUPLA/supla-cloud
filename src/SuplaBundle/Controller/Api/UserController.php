@@ -93,6 +93,21 @@ class UserController extends RestController {
         $this->recaptchaSecret = $recaptchaSecret;
     }
 
+    /**
+     * @Rest\Patch("/user-info")
+     * @Security("is_granted('isRequestFromBroker', request)")
+     */
+    public function getUserAction(Request $request) {
+        $username = $request->get('username');
+        $user = $this->userManager->userByEmail($username);
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+        $view = $this->view($user, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['longUniqueId']);
+        return $view;
+    }
+
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
     public function currentUserAction(Request $request) {
         $view = $this->view($this->getUser(), Response::HTTP_OK);
@@ -108,7 +123,6 @@ class UserController extends RestController {
             $this->assertNotApiUser();
             $password = $data['password'] ?? '';
             Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
-//            $this->userManager->deleteAccount($user);
             $this->userManager->accountDeleteRequest($user);
             $this->mailer->sendDeleteAccountConfirmationEmailMessage($user);
             return $this->view(null, Response::HTTP_NO_CONTENT);
@@ -209,7 +223,19 @@ class UserController extends RestController {
 
         $remoteServer = '';
         $exists = $this->autodiscover->userExists($username);
-        Assertion::false($exists, 'Email already exists'); // i18n
+        if ($exists) {
+            $targetCloud = $this->autodiscover->getAuthServerForUser($username);
+            if ($targetCloud->isLocal()) {
+                $enabled = $this->userManager->userByEmail($username)->isEnabled();
+            } else {
+                list($response,) = $this->suplaCloudRequestForwarder->getUserInfo($targetCloud, $username);
+                $enabled = $response ? ($response['enabled'] ?? false) : false;
+            }
+            return $this->view(
+                ['status' => Response::HTTP_CONFLICT, 'message' => 'Email already exists', 'accountEnabled' => $enabled],
+                Response::HTTP_CONFLICT
+            );
+        }
 
         if ($exists === null) {
             $this->mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);

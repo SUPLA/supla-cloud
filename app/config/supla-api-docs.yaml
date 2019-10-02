@@ -809,8 +809,15 @@ paths:
       - name: id
         in: path
         required: true
+        description: IO Device's identifier or GUID
         schema:
-          type: integer
+          oneOf:
+            - type: integer
+              description: IO Device's identifier
+              example: 123
+            - type: string
+              description: IO Device's GUID
+              example: 'A7A19E1-09E8-68B4-3A2F-BD304E563A6A'
     get:
       summary: Get IO Device
       tags:

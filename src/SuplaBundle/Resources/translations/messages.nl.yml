@@ -288,7 +288,7 @@ New direct link: Nieuwe directe link
 New password: Nieuw wachtwoord
 Newer: Nieuwere
 Next run date: Komende uitvoering
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'U hebt geen actieve toegangs-ID's. Ga naar [lijst met toegangs-ID] of [voeg nieuwe toegangs-ID toe].'
+'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'U hebt geen actieve toegangs-ID''s. Ga naar [lijst met toegangs-ID] of [voeg nieuwe toegangs-ID toe].'
 No function: Geen functie beschikbaar
 No future executions - schedule disabled: Geen geplande uitvoeringen - schema uitgeschakeld
 No limit: Geen limiet
@@ -328,7 +328,7 @@ Please enter a valid email address: Voer alstublieft een geldig e-mailadres in
 Please fill a valid email address: Voer alstublieft een geldig e-mailadres in
 Please log in again to proceed.: Meld u opnieuw aan om door te gaan.
 Please provide a valid domain name for your private SUPLA Cloud: Voer de juiste domeinnaam in voor uw privé SUPLA-cloud
-Please select the schedules that should also be enabled.: 'Selecteer schema's die ook moeten worden opgenomen.'
+Please select the schedules that should also be enabled.: 'Selecteer schema''s die ook moeten worden opgenomen.'
 Please wait a moment before the next login attempt.: Wacht even voor de volgende inlogpoging.
 Pressure sensor: Druksensor
 Previous login: Vorige login
@@ -352,10 +352,10 @@ Registration of new I/O devices: Apparaatregistratie
 Registration of new clients: Klantenregistratie
 Relay: Relais
 Relay switching time: Inschakeltijd relais
-'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}.'
-'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}.'
-'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID's: {relatedIds}.'
-'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID's: {relatedIds}.'
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID''s: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID''s: {relatedIds}.'
 Repeat password: Wachtwoord opnieuw invoeren
 Retry on failure: Herhaal als dit niet uitgevoerd is
 Reveal: Laat zien

@@ -38,8 +38,7 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
      * @param DirectLink $directLink
      * @inheritdoc
      */
-    public function normalize($directLink, $format = null, array $context = []) {
-        $normalized = parent::normalize($directLink, $format, $context);
+    protected function addExtraFields(array &$normalized, $directLink, array $context) {
         $normalized['userId'] = $directLink->getUser()->getId();
         $normalized['subjectType'] = $directLink->getSubjectType()->getValue();
         $normalized['allowedActions'] = array_map(function (ChannelFunctionAction $action) {
@@ -61,7 +60,6 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
                 $normalized['inactiveReason'] = $e->getReason()->getValue();
             }
         }
-        return $normalized;
     }
 
     public function supportsNormalization($entity, $format = null) {

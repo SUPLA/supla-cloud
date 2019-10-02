@@ -24,13 +24,11 @@ class LocationSerializer extends AbstractSerializer {
      * @param Location $location
      * @inheritdoc
      */
-    public function normalize($location, $format = null, array $context = []) {
-        $normalized = parent::normalize($location, $format, $context);
+    protected function addExtraFields(array &$normalized, $location, array $context) {
         $normalized['iodevicesIds'] = $this->toIds($location->getIoDevices());
         $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
         $normalized['channelsIds'] = $this->toIds($location->getChannels());
         $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
-        return $normalized;
     }
 
     public function supportsNormalization($entity, $format = null) {

@@ -51,7 +51,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
      */
     private $shortUniqueId;
 
-    /** @ORM\Column(name="long_unique_id", type="string", length=200, unique=true, options={"fixed" = true})
+    /**
+     * @ORM\Column(name="long_unique_id", type="string", length=200, unique=true, options={"fixed" = true})
      * @Groups({"longUniqueId"})
      */
     private $longUniqueId;
@@ -82,6 +83,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
 
     /**
      * @ORM\Column(name="enabled", type="boolean")
+     * @Groups({"basic"})
      */
     private $enabled;
 
