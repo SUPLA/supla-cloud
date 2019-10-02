@@ -342,6 +342,7 @@
     .timeline-title {
         margin-top: 0;
         color: inherit;
+        padding-right: 20px;
     }
 
     .timeline-body {

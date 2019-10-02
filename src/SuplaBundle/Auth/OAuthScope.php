@@ -124,7 +124,7 @@ final class OAuthScope {
     }
 
     public static function getAllKnownScopes(): array {
-        $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea', 'channels_files'];
+        $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea', 'scenes_ea', 'channels_files'];
         foreach ([
                      'accessids',
                      'account',

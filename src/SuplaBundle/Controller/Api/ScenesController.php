@@ -23,6 +23,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -101,5 +103,15 @@ class ScenesController extends RestController {
             $em->remove($scene);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
+    }
+
+    /**
+     * @Rest\Patch("/scenes/{scene}")
+     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_EA') and is_granted('accessIdContains', scene)")
+     */
+    public function patchSceneAction(Request $request, Scene $scene, ChannelActionExecutor $channelActionExecutor) {
+        $params = json_decode($request->getContent(), true) ?: [];
+        $channelActionExecutor->executeAction($scene, ChannelFunctionAction::EXECUTE(), $params);
+        return $this->handleView($this->view(null, Response::HTTP_ACCEPTED));
     }
 }

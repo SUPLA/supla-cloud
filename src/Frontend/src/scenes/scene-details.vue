@@ -36,6 +36,19 @@
                                             </dt>
                                         </dl>
                                     </div>
+                                    <div class="text-center">
+                                        <button class="btn btn-green"
+                                            type="button"
+                                            :disabled="executed || executing"
+                                            @click="executeScene()">
+                                            <span v-if="!executing">
+                                                <i v-if="executed"
+                                                    class="pe-7s-check"></i>
+                                                {{ executed ? $t('executed') : $t('Uruchom scenę') }}
+                                            </span>
+                                            <button-loading-dots v-else></button-loading-dots>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="col-md-8">
                                     <h3 class="text-center">{{ $t('Operations') }}</h3>
@@ -83,6 +96,8 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
+                executing: false,
+                executed: false,
             };
         },
         mounted() {
@@ -129,6 +144,17 @@
             },
             cancelChanges() {
                 this.fetch();
+            },
+            executeScene() {
+                this.executing = true;
+                this.$http.patch(`scenes/${this.scene.id}`)
+                    .then(() => {
+                        this.executed = true;
+                        setTimeout(() => this.executed = false, 3000);
+                    })
+                    .finally(() => {
+                        this.executing = false;
+                    });
             },
         },
         computed: {

@@ -24,6 +24,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -164,6 +165,16 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertCount(2, $content['operationsIds']);
         $this->assertCount(2, $content['operations']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testExecutingScene(array $sceneDetails) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $lastCommand = end(SuplaServerMock::$executedCommands);
+        $this->assertEquals('EXECUTE-SCENE:1,1', $lastCommand);
     }
 
     /** @depends testCreatingScene */

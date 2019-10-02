@@ -19,13 +19,14 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_scene")
  */
-class Scene {
+class Scene implements HasLocation, HasFunction {
     use BelongsToUser;
 
     /**
@@ -116,5 +117,20 @@ class Scene {
             EntityUtils::setField($operation, 'owningScene', $this);
             $this->operations->add($operation);
         }
+    }
+
+    public function getFunction(): ChannelFunction {
+        return ChannelFunction::SCENE();
+    }
+
+    /**
+     * Returns a footprint of this functionable item for identification in SUPLA Server commands.
+     * See SuplaServer#setValue for more details.
+     * @return int[]
+     */
+    public function buildServerSetCommand(string $type, array $actionParams): string {
+        $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
+        $params = implode(',', $params);
+        return "EXECUTE-SCENE:$params";
     }
 }

@@ -25,6 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @method static ChannelFunction UNSUPPORTED()
  * @method static ChannelFunction NONE()
+ * @method static ChannelFunction SCENE()
  * @method static ChannelFunction CONTROLLINGTHEGATEWAYLOCK()
  * @method static ChannelFunction CONTROLLINGTHEGATE()
  * @method static ChannelFunction CONTROLLINGTHEGARAGEDOOR()
@@ -63,6 +64,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
     const NONE = 0;
+    const SCENE = 2000;
     const CONTROLLINGTHEGATEWAYLOCK = 10;
     const CONTROLLINGTHEGATE = 20;
     const CONTROLLINGTHEGARAGEDOOR = 30;
@@ -190,16 +192,17 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
-
             self::THERMOSTAT => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::TOGGLE()],
-
+                ChannelFunctionAction::TOGGLE(),
+            ],
             self::THERMOSTATHEATPOLHOMEPLUS => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::TOGGLE()],
+                ChannelFunctionAction::TOGGLE(),
+            ],
+            self::SCENE => [ChannelFunctionAction::EXECUTE()],
         ];
     }
 
@@ -207,6 +210,7 @@ final class ChannelFunction extends Enum {
         return [
             self::UNSUPPORTED => 'Unsupported function', // i18n
             self::NONE => 'None', // i18n
+            self::SCENE => 'Scene', // i18n
             self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation', // i18n
             self::CONTROLLINGTHEGATE => 'Gate operation', // i18n
             self::CONTROLLINGTHEGARAGEDOOR => 'Garage door operation', // i18n
@@ -260,6 +264,7 @@ final class ChannelFunction extends Enum {
         return [
             self::UNSUPPORTED => [],
             self::NONE => [],
+            self::SCENE => [],
             self::CONTROLLINGTHEGATEWAYLOCK => ['opened', 'closed'],
             self::CONTROLLINGTHEGATE => ['opened', 'closed', 'partially_closed'],
             self::CONTROLLINGTHEGARAGEDOOR => ['opened', 'closed'],
