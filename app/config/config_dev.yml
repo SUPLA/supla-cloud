@@ -37,6 +37,11 @@ services:
 #swiftmailer:
 #  delivery_addresses: ['%admin_email%']
 
+supla:
+  oauth:
+    tokens_lifetime:
+      webapp: {access: 28800}
+
 web_profiler:
   intercept_redirects: false
   toolbar: true
