@@ -46,8 +46,6 @@ class UserController extends RestController {
     use Transactional;
     use AuditAware;
 
-    const AVAILABLE_LOCALES = ['en', 'pl', 'cs', 'sk', 'lt', 'de', 'ru', 'it', 'pt', 'es', 'fr', 'sl', 'nb', 'nl', 'el'];
-
     /** @var UserManager */
     private $userManager;
     /** @var AuditEntryRepository */
@@ -68,6 +66,8 @@ class UserController extends RestController {
     private $recaptchaEnabled;
     /** @var string */
     private $recaptchaSecret;
+    /** @var array */
+    private $availableLanguages;
 
     public function __construct(
         UserManager $userManager,
@@ -79,7 +79,8 @@ class UserController extends RestController {
         int $ioDevicesRegistrationEnableTime,
         bool $requireRegulationsAcceptance,
         bool $recaptchaEnabled,
-        $recaptchaSecret
+        $recaptchaSecret,
+        array $availableLanguages
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -91,6 +92,7 @@ class UserController extends RestController {
         $this->requireRegulationsAcceptance = $requireRegulationsAcceptance;
         $this->recaptchaEnabled = $recaptchaEnabled;
         $this->recaptchaSecret = $recaptchaSecret;
+        $this->availableLanguages = $availableLanguages;
     }
 
     /**

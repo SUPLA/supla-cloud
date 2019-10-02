@@ -60,6 +60,7 @@ class SuplaExtension extends ConfigurableExtension {
             $mergedConfig['maintenance']['delete_audit_entries_older_than_days']
         );
         $container->setParameter('supla.oauth.tokens_lifetime', $this->buildOauthTokensConfig($mergedConfig['oauth']['tokens_lifetime']));
+        $container->setParameter('supla.available_languages', $this->detectAvailableLanguages());
     }
 
     private function buildOauthTokensConfig(array $tokensLifetimes): array {
@@ -73,5 +74,14 @@ class SuplaExtension extends ConfigurableExtension {
             ];
         }
         return $mapped;
+    }
+
+    private function detectAvailableLanguages() {
+        $files = scandir(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Resources/translations');
+        $languages = array_map(function ($path) {
+            preg_match('#\.([a-z]{2})\.yml$#', $path, $match);
+            return $match ? $match[1] ?? null : null;
+        }, $files);
+        return array_values(array_filter($languages));
     }
 }

@@ -49,6 +49,7 @@ services:
     $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
     $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
     $recaptchaEnabled: '%recaptcha_enabled%'
+    $availableLanguages: '%supla.available_languages%'
 
   SuplaBundle\Controller\ExecuteDirectLinkController:
     $logger: '@monolog.logger.supla_direct_links'
