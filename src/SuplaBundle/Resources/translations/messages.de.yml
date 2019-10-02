@@ -589,13 +589,38 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Add a delay: ~
+Add new item to use in the scene: ~
+Are you sure you want to delete this scene?: ~
 Choose Access Identifier: ~
+Control: ~
+Create new scene: ~
+Direct links limit has been exceeded: ~
+Execute: ~
+Execute the scene: ~
 Maintenance mode active. You cannot modify any data now.: ~
+New scene: ~
+No of operations: ~
+Operations: ~
 SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+Scene: ~
+Scene must consist of at least one operation.: ~
+Scenes: ~
+Scenes limit has been exceeded: ~
 We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
+actionableSubjectType_: ~
+actionableSubjectType_channel: ~
+actionableSubjectType_channelGroup: ~
+actionableSubjectType_scene: ~
+channel: ~
+channelGroup: ~
+choose the scene: ~
+min.: ~
+or add a delay: ~
 password: ~
+scene: ~
 username: ~
 
 #</editor-fold>

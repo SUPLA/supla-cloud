@@ -76,6 +76,12 @@ class DirectLink {
     private $channelGroup;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="directLinks")
+     * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $scene;
+
+    /**
      * @ORM\Column(name="allowed_actions", type="string", nullable=false, length=255)
      */
     private $allowedActions;
@@ -125,6 +131,8 @@ class DirectLink {
             $this->channel = $subject;
         } elseif ($subject instanceof IODeviceChannelGroup) {
             $this->channelGroup = $subject;
+        } elseif ($subject instanceof Scene) {
+            $this->scene = $subject;
         } else {
             throw new \InvalidArgumentException('Invalid link subject given: ' . get_class($subject));
         }
@@ -149,7 +157,7 @@ class DirectLink {
      * @MaxDepth(1)
      */
     public function getSubject(): HasFunction {
-        return $this->channel ?: $this->channelGroup;
+        return $this->channel ?: $this->channelGroup ?: $this->scene;
     }
 
     public function getSubjectType(): ActionableSubjectType {

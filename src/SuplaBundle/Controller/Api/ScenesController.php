@@ -32,7 +32,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ScenesController extends RestController {
     use Transactional;
-    private const DEFAULT_INCLUDES = ['subject', 'operations', 'location'];
+    private const DEFAULT_INCLUDES = ['subject', 'operations', 'location', 'iodevice'];
 
     /**
      * @Rest\Get("/scenes")

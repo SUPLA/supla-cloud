@@ -39,7 +39,7 @@
                                     <h3 class="text-center">{{ $t('Location') }}</h3>
                                     <div class="form-group text-center">
                                         <square-location-chooser v-model="scene.location"
-                                            @input="onLocationChange($event)"></square-location-chooser>
+                                            @input="sceneChanged()"></square-location-chooser>
                                     </div>
                                     <div v-if="scene.id">
                                         <h3 class="text-center">{{ $t('Control') }}</h3>
@@ -75,7 +75,6 @@
             @cancel="deleteConfirm = false"
             :header="$t('Are you sure you want to delete this scene?')"
             :loading="loading">
-            {{ $t('blabla') }}
         </modal-confirm>
     </page-container>
 </template>
@@ -119,7 +118,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`scenes/${this.id}?include=operations,subject,location,iodevice`, {skipErrorHandler: [403, 404]})
                         .then(response => this.scene = response.body)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);

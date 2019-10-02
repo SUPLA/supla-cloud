@@ -7,6 +7,9 @@
             <li :class="subjectType == 'channelGroup' ? 'active' : ''">
                 <a @click="changeSubjectType('channelGroup')">{{$t('Channel groups')}}</a>
             </li>
+            <li :class="subjectType == 'scene' ? 'active' : ''">
+                <a @click="changeSubjectType('scene')">{{$t('Scenes')}}</a>
+            </li>
         </ul>
         <channels-dropdown v-model="subject"
             v-if="subjectType == 'channel'"
@@ -17,16 +20,22 @@
             v-if="subjectType == 'channelGroup'"
             :filter="filter"
             v-model="subject"></channel-groups-dropdown>
+        <scenes-dropdown
+            @input="subjectChanged"
+            v-if="subjectType == 'scene'"
+            :filter="filter"
+            v-model="subject"></scenes-dropdown>
     </div>
 </template>
 
 <script>
     import ChannelsDropdown from "./channels-dropdown";
     import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
+    import ScenesDropdown from "../scenes/scenes-dropdown";
 
     export default {
         props: ['value', 'channelsDropdownParams', 'filter'],
-        components: {ChannelGroupsDropdown, ChannelsDropdown},
+        components: {ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
         data() {
             return {
                 subject: undefined,

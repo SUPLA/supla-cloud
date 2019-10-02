@@ -29,9 +29,9 @@ use SuplaBundle\Exception\ApiException;
  * @method static ActionableSubjectType SCENE()
  */
 final class ActionableSubjectType extends Enum {
-    const CHANNEL = 'channel';
-    const CHANNEL_GROUP = 'channelGroup';
-    const SCENE = 'scene';
+    const CHANNEL = 'channel'; // i18n:['actionableSubjectType_channel']
+    const CHANNEL_GROUP = 'channelGroup'; // i18n:['actionableSubjectType_channelGroup']
+    const SCENE = 'scene'; // i18n:['actionableSubjectType_scene']
 
     public static function forEntity($entity): self {
         if ($entity instanceof IODeviceChannel) {

@@ -42,19 +42,19 @@ class SceneOperation {
     private $owningScene;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="directLinks")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="directLinks")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup")
      * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="operations")
+     * @ORM\ManyToOne(targetEntity="Scene")
      * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $scene;

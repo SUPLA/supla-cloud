@@ -18,12 +18,13 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
  * @ORM\Table(name="supla_scene")
  */
 class Scene implements HasLocation, HasFunction {
@@ -67,6 +68,11 @@ class Scene implements HasLocation, HasFunction {
      * @Groups({"operations"})
      */
     private $operations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="scene")
+     */
+    private $directLinks;
 
     public function __construct(Location $location) {
         $this->user = $location->getUser();
@@ -119,6 +125,13 @@ class Scene implements HasLocation, HasFunction {
         }
     }
 
+    public function getDirectLinks(): Collection {
+        return $this->directLinks;
+    }
+
+    /**
+     * @Groups({"basic"})
+     */
     public function getFunction(): ChannelFunction {
         return ChannelFunction::SCENE();
     }

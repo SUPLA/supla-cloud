@@ -16,6 +16,9 @@ WELCOME_MESSAGE: |
   Having your house or the office connected to SUPLA is very easy.
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.'
+actionableSubjectType_channel: Channel
+actionableSubjectType_channelGroup: Channel group
+actionableSubjectType_scene: Scene
 directLinkExecutionFailureReason_disabled: Direct link is disabled.
 directLinkExecutionFailureReason_executionLimitExceeded: Execution limit has been exceeded.
 directLinkExecutionFailureReason_expired: Direct link has expired.

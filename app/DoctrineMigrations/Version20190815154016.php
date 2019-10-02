@@ -16,5 +16,8 @@ class Version20190815154016 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_scene_operation ADD CONSTRAINT FK_64A50CF589E4AAEE FOREIGN KEY (channel_group_id) REFERENCES supla_dev_channel_group (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_scene_operation ADD CONSTRAINT FK_64A50CF5166053B4 FOREIGN KEY (scene_id) REFERENCES supla_scene (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_user ADD limit_scene INT DEFAULT 50 NOT NULL');
+        $this->addSql('ALTER TABLE supla_direct_link ADD scene_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_direct_link ADD CONSTRAINT FK_6AE7809F166053B4 FOREIGN KEY (scene_id) REFERENCES supla_scene (id) ON DELETE CASCADE');
+        $this->addSql('CREATE INDEX IDX_6AE7809F166053B4 ON supla_direct_link (scene_id)');
     }
 }
