@@ -20,5 +20,8 @@ class Version20190815154016 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_direct_link ADD scene_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_direct_link ADD CONSTRAINT FK_6AE7809F166053B4 FOREIGN KEY (scene_id) REFERENCES supla_scene (id) ON DELETE CASCADE');
         $this->addSql('CREATE INDEX IDX_6AE7809F166053B4 ON supla_direct_link (scene_id)');
+        $this->addSql('ALTER TABLE supla_schedule ADD scene_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_schedule ADD CONSTRAINT FK_323E8ABE166053B4 FOREIGN KEY (scene_id) REFERENCES supla_scene (id) ON DELETE CASCADE ');
+        $this->addSql('CREATE INDEX IDX_323E8ABE166053B4 ON supla_schedule (scene_id)');
     }
 }

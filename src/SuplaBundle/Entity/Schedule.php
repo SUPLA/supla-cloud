@@ -37,6 +37,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  */
 class Schedule {
     use BelongsToUser;
+    use HasSubject;
 
     /**
      * @ORM\Id
@@ -71,6 +72,12 @@ class Schedule {
      * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
      */
     private $channelGroup;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="schedules")
+     * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $scene;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
@@ -137,7 +144,9 @@ class Schedule {
         $this->setTimeExpression($data['timeExpression']);
         $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
-        $this->setSubject($data['subject'] ?? null);
+        if ($data['subject'] ?? null) {
+            $this->initializeSubject($data['subject']);
+        }
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['mode']));
@@ -182,7 +191,7 @@ class Schedule {
      * @MaxDepth(1)
      */
     public function getSubject(): HasFunction {
-        return $this->channel ?: $this->channelGroup;
+        return $this->getTheSubject();
     }
 
     /** Exists only for v2.2- compatibility (there was a "channel" serialization group before. */
@@ -192,10 +201,6 @@ class Schedule {
 
     public function isSubjectEnabled(): bool {
         return $this->getSubjectType() != ActionableSubjectType::CHANNEL() || $this->getSubject()->getIoDevice()->getEnabled();
-    }
-
-    public function getSubjectType(): ActionableSubjectType {
-        return ActionableSubjectType::forEntity($this->getSubject());
     }
 
     public function getAction(): ChannelFunctionAction {

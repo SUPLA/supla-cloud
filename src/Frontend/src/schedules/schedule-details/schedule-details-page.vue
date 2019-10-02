@@ -63,12 +63,14 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <h3 class="text-center">{{ $t(schedule.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</h3>
+                            <h3 class="text-center">{{ $t('actionableSubjectType_' + schedule.subjectType) }}</h3>
                             <div class="form-group">
                                 <channel-tile :model="schedule.subject"
                                     v-if="schedule.subjectType == 'channel'"></channel-tile>
                                 <channel-group-tile :model="schedule.subject"
                                     v-if="schedule.subjectType == 'channelGroup'"></channel-group-tile>
+                                <scene-tile :model="schedule.subject"
+                                    v-if="schedule.subjectType == 'scene'"></scene-tile>
                             </div>
                             <div class="form-group"
                                 v-if="displayOpeningSensorWarning">
@@ -102,6 +104,7 @@
     import DotsRoute from "../../common/gui/dots-route";
     import ChannelTile from "../../channels/channel-tile";
     import ChannelGroupTile from "../../channel-groups/channel-group-tile";
+    import SceneTile from "../../scenes/scene-tile";
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ScheduleExecutionsDisplay from "./schedule-executions-display";
@@ -114,6 +117,7 @@
             PendingChangesPage,
             Toggler,
             ChannelTile,
+            SceneTile,
             DotsRoute,
             ChannelGroupTile,
         },

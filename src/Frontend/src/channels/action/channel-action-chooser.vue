@@ -49,7 +49,7 @@
             };
         },
         mounted() {
-            if (this.actionsToShow.length === 1 && !this.value) {
+            if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
                 this.action = {
                     id: this.actionsToShow[0].id,
                     param: {}

@@ -19,7 +19,6 @@ namespace SuplaBundle\Entity;
 
 use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Exception\InactiveDirectLinkException;
@@ -34,6 +33,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  */
 class DirectLink {
     use BelongsToUser;
+    use HasSubject;
 
     const SLUG_LENGTH_MIN = 10;
     const SLUG_LENGTH_MAX = 16;
@@ -127,15 +127,7 @@ class DirectLink {
     private $disableHttpGet = false;
 
     public function __construct(HasFunction $subject) {
-        if ($subject instanceof IODeviceChannel) {
-            $this->channel = $subject;
-        } elseif ($subject instanceof IODeviceChannelGroup) {
-            $this->channelGroup = $subject;
-        } elseif ($subject instanceof Scene) {
-            $this->scene = $subject;
-        } else {
-            throw new \InvalidArgumentException('Invalid link subject given: ' . get_class($subject));
-        }
+        $this->initializeSubject($subject);
         $this->user = $subject->getUser();
         $this->setAllowedActions([]);
     }
@@ -157,11 +149,7 @@ class DirectLink {
      * @MaxDepth(1)
      */
     public function getSubject(): HasFunction {
-        return $this->channel ?: $this->channelGroup ?: $this->scene;
-    }
-
-    public function getSubjectType(): ActionableSubjectType {
-        return ActionableSubjectType::forEntity($this->getSubject());
+        return $this->getTheSubject();
     }
 
     public function getUser(): User {

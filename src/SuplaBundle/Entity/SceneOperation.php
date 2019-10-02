@@ -18,15 +18,17 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_scene_operation")
  */
 class SceneOperation {
+    use HasSubject;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -78,13 +80,7 @@ class SceneOperation {
     private $delayMs = 0;
 
     public function __construct(HasFunction $subject, ChannelFunctionAction $action, array $actionParam = [], $delayMs = 0) {
-        if ($subject instanceof IODeviceChannel) {
-            $this->channel = $subject;
-        } elseif ($subject instanceof IODeviceChannelGroup) {
-            $this->channelGroup = $subject;
-        } else {
-            throw new \InvalidArgumentException('Invalid scene operation subject given: ' . get_class($subject));
-        }
+        $this->initializeSubject($subject);
         $this->action = $action->getId();
         $this->setActionParam($actionParam);
         $this->delayMs = $delayMs;
@@ -98,17 +94,16 @@ class SceneOperation {
         return $this->owningScene;
     }
 
-    /** @Groups({"subject"}) */
-    public function getSubject(): HasFunction {
-        return $this->channel ?: $this->channelGroup;
-    }
-
-    public function getSubjectType(): ActionableSubjectType {
-        return ActionableSubjectType::forEntity($this->getSubject());
-    }
-
     public function getAction(): ChannelFunctionAction {
         return new ChannelFunctionAction($this->action);
+    }
+
+    /**
+     * @Groups({"sceneOperation.subject"})
+     * @MaxDepth(1)
+     */
+    public function getSubject(): HasFunction {
+        return $this->getTheSubject();
     }
 
     /** @return array|null */
