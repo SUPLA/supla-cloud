@@ -187,7 +187,7 @@
             }, 1000),
             deleteDevice() {
                 this.loading = true;
-                this.$http.delete(`iodevices/${this.id}`)
+                this.$http.delete(`iodevices/${this.id}?safe=yes`)
                     .then(() => this.$router.push({name: 'me'}))
                     .catch(() => this.loading = false);
             },

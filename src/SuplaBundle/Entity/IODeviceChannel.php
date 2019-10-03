@@ -75,6 +75,13 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     private $schedules;
 
     /**
+     * @var SceneOperation[]
+     * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="channel", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $sceneOperations;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="channels")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=true)
      * @Groups({"channel.location"})
@@ -229,6 +236,11 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     /** @return Collection|Schedule[] */
     public function getSchedules(): Collection {
         return $this->schedules;
+    }
+
+    /** @return Collection|SceneOperation[] */
+    public function getSceneOperations(): Collection {
+        return $this->sceneOperations;
     }
 
     public function getFunction(): ChannelFunction {

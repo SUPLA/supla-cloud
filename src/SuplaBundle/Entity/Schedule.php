@@ -61,7 +61,7 @@ class Schedule {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      * @Groups({"channel", "iodevice", "location"})
      * @MaxDepth(1)
      */
@@ -69,7 +69,7 @@ class Schedule {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
 

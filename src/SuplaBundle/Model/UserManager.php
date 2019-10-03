@@ -290,6 +290,7 @@ class UserManager {
             $user->getLocations()->forAll($remove);
             $user->getSchedules()->forAll($remove);
             $user->getUserIcons()->forAll($remove);
+            $user->getScenes()->forAll($remove);
             $em->remove($user);
             $this->audit->newEntry(AuditedEvent::USER_ACCOUNT_DELETED())
                 ->setIntParam($user->getId())

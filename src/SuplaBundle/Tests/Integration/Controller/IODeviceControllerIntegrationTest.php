@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
@@ -287,6 +288,36 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(204, $client->getResponse());
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals(0, $gateChannel->getParam3(), 'The paired sensor has not been cleared.');
+    }
+
+    /** @large */
+    public function testDeletingWithAskingAboutDependencies() {
+        $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
+        $this->getEntityManager()->persist($cg);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $this->device->getId() . '?safe=yes');
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('sceneOperations', $content);
+        $this->assertArrayHasKey('channelGroups', $content);
+        $this->assertArrayHasKey('directLinks', $content);
+        $this->assertArrayHasKey('schedules', $content);
+        $this->assertCount(1, $content['channelGroups']);
+        $this->assertEmpty($content['directLinks']);
+        $this->assertEquals($cg->getId(), $content['channelGroups'][0]['id']);
+        return $cg;
+    }
+
+    /**
+     * @large
+     * @depends testDeletingWithAskingAboutDependencies
+     */
+    public function testDeletingWithDependencies(IODeviceChannelGroup $channelGroup) {
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $channelGroup->getId()));
     }
 
     /** @large */

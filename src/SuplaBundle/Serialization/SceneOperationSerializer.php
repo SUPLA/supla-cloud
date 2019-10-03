@@ -29,6 +29,7 @@ class SceneOperationSerializer extends AbstractSerializer {
         $normalized['subjectType'] = $sceneOperation->getSubjectType()->getValue();
         $normalized['subjectId'] = $sceneOperation->getSubject()->getId();
         $normalized['actionId'] = $sceneOperation->getAction()->getId();
+        $normalized['owningSceneId'] = $sceneOperation->getOwningScene()->getId();
     }
 
     public function supportsNormalization($entity, $format = null) {

@@ -40,6 +40,8 @@ class SceneOperation {
     /**
      * @ORM\ManyToOne(targetEntity="Scene", inversedBy="operations")
      * @ORM\JoinColumn(name="owning_scene_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Groups({"scene"})
+     * @MaxDepth(1)
      */
     private $owningScene;
 

@@ -31,6 +31,7 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\ArrayUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -226,7 +227,22 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
-    public function deleteIodeviceAction(IODevice $ioDevice) {
+    public function deleteIodeviceAction(IODevice $ioDevice, Request $request) {
+        if ($request->get('safe', false)) {
+            $dependencies = [];
+            foreach ($ioDevice->getChannels() as $channel) {
+                $dependencies['channelGroups'][] = $channel->getChannelGroups()->toArray();
+                $dependencies['directLinks'][] = $channel->getDirectLinks()->toArray();
+                $dependencies['schedules'][] = $channel->getSchedules()->toArray();
+                $dependencies['sceneOperations'][] = $channel->getSceneOperations()->toArray();
+            }
+            $dependencies = array_map(ArrayUtils::class . '::flattenOnce', $dependencies);
+            if (count(array_filter($dependencies))) {
+                $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                return $view;
+            }
+        }
         $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
             foreach ($ioDevice->getChannels() as $channel) {
                 // clears all paired channels that are possibly made with the one that is being deleted
