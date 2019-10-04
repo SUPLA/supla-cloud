@@ -76,6 +76,37 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $locationData['channelGroupsIds']);
     }
 
+    public function testGettingLocationsListApi24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $locationData = $content[0];
+        $this->assertArrayHasKey('id', $locationData);
+        $this->assertArrayNotHasKey('channelsIds', $locationData);
+        $this->assertArrayNotHasKey('channelGroupsIds', $locationData);
+        $this->assertArrayNotHasKey('channels', $locationData);
+        $this->assertArrayNotHasKey('channelGroups', $locationData);
+    }
+
+    public function testGettingLocationsListApi24WithChildrenIds() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/locations?include=childrenIds');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $locationData = $content[0];
+        $this->assertArrayHasKey('id', $locationData);
+        $this->assertArrayHasKey('channelsIds', $locationData);
+        $this->assertArrayHasKey('channelGroupsIds', $locationData);
+        $this->assertArrayNotHasKey('channels', $locationData);
+        $this->assertCount(1, $locationData['channelsIds']);
+        $this->assertCount(1, $locationData['channelGroupsIds']);
+    }
+
     public function testGettingLocationsListWithIncludes() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/locations?include=channels,channelGroups');

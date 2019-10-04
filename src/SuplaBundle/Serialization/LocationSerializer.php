@@ -18,6 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Model\ApiVersions;
 
 class LocationSerializer extends AbstractSerializer {
     /**
@@ -25,10 +26,14 @@ class LocationSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $location, array $context) {
-        $normalized['iodevicesIds'] = $this->toIds($location->getIoDevices());
-        $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
-        $normalized['channelsIds'] = $this->toIds($location->getChannels());
-        $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
+        $childrenIdsRequested = $this->isSerializationGroupRequested('location.childrenIds', $context);
+        $alwaysReturnChildrenIds = !ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context);
+        if ($alwaysReturnChildrenIds || $childrenIdsRequested) {
+            $normalized['iodevicesIds'] = $this->toIds($location->getIoDevices());
+            $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
+            $normalized['channelsIds'] = $this->toIds($location->getChannels());
+            $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
+        }
     }
 
     public function supportsNormalization($entity, $format = null) {

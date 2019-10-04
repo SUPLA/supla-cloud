@@ -152,7 +152,7 @@
             fetchDevice() {
                 this.loading = true;
                 this.error = false;
-                return this.$http.get(`iodevices/${this.id}?include=location,originalLocation,accessids`, {skipErrorHandler: [403, 404]})
+                return this.$http.get(`iodevices/${this.id}?include=location,originalLocation,accessids,location.childrenIds`, {skipErrorHandler: [403, 404]})
                     .then(response => {
                         this.device = response.body;
                         this.loading = false;

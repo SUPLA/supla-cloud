@@ -41,7 +41,8 @@ class ChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    protected $defaultSerializationGroups = ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount'];
+    protected $defaultSerializationGroups = ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount',
+        'channel.location', 'location.childrenIds', 'iodevice.location'];
     protected $defaultSerializationGroupsTranslations = ['location' => 'channel.location'];
 
     /** @var ChannelParamsUpdater */

@@ -35,7 +35,7 @@ export function channelIconUrl(channel) {
 }
 
 export function deviceTitle(device) {
-    return `${device.location.caption} / ${device.comment || device.name}`;
+    return `${device.location && device.location.caption} / ${device.comment || device.name}`;
 }
 
 export function ellipsis(string, length = 20) {

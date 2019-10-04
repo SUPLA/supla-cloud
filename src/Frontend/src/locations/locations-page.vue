@@ -2,7 +2,7 @@
     <carousel-page header-i18n="Locations"
         tile="location-tile"
         filters="location-filters"
-        endpoint="locations"
+        endpoint="locations?include=childrenIds"
         create-new-label-i18n="Create New Location"
         :limit="$user.userData.limits.location"
         details-route="location"></carousel-page>

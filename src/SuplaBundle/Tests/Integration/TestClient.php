@@ -34,4 +34,8 @@ class TestClient extends Client {
     public function apiRequestV23(string $method, string $uri, $content = [], array $params = [], array $files = [], array $server = []) {
         return $this->apiRequest($method, $uri, $content, $params, $files, $server, ApiVersions::V2_3);
     }
+
+    public function apiRequestV24(string $method, string $uri, $content = [], array $params = [], array $files = [], array $server = []) {
+        return $this->apiRequest($method, $uri, $content, $params, $files, $server, ApiVersions::V2_4);
+    }
 }

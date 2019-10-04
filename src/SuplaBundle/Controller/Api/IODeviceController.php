@@ -36,7 +36,7 @@ class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    protected $defaultSerializationGroups = ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state'];
+    protected $defaultSerializationGroups = ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state', 'location.childrenIds'];
     protected $defaultSerializationGroupsTranslations = ['channels' => 'iodevice.channels', 'location' => 'iodevice.location'];
 
     /** @var ChannelParamsUpdater */

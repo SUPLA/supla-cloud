@@ -1,7 +1,7 @@
 <template>
     <span>
         <h2>ID<strong>{{ location.id }} </strong></h2>
-        <dl>
+        <dl v-if="location.iodevicesIds">
             <dd>{{ $t('No. of devices') }}</dd>
             <dt>{{ location.iodevicesIds.length }}</dt>
             <dd>{{ $t('No. of channel groups') }}</dd>

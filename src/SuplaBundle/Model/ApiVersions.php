@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @method static ApiVersions V2_1()
  * @method static ApiVersions V2_2()
  * @method static ApiVersions V2_3()
+ * @method static ApiVersions V2_4()
  * @method static ApiVersions DEFAULT()
  * @method static ApiVersions LATEST()
  */
@@ -19,18 +20,24 @@ class ApiVersions extends Enum {
     const V2_1 = '2.1.0';
     const V2_2 = '2.2.0';
     const V2_3 = '2.3.0';
+    const V2_4 = '2.4.0';
     const DEFAULT = self::V2_0;
     const LATEST = self::V2_3;
 
-    public function isRequestedEqualOrGreaterThan(Request $request): bool {
+    /** @param Request|array $request */
+    public function isRequestedEqualOrGreaterThan($request): bool {
+        $versionFromRequest = is_array($request) ? self::fromSerializationContext($request) : self::fromRequest($request)->getValue();
         // -1 lower, 0 equal, 1 greater
-        $versionFromRequest = self::fromRequest($request)->getValue();
         $comparison = version_compare($this->getValue(), $versionFromRequest);
         return $comparison <= 0;
     }
 
     public static function fromRequest(Request $request): ApiVersions {
         return self::fromString($request->get('version', self::DEFAULT));
+    }
+
+    public static function fromSerializationContext(array $context): ApiVersions {
+        return isset($context['version']) ? self::fromString($context['version']) : self::DEFAULT();
     }
 
     public static function fromString(string $version): ApiVersions {

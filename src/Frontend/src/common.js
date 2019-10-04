@@ -31,7 +31,7 @@ Vue.prototype.$frontendConfig = Vue.config.external;
 if (!Vue.config.external.baseUrl) {
     Vue.config.external.baseUrl = '';
 }
-Vue.http.headers.common['X-Accept-Version'] = '2.3.0';
+Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 
