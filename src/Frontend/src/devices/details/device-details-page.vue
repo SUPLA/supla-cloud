@@ -102,8 +102,12 @@
             @cancel="deleteConfirm = false"
             :header="$t('Are you sure?')"
             :loading="loading">
-            <p>{{ $t('Confirm if you want to remove {deviceName} device', {deviceName: device.name}) }}</p>
+            <p>{{ $t('Confirm if you want to remove {deviceName} device and all of its channels.', {deviceName: device.name}) }}</p>
         </modal-confirm>
+        <delete-io-with-dependencies-modal v-if="dependenciesThatPreventsDeletion"
+            :dependencies="dependenciesThatPreventsDeletion"
+            @confirm="deleteDevice(false)"
+            @cancel="dependenciesThatPreventsDeletion = undefined"></delete-io-with-dependencies-modal>
     </page-container>
 </template>
 
@@ -119,10 +123,12 @@
     import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal";
     import SquareLocationChooser from "../../locations/square-location-chooser";
     import PageContainer from "../../common/pages/page-container";
+    import DeleteIoWithDependenciesModal from "./delete-io-with-dependencies-modal";
 
     export default {
         props: ['id'],
         components: {
+            DeleteIoWithDependenciesModal,
             PageContainer,
             EnablingSchedulesModal,
             DisablingSchedulesModal,
@@ -142,7 +148,8 @@
                 hasPendingChanges: false,
                 showSchedulesDisablingConfirmation: false,
                 showSchedulesEnablingConfirmation: false,
-                schedules: undefined
+                schedules: undefined,
+                dependenciesThatPreventsDeletion: undefined
             };
         },
         mounted() {
@@ -185,11 +192,16 @@
                     })
                     .finally(() => this.loading = false);
             }, 1000),
-            deleteDevice() {
+            deleteDevice(safe) {
                 this.loading = true;
-                this.$http.delete(`iodevices/${this.id}?safe=yes`)
+                this.$http.delete(`iodevices/${this.id}?safe=${safe ? 'true' : 'false'}`, {skipErrorHandler: [409]})
                     .then(() => this.$router.push({name: 'me'}))
-                    .catch(() => this.loading = false);
+                    .catch(({body, status}) => {
+                        if (status == 409) {
+                            this.dependenciesThatPreventsDeletion = body;
+                        }
+                    })
+                    .finally(() => this.loading = this.deleteConfirm = false);
             },
             onLocationChange(location) {
                 this.$set(this.device, 'location', location);
