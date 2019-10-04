@@ -92,7 +92,6 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('location', $content);
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
-        $this->assertLessThan(60 * 1024 * 1024, $profile->getCollector('memory')->getMemory());
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
         $this->assertLessThan(50, $profile->getCollector('db')->getQueryCount());
     }
@@ -107,7 +106,6 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
         $this->assertCount(self::DEVICES_COUNT, $content);
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
-        $this->assertLessThan(60 * 1024 * 1024, $profile->getCollector('memory')->getMemory());
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
         $this->assertLessThan(100, $profile->getCollector('db')->getQueryCount());
     }
