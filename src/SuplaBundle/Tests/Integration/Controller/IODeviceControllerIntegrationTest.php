@@ -286,11 +286,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getId(), $content[0]->id);
         $this->assertTrue(property_exists($content[0], 'location'));
         $this->assertTrue(property_exists($content[0], 'channels'));
-        $this->assertTrue(property_exists($content[0]->channels[0], 'location'));
+        $this->assertFalse(property_exists($content[0]->channels[0], 'location'));
+        $this->assertTrue(property_exists($content[0]->channels[0], 'locationId'));
         $this->assertTrue(property_exists($content[0]->channels[0], 'state'));
-        $this->assertTrue(property_exists($content[0]->channels[0]->location, 'channels'));
-        $this->assertCount(1, $content[0]->channels[0]->location->channels);
-        // here - recursive serialization of channel to its identifier instead of an object
-        $this->assertEquals([$channel->getId()], $content[0]->channels[0]->location->channels);
     }
 }

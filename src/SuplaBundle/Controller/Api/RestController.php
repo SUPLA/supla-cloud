@@ -34,7 +34,19 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 abstract class RestController extends AbstractFOSRestController {
     use CurrentUserAware;
 
-    protected function setSerializationGroups(View $view, Request $request, array $allowedGroups, array $extraGroups = []): Context {
+    protected $defaultSerializationGroups = [];
+    protected $defaultSerializationGroupsTranslations = [];
+
+    protected function setSerializationGroups(
+        View $view,
+        Request $request,
+        $allowedGroups = null,
+        array $extraGroups = [],
+        $groupNamesTranslations = null
+    ): Context {
+        if ($allowedGroups === null) {
+            $allowedGroups = $this->defaultSerializationGroups;
+        }
         $context = new Context();
         $include = $request->get('include', '');
         $requestedGroups = array_filter(array_map('trim', explode(',', $include)));
@@ -49,7 +61,20 @@ abstract class RestController extends AbstractFOSRestController {
             );
         }
         $filteredGroups[] = 'basic';
-        $context->setGroups(array_unique($filteredGroups));
+        $desiredGroups = array_unique($filteredGroups);
+        if ($groupNamesTranslations === null) {
+            $groupNamesTranslations = $this->defaultSerializationGroupsTranslations;
+        }
+        if ($groupNamesTranslations) {
+            foreach ($groupNamesTranslations as $group => $translations) {
+                if (($index = array_search($group, $desiredGroups)) !== false) {
+                    unset($desiredGroups[$index]);
+                    $desiredGroups = array_merge($desiredGroups, is_array($translations) ? $translations : [$translations]);
+                }
+            }
+            $desiredGroups = array_values($desiredGroups);
+        }
+        $context->setGroups($desiredGroups);
         $view->setContext($context);
         return $context;
     }
