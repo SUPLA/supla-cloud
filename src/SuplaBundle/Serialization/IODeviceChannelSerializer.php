@@ -18,6 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -41,6 +42,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $channel, array $context) {
+        $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
         $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
         $normalized['locationId'] = $channel->getLocation()->getId();
         $normalized['functionId'] = $channel->getFunction()->getId();

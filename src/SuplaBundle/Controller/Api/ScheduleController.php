@@ -38,6 +38,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ScheduleController extends RestController {
+    protected $defaultSerializationGroupsTranslations = ['subject' => 'schedule.subject'];
+
     /** @var ScheduleRepository */
     private $scheduleRepository;
     /** @var ChannelActionExecutor */

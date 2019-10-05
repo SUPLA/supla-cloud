@@ -32,6 +32,12 @@ class AccessIDController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
+    protected $defaultSerializationGroups = ['locations', 'clientApps', 'password', 'accessid.childrenIds'];
+    protected $defaultSerializationGroupsTranslations = [
+        'locations' => 'accessid.locations',
+        'clientApps' => 'accessid.clientApps',
+    ];
+
     /** @var AccessIdManager */
     private $accessIdManager;
 
@@ -78,7 +84,7 @@ class AccessIDController extends RestController {
      */
     public function getAccessidAction(Request $request, AccessID $accessId) {
         $view = $this->view($accessId, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['locations', 'clientApps', 'password']);
+        $this->setSerializationGroups($view, $request);
         return $view;
     }
 

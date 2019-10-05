@@ -37,7 +37,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
     /** @var IODevice */
     private $device;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDeviceFull($location);
@@ -56,5 +56,16 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $scheduleFromResponse->id);
         $schedule = $this->container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
         $this->assertEquals($scheduleFromResponse->timeExpression, $schedule->getTimeExpression());
+        return $schedule;
+    }
+
+    /** @depends testCreatingNewSchedule */
+    public function testGetScheduleDetails(Schedule $schedule) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV23(Request::METHOD_GET, '/api/schedules/' . $schedule->getId() . '?include=subject,closestExecutions');
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
+        $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('subject', $scheduleFromResponse);
+        $this->assertArrayHasKey('subjectType', $scheduleFromResponse);
     }
 }

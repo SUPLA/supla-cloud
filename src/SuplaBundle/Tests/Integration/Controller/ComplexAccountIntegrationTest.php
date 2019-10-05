@@ -109,4 +109,18 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
         $this->assertLessThan(100, $profile->getCollector('db')->getQueryCount());
     }
+
+    public function testSerializingIoDevicesIn24() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->enableProfiler();
+        $client->apiRequestV24('GET', '/api/iodevices?include=channels,location');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(self::DEVICES_COUNT, $content);
+        $profile = $client->getProfile();
+        $this->assertNotNull($profile);
+        $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
+        $this->assertLessThan(30, $profile->getCollector('db')->getQueryCount());
+    }
 }

@@ -18,6 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -43,12 +44,16 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
     protected function addExtraFields(array &$normalized, $ioDevice, array $context) {
         $normalized['locationId'] = $ioDevice->getLocation()->getId();
         $normalized['originalLocationId'] = $ioDevice->getOriginalLocation() ? $ioDevice->getOriginalLocation()->getId() : null;
-        $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
         if ($this->isSerializationGroupRequested('connected', $context)) {
             $normalized['connected'] = $this->suplaServer->isDeviceConnected($ioDevice);
         }
-        if ($this->isSerializationGroupRequested('schedules', $context)) {
+        if ($this->isSerializationGroupRequested('iodevice.schedules', $context)) {
             $normalized['schedules'] = $this->serializeSchedules($ioDevice, $context);
+        }
+        $childrenIdsRequested = $this->isSerializationGroupRequested('iodevice.childrenIds', $context);
+        $alwaysReturnChildrenIds = !ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context);
+        if ($alwaysReturnChildrenIds || $childrenIdsRequested) {
+            $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
         }
     }
 

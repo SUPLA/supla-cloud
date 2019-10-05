@@ -36,6 +36,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 class DirectLinkController extends RestController {
     use Transactional;
 
+    protected $defaultSerializationGroups = ['subject'];
+    protected $defaultSerializationGroupsTranslations = ['subject' => 'directlink.subject'];
+
     /** @var EncoderFactory */
     private $encoderFactory;
     /** @var AuditEntryRepository */
@@ -59,7 +62,7 @@ class DirectLinkController extends RestController {
             });
         }
         $view = $this->view($directLinks->getValues(), Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['subject']);
+        $this->setSerializationGroups($view, $request);
         return $view;
     }
 
@@ -69,7 +72,7 @@ class DirectLinkController extends RestController {
      */
     public function getDirectLinkAction(Request $request, DirectLink $directLink) {
         $view = $this->view($directLink, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['subject']);
+        $this->setSerializationGroups($view, $request);
         return $view;
     }
 
@@ -91,7 +94,7 @@ class DirectLinkController extends RestController {
             return $slug;
         });
         $view = $this->view($directLink, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, ['subject']);
+        $this->setSerializationGroups($view, $request);
         $view->getContext()->setAttribute('slug', $slug);
         return $view;
     }

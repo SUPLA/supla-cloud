@@ -64,14 +64,14 @@ class AccessID {
 
     /**
      * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds", cascade={"persist"})
-     * @Groups({"locations"})
+     * @Groups({"accessid.locations"})
      * @MaxDepth(1)
      */
     private $locations;
 
     /**
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="accessId")
-     * @Groups({"clientApps"})
+     * @Groups({"accessid.clientApps"})
      * @MaxDepth(1)
      **/
     private $clientApps;

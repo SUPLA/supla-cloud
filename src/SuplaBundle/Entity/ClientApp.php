@@ -45,7 +45,7 @@ class ClientApp {
     /**
      * @ORM\ManyToOne(targetEntity="AccessID", inversedBy="clientApps")
      * @ORM\JoinColumn(name="access_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @Groups({"accessId"})
+     * @Groups({"clientApp.accessId"})
      * @MaxDepth(1)
      */
     private $accessId;

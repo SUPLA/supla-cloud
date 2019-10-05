@@ -178,7 +178,7 @@ class Schedule {
     }
 
     /**
-     * @Groups({"subject"})
+     * @Groups({"schedule.subject"})
      * @MaxDepth(1)
      */
     public function getSubject(): HasFunction {

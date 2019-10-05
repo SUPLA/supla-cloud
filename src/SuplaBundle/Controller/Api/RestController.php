@@ -47,6 +47,10 @@ abstract class RestController extends AbstractFOSRestController {
         if ($allowedGroups === null) {
             $allowedGroups = $this->defaultSerializationGroups;
         }
+        if ($groupNamesTranslations === null) {
+            $groupNamesTranslations = $this->defaultSerializationGroupsTranslations;
+        }
+        $allowedGroups = array_values(array_merge($allowedGroups, $groupNamesTranslations));
         $context = new Context();
         $include = $request->get('include', '');
         $requestedGroups = array_filter(array_map('trim', explode(',', $include)));
@@ -62,17 +66,12 @@ abstract class RestController extends AbstractFOSRestController {
         }
         $filteredGroups[] = 'basic';
         $desiredGroups = array_unique($filteredGroups);
-        if ($groupNamesTranslations === null) {
-            $groupNamesTranslations = $this->defaultSerializationGroupsTranslations;
-        }
         if ($groupNamesTranslations) {
-            foreach ($groupNamesTranslations as $group => $translations) {
+            foreach ($groupNamesTranslations as $group => $translation) {
                 if (($index = array_search($group, $desiredGroups)) !== false) {
-                    unset($desiredGroups[$index]);
-                    $desiredGroups = array_merge($desiredGroups, is_array($translations) ? $translations : [$translations]);
+                    $desiredGroups[$index] = $translation;
                 }
             }
-            $desiredGroups = array_values($desiredGroups);
         }
         $context->setGroups($desiredGroups);
         $view->setContext($context);

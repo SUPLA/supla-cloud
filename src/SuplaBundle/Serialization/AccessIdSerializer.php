@@ -18,6 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Model\ApiVersions;
 
 class AccessIdSerializer extends AbstractSerializer {
     /**
@@ -25,8 +26,12 @@ class AccessIdSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $accessId, array $context) {
-        $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
-        $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
+        $childrenIdsRequested = $this->isSerializationGroupRequested('accessid.childrenIds', $context);
+        $alwaysReturnChildrenIds = !ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context);
+        if ($alwaysReturnChildrenIds || $childrenIdsRequested) {
+            $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
+            $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
+        }
     }
 
     public function supportsNormalization($entity, $format = null) {

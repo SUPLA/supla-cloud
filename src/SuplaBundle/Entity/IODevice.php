@@ -62,7 +62,7 @@ class IODevice implements HasLocation {
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="ioDevices_ol")
      * @ORM\JoinColumn(name="original_location_id", referencedColumnName="id", nullable=true)
-     * @Groups({"originalLocation"})
+     * @Groups({"iodevice.originalLocation"})
      * @MaxDepth(1)
      */
     private $originalLocation;

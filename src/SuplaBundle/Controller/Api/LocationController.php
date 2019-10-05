@@ -35,7 +35,13 @@ class LocationController extends RestController {
     use SuplaServerAware;
 
     protected $defaultSerializationGroups = ['channels', 'iodevices', 'accessids', 'channelGroups', 'password', 'childrenIds'];
-    protected $defaultSerializationGroupsTranslations = ['channels' => 'location.channels', 'childrenIds' => 'location.childrenIds'];
+    protected $defaultSerializationGroupsTranslations = [
+        'channels' => 'location.channels',
+        'accessids' => 'location.accessids',
+        'iodevices' => 'location.iodevices',
+        'channelGroups' => 'location.channelGroups',
+        'childrenIds' => 'location.childrenIds',
+    ];
 
     /** @var LocationManager */
     private $locationManager;

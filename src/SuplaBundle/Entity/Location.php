@@ -68,21 +68,21 @@ class Location {
      * joinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="access_id", referencedColumnName="id")}
      * )
-     * @Groups({"accessids"})
+     * @Groups({"location.accessids"})
      * @MaxDepth(1)
      */
     private $accessIds;
 
     /**
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="location")
-     * @Groups({"iodevices"})
+     * @Groups({"location.iodevices"})
      * @MaxDepth(1)
      */
     private $ioDevices;
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="location")
-     * @Groups({"channelGroups"})
+     * @Groups({"location.channelGroups"})
      */
     private $channelGroups;
 
