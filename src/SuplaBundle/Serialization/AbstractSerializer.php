@@ -17,7 +17,9 @@
 
 namespace SuplaBundle\Serialization;
 
+use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -76,6 +78,11 @@ abstract class AbstractSerializer extends ObjectNormalizer {
         $normalized = parent::normalize($object, $format, $context);
         if (is_array($normalized)) {
             $this->addExtraFields($normalized, $object, $context);
+        }
+        if ($object instanceof HasRelationsCount && ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            if ($relationsCount = $object->getRelationsCount()) {
+                $normalized['relationsCount'] = $relationsCount;
+            }
         }
         return $normalized;
     }

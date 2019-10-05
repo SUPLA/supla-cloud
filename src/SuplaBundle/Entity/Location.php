@@ -20,6 +20,8 @@ namespace SuplaBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Common\HasRelationsCount;
+use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -27,8 +29,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\LocationRepository")
  * @ORM\Table(name="supla_location")
  */
-class Location {
+class Location implements HasRelationsCount {
     use BelongsToUser;
+    use HasRelationsCountTrait;
 
     /**
      * @ORM\Id
@@ -97,9 +100,6 @@ class Location {
      * @ORM\OneToMany(targetEntity="IODevice", mappedBy="originalLocation")
      */
     private $ioDevices_ol;
-
-    /** @var array */
-    private $relationsCount;
 
     /**
      * @param User|null $user
@@ -181,14 +181,5 @@ class Location {
 
     public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
-    }
-
-    public function setRelationsCount(array $relationsCount) {
-        $this->relationsCount = $relationsCount;
-    }
-
-    /** @return array|null */
-    public function getRelationsCount() {
-        return $this->relationsCount;
     }
 }

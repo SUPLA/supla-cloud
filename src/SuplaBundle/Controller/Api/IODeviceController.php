@@ -166,7 +166,6 @@ class IODeviceController extends RestController {
                 'channels' => $channels,
             ];
         }
-
         $view = $this->view($result, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request);
         return $view;

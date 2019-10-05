@@ -22,6 +22,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Common\HasRelationsCount;
+use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -30,8 +32,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
  * @ORM\Table(name="supla_dev_channel_group")
  */
-class IODeviceChannelGroup implements HasFunction, HasLocation {
+class IODeviceChannelGroup implements HasFunction, HasLocation, HasRelationsCount {
     use BelongsToUser;
+    use HasRelationsCountTrait;
 
     /**
      * @ORM\Id
@@ -105,9 +108,6 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channelGroup", cascade={"remove"})
      */
     private $schedules;
-
-    /** @var array */
-    private $relationsCount;
 
     /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
@@ -219,14 +219,4 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
     public function getSchedules(): Collection {
         return $this->schedules;
     }
-
-    public function setRelationsCount(array $relationsCount) {
-        $this->relationsCount = $relationsCount;
-    }
-
-    /** @return array|null */
-    public function getRelationsCount() {
-        return $this->relationsCount;
-    }
-
 }

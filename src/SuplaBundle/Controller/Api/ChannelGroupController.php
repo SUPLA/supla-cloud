@@ -40,8 +40,8 @@ class ChannelGroupController extends RestController {
     protected $defaultSerializationGroups = ['channels', 'iodevice', 'location', 'state'];
     protected $defaultSerializationGroupsTranslations = [
         'channels' => 'channelGroup.channels',
-        'iodevice' => 'channel.iodevice',
         'location' => 'channelGroup.location',
+        'iodevice' => 'channel.iodevice',
     ];
 
     /** @var ChannelActionExecutor */

@@ -32,9 +32,6 @@ class LocationSerializer extends AbstractSerializer {
             $normalized['channelsIds'] = $this->toIds($location->getChannels());
             $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
         }
-        if ($relationsCount = $location->getRelationsCount()) {
-            $normalized['relationsCount'] = $relationsCount;
-        }
     }
 
     public function supportsNormalization($entity, $format = null) {
