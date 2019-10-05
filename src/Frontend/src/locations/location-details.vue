@@ -108,7 +108,6 @@
                                         <th></th>
                                         <th>ID</th>
                                         <th>{{ $t('Caption') }}</th>
-                                        <th>{{ $t('No. of channels') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -124,7 +123,6 @@
                                             <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
                                             <em v-else>{{ $t('None') }}</em>
                                         </td>
-                                        <td>{{ channelGroup.channelsIds.length }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -132,7 +130,7 @@
                                     class="inline"></empty-list-placeholder>
                             </div>
                             <div class="col-sm-6">
-                                <h3>{{ $t('Channels') }} ({{ location.channelsIds.length }})</h3>
+                                <h3>{{ $t('Channels') }} ({{ location.channels.length }})</h3>
                                 <table class="table table-hover table-valign-middle"
                                     v-if="location.channels.length">
                                     <thead>

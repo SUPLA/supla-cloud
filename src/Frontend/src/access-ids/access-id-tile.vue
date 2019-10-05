@@ -4,11 +4,11 @@
         <router-link :to="linkSpec">
             <span>
                 <h2>ID<strong>{{ model.id }} </strong></h2>
-                <dl>
+                <dl v-if="model.relationsCount">
                     <dd>{{ $t('No. of locations') }}</dd>
-                    <dt>{{ model.locationsIds.length }}</dt>
+                    <dt>{{ model.relationsCount.locations }}</dt>
                     <dd>{{ $t('No. of Client’s apps') }}</dd>
-                    <dt>{{ model.clientAppsIds.length }}</dt>
+                    <dt>{{ model.relationsCount.clientApps }}</dt>
                 </dl>
                 <div v-if="model.caption">
                     <div class="separator"></div>

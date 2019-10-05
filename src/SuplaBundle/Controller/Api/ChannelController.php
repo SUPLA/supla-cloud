@@ -106,7 +106,7 @@ class ChannelController extends RestController {
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $view = $this->view($channel, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request);
+            $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['location.relationsCount']);
             return $view;
         } else {
             $enabled = false;

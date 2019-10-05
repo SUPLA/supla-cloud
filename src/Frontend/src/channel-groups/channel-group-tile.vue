@@ -8,9 +8,9 @@
                     class="pull-right"
                     width="60"></function-icon>
             </div>
-            <dl>
+            <dl v-if="model.relationsCount">
                 <dd>{{ $t('No. of channels') }}</dd>
-                <dt>{{ model.channelsIds.length }}</dt>
+                <dt>{{ model.relationsCount.channels }}</dt>
             </dl>
             <div v-if="model.caption">
                 <div class="separator"></div>
