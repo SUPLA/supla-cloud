@@ -1,7 +1,7 @@
 <template>
     <square-modal-chooser
         title-i18n="Choose location"
-        endpoint="locations?include=childrenIds"
+        endpoint="locations"
         tile="location-tile"
         filters="location-filters"
         :selected="selected"

@@ -30,10 +30,8 @@ class IODeviceChannelSerializer extends AbstractSerializer {
     /** @var ChannelStateGetter */
     private $channelStateGetter;
 
-    /**
-     * IODeviceChannelSerializer constructor.
-     */
     public function __construct(ChannelStateGetter $channelStateGetter) {
+        parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
     }
 
@@ -54,12 +52,8 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         if (in_array('state', $context[self::GROUPS])) {
             $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
         }
-        if (in_array('relationsCount', $context[self::GROUPS])) {
-            $normalized['relationsCount'] = [
-                'directLinks' => $channel->getDirectLinks()->count(),
-                'schedules' => $channel->getSchedules()->count(),
-                'channelGroups' => $channel->getChannelGroups()->count(),
-            ];
+        if (in_array('relationsCount', $context[self::GROUPS]) && !isset($normalized['relationsCount'])) {
+            $normalized['relationsCount'] = $channel->getRelationsCount();
         }
     }
 

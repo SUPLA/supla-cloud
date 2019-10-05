@@ -21,6 +21,8 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Common\HasRelationsCount;
+use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\RelayFunctionBits;
@@ -32,8 +34,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Table(name="supla_dev_channel",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})})
  */
-class IODeviceChannel implements HasFunction, HasLocation {
+class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     use BelongsToUser;
+    use HasRelationsCountTrait;
 
     /**
      * @ORM\Id

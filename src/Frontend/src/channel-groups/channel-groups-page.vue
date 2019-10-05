@@ -2,7 +2,7 @@
     <carousel-page header-i18n="Channel groups"
         tile="channel-group-tile"
         filters="channel-group-filters"
-        endpoint="channel-groups?include=channelGroup.childrenIds"
+        endpoint="channel-groups"
         create-new-label-i18n="Add new channel group"
         :limit="$user.userData.limits.channelGroup"
         details-route="channelGroup"></carousel-page>

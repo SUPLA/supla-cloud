@@ -26,9 +26,7 @@ class AccessIdSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $accessId, array $context) {
-        $childrenIdsRequested = $this->isSerializationGroupRequested('accessid.childrenIds', $context);
-        $alwaysReturnChildrenIds = !ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context);
-        if ($alwaysReturnChildrenIds || $childrenIdsRequested) {
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
             $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
         }

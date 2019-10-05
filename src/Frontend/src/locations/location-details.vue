@@ -218,7 +218,7 @@
                 if (this.id && this.id != 'new') {
                     this.error = false;
                     this.$http.get(
-                        `locations/${this.id}?include=iodevices,channelGroups,accessids,password,channels,childrenIds`,
+                        `locations/${this.id}?include=iodevices,channelGroups,accessids,password,channels`,
                         {skipErrorHandler: [403, 404]}
                     )
                         .then(response => this.location = response.body)

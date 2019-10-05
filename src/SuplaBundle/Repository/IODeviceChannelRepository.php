@@ -1,25 +1,22 @@
 <?php
 namespace SuplaBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class IODeviceChannelRepository extends EntityRepository {
-    /**
-     * Finds channel by id that belongs to the given user.
-     * @param User $user user that should own the channel
-     * @param int $id id of the channel to return
-     * @return IODeviceChannel found channel
-     * @throws NotFoundHttpException if the channel does not exist or does not belong to the given user
-     */
-    public function findForUser(User $user, int $id): IODeviceChannel {
-        /** @var IODeviceChannel $channel */
-        $channel = $this->find($id);
-        if (!$channel || !$channel->belongsToUser($user)) {
-            throw new NotFoundHttpException("Channel ID$id could not be found.");
-        }
-        return $channel;
+class IODeviceChannelRepository extends AbstractRepository {
+    protected $alias = 'c';
+
+    protected function getEntityWithRelationsCountQuery(): QueryBuilder {
+        return $this->_em->createQueryBuilder()
+            ->addSelect('c entity')
+            ->addSelect('COUNT(cg) channelGroups')
+            ->addSelect('COUNT(dl) directLinks')
+            ->addSelect('COUNT(s) schedules')
+            ->from(IODeviceChannel::class, 'c')
+            ->leftJoin('c.channelGroups', 'cg')
+            ->leftJoin('c.directLinks', 'dl')
+            ->leftJoin('c.schedules', 's')
+            ->groupBy('c');
     }
 }

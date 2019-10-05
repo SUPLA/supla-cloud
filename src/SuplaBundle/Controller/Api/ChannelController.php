@@ -42,7 +42,7 @@ class ChannelController extends RestController {
     use Transactional;
 
     protected $defaultSerializationGroups = ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount',
-        'location.childrenIds', 'iodevice.location'];
+        'iodevice.location'];
     protected $defaultSerializationGroupsTranslations = [
         'location' => 'channel.location',
         'iodevice' => 'channel.iodevice',

@@ -1,13 +1,13 @@
 <template>
     <span>
         <h2>ID<strong>{{ location.id }} </strong></h2>
-        <dl v-if="location.iodevicesIds">
+        <dl v-if="location.relationsCount">
             <dd>{{ $t('No. of devices') }}</dd>
-            <dt>{{ location.iodevicesIds.length }}</dt>
+            <dt>{{ location.relationsCount.iodevices }}</dt>
             <dd>{{ $t('No. of channel groups') }}</dd>
-            <dt>{{ location.channelGroupsIds.length }}</dt>
+            <dt>{{ location.relationsCount.channelGroups }}</dt>
             <dd>{{ $t('No. of access identifiers') }}</dd>
-            <dt>{{ location.accessIdsIds.length }}</dt>
+            <dt>{{ location.relationsCount.accessIds }}</dt>
         </dl>
         <div v-if="location.caption">
             <div class="separator"></div>

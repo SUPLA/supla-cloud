@@ -54,7 +54,7 @@ abstract class RestController extends AbstractFOSRestController {
         $context = new Context();
         $include = $request->get('include', '');
         $requestedGroups = array_filter(array_map('trim', explode(',', $include)));
-        $requestedGroups = array_values(array_unique(array_merge($requestedGroups, $extraGroups)));
+        $requestedGroups = array_values(array_unique($requestedGroups));
         $filteredGroups = array_intersect($requestedGroups, $allowedGroups);
         if (count($filteredGroups) < count($requestedGroups)) {
             $notSupported = implode(', ', array_diff($requestedGroups, $filteredGroups));
@@ -65,7 +65,8 @@ abstract class RestController extends AbstractFOSRestController {
             );
         }
         $filteredGroups[] = 'basic';
-        $desiredGroups = array_unique($filteredGroups);
+        $filteredGroups = array_merge($filteredGroups, $extraGroups);
+        $desiredGroups = array_values(array_unique($filteredGroups));
         if ($groupNamesTranslations) {
             foreach ($groupNamesTranslations as $group => $translation) {
                 if (($index = array_search($group, $desiredGroups)) !== false) {

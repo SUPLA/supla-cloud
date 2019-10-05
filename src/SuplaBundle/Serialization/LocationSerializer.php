@@ -19,8 +19,17 @@ namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Repository\LocationRepository;
 
 class LocationSerializer extends AbstractSerializer {
+    /** @var LocationRepository */
+    private $locationRepository;
+
+    public function __construct(LocationRepository $locationRepository) {
+        parent::__construct();
+        $this->locationRepository = $locationRepository;
+    }
+
     /**
      * @param Location $location
      * @inheritdoc
@@ -31,6 +40,10 @@ class LocationSerializer extends AbstractSerializer {
             $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
             $normalized['channelsIds'] = $this->toIds($location->getChannels());
             $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
+        } else {
+            if ($this->isSerializationGroupRequested('location.relationsCount', $context) && !isset($normalized['relationsCount'])) {
+                $normalized['relationsCount'] = $this->locationRepository->find($location->getId())->getRelationsCount();
+            }
         }
     }
 

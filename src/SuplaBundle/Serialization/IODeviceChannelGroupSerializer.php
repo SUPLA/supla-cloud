@@ -31,6 +31,7 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
     private $channelStateGetter;
 
     public function __construct(ChannelStateGetter $channelStateGetter) {
+        parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
     }
 

@@ -51,13 +51,7 @@ abstract class AbstractSerializer extends ObjectNormalizer {
 
     protected function isSerializationGroupRequested(string $groupName, array &$context): bool {
         if (isset($context[self::GROUPS]) && is_array($context[self::GROUPS])) {
-            $requested = in_array($groupName, $context[self::GROUPS]);
-            if ($requested) {
-                $index = array_search($groupName, $context[self::GROUPS]);
-                unset($context[self::GROUPS][$index]);
-                $context[self::GROUPS] = array_values($context[self::GROUPS]);
-            }
-            return $requested;
+            return in_array($groupName, $context[self::GROUPS]);
         }
         return false;
     }
@@ -76,13 +70,13 @@ abstract class AbstractSerializer extends ObjectNormalizer {
     final public function normalize($object, $format = null, array $context = []) {
         $context[self::ENABLE_MAX_DEPTH] = true;
         $normalized = parent::normalize($object, $format, $context);
-        if (is_array($normalized)) {
-            $this->addExtraFields($normalized, $object, $context);
-        }
         if ($object instanceof HasRelationsCount && ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             if ($relationsCount = $object->getRelationsCount()) {
                 $normalized['relationsCount'] = $relationsCount;
             }
+        }
+        if (is_array($normalized)) {
+            $this->addExtraFields($normalized, $object, $context);
         }
         return $normalized;
     }

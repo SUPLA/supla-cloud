@@ -132,6 +132,16 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getId(), $content['id']);
     }
 
+    public function testGettingDevicesDetailsWithLocation() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/iodevices/' . $this->device->getId() . '?include=location');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($this->device->getId(), $content['id']);
+        $this->assertArrayHasKey('relationsCount', $content['location']);
+    }
+
     public function testGettingDevicesDetailsByGuid() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/api/iodevices/' . $this->device->getGUIDString());

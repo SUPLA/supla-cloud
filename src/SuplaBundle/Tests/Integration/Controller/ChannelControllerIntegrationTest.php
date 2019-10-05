@@ -74,6 +74,18 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty($this->getSuplaServerCommands($client));
     }
 
+    public function testGettingChannelInfoV24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $channel = $this->device->getChannels()[0];
+        $client->apiRequestV24('GET', '/api/channels/' . $channel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
+        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
+        $this->assertArrayHasKey('relationsCount', $content);
+    }
+
     /**
      * @dataProvider changingChannelStateDataProvider
      */

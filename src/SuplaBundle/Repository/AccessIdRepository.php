@@ -1,18 +1,20 @@
 <?php
 namespace SuplaBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\AccessID;
-use SuplaBundle\Entity\User;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AccessIdRepository extends EntityRepository {
-    public function findForUser(User $user, int $id): AccessID {
-        /** @var AccessID $accessId */
-        $accessId = $this->find($id);
-        if (!$accessId || !$accessId->belongsToUser($user)) {
-            throw new NotFoundHttpException("AccessID ID$id could not be found.");
-        }
-        return $accessId;
+class AccessIdRepository extends AbstractRepository {
+    protected $alias = 'aid';
+
+    protected function getEntityWithRelationsCountQuery(): QueryBuilder {
+        return $this->_em->createQueryBuilder()
+            ->addSelect('aid entity')
+            ->addSelect('COUNT(l) locations')
+            ->addSelect('COUNT(ca) clientApps')
+            ->from(AccessID::class, 'aid')
+            ->leftJoin('aid.locations', 'l')
+            ->leftJoin('aid.clientApps', 'ca')
+            ->groupBy('aid');
     }
 }

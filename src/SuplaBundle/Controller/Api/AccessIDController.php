@@ -24,6 +24,7 @@ use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Model\AccessIdManager;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\AccessIdRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ class AccessIDController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['locations', 'clientApps', 'password', 'accessid.childrenIds'];
+    protected $defaultSerializationGroups = ['locations', 'clientApps', 'password'];
     protected $defaultSerializationGroupsTranslations = [
         'locations' => 'accessid.locations',
         'clientApps' => 'accessid.clientApps',
@@ -40,9 +41,12 @@ class AccessIDController extends RestController {
 
     /** @var AccessIdManager */
     private $accessIdManager;
+    /** @var AccessIdRepository */
+    private $accessIdRepository;
 
-    public function __construct(AccessIdManager $accessIdManager) {
+    public function __construct(AccessIdManager $accessIdManager, AccessIdRepository $accessIdRepository) {
         $this->accessIdManager = $accessIdManager;
+        $this->accessIdRepository = $accessIdRepository;
     }
 
     protected function getAccessIDS() {
@@ -73,7 +77,7 @@ class AccessIDController extends RestController {
     /** @Security("has_role('ROLE_ACCESSIDS_R')") */
     public function getAccessidsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            return $this->view($this->getUser()->getAccessIDS());
+            return $this->view($this->accessIdRepository->findAllForUser($this->getUser()));
         } else {
             return $this->view($this->getAccessIDS(), Response::HTTP_OK);
         }

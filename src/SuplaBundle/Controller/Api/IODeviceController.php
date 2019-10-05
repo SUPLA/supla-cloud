@@ -36,8 +36,7 @@ class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    protected $defaultSerializationGroups = ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state',
-        'location.childrenIds', 'iodevice.childrenIds'];
+    protected $defaultSerializationGroups = ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state'];
     protected $defaultSerializationGroupsTranslations = [
         'channels' => 'iodevice.channels',
         'location' => 'iodevice.location',
@@ -167,7 +166,7 @@ class IODeviceController extends RestController {
             ];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['location.relationsCount']);
         return $view;
     }
 
@@ -239,7 +238,13 @@ class IODeviceController extends RestController {
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
         $channels = $ioDevice->getChannels();
         $view = $this->view($channels, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'state']);
+        $this->setSerializationGroups(
+            $view,
+            $request,
+            ['iodevice', 'location', 'state'],
+            [],
+            ['iodevice' => 'channel.iodevice', 'location' => 'channel.location']
+        );
         return $view;
     }
 }

@@ -42,7 +42,7 @@ abstract class AbstractRepository extends EntityRepository {
     public function hydrateRelationsQueryResult(array $result) {
         $entity = $result['entity'];
         unset($result['entity']);
-        $entity->setRelationsCount($result);
+        $entity->setRelationsCount(array_map('intval', $result));
         return $entity;
     }
 

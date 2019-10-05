@@ -31,6 +31,7 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
     private $localSuplaCloud;
 
     public function __construct(LocalSuplaCloud $localSuplaCloud) {
+        parent::__construct();
         $this->localSuplaCloud = $localSuplaCloud;
     }
 
