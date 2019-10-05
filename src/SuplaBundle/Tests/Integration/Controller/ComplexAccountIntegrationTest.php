@@ -96,6 +96,34 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
         $this->assertLessThan(50, $profile->getCollector('db')->getQueryCount());
     }
 
+    public function testGettingChannelGroups() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->enableProfiler();
+        $client->apiRequestV22('GET', '/api/channel-groups');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('channelsIds', $content[0]);
+        $profile = $client->getProfile();
+        $this->assertNotNull($profile);
+        $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
+        $this->assertLessThan(250, $profile->getCollector('db')->getQueryCount());
+    }
+
+    public function testGettingChannelGroupsV24() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->enableProfiler();
+        $client->apiRequestV24('GET', '/api/channel-groups?include=relationsCount');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayNotHasKey('channelsIds', $content[0]);
+        $profile = $client->getProfile();
+        $this->assertNotNull($profile);
+        $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
+        $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount());
+    }
+
     public function testSerializingIoDevices() {
         $client = $this->createAuthenticatedClientDebug($this->user);
         $client->enableProfiler();

@@ -38,13 +38,10 @@
             };
         },
         mounted() {
-            this.$http.get(`direct-links?include=subject&subjectType=${this.subjectType}&subjectId=${this.subjectId}`)
+            this.$http.get(`direct-links?include=subject&subjectType=${this.subject.subjectType}&subjectId=${this.subjectId}`)
                 .then(response => this.directLinks = response.body);
         },
         computed: {
-            subjectType() {
-                return this.subject.channelsIds ? 'channelGroup' : 'channel';
-            },
             subjectId() {
                 return this.subject.id;
             }

@@ -2,7 +2,7 @@
     <div v-if="directLink.state"
         class="form-group">
         <h3 class="nocapitalize">{{ stateCaption }}</h3>
-        <div v-if="directLink.subject.channelsIds">
+        <div v-if="directLink.subject.subjectType === 'channelGroup'">
             <div style="display: inline-block"
                 v-for="channelId in directLink.subject.channelsIds">
                 <div class="form-group">

@@ -88,11 +88,8 @@
             }
         },
         computed: {
-            subjectType() {
-                return this.subject.channelsIds ? 'channelGroup' : 'channel';
-            },
             endpoint() {
-                return this.subjectType === 'channel' ? 'channels' : 'channel-groups';
+                return this.subject.subjectType === 'channel' ? 'channels' : 'channel-groups';
             },
             isConnected() {
                 return !this.subject.state || this.subject.state.connected;

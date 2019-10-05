@@ -41,6 +41,7 @@ class ChannelGroupController extends RestController {
         'channels' => 'channelGroup.channels',
         'iodevice' => 'channel.iodevice',
         'location' => 'channelGroup.location',
+        'relationsCount' => 'channelGroup.relationsCount',
     ];
 
     /** @var ChannelActionExecutor */
@@ -60,7 +61,7 @@ class ChannelGroupController extends RestController {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
         });
         $view = $this->view($channelGroups->getValues(), Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels']);
+        $this->setSerializationGroups($view, $request);
         return $view;
     }
 
