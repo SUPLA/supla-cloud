@@ -46,15 +46,11 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         if ($this->isSerializationGroupRequested('state', $context)) {
             $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getStateForChannelGroup($group));
         }
-        if ($this->isSerializationGroupRequested('channelGroup.relationsCount', $context)) {
-            $normalized['relationsCount'] = [
-                'directLinks' => $group->getDirectLinks()->count(),
-                'schedules' => $group->getSchedules()->count(),
-            ];
-        }
-        $childrenIdsRequested = $this->isSerializationGroupRequested('channelGroup.childrenIds', $context);
-        $alwaysReturnChildrenIds = !ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context);
-        if ($alwaysReturnChildrenIds || $childrenIdsRequested) {
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            if ($relationsCount = $group->getRelationsCount()) {
+                $normalized['relationsCount'] = $relationsCount;
+            }
+        } else {
             $normalized['channelsIds'] = $this->toIds($group->getChannels());
         }
     }

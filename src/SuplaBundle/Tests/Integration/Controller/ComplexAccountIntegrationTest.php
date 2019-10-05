@@ -85,7 +85,7 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
     public function testSerializingChannelGroupWithLocationThatContainsChannelsWithTheirOwnLocationsDoesNotGoCrazy() {
         $client = $this->createAuthenticatedClientDebug($this->user);
         $client->enableProfiler();
-        $client->apiRequestV22('GET', '/api/channel-groups/1?include=channels,iodevice,location,relationsCount');
+        $client->apiRequestV22('GET', '/api/channel-groups/1?include=channels,iodevice,location');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
@@ -113,11 +113,12 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
     public function testGettingChannelGroupsV24() {
         $client = $this->createAuthenticatedClientDebug($this->user);
         $client->enableProfiler();
-        $client->apiRequestV24('GET', '/api/channel-groups?include=relationsCount');
+        $client->apiRequestV24('GET', '/api/channel-groups');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayNotHasKey('channelsIds', $content[0]);
+        $this->assertArrayHasKey('relationsCount', $content[0]);
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());

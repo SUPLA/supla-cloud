@@ -98,6 +98,9 @@ class Location {
      */
     private $ioDevices_ol;
 
+    /** @var array */
+    private $relationsCount;
+
     /**
      * @param User|null $user
      */
@@ -178,5 +181,14 @@ class Location {
 
     public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
+    }
+
+    public function setRelationsCount(array $relationsCount) {
+        $this->relationsCount = $relationsCount;
+    }
+
+    /** @return array|null */
+    public function getRelationsCount() {
+        return $this->relationsCount;
     }
 }

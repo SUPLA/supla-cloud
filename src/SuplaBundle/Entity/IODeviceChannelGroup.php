@@ -106,6 +106,9 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
      */
     private $schedules;
 
+    /** @var array */
+    private $relationsCount;
+
     /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
         $this->channels = new ArrayCollection();
@@ -216,4 +219,14 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
     public function getSchedules(): Collection {
         return $this->schedules;
     }
+
+    public function setRelationsCount(array $relationsCount) {
+        $this->relationsCount = $relationsCount;
+    }
+
+    /** @return array|null */
+    public function getRelationsCount() {
+        return $this->relationsCount;
+    }
+
 }

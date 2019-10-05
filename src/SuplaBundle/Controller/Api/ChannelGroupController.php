@@ -23,10 +23,12 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,20 +37,23 @@ class ChannelGroupController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['channels', 'iodevice', 'location', 'state', 'relationsCount', 'location.childrenIds',
-        'channelGroup.childrenIds'];
+    protected $defaultSerializationGroups = ['channels', 'iodevice', 'location', 'state'];
     protected $defaultSerializationGroupsTranslations = [
         'channels' => 'channelGroup.channels',
         'iodevice' => 'channel.iodevice',
         'location' => 'channelGroup.location',
-        'relationsCount' => 'channelGroup.relationsCount',
     ];
 
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
+    /**
+     * @var ChannelGroupRepository
+     */
+    private $channelGroupRepository;
 
-    public function __construct(ChannelActionExecutor $channelActionExecutor) {
+    public function __construct(ChannelActionExecutor $channelActionExecutor, ChannelGroupRepository $channelGroupRepository) {
         $this->channelActionExecutor = $channelActionExecutor;
+        $this->channelGroupRepository = $channelGroupRepository;
     }
 
     /**
@@ -56,11 +61,11 @@ class ChannelGroupController extends RestController {
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupsAction(Request $request) {
-        $channelGroups = $this->getUser()->getChannelGroups();
+        $channelGroups = $this->channelGroupRepository->findAllForUser($this->getUser());
         $channelGroups = $channelGroups->filter(function (IODeviceChannelGroup $channelGroup) {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
         });
-        $view = $this->view($channelGroups->getValues(), Response::HTTP_OK);
+        $view = $this->view($channelGroups->getValues(), Response::HTTP_OK, array_diff($this->defaultSerializationGroups, ['channels']));
         $this->setSerializationGroups($view, $request);
         return $view;
     }
@@ -70,6 +75,8 @@ class ChannelGroupController extends RestController {
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R') and is_granted('accessIdContains', channelGroup)")
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
+        $location = $this->getDoctrine()->getRepository(Location::class)->find($channelGroup->getLocation()->getId());
+        $channelGroup->getLocation()->setRelationsCount($location->getRelationsCount());
         $view = $this->view($channelGroup, Response::HTTP_OK);
         $this->setSerializationGroups($view, $request);
         return $view;

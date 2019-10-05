@@ -102,4 +102,37 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey(2, $content['state']);
         $this->assertArrayHasKey('on', $content['state'][2]);
     }
+
+    public function testGettingChannelGroupWithLocationAndChannels() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV22('GET', '/api/channel-groups/1?include=location,channels');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('location', $content);
+        $this->assertArrayNotHasKey('channels', $content['location']);
+        $this->assertArrayHasKey('channels', $content);
+        $this->assertArrayHasKey('channelsIds', $content['location']);
+    }
+
+    public function testGettingChannelGroupWithLocationAndChannelsV24() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/channel-groups/1?include=location,channels');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('location', $content);
+        $this->assertArrayNotHasKey('channels', $content['location']);
+        $this->assertArrayHasKey('channels', $content);
+        $this->assertArrayNotHasKey('channelsIds', $content['location']);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('relationsCount', $content['location']);
+    }
+
+    public function testGettingNotExistingChannelGroup() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/channel-groups/12345');
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+    }
 }

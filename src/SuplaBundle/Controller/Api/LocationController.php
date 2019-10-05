@@ -26,6 +26,7 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,20 +35,22 @@ class LocationController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['channels', 'iodevices', 'accessids', 'channelGroups', 'password', 'childrenIds'];
+    protected $defaultSerializationGroups = ['channels', 'iodevices', 'accessids', 'channelGroups', 'password'];
     protected $defaultSerializationGroupsTranslations = [
         'channels' => 'location.channels',
         'accessids' => 'location.accessids',
         'iodevices' => 'location.iodevices',
         'channelGroups' => 'location.channelGroups',
-        'childrenIds' => 'location.childrenIds',
     ];
 
     /** @var LocationManager */
     private $locationManager;
+    /** @var LocationRepository */
+    private $locationRepository;
 
-    public function __construct(LocationManager $locationManager) {
+    public function __construct(LocationManager $locationManager, LocationRepository $locationRepository) {
         $this->locationManager = $locationManager;
+        $this->locationRepository = $locationRepository;
     }
 
     private function getLocations() {
@@ -81,7 +84,7 @@ class LocationController extends RestController {
     /** @Security("has_role('ROLE_LOCATIONS_R')") */
     public function getLocationsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $locations = $this->getUser()->getLocations();
+            $locations = $this->locationRepository->findAllForUser($this->getUser());
             $view = $this->view($locations, Response::HTTP_OK);
             $this->setSerializationGroups($view, $request);
             return $view;
