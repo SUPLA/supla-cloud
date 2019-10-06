@@ -98,26 +98,27 @@ class ChannelGroupController extends RestController {
             $user->getLimitChannelPerGroup(),
             'Too many channels in this group' // i18n
         );
-        $result = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
+        $channelGroup = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
-            return $this->view($channelGroup, Response::HTTP_CREATED);
+            return $channelGroup;
         });
         $this->suplaServer->reconnect();
-        return $result;
+        $channelGroup = $this->channelGroupRepository->find($channelGroup->getId());
+        return $this->view($channelGroup, Response::HTTP_CREATED);
     }
 
     /**
      * @Rest\Put("/channel-groups/{channelGroup}")
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
      */
-    public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated) {
+    public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated, Request $request) {
         $user = $this->getUser();
         Assertion::lessOrEqualThan(
             $updated->getChannels()->count(),
             $user->getLimitChannelPerGroup(),
             'Too many channels in this group' // i18n
         );
-        $result = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
+        $channelGroup = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
             $channelGroup->setCaption($updated->getCaption());
             $channelGroup->setAltIcon($updated->getAltIcon());
             $channelGroup->setUserIcon($updated->getUserIcon());
@@ -125,10 +126,12 @@ class ChannelGroupController extends RestController {
             $channelGroup->setHidden($updated->getHidden());
             $channelGroup->setLocation($updated->getLocation());
             $em->persist($channelGroup);
-            return $this->view($channelGroup, Response::HTTP_OK);
+            $channelGroup->setRelationsCount([]);
+            return $channelGroup;
         });
         $this->suplaServer->reconnect();
-        return $result;
+        $channelGroup = $this->channelGroupRepository->find($channelGroup->getId());
+        return $this->view($channelGroup, Response::HTTP_OK);
     }
 
     /**

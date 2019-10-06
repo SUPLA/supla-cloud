@@ -53,7 +53,8 @@
                 if (subject.function.possibleActions.length === 0) {
                     return false;
                 }
-                if (subject.channelsIds && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
+                if (subject.subjectType === 'channelGroup'
+                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
                     return false;
                 }
                 return true;

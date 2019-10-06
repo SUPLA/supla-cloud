@@ -4,7 +4,7 @@
         <h3 class="nocapitalize">{{ stateCaption }}</h3>
         <div v-if="directLink.subject.subjectType === 'channelGroup'">
             <div style="display: inline-block"
-                v-for="channelId in directLink.subject.channelsIds">
+                v-for="channelId in availableChannelsIds">
                 <div class="form-group">
                     <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state[channelId]}"
                         width="100"></function-icon>
@@ -63,6 +63,9 @@
             },
             stateCaption() {
                 return channelTitle(this.directLink.subject, this, false).replace(/^ID[0-9]+/, '');
+            },
+            availableChannelsIds() {
+                return this.directLink.state ? Object.keys(this.directLink.state) : [];
             }
         }
     };

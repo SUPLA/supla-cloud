@@ -171,10 +171,7 @@
                 } else {
                     this.$http
                         .put('channel-groups/' + this.channelGroup.id, toSend)
-                        .then(response => {
-                            response.body.relationsCount = {channels: this.channelGroup.channels.length};
-                            this.$emit('update', response.body);
-                        })
+                        .then(response => this.$emit('update', response.body))
                         .then(() => this.hasPendingChanges = false)
                         .finally(() => this.loading = false);
                 }

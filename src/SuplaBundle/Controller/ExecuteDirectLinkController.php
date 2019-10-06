@@ -29,6 +29,7 @@ use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Exception\DirectLinkExecutionFailureException;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
@@ -282,7 +283,7 @@ class ExecuteDirectLinkController extends Controller {
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
                     'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, ['groups' => ['basic']]),
-                    'subject' => $this->normalizer->normalize($directLink->getSubject(), null, ['groups' => ['basic']]),
+                    'subject' => $this->normalizer->normalize($directLink->getSubject(), null, ['groups' => ['basic'], 'version' => ApiVersions::V2_4]),
                     'state' => $data ?: null
 //                'userIcon' => $this->normalizer->normalize($directLink->getSubject()->getUserIcon(), null, ['groups' => ['images']])
                 ];

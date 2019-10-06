@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\User;
@@ -25,6 +26,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 /** @small */
 class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
@@ -58,9 +60,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @dataProvider changingChannelGroupStateDataProvider
-     */
+    /** @dataProvider changingChannelGroupStateDataProvider */
     public function testChangingChannelGroupState(
         int $channelGroupId,
         string $action,
@@ -83,6 +83,64 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
             [1, 'turn-off', 'SET-CG-CHAR-VALUE:1,1,0'],
             [2, 'open', 'SET-CG-CHAR-VALUE:1,2,1'],
         ];
+    }
+
+    public function testCreatingChannelGroupV23() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('POST', '/api/channel-groups', ['channelsIds' => [$this->device->getChannels()[0]->getId()]]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('channelsIds', $content);
+        return $content;
+    }
+
+    /** @depends testCreatingChannelGroupV23 */
+    public function testUpdatingChannelGroupV23(array $cgData) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23(
+            'PUT',
+            '/api/channel-groups/' . $cgData['id'],
+            ['channelsIds' => [$this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getId()]]
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('channelsIds', $content);
+        $this->assertArrayNotHasKey('relationsCount', $content);
+        $this->assertEquals([1, 2], $content['channelsIds']);
+    }
+
+    public function testCreatingChannelGroupV24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', '/api/channel-groups', ['channelsIds' => [$this->device->getChannels()[0]->getId()]]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayNotHasKey('channelsIds', $content);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertEquals(1, $content['relationsCount']['channels']);
+        return $content;
+    }
+
+    /** @depends testCreatingChannelGroupV24 */
+    public function testUpdatingChannelGroupV24(array $cgData) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24(
+            'PUT',
+            '/api/channel-groups/' . $cgData['id'],
+            ['channelsIds' => [$this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getId()]]
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayNotHasKey('channelsIds', $content);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertEquals(2, $content['relationsCount']['channels']);
     }
 
     public function testGettingChannelGroupState() {
@@ -134,5 +192,22 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('GET', '/api/channel-groups/12345');
         $response = $client->getResponse();
         $this->assertStatusCode(404, $response);
+    }
+
+    public function testGettingValidRelationsCountV24() {
+        $cg = $this->getDoctrine()->getRepository(IODeviceChannelGroup::class)->find(1);
+        $dl = new DirectLink($cg);
+        $dl->generateSlug(new PlaintextPasswordEncoder());
+        $this->getEntityManager()->persist($dl);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/channel-groups/1');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertEquals(1, $content['relationsCount']['directLinks']);
+        $this->assertEquals(2, $content['relationsCount']['channels']);
+        $this->assertEquals(0, $content['relationsCount']['schedules']);
     }
 }

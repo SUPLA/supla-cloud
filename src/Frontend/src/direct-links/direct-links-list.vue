@@ -48,7 +48,7 @@
         },
         methods: {
             createNewDirectLink() {
-                AppState.addTask('directLinkCreate', {type: this.subjectType, id: this.subjectId});
+                AppState.addTask('directLinkCreate', {type: this.subject.subjectType, id: this.subjectId});
                 this.$router.push({name: 'directLink', params: {id: 'new'}});
             }
         }
