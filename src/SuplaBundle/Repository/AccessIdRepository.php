@@ -4,7 +4,7 @@ namespace SuplaBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\AccessID;
 
-class AccessIdRepository extends AbstractRepository {
+class AccessIdRepository extends EntityWithRelationsRepository {
     protected $alias = 'aid';
 
     protected function getEntityWithRelationsCountQuery(): QueryBuilder {

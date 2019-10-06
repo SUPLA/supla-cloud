@@ -4,7 +4,7 @@ namespace SuplaBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 
-class ChannelGroupRepository extends AbstractRepository {
+class ChannelGroupRepository extends EntityWithRelationsRepository {
     protected $alias = 'cg';
 
     protected function getEntityWithRelationsCountQuery(): QueryBuilder {

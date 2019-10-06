@@ -26,7 +26,7 @@ class ApiVersions extends Enum {
 
     /** @param Request|array $request */
     public function isRequestedEqualOrGreaterThan($request): bool {
-        $versionFromRequest = is_array($request) ? self::fromSerializationContext($request) : self::fromRequest($request)->getValue();
+        $versionFromRequest = (is_array($request) ? self::fromSerializationContext($request) : self::fromRequest($request))->getValue();
         // -1 lower, 0 equal, 1 greater
         $comparison = version_compare($this->getValue(), $versionFromRequest);
         return $comparison <= 0;

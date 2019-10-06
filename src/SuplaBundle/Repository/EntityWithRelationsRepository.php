@@ -9,7 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-abstract class AbstractRepository extends EntityRepository {
+abstract class EntityWithRelationsRepository extends EntityRepository {
     protected $alias;
 
     public function find($id, $lockMode = null, $lockVersion = null) {

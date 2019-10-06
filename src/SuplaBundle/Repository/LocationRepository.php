@@ -4,7 +4,7 @@ namespace SuplaBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\Location;
 
-class LocationRepository extends AbstractRepository {
+class LocationRepository extends EntityWithRelationsRepository {
     protected $alias = 'l';
 
     public function getEntityWithRelationsCountQuery(): QueryBuilder {

@@ -7,7 +7,7 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class IODeviceRepository extends AbstractRepository {
+class IODeviceRepository extends EntityWithRelationsRepository {
     protected $alias = 'io';
 
     /**

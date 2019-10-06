@@ -19,6 +19,7 @@ namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -44,7 +45,6 @@ class IODeviceChannelSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $channel, array $context) {
-        $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
         $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
         $normalized['locationId'] = $channel->getLocation()->getId();
         $normalized['functionId'] = $channel->getFunction()->getId();
@@ -61,6 +61,9 @@ class IODeviceChannelSerializer extends AbstractSerializer {
                 || $this->isSerializationGroupRequested('subject.relationsCount', $context)
             )) {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
+        }
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
         }
     }
 

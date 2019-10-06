@@ -44,7 +44,6 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $group, array $context) {
-        $normalized['subjectType'] = ActionableSubjectType::CHANNEL_GROUP;
         $normalized['locationId'] = $group->getLocation()->getId();
         $normalized['functionId'] = $group->getFunction()->getId();
         $normalized['userIconId'] = $group->getUserIcon() ? $group->getUserIcon()->getId() : null;
@@ -52,6 +51,7 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
             $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getStateForChannelGroup($group));
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            $normalized['subjectType'] = ActionableSubjectType::CHANNEL_GROUP;
             if (!isset($normalized['relationsCount'])) {
                 if ($this->isSerializationGroupRequested('channelGroup.relationsCount', $context)
                     || $this->isSerializationGroupRequested('subject.relationsCount', $context)) {
