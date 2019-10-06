@@ -64,9 +64,9 @@
                                     class="inline"></empty-list-placeholder>
                             </div>
                             <div class="col-sm-6">
-                                <h3>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h3>
+                                <h3>{{ $t('Access Identifiers') }} ({{ location.relationsCount.accessIds }})</h3>
                                 <table class="table table-hover"
-                                    v-if="location.accessIds.length">
+                                    v-if="location.relationsCount.accessIds > 0">
                                     <thead>
                                     <tr>
                                         <th>ID</th>

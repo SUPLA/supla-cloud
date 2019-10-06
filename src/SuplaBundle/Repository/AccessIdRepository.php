@@ -10,8 +10,8 @@ class AccessIdRepository extends AbstractRepository {
     protected function getEntityWithRelationsCountQuery(): QueryBuilder {
         return $this->_em->createQueryBuilder()
             ->addSelect('aid entity')
-            ->addSelect('COUNT(l) locations')
-            ->addSelect('COUNT(ca) clientApps')
+            ->addSelect('COUNT(DISTINCT l) locations')
+            ->addSelect('COUNT(DISTINCT ca) clientApps')
             ->from(AccessID::class, 'aid')
             ->leftJoin('aid.locations', 'l')
             ->leftJoin('aid.clientApps', 'ca')

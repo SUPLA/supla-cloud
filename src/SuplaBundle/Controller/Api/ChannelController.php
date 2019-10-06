@@ -46,6 +46,7 @@ class ChannelController extends RestController {
     protected $defaultSerializationGroupsTranslations = [
         'location' => 'channel.location',
         'iodevice' => 'channel.iodevice',
+        'relationsCount' => 'channel.relationsCount',
     ];
 
     /** @var ChannelParamsUpdater */
@@ -106,7 +107,12 @@ class ChannelController extends RestController {
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $view = $this->view($channel, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['location.relationsCount']);
+            $this->setSerializationGroups(
+                $view,
+                $request,
+                $this->defaultSerializationGroups,
+                ['location.relationsCount', 'channel.relationsCount']
+            );
             return $view;
         } else {
             $enabled = false;
@@ -148,7 +154,7 @@ class ChannelController extends RestController {
             $channel->setCaption($updatedChannel->getCaption());
             $channel->setHidden($updatedChannel->getHidden());
             $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
-            $result = $this->transactional(function (EntityManagerInterface $em) use ($functionHasBeenChanged, $request, $channel) {
+            $channel = $this->transactional(function (EntityManagerInterface $em) use ($functionHasBeenChanged, $request, $channel) {
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
                     foreach ($channel->getSchedules() as $schedule) {
@@ -159,10 +165,11 @@ class ChannelController extends RestController {
                     }
                     $channel->removeFromAllChannelGroups($em);
                 }
-                return $this->getChannelAction($request, $channel);
+                return $channel;
             });
             $this->suplaServer->reconnect();
-            return $result;
+            $channel->setRelationsCount([]);
+            return $this->getChannelAction($request, $channel);
         } else {
             $data = json_decode($request->getContent(), true);
             $this->channelActionExecutor->executeAction($channel, ChannelFunctionAction::SET_RGBW_PARAMETERS(), $data);

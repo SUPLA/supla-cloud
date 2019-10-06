@@ -113,7 +113,7 @@ class ScheduleController extends RestController {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             $serializationGroups = ['channel', 'iodevice', 'location', 'closestExecutions'];
         }
-        $this->setSerializationGroups($view, $request, $serializationGroups);
+        $this->setSerializationGroups($view, $request, $serializationGroups, ['subject.relationsCount']);
         return $view;
     }
 

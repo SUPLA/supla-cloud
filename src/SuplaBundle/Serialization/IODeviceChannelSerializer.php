@@ -21,6 +21,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 
 class IODeviceChannelSerializer extends AbstractSerializer {
@@ -29,10 +30,13 @@ class IODeviceChannelSerializer extends AbstractSerializer {
 
     /** @var ChannelStateGetter */
     private $channelStateGetter;
+    /** @var IODeviceChannelRepository */
+    private $channelRepository;
 
-    public function __construct(ChannelStateGetter $channelStateGetter) {
+    public function __construct(ChannelStateGetter $channelStateGetter, IODeviceChannelRepository $channelRepository) {
         parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
+        $this->channelRepository = $channelRepository;
     }
 
     /**
@@ -52,8 +56,11 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         if (in_array('state', $context[self::GROUPS])) {
             $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
         }
-        if (in_array('relationsCount', $context[self::GROUPS]) && !isset($normalized['relationsCount'])) {
-            $normalized['relationsCount'] = $channel->getRelationsCount();
+        if (!isset($normalized['relationsCount']) && (
+                $this->isSerializationGroupRequested('channel.relationsCount', $context)
+                || $this->isSerializationGroupRequested('subject.relationsCount', $context)
+            )) {
+            $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
     }
 

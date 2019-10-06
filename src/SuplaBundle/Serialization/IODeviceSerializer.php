@@ -21,6 +21,7 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -32,10 +33,13 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
 
     /** @var ScheduleManager */
     private $scheduleManager;
+    /** @var IODeviceRepository */
+    private $iodeviceRepository;
 
-    public function __construct(ScheduleManager $scheduleManager) {
+    public function __construct(ScheduleManager $scheduleManager, IODeviceRepository $iodeviceRepository) {
         parent::__construct();
         $this->scheduleManager = $scheduleManager;
+        $this->iodeviceRepository = $iodeviceRepository;
     }
 
     /**
@@ -48,7 +52,13 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
         if ($this->isSerializationGroupRequested('connected', $context)) {
             $normalized['connected'] = $this->suplaServer->isDeviceConnected($ioDevice);
         }
-        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            if (!isset($normalized['relationsCount'])) {
+                if ($this->isSerializationGroupRequested('iodevice.relationsCount', $context)) {
+                    $normalized['relationsCount'] = $this->iodeviceRepository->find($ioDevice->getId())->getRelationsCount();
+                }
+            }
+        } else {
             if ($this->isSerializationGroupRequested('iodevice.schedules', $context)) {
                 $normalized['schedules'] = $this->serializeSchedules($ioDevice, $context);
             }

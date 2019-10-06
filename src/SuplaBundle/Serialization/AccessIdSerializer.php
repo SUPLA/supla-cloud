@@ -19,14 +19,27 @@ namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Repository\AccessIdRepository;
 
 class AccessIdSerializer extends AbstractSerializer {
+    /** @var AccessIdRepository */
+    private $accessIdRepository;
+
+    public function __construct(AccessIdRepository $accessIdRepository) {
+        parent::__construct();
+        $this->accessIdRepository = $accessIdRepository;
+    }
+
     /**
      * @param AccessID $accessId
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $accessId, array $context) {
-        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            if ($this->isSerializationGroupRequested('accessId.relationsCount', $context) && !isset($normalized['relationsCount'])) {
+                $normalized['relationsCount'] = $this->accessIdRepository->find($accessId->getId())->getRelationsCount();
+            }
+        } else {
             $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
             $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
         }

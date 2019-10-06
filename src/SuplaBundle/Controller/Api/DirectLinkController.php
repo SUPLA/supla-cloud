@@ -72,7 +72,7 @@ class DirectLinkController extends RestController {
      */
     public function getDirectLinkAction(Request $request, DirectLink $directLink) {
         $view = $this->view($directLink, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, null, ['subject.relationsCount']);
         return $view;
     }
 
@@ -94,7 +94,7 @@ class DirectLinkController extends RestController {
             return $slug;
         });
         $view = $this->view($directLink, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, null, ['subject.relationsCount']);
         $view->getContext()->setAttribute('slug', $slug);
         return $view;
     }
@@ -103,8 +103,8 @@ class DirectLinkController extends RestController {
      * @Rest\Put("/direct-links/{directLink}")
      * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_RW')")
      */
-    public function putDirectLinkAction(DirectLink $directLink, DirectLink $updated) {
-        return $this->transactional(function (EntityManagerInterface $em) use ($directLink, $updated) {
+    public function putDirectLinkAction(DirectLink $directLink, DirectLink $updated, Request $request) {
+        $directLink = $this->transactional(function (EntityManagerInterface $em) use ($directLink, $updated) {
             $directLink->setCaption($updated->getCaption());
             $directLink->setAllowedActions($updated->getAllowedActions());
             $directLink->setActiveFrom($updated->getActiveFrom());
@@ -113,8 +113,9 @@ class DirectLinkController extends RestController {
             $directLink->setEnabled($updated->isEnabled());
             $directLink->setDisableHttpGet($updated->getDisableHttpGet());
             $em->persist($directLink);
-            return $this->view($directLink, Response::HTTP_OK);
+            return $directLink;
         });
+        return $this->getDirectLinkAction($request, $directLink);
     }
 
     /**

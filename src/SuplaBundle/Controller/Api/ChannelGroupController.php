@@ -23,7 +23,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
@@ -75,10 +74,8 @@ class ChannelGroupController extends RestController {
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R') and is_granted('accessIdContains', channelGroup)")
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
-        $location = $this->getDoctrine()->getRepository(Location::class)->find($channelGroup->getLocation()->getId());
-        $channelGroup->getLocation()->setRelationsCount($location->getRelationsCount());
         $view = $this->view($channelGroup, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, null, ['location.relationsCount', 'channelGroup.relationsCount']);
         return $view;
     }
 
@@ -86,7 +83,7 @@ class ChannelGroupController extends RestController {
      * @Rest\Post("/channel-groups")
      * @Security("has_role('ROLE_CHANNELGROUPS_RW')")
      */
-    public function postChannelGroupAction(IODeviceChannelGroup $channelGroup) {
+    public function postChannelGroupAction(IODeviceChannelGroup $channelGroup, Request $request) {
         $user = $this->getUser();
         Assertion::lessThan(
             $user->getChannelGroups()->count(),
@@ -103,8 +100,9 @@ class ChannelGroupController extends RestController {
             return $channelGroup;
         });
         $this->suplaServer->reconnect();
-        $channelGroup = $this->channelGroupRepository->find($channelGroup->getId());
-        return $this->view($channelGroup, Response::HTTP_CREATED);
+        $view = $this->view($channelGroup, Response::HTTP_CREATED);
+        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['channelGroup.relationsCount']);
+        return $view;
     }
 
     /**
@@ -130,8 +128,8 @@ class ChannelGroupController extends RestController {
             return $channelGroup;
         });
         $this->suplaServer->reconnect();
-        $channelGroup = $this->channelGroupRepository->find($channelGroup->getId());
-        return $this->view($channelGroup, Response::HTTP_OK);
+        $channelGroup->setRelationsCount([]);
+        return $this->getChannelGroupAction($request, $channelGroup);
     }
 
     /**

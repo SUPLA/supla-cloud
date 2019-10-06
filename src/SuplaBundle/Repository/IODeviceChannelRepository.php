@@ -10,9 +10,9 @@ class IODeviceChannelRepository extends AbstractRepository {
     protected function getEntityWithRelationsCountQuery(): QueryBuilder {
         return $this->_em->createQueryBuilder()
             ->addSelect('c entity')
-            ->addSelect('COUNT(cg) channelGroups')
-            ->addSelect('COUNT(dl) directLinks')
-            ->addSelect('COUNT(s) schedules')
+            ->addSelect('COUNT(DISTINCT cg) channelGroups')
+            ->addSelect('COUNT(DISTINCT dl) directLinks')
+            ->addSelect('COUNT(DISTINCT s) schedules')
             ->from(IODeviceChannel::class, 'c')
             ->leftJoin('c.channelGroups', 'cg')
             ->leftJoin('c.directLinks', 'dl')

@@ -35,15 +35,15 @@ class LocationSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $location, array $context) {
-        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            if (!isset($normalized['relationsCount']) && $this->isSerializationGroupRequested('location.relationsCount', $context)) {
+                $normalized['relationsCount'] = $this->locationRepository->find($location->getId())->getRelationsCount();
+            }
+        } else {
             $normalized['iodevicesIds'] = $this->toIds($location->getIoDevices());
             $normalized['channelGroupsIds'] = $this->toIds($location->getChannelGroups());
             $normalized['channelsIds'] = $this->toIds($location->getChannels());
             $normalized['accessIdsIds'] = $this->toIds($location->getAccessIds());
-        } else {
-            if ($this->isSerializationGroupRequested('location.relationsCount', $context) && !isset($normalized['relationsCount'])) {
-                $normalized['relationsCount'] = $this->locationRepository->find($location->getId())->getRelationsCount();
-            }
         }
     }
 

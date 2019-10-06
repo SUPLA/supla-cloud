@@ -21,6 +21,7 @@ use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
+use SuplaBundle\Repository\ChannelGroupRepository;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
@@ -29,10 +30,13 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
 
     /** @var ChannelStateGetter */
     private $channelStateGetter;
+    /** @var ChannelGroupRepository */
+    private $channelGroupRepository;
 
-    public function __construct(ChannelStateGetter $channelStateGetter) {
+    public function __construct(ChannelStateGetter $channelStateGetter, ChannelGroupRepository $channelGroupRepository) {
         parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
+        $this->channelGroupRepository = $channelGroupRepository;
     }
 
     /**
@@ -47,7 +51,14 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         if ($this->isSerializationGroupRequested('state', $context)) {
             $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getStateForChannelGroup($group));
         }
-        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            if (!isset($normalized['relationsCount'])) {
+                if ($this->isSerializationGroupRequested('channelGroup.relationsCount', $context)
+                    || $this->isSerializationGroupRequested('subject.relationsCount', $context)) {
+                    $normalized['relationsCount'] = $this->channelGroupRepository->find($group->getId())->getRelationsCount();
+                }
+            }
+        } else {
             $normalized['channelsIds'] = $this->toIds($group->getChannels());
         }
     }

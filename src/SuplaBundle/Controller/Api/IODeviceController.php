@@ -166,7 +166,7 @@ class IODeviceController extends RestController {
             ];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['location.relationsCount']);
+        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['location.relationsCount', 'iodevice.relationsCount']);
         return $view;
     }
 

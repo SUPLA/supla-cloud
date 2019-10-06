@@ -88,7 +88,7 @@ class AccessIDController extends RestController {
      */
     public function getAccessidAction(Request $request, AccessID $accessId) {
         $view = $this->view($accessId, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['accessId.relationsCount']);
         return $view;
     }
 
@@ -97,11 +97,12 @@ class AccessIDController extends RestController {
         $user = $this->getUser();
         $accessIdCount = $user->getAccessIDS()->count();
         Assertion::lessThan($accessIdCount, $user->getLimitAid(), 'Access identifier limit has been exceeded'); // i18n
-        return $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
+        $aid = $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
             $aid = $this->accessIdManager->createID($user);
             $em->persist($aid);
-            return $this->getAccessidAction($request, $aid);
+            return $aid;
         });
+        return $this->getAccessidAction($request, $aid);
     }
 
     /**
@@ -142,7 +143,7 @@ class AccessIDController extends RestController {
             }
         });
         $this->suplaServer->reconnect($this->getCurrentUser()->getId());
-        $this->getDoctrine()->getManager()->refresh($accessId);
+        $accessId->setRelationsCount([]);
         return $this->getAccessidAction($request, $accessId);
     }
 }

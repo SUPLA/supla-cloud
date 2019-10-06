@@ -38,7 +38,7 @@ class IODeviceRepository extends AbstractRepository {
     protected function getEntityWithRelationsCountQuery(): QueryBuilder {
         return $this->_em->createQueryBuilder()
             ->addSelect('io entity')
-            ->addSelect('COUNT(c) channels')
+            ->addSelect('COUNT(DISTINCT c) channels')
             ->from(IODevice::class, 'io')
             ->leftJoin('io.channels', 'c')
             ->groupBy('io');

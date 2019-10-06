@@ -279,13 +279,13 @@ class ExecuteDirectLinkController extends Controller {
             if ($failureReason && $failureReason != DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS()) {
                 $normalized = [];
             } else {
+                $normalizationContext = ['groups' => ['basic'], 'version' => ApiVersions::V2_4];
                 $normalized = [
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
-                    'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, ['groups' => ['basic']]),
-                    'subject' => $this->normalizer->normalize($directLink->getSubject(), null, ['groups' => ['basic'], 'version' => ApiVersions::V2_4]),
+                    'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, $normalizationContext),
+                    'subject' => $this->normalizer->normalize($directLink->getSubject(), null, $normalizationContext),
                     'state' => $data ?: null
-//                'userIcon' => $this->normalizer->normalize($directLink->getSubject()->getUserIcon(), null, ['groups' => ['images']])
                 ];
             }
             return $this->render(

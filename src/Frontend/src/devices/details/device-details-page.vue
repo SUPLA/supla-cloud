@@ -13,7 +13,7 @@
                         <div class="row hidden-xs">
                             <div class="col-xs-12">
                                 <dots-route :dot1-color="device.connected === false ? 'red' : 'green'"
-                                    :dot3-color="device.location.accessIds.length > 0 ? 'green' : 'red'"></dots-route>
+                                    :dot3-color="device.location.relationsCount.accessIds > 0 ? 'green' : 'red'"></dots-route>
                             </div>
                         </div>
                         <div class="row text-center">
@@ -60,7 +60,7 @@
                             <div class="col-sm-4">
                                 <h3>{{ $t('Access ID') }}</h3>
                                 <div class="list-group"
-                                    v-if="device.location.accessIds.length > 0 && device.location.accessIds">
+                                    v-if="device.location.relationsCount.accessIds > 0 && device.location.accessIds">
                                     <router-link :to="{name: 'accessId', params: {id: aid.id}}"
                                         v-for="aid in device.location.accessIds"
                                         class="list-group-item"
@@ -71,7 +71,7 @@
                                 <div class="list-group"
                                     v-else>
                                     <div class="list-group-item"
-                                        v-if="device.location.accessIds.length">
+                                        v-if="device.location.relationsCount.accessIds">
                                         <em>{{ $t('Save changes to see Access IDs') }}</em>
                                     </div>
                                     <div class="list-group-item"

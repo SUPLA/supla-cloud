@@ -4,6 +4,7 @@ namespace SuplaBundle\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,8 +17,12 @@ abstract class AbstractRepository extends EntityRepository {
             ->where($this->alias . '.id = :id')
             ->setParameter('id', $id)
             ->getQuery();
-        $result = $query->getSingleResult();
-        $entity = $this->hydrateRelationsQueryResult($result);
+        try {
+            $result = $query->getSingleResult();
+            $entity = $this->hydrateRelationsQueryResult($result);
+        } catch (NoResultException $e) {
+            $entity = null;
+        }
         return $entity;
     }
 

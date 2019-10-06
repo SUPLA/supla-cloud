@@ -98,11 +98,18 @@ class LocationController extends RestController {
         $user = $this->getUser();
         $locationsCount = $user->getLocations()->count();
         Assertion::lessThan($locationsCount, $user->getLimitLoc(), 'Location limit has been exceeded'); // i18n
-        return $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
+        $location = $this->transactional(function (EntityManagerInterface $em) use ($request, $user) {
             $location = $this->locationManager->createLocation($user);
             $em->persist($location);
-            return $this->getLocationAction($request, $location);
+            return $location;
         });
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            $view = $this->view($location, Response::HTTP_CREATED);
+            $this->setSerializationGroups($view, $request, null, ['location.relationsCount']);
+            return $view;
+        } else {
+            return $this->getLocationAction($request, $location);
+        }
     }
 
     /**
@@ -110,7 +117,7 @@ class LocationController extends RestController {
      */
     public function getLocationAction(Request $request, Location $location) {
         $view = $this->view($location, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, null, ['location.relationsCount']);
         return $view;
     }
 
@@ -165,6 +172,7 @@ class LocationController extends RestController {
         }
         $result = $this->transactional(function (EntityManagerInterface $em) use ($request, $location) {
             $em->persist($location);
+            $location->setRelationsCount([]);
             return $this->getLocationAction($request, $location);
         });
         $this->suplaServer->reconnect();
