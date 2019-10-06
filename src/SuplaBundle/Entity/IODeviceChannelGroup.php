@@ -59,7 +59,7 @@ class IODeviceChannelGroup implements HasFunction, HasLocation {
      * @ORM\ManyToMany(targetEntity="IODeviceChannel", inversedBy="channelGroups", cascade={"persist"})
      * @ORM\JoinTable(name="supla_rel_cg", joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="channel_id", referencedColumnName="id")} )
-     * @Groups({"channelGroup.channels"})
+     * @Groups({"channels"})
      * @MaxDepth(1)
      * @var Collection|IODeviceChannel[]
      */

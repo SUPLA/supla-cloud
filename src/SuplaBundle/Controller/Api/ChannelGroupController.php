@@ -35,9 +35,6 @@ class ChannelGroupController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['channels', 'iodevice', 'location', 'state', 'relationsCount'];
-    protected $defaultSerializationGroupsTranslations = ['channels' => 'channelGroup.channels'];
-
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
 
@@ -65,7 +62,7 @@ class ChannelGroupController extends RestController {
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $view = $this->view($channelGroup, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevice', 'location', 'state', 'relationsCount']);
         return $view;
     }
 

@@ -41,9 +41,6 @@ class ChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    protected $defaultSerializationGroups = ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount'];
-    protected $defaultSerializationGroupsTranslations = ['location' => 'channel.location'];
-
     /** @var ChannelParamsUpdater */
     private $channelParamsUpdater;
     /** @var ChannelStateGetter */
@@ -102,7 +99,11 @@ class ChannelController extends RestController {
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $view = $this->view($channel, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request);
+            $this->setSerializationGroups(
+                $view,
+                $request,
+                ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'measurementLogsCount', 'relationsCount']
+            );
             return $view;
         } else {
             $enabled = false;

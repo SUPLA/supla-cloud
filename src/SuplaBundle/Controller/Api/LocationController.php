@@ -34,9 +34,6 @@ class LocationController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['channels', 'iodevices', 'accessids', 'channelGroups', 'password'];
-    protected $defaultSerializationGroupsTranslations = ['channels' => 'location.channels'];
-
     /** @var LocationManager */
     private $locationManager;
 
@@ -44,9 +41,11 @@ class LocationController extends RestController {
         $this->locationManager = $locationManager;
     }
 
-    private function getLocations() {
+    protected function getLocations() {
+
         $result = [];
         $parent = $this->getUser();
+
         if ($parent !== null) {
             foreach ($parent->getLocations() as $location) {
                 $iodev = [];
@@ -69,6 +68,7 @@ class LocationController extends RestController {
                 ];
             }
         }
+
         return ['locations' => $result];
     }
 
@@ -77,7 +77,7 @@ class LocationController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $locations = $this->getUser()->getLocations();
             $view = $this->view($locations, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request);
+            $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']);
             return $view;
         } else {
             return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
@@ -101,7 +101,7 @@ class LocationController extends RestController {
      */
     public function getLocationAction(Request $request, Location $location) {
         $view = $this->view($location, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $this->setSerializationGroups($view, $request, ['channels', 'iodevices', 'accessids', 'channelGroups', 'password']);
         return $view;
     }
 

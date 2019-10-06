@@ -88,7 +88,7 @@ class Location {
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="location")
-     * @Groups({"location.channels"})
+     * @Groups({"channels"})
      * @MaxDepth(1)
      */
     private $channels;

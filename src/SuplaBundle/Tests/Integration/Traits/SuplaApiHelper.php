@@ -42,15 +42,12 @@ trait SuplaApiHelper {
         return json_decode($response->getContent(), true)['access_token'] ?? false;
     }
 
-    protected function createAuthenticatedClient($username = 'supler@supla.org', $debug = false): TestClient {
+    protected function createAuthenticatedClient($username = 'supler@supla.org'): TestClient {
         $username = $username instanceof User ? $username->getUsername() : $username;
         /** @var Client $client */
-        $client = self::createClient(['debug' => $debug], ['HTTP_AUTHORIZATION' => 'Bearer ' . base64_encode($username), 'HTTPS' => true]);
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . base64_encode($username), 'HTTPS' => true]);
+//        $client->followRedirects();
         return $client;
-    }
-
-    protected function createAuthenticatedClientDebug($username = 'supler@supla.org'): TestClient {
-        return $this->createAuthenticatedClient($username, true);
     }
 
     protected function simulateAuthentication(User $user) {
