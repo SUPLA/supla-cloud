@@ -36,6 +36,9 @@ class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
+    protected $defaultSerializationGroups = ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state'];
+    protected $defaultSerializationGroupsTranslations = ['channels' => 'iodevice.channels', 'location' => 'iodevice.location'];
+
     /** @var ChannelParamsUpdater */
     private $channelParamsUpdater;
     /** @var ScheduleManager */
@@ -99,7 +102,7 @@ class IODeviceController extends RestController {
             $result = ['iodevices' => $result];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'state']);
+        $this->setSerializationGroups($view, $request);
         if (ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             $view->setHeader('SUPLA-Total-Devices', count($result));
         }
@@ -158,11 +161,7 @@ class IODeviceController extends RestController {
         }
 
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups(
-            $view,
-            $request,
-            ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state']
-        );
+        $this->setSerializationGroups($view, $request);
         return $view;
     }
 
