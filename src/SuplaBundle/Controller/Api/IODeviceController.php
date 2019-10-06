@@ -55,14 +55,18 @@ class IODeviceController extends RestController {
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
-        return [
-            'channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state',
+        $groups = [
+            'channels', 'location', 'originalLocation', 'connected', 'accessids', 'state',
             'channels' => 'iodevice.channels',
             'location' => 'iodevice.location',
-            'schedules' => 'iodevice.schedules',
             'originalLocation' => 'iodevice.originalLocation',
             'accessids' => 'location.accessids',
         ];
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            $groups[] = 'schedules';
+            $groups['schedules'] = 'iodevice.schedules';
+        }
+        return $groups;
     }
 
     /** @Security("has_role('ROLE_IODEVICES_R')") */
@@ -200,7 +204,7 @@ class IODeviceController extends RestController {
                 if (!$updatedDevice->getEnabled() && !($request->get('confirm', false))) {
                     $enabledSchedules = $this->scheduleManager->onlyEnabled($schedules);
                     if (count($enabledSchedules)) {
-                        return $this->serializedView($ioDevice, $request, ['schedules'], Response::HTTP_CONFLICT);
+                        return $this->serializedView($ioDevice, $request, ['iodevice.schedules'], Response::HTTP_CONFLICT);
                     }
                 }
                 $ioDevice->setEnabled($updatedDevice->getEnabled());
@@ -210,7 +214,7 @@ class IODeviceController extends RestController {
             }
             $ioDevice->setLocation($updatedDevice->getLocation());
             $ioDevice->setComment($updatedDevice->getComment());
-            return $this->serializedView($ioDevice, $request, ['schedules']);
+            return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
         $this->suplaServer->reconnect();
         return $result;

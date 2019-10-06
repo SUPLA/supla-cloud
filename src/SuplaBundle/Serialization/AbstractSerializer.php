@@ -70,12 +70,12 @@ abstract class AbstractSerializer extends ObjectNormalizer {
     final public function normalize($object, $format = null, array $context = []) {
         $context[self::ENABLE_MAX_DEPTH] = true;
         $normalized = parent::normalize($object, $format, $context);
-        if ($object instanceof HasRelationsCount && ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            if ($relationsCount = $object->getRelationsCount()) {
-                $normalized['relationsCount'] = $relationsCount;
-            }
-        }
         if (is_array($normalized)) {
+            if ($object instanceof HasRelationsCount && ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+                if ($relationsCount = $object->getRelationsCount()) {
+                    $normalized['relationsCount'] = $relationsCount;
+                }
+            }
             $this->addExtraFields($normalized, $object, $context);
         }
         return $normalized;

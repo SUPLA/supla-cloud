@@ -52,6 +52,9 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
         if ($this->isSerializationGroupRequested('connected', $context)) {
             $normalized['connected'] = $this->suplaServer->isDeviceConnected($ioDevice);
         }
+        if ($this->isSerializationGroupRequested('iodevice.schedules', $context)) {
+            $normalized['schedules'] = $this->serializeSchedules($ioDevice, $context);
+        }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             if (!isset($normalized['relationsCount'])) {
                 if ($this->isSerializationGroupRequested('iodevice.relationsCount', $context)) {
@@ -59,9 +62,6 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
                 }
             }
         } else {
-            if ($this->isSerializationGroupRequested('iodevice.schedules', $context)) {
-                $normalized['schedules'] = $this->serializeSchedules($ioDevice, $context);
-            }
             $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
         }
     }

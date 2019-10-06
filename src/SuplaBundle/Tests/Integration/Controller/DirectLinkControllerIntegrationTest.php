@@ -87,6 +87,23 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingDirectLinkDetails(array $directLinkData) {
         $id = $directLinkData['id'];
         $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV22('GET', '/api/direct-links/' . $id . '?include=subject');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
+        $this->assertArrayHasKey('subjectId', $content);
+        $this->assertEquals(1, $content['subjectId']);
+        $this->assertArrayNotHasKey('slug', $content);
+        $this->assertArrayHasKey('subject', $content);
+        $this->assertArrayHasKey('relationsCount', $content['subject']);
+    }
+
+    /** @depends testCreatingDirectLink */
+    public function testGettingDirectLinkDetailsV24(array $directLinkData) {
+        $id = $directLinkData['id'];
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/direct-links/' . $id . '?include=subject');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
