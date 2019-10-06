@@ -22,7 +22,8 @@ export function intToIp(int) {
 
 export function channelTitle(channel, vue, withDevice = false) {
     return `ID${channel.id} ` + (channel.caption || vue.$t(channel.function ? channel.function.caption : 'None'))
-        + (withDevice && channel.iodevice ? ' (' + deviceTitle(channel.iodevice, channel.location) + ')' : '');
+        + (withDevice && channel.iodevice ? ' ('
+            + deviceTitle({location: channel.location, comment: channel.iodevice.comment, name: channel.iodevice.name}) + ')' : '');
 }
 
 export function channelIconUrl(channel) {
@@ -34,8 +35,8 @@ export function channelIconUrl(channel) {
     }
 }
 
-export function deviceTitle(device, channelLocation = undefined) {
-    return `${(channelLocation || device.location || {}).caption} / ${device.comment || device.name}`;
+export function deviceTitle(device) {
+    return `${device.location.caption} / ${device.comment || device.name}`;
 }
 
 export function ellipsis(string, length = 20) {
