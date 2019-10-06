@@ -271,7 +271,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty($this->getSuplaServerCommands($client));
     }
 
-    /** @small */
     public function testCreatingDirectLinkForScene() {
         $scene = new Scene($this->device->getLocation());
         $scene->setOpeartions([new SceneOperation($this->channelGroup, ChannelFunctionAction::TURN_ON())]);

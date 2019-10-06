@@ -1,18 +1,18 @@
 <?php
 namespace SuplaBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\User;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class SceneRepository extends EntityRepository {
-    public function findForUser(User $user, int $id): Scene {
-        /** @var Scene $scene */
-        $scene = $this->find($id);
-        if (!$scene || !$scene->belongsToUser($user)) {
-            throw new NotFoundHttpException("Scene ID$id could not be found.");
-        }
-        return $scene;
+class SceneRepository extends EntityWithRelationsRepository {
+    protected $alias = 's';
+
+    protected function getEntityWithRelationsCountQuery(): QueryBuilder {
+        return $this->_em->createQueryBuilder()
+            ->addSelect('s entity')
+            ->addSelect('COUNT(DISTINCT so) operations')
+            ->from(Scene::class, 's')
+            ->leftJoin('s.operations', 'so')
+            ->groupBy('s.id');
     }
 }

@@ -21,6 +21,8 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Common\HasRelationsCount;
+use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -30,8 +32,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
  * @ORM\Table(name="supla_scene")
  */
-class Scene implements HasLocation, HasFunction {
+class Scene implements HasLocation, HasFunction, HasRelationsCount {
     use BelongsToUser;
+    use HasRelationsCountTrait;
 
     /**
      * @ORM\Id
@@ -50,7 +53,7 @@ class Scene implements HasLocation, HasFunction {
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="scenes")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
-     * @Groups({"location"})
+     * @Groups({"scene.location"})
      * @MaxDepth(1)
      */
     private $location;
@@ -75,7 +78,7 @@ class Scene implements HasLocation, HasFunction {
 
     /**
      * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="owningScene", cascade={"persist"})
-     * @Groups({"operations"})
+     * @Groups({"scene.operations"})
      * @MaxDepth(1)
      */
     private $operations;

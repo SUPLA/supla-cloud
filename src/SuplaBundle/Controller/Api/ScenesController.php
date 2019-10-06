@@ -26,23 +26,46 @@ use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\SceneRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @Rest\Version("2.4.0")
+ */
 class ScenesController extends RestController {
     use Transactional;
-    private const DEFAULT_INCLUDES = ['subject', 'operations', 'location', 'iodevice'];
+
+    /** @var SceneRepository */
+    private $sceneRepository;
+
+    public function __construct(SceneRepository $sceneRepository) {
+        $this->sceneRepository = $sceneRepository;
+    }
+
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        $groups = [
+            'location',
+            'location' => 'scene.location',
+        ];
+        if (!strpos($request->get('_route'), 'scenes_list')) {
+            $groups = array_merge($groups, [
+                'subject', 'operations',
+                'subject' => 'sceneOperation.subject',
+                'operations' => 'scene.operations',
+            ]);
+        }
+        return $groups;
+    }
 
     /**
-     * @Rest\Get("/scenes")
+     * @Rest\Get("/scenes", name="scenes_list")
      * @Security("has_role('ROLE_SCENES_R')")
      */
     public function getScenesAction(Request $request) {
-        $scenes = $this->getUser()->getScenes();
-        $view = $this->view($scenes, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, self::DEFAULT_INCLUDES);
-        return $view;
+        $scenes = $this->sceneRepository->findAllForUser($this->getUser());
+        return $this->serializedView($scenes, $request);
     }
 
     /**
@@ -50,9 +73,7 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
      */
     public function getSceneAction(Request $request, Scene $scene) {
-        $view = $this->view($scene, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, self::DEFAULT_INCLUDES);
-        return $view;
+        return $this->serializedView($scene, $request, ['scene.relationsCount']);
     }
 
     /**
@@ -71,9 +92,7 @@ class ScenesController extends RestController {
             $em->persist($scene);
             return $scene;
         });
-        $view = $this->view($scene, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, self::DEFAULT_INCLUDES);
-        return $view;
+        return $this->serializedView($scene, $request, ['scene.relationsCount'], Response::HTTP_CREATED);
     }
 
     /**
