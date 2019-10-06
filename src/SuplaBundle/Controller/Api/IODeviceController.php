@@ -37,15 +37,6 @@ class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    protected $defaultSerializationGroups = ['channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state'];
-    protected $defaultSerializationGroupsTranslations = [
-        'channels' => 'iodevice.channels',
-        'location' => 'iodevice.location',
-        'schedules' => 'iodevice.schedules',
-        'originalLocation' => 'iodevice.originalLocation',
-        'accessids' => 'location.accessids',
-    ];
-
     /** @var ChannelParamsUpdater */
     private $channelParamsUpdater;
     /** @var ScheduleManager */
@@ -61,6 +52,17 @@ class IODeviceController extends RestController {
         $this->channelParamsUpdater = $channelParamsUpdater;
         $this->scheduleManager = $scheduleManager;
         $this->iodeviceRepository = $iodeviceRepository;
+    }
+
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return [
+            'channels', 'location', 'originalLocation', 'connected', 'schedules', 'accessids', 'state',
+            'channels' => 'iodevice.channels',
+            'location' => 'iodevice.location',
+            'schedules' => 'iodevice.schedules',
+            'originalLocation' => 'iodevice.originalLocation',
+            'accessids' => 'location.accessids',
+        ];
     }
 
     /** @Security("has_role('ROLE_IODEVICES_R')") */
@@ -117,8 +119,7 @@ class IODeviceController extends RestController {
             }
             $result = ['iodevices' => $result];
         }
-        $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
+        $view = $this->serializedView($result, $request);
         if (ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             $view->setHeader('SUPLA-Total-Devices', count($result));
         }
@@ -175,9 +176,7 @@ class IODeviceController extends RestController {
                 'channels' => $channels,
             ];
         }
-        $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, null, ['location.relationsCount', 'iodevice.relationsCount']);
-        return $view;
+        return $this->serializedView($result, $request, ['location.relationsCount', 'iodevice.relationsCount']);
     }
 
     /**
@@ -201,9 +200,7 @@ class IODeviceController extends RestController {
                 if (!$updatedDevice->getEnabled() && !($request->get('confirm', false))) {
                     $enabledSchedules = $this->scheduleManager->onlyEnabled($schedules);
                     if (count($enabledSchedules)) {
-                        $view = $this->view($ioDevice, Response::HTTP_CONFLICT);
-                        $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
-                        return $view;
+                        return $this->serializedView($ioDevice, $request, ['schedules'], Response::HTTP_CONFLICT);
                     }
                 }
                 $ioDevice->setEnabled($updatedDevice->getEnabled());
@@ -213,9 +210,7 @@ class IODeviceController extends RestController {
             }
             $ioDevice->setLocation($updatedDevice->getLocation());
             $ioDevice->setComment($updatedDevice->getComment());
-            $view = $this->view($ioDevice, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request, ['schedules'], ['schedules']);
-            return $view;
+            return $this->serializedView($ioDevice, $request, ['schedules']);
         });
         $this->suplaServer->reconnect();
         return $result;
@@ -240,21 +235,5 @@ class IODeviceController extends RestController {
         $this->suplaServer->reconnect();
         $this->suplaServer->onDeviceDeleted();
         return new Response('', Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
-     */
-    public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
-        $channels = $ioDevice->getChannels();
-        $view = $this->view($channels, Response::HTTP_OK);
-        $this->setSerializationGroups(
-            $view,
-            $request,
-            ['iodevice', 'location', 'state'],
-            [],
-            ['iodevice' => 'channel.iodevice', 'location' => 'channel.location']
-        );
-        return $view;
     }
 }

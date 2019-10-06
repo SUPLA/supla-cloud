@@ -145,7 +145,7 @@ class DirectLink {
     }
 
     /**
-     * @Groups({"directlink.subject"})
+     * @Groups({"directLink.subject"})
      * @MaxDepth(1)
      */
     public function getSubject(): HasFunction {

@@ -46,6 +46,10 @@ class UserIconController extends RestController {
         $this->userIconRepository = $userIconRepository;
     }
 
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return ['images'];
+    }
+
     /**
      * @Security("has_role('ROLE_CHANNELS_RW')")
      * @Rest\Post("/user-icons")
@@ -113,9 +117,7 @@ class UserIconController extends RestController {
             $criteria->andWhere(Criteria::expr()->in('id', explode(',', $ids)));
         }
         $channels = $this->getUser()->getUserIcons()->matching($criteria);
-        $view = $this->view($channels, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['images']);
-        return $view;
+        return $this->serializedView($channels, $request);
     }
 
     /**

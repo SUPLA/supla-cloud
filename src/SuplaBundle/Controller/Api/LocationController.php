@@ -35,14 +35,6 @@ class LocationController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['channels', 'iodevices', 'accessids', 'channelGroups', 'password'];
-    protected $defaultSerializationGroupsTranslations = [
-        'channels' => 'location.channels',
-        'accessids' => 'location.accessids',
-        'iodevices' => 'location.iodevices',
-        'channelGroups' => 'location.channelGroups',
-    ];
-
     /** @var LocationManager */
     private $locationManager;
     /** @var LocationRepository */
@@ -51,6 +43,16 @@ class LocationController extends RestController {
     public function __construct(LocationManager $locationManager, LocationRepository $locationRepository) {
         $this->locationManager = $locationManager;
         $this->locationRepository = $locationRepository;
+    }
+
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return [
+            'channels', 'iodevices', 'accessids', 'channelGroups', 'password',
+            'channels' => 'location.channels',
+            'accessids' => 'location.accessids',
+            'iodevices' => 'location.iodevices',
+            'channelGroups' => 'location.channelGroups',
+        ];
     }
 
     private function getLocations() {
@@ -85,9 +87,7 @@ class LocationController extends RestController {
     public function getLocationsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $locations = $this->locationRepository->findAllForUser($this->getUser());
-            $view = $this->view($locations, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request);
-            return $view;
+            return $this->serializedView($locations, $request);
         } else {
             return $this->handleView($this->view($this->getLocations(), Response::HTTP_OK));
         }
@@ -104,9 +104,7 @@ class LocationController extends RestController {
             return $location;
         });
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
-            $view = $this->view($location, Response::HTTP_CREATED);
-            $this->setSerializationGroups($view, $request, null, ['location.relationsCount']);
-            return $view;
+            return $this->serializedView($location, $request, ['location.relationsCount']);
         } else {
             return $this->getLocationAction($request, $location);
         }
@@ -116,9 +114,7 @@ class LocationController extends RestController {
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_R') and is_granted('accessIdContains', location)")
      */
     public function getLocationAction(Request $request, Location $location) {
-        $view = $this->view($location, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, null, ['location.relationsCount']);
-        return $view;
+        return $this->serializedView($location, $request, ['location.relationsCount']);
     }
 
     /**

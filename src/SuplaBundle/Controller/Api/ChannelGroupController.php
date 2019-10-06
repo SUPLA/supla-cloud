@@ -36,13 +36,6 @@ class ChannelGroupController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['channels', 'iodevice', 'location', 'state'];
-    protected $defaultSerializationGroupsTranslations = [
-        'channels' => 'channelGroup.channels',
-        'location' => 'channelGroup.location',
-        'iodevice' => 'channel.iodevice',
-    ];
-
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
     /** @var ChannelGroupRepository */
@@ -53,8 +46,21 @@ class ChannelGroupController extends RestController {
         $this->channelGroupRepository = $channelGroupRepository;
     }
 
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        $groups = [
+            'iodevice', 'location', 'state',
+            'location' => 'channelGroup.location',
+            'iodevice' => 'channel.iodevice',
+        ];
+        if (!strpos($request->get('_route'), 'channelGroups_list')) {
+            $groups[] = 'channels';
+            $groups['channels'] = 'channelGroup.channels';
+        }
+        return $groups;
+    }
+
     /**
-     * @Rest\Get("/channel-groups")
+     * @Rest\Get(path="/channel-groups", name="channelGroups_list")
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupsAction(Request $request) {
@@ -62,9 +68,7 @@ class ChannelGroupController extends RestController {
         $channelGroups = $channelGroups->filter(function (IODeviceChannelGroup $channelGroup) {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
         });
-        $view = $this->view($channelGroups->getValues(), Response::HTTP_OK, array_diff($this->defaultSerializationGroups, ['channels']));
-        $this->setSerializationGroups($view, $request);
-        return $view;
+        return $this->serializedView($channelGroups->getValues(), $request);
     }
 
     /**
@@ -72,9 +76,7 @@ class ChannelGroupController extends RestController {
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R') and is_granted('accessIdContains', channelGroup)")
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
-        $view = $this->view($channelGroup, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, null, ['location.relationsCount', 'channelGroup.relationsCount']);
-        return $view;
+        return $this->serializedView($channelGroup, $request, ['location.relationsCount', 'channelGroup.relationsCount']);
     }
 
     /**
@@ -98,9 +100,7 @@ class ChannelGroupController extends RestController {
             return $channelGroup;
         });
         $this->suplaServer->reconnect();
-        $view = $this->view($channelGroup, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['channelGroup.relationsCount']);
-        return $view;
+        return $this->serializedView($channelGroup, $request, ['channelGroup.relationsCount'], Response::HTTP_CREATED);
     }
 
     /**

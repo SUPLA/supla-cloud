@@ -33,12 +33,6 @@ class AccessIDController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['locations', 'clientApps', 'password'];
-    protected $defaultSerializationGroupsTranslations = [
-        'locations' => 'accessId.locations',
-        'clientApps' => 'accessId.clientApps',
-    ];
-
     /** @var AccessIdManager */
     private $accessIdManager;
     /** @var AccessIdRepository */
@@ -47,6 +41,15 @@ class AccessIDController extends RestController {
     public function __construct(AccessIdManager $accessIdManager, AccessIdRepository $accessIdRepository) {
         $this->accessIdManager = $accessIdManager;
         $this->accessIdRepository = $accessIdRepository;
+    }
+
+    /** @inheritDoc */
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return [
+            'locations', 'clientApps', 'password',
+            'locations' => 'accessId.locations',
+            'clientApps' => 'accessId.clientApps',
+        ];
     }
 
     protected function getAccessIDS() {
@@ -87,9 +90,7 @@ class AccessIDController extends RestController {
      * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_R')")
      */
     public function getAccessidAction(Request $request, AccessID $accessId) {
-        $view = $this->view($accessId, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['accessId.relationsCount']);
-        return $view;
+        return $this->serializedView($accessId, $request, ['accessId.relationsCount']);
     }
 
     /** @Security("has_role('ROLE_ACCESSIDS_RW')") */

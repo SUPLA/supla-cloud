@@ -36,9 +36,6 @@ use Symfony\Component\Translation\TranslatorInterface;
 class DirectLinkController extends RestController {
     use Transactional;
 
-    protected $defaultSerializationGroups = ['subject'];
-    protected $defaultSerializationGroupsTranslations = ['subject' => 'directlink.subject'];
-
     /** @var EncoderFactory */
     private $encoderFactory;
     /** @var AuditEntryRepository */
@@ -47,6 +44,13 @@ class DirectLinkController extends RestController {
     public function __construct(EncoderFactoryInterface $encoderFactory, AuditEntryRepository $auditEntryRepository) {
         $this->encoderFactory = $encoderFactory;
         $this->auditEntryRepository = $auditEntryRepository;
+    }
+
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return [
+            'subject',
+            'subject' => 'directLink.subject',
+        ];
     }
 
     /**
@@ -61,9 +65,7 @@ class DirectLinkController extends RestController {
                 return $directLink->getSubjectType() == $type && $directLink->getSubject()->getId() == $subjectId;
             });
         }
-        $view = $this->view($directLinks->getValues(), Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
-        return $view;
+        return $this->serializedView($directLinks->getValues(), $request);
     }
 
     /**
@@ -71,9 +73,7 @@ class DirectLinkController extends RestController {
      * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_R')")
      */
     public function getDirectLinkAction(Request $request, DirectLink $directLink) {
-        $view = $this->view($directLink, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, null, ['subject.relationsCount']);
-        return $view;
+        return $this->serializedView($directLink, $request, ['subject.relationsCount']);
     }
 
     /**
@@ -93,8 +93,7 @@ class DirectLinkController extends RestController {
             $em->persist($directLink);
             return $slug;
         });
-        $view = $this->view($directLink, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, null, ['subject.relationsCount']);
+        $view = $this->serializedView($directLink, $request, ['subject.relationsCount'], Response::HTTP_CREATED);
         $view->getContext()->setAttribute('slug', $slug);
         return $view;
     }

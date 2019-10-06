@@ -20,9 +20,11 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -40,14 +42,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
-
-    protected $defaultSerializationGroups = ['iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount',
-        'iodevice.location'];
-    protected $defaultSerializationGroupsTranslations = [
-        'location' => 'channel.location',
-        'iodevice' => 'channel.iodevice',
-        'relationsCount' => 'channel.relationsCount',
-    ];
 
     /** @var ChannelParamsUpdater */
     private $channelParamsUpdater;
@@ -70,7 +64,23 @@ class ChannelController extends RestController {
         $this->scheduleManager = $scheduleManager;
     }
 
-    /** @Security("has_role('ROLE_CHANNELS_R')") */
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        $groups = [
+            'iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount',
+            'location' => 'channel.location',
+            'iodevice' => 'channel.iodevice',
+            'relationsCount' => 'channel.relationsCount',
+        ];
+        if (!strpos($request->get('_route'), 'channels_list')) {
+            $groups[] = 'iodevice.location';
+        }
+        return $groups;
+    }
+
+    /**
+     * @Rest\Get(name="channels_list")
+     * @Security("has_role('ROLE_CHANNELS_R')")
+     */
     public function getChannelsAction(Request $request) {
         $criteria = Criteria::create();
         if (($function = $request->get('function')) !== null) {
@@ -96,9 +106,7 @@ class ChannelController extends RestController {
         $channels = $channels->filter(function (IODeviceChannel $channel) {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel);
         });
-        $view = $this->view($channels->getValues(), Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['iodevice', 'location', 'connected', 'state']);
-        return $view;
+        return $this->serializedView($channels->getValues(), $request);
     }
 
     /**
@@ -106,9 +114,7 @@ class ChannelController extends RestController {
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $view = $this->view($channel, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request, null, ['location.relationsCount', 'channel.relationsCount']);
-            return $view;
+            return $this->serializedView($channel, $request, ['location.relationsCount', 'channel.relationsCount']);
         } else {
             $enabled = false;
             $connected = false;
@@ -183,5 +189,12 @@ class ChannelController extends RestController {
         $status = ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request) ? Response::HTTP_NO_CONTENT : Response::HTTP_OK;
         $status = ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request) ? Response::HTTP_ACCEPTED : $status;
         return $this->handleView($this->view(null, $status));
+    }
+
+    /**
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
+     */
+    public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
+        return $this->serializedView($ioDevice->getChannels(), $request);
     }
 }

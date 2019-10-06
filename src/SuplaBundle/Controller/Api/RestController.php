@@ -34,23 +34,14 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 abstract class RestController extends AbstractFOSRestController {
     use CurrentUserAware;
 
-    protected $defaultSerializationGroups = [];
-    protected $defaultSerializationGroupsTranslations = [];
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return [];
+    }
 
-    protected function setSerializationGroups(
-        View $view,
-        Request $request,
-        $allowedGroups = null,
-        array $extraGroups = [],
-        $groupNamesTranslations = null
-    ): Context {
+    protected function setSerializationGroups(View $view, Request $request, $allowedGroups = null, array $extraGroups = []): Context {
         if ($allowedGroups === null) {
-            $allowedGroups = $this->defaultSerializationGroups;
+            $allowedGroups = $this->getDefaultAllowedSerializationGroups($request);
         }
-        if ($groupNamesTranslations === null) {
-            $groupNamesTranslations = $this->defaultSerializationGroupsTranslations;
-        }
-        $allowedGroups = array_values(array_merge($allowedGroups, $groupNamesTranslations));
         $context = new Context();
         $include = $request->get('include', '');
         $requestedGroups = array_filter(array_map('trim', explode(',', $include)));
@@ -67,15 +58,19 @@ abstract class RestController extends AbstractFOSRestController {
         $filteredGroups[] = 'basic';
         $filteredGroups = array_merge($filteredGroups, $extraGroups);
         $desiredGroups = array_values(array_unique($filteredGroups));
-        if ($groupNamesTranslations) {
-            foreach ($groupNamesTranslations as $group => $translation) {
-                if (($index = array_search($group, $desiredGroups)) !== false) {
-                    $desiredGroups[$index] = $translation;
-                }
+        foreach ($allowedGroups as $group => $translation) {
+            if (!is_int($group) && ($index = array_search($group, $desiredGroups)) !== false) {
+                $desiredGroups[$index] = $translation;
             }
         }
         $context->setGroups($desiredGroups);
         $view->setContext($context);
         return $context;
+    }
+
+    protected function serializedView($data, Request $request, array $extraSerializationGroups = [], int $statusCode = Response::HTTP_OK) {
+        $view = $this->view($data, $statusCode);
+        $this->setSerializationGroups($view, $request, null, $extraSerializationGroups);
+        return $view;
     }
 }

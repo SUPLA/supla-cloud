@@ -30,8 +30,12 @@ class ClientAppController extends RestController {
     use Transactional;
     use SuplaServerAware;
 
-    protected $defaultSerializationGroups = ['accessId', 'connected'];
-    protected $defaultSerializationGroupsTranslations = ['accessId' => 'clientApp.accessId'];
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return [
+            'accessId', 'connected',
+            'accessId' => 'clientApp.accessId',
+        ];
+    }
 
     /**
      * @Rest\Get("/client-apps")
@@ -39,9 +43,7 @@ class ClientAppController extends RestController {
      */
     public function getClientAppsAction(Request $request) {
         $clientApps = $this->getUser()->getClientApps();
-        $view = $this->view($clientApps, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request);
-        return $view;
+        return $this->serializedView($clientApps, $request);
     }
 
     /**
@@ -72,9 +74,7 @@ class ClientAppController extends RestController {
             if ($reloadClient) {
                 $this->suplaServer->clientReconnect($clientApp);
             }
-            $view = $this->view($clientApp, Response::HTTP_OK);
-            $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['accessId']);
-            return $view;
+            return $this->serializedView($clientApp, $request, ['accessId']);
         });
     }
 

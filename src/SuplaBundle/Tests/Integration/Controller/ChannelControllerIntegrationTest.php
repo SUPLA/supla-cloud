@@ -86,6 +86,39 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('relationsCount', $content);
     }
 
+    public function testGettingChannelInfoWithDeviceLocationV24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $channel = $this->device->getChannels()[0];
+        $client->apiRequestV24('GET', '/api/channels/' . $channel->getId() . '?include=iodevice,iodevice.location');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
+        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('iodevice', $content);
+        $this->assertArrayHasKey('location', $content['iodevice']);
+        $this->assertArrayNotHasKey('location', $content);
+    }
+
+    public function testGettingChannelsWithLocationsV24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?include=location,iodevice');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('location', $content[0]);
+        $this->assertArrayHasKey('iodevice', $content[0]);
+        $this->assertArrayNotHasKey('location', $content[0]['iodevice']);
+    }
+
+    public function testGettingChannelsWithDeviceLocationsV24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?include=location,iodevice,iodevice.location');
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
     /**
      * @dataProvider changingChannelStateDataProvider
      */

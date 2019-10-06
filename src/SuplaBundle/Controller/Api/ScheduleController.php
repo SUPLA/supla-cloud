@@ -38,8 +38,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ScheduleController extends RestController {
-    protected $defaultSerializationGroupsTranslations = ['subject' => 'schedule.subject'];
-
     /** @var ScheduleRepository */
     private $scheduleRepository;
     /** @var ChannelActionExecutor */
@@ -69,6 +67,14 @@ class ScheduleController extends RestController {
         $this->validator = $validator;
     }
 
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        if (ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            return ['subject', 'closestExecutions', 'subject' => 'schedule.subject'];
+        } else {
+            return ['channel', 'iodevice', 'location', 'closestExecutions'];
+        }
+    }
+
     /** @Security("has_role('ROLE_SCHEDULES_R')") */
     public function getSchedulesAction(Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
@@ -94,12 +100,7 @@ class ScheduleController extends RestController {
             $query->orderBy($sort[0], $sort[1]);
         }
         $schedules = $this->scheduleRepository->findByQuery($query);
-        $view = $this->view($schedules, Response::HTTP_OK);
-        $serializationGroups = ['subject', 'closestExecutions'];
-        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
-            $serializationGroups = ['channel', 'iodevice', 'location', 'closestExecutions'];
-        }
-        $this->setSerializationGroups($view, $request, $serializationGroups);
+        $view = $this->serializedView($schedules, $request);
         $view->setHeader('SUPLA-Total-Schedules', $this->getUser()->getSchedules()->count());
         return $view;
     }
@@ -108,13 +109,7 @@ class ScheduleController extends RestController {
      * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_R')")
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
-        $view = $this->view($schedule, Response::HTTP_OK);
-        $serializationGroups = ['subject', 'closestExecutions'];
-        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
-            $serializationGroups = ['channel', 'iodevice', 'location', 'closestExecutions'];
-        }
-        $this->setSerializationGroups($view, $request, $serializationGroups, ['subject.relationsCount']);
-        return $view;
+        return $this->serializedView($schedule, $request, ['subject.relationsCount']);
     }
 
     /** @Security("has_role('ROLE_SCHEDULES_RW')") */

@@ -143,6 +143,24 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(2, $content['relationsCount']['channels']);
     }
 
+    public function testGettingChannelGroupsV24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channel-groups');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertGreaterThan(1, count($content));
+        $this->assertArrayNotHasKey('channelsIds', $content[0]);
+        $this->assertArrayHasKey('relationsCount', $content[0]);
+    }
+
+    public function testChannelsIncludeForbiddenOnListV24() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channel-groups?include=channels');
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
     public function testGettingChannelGroupState() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
@@ -176,6 +194,20 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingChannelGroupWithLocationAndChannelsV24() {
         $client = $this->createAuthenticatedClientDebug($this->user);
         $client->apiRequestV24('GET', '/api/channel-groups/1?include=location,channels');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('location', $content);
+        $this->assertArrayNotHasKey('channels', $content['location']);
+        $this->assertArrayHasKey('channels', $content);
+        $this->assertArrayNotHasKey('channelsIds', $content['location']);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('relationsCount', $content['location']);
+    }
+
+    public function testGettingChannelGroupWithExplicitLocationAndChannelsNamespacesV24() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/channel-groups/1?include=channelGroup.location,channelGroup.channels');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);

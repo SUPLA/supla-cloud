@@ -66,9 +66,7 @@ class OAuthController extends RestController {
      */
     public function getOAuthClientsAction(Request $request) {
         $applications = $this->getUser()->getApiClients();
-        $view = $this->view($applications, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, []);
-        return $view;
+        return $this->serializedView($applications, $request);
     }
 
     /**
@@ -146,9 +144,7 @@ class OAuthController extends RestController {
      */
     public function getPersonalTokensAction(Request $request) {
         $accessTokens = $this->accessTokenRepository->findPersonalTokens($this->getUser());
-        $view = $this->view($accessTokens, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, []);
-        return $view;
+        return $this->serializedView($accessTokens, $request);
     }
 
     /**
@@ -169,9 +165,7 @@ class OAuthController extends RestController {
             $entityManager->persist($token);
             return $token;
         });
-        $view = $this->view($token, Response::HTTP_CREATED);
-        $this->setSerializationGroups($view, $request, ['token'], ['token']);
-        return $view;
+        return $this->serializedView($token, $request, ['token'], Response::HTTP_CREATED);
     }
 
     /**

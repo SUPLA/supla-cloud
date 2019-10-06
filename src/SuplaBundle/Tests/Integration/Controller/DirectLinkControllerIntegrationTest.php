@@ -87,7 +87,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingDirectLinkDetails(array $directLinkData) {
         $id = $directLinkData['id'];
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', '/api/direct-links/' . $id . '?include=subject');
+        $client->apiRequestV24('GET', '/api/direct-links/' . $id . '?include=subject');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);

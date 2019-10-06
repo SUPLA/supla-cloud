@@ -95,6 +95,10 @@ class UserController extends RestController {
         $this->availableLanguages = $availableLanguages;
     }
 
+    protected function getDefaultAllowedSerializationGroups(Request $request): array {
+        return ['longUniqueId'];
+    }
+
     /**
      * @Rest\Patch("/user-info")
      * @Security("is_granted('isRequestFromBroker', request)")
@@ -105,16 +109,12 @@ class UserController extends RestController {
         if (!$user) {
             throw $this->createNotFoundException();
         }
-        $view = $this->view($user, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['longUniqueId']);
-        return $view;
+        return $this->serializedView($user, $request);
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
     public function currentUserAction(Request $request) {
-        $view = $this->view($this->getUser(), Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['longUniqueId']);
-        return $view;
+        return $this->serializedView($this->getUser(), $request);
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_RW')") */
