@@ -133,6 +133,10 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
         $this->assertCount(self::DEVICES_COUNT, $content);
+        $this->assertArrayHasKey('channels', $content[0]);
+        $this->assertArrayHasKey('id', $content[0]['channels'][0]);
+        $this->assertArrayHasKey('location', $content[0]);
+        $this->assertArrayHasKey('id', $content[0]['location']);
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
@@ -147,6 +151,11 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
         $this->assertCount(self::DEVICES_COUNT, $content);
+        $this->assertArrayHasKey('channels', $content[0]);
+        $this->assertArrayHasKey('id', $content[0]['channels'][0]);
+        $this->assertArrayHasKey('location', $content[0]);
+        $this->assertArrayHasKey('id', $content[0]['location']);
+        $this->assertArrayHasKey('relationsCount', $content[0]);
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());

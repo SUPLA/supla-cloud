@@ -154,7 +154,7 @@
             fetchChannel() {
                 this.loading = true;
                 this.error = false;
-                this.$http.get(`channels/${this.id}?include=iodevice,channel.location,iodevice.location,supportedFunctions`, {skipErrorHandler: [403, 404]})
+                this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location`, {skipErrorHandler: [403, 404]})
                     .then(response => {
                         this.channel = response.body;
                         this.$set(this.channel, 'enabled', !!this.channel.function.id);

@@ -161,7 +161,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $limitOAuthClient;
 
     /**
-     * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $accessids;
 
@@ -181,7 +181,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $userIcons;
 
     /**
-     * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Location", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $locations;
 
@@ -196,17 +196,17 @@ class User implements AdvancedUserInterface, EncoderAwareInterface {
     private $apiClients;
 
     /**
-     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $schedules;
 
     /**
-     * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $channelGroups;
 
     /**
-     * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $directLinks;
 

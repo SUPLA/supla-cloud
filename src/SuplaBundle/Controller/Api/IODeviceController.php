@@ -27,6 +27,7 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,10 +50,17 @@ class IODeviceController extends RestController {
     private $channelParamsUpdater;
     /** @var ScheduleManager */
     private $scheduleManager;
+    /** @var IODeviceChannelRepository */
+    private $iodeviceRepository;
 
-    public function __construct(ChannelParamsUpdater $channelParamsUpdater, ScheduleManager $scheduleManager) {
+    public function __construct(
+        ChannelParamsUpdater $channelParamsUpdater,
+        ScheduleManager $scheduleManager,
+        IODeviceRepository $iodeviceRepository
+    ) {
         $this->channelParamsUpdater = $channelParamsUpdater;
         $this->scheduleManager = $scheduleManager;
+        $this->iodeviceRepository = $iodeviceRepository;
     }
 
     /** @Security("has_role('ROLE_IODEVICES_R')") */
@@ -60,10 +68,12 @@ class IODeviceController extends RestController {
         $result = [];
         $user = $this->getUser();
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $result = $user->getIODevices();
-            $result = $result->filter(function (IODevice $device) {
-                return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $device);
-            });
+            $result = $this->iodeviceRepository->findAllForUser($this->getUser());
+            $result = $result->filter(
+                function (IODevice $device) {
+                    return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $device);
+                }
+            );
             $result = $result->getValues();
         } else {
             if ($user !== null) {
@@ -166,7 +176,7 @@ class IODeviceController extends RestController {
             ];
         }
         $view = $this->view($result, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, $this->defaultSerializationGroups, ['location.relationsCount', 'iodevice.relationsCount']);
+        $this->setSerializationGroups($view, $request, null, ['location.relationsCount', 'iodevice.relationsCount']);
         return $view;
     }
 

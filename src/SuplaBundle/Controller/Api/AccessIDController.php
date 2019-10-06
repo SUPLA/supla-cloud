@@ -35,8 +35,8 @@ class AccessIDController extends RestController {
 
     protected $defaultSerializationGroups = ['locations', 'clientApps', 'password'];
     protected $defaultSerializationGroupsTranslations = [
-        'locations' => 'accessid.locations',
-        'clientApps' => 'accessid.clientApps',
+        'locations' => 'accessId.locations',
+        'clientApps' => 'accessId.clientApps',
     ];
 
     /** @var AccessIdManager */
@@ -143,7 +143,6 @@ class AccessIDController extends RestController {
             }
         });
         $this->suplaServer->reconnect($this->getCurrentUser()->getId());
-        $accessId->setRelationsCount([]);
-        return $this->getAccessidAction($request, $accessId);
+        return $this->getAccessidAction($request, $accessId->clearRelationsCount());
     }
 }

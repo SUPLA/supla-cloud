@@ -45,9 +45,7 @@ class ChannelGroupController extends RestController {
 
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /**
-     * @var ChannelGroupRepository
-     */
+    /** @var ChannelGroupRepository */
     private $channelGroupRepository;
 
     public function __construct(ChannelActionExecutor $channelActionExecutor, ChannelGroupRepository $channelGroupRepository) {
@@ -124,12 +122,10 @@ class ChannelGroupController extends RestController {
             $channelGroup->setHidden($updated->getHidden());
             $channelGroup->setLocation($updated->getLocation());
             $em->persist($channelGroup);
-            $channelGroup->setRelationsCount([]);
             return $channelGroup;
         });
         $this->suplaServer->reconnect();
-        $channelGroup->setRelationsCount([]);
-        return $this->getChannelGroupAction($request, $channelGroup);
+        return $this->getChannelGroupAction($request, $channelGroup->clearRelationsCount());
     }
 
     /**

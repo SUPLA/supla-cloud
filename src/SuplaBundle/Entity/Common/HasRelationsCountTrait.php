@@ -13,4 +13,9 @@ trait HasRelationsCountTrait {
     public function getRelationsCount() {
         return $this->relationsCount;
     }
+
+    public function clearRelationsCount(): self {
+        $this->relationsCount = null;
+        return $this;
+    }
 }

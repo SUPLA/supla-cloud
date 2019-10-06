@@ -107,12 +107,7 @@ class ChannelController extends RestController {
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $view = $this->view($channel, Response::HTTP_OK);
-            $this->setSerializationGroups(
-                $view,
-                $request,
-                $this->defaultSerializationGroups,
-                ['location.relationsCount', 'channel.relationsCount']
-            );
+            $this->setSerializationGroups($view, $request, null, ['location.relationsCount', 'channel.relationsCount']);
             return $view;
         } else {
             $enabled = false;
@@ -168,8 +163,7 @@ class ChannelController extends RestController {
                 return $channel;
             });
             $this->suplaServer->reconnect();
-            $channel->setRelationsCount([]);
-            return $this->getChannelAction($request, $channel);
+            return $this->getChannelAction($request, $channel->clearRelationsCount());
         } else {
             $data = json_decode($request->getContent(), true);
             $this->channelActionExecutor->executeAction($channel, ChannelFunctionAction::SET_RGBW_PARAMETERS(), $data);

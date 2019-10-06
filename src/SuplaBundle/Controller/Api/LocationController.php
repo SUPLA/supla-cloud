@@ -172,8 +172,7 @@ class LocationController extends RestController {
         }
         $result = $this->transactional(function (EntityManagerInterface $em) use ($request, $location) {
             $em->persist($location);
-            $location->setRelationsCount([]);
-            return $this->getLocationAction($request, $location);
+            return $this->getLocationAction($request, $location->clearRelationsCount());
         });
         $this->suplaServer->reconnect();
         return $result;

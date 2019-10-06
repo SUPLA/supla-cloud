@@ -67,14 +67,14 @@ class AccessID implements HasRelationsCount {
 
     /**
      * @ORM\ManyToMany(targetEntity="Location", mappedBy="accessIds", cascade={"persist"})
-     * @Groups({"accessid.locations"})
+     * @Groups({"accessId.locations"})
      * @MaxDepth(1)
      */
     private $locations;
 
     /**
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="accessId")
-     * @Groups({"accessid.clientApps"})
+     * @Groups({"accessId.clientApps"})
      * @MaxDepth(1)
      **/
     private $clientApps;
