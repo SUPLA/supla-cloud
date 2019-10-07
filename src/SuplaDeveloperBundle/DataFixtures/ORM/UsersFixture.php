@@ -29,8 +29,14 @@ class UsersFixture extends SuplaFixture {
     const ORDER = 0;
 
     const USER = 'user';
+    const USER2 = 'user2';
 
     public function load(ObjectManager $manager) {
+        $this->createUser1();
+        $this->createUser2();
+    }
+
+    private function createUser1() {
         /** @var UserManager $userManager */
         $userManager = $this->container->get(UserManager::class);
         $user = new User();
@@ -53,5 +59,18 @@ class UsersFixture extends SuplaFixture {
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($token);
         $em->flush();
+    }
+
+    private function createUser2() {
+        /** @var UserManager $userManager */
+        $userManager = $this->container->get(UserManager::class);
+        $user = new User();
+        $user->setEmail('supler@supla.org');
+        $user->agreeOnRules();
+        $user->agreeOnCookies();
+        $userManager->create($user);
+        $userManager->setPassword('pass', $user, true);
+        $userManager->confirm($user->getToken());
+        $this->addReference(self::USER2, $user);
     }
 }

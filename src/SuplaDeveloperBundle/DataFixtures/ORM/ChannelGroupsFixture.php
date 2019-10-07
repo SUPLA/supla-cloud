@@ -44,6 +44,28 @@ class ChannelGroupsFixture extends SuplaFixture {
         $group = new IODeviceChannelGroup($sonoff->getUser(), $sonoff->getLocation(), [$lightChannelFromSonoff, $lightChannelFromFull]);
         $group->setCaption('Światła na parterze');
         $this->entityManager->persist($group);
+        $randomDevices = [];
+        for ($i = 0; $i < DevicesFixture::NUMBER_OF_RANDOM_DEVICES; $i++) {
+            $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
+        }
+        $locations = [
+            $this->getReference(LocationsFixture::LOCATION_GARAGE),
+            $this->getReference(LocationsFixture::LOCATION_OUTSIDE),
+            $this->getReference(LocationsFixture::LOCATION_BEDROOM),
+        ];
+        for ($i = 0; $i < 10; $i++) {
+            $numberOfChannels = rand(1, DevicesFixture::NUMBER_OF_RANDOM_DEVICES);
+            shuffle($randomDevices);
+            $channels = [];
+            $function = rand(0, 3);
+            for ($j = 0; $j < $numberOfChannels; $j++) {
+                $channels[] = $randomDevices[$j]->getChannels()[$function];
+            }
+            $location = $locations[rand(0, count($locations) - 1)];
+            $group = new IODeviceChannelGroup($sonoff->getUser(), $location, $channels);
+            $group->setCaption('Random group #' . ($i + 1));
+            $this->entityManager->persist($group);
+        }
         $this->entityManager->flush();
     }
 }

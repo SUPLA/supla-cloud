@@ -28,22 +28,34 @@ class ClientAppsFixture extends SuplaFixture {
         $user = $this->getReference(UsersFixture::USER);
         $accessIds = [null, $this->getReference(AccessIdsFixture::ACCESS_ID_CHILDREN), $this->getReference(AccessIdsFixture::ACCESS_ID_COMMON)];
         foreach (['HTC One M8', 'iPhone 6s', 'Nokia 3310', 'Samsung Galaxy Tab S2', 'Apple iPad'] as $name) {
-            $clientApp = new ClientApp();
-            AnyFieldSetter::set($clientApp, [
-                'guid' => rand(0, 9999999),
-                'regDate' => new \DateTime('-' . rand(86400 * 7, 86400 * 60) . 'seconds'),
-                'regIpv4' => rand(1, 2147483647),
-                'lastAccessDate' => new \DateTime('-' . rand(86400, 86400 * 7) . 'seconds'),
-                'lastAccessIpv4' => rand(1, 2147483647),
-                'softwareVersion' => '1.' . rand(1, 100),
-                'protocolVersion' => rand(1, 100),
-                'user' => $user,
-                'name' => $name,
-                'enabled' => rand() % 2,
-                'accessId' => $accessIds[rand(0, count($accessIds) - 1)],
-            ]);
+            $accessId = $accessIds[rand(0, count($accessIds) - 1)];
+            $clientApp = $this->createClientApp($user, $name, $accessId);
             $manager->persist($clientApp);
         }
+        $clientApp = $this->createClientApp(
+            $this->getReference(UsersFixture::USER2),
+            'SUPLER PHONE',
+            $this->getReference(AccessIdsFixture::ACCESS_ID_SUPLER)
+        );
+        $manager->persist($clientApp);
         $manager->flush();
+    }
+
+    private function createClientApp($user, $name, $accessId): ClientApp {
+        $clientApp = new ClientApp();
+        AnyFieldSetter::set($clientApp, [
+            'guid' => rand(0, 9999999),
+            'regDate' => new \DateTime('-' . rand(86400 * 7, 86400 * 60) . 'seconds'),
+            'regIpv4' => rand(1, 2147483647),
+            'lastAccessDate' => new \DateTime('-' . rand(86400, 86400 * 7) . 'seconds'),
+            'lastAccessIpv4' => rand(1, 2147483647),
+            'softwareVersion' => '1.' . rand(1, 100),
+            'protocolVersion' => rand(1, 100),
+            'user' => $user,
+            'name' => $name,
+            'enabled' => rand() % 2,
+            'accessId' => $accessId,
+        ]);
+        return $clientApp;
     }
 }

@@ -30,10 +30,13 @@ use SuplaBundle\Tests\AnyFieldSetter;
 
 class DevicesFixture extends SuplaFixture {
     const ORDER = LocationsFixture::ORDER + 1;
+    const NUMBER_OF_RANDOM_DEVICES = 15;
 
     const DEVICE_SONOFF = 'deviceSonoff';
     const DEVICE_FULL = 'deviceFull';
     const DEVICE_RGB = 'deviceRgb';
+    const RANDOM_DEVICE_PREFIX = 'randomDevice';
+
     const FULL_RELAY_BITS =
         RelayFunctionBits::CONTROLLINGTHEDOORLOCK |
         RelayFunctionBits::CONTROLLINGTHEGARAGEDOOR |
@@ -51,6 +54,16 @@ class DevicesFixture extends SuplaFixture {
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
         $this->createDeviceManyGates($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
+        $nonDeviceLocations = [null, $this->getReference(LocationsFixture::LOCATION_OUTSIDE), $this->getReference(LocationsFixture::LOCATION_BEDROOM)];
+        for ($i = 0; $i < self::NUMBER_OF_RANDOM_DEVICES; $i++) {
+            $device = $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE), 'UNI-MODULE-' . ($i + 1));
+            foreach ($device->getChannels() as $channel) {
+                $channel->setLocation($nonDeviceLocations[rand(0, count($nonDeviceLocations) - 1)]);
+                $manager->persist($channel);
+            }
+            $this->setReference(self::RANDOM_DEVICE_PREFIX . $i, $device);
+        }
+        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE');
         $manager->flush();
     }
 
@@ -61,8 +74,8 @@ class DevicesFixture extends SuplaFixture {
         ], self::DEVICE_SONOFF);
     }
 
-    protected function createDeviceFull(Location $location): IODevice {
-        return $this->createDevice('UNI-MODULE', $location, [
+    protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
+        return $this->createDevice($name, $location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, RelayFunctionBits::LIGHTSWITCH | RelayFunctionBits::POWERSWITCH],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, self::FULL_RELAY_BITS],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS],

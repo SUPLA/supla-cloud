@@ -19,13 +19,13 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use SuplaBundle\Entity\AccessID;
-use SuplaBundle\Model\AccessIdManager;
 
 class AccessIdsFixture extends SuplaFixture {
     const ORDER = UsersFixture::ORDER + 1;
 
     const ACCESS_ID_COMMON = 'accessIdWspólny';
     const ACCESS_ID_CHILDREN = 'accessIdDzieci';
+    const ACCESS_ID_SUPLER = 'accessIdSupler';
 
     public function load(ObjectManager $manager) {
         $user = $this->getReference(UsersFixture::USER);
@@ -36,6 +36,10 @@ class AccessIdsFixture extends SuplaFixture {
             $manager->persist($accessId);
             $this->setReference('accessId' . $caption, $accessId);
         }
+        $accessId = $this->container->get('accessid_manager')->createID($this->getReference(UsersFixture::USER2));
+        $accessId->setCaption('Supler Access ID');
+        $manager->persist($accessId);
+        $this->setReference(self::ACCESS_ID_SUPLER, $accessId);
         $manager->flush();
     }
 }

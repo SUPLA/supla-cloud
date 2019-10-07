@@ -26,6 +26,7 @@ class LocationsFixture extends SuplaFixture {
     const LOCATION_BEDROOM = 'locationSypialnia';
     const LOCATION_OUTSIDE = 'locationNa zewnątrz';
     const LOCATION_GARAGE = 'locationGaraż';
+    const LOCATION_SUPLER = 'locationSupler';
 
     public function load(ObjectManager $manager) {
         $user = $this->getReference(UsersFixture::USER);
@@ -36,6 +37,10 @@ class LocationsFixture extends SuplaFixture {
             $manager->persist($location);
             $this->setReference('location' . $caption, $location);
         }
+        $location = $this->container->get('location_manager')->createLocation($this->getReference(UsersFixture::USER2));
+        $location->setCaption('Supler\'s location');
+        $manager->persist($location);
+        $this->setReference(self::LOCATION_SUPLER, $location);
         $manager->flush();
     }
 }
