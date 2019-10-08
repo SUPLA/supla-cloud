@@ -20,6 +20,7 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Faker\Factory;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
@@ -35,6 +36,7 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_SONOFF = 'deviceSonoff';
     const DEVICE_FULL = 'deviceFull';
     const DEVICE_RGB = 'deviceRgb';
+    const DEVICE_SUPLER = 'deviceSupler';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
     const FULL_RELAY_BITS =
@@ -45,25 +47,34 @@ class DevicesFixture extends SuplaFixture {
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var \Faker\Generator */
+    private $faker;
 
     public function load(ObjectManager $manager) {
         $this->entityManager = $manager;
+        $this->faker = Factory::create('pl_PL');
         $this->createDeviceSonoff($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
-        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
+        $device = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
+        foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
+            $noFunctionChannel->setFunction(ChannelFunction::NONE());
+            $this->entityManager->persist($noFunctionChannel);
+        }
         $this->createDeviceManyGates($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $nonDeviceLocations = [null, $this->getReference(LocationsFixture::LOCATION_OUTSIDE), $this->getReference(LocationsFixture::LOCATION_BEDROOM)];
         for ($i = 0; $i < self::NUMBER_OF_RANDOM_DEVICES; $i++) {
-            $device = $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE), 'UNI-MODULE-' . ($i + 1));
+            $name = strtoupper(implode('-', $this->faker->words($this->faker->numberBetween(1, 3))));
+            $device = $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE), $name);
             foreach ($device->getChannels() as $channel) {
                 $channel->setLocation($nonDeviceLocations[rand(0, count($nonDeviceLocations) - 1)]);
                 $manager->persist($channel);
             }
             $this->setReference(self::RANDOM_DEVICE_PREFIX . $i, $device);
         }
-        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE');
+        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE');
+        $this->setReference(self::DEVICE_SUPLER, $suplerDevice);
         $manager->flush();
     }
 
@@ -138,6 +149,9 @@ class DevicesFixture extends SuplaFixture {
                 'funcList' => $channelData[2] ?? null,
                 'channelNumber' => $channelNumber++,
             ]);
+            if ($this->faker->boolean) {
+                $channel->setCaption($this->faker->sentence(3));
+            }
             $this->entityManager->persist($channel);
             $this->entityManager->flush();
         }

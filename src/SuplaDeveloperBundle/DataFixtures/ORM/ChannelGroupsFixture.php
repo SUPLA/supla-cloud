@@ -19,6 +19,7 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Faker\Factory;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 
@@ -27,10 +28,14 @@ class ChannelGroupsFixture extends SuplaFixture {
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var \Faker\Generator */
+    private $faker;
 
     public function load(ObjectManager $manager) {
+        $this->faker = Factory::create('pl_PL');
         $this->entityManager = $manager;
         $this->createLightGroup();
+        $this->createRandomGroups();
         $manager->flush();
     }
 
@@ -44,6 +49,9 @@ class ChannelGroupsFixture extends SuplaFixture {
         $group = new IODeviceChannelGroup($sonoff->getUser(), $sonoff->getLocation(), [$lightChannelFromSonoff, $lightChannelFromFull]);
         $group->setCaption('Światła na parterze');
         $this->entityManager->persist($group);
+    }
+
+    private function createRandomGroups() {
         $randomDevices = [];
         for ($i = 0; $i < DevicesFixture::NUMBER_OF_RANDOM_DEVICES; $i++) {
             $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
@@ -62,10 +70,9 @@ class ChannelGroupsFixture extends SuplaFixture {
                 $channels[] = $randomDevices[$j]->getChannels()[$function];
             }
             $location = $locations[rand(0, count($locations) - 1)];
-            $group = new IODeviceChannelGroup($sonoff->getUser(), $location, $channels);
-            $group->setCaption('Random group #' . ($i + 1));
+            $group = new IODeviceChannelGroup($this->getReference(DevicesFixture::DEVICE_SONOFF)->getUser(), $location, $channels);
+            $group->setCaption($this->faker->sentence(3));
             $this->entityManager->persist($group);
         }
-        $this->entityManager->flush();
     }
 }
