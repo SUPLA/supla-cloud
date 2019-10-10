@@ -61,7 +61,7 @@
                     content += ` <span class='small text-muted'>${scene.caption}</span>`;
                 }
                 content += '</h4>';
-                content += `<p>${this.$t('No of operations')}: ${scene.operationsIds.length}</p></div>`;
+                content += `<p>${this.$t('No of operations')}: ${scene.relationsCount.operations}</p></div>`;
                 content += `<div class="icon"><img src="${channelIconUrl(scene)}"></div></div>`;
                 content += '</div>';
                 return content;

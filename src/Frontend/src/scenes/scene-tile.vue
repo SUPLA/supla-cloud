@@ -8,9 +8,9 @@
                     class="pull-right"
                     width="60"></function-icon>
             </div>
-            <dl>
+            <dl v-if="model.relationsCount">
                 <dd>{{ $t('No of operations') }}</dd>
-                <dt>{{ model.operationsIds.length || 0 }}</dt>
+                <dt>{{ model.relationsCount.operations || 0 }}</dt>
             </dl>
             <div v-if="model.caption">
                 <div class="separator"></div>

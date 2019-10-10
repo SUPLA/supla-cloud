@@ -18,17 +18,29 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ScenesFixture extends SuplaFixture {
-    const ORDER = DevicesFixture::ORDER + 1;
+    const ORDER = ChannelGroupsFixture::ORDER + 1;
+
+    /** @var \Faker\Generator */
+    private $faker;
 
     public function load(ObjectManager $manager) {
+        $this->faker = Factory::create('pl_PL');
+        $this->createSampleScene($manager);
+        $this->createRandomScenes($manager);
+        $manager->flush();
+    }
+
+    private function createSampleScene(ObjectManager $manager) {
         $scene = new Scene($this->getReference(UsersFixture::USER)->getLocations()[0]);
         /** @var IODevice $deviceFull */
         $deviceFull = $this->getReference(DevicesFixture::DEVICE_MEGA);
@@ -45,6 +57,53 @@ class ScenesFixture extends SuplaFixture {
         $scene->setCaption('My scene');
         $scene->setOpeartions([$op1, $op2, $op3]);
         $manager->persist($scene);
-        $manager->flush();
+    }
+
+    private function createRandomScenes(ObjectManager $manager) {
+        $locations = [
+            $this->getReference(LocationsFixture::LOCATION_GARAGE),
+            $this->getReference(LocationsFixture::LOCATION_OUTSIDE),
+            $this->getReference(LocationsFixture::LOCATION_BEDROOM),
+        ];
+        $user = $this->getReference(UsersFixture::USER);
+        $subjectFactories = [
+            function (User $user) {
+                do {
+                    /** @var IODeviceChannel $channel */
+                    $channel = $this->faker->randomElement($user->getChannels());
+                } while (!$channel->getType()->isOutput());
+                return $channel;
+            },
+            function (User $user) {
+                return $this->faker->randomElement($user->getChannelGroups());
+            },
+            function (User $user) {
+                return $this->faker->randomElement($user->getScenes());
+            },
+        ];
+        for ($sceneNo = 0; $sceneNo < 15; $sceneNo++) {
+            $scene = new Scene($this->faker->randomElement($locations));
+            $numberOfOperations = $this->faker->numberBetween(1, 10);
+            $operations = [];
+            for ($i = 0; $i < $numberOfOperations; $i++) {
+                do {
+                    $subject = $this->faker->randomElement($subjectFactories)($user);
+                } while (!$subject);
+                $action = $this->faker->randomElement($subject->getFunction()->getPossibleActions());
+                $sceneOperation = new SceneOperation($subject, $action, [], $this->faker->randomElement([0, 0, 0, 1000, 30000]));
+                $operations[] = $sceneOperation;
+            }
+            $scene->setEnabled($this->faker->boolean(80));
+            $scene->setCaption($this->faker->colorName);
+            $scene->setOpeartions($operations);
+            try {
+                $scene->ensureOperationsAreNotCyclic();
+                $manager->persist($scene);
+                $manager->flush();
+                $manager->refresh($user);
+            } catch (\InvalidArgumentException $e) {
+                $sceneNo--;
+            }
+        }
     }
 }

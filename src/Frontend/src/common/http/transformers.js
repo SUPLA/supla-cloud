@@ -149,9 +149,6 @@ export function sceneTransformer(request, next) {
                     }
                 });
             }
-            if (toSend.operationsIds) {
-                delete toSend.operationsIds;
-            }
             request.body = toSend;
         }
     }

@@ -129,7 +129,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`scenes/${this.id}?include=operations,subject,location,iodevice`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
                         .then(response => this.scene = response.body)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
