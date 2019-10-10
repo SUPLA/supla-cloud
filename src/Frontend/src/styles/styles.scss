@@ -536,6 +536,10 @@ body.warning {
   }
 }
 
+.col-12-if-alone:only-child {
+  width: 100%;
+}
+
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";
