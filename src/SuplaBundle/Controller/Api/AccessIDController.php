@@ -80,7 +80,7 @@ class AccessIDController extends RestController {
     /** @Security("has_role('ROLE_ACCESSIDS_R')") */
     public function getAccessidsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            return $this->view($this->accessIdRepository->findAllForUser($this->getUser()));
+            return $this->serializedView($this->accessIdRepository->findAllForUser($this->getUser()), $request);
         } else {
             return $this->view($this->getAccessIDS(), Response::HTTP_OK);
         }

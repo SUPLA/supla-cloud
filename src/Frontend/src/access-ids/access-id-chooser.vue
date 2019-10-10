@@ -1,7 +1,7 @@
 <template>
     <square-modal-chooser
         :title-i18n="titleI18n"
-        endpoint="accessids"
+        endpoint="accessids?include=password"
         tile="access-id-tile"
         filters="access-id-filters"
         :selected="selected"
