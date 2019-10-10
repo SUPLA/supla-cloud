@@ -46,7 +46,7 @@
             fetchChannelGroups() {
                 this.channelGroups = undefined;
                 this.$http.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
-                    this.channelGroups = channelGroups.filter(this.filter || (() => true));
+                    this.channelGroups = channelGroups;
                     this.setChannelGroupFromModel();
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });
@@ -56,7 +56,7 @@
                     + (channelGroup.caption ? ` (${channelGroup.caption})` : '');
             },
             channelGroupHtml(channelGroup) {
-                let content = `<div class='channel-dropdown-option flex-left-full-width'>`
+                let content = `<div class='subject-dropdown-option flex-left-full-width'>`
                     + `<div class="labels full"><h4>ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
                 if (channelGroup.caption) {
                     content += ` <span class='small text-muted'>${channelGroup.caption}</span>`;
@@ -83,8 +83,9 @@
                 if (!this.channelGroups) {
                     return [];
                 }
-                this.$emit('update', this.channelGroups);
-                return this.channelGroups;
+                const channelGroups = this.channelGroups.filter(this.filter || (() => true));
+                this.$emit('update', channelGroups);
+                return channelGroups;
             }
         },
         watch: {
@@ -98,27 +99,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    @import "../styles/variables";
-
-    .select-loader {
-        position: relative;
-        text-align: center;
-        .button-loading-dots {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            margin-left: -25px;
-            z-index: 20;
-        }
-    }
-
-    .channel-dropdown-option {
-        .icon {
-            img {
-                height: 60px;
-            }
-        }
-    }
-</style>

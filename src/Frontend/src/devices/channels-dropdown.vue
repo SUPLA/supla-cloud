@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%">
+    <div>
         <div class="select-loader"
             v-if="!channels">
             <button-loading-dots></button-loading-dots>
@@ -35,7 +35,7 @@
     import {channelIconUrl, channelTitle} from "../common/filters";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'initialId', 'filter'],
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter'],
         components: {ButtonLoadingDots},
         data() {
             return {
@@ -51,9 +51,6 @@
                 this.channels = undefined;
                 this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
                     this.channels = channels;
-                    if (this.initialId) {
-                        this.chosenChannel = this.channels.filter(ch => ch.id == this.initialId)[0];
-                    }
                     this.setChannelFromModel();
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });
@@ -62,7 +59,7 @@
                 return channelTitle(channel, this, true);
             },
             channelHtml(channel) {
-                let content = `<div class='channel-dropdown-option flex-left-full-width'>`
+                let content = `<div class='subject-dropdown-option flex-left-full-width'>`
                     + `<div class="labels full"><h4>ID${channel.id} ${this.$t(channel.function.caption)}`;
                 if (channel.caption) {
                     content += ` <span class='small text-muted'>${channel.caption}</span>`;
@@ -85,17 +82,17 @@
         },
         computed: {
             channelsForDropdown() {
+                this.updateDropdownOptions();
                 if (!this.channels) {
                     return [];
                 }
-                let channels = [];
+                let filter = this.filter || (() => true);
                 if (this.hiddenChannels && this.hiddenChannels.length) {
+                    const filterOriginal = filter;
                     const hiddenIds = this.hiddenChannels.map(channel => channel.id || channel);
-                    channels = this.channels.filter(channel => hiddenIds.indexOf(channel.id) < 0);
-                } else {
-                    channels = this.channels;
+                    filter = ((channel) => !hiddenIds.includes(channel.id) && filterOriginal(channel));
                 }
-                channels = channels.filter(this.filter || (() => true));
+                const channels = this.channels.filter(filter);
                 this.$emit('update', channels);
                 this.updateDropdownOptions();
                 return channels;
@@ -112,33 +109,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    @import "../styles/variables";
-
-    .bootstrap-select {
-        max-width: 100%;
-    }
-
-    .select-loader {
-        position: relative;
-        text-align: center;
-        .button-loading-dots {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            margin-left: -25px;
-            z-index: 20;
-        }
-    }
-
-    .channel-dropdown-option {
-        padding: 5px 3px;
-        .icon {
-            margin-left: 10px;
-            img {
-                height: 60px;
-            }
-        }
-    }
-</style>

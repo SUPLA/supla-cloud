@@ -381,20 +381,40 @@ body.warning {
 }
 
 .bootstrap-select {
+  max-width: 100%;
   .text {
     width: 100%;
   }
-
   .dropdown-menu > li {
     > a {
       white-space: normal;
     }
-
     &.active > a {
       &, &:focus, &:hover {
         background-color: $supla-green;
       }
     }
+  }
+  .subject-dropdown-option {
+    padding: 5px 3px;
+    .icon {
+      margin-left: 10px;
+      img {
+        height: 60px;
+      }
+    }
+  }
+}
+
+.select-loader {
+  position: relative;
+  text-align: center;
+  .button-loading-dots {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    margin-left: -25px;
+    z-index: 20;
   }
 }
 
