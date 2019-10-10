@@ -10,8 +10,7 @@
         <div v-if="subject">
             <channel-action-chooser :subject="subject"
                 v-model="action"
-                :possible-action-filter="possibleActionFilter"
-                @input="updateAction()"></channel-action-chooser>
+                :possible-action-filter="possibleActionFilter"></channel-action-chooser>
         </div>
     </div>
 </template>
@@ -28,17 +27,12 @@
         data() {
             return {
                 subjectWithType: {},
-                action: {}
             };
         },
         mounted() {
             this.subjectWithType = {
                 subject: this.subject,
                 type: this.subjectType,
-            };
-            this.action = {
-                id: this.actionId,
-                param: this.actionParam,
             };
         },
         methods: {
@@ -59,10 +53,6 @@
                 }
                 return true;
             },
-            updateAction() {
-                this.actionId = this.action.id;
-                this.actionParam = this.action.param;
-            },
             possibleActionFilter(possibleAction) {
                 return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
             }
@@ -82,6 +72,15 @@
                 },
                 set(actionParam) {
                     this.$store.commit('updateActionParam', actionParam);
+                }
+            },
+            action: {
+                get() {
+                    return {id: this.actionId, param: this.actionParam};
+                },
+                set(action) {
+                    this.actionId = action.id;
+                    this.actionParam = action.param || {};
                 }
             },
             ...mapState(['subject', 'subjectType']),
