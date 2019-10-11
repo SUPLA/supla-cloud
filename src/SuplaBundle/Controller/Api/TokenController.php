@@ -76,8 +76,12 @@ class TokenController extends RestController {
     public function webappAuthAction(Request $request) {
         $username = $request->get('username');
         $password = $request->get('password');
-        Assertion::notBlank($username, 'Please enter a valid email address'); // i18n
-        Assertion::notEmpty($password, 'The password should be 8 or more characters.'); // i18n
+        if (!$username || !$password) {
+            return $this->view(
+                ['error' => OAuth2::ERROR_INVALID_GRANT, 'error_description' => 'Invalid username and password combination'],
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
         $server = $this->autodiscover->getAuthServerForUser($username);
         if ($server->isLocal()) {
             return $this->issueTokenForWebappAction($request);
@@ -106,6 +110,8 @@ class TokenController extends RestController {
                 'username' => $request->get('username'),
                 'password' => $request->get('password'),
             ]);
+            Assertion::notBlank($requestData['username'], 'Please enter a valid email address'); // i18n
+            Assertion::notEmpty($requestData['password'], 'The password should be 8 or more characters.'); // i18n
         }
         $tokenRequest = Request::create($this->router->generate('fos_oauth_server_token'), 'POST', $requestData);
         try {
