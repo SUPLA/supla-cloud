@@ -114,7 +114,7 @@ class ChannelController extends RestController {
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            return $this->serializedView($channel, $request, ['location.relationsCount', 'channel.relationsCount']);
+            return $this->serializedView($channel, $request, ['location.relationsCount', 'channel.relationsCount', 'iodevice.location']);
         } else {
             $enabled = false;
             $connected = false;
