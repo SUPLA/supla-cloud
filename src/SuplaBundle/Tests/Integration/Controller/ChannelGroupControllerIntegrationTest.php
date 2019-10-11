@@ -109,7 +109,6 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('id', $content);
         $this->assertArrayHasKey('channelsIds', $content);
-        $this->assertArrayNotHasKey('relationsCount', $content);
         $this->assertEquals([1, 2], $content['channelsIds']);
     }
 
