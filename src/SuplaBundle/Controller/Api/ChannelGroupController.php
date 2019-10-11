@@ -51,6 +51,7 @@ class ChannelGroupController extends RestController {
             'iodevice', 'location', 'state', 'relationsCount',
             'location' => 'channelGroup.location',
             'iodevice' => 'channel.iodevice',
+            'relationsCount' => 'channelGroup.relationsCount',
         ];
         if (!strpos($request->get('_route'), 'channelGroups_list')) {
             $groups[] = 'channels';
