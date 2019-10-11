@@ -106,7 +106,11 @@ class ChannelController extends RestController {
         $channels = $channels->filter(function (IODeviceChannel $channel) {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel);
         });
-        return $this->serializedView($channels->getValues(), $request);
+        $extraGroups = [];
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            $extraGroups = ['iodevice.location'];
+        }
+        return $this->serializedView($channels->getValues(), $request, $extraGroups);
     }
 
     /**
@@ -114,7 +118,12 @@ class ChannelController extends RestController {
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            return $this->serializedView($channel, $request, ['location.relationsCount', 'channel.relationsCount', 'iodevice.location']);
+            if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+                $extraGroups = ['location.relationsCount', 'channel.relationsCount'];
+            } else {
+                $extraGroups = ['iodevice.location'];
+            }
+            return $this->serializedView($channel, $request, $extraGroups);
         } else {
             $enabled = false;
             $connected = false;

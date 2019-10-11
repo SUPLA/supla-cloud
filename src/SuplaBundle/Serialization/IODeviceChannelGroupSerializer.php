@@ -52,14 +52,15 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['subjectType'] = ActionableSubjectType::CHANNEL_GROUP;
-            if (!isset($normalized['relationsCount'])) {
-                if ($this->isSerializationGroupRequested('channelGroup.relationsCount', $context)
-                    || $this->isSerializationGroupRequested('subject.relationsCount', $context)) {
-                    $normalized['relationsCount'] = $this->channelGroupRepository->find($group->getId())->getRelationsCount();
-                }
-            }
         } else {
             $normalized['channelsIds'] = $this->toIds($group->getChannels());
+        }
+        if (!isset($normalized['relationsCount'])) {
+            if ($this->isSerializationGroupRequested('channelGroup.relationsCount', $context)
+                || $this->isSerializationGroupRequested('subject.relationsCount', $context)
+                || $this->isSerializationGroupRequested('relationsCount', $context)) {
+                $normalized['relationsCount'] = $this->channelGroupRepository->find($group->getId())->getRelationsCount();
+            }
         }
     }
 

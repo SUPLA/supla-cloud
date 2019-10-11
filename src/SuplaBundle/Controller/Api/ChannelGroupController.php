@@ -48,7 +48,7 @@ class ChannelGroupController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'iodevice', 'location', 'state',
+            'iodevice', 'location', 'state', 'relationsCount',
             'location' => 'channelGroup.location',
             'iodevice' => 'channel.iodevice',
         ];
