@@ -2,7 +2,6 @@ var project = require("./logo");
 var chalk = require('chalk');
 const ora = require('ora');
 var fs = require('fs-extra');
-var path = require('path');
 var async = require('async');
 var del = require('del');
 var exec = require('child_process').exec;
@@ -10,9 +9,8 @@ var exec = require('child_process').exec;
 process.chdir('../../');
 console.log(process.cwd());
 
-
-var version = require('../package.json').version;
-var releasePackageName = process.env.RELEASE_FILENAME || 'supla-cloud-v' + version + '.tar.gz';
+var version = process.env.RELEASE_VERSION || require('../package.json').version;
+var releasePackageName = process.env.RELEASE_FILENAME || 'supla-cloud-v' + version + (process.env.NODE_ENV === 'development' ? '-dev' : '') + '.tar.gz';
 
 project.printAsciiLogoAndVersion();
 
@@ -53,13 +51,17 @@ function clearReleaseDirectory() {
 function copyToReleaseDirectory() {
     var spinner = ora({text: 'Copying application files.', color: 'yellow'}).start();
     var calls = [];
-    [
+    let directories = [
         'app/',
         'bin/',
         'src/SuplaBundle',
         'vendor/',
         'web/',
-    ].forEach(function (filename) {
+    ];
+    if (process.env.NODE_ENV === 'development') {
+        directories.push('src/SuplaDeveloperBundle');
+    }
+    directories.forEach(function (filename) {
         calls.push(function (callback) {
             fs.mkdirsSync('release/' + filename);
             fs.copy(filename, 'release/' + filename, function (err) {
@@ -104,19 +106,21 @@ function copySingleRequiredFiles() {
 }
 
 function clearLocalConfigFiles() {
-    del.sync([
+    let pathsToDelete = [
         'release/**/.gitignore',
-        'release/app/config/config_dev.yml',
         'release/app/config/config_local.yml',
         'release/app/config/config_test.yml',
         'release/app/config/parameters.yml',
         'release/app/config/parameters.yml.travis',
-        'release/app/config/routing_dev.yml',
-        'release/src/DeveloperBundle',
-        'release/src/*/Tests',
         'release/web/app_dev.php',
         'release/web/assets/**/*.map',
-    ]);
+    ];
+    if (process.env.NODE_ENV !== 'development') {
+        pathsToDelete.push('release/src/*/Tests');
+        pathsToDelete.push('release/app/config/config_dev.yml');
+        pathsToDelete.push('release/app/config/routing_dev.yml');
+    }
+    del.sync(pathsToDelete);
 }
 
 function createZipArchive() {

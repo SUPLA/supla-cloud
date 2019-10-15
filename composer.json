@@ -82,6 +82,11 @@
       "composer run-script webpack",
       "cd src/Frontend && npm run release"
     ],
+    "release-dev": [
+      "composer install --optimize-autoloader",
+      "composer run-script webpack",
+      "cd src/Frontend && npm run release-dev"
+    ],
     "collect-translations": [
       "cd src/Frontend && npm run collect-translations"
     ]

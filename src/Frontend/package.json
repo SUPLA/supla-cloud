@@ -9,6 +9,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --output-public-path http://localhost:25787/assets/dist",
     "lint": "eslint --ext js,vue src",
     "release": "node scripts/release.js",
+    "release-dev": "cross-env NODE_ENV=development node scripts/release.js",
     "webpack-stats": "cross-env NODE_ENV=production webpack --json > stats.json"
   },
   "dependencies": {
