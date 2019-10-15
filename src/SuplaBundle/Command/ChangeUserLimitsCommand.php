@@ -7,6 +7,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
@@ -27,13 +28,16 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
         $this
             ->setName('supla:user:change-limits')
             ->setAliases(['supla:change-user-limits'])
-            ->setDescription('Allows to change user limits.');
+            ->setDescription('Allows to change user limits.')
+            ->addArgument('username', InputArgument::OPTIONAL, 'Username to update.')
+            ->addArgument('limitForAll', InputArgument::OPTIONAL, 'Limit value to set for all limits.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
-        $email = $helper->ask($input, $output, new Question('Whose limits do you want to change? (email address): '));
+        $email = $input->getArgument('username')
+            ?: $helper->ask($input, $output, new Question('Whose limits do you want to change? (email address): '));
         $user = $this->userRepository->findOneByEmail($email);
         Assertion::notNull($user, 'Such user does not exist.');
         foreach ([
@@ -46,7 +50,8 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
                      'limitSchedule' => 'Schedules',
                  ] as $field => $label) {
             $currentLimit = EntityUtils::getField($user, $field);
-            $newLimit = $helper->ask($input, $output, new Question("Limit of $label [$currentLimit]: ", $currentLimit));
+            $newLimit = $input->getArgument('limitForAll')
+                ?: $helper->ask($input, $output, new Question("Limit of $label [$currentLimit]: ", $currentLimit));
             EntityUtils::setField($user, $field, $newLimit);
         }
         $this->entityManager->persist($user);
