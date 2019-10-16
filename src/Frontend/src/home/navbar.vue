@@ -85,7 +85,7 @@
                             <router-link tag="li"
                                 :to="{name: 'scenes'}">
                                 <a>
-                                    <i class="hidden-sm hidden-xs pe-7s-plugin"></i>
+                                    <i class="hidden-sm hidden-xs pe-7s-coffee"></i>
                                     {{ $t('Scenes') }}
                                 </a>
                             </router-link>
