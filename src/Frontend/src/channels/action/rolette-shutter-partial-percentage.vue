@@ -29,7 +29,9 @@
             if (this.value) {
                 this.percentage = this.value.percentage || 0;
             }
-            Vue.nextTick(() => this.onChange());
+            if (this.value.percentage === undefined) {
+                Vue.nextTick(() => this.onChange());
+            }
         },
         methods: {
             onChange() {
