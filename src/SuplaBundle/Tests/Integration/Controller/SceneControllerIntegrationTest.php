@@ -48,6 +48,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],
@@ -84,6 +85,28 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                     'subjectId' => $this->device->getChannels()[0]->getId(),
                     'subjectType' => ActionableSubjectType::CHANNEL,
                     'actionId' => ChannelFunctionAction::TURN_ON,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene', $content['caption']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
+        return $content;
+    }
+
+    public function testCreatingSceneWithOpenGateAction() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[3]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'actionId' => ChannelFunctionAction::OPEN,
                 ],
             ],
         ]);

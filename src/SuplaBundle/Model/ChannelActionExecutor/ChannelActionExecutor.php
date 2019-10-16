@@ -24,8 +24,11 @@ class ChannelActionExecutor {
     }
 
     public function validateActionParams(HasFunction $subject, ChannelFunctionAction $action, array $actionParams): array {
-        $executor = $this->getExecutor($subject, $action);
-        return $executor->validateActionParams($subject, $actionParams);
+        try {
+            $executor = $this->getExecutor($subject, $action);
+        } catch (\InvalidArgumentException $e) {
+        }
+        return isset($executor) ? $executor->validateActionParams($subject, $actionParams) : [];
     }
 
     private function getExecutor(HasFunction $subject, ChannelFunctionAction $action): SingleChannelActionExecutor {
