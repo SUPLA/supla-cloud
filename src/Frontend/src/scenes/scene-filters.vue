@@ -1,9 +1,9 @@
 <template>
     <div class="grid-filters"
         v-if="items.length">
-        <btn-filters v-model="hidden"
+        <btn-filters v-model="enabled"
             @input="$emit('filter')"
-            :filters="[{label: $t('All'), value: undefined}, {label: $t('Invisible'), value: true}, {label: $t('Visible'), value: false}]"></btn-filters>
+            :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
         <input type="text"
             class="form-control"
             v-model="search"
@@ -21,20 +21,20 @@
         props: ['items'],
         data() {
             return {
-                hidden: undefined,
+                enabled: undefined,
                 search: '',
             };
         },
         mounted() {
-            this.$emit('filter-function', (channelGroup) => this.matches(channelGroup));
+            this.$emit('filter-function', (scene) => this.matches(scene));
         },
         methods: {
-            matches(channelGroup) {
-                if (this.hidden !== undefined && this.hidden != channelGroup.hidden) {
+            matches(scene) {
+                if (this.enabled !== undefined && this.enabled !== scene.enabled) {
                     return false;
                 }
                 if (this.search) {
-                    const searchString = latinize([channelGroup.id, channelGroup.caption].join(' ')).toLowerCase();
+                    const searchString = latinize([scene.id, scene.caption].join(' ')).toLowerCase();
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
                 return true;
