@@ -133,6 +133,8 @@ function createZipArchive() {
             spinner.succeed('Release archive created.');
             console.log('');
             console.log("Package: " + chalk.green(releasePackageName));
+            var fileSizeInBytes = fs.statSync(releasePackageName).size;
+            console.log('Size: ' + Math.round(fileSizeInBytes / 1024) + 'kB (' + Math.round(fileSizeInBytes * 10 / 1024 / 1024) / 10 + 'MB)');
         }
     });
 }
