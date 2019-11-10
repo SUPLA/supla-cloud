@@ -17,14 +17,20 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater\IODeviceChannelWithParams;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
 /** @small */
 class ChannelControllerIntegrationTest extends IntegrationTestCase {
@@ -35,11 +41,13 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     private $user;
     /** @var IODevice */
     private $device;
+    /** @var Location */
+    private $location;
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
-        $location = $this->createLocation($this->user);
-        $this->device = $this->createDevice($location, [
+        $this->location = $this->createLocation($this->user);
+        $this->device = $this->createDevice($this->location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
@@ -176,5 +184,60 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('SET-RGBW-VALUE:1,1,5,16711935,58,42', $commands);
+    }
+
+    public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {
+        $client = $this->createAuthenticatedClient();
+        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
+        })->first();
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        // assign sensor to the gate from other device
+        $channelParamsUpdater->updateChannelParams($gateChannel, new IODeviceChannelWithParams(0, $sensorChannel->getId()));
+        $this->getEntityManager()->refresh($gateChannel);
+        $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
+        $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId(), [
+            'functionId' => ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getEntityManager()->refresh($gateChannel);
+        $this->getEntityManager()->refresh($sensorChannel);
+        $this->assertEquals(0, $gateChannel->getParam2(), 'The paired sensor has not been cleared.');
+        $this->assertEquals(ChannelFunction::OPENINGSENSOR_GARAGEDOOR, $sensorChannel->getFunction()->getId());
+    }
+
+    public function testChangingChannelFunctionDeletesExistingDirectLinks() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $directLink = new DirectLink($sensorChannel);
+        $directLink->generateSlug(new BCryptPasswordEncoder(4));
+        $this->getEntityManager()->persist($directLink);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId(), [
+            'functionId' => ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        return $sensorChannel;
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingDirectLinks */
+    public function testChangingChannelFunctionDeletesExistingDirectLinksWhenConfirmed(IODeviceChannel $sensorChannel) {
+        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
+        $directLink = $sensorChannel->getDirectLinks()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId() . '?confirm=1', [
+            'functionId' => ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(DirectLink::class, $directLink->getId()));
     }
 }

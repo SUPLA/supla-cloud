@@ -151,7 +151,8 @@ class ChannelController extends RestController {
                         'directLinks' => $channel->getDirectLinks(),
                     ], Response::HTTP_CONFLICT);
                 }
-                $channel->setFunction($updatedChannel->getFunction());
+                $channel->setUserIcon(null);
+                $channel->setAltIcon(0);
             } else {
                 $channel->setAltIcon($updatedChannel->getAltIcon());
                 $channel->setUserIcon($updatedChannel->getUserIcon());
@@ -164,9 +165,16 @@ class ChannelController extends RestController {
             $channel->setCaption($updatedChannel->getCaption());
             $channel->setHidden($updatedChannel->getHidden());
             $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
-            $channel = $this->transactional(function (EntityManagerInterface $em) use ($functionHasBeenChanged, $request, $channel) {
+            $channel = $this->transactional(function (EntityManagerInterface $em) use (
+                $updatedChannel,
+                $functionHasBeenChanged,
+                $request,
+                $channel
+            ) {
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
+                    $channel->setFunction($updatedChannel->getFunction());
+                    $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
                     foreach ($channel->getSchedules() as $schedule) {
                         $this->scheduleManager->delete($schedule);
                     }
@@ -174,6 +182,7 @@ class ChannelController extends RestController {
                         $em->remove($directLink);
                     }
                     $channel->removeFromAllChannelGroups($em);
+                    $em->persist($channel);
                 }
                 return $channel;
             });
