@@ -74,8 +74,8 @@ class IODeviceManager {
 
                 fputcsv($handle, ['Timestamp', 'Date and time', 'On', 'MeasuredTemperature', 'PresetTemperature']);
 
-                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
-                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date, `on`, ";
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`) AS date, `on`, ";
                 $sql .= "`measured_temperature`, `preset_temperature` FROM `supla_thermostat_log` WHERE channel_id = ?";
 
                 $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
@@ -96,8 +96,8 @@ class IODeviceManager {
 
                 fputcsv($handle, ['Timestamp', 'Date and time', 'Counter', 'CalculatedValue']);
 
-                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
-                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`) AS date,";
                 $sql .= "`counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = ?";
 
                 $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);
@@ -129,8 +129,8 @@ class IODeviceManager {
                     'Phase 3 Forward reactive Energy kvarh',
                     'Phase 3 Reverse reactive Energy kvarh']);
 
-                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) date_ts, ";
-                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) date,";
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`)) date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`) date,";
                 $sql .= "IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, ";
                 $sql .= "IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, ";
                 $sql .= "IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, ";
@@ -165,8 +165,8 @@ class IODeviceManager {
                 || $channel->getType()->getId() == ChannelType::THERMOMETER) {
                 fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature']);
 
-                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
-                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`) AS date,";
                 $sql .= "`temperature` ";
                 $sql .= "FROM `supla_temperature_log` WHERE channel_id = ?";
 
@@ -182,8 +182,8 @@ class IODeviceManager {
             } else {
                 fputcsv($handle, ['Timestamp', 'Date and time', 'Temperature', 'Humidity']);
 
-                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`)) AS date_ts, ";
-                $sql .= "IFNULL(CONVERT_TZ(`date`, @@session.time_zone, ?), `date`) AS date,";
+                $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`)) AS date_ts, ";
+                $sql .= "IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`) AS date,";
                 $sql .= "`temperature`, `humidity` ";
                 $sql .= "FROM `supla_temphumidity_log` WHERE channel_id = ?";
 
