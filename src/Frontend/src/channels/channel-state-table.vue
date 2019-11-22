@@ -47,7 +47,21 @@
         </dl>
         <dl v-if="currentState.value !== undefined">
             <dd>{{ $t('State') }}</dd>
-            <dt>{{ currentState.value }}</dt>
+            <dt>
+                <span v-if="channel.function.name === 'WEIGHTSENSOR' && currentState.value >= 2000">
+                    {{ currentState.value / 1000 | roundToDecimals(4) }}
+                </span>
+                <span v-else>
+                    {{ currentState.value }}
+                </span>
+                <span v-if="channel.function.name === 'WINDSENSOR'">m/s</span>
+                <span v-else-if="channel.function.name === 'PRESSURESENSOR'">hPa</span>
+                <span v-else-if="channel.function.name === 'RAINSENSOR'">l/m<sup>2</sup></span>
+                <span v-else-if="channel.function.name === 'WEIGHTSENSOR'">
+                    <span v-if="currentState.value >= 2000">kg</span>
+                    <span v-else>g</span>
+                </span>
+            </dt>
         </dl>
         <span class="label label-danger"
             v-if="currentState.connected === false">
