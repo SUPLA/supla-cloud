@@ -5,14 +5,13 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaServerAware;
 
-class DistanceChannelStateGetter implements SingleChannelStateGetter {
+class DoubleChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
         $value = $this->suplaServer->getDoubleValue($channel);
         if ($value !== false) {
-            $key = $channel->getFunction() == ChannelFunction::DISTANCESENSOR() ? 'distance' : 'depth';
-            return [$key => $value];
+            return ['value' => $value];
         } else {
             return [];
         }
@@ -20,8 +19,10 @@ class DistanceChannelStateGetter implements SingleChannelStateGetter {
 
     public function supportedFunctions(): array {
         return [
-            ChannelFunction::DISTANCESENSOR(),
-            ChannelFunction::DEPTHSENSOR(),
+            ChannelFunction::WINDSENSOR(),
+            ChannelFunction::PRESSURESENSOR(),
+            ChannelFunction::RAINSENSOR(),
+            ChannelFunction::WEIGHTSENSOR(),
         ];
     }
 }

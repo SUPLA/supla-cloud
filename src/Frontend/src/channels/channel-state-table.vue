@@ -45,6 +45,10 @@
             <dd>{{ $t('Forward active energy') }}</dd>
             <dt>{{(currentState.phases[0].totalForwardActiveEnergy + currentState.phases[1].totalForwardActiveEnergy + currentState.phases[2].totalForwardActiveEnergy) | roundToDecimals}} kWh</dt>
         </dl>
+        <dl v-if="currentState.value !== undefined">
+            <dd>{{ $t('State') }}</dd>
+            <dt>{{ currentState.value }}</dt>
+        </dl>
         <span class="label label-danger"
             v-if="currentState.connected === false">
             {{ $t('Disconnected') }}

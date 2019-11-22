@@ -1577,6 +1577,7 @@ components:
         - $ref: '#/components/schemas/ColorState'
         - $ref: '#/components/schemas/DepthState'
         - $ref: '#/components/schemas/DistanceState'
+        - $ref: '#/components/schemas/DoubleState'
         - $ref: '#/components/schemas/ElectricityMeterState'
         - $ref: '#/components/schemas/HumidityState'
         - $ref: '#/components/schemas/ImpulseCounterState'
@@ -1656,6 +1657,14 @@ components:
             `distance` contains current sensor value
       required:
         - connected
+    DoubleState:
+      properties:
+        connected:
+          type: boolean
+        value:
+          type: number
+          description: >-
+            `value` contains current sensor value
     ElectricityMeterState:
       properties:
         connected: {type: boolean}

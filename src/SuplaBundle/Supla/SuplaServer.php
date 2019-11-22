@@ -165,7 +165,7 @@ abstract class SuplaServer {
         return $this->getValue('HUMIDITY', $channel);
     }
 
-    public function getDistanceValue(IODeviceChannel $channel) {
+    public function getDoubleValue(IODeviceChannel $channel) {
         return $this->getValue('DOUBLE', $channel);
     }
 
