@@ -108,4 +108,11 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $locationData['channels']);
         $this->assertCount(1, $locationData['channelGroups']);
     }
+
+    public function testCreatingLocation() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+    }
 }

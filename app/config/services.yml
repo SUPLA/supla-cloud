@@ -143,6 +143,12 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener:
+    arguments:
+      $maintenanceMode: "%supla.maintenance_mode%"
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+
   SuplaBundle\ParamConverter\:
     resource: '../../src/SuplaBundle/ParamConverter'
 

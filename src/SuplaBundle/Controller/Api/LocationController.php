@@ -22,6 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\LocationManager;
@@ -93,7 +94,10 @@ class LocationController extends RestController {
         }
     }
 
-    /** @Security("has_role('ROLE_LOCATIONS_RW')") */
+    /**
+     * @Security("has_role('ROLE_LOCATIONS_RW')")
+     * @UnavailableInMaintenance
+     */
     public function postLocationAction(Request $request) {
         $user = $this->getUser();
         $locationsCount = $user->getLocations()->count();
@@ -104,7 +108,7 @@ class LocationController extends RestController {
             return $location;
         });
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
-            return $this->serializedView($location, $request, ['location.relationsCount']);
+            return $this->serializedView($location, $request, ['location.relationsCount'], Response::HTTP_CREATED);
         } else {
             return $this->getLocationAction($request, $location);
         }
@@ -119,6 +123,7 @@ class LocationController extends RestController {
 
     /**
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
+     * @UnavailableInMaintenance
      */
     public function deleteLocationAction(Location $location) {
         $this->ensureNoRelatedEntities(
@@ -152,6 +157,7 @@ class LocationController extends RestController {
 
     /**
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
+     * @UnavailableInMaintenance
      */
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
         $location->setCaption($updatedLocation->getCaption());

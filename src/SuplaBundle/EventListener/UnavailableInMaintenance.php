@@ -15,17 +15,8 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Utils;
+namespace SuplaBundle\EventListener;
 
-final class StringUtils {
-    private function __construct() {
-    }
-
-    public static function snakeCaseToCamelCase(string $string): string {
-        return lcfirst(str_replace('_', '', ucwords(strtolower($string), '_')));
-    }
-
-    public static function camelCaseToSnakeCase(string $string): string {
-        return strtoupper(trim(preg_replace('#([A-Z])#', '_$1', $string), '_'));
-    }
+/** @Annotation */
+class UnavailableInMaintenance {
 }

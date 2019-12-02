@@ -17,6 +17,7 @@ class TestContainerPass implements CompilerPassInterface {
         \SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater::class,
         \SuplaBundle\Model\Schedule\ScheduleManager::class,
         \SuplaBundle\Model\UserManager::class,
+        \SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener::class,
     ];
 
     public function process(ContainerBuilder $container) {
