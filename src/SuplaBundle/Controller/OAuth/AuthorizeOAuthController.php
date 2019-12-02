@@ -26,6 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
@@ -190,6 +191,7 @@ class AuthorizeOAuthController extends Controller {
 
     /**
      * @Route("/api/register-target-cloud", methods={"POST"})
+     * @UnavailableInMaintenance
      */
     public function registerTargetCloudAction(Request $request) {
         $gRecaptchaResponse = $request->get('captcha');

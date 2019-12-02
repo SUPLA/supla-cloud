@@ -29,6 +29,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
@@ -138,6 +139,7 @@ class ChannelController extends RestController {
 
     /**
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @UnavailableInMaintenance
      */
     public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {

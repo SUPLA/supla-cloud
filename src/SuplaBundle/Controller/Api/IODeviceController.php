@@ -23,6 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -195,6 +196,7 @@ class IODeviceController extends RestController {
 
     /**
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
+     * @UnavailableInMaintenance
      */
     public function putIodeviceAction(Request $request, IODevice $ioDevice, IODevice $updatedDevice) {
         $result = $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
@@ -222,6 +224,7 @@ class IODeviceController extends RestController {
 
     /**
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
+     * @UnavailableInMaintenance
      */
     public function deleteIodeviceAction(IODevice $ioDevice) {
         $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {

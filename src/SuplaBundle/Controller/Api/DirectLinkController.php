@@ -25,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,6 +80,7 @@ class DirectLinkController extends RestController {
     /**
      * @Rest\Post("/direct-links")
      * @Security("has_role('ROLE_DIRECTLINKS_RW')")
+     * @UnavailableInMaintenance
      */
     public function postDirectLinkAction(Request $request, DirectLink $directLink, TranslatorInterface $translator) {
         $user = $this->getUser();
@@ -101,6 +103,7 @@ class DirectLinkController extends RestController {
     /**
      * @Rest\Put("/direct-links/{directLink}")
      * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_RW')")
+     * @UnavailableInMaintenance
      */
     public function putDirectLinkAction(DirectLink $directLink, DirectLink $updated, Request $request) {
         $directLink = $this->transactional(function (EntityManagerInterface $em) use ($directLink, $updated) {
@@ -120,6 +123,7 @@ class DirectLinkController extends RestController {
     /**
      * @Rest\Delete("/direct-links/{directLink}")
      * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_RW')")
+     * @UnavailableInMaintenance
      */
     public function deleteDirectLinkAction(DirectLink $directLink) {
         return $this->transactional(function (EntityManagerInterface $em) use ($directLink) {

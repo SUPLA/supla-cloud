@@ -26,6 +26,7 @@ use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -112,7 +113,10 @@ class ScheduleController extends RestController {
         return $this->serializedView($schedule, $request, ['subject.relationsCount']);
     }
 
-    /** @Security("has_role('ROLE_SCHEDULES_RW')") */
+    /**
+     * @Security("has_role('ROLE_SCHEDULES_RW')")
+     * @UnavailableInMaintenance
+     */
     public function postScheduleAction(Request $request) {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded'); // i18n
         $data = $request->request->all();
@@ -131,6 +135,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
+     * @UnavailableInMaintenance
      */
     public function putScheduleAction(Request $request, Schedule $schedule) {
         $data = $request->request->all();
@@ -181,7 +186,10 @@ class ScheduleController extends RestController {
         return $schedule;
     }
 
-    /** @Security("has_role('ROLE_SCHEDULES_RW')") */
+    /**
+     * @Security("has_role('ROLE_SCHEDULES_RW')")
+     * @UnavailableInMaintenance
+     */
     public function patchSchedulesAction(Request $request) {
         $data = $request->request->all();
         $this->getDoctrine()->getManager()->transactional(function () use ($data) {
@@ -198,6 +206,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
+     * @UnavailableInMaintenance
      */
     public function deleteScheduleAction(Schedule $schedule) {
         $this->scheduleManager->delete($schedule);

@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\AccessID;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\AccessIdManager;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
@@ -93,7 +94,10 @@ class AccessIDController extends RestController {
         return $this->serializedView($accessId, $request, ['accessId.relationsCount']);
     }
 
-    /** @Security("has_role('ROLE_ACCESSIDS_RW')") */
+    /**
+     * @Security("has_role('ROLE_ACCESSIDS_RW')")
+     * @UnavailableInMaintenance
+     */
     public function postAccessidAction(Request $request) {
         $user = $this->getUser();
         $accessIdCount = $user->getAccessIDS()->count();
@@ -108,6 +112,7 @@ class AccessIDController extends RestController {
 
     /**
      * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_RW')")
+     * @UnavailableInMaintenance
      */
     public function deleteAccessidAction(AccessID $accessId) {
         Assertion::greaterThan($this->getUser()->getAccessIDS()->count(), 1, 'You cannot delete your last access identifier.'); //i18n
@@ -121,6 +126,7 @@ class AccessIDController extends RestController {
 
     /**
      * @Security("accessId.belongsToUser(user)")
+     * @UnavailableInMaintenance
      */
     public function putAccessidAction(Request $request, AccessID $accessId, AccessID $updatedAccessId) {
         $accessId->setCaption($updatedAccessId->getCaption());

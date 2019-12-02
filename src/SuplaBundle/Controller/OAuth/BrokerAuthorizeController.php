@@ -21,6 +21,7 @@ use FOS\OAuthServerBundle\Controller\AuthorizeController;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +44,7 @@ class BrokerAuthorizeController extends AuthorizeController {
 
     /**
      * @Route("/oauth/v2/auth", name="fos_oauth_server_authorize", methods={"GET", "POST"})
+     * @UnavailableInMaintenance
      */
     public function authorizeAction(Request $request) {
         try {

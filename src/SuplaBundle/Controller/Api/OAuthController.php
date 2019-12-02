@@ -28,6 +28,7 @@ use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessTokenRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -82,6 +83,7 @@ class OAuthController extends RestController {
     /**
      * @Security("has_role('ROLE_WEBAPP')")
      * @Rest\Post("/oauth-clients")
+     * @UnavailableInMaintenance
      */
     public function postOAuthClientsAction(ApiClient $newClient, Request $request) {
         $user = $this->getUser();
@@ -95,6 +97,7 @@ class OAuthController extends RestController {
     /**
      * @Security("client.belongsToUser(user) && has_role('ROLE_WEBAPP')")
      * @Rest\Put("/oauth-clients/{client}")
+     * @UnavailableInMaintenance
      */
     public function putOAuthClientAction(ApiClient $client, ApiClient $updatedClient, Request $request) {
         $client->setName($updatedClient->getName());
@@ -107,6 +110,7 @@ class OAuthController extends RestController {
     /**
      * @Security("client.belongsToUser(user) and has_role('ROLE_WEBAPP')")
      * @Rest\Delete("/oauth-clients/{client}")
+     * @UnavailableInMaintenance
      */
     public function deleteOAuthClientAction(ApiClient $client) {
         return $this->transactional(function (EntityManagerInterface $em) use ($client) {
@@ -130,6 +134,7 @@ class OAuthController extends RestController {
     /**
      * @Rest\Delete("/oauth-authorized-clients/{authorizedApp}")
      * @Security("authorizedApp.belongsToUser(user) and has_role('ROLE_WEBAPP')")
+     * @UnavailableInMaintenance
      */
     public function deleteAuthorizedClientsAction(ApiClientAuthorization $authorizedApp, Request $request) {
         return $this->transactional(function (EntityManagerInterface $em) use ($authorizedApp) {
@@ -150,6 +155,7 @@ class OAuthController extends RestController {
     /**
      * @Rest\Post("/oauth-personal-tokens")
      * @Security("has_role('ROLE_WEBAPP')")
+     * @UnavailableInMaintenance
      */
     public function postPersonalTokensAction(Request $request) {
         $data = $request->request->all();
@@ -171,6 +177,7 @@ class OAuthController extends RestController {
     /**
      * @Rest\Delete("/oauth-personal-tokens/{accessToken}")
      * @Security("accessToken.belongsToUser(user) and accessToken.isPersonal() and has_role('ROLE_WEBAPP')")
+     * @UnavailableInMaintenance
      */
     public function deletePersonalTokenAction(AccessToken $accessToken, Request $request) {
         return $this->transactional(function (EntityManagerInterface $em) use ($accessToken) {

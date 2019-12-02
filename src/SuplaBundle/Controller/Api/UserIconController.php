@@ -28,6 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\UserIcon;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\UserIconRepository;
@@ -53,6 +54,7 @@ class UserIconController extends RestController {
     /**
      * @Security("has_role('ROLE_CHANNELS_RW')")
      * @Rest\Post("/user-icons")
+     * @UnavailableInMaintenance
      */
     public function postIconAction(Request $request) {
         $files = $request->files;
@@ -133,6 +135,7 @@ class UserIconController extends RestController {
     /**
      * @Rest\Delete("/user-icons/{userIcon}")
      * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @UnavailableInMaintenance
      */
     public function deleteUserIconAction(UserIcon $userIcon) {
         return $this->transactional(function (EntityManagerInterface $em) use ($userIcon) {

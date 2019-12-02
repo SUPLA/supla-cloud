@@ -49,7 +49,10 @@ class UnavailableInMaintenanceRequestListener {
         if ($classAnnotation || $methodAnnotation) {
             return $event->setController(
                 function () {
-                    return new JsonResponse(['error' => 'Maintenance mode active. You cannot modify any data now.'], Response::HTTP_SERVICE_UNAVAILABLE);
+                    return new JsonResponse(
+                        ['error' => 'Maintenance mode active. You cannot modify any data now.'],
+                        Response::HTTP_SERVICE_UNAVAILABLE
+                    );
                 }
             );
         }

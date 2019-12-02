@@ -21,6 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +50,7 @@ class ClientAppController extends RestController {
     /**
      * @Rest\Put("/client-apps/{clientApp}")
      * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
+     * @UnavailableInMaintenance
      */
     public function putClientAppAction(Request $request, ClientApp $clientApp) {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp, $request) {
@@ -81,6 +83,7 @@ class ClientAppController extends RestController {
     /**
      * @Rest\Delete("/client-apps/{clientApp}")
      * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
+     * @UnavailableInMaintenance
      */
     public function deleteClientAppAction(ClientApp $clientApp): Response {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {

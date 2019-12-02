@@ -21,6 +21,7 @@ use AppKernel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +39,7 @@ class DefaultController extends Controller {
      * @Route("/auth/create", name="_auth_create")
      * @Route("/account/create", name="_account_create")
      * @Route("/account/create_here/{locale}", name="_account_create_here")
+     * @UnavailableInMaintenance
      */
     public function createAction(Request $request, $locale = null) {
         if ($this->getUser()) {

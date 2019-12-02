@@ -28,6 +28,7 @@ use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Model\Audit\AuditAware;
@@ -117,7 +118,10 @@ class UserController extends RestController {
         return $this->serializedView($this->getUser(), $request);
     }
 
-    /** @Security("has_role('ROLE_ACCOUNT_RW')") */
+    /**
+     * @Security("has_role('ROLE_ACCOUNT_RW')")
+     * @UnavailableInMaintenance
+     */
     public function patchUsersCurrentAction(Request $request) {
         $data = $request->request->all();
         $user = $this->getUser();
@@ -198,6 +202,7 @@ class UserController extends RestController {
 
     /**
      * @Rest\Post("/register-account")
+     * @UnavailableInMaintenance
      */
     public function routeAccountCreateAction(Request $request) {
         $server = $this->autodiscover->getRegisterServerForUser($request);
@@ -211,6 +216,7 @@ class UserController extends RestController {
 
     /**
      * @Rest\Post("/register")
+     * @UnavailableInMaintenance
      */
     public function accountCreateAction(Request $request) {
         if ($this->recaptchaEnabled) {
@@ -289,6 +295,7 @@ class UserController extends RestController {
     /**
      * @Rest\Post("/register-resend", name="resend_activation_email_post")
      * @Rest\Patch("/register-resend", name="resend_activation_email_patch")
+     * @UnavailableInMaintenance
      */
     public function resendActivationEmailAction(Request $request) {
         $data = $request->request->all();
@@ -319,6 +326,7 @@ class UserController extends RestController {
 
     /**
      * @Rest\Patch("/confirm/{token}")
+     * @UnavailableInMaintenance
      */
     public function confirmEmailAction(string $token) {
         $user = $this->userManager->confirm($token);
@@ -329,6 +337,7 @@ class UserController extends RestController {
 
     /**
      * @Rest\Patch("/confirm-deletion/{token}")
+     * @UnavailableInMaintenance
      */
     public function confirmDeletingAccountAction(string $token) {
         $this->userManager->deleteAccountByToken($token);
@@ -340,6 +349,7 @@ class UserController extends RestController {
      * @Rest\Post("/forgotten-password", name="forgot_passwd_patch")
      * @Rest\Head("/forgotten-password/{token}", name="forgot_passwd_head")
      * @Rest\Put("/forgotten-password/{token}", name="forgot_passwd_put")
+     * @UnavailableInMaintenance
      */
     public function forgotPasswordAction(Request $request, string $token = null) {
         $data = json_decode($request->getContent(), true);

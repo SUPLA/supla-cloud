@@ -29,6 +29,7 @@ use SuplaBundle\Entity\TempHumidityLogItem;
 use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
@@ -350,6 +351,7 @@ class ChannelMeasurementLogsController extends RestController {
     /**
      * @Rest\Delete("/channels/{channel}/measurement-logs")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @UnavailableInMaintenance
      */
     public function deleteMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
 

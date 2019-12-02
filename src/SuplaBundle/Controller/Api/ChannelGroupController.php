@@ -24,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
@@ -83,6 +84,7 @@ class ChannelGroupController extends RestController {
     /**
      * @Rest\Post("/channel-groups")
      * @Security("has_role('ROLE_CHANNELGROUPS_RW')")
+     * @UnavailableInMaintenance
      */
     public function postChannelGroupAction(IODeviceChannelGroup $channelGroup, Request $request) {
         $user = $this->getUser();
@@ -107,6 +109,7 @@ class ChannelGroupController extends RestController {
     /**
      * @Rest\Put("/channel-groups/{channelGroup}")
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
+     * @UnavailableInMaintenance
      */
     public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated, Request $request) {
         $user = $this->getUser();
@@ -132,6 +135,7 @@ class ChannelGroupController extends RestController {
     /**
      * @Rest\Delete("/channel-groups/{channelGroup}")
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
+     * @UnavailableInMaintenance
      */
     public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
         $result = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
