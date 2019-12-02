@@ -73,6 +73,14 @@
             </div>
         </transition>
         <transition name="fade">
+            <div class="error disabled"
+                v-if="$frontendConfig.maintenanceMode">
+                <p><strong>{{ $t('SUPLA Cloud is under maintenance.') }}</strong></p>
+                <p>{{ $t('You can sign in but you will not be able to modify any settings.') }}</p>
+                <p>{{ $t('We should be ready shortly.') }}</p>
+            </div>
+        </transition>
+        <transition name="fade">
             <router-link to="/forgotten-password"
                 class="error"
                 v-if="error == 'error'">
@@ -80,7 +88,7 @@
                 {{ $t('Don’t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
         </transition>
-        <div v-if="!oauth"
+        <div v-if="!oauth && !$frontendConfig.maintenanceMode"
             class="additional-buttons form-group">
             <router-link to="/devices"
                 class="btn btn-white btn-wrapped">

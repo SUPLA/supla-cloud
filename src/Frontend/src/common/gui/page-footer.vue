@@ -8,7 +8,7 @@
                 <span v-if="username">
                     <session-countdown></session-countdown>
                 </span>
-                <router-link v-else-if="isPageActive(['/login', '/oauth-authorize'])"
+                <router-link v-else-if="isPageActive(['/login', '/oauth-authorize']) && !$frontendConfig.maintenanceMode"
                     to="/forgotten-password"
                     class="brand nav-link">
                     {{ $t('Forgot your password?') }}

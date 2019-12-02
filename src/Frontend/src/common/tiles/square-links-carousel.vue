@@ -3,7 +3,7 @@
         v-if="items">
         <a class="btn btn-block btn-black text-center visible-xs"
             @click="onItemClick(newItem)"
-            v-if="newItemTile">
+            v-if="newItemTile && !$frontendConfig.maintenanceMode">
             <span>
                 <i class="pe-7s-plus"></i>
                 {{ $t(newItemTile) }}
@@ -62,7 +62,7 @@
                 return Array.isArray(this.selected);
             },
             showNewItemTile() {
-                return this.newItemTile && this.$mq.resize && this.$mq.above(this.$mv.xs);
+                return this.newItemTile && this.$mq.resize && this.$mq.above(this.$mv.xs) && !this.$frontendConfig.maintenanceMode;
             }
         },
         methods: {

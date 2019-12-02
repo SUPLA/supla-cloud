@@ -3,7 +3,8 @@
         <div class="clearfix left-right-header">
             <h2 class="no-margin-top"
                 v-title>{{ header }}</h2>
-            <div class="button-container no-margin-top">
+            <div class="button-container no-margin-top"
+                v-show="!$frontendConfig.maintenanceMode">
                 <transition name="fade">
                     <div class="btn-toolbar"
                         v-if="isPending">
