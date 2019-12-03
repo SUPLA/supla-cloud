@@ -18,7 +18,11 @@
             </div>
             <form @submit.prevent="extendSession()">
                 <div class="form-group text-left">
-                    <div>{{ $user.username }}</div>
+                    <input type="text"
+                        name="username"
+                        class="form-control"
+                        v-model="$user.username"
+                        readonly>
                     <label>{{ $t('Your email') }}</label>
                 </div>
                 <div class="form-group text-left">
