@@ -30,7 +30,7 @@ Add new channel to this group: Voeg een nieuw kanaal toe aan de groep
 Adjust parameters: Stel de parameters in
 'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Alle kanalen en kanaalgroepen die dit pictogram gebruiken, ontvangen de standaardpictogrammen wanneer ze worden verwijderd.'
 'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Nadat u toegang hebt verleend, kunt u altijd van gedachten veranderen door de toegang in uw accountinstellingen in te trekken.'
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': 'De link wordt direct na het selecteren van de entiteit gegenereerd. U kunt alle andere opties invoeren zodra u deze hebt gemaakt.'
+'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': De link wordt direct na het selecteren van de entiteit gegenereerd. U kunt alle andere opties invoeren zodra u deze hebt gemaakt.
 All: Alles
 All the above and many more can be done from your phone or tablet: Dit alles en nog veel meer kun je doen via een smartphone of tablet
 Allowed actions: Toegestane acties
@@ -56,7 +56,7 @@ Assign Access Identifiers: Wijs toegangsidentificaties toe
 Assign Client apps: Wijs klant-applicaties toe
 Assign Locations: Wijs locaties toe
 Authorization callback URLs (one per line): Retourautorisatie-URL's (één per regel)
-'Authorize the application, so that it can access your account.': 'Autoriseer de applicatie zodat deze tot uw account toegang heeft.'
+'Authorize the application, so that it can access your account.': Autoriseer de applicatie zodat deze tot uw account toegang heeft.
 Authorized: Geverifieerd
 Authorized OAuth apps: Geautoriseerde OAuth-applicaties
 Automation: Automatiek
@@ -89,7 +89,7 @@ Channels: Kanalen
 Check the direct link you used and try again.: Controleer de oproepen directe link en probeer het opnieuw.
 Check your email box: Controleer uw e-mailinbox
 Choose: Kiezen...
-Choose Access Identifiers to be assigned to this Location: 'Selecteer Toegangsidentificaties die aan deze Locatie zullen worden toegewezen'
+Choose Access Identifiers to be assigned to this Location: Selecteer Toegangsidentificaties die aan deze Locatie zullen worden toegewezen
 Choose client apps: Selecteer klant-applicaties
 Choose location: Nieuwe locatie selecteren
 Chosen hour: Geselecteerd uur
@@ -138,7 +138,7 @@ Description: Beschrijving
 Details: Details
 Device: Toestel
 Device unavailable: Toestel is ontoegankelijk
-Dimmer: Dimmer 
+Dimmer: Dimmer
 Dimmer & RGB led controller: Dimmer en RGB-verlichtingscontroller
 Dimmer and RGB lighting: Dimmer en RGB-verlichting
 Direct link: Directe link
@@ -162,7 +162,6 @@ ENABLED: Ingeschakeld
 Edit: Bewerken
 Electric: Elektriciteit
 Electricity meter: Kilowattuurmeter
-Email already exists: Email adres bestaat al
 Empty!: Leeg!
 Enabled: Aan
 End date: Einddatum
@@ -188,7 +187,7 @@ Failed: Mislukt
 Failed (zombie): Mislukt (zombies)
 File is too large: Het bestand is te groot
 For devices: Voor apparaten
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Om veiligheidsredenen wordt de volledige URL van deze directe link slechts één keer - tijdens het aanmaken ervan - getoond.'
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Om veiligheidsredenen wordt de volledige URL van deze directe link slechts één keer - tijdens het aanmaken ervan - getoond.
 Forgot your password?: Wachtwoord vergeten?
 Forward active energy: Opgenomen actieve energie
 Fridays: Vrijdagen
@@ -228,7 +227,7 @@ Humidity sensor: Vochtigheidssensor
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Ik accepteer [Reglement] en ga akkoord met de verwerking van mijn persoonlijke gegevens voor het doel en de reikwijdte zoals in [Reglement] aangegeven.'
 I agree: Ik ben het er mee eens
 'I aree, taske me to the app': 'ZIk ga akkoord, ga naar de applicatie'
-I confirm! Delete my account.: Ik ga akkoord, ga naar de applicatie
+I confirm! Delete my account.: 'Ik ga akkoord, ga naar de applicatie'
 'I do not agree, get me out of here': 'Ik ga akkoord, ga naar de applicatie'
 I/O Devices: I / O-apparaten
 INACTIVE: INACTIVE
@@ -236,7 +235,6 @@ Idle: Zonder activiteiten
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Als u een programmeur bent die extra functies voor SUPLI wil bieden, maakt u een OAuth-toepassing die gebruikers kunnen autoriseren en gebruiken.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Als je zeker weet dat je een account hebt bij cloud.supla.org, controleer dan of de applicatie die je probeert te autoriseren, publiekelijk beschikbaar is.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u [uw exemplaar registreren].'
-'If you want to stay here, do something!': 'Als je hier wilt blijven, doe dan iets!'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Als u de directe link in andere software wilt gebruiken, voegt de juiste koptekst toe om een antwoord te krijgen dat gemakkelijker te verwerken is.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Als u beschikbare integraties wilt zien, ga naar [cloud.supla.org/apps].'
 Impulse counter: Pulsteller
@@ -270,7 +268,7 @@ Location password must be no longer than 32 characters.: Locatiewachtwoord mag n
 Locations: Locaties
 Login: Login
 Mail sensor: Postsensor
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Zorg ervoor dat het op een veilige plaats wordt bewaard als u het in de toekomst wilt gebruiken. De link wordt niet meer weergegeven na het verlaten van deze pagina.'
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Zorg ervoor dat het op een veilige plaats wordt bewaard als u het in de toekomst wilt gebruiken. De link wordt niet meer weergegeven na het verlaten van deze pagina.
 'Maximum filesize limit is {limit}.': 'De maximale bestandsgrootte is {limit}.'
 Meter value: Meterstand
 Minute: Minuut
@@ -323,12 +321,12 @@ Percentage of closing: Percentage van sluiting
 Personal access tokens: Persoonlijke toegangstokens
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Persoonlijke toegangstokens werken als gewone toegangstokens, behalve dat ze voor onbepaalde tijd werken.'
 Personal token name is required.: Persoonlijke tokennaam is vereist.
-Please click the link we have sent you after the registration to proceed.: 'Klik op de link met het bericht dat we u hebben gestuurd nadat het account is gemaakt.'
+Please click the link we have sent you after the registration to proceed.: Klik op de link met het bericht dat we u hebben gestuurd nadat het account is gemaakt.
 Please enter a valid email address: Voer alstublieft een geldig e-mailadres in
 Please fill a valid email address: Voer alstublieft een geldig e-mailadres in
 Please log in again to proceed.: Meld u opnieuw aan om door te gaan.
 Please provide a valid domain name for your private SUPLA Cloud: Voer de juiste domeinnaam in voor uw privé SUPLA-cloud
-Please select the schedules that should also be enabled.: 'Selecteer schema''s die ook moeten worden opgenomen.'
+Please select the schedules that should also be enabled.: Selecteer schema's die ook moeten worden opgenomen.
 Please wait a moment before the next login attempt.: Wacht even voor de volgende inlogpoging.
 Pressure sensor: Druksensor
 Previous login: Vorige login
@@ -379,13 +377,13 @@ Schedules: Tijdschema's
 Schedules below will be deleted: De volgende tijdschema's worden verwijderd
 Scope: Het toepassingsgebied (reikwijdte)
 Scopes: Bereiken
-Scopes define which sections of your account can be accessed when using the token.: 'Bereiken bepalen tot welke accountbronnen toegang kan worden verkregen met behulp van een token.'
+Scopes define which sections of your account can be accessed when using the token.: Bereiken bepalen tot welke accountbronnen toegang kan worden verkregen met behulp van een token.
 Search: Zoeken
 Secret: Geheime sleutel
 See direct link possibilities: Bekijk de mogelijkheden van de directe link
-Seems like a secret place: 'Iets zegt ons dat je hier niet zou moeten zijn'
+Seems like a secret place: Iets zegt ons dat je hier niet zou moeten zijn
 Select icon: Kies pictogram
-Select the item (subject) you want to control using this link: 'Selecteer het item (entiteit) dat u met behulp van deze link wilt beheren.'
+Select the item (subject) you want to control using this link: Selecteer het item (entiteit) dat u met behulp van deze link wilt beheren.
 Sensor (normal closed): Sensor (normaal gesloten)
 Sensor (normal open): Sensor (normaal open)
 Sensor disconnected: Geen sensor
@@ -406,7 +404,7 @@ Start Here: Begin hier
 Start date: Begindatum
 State: Status
 Stop: Stop
-Subject: Entiteit 
+Subject: Entiteit
 Subject type: Typ podmiotu
 Success: Succes
 Successful: Geslaagd
@@ -422,25 +420,25 @@ Temperature and humidity sensor: Temperatuur- en vochtigheidssensor
 The Terms and Conditions have changed: Het reglement is gewijzigd
 The Terms and Conditions have changed – please read them and accept.: Website reglement is gewijzigd - goedkeuring is vereist.
 The activation link has been sent again. Check the inbox.: Een bericht met een link om uw account te activeren is opnieuw verzonden. Controleer je inbox.
-The client will be automatically logged out when deleted.: Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.
+The client will be automatically logged out when deleted.: 'Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.'
 The device is disabled: Het apparaat is uitgeschakeld
-The gate sensor must function properly in order to execute the scheduled action.: Om de actie uit te voeren, moet de poortopeningssensor correct werken.
+The gate sensor must function properly in order to execute the scheduled action.: 'Om de actie uit te voeren, moet de poortopeningssensor correct werken.'
 The latest execution: Laatste uitvoering
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.'
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.
 The measurement history has been deleted.: Meetgeschiedenis is verwijderd.
 The next available executions: Komende uitvoering
 The password and its confirm are not the same.: Het wachtwoord en de bevestiging zijn niet hetzelfde.
 The password should be 8 or more characters.: Het wachtwoord moet minimaal 8 tekens bevatten.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'De server heeft een 400-fout verzonden, wat betekent dat het verzonden verzoek ongeldig is.'
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'De server heeft een HTTP 403-fout verzonden. Dit betekent dat u niet voldoende rechten hebt om dit item te bekijken.'
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'De server heeft een HTTP 404-fout verzonden. Dit betekent dat het item dat u zoekt niet bestaat.'
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: De server heeft een HTTP 403-fout verzonden. Dit betekent dat u niet voldoende rechten hebt om dit item te bekijken.
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: De server heeft een HTTP 404-fout verzonden. Dit betekent dat het item dat u zoekt niet bestaat.
 'The server has returned an HTTP {statusCode} error.': 'De server heeft de fout {statusCode} verzonden.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'De pictogrambestanden die u hebt geselecteerd, zijn te groot. De maximaal toegestane uploadgrootte is {limit}.'
-There are no more channels you can add to this group: 'Er zijn geen andere kanalen om aan deze groep toe te voegen'
+There are no more channels you can add to this group: Er zijn geen andere kanalen om aan deze groep toe te voegen
 Thermometer: Thermometer
 Thermostat: Thermostaat
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Deze directe link vereist verduidelijking van de parameters van de actie die wordt uitgevoerd. Zie de onderstaande voorbeelden om erachter te komen welke parameters u kunt instellen.'
-This is the list of applications you have granted access to your account.: 'Dit is de lijst met applicaties die u toegang tot uw account hebt verleend.'
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Deze directe link vereist verduidelijking van de parameters van de actie die wordt uitgevoerd. Zie de onderstaande voorbeelden om erachter te komen welke parameters u kunt instellen.
+This is the list of applications you have granted access to your account.: Dit is de lijst met applicaties die u toegang tot uw account hebt verleend.
 Thursdays: Donderdagen
 Timezone: Tijdzone
 Toggle: Schakel
@@ -474,7 +472,7 @@ Wednesdays: Woensdagen
 Weight sensor: Gewicht
 What this token is for?: Wat doet dit token?
 When: Wanneer
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.
 Where is the JSON?: Waar is JSON?
 Where is your SUPLA Cloud?: Waar bevindt uw-Supla zich?
 White: Wit
@@ -490,14 +488,13 @@ You just need to execute the following command inside your host terminal.: Voer 
 You must agree to the Terms and Conditions.: Aanvaarding van reglement is vereist.
 You need to provide icons for all states.: U moet pictogrammen voor alle staten opgeven.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: U moet uw SUPLA Cloud-software naar ten minste versie 2.3.0. bijwerken
-You will be logged out shortly: U wordt zo uitgelogd
 You will not be able to generate a direct link with the same URL again.: Het is niet mogelijk om een link met dezelfde URL te maken.
-Your account has been deleted. We hope you will come back to us soon.: 'Account is verwijderd. We hopen dat je snel bij ons terugkomt.'
+Your account has been deleted. We hope you will come back to us soon.: Account is verwijderd. We hopen dat je snel bij ons terugkomt.
 Your account has been locked.: Uw account is geblokkeerd.
 Your account has not been confirmed yet.: Uw account is nog niet bevestigd.
 Your email: Uw e-mailadres
-Your instance is not registered or you are trying to authorize an application that is not public.: 'Uw exemplaar is niet geregistreerd of u probeert een toepassing te autoriseren die niet openbaar is.'
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Uw privé-exemplaar van SUPLA cloud is niet beschikbaar. Zorg ervoor dat uw server online is en dat de HTTPS-verbinding correct werkt.'
+Your instance is not registered or you are trying to authorize an application that is not public.: Uw exemplaar is niet geregistreerd of u probeert een toepassing te autoriseren die niet openbaar is.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Uw privé-exemplaar van SUPLA cloud is niet beschikbaar. Zorg ervoor dat uw server online is en dat de HTTPS-verbinding correct werkt.
 Your private SUPLA Cloud is almost registered.: Uw privé SUPLA cloud is bijna geregistreerd.
 Your private SUPLA Cloud is not registered.: Uw private cloud SUPLA is niet geregistreerd.
 Your session has been expired.: Uw sessie is verlopen.
@@ -519,7 +516,7 @@ directLinkExecutionFailureReason_expired: De directe link is verlopen
 directLinkExecutionFailureReason_forbiddenAction: De link staat deze actie niet toe
 directLinkExecutionFailureReason_httpGetForbidden: De uitvoering van handelingen door middel van een niet veroorloofde  HTTP GET-methode werd onmogelijk gemaakt.
 directLinkExecutionFailureReason_invalidActionParameters: Ongeldige directe link-parameters
-directLinkExecutionFailureReason_invalidSlug: De verificatiecode die u heeft opgegeven, is onjuist.
+directLinkExecutionFailureReason_invalidSlug: 'De verificatiecode die u heeft opgegeven, is onjuist.'
 directLinkExecutionFailureReason_noAllowedActions: Geen toegestane acties geselecteerd
 directLinkExecutionFailureReason_noSlugOrAction: Ongeldig verzoek - linkcode en actie zijn vereist
 directLinkExecutionFailureReason_notActiveYet: De directe link is nog niet actief
@@ -571,24 +568,34 @@ will expire: vervallen
 Assigned Locations: Wijs locaties toe
 Date: Datum
 Disable: Zet uit
+Email already exists: Email adres bestaat al
 Enable: Zet in
 Hi: Hoi
 Hour: Uur
 I/O: Input / Outpt
+'If you want to stay here, do something!': 'Als je hier wilt blijven, doe dan iets!'
 Input: Ingang
 Languages: Talen
 Loading: Opladen
 Next: Doorgaan
 Number: Nummer
-Output: Uitgang 
+Output: Uitgang
 Registration: Registratie
 Remove: Verwijder
 Status: Status
 Try again later: Probeer het later eens opnieuw
-execute: voer uit 
+You will be logged out shortly: U wordt zo uitgelogd
+execute: voer uit
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose Access Identifier: ~
+Maintenance mode active. You cannot modify any data now.: ~
+SUPLA Cloud is under maintenance.: ~
+We should be ready shortly.: ~
+You can use the application but you will not be able to modify any settings.: ~
+password: ~
+username: ~
 
 #</editor-fold>

@@ -162,7 +162,6 @@ ENABLED: ZAPNUTÉ
 Edit: Upraviť
 Electric: Elektrika
 Electricity meter: Elektromer
-Email already exists: Emailová adresa už existuje
 Empty!: Prázdno!
 Enabled: Zapnuté
 End date: Dátum ukončenia
@@ -568,6 +567,7 @@ will expire: uplynie
 Assigned Locations: Priradené Polohy
 Date: Dátum
 Disable: Vypnúť
+Email already exists: Emailová adresa už existuje
 Enable: Zapnúť
 Hi: Dobrý deň
 Hour: Čas
@@ -590,6 +590,12 @@ execute: vykonať
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Choose Access Identifier: ~
+Maintenance mode active. You cannot modify any data now.: ~
+SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+We should be ready shortly.: ~
+You can use the application but you will not be able to modify any settings.: ~
+password: ~
+username: ~
 
 #</editor-fold>

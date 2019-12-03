@@ -12,6 +12,7 @@ import Toggler from "./gui/toggler";
 import ButtonLoadingDots from "./gui/loaders/button-loading-dots.vue";
 
 Vue.component('cookieWarning', () => import("./errors/cookie-warning"));
+Vue.component('maintenanceWarning', () => import("./errors/maintenance-warning"));
 Vue.component('pageFooter', PageFooter);
 Vue.component('emptyListPlaceholder', EmptyListPlaceholder);
 Vue.component('modal', Modal);

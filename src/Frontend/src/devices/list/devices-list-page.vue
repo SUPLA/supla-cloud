@@ -50,7 +50,6 @@
     import BtnFilters from "src/common/btn-filters.vue";
     import DeviceTile from "./device-tile.vue";
     import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
-    import DevicesRegistrationButton from "./devices-registration-button.vue";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
     import DeviceFilters from "./device-filters";
     import EventBus from "src/common/event-bus";
@@ -60,7 +59,6 @@
             DeviceFilters,
             BtnFilters,
             DeviceConnectionStatusLabel,
-            DevicesRegistrationButton,
             DeviceTile,
             EmptyListPlaceholder,
         },

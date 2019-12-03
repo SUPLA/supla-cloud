@@ -16,7 +16,7 @@ Access identifier limit has been exceeded: Omejitev identifikatorjev je bila pre
 Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
 Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
 Account: Račun
-Account access when you are unavailable: Dostop do vašega računa, ko niste na voljo
+Account access when you are unavailable: 'Dostop do vašega računa, ko niste na voljo'
 Account has been activated. You can Sign In now.: Račun je aktiviran. Lahko se prijavite
 Action: Dejanje
 Action execution: Izvajanje dejanj
@@ -24,33 +24,33 @@ Actions: Dejanja
 Active: Aktivne
 Add: Dodajte
 Add a new icon: Dodajte novo ikono
-Add first channel to set channel group function and save it: Izberite prvi kanal, da bi določili funkcijo skupine in jo shranili
+Add first channel to set channel group function and save it: 'Izberite prvi kanal, da bi določili funkcijo skupine in jo shranili'
 Add new channel group: Dodajte novo skupino kanalov
 Add new channel to this group: V skupino dodajte nov kanal
 Adjust parameters: Nastavite parametre
 'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Vsi kanali in skupine kanalov, ki uporabljajo to ikono, bodo po odstranitvi prejeli privzete ikone.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Po odobritvi dostopa si lahko vedno premislite in prekličete dostop v nastavitvah svojega računa.'
+'After granting the access, you can always remove it by adjusting the settings in your account settings section.': Po odobritvi dostopa si lahko vedno premislite in prekličete dostop v nastavitvah svojega računa.
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': 'Povezava bo ustvarjena takoj po izbiri subjekta. Vse druge možnosti lahko vnesete takoj, ko jih ustvarite.'
 All: Vse
-All the above and many more can be done from your phone or tablet: Vse to in še veliko več, kar lahko storite s pametnim telefonom ali tabličnim računalnikom
+All the above and many more can be done from your phone or tablet: 'Vse to in še veliko več, kar lahko storite s pametnim telefonom ali tabličnim računalnikom'
 Allowed actions: Dovoljena dejanja
-Allows to perform an action only using the HTTP PATCH request.: Omogoča vam, da izvajate dejanja samo z zahtevo HTTP PATCH.
+Allows to perform an action only using the HTTP PATCH request.: 'Omogoča vam, da izvajate dejanja samo z zahtevo HTTP PATCH.'
 And more: In še veliko več
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Vse aplikacije ali naprave, ki uporabljajo token {tokenName}, bodo prenehale delovati.'
 Application name cannot be blank.: Ime aplikacije ne sme biti prazno
 Application requirements: Pogoji za aplikacijo
 Are you lost?: Ste se izgubili? Nekaj iščete?
-Are you sure you want to change channel’s function?: Ali ste prepričani, da želite spremeniti funkcijo kanala?
-Are you sure you want to delete the entire measurement history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino meritev, zbrano za ta kanal?
-Are you sure you want to delete this OAuth application?: Ali ste prepričani, da želite izbrisati to aplikacijo OAuth?
+Are you sure you want to change channel’s function?: 'Ali ste prepričani, da želite spremeniti funkcijo kanala?'
+Are you sure you want to delete the entire measurement history saved for this channel?: 'Ali ste prepričani, da želite izbrisati vso zgodovino meritev, zbrano za ta kanal?'
+Are you sure you want to delete this OAuth application?: 'Ali ste prepričani, da želite izbrisati to aplikacijo OAuth?'
 Are you sure you want to delete this channel group?: Ali zares želite odstraniti to skupino kanalov?
-Are you sure you want to delete this client?: Ali ste prepričani, da želite izbrisati to odjemalsko aplikacijo?
-Are you sure you want to delete this direct link?: Ali ste prepričani, da želite izbrisati to direktno povezavo?
-Are you sure you want to delete this icon?: Ali ste prepričani, da želite izbrisati to ikono?
-Are you sure you want to delete this schedule?: Ali ste prepričani, da želite izbrisati ta urnik?
-Are you sure you want to disable this device?: Ali ste prepričani, da želite izklopiti to napravo?
-Are you sure you want to revoke permissions granted to this OAuth application?: Ali ste prepričani, da želite preklicati dovoljenja, dodeljena tej aplikaciji OAuth?
-Are you sure you want to revoke this token?: Ali ste prepričani, da želite preklicati token?
+Are you sure you want to delete this client?: 'Ali ste prepričani, da želite izbrisati to odjemalsko aplikacijo?'
+Are you sure you want to delete this direct link?: 'Ali ste prepričani, da želite izbrisati to direktno povezavo?'
+Are you sure you want to delete this icon?: 'Ali ste prepričani, da želite izbrisati to ikono?'
+Are you sure you want to delete this schedule?: 'Ali ste prepričani, da želite izbrisati ta urnik?'
+Are you sure you want to disable this device?: 'Ali ste prepričani, da želite izklopiti to napravo?'
+Are you sure you want to revoke permissions granted to this OAuth application?: 'Ali ste prepričani, da želite preklicati dovoljenja, dodeljena tej aplikaciji OAuth?'
+Are you sure you want to revoke this token?: 'Ali ste prepričani, da želite preklicati token?'
 Are you sure?: Ali ste prepričani?
 Assign Access Identifiers: Dodelite identifikatorje dostopa
 Assign Client apps: Dodelite odjemalske aplikacije
@@ -62,13 +62,13 @@ Authorized OAuth apps: Overjene aplikacije OAuth
 Automation: Avtomatizacija
 Back to apps list: Vrnitev na seznam aplikacij
 Brightness: Svetlost
-CLICK TO DISABLE: KLIKNITE, DA SE IZKLOPITE
-CLICK TO ENABLE: KLIKNITE, DA VKLOPITE
+CLICK TO DISABLE: 'KLIKNITE, DA SE IZKLOPITE'
+CLICK TO ENABLE: 'KLIKNITE, DA VKLOPITE'
 Calibration: Kalibracija
 Cancel: Prekličite
 Cancel changes: Prekličite spremembe
 Cancelled: Prekinjeno
-Cannot execute an action when the device is disconnected.: Ko odklopite napravo, ne morete izvajati dejanj.
+Cannot execute an action when the device is disconnected.: 'Ko odklopite napravo, ne morete izvajati dejanj.'
 Cannot send an activation e-mail. Try again later.: Sporočila ni mogoče poslati s povezavo za aktiviranje. Poskusite znova pozneje.
 Captcha token is not valid.: Nepravilna captcha.
 Caption: Podpis
@@ -102,7 +102,7 @@ Coming Soon: Kmalu na voljo
 Comment: Opombe
 Configuration: KKonfiguracija
 Confirm Password: Potrditev gesla
-Confirm if you want to remove Access Identifier: Potrdite, da želite odstraniti Identifikator dostopa
+Confirm if you want to remove Access Identifier: 'Potrdite, da želite odstraniti Identifikator dostopa'
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Potrdite, da želite odstraniti ID lokacije {locationId}. Na to lokacijo se ne morejo povezati nobene druge naprave.'
 'Confirm if you want to remove {deviceName} device': 'Potrdite, da želite odstraniti napravo {deviceName}'
 Connected: Povezan
@@ -157,22 +157,21 @@ Door opening sensor: Senzor odprtja vrat
 Doors and gates: Vrata in dvoriščna vrata
 'Doors, Gates': 'Vrata, Dvoriščna vrata'
 Download the history of measurement: Prenesite zgodovino meritev
-Drag your image(s) here or click to select from the disk: Tu povlecite sliko ali kliknite, da izberete z diska
+Drag your image(s) here or click to select from the disk: 'Tu povlecite sliko ali kliknite, da izberete z diska'
 ENABLED: VKLOPLJENO
 Edit: Uredite
 Electric: Elektrika
 Electricity meter: Števec električne energije
-Email already exists: E-naslov že obstaja
 Empty!: Prazno!
 Enabled: Vklopljeno
 End date: Datum zaključka
 Enter new password: Vnesite novo geslo
 Enter strong password: Vnesite močno geslo
 Enter the data below in the settings of your control device (I/O Device).: V nastavitve krmilne naprave vnesite naslednje podatke.
-Enter the data below in your mobile SUPLA application on your smartphone.: V mobilno aplikacijo SUPLA, nameščeno na vašem pametnem telefonu, vnesite naslednje podatke.
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Vnesite samo domeno skupaj z vrati, če niso standardna (443). Zahtevamo povezavo HTTPS.
+Enter the data below in your mobile SUPLA application on your smartphone.: 'V mobilno aplikacijo SUPLA, nameščeno na vašem pametnem telefonu, vnesite naslednje podatke.'
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Vnesite samo domeno skupaj z vrati, če niso standardna (443). Zahtevamo povezavo HTTPS.'
 Enter your email address: Vnesite svoj e-naslov
-Enter your password to prevent automatic logout.: Vnesite geslo, da preprečite samodejno odjavo.
+Enter your password to prevent automatic logout.: 'Vnesite geslo, da preprečite samodejno odjavo.'
 Error: Napaka
 Error when communicating the server. Try again in a while.: Pri komunikaciji s strežnikom je prišlo do težave. Poskusite znova čez trenutek.
 Every: Kaj
@@ -188,7 +187,7 @@ Failed: Neuspešne
 Failed (zombie): Neuspešen (zombie)
 File is too large: Datoteka je prevelika
 For devices: Za naprave
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Zaradi varnostnih razlogov bo celoten URL te neposredne povezave prikazan samo enkrat med njegovim ustvarjanjem.'
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Zaradi varnostnih razlogov bo celoten URL te neposredne povezave prikazan samo enkrat med njegovim ustvarjanjem.
 Forgot your password?: Pozabili ste geslo?
 Forward active energy: Aktivna porabljena energija
 Fridays: Petki
@@ -236,12 +235,11 @@ Idle: Nedejavno
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Če ste programer, ki želi zagotoviti dodatne funkcije za SUPLO, ustvarite aplikacijo OAuth, ki jo lahko uporabniki overijo in uporabljajo.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Če ste prepričani, da imate račun na cloud.supla.org, preverite, ali je aplikacija, ki jo poskušate overiti, javna.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Če želite zasebni oblak SUPLA integrirati z javno aplikacijo OAuth, morate [registrirati svoj primerek].'
-'If you want to stay here, do something!': 'Če želite ostati tukaj, naredite nekaj!'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Če želite neposredno povezavo uporabiti v drugi programski opremi, dodajte ustrezno glavo zahteve, da dobite odgovor, ki ga je lažje obdelati.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Če želite videti dostopne integracije, pojdite na [cloud.supla.org/apps].'
 Impulse counter: Števec impulzov
 Impulses: Impulzi
-'In order to confirm account deletion, enter your password.': Če želite potrditi namen izbrisa računa, vnesite svoje geslo.
+'In order to confirm account deletion, enter your password.': 'Če želite potrditi namen izbrisa računa, vnesite svoje geslo.'
 Incorrect password: Nepravilno geslo
 Information: Informacija
 Inherit I/O Device location: Uporabljajte lokacije naprave
@@ -257,7 +255,7 @@ Language is not available: Jezik ni na voljo
 Last access: Zadnja povezava
 Last connection: Zadnja povezava
 Last used: Zadnji uporabljen
-Let me choose later: Dovolite, da izberem kasneje
+Let me choose later: 'Dovolite, da izberem kasneje'
 Light switch: Stikalo luči
 Lighting: Osvetlitev
 Limit has been exceeded: Omejitev je bila presežena
@@ -329,7 +327,7 @@ Please fill a valid email address: Vnesite pravi e-naslov
 Please log in again to proceed.: Za nadaljevanje se ponovno prijavite.
 Please provide a valid domain name for your private SUPLA Cloud: Vnesite pravo ime domene za vaš zasebni oblak SUPLA
 Please select the schedules that should also be enabled.: 'Izberite urnike, ki naj bi bili tudi vključeni.'
-Please wait a moment before the next login attempt.: Počakajte trenutek, preden se spet prijavite.
+Please wait a moment before the next login attempt.: 'Počakajte trenutek, preden se spet prijavite.'
 Pressure sensor: Tlačni senzor
 Previous login: Prejšnja prijava
 Price per: Cena za
@@ -357,7 +355,7 @@ Relay switching time: Čas vklopa releja
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete to lokacijo, odstranite povezane naprave. Identifikatorji: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najprej odstranite vse naprave, ki uporabljajo to lokacijo kot prvotno lokacijo. Identifikatorji: {relatedIds}.'
 Repeat password: Ponovite geslo
-Retry on failure: Ponovite, ko še niste končali
+Retry on failure: 'Ponovite, ko še niste končali'
 Reveal: Razkrijte
 Reveal partially: Delno razkrijte
 Revoke: Prekličite
@@ -370,7 +368,7 @@ Saturdays: Sobote
 Save: Shranite
 Save and enable: Shranite in vklopite
 Save changes: Shranite spremembe
-Save changes to see Access IDs: Spremembe shranite, da prikažete identifikatorje dostopa
+Save changes to see Access IDs: 'Spremembe shranite, da prikažete identifikatorje dostopa'
 Schedule: Urnik
 Schedule cannot be enabled: Ni bilo mogoče vklopiti urnika
 Schedule limit has been exceeded: Omejitev urnikov je bil presežen
@@ -400,7 +398,7 @@ Sign Out: Odjava
 Sign in temporarily unavailable. Please try again later.: Prijava trenutno ni na voljo. Poskusite znova pozneje.
 Smartphones: Pametni telefoni
 SoftVer: WerOpr
-Sources available from: Viri, ki so na voljo v
+Sources available from: 'Viri, ki so na voljo v'
 Staircase timer: Stopniščni avtomat
 Start Here: Začnite tukaj
 Start date: Datum začetka
@@ -422,7 +420,7 @@ Temperature and humidity sensor: Senzor temperature in vlažnosti
 The Terms and Conditions have changed: Predpisi so se spremenili
 The Terms and Conditions have changed – please read them and accept.: Predpisi o spletnem mestu so se spremenili - potrebna je njegova odobritev.
 The activation link has been sent again. Check the inbox.: Ponovno je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Preverite poštni nabiralnik.
-The client will be automatically logged out when deleted.: Če stranko odstranite, se bo takoj odjavil.
+The client will be automatically logged out when deleted.: 'Če stranko odstranite, se bo takoj odjavil.'
 The device is disabled: Naprava je izklopljena
 The gate sensor must function properly in order to execute the scheduled action.: Za izvedbo dejanja mora senzor odpiranja vrat pravilno delovati.
 The latest execution: Zadnja izvršitev
@@ -436,7 +434,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Strežnik je vrnil napako HTTP 404. To pomeni, da iskani izdelek ne obstaja.'
 'The server has returned an HTTP {statusCode} error.': 'Strežnik je vrnil napako {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Izbrane datoteke ikon so prevelike. Največja dovoljena velikost nalaganja je {limit}.'
-There are no more channels you can add to this group: 'V to skupino ni mogoče dodati drugih kanalov'
+There are no more channels you can add to this group: V to skupino ni mogoče dodati drugih kanalov
 Thermometer: Termometer
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ta neposredna povezava zahteva določitev parametrov izvajanega dejanja. Oglejte si spodnje primere, če želite izvedeti, katere parametre lahko nastavite.'
@@ -463,7 +461,7 @@ WELCOME_MESSAGE: |
 Water meter: Merilnik vode
 We could not connect to your SUPLA Cloud instance.: Nismo se mogli povezati z vašim zasebnim primerom v oblaku SUPLA.
 We have just sent you an activation link. Be patient.: Pravkar je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Bodite potrpežljivi.
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Poslali smo vam e-sporočilo s povezavo, s katerim potrdite izbris vašega računa. Morda si boste premislili!
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Poslali smo vam e-sporočilo s povezavo, s katerim potrdite izbris vašega računa. Morda si boste premislili!'
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Podatke o vaših nastavitvah hranimo na vašem brskalniku, da olajšamo uporabo aplikacije (npr. z uporabo piškotkov). [Preberite predpise].'
 We were not able to find your account.: Nismo našli vašega računa.
 We will miss you: Pogrešali te bomo
@@ -490,7 +488,6 @@ You just need to execute the following command inside your host terminal.: Samo 
 You must agree to the Terms and Conditions.: Sprejemanje predpisov je potrebno.
 You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Svoj primerek SUPLA Cloud morate posodobiti na različico vsaj 2.3.0.
-You will be logged out shortly: Čez trenutek boste odjavljeni
 You will not be able to generate a direct link with the same URL again.: Ustvarjanje povezave z istim URL-jem ne bo mogoče.
 Your account has been deleted. We hope you will come back to us soon.: 'Račun je bil izbrisan. Upamo, da se kmalu vrnete.'
 Your account has been locked.: Vaš račun je bil blokiran.
@@ -519,7 +516,7 @@ directLinkExecutionFailureReason_expired: Neposredna povezava je potekla
 directLinkExecutionFailureReason_forbiddenAction: Povezava ne omogoča izvajanja tega dejanja
 directLinkExecutionFailureReason_httpGetForbidden: Dejanje je bilo onemogočeno z uporabo nezakonite metode HTTP GET
 directLinkExecutionFailureReason_invalidActionParameters: Nepravilni parametri neposredne povezave
-directLinkExecutionFailureReason_invalidSlug: Verifikacijska koda, ki ste jo poslali, je napačna.
+directLinkExecutionFailureReason_invalidSlug: 'Verifikacijska koda, ki ste jo poslali, je napačna.'
 directLinkExecutionFailureReason_noAllowedActions: Ni bila izbrana nobena dovoljena dejanja
 directLinkExecutionFailureReason_noSlugOrAction: Nepravilna zahteva - koda povezave in dejanje sta potrebni
 directLinkExecutionFailureReason_notActiveYet: Neposredna povezava še ni aktivna
@@ -571,10 +568,12 @@ will expire: poteče
 Assigned Locations: Dodeljene lokacije
 Date: Datum
 Disable: Izklopite
+Email already exists: E-naslov že obstaja
 Enable: Vklopite
 Hi: Pozdravljeni!
 Hour: Ura
 I/O: Vstop/Izstop
+'If you want to stay here, do something!': 'Če želite ostati tukaj, naredite nekaj!'
 Input: Vstop
 Languages: Jeziki
 Loading: Polnjenje
@@ -585,10 +584,18 @@ Registration: Registracija
 Remove: Izbrišite
 Status: Status
 Try again later: Poskusite znova pozneje.
+You will be logged out shortly: Čez trenutek boste odjavljeni
 execute: Izvedite
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose Access Identifier: ~
+Maintenance mode active. You cannot modify any data now.: ~
+SUPLA Cloud is under maintenance.: ~
+We should be ready shortly.: ~
+You can use the application but you will not be able to modify any settings.: ~
+password: ~
+username: ~
 
 #</editor-fold>

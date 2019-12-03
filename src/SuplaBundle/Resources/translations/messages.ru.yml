@@ -162,7 +162,6 @@ ENABLED: ИСПОЛЬЗУЕТСЯ
 Edit: Изменить
 Electric: Электрика
 Electricity meter: Счетчик электроэнергии
-Email already exists: Адрес электронной почты уже существует
 Empty!: Пусто!
 Enabled: Используется
 End date: Дата окончания
@@ -568,6 +567,7 @@ will expire: Истечет
 Assigned Locations: Подключенные Области
 Date: Дата
 Disable: Выключить
+Email already exists: Адрес электронной почты уже существует
 Enable: Включить
 Hi: Привет
 Hour: Час
@@ -590,6 +590,12 @@ execute: выполни
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Choose Access Identifier: ~
+Maintenance mode active. You cannot modify any data now.: ~
+SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+We should be ready shortly.: ~
+You can use the application but you will not be able to modify any settings.: ~
+password: ~
+username: ~
 
 #</editor-fold>

@@ -10,7 +10,8 @@
                             :filters="[{label: $t('I/O Devices'), value: 'devices'}, {label: $t('Channels'), value: 'channels'}]"></btn-filters>
                     </div>
                 </div>
-                <devices-registration-button field="ioDevicesRegistrationEnabled"
+                <devices-registration-button v-show="!$frontendConfig.maintenanceMode"
+                    field="ioDevicesRegistrationEnabled"
                     caption-i18n="Registration of new I/O devices"></devices-registration-button>
             </div>
         </div>

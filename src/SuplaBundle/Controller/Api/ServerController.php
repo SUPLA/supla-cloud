@@ -22,6 +22,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use SuplaBundle\Model\APIManager;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Twig\FrontendConfig;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -34,10 +35,13 @@ class ServerController extends RestController {
     /** @var bool */
     private $actAsBrokerCloud;
     /** @var string */
-    private $suplaServerAddress;
+    private $suplaServerHost;
+    /** @var FrontendConfig */
+    private $frontendConfig;
 
-    public function __construct(string $suplaServerAddress, string $suplaVersion, bool $actAsBrokerCloud) {
-        $this->suplaServerAddress = $suplaServerAddress;
+    public function __construct(FrontendConfig $frontendConfig, string $suplaServerHost, string $suplaVersion, bool $actAsBrokerCloud) {
+        $this->frontendConfig = $frontendConfig;
+        $this->suplaServerHost = $suplaServerHost;
         $this->suplaVersion = $suplaVersion;
         $this->actAsBrokerCloud = $actAsBrokerCloud;
     }
@@ -46,7 +50,7 @@ class ServerController extends RestController {
     public function getServerInfoAction(Request $request) {
         $dt = new DateTime();
         $result = [
-            'address' => $this->suplaServerAddress,
+            'address' => $this->suplaServerHost,
             'time' => $dt,
             'timezone' => [
                 'name' => $dt->getTimezone()->getName(),
@@ -65,6 +69,7 @@ class ServerController extends RestController {
             if ($this->actAsBrokerCloud) {
                 $result['broker'] = true;
             }
+            $result['config'] = $this->frontendConfig->getConfig();
         } else {
             $result = ['data' => $result];
         }

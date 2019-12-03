@@ -4,6 +4,10 @@
     <transition name="fade">
         <navbar v-if="$user.username"></navbar>
     </transition>
+    <div class="alert alert-warning maintenance-warning"
+            v-if="$frontendConfig.maintenanceMode && $user.username">
+        <maintenance-warning></maintenance-warning>
+    </div>
     <loading-cover :loading="changingRoute">
         <transition name="fade-router">
             <router-view></router-view>

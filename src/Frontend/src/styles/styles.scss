@@ -332,6 +332,29 @@ body.blue {
   color: $supla-white;
 }
 
+body.maintenance-mode {
+  nav.navbar-top {
+    background: $supla-yellow;
+    .navbar-brand {
+      color: $supla-black;
+      fill: $supla-black;
+    }
+
+    #supla-navbar > .nav > li {
+      > a {
+        color: $supla-black;
+      }
+      &.active {
+        background: darken($supla-yellow, 15%);
+      }
+    }
+  }
+  .maintenance-warning {
+    margin-top: -20px;
+    text-align: center;
+  }
+}
+
 body.red {
   nav.navbar-top {
     background: $supla-red;

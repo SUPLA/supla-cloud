@@ -73,11 +73,9 @@
             </div>
         </transition>
         <transition name="fade">
-            <div class="error disabled"
+            <div class="error"
                 v-if="$frontendConfig.maintenanceMode">
-                <p><strong>{{ $t('SUPLA Cloud is under maintenance.') }}</strong></p>
-                <p>{{ $t('You can sign in but you will not be able to modify any settings.') }}</p>
-                <p>{{ $t('We should be ready shortly.') }}</p>
+                <maintenance-warning></maintenance-warning>
             </div>
         </transition>
         <transition name="fade">
@@ -107,10 +105,11 @@
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import ResendAccountActivationLink from "../register/resend-account-activation-link";
+    import MaintenanceWarning from "../common/errors/maintenance-warning";
 
     export default {
         props: ['authenticating', 'oauth', 'error', 'value', 'intitialUsername', 'submitButtonText'],
-        components: {ResendAccountActivationLink, ButtonLoadingDots},
+        components: {ResendAccountActivationLink, ButtonLoadingDots, MaintenanceWarning},
         data() {
             return {
                 username: '',

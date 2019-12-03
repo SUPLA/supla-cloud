@@ -12,7 +12,7 @@
                     <h2>supla-dev</h2>
                     <p>{{ $t('Enter the data below in the settings of your control device (I/O Device).') }}</p>
                     <input type="text"
-                        v-model="address"
+                        v-model="suplaServerHost"
                         readonly>
                     <label>{{ $t('Server address') }}</label>
                     <loading-cover :loading="loading">
@@ -42,7 +42,7 @@
                     <h2>supla-client</h2>
                     <p>{{ $t('Enter the data below in your mobile SUPLA application on your smartphone.') }}</p>
                     <input type="text"
-                        v-model="address"
+                        v-model="suplaServerHost"
                         readonly>
                     <label>{{ $t('Server address') }}</label>
                     <loading-cover :loading="loading">
@@ -74,7 +74,6 @@
             return {
                 location: undefined,
                 accessId: undefined,
-                address: '',
                 loading: true,
             };
         },
@@ -93,7 +92,7 @@
                     this.location = enabledLocations[0];
                 }
             }).finally(() => this.loading = false);
-            this.$http.get('server-info').then(response => this.address = response.body.address);
+            // this.$http.get('server-info').then(response => this.address = response.body.address);
         },
         computed: {
             noEnabledLocationsWarning() {
@@ -107,6 +106,9 @@
                     .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessIds'}">$1</router-link>`)
                     .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessId', params: {id: 'new'}}">$1</router-link>`);
                 return {template: `<span>${warning}</span>`};
+            },
+            suplaServerHost() {
+                return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
             }
         }
     };

@@ -162,7 +162,6 @@ ENABLED: ĮJUNGTA
 Edit: Redaguoti
 Electric: Elektra
 Electricity meter: Elektros energijos skaitiklis
-Email already exists: El. pašto adresas jau egzistuoja
 Empty!: Tuščia!
 Enabled: Įjungta
 End date: Pabaigos data
@@ -568,6 +567,7 @@ will expire: baigsis
 Assigned Locations: Priskirtos Vietos
 Date: Data
 Disable: Išjungti
+Email already exists: El. pašto adresas jau egzistuoja
 Enable: Įjungti
 Hi: Sveiki
 Hour: Laikas
@@ -590,6 +590,12 @@ execute: atlik
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Choose Access Identifier: ~
+Maintenance mode active. You cannot modify any data now.: ~
+SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+We should be ready shortly.: ~
+You can use the application but you will not be able to modify any settings.: ~
+password: ~
+username: ~
 
 #</editor-fold>

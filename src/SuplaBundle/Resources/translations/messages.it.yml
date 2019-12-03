@@ -162,7 +162,6 @@ ENABLED: ABILITATO
 Edit: Modifica
 Electric: Elettricità
 Electricity meter: Licznik energii elektrycznej
-Email already exists: Email già esistente
 Empty!: Vuoto!
 Enabled: Abilitato
 End date: Data della fine
@@ -568,6 +567,7 @@ will expire: scade
 Assigned Locations: Localizzazioni assegnate
 Date: Data
 Disable: Disabilita
+Email already exists: Email già esistente
 Enable: Abilita
 Hi: Ciao
 Hour: Ora
@@ -590,6 +590,12 @@ execute: esegui
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Choose Access Identifier: ~
+Maintenance mode active. You cannot modify any data now.: ~
+SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+We should be ready shortly.: ~
+You can use the application but you will not be able to modify any settings.: ~
+password: ~
+username: ~
 
 #</editor-fold>

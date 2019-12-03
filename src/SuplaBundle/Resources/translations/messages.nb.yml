@@ -28,8 +28,8 @@ Add first channel to set channel group function and save it: Velg den første ka
 Add new channel group: Legg til kontaktgruppe
 Add new channel to this group: Legg til ny kanal til gruppen
 Adjust parameters: Angi parameterne
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Alle kanaler og kanalgrupper som benytter seg av dette ikonet vil få en standard ikon etter fjerning av denne.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': Etter å ha gitt tilgang, kan du alltid ombestemme deg ved å fjerne tilgangen i kontoinnstillingene.
+'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': Alle kanaler og kanalgrupper som benytter seg av dette ikonet vil få en standard ikon etter fjerning av denne.
+'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Etter å ha gitt tilgang, kan du alltid ombestemme deg ved å fjerne tilgangen i kontoinnstillingene.'
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Lenken genereres etter du har valgt enheten. Du kan angi resten av alternativene så snart du oppretter den.
 All: Alt
 All the above and many more can be done from your phone or tablet: Alt dette og mye mer kan du gjøre ved hjelp av din smarttelefon eller nettbrett.
@@ -56,14 +56,14 @@ Assign Access Identifiers: Tildel tilgang identifikator
 Assign Client apps: Tildel kundeapplikasjoner
 Assign Locations: Tildel lokaliseringer
 Authorization callback URLs (one per line): Omdirigering autorisasjon URL (en per linje)
-'Authorize the application, so that it can access your account.': 'Autoriser applikasjonen slik at den får tilgang til Din konto.'
+'Authorize the application, so that it can access your account.': Autoriser applikasjonen slik at den får tilgang til Din konto.
 Authorized: Autorisert
 Authorized OAuth apps: Autoriserte OAuth applikasjoner
 Automation: Automatikk
 Back to apps list: Tilbake til applikasjonslisten
 Brightness: Lysstyrke
 CLICK TO DISABLE: TRYKK FOR Å SKRU AV
-CLICK TO ENABLE: TRYKK FOR Å SKRU PÅ 
+CLICK TO ENABLE: TRYKK FOR Å SKRU PÅ
 Calibration: Kalibrering
 Cancel: Avbryt
 Cancel changes: Avbryt endringer
@@ -89,7 +89,7 @@ Channels: Kanaler
 Check the direct link you used and try again.: Sjekk valgt direkte lenke og prøv en gang til.
 Check your email box: Sjekk din e-post
 Choose: Velg
-Choose Access Identifiers to be assigned to this Location: 'Velg Tilgang ID som blir tilpasset denne lokaliseringen.'
+Choose Access Identifiers to be assigned to this Location: Velg Tilgang ID som blir tilpasset denne lokaliseringen.
 Choose client apps: Velg kundeapplikasjoner
 Choose location: Velg lokalisering
 Chosen hour: Valgt time
@@ -151,7 +151,7 @@ Disabled: Av
 Disconnected: Frakoblet
 Distance: Avstand
 Distance sensor: Avstand sensor
-'Don’t worry, you can always reset your password via email. Click here to do so.': 'Ingen bekymringer. Du kan tilbakestille passordet via din e-post. Klikk her for å gjøre det.'
+'Don’t worry, you can always reset your password via email. Click here to do so.': Ingen bekymringer. Du kan tilbakestille passordet via din e-post. Klikk her for å gjøre det.
 Door lock operation: Døråpning
 Door opening sensor: Døråpner sensor
 Doors and gates: Dører og porter
@@ -162,7 +162,6 @@ ENABLED: PÅ
 Edit: Rediger
 Electric: Elektronikk
 Electricity meter: Elektrisitetsmåler
-Email already exists: Denne e-post adressen eksisterer allerede
 Empty!: Tomt!
 Enabled: PÅ
 End date: Avslutningsdato
@@ -188,7 +187,7 @@ Failed: Mislykket
 Failed (zombie): Mislykket (zombie)
 File is too large: Filen er for stor
 For devices: For enheter
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'ZFor sikkerhetsmessige grunner full URL av denne direkte lenken blir vist kun en gang ved dens opprettelse.'
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': ZFor sikkerhetsmessige grunner full URL av denne direkte lenken blir vist kun en gang ved dens opprettelse.
 Forgot your password?: Husker du ikke passordet?
 Forward active energy: Aktiv energi nedlastet
 Fridays: Fredager
@@ -208,7 +207,7 @@ Gate opening sensor: Portåpner sensor
 Gate operation: Åpne/steng hageporten
 Gateway lock operation: Åpne/steng hageporten
 Gateway opening sensor: Hageportåpner sensor
-Generate new token: Generer ny token 
+Generate new token: Generer ny token
 Generate token: Generer token
 Get SUPLA on your devices: Last ned SUPLA på dine enheter
 Go to I/O device details: Gå til opplysninger om enheten
@@ -234,9 +233,8 @@ I/O Devices: Enheter inngang/utgang
 INACTIVE: INAKTIV
 Idle: Hvile modus
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Hvis du er en programutvikler som ønsker å levere ekstra funksjoner til SUPLA, opprett applikasjonen OAuth som andre brukere kan autorisere og bruke.'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Dersom du har en konto på cloud.supla.org sjekk om applikasjonen du forsøker å autorisere er offentlig.'
+'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': Dersom du har en konto på cloud.supla.org sjekk om applikasjonen du forsøker å autorisere er offentlig.
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du [må du registrere din Cloud].'
-'If you want to stay here, do something!': 'Hvis du ønsker å bli igjen her, gjør noe!'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'JDersom du ønsker å bruke dirkete lenke i et annet program, legg til tilsvarende forespørsel overskrift for å motta et svar som er enklere å prosessere.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'JDersom du vil sjekke ut tilgjengelige integrasjoner gå til [cloud.supla.org/apps].'
 Impulse counter: Impulsmåler
@@ -270,7 +268,7 @@ Location password must be no longer than 32 characters.: Passord for lokaliserin
 Locations: Sted
 Login: Logg inn
 Mail sensor: Postsensor
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Husk å lagre den på et trygd sted dersom du ønsker å bruke den en gang til i fremtiden. Lenken vises ikke mer etter at har forlatt denne siden.'
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Husk å lagre den på et trygd sted dersom du ønsker å bruke den en gang til i fremtiden. Lenken vises ikke mer etter at har forlatt denne siden.
 'Maximum filesize limit is {limit}.': 'Maksimal filstørrelse er {limit}.'
 Meter value: Meterlesing
 Minute: Minutt
@@ -285,7 +283,7 @@ Never: Aldri
 New OAuth application: Ny OAuth applikasjon
 New channel group: Ny kanalgruppe
 New direct link: Ny direkte lenke
-New password: Nytt passord 
+New password: Nytt passord
 Newer: Nyere
 Next run date: Neste utførelsesdato
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Du har ingen aktive tilgang identifikatorer. Gå til [tilgang identifikator liste] eller [legg til ny tilgang identifikator].'
@@ -323,12 +321,12 @@ Percentage of closing: Prosent av stenging
 Personal access tokens: Personlige tilgang token
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Personlige tilgang token fungerer som vanlige, med den forskjellen at de er aktive på ubestemt tid.'
 Personal token name is required.: Det er påkrevd å oppgi navnet på personlig token.
-Please click the link we have sent you after the registration to proceed.: 'Trykk på lenken i meldingen vi sendte til deg etter oppretting av konto.'
+Please click the link we have sent you after the registration to proceed.: Trykk på lenken i meldingen vi sendte til deg etter oppretting av konto.
 Please enter a valid email address: Tast inn korrekt e-post adresse
 Please fill a valid email address: Tast inn korrekt e-post adresse
 Please log in again to proceed.: Logg inn på nytt for å fortsette.
 Please provide a valid domain name for your private SUPLA Cloud: Oppgi korrekt navn på din private SUPLA Cloud.
-Please select the schedules that should also be enabled.: 'Velg planer som bør aktiveres på.'
+Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Please wait a moment before the next login attempt.: Vent litt før det neste pålogging forsøket.
 Pressure sensor: Trykksensor
 Previous login: Sist innlogging
@@ -379,13 +377,13 @@ Schedules: Planer
 Schedules below will be deleted: Planene nedenfor blir fjernet
 Scope: Omfang (scope)
 Scopes: Omfang
-Scopes define which sections of your account can be accessed when using the token.: 'Omfang bestemmer hvilke konto innhold man kan få tilgang ved bruk av token.'
+Scopes define which sections of your account can be accessed when using the token.: Omfang bestemmer hvilke konto innhold man kan få tilgang ved bruk av token.
 Search: Søk
 Secret: Hemmelignøkkel (secret)
 See direct link possibilities: Se mulighetene til direkte lenke
-Seems like a secret place: 'Vi har på følelse at du ikke burde være her'
+Seems like a secret place: Vi har på følelse at du ikke burde være her
 Select icon: Velg ikon
-Select the item (subject) you want to control using this link: 'Velg enhet du ønsker å kontrollere ved bruk av denne lenken'
+Select the item (subject) you want to control using this link: Velg enhet du ønsker å kontrollere ved bruk av denne lenken
 Sensor (normal closed): Sensor (vanligvis stengt)
 Sensor (normal open): Sensor (vanligvis åpen)
 Sensor disconnected: Manglende sensor
@@ -414,40 +412,40 @@ Sundays: Søndager
 Sunrise / Sunset: Soloppgang / Solnedgang
 Supla for devices: SUPLA for enheter
 Temperature: Temperatur
-Temperature & Humidity Sensor: Temperatur- og fuktighetssensor 
+Temperature & Humidity Sensor: Temperatur- og fuktighetssensor
 Temperature Sensor: Temperatursensor
 Temperature adjustment: Tilpass temperaturen
 Temperature and humidity sensor: Temperatur- og fuktighetssensor
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Integrasjoner gir deg mulighet til å legge til nye funksjoner til din konto på et enkelt vis ved hjelp av løsninger levert av eksterne leverandører, programmerere eller deg selv.'
-The Terms and Conditions have changed: Regelverket ble endret. 
+The Terms and Conditions have changed: Regelverket ble endret.
 The Terms and Conditions have changed – please read them and accept.: Tjenesteregelverk ble endret – godkjenning av det nye regelverket er påkrevd.
 The activation link has been sent again. Check the inbox.: Melding med aktiveringslenke til din konto ble sendt på nytt. Sjekk din innboks.
 The client will be automatically logged out when deleted.: Fjerning av kunden betyr at den blir logget ut med en gang
 The device is disabled: Enheten er av
 The gate sensor must function properly in order to execute the scheduled action.: For å utføre handlingen må portåpner sensor fungere riktig.
 The latest execution: Utført sist
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.'
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.
 The measurement history has been deleted.: Målingshistorie ble fjernet.
 The next available executions: Neste utførelser.
 The password and its confirm are not the same.: Passord og bekreftelse er ikke like.
 The password should be 8 or more characters.: Passord bør ha minimum 8 tegn.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Server viser feil 400, dette betyr at innsendt forespørsel er feil.'
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Server viser feil HTTP 403. Dette betyr at du ikke har nok rettigheter til å se dette elementet.'
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server viser feil HTTP 404. Dette betyr at elementet du søker etter eksisterer ikke.'
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Server viser feil HTTP 403. Dette betyr at du ikke har nok rettigheter til å se dette elementet.
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server viser feil HTTP 404. Dette betyr at elementet du søker etter eksisterer ikke.
 'The server has returned an HTTP {statusCode} error.': 'Server viser feil {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Ikonfiler du har valgt er for store. Maksimal størrelse på upload er {limit}.'
-There are no more channels you can add to this group: 'Det er ingen andre kanaler du kan legge til denne gruppen.'
+There are no more channels you can add to this group: Det er ingen andre kanaler du kan legge til denne gruppen.
 Thermometer: Termometer
 Thermostat: Termostat
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Denne lenken krever en presisering av parameter av den utførte handlingen. Se parameterne nedenfor for å finne ut hvilke parameter du kan sette.'
-This is the list of applications you have granted access to your account.: 'Dette er en liste med applikasjoner du har gitt tilgang til din konto.'
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Denne lenken krever en presisering av parameter av den utførte handlingen. Se parameterne nedenfor for å finne ut hvilke parameter du kan sette.
+This is the list of applications you have granted access to your account.: Dette er en liste med applikasjoner du har gitt tilgang til din konto.
 Thursdays: Torsdager
 Timezone: Tidssone
 Toggle: Bytt
 Token does not exist: Token finnes ikke
 Too many channels in this group: For mange kanaler i denne gruppen
 Tuesdays: Tirsdager
-Turning this device off will result in disabling all the associated schedules.: 'Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.'
+Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
 Type: Type
 Unit: Enhet
 Unknown: Ukjent
@@ -474,7 +472,7 @@ Wednesdays: Onsdager
 Weight sensor: Vekt
 What this token is for?: Hva brukes denne token til?
 When: Når
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Du kan utføre handlingen til direkte lenke ved å oppgi dens unik identifikator i HTTP PATCH forespørselen. Det er sikrere da det hindrer lagring av full adresse til din lenke i loggbøkene til tilgjengelige servere din forespørsel går gjennom. Nedenfor ser du eksempel på handlingen utført ved hjelp av verktøyet cURL.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': Du kan utføre handlingen til direkte lenke ved å oppgi dens unik identifikator i HTTP PATCH forespørselen. Det er sikrere da det hindrer lagring av full adresse til din lenke i loggbøkene til tilgjengelige servere din forespørsel går gjennom. Nedenfor ser du eksempel på handlingen utført ved hjelp av verktøyet cURL.
 Where is the JSON?: Hvor er JSON?
 Where is your SUPLA Cloud?: Hvor er din SUPLA?
 White: Hvit
@@ -490,14 +488,13 @@ You just need to execute the following command inside your host terminal.: Det h
 You must agree to the Terms and Conditions.: Du må godkjenne regelverket.
 You need to provide icons for all states.: Du må levere ikoner for alle tilstander.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Du må oppdatere din SUPLA Cloud minst til versjonen 2.3.0.
-You will be logged out shortly: Snart blir du logget ut.
 You will not be able to generate a direct link with the same URL again.: Oppretting av lenke med den samme URL blir ikke mulig.
-Your account has been deleted. We hope you will come back to us soon.: 'Konto ble fjernet. Vi håper at du kommer tilbake til oss snart.'
+Your account has been deleted. We hope you will come back to us soon.: Konto ble fjernet. Vi håper at du kommer tilbake til oss snart.
 Your account has been locked.: Din konto er sperret.
 Your account has not been confirmed yet.: Din konto er ikke bekreftet enda.
 Your email: Din e-post
-Your instance is not registered or you are trying to authorize an application that is not public.: 'Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.'
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Din privat SUPLA cloud er ikke tilgjengelig. Sjekk om din server er online og at forbindelsen HTTPS fungerer korrekt.'
+Your instance is not registered or you are trying to authorize an application that is not public.: Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Din privat SUPLA cloud er ikke tilgjengelig. Sjekk om din server er online og at forbindelsen HTTPS fungerer korrekt.
 Your private SUPLA Cloud is almost registered.: Din privat SUPLA cloud er nesten registrert.
 Your private SUPLA Cloud is not registered.: Din privat SUPLA cloud er ikke registrert.
 Your session has been expired.: Din sesjon er over.
@@ -535,7 +532,7 @@ minutes: minutt
 once: Engangs
 register-slide1-text: 'Ved hjelp av tilgjengelige enheter SUPLA gir deg mulighet til å skape enkle moduler til å styre og kontrollere deler av automatikken i bygget. Med SUPLA kan du blant annet styre belysningen, skru av og på hvitevarer og elektronikk, åpne og stenge porter og dører samt kontrollere temperaturen i rommene. Alt dette kan du gjøre med et sveip.'
 register-slide1-title: Ditt eget smart bygg
-register-slide2-text: 'Noen av de grunnleggende forutsetningene til prosjektet er enkelhet og tilgjengelighet. SUPLA gir deg muligheten til å åpne porten når du skal kjøre inn på eiendommen din med et sveip. SUPLA er tilgjengelig over alt hvor du har tilgang til internett og har en smarttelefon eller nett brett. SUPLA er en OpenSource programvare derfor kan du også bli med på å utvikle den!'
+register-slide2-text: Noen av de grunnleggende forutsetningene til prosjektet er enkelhet og tilgjengelighet. SUPLA gir deg muligheten til å åpne porten når du skal kjøre inn på eiendommen din med et sveip. SUPLA er tilgjengelig over alt hvor du har tilgang til internett og har en smarttelefon eller nett brett. SUPLA er en OpenSource programvare derfor kan du også bli med på å utvikle den!
 register-slide2-title: SUPLA over alt
 register-slide3-text: 'Byggautomatisering systemer tilgjengelig på markedet er vanligvis veldig komplekse, stengte og dyre. Ofte må man installere de allerede under oppføring av bygget. SUPLA er enkel, åpen og gratis. Den gir mulighet til å bygge aktuatorer ved bruk av RaspberryPI, Arduino eller ESP8266 plattformer og kombinere dem med LAN og WiFi nettverk. Bli en del av prosjektet og bygg din egen versjon av byggautomatisering systemer.'
 register-slide3-title: Gratis og åpen!
@@ -555,7 +552,7 @@ state-rgb_off_dim_off: RGB og dimmer er av
 state-rgb_off_dim_on: 'RGB av, dimmer av'
 state-rgb_on_dim_off: 'RGB på, dimmer på'
 state-rgb_on_dim_on: RGB og dimmer på
-state-shut: Gardiner dratt for 
+state-shut: Gardiner dratt for
 state-temperature: Temperatur
 sunrise-after: soloppgang – etter
 sunrise-before: soloppgang – før
@@ -571,10 +568,12 @@ will expire: utløper
 Assigned Locations: Tildelte lokaliseringer
 Date: Dato
 Disable: Av
+Email already exists: Denne e-post adressen eksisterer allerede
 Enable: På
 Hi: Hei
 Hour: Time
 I/O: Inngang/Utgang
+'If you want to stay here, do something!': 'Hvis du ønsker å bli igjen her, gjør noe!'
 Input: Inngang
 Languages: Språk
 Loading: Lading
@@ -585,10 +584,18 @@ Registration: Registrering
 Remove: Fjern
 Status: Status
 Try again later: Prøv en gang til senere
+You will be logged out shortly: Snart blir du logget ut.
 execute: utfør
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose Access Identifier: ~
+Maintenance mode active. You cannot modify any data now.: ~
+SUPLA Cloud is under maintenance.: ~
+We should be ready shortly.: ~
+You can use the application but you will not be able to modify any settings.: ~
+password: ~
+username: ~
 
 #</editor-fold>

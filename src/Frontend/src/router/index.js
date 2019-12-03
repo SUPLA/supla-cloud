@@ -31,14 +31,20 @@ router.beforeEach((to, from, next) => {
         next({name: 'login', query: {target: (to.path && to.path.length > 2 ? to.path : undefined)}});
     } else if (Vue.prototype.$user.username && to.meta.onlyUnauthenticated) {
         next('/');
+    } else if (Vue.config.external.maintenanceMode && to.meta.unavailableInMaintenance) {
+        next('/');
     } else {
         next();
     }
 });
 
 router.afterEach((to) => {
-    if (to.meta.bodyClass) {
-        document.body.setAttribute('class', to.meta.bodyClass);
+    let cssClass = to.meta.bodyClass || '';
+    if (Vue.config.external.maintenanceMode) {
+        cssClass += ' maintenance-mode';
+    }
+    if (cssClass) {
+        document.body.setAttribute('class', cssClass);
     } else {
         document.body.removeAttribute('class');
     }

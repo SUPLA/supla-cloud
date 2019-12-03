@@ -40,7 +40,7 @@ services:
     public: true
 
   SuplaBundle\Controller\Api\ServerController:
-    $suplaServerAddress: '%supla_server%'
+    $suplaServerHost: '%supla_server%'
     $suplaVersion: '%supla.version%'
     $actAsBrokerCloud: '%act_as_broker_cloud%'
 
