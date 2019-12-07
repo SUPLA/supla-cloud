@@ -145,6 +145,11 @@ class ChannelController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
             if ($functionHasBeenChanged) {
+                Assertion::inArray(
+                    $updatedChannel->getFunction()->getId(),
+                    EntityUtils::mapToIds(ChannelFunction::forChannel($channel)),
+                    'Invalid function for channel.' // i18n
+                );
                 $hasRelations = count($channel->getSchedules()) || count($channel->getChannelGroups()) || count($channel->getDirectLinks());
                 if ($hasRelations && !$request->get('confirm')) {
                     return $this->view([

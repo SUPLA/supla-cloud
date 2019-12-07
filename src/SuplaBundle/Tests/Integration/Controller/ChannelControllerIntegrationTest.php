@@ -212,6 +212,19 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::OPENINGSENSOR_GARAGEDOOR, $sensorChannel->getFunction()->getId());
     }
 
+    public function testCannotChangeChannelFunctionToNotSupported() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $sensorChannel->getId(), [
+            'functionId' => ChannelFunction::THERMOMETER,
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+        return $sensorChannel;
+    }
+
     public function testChangingChannelFunctionDeletesExistingDirectLinks() {
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
