@@ -21,8 +21,11 @@ use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
@@ -266,5 +269,36 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(DirectLink::class, $directLink->getId()));
+    }
+
+    public function testChangingChannelFunctionDeletesExistingScenes() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATEWAYLOCK],
+        ]);
+        $gateChannel = $anotherDevice->getChannels()[0];
+        $scene = new Scene($anotherDevice->getLocation());
+        $scene->setOpeartions([new SceneOperation($gateChannel, ChannelFunctionAction::OPEN_CLOSE())]);
+        $this->getEntityManager()->persist($scene);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId() . '?safe=1', [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        return $gateChannel;
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingScenes */
+    public function testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe(IODeviceChannel $gateChannel) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $sceneOperation = $gateChannel->getSceneOperations()[0];
+        $scene = $sceneOperation->getOwningScene();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(SceneOperation::class, $sceneOperation->getId()));
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $scene->getId()));
     }
 }

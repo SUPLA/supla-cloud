@@ -49,5 +49,8 @@ class ChannelDependencies {
         foreach ($channel->getDirectLinks() as $directLink) {
             $this->entityManager->remove($directLink);
         }
+        foreach ($channel->getSceneOperations() as $sceneOperation) {
+            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
+        }
     }
 }

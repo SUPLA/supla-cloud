@@ -156,10 +156,15 @@ class ChannelController extends RestController {
                     array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
                     'Invalid function for channel.' // i18n
                 );
-                if (!$request->get('confirm')) {
+                $shouldConfirm = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
+                    ? $request->get('safe', false)
+                    : !$request->get('confirm');
+                if ($shouldConfirm) {
                     $dependencies = $channelDependencies->getDependencies($channel);
                     if (array_filter($dependencies)) {
-                        return $this->view($dependencies, Response::HTTP_CONFLICT);
+                        $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                        $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                        return $view;
                     }
                 }
                 $channel->setUserIcon(null);

@@ -101,7 +101,7 @@
         <channel-function-edit-confirmation :confirmation-object="changeFunctionConfirmationObject"
             v-if="changeFunctionConfirmationObject"
             @cancel="loading = changeFunctionConfirmationObject = undefined"
-            @confirm="saveChanges(true)"></channel-function-edit-confirmation>
+            @confirm="saveChanges(false)"></channel-function-edit-confirmation>
     </page-container>
 </template>
 
@@ -171,10 +171,10 @@
             cancelChanges() {
                 this.fetchChannel();
             },
-            saveChanges: throttle(function (confirm = false) {
+            saveChanges: throttle(function (safe = true) {
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
-                this.$http.put(`channels/${this.id}` + (confirm ? '?confirm=1' : ''), this.channel, {skipErrorHandler: true})
+                this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), this.channel, {skipErrorHandler: true})
                     .then(response => $.extend(this.channel, response.body))
                     .then(() => this.loading = this.changedFunction = this.hasPendingChanges = false)
                     .catch(response => this.changeFunctionConfirmationObject = response.body);
@@ -206,7 +206,7 @@
                 return deviceTitle(this.channel.iodevice, this);
             },
             supportedFunctions() {
-                return [].concat.apply([{id: 0, caption: 'None', name: 'NONE'}], this.channel.supportedFunctions);
+                return [].concat.apply([{id: 0, caption: 'None', name: 'NONE', possibleActions: []}], this.channel.supportedFunctions);
             },
             shownInClientsAlwaysOn() {
                 if (this.channel.function.name.match(/^OPENINGSENSOR/)) {
