@@ -186,6 +186,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
         $this->directLinks = new ArrayCollection();
         $this->schedules = new ArrayCollection();
         $this->channelGroups = new ArrayCollection();
+        $this->sceneOperations = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -395,12 +396,6 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     /** @return Collection|DirectLink[] */
     public function getDirectLinks(): Collection {
         return $this->directLinks;
-    }
-
-    public function removeFromAllChannelGroups(EntityManagerInterface $entityManager) {
-        foreach ($this->getChannelGroups() as $channelGroup) {
-            $channelGroup->removeChannel($this, $entityManager);
-        }
     }
 
     public function buildServerSetCommand(string $type, array $actionParams): string {

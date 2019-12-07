@@ -32,6 +32,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Model\ChannelDependencies;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -141,7 +142,12 @@ class ChannelController extends RestController {
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
      */
-    public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
+    public function putChannelAction(
+        Request $request,
+        IODeviceChannel $channel,
+        IODeviceChannel $updatedChannel,
+        ChannelDependencies $channelDependencies
+    ) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
             if ($functionHasBeenChanged) {
@@ -150,13 +156,11 @@ class ChannelController extends RestController {
                     array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
                     'Invalid function for channel.' // i18n
                 );
-                $hasRelations = count($channel->getSchedules()) || count($channel->getChannelGroups()) || count($channel->getDirectLinks());
-                if ($hasRelations && !$request->get('confirm')) {
-                    return $this->view([
-                        'schedules' => $channel->getSchedules(),
-                        'groups' => $channel->getChannelGroups(),
-                        'directLinks' => $channel->getDirectLinks(),
-                    ], Response::HTTP_CONFLICT);
+                if (!$request->get('confirm')) {
+                    $dependencies = $channelDependencies->getDependencies($channel);
+                    if (array_filter($dependencies)) {
+                        return $this->view($dependencies, Response::HTTP_CONFLICT);
+                    }
                 }
                 $channel->setUserIcon(null);
                 $channel->setAltIcon(0);
@@ -173,6 +177,7 @@ class ChannelController extends RestController {
             $channel->setHidden($updatedChannel->getHidden());
             $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
+                $channelDependencies,
                 $updatedChannel,
                 $functionHasBeenChanged,
                 $request,
@@ -181,14 +186,7 @@ class ChannelController extends RestController {
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
                     $channel->setFunction($updatedChannel->getFunction());
-                    $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
-                    foreach ($channel->getSchedules() as $schedule) {
-                        $this->scheduleManager->delete($schedule);
-                    }
-                    foreach ($channel->getDirectLinks() as $directLink) {
-                        $em->remove($directLink);
-                    }
-                    $channel->removeFromAllChannelGroups($em);
+                    $channelDependencies->clearDependencies($channel);
                     $em->persist($channel);
                 }
                 return $channel;

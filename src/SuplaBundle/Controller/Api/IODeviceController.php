@@ -25,6 +25,7 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\ChannelDependencies;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
@@ -227,29 +228,22 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
-    public function deleteIodeviceAction(IODevice $ioDevice, Request $request) {
+    public function deleteIodeviceAction(IODevice $ioDevice, Request $request, ChannelDependencies $channelDependencies) {
         if ($request->get('safe', false)) {
             $dependencies = [];
             foreach ($ioDevice->getChannels() as $channel) {
-                $dependencies['channelGroups'][] = $channel->getChannelGroups()->toArray();
-                $dependencies['directLinks'][] = $channel->getDirectLinks()->toArray();
-                $dependencies['schedules'][] = $channel->getSchedules()->toArray();
-                $dependencies['sceneOperations'][] = $channel->getSceneOperations()->toArray();
+                $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
             }
-            $dependencies = array_map(ArrayUtils::class . '::flattenOnce', $dependencies);
             if (count(array_filter($dependencies))) {
                 $view = $this->view($dependencies, Response::HTTP_CONFLICT);
                 $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
                 return $view;
             }
         }
-        $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
+        $this->transactional(function (EntityManagerInterface $em) use ($channelDependencies, $ioDevice) {
             foreach ($ioDevice->getChannels() as $channel) {
-                // clears all paired channels that are possibly made with the one that is being deleted
-                $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
-                $channel->removeFromAllChannelGroups($em);
+                $channelDependencies->clearDependencies($channel);
             }
-
             foreach ($ioDevice->getChannels() as $channel) {
                 $em->remove($channel);
             }
