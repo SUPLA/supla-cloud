@@ -191,7 +191,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
-            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
         $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
@@ -214,7 +214,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCannotChangeChannelFunctionToNotSupported() {
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
-            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
         $client = $this->createAuthenticatedClient();
@@ -227,7 +227,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testChangingChannelFunctionDeletesExistingDirectLinks() {
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
-            [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
         $directLink = new DirectLink($sensorChannel);
