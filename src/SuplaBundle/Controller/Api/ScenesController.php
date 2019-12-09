@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Scene;
@@ -64,7 +65,24 @@ class ScenesController extends RestController {
      * @Security("has_role('ROLE_SCENES_R')")
      */
     public function getScenesAction(Request $request) {
-        $scenes = $this->sceneRepository->findAllForUser($this->getUser());
+        $scenes = $this->sceneRepository->findAllForUser(
+            $this->getUser(),
+            function (QueryBuilder $q) use ($request) {
+                if (($channelId = $request->get('channelId')) !== null) {
+                    $q = $q->andWhere('so.channel = :channelId')
+                        ->setParameter('channelId', $channelId);
+                }
+                if (($channelGroupId = $request->get('channelGroupId')) !== null) {
+                    $q = $q->andWhere('so.channelGroup = :channelGroupId')
+                        ->setParameter('channelGroupId', $channelGroupId);
+                }
+                if (($sceneId = $request->get('sceneId')) !== null) {
+                    $q = $q->andWhere('so.scene = :sceneId')
+                        ->setParameter('sceneId', $sceneId);
+                }
+                return $q;
+            }
+        );
         return $this->serializedView($scenes, $request);
     }
 

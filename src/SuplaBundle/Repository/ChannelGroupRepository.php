@@ -13,10 +13,14 @@ class ChannelGroupRepository extends EntityWithRelationsRepository {
             ->addSelect('COUNT(DISTINCT c) channels')
             ->addSelect('COUNT(DISTINCT dl) directLinks')
             ->addSelect('COUNT(DISTINCT s) schedules')
+            ->addSelect('COUNT(DISTINCT so) sceneOperations')
+            ->addSelect('COUNT(DISTINCT sc) scenes')
             ->from(IODeviceChannelGroup::class, 'cg')
             ->leftJoin('cg.channels', 'c')
             ->leftJoin('cg.directLinks', 'dl')
             ->leftJoin('cg.schedules', 's')
+            ->leftJoin('cg.sceneOperations', 'so')
+            ->leftJoin('so.owningScene', 'sc')
             ->groupBy('cg.id');
     }
 }

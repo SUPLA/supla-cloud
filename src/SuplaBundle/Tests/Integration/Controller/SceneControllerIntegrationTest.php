@@ -135,6 +135,40 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingScene */
+    public function testGettingScenesList($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/scenes');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertGreaterThanOrEqual(1, count($content));
+        $this->assertEquals($id, $content[0]['id']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testGettingScenesListForChannel($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/scenes?channelId=' . $this->device->getChannels()[0]->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals($id, $content[0]['id']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testGettingScenesListForChannel2() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/scenes?channelId=' . $this->device->getChannels()[1]->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(0, $content);
+    }
+
+    /** @depends testCreatingScene */
     public function testUpdatingSceneDetails($sceneDetails) {
         $id = $sceneDetails['id'];
         $client = $this->createAuthenticatedClient($this->user);
@@ -288,6 +322,19 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $operation = $content['operations'][1];
         $this->assertEquals($this->channelGroup->getId(), $operation['subjectId']);
         $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $operation['subjectType']);
+        return $sceneDetails;
+    }
+
+    /** @depends testAddingOperationsWithChannelAndChannelGroupToScene */
+    public function testGettingScenesListForChannelGroup($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/scenes?channelGroupId=' . $this->channelGroup->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals($id, $content[0]['id']);
     }
 
     /** @depends testCreatingScene */
@@ -390,6 +437,18 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('My scene', $content['caption']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
         return $content;
+    }
+
+    /** @depends testCreatingSceneWithOtherScene */
+    public function testGettingScenesListForScene($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('GET', '/api/scenes?sceneId=' . $this->channelGroup->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals($id, $content[0]['id']);
     }
 
     /** @depends testCreatingScene */

@@ -27,7 +27,7 @@
             <channel-groups-list :channel="channel"></channel-groups-list>
         </div>
         <div v-if="currentTab == 'scenes'">
-            SCENY
+            <scenes-list :subject="channel"></scenes-list>
         </div>
         <div v-if="currentTab == 'directLinks'">
             <direct-links-list :subject="channel"></direct-links-list>
@@ -62,10 +62,11 @@
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelActionExecutor from "./action/channel-action-executor";
     import ChannelGroupsList from "../channel-groups/channel-groups-list";
+    import ScenesList from "../scenes/scenes-list";
 
     export default {
         props: ['channel'],
-        components: {ChannelGroupsList, ChannelActionExecutor, DirectLinksList, ScheduleListPage},
+        components: {ScenesList, ChannelGroupsList, ChannelActionExecutor, DirectLinksList, ScheduleListPage},
         data() {
             return {
                 currentTab: '',

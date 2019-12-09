@@ -71,7 +71,7 @@ class ChannelGroupController extends RestController {
             $this->getUser(),
             function (QueryBuilder $q) use ($request) {
                 if (($channelId = $request->get('channelId')) !== null) {
-                    $q = $q->andWhere('c.id = :channelId')
+                    $q = $q->andWhere('c.id IN(:channelId)')
                         ->setParameter('channelId', $channelId);
                 }
                 return $q;
