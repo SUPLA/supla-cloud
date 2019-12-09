@@ -38,7 +38,7 @@
             };
         },
         mounted() {
-            this.$http.get(`channel-groups?channelId=${this.channel.id}`)
+            this.$http.get(`channels/${this.channel.id}/channel-groups`)
                 .then(response => this.channelGroups = response.body);
         },
         computed: {

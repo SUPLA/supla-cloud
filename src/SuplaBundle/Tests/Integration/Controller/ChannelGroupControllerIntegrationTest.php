@@ -155,7 +155,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingChannelGroupsForChannel() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('GET', '/api/channel-groups?channelId=' . $this->device->getChannels()[2]->getId());
+        $client->apiRequestV24('GET', sprintf('/api/channels/%d/channel-groups', $this->device->getChannels()[2]->getId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);

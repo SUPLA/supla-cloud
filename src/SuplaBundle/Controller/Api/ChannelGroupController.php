@@ -18,11 +18,13 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -62,22 +64,31 @@ class ChannelGroupController extends RestController {
         return $groups;
     }
 
+    /** @return Collection|IODeviceChannelGroup[] */
+    private function returnChannelGroups(): Collection {
+        return $this->channelGroupRepository->findAllForUser($this->getUser())
+            ->filter(function (IODeviceChannelGroup $channelGroup) {
+                return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
+            });
+    }
+
     /**
      * @Rest\Get(path="/channel-groups", name="channelGroups_list")
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupsAction(Request $request) {
-        $channelGroups = $this->channelGroupRepository->findAllForUser($this->getUser())
-            ->filter(function (IODeviceChannelGroup $channelGroup) use ($request) {
-                $include = true;
-                if (($channelId = $request->get('channelId')) !== null) {
-                    return in_array($channelId, EntityUtils::mapToIds($channelGroup->getChannels()));
-                }
-                return $include;
+        return $this->serializedView($this->returnChannelGroups()->getValues(), $request);
+    }
+
+    /**
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Rest\Get("/channels/{channel}/channel-groups")
+     */
+    public function getChannelChannelGroupsAction(IODeviceChannel $channel, Request $request) {
+        $channelGroups = $this->returnChannelGroups()
+            ->filter(function (IODeviceChannelGroup $channelGroup) use ($channel) {
+                return in_array($channel->getId(), EntityUtils::mapToIds($channelGroup->getChannels()));
             });
-        $channelGroups = $channelGroups->filter(function (IODeviceChannelGroup $channelGroup) {
-            return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
-        });
         return $this->serializedView($channelGroups->getValues(), $request);
     }
 
