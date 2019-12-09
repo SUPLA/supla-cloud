@@ -19,8 +19,11 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -52,6 +55,9 @@ class SecurityIntegrationTest extends IntegrationTestCase {
             $directLink = new DirectLink($device->getChannels()[0]);
             $directLink->generateSlug(new BCryptPasswordEncoder(4));
             $this->getEntityManager()->persist($directLink);
+            $scene = new Scene($location);
+            $scene->setOpeartions([new SceneOperation($device->getChannels()[0], ChannelFunctionAction::TURN_ON())]);
+            $this->getEntityManager()->persist($scene);
         }
         $this->getEntityManager()->flush();
     }
@@ -63,7 +69,7 @@ class SecurityIntegrationTest extends IntegrationTestCase {
     public function testMatrixPermissions(string $method, string $url, string $username, bool $shouldBeSuccessful) {
         $username .= '@supla.org';
         $client = $this->createAuthenticatedClient($username);
-        $client->apiRequestV23($method, $url);
+        $client->apiRequestV24($method, $url);
         $expectedStatusCode = $shouldBeSuccessful ? '2XX' : '4XX';
         $message = $username . ' should ' . (!$shouldBeSuccessful ? 'NOT ' : '') . 'be allowed to access ' . $method . ' ' . $url;
         $this->assertStatusCode($expectedStatusCode, $client->getResponse(), $message);
@@ -98,6 +104,11 @@ class SecurityIntegrationTest extends IntegrationTestCase {
             ],
             'direct-links' => [
                 'url' => '/direct-links/%d',
+                'user1' => [1],
+                'user2' => [2],
+            ],
+            'scenes' => [
+                'url' => '/scenes/%d',
                 'user1' => [1],
                 'user2' => [2],
             ],
