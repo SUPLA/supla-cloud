@@ -19,11 +19,11 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
@@ -65,25 +65,16 @@ class ScenesController extends RestController {
      * @Security("has_role('ROLE_SCENES_R')")
      */
     public function getScenesAction(Request $request) {
-        $scenes = $this->sceneRepository->findAllForUser(
-            $this->getUser(),
-            function (QueryBuilder $q) use ($request) {
-                if (($channelId = $request->get('channelId')) !== null) {
-                    $q = $q->andWhere('so.channel = :channelId')
-                        ->setParameter('channelId', $channelId);
-                }
-                if (($channelGroupId = $request->get('channelGroupId')) !== null) {
-                    $q = $q->andWhere('so.channelGroup = :channelGroupId')
-                        ->setParameter('channelGroupId', $channelGroupId);
-                }
-                if (($sceneId = $request->get('sceneId')) !== null) {
-                    $q = $q->andWhere('so.scene = :sceneId')
-                        ->setParameter('sceneId', $sceneId);
-                }
-                return $q;
-            }
-        );
-        return $this->serializedView($scenes, $request);
+        $scenes = $this->sceneRepository->findAllForUser($this->getUser());
+        if (($subjectType = $request->get('subjectType')) && ($subjectId = $request->get('subjectId'))) {
+            $type = ActionableSubjectType::fromString($subjectType);
+            $scenes = $scenes->filter(function (Scene $scene) use ($subjectId, $type) {
+                return $scene->getOperations()->exists(function ($index, SceneOperation $sceneOperation) use ($subjectId, $type) {
+                    return $sceneOperation->getSubjectType() == $type && $sceneOperation->getSubject()->getId() == $subjectId;
+                });
+            });
+        }
+        return $this->serializedView($scenes->getValues(), $request);
     }
 
     /**

@@ -162,6 +162,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $content);
         $this->assertArrayNotHasKey('channelsIds', $content[0]);
         $this->assertArrayHasKey('relationsCount', $content[0]);
+        $this->assertEquals(2, $content[0]['relationsCount']['channels']);
     }
 
     public function testChannelsIncludeForbiddenOnListV24() {

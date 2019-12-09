@@ -38,7 +38,7 @@
             };
         },
         mounted() {
-            this.$http.get(`scenes?${this.subject.subjectType}Id=${this.subjectId}`)
+            this.$http.get(`scenes?subjectType=${this.subject.subjectType}&subjectId=${this.subjectId}`)
                 .then(response => this.scenes = response.body);
         },
         computed: {
