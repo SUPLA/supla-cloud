@@ -31,9 +31,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity
  * @ORM\Table(name="supla_direct_link")
  */
-class DirectLink {
+class DirectLink implements HasSubject {
     use BelongsToUser;
-    use HasSubject;
+    use HasSubjectTrait;
 
     const SLUG_LENGTH_MIN = 10;
     const SLUG_LENGTH_MAX = 16;

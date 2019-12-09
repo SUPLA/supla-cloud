@@ -26,8 +26,8 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity
  * @ORM\Table(name="supla_scene_operation")
  */
-class SceneOperation {
-    use HasSubject;
+class SceneOperation implements HasSubject {
+    use HasSubjectTrait;
 
     /**
      * @ORM\Id

@@ -20,8 +20,7 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :subject-id="scene.id"
-                subject-type="scene"></schedule-list-page>
+            <schedule-list-page :subject="scene"></schedule-list-page>
         </div>
         <div v-if="currentTab == 'scenes'">
             <scenes-list :subject="scene"></scenes-list>

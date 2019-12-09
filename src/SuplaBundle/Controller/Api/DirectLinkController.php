@@ -18,14 +18,21 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\HasSubject;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,18 +61,58 @@ class DirectLinkController extends RestController {
         ];
     }
 
+    private function returnDirectLinks(): Collection {
+        return $this->getUser()->getDirectLinks();
+    }
+
+    private function returnDirectLinksFilteredBySubject(HasFunction $subject): Collection {
+        $type = ActionableSubjectType::forEntity($subject);
+        return $this->returnDirectLinks()->filter(function (HasSubject $entity) use ($subject, $type) {
+            return $entity->getSubjectType() == $type && $entity->getSubject()->getId() == $subject->getId();
+        });
+    }
+
     /**
      * @Rest\Get("/direct-links")
      * @Security("has_role('ROLE_DIRECTLINKS_R')")
      */
     public function getDirectLinksAction(Request $request) {
-        $directLinks = $this->getUser()->getDirectLinks();
-        if (($subjectType = $request->get('subjectType')) && ($subjectId = $request->get('subjectId'))) {
-            $type = ActionableSubjectType::fromString($subjectType);
-            $directLinks = $directLinks->filter(function (DirectLink $directLink) use ($subjectId, $type) {
-                return $directLink->getSubjectType() == $type && $directLink->getSubject()->getId() == $subjectId;
-            });
+        $directLinks = $this->returnDirectLinks();
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            if (($subjectType = $request->get('subjectType')) && ($subjectId = $request->get('subjectId'))) {
+                $type = ActionableSubjectType::fromString($subjectType);
+                $directLinks = $directLinks->filter(function (DirectLink $directLink) use ($subjectId, $type) {
+                    return $directLink->getSubjectType() == $type && $directLink->getSubject()->getId() == $subjectId;
+                });
+            }
         }
+        return $this->serializedView($directLinks->getValues(), $request);
+    }
+
+    /**
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Rest\Get("/channels/{channel}/direct-links")
+     */
+    public function getChannelDirectLinksAction(IODeviceChannel $channel, Request $request) {
+        $directLinks = $this->returnDirectLinksFilteredBySubject($channel);
+        return $this->serializedView($directLinks->getValues(), $request);
+    }
+
+    /**
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Get("/channel-groups/{channelGroup}/direct-links")
+     */
+    public function getChannelGroupDirectLinksAction(IODeviceChannelGroup $channelGroup, Request $request) {
+        $directLinks = $this->returnDirectLinksFilteredBySubject($channelGroup);
+        return $this->serializedView($directLinks->getValues(), $request);
+    }
+
+    /**
+     * @Security("scene.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Get("/scenes/{scene}/direct-links")
+     */
+    public function getSceneDirectLinksAction(Scene $scene, Request $request) {
+        $directLinks = $this->returnDirectLinksFilteredBySubject($scene);
         return $this->serializedView($directLinks->getValues(), $request);
     }
 

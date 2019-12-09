@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import changeCase from "change-case";
     import DirectLinkTile from "./direct-link-tile";
     import AppState from "../router/app-state";
 
@@ -38,7 +39,11 @@
             };
         },
         mounted() {
-            this.$http.get(`direct-links?include=subject&subjectType=${this.subject.subjectType}&subjectId=${this.subjectId}`)
+            let endpoint = 'direct-links?include=subject';
+            if (this.subject) {
+                endpoint = `${changeCase.paramCase(this.subject.subjectType)}s/${this.subject.id}/${endpoint}`;
+            }
+            this.$http.get(endpoint)
                 .then(response => this.directLinks = response.body);
         },
         computed: {

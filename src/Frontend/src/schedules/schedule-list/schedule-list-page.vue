@@ -3,11 +3,11 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1 v-if="!subjectType"
+                    <h1 v-if="!subject"
                         v-title>{{ $t('Schedules') }}</h1>
                 </div>
-                <div :class="subjectType ? 'no-margin-top' : ''">
-                    <router-link :to="{name: 'schedule.new', query: {subjectId: subjectId, subjectType: subjectType}}"
+                <div :class="subject ? 'no-margin-top' : ''">
+                    <router-link :to="{name: 'schedule.new', query: {subjectId: subject.id, subjectType: subject.subjectType}}"
                         class="btn btn-green btn-lg"
                         v-if="schedules">
                         <i class="pe-7s-plus"></i>
@@ -40,12 +40,13 @@
 </template>
 
 <script type="text/babel">
+    import changeCase from "change-case";
     import ScheduleTile from "./schedule-tile";
     import ScheduleFilters from "./schedule-filters";
 
     export default {
         components: {ScheduleFilters, ScheduleTile},
-        props: ['subjectId', 'subjectType'],
+        props: ['subject'],
         data() {
             return {
                 schedules: undefined,
@@ -57,14 +58,8 @@
         },
         mounted() {
             let endpoint = 'schedules?include=subject,closestExecutions';
-            if (this.subjectId) {
-                if (this.subjectType === 'channel') {
-                    endpoint = `channels/${this.subjectId}/${endpoint}`;
-                } else if (this.subjectType === 'channelGroup') {
-                    endpoint = `channel-groups/${this.subjectId}/${endpoint}`;
-                } else if (this.subjectType === 'scene') {
-                    endpoint = `scenes/${this.subjectId}/${endpoint}`;
-                }
+            if (this.subject) {
+                endpoint = `${changeCase.paramCase(this.subject.subjectType)}s/${this.subject.id}/${endpoint}`;
             }
             this.$http.get(endpoint).then(response => {
                 this.schedules = response.body;

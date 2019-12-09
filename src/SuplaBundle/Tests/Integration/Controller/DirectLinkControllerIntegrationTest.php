@@ -292,6 +292,18 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         return $content;
     }
 
+    /** @depends testCreatingDirectLinkForScene */
+    public function testGettingSceneDirectLinks($linkData) {
+        $sceneId = $linkData['subjectId'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/scenes/' . $sceneId . '/direct-links');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals($linkData['id'], $content[0]['id']);
+    }
+
     public function testExecutingDirectLinkWithGetWhenGetDisabled() {
         $directLinkDetails = $this->testCreatingDirectLink();
         $directLink = $this->getEntityManager()->find(DirectLink::class, $directLinkDetails['id']);

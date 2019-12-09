@@ -35,9 +35,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     @ORM\Index(name="date_start_idx", columns={"date_start"})
  * })
  */
-class Schedule {
+class Schedule implements HasSubject {
     use BelongsToUser;
-    use HasSubject;
+    use HasSubjectTrait;
 
     /**
      * @ORM\Id

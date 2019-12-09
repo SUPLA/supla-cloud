@@ -82,7 +82,7 @@ class ChannelGroupController extends RestController {
 
     /**
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
-     * @Rest\Get("/channels/{channel}/channel-groups")
+     * @Rest\Get("/channels/{channel}/channel-groups", name="channels_channelGroups_list")
      */
     public function getChannelChannelGroupsAction(IODeviceChannel $channel, Request $request) {
         $channelGroups = $this->returnChannelGroups()
