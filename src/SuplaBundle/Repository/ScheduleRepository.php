@@ -18,6 +18,9 @@ class ScheduleRepository extends EntityRepository {
         if ($query->getChannelGroup()) {
             $criteria->where(Criteria::expr()->eq('channelGroup', $query->getChannelGroup()));
         }
+        if ($query->getScene()) {
+            $criteria->where(Criteria::expr()->eq('scene', $query->getScene()));
+        }
         if ($query->getOrderBy()) {
             $criteria->orderBy($query->getOrderBy());
         }

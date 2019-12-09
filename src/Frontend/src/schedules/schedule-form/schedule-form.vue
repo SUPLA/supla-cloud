@@ -151,10 +151,10 @@
                     .then(({body}) => this.loadScheduleToEdit(body))
                     .catch(response => this.error = response.status);
             } else if (this.$route.query.subjectId && this.$route.query.subjectType) {
-                if (['channel', 'channelGroup'].indexOf(this.$route.query.subjectType) < 0) {
+                if (['channel', 'channelGroup', 'scene'].indexOf(this.$route.query.subjectType) < 0) {
                     this.error = 404;
                 } else {
-                    const endpoint = this.$route.query.subjectType == 'channel' ? 'channels' : 'channel-groups';
+                    const endpoint = this.$route.query.subjectType == 'channelGroup' ? 'channel-groups' : this.$route.query.subjectType + 's';
                     this.$http.get(endpoint + '/' + this.$route.query.subjectId)
                         .then(response => this.$store.commit('updateSubject', {
                             subject: response.body,

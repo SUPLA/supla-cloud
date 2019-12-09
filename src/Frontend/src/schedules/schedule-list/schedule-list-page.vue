@@ -58,11 +58,12 @@
         mounted() {
             let endpoint = 'schedules?include=subject,closestExecutions';
             if (this.subjectId) {
-                if (this.subjectType == 'channel') {
+                if (this.subjectType === 'channel') {
                     endpoint = `channels/${this.subjectId}/${endpoint}`;
-                }
-                else if (this.subjectType == 'channelGroup') {
+                } else if (this.subjectType === 'channelGroup') {
                     endpoint = `channel-groups/${this.subjectId}/${endpoint}`;
+                } else if (this.subjectType === 'scene') {
+                    endpoint = `scenes/${this.subjectId}/${endpoint}`;
                 }
             }
             this.$http.get(endpoint).then(response => {

@@ -86,6 +86,19 @@ class Scene implements HasLocation, HasFunction, HasRelationsCount {
     private $operations;
 
     /**
+     * @var SceneOperation[]
+     * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="scene", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $sceneOperations;
+
+    /**
+     * @var Schedule[]
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="scene", cascade={"remove"})
+     */
+    private $schedules;
+
+    /**
      * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="scene")
      */
     private $directLinks;

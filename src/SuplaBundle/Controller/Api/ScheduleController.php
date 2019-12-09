@@ -23,6 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -88,6 +89,14 @@ class ScheduleController extends RestController {
      */
     public function getChannelGroupSchedulesAction(IODeviceChannelGroup $channelGroup, Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByChannelGroup($channelGroup), $request);
+    }
+
+    /**
+     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
+     * @Rest\Get("/scenes/{scene}/schedules")
+     */
+    public function getSceneSchedulesAction(Scene $scene, Request $request) {
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByScene($scene), $request);
     }
 
     private function returnSchedules(ScheduleListQuery $query, Request $request) {

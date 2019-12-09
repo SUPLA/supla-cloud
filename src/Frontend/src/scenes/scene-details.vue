@@ -49,20 +49,6 @@
                                             <channel-alternative-icon-chooser :channel="scene"
                                                 @change="sceneChanged()"></channel-alternative-icon-chooser>
                                         </div>
-                                        <h3 class="text-center">{{ $t('Control') }}</h3>
-                                        <div class="text-center">
-                                            <button class="btn btn-default"
-                                                type="button"
-                                                :disabled="executed || executing"
-                                                @click="executeScene()">
-                                                <span v-if="!executing">
-                                                    <i v-if="executed"
-                                                        class="pe-7s-check"></i>
-                                                    {{ executed ? $t('executed') : $t('Execute the scene') }}
-                                                </span>
-                                                <button-loading-dots v-else></button-loading-dots>
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -74,6 +60,8 @@
                         </div>
                     </pending-changes-page>
                 </div>
+                <scene-details-tabs v-if="!hasPendingChanges"
+                    :scene="scene"></scene-details-tabs>
             </div>
         </loading-cover>
         <modal-confirm v-if="deleteConfirm"
@@ -96,10 +84,12 @@
     import SquareLocationChooser from "../locations/square-location-chooser";
     import FunctionIcon from "../channels/function-icon";
     import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
+    import SceneDetailsTabs from "./scene-details-tabs";
 
     export default {
         props: ['id', 'item'],
         components: {
+            SceneDetailsTabs,
             ChannelAlternativeIconChooser,
             FunctionIcon,
             SquareLocationChooser,
@@ -116,8 +106,6 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
-                executing: false,
-                executed: false,
             };
         },
         mounted() {
@@ -164,17 +152,6 @@
             },
             cancelChanges() {
                 this.fetch();
-            },
-            executeScene() {
-                this.executing = true;
-                this.$http.patch(`scenes/${this.scene.id}`)
-                    .then(() => {
-                        this.executed = true;
-                        setTimeout(() => this.executed = false, 3000);
-                    })
-                    .finally(() => {
-                        this.executing = false;
-                    });
             },
         },
         computed: {
