@@ -311,13 +311,43 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     /**
      * @large
-     * @depends testDeletingWithAskingAboutDependencies
      */
-    public function testDeletingWithDependencies(IODeviceChannelGroup $channelGroup) {
+    public function testTurningOffWithAskingAboutDependencies() {
+        $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
+        $this->getEntityManager()->persist($cg);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/iodevices/' . $this->device->getId() . '?safe=yes', ['enabled' => false]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $this->assertTrue($this->getEntityManager()->find(IODevice::class, $this->device->getId())->getEnabled());
+        $this->assertNotNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
+    }
+
+    /**
+     * @large
+     */
+    public function testTurningOffWithoutAskingAboutDependencies() {
+        $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
+        $this->getEntityManager()->persist($cg);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/iodevices/' . $this->device->getId(), ['enabled' => false]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertFalse($this->getEntityManager()->find(IODevice::class, $this->device->getId())->getEnabled());
+        $this->assertNotNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
+    }
+
+    /**
+     * @large
+     */
+    public function testDeletingWithDependencies() {
+        $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
+        $this->getEntityManager()->persist($cg);
+        $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
         $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
         $this->assertStatusCode(204, $client->getResponse());
-        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $channelGroup->getId()));
+        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
     }
 
     /** @large */

@@ -22,7 +22,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelDependencies;
@@ -32,7 +31,6 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
-use SuplaBundle\Utils\ArrayUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -200,15 +198,32 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
-    public function putIodeviceAction(Request $request, IODevice $ioDevice, IODevice $updatedDevice) {
-        $result = $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
+    public function putIodeviceAction(
+        Request $request,
+        IODevice $ioDevice,
+        IODevice $updatedDevice,
+        ChannelDependencies $channelDependencies
+    ) {
+        $result = $this->transactional(function (EntityManagerInterface $em) use (
+            $channelDependencies,
+            $request,
+            $ioDevice,
+            $updatedDevice
+        ) {
             $enabledChanged = $ioDevice->getEnabled() != $updatedDevice->getEnabled();
             if ($enabledChanged) {
-                $schedules = $this->scheduleManager->findSchedulesForDevice($ioDevice);
-                if (!$updatedDevice->getEnabled() && !($request->get('confirm', false))) {
-                    $enabledSchedules = $this->scheduleManager->onlyEnabled($schedules);
-                    if (count($enabledSchedules)) {
-                        return $this->serializedView($ioDevice, $request, ['iodevice.schedules'], Response::HTTP_CONFLICT);
+                $shouldAsk = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
+                    ? $request->get('safe', false)
+                    : !$request->get('confirm', false);
+                if (!$updatedDevice->getEnabled() && $shouldAsk) {
+                    $dependencies = [];
+                    foreach ($ioDevice->getChannels() as $channel) {
+                        $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
+                    }
+                    if (count(array_filter($dependencies))) {
+                        $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                        $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                        return $view;
                     }
                 }
                 $ioDevice->setEnabled($updatedDevice->getEnabled());
@@ -216,7 +231,9 @@ class IODeviceController extends RestController {
                     $this->scheduleManager->disableSchedulesForDevice($ioDevice);
                 }
             }
-            $ioDevice->setLocation($updatedDevice->getLocation());
+            if ($updatedDevice->getLocation()->getId()) {
+                $ioDevice->setLocation($updatedDevice->getLocation());
+            }
             $ioDevice->setComment($updatedDevice->getComment());
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
