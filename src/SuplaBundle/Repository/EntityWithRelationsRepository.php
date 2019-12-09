@@ -34,12 +34,14 @@ abstract class EntityWithRelationsRepository extends EntityRepository {
         return $entity;
     }
 
-    public function findAllForUser(User $user): Collection {
+    public function findAllForUser(User $user, callable $filter = null): Collection {
         $query = $this->getEntityWithRelationsCountQuery()
             ->where($this->alias . '.user = :user')
-            ->setParameter('user', $user)
-            ->getQuery();
-        $results = $query->getResult();
+            ->setParameter('user', $user);
+        if ($filter) {
+            $query = $filter($query, $this->alias);
+        }
+        $results = $query->getQuery()->getResult();
         $entities = array_map([$this, 'hydrateRelationsQueryResult'], $results);
         return new ArrayCollection($entities);
     }

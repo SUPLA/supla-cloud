@@ -23,6 +23,12 @@
             <schedule-list-page :subject-id="channel.id"
                 subject-type="channel"></schedule-list-page>
         </div>
+        <div v-if="currentTab == 'channelGroups'">
+            <channel-groups-list :channel="channel"></channel-groups-list>
+        </div>
+        <div v-if="currentTab == 'scenes'">
+            SCENY
+        </div>
         <div v-if="currentTab == 'directLinks'">
             <direct-links-list :subject="channel"></direct-links-list>
         </div>
@@ -55,10 +61,11 @@
     import {successNotification} from "../common/notifier";
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelActionExecutor from "./action/channel-action-executor";
+    import ChannelGroupsList from "../channel-groups/channel-groups-list";
 
     export default {
         props: ['channel'],
-        components: {ChannelActionExecutor, DirectLinksList, ScheduleListPage},
+        components: {ChannelGroupsList, ChannelActionExecutor, DirectLinksList, ScheduleListPage},
         data() {
             return {
                 currentTab: '',
@@ -87,6 +94,16 @@
                     id: 'schedules',
                     header: 'Schedules', // i18n
                     count: this.channel.relationsCount.schedules,
+                });
+                this.availableTabs.push({
+                    id: 'channelGroups',
+                    header: 'Channel groups', // i18n
+                    count: this.channel.relationsCount.channelGroups,
+                });
+                this.availableTabs.push({
+                    id: 'scenes',
+                    header: 'Scenes', // i18n
+                    count: this.channel.relationsCount.scenes,
                 });
             }
             this.availableTabs.push({

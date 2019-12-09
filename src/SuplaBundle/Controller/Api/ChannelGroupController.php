@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
@@ -66,7 +67,16 @@ class ChannelGroupController extends RestController {
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupsAction(Request $request) {
-        $channelGroups = $this->channelGroupRepository->findAllForUser($this->getUser());
+        $channelGroups = $this->channelGroupRepository->findAllForUser(
+            $this->getUser(),
+            function (QueryBuilder $q) use ($request) {
+                if (($channelId = $request->get('channelId')) !== null) {
+                    $q = $q->andWhere('c.id = :channelId')
+                        ->setParameter('channelId', $channelId);
+                }
+                return $q;
+            }
+        );
         $channelGroups = $channelGroups->filter(function (IODeviceChannelGroup $channelGroup) {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
         });
