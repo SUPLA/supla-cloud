@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import changeCase from "change-case";
     import SceneTile from "./scene-tile";
     import AppState from "../router/app-state";
 
@@ -38,7 +39,11 @@
             };
         },
         mounted() {
-            this.$http.get(`scenes?subjectType=${this.subject.subjectType}&subjectId=${this.subjectId}`)
+            let endpoint = 'scenes';
+            if (this.subject) {
+                endpoint = `${changeCase.paramCase(this.subject.subjectType)}s/${this.subject.id}/${endpoint}`;
+            }
+            this.$http.get(endpoint)
                 .then(response => this.scenes = response.body);
         },
         computed: {

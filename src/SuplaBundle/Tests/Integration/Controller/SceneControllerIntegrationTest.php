@@ -150,7 +150,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingScenesListForChannel($sceneDetails) {
         $id = $sceneDetails['id'];
         $client = $this->createAuthenticatedClientDebug($this->user);
-        $client->apiRequestV24('GET', '/api/scenes?subjectType=channel&subjectId=' . $this->device->getChannels()[0]->getId());
+        $client->apiRequestV24('GET', sprintf('/api/channels/%d/scenes', $this->device->getChannels()[0]->getId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -161,7 +161,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingScene */
     public function testGettingScenesListForChannel2() {
         $client = $this->createAuthenticatedClientDebug($this->user);
-        $client->apiRequestV24('GET', '/api/scenes?subjectType=channel&subjectId=' . $this->device->getChannels()[1]->getId());
+        $client->apiRequestV24('GET', sprintf('/api/channels/%d/scenes', $this->device->getChannels()[1]->getId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -329,7 +329,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingScenesListForChannelGroup($sceneDetails) {
         $id = $sceneDetails['id'];
         $client = $this->createAuthenticatedClientDebug($this->user);
-        $client->apiRequestV24('GET', '/api/scenes?subjectType=channelGroup&subjectId=' . $this->channelGroup->getId());
+        $client->apiRequestV24('GET', sprintf('/api/channel-groups/%d/scenes', $this->channelGroup->getId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -444,7 +444,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingScenesListForScene($sceneDetails) {
         $id = $sceneDetails['id'];
         $client = $this->createAuthenticatedClientDebug($this->user);
-        $client->apiRequestV24('GET', '/api/scenes?subjectType=scene&subjectId=' . $this->channelGroup->getId());
+        $client->apiRequestV24('GET', sprintf('/api/scenes/%d/scenes', $sceneDetails['operations'][0]['subjectId']));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);

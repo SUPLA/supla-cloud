@@ -108,7 +108,7 @@ class DirectLinkController extends RestController {
     }
 
     /**
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
      * @Rest\Get("/scenes/{scene}/direct-links")
      */
     public function getSceneDirectLinksAction(Scene $scene, Request $request) {

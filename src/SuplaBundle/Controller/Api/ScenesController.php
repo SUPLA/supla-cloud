@@ -18,9 +18,14 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
+use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -60,21 +65,55 @@ class ScenesController extends RestController {
         return $groups;
     }
 
+    private function returnScenes(): Collection {
+        return $this->sceneRepository->findAllForUser($this->getUser())
+            ->filter(function (Scene $scene) {
+                return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $scene);
+            });
+    }
+
+    private function returnScenesFilteredBySubject(HasFunction $subject): Collection {
+        $type = ActionableSubjectType::forEntity($subject);
+        return $this->returnScenes()->filter(function (Scene $scene) use ($subject, $type) {
+            return $scene->getOperations()->exists(function ($index, SceneOperation $sceneOperation) use ($subject, $type) {
+                return $sceneOperation->getSubjectType() == $type && $sceneOperation->getSubject()->getId() == $subject->getId();
+            });
+        });
+    }
+
     /**
      * @Rest\Get("/scenes", name="scenes_list")
      * @Security("has_role('ROLE_SCENES_R')")
      */
     public function getScenesAction(Request $request) {
-        $scenes = $this->sceneRepository->findAllForUser($this->getUser());
-        if (($subjectType = $request->get('subjectType')) && ($subjectId = $request->get('subjectId'))) {
-            $type = ActionableSubjectType::fromString($subjectType);
-            $scenes = $scenes->filter(function (Scene $scene) use ($subjectId, $type) {
-                return $scene->getOperations()->exists(function ($index, SceneOperation $sceneOperation) use ($subjectId, $type) {
-                    return $sceneOperation->getSubjectType() == $type && $sceneOperation->getSubject()->getId() == $subjectId;
-                });
-            });
-        }
+        return $this->serializedView($this->returnScenes()->getValues(), $request);
+    }
+
+    /**
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Rest\Get("/channels/{channel}/scenes")
+     */
+    public function getChannelScenesAction(IODeviceChannel $channel, Request $request) {
+        $scenes = $this->returnScenesFilteredBySubject($channel);
         return $this->serializedView($scenes->getValues(), $request);
+    }
+
+    /**
+     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Rest\Get("/channel-groups/{channelGroup}/scenes")
+     */
+    public function getChannelGroupScenesAction(IODeviceChannelGroup $channelGroup, Request $request) {
+        $directLinks = $this->returnScenesFilteredBySubject($channelGroup);
+        return $this->serializedView($directLinks->getValues(), $request);
+    }
+
+    /**
+     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
+     * @Rest\Get("/scenes/{scene}/scenes")
+     */
+    public function getSceneScenesAction(Scene $scene, Request $request) {
+        $directLinks = $this->returnScenesFilteredBySubject($scene);
+        return $this->serializedView($directLinks->getValues(), $request);
     }
 
     /**
