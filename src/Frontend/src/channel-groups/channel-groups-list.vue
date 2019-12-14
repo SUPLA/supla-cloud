@@ -1,56 +1,27 @@
 <template>
     <div>
-        <div class="container text-right">
-            <a @click="createNewChannelGroup()"
-                class="btn btn-green btn-lg">
-                <i class="pe-7s-plus"></i> {{ $t('Add new channel group') }}
-            </a>
-        </div>
-        <loading-cover :loading="!channelGroups">
-            <div class="container"
-                v-show="channelGroups && channelGroups.length">
-            </div>
-            <div v-if="channelGroups">
-                <square-links-grid v-if="channelGroups.length"
-                    :count="channelGroups.length"
-                    class="square-links-height-160">
-                    <div v-for="channelGroup in channelGroups"
-                        :key="channelGroup.id">
-                        <channel-group-tile :model="channelGroup"></channel-group-tile>
-                    </div>
-                </square-links-grid>
-                <empty-list-placeholder v-else></empty-list-placeholder>
-            </div>
-        </loading-cover>
+        <list-page header-i18n="Channel groups"
+            tile="channel-group-tile"
+            filters="channel-group-filters"
+            endpoint="channel-groups"
+            create-new-label-i18n="Add new channel group"
+            :limit="$user.userData.limits.channelGroup"
+            details-route="channelGroup"
+            :subject="channel"></list-page>
     </div>
 </template>
 
 <script>
+    import ListPage from "../common/pages/list-page";
     import ChannelGroupTile from "./channel-group-tile";
-    import AppState from "../router/app-state";
+    import ChannelGroupFilters from "./channel-group-filters";
+    import Vue from "vue";
+
+    Vue.component('ChannelGroupTile', ChannelGroupTile);
+    Vue.component('ChannelGroupFilters', ChannelGroupFilters);
 
     export default {
         props: ['channel'],
-        components: {ChannelGroupTile},
-        data() {
-            return {
-                channelGroups: undefined
-            };
-        },
-        mounted() {
-            this.$http.get(`channels/${this.channel.id}/channel-groups`)
-                .then(response => this.channelGroups = response.body);
-        },
-        computed: {
-            subjectId() {
-                return this.subject.id;
-            }
-        },
-        methods: {
-            createNewChannelGroup() {
-                AppState.addTask('channelGroupCreate', this.channel);
-                this.$router.push({name: 'channelGroup', params: {id: 'new'}});
-            }
-        }
+        components: {ListPage}
     };
 </script>

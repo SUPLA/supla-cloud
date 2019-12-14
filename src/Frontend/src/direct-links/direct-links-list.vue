@@ -1,10 +1,18 @@
 <template>
     <div>
-        <div class="container text-right">
-            <a @click="createNewDirectLink()"
-                class="btn btn-green btn-lg">
-                <i class="pe-7s-plus"></i> {{ $t('Create new direct link') }}
-            </a>
+        <div class="container">
+            <div class="clearfix left-right-header">
+                <div>
+                    <h1 v-if="!subject"
+                        v-title>{{ $t('Direct links') }}</h1>
+                </div>
+                <div :class="subject ? 'no-margin-top' : ''">
+                    <a @click="createNewDirectLink()"
+                        class="btn btn-green btn-lg">
+                        <i class="pe-7s-plus"></i> {{ $t('Create new direct link') }}
+                    </a>
+                </div>
+            </div>
         </div>
         <loading-cover :loading="!directLinks">
             <div class="container"
@@ -53,7 +61,9 @@
         },
         methods: {
             createNewDirectLink() {
-                AppState.addTask('directLinkCreate', {type: this.subject.subjectType, id: this.subjectId});
+                if (this.subject) {
+                    AppState.addTask('directLinkCreate', {type: this.subject.subjectType, id: this.subjectId});
+                }
                 this.$router.push({name: 'directLink', params: {id: 'new'}});
             }
         }

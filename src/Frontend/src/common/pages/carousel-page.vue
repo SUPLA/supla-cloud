@@ -1,40 +1,57 @@
 <template>
     <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="carousel-title"
-                        v-title>{{ $t(headerI18n) }}</h1>
-                    <loading-cover :loading="!items">
-                        <div v-if="items">
-                            <square-links-carousel-with-filters
-                                :filters="filters"
-                                :tile="tile"
-                                :items="items"
-                                :selected="item"
-                                @select="itemChanged"
-                                :new-item-tile="createNewLabelI18n"></square-links-carousel-with-filters>
-                        </div>
-                    </loading-cover>
+        <div v-if="item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="carousel-title"
+                            v-title>
+                            <router-link :to="{name: listRouteName}">{{ $t(headerI18n) }}</router-link>
+                        </h1>
+                        <loading-cover :loading="!items">
+                            <div v-if="items">
+                                <square-links-carousel-with-filters
+                                    :filters="filters"
+                                    :tile="tile"
+                                    :items="items"
+                                    :selected="item"
+                                    @select="itemChanged"
+                                    :new-item-tile="createNewLabelI18n"></square-links-carousel-with-filters>
+                            </div>
+                        </loading-cover>
+                    </div>
                 </div>
             </div>
+            <div v-if="item">
+                <hr>
+                <router-view v-if="items"
+                    @add="onItemAdded($event)"
+                    @delete="onItemDeleted()"
+                    @update="onItemUpdated($event)"
+                    :item="item"></router-view>
+            </div>
         </div>
-        <hr v-if="item">
-        <router-view v-if="items"
-            @add="onItemAdded($event)"
-            @delete="onItemDeleted()"
-            @update="onItemUpdated($event)"
-            :item="item"></router-view>
+        <div v-else>
+            <list-page :header-i18n="headerI18n"
+                :tile="tile"
+                :endpoint="endpoint"
+                :create-new-label-i18n="createNewLabelI18n"
+                :limit="limit"
+                :filters="filters"
+                :details-route="detailsRoute"></list-page>
+        </div>
     </div>
 </template>
 
 <script>
     import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
     import {warningNotification} from "../notifier";
+    import DirectLinksList from "../../direct-links/direct-links-list";
+    import ListPage from "./list-page";
 
     export default {
         props: ['headerI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'listRoute', 'limit'],
-        components: {SquareLinksCarouselWithFilters},
+        components: {ListPage, DirectLinksList, SquareLinksCarouselWithFilters},
         data() {
             return {
                 item: undefined,
@@ -91,6 +108,8 @@
                         selected = {};
                     }
                     this.itemChanged(selected);
+                } else {
+                    this.item = undefined;
                 }
             }
         }

@@ -79,6 +79,10 @@ a {
   }
 }
 
+h1 > a {
+  color: inherit;
+}
+
 * {
   outline-color: $supla-green !important;
 }
