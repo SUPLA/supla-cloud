@@ -7,7 +7,7 @@
                     :model="model.subject"
                     class="pull-right"
                     width="60"></function-icon>
-                <h2>{{ caption }}</h2>
+                <h3>{{ caption }}</h3>
             </div>
             <dl>
                 <dd>{{ $t(model.mode) }}</dd>

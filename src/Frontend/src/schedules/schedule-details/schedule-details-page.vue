@@ -1,6 +1,7 @@
 <template>
     <page-container :error="error">
-        <loading-cover :loading="!schedule || loading">
+        <loading-cover :loading="!schedule || loading"
+            v-if="id !== 'new'">
             <div class="container"
                 v-if="schedule">
                 <pending-changes-page :header="$t('Schedule') + ' ID' + schedule.id"
@@ -97,6 +98,8 @@
                 :loading="loading">
             </modal-confirm>
         </loading-cover>
+        <schedule-form v-else
+            @update="$emit('add', $event)"></schedule-form>
     </page-container>
 </template>
 
@@ -109,9 +112,11 @@
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ScheduleExecutionsDisplay from "./schedule-executions-display";
     import PageContainer from "../../common/pages/page-container";
+    import ScheduleForm from "../schedule-form/schedule-form";
 
     export default {
         components: {
+            ScheduleForm,
             PageContainer,
             ScheduleExecutionsDisplay,
             PendingChangesPage,
@@ -136,14 +141,16 @@
         },
         methods: {
             fetch() {
-                this.loading = true;
-                this.error = false;
-                this.$http.get(`schedules/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
-                    .then(({body}) => {
-                        this.schedule = body;
-                        this.hasPendingChanges = this.loading = false;
-                    })
-                    .catch(response => this.error = response.status);
+                if (this.id !== 'new') {
+                    this.loading = true;
+                    this.error = false;
+                    this.$http.get(`schedules/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
+                        .then(({body}) => {
+                            this.schedule = body;
+                            this.hasPendingChanges = this.loading = false;
+                        })
+                        .catch(response => this.error = response.status);
+                }
             },
             cancelChanges() {
                 this.fetch();

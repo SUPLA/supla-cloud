@@ -1,61 +1,25 @@
 <template>
-    <div>
-        <div class="container text-right">
-            <a @click="createNewScene()"
-                class="btn btn-green btn-lg">
-                <i class="pe-7s-plus"></i> {{ $t('Create new scene') }}
-            </a>
-        </div>
-        <loading-cover :loading="!scenes">
-            <div class="container"
-                v-show="scenes && scenes.length">
-            </div>
-            <div v-if="scenes">
-                <square-links-grid v-if="scenes.length"
-                    :count="scenes.length"
-                    class="square-links-height-160">
-                    <div v-for="scene in scenes"
-                        :key="scene.id">
-                        <scene-tile :model="scene"></scene-tile>
-                    </div>
-                </square-links-grid>
-                <empty-list-placeholder v-else></empty-list-placeholder>
-            </div>
-        </loading-cover>
-    </div>
+    <list-page header-i18n="Scenes"
+        tile="scene-tile"
+        filters="scene-filters"
+        endpoint="scenes"
+        create-new-label-i18n="Create new scene"
+        :limit="$user.userData.limits.scene"
+        details-route="scene"
+        :subject="subject"></list-page>
 </template>
 
 <script>
-    import changeCase from "change-case";
     import SceneTile from "./scene-tile";
-    import AppState from "../router/app-state";
+    import SceneFilters from "./scene-filters";
+    import Vue from "vue";
+    import ListPage from "../common/pages/list-page";
+
+    Vue.component('SceneTile', SceneTile);
+    Vue.component('SceneFilters', SceneFilters);
 
     export default {
         props: ['subject'],
-        components: {SceneTile},
-        data() {
-            return {
-                scenes: undefined
-            };
-        },
-        mounted() {
-            let endpoint = 'scenes';
-            if (this.subject) {
-                endpoint = `${changeCase.paramCase(this.subject.subjectType)}s/${this.subject.id}/${endpoint}`;
-            }
-            this.$http.get(endpoint)
-                .then(response => this.scenes = response.body);
-        },
-        computed: {
-            subjectId() {
-                return this.subject.id;
-            }
-        },
-        methods: {
-            createNewScene() {
-                AppState.addTask('sceneCreate', {type: this.subject.subjectType, id: this.subjectId});
-                this.$router.push({name: 'scene', params: {id: 'new'}});
-            }
-        }
+        components: {ListPage},
     };
 </script>

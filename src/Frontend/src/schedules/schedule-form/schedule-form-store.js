@@ -114,7 +114,7 @@ export const actions = {
         if (state.schedule.id) {
             promise = Vue.http.put(`schedules/${state.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), state);
         } else {
-            promise = Vue.http.post('schedules', state);
+            promise = Vue.http.post('schedules?include=subject,closestExecutions', state);
         }
         return promise.catch(() => commit('submitFailed'));
     },

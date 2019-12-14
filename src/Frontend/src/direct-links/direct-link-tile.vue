@@ -3,10 +3,10 @@
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <div class="clearfix">
-                <h2 class="pull-left">{{ caption }}</h2>
                 <function-icon :model="model.subject"
                     class="pull-right"
                     width="60"></function-icon>
+                <h3>{{ caption }}</h3>
             </div>
             <dl>
                 <dd>ID</dd>

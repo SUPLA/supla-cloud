@@ -4,7 +4,7 @@
             class="channel-group-details">
             <div v-if="channelGroup">
                 <div class="container">
-                    <pending-changes-page :header="channelGroup.id ? $t('Channel group') : $t('New channel group') + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
+                    <pending-changes-page :header="(channelGroup.id ? $t('Channel group') : $t('New channel group')) + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
                         @cancel="cancelChanges()"
                         @save="saveChannelGroup()"
                         :deletable="!isNewGroup"

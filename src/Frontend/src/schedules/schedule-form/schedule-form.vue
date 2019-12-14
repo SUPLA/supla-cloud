@@ -90,6 +90,7 @@
     import Toggler from "../../common/gui/toggler";
     import PageContainer from "../../common/pages/page-container";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
+    import AppState from "../../router/app-state";
 
     export default {
         name: 'schedule-form',
@@ -150,17 +151,13 @@
                 this.$http.get('schedules/' + this.id, {params: {include: 'subject'}, skipErrorHandler: [403, 404]})
                     .then(({body}) => this.loadScheduleToEdit(body))
                     .catch(response => this.error = response.status);
-            } else if (this.$route.query.subjectId && this.$route.query.subjectType) {
-                if (['channel', 'channelGroup', 'scene'].indexOf(this.$route.query.subjectType) < 0) {
-                    this.error = 404;
-                } else {
-                    const endpoint = this.$route.query.subjectType == 'channelGroup' ? 'channel-groups' : this.$route.query.subjectType + 's';
-                    this.$http.get(endpoint + '/' + this.$route.query.subjectId)
-                        .then(response => this.$store.commit('updateSubject', {
-                            subject: response.body,
-                            type: this.$route.query.subjectType
-                        }))
-                        .catch(response => this.error = response.status);
+            } else {
+                const subjectForNewSchedule = AppState.shiftTask('scheduleCreate');
+                if (subjectForNewSchedule) {
+                    this.$store.commit('updateSubject', {
+                        subject: subjectForNewSchedule,
+                        type: subjectForNewSchedule.subjectType
+                    });
                 }
             }
         },

@@ -3,7 +3,7 @@
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <span>
-                <h2>{{ caption }}</h2>
+                <h3>{{ caption }}</h3>
                 <dl>
                     <dd>ID</dd>
                     <dt>{{ model.id }}</dt>

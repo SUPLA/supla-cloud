@@ -133,7 +133,7 @@ class ScheduleController extends RestController {
         if ($schedule->isSubjectEnabled()) {
             $this->scheduleManager->enable($schedule);
         }
-        return $this->view($schedule, Response::HTTP_CREATED);
+        return $this->serializedView($schedule, $request, ['subject.relationsCount'], Response::HTTP_CREATED);
     }
 
     /**

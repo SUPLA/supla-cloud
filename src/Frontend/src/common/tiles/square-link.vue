@@ -152,5 +152,6 @@
         }
     }
 
+    @include square-link-height(240);
     @include square-link-height(250);
 </style>

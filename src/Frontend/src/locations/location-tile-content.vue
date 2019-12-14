@@ -1,6 +1,6 @@
 <template>
     <span>
-        <h2>{{ caption }}</h2>
+        <h3>{{ caption }}</h3>
         <dl v-if="location.relationsCount">
             <dd>ID</dd>
             <dt>{{ location.id }}</dt>

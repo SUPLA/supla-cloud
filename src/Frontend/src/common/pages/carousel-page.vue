@@ -66,6 +66,8 @@
                         const selected = this.items.find(item => item.id == this.$route.params.id);
                         if (selected) {
                             this.itemChanged(selected);
+                        } else if (this.$route.params.id === 'new') {
+                            this.itemChanged({});
                         }
                     }
                 });

@@ -115,9 +115,9 @@ export default [
     },
     {
         path: '/schedules', component: () => import("@/schedules/schedule-list/schedules-page"), name: 'schedules', children: [
+            // {path: 'new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new', props: true},
             {path: ':id', component: () => import("@/schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},
             {path: ':id/edit', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.edit', props: true},
-            {path: 'new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new', props: false},
         ]
     },
     // {path: '/schedules/new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new'},

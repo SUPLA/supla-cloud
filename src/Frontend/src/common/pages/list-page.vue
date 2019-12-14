@@ -68,7 +68,7 @@
         methods: {
             createNewItem() {
                 if (this.subject) {
-                    AppState.addTask(this.detailsRoute + 'Create', {type: this.subject.subjectType, id: this.subjectId});
+                    AppState.addTask(this.detailsRoute + 'Create', this.subject);
                 }
                 this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
             },
