@@ -60,7 +60,7 @@
                         </div>
                     </pending-changes-page>
                 </div>
-                <scene-details-tabs v-if="!hasPendingChanges"
+                <scene-details-tabs v-if="!hasPendingChanges && !isNew"
                     :scene="scene"></scene-details-tabs>
             </div>
         </loading-cover>
@@ -85,6 +85,7 @@
     import FunctionIcon from "../channels/function-icon";
     import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
     import SceneDetailsTabs from "./scene-details-tabs";
+    import AppState from "../router/app-state";
 
     export default {
         props: ['id', 'item'],
@@ -123,6 +124,10 @@
                         .finally(() => this.loading = false);
                 } else {
                     this.scene = {enabled: true, operations: []};
+                    const subjectForNewScene = AppState.shiftTask('sceneCreate');
+                    if (subjectForNewScene) {
+                        this.scene.operations.push({subject: subjectForNewScene, type: subjectForNewScene.subjectType});
+                    }
                 }
             },
             sceneChanged() {

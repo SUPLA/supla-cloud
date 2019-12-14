@@ -231,7 +231,6 @@
                     this.directLink = {};
                     const subjectForNewLink = AppState.shiftTask('directLinkCreate');
                     if (subjectForNewLink) {
-                        console.log('dlc', subjectForNewLink);
                         this.chooseSubjectForNewLink({subject: subjectForNewLink, type: subjectForNewLink.subjectType});
                     }
                 }
