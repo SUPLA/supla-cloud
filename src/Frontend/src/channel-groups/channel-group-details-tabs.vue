@@ -20,7 +20,7 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :subject="channelGroup"></schedule-list-page>
+            <schedules-list :subject="channelGroup"></schedules-list>
         </div>
         <div v-if="currentTab == 'scenes'">
             <scenes-list :subject="channelGroup"></scenes-list>
@@ -32,14 +32,14 @@
 </template>
 
 <script>
-    import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
+    import SchedulesList from "../schedules/schedule-list/schedules-list";
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
     import ScenesList from "../scenes/scenes-list";
 
     export default {
         props: ['channelGroup'],
-        components: {ScenesList, ChannelActionExecutor, DirectLinksList, ScheduleListPage},
+        components: {ScenesList, ChannelActionExecutor, DirectLinksList, SchedulesList},
         data() {
             return {
                 currentTab: '',

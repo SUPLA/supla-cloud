@@ -58,7 +58,7 @@
             }
             this.$http.get(endpoint)
                 .then(response => this.items = response.body)
-                .then(() => this.filter())
+                .then(() => this.filter());
         },
         computed: {
             subjectId() {

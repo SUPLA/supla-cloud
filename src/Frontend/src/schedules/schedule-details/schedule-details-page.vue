@@ -171,6 +171,11 @@
             retryOptionDisabled() {
                 return this.displayOpeningSensorWarning || this.schedule.subjectType != 'channel';
             }
+        },
+        watch: {
+            id() {
+                this.fetch();
+            }
         }
     };
 </script>

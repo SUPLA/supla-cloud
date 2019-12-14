@@ -20,7 +20,7 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :subject="channel"></schedule-list-page>
+            <schedules-list :subject="channel"></schedules-list>
         </div>
         <div v-if="currentTab == 'channelGroups'">
             <channel-groups-list :channel="channel"></channel-groups-list>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-    import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
+    import SchedulesList from "../schedules/schedule-list/schedules-list";
     import {successNotification} from "../common/notifier";
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelActionExecutor from "./action/channel-action-executor";
@@ -65,7 +65,7 @@
 
     export default {
         props: ['channel'],
-        components: {ScenesList, ChannelGroupsList, ChannelActionExecutor, DirectLinksList, ScheduleListPage},
+        components: {ScenesList, ChannelGroupsList, ChannelActionExecutor, DirectLinksList, SchedulesList},
         data() {
             return {
                 currentTab: '',

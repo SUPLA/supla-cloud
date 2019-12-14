@@ -201,7 +201,8 @@
             },
             submit(enableIfDisabled) {
                 this.$store.dispatch('submit', enableIfDisabled)
-                    .then(({body: schedule}) => this.$router.push({name: 'schedule', params: {id: schedule.id}}));
+                    .then(({body: schedule}) => this.$emit('update', schedule) && schedule)
+                    .then(schedule => this.$router.push({name: 'schedule', params: {id: schedule.id}}));
             },
             ...mapActions(['loadScheduleToEdit'])
         },

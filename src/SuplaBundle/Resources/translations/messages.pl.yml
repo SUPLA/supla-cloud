@@ -611,9 +611,9 @@ Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
 actionableSubjectType_: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
-actionableSubjectType_scene: ~
+actionableSubjectType_channel: Kanał
+actionableSubjectType_channelGroup: Grupa kanałów
+actionableSubjectType_scene: Scena
 channel: ~
 channelGroup: ~
 choose the scene: ~
