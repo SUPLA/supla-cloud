@@ -9,7 +9,8 @@
                 <div :class="subject ? 'no-margin-top' : ''">
                     <a @click="createNewItem()"
                         class="btn btn-green btn-lg">
-                        <i class="pe-7s-plus"></i> {{ $t(createNewLabelI18n) }}
+                        <i class="pe-7s-plus"></i>
+                        {{ $t(createNewLabelI18n) }}
                     </a>
                 </div>
             </div>
@@ -23,8 +24,7 @@
         <loading-cover :loading="!items">
             <div v-if="filteredItems">
                 <square-links-grid v-if="filteredItems.length"
-                    :count="filteredItems.length"
-                    class="square-links-height-160">
+                    :count="filteredItems.length">
                     <div v-for="item in filteredItems"
                         :key="item.id">
                         <component :is="tile"

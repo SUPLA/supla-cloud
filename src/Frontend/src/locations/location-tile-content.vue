@@ -1,7 +1,9 @@
 <template>
     <span>
-        <h2>ID<strong>{{ location.id }} </strong></h2>
+        <h2>{{ caption }}</h2>
         <dl v-if="location.relationsCount">
+            <dd>ID</dd>
+            <dt>{{ location.id }}</dt>
             <dd>{{ $t('No. of devices') }}</dd>
             <dt>{{ location.relationsCount.iodevices }}</dt>
             <dd>{{ $t('No. of channel groups') }}</dd>
@@ -9,10 +11,6 @@
             <dd>{{ $t('No. of access identifiers') }}</dd>
             <dt>{{ location.relationsCount.accessIds }}</dt>
         </dl>
-        <div v-if="location.caption">
-            <div class="separator"></div>
-            {{ location.caption }}
-        </div>
         <div class="square-link-label">
             <span :class="'label label-' + (location.enabled ? 'success' : 'grey')">
                 {{ $t(location.enabled ? 'Enabled' : 'Disabled') }}
@@ -23,6 +21,11 @@
 
 <script>
     export default {
-        props: ['location']
+        props: ['location'],
+        computed: {
+            caption() {
+                return this.location.caption || this.$t('Location') + ' ID' + this.location.id;
+            }
+        }
     };
 </script>

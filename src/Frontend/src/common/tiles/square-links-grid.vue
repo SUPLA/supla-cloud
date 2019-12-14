@@ -30,6 +30,8 @@
     }
 
     .square-links-grid {
+        display: flex;
+        flex-wrap: wrap;
         > div {
             display: inline-block;
             float: left;

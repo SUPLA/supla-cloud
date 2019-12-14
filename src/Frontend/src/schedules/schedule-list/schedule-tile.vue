@@ -3,17 +3,19 @@
         @click="$emit('click')">
         <router-link :to="{name: 'schedule', params: {id: model.id}}">
             <div class="clearfix">
-                <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
                 <function-icon v-if="model.subject"
                     :model="model.subject"
                     class="pull-right"
                     width="60"></function-icon>
+                <h2>{{ caption }}</h2>
             </div>
             <dl>
                 <dd>{{ $t(model.mode) }}</dd>
                 <dt></dt>
                 <dd>{{ scheduleLabel }}</dd>
                 <dt></dt>
+                <dd>ID</dd>
+                <dt>{{ model.id }}</dt>
                 <dd>{{ $t('Subject type') }}</dd>
                 <dt>{{ model.subjectType == 'channel' ? $t('Channel') : $t('Channel group') }}</dt>
                 <dd>{{ $t('The latest execution') }}</dd>
@@ -29,12 +31,6 @@
                 </dt>
                 <dt v-else>-</dt>
             </dl>
-            <div v-if="model.caption">
-                <div class="separator"></div>
-                {{ model.caption }}
-            </div>
-            <div class="square-link-label">
-            </div>
         </router-link>
     </square-link>
 </template>
@@ -47,6 +43,9 @@
         components: {FunctionIcon},
         props: ['model'],
         computed: {
+            caption() {
+                return this.model.caption || this.$t('Schedule') + ' ID' + this.model.id;
+            },
             scheduleLabel() {
                 return this.$t(this.model.action.caption) + ' ' + channelTitle(this.model.subject, this);
             },
