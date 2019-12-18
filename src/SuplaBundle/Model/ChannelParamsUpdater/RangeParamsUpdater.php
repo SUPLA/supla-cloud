@@ -43,7 +43,6 @@ abstract class RangeParamsUpdater implements SingleChannelParamsUpdater {
     }
 
     public function supports(IODeviceChannel $channel): bool {
-
         return in_array($channel->getFunction(), $this->supportedFunctions)
             && ($this->onlyTypes === null || in_array($channel->getType(), $this->onlyTypes));
     }
