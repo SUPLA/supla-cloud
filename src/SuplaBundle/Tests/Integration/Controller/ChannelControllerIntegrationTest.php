@@ -79,10 +79,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV23('GET', '/api/channels/' . $channel->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $content = json_decode($response->getContent());
-        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content->functionId);
-        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content->function->id);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
+        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
         $this->assertEmpty($this->getSuplaServerCommands($client));
+        $this->assertArrayHasKey('param1', $content);
     }
 
     public function testGettingChannelInfoV24() {
@@ -95,6 +96,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
         $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayNotHasKey('param1', $content);
+        $this->assertArrayHasKey('params', $content);
     }
 
     public function testGettingChannelInfoWithDeviceLocationV24() {

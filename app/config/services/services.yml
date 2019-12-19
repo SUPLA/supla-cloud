@@ -14,6 +14,8 @@ services:
       tags: [supla.channel_action_executor]
     SuplaBundle\Model\ChannelParamsUpdater\SingleChannelParamsUpdater:
       tags: [supla.channel_params_updater]
+    SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamTranslator:
+      tags: [supla.channel_params_translator]
     SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
     SuplaBundle\Command\Cyclic\CyclicCommand:
@@ -78,6 +80,9 @@ services:
 
   SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater:
     - !tagged supla.channel_params_updater
+
+  SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator:
+    - !tagged supla.channel_params_translator
 
   SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
     - !tagged supla.channel_state_getter

@@ -114,37 +114,31 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
 
     /**
      * @ORM\Column(name="param1", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $param1 = 0;
 
     /**
      * @ORM\Column(name="param2", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $param2 = 0;
 
     /**
      * @ORM\Column(name="param3", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $param3 = 0;
 
     /**
      * @ORM\Column(name="text_param1", type="string", length=255, nullable=true)
-     * @Groups({"basic"})
      */
     private $textParam1;
 
     /**
      * @ORM\Column(name="text_param2", type="string", length=255, nullable=true)
-     * @Groups({"basic"})
      */
     private $textParam2;
 
     /**
      * @ORM\Column(name="text_param3", type="string", length=255, nullable=true)
-     * @Groups({"basic"})
      */
     private $textParam3;
 

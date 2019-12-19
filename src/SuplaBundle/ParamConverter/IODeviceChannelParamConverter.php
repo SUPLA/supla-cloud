@@ -3,6 +3,7 @@ namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
@@ -14,14 +15,21 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
     private $locationRepository;
     /** @var UserIconRepository */
     private $userIconRepository;
+    /** @var ChannelParamConfigTranslator */
+    private $paramsTranslator;
 
     public function getConvertedClass(): string {
         return IODeviceChannel::class;
     }
 
-    public function __construct(LocationRepository $locationRepository, UserIconRepository $userIconRepository) {
+    public function __construct(
+        LocationRepository $locationRepository,
+        UserIconRepository $userIconRepository,
+        ChannelParamConfigTranslator $paramsTranslator
+    ) {
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
+        $this->paramsTranslator = $paramsTranslator;
     }
 
     public function convert(array $requestData) {
@@ -34,6 +42,9 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
         $channel->setTextParam1($requestData['textParam1'] ?? null);
         $channel->setTextParam2($requestData['textParam2'] ?? null);
         $channel->setTextParam3($requestData['textParam3'] ?? null);
+        if (isset($requestData['params'])) {
+            $this->paramsTranslator->setParamsFromConfig($requestData['params'], $channel);
+        }
         $channel->setCaption($requestData['caption'] ?? '');
         $channel->setAltIcon($requestData['altIcon'] ?? 0);
         $channel->setHidden($requestData['hidden'] ?? false);
