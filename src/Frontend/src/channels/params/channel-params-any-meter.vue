@@ -8,13 +8,14 @@
                     min="0"
                     max="1000"
                     class="form-control text-center"
-                    v-model="pricePerUnit">
+                    v-model="channel.params.pricePerUnit"
+                    @change="$emit('change')">
             </span>
         </dt>
 
         <dd>{{ $t('Currency') }}</dd>
         <dt>
-            <currency-picker v-model="currency"></currency-picker>
+            <currency-picker v-model="channel.params.currency"></currency-picker>
         </dt>
     </dl>
 </template>
@@ -25,25 +26,5 @@
     export default {
         components: {CurrencyPicker},
         props: ['channel', 'unit'],
-        computed: {
-            pricePerUnit: {
-                set(value) {
-                    this.channel.param2 = value * 10000;
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param2 / 10000;
-                }
-            },
-            currency: {
-                set(value) {
-                    this.channel.textParam1 = value;
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.textParam1;
-                }
-            }
-        },
     };
 </script>

@@ -4,16 +4,19 @@ namespace SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Utils\NumberUtils;
 
 class HumidityAdjustmentParamTranslator implements ChannelParamTranslator {
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
-            'humidityAdjustment' => $channel->getParam3(),
+            'humidityAdjustment' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 100, 2),
         ];
     }
 
     public function setParamsFromConfig(array $config, IODeviceChannel $channel) {
-        $channel->setParam3($config['humidityAdjustment'] ?? $channel->getParam3());
+        if (isset($config['humidityAdjustment'])) {
+            $channel->setParam3(intval($config['humidityAdjustment'] * 100));
+        }
     }
 
     public function supports(IODeviceChannel $channel): bool {

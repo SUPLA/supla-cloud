@@ -30,20 +30,21 @@
             this.updateRelatedChannel();
         },
         watch: {
-            'channel.param1'() {
+            'channel.params.controllingChannelId'() {
                 this.updateRelatedChannel();
             }
         },
         methods: {
             updateRelatedChannel() {
-                if (this.channel.param1) {
-                    this.$http.get(`channels/${this.channel.param1}`).then(response => this.relatedChannel = response.body);
+                if (this.channel.params.controllingChannelId) {
+                    this.$http.get(`channels/${this.channel.params.controllingChannelId}`)
+                        .then(response => this.relatedChannel = response.body);
                 } else {
                     this.relatedChannel = undefined;
                 }
             },
             relatedChannelChanged() {
-                this.channel.param1 = this.relatedChannel ? this.relatedChannel.id : 0;
+                this.channel.params.controllingChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');
             }
         }

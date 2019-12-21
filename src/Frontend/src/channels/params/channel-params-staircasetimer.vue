@@ -8,7 +8,7 @@
                     min="0.5"
                     max="3600"
                     class="form-control text-center"
-                    v-model="param1">
+                    v-model="channel.params.relayTimeS">
                 <span class="input-group-addon">
                     {{ $t('sec.') }}
                 </span>
@@ -18,22 +18,7 @@
 </template>
 
 <script>
-    import ChannelParamsControllingAnyLock from "./channel-params-controlling-any-lock";
-    import ChannelsDropdown from "../../devices/channels-dropdown";
-
     export default {
-        components: {ChannelsDropdown, ChannelParamsControllingAnyLock},
         props: ['channel'],
-        computed: {
-            param1: {
-                set(value) {
-                    this.channel.param1 = Math.round(value * 10);
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param1 / 10;
-                }
-            }
-        }
     };
 </script>

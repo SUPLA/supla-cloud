@@ -32,26 +32,27 @@
         },
         methods: {
             updateSecondaryChannel() {
-                if (this.channel.param2) {
-                    this.$http.get(`channels/${this.channel.param2}`).then(response => this.secondaryChannel = response.body);
+                if (this.channel.params.controllingSecondaryChannelId) {
+                    this.$http.get(`channels/${this.channel.params.controllingSecondaryChannelId}`)
+                        .then(response => this.secondaryChannel = response.body);
                 } else {
                     this.secondaryChannel = undefined;
                 }
             },
             secondaryChannelChanged() {
-                this.channel.param2 = this.secondaryChannel ? this.secondaryChannel.id : 0;
+                this.channel.params.controllingSecondaryChannelId = this.secondaryChannel ? this.secondaryChannel.id : 0;
                 this.$emit('change');
             }
         },
         watch: {
-            'channel.param1'() {
-                if (this.channel.param1 == this.channel.param2) {
-                    this.channel.param2 = 0;
+            'channel.params.controllingChannelId'() {
+                if (this.channel.params.controllingChannelId == this.channel.params.controllingSecondaryChannelId) {
+                    this.channel.params.controllingSecondaryChannelId = 0;
                 }
             },
-            'channel.param2'() {
-                if (this.channel.param1 == this.channel.param2) {
-                    this.channel.param1 = 0;
+            'channel.params.controllingSecondaryChannelId'() {
+                if (this.channel.params.controllingChannelId == this.channel.params.controllingSecondaryChannelId) {
+                    this.channel.params.controllingChannelId = 0;
                 }
                 this.updateSecondaryChannel();
             }

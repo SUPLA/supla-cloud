@@ -303,5 +303,19 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(SceneOperation::class, $sceneOperation->getId()));
         $this->assertNull($this->getEntityManager()->find(Scene::class, $scene->getId()));
+        return $gateChannel;
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */
+    public function testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorks(IODeviceChannel $gateChannel) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEDOORLOCK,
+            'params' => ['relayTimeMs' => 1567],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $this->assertEquals(1567, $gateChannel->getParam1());
     }
 }

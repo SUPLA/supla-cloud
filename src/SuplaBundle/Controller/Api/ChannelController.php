@@ -192,6 +192,7 @@ class ChannelController extends RestController {
                 if ($functionHasBeenChanged) {
                     $channel->setFunction($updatedChannel->getFunction());
                     $channelDependencies->clearDependencies($channel);
+                    $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
                     $em->persist($channel);
                 }
                 return $channel;

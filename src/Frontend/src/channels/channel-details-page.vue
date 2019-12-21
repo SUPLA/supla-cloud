@@ -193,8 +193,7 @@
                 this.$set(this.channel, 'function', fnc);
                 this.channel.altIcon = 0;
                 this.channel.userIconId = null;
-                this.channel.textParam1 = null;
-                this.channel.textParam2 = null;
+                // this.channel.params = {};
                 this.updateChannel();
             }
         },
@@ -209,8 +208,8 @@
                 return [].concat.apply([{id: 0, caption: 'None', name: 'NONE', possibleActions: []}], this.channel.supportedFunctions);
             },
             shownInClientsAlwaysOn() {
-                if (this.channel.function.name.match(/^OPENINGSENSOR/)) {
-                    return +this.channel.param1 > 0 || +this.channel.param2 > 0;
+                if (this.channel.params.controllingChannelId || this.channel.params.controllingSecondaryChannelId) {
+                    return true;
                 } else {
                     return false;
                 }

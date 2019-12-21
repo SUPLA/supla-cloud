@@ -10,9 +10,11 @@ class ImpulseCounterInitialValue extends RangeParamsUpdater {
 
     public function __construct() {
         parent::__construct(
-            [ChannelFunction::ELECTRICITYMETER(),
+            [
+                ChannelFunction::ELECTRICITYMETER(),
                 ChannelFunction::GASMETER(),
-                ChannelFunction::WATERMETER()],
+                ChannelFunction::WATERMETER(),
+            ],
             self::MIN_COUNT,
             self::MAX_COUNT,
             1,

@@ -8,7 +8,8 @@
                     min="0"
                     max="300"
                     class="form-control text-center"
-                    v-model="param1">
+                    v-model="channel.params.openingTimeS"
+                    @change="$emit('change')">
                 <span class="input-group-addon">
                     {{ $t('sec.') }}
                 </span>
@@ -22,7 +23,8 @@
                     min="0"
                     max="300"
                     class="form-control text-center"
-                    v-model="param3">
+                    v-model="channel.params.closingTimeS"
+                    @change="$emit('change')">
                 <span class="input-group-addon">
                     {{ $t('sec.') }}
                 </span>
@@ -53,34 +55,15 @@
             };
         },
         mounted() {
-            if (this.channel.param2) {
-                this.$http.get(`channels/${this.channel.param2}`).then(response => this.relatedChannel = response.body);
+            if (this.channel.params.openingSensorChannelId) {
+                this.$http.get(`channels/${this.channel.params.openingSensorChannelId}`)
+                    .then(response => this.relatedChannel = response.body);
             }
         },
         methods: {
             relatedChannelChanged() {
-                this.channel.param2 = this.relatedChannel ? this.relatedChannel.id : 0;
+                this.channel.params.openingSensorChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');
-            }
-        },
-        computed: {
-            param1: {
-                set(value) {
-                    this.channel.param1 = Math.round(value * 10);
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param1 / 10;
-                }
-            },
-            param3: {
-                set(value) {
-                    this.channel.param3 = Math.round(value * 10);
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param3 / 10;
-                }
             }
         }
     };

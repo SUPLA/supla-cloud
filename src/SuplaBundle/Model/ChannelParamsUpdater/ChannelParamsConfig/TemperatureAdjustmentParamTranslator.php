@@ -4,16 +4,19 @@ namespace SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Utils\NumberUtils;
 
 class TemperatureAdjustmentParamTranslator implements ChannelParamTranslator {
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
-            'temperatureAdjustment' => $channel->getParam2(),
+            'temperatureAdjustment' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 100, 2),
         ];
     }
 
     public function setParamsFromConfig(array $config, IODeviceChannel $channel) {
-        $channel->setParam2($config['temperatureAdjustment'] ?? $channel->getParam2());
+        if (isset($config['temperatureAdjustment'])) {
+            $channel->setParam2(intval($config['temperatureAdjustment'] * 100));
+        }
     }
 
     public function supports(IODeviceChannel $channel): bool {

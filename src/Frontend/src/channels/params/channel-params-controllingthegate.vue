@@ -33,26 +33,27 @@
         },
         methods: {
             updateSecondarySensor() {
-                if (this.channel.param3) {
-                    this.$http.get(`channels/${this.channel.param3}`).then(response => this.secondarySensor = response.body);
+                if (this.channel.params.openingSensorSecondaryChannelId) {
+                    this.$http.get(`channels/${this.channel.params.openingSensorSecondaryChannelId}`)
+                        .then(response => this.secondarySensor = response.body);
                 } else {
                     this.secondarySensor = undefined;
                 }
             },
             secondarySensorChanged() {
-                this.channel.param3 = this.secondarySensor ? this.secondarySensor.id : 0;
+                this.channel.params.openingSensorSecondaryChannelId = this.secondarySensor ? this.secondarySensor.id : 0;
                 this.$emit('change');
             }
         },
         watch: {
-            'channel.param2'() {
-                if (this.channel.param2 == this.channel.param3) {
-                    this.channel.param3 = 0;
+            'channel.params.openingSensorChannelId'() {
+                if (this.channel.params.openingSensorChannelId == this.channel.params.openingSensorSecondaryChannelId) {
+                    this.channel.params.openingSensorSecondaryChannelId = 0;
                 }
             },
-            'channel.param3'() {
-                if (this.channel.param2 == this.channel.param3) {
-                    this.channel.param2 = 0;
+            'channel.params.openingSensorSecondaryChannelId'() {
+                if (this.channel.params.openingSensorChannelId == this.channel.params.openingSensorSecondaryChannelId) {
+                    this.channel.params.openingSensorChannelId = 0;
                 }
                 this.updateSecondarySensor();
             }
