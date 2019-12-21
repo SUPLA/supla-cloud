@@ -19,6 +19,7 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Scene;
@@ -89,6 +90,7 @@ class ScenesFixture extends SuplaFixture {
                 do {
                     $subject = $this->faker->randomElement($subjectFactories)($user);
                 } while (!$subject);
+                /** @var HasFunction $subject */
                 $action = $this->faker->randomElement($subject->getFunction()->getPossibleActions());
                 $sceneOperation = new SceneOperation($subject, $action, [], $this->faker->randomElement([0, 0, 0, 1000, 30000]));
                 $operations[] = $sceneOperation;
