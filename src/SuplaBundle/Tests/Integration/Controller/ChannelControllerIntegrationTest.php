@@ -212,6 +212,20 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::OPENINGSENSOR_GARAGEDOOR, $sensorChannel->getFunction()->getId());
     }
 
+    public function testCanChangeChannelFunctionToNone() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $sensorChannel->getId(), [
+            'functionId' => ChannelFunction::NONE,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
+        $this->assertEquals(ChannelFunction::NONE, $sensorChannel->getFunction()->getId());
+    }
+
     public function testCannotChangeChannelFunctionToNotSupported() {
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],

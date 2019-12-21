@@ -147,7 +147,7 @@ class ChannelController extends RestController {
             if ($functionHasBeenChanged) {
                 Assertion::inArray(
                     $updatedChannel->getFunction()->getId(),
-                    EntityUtils::mapToIds(ChannelFunction::forChannel($channel)),
+                    array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
                     'Invalid function for channel.' // i18n
                 );
                 $hasRelations = count($channel->getSchedules()) || count($channel->getChannelGroups()) || count($channel->getDirectLinks());
