@@ -2,7 +2,7 @@ language: php
 php:
   - '7.0.28'
 before_install:
-  - nvm install 8
+  - nvm install 8.15.1
 before_script:
   - mysql -e 'create database supla_test;' -uroot
   - mysql -e "grant all privileges on *.* to 'travis'@'localhost' with grant option;" -uroot
