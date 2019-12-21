@@ -26,6 +26,7 @@ use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfi
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ControllingChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ControllingSecondaryParamTranslator;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ElectricityMeterParamsTranslator;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\GeneralPurposeMeasurementParamsTranslator;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\HumidityAdjustmentParamTranslator;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ImpulseCounterParamsTranslator;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\InvertedLogicParamTranslator;
@@ -55,6 +56,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new InvertedLogicParamTranslator(),
             new ControllingChannelParamTranslator(),
             new ControllingSecondaryParamTranslator(),
+            new GeneralPurposeMeasurementParamsTranslator(),
         ]);
     }
 
@@ -133,6 +135,36 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::STAIRCASETIMER(), [1011], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, 123], ['temperatureAdjustment' => 1.23]],
             [ChannelFunction::WATERMETER(), [111, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 111, 'customUnit' => 'm3'], ChannelType::IMPULSECOUNTER()],
+            [
+                ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
+                [121230, 131300, 0b000011011, '$', 'USD'],
+                [
+                    'measurementMultiplier' => 12.123,
+                    'measurementAdjustment' => 13.13,
+                    'precision' => 3,
+                    'storeMeasurementHistory' => true,
+                    'chartPresentation' => 1,
+                    'chartType' => 0,
+                    'interpolateMeasurements' => false,
+                    'unitPrefix' => '$',
+                    'unitSuffix' => 'USD',
+                ],
+            ],
+            [
+                ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
+                [121230, 131300, 0b101011101, '$', 'USD'],
+                [
+                    'measurementMultiplier' => 12.123,
+                    'measurementAdjustment' => 13.13,
+                    'precision' => 5,
+                    'storeMeasurementHistory' => true,
+                    'chartPresentation' => 1,
+                    'chartType' => 1,
+                    'interpolateMeasurements' => true,
+                    'unitPrefix' => '$',
+                    'unitSuffix' => 'USD',
+                ],
+            ],
         ];
         // @codingStandardsIgnoreEnd
     }
