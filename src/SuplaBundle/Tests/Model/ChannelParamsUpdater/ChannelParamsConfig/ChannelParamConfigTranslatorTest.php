@@ -88,6 +88,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     }
 
     public function paramsConfigsExamples() {
+        // @codingStandardsIgnoreStart
         return [
             [ChannelFunction::NONE(), [], []],
             [ChannelFunction::CONTROLLINGTHEDOORLOCK(), [700, 123], ['relayTime' => 700, 'openingSensorChannelId' => 123]],
@@ -99,6 +100,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::GASMETER(), [null, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'customUnit' => 'm3']],
             [ChannelFunction::HUMIDITY(), [null, null, 124], ['humidityAdjustment' => 124]],
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), [null, 123, 124], ['temperatureAdjustment' => 123, 'humidityAdjustment' => 124]],
+            [ChannelFunction::LIGHTSWITCH(), [], []],
             [ChannelFunction::MAILSENSOR(), [null, null, 1], ['invertedLogic' => true]],
             [ChannelFunction::NOLIQUIDSENSOR(), [null, null, 0], ['invertedLogic' => false]],
             [ChannelFunction::OPENINGSENSOR_DOOR(), [123, null, 0], ['invertedLogic' => false, 'controllingChannelId' => 123]],
@@ -111,6 +113,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::THERMOMETER(), [null, 123], ['temperatureAdjustment' => 123]],
             [ChannelFunction::WATERMETER(), [null, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'customUnit' => 'm3']],
         ];
+        // @codingStandardsIgnoreEnd
     }
 
     public function testNotOverwritingExistingParamsFromConfigIfNotGiven() {
