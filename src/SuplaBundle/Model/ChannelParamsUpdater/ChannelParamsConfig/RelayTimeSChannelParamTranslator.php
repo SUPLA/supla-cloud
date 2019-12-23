@@ -11,7 +11,7 @@ class RelayTimeSChannelParamTranslator implements ChannelParamTranslator {
         return ['relayTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10, 1)];
     }
 
-    public function setParamsFromConfig(array $config, IODeviceChannel $channel) {
+    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (isset($config['relayTimeS'])) {
             $channel->setParam1(intval($config['relayTimeS'] * 10));
         }

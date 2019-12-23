@@ -14,7 +14,7 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
         ];
     }
 
-    public function setParamsFromConfig(array $config, IODeviceChannel $channel) {
+    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (isset($config['openingTimeS'])) {
             $channel->setParam1(intval($config['openingTimeS'] * 10));
         }

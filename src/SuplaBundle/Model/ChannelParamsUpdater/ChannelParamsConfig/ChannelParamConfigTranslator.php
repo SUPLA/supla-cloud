@@ -22,10 +22,10 @@ class ChannelParamConfigTranslator {
         return $config;
     }
 
-    public function setParamsFromConfig(array $config, IODeviceChannel $channel): void {
+    public function setParamsFromConfig(IODeviceChannel $channel, array $config): void {
         foreach ($this->translators as $translator) {
             if ($translator->supports($channel)) {
-                $translator->setParamsFromConfig($config, $channel);
+                $translator->setParamsFromConfig($channel, $config);
             }
         }
     }

@@ -15,7 +15,7 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
         ];
     }
 
-    public function setParamsFromConfig(array $config, IODeviceChannel $channel) {
+    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (isset($config['pricePerUnit'])) {
             $channel->setParam2(intval($config['pricePerUnit'] * 10000));
         }

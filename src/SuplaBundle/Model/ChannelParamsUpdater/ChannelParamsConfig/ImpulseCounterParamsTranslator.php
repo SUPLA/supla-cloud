@@ -18,7 +18,7 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
         ];
     }
 
-    public function setParamsFromConfig(array $config, IODeviceChannel $channel) {
+    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         $channel->setParam1($config['initialValue'] ?? $channel->getParam1());
         if (isset($config['pricePerUnit'])) {
             $channel->setParam2(intval($config['pricePerUnit'] * 10000));

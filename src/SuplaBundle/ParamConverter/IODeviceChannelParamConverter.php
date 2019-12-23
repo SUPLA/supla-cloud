@@ -47,7 +47,7 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
         $channel->setTextParam2($requestData['textParam2'] ?? null);
         $channel->setTextParam3($requestData['textParam3'] ?? null);
         if (isset($requestData['params'])) {
-            $this->paramsTranslator->setParamsFromConfig($requestData['params'], $channel);
+            $this->paramsTranslator->setParamsFromConfig($channel, $requestData['params']);
         }
         $channel->setCaption($requestData['caption'] ?? '');
         $channel->setAltIcon($requestData['altIcon'] ?? 0);

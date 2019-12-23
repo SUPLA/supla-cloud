@@ -13,7 +13,7 @@ class HumidityAdjustmentParamTranslator implements ChannelParamTranslator {
         ];
     }
 
-    public function setParamsFromConfig(array $config, IODeviceChannel $channel) {
+    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (isset($config['humidityAdjustment'])) {
             $channel->setParam3(intval($config['humidityAdjustment'] * 100));
         }

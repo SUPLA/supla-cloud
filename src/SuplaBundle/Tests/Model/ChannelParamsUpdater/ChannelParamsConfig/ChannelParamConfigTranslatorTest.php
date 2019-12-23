@@ -100,7 +100,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setTextParam1('aaa');
         $channel->setTextParam2('bbb');
         $channel->setTextParam3('ccc');
-        $this->configTranslator->setParamsFromConfig($config, $channel);
+        $this->configTranslator->setParamsFromConfig($channel, $config);
         $this->assertEquals($expectedParams[0] ?? 111, $channel->getParam1());
         $this->assertEquals($expectedParams[1] ?? 222, $channel->getParam2());
         $this->assertEquals($expectedParams[2] ?? 333, $channel->getParam3());
@@ -172,12 +172,12 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     public function testNotOverwritingExistingParamsFromConfigIfNotGiven() {
         $channel = new IODeviceChannel();
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
-        $this->configTranslator->setParamsFromConfig([
+        $this->configTranslator->setParamsFromConfig($channel, [
             'relayTimeMs' => 700,
             'openingSensorChannelId' => 123,
             'openingSensorSecondaryChannelId' => 1234,
-        ], $channel);
-        $this->configTranslator->setParamsFromConfig(['relayTimeMs' => 800], $channel);
+        ]);
+        $this->configTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 800]);
         $this->assertEquals(800, $channel->getParam1());
         $this->assertEquals(123, $channel->getParam2());
         $this->assertEquals(1234, $channel->getParam3());
