@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig;
+namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Enums\ChannelFunction;

@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig;
+namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 trait FixedRangeParamsTranslator {
     protected function getValueInRange($value, int $min, int $max): float {

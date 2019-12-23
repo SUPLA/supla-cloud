@@ -1,6 +1,6 @@
 <?php
 
-namespace SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig;
+namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 
