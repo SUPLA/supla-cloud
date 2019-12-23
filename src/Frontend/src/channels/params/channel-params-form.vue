@@ -27,6 +27,7 @@
     import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
     import ChannelParamsGasmeter from "./channel-params-gas-meter";
     import ChannelParamsWatermeter from "./channel-params-water-meter";
+    import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
 
     export default {
         props: ['channel'],
@@ -52,6 +53,7 @@
             ChannelParamsElectricitymeter,
             ChannelParamsGasmeter,
             ChannelParamsWatermeter,
+            ChannelParamsGeneralPurposeMeasurement,
         },
         computed: {
             additionalChannelParamsComponent() {
