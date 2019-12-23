@@ -18,10 +18,10 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (isset($config['pricePerUnit'])) {
+        if (array_key_exists('pricePerUnit', $config)) {
             $channel->setParam2(intval($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000));
         }
-        if (isset($config['currency'])) {
+        if (array_key_exists('currency', $config)) {
             $currency = $config['currency'];
             if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
                 $channel->setTextParam1($currency);

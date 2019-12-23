@@ -20,14 +20,18 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (array_key_exists('measurementMultiplier', $config)) {
-            $channel->setParam1(intval($config['measurementMultiplier'] * 10000));
+            $channel->setParam1(intval($this->getValueInRange($config['measurementMultiplier'], -1000, 1000) * 10000));
         }
         if (array_key_exists('measurementAdjustment', $config)) {
-            $channel->setParam2(intval($config['measurementAdjustment'] * 10000));
+            $channel->setParam2(intval($this->getValueInRange($config['measurementAdjustment'], -1000, 1000) * 10000));
         }
         $channel->setParam3($this->setValuesToParam3($config, $channel->getParam3()));
-        $channel->setTextParam1($config['unitPrefix'] ?? $channel->getTextParam1());
-        $channel->setTextParam2($config['unitSuffix'] ?? $channel->getTextParam2());
+        if (array_key_exists('unitPrefix', $config)) {
+            $channel->setTextParam1($config['unitPrefix']);
+        }
+        if (array_key_exists('unitSuffix', $config)) {
+            $channel->setTextParam2($config['unitSuffix']);
+        }
     }
 
     /**
@@ -48,23 +52,23 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
     }
 
     private function setValuesToParam3(array $config, int $value): int {
-        if (isset($config['precision'])) {
+        if (array_key_exists('precision', $config)) {
             $value &= ~0b000000111;
-            $value |= max(0, min($config['precision'], 5));
+            $value |= max(0, min(intval($config['precision']), 5));
         }
-        if (isset($config['storeMeasurementHistory'])) {
+        if (array_key_exists('storeMeasurementHistory', $config)) {
             $value &= ~0b000001000;
             $value |= $config['storeMeasurementHistory'] ? 1 << 3 : 0;
         }
-        if (isset($config['chartPresentation'])) {
+        if (array_key_exists('chartPresentation', $config)) {
             $value &= ~0b000010000;
             $value |= $config['chartPresentation'] ? 1 << 4 : 0;
         }
-        if (isset($config['chartType'])) {
+        if (array_key_exists('chartType', $config)) {
             $value &= ~0b001000000;
             $value |= $config['chartType'] ? 1 << 6 : 0;
         }
-        if (isset($config['interpolateMeasurements'])) {
+        if (array_key_exists('interpolateMeasurements', $config)) {
             $value &= ~0b100000000;
             $value |= $config['interpolateMeasurements'] ? 1 << 8 : 0;
         }

@@ -81,7 +81,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setTextParam2($params[4] ?? null);
         $channel->setTextParam3($params[5] ?? null);
         $config = $this->configTranslator->getConfigFromParams($channel);
-        $this->assertEquals($expectedConfig, $config);
+        $this->assertEquals($expectedConfig, array_intersect_key($config, $expectedConfig));
     }
 
     /** @dataProvider paramsConfigsExamples */
@@ -112,15 +112,46 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->assertEquals($expectedParams[5] ?? 'ccc', $channel->getTextParam3());
     }
 
+    /** @dataProvider paramsConfigsExamples */
+    public function testClearingParamsConfig(
+        ChannelFunction $channelFunction,
+        array $expectedParams,
+        array $config,
+        ?ChannelType $type = null
+    ) {
+        $channel = new IODeviceChannel();
+        EntityUtils::setField($channel, 'id', 1);
+        if ($type) {
+            EntityUtils::setField($channel, 'type', $type->getId());
+        }
+        $channel->setFunction($channelFunction);
+        $channel->setParam1(111);
+        $channel->setParam2(222);
+        $channel->setParam3(333);
+        $channel->setTextParam1('aaa');
+        $channel->setTextParam2('bbb');
+        $channel->setTextParam3('ccc');
+        $this->configTranslator->setParamsFromConfig($channel, $config);
+        $this->configTranslator->clearConfig($channel);
+        $this->assertEquals(($expectedParams[0] ?? null) !== null ? 0 : 111, $channel->getParam1());
+        $this->assertEquals(($expectedParams[1] ?? null) !== null ? 0 : 222, $channel->getParam2());
+        $this->assertEquals(($expectedParams[2] ?? null) !== null ? 0 : 333, $channel->getParam3());
+        $this->assertEquals(($expectedParams[3] ?? null) !== null ? 0 : 'aaa', $channel->getTextParam1());
+        $this->assertEquals(($expectedParams[4] ?? null) !== null ? 0 : 'bbb', $channel->getTextParam2());
+        $this->assertEquals(($expectedParams[5] ?? null) !== null ? 0 : 'ccc', $channel->getTextParam3());
+    }
+
     public function paramsConfigsExamples() {
+        // the examples below omits testing of controllingChannels and sensorChannels on purpose;
+        // they are tested in the ControllingAnyLockRelatedSensorIntegrationTest
         // @codingStandardsIgnoreStart
         return [
             [ChannelFunction::NONE(), [], []],
-            [ChannelFunction::CONTROLLINGTHEDOORLOCK(), [700, 222], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222]],
-            [ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), [700, 222], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222]],
-            [ChannelFunction::CONTROLLINGTHEGATE(), [700, 222, 333], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222, 'openingSensorSecondaryChannelId' => 333]],
-            [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700, 222], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222]],
-            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, 222, 800], ['openingTimeS' => 70, 'openingSensorChannelId' => 222, 'closingTimeS' => 80]],
+            [ChannelFunction::CONTROLLINGTHEDOORLOCK(), [700], ['relayTimeMs' => 700]],
+            [ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), [700], ['relayTimeMs' => 700]],
+            [ChannelFunction::CONTROLLINGTHEGATE(), [700], ['relayTimeMs' => 700]],
+            [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700], ['relayTimeMs' => 700]],
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, null, 800], ['openingTimeS' => 70, 'closingTimeS' => 80]],
             [ChannelFunction::ELECTRICITYMETER(), [100, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 100, 'customUnit' => 'm3'], ChannelType::IMPULSECOUNTER()],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN'], ChannelType::ELECTRICITYMETER()],
             [ChannelFunction::GASMETER(), [111, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 111, 'customUnit' => 'm3'], ChannelType::IMPULSECOUNTER()],
@@ -129,11 +160,11 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::LIGHTSWITCH(), [], []],
             [ChannelFunction::MAILSENSOR(), [null, null, 1], ['invertedLogic' => true]],
             [ChannelFunction::NOLIQUIDSENSOR(), [null, null, 0], ['invertedLogic' => false]],
-            [ChannelFunction::OPENINGSENSOR_DOOR(), [111, null, 0], ['invertedLogic' => false, 'controllingChannelId' => 111]],
-            [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), [111, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 111]],
-            [ChannelFunction::OPENINGSENSOR_GATE(), [111, 222, 0], ['invertedLogic' => false, 'controllingChannelId' => 111, 'controllingSecondaryChannelId' => 222]],
-            [ChannelFunction::OPENINGSENSOR_GATEWAY(), [111, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 111]],
-            [ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(), [111, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 111]],
+            [ChannelFunction::OPENINGSENSOR_DOOR(), [null, null, 0], ['invertedLogic' => false]],
+            [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), [null, null, 1], ['invertedLogic' => true]],
+            [ChannelFunction::OPENINGSENSOR_GATE(), [null, null, 0], ['invertedLogic' => false]],
+            [ChannelFunction::OPENINGSENSOR_GATEWAY(), [null, null, 1], ['invertedLogic' => true]],
+            [ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(), [null, null, 0], ['invertedLogic' => false]],
             [ChannelFunction::OPENINGSENSOR_WINDOW(), [null, null, 1], ['invertedLogic' => true]],
             [ChannelFunction::STAIRCASETIMER(), [1011], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, 123], ['temperatureAdjustment' => 1.23]],

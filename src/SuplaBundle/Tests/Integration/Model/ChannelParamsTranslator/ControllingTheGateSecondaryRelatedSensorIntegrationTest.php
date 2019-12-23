@@ -48,7 +48,10 @@ class ControllingTheGateSecondaryRelatedSensorIntegrationTest extends Integratio
 
     public function testSettingSecondarySensorForChannel() {
         $channel = $this->device->getChannels()[0];
-        $this->paramsTranslator->setParamsFromConfig($channel, ['openingSensorSecondaryChannelId' => $this->device->getChannels()[1]->getId()]);
+        $this->paramsTranslator->setParamsFromConfig(
+            $channel,
+            ['openingSensorSecondaryChannelId' => $this->device->getChannels()[1]->getId()]
+        );
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals($channel->getId(), $this->device->getChannels()[1]->getParam2());
         $this->assertEquals($this->device->getChannels()[1]->getId(), $this->device->getChannels()[0]->getParam3());
@@ -56,7 +59,10 @@ class ControllingTheGateSecondaryRelatedSensorIntegrationTest extends Integratio
 
     public function testSettingChannelForSecondarySensor() {
         $channel = $this->device->getChannels()[1];
-        $this->paramsTranslator->setParamsFromConfig($channel, ['controllingSecondaryChannelId' => $this->device->getChannels()[0]->getId()]);
+        $this->paramsTranslator->setParamsFromConfig(
+            $channel,
+            ['controllingSecondaryChannelId' => $this->device->getChannels()[0]->getId()]
+        );
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals($channel->getId(), $this->device->getChannels()[0]->getParam3());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam2());

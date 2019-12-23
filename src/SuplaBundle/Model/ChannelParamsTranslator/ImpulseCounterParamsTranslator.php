@@ -21,23 +21,23 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (isset($config['initialValue'])) {
+        if (array_key_exists('initialValue', $config)) {
             $channel->setParam1($this->getValueInRange($config['initialValue'], 0, 1000000));
         }
-        if (isset($config['pricePerUnit'])) {
+        if (array_key_exists('pricePerUnit', $config)) {
             $channel->setParam2($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000);
         }
-        if (isset($config['impulsesPerUnit'])) {
+        if (array_key_exists('impulsesPerUnit', $config)) {
             $channel->setParam3($this->getValueInRange($config['impulsesPerUnit'], 0, 1000000));
         }
-        if (isset($config['currency'])) {
+        if (array_key_exists('currency', $config)) {
             $currency = $config['currency'];
             if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
                 $channel->setTextParam1($currency);
             }
         }
-        if (isset($config['customUnit'])) {
-            if (strlen($config['customUnit']) <= 4) {
+        if (array_key_exists('customUnit', $config)) {
+            if (strlen($config['customUnit'] ?? '') <= 4) {
                 $channel->setTextParam2($config['customUnit']);
             }
         }

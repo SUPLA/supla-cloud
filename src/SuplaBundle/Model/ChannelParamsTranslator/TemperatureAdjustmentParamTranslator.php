@@ -16,7 +16,7 @@ class TemperatureAdjustmentParamTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (isset($config['temperatureAdjustment'])) {
+        if (array_key_exists('temperatureAdjustment', $config)) {
             $channel->setParam2(intval($this->getValueInRange($config['temperatureAdjustment'], -10, 10) * 100));
         }
     }
