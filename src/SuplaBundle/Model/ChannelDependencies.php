@@ -4,28 +4,28 @@ namespace SuplaBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 
 /**
  * This class is responsible for detecting and possibly clearing all items that rely on the given channel (and its function).
  */
 class ChannelDependencies {
-    /** @var ChannelParamsUpdater */
-    private $channelParamsUpdater;
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var ScheduleManager */
     private $scheduleManager;
+    /** @var ChannelParamConfigTranslator */
+    private $channelParamConfigTranslator;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ChannelParamsUpdater $channelParamsUpdater,
+        ChannelParamConfigTranslator $channelParamConfigTranslator,
         ScheduleManager $scheduleManager
     ) {
         $this->entityManager = $entityManager;
-        $this->channelParamsUpdater = $channelParamsUpdater;
         $this->scheduleManager = $scheduleManager;
+        $this->channelParamConfigTranslator = $channelParamConfigTranslator;
     }
 
     public function getDependencies(IODeviceChannel $channel): array {
@@ -38,8 +38,7 @@ class ChannelDependencies {
     }
 
     public function clearDependencies(IODeviceChannel $channel): void {
-        // clears all paired channels that are possibly made with the one that is being deleted
-        $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
+        $this->channelParamConfigTranslator->clearConfig($channel);
         foreach ($channel->getChannelGroups() as $channelGroup) {
             $channelGroup->removeChannel($channel, $this->entityManager);
         }

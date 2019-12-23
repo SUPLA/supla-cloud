@@ -33,7 +33,7 @@ use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelDependencies;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
@@ -45,8 +45,6 @@ class ChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    /** @var ChannelParamsUpdater */
-    private $channelParamsUpdater;
     /** @var ChannelStateGetter */
     private $channelStateGetter;
     /** @var ChannelActionExecutor */
@@ -55,12 +53,10 @@ class ChannelController extends RestController {
     private $scheduleManager;
 
     public function __construct(
-        ChannelParamsUpdater $channelParamsUpdater,
         ChannelStateGetter $channelStateGetter,
         ChannelActionExecutor $channelActionExecutor,
         ScheduleManager $scheduleManager
     ) {
-        $this->channelParamsUpdater = $channelParamsUpdater;
         $this->channelStateGetter = $channelStateGetter;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->scheduleManager = $scheduleManager;
@@ -146,10 +142,16 @@ class ChannelController extends RestController {
         Request $request,
         IODeviceChannel $channel,
         IODeviceChannel $updatedChannel,
-        ChannelDependencies $channelDependencies
+        ChannelDependencies $channelDependencies,
+        ChannelParamConfigTranslator $paramConfigTranslator
     ) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
+            $newParams = $request->request->all()['params'] ?? [];
+            if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+                EntityUtils::setField($updatedChannel, 'type', $channel->getType()->getId());
+                $newParams = $paramConfigTranslator->getConfigFromParams($updatedChannel);
+            }
             if ($functionHasBeenChanged) {
                 Assertion::inArray(
                     $updatedChannel->getFunction()->getId(),
@@ -180,8 +182,10 @@ class ChannelController extends RestController {
             }
             $channel->setCaption($updatedChannel->getCaption());
             $channel->setHidden($updatedChannel->getHidden());
-            $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
+            $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
+                $newParams,
+                $paramConfigTranslator,
                 $channelDependencies,
                 $updatedChannel,
                 $functionHasBeenChanged,
@@ -192,7 +196,7 @@ class ChannelController extends RestController {
                 if ($functionHasBeenChanged) {
                     $channel->setFunction($updatedChannel->getFunction());
                     $channelDependencies->clearDependencies($channel);
-                    $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
+                    $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
                     $em->persist($channel);
                 }
                 return $channel;

@@ -8,6 +8,8 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Utils\NumberUtils;
 
 class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
+    use FixedRangeParamsTranslator;
+
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
@@ -19,13 +21,26 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        $channel->setParam1($config['initialValue'] ?? $channel->getParam1());
-        if (isset($config['pricePerUnit'])) {
-            $channel->setParam2(intval($config['pricePerUnit'] * 10000));
+        if (isset($config['initialValue'])) {
+            $channel->setParam1($this->getValueInRange($config['initialValue'], 0, 1000000));
         }
-        $channel->setParam3($config['impulsesPerUnit'] ?? $channel->getParam3());
-        $channel->setTextParam1($config['currency'] ?? $channel->getTextParam1());
-        $channel->setTextParam2($config['customUnit'] ?? $channel->getTextParam2());
+        if (isset($config['pricePerUnit'])) {
+            $channel->setParam2($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000);
+        }
+        if (isset($config['impulsesPerUnit'])) {
+            $channel->setParam3($this->getValueInRange($config['impulsesPerUnit'], 0, 1000000));
+        }
+        if (isset($config['currency'])) {
+            $currency = $config['currency'];
+            if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
+                $channel->setTextParam1($currency);
+            }
+        }
+        if (isset($config['customUnit'])) {
+            if (strlen($config['customUnit']) <= 4) {
+                $channel->setTextParam2($config['customUnit']);
+            }
+        }
     }
 
     public function supports(IODeviceChannel $channel): bool {

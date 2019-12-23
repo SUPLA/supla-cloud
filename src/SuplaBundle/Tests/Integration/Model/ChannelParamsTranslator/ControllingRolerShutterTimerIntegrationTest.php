@@ -15,13 +15,12 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater;
+namespace SuplaBundle\Tests\Integration\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -30,8 +29,8 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     /** @var IODevice */
     private $device;
-    /** @var ChannelParamsUpdater */
-    private $updater;
+    /** @var ChannelParamConfigTranslator */
+    private $paramsTranslator;
 
     /** @before */
     public function createDeviceForTests() {
@@ -41,7 +40,7 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER],
         ]);
-        $this->updater = self::$container->get(ChannelParamsUpdater::class);
+        $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($user);
     }
 
@@ -49,20 +48,23 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
         $channel = $this->device->getChannels()[0];
         $this->assertEquals(0, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
-        $this->updater->updateChannelParams($channel, new IODeviceChannel());
+        $this->paramsTranslator->setParamsFromConfig($channel, []);
         $this->assertEquals(0, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
-        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(1000));
+        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 0]);
         $this->assertEquals(1000, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
-        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(1000, 0, 3000));
+        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 300]);
         $this->assertEquals(1000, $channel->getParam1());
+        $this->assertEquals(3000, $channel->getParam3());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 1000, 'closingTimeS' => 3000]);
+        $this->assertEquals(3000, $channel->getParam1());
         $this->assertEquals(3000, $channel->getParam3());
     }
 
     public function testSettingOpeningSensorForRollerShutter() {
         $channel = $this->device->getChannels()[0];
-        $this->updater->updateChannelParams($channel, new IODeviceChannelWithParams(0, $this->device->getChannels()[1]->getId()));
+        $this->paramsTranslator->setParamsFromConfig($channel, ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]);
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals($channel->getId(), $this->device->getChannels()[1]->getParam1());
         $this->assertEquals($this->device->getChannels()[1]->getId(), $this->device->getChannels()[0]->getParam2());
@@ -70,7 +72,7 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     public function testSettingRollerShutterForOpeningSensor() {
         $sensor = $this->device->getChannels()[1];
-        $this->updater->updateChannelParams($sensor, new IODeviceChannelWithParams($this->device->getChannels()[0]->getId()));
+        $this->paramsTranslator->setParamsFromConfig($sensor, ['controllingChannelId' => $this->device->getChannels()[0]->getId()]);
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());

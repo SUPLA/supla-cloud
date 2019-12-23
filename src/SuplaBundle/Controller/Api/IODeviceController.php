@@ -25,7 +25,6 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelDependencies;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -38,19 +37,12 @@ class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    /** @var ChannelParamsUpdater */
-    private $channelParamsUpdater;
     /** @var ScheduleManager */
     private $scheduleManager;
     /** @var IODeviceChannelRepository */
     private $iodeviceRepository;
 
-    public function __construct(
-        ChannelParamsUpdater $channelParamsUpdater,
-        ScheduleManager $scheduleManager,
-        IODeviceRepository $iodeviceRepository
-    ) {
-        $this->channelParamsUpdater = $channelParamsUpdater;
+    public function __construct(ScheduleManager $scheduleManager, IODeviceRepository $iodeviceRepository) {
         $this->scheduleManager = $scheduleManager;
         $this->iodeviceRepository = $iodeviceRepository;
     }

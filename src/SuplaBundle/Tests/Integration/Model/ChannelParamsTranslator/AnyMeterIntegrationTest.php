@@ -15,13 +15,12 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater;
+namespace SuplaBundle\Tests\Integration\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -31,8 +30,8 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
 
     /** @var IODevice */
     private $device;
-    /** @var ChannelParamsUpdater */
-    private $updater;
+    /** @var ChannelParamConfigTranslator */
+    private $paramsTranslator;
 
     public function initializeDatabaseForTests() {
         $user = $this->createConfirmedUser();
@@ -43,147 +42,89 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
         ]);
-        $this->updater = self::$container->get(ChannelParamsUpdater::class);
+        $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
     }
 
     public function testUpdatingPricePerUnit() {
-
         foreach ($this->device->getChannels() as $channel) {
             $this->assertEquals(0, $channel->getParam2());
-            $newChannel = new IODeviceChannel();
-
-            $newChannel->setParam2(1000 * 10000);
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1000]);
             $this->assertEquals(1000 * 10000, $channel->getParam2());
-
-            $newChannel->setParam2(1);
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0.0001]);
             $this->assertEquals(1, $channel->getParam2());
-
-            $newChannel->setParam2(1000 * 10000 + 1);
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1001]);
             $this->assertEquals(1000 * 10000, $channel->getParam2());
-
-            $newChannel->setParam2(0);
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0]);
             $this->assertEquals(0, $channel->getParam2());
-
-            $newChannel->setParam2(-1);
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => -1]);
             $this->assertEquals(0, $channel->getParam2());
         }
     }
 
     public function testUpdatingImpulsesPerUnit() {
-
         foreach ($this->device->getChannels() as $channel) {
             if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
                 $this->assertEquals(0, $channel->getParam3());
-                $newChannel = new IODeviceChannel();
-
-                $newChannel->setParam3(1000000);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000000]);
                 $this->assertEquals(1000000, $channel->getParam3());
-
-                $newChannel->setParam3(1);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1]);
                 $this->assertEquals(1, $channel->getParam3());
-
-                $newChannel->setParam3(1000001);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000001]);
                 $this->assertEquals(1000000, $channel->getParam3());
-
-                $newChannel->setParam3(0);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 0]);
                 $this->assertEquals(0, $channel->getParam3());
-
-                $newChannel->setParam3(-1);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => -1]);
                 $this->assertEquals(0, $channel->getParam3());
             }
         }
     }
 
     public function testUpdatingInitialValue() {
-
         foreach ($this->device->getChannels() as $channel) {
             if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
                 $this->assertEquals(0, $channel->getParam1());
-                $newChannel = new IODeviceChannel();
-
-                $newChannel->setParam1(1000000);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000000]);
                 $this->assertEquals(1000000, $channel->getParam1());
-
-                $newChannel->setParam1(1);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1]);
                 $this->assertEquals(1, $channel->getParam1());
-
-                $newChannel->setParam1(1000001);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000001]);
                 $this->assertEquals(1000000, $channel->getParam1());
-
-                $newChannel->setParam1(0);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0]);
                 $this->assertEquals(0, $channel->getParam1());
-
-                $newChannel->setParam1(0);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -1]);
                 $this->assertEquals(0, $channel->getParam1());
             }
         }
     }
 
     public function testUpdatingCurrency() {
-
         foreach ($this->device->getChannels() as $channel) {
             $this->assertEquals(null, $channel->getTextParam1());
-            $newChannel = new IODeviceChannel();
-
-            $newChannel->setTextParam1("PLN");
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'PLN']);
             $this->assertEquals("PLN", $channel->getTextParam1());
-
-            $newChannel->setTextParam1("ABCD");
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'ABCD']);
             $this->assertEquals("PLN", $channel->getTextParam1());
-
-            $newChannel->setTextParam1("P");
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'P']);
             $this->assertEquals("PLN", $channel->getTextParam1());
-
-            $newChannel->setTextParam1("");
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => '']);
             $this->assertEquals("", $channel->getTextParam1());
-
-            $newChannel->setTextParam1(null);
-            $this->updater->updateChannelParams($channel, $newChannel);
+            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => null]);
             $this->assertEquals(null, $channel->getTextParam1());
         }
     }
 
     public function testUpdatingUnit() {
-
         foreach ($this->device->getChannels() as $channel) {
             if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
                 $this->assertEquals(null, $channel->getTextParam2());
-                $newChannel = new IODeviceChannel();
-
-                $newChannel->setTextParam2("kWh");
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => 'kWh']);
                 $this->assertEquals("kWh", $channel->getTextParam2());
-
-                $newChannel->setTextParam2("");
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => '']);
                 $this->assertEquals("", $channel->getTextParam2());
-
-                $newChannel->setTextParam2(null);
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => null]);
                 $this->assertEquals(null, $channel->getTextParam2());
             } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
-                $newChannel = new IODeviceChannel();
-                $newChannel->setTextParam2("kWh");
-                $this->updater->updateChannelParams($channel, $newChannel);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => 'kWh']);
                 $this->assertEquals(null, $channel->getTextParam2());
             }
         }

@@ -6,6 +6,8 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 
 class InvertedLogicParamTranslator implements ChannelParamTranslator {
+    use FixedRangeParamsTranslator;
+
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
             'invertedLogic' => boolval($channel->getParam3()),
@@ -13,7 +15,9 @@ class InvertedLogicParamTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        $channel->setParam3(($config['invertedLogic'] ?? $channel->getParam3()) ? 1 : 0);
+        if (isset($config['invertedLogic'])) {
+            $channel->setParam3($this->getValueInRange($config['invertedLogic'], 0, 1) ? 1 : 0);
+        }
     }
 
     public function supports(IODeviceChannel $channel): bool {

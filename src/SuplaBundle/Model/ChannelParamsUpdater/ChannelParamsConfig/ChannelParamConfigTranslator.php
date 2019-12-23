@@ -29,4 +29,12 @@ class ChannelParamConfigTranslator {
             }
         }
     }
+
+    public function clearConfig(IODeviceChannel $channel) {
+        $config = $this->getConfigFromParams($channel);
+        $config = array_map(function () {
+            return null;
+        }, $config);
+        $this->setParamsFromConfig($channel, $config);
+    }
 }

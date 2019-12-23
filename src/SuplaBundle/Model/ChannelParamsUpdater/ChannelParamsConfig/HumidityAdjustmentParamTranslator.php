@@ -7,6 +7,8 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 
 class HumidityAdjustmentParamTranslator implements ChannelParamTranslator {
+    use FixedRangeParamsTranslator;
+
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
             'humidityAdjustment' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 100, 2),
@@ -15,7 +17,7 @@ class HumidityAdjustmentParamTranslator implements ChannelParamTranslator {
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (isset($config['humidityAdjustment'])) {
-            $channel->setParam3(intval($config['humidityAdjustment'] * 100));
+            $channel->setParam3(intval($this->getValueInRange($config['humidityAdjustment'], -10, 10) * 100));
         }
     }
 

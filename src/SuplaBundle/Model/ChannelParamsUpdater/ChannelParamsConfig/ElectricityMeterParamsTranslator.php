@@ -8,6 +8,8 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Utils\NumberUtils;
 
 class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
+    use FixedRangeParamsTranslator;
+
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
@@ -17,10 +19,14 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (isset($config['pricePerUnit'])) {
-            $channel->setParam2(intval($config['pricePerUnit'] * 10000));
+            $channel->setParam2(intval($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000));
         }
-        $channel->setParam3($config['impulsesPerUnit'] ?? $channel->getParam3());
-        $channel->setTextParam1($config['currency'] ?? $channel->getTextParam1());
+        if (isset($config['currency'])) {
+            $currency = $config['currency'];
+            if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
+                $channel->setTextParam1($currency);
+            }
+        }
     }
 
     public function supports(IODeviceChannel $channel): bool {

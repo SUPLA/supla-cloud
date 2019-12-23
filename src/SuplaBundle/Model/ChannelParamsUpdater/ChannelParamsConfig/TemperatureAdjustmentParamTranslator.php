@@ -7,6 +7,8 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 
 class TemperatureAdjustmentParamTranslator implements ChannelParamTranslator {
+    use FixedRangeParamsTranslator;
+
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
             'temperatureAdjustment' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 100, 2),
@@ -15,7 +17,7 @@ class TemperatureAdjustmentParamTranslator implements ChannelParamTranslator {
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (isset($config['temperatureAdjustment'])) {
-            $channel->setParam2(intval($config['temperatureAdjustment'] * 100));
+            $channel->setParam2(intval($this->getValueInRange($config['temperatureAdjustment'], -10, 10) * 100));
         }
     }
 

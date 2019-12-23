@@ -7,6 +7,8 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 
 class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslator {
+    use FixedRangeParamsTranslator;
+
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return array_merge([
             'measurementMultiplier' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10000, 4),

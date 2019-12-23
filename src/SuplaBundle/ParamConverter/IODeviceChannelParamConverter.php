@@ -2,7 +2,6 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator;
 use SuplaBundle\Model\CurrentUserAware;
@@ -37,18 +36,12 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
         $channel = new IODeviceChannel();
         $function = $requestData['functionId'] ?? 0;
         $channel->setFunction($function);
-        if (isset($requestData['typeId'])) {
-            EntityUtils::setField($channel, 'type', $requestData['typeId']);
-        }
         $channel->setParam1($requestData['param1'] ?? 0);
         $channel->setParam2($requestData['param2'] ?? 0);
         $channel->setParam3($requestData['param3'] ?? 0);
         $channel->setTextParam1($requestData['textParam1'] ?? null);
         $channel->setTextParam2($requestData['textParam2'] ?? null);
         $channel->setTextParam3($requestData['textParam3'] ?? null);
-        if (isset($requestData['params'])) {
-            $this->paramsTranslator->setParamsFromConfig($channel, $requestData['params']);
-        }
         $channel->setCaption($requestData['caption'] ?? '');
         $channel->setAltIcon($requestData['altIcon'] ?? 0);
         $channel->setHidden($requestData['hidden'] ?? false);
