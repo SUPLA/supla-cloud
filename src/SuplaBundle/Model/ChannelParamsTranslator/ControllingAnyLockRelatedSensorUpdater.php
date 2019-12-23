@@ -8,19 +8,18 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-trait ControllingAnyLockRelatedSensor {
+class ControllingAnyLockRelatedSensorUpdater {
     use CurrentUserAware;
     use Transactional;
 
     /** @var IODeviceChannelRepository */
     private $channelRepository;
 
-    /** @required */
-    public function setChannelRepository(IODeviceChannelRepository $channelRepository) {
+    public function __construct(IODeviceChannelRepository $channelRepository) {
         $this->channelRepository = $channelRepository;
     }
 
-    protected function pairControllingAndSensorChannels(
+    public function pairControllingAndSensorChannels(
         ChannelFunction $controllingFunction,
         ChannelFunction $sensorFunction,
         $controllingParamNo,

@@ -12,7 +12,7 @@ services:
       tags: [request.param_converter]
     SuplaBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
       tags: [supla.channel_action_executor]
-    SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamTranslator:
+    SuplaBundle\Model\ChannelParamsTranslator\ChannelParamTranslator:
       tags: [supla.channel_params_translator]
     SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
@@ -76,7 +76,7 @@ services:
   SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
     - !tagged supla.channel_action_executor
 
-  SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsConfig\ChannelParamConfigTranslator:
+  SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator:
     - !tagged supla.channel_params_translator
 
   SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:

@@ -6,7 +6,12 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 
 class OpeningSensorParamTranslator implements ChannelParamTranslator {
-    use ControllingAnyLockRelatedSensor;
+    /** @var ControllingAnyLockRelatedSensorUpdater */
+    private $updater;
+
+    public function __construct(ControllingAnyLockRelatedSensorUpdater $updater) {
+        $this->updater = $updater;
+    }
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return ['openingSensorChannelId' => $channel->getParam2()];
@@ -14,7 +19,7 @@ class OpeningSensorParamTranslator implements ChannelParamTranslator {
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (array_key_exists('openingSensorChannelId', $config)) {
-            $this->pairControllingAndSensorChannels(
+            $this->updater->pairControllingAndSensorChannels(
                 $channel->getFunction(),
                 new ChannelFunction(
                     array_search($channel->getFunction()->getId(), ControllingChannelParamTranslator::SENSOR_CONTROLLING_PAIRS)

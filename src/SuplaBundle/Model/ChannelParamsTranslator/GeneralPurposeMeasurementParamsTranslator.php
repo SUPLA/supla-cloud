@@ -19,10 +19,10 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (isset($config['measurementMultiplier'])) {
+        if (array_key_exists('measurementMultiplier', $config)) {
             $channel->setParam1(intval($config['measurementMultiplier'] * 10000));
         }
-        if (isset($config['measurementAdjustment'])) {
+        if (array_key_exists('measurementAdjustment', $config)) {
             $channel->setParam2(intval($config['measurementAdjustment'] * 10000));
         }
         $channel->setParam3($this->setValuesToParam3($config, $channel->getParam3()));

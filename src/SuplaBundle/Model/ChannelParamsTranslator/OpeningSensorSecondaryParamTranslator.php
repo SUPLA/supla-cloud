@@ -6,7 +6,12 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 
 class OpeningSensorSecondaryParamTranslator implements ChannelParamTranslator {
-    use ControllingAnyLockRelatedSensor;
+    /** @var ControllingAnyLockRelatedSensorUpdater */
+    private $updater;
+
+    public function __construct(ControllingAnyLockRelatedSensorUpdater $updater) {
+        $this->updater = $updater;
+    }
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return ['openingSensorSecondaryChannelId' => $channel->getParam3()];
@@ -18,7 +23,7 @@ class OpeningSensorSecondaryParamTranslator implements ChannelParamTranslator {
                 // primary and secondary sensors the same, clear secondary
                 $config['openingSensorSecondaryChannelId'] = 0;
             }
-            $this->pairControllingAndSensorChannels(
+            $this->updater->pairControllingAndSensorChannels(
                 $channel->getFunction(),
                 new ChannelFunction(
                     array_search($channel->getFunction()->getId(), ControllingChannelParamTranslator::SENSOR_CONTROLLING_PAIRS)

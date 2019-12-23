@@ -15,8 +15,8 @@ class InvertedLogicParamTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (isset($config['invertedLogic'])) {
-            $channel->setParam3($this->getValueInRange($config['invertedLogic'], 0, 1) ? 1 : 0);
+        if (array_key_exists('invertedLogic', $config)) {
+            $channel->setParam3($config['invertedLogic'] ? 1 : 0);
         }
     }
 

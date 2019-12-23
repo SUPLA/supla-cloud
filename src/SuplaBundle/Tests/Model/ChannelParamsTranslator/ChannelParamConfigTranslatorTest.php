@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Model\ChannelParamsUpdater\ChannelParamsConfig;
+namespace SuplaBundle\Tests\Model\ChannelParamsTranslator;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
@@ -23,6 +23,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\ChannelParamsTranslator\ControllingAnyLockRelatedSensorUpdater;
 use SuplaBundle\Model\ChannelParamsTranslator\ControllingChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ControllingSecondaryParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ElectricityMeterParamsTranslator;
@@ -43,19 +44,20 @@ class ChannelParamConfigTranslatorTest extends TestCase {
 
     /** @before */
     public function createTranslator() {
+        $updaterMock = $this->createMock(ControllingAnyLockRelatedSensorUpdater::class);
         $this->configTranslator = new ChannelParamConfigTranslator([
             new RelayTimeMsChannelParamTranslator(),
             new RelayTimeSChannelParamTranslator(),
             new OpeningClosingTimeChannelParamTranslator(),
-            new OpeningSensorParamTranslator(),
-            new OpeningSensorSecondaryParamTranslator(),
+            new OpeningSensorParamTranslator($updaterMock),
+            new OpeningSensorSecondaryParamTranslator($updaterMock),
             new ElectricityMeterParamsTranslator(),
             new ImpulseCounterParamsTranslator(),
             new HumidityAdjustmentParamTranslator(),
             new TemperatureAdjustmentParamTranslator(),
             new InvertedLogicParamTranslator(),
-            new ControllingChannelParamTranslator(),
-            new ControllingSecondaryParamTranslator(),
+            new ControllingChannelParamTranslator($updaterMock),
+            new ControllingSecondaryParamTranslator($updaterMock),
             new GeneralPurposeMeasurementParamsTranslator(),
         ]);
     }
@@ -90,6 +92,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         ?ChannelType $type = null
     ) {
         $channel = new IODeviceChannel();
+        EntityUtils::setField($channel, 'id', 1);
         if ($type) {
             EntityUtils::setField($channel, 'type', $type->getId());
         }
@@ -113,11 +116,11 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         // @codingStandardsIgnoreStart
         return [
             [ChannelFunction::NONE(), [], []],
-            [ChannelFunction::CONTROLLINGTHEDOORLOCK(), [700, 123], ['relayTimeMs' => 700, 'openingSensorChannelId' => 123]],
-            [ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), [700, 123], ['relayTimeMs' => 700, 'openingSensorChannelId' => 123]],
-            [ChannelFunction::CONTROLLINGTHEGATE(), [700, 123, 1234], ['relayTimeMs' => 700, 'openingSensorChannelId' => 123, 'openingSensorSecondaryChannelId' => 1234]],
-            [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700, 123], ['relayTimeMs' => 700, 'openingSensorChannelId' => 123]],
-            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, 123, 800], ['openingTimeS' => 70, 'openingSensorChannelId' => 123, 'closingTimeS' => 80]],
+            [ChannelFunction::CONTROLLINGTHEDOORLOCK(), [700, 222], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222]],
+            [ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), [700, 222], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222]],
+            [ChannelFunction::CONTROLLINGTHEGATE(), [700, 222, 333], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222, 'openingSensorSecondaryChannelId' => 333]],
+            [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700, 222], ['relayTimeMs' => 700, 'openingSensorChannelId' => 222]],
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, 222, 800], ['openingTimeS' => 70, 'openingSensorChannelId' => 222, 'closingTimeS' => 80]],
             [ChannelFunction::ELECTRICITYMETER(), [100, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 100, 'customUnit' => 'm3'], ChannelType::IMPULSECOUNTER()],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN'], ChannelType::ELECTRICITYMETER()],
             [ChannelFunction::GASMETER(), [111, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 111, 'customUnit' => 'm3'], ChannelType::IMPULSECOUNTER()],
@@ -126,11 +129,11 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::LIGHTSWITCH(), [], []],
             [ChannelFunction::MAILSENSOR(), [null, null, 1], ['invertedLogic' => true]],
             [ChannelFunction::NOLIQUIDSENSOR(), [null, null, 0], ['invertedLogic' => false]],
-            [ChannelFunction::OPENINGSENSOR_DOOR(), [123, null, 0], ['invertedLogic' => false, 'controllingChannelId' => 123]],
-            [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), [123, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 123]],
-            [ChannelFunction::OPENINGSENSOR_GATE(), [123, 124, 0], ['invertedLogic' => false, 'controllingChannelId' => 123, 'controllingSecondaryChannelId' => 124]],
-            [ChannelFunction::OPENINGSENSOR_GATEWAY(), [123, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 123]],
-            [ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(), [123, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 123]],
+            [ChannelFunction::OPENINGSENSOR_DOOR(), [111, null, 0], ['invertedLogic' => false, 'controllingChannelId' => 111]],
+            [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), [111, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 111]],
+            [ChannelFunction::OPENINGSENSOR_GATE(), [111, 222, 0], ['invertedLogic' => false, 'controllingChannelId' => 111, 'controllingSecondaryChannelId' => 222]],
+            [ChannelFunction::OPENINGSENSOR_GATEWAY(), [111, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 111]],
+            [ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(), [111, null, 1], ['invertedLogic' => true, 'controllingChannelId' => 111]],
             [ChannelFunction::OPENINGSENSOR_WINDOW(), [null, null, 1], ['invertedLogic' => true]],
             [ChannelFunction::STAIRCASETIMER(), [1011], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, 123], ['temperatureAdjustment' => 1.23]],
@@ -171,15 +174,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
 
     public function testNotOverwritingExistingParamsFromConfigIfNotGiven() {
         $channel = new IODeviceChannel();
-        $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
-        $this->configTranslator->setParamsFromConfig($channel, [
-            'relayTimeMs' => 700,
-            'openingSensorChannelId' => 123,
-            'openingSensorSecondaryChannelId' => 1234,
-        ]);
-        $this->configTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 800]);
-        $this->assertEquals(800, $channel->getParam1());
-        $this->assertEquals(123, $channel->getParam2());
-        $this->assertEquals(1234, $channel->getParam3());
+        $channel->setFunction(ChannelFunction::HUMIDITYANDTEMPERATURE());
+        $this->configTranslator->setParamsFromConfig($channel, ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]);
+        $this->configTranslator->setParamsFromConfig($channel, ['temperatureAdjustment' => 1]);
+        $this->assertEquals(100, $channel->getParam2());
+        $this->assertEquals(124, $channel->getParam3());
     }
 }
