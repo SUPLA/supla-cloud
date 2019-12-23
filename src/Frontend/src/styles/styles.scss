@@ -68,7 +68,7 @@ h1, h2, h3, h4 {
 
 a {
   color: $supla-green;
-  transition: all .3s;
+  transition: color .3s;
   cursor: pointer;
 
   &:active, &:focus, &:hover {
@@ -234,7 +234,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
         background-color: transparent;
       }
 
-      .dropdown:not(.hovered) .caret, .chosen-single > div > b {
+      .dropdown:not(.hovered) .caret, .chosen-single > div > b, .help-block {
         visibility: hidden;
       }
     }

@@ -2,26 +2,32 @@
     <div>
 
         <dl>
-            <dd>{{ $t('Measurement multiplier') }}</dd>
+            <dd>{{ $t('Value per unit') }}</dd>
             <dt>
                 <input type="number"
                     step="0.0001"
-                    min="-1000"
-                    max="1000"
+                    min="-1000000"
+                    max="1000000"
                     class="form-control text-center"
-                    v-model="channel.params.measurementMultiplier"
+                    v-model="channel.params.impulsesPerUnit"
                     @change="$emit('change')">
             </dt>
-            <dd>{{ $t('Measurement adjustment') }}</dd>
+            <dd>{{ $t('Initial value') }}</dd>
             <dt>
                 <input type="number"
                     step="0.0001"
-                    min="-1000"
-                    max="1000"
+                    min="-1000000"
+                    max="1000000"
                     class="form-control text-center"
-                    v-model="channel.params.measurementAdjustment"
+                    v-model="channel.params.initialValue"
                     @change="$emit('change')">
             </dt>
+        </dl>
+        <span class="help-block text-center">
+            {{ $t('Channel value') }} = <br>
+            ({{ $t('Device channel value') }} ÷ {{ $t('Value per unit') }}) + {{ $t('Initial value') }}
+        </span>
+        <dl>
             <dd>{{ $t('Precision') }}</dd>
             <dt>
                 <input type="number"
@@ -35,17 +41,32 @@
             <dd>{{ $t('Unit') }}</dd>
             <dt>
                 <span class="input-group">
-                    <input type="text"
-                        class="form-control text-right"
-                        v-model="channel.params.unitPrefix"
-                        @change="$emit('change')">
                     <span class="input-group-addon">
-                        {{ $t('value') }}
+                        {{ $t('prefix') }}
                     </span>
                     <input type="text"
-                        class="form-control text-left"
-                        v-model="channel.params.unitSuffix"
+                        class="form-control"
+                        v-model="channel.params.unitPrefix"
+                        @focusin="lastUnitField = 'unitPrefix'"
+                        maxlength="4"
                         @change="$emit('change')">
+                </span>
+            </dt>
+            <dd></dd>
+            <dt>
+                <span class="input-group">
+                    <span class="input-group-addon">
+                        {{ $t('suffix') }}
+                    </span>
+                    <input type="text"
+                        class="form-control"
+                        v-model="channel.params.unitSuffix"
+                        @focusin="lastUnitField = 'unitSuffix'"
+                        maxlength="4"
+                        @change="$emit('change')">
+                </span>
+                <span class="help-block text-center">
+                    <unit-symbol-helper @typed="channel.params[lastUnitField] += $event"></unit-symbol-helper>
                 </span>
             </dt>
             <dd>{{$t('Store measurements history')}}</dd>
@@ -81,9 +102,38 @@
 <script>
     import ChannelParamsButtonSelector from "./channel-params-button-selector";
     import TransitionExpand from "../../common/gui/transition-expand";
+    import UnitSymbolHelper from "./unit-symbol-helper";
 
     export default {
-        components: {TransitionExpand, ChannelParamsButtonSelector},
+        components: {TransitionExpand, ChannelParamsButtonSelector, UnitSymbolHelper},
         props: ['channel'],
+        data() {
+            return {
+                lastUnitField: 'unitPrefix',
+            };
+        }
     };
 </script>
+
+<style>
+    .frac {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        letter-spacing: 0.001em;
+        text-align: center;
+    }
+
+    .frac > span {
+        display: block;
+        padding: 0.1em;
+    }
+
+    .frac span.bottom {
+        border-top: thin solid black;
+    }
+
+    .frac span.symbol {
+        display: none;
+    }
+</style>

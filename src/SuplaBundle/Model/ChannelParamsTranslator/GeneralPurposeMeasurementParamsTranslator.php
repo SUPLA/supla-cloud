@@ -11,26 +11,30 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return array_merge([
-            'measurementMultiplier' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10000, 4),
-            'measurementAdjustment' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
+            'initialValue' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10000, 4),
+            'impulsesPerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 10000, 4),
             'unitPrefix' => $channel->getTextParam1(),
             'unitSuffix' => $channel->getTextParam2(),
-        ], $this->getValuesFromParam3($channel->getParam3()));
+        ], $this->getValuesFromParam2($channel->getParam2()));
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (array_key_exists('measurementMultiplier', $config)) {
-            $channel->setParam1(intval($this->getValueInRange($config['measurementMultiplier'], -1000, 1000) * 10000));
+        if (array_key_exists('initialValue', $config)) {
+            $channel->setParam1(intval($this->getValueInRange($config['initialValue'], -1000000, 1000000) * 10000));
         }
-        if (array_key_exists('measurementAdjustment', $config)) {
-            $channel->setParam2(intval($this->getValueInRange($config['measurementAdjustment'], -1000, 1000) * 10000));
+        $channel->setParam2($this->setValuesToParam2($config, $channel->getParam2()));
+        if (array_key_exists('impulsesPerUnit', $config)) {
+            $channel->setParam3(intval($this->getValueInRange($config['impulsesPerUnit'], -1000000, 1000000) * 10000));
         }
-        $channel->setParam3($this->setValuesToParam3($config, $channel->getParam3()));
         if (array_key_exists('unitPrefix', $config)) {
-            $channel->setTextParam1($config['unitPrefix']);
+            if (mb_strlen($config['unitPrefix'] ?? '', 'UTF-8') <= 4) {
+                $channel->setTextParam1($config['unitPrefix']);
+            }
         }
         if (array_key_exists('unitSuffix', $config)) {
-            $channel->setTextParam2($config['unitSuffix']);
+            if (mb_strlen($config['unitSuffix'] ?? '', 'UTF-8') <= 4) {
+                $channel->setTextParam2($config['unitSuffix']);
+            }
         }
     }
 
@@ -41,7 +45,7 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
      * 0b001000000: chart type (0 - differential; 1 - standard),
      * 0b100000000: whether to interpolate measurements (only for differential)
      */
-    private function getValuesFromParam3(int $value): array {
+    private function getValuesFromParam2(int $value): array {
         return [
             'precision' => $value & 0b000000111,
             'storeMeasurementHistory' => boolval($value & 0b000001000),
@@ -51,7 +55,8 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
         ];
     }
 
-    private function setValuesToParam3(array $config, int $value): int {
+    private function setValuesToParam2(array $config, int $value): int {
+        $value &= ~0b010100000; // clear all rubbish :-)
         if (array_key_exists('precision', $config)) {
             $value &= ~0b000000111;
             $value |= max(0, min(intval($config['precision']), 5));

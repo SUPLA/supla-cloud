@@ -5,7 +5,7 @@
             <input type="text"
                 maxlength="4"
                 class="form-control text-center"
-                v-model="channel.params.customUnit"
+                v-model="channel.params.unit"
                 @input="$emit('change')">
         </dt>
         <channel-params-meter-cost :channel="channel"
@@ -52,7 +52,7 @@
         props: ['channel'],
         computed: {
             unit() {
-                return (this.channel.type.name === 'ELECTRICITYMETER' ? 'kWh' : this.channel.params.customUnit) || 'kWh';
+                return (this.channel.type.name === 'ELECTRICITYMETER' ? 'kWh' : this.channel.params.unit) || 'kWh';
             }
         }
     };

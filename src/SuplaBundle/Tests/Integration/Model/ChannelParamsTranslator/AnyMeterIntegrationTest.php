@@ -117,14 +117,18 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
         foreach ($this->device->getChannels() as $channel) {
             if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
                 $this->assertEquals(null, $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => 'kWh']);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
                 $this->assertEquals("kWh", $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => '']);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²']);
+                $this->assertEquals("kWh²", $channel->getTextParam2());
+                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²³']);
+                $this->assertEquals('kWh²', $channel->getTextParam2());
+                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => '']);
                 $this->assertEquals("", $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => null]);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => null]);
                 $this->assertEquals(null, $channel->getTextParam2());
             } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
-                $this->paramsTranslator->setParamsFromConfig($channel, ['customUnit' => 'kWh']);
+                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
                 $this->assertEquals(null, $channel->getTextParam2());
             }
         }
