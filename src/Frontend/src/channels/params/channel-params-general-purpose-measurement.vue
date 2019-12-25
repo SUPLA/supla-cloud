@@ -74,21 +74,21 @@
                 <toggler v-model="channel.params.storeMeasurementHistory"
                     @input="$emit('change')"></toggler>
             </dt>
-            <dd>{{$t('Chart presentation')}}</dd>
-            <dt>
-                <channel-params-button-selector v-model="channel.params.chartPresentation"
-                    @input="$emit('change')"
-                    :values="[{id: 0, label: $t('Linear')}, {id: 1, label: $t('Bar')}]"></channel-params-button-selector>
-            </dt>
             <dd>{{$t('Chart type')}}</dd>
             <dt>
                 <channel-params-button-selector v-model="channel.params.chartType"
+                    @input="$emit('change')"
+                    :values="[{id: 0, label: $t('Linear')}, {id: 1, label: $t('Bar')}]"></channel-params-button-selector>
+            </dt>
+            <dd>{{$t('Chart data source type')}}</dd>
+            <dt>
+                <channel-params-button-selector v-model="channel.params.chartDataSourceType"
                     @input="$emit('change')"
                     :values="[{id: 0, label: $t('Differential')}, {id: 1, label: $t('Standard')}]"></channel-params-button-selector>
             </dt>
         </dl>
         <transition-expand>
-            <dl v-if="channel.params.chartType === 0">
+            <dl v-if="channel.params.chartDataSourceType === 0">
                 <dd>{{$t('Interpolate measurements')}}</dd>
                 <dt class="text-center">
                     <toggler v-model="channel.params.interpolateMeasurements"

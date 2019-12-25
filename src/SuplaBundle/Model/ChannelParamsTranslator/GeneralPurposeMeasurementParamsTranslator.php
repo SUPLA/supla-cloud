@@ -41,16 +41,16 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
     /**
      * 0b000000111: precision (0-5),
      * 0b000001000: whether to store the measurement history,
-     * 0b000010000: chart presentation (0 - linear, 1 - bar),
-     * 0b001000000: chart type (0 - differential; 1 - standard),
+     * 0b000010000: chart type (0 - linear, 1 - bar),
+     * 0b001000000: chart data source type (0 - differential; 1 - standard),
      * 0b100000000: whether to interpolate measurements (only for differential)
      */
     private function getValuesFromParam2(int $value): array {
         return [
             'precision' => $value & 0b000000111,
             'storeMeasurementHistory' => boolval($value & 0b000001000),
-            'chartPresentation' => ($value >> 4) & 1,
-            'chartType' => ($value >> 6) & 1,
+            'chartType' => ($value >> 4) & 1,
+            'chartDataSourceType' => ($value >> 6) & 1,
             'interpolateMeasurements' => boolval($value & 0b100000000),
         ];
     }
@@ -65,13 +65,13 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
             $value &= ~0b000001000;
             $value |= $config['storeMeasurementHistory'] ? 1 << 3 : 0;
         }
-        if (array_key_exists('chartPresentation', $config)) {
-            $value &= ~0b000010000;
-            $value |= $config['chartPresentation'] ? 1 << 4 : 0;
-        }
         if (array_key_exists('chartType', $config)) {
+            $value &= ~0b000010000;
+            $value |= $config['chartType'] ? 1 << 4 : 0;
+        }
+        if (array_key_exists('chartDataSourceType', $config)) {
             $value &= ~0b001000000;
-            $value |= $config['chartType'] ? 1 << 6 : 0;
+            $value |= $config['chartDataSourceType'] ? 1 << 6 : 0;
         }
         if (array_key_exists('interpolateMeasurements', $config)) {
             $value &= ~0b100000000;

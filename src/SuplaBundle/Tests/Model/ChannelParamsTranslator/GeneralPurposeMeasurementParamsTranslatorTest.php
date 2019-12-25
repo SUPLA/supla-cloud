@@ -69,19 +69,19 @@ class GeneralPurposeMeasurementParamsTranslatorTest extends TestCase {
     public function paramInfoExamples() {
         // @codingStandardsIgnoreStart
         return [
-            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartPresentation' => 1, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000011011],
-            [['precision' => 3, 'storeMeasurementHistory' => false, 'chartPresentation' => 1, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000010011],
-            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartPresentation' => 0, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000001011],
-            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartPresentation' => 0, 'chartType' => 1, 'interpolateMeasurements' => false], 0b001001011],
-            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartPresentation' => 0, 'chartType' => 0, 'interpolateMeasurements' => true], 0b100001011],
-            [['precision' => 5, 'storeMeasurementHistory' => true, 'chartPresentation' => 0, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000001101],
-            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartPresentation' => 0, 'chartType' => 0, 'interpolateMeasurements' => false], 0b00000000],
-            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartPresentation' => 0, 'chartType' => 2, 'interpolateMeasurements' => false], 0b001000000],
-            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartPresentation' => 0, 'chartType' => 20, 'interpolateMeasurements' => false], 0b001000000],
-            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartPresentation' => 2, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000010000],
-            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartPresentation' => 20, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000010000],
-            [['precision' => 20, 'storeMeasurementHistory' => false, 'chartPresentation' => 0, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000000101],
-            [['precision' => -4, 'storeMeasurementHistory' => false, 'chartPresentation' => 0, 'chartType' => 0, 'interpolateMeasurements' => false], 0b000000000],
+            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartType' => 1, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000011011],
+            [['precision' => 3, 'storeMeasurementHistory' => false, 'chartType' => 1, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000010011],
+            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartType' => 0, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000001011],
+            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartType' => 0, 'chartDataSourceType' => 1, 'interpolateMeasurements' => false], 0b001001011],
+            [['precision' => 3, 'storeMeasurementHistory' => true, 'chartType' => 0, 'chartDataSourceType' => 0, 'interpolateMeasurements' => true], 0b100001011],
+            [['precision' => 5, 'storeMeasurementHistory' => true, 'chartType' => 0, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000001101],
+            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartType' => 0, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b00000000],
+            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartType' => 0, 'chartDataSourceType' => 2, 'interpolateMeasurements' => false], 0b001000000],
+            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartType' => 0, 'chartDataSourceType' => 20, 'interpolateMeasurements' => false], 0b001000000],
+            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartType' => 2, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000010000],
+            [['precision' => 0, 'storeMeasurementHistory' => false, 'chartType' => 20, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000010000],
+            [['precision' => 20, 'storeMeasurementHistory' => false, 'chartType' => 0, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000000101],
+            [['precision' => -4, 'storeMeasurementHistory' => false, 'chartType' => 0, 'chartDataSourceType' => 0, 'interpolateMeasurements' => false], 0b000000000],
         ];
         // @codingStandardsIgnoreEnd
     }
