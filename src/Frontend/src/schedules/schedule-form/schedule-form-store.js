@@ -31,10 +31,10 @@ export const mutations = {
     clearNextRunDates(state) {
         state.nextRunDates = [];
     },
-    updateSubject(state, subjectWithType) {
-        state.subject = subjectWithType.subject;
-        state.subjectId = subjectWithType.subject ? subjectWithType.subject.id : undefined;
-        state.subjectType = subjectWithType.type;
+    updateSubject(state, subject) {
+        state.subject = subject;
+        state.subjectId = subject ? subject.id : undefined;
+        state.subjectType = subject ? subject.subjectType : undefined;
         state.actionId = undefined;
         state.actionParam = undefined;
     },

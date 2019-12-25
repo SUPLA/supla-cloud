@@ -23,9 +23,10 @@
 <script>
     import ChannelsDropdown from "./channels-dropdown";
     import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
+    import Vue from "vue";
 
     export default {
-        props: ['value', 'channelsDropdownParams', 'filter'],
+        props: ['value', 'channelsDropdownParams', 'filter', 'clearOnSelect'],
         components: {ChannelGroupsDropdown, ChannelsDropdown},
         data() {
             return {
@@ -40,22 +41,22 @@
                 this.subjectChanged();
             },
             subjectChanged() {
-                this.$emit('input', {subject: this.subject, type: this.subjectType});
+                this.$emit('input', this.subject);
+                if (this.clearOnSelect && this.subject) {
+                    Vue.nextTick(() => this.subject = undefined);
+                }
             },
             updateBasedOnValue() {
-                if (this.value && this.value.type) {
-                    this.subjectType = this.value.type;
-                    this.subject = this.value.subject;
-                } else {
-                    this.changeSubjectType('channel');
+                if (this.value && this.value.subjectType) {
+                    this.subjectType = this.value.subjectType;
+                    this.subject = this.value;
+                } else if (this.subject) {
+                    Vue.nextTick(() => this.subject = undefined);
                 }
             },
         },
         watch: {
             value() {
-                this.updateBasedOnValue();
-            },
-            'value.subject'() {
                 this.updateBasedOnValue();
             }
         }

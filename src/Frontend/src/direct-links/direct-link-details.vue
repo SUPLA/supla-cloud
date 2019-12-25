@@ -249,10 +249,10 @@
                     this.$set(this.allowedActions, possibleAction.name, this.directLink.allowedActions.indexOf(possibleAction.name) >= 0);
                 });
             },
-            chooseSubjectForNewLink({subject, type}) {
+            chooseSubjectForNewLink(subject) {
                 if (subject) {
                     const toSend = {
-                        subjectType: type,
+                        subjectType: subject.subjectType,
                         subjectId: subject.id,
                         allowedActions: ['read'],
                     };
