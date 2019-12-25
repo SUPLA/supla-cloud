@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label>{{ $t('Add new item to use in the scene') }}</label>
                             <subject-dropdown @input="addSceneOperation($event)"
-                                v-model="chosenNewSubject"
+                                :clear-on-select="true"
                                 channelsDropdownParams="io=output"></subject-dropdown>
                         </div>
                         <div class="form-group">
@@ -96,7 +96,6 @@
                 dragging: false,
                 lastValue: undefined,
                 operations: [],
-                chosenNewSubject: undefined,
             };
         },
         mounted() {
@@ -121,10 +120,9 @@
                 this.operations.splice(this.operations.indexOf(operation), 1);
                 this.updateModel();
             },
-            addSceneOperation({subject, type}) {
+            addSceneOperation(subject) {
                 if (subject) {
-                    this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: type, delayMs: 0});
-                    Vue.nextTick(() => this.chosenNewSubject = {type});
+                    this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: subject.subjectType, delayMs: 0});
                 }
             },
             channelTitle(subject) {

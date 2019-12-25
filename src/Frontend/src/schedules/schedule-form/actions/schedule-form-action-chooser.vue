@@ -2,9 +2,8 @@
     <div>
         <div class="form-group">
             <label>{{ $t('Subject') }}</label>
-            <subject-dropdown v-model="subjectWithType"
+            <subject-dropdown v-model="subject"
                 channels-dropdown-params="io=output&hasFunction=1"
-                @input="subjectChanged()"
                 :filter="filterOutNotSchedulableSubjects"></subject-dropdown>
         </div>
         <div v-if="subject">
@@ -19,29 +18,13 @@
 
     import ChannelsDropdown from "../../../devices/channels-dropdown";
     import SubjectDropdown from "../../../devices/subject-dropdown";
-    import {mapState} from "vuex";
     import ChannelActionChooser from "../../../channels/action/channel-action-chooser";
 
     export default {
         components: {ChannelActionChooser, SubjectDropdown, ChannelsDropdown},
-        data() {
-            return {
-                subjectWithType: {},
-            };
-        },
-        mounted() {
-            this.subjectWithType = {
-                subject: this.subject,
-                type: this.subjectType,
-            };
-        },
         methods: {
             goToSchedulesList() {
                 this.$router.push({name: 'schedules'});
-            },
-            subjectChanged() {
-                this.$emit('subject-change', this.subjectWithType.subject);
-                this.$store.commit('updateSubject', this.subjectWithType);
             },
             filterOutNotSchedulableSubjects(subject) {
                 if (subject.function.possibleActions.length === 0) {
@@ -83,15 +66,15 @@
                     this.actionParam = action.param || {};
                 }
             },
-            ...mapState(['subject', 'subjectType']),
-        },
-        watch: {
-            subject() {
-                this.subjectWithType = {
-                    subject: this.subject,
-                    type: this.subjectType,
-                };
-            }
+            subject: {
+                get() {
+                    return this.$store.state.subject;
+                },
+                set(subject) {
+                    this.$emit('subject-change', subject);
+                    this.$store.commit('updateSubject', subject);
+                }
+            },
         }
     };
 </script>
