@@ -20,7 +20,6 @@ namespace SuplaBundle\Entity;
 use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
@@ -175,6 +174,9 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
      * @Groups({"basic"})
      */
     private $flags = 0;
+
+    /** @ORM\Column(name="params_json", type="text", nullable=true) */
+    private $paramsJson;
 
     public function __construct() {
         $this->directLinks = new ArrayCollection();
