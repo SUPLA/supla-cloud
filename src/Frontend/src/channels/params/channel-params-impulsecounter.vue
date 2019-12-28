@@ -52,7 +52,8 @@
         props: ['channel'],
         computed: {
             unit() {
-                return (this.channel.type.name === 'ELECTRICITYMETER' ? 'kWh' : this.channel.params.unit) || 'kWh';
+                const defaultUnit = this.channel.function.name === 'IC_ELECTRICITYMETER' ? 'kWh' : 'm³';
+                return this.channel.params.unit || defaultUnit;
             }
         }
     };
