@@ -56,9 +56,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction WEATHER_STATION()
  * @method static ChannelFunction STAIRCASETIMER()
  * @method static ChannelFunction ELECTRICITYMETER()
- * @method static ChannelFunction ELECTRICITYMETER_IMPULSECOUNTER()
- * @method static ChannelFunction GASMETER()
- * @method static ChannelFunction WATERMETER()
+ * @method static ChannelFunction IC_ELECTRICITYMETER()
+ * @method static ChannelFunction IC_GASMETER()
+ * @method static ChannelFunction IC_WATERMETER()
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction GENERAL_PURPOSE_MEASUREMENT()
@@ -97,9 +97,9 @@ final class ChannelFunction extends Enum {
     const WEATHER_STATION = 290;
     const STAIRCASETIMER = 300;
     const ELECTRICITYMETER = 310;
-    const ELECTRICITYMETER_IMPULSECOUNTER = 315;
-    const GASMETER = 320;
-    const WATERMETER = 330;
+    const IC_ELECTRICITYMETER = 315;
+    const IC_GASMETER = 320;
+    const IC_WATERMETER = 330;
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const GENERAL_PURPOSE_MEASUREMENT = 520;
@@ -245,9 +245,9 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => 'Weather Station', // i18n
             self::STAIRCASETIMER => 'Staircase timer', // i18n
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
-            self::ELECTRICITYMETER_IMPULSECOUNTER => 'Electricity meter', // i18n
-            self::GASMETER => 'Gas meter', // i18n
-            self::WATERMETER => 'Water meter', // i18n
+            self::IC_ELECTRICITYMETER => 'Electricity meter', // i18n
+            self::IC_GASMETER => 'Gas meter', // i18n
+            self::IC_WATERMETER => 'Water meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
@@ -301,9 +301,9 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => ['default'],
             self::STAIRCASETIMER => ['off', 'on'],
             self::ELECTRICITYMETER => ['default'],
-            self::ELECTRICITYMETER_IMPULSECOUNTER => ['default'],
-            self::GASMETER => ['default'],
-            self::WATERMETER => ['default'],
+            self::IC_ELECTRICITYMETER => ['default'],
+            self::IC_GASMETER => ['default'],
+            self::IC_WATERMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
             self::GENERAL_PURPOSE_MEASUREMENT => ['default'],

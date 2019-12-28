@@ -14,9 +14,9 @@ class ImpulseCounterChannelStateGetter implements SingleChannelStateGetter {
 
     public function supportedFunctions(): array {
         return [
-            ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER(),
-            ChannelFunction::GASMETER(),
-            ChannelFunction::WATERMETER(),
+            ChannelFunction::IC_ELECTRICITYMETER(),
+            ChannelFunction::IC_GASMETER(),
+            ChannelFunction::IC_WATERMETER(),
         ];
     }
 }

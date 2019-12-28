@@ -58,9 +58,9 @@ class IODeviceManager {
             ChannelFunction::HUMIDITY()->getId(),
             ChannelFunction::HUMIDITYANDTEMPERATURE()->getId(),
             ChannelFunction::ELECTRICITYMETER()->getId(),
-            ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER()->getId(),
-            ChannelFunction::GASMETER()->getId(),
-            ChannelFunction::WATERMETER()->getId(),
+            ChannelFunction::IC_ELECTRICITYMETER()->getId(),
+            ChannelFunction::IC_GASMETER()->getId(),
+            ChannelFunction::IC_WATERMETER()->getId(),
             ChannelFunction::THERMOSTAT()->getId(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()->getId(),
         ]);

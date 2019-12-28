@@ -64,7 +64,7 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals($electricityMeter->getType()->getId(), ChannelType::ELECTRICITYMETER);
         $this->assertEquals($electricityMeterImpulseCounter->getType()->getId(), ChannelType::IMPULSECOUNTER);
         $this->assertEquals($electricityMeter->getFunction()->getId(), ChannelFunction::ELECTRICITYMETER);
-        $this->assertEquals($electricityMeterImpulseCounter->getFunction()->getId(), ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER);
+        $this->assertEquals($electricityMeterImpulseCounter->getFunction()->getId(), ChannelFunction::IC_ELECTRICITYMETER);
     }
 
     public function testMigratedChannelIconsForElectricityMeter() {
@@ -72,7 +72,7 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(ChannelFunction::ELECTRICITYMETER, $iconForEm->getFunction()->getId());
         $iconForEmImpulseCounter = $this->getEntityManager()->find(UserIcon::class, 2);
         $this->assertNotNull($iconForEmImpulseCounter);
-        $this->assertEquals(ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER, $iconForEmImpulseCounter->getFunction()->getId());
+        $this->assertEquals(ChannelFunction::IC_ELECTRICITYMETER, $iconForEmImpulseCounter->getFunction()->getId());
         $this->assertEquals($iconForEm->getUser()->getId(), $iconForEmImpulseCounter->getUser()->getId());
         $electricityMeter = $this->getEntityManager()->find(IODeviceChannel::class, 66);
         $electricityMeterImpulseCounter = $this->getEntityManager()->find(IODeviceChannel::class, 67);

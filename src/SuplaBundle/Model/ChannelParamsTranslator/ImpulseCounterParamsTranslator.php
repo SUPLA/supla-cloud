@@ -44,9 +44,9 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
 
     public function supports(IODeviceChannel $channel): bool {
         return in_array($channel->getFunction()->getId(), [
-            ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER,
-            ChannelFunction::GASMETER,
-            ChannelFunction::WATERMETER,
+            ChannelFunction::IC_ELECTRICITYMETER,
+            ChannelFunction::IC_GASMETER,
+            ChannelFunction::IC_WATERMETER,
         ]);
     }
 }

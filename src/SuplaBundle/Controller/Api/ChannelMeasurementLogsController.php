@@ -67,9 +67,9 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::ELECTRICITYMETER:
                 $repoName = 'ElectricityMeterLogItem';
                 break;
-            case ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER:
-            case ChannelFunction::GASMETER:
-            case ChannelFunction::WATERMETER:
+            case ChannelFunction::IC_ELECTRICITYMETER:
+            case ChannelFunction::IC_GASMETER:
+            case ChannelFunction::IC_WATERMETER:
                 $repoName = 'ImpulseCounterLogItem';
                 break;
             case ChannelFunction::THERMOSTAT:
@@ -135,9 +135,9 @@ class ChannelMeasurementLogsController extends RestController {
                 ChannelFunction::HUMIDITYANDTEMPERATURE,
                 ChannelFunction::THERMOMETER,
                 ChannelFunction::ELECTRICITYMETER,
-                ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER,
-                ChannelFunction::GASMETER,
-                ChannelFunction::WATERMETER,
+                ChannelFunction::IC_ELECTRICITYMETER,
+                ChannelFunction::IC_GASMETER,
+                ChannelFunction::IC_WATERMETER,
                 ChannelFunction::THERMOSTAT,
                 ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
             ];
@@ -203,9 +203,9 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc
                 );
                 break;
-            case ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER:
-            case ChannelFunction::GASMETER:
-            case ChannelFunction::WATERMETER:
+            case ChannelFunction::IC_ELECTRICITYMETER:
+            case ChannelFunction::IC_GASMETER:
+            case ChannelFunction::IC_WATERMETER:
                 $result = $this->logItems(
                     "`supla_ic_log`",
                     "`counter`, `calculated_value` / 1000 calculated_value",

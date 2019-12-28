@@ -38,8 +38,8 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
     public function initializeDatabaseForTests() {
         $user = $this->createConfirmedUser();
         $this->device = $this->createDevice($user->getLocations()[0], [
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_GASMETER],
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
         ]);
         $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);

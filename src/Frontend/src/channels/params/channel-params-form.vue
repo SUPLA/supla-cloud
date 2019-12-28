@@ -25,9 +25,9 @@
     import ChannelParamsMailsensor from "./channel-params-mailsensor";
     import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
     import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
-    import ChannelParamsElectricitymeterImpulsecounter from "./channel-params-electricity-meter-impulsecounter";
-    import ChannelParamsGasmeter from "./channel-params-gas-meter";
-    import ChannelParamsWatermeter from "./channel-params-water-meter";
+    import ChannelParamsIcElectricitymeter from "./channel-params-ic-electricitymeter";
+    import ChannelParamsIcGasmeter from "./channel-params-ic-gasmeter";
+    import ChannelParamsIcWatermeter from "./channel-params-ic-watermeter";
     import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
 
     export default {
@@ -52,9 +52,9 @@
             ChannelParamsMailsensor,
             ChannelParamsNoliquidsensor,
             ChannelParamsElectricitymeter,
-            ChannelParamsElectricitymeterImpulsecounter,
-            ChannelParamsGasmeter,
-            ChannelParamsWatermeter,
+            ChannelParamsIcElectricitymeter,
+            ChannelParamsIcGasmeter,
+            ChannelParamsIcWatermeter,
             ChannelParamsGeneralPurposeMeasurement,
         },
         computed: {
