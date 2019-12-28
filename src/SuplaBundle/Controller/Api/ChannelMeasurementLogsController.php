@@ -28,7 +28,6 @@ use SuplaBundle\Entity\TemperatureLogItem;
 use SuplaBundle\Entity\TempHumidityLogItem;
 use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
@@ -66,15 +65,9 @@ class ChannelMeasurementLogsController extends RestController {
                 $repoName = 'TemperatureLogItem';
                 break;
             case ChannelFunction::ELECTRICITYMETER:
-                switch ($channel->getType()->getId()) {
-                    case ChannelType::IMPULSECOUNTER:
-                        $repoName = 'ImpulseCounterLogItem';
-                        break;
-                    case ChannelType::ELECTRICITYMETER:
-                        $repoName = 'ElectricityMeterLogItem';
-                        break;
-                }
+                $repoName = 'ElectricityMeterLogItem';
                 break;
+            case ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER:
             case ChannelFunction::GASMETER:
             case ChannelFunction::WATERMETER:
                 $repoName = 'ImpulseCounterLogItem';
@@ -213,7 +206,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER:
             case ChannelFunction::GASMETER:
             case ChannelFunction::WATERMETER:
-                $this->logItems(
+                $result = $this->logItems(
                     "`supla_ic_log`",
                     "`counter`, `calculated_value` / 1000 calculated_value",
                     $channel->getId(),
