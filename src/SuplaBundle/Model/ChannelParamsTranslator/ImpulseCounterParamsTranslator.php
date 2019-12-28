@@ -14,8 +14,8 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
         return [
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
             'impulsesPerUnit' => $channel->getParam3(),
-            'currency' => $channel->getTextParam1(),
-            'unit' => $channel->getTextParam2(),
+            'currency' => $channel->getTextParam1() ?: null,
+            'unit' => $channel->getTextParam2() ?: null,
             'initialValue' => $channel->getParam1(),
         ];
     }

@@ -14,7 +14,7 @@ class ControllingSecondaryParamTranslator implements ChannelParamTranslator {
     }
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
-        return ['controllingSecondaryChannelId' => $channel->getParam2()];
+        return ['controllingSecondaryChannelId' => $channel->getParam2() ?: null];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {

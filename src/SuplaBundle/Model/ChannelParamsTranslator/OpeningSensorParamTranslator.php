@@ -14,7 +14,7 @@ class OpeningSensorParamTranslator implements ChannelParamTranslator {
     }
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
-        return ['openingSensorChannelId' => $channel->getParam2()];
+        return ['openingSensorChannelId' => $channel->getParam2() ?: null];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {

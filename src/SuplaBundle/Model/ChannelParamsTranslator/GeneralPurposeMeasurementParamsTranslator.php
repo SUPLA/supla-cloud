@@ -13,8 +13,8 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
         return array_merge([
             'initialValue' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10000, 4),
             'impulsesPerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 10000, 4),
-            'unitPrefix' => $channel->getTextParam1(),
-            'unitSuffix' => $channel->getTextParam2(),
+            'unitPrefix' => $channel->getTextParam1() ?: null,
+            'unitSuffix' => $channel->getTextParam2() ?: null,
         ], $this->getValuesFromParam2($channel->getParam2()));
     }
 

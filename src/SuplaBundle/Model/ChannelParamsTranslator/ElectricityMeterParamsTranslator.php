@@ -13,7 +13,7 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
-            'currency' => $channel->getTextParam1(),
+            'currency' => $channel->getTextParam1() ?: null,
         ];
     }
 

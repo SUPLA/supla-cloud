@@ -211,4 +211,11 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->assertEquals(100, $channel->getParam2());
         $this->assertEquals(124, $channel->getParam3());
     }
+
+    public function testReturningDefaultsIfNoneSet() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
+        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->assertEquals(['openingSensorChannelId' => null, 'openingSensorSecondaryChannelId' => null, 'relayTimeMs' => 500], $config);
+    }
 }

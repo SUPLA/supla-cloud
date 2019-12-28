@@ -16,7 +16,7 @@ class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {
     ];
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
-        return ['relayTimeMs' => $channel->getParam1()];
+        return ['relayTimeMs' => $channel->getParam1() ?: 500];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {

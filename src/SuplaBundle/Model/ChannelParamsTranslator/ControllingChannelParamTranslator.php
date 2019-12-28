@@ -22,7 +22,7 @@ class ControllingChannelParamTranslator implements ChannelParamTranslator {
     }
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
-        return ['controllingChannelId' => $channel->getParam1()];
+        return ['controllingChannelId' => $channel->getParam1() ?: null];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
