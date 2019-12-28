@@ -56,6 +56,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction WEATHER_STATION()
  * @method static ChannelFunction STAIRCASETIMER()
  * @method static ChannelFunction ELECTRICITYMETER()
+ * @method static ChannelFunction ELECTRICITYMETER_IMPULSECOUNTER()
  * @method static ChannelFunction GASMETER()
  * @method static ChannelFunction WATERMETER()
  * @method static ChannelFunction THERMOSTAT()
