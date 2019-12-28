@@ -18,6 +18,8 @@ services:
       tags: [supla.channel_state_getter]
     SuplaBundle\Command\Cyclic\CyclicCommand:
       tags: [supla.cyclic_command]
+    SuplaBundle\Command\Initialization\InitializationCommand:
+      tags: [supla.initialization_command]
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
@@ -31,6 +33,8 @@ services:
     $deleteOlderThanHours: '%supla.maintenance.delete_non_confirmed_users_older_than_hours%'
   SuplaBundle\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
     $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
+  SuplaBundle\Command\Initialization\InitializeCommand:
+    - !tagged supla.initialization_command
 
   SuplaBundle\Controller\:
     resource: '../../../src/SuplaBundle/Controller'

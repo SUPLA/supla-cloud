@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Command;
+namespace SuplaBundle\Command\Initialization;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class OAuthCreateWebappClientCommand extends Command {
+class OAuthCreateWebappClientInitializationCommand extends Command implements InitializationCommand {
     /** @var ClientManagerInterface */
     private $clientManager;
     /** @var ApiClientRepository */
@@ -24,7 +24,7 @@ class OAuthCreateWebappClientCommand extends Command {
 
     protected function configure() {
         $this
-            ->setName('supla:oauth:create-webapp-client')
+            ->setName('supla:initialize:create-webapp-client')
             ->setDescription('Creates a client for web application if it does not exist yet.');
     }
 
