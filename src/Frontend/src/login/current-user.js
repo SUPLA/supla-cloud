@@ -67,25 +67,25 @@ export class CurrentUser {
     }
 
     fetchUserData() {
-        const userData = Vue.http.get('users/current')
+        return Vue.http.get('users/current')
             .then(response => {
                 this.username = response.body.email;
                 this.userData = response.body;
                 return this.userData;
             })
             .catch(response => {
-                if (response.status == 401) {
+                if (response.status === 401) {
                     this.forget();
                 }
+            })
+            .finally(() => {
+                Vue.http.get('server-info')
+                    .then(response => {
+                        if (response.body.config) {
+                            $.extend(window.FRONTEND_CONFIG, response.body.config);
+                        }
+                    });
             });
-        const serverInfo = Vue.http.get('server-info')
-            .then(response => {
-                if (response.body.config) {
-                    $.extend(window.FRONTEND_CONFIG, response.body.config);
-                }
-            });
-        return Promise.all([userData, serverInfo]);
-
     }
 }
 
