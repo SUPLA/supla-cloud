@@ -36,7 +36,9 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
             ->getSingleScalarResult();
         $count = intval($count);
         if ($count) {
-            $iterator = $this->entityManager->createQuery('SELECT c FROM ' . IODeviceChannel::class . ' c WHERE c.config IS NULL')->iterate();
+            $iterator = $this->entityManager
+                ->createQuery('SELECT c FROM ' . IODeviceChannel::class . ' c WHERE c.config IS NULL')
+                ->iterate();
             $progress = new ProgressBar($output, $count);
             $progress->display();
             $i = 0;
