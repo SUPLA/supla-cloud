@@ -29,8 +29,7 @@
     import ChannelParamsIcGasmeter from "./channel-params-ic-gasmeter";
     import ChannelParamsIcWatermeter from "./channel-params-ic-watermeter";
     import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
-    import ChannelParamsVirtualButtonMonostable from "./channel-params-virtual-button-monostable";
-    import ChannelParamsVirtualButtonBistable from "./channel-params-virtual-button-bistable";
+    import ChannelParamsActionTrigger from "./channel-params-action-trigger";
 
     export default {
         props: ['channel'],
@@ -58,8 +57,7 @@
             ChannelParamsIcGasmeter,
             ChannelParamsIcWatermeter,
             ChannelParamsGeneralPurposeMeasurement,
-            ChannelParamsVirtualButtonMonostable,
-            ChannelParamsVirtualButtonBistable,
+            ChannelParamsActionTrigger,
         },
         computed: {
             additionalChannelParamsComponent() {

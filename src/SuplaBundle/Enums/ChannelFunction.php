@@ -62,8 +62,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction GENERAL_PURPOSE_MEASUREMENT()
- * @method static ChannelFunction VIRTUAL_BUTTON_MONOSTABLE()
- * @method static ChannelFunction VIRTUAL_BUTTON_BISTABLE()
+ * @method static ChannelFunction ACTION_TRIGGER()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -105,8 +104,7 @@ final class ChannelFunction extends Enum {
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const GENERAL_PURPOSE_MEASUREMENT = 520;
-    const VIRTUAL_BUTTON_MONOSTABLE = 530;
-    const VIRTUAL_BUTTON_BISTABLE = 540;
+    const ACTION_TRIGGER = 700;
 
     private $unsupportedFunctionId;
 
@@ -211,12 +209,6 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TOGGLE(),
             ],
             self::SCENE => [ChannelFunctionAction::EXECUTE()],
-            self::VIRTUAL_BUTTON_MONOSTABLE => [ChannelFunctionAction::TURN_ON()],
-            self::VIRTUAL_BUTTON_BISTABLE => [
-                ChannelFunctionAction::TURN_ON(),
-                ChannelFunctionAction::TURN_ON(),
-                ChannelFunctionAction::TOGGLE(),
-            ],
         ];
     }
 
@@ -261,8 +253,7 @@ final class ChannelFunction extends Enum {
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
-            self::VIRTUAL_BUTTON_MONOSTABLE => 'Monostable virtual button', // i18n
-            self::VIRTUAL_BUTTON_BISTABLE => 'Bistable virtual button', // i18n
+            self::ACTION_TRIGGER => 'Action trigger', // i18n
         ];
     }
 
@@ -319,8 +310,7 @@ final class ChannelFunction extends Enum {
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
             self::GENERAL_PURPOSE_MEASUREMENT => ['default'],
-            self::VIRTUAL_BUTTON_MONOSTABLE => ['default'],
-            self::VIRTUAL_BUTTON_BISTABLE => ['on', 'off'],
+            self::ACTION_TRIGGER => ['default'],
         ];
     }
 

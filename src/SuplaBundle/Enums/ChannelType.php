@@ -53,7 +53,7 @@ use UnexpectedValueException;
  * @method static ChannelType THERMOSTAT()
  * @method static ChannelType THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelType GENERAL_PURPOSE_MEASUREMENT()
- * @method static ChannelType VIRTUAL_BUTTON()
+ * @method static ChannelType ACTION_TRIGGER()
  */
 final class ChannelType extends Enum {
     const UNSUPPORTED = -1;
@@ -87,7 +87,7 @@ final class ChannelType extends Enum {
     const THERMOSTAT = 6000;
     const THERMOSTATHEATPOLHOMEPLUS = 6010;
     const GENERAL_PURPOSE_MEASUREMENT = 9000;
-    const VIRTUAL_BUTTON = 10000;
+    const ACTION_TRIGGER = 11000;
 
     private $unsupportedTypeId;
 
@@ -164,7 +164,7 @@ final class ChannelType extends Enum {
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
-            self::VIRTUAL_BUTTON => 'Virtual button', // i18n
+            self::ACTION_TRIGGER => 'Action trigger', // i18n
         ];
     }
 
@@ -233,7 +233,7 @@ final class ChannelType extends Enum {
             self::THERMOSTAT => [ChannelFunction::THERMOSTAT()],
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
             self::GENERAL_PURPOSE_MEASUREMENT => [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT()],
-            self::VIRTUAL_BUTTON => [ChannelFunction::VIRTUAL_BUTTON_MONOSTABLE(), ChannelFunction::VIRTUAL_BUTTON_BISTABLE()],
+            self::ACTION_TRIGGER => [ChannelFunction::ACTION_TRIGGER()],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
