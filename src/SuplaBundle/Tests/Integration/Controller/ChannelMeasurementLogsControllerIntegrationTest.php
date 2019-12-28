@@ -50,7 +50,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
         foreach ([21, 22, 23] as $temperature) {
             $logItem = new TemperatureLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 2+$offset);
+            EntityUtils::setField($logItem, 'channel_id', 2 + $offset);
             EntityUtils::setField($logItem, 'date', clone $date);
             EntityUtils::setField($logItem, 'temperature', $temperature);
             $this->getEntityManager()->persist($logItem);
@@ -60,7 +60,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $date = new \DateTime($datestr);
         foreach ([[21, 30], [22, 40], [23, 50]] as $th) {
             $logItem = new TempHumidityLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 3+$offset);
+            EntityUtils::setField($logItem, 'channel_id', 3 + $offset);
             EntityUtils::setField($logItem, 'date', clone $date);
             EntityUtils::setField($logItem, 'temperature', $th[0]);
             EntityUtils::setField($logItem, 'humidity', $th[1]);
@@ -71,7 +71,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $date = new \DateTime($datestr);
         foreach ([854800, 854900, 855000] as $energy) {
             $logItem = new ElectricityMeterLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 4+$offset);
+            EntityUtils::setField($logItem, 'channel_id', 4 + $offset);
             EntityUtils::setField($logItem, 'date', clone $date);
 
             foreach ([1, 2, 3] as $phase) {
@@ -90,7 +90,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             foreach ([1, 2, 3] as $num) {
                 $logItem = new ImpulseCounterLogItem();
 
-                EntityUtils::setField($logItem, 'channel_id', 4+$num+$offset);
+                EntityUtils::setField($logItem, 'channel_id', 4 + $num + $offset);
                 EntityUtils::setField($logItem, 'date', clone $date);
                 EntityUtils::setField($logItem, 'counter', $impulses);
                 EntityUtils::setField($logItem, 'calculated_value', $impulses);
@@ -109,7 +109,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
                 EntityUtils::setField($logItem, 'date', clone $date);
                 EntityUtils::setField($logItem, "on", $temperature > -10);
                 EntityUtils::setField($logItem, 'measuredTemperature', $temperature);
-                EntityUtils::setField($logItem, 'presetTemperature', $temperature+5);
+                EntityUtils::setField($logItem, 'presetTemperature', $temperature + 5);
 
                 $this->getEntityManager()->persist($logItem);
             }
@@ -126,7 +126,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
             [ChannelType::THERMOSTAT, ChannelFunction::THERMOSTAT],

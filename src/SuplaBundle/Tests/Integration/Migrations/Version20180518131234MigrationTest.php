@@ -26,7 +26,7 @@ use Symfony\Component\BrowserKit\Client;
 /**
  * @see Version20180518131234
  */
-class DeletingApiUserMigrationTest extends DatabaseMigrationTestCase {
+class Version20180518131234MigrationTest extends DatabaseMigrationTestCase {
     use ResponseAssertions;
     use SuplaApiHelper;
 

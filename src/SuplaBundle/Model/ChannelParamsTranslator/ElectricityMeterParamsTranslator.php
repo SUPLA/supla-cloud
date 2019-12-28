@@ -4,7 +4,6 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Utils\NumberUtils;
 
 class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
@@ -30,8 +29,8 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
     }
 
     public function supports(IODeviceChannel $channel): bool {
-        return $channel->getType()->getId() == ChannelType::ELECTRICITYMETER && in_array($channel->getFunction()->getId(), [
-                ChannelFunction::ELECTRICITYMETER,
-            ]);
+        return in_array($channel->getFunction()->getId(), [
+            ChannelFunction::ELECTRICITYMETER,
+        ]);
     }
 }

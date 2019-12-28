@@ -60,7 +60,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->hasDependencies() && !$this->isSmall())) {
             $this->executeCommand('doctrine:schema:drop --force');
             $this->executeCommand('doctrine:schema:create');
-            $this->executeCommand('supla:oauth:create-webapp-client');
+            $this->executeCommand('supla:initialize:create-webapp-client');
             $this->initializeDatabaseForTests();
             $reflection = new ReflectionClass($this);
             $vars = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);

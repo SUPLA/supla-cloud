@@ -25,6 +25,7 @@
     import ChannelParamsMailsensor from "./channel-params-mailsensor";
     import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
     import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
+    import ChannelParamsElectricitymeterImpulsecounter from "./channel-params-electricity-meter-impulsecounter";
     import ChannelParamsGasmeter from "./channel-params-gas-meter";
     import ChannelParamsWatermeter from "./channel-params-water-meter";
     import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
@@ -51,6 +52,7 @@
             ChannelParamsMailsensor,
             ChannelParamsNoliquidsensor,
             ChannelParamsElectricitymeter,
+            ChannelParamsElectricitymeterImpulsecounter,
             ChannelParamsGasmeter,
             ChannelParamsWatermeter,
             ChannelParamsGeneralPurposeMeasurement,

@@ -18,6 +18,9 @@
 namespace SuplaBundle\Tests\Integration\Migrations;
 
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\UserIcon;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -26,7 +29,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
  * @see Version20191226160845
  * @see UpdateChannelConfigsInitializationCommand
  */
-class CreatingChannelParamsJsonMigrationTest extends DatabaseMigrationTestCase {
+class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
     use ResponseAssertions;
     use SuplaApiHelper;
 
@@ -51,5 +54,29 @@ class CreatingChannelParamsJsonMigrationTest extends DatabaseMigrationTestCase {
             ['openingSensorChannelId' => null, 'openingSensorSecondaryChannelId' => null, 'relayTimeMs' => 500],
             $channel->getConfig()
         );
+    }
+
+    public function testElectricityMeterFunctionIsMigrated() {
+        // 66 -> ELECTRICITY_METER / ELECTRICITY_METER
+        // 67 -> IMPULSECOUNTER / ELECTRICITY_METER
+        $electricityMeter = $this->getEntityManager()->find(IODeviceChannel::class, 66);
+        $electricityMeterImpulseCounter = $this->getEntityManager()->find(IODeviceChannel::class, 67);
+        $this->assertEquals($electricityMeter->getType()->getId(), ChannelType::ELECTRICITYMETER);
+        $this->assertEquals($electricityMeterImpulseCounter->getType()->getId(), ChannelType::IMPULSECOUNTER);
+        $this->assertEquals($electricityMeter->getFunction()->getId(), ChannelFunction::ELECTRICITYMETER);
+        $this->assertEquals($electricityMeterImpulseCounter->getFunction()->getId(), ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER);
+    }
+
+    public function testMigratedChannelIconsForElectricityMeter() {
+        $iconForEm = $this->getEntityManager()->find(UserIcon::class, 1);
+        $this->assertEquals(ChannelFunction::ELECTRICITYMETER, $iconForEm->getFunction()->getId());
+        $iconForEmImpulseCounter = $this->getEntityManager()->find(UserIcon::class, 2);
+        $this->assertNotNull($iconForEmImpulseCounter);
+        $this->assertEquals(ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER, $iconForEmImpulseCounter->getFunction()->getId());
+        $this->assertEquals($iconForEm->getUser()->getId(), $iconForEmImpulseCounter->getUser()->getId());
+        $electricityMeter = $this->getEntityManager()->find(IODeviceChannel::class, 66);
+        $electricityMeterImpulseCounter = $this->getEntityManager()->find(IODeviceChannel::class, 67);
+        $this->assertEquals($iconForEm->getId(), $electricityMeter->getUserIcon()->getId());
+        $this->assertEquals($iconForEmImpulseCounter->getId(), $electricityMeterImpulseCounter->getUserIcon()->getId());
     }
 }

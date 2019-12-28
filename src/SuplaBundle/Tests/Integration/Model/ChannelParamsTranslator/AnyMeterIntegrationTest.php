@@ -38,7 +38,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
         ]);

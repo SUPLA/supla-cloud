@@ -96,6 +96,7 @@ final class ChannelFunction extends Enum {
     const WEATHER_STATION = 290;
     const STAIRCASETIMER = 300;
     const ELECTRICITYMETER = 310;
+    const ELECTRICITYMETER_IMPULSECOUNTER = 315;
     const GASMETER = 320;
     const WATERMETER = 330;
     const THERMOSTAT = 400;
@@ -243,6 +244,7 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => 'Weather Station', // i18n
             self::STAIRCASETIMER => 'Staircase timer', // i18n
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
+            self::ELECTRICITYMETER_IMPULSECOUNTER => 'Electricity meter', // i18n
             self::GASMETER => 'Gas meter', // i18n
             self::WATERMETER => 'Water meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
@@ -298,6 +300,7 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => ['default'],
             self::STAIRCASETIMER => ['off', 'on'],
             self::ELECTRICITYMETER => ['default'],
+            self::ELECTRICITYMETER_IMPULSECOUNTER => ['default'],
             self::GASMETER => ['default'],
             self::WATERMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],

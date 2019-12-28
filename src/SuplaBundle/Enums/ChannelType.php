@@ -223,7 +223,7 @@ final class ChannelType extends Enum {
             self::CALLBUTTON => [],
             self::ELECTRICITYMETER => [ChannelFunction::ELECTRICITYMETER()],
             self::IMPULSECOUNTER => [
-                ChannelFunction::ELECTRICITYMETER(),
+                ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER(),
                 ChannelFunction::GASMETER(),
                 ChannelFunction::WATERMETER(),
             ],

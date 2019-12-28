@@ -56,14 +56,7 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     private function getMeasureLogsCount(IODeviceChannel $channel) {
-        $functionId = $channel->getFunction()->getId();
-        Assertion::inArray(
-            $functionId,
-            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
-                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
-            'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
-        );
+        $this->ensureChannelHasMeasurementLogs($channel);
 
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
@@ -143,14 +136,24 @@ class ChannelMeasurementLogsController extends RestController {
         return $stmt->fetchAll();
     }
 
-    private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, $allowedFuncList = null) {
+    private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, ?array $allowedFuncList = null): void {
         if ($allowedFuncList == null) {
-            $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
-                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS];
+            $allowedFuncList = [
+                ChannelFunction::HUMIDITYANDTEMPERATURE,
+                ChannelFunction::THERMOMETER,
+                ChannelFunction::ELECTRICITYMETER,
+                ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER,
+                ChannelFunction::GASMETER,
+                ChannelFunction::WATERMETER,
+                ChannelFunction::THERMOSTAT,
+                ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+            ];
         }
-
-        Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');
+        Assertion::inArray(
+            $channel->getFunction()->getId(),
+            $allowedFuncList,
+            'Cannot fetch these measurement logs for channel with function ' . $channel->getFunction()->getName()
+        );
     }
 
     private function getMeasurementLogItemsAction(
@@ -162,29 +165,12 @@ class ChannelMeasurementLogsController extends RestController {
         $orderDesc = true,
         $allowedFuncList = null
     ) {
-
         $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
-
         $offset = intval($offset);
         $limit = intval($limit);
-
         if ($limit <= 0) {
             $limit = self::RECORD_LIMIT_PER_REQUEST;
         }
-
-        if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
-            return $this->logItems(
-                "`supla_ic_log`",
-                "`counter`, `calculated_value` / 1000 calculated_value",
-                $channel->getId(),
-                $offset,
-                $limit,
-                $afterTimestamp,
-                $beforeTimestamp,
-                $orderDesc
-            );
-        }
-
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
                 $result = $this->logItems(
@@ -224,6 +210,20 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc
                 );
                 break;
+            case ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER:
+            case ChannelFunction::GASMETER:
+            case ChannelFunction::WATERMETER:
+                $this->logItems(
+                    "`supla_ic_log`",
+                    "`counter`, `calculated_value` / 1000 calculated_value",
+                    $channel->getId(),
+                    $offset,
+                    $limit,
+                    $afterTimestamp,
+                    $beforeTimestamp,
+                    $orderDesc
+                );
+                break;
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 $result = $this->logItems(
@@ -238,7 +238,6 @@ class ChannelMeasurementLogsController extends RestController {
                 );
                 break;
         }
-
         return $result;
     }
 

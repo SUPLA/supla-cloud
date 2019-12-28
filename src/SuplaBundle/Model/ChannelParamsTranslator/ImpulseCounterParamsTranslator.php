@@ -4,7 +4,6 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Utils\NumberUtils;
 
 class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
@@ -44,11 +43,10 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
     }
 
     public function supports(IODeviceChannel $channel): bool {
-        return $channel->getType()->getId() == ChannelType::IMPULSECOUNTER &&
-            in_array($channel->getFunction()->getId(), [
-                ChannelFunction::ELECTRICITYMETER,
-                ChannelFunction::GASMETER,
-                ChannelFunction::WATERMETER,
-            ]);
+        return in_array($channel->getFunction()->getId(), [
+            ChannelFunction::ELECTRICITYMETER_IMPULSECOUNTER,
+            ChannelFunction::GASMETER,
+            ChannelFunction::WATERMETER,
+        ]);
     }
 }
