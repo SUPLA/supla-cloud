@@ -19,23 +19,18 @@ namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
 
-final class RelayFunctionBits extends Enum {
-    const CONTROLLINGTHEGATEWAYLOCK = 0x00000001;
-    const CONTROLLINGTHEGATE = 0x00000002;
-    const CONTROLLINGTHEGARAGEDOOR = 0x00000004;
-    const CONTROLLINGTHEDOORLOCK = 0x00000008;
-    const CONTROLLINGTHEROLLERSHUTTER = 0x00000010;
-    const POWERSWITCH = 0x00000020;
-    const LIGHTSWITCH = 0x00000040;
-    const STAIRCASETIMER = 0x00000080;
+abstract class ChannelFunctionBits extends Enum {
+    public function isSupported(int $functionList): bool {
+        return $functionList & $this->getValue();
+    }
 
-    public static function getSupportedFunctions(int $functionList): array {
-        $supportedFunctions = [];
+    public static function getSupportedFeatures(int $functionList): array {
+        $supportedFeatures = [];
         foreach (self::values() as $bit) {
-            if ($functionList & $bit->getValue()) {
-                $supportedFunctions[] = ChannelFunction::values()[$bit->getKey()];
+            if ($bit->isSupported($functionList)) {
+                $supportedFeatures[] = $bit;
             }
         }
-        return $supportedFunctions;
+        return $supportedFeatures;
     }
 }

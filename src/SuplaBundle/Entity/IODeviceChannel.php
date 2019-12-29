@@ -24,8 +24,8 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsRelay;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\RelayFunctionBits;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -260,7 +260,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
 
     /**
      * @return int
-     * @see RelayFunctionBits
+     * @see ChannelFunctionBitsRelay
      */
     public function getFuncList(): int {
         return $this->funcList ?: 0;
