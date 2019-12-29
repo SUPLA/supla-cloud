@@ -24,19 +24,19 @@ abstract class ChannelFunctionBits extends Enum {
         return $functionList & $this->getValue();
     }
 
-    public static function getSupportedFeatures(int $functionList): array {
+    public static function getSupportedFeatures(int $flags): array {
         $supportedFeatures = [];
         foreach (self::values() as $bit) {
-            if ($bit->isSupported($functionList)) {
+            if ($bit->isSupported($flags)) {
                 $supportedFeatures[] = $bit;
             }
         }
         return $supportedFeatures;
     }
 
-    public static function getSupportedFeaturesNames(int $functionList): array {
+    public static function getSupportedFeaturesNames(int $flags): array {
         return array_map(function ($bit) {
             return $bit->getKey();
-        }, self::getSupportedFeatures($functionList));
+        }, self::getSupportedFeatures($flags));
     }
 }

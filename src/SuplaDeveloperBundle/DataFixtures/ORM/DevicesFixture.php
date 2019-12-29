@@ -25,6 +25,7 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsActionTrigger;
 use SuplaBundle\Enums\ChannelFunctionBitsRelay;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\AnyFieldSetter;
@@ -45,6 +46,13 @@ class DevicesFixture extends SuplaFixture {
         ChannelFunctionBitsRelay::CONTROLLINGTHEGARAGEDOOR |
         ChannelFunctionBitsRelay::CONTROLLINGTHEGATE |
         ChannelFunctionBitsRelay::CONTROLLINGTHEGATEWAYLOCK;
+
+    const FULL_ACTION_TRIGGER_BITS =
+        ChannelFunctionBitsActionTrigger::PRESS |
+        ChannelFunctionBitsActionTrigger::RELEASE |
+        ChannelFunctionBitsActionTrigger::HOLD |
+        ChannelFunctionBitsActionTrigger::PRESS_2X |
+        ChannelFunctionBitsActionTrigger::PRESS_3X;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -81,20 +89,21 @@ class DevicesFixture extends SuplaFixture {
 
     protected function createDeviceSonoff(Location $location): IODevice {
         return $this->createDevice('SONOFF-DS', $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ChannelFunctionBitsRelay::LIGHTSWITCH | ChannelFunctionBitsRelay::POWERSWITCH],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsRelay::LIGHTSWITCH | ChannelFunctionBitsRelay::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ], self::DEVICE_SONOFF);
     }
 
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
         return $this->createDevice($name, $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ChannelFunctionBitsRelay::LIGHTSWITCH | ChannelFunctionBitsRelay::POWERSWITCH],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, self::FULL_RELAY_BITS],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ChannelFunctionBitsRelay::CONTROLLINGTHEROLLERSHUTTER],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsRelay::LIGHTSWITCH | ChannelFunctionBitsRelay::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => self::FULL_RELAY_BITS]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => self::FULL_RELAY_BITS]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsRelay::CONTROLLINGTHEROLLERSHUTTER]],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, ['flags' => self::FULL_ACTION_TRIGGER_BITS]],
         ], self::DEVICE_FULL);
     }
 
@@ -125,7 +134,7 @@ class DevicesFixture extends SuplaFixture {
     private function createDeviceManyGates(Location $location) {
         $channels = [];
         for ($i = 0; $i < 10; $i++) {
-            $channels[] = [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS];
+            $channels[] = [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => self::FULL_RELAY_BITS]];
         }
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
     }
@@ -151,9 +160,11 @@ class DevicesFixture extends SuplaFixture {
                 'user' => $location->getUser(),
                 'type' => $channelData[0],
                 'function' => $channelData[1],
-                'funcList' => $channelData[2] ?? null,
                 'channelNumber' => $channelNumber++,
             ]);
+            if (isset($channelData[2])) {
+                AnyFieldSetter::set($channel, $channelData[2]);
+            }
             if ($this->faker->boolean) {
                 $channel->setCaption($this->faker->sentence(3));
             }
