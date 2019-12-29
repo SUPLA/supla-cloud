@@ -39,4 +39,12 @@ abstract class ChannelFunctionBits extends Enum {
             return $bit->getKey();
         }, self::getSupportedFeatures($flags));
     }
+
+    public static function getAllFeaturesFlag(): int {
+        $flag = 0;
+        foreach (self::values() as $value) {
+            $flag |= $value->getValue();
+        }
+        return $flag;
+    }
 }

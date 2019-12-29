@@ -41,19 +41,6 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_SUPLER = 'deviceSupler';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
-    const FULL_RELAY_BITS =
-        ChannelFunctionBitsRelay::CONTROLLINGTHEDOORLOCK |
-        ChannelFunctionBitsRelay::CONTROLLINGTHEGARAGEDOOR |
-        ChannelFunctionBitsRelay::CONTROLLINGTHEGATE |
-        ChannelFunctionBitsRelay::CONTROLLINGTHEGATEWAYLOCK;
-
-    const FULL_ACTION_TRIGGER_BITS =
-        ChannelFunctionBitsActionTrigger::PRESS |
-        ChannelFunctionBitsActionTrigger::RELEASE |
-        ChannelFunctionBitsActionTrigger::HOLD |
-        ChannelFunctionBitsActionTrigger::PRESS_2X |
-        ChannelFunctionBitsActionTrigger::PRESS_3X;
-
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var \Faker\Generator */
@@ -97,13 +84,13 @@ class DevicesFixture extends SuplaFixture {
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
         return $this->createDevice($name, $location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsRelay::LIGHTSWITCH | ChannelFunctionBitsRelay::POWERSWITCH]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => self::FULL_RELAY_BITS]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => self::FULL_RELAY_BITS]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsRelay::getAllFeaturesFlag()]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsRelay::getAllFeaturesFlag()]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsRelay::CONTROLLINGTHEROLLERSHUTTER]],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
-            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, ['flags' => self::FULL_ACTION_TRIGGER_BITS]],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, ['flags' => ChannelFunctionBitsActionTrigger::getAllFeaturesFlag()]],
         ], self::DEVICE_FULL);
     }
 
@@ -134,7 +121,11 @@ class DevicesFixture extends SuplaFixture {
     private function createDeviceManyGates(Location $location) {
         $channels = [];
         for ($i = 0; $i < 10; $i++) {
-            $channels[] = [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => self::FULL_RELAY_BITS]];
+            $channels[] = [
+                ChannelType::RELAY,
+                ChannelFunction::CONTROLLINGTHEGATE,
+                ['funcList' => ChannelFunctionBitsRelay::getAllFeaturesFlag()],
+            ];
         }
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
     }

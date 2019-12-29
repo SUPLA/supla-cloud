@@ -39,6 +39,7 @@ class ChannelFunctionBitsActionTriggerTest extends TestCase {
                     ChannelFunctionBitsActionTrigger::PRESS_3X(),
                 ],
             ],
+            [ChannelFunctionBitsActionTrigger::getAllFeaturesFlag(), array_values(ChannelFunctionBitsActionTrigger::values())],
         ];
     }
 

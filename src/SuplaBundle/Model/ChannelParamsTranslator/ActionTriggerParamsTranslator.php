@@ -14,7 +14,6 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-
     }
 
     public function supports(IODeviceChannel $channel): bool {
