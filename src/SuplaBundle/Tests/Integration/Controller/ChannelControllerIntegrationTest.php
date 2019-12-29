@@ -306,15 +306,62 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */
+    public function testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorksV23(IODeviceChannel $gateChannel) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV23('PUT', '/api/channels/' . $gateChannel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEDOORLOCK,
+            'param1' => 1566,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $this->assertEquals(1566, $gateChannel->getParam1());
+        return $gateChannel;
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */
     public function testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorks(IODeviceChannel $gateChannel) {
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
-            'functionId' => ChannelFunction::CONTROLLINGTHEDOORLOCK,
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
             'params' => ['relayTimeMs' => 1567],
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         $this->assertEquals(1567, $gateChannel->getParam1());
+        return $gateChannel;
+    }
+
+    /** @depends testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorks */
+    public function testSavingParamsConfigInDatabaseAsJson(IODeviceChannel $gateChannel) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $expectedConfig = ['relayTimeMs' => 1567, 'openingSensorChannelId' => null, 'openingSensorSecondaryChannelId' => null];
+        $this->assertEquals($expectedConfig, $gateChannel->getConfig());
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */
+    public function testCannotStoreRubbishInConfig(IODeviceChannel $gateChannel) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
+            'params' => ['unicorn' => 123],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+        $this->assertArrayNotHasKey('unicorn', $gateChannel->getConfig());
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingDirectLinks */
+    public function testChangingChannelFunctionToNoneClearsConfig(IODeviceChannel $channel) {
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channel->getId());
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId(), ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channel->getId());
+        $this->assertEmpty($channel->getConfig());
+        $this->assertEquals(0, $channel->getParam1());
+        $this->assertEquals(0, $channel->getParam2());
+        $this->assertEquals(0, $channel->getParam3());
     }
 }

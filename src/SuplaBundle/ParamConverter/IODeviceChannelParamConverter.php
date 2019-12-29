@@ -3,6 +3,7 @@ namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\LocationRepository;
@@ -34,7 +35,7 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
 
     public function convert(array $requestData) {
         $channel = new IODeviceChannel();
-        $function = $requestData['functionId'] ?? 0;
+        $function = $requestData['functionId'] ?? ChannelFunction::UNSUPPORTED;
         $channel->setFunction($function);
         $channel->setParam1($requestData['param1'] ?? 0);
         $channel->setParam2($requestData['param2'] ?? 0);

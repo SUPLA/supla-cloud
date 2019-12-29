@@ -146,7 +146,8 @@ class ChannelController extends RestController {
         ChannelParamConfigTranslator $paramConfigTranslator
     ) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
+            $functionHasBeenChanged = $updatedChannel->getFunction() != ChannelFunction::UNSUPPORTED()
+                && $channel->getFunction() != $updatedChannel->getFunction();
             $newParams = $request->request->all()['params'] ?? [];
             if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
                 EntityUtils::setField($updatedChannel, 'type', $channel->getType()->getId());
@@ -197,8 +198,9 @@ class ChannelController extends RestController {
                     $channel->setFunction($updatedChannel->getFunction());
                     $channelDependencies->clearDependencies($channel);
                     $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
-                    $em->persist($channel);
                 }
+                $channel->setConfig($paramConfigTranslator->getConfigFromParams($channel));
+                $em->persist($channel);
                 return $channel;
             });
             $this->suplaServer->reconnect();
