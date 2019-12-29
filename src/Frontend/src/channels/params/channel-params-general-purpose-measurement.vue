@@ -9,7 +9,7 @@
                     min="-1000000"
                     max="1000000"
                     class="form-control text-center"
-                    v-model="channel.params.impulsesPerUnit"
+                    v-model="channel.config.impulsesPerUnit"
                     @change="$emit('change')">
             </dt>
             <dd>{{ $t('Initial value') }}</dd>
@@ -19,7 +19,7 @@
                     min="-1000000"
                     max="1000000"
                     class="form-control text-center"
-                    v-model="channel.params.initialValue"
+                    v-model="channel.config.initialValue"
                     @change="$emit('change')">
             </dt>
         </dl>
@@ -35,7 +35,7 @@
                     min="0"
                     max="5"
                     class="form-control text-center"
-                    v-model="channel.params.precision"
+                    v-model="channel.config.precision"
                     @change="$emit('change')">
             </dt>
             <dd>{{ $t('Unit') }}</dd>
@@ -46,7 +46,7 @@
                     </span>
                     <input type="text"
                         class="form-control"
-                        v-model="channel.params.unitPrefix"
+                        v-model="channel.config.unitPrefix"
                         @focusin="lastUnitField = 'unitPrefix'"
                         maxlength="4"
                         @change="$emit('change')">
@@ -60,7 +60,7 @@
                     </span>
                     <input type="text"
                         class="form-control"
-                        v-model="channel.params.unitSuffix"
+                        v-model="channel.config.unitSuffix"
                         @focusin="lastUnitField = 'unitSuffix'"
                         maxlength="4"
                         @change="$emit('change')">
@@ -71,27 +71,27 @@
             </dt>
             <dd>{{$t('Store measurements history')}}</dd>
             <dt class="text-center">
-                <toggler v-model="channel.params.storeMeasurementHistory"
+                <toggler v-model="channel.config.storeMeasurementHistory"
                     @input="$emit('change')"></toggler>
             </dt>
             <dd>{{$t('Chart type')}}</dd>
             <dt>
-                <channel-params-button-selector v-model="channel.params.chartType"
+                <channel-params-button-selector v-model="channel.config.chartType"
                     @input="$emit('change')"
                     :values="[{id: 0, label: $t('Linear')}, {id: 1, label: $t('Bar')}]"></channel-params-button-selector>
             </dt>
             <dd>{{$t('Chart data source type')}}</dd>
             <dt>
-                <channel-params-button-selector v-model="channel.params.chartDataSourceType"
+                <channel-params-button-selector v-model="channel.config.chartDataSourceType"
                     @input="$emit('change')"
                     :values="[{id: 0, label: $t('Differential')}, {id: 1, label: $t('Standard')}]"></channel-params-button-selector>
             </dt>
         </dl>
         <transition-expand>
-            <dl v-if="channel.params.chartDataSourceType === 0">
+            <dl v-if="channel.config.chartDataSourceType === 0">
                 <dd>{{$t('Interpolate measurements')}}</dd>
                 <dt class="text-center">
-                    <toggler v-model="channel.params.interpolateMeasurements"
+                    <toggler v-model="channel.config.interpolateMeasurements"
                         @input="$emit('change')"></toggler>
                 </dt>
             </dl>

@@ -32,27 +32,27 @@
         },
         methods: {
             updateSecondaryChannel() {
-                if (this.channel.params.controllingSecondaryChannelId) {
-                    this.$http.get(`channels/${this.channel.params.controllingSecondaryChannelId}`)
+                if (this.channel.config.controllingSecondaryChannelId) {
+                    this.$http.get(`channels/${this.channel.config.controllingSecondaryChannelId}`)
                         .then(response => this.secondaryChannel = response.body);
                 } else {
                     this.secondaryChannel = undefined;
                 }
             },
             secondaryChannelChanged() {
-                this.channel.params.controllingSecondaryChannelId = this.secondaryChannel ? this.secondaryChannel.id : 0;
+                this.channel.config.controllingSecondaryChannelId = this.secondaryChannel ? this.secondaryChannel.id : 0;
                 this.$emit('change');
             }
         },
         watch: {
-            'channel.params.controllingChannelId'() {
-                if (this.channel.params.controllingChannelId == this.channel.params.controllingSecondaryChannelId) {
-                    this.channel.params.controllingSecondaryChannelId = 0;
+            'channel.config.controllingChannelId'() {
+                if (this.channel.config.controllingChannelId == this.channel.config.controllingSecondaryChannelId) {
+                    this.channel.config.controllingSecondaryChannelId = 0;
                 }
             },
-            'channel.params.controllingSecondaryChannelId'() {
-                if (this.channel.params.controllingChannelId == this.channel.params.controllingSecondaryChannelId) {
-                    this.channel.params.controllingChannelId = 0;
+            'channel.config.controllingSecondaryChannelId'() {
+                if (this.channel.config.controllingChannelId == this.channel.config.controllingSecondaryChannelId) {
+                    this.channel.config.controllingChannelId = 0;
                 }
                 this.updateSecondaryChannel();
             }

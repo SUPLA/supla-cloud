@@ -30,21 +30,21 @@
             this.updateRelatedChannel();
         },
         watch: {
-            'channel.params.controllingChannelId'() {
+            'channel.config.controllingChannelId'() {
                 this.updateRelatedChannel();
             }
         },
         methods: {
             updateRelatedChannel() {
-                if (this.channel.params.controllingChannelId) {
-                    this.$http.get(`channels/${this.channel.params.controllingChannelId}`)
+                if (this.channel.config.controllingChannelId) {
+                    this.$http.get(`channels/${this.channel.config.controllingChannelId}`)
                         .then(response => this.relatedChannel = response.body);
                 } else {
                     this.relatedChannel = undefined;
                 }
             },
             relatedChannelChanged() {
-                this.channel.params.controllingChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
+                this.channel.config.controllingChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');
             }
         }

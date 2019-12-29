@@ -72,7 +72,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
-            $normalized['params'] = $this->paramsTranslator->getConfigFromParams($channel);
+            $normalized['config'] = $this->paramsTranslator->getConfigFromParams($channel);
         } else {
             $normalized['param1'] = $channel->getParam1();
             $normalized['param2'] = $channel->getParam2();

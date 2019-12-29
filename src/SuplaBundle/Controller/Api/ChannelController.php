@@ -148,7 +148,7 @@ class ChannelController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $functionHasBeenChanged = $updatedChannel->getFunction() != ChannelFunction::UNSUPPORTED()
                 && $channel->getFunction() != $updatedChannel->getFunction();
-            $newParams = $request->request->all()['params'] ?? [];
+            $newParams = $request->request->all()['config'] ?? [];
             if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
                 EntityUtils::setField($updatedChannel, 'type', $channel->getType()->getId());
                 $newParams = $paramConfigTranslator->getConfigFromParams($updatedChannel);

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <channel-opening-time-selector v-model="channel.params.relayTimeMs"
+        <channel-opening-time-selector v-model="channel.config.relayTimeMs"
             @input="$emit('change')"
             :times="times"></channel-opening-time-selector>
         <dl>
@@ -34,21 +34,21 @@
             this.updateRelatedChannel();
         },
         watch: {
-            'channel.params.openingSensorChannelId'() {
+            'channel.config.openingSensorChannelId'() {
                 this.updateRelatedChannel();
             }
         },
         methods: {
             updateRelatedChannel() {
-                if (this.channel.params.openingSensorChannelId) {
-                    this.$http.get(`channels/${this.channel.params.openingSensorChannelId}`)
+                if (this.channel.config.openingSensorChannelId) {
+                    this.$http.get(`channels/${this.channel.config.openingSensorChannelId}`)
                         .then(response => this.relatedChannel = response.body);
                 } else {
                     this.relatedChannel = undefined;
                 }
             },
             relatedChannelChanged() {
-                this.channel.params.openingSensorChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
+                this.channel.config.openingSensorChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');
             }
         }

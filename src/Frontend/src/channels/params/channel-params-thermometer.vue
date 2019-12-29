@@ -8,7 +8,7 @@
                     min="-10"
                     max="10"
                     class="form-control text-center"
-                    v-model="channel.params.temperatureAdjustment"
+                    v-model="channel.config.temperatureAdjustment"
                     @change="$emit('change')">
                 <span class="input-group-addon">
                     &deg;C

@@ -5,7 +5,7 @@
             <input type="text"
                 maxlength="4"
                 class="form-control text-center"
-                v-model="channel.params.unit"
+                v-model="channel.config.unit"
                 @input="$emit('change')">
         </dt>
         <channel-params-meter-cost :channel="channel"
@@ -19,7 +19,7 @@
                     min="0"
                     max="1000000"
                     class="form-control text-center"
-                    v-model="channel.params.impulsesPerUnit"
+                    v-model="channel.config.impulsesPerUnit"
                     @change="$emit('change')">
                 <span class="input-group-addon">
                     / {{ unit }}
@@ -34,7 +34,7 @@
                     min="0"
                     max="1000000"
                     class="form-control text-center"
-                    v-model="channel.params.initialValue"
+                    v-model="channel.config.initialValue"
                     @change="$emit('change')">
                 <span class="input-group-addon">
                     {{ unit }}
@@ -53,7 +53,7 @@
         computed: {
             unit() {
                 const defaultUnit = this.channel.function.name === 'IC_ELECTRICITYMETER' ? 'kWh' : 'm³';
-                return this.channel.params.unit || defaultUnit;
+                return this.channel.config.unit || defaultUnit;
             }
         }
     };

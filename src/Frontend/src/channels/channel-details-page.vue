@@ -208,7 +208,7 @@
                 return [].concat.apply([{id: 0, caption: 'None', name: 'NONE', possibleActions: []}], this.channel.supportedFunctions);
             },
             shownInClientsAlwaysOn() {
-                if (this.channel.params.controllingChannelId || this.channel.params.controllingSecondaryChannelId) {
+                if (this.channel.config.controllingChannelId || this.channel.config.controllingSecondaryChannelId) {
                     return true;
                 } else {
                     return false;

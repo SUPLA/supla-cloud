@@ -8,7 +8,7 @@
                     min="0"
                     max="300"
                     class="form-control text-center"
-                    v-model="channel.params.openingTimeS"
+                    v-model="channel.config.openingTimeS"
                     @change="$emit('change')">
                 <span class="input-group-addon">
                     {{ $t('sec.') }}
@@ -23,7 +23,7 @@
                     min="0"
                     max="300"
                     class="form-control text-center"
-                    v-model="channel.params.closingTimeS"
+                    v-model="channel.config.closingTimeS"
                     @change="$emit('change')">
                 <span class="input-group-addon">
                     {{ $t('sec.') }}
@@ -55,14 +55,14 @@
             };
         },
         mounted() {
-            if (this.channel.params.openingSensorChannelId) {
-                this.$http.get(`channels/${this.channel.params.openingSensorChannelId}`)
+            if (this.channel.config.openingSensorChannelId) {
+                this.$http.get(`channels/${this.channel.config.openingSensorChannelId}`)
                     .then(response => this.relatedChannel = response.body);
             }
         },
         methods: {
             relatedChannelChanged() {
-                this.channel.params.openingSensorChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
+                this.channel.config.openingSensorChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');
             }
         }

@@ -8,14 +8,14 @@
                     min="0"
                     max="1000"
                     class="form-control text-center"
-                    v-model="channel.params.pricePerUnit"
+                    v-model="channel.config.pricePerUnit"
                     @change="$emit('change')">
             </span>
         </dt>
 
         <dd>{{ $t('Currency') }}</dd>
         <dt>
-            <currency-picker v-model="channel.params.currency"></currency-picker>
+            <currency-picker v-model="channel.config.currency"></currency-picker>
         </dt>
     </dl>
 </template>

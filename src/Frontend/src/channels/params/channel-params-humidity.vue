@@ -8,7 +8,7 @@
                     min="-10"
                     max="10"
                     class="form-control text-center"
-                    v-model="channel.params.humidityAdjustment"
+                    v-model="channel.config.humidityAdjustment"
                     @input="$emit('change')">
                 <span class="input-group-addon">
                     %

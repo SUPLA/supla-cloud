@@ -96,7 +96,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
         $this->assertArrayHasKey('relationsCount', $content);
         $this->assertArrayNotHasKey('param1', $content);
-        $this->assertArrayHasKey('params', $content);
+        $this->assertArrayHasKey('config', $content);
     }
 
     public function testGettingChannelInfoWithDeviceLocationV24() {
@@ -325,7 +325,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
             'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
-            'params' => ['relayTimeMs' => 1567],
+            'config' => ['relayTimeMs' => 1567],
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
@@ -345,7 +345,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
-            'params' => ['unicorn' => 123],
+            'config' => ['unicorn' => 123],
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
