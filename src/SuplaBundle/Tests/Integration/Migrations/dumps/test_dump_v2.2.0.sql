@@ -672,17 +672,6 @@ CREATE TABLE `supla_v_rel_cg` (
 	`channel_hidden` TINYINT(1) NOT NULL
 ) ENGINE=MyISAM;
 
-CREATE TABLE `supla_v_user_channel_group` (
-	`id` INT(11) NOT NULL,
-	`func` INT(11) NOT NULL,
-	`caption` VARCHAR(255) NULL COLLATE 'utf8_unicode_ci',
-	`user_id` INT(11) NOT NULL,
-	`location_id` INT(11) NOT NULL,
-	`alt_icon` BIGINT(11) NOT NULL,
-	`channel_id` INT(11) NOT NULL,
-	`iodevice_id` INT(11) NOT NULL
-) ENGINE=MyISAM;
-
 DROP TABLE IF EXISTS `supla_v_client`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client` AS SELECT `c`.`id` AS `id`,`c`.`access_id` AS `access_id`,`c`.`guid` AS `guid`,`c`.`name` AS `name`,`c`.`reg_ipv4` AS `reg_ipv4`,
                `c`.`reg_date` AS `reg_date`,`c`.`last_access_ipv4` AS `last_access_ipv4`,`c`.`last_access_date` AS `last_access_date`,
@@ -767,7 +756,6 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_rel_cg` AS SELECT 
                  join `supla`.`supla_dev_channel` `c` on((`c`.`id` = `r`.`channel_id`))) 
                  join `supla`.`supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) where `d`.`enabled` = 1 ;
 
-DROP TABLE IF EXISTS `supla_v_user_channel_group`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_user_channel_group` AS select `g`.`id` AS `id`,`g`.`func` AS `func`,`g`.`caption` AS `caption`,`g`.`user_id` AS `user_id`,
 				 `g`.`location_id` AS `location_id`,ifnull(`g`.`alt_icon`,0) AS `alt_icon`,
 				 `rel`.`channel_id` AS `channel_id`,`c`.`iodevice_id` AS `iodevice_id` 
