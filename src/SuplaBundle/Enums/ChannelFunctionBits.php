@@ -33,4 +33,10 @@ abstract class ChannelFunctionBits extends Enum {
         }
         return $supportedFeatures;
     }
+
+    public static function getSupportedFeaturesNames(int $functionList): array {
+        return array_map(function ($bit) {
+            return $bit->getKey();
+        }, self::getSupportedFeatures($functionList));
+    }
 }
