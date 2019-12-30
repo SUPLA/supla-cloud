@@ -25,9 +25,9 @@ namespace SuplaBundle\Enums;
  * @method ChannelFunctionBitsActionTrigger PRESS_3X()
  */
 final class ChannelFunctionBitsActionTrigger extends ChannelFunctionBits {
-    const PRESS = 1 << 8; // i18n:['actionTriggerBehavior_PRESS','actionTriggerBehaviorDescription_PRESS']
-    const RELEASE = 1 << 9; // i18n:['actionTriggerBehavior_RELEASE','actionTriggerBehaviorDescription_RELEASE']
-    const HOLD = 1 << 10; // i18n:['actionTriggerBehavior_HOLD','actionTriggerBehaviorDescription_HOLD']
-    const PRESS_2X = 1 << 11; // i18n:['actionTriggerBehavior_PRESS_2X','actionTriggerBehaviorDescription_PRESS_2X']
-    const PRESS_3X = 1 << 12; // i18n:['actionTriggerBehavior_PRESS_3X','actionTriggerBehaviorDescription_PRESS_3X']
+    const PRESS = 1 << 8; // i18n:['actionTrigger_PRESS','actionTriggerDescription_PRESS']
+    const RELEASE = 1 << 9; // i18n:['actionTrigger_RELEASE','actionTriggerDescription_RELEASE']
+    const HOLD = 1 << 10; // i18n:['actionTrigger_HOLD','actionTriggerDescription_HOLD']
+    const PRESS_2X = 1 << 11; // i18n:['actionTrigger_PRESS_2X','actionTriggerDescription_PRESS_2X']
+    const PRESS_3X = 1 << 12; // i18n:['actionTrigger_PRESS_3X','actionTriggerDescription_PRESS_3X']
 }

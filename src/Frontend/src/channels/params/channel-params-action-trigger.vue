@@ -7,30 +7,30 @@
         <div class="panel-group hovered"
             role="tablist"
             aria-multiselectable="true">
-            <div :class="'panel panel-' + (channel.config.actions[behavior] ? 'success' : 'default')"
-                v-for="(behavior, index) in channel.config.supportedBehaviors">
+            <div :class="'panel panel-' + (channel.config.actions[trigger] ? 'success' : 'default')"
+                v-for="(trigger, index) in channel.config.supportedTriggers">
                 <div class="panel-heading"
                     role="tab"
-                    :id="'heading' + behavior">
+                    :id="'heading' + trigger">
                     <div class="panel-title"
-                        @click="toggleExpand(behavior)">
+                        @click="toggleExpand(trigger)">
                         <a role="button"
-                            :aria-expanded="!!expanded[behavior]"
-                            :aria-controls="'collapse' + behavior">
+                            :aria-expanded="!!expanded[trigger]"
+                            :aria-controls="'collapse' + trigger">
                             {{ $t('Action') }} {{ index + 1 }}
-                            <span class="small">{{ $t('actionTriggerBehavior_' + behavior) }}</span>
+                            <span class="small">{{ $t('actionTrigger_' + trigger) }}</span>
                         </a>
                     </div>
                 </div>
                 <div class="panel-collapse"
-                    :id="'collapse' + behavior"
+                    :id="'collapse' + trigger"
                     role="tabpanel"
-                    :aria-labelledby="'heading' + behavior">
+                    :aria-labelledby="'heading' + trigger">
                     <transition-expand>
                         <div class="panel-body"
-                            v-if="expanded[behavior]">
-                            <p class="small text-muted">{{ $t('actionTriggerBehaviorDescription_' + behavior) }}</p>
-                            <channel-params-action-trigger-selector v-model="channel.config.actions[behavior]"
+                            v-if="expanded[trigger]">
+                            <p class="small text-muted">{{ $t('actionTriggerDescription_' + trigger) }}</p>
+                            <channel-params-action-trigger-selector v-model="channel.config.actions[trigger]"
                                 @input="$emit('change')"></channel-params-action-trigger-selector>
                         </div>
                     </transition-expand>
@@ -53,8 +53,8 @@
             };
         },
         methods: {
-            toggleExpand(behavior) {
-                this.$set(this.expanded, behavior, !this.expanded[behavior]);
+            toggleExpand(trigger) {
+                this.$set(this.expanded, trigger, !this.expanded[trigger]);
             }
         }
     };

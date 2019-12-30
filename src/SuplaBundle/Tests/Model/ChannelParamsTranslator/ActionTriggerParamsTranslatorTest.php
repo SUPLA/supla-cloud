@@ -33,20 +33,20 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->configTranslator = new ActionTriggerParamsTranslator();
     }
 
-    public function testGettingSupportedBehaviors() {
+    public function testGettingSupportedTriggers() {
         $channel = new IODeviceChannel();
         EntityUtils::setField($channel, 'flags', ChannelFunctionBitsActionTrigger::HOLD | ChannelFunctionBitsActionTrigger::PRESS_3X);
         $config = $this->configTranslator->getConfigFromParams($channel);
-        $this->assertArrayHasKey('supportedBehaviors', $config);
-        $this->assertEquals(['HOLD', 'PRESS_3X'], $config['supportedBehaviors']);
+        $this->assertArrayHasKey('supportedTriggers', $config);
+        $this->assertEquals(['HOLD', 'PRESS_3X'], $config['supportedTriggers']);
     }
 
-    public function testCloudCannotChangeSupportedBehaviors() {
+    public function testCloudCannotChangeSupportedTriggers() {
         $channel = new IODeviceChannel();
         EntityUtils::setField($channel, 'flags', ChannelFunctionBitsActionTrigger::HOLD | ChannelFunctionBitsActionTrigger::PRESS_3X);
-        $this->configTranslator->setParamsFromConfig($channel, ['supportedBehaviors' => []]);
+        $this->configTranslator->setParamsFromConfig($channel, ['supportedTriggers' => []]);
         $config = $this->configTranslator->getConfigFromParams($channel);
-        $this->assertArrayHasKey('supportedBehaviors', $config);
-        $this->assertEquals(['HOLD', 'PRESS_3X'], $config['supportedBehaviors']);
+        $this->assertArrayHasKey('supportedTriggers', $config);
+        $this->assertEquals(['HOLD', 'PRESS_3X'], $config['supportedTriggers']);
     }
 }
