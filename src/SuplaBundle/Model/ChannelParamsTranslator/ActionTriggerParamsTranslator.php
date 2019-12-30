@@ -28,8 +28,9 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (isset($config['actions'])) {
+        if (array_key_exists('actions', $config)) {
             Assertion::isArray($config['actions']);
+            $channel->setConfig(array_replace($channel->getConfig(), ['actions' => $config['actions']]));
         }
     }
 

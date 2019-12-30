@@ -17,20 +17,30 @@
 
 namespace SuplaBundle\Tests\Model\ChannelParamsTranslator;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Scene;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsActionTrigger;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelParamsTranslator\ActionTriggerParamsTranslator;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Repository\ActionableSubjectRepository;
 
 class ActionTriggerParamsTranslatorTest extends TestCase {
-    /** @var ChannelParamConfigTranslator */
+    /** @var ActionTriggerParamsTranslator */
     private $configTranslator;
+    /** @var ActionableSubjectRepository|MockObject */
+    private $subjectRepositoryMock;
+    /** @var ChannelActionExecutor|MockObject */
+    private $actionExecutorMock;
 
     /** @before */
     public function createTranslator() {
-        $this->configTranslator = new ActionTriggerParamsTranslator();
+        $this->subjectRepositoryMock = $this->createMock(ActionableSubjectRepository::class);
+        $this->actionExecutorMock = $this->createMock(ChannelActionExecutor::class);
+        $this->configTranslator = new ActionTriggerParamsTranslator($this->subjectRepositoryMock, $this->actionExecutorMock);
     }
 
     public function testGettingSupportedTriggers() {
@@ -48,5 +58,23 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $config = $this->configTranslator->getConfigFromParams($channel);
         $this->assertArrayHasKey('supportedTriggers', $config);
         $this->assertEquals(['HOLD', 'PRESS_3X'], $config['supportedTriggers']);
+    }
+
+    public function testCannotSetInvalidActionsSyntax() {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->configTranslator->setParamsFromConfig(new IODeviceChannel(), ['actions' => null]);
+    }
+
+    public function testCanSetValidActions() {
+        $actions = [
+            ['subjectId' => 1, 'subjectType' => 'channel', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+            ['subjectId' => 1, 'subjectType' => 'scene', 'action' => ['id' => ChannelFunctionAction::EXECUTE]],
+        ];
+        $channel = new IODeviceChannel();
+        $this->subjectRepositoryMock->method('findForUser')
+            ->willReturnOnConsecutiveCalls(new IODeviceChannel(), $this->createMock(Scene::class));
+        $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
+        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->assertEquals($actions, $channel->getConfig()['actions']);
     }
 }
