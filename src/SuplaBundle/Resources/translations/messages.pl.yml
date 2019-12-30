@@ -623,4 +623,19 @@ password: ~
 scene: ~
 username: ~
 
+
+
 #</editor-fold>
+
+
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie poszczególnych akcji zależy od użytego osprzętu i jego konfiguracji. Opisy akcji zawierają jedynie przykłady w jaki sposób może działać sprzęt wyzwalający daną akcję.
+actionTriggerBehavior_PRESS: Naciśnięcie / włącz
+actionTriggerBehaviorDescription_PRESS: Akcja domyślnie oznacza naciśnięcie przycisku lub włączenie zasilania lub przejście w stan wysoki.
+actionTriggerBehavior_RELEASE: Zwolnienie / wyłącz
+actionTriggerBehaviorDescription_RELEASE: Akcja domyślnie oznacza zwolnienie przycisku lub wyłączenie zasilania lub przejście w stan niski.
+actionTriggerBehavior_HOLD: Przytrzymanie
+actionTriggerBehaviorDescription_HOLD: Akcja domyślnie oznacza chwilowe przytrzymanie przycisku.
+actionTriggerBehavior_PRESS_2X: Dwukrotne naciśnięcie
+actionTriggerBehaviorDescription_PRESS_2X: Akcja domyślnie oznacza dwukrotne naciśnięcie przycisku.
+actionTriggerBehavior_PRESS_3X: Trzykrotne naciśnięcie
+actionTriggerBehaviorDescription_PRESS_3X: Akcja domyślnie oznacza trzykrotne naciśnięcie przycisku.

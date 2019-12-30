@@ -67,9 +67,14 @@ sunset-before: the sunset
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-actionTriggerBehavior_PRESS: Press
-actionTriggerBehavior_RELEASE: Release
+actionTriggerBehavior_PRESS: Press / turn on
+actionTriggerBehaviorDescription_PRESS: By default, this action is triggered when the button is pressed, after a device is powered on or going to the high state.
+actionTriggerBehavior_RELEASE: Release / turn off
+actionTriggerBehaviorDescription_RELEASE: By default, this action is triggered when the button is released, after the device is powered off or going to the low state.
 actionTriggerBehavior_HOLD: Hold
+actionTriggerBehaviorDescription_HOLD: By default, this action is triggered after holding the button for a while.
 actionTriggerBehavior_PRESS_2X: Double press
+actionTriggerBehaviorDescription_PRESS_2X: By default, this action is triggered when the button is pressed twice in a row.
 actionTriggerBehavior_PRESS_3X: Triple press
+actionTriggerBehaviorDescription_PRESS_3X: By default, this action is triggered when the button is pressed three times in a row.
 #</editor-fold>

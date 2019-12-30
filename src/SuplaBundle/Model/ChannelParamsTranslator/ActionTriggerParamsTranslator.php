@@ -10,6 +10,7 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
             'supportedBehaviors' => ChannelFunctionBitsActionTrigger::getSupportedFeaturesNames($channel->getFlags()),
+            'actions' => new \stdClass(),
         ];
     }
 

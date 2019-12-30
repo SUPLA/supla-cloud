@@ -1,10 +1,14 @@
 <template>
     <div>
+        <h4>{{ $t('Triggers') }}</h4>
+        <p>
+            {{ $t('Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.') }}
+        </p>
         <div class="panel-group hovered"
             role="tablist"
             aria-multiselectable="true">
             <div :class="'panel panel-' + (channel.config.actions[behavior] ? 'success' : 'default')"
-                v-for="behavior in channel.config.supportedBehaviors">
+                v-for="(behavior, index) in channel.config.supportedBehaviors">
                 <div class="panel-heading"
                     role="tab"
                     :id="'heading' + behavior">
@@ -13,7 +17,8 @@
                         <a role="button"
                             :aria-expanded="!!expanded[behavior]"
                             :aria-controls="'collapse' + behavior">
-                            {{ $t('actionTriggerBehavior_' + behavior) }}
+                            {{ $t('Action') }} {{ index + 1 }}
+                            <span class="small">{{ $t('actionTriggerBehavior_' + behavior) }}</span>
                         </a>
                     </div>
                 </div>
@@ -24,6 +29,7 @@
                     <transition-expand>
                         <div class="panel-body"
                             v-if="expanded[behavior]">
+                            <p class="small text-muted">{{ $t('actionTriggerBehaviorDescription_' + behavior) }}</p>
                             <channel-params-action-trigger-selector v-model="channel.config.actions[behavior]"
                                 @input="$emit('change')"></channel-params-action-trigger-selector>
                         </div>
@@ -45,11 +51,6 @@
             return {
                 expanded: {}
             };
-        },
-        mounted() {
-            if (!this.channel.config.actions) {
-                this.$set(this.channel.config, 'actions', {});
-            }
         },
         methods: {
             toggleExpand(behavior) {
