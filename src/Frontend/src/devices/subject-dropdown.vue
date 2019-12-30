@@ -67,9 +67,6 @@
         watch: {
             value() {
                 this.updateBasedOnValue();
-            },
-            'value.subject'() {
-                this.updateBasedOnValue();
             }
         }
     };

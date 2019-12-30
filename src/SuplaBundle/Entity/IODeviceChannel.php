@@ -377,7 +377,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     }
 
     public function getHidden() {
-        return $this->hidden;
+        return $this->function === ChannelFunction::ACTION_TRIGGER ? true : $this->hidden;
     }
 
     public function setHidden($hidden) {

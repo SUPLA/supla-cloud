@@ -67,5 +67,9 @@ sunset-before: the sunset
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-
+actionTriggerBehavior_PRESS: Press
+actionTriggerBehavior_RELEASE: Release
+actionTriggerBehavior_HOLD: Hold
+actionTriggerBehavior_PRESS_2X: Double press
+actionTriggerBehavior_PRESS_3X: Triple press
 #</editor-fold>

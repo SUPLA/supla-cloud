@@ -43,23 +43,15 @@
     export default {
         components: {RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
         props: ['subject', 'value', 'possibleActionFilter'],
-        data() {
-            return {
-                action: {},
-            };
-        },
         mounted() {
-            if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
-                this.action = {
-                    id: this.actionsToShow[0].id,
-                    param: {}
-                };
-                this.updateAction();
-            }
+            this.selectFirstActionIfOnlyOne();
         },
         methods: {
-            updateAction() {
-                this.$emit('input', this.action);
+            selectFirstActionIfOnlyOne() {
+                if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
+                    this.actionId = this.actionsToShow[0].id;
+                    this.actionParam = {};
+                }
             },
             shouldShowAction(possibleAction) {
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
@@ -84,6 +76,11 @@
                 set(param) {
                     this.$emit('input', {id: this.value.id, param});
                 }
+            }
+        },
+        watch: {
+            subject() {
+                this.selectFirstActionIfOnlyOne();
             }
         }
     };

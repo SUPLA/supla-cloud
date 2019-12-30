@@ -234,7 +234,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
         background-color: transparent;
       }
 
-      .dropdown:not(.hovered) .caret, .chosen-single > div > b, .help-block {
+      .dropdown:not(.hovered) .caret, .chosen-single > div > b, .help-block, .nav-tabs {
         visibility: hidden;
       }
     }
