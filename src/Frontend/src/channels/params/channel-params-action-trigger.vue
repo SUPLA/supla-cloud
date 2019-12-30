@@ -1,16 +1,16 @@
 <template>
     <div>
         <dl>
-            <dd style="vertical-align: top">Action</dd>
+            <dd>{{ $t('On trigger') }}</dd>
             <dt>
-                <div class="form-group">
+                <div class="">
                     <div class="dropdown hovered">
                         <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
                             type="button"
                             data-toggle="dropdown">
                             <h4>
                                 <span v-if="selectedBehavior">{{ $t('actionTriggerBehavior_' + selectedBehavior) }}</span>
-                                <span v-else>{{ $t('Select behavior') }}</span>
+                                <span v-else>{{ $t('Select trigger') }}</span>
                             </h4>
                             <span class="caret"></span>
                         </button>
@@ -22,15 +22,18 @@
                         </ul>
                     </div>
                 </div>
-                <div v-if="selectedBehavior">
-                    <subject-dropdown v-model="behaviorSubject"
-                        @input="onBehaviorSubjectChange()"
-                        channels-dropdown-params="io=output&hasFunction=1"></subject-dropdown>
-                    <div v-if="behaviorSubject">
-                        <channel-action-chooser :subject="behaviorSubject"
-                            @input="onBehaviorActionChange()"
-                            v-model="behaviorAction"></channel-action-chooser>
-                    </div>
+            </dt>
+        </dl>
+        <dl v-if="selectedBehavior">
+            <dd>{{ $t('Do / execute') }}</dd>
+            <dt>
+                <subject-dropdown v-model="behaviorSubject"
+                    @input="onBehaviorSubjectChange()"
+                    channels-dropdown-params="io=output&hasFunction=1"></subject-dropdown>
+                <div v-if="behaviorSubject">
+                    <channel-action-chooser :subject="behaviorSubject"
+                        @input="onBehaviorActionChange()"
+                        v-model="behaviorAction"></channel-action-chooser>
                 </div>
             </dt>
         </dl>
