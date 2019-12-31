@@ -58,16 +58,6 @@ abstract class AbstractSerializer extends ObjectNormalizer {
         return false;
     }
 
-    /**
-     * Forces to serialize empty array as json object (i.e. {} instead of []).
-     */
-    protected function emptyArrayAsObject(array $array) {
-        if (count($array) == 0) {
-            return new \stdClass();
-        }
-        return $array;
-    }
-
     /** @inheritDoc */
     final public function normalize($object, $format = null, array $context = []) {
         $context[self::ENABLE_MAX_DEPTH] = true;

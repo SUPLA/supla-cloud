@@ -25,6 +25,7 @@ use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\JsonArrayObject;
 
 class IODeviceChannelSerializer extends AbstractSerializer {
     use CurrentUserAware;
@@ -62,7 +63,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['connected'] = $this->suplaServer->isDeviceConnected($channel->getIoDevice());
         }
         if (in_array('state', $context[self::GROUPS])) {
-            $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
+            $normalized['state'] = new JsonArrayObject($this->channelStateGetter->getState($channel));
         }
         if (!isset($normalized['relationsCount']) && (
                 $this->isSerializationGroupRequested('channel.relationsCount', $context)
@@ -72,7 +73,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
-            $normalized['config'] = $this->paramsTranslator->getConfigFromParams($channel);
+            $normalized['config'] = new JsonArrayObject($channel->getConfig());
         } else {
             $normalized['param1'] = $channel->getParam1();
             $normalized['param2'] = $channel->getParam2();

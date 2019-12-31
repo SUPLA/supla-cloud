@@ -10,10 +10,19 @@ final class EntityUtils {
     }
 
     private function doSetField($entity, string $field, $value) {
-        $setter = function (string $field, $value) {
-            $this->{$field} = $value;
-        };
-        $setter->call($entity, $field, $value);
+        $prop = $this->getProperty($entity, $field);
+        $prop->setAccessible(true);
+        $prop->setValue($entity, $value);
+    }
+
+    private function getProperty($entity, string $field): \ReflectionProperty {
+        $rc = new \ReflectionClass($entity);
+        do {
+            if ($rc->hasProperty($field)) {
+                return $rc->getProperty($field);
+            }
+        } while ($rc = $rc->getParentClass());
+        throw new \InvalidArgumentException("There is no $field field in the " . get_class($entity));
     }
 
     public static function getField($entity, string $field) {

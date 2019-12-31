@@ -106,9 +106,8 @@ trait UserFixtures {
             $fieldSetter->call($channel, 'type', $channelData[0]);
             $fieldSetter->call($channel, 'function', $channelData[1]);
             $fieldSetter->call($channel, 'channelNumber', $channelNumber++);
-            if ($channel->getType() == ChannelType::RELAY()) {
-                $fieldSetter->call($channel, 'funcList', 0b1111111111);
-            }
+            $fieldSetter->call($channel, 'funcList', 0b1111111111);
+            $fieldSetter->call($channel, 'flags', 0b1111111111);
             $this->getEntityManager()->persist($channel);
             $this->getEntityManager()->flush();
         }

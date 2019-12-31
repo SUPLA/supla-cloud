@@ -24,6 +24,7 @@ use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -363,5 +364,20 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam2());
         $this->assertEquals(0, $channel->getParam3());
+    }
+
+    public function testSettingConfigForActionTrigger() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
+        ]);
+        $trigger = $anotherDevice->getChannels()[0];
+        $channel = $this->device->getChannels()[0];
+        $actions = ['PRESS' => ['subjectId' => $channel->getId(), 'subjectType' => ActionableSubjectType::CHANNEL, 'action' => ['id' => $channel->getFunction()->getPossibleActions()[0]->getId()]]];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getConfig());
+        $this->assertCount(1, $trigger->getConfig()['actions']);
     }
 }
