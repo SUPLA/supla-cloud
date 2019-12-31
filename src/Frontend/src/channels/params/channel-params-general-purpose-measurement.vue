@@ -66,7 +66,7 @@
                         @change="$emit('change')">
                 </span>
                 <span class="help-block text-center">
-                    <unit-symbol-helper @typed="channel.params[lastUnitField] += $event"></unit-symbol-helper>
+                    <unit-symbol-helper @typed="channel.config[lastUnitField] += $event"></unit-symbol-helper>
                 </span>
             </dt>
             <dd>{{$t('Store measurements history')}}</dd>
