@@ -5,6 +5,7 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 use Assert\Assertion;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsActionTrigger;
@@ -66,9 +67,15 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
             EntityUtils::mapToIds($subject->getFunction()->getPossibleActions()),
             'Cannot execute the requested action on given subject.'
         );
-        $params = $this->channelActionExecutor->validateActionParams($subject, $channelFunctionAction, $actionToExecute['params'] ?? []);
-        $action['action']['params'] = $params;
-        return $action;
+        $params = $this->channelActionExecutor->validateActionParams($subject, $channelFunctionAction, $actionToExecute['param'] ?? []);
+        return [
+            'subjectId' => $subject->getId(),
+            'subjectType' => ActionableSubjectType::forEntity($subject)->getValue(),
+            'action' => [
+                'id' => $channelFunctionAction->getId(),
+                'param' => $params,
+            ],
+        ];
     }
 
     private function getSupportedTriggers(IODeviceChannel $channel): array {

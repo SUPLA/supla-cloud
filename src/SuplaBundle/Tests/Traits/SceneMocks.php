@@ -12,6 +12,7 @@ use SuplaBundle\Enums\ChannelFunction;
 trait SceneMocks {
     protected function createSceneMock(): Scene {
         $scene = $this->createMock(Scene::class);
+        $scene->method('getId')->willReturn(1);
         $scene->method('getFunction')->willReturn(ChannelFunction::SCENE());
         return $scene;
     }

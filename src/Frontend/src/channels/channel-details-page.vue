@@ -174,10 +174,15 @@
             saveChanges: throttle(function (safe = true) {
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
-                this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), this.channel, {skipErrorHandler: true})
+                this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), this.channel, {skipErrorHandler: [409]})
                     .then(response => $.extend(this.channel, response.body))
-                    .then(() => this.loading = this.changedFunction = this.hasPendingChanges = false)
-                    .catch(response => this.changeFunctionConfirmationObject = response.body);
+                    .then(() => this.changedFunction = this.hasPendingChanges = false)
+                    .catch(response => {
+                        if (response.status === 409) {
+                            this.changeFunctionConfirmationObject = response.body;
+                        }
+                    })
+                    .finally(() => this.loading = false);
             }, 1000),
             onLocationChange(location) {
                 this.channel.inheritedLocation = !location;

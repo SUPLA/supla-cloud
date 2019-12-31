@@ -93,7 +93,7 @@ final class ChannelType extends Enum {
 
     /** @Groups({"basic"}) */
     public function getId(): int {
-        return $this->value == self::UNSUPPORTED ? $this->unsupportedTypeId : $this->value;
+        return $this->value == self::UNSUPPORTED ? ($this->unsupportedTypeId ?: 0) : $this->value;
     }
 
     /** @Groups({"basic"}) */

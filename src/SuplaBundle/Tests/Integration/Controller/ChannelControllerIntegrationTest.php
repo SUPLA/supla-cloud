@@ -372,7 +372,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $trigger = $anotherDevice->getChannels()[0];
         $channel = $this->device->getChannels()[0];
-        $actions = ['PRESS' => ['subjectId' => $channel->getId(), 'subjectType' => ActionableSubjectType::CHANNEL, 'action' => ['id' => $channel->getFunction()->getPossibleActions()[0]->getId()]]];
+        $actions = ['PRESS' => [
+            'subjectId' => $channel->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
+            'action' => ['id' => $channel->getFunction()->getPossibleActions()[0]->getId()]]];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
         $this->assertStatusCode(200, $client->getResponse());
