@@ -33,7 +33,7 @@
             <slot name="removingHeader">{{ $t('Channel reference will be removed from the items below.') }}</slot>
         </p>
         <div class="row">
-            <div class="col-sm-6"
+            <div class="col-sm-6 col-12-if-alone"
                 v-if="dependencies.channelGroups.length > 0">
                 <h5>{{ $t('Channel groups') }}</h5>
                 <ul>
@@ -45,7 +45,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-sm-6"
+            <div class="col-sm-6 col-12-if-alone"
                 v-if="dependencies.sceneOperations.length > 0">
                 <h5>{{ $t('Scenes') }}</h5>
                 <ul>
@@ -53,6 +53,20 @@
                         <div class="checkbox">
                             ID{{ sceneOperation.owningSceneId }}
                             <span class="small">{{ sceneOperation.owningScene.caption }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-12-if-alone"
+                v-if="dependencies.actionTriggers.length > 0">
+                <h5>{{ $t('Action triggers') }}</h5>
+                <ul>
+                    <li v-for="channel in dependencies.actionTriggers">
+                        <div class="checkbox">
+                            ID{{ channel.id }}
+                            <span class="small">{{ channel.caption }}</span>
                         </div>
                     </li>
                 </ul>

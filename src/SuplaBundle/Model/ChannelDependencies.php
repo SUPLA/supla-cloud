@@ -2,8 +2,11 @@
 
 namespace SuplaBundle\Model;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 
@@ -34,6 +37,7 @@ class ChannelDependencies {
             'directLinks' => $channel->getDirectLinks()->toArray(),
             'schedules' => $channel->getSchedules()->toArray(),
             'sceneOperations' => $channel->getSceneOperations()->toArray(),
+            'actionTriggers' => $this->findActionTriggersForChannel($channel)->getValues(),
         ];
     }
 
@@ -51,5 +55,26 @@ class ChannelDependencies {
         foreach ($channel->getSceneOperations() as $sceneOperation) {
             $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
         }
+        foreach ($this->findActionTriggersForChannel($channel) as $actionTrigger) {
+            $newActions = array_filter($actionTrigger->getConfig()['actions'], function (array $action) use ($channel) {
+                return $action['subjectType'] !== ActionableSubjectType::CHANNEL || $action['subjectId'] !== $channel->getId();
+            });
+            $this->channelParamConfigTranslator->setParamsFromConfig($actionTrigger, ['actions' => $newActions]);
+            $this->entityManager->persist($actionTrigger);
+        }
+    }
+
+    /** @return Collection|IODeviceChannel[] */
+    private function findActionTriggersForChannel(IODeviceChannel $channel): Collection {
+        return $channel->getUser()
+            ->getChannels()
+            ->filter(function (IODeviceChannel $ch) {
+                return $ch->getFunction()->getId() === ChannelFunction::ACTION_TRIGGER;
+            })
+            ->filter(function (IODeviceChannel $ch) use ($channel) {
+                return !!array_filter($ch->getConfig()['actions'] ?? [], function ($action) use ($channel) {
+                    return $action['subjectType'] === ActionableSubjectType::CHANNEL && $action['subjectId'] === $channel->getId();
+                });
+            });
     }
 }

@@ -381,5 +381,62 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
         $this->assertArrayHasKey('actions', $trigger->getConfig());
         $this->assertCount(1, $trigger->getConfig()['actions']);
+        return $trigger;
+    }
+
+    /** @depends testSettingConfigForActionTrigger */
+    public function testChangingChannelFunctionTriesToClearRelatedActionTriggers(IODeviceChannel $trigger) {
+        $channel = $this->device->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId() . '?safe=1', [
+            'functionId' => ChannelFunction::POWERSWITCH,
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('actionTriggers', $content);
+        $this->assertCount(1, $content['actionTriggers']);
+        $this->assertEquals($trigger->getId(), $content['actionTriggers'][0]['id']);
+        return $trigger;
+    }
+
+    /** @depends testChangingChannelFunctionTriesToClearRelatedActionTriggers */
+    public function testChangingChannelFunctionClearsRelatedActionTriggers(IODeviceChannel $trigger) {
+        $channel = $this->device->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId(), [
+            'functionId' => ChannelFunction::POWERSWITCH,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertEmpty($trigger->getConfig()['actions']);
+    }
+
+    public function testChangingChannelFunctionClearsRelatedActionTriggersOnly() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
+        ]);
+        $trigger = $anotherDevice->getChannels()[0];
+        $channel1 = $this->device->getChannels()[0];
+        $channel2 = $this->device->getChannels()[1];
+        $actions = [
+            'PRESS' => [
+                'subjectId' => $channel1->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
+                'action' => ['id' => $channel1->getFunction()->getPossibleActions()[0]->getId()]],
+            'RELEASE' => [
+                'subjectId' => $channel2->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
+                'action' => ['id' => $channel2->getFunction()->getPossibleActions()[0]->getId()]],
+        ];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertCount(2, $trigger->getConfig()['actions']);
+        $client->apiRequestV24('PUT', '/api/channels/' . $channel2->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertCount(1, $trigger->getConfig()['actions']);
+        $this->assertArrayHasKey('PRESS', $trigger->getConfig()['actions']);
     }
 }
