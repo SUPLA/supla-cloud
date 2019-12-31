@@ -23,7 +23,7 @@
                     <div class="row text-center">
                         <div class="col-sm-4">
                             <h3>{{ $t('Function') }}</h3>
-                            <div class="hover-editable text-left">
+                            <div :class="'hover-editable text-left ' + (channel.function.name === 'ACTION_TRIGGER' ? 'hovered' : '')">
                                 <div class="form-group">
                                     <div class="dropdown hovered">
                                         <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"

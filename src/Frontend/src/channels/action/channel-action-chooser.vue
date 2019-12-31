@@ -74,7 +74,7 @@
                     return this.value && this.value.param || {};
                 },
                 set(param) {
-                    this.$emit('input', {id: this.value.id, param});
+                    this.$emit('input', {id: this.actionId, param});
                 }
             }
         },
