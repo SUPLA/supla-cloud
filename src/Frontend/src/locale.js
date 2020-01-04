@@ -41,9 +41,9 @@ Vue.prototype.$setLocale = (lang) => {
         Promise.resolve(loadedLanguages.includes(lang) ? true : loadLanguage(lang)).then(() => {
             i18n.locale = lang;
             if (['ar'].includes(lang)) {
-                document.body.setAttribute('dir', 'rtl');
+                document.getElementsByTagName("html")[0].setAttribute('dir', 'rtl');
             } else {
-                document.body.removeAttribute('dir');
+                document.getElementsByTagName("html")[0].removeAttribute('dir');
             }
             moment.locale(lang);
             if (Vue.prototype.$user.userData && Vue.prototype.$user.userData.locale != lang) {

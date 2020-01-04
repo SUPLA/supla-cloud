@@ -20,6 +20,7 @@ const updatePageTitle = function (title) {
 Vue.directive('title', {
     inserted: (el, binding) => updatePageTitle(binding.value || el.innerText),
     update: (el, binding) => updatePageTitle(binding.value || el.innerText),
+    componentUpdated: (el, binding) => updatePageTitle(binding.value || el.innerText),
 });
 
 Vue.directive('autosize', {
