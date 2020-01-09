@@ -84,11 +84,13 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
                 $this->assertEquals(0, $channel->getParam1());
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000000]);
-                $this->assertEquals(1000000, $channel->getParam1());
+                $this->assertEquals(100000000, $channel->getParam1());
+                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 100.50]);
+                $this->assertEquals(10050, $channel->getParam1());
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1]);
                 $this->assertEquals(1, $channel->getParam1());
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000001]);
-                $this->assertEquals(1000000, $channel->getParam1());
+                $this->assertEquals(100000000, $channel->getParam1());
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0]);
                 $this->assertEquals(0, $channel->getParam1());
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -1]);
