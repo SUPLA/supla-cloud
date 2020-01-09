@@ -375,7 +375,7 @@ VALUES (1, 1, 1, 0, 'Ducimus tempora reprehenderit.', 2900, 140, 96, 0, 0, 0, NU
        (64, 4, 1, 52, 'Quo consequatur autem voluptatem.', 4010, 190, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, NULL),
        (65, 4, 1, 53, 'Rerum culpa qui.', 4020, 200, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, NULL),
        (66, 4, 1, 54, NULL, 5000, 310, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, 1),
-       (67, 4, 1, 55, 'Ea eos molestias.', 5010, 310, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, 1),
+       (67, 4, 1, 55, 'Ea eos molestias.', 5010, 310, NULL, 103, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, 1),
        (68, 4, 1, 56, 'Quidem odit mollitia eaque.', 5010, 320, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, NULL),
        (69, 4, 1, 57, NULL, 5010, 330, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, NULL),
        (70, 4, 1, 58, NULL, 6000, 400, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, NULL),
