@@ -30,7 +30,7 @@
         <dt>
             <span class="input-group">
                 <input type="number"
-                    step="1"
+                    step="0.01"
                     min="0"
                     max="1000000"
                     class="form-control text-center"

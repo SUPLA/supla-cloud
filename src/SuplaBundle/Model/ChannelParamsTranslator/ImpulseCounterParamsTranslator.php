@@ -15,13 +15,13 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
             'impulsesPerUnit' => $channel->getParam3(),
             'currency' => $channel->getTextParam1() ?: null,
             'unit' => $channel->getTextParam2() ?: null,
-            'initialValue' => $channel->getParam1(),
+            'initialValue' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 100, 2),
         ];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (array_key_exists('initialValue', $config)) {
-            $channel->setParam1($this->getValueInRange($config['initialValue'], 0, 1000000));
+            $channel->setParam1($this->getValueInRange($config['initialValue'], 0, 1000000) * 100);
         }
         if (array_key_exists('pricePerUnit', $config)) {
             $channel->setParam2($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000);
