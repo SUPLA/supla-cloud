@@ -88,6 +88,8 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 100.50]);
                 $this->assertEquals(10050, $channel->getParam1());
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1]);
+                $this->assertEquals(100, $channel->getParam1());
+                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0.01]);
                 $this->assertEquals(1, $channel->getParam1());
                 $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000001]);
                 $this->assertEquals(100000000, $channel->getParam1());
