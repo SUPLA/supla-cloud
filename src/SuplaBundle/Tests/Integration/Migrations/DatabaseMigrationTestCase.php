@@ -30,4 +30,9 @@ abstract class DatabaseMigrationTestCase extends IntegrationTestCase {
         $this->assertContains('Migrating up to', $result);
         $this->container->get('doctrine')->resetManager();
     }
+
+    protected function initialize() {
+        $this->executeCommand('supla:initialize');
+        $this->container->get('doctrine')->resetManager();
+    }
 }
