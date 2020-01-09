@@ -22,7 +22,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 /**
  * @see Version20200108201101
  */
-class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
+class Version20200108201101MigrationTest extends DatabaseMigrationTestCase {
     /** @before */
     public function prepare() {
         $this->loadDumpV23();
