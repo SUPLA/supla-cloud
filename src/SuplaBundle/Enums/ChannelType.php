@@ -240,6 +240,16 @@ final class ChannelType extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
             self::VALVEOPENCLOSE => [ChannelFunction::VALVEOPENCLOSE()],
             self::VALVEPERCENTAGE => [ChannelFunction::VALVEPERCENTAGE()],
+            self::BRIDGE => [
+                ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
+                ChannelFunction::CONTROLLINGTHEGATE(),
+                ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+                ChannelFunction::CONTROLLINGTHEDOORLOCK(),
+                ChannelFunction::POWERSWITCH(),
+                ChannelFunction::LIGHTSWITCH(),
+                ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+                ChannelFunction::STAIRCASETIMER(),
+            ],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
