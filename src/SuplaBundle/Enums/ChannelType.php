@@ -54,6 +54,7 @@ use UnexpectedValueException;
  * @method static ChannelType THERMOSTATHEATPOLHOMEPLUS();
  * @method static ChannelType VALVEOPENCLOSE();
  * @method static ChannelType VALVEPERCENTAGE();
+ * @method static ChannelType BRIDGE()
  */
 final class ChannelType extends Enum {
     const UNSUPPORTED = -1;
@@ -88,6 +89,7 @@ final class ChannelType extends Enum {
     const THERMOSTATHEATPOLHOMEPLUS = 6010;
     const VALVEOPENCLOSE = 7000;
     const VALVEPERCENTAGE = 7010;
+    const BRIDGE = 8000;
 
     private $unsupportedTypeId;
 
@@ -167,6 +169,7 @@ final class ChannelType extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
             self::VALVEPERCENTAGE => 'Valve', // i18n
+            self::BRIDGE => 'Bridge', // i18n
         ];
     }
 
