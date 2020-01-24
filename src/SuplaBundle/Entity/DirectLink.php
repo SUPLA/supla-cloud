@@ -103,7 +103,7 @@ class DirectLink {
     private $lastUsed;
 
     /**
-     * @ORM\Column(name="last_ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="last_ipv4", type="ipaddress", nullable=true)
      * @Groups({"basic"})
      */
     private $lastIpv4;
@@ -197,6 +197,7 @@ class DirectLink {
         return $this->lastUsed;
     }
 
+    /** @return null|string */
     public function getLastIpv4() {
         return $this->lastIpv4;
     }

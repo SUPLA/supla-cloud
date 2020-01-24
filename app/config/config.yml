@@ -13,7 +13,8 @@ doctrine:
     password: "%database_password%"
     port: "%database_port%"
     types:
-      utcdatetime: SuplaBundle\Model\UTCDateTimeType
+      ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
+      utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
     user: "%database_user%"
     server_version: 5.5
     schema_filter: ~^(?!esp_)~
