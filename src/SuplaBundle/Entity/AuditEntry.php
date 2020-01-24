@@ -57,7 +57,7 @@ class AuditEntry {
     private $createdAt;
 
     /**
-     * @ORM\Column(name="ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="ipv4", type="ipaddress", nullable=true)
      * @Groups({"basic"})
      */
     private $ipv4;
@@ -100,6 +100,7 @@ class AuditEntry {
         return $this->createdAt;
     }
 
+    /** @return null|string */
     public function getIpv4() {
         return $this->ipv4;
     }
