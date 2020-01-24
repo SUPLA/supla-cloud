@@ -12,3 +12,6 @@
 release/
 *.tar.gz
 *.zip
+.settings
+.buildpath
+.project
