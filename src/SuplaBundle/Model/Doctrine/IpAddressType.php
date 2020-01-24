@@ -38,7 +38,6 @@ class IpAddressType extends Type {
     }
 
     public function convertToDatabaseValueSQL($sqlExpr, AbstractPlatform $platform) {
-        return sprintf('INET_ATON("%s")', $sqlExpr);
+        return sprintf('INET_ATON(%s)', $sqlExpr);
     }
-
 }

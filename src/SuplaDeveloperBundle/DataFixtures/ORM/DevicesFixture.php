@@ -132,7 +132,7 @@ class DevicesFixture extends SuplaFixture {
             'guid' => rand(0, 9999999),
             'regDate' => new DateTime(),
             'lastConnected' => new DateTime(),
-            'regIpv4' => rand(0, 9999999),
+            'regIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
             'softwareVersion' => '2.' . rand(0, 50),
             'protocolVersion' => '2.' . rand(0, 50),
             'location' => $location,

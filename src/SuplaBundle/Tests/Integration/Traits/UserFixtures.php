@@ -95,7 +95,7 @@ trait UserFixtures {
         $fieldSetter->call($device, 'guid', rand(0, 9999999));
         $fieldSetter->call($device, 'regDate', new \DateTime());
         $fieldSetter->call($device, 'lastConnected', new \DateTime());
-        $fieldSetter->call($device, 'regIpv4', rand(0, 9999999));
+        $fieldSetter->call($device, 'regIpv4', implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]));
         $fieldSetter->call($device, 'softwareVersion', '2.' . rand(0, 50));
         $fieldSetter->call($device, 'protocolVersion', '2.' . rand(0, 50));
         $fieldSetter->call($device, 'location', $location);
