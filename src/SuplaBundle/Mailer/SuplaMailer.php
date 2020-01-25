@@ -137,7 +137,7 @@ class SuplaMailer {
     }
 
     public function sendFailedAuthenticationAttemptWarning(User $user, $ip): bool {
-        return $this->sendEmailMessage('failed_auth_attempt', $user, ['ip' => is_numeric($ip) ? long2ip($ip) : '']);
+        return $this->sendEmailMessage('failed_auth_attempt', $user, ['ip' => $ip]);
     }
 
     private function linkWithLang(User $user, string $suffix): string {

@@ -101,11 +101,11 @@ class IODeviceController extends RestController {
                         'comment' => $device->getComment(),
                         'registration' => [
                             'date' => $device->getRegDate()->getTimestamp(),
-                            'ip_v4' => long2ip($device->getRegIpv4()),
+                            'ip_v4' => $device->getRegIpv4(),
                         ],
                         'last_connected' => [
                             'date' => $device->getLastConnected()->getTimestamp(),
-                            'ip_v4' => long2ip($device->getLastIpv4()),
+                            'ip_v4' => $device->getLastIpv4(),
                         ],
                         'guid' => $device->getGUIDString(),
                         'software_version' => $device->getSoftwareVersion(),
@@ -161,11 +161,11 @@ class IODeviceController extends RestController {
                 'comment' => $ioDevice->getComment(),
                 'registration' => [
                     'date' => $ioDevice->getRegDate()->getTimestamp(),
-                    'ip_v4' => long2ip($ioDevice->getRegIpv4()),
+                    'ip_v4' => $ioDevice->getRegIpv4(),
                 ],
                 'last_connected' => [
                     'date' => $ioDevice->getLastConnected()->getTimestamp(),
-                    'ip_v4' => long2ip($ioDevice->getLastIpv4()),
+                    'ip_v4' => $ioDevice->getLastIpv4(),
                 ],
                 'guid' => $ioDevice->getGUIDString(),
                 'software_version' => $ioDevice->getSoftwareVersion(),

@@ -10,6 +10,12 @@
                     <div class="user-account"
                         v-if="user">
                         <h1>{{ user.email }}</h1>
+                        <dl class="no-margin">
+                            <dt>{{ $t('Server address') }}</dt>
+                            <dd>
+                                {{ suplaServerHost }}
+                            </dd>
+                        </dl>
                         <dl v-if="previousAuthAttempt">
                             <dt>{{ $t('Previous login') }}</dt>
                             <dd>
@@ -17,7 +23,7 @@
                             </dd>
                             <dt>{{ $t('From IP') }}</dt>
                             <dd>
-                                <strong>{{ previousAuthAttempt.ipv4 | intToIp }}</strong>
+                                <strong>{{ previousAuthAttempt.ipv4 }}</strong>
                             </dd>
                         </dl>
                         <dl>
@@ -26,13 +32,15 @@
                                 <timezone-picker :timezone="user.timezone"></timezone-picker>
                             </dd>
                         </dl>
-                        <div class="form-group">
-                            <a class="btn btn-default"
-                                @click="changingPassword = true">{{ $t('Change Password') }}</a>
-                        </div>
-                        <div class="text-right">
-                            <a class="btn btn-red-outline btn-xs"
-                                @click="deletingAccount = true">{{ $t('Delete my account') }}</a>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a class="btn btn-default"
+                                    @click="changingPassword = true">{{ $t('Change Password') }}</a>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <a class="btn btn-red-outline btn-xs"
+                                    @click="deletingAccount = true">{{ $t('Delete my account') }}</a>
+                            </div>
                         </div>
                         <account-password-change-modal v-if="changingPassword"
                             @cancel="changingPassword = false"
@@ -82,6 +90,9 @@
         computed: {
             previousAuthAttempt() {
                 return this.authAttempts[1] || this.authAttempts[0];
+            },
+            suplaServerHost() {
+                return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
             }
         }
     };

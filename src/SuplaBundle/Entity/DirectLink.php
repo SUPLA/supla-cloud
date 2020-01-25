@@ -109,7 +109,7 @@ class DirectLink implements HasSubject {
     private $lastUsed;
 
     /**
-     * @ORM\Column(name="last_ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="last_ipv4", type="ipaddress", nullable=true)
      * @Groups({"basic"})
      */
     private $lastIpv4;
@@ -193,6 +193,7 @@ class DirectLink implements HasSubject {
         return $this->lastUsed;
     }
 
+    /** @return null|string */
     public function getLastIpv4() {
         return $this->lastIpv4;
     }
@@ -285,7 +286,7 @@ class DirectLink implements HasSubject {
     }
 
     public function markExecution(Request $request) {
-        $this->lastIpv4 = ip2long($request->getClientIp());
+        $this->lastIpv4 = $request->getClientIp();
         $this->lastUsed = new \DateTime();
         if ($this->executionsLimit > 0) {
             --$this->executionsLimit;
