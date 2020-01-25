@@ -46,9 +46,9 @@ class ClientAppsFixture extends SuplaFixture {
         AnyFieldSetter::set($clientApp, [
             'guid' => rand(0, 9999999),
             'regDate' => new \DateTime('-' . rand(86400 * 7, 86400 * 60) . 'seconds'),
-            'regIpv4' => rand(1, 2147483647),
+            'regIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
             'lastAccessDate' => new \DateTime('-' . rand(86400, 86400 * 7) . 'seconds'),
-            'lastAccessIpv4' => rand(1, 2147483647),
+            'lastAccessIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
             'softwareVersion' => '1.' . rand(1, 100),
             'protocolVersion' => rand(1, 100),
             'user' => $user,
