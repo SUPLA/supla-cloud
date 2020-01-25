@@ -19,6 +19,7 @@ namespace SuplaBundle\Serialization;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Supla\SuplaServerAware;
 
@@ -34,6 +35,10 @@ class ClientAppSerializer extends AbstractSerializer {
         $normalized['accessIdId'] = $clientApp->getAccessId() ? $clientApp->getAccessId()->getId() : null;
         if ($this->isSerializationGroupRequested('connected', $context)) {
             $normalized['connected'] = $this->isClientAppConnected($clientApp);
+        }
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            $normalized['regIpv4'] = ($normalized['regIpv4'] ?? null) ? ip2long($normalized['regIpv4']) : null;
+            $normalized['lastAccessIpv4'] = ($normalized['lastAccessIpv4'] ?? null) ? ip2long($normalized['lastAccessIpv4']) : null;
         }
     }
 
