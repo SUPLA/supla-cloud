@@ -23,7 +23,7 @@
                             </dd>
                             <dt>{{ $t('From IP') }}</dt>
                             <dd>
-                                <strong>{{ previousAuthAttempt.ipv4 | intToIp }}</strong>
+                                <strong>{{ previousAuthAttempt.ipv4 }}</strong>
                             </dd>
                         </dl>
                         <dl>

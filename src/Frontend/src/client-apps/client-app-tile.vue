@@ -12,7 +12,7 @@
             <dd>{{ $t('Last access') }}</dd>
             <dt>{{ model.lastAccessDate | moment("LT L") }}</dt>
             <dd>{{ $t('from the IP') }}</dd>
-            <dt>{{ model.lastAccessIpv4 | intToIp }}</dt>
+            <dt>{{ model.lastAccessIpv4 }}</dt>
         </dl>
         <div class="separator invisible"></div>
         <dl>

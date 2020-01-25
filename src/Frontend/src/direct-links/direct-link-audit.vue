@@ -14,7 +14,7 @@
                 <div class="text-muted small">
                     {{ entry.createdAt | moment('LLL') }}
                     {{ $t('from IP') }}
-                    {{ entry.ipv4 | intToIp }}
+                    {{ entry.ipv4 }}
                 </div>
             </div>
         </div>
