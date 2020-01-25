@@ -1,7 +1,7 @@
 {
   "name": "supla-cloud",
   "description": "",
-  "version": "2.3.17",
+  "version": "2.3.18",
   "private": true,
   "scripts": {
     "build": "del-cli -f ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules",
