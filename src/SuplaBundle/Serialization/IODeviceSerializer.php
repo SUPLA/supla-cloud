@@ -63,6 +63,8 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
             }
         } else {
             $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
+            $normalized['regIpv4'] = ($normalized['regIpv4'] ?? null) ? ip2long($normalized['regIpv4']) : null;
+            $normalized['lastIpv4'] = ($normalized['lastIpv4'] ?? null) ? ip2long($normalized['lastIpv4']) : null;
         }
     }
 

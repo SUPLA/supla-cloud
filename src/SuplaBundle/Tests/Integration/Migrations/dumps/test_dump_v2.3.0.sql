@@ -247,7 +247,7 @@ CREATE TABLE `supla_client` (
 LOCK TABLES `supla_client` WRITE;
 /*!40000 ALTER TABLE `supla_client` DISABLE KEYS */;
 INSERT INTO `supla_client`
-VALUES (1, 3, _binary '7636290', 'HTC One M8', 1, 533761795, '2019-11-08 14:46:56', 556518398, '2019-12-24 19:52:28', '1.81', 2, 1, NULL,
+VALUES (1, 3, _binary '7636290', 'HTC One M8', 1, 4277859565, '2019-11-08 14:46:56', 2074964767, '2019-12-24 19:52:28', '1.81', 2, 1, NULL,
         NULL, NULL),
        (2, 3, _binary '5288378', 'iPhone 6s', 1, 881026976, '2019-11-08 14:12:25', 1873489289, '2019-12-25 17:32:55', '1.16', 75, 1, NULL,
         NULL, NULL),
@@ -704,7 +704,7 @@ CREATE TABLE `supla_direct_link` (
 LOCK TABLES `supla_direct_link` WRITE;
 /*!40000 ALTER TABLE `supla_direct_link` DISABLE KEYS */;
 INSERT INTO `supla_direct_link`
-VALUES (1, 1, 183, NULL, 'MkzU3DwEYWYMcyD', 'Gold', '[1000]', NULL, NULL, NULL, NULL, NULL, 1, 0),
+VALUES (1, 1, 183, NULL, 'MkzU3DwEYWYMcyD', 'Gold', '[1000]', NULL, NULL, NULL, NULL, 3647206537, 1, 0),
        (2, 1, 168, NULL, 'MwNTdYzkNQZT4', 'OldLace', '[1000]', NULL, NULL, NULL, NULL, NULL, 1, 0),
        (3, 1, 193, NULL, 'RcUiGZZ2WYDN', 'MediumVioletRed', '[20]', NULL, NULL, NULL, NULL, NULL, 1, 0),
        (4, 1, 232, NULL, '5DEM2mNWyNjNYE', 'Snow', '[1000]', NULL, NULL, NULL, NULL, NULL, 1, 0),
@@ -865,7 +865,7 @@ CREATE TABLE `supla_iodevice` (
 LOCK TABLES `supla_iodevice` WRITE;
 /*!40000 ALTER TABLE `supla_iodevice` DISABLE KEYS */;
 INSERT INTO `supla_iodevice`
-VALUES (1, 4, 1, _binary '1411530', 'SONOFF-DS', 1, NULL, '2019-12-28 17:48:20', 5602388, '2019-12-28 17:48:20', NULL, '2.1', 2, NULL, NULL,
+VALUES (1, 4, 1, _binary '1411530', 'SONOFF-DS', 1, NULL, '2019-12-28 17:48:20', 5257721, '2019-12-28 17:48:20', 3771266185, '2.1', 2, NULL, NULL,
         0, NULL, NULL),
        (2, 5, 1, _binary '9951457', 'UNI-MODULE', 1, NULL, '2019-12-28 17:48:20', 5876265, '2019-12-28 17:48:20', NULL, '2.44', 2, NULL,
         NULL, 0, NULL, NULL),

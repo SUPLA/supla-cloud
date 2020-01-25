@@ -103,7 +103,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $regDate;
 
     /**
-     * @ORM\Column(name="reg_ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="reg_ipv4", type="ipaddress", nullable=true)
      * @Groups({"basic"})
      */
     private $regIpv4;
@@ -115,7 +115,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $lastConnected;
 
     /**
-     * @ORM\Column(name="last_ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="last_ipv4", type="ipaddress", nullable=true)
      * @Groups({"basic"})
      */
     private $lastIpv4;
@@ -201,6 +201,7 @@ class IODevice implements HasLocation, HasRelationsCount {
         return $this->regDate;
     }
 
+    /** @return null|string */
     public function getRegIpv4() {
         return $this->regIpv4;
     }
@@ -209,6 +210,7 @@ class IODevice implements HasLocation, HasRelationsCount {
         return $this->lastConnected;
     }
 
+    /** @return null|string */
     public function getLastIpv4() {
         return $this->lastIpv4;
     }

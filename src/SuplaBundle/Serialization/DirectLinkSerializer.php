@@ -21,6 +21,7 @@ use DateTime;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\InactiveDirectLinkException;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\LocalSuplaCloud;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -61,6 +62,9 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
             } catch (InactiveDirectLinkException $e) {
                 $normalized['inactiveReason'] = $e->getReason()->getValue();
             }
+        }
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            $normalized['lastIpv4'] = ($normalized['lastIpv4'] ?? null) ? ip2long($normalized['lastIpv4']) : null;
         }
     }
 

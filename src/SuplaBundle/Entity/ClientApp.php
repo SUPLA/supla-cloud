@@ -69,7 +69,7 @@ class ClientApp {
     private $enabled = false;
 
     /**
-     * @ORM\Column(name="reg_ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="reg_ipv4", type="ipaddress", nullable=true)
      * @Groups({"basic"})
      */
     private $regIpv4;
@@ -81,7 +81,7 @@ class ClientApp {
     private $regDate;
 
     /**
-     * @ORM\Column(name="last_access_ipv4", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="last_access_ipv4", type="ipaddress", nullable=true)
      * @Groups({"basic"})
      */
     private $lastAccessIpv4;
@@ -114,7 +114,7 @@ class ClientApp {
      * @Groups({"basic"})
      */
     private $caption;
-    
+
     /**
      * @ORM\Column(name="disable_after_date", type="utcdatetime", nullable=true)
      */
@@ -150,6 +150,7 @@ class ClientApp {
         $this->enabled = $enabled;
     }
 
+    /** @return null|string */
     public function getRegIpv4() {
         return $this->regIpv4;
     }
@@ -158,6 +159,7 @@ class ClientApp {
         return $this->regDate;
     }
 
+    /** @return null|string */
     public function getLastAccessIpv4() {
         return $this->lastAccessIpv4;
     }
@@ -185,7 +187,7 @@ class ClientApp {
     public function setCaption(string $caption) {
         $this->caption = $caption;
     }
-    
+
     public function getDisableAfterDate() {
         return $this->disableAfterDate;
     }

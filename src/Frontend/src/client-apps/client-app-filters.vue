@@ -20,7 +20,6 @@
 <script>
     import BtnFilters from "src/common/btn-filters";
     import latinize from "latinize";
-    import {intToIp} from "../common/filters";
 
     export default {
         components: {BtnFilters},
@@ -51,7 +50,7 @@
                         clientApp.softwareVersion,
                         clientApp.protocolVersion,
                         moment(clientApp.lastAccessDate).format("LT L"),
-                        intToIp(clientApp.lastAccessIpv4),
+                        clientApp.lastAccessIpv4,
                         clientApp.accessId ? clientApp.accessId.caption : '',
                     ];
                     const searchString = latinize(parts.join(' ')).toLowerCase();

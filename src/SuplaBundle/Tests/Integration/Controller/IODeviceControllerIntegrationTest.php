@@ -70,6 +70,23 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getSoftwareVersion(), $content[0]->softwareVersion);
         $this->assertFalse(property_exists($content[0], 'location'));
         $this->assertFalse(property_exists($content[0], 'channels'));
+        $this->assertTrue(property_exists($content[0], 'channelsIds'));
+        $this->assertEquals(ip2long($this->device->getRegIpv4()), $content[0]->regIpv4);
+    }
+
+    public function testGettingDevicesListVersion24() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/iodevices', [], [], $this->versionHeader(ApiVersions::V2_4()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent());
+        $this->assertCount(1, $content);
+        $this->assertEquals($this->device->getId(), $content[0]->id);
+        $this->assertEquals($this->device->getSoftwareVersion(), $content[0]->softwareVersion);
+        $this->assertFalse(property_exists($content[0], 'location'));
+        $this->assertFalse(property_exists($content[0], 'channels'));
+        $this->assertFalse(property_exists($content[0], 'channelsIds'));
+        $this->assertEquals($this->device->getRegIpv4(), $content[0]->regIpv4);
     }
 
     public function testGettingDevicesWithChannels22() {

@@ -32,6 +32,7 @@ if (!Vue.config.external.baseUrl) {
     Vue.config.external.baseUrl = '';
 }
 Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
+Vue.http.headers.common['X-Client-Version'] = VERSION; // eslint-disable-line no-undef
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 

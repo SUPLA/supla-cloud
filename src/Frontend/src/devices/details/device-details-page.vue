@@ -26,6 +26,8 @@
                                     <dl>
                                         <dd>GUID</dd>
                                         <dt>{{ this.device.gUIDString }}</dt>
+                                        <dd>{{ $t('SoftVer') }}</dd>
+                                        <dt>{{ device.softwareVersion }}</dt>
                                         <dd>{{ $t('Registered') }}</dd>
                                         <dt>{{ this.device.regDate | moment("LT L")}}</dt>
                                         <dd>{{ $t('Last connection') }}</dd>
