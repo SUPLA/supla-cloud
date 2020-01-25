@@ -40,7 +40,7 @@ class AuditEntryBuilder {
     }
 
     public function setIpv4($ipv4): AuditEntryBuilder {
-        $this->ipv4 = $ipv4;
+        $this->ipv4 = $ipv4 ?: null;
         return $this;
     }
 
