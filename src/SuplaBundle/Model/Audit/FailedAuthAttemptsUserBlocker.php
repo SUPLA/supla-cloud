@@ -58,7 +58,7 @@ class FailedAuthAttemptsUserBlocker {
             ->setMaxResults($this->maxFailedAttempts);
         $request = $this->requestStack->getCurrentRequest();
         if ($request) {
-            $criteria->andWhere(Criteria::expr()->eq('ipv4', ip2long($request->getClientIp())));
+            $criteria->andWhere(Criteria::expr()->eq('ipv4', $request->getClientIp()));
         }
         $authEntries = $this->auditEntryRepository->matching($criteria)->toArray();
         if (count($authEntries) === $this->maxFailedAttempts) {

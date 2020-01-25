@@ -290,7 +290,7 @@ class DirectLink {
     }
 
     public function markExecution(Request $request) {
-        $this->lastIpv4 = ip2long($request->getClientIp());
+        $this->lastIpv4 = $request->getClientIp();
         $this->lastUsed = new \DateTime();
         if ($this->executionsLimit > 0) {
             --$this->executionsLimit;
