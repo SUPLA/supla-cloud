@@ -4,16 +4,14 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class OpenActionExecutor extends SetCharValueActionExecutor {
+class CloseActionExecutor extends SetCharValueActionExecutor {
     public function getSupportedFunctions(): array {
         return [
-            ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
-            ChannelFunction::CONTROLLINGTHEDOORLOCK(),
             ChannelFunction::VALVEOPENCLOSE(),
         ];
     }
 
     public function getSupportedAction(): ChannelFunctionAction {
-        return ChannelFunctionAction::OPEN();
+        return ChannelFunctionAction::CLOSE();
     }
 }

@@ -52,6 +52,8 @@ use UnexpectedValueException;
  * @method static ChannelType IMPULSECOUNTER();
  * @method static ChannelType THERMOSTAT();
  * @method static ChannelType THERMOSTATHEATPOLHOMEPLUS();
+ * @method static ChannelType VALVEOPENCLOSE();
+ * @method static ChannelType VALVEPERCENTAGE();
  */
 final class ChannelType extends Enum {
     const UNSUPPORTED = -1;
@@ -84,6 +86,8 @@ final class ChannelType extends Enum {
     const IMPULSECOUNTER = 5010;
     const THERMOSTAT = 6000;
     const THERMOSTATHEATPOLHOMEPLUS = 6010;
+    const VALVEOPENCLOSE = 7000;
+    const VALVEPERCENTAGE = 7010;
 
     private $unsupportedTypeId;
 
@@ -226,6 +230,8 @@ final class ChannelType extends Enum {
             ],
             self::THERMOSTAT => [ChannelFunction::THERMOSTAT()],
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
+            self::VALVEOPENCLOSE => [ChannelFunction::VALVEOPENCLOSE()],
+            self::VALVEPERCENTAGE => [ChannelFunction::VALVEPERCENTAGE()],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {

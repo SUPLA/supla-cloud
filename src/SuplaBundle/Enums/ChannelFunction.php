@@ -59,6 +59,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction WATERMETER()
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
+ * @method static ChannelFunction VALVEOPENCLOSE()
+ * @method static ChannelFunction VALVEPERCENTAGE()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -97,6 +99,8 @@ final class ChannelFunction extends Enum {
     const WATERMETER = 330;
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
+    const VALVEOPENCLOSE = 500;
+    const VALVEPERCENTAGE = 510;
 
     private $unsupportedFunctionId;
 
@@ -200,6 +204,17 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE()],
+
+            self::VALVEOPENCLOSE => [
+                ChannelFunctionAction::OPEN(),
+                ChannelFunctionAction::CLOSE(),
+            ],
+
+            self::VALVEPERCENTAGE => [
+                ChannelFunctionAction::OPEN(),
+                ChannelFunctionAction::OPEN_PARTIALLY(),
+                ChannelFunctionAction::CLOSE(),
+            ],
         ];
     }
 
@@ -241,6 +256,8 @@ final class ChannelFunction extends Enum {
             self::WATERMETER => 'Water meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
+            self::VALVEOPENCLOSE => 'Valve', // i18n
+            self::VALVEPERCENTAGE => 'Valve', // i18n
         ];
     }
 
@@ -294,6 +311,8 @@ final class ChannelFunction extends Enum {
             self::WATERMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
+            self::VALVEOPENCLOSE => ['opened', 'closed'],
+            self::VALVEPERCENTAGE => ['opened', 'closed'],
         ];
     }
 
