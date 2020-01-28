@@ -2,8 +2,7 @@
 
 This directory contains sources of frontend components used in SUPLA CLOUD.
 
-They are written with [Vue.js](https://vuejs.org/) supported by 
-[Vuex](https://vuex.vuejs.org/). 
+They are written with [Vue.js](https://vuejs.org/).
 The sources are built with [webpack](https://webpack.github.io/).
 
 ## How to build the sources?

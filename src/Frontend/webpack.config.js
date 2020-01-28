@@ -49,7 +49,6 @@ module.exports = {
         alias: {
             '@': path.resolve(__dirname, 'src'),
             'vue$': 'vue/dist/vue.common.js',
-            'vuex$': 'vuex/dist/vuex.js',
             'jquery': 'jquery/dist/jquery',
             'moment-timezone': 'moment-timezone/builds/moment-timezone-with-data-2012-2022',
             'src': path.resolve(__dirname, 'src'),

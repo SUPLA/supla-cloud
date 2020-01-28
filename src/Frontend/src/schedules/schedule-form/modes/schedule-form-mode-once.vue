@@ -8,7 +8,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import Vue from "vue";
     import $ from "jquery";
     import moment from "moment";

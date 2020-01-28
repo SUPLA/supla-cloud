@@ -88,7 +88,7 @@
     </page-container>
 </template>
 
-<script type="text/babel">
+<script>
     import ScheduleModeChooser from "./schedule-mode-chooser.vue";
     import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue";
     import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue";

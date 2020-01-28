@@ -4,7 +4,7 @@
         ref="picker">
 </template>
 
-<script type="text/babel">
+<script>
     import "spectrum-colorpicker";
     import "spectrum-colorpicker/spectrum.css";
 

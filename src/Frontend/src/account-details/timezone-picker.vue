@@ -18,7 +18,7 @@
     </span>
 </template>
 
-<script type="text/babel">
+<script>
     import Vue from "vue";
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";

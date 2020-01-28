@@ -4,7 +4,6 @@ import "bootstrap";
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
-import Vuex from "vuex";
 import {i18n, setGuiLocale} from './locale';
 import router from './router';
 import VueMoment from "vue-moment";
@@ -21,7 +20,6 @@ import "./polyfills";
 import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 
-Vue.use(Vuex);
 Vue.use(VueMoment);
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});

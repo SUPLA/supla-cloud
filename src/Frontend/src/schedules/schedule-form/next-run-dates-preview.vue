@@ -21,7 +21,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import moment from "moment";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
     import Vue from "vue";

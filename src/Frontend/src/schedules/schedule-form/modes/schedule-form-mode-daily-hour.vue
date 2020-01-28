@@ -5,15 +5,13 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import Vue from "vue";
-    import {mapState} from "vuex";
     import moment from "moment";
-    import {roundTime} from "../schedule-helpers";
+    import $ from "jquery";
 
     export default {
-        name: 'schedule-form-mode-daily-hour',
-        props: ['weekdays'],
+        props: ['weekdays', 'value'],
         watch: {
             weekdays() {
                 this.updateTimeExpression();
@@ -21,12 +19,21 @@
         },
         methods: {
             updateTimeExpression() {
-                let date = $(this.$refs.clockpicker).data('DateTimePicker').date();
-                let time = moment(date).format('H:m');
-                var timeParts = roundTime(time).split(':');
-                var cronExpression = [timeParts[1], timeParts[0], '*', '*', this.weekdays].join(' ');
-                this.$store.dispatch('updateTimeExpression', cronExpression);
-            }
+                const date = $(this.$refs.clockpicker).data('DateTimePicker').date();
+                const time = moment(date).format('H:m');
+                const timeParts = this.roundTime(time).split(':');
+                const cronExpression = [timeParts[1], timeParts[0], '*', '*', this.weekdays].join(' ');
+                this.$emit('input', cronExpression);
+            },
+            roundTime(time) {
+                const parts = time.split(':');
+                if (parts.length != 2) {
+                    return '0:0';
+                }
+                parts[1] = Math.min(Math.round(parts[1] / 5) * 5, 55);
+                if (parts[1] < 10) parts[1] = '0' + parts[1];
+                return parts.join(':');
+            },
         },
         mounted() {
             $(this.$refs.clockpicker).datetimepicker({
@@ -35,14 +42,13 @@
                 locale: Vue.config.lang,
                 stepping: 5
             }).on("dp.change", () => this.updateTimeExpression());
-            if (this.timeExpression) {
-                let parts = this.timeExpression.split(' ');
-                let currentDateFromExpression = moment().add(1, 'day').hour(parts[1]).minute(parts[0]);
+            if (this.value) {
+                const parts = this.value.split(' ');
+                const currentDateFromExpression = moment().add(1, 'day').hour(parts[1]).minute(parts[0]);
                 $(this.$refs.clockpicker).data('DateTimePicker').date(currentDateFromExpression);
             } else {
                 this.updateTimeExpression();
             }
-        },
-        computed: mapState(['timeExpression']),
+        }
     };
 </script>

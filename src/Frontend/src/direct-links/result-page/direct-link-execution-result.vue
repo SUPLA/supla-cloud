@@ -91,7 +91,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import CopyButton from "../../common/copy-button";
     import DirectLinkChannelStatus from "./direct-link-channel-status";
 

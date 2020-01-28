@@ -13,8 +13,12 @@
         <div class="row">
             <div class="col-md-6">
                 <schedule-form-mode-daily-hour :weekdays="weekdaysCronExpression"
+                    v-model="timeExpression"
+                    ng-change="$emit('input', timeExpression)"
                     v-if="hourChooseMode == 'normal'"></schedule-form-mode-daily-hour>
                 <schedule-form-mode-daily-sun :weekdays="weekdaysCronExpression"
+                    v-model="timeExpression"
+                    ng-change="$emit('input', timeExpression)"
                     v-if="hourChooseMode == 'sun'"></schedule-form-mode-daily-sun>
             </div>
             <div class="col-md-6">
@@ -36,27 +40,27 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import ScheduleFormModeDailyHour from "./schedule-form-mode-daily-hour.vue";
     import ScheduleFormModeDailySun from "./schedule-form-mode-daily-sun.vue";
-    import {mapState} from "vuex";
 
     export default {
-        name: 'schedule-form-mode-daily',
+        props: ['value'],
         components: {ScheduleFormModeDailyHour, ScheduleFormModeDailySun},
         data() {
             return {
                 hourChooseMode: 'normal',
-                weekdays: []
+                weekdays: [],
+                timeExpression: '',
             };
         },
         beforeMount() {
-            if (this.timeExpression) {
-                let parts = this.timeExpression.split(' ');
+            if (this.value) {
+                const parts = this.value.split(' ');
                 if (parts[4] != '*') {
                     this.weekdays = parts[4].split(',');
                 }
-                if (this.timeExpression[0] == 'S') {
+                if (this.value[0] == 'S') {
                     this.hourChooseMode = 'sun';
                 }
             }
@@ -69,7 +73,6 @@
                     return this.weekdays.sort((a, b) => a - b).join(',');
                 }
             },
-            ...mapState(['timeExpression'])
         }
     };
 </script>

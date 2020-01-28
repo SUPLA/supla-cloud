@@ -36,12 +36,9 @@
     </div>
 </template>
 
-<script type="text/babel">
-    import {mapState} from "vuex";
-
+<script>
     export default {
-        name: 'schedule-form-mode-daily-sun',
-        props: ['weekdays'],
+        props: ['weekdays', 'value'],
         watch: {
             weekdays() {
                 this.updateTimeExpression();
@@ -56,14 +53,14 @@
         },
         methods: {
             updateTimeExpression() {
-                var sunTimeEncoded = 'S' + (this.sunrise ? 'R' : 'S') + (this.sunBefore ? '-' : '') + (this.sunMinute || 0);
-                var sunExpression = [sunTimeEncoded, 0, '*', '*', this.weekdays].join(' ');
-                this.$store.dispatch('updateTimeExpression', sunExpression);
+                const sunTimeEncoded = 'S' + (this.sunrise ? 'R' : 'S') + (this.sunBefore ? '-' : '') + (this.sunMinute || 0);
+                const sunExpression = [sunTimeEncoded, 0, '*', '*', this.weekdays].join(' ');
+                this.$emit('input', sunExpression);
             }
         },
         mounted() {
             if (this.timeExpression) {
-                let current = this.timeExpression.match(/^S([SR])(-?)([0-9]+)/);
+                const current = this.timeExpression.match(/^S([SR])(-?)([0-9]+)/);
                 if (current) {
                     this.sunrise = current[1] == 'R';
                     this.sunBefore = current[2];
@@ -72,6 +69,5 @@
             }
             this.updateTimeExpression();
         },
-        computed: mapState(['timeExpression']),
     };
 </script>

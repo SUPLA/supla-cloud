@@ -16,12 +16,9 @@
     </div>
 </template>
 
-<script type="text/babel">
-    import {roundTo5} from "../schedule-helpers";
-    import {mapState} from "vuex";
-
+<script>
     export default {
-        name: 'schedule-form-mode-minutely',
+        props: ['value'],
         data() {
             return {
                 minutes: 5,
@@ -29,18 +26,20 @@
         },
         methods: {
             updateTimeExpression() {
-                this.minutes = Math.min(Math.max(roundTo5(this.minutes), 5), 300);
-                let cronExpression = '*/' + this.minutes + ' * * * *';
-                this.$store.dispatch('updateTimeExpression', cronExpression);
-            }
+                this.minutes = Math.min(Math.max(this.roundTo5(this.minutes), 5), 300);
+                const cronExpression = '*/' + this.minutes + ' * * * *';
+                this.$emit('input', cronExpression);
+            },
+            roundTo5(int) {
+                return Math.round(Math.floor(int / 5) * 5);
+            },
         },
         mounted() {
             let currentMinutes = this.timeExpression.match(/^\*\/([0-9]+)/);
             if (currentMinutes) {
                 this.minutes = +currentMinutes[1];
             }
-            this.updateTimeExpression(true);
+            this.updateTimeExpression();
         },
-        computed: mapState(['timeExpression']),
     };
 </script>
