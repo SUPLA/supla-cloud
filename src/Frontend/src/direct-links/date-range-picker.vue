@@ -29,7 +29,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import Vue from "vue";
     import moment from "moment";
     import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';

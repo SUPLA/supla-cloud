@@ -142,11 +142,11 @@ class Schedule implements HasSubject {
     public function fill(array $data) {
         Assert::that($data)->notEmptyKey('timeExpression');
         $this->setTimeExpression($data['timeExpression']);
-        $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
-        $this->setActionParam($data['actionParam'] ?? null);
         if ($data['subject'] ?? null) {
             $this->initializeSubject($data['subject']);
         }
+        $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
+        $this->setActionParam($data['actionParam'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['mode']));
@@ -190,7 +190,7 @@ class Schedule implements HasSubject {
      * @Groups({"schedule.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): HasFunction {
+    public function getSubject(): ?HasFunction {
         return $this->getTheSubject();
     }
 
@@ -208,6 +208,10 @@ class Schedule implements HasSubject {
     }
 
     public function setAction(ChannelFunctionAction $action) {
+        if ($this->getSubject()) {
+            $function = $this->getSubject()->getFunction();
+            Assertion::inArray($action->getValue(), EntityUtils::mapToIds($function->getPossibleActions()), 'Invalid action.'); // i18n
+        }
         $this->action = $action->getValue();
     }
 

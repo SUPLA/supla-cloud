@@ -103,7 +103,7 @@
     </page-container>
 </template>
 
-<script type="text/babel">
+<script>
     import DotsRoute from "../../common/gui/dots-route";
     import ChannelTile from "../../channels/channel-tile";
     import ChannelGroupTile from "../../channel-groups/channel-group-tile";

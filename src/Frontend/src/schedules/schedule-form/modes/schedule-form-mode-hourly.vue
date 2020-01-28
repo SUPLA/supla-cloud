@@ -31,11 +31,9 @@
     </div>
 </template>
 
-<script type="text/babel">
-    import {roundTo5} from "../schedule-helpers";
-    import {mapState} from "vuex";
+<script>
     export default {
-        name: 'schedule-form-mode-hourly',
+        props: ['value'],
         data() {
             return {
                 hours: [],
@@ -47,24 +45,26 @@
                 return value < 10 ? '0' + value : value;
             },
             updateTimeExpression() {
-                this.minute = roundTo5(this.minute);
+                this.minute = this.roundTo5(this.minute);
                 if (this.hours.length) {
                     this.hours = this.hours.sort((a, b) => a - b);
-                    let cronExpression = (this.minute || 0) + ' ' + this.hours.join(',') + ' * * *';
-                    this.$store.dispatch('updateTimeExpression', cronExpression);
+                    const cronExpression = (this.minute || 0) + ' ' + this.hours.join(',') + ' * * *';
+                    this.$emit('input', cronExpression);
                 } else {
-                    this.$store.dispatch('updateTimeExpression', '');
+                    this.$emit('input', '');
                 }
-            }
+            },
+            roundTo5(int) {
+                return Math.round(Math.floor(int / 5) * 5);
+            },
         },
         mounted() {
-            let current = this.timeExpression.match(/^([012345]+) ([0-9,]+)/);
+            let current = this.value && this.value.match(/^([012345]+) ([0-9,]+)/);
             if (current) {
                 this.minute = current[1];
                 this.hours = current[2].split(',');
             }
             this.updateTimeExpression();
         },
-        computed: mapState(['timeExpression']),
     };
 </script>

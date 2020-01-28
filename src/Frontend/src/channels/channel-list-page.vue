@@ -23,7 +23,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import ChannelFilters from "./channel-filters";
     import ChannelTile from "./channel-tile";
     import EventBus from "src/common/event-bus";

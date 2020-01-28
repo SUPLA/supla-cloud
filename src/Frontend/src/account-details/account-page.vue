@@ -55,7 +55,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import AnimatedSvg from "./animated-svg";
     import TimezonePicker from "./timezone-picker";
     import AccountPasswordChangeModal from "./account-password-change-modal";

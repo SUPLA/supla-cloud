@@ -65,7 +65,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import HueColorpicker from "./hue-colorpicker.vue";
 
     export default {

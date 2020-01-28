@@ -28,7 +28,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import FunctionIcon from "../../channels/function-icon";
     import ChannelStateTable from "../../channels/channel-state-table";
     import {channelTitle} from "../../common/filters";

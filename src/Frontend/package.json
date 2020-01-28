@@ -41,8 +41,7 @@
     "vue-router": "^3.0.1",
     "vue-slider-component": "^3.0.35",
     "vue-switches": "2.0.1",
-    "vuedraggable": "^2.23.0",
-    "vuex": "2.3.1"
+    "vuedraggable": "^2.23.0"
   },
   "devDependencies": {
     "async": "2.5.0",

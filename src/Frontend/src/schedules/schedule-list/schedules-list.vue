@@ -9,7 +9,7 @@
         :subject="subject"></list-page>
 </template>
 
-<script type="text/babel">
+<script>
     import ScheduleTile from "./schedule-tile";
     import ScheduleFilters from "./schedule-filters";
     import ListPage from "../../common/pages/list-page";
