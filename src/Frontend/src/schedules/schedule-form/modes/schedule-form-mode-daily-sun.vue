@@ -59,13 +59,12 @@
             }
         },
         mounted() {
-            if (this.timeExpression) {
-                const current = this.timeExpression.match(/^S([SR])(-?)([0-9]+)/);
-                if (current) {
-                    this.sunrise = current[1] == 'R';
-                    this.sunBefore = current[2];
-                    this.sunMinute = current[3];
-                }
+            const current = this.value && this.value.match(/^S([SR])(-?)([0-9]+)/);
+            // console.log("AA", this.value); TODO SS/SR not working
+            if (current) {
+                this.sunrise = current[1] == 'R';
+                this.sunBefore = current[2];
+                this.sunMinute = current[3];
             }
             this.updateTimeExpression();
         },

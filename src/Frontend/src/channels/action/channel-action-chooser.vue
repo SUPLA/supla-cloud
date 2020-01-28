@@ -22,14 +22,14 @@
                     <div class="well clearfix"
                         v-if="possibleAction.id == 50 && action.id == possibleAction.id">
                         <rolette-shutter-partial-percentage v-model="action.param"
-                            @change="updateModel"></rolette-shutter-partial-percentage>
+                            @input="updateModel()"></rolette-shutter-partial-percentage>
                     </div>
                 </transition-expand>
                 <transition-expand>
                     <div v-if="possibleAction.id == 80 && action.id == possibleAction.id">
                         <rgbw-parameters-setter v-model="action.param"
                             class="well clearfix"
-                            @change="updateModel()"
+                            @input="updateModel()"
                             :channel-function="subject.function"></rgbw-parameters-setter>
                     </div>
                 </transition-expand>
@@ -52,7 +52,7 @@
         },
         mounted() {
             if (this.value && this.value.id) {
-                this.action = {id: this.value.id, param: this.value.param};
+                this.action = {id: this.value.id, param: this.value.param || {}};
             } else {
                 this.selectFirstActionIfOnlyOne();
             }

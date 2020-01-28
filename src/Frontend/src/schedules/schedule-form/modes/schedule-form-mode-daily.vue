@@ -14,11 +14,11 @@
             <div class="col-md-6">
                 <schedule-form-mode-daily-hour :weekdays="weekdaysCronExpression"
                     v-model="timeExpression"
-                    ng-change="$emit('input', timeExpression)"
+                    @input="$emit('input', timeExpression)"
                     v-if="hourChooseMode == 'normal'"></schedule-form-mode-daily-hour>
                 <schedule-form-mode-daily-sun :weekdays="weekdaysCronExpression"
                     v-model="timeExpression"
-                    ng-change="$emit('input', timeExpression)"
+                    @input="$emit('input', timeExpression)"
                     v-if="hourChooseMode == 'sun'"></schedule-form-mode-daily-sun>
             </div>
             <div class="col-md-6">

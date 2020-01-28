@@ -42,8 +42,8 @@
                 return {
                     mode: this.schedule.mode,
                     timeExpression: this.schedule.timeExpression,
-                    dateStart: this.schedule.dateStart,
-                    dateEnd: this.schedule.dateEnd
+                    dateStart: this.schedule.mode == 'once' ? undefined : this.schedule.dateStart,
+                    dateEnd: this.schedule.mode == 'once' ? undefined : this.schedule.dateEnd
                 };
             }
         },
@@ -71,7 +71,16 @@
         watch: {
             'schedule.timeExpression'() {
                 this.fetchNextRunDates();
-            }
+            },
+            'schedule.mode'() {
+                this.fetchNextRunDates();
+            },
+            'schedule.dateStart'() {
+                this.fetchNextRunDates();
+            },
+            'schedule.dateEnd'() {
+                this.fetchNextRunDates();
+            },
         }
     };
 </script>
