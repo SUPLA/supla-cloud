@@ -8,7 +8,8 @@
                     <label>
                         <input type="radio"
                             :value="possibleAction.id"
-                            v-model="actionId">
+                            @change="updateModel()"
+                            v-model="action.id">
                         {{ $t(possibleAction.caption) }}
                     </label>
                 </div>
@@ -19,14 +20,16 @@
             <div class="possible-action-params">
                 <transition-expand>
                     <div class="well clearfix"
-                        v-if="possibleAction.id == 50 && actionId == possibleAction.id">
-                        <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
+                        v-if="possibleAction.id == 50 && action.id == possibleAction.id">
+                        <rolette-shutter-partial-percentage v-model="action.param"
+                            @change="updateModel"></rolette-shutter-partial-percentage>
                     </div>
                 </transition-expand>
                 <transition-expand>
-                    <div v-if="possibleAction.id == 80 && actionId == possibleAction.id">
-                        <rgbw-parameters-setter v-model="actionParam"
+                    <div v-if="possibleAction.id == 80 && action.id == possibleAction.id">
+                        <rgbw-parameters-setter v-model="action.param"
                             class="well clearfix"
+                            @change="updateModel()"
                             :channel-function="subject.function"></rgbw-parameters-setter>
                     </div>
                 </transition-expand>
@@ -44,48 +47,39 @@
     export default {
         components: {RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
         props: ['subject', 'value', 'possibleActionFilter'],
+        data() {
+            return {action: {}};
+        },
         mounted() {
-            this.selectFirstActionIfOnlyOne();
             if (this.value && this.value.id) {
-                this.actionId = this.value.id;
-                this.actionParam = this.value.param;
+                this.action = {id: this.value.id, param: this.value.param};
+            } else {
+                this.selectFirstActionIfOnlyOne();
             }
         },
         methods: {
             selectFirstActionIfOnlyOne() {
                 if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
-                    this.actionId = this.actionsToShow[0].id;
-                    this.actionParam = {};
+                    this.action = {id: this.actionsToShow[0].id, param: {}};
+                    this.updateModel();
                 }
             },
             shouldShowAction(possibleAction) {
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
+            },
+            updateModel() {
+                this.$emit('input', this.action);
             }
         },
         computed: {
             actionsToShow() {
                 return this.subject.function.possibleActions.filter((action) => this.shouldShowAction(action));
             },
-            actionId: {
-                get() {
-                    return this.value && this.value.id;
-                },
-                set(id) {
-                    this.$emit('input', {id, param: {}});
-                }
-            },
-            actionParam: {
-                get() {
-                    return this.value && this.value.param || {};
-                },
-                set(param) {
-                    this.$emit('input', {id: this.actionId, param});
-                }
-            }
         },
         watch: {
             subject() {
-                this.actionId = undefined;
+                this.action = {};
+                this.updateModel();
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             }
         }
