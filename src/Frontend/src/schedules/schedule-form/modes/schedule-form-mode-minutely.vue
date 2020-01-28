@@ -35,7 +35,7 @@
             },
         },
         mounted() {
-            let currentMinutes = this.timeExpression.match(/^\*\/([0-9]+)/);
+            let currentMinutes = this.value && this.value.match(/^\*\/([0-9]+)/);
             if (currentMinutes) {
                 this.minutes = +currentMinutes[1];
             }
