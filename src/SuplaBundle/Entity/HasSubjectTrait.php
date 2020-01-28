@@ -24,7 +24,7 @@ trait HasSubjectTrait {
         }
     }
 
-    protected function getTheSubject(): HasFunction {
+    protected function getTheSubject(): ?HasFunction {
         return $this->channel ?: $this->channelGroup ?: $this->scene;
     }
 

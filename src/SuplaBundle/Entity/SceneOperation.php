@@ -104,7 +104,7 @@ class SceneOperation implements HasSubject {
      * @Groups({"sceneOperation.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): HasFunction {
+    public function getSubject(): ?HasFunction {
         return $this->getTheSubject();
     }
 

@@ -47,6 +47,9 @@
                 };
             }
         },
+        mounted() {
+            this.fetchNextRunDates();
+        },
         methods: {
             fetchNextRunDates() {
                 const query = this.nextRunDatesQuery;

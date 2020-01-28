@@ -43,6 +43,12 @@
                 subjectType: 'channel'
             };
         },
+        mounted() {
+            if (this.value && this.value.subjectType) {
+                this.subject = this.value;
+                this.subjectType = this.value.subjectType;
+            }
+        },
         methods: {
             changeSubjectType(subjectType) {
                 this.subjectType = subjectType;

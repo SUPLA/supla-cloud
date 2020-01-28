@@ -118,7 +118,6 @@ export function scheduleTransformer(request, next) {
                 delete toSend.subject;
             }
             if (toSend.action) {
-                toSend.actionId = toSend.action.id;
                 delete toSend.action;
             }
             request.body = toSend;

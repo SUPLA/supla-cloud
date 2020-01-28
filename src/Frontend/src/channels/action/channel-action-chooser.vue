@@ -39,12 +39,17 @@
     import TransitionExpand from "../../common/gui/transition-expand";
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage";
     import RgbwParametersSetter from "./rgbw-parameters-setter";
+    import Vue from "vue";
 
     export default {
         components: {RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
         props: ['subject', 'value', 'possibleActionFilter'],
         mounted() {
             this.selectFirstActionIfOnlyOne();
+            if (this.value && this.value.id) {
+                this.actionId = this.value.id;
+                this.actionParam = this.value.param;
+            }
         },
         methods: {
             selectFirstActionIfOnlyOne() {
@@ -80,7 +85,8 @@
         },
         watch: {
             subject() {
-                this.selectFirstActionIfOnlyOne();
+                this.actionId = undefined;
+                Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             }
         }
     };

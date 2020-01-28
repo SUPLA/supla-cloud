@@ -148,7 +148,7 @@ class DirectLink implements HasSubject {
      * @Groups({"directLink.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): HasFunction {
+    public function getSubject(): ?HasFunction {
         return $this->getTheSubject();
     }
 

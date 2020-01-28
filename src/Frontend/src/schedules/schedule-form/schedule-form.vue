@@ -1,25 +1,25 @@
 <template>
     <page-container :error="error"
         class="container">
-        <loading-cover :loading="!scheduleX || submitting">
-            <pending-changes-page :header="scheduleX.id ? $t('Schedule') + ' ID' + id : $t('Create New Schedule')"
-                v-if="scheduleX">
+        <loading-cover :loading="!schedule || submitting">
+            <pending-changes-page :header="schedule.id ? $t('Schedule') + ' ID' + id : $t('Create New Schedule')"
+                v-if="schedule">
                 <div slot="buttons">
-                    <router-link :to="{name: 'schedule', params: {id: scheduleX.id}}"
+                    <router-link :to="{name: 'schedule', params: {id: schedule.id}}"
                         class="btn btn-grey"
-                        v-if="scheduleX.id">
+                        v-if="schedule.id">
                         <i class="pe-7s-back"></i>
                         {{ $t('Cancel') }}
                     </router-link>
                     <button class="btn btn-white"
-                        :disabled="scheduleX.actionId == undefined || !nextRunDatesX.length || nextRunDatesX.fetching"
+                        :disabled="schedule.actionId == undefined || !nextRunDates.length || nextRunDates.fetching"
                         @click="submit()">
                         <i class="pe-7s-diskette"></i>
                         {{ $t('Save') }}
                     </button>
                     <button class="btn btn-green"
-                        v-if="scheduleX.id && scheduleX.enabled === false"
-                        :disabled="scheduleX.actionId == undefined || !nextRunDatesX.length || nextRunDatesX.fetching"
+                        v-if="schedule.id && schedule.enabled === false"
+                        :disabled="schedule.actionId == undefined || !nextRunDates.length || nextRunDates.fetching"
                         @click="submit(true)">
                         <i class="pe-7s-diskette"></i>
                         {{ $t('Save and enable') }}
@@ -31,53 +31,53 @@
                             <label>{{ $t("Name") }}</label>
                             <input type="text"
                                 class="form-control"
-                                v-model="scheduleX.caption">
-                            {{ scheduleX }}
+                                v-model="schedule.caption">
                         </div>
                         <div class="form-group">
                             <label>{{ $t("Schedule mode") }}</label>
                             <div class="clearfix"></div>
-                            <schedule-mode-chooser v-model="scheduleX.mode"></schedule-mode-chooser>
+                            <schedule-mode-chooser v-model="schedule.mode"></schedule-mode-chooser>
                         </div>
                     </div>
                 </div>
                 <div class="row"
-                    v-show="scheduleX.mode">
+                    v-show="schedule.mode">
                     <div class="col-md-6">
                         <div class="well">
                             <h3 class="no-margin-top">{{ $t('When') }}?</h3>
                             <div class="form-group">
-                                <schedule-form-mode-once v-if="scheduleX.mode == 'once'"
-                                    v-model="scheduleX.timeExpression"></schedule-form-mode-once>
-                                <schedule-form-mode-minutely v-if="scheduleX.mode == 'minutely'"
-                                    v-model="scheduleX.timeExpression"></schedule-form-mode-minutely>
-                                <schedule-form-mode-hourly v-if="scheduleX.mode == 'hourly'"
-                                    v-model="scheduleX.timeExpression"></schedule-form-mode-hourly>
-                                <schedule-form-mode-daily v-if="scheduleX.mode == 'daily'"
-                                    v-model="scheduleX.timeExpression"></schedule-form-mode-daily>
+                                <schedule-form-mode-once v-if="schedule.mode == 'once'"
+                                    v-model="schedule.timeExpression"></schedule-form-mode-once>
+                                <schedule-form-mode-minutely v-if="schedule.mode == 'minutely'"
+                                    v-model="schedule.timeExpression"></schedule-form-mode-minutely>
+                                <schedule-form-mode-hourly v-if="schedule.mode == 'hourly'"
+                                    v-model="schedule.timeExpression"></schedule-form-mode-hourly>
+                                <schedule-form-mode-daily v-if="schedule.mode == 'daily'"
+                                    v-model="schedule.timeExpression"></schedule-form-mode-daily>
                             </div>
-                            <div v-if="scheduleX.mode !== 'once'">
+                            <div v-if="schedule.mode !== 'once'">
                                 <schedule-form-start-end-date v-model="startEndDate"></schedule-form-start-end-date>
                             </div>
-                            <next-run-dates-preview v-model="nextRunDatesX"
-                                :schedule="scheduleX"></next-run-dates-preview>
-                            <toggler v-model="scheduleX.retry"
+                            <next-run-dates-preview v-model="nextRunDates"
+                                :schedule="schedule"></next-run-dates-preview>
+                            <toggler v-model="schedule.retry"
                                 v-if="canSetRetry"
                                 label="Retry on failure"></toggler>
                         </div>
                     </div>
+                    {{ schedule }}
                     <div class="col-md-6">
                         <div class="well">
                             <h3 class="no-margin-top">{{ $t('Action') }}</h3>
                             <div class="form-group">
                                 <label>{{ $t('Subject') }}</label>
-                                <subject-dropdown v-model="scheduleX.subject"
+                                <subject-dropdown v-model="schedule.subject"
                                     channels-dropdown-params="io=output&hasFunction=1"
                                     :filter="filterOutNotSchedulableSubjects"></subject-dropdown>
                             </div>
-                            <div v-if="scheduleX.subject">
-                                <channel-action-chooser :subject="scheduleX.subject"
-                                    v-model="scheduleActionX"
+                            <div v-if="schedule.subject">
+                                <channel-action-chooser :subject="schedule.subject"
+                                    v-model="scheduleAction"
                                     :possible-action-filter="possibleActionFilter"></channel-action-chooser>
                             </div>
                         </div>
@@ -129,65 +129,67 @@
         data() {
             return {
                 error: false,
-                scheduleX: undefined,
-                nextRunDatesX: [],
+                schedule: undefined,
+                nextRunDates: [],
                 submitting: false,
             };
         },
         computed: {
             startEndDate: {
                 get() {
-                    return {dateStart: this.scheduleX.startDate, dateEnd: this.scheduleX.endDate};
+                    return {dateStart: this.schedule.dateStart, dateEnd: this.schedule.dateEnd};
                 },
                 set(dates) {
-                    this.$set(this.scheduleX, 'dateStart', dates.dateStart);
-                    this.$set(this.scheduleX, 'dateEnd', dates.dateEnd);
+                    this.$set(this.schedule, 'dateStart', dates.dateStart);
+                    this.$set(this.schedule, 'dateEnd', dates.dateEnd);
                 }
             },
-            scheduleActionX: {
+            scheduleAction: {
                 get() {
-                    return {id: this.scheduleX.actionId, param: this.scheduleX.actionParam};
+                    return {id: this.schedule.actionId, param: this.schedule.actionParam};
                 },
                 set(action) {
-                    this.$set(this.scheduleX, 'actionId', action.id);
-                    this.$set(this.scheduleX, 'actionParam', action.param);
+                    this.$set(this.schedule, 'actionId', action.id);
+                    this.$set(this.schedule, 'actionParam', action.param);
                 }
             },
             canSetRetry() {
-                return this.scheduleX.subject
-                    && this.scheduleX.subject.subjectType == 'channel'
-                    && [20, 30].indexOf(this.scheduleX.subject.functionId) === -1;
+                return this.schedule.subject
+                    && this.schedule.subject.subjectType == 'channel'
+                    && [20, 30].indexOf(this.schedule.subject.functionId) === -1;
             },
         },
         mounted() {
             if (this.id) {
                 this.error = false;
                 this.$http.get('schedules/' + this.id, {params: {include: 'subject'}, skipErrorHandler: [403, 404]})
-                    .then(({body}) => this.scheduleX = body)
+                    .then(({body}) => this.schedule = body)
                     .catch(response => this.error = response.status);
             } else {
-                this.scheduleX = {
+                this.schedule = {
                     mode: 'once',
                     dateStart: moment().format(),
                     retry: true,
                 };
                 const subjectForNewSchedule = AppState.shiftTask('scheduleCreate');
                 if (subjectForNewSchedule) {
-                    this.scheduleX.subject = subjectForNewSchedule;
+                    this.schedule.subject = subjectForNewSchedule;
                 }
             }
         },
         methods: {
             submit(enableIfDisabled) {
+                this.submitting = true;
                 let promise;
-                if (this.scheduleX.id) {
-                    promise = Vue.http.put(`schedules/${this.scheduleX.id}` + (enableIfDisabled ? '?enable=true' : ''), this.scheduleX);
+                if (this.schedule.id) {
+                    promise = Vue.http.put(`schedules/${this.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), this.schedule);
                 } else {
-                    promise = Vue.http.post('schedules?include=subject,closestExecutions', this.scheduleX);
+                    promise = Vue.http.post('schedules?include=subject,closestExecutions', this.schedule);
                 }
                 promise
                     .then(({body: schedule}) => this.$emit('update', schedule) && schedule)
-                    .then(schedule => this.$router.push({name: 'schedule', params: {id: schedule.id}}));
+                    .then(schedule => this.$router.push({name: 'schedule', params: {id: schedule.id}}))
+                    .finally(() => this.submitting = false);
             },
             filterOutNotSchedulableSubjects(subject) {
                 if (subject.function.possibleActions.length === 0) {
