@@ -1,19 +1,18 @@
 <template>
     <div class="btn-group btn-group-lg">
         <button class="btn btn-white"
-            v-for="m in availableModes"
-            @click="changeScheduleMode(m)"
-            :class="{'active btn-green': m === mode}">
-            {{ $t(m) }}
+            v-for="mode in availableModes"
+            @click="$emit('input', mode)"
+            :class="{'active btn-green': mode === value}">
+            {{ $t(mode) }}
         </button>
     </div>
 </template>
 
 <script type="text/babel">
-    import {mapMutations, mapState} from "vuex";
-
     export default {
         name: 'schedule-form-chooser',
+        props: ['value'],
         data() {
             return {
                 availableModes: [
@@ -24,7 +23,5 @@
                 ]
             };
         },
-        computed: mapState(['mode']),
-        methods: mapMutations(['changeScheduleMode'])
     };
 </script>

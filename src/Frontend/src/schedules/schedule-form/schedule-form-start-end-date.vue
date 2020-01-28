@@ -31,11 +31,17 @@
 
 <script type="text/babel">
     import Vue from "vue";
-    import {mapState, mapActions} from "vuex";
     import moment from "moment";
+
     export default {
-        name: 'schedule-form-start-end-date',
-        mounted(){
+        props: ['value'],
+        data() {
+            return {
+                dateStart: moment(),
+                dateEnd: undefined,
+            };
+        },
+        mounted() {
             let startDatePicker = $(this.$refs.startDatePicker);
             let endDatePicker = $(this.$refs.endDatePicker);
             startDatePicker.datetimepicker({
@@ -51,24 +57,36 @@
             });
             startDatePicker.on("dp.change", (e) => {
                 endDatePicker.data("DateTimePicker").minDate(e.date);
-                this.updateDateStart(moment(e.date ? e.date : undefined).startOf('minute').subtract(1, 'minute')); // minus to make it inclusive
+                this.dateStart = moment(e.date ? e.date : undefined).startOf('minute').subtract(1, 'minute'); // minus to make it inclusive
+                this.updateModel();
             });
             endDatePicker.on("dp.change", (e) => {
                 startDatePicker.data("DateTimePicker").maxDate(e.date);
                 if (e.date) {
-                    this.updateDateEnd(moment(e.date).startOf('minute'));
+                    this.dateEnd = moment(e.date).startOf('minute');
                 } else {
-                    this.updateDateEnd(undefined);
+                    this.dateEnd = undefined;
                 }
+                this.updateModel();
             });
-            if (this.dateStart) {
-                startDatePicker.data('DateTimePicker').date(moment(this.dateStart).toDate());
-            }
-            if (this.dateEnd) {
-                endDatePicker.data('DateTimePicker').date(moment(this.dateEnd).toDate());
+            if (this.value) {
+                if (this.value.dateStart) {
+                    this.dateStart = moment(this.value.dateStart);
+                    startDatePicker.data('DateTimePicker').date(moment(this.value.dateStart).toDate());
+                }
+                if (this.value.dateEnd) {
+                    this.dateEnd = moment(this.value.dateEnd);
+                    endDatePicker.data('DateTimePicker').date(moment(this.value.dateEnd).toDate());
+                }
             }
         },
-        computed: mapState(['dateStart', 'dateEnd']),
-        methods: mapActions(['updateDateStart', 'updateDateEnd']),
+        methods: {
+            updateModel() {
+                this.$emit('input', {
+                    dateStart: this.dateStart ? this.dateStart.format() : undefined,
+                    dateEnd: this.dateEnd ? this.dateEnd.format() : undefined,
+                });
+            },
+        }
     };
 </script>

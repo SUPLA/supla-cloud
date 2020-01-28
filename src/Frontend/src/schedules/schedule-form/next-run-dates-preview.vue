@@ -1,12 +1,12 @@
 <template>
     <div>
         <div class="text-center"
-            v-if="fetchingNextRunDates">
+            v-if="value.fetchingNextRunDates">
             <button-loading-dots></button-loading-dots>
         </div>
         <div class="forum-group"
-            v-if="nextRunDates.length > 0"
-            :class="{opacity60: fetchingNextRunDates}">
+            v-if="value.length > 0"
+            :class="{opacity60: value.fetching}">
             <h4>{{ $t('The next available executions') }}</h4>
             <div class="list-group">
                 <div class="list-group-item"
@@ -22,23 +22,53 @@
 </template>
 
 <script type="text/babel">
-    import {mapState} from "vuex";
     import moment from "moment";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
+    import Vue from "vue";
 
     export default {
-        name: 'next-run-dates-preview',
+        props: ['value', 'schedule'],
         components: {ButtonLoadingDots},
         computed: {
             humanizedNextRunDates() {
-                return this.nextRunDates.map(function (dateString) {
+                return this.value.map(function (dateString) {
                     return {
                         date: moment(dateString).format('LLL'),
                         fromNow: moment(dateString).fromNow()
                     };
                 });
             },
-            ...mapState(['fetchingNextRunDates', 'nextRunDates'])
+            nextRunDatesQuery() {
+                return {
+                    mode: this.schedule.mode,
+                    timeExpression: this.schedule.timeExpression,
+                    dateStart: this.schedule.dateStart,
+                    dateEnd: this.schedule.dateEnd
+                };
+            }
+        },
+        methods: {
+            fetchNextRunDates() {
+                const query = this.nextRunDatesQuery;
+                if (!query.timeExpression) {
+                    this.$emit('input', []);
+                } else {
+                    this.$set(this.value, 'fetching', true);
+                    Vue.http.post('schedules/next-run-dates', query)
+                        .then(({body: nextRunDates}) => {
+                            this.$emit('input', nextRunDates);
+                            if (query != this.nextRunDatesQuery) {
+                                this.fetchNextRunDates();
+                            }
+                        })
+                        .catch(() => this.$emit('input', []));
+                }
+            },
+        },
+        watch: {
+            'schedule.timeExpression'() {
+                this.fetchNextRunDates();
+            }
         }
     };
 </script>

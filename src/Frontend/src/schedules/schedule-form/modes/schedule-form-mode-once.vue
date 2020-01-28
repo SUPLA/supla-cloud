@@ -11,11 +11,10 @@
 <script type="text/babel">
     import Vue from "vue";
     import $ from "jquery";
-    import {mapState} from "vuex";
     import moment from "moment";
 
     export default {
-        name: 'schedule-form-mode-once',
+        props: ['value'],
         mounted() {
             let datepicker = $(this.$refs.datepicker);
             datepicker.datetimepicker({
@@ -25,7 +24,7 @@
                 inline: true,
                 sideBySide: true
             }).on("dp.change", () => this.updateTimeExpression());
-            if (this.timeExpression) {
+            if (this.value) {
                 let currentDateFromExpression = moment(this.timeExpression, 'm H D M * Y');
                 if (currentDateFromExpression.year() < 2010) {
                     this.updateTimeExpression();
@@ -36,12 +35,11 @@
                 this.updateTimeExpression();
             }
         },
-        computed: mapState(['timeExpression']),
         methods: {
             updateTimeExpression() {
                 let date = $(this.$refs.datepicker).data('DateTimePicker').date();
                 let cronExpression = moment(date).format('m H D M * Y');
-                this.$store.dispatch('updateTimeExpression', cronExpression);
+                this.$emit('input', cronExpression);
             }
         }
     };

@@ -110,10 +110,11 @@ export function iodeviceTransformer(request, next) {
 
 export function scheduleTransformer(request, next) {
     if (request.url.startsWith('schedules')) {
-        if (request.body && request.body.id) {
+        if (request.body && request.body) {
             const toSend = Vue.util.extend({}, request.body);
             if (toSend.subject) {
                 toSend.subjectId = toSend.subject.id;
+                toSend.subjectType = toSend.subject.subjectType;
                 delete toSend.subject;
             }
             if (toSend.action) {
