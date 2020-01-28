@@ -136,9 +136,11 @@ class Schedule implements HasSubject {
     public function fill(array $data) {
         Assert::that($data)->notEmptyKey('timeExpression');
         $this->setTimeExpression($data['timeExpression']);
+        if ($data['subject'] ?? null) {
+            $this->initializeSubject($data['subject']);
+        }
         $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
-        $this->setSubject($data['subject'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['mode']));
