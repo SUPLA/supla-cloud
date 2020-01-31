@@ -205,16 +205,6 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE()],
 
-            self::VALVEOPENCLOSE => [
-                ChannelFunctionAction::OPEN(),
-                ChannelFunctionAction::CLOSE(),
-            ],
-
-            self::VALVEPERCENTAGE => [
-                ChannelFunctionAction::OPEN(),
-                ChannelFunctionAction::OPEN_PARTIALLY(),
-                ChannelFunctionAction::CLOSE(),
-            ],
         ];
     }
 
