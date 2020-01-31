@@ -61,6 +61,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction IC_WATERMETER()
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
+ * @method static ChannelFunction VALVEOPENCLOSE()
+ * @method static ChannelFunction VALVEPERCENTAGE()
  * @method static ChannelFunction GENERAL_PURPOSE_MEASUREMENT()
  * @method static ChannelFunction ACTION_TRIGGER()
  */
@@ -103,6 +105,8 @@ final class ChannelFunction extends Enum {
     const IC_WATERMETER = 330;
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
+    const VALVEOPENCLOSE = 500;
+    const VALVEPERCENTAGE = 510;
     const GENERAL_PURPOSE_MEASUREMENT = 520;
     const ACTION_TRIGGER = 700;
 
@@ -252,6 +256,8 @@ final class ChannelFunction extends Enum {
             self::IC_WATERMETER => 'Water meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
+            self::VALVEOPENCLOSE => 'Valve', // i18n
+            self::VALVEPERCENTAGE => 'Valve', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
             self::ACTION_TRIGGER => 'Action trigger', // i18n
         ];
@@ -309,6 +315,8 @@ final class ChannelFunction extends Enum {
             self::IC_WATERMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
+            self::VALVEOPENCLOSE => ['opened', 'closed'],
+            self::VALVEPERCENTAGE => ['opened', 'closed'],
             self::GENERAL_PURPOSE_MEASUREMENT => ['default'],
             self::ACTION_TRIGGER => ['default'],
         ];

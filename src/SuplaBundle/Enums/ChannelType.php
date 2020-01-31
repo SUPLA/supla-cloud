@@ -52,6 +52,8 @@ use UnexpectedValueException;
  * @method static ChannelType IMPULSECOUNTER()
  * @method static ChannelType THERMOSTAT()
  * @method static ChannelType THERMOSTATHEATPOLHOMEPLUS()
+ * @method static ChannelType VALVEOPENCLOSE()
+ * @method static ChannelType VALVEPERCENTAGE()
  * @method static ChannelType BRIDGE()
  * @method static ChannelType GENERAL_PURPOSE_MEASUREMENT()
  * @method static ChannelType ACTION_TRIGGER()
@@ -87,6 +89,8 @@ final class ChannelType extends Enum {
     const IMPULSECOUNTER = 5010;
     const THERMOSTAT = 6000;
     const THERMOSTATHEATPOLHOMEPLUS = 6010;
+    const VALVEOPENCLOSE = 7000;
+    const VALVEPERCENTAGE = 7010;
     const BRIDGE = 8000;
     const GENERAL_PURPOSE_MEASUREMENT = 9000;
     const ACTION_TRIGGER = 11000;
@@ -165,6 +169,8 @@ final class ChannelType extends Enum {
             self::IMPULSECOUNTER => 'Impulse counter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
+            self::VALVEOPENCLOSE => 'Valve', // i18n
+            self::VALVEPERCENTAGE => 'Valve', // i18n
             self::BRIDGE => 'Bridge', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
             self::ACTION_TRIGGER => 'Action trigger', // i18n
@@ -235,6 +241,8 @@ final class ChannelType extends Enum {
             ],
             self::THERMOSTAT => [ChannelFunction::THERMOSTAT()],
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
+            self::VALVEOPENCLOSE => [ChannelFunction::VALVEOPENCLOSE()],
+            self::VALVEPERCENTAGE => [ChannelFunction::VALVEPERCENTAGE()],
             self::BRIDGE => [
                 ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
                 ChannelFunction::CONTROLLINGTHEGATE(),

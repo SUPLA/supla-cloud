@@ -10,6 +10,9 @@ class PercentageChannelStateGetter implements SingleChannelStateGetter {
 
     public function getState(IODeviceChannel $channel): array {
         $value = $this->suplaServer->getIntValue($channel);
+        if ($channel->getFunction() == ChannelFunction::VALVEPERCENTAGE()) {
+            return ['closed' => min(100, max(0, $value))];
+        }
         return ['is_calibrating' => $value == -1, 'shut' => min(100, max(0, $value))];
     }
 

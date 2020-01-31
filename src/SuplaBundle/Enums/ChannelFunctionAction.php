@@ -36,6 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction OPEN_CLOSE()
  * @method static ChannelFunctionAction STOP()
  * @method static ChannelFunctionAction TOGGLE()
+ * @method static ChannelFunctionAction OPEN_PARTIALLY()
  */
 final class ChannelFunctionAction extends Enum {
     const READ = 1000;
@@ -51,6 +52,7 @@ final class ChannelFunctionAction extends Enum {
     const OPEN_CLOSE = 90;
     const STOP = 100;
     const TOGGLE = 110;
+    const OPEN_PARTIALLY = 120;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -87,6 +89,7 @@ final class ChannelFunctionAction extends Enum {
             self::STOP => 'Stop', // i18n
             self::TOGGLE => 'Toggle', // i18n
             self::EXECUTE => 'Execute', // i18n
+            self::OPEN_PARTIALLY => 'Open partially', // i18n
         ];
     }
 
