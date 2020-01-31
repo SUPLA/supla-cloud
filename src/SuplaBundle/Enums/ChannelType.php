@@ -163,6 +163,8 @@ final class ChannelType extends Enum {
             self::IMPULSECOUNTER => 'Impulse counter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
+            self::VALVEOPENCLOSE => 'Valve', // i18n
+            self::VALVEPERCENTAGE => 'Valve', // i18n
         ];
     }
 
