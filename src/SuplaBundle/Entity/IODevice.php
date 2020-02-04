@@ -121,7 +121,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $lastIpv4;
 
     /**
-     * @ORM\Column(name="software_version", type="string", length=10, nullable=false)
+     * @ORM\Column(name="software_version", type="string", length=20, nullable=false)
      * @Groups({"basic"})
      */
     private $softwareVersion;
