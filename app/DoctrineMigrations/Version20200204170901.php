@@ -30,7 +30,8 @@ _protocol_version, @mfr_id, _product_id, _original_location_id, _auth_key, _flag
 SELECT LAST_INSERT_ID() INTO _id;
 
 END
-PROCEDURE);
+PROCEDURE
+        );
 
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_iodevice`');
         $this->addSql(<<<PROCEDURE
@@ -52,7 +53,8 @@ IF _auth_key IS NOT NULL THEN
 END IF;
 
 END
-PROCEDURE);
+PROCEDURE
+        );
 
     }
 }
