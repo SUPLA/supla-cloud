@@ -71,15 +71,14 @@ export class CurrentUser {
             .then(response => {
                 this.username = response.body.email;
                 this.userData = response.body;
-                return this.userData;
             })
             .catch(response => {
                 if (response.status === 401) {
                     this.forget();
                 }
             })
-            .finally(() => {
-                Vue.http.get('server-info')
+            .then(() => {
+                return Vue.http.get('server-info')
                     .then(response => {
                         if (response.body.config) {
                             $.extend(window.FRONTEND_CONFIG, response.body.config);
