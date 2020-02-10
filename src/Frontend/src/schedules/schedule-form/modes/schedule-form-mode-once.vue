@@ -27,7 +27,11 @@
             }).on("dp.change", () => this.updateTimeExpression());
             if (this.timeExpression) {
                 let currentDateFromExpression = moment(this.timeExpression, 'm H D M * Y');
-                datepicker.data('DateTimePicker').date(currentDateFromExpression);
+                if (currentDateFromExpression.year() < 2010) {
+                    this.updateTimeExpression();
+                } else {
+                    datepicker.data('DateTimePicker').date(currentDateFromExpression);
+                }
             } else {
                 this.updateTimeExpression();
             }
