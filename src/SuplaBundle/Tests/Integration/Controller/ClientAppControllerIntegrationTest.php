@@ -62,6 +62,24 @@ class ClientAppControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content[0]['connected']);
     }
 
+    public function testUpdatingClientApp() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('PUT', '/api/client-apps/' . $this->clientApp->getId(), ['caption' => 'Tramway']);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('Tramway', $content['caption']);
+    }
+
+    public function testUpdatingClientAppWithEmoji() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('PUT', '/api/client-apps/' . $this->clientApp->getId(), ['caption' => 'Tramway 🙈']);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('Tramway 🙈', $content['caption']);
+    }
+
     public function testDeletingClientApp() {
         $client = $this->createAuthenticatedClient();
         $client->request('DELETE', '/api/client-apps/' . $this->clientApp->getId());
