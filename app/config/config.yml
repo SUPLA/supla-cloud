@@ -6,7 +6,10 @@ imports:
 
 doctrine:
   dbal:
-    charset: UTF8
+    charset: utf8mb4
+    default_table_options:
+      charset: utf8mb4
+      collate: utf8mb4_unicode_ci
     dbname: "%database_name%"
     driver: "%database_driver%"
     host: "%database_host%"
