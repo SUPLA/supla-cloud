@@ -41,7 +41,8 @@ class DisableDemoClientAppsCommand extends AbstractCyclicCommand {
     protected function configure() {
         $this
             ->setName('supla:clean:disable-demo-client-apps')
-            ->setDescription('Disable demonstration client apps.');
+            ->setDescription('Disable demonstration client apps.')
+            ->setHidden(true);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {

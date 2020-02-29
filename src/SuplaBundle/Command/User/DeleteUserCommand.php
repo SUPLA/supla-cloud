@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Command;
+namespace SuplaBundle\Command\User;
 
 use SuplaBundle\Model\UserManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Command;
+namespace SuplaBundle\Command\User;
 
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\UserManager;
