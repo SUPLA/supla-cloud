@@ -50,6 +50,13 @@ input:-webkit-autofill {
   -webkit-animation-fill-mode: both;
 }
 
+.form-group-lg {
+  input:-webkit-autofill::first-line {
+    font-size: 18px;
+    font-family: $supla-font-default;
+  }
+}
+
 h1 {
   font-size: 42px;
   line-height: 42px;

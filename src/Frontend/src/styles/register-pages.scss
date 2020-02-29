@@ -51,6 +51,12 @@
     height: 37px;
   }
 
+  .form-input:-webkit-autofill::first-line {
+    font-size: 18px;
+    font-family: $supla-font-default;
+    font-weight: 300;
+  }
+
   .form-input::-webkit-input-placeholder {
     color: $supla-white;
     opacity: 0.8;
