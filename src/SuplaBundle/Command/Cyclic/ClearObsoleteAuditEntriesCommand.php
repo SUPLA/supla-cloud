@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\Console\Input\InputInterface;
@@ -29,12 +30,20 @@ class ClearObsoleteAuditEntriesCommand extends AbstractCyclicCommand {
     private $timeProvider;
     /** @var int */
     private $deleteOlderThanDays;
+    /** @var array */
+    private $deleteOlderThanDaysCustom;
 
-    public function __construct(AuditEntryRepository $auditEntryRepository, TimeProvider $timeProvider, int $deleteOlderThanDays) {
+    public function __construct(
+        AuditEntryRepository $auditEntryRepository,
+        TimeProvider $timeProvider,
+        int $deleteOlderThanDays,
+        array $deleteOlderThanDaysCustom
+    ) {
         parent::__construct();
         $this->auditEntryRepository = $auditEntryRepository;
         $this->timeProvider = $timeProvider;
         $this->deleteOlderThanDays = $deleteOlderThanDays;
+        $this->deleteOlderThanDaysCustom = $deleteOlderThanDaysCustom;
     }
 
     protected function configure() {
@@ -47,15 +56,44 @@ class ClearObsoleteAuditEntriesCommand extends AbstractCyclicCommand {
         $now = $this->timeProvider->getDateTime();
         $now->sub(new \DateInterval("P{$this->deleteOlderThanDays}D"));
 
+        $customRules = [];
+        foreach ($this->deleteOlderThanDaysCustom as $customEventName => $customDays) {
+            if (AuditedEvent::isValidKey($customEventName)) {
+                $customRules[AuditedEvent::$customEventName()->getValue()] = $customDays;
+            } else {
+                $output->writeln("<error>Configured event name with custom clear rule does not exist: $customEventName</error>");
+            }
+        }
+
         $deletedRows = $this->auditEntryRepository
             ->createQueryBuilder('ae')
             ->delete()
             ->where('ae.createdAt < :date')
-            ->setParameters(['date' => $now->format('Y-m-d')])
+            ->andWhere('ae.event NOT IN(:customEvents)')
+            ->setParameters(['date' => $now->format('Y-m-d'), 'customEvents' => $customRules ? array_keys($customRules) : [0]])
             ->getQuery()
             ->execute();
 
-        $output->writeln('Deleted obsolete audit entires: ' . $deletedRows);
+        if ($output->isVerbose()) {
+            $output->writeln('Deleted obsolete audit entires: ' . $deletedRows);
+        }
+
+        foreach ($customRules as $eventId => $days) {
+            $now = $this->timeProvider->getDateTime();
+            $now->sub(new \DateInterval("P{$days}D"));
+            $deletedRows = $this->auditEntryRepository
+                ->createQueryBuilder('ae')
+                ->delete()
+                ->where('ae.createdAt < :date')
+                ->andWhere('ae.event = :eventId')
+                ->setParameters(['date' => $now->format('Y-m-d'), 'eventId' => $eventId])
+                ->getQuery()
+                ->execute();
+            if ($output->isVerbose()) {
+                $type = (new AuditedEvent($eventId))->getKey();
+                $output->writeln("Deleted obsolete audit entries of type $type: " . $deletedRows);
+            }
+        }
     }
 
     public function getIntervalInMinutes(): int {

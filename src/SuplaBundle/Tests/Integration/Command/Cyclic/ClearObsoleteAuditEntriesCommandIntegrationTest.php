@@ -45,10 +45,16 @@ class ClearObsoleteAuditEntriesCommandIntegrationTest extends IntegrationTestCas
         $this->assertCount(2, $this->auditEntryRepository->findAll());
     }
 
-    public function testNotDeletingAfterMonth() {
-        TestTimeProvider::setTime('+1 month');
+    public function testNotDeletingAfterOneDay() {
+        TestTimeProvider::setTime('+1 day');
         $this->executeCommand('supla:clean:audit-entries');
         $this->assertCount(2, $this->auditEntryRepository->findAll());
+    }
+
+    public function testNotDeletingAllAfterMonthButDeletesDirectLinkExecution() {
+        TestTimeProvider::setTime('+1 month');
+        $this->executeCommand('supla:clean:audit-entries');
+        $this->assertCount(1, $this->auditEntryRepository->findAll());
     }
 
     public function testDeletingAfter3Months() {

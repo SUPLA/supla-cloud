@@ -34,6 +34,7 @@ services:
     $deleteOlderThanHours: '%supla.maintenance.delete_non_confirmed_users_older_than_hours%'
   SuplaBundle\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
     $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
+    $deleteOlderThanDaysCustom: '%supla.maintenance.delete_audit_entries_older_than_days_custom%'
 
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'

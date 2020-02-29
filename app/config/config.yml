@@ -147,6 +147,8 @@ supla:
   maintenance:
     delete_non_confirmed_users_older_than_hours: 24
     delete_audit_entries_older_than_days: 60
+    delete_audit_entries_older_than_days_custom:
+      DIRECT_LINK_EXECUTION: 2
   oauth:
     tokens_lifetime:
       webapp: [1200]

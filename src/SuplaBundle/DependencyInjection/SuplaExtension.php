@@ -60,6 +60,10 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.maintenance.delete_audit_entries_older_than_days',
             $mergedConfig['maintenance']['delete_audit_entries_older_than_days']
         );
+        $container->setParameter(
+            'supla.maintenance.delete_audit_entries_older_than_days_custom',
+            $mergedConfig['maintenance']['delete_audit_entries_older_than_days_custom']
+        );
         $container->setParameter('supla.oauth.tokens_lifetime', $this->buildOauthTokensConfig($mergedConfig['oauth']['tokens_lifetime']));
         $container->setParameter('supla.available_languages', $this->detectAvailableLanguages());
     }
