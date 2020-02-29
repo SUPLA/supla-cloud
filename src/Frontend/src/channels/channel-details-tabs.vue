@@ -78,7 +78,7 @@
             }
         },
         mounted() {
-            if (this.channel.function.possibleActions.length) {
+            if (this.channel.function.possibleActions && this.channel.function.possibleActions.length) {
                 this.availableTabs.push({
                     id: 'actions',
                     header: 'Actions', // i18n
@@ -89,11 +89,13 @@
                     count: this.channel.relationsCount.schedules,
                 });
             }
-            this.availableTabs.push({
-                id: 'directLinks',
-                header: 'Direct links', // i18n
-                count: this.channel.relationsCount.directLinks,
-            });
+            if (this.channel.function.id > 0) {
+                this.availableTabs.push({
+                    id: 'directLinks',
+                    header: 'Direct links', // i18n
+                    count: this.channel.relationsCount.directLinks,
+                });
+            }
             var supporterFunctions = ['THERMOMETER',
                 'HUMIDITY',
                 'HUMIDITYANDTEMPERATURE',
@@ -110,7 +112,7 @@
                 });
             }
             const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
-            this.currentTab = currentTab ? currentTab.id : this.availableTabs[0].id;
+            this.currentTab = currentTab ? currentTab.id : (this.availableTabs[0] ? this.availableTabs[0].id : undefined);
         },
     };
 </script>
