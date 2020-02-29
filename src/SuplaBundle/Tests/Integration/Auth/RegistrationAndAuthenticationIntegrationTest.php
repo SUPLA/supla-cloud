@@ -142,6 +142,21 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content['accountEnabled']);
     }
 
+    /** @small */
+    public function testCannotCreateUserIfAdFails() {
+        SuplaAutodiscoverMock::mockResponse('users', [], 503, 'POST');
+        $userData = [
+            'email' => 'tramway@supla.org',
+            'regulationsAgreed' => true,
+            'password' => self::PASSWORD,
+            'timezone' => 'Europe/Warsaw',
+        ];
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertStatusCode(503, $client->getResponse());
+        $this->assertNull($this->getDoctrine()->getRepository(User::class)->findOneByEmail('tramway@supla.org'));
+    }
+
     public function testNotifyingAdAboutNewUserIfBroker() {
         SuplaAutodiscoverMock::clear();
         $this->testCreatingUser();

@@ -280,10 +280,14 @@ class UserController extends RestController {
             $user->agreeOnRules();
         }
 
-        $this->userManager->create($user);
         if ($this->autodiscover->enabled()) {
-            $this->autodiscover->registerUser($user);
+            $createdInAd = $this->autodiscover->registerUser($user);
+            if (!$createdInAd) {
+                $message = "Error when communicating the server. Try again in a while."; // i18n
+                throw new ServiceUnavailableHttpException(10, $message);
+            }
         }
+        $this->userManager->create($user);
 
         $sent = $this->userManager->sendConfirmationEmailMessage($user);
 

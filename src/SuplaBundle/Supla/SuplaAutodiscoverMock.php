@@ -98,9 +98,13 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                 return $responseSpec['response'];
             }
         }
-        if (preg_match('#/users/(.+)#', $endpoint, $match)) {
+        if (preg_match('#/users/?(.*)#', $endpoint, $match)) {
             if ($method == 'DELETE') {
                 $responseStatus = 204;
+                return;
+            }
+            if ($method == 'POST') {
+                $responseStatus = 201;
                 return;
             }
             $server = self::$userMapping[urldecode($match[1])] ?? null;
