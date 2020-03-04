@@ -86,9 +86,7 @@ abstract class SuplaAutodiscover {
         if ($this->isBroker()) {
             $domainFromAutodiscover = false;
             if (!$this->userManager->userByEmail($username) && filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
-                $result = $this->remoteRequest('/users/' . urlencode($username));
-                $this->logger->debug(__FUNCTION__, ['response' => $result]);
-                $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+                $domainFromAutodiscover = $this->getUserServerFromAd($username);
             }
             if ($domainFromAutodiscover) {
                 $serverUrl = $domainFromAutodiscover;
@@ -132,11 +130,11 @@ abstract class SuplaAutodiscover {
         return false;
     }
 
-    public function userExistsInAd($username): bool {
+    public function getUserServerFromAd($username) {
         $result = $this->remoteRequest('/users/' . urlencode($username));
         $this->logger->debug(__FUNCTION__, ['response' => $result]);
         $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
-        return !!$domainFromAutodiscover;
+        return $domainFromAutodiscover;
     }
 
     public function registerUser(User $user): bool {
