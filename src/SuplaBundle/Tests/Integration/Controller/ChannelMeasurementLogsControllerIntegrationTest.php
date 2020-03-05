@@ -87,7 +87,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
         $date = new \DateTime($datestr);
         foreach ([100, 200, 300] as $impulses) {
-            foreach ([1, 2, 3] as $num) {
+            foreach ([1, 2, 3, 4] as $num) {
                 $logItem = new ImpulseCounterLogItem();
 
                 EntityUtils::setField($logItem, 'channel_id', 4+$num+$offset);
@@ -105,7 +105,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             foreach ([1, 2] as $num) {
                 $logItem = new ThermostatLogItem();
 
-                EntityUtils::setField($logItem, 'channel_id', 7 + $num + $offset);
+                EntityUtils::setField($logItem, 'channel_id', 8 + $num + $offset);
                 EntityUtils::setField($logItem, 'date', clone $date);
                 EntityUtils::setField($logItem, "on", $temperature > -10);
                 EntityUtils::setField($logItem, 'measuredTemperature', $temperature);
@@ -129,9 +129,9 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::HEATMETER],
             [ChannelType::THERMOSTAT, ChannelFunction::THERMOSTAT],
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::HEATMETER],
         ];
 
         $this->device1 = $this->createDevice($location, $channels);
@@ -177,12 +177,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingHeatImpulsesLogsCount() {
-        $this->ensureMeasurementLogsCount(10);
+        $this->ensureMeasurementLogsCount(8);
     }
 
     public function testGettingThermostatLogsCount() {
-        $this->ensureMeasurementLogsCount(8);
         $this->ensureMeasurementLogsCount(9);
+        $this->ensureMeasurementLogsCount(10);
     }
 
     public function testGettingTemperatureLogsCountObsolete() {
@@ -275,7 +275,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingHeatCounterLogs() {
-        $this->ensureImpulseCounterLogs(10);
+        $this->ensureImpulseCounterLogs(8);
     }
 
     private function getMeasurementLogsAscending(int $channelId) {
@@ -329,7 +329,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingHeatCounterLogsAscending() {
-        $this->ensureImpulseCounterLogsAscending(10);
+        $this->ensureImpulseCounterLogsAscending(8);
     }
 
     private function gettingMeasurementLogsWithOffset(int $channelId) {
@@ -385,12 +385,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingHeatCounterLogsWithOffset() {
-        $this->ensureGettingImpulseCounterLogsWithOffset(10);
+        $this->ensureGettingImpulseCounterLogsWithOffset(8);
     }
 
     public function testGettingThermostatLogsWithOffset() {
-        $this->ensureGettingThermostatLogsWithOffset(8);
         $this->ensureGettingThermostatLogsWithOffset(9);
+        $this->ensureGettingThermostatLogsWithOffset(10);
     }
 
     private function getMeasurementLogsWithTimestampRange(int $channelId) {
@@ -443,7 +443,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingHeatCounterLogsWithTimestampRange() {
-        $content = $this->getMeasurementLogsWithTimestampRange(10);
+        $content = $this->getMeasurementLogsWithTimestampRange(8);
         $this->assertEquals(200, intval($content[0]['counter']));
         $this->assertEquals(0.2, floatval($content[0]['calculated_value']));
     }
@@ -456,8 +456,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public function testGettingThermostatLogsWithTimestampRange() {
-        $this->ensureGettingThermostatLogsWithTimestampRange(8);
         $this->ensureGettingThermostatLogsWithTimestampRange(9);
+        $this->ensureGettingThermostatLogsWithTimestampRange(10);
     }
 
     public function testGettingMeasurementLogsOfUnsupportedChannel() {
