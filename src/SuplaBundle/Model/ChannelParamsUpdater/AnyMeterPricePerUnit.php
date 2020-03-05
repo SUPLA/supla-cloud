@@ -11,7 +11,8 @@ class AnyMeterPricePerUnit extends RangeParamsUpdater {
         parent::__construct(
             [ChannelFunction::ELECTRICITYMETER(),
                 ChannelFunction::GASMETER(),
-                ChannelFunction::WATERMETER()],
+                ChannelFunction::WATERMETER(),
+                ChannelFunction::HEATMETER()],
             self::MIN_PRICE * 10000,
             self::MAX_PRICE * 10000,
             2

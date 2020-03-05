@@ -17,6 +17,7 @@ class AnyMeterUnit implements SingleChannelParamsUpdater {
         return $channel->getType() == ChannelType::IMPULSECOUNTER()
             && in_array($channel->getFunction(), [ChannelFunction::ELECTRICITYMETER(),
             ChannelFunction::GASMETER(),
-            ChannelFunction::WATERMETER()]);
+            ChannelFunction::WATERMETER(),
+            ChannelFunction::HEATMETER()]);
     }
 }

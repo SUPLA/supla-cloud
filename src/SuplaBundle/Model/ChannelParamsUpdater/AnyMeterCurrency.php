@@ -16,6 +16,7 @@ class AnyMeterCurrency implements SingleChannelParamsUpdater {
     public function supports(IODeviceChannel $channel): bool {
         return in_array($channel->getFunction(), [ChannelFunction::ELECTRICITYMETER(),
             ChannelFunction::GASMETER(),
-            ChannelFunction::WATERMETER()]);
+            ChannelFunction::WATERMETER(),
+            ChannelFunction::HEATMETER()]);
     }
 }

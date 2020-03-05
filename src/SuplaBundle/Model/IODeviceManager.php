@@ -60,6 +60,7 @@ class IODeviceManager {
             ChannelFunction::ELECTRICITYMETER()->getId(),
             ChannelFunction::GASMETER()->getId(),
             ChannelFunction::WATERMETER()->getId(),
+            ChannelFunction::HEATMETER()->getId(),
             ChannelFunction::THERMOSTAT()->getId(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()->getId(),
         ]);

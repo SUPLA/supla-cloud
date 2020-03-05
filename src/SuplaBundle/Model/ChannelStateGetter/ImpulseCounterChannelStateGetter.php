@@ -22,6 +22,7 @@ class ImpulseCounterChannelStateGetter implements SingleChannelStateGetter {
             ChannelFunction::ELECTRICITYMETER(),
             ChannelFunction::GASMETER(),
             ChannelFunction::WATERMETER(),
+            ChannelFunction::HEATMETER(),
         ];
     }
 }

@@ -61,7 +61,7 @@ class ChannelMeasurementLogsController extends RestController {
             $functionId,
             [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
                 ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
-                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
+                ChannelFunction::HEATMETER, ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
 
@@ -84,6 +84,7 @@ class ChannelMeasurementLogsController extends RestController {
                 break;
             case ChannelFunction::GASMETER:
             case ChannelFunction::WATERMETER:
+            case ChannelFunction::HEATMETER:
                 $repoName = 'ImpulseCounterLogItem';
                 break;
             case ChannelFunction::THERMOSTAT:
@@ -147,7 +148,7 @@ class ChannelMeasurementLogsController extends RestController {
         if ($allowedFuncList == null) {
             $allowedFuncList = [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
                 ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
-                ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS];
+                ChannelFunction::HEATMETER, ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS];
         }
 
         Assertion::inArray($channel->getFunction()->getId(), $allowedFuncList, 'The requested action is not available on this channel');

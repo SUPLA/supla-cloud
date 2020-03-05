@@ -102,6 +102,7 @@
                 'ELECTRICITYMETER',
                 'GASMETER',
                 'WATERMETER',
+                'HEATMETER',
                 'THERMOSTAT',
                 'THERMOSTATHEATPOLHOMEPLUS'];
 

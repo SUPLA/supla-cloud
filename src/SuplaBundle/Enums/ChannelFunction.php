@@ -57,6 +57,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction ELECTRICITYMETER()
  * @method static ChannelFunction GASMETER()
  * @method static ChannelFunction WATERMETER()
+ * @method static ChannelFunction HEATMETER()
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction VALVEOPENCLOSE()
@@ -97,6 +98,7 @@ final class ChannelFunction extends Enum {
     const ELECTRICITYMETER = 310;
     const GASMETER = 320;
     const WATERMETER = 330;
+    const HEATMETER = 340;
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const VALVEOPENCLOSE = 500;
@@ -244,6 +246,7 @@ final class ChannelFunction extends Enum {
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
             self::GASMETER => 'Gas meter', // i18n
             self::WATERMETER => 'Water meter', // i18n
+            self::HEATRMETER => 'Heat meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
@@ -299,6 +302,7 @@ final class ChannelFunction extends Enum {
             self::ELECTRICITYMETER => ['default'],
             self::GASMETER => ['default'],
             self::WATERMETER => ['default'],
+            self::HEATMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
             self::VALVEOPENCLOSE => ['opened', 'closed'],

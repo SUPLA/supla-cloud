@@ -42,6 +42,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::HEATMETER],
         ]);
         $this->updater = $this->container->get(ChannelParamsUpdater::class);
     }

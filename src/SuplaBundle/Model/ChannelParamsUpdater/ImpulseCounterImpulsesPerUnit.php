@@ -12,7 +12,8 @@ class ImpulseCounterImpulsesPerUnit extends RangeParamsUpdater {
         parent::__construct(
             [ChannelFunction::ELECTRICITYMETER(),
                 ChannelFunction::GASMETER(),
-                ChannelFunction::WATERMETER()],
+                ChannelFunction::WATERMETER(),
+                ChannelFunction::HEATMETER()],
             self::MIN_COUNT,
             self::MAX_COUNT,
             3,
