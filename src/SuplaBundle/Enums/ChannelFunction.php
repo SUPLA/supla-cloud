@@ -246,7 +246,7 @@ final class ChannelFunction extends Enum {
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
             self::GASMETER => 'Gas meter', // i18n
             self::WATERMETER => 'Water meter', // i18n
-            self::HEATRMETER => 'Heat meter', // i18n
+            self::HEATMETER => 'Heat meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
