@@ -69,6 +69,8 @@ class UserController extends RestController {
     private $recaptchaSecret;
     /** @var array */
     private $availableLanguages;
+    /** * @var bool */
+    private $accountsRegistrationEnabled;
 
     public function __construct(
         UserManager $userManager,
@@ -81,7 +83,8 @@ class UserController extends RestController {
         bool $requireRegulationsAcceptance,
         bool $recaptchaEnabled,
         $recaptchaSecret,
-        array $availableLanguages
+        array $availableLanguages,
+        bool $accountsRegistrationEnabled
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -94,6 +97,7 @@ class UserController extends RestController {
         $this->recaptchaEnabled = $recaptchaEnabled;
         $this->recaptchaSecret = $recaptchaSecret;
         $this->availableLanguages = $availableLanguages;
+        $this->accountsRegistrationEnabled = $accountsRegistrationEnabled;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {

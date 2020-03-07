@@ -51,6 +51,7 @@ services:
     $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
     $recaptchaEnabled: '%recaptcha_enabled%'
     $availableLanguages: '%supla.available_languages%'
+    $accountsRegistrationEnabled: '%supla.accounts_registration_enabled%'
 
   SuplaBundle\Controller\ExecuteDirectLinkController:
     $logger: '@monolog.logger.supla_direct_links'

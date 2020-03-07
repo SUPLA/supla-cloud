@@ -33,6 +33,7 @@ class FrontendConfig extends AbstractExtension {
         'actAsBrokerCloud' => 'act_as_broker_cloud',
         'suplaUrl' => 'supla_url',
         'maintenanceMode' => 'supla.maintenance_mode',
+        'accountsRegistrationEnabled' => 'supla.accounts_registration_enabled',
     ];
 
     public function __construct(ContainerInterface $container) {

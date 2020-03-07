@@ -26,6 +26,11 @@
             return {
                 registeredEmail: ''
             };
+        },
+        mounted() {
+            if (!this.$frontendConfig.accountsRegistrationEnabled) {
+                this.$router.push('/');
+            }
         }
     };
 </script>

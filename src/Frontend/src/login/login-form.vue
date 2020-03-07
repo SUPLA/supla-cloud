@@ -86,7 +86,7 @@
                 {{ $t('Don’t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
         </transition>
-        <div v-if="!oauth && !$frontendConfig.maintenanceMode"
+        <div v-if="!oauth && !$frontendConfig.maintenanceMode && $frontendConfig.accountsRegistrationEnabled"
             class="additional-buttons form-group">
             <router-link to="/devices"
                 class="btn btn-white btn-wrapped">
