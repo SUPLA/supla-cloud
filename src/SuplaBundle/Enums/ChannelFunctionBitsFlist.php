@@ -18,14 +18,14 @@
 namespace SuplaBundle\Enums;
 
 final class ChannelFunctionBitsFlist extends ChannelFunctionBits {
-    const CONTROLLINGTHEGATEWAYLOCK = 0x00000001;
-    const CONTROLLINGTHEGATE = 0x00000002;
-    const CONTROLLINGTHEGARAGEDOOR = 0x00000004;
-    const CONTROLLINGTHEDOORLOCK = 0x00000008;
-    const CONTROLLINGTHEROLLERSHUTTER = 0x00000010;
-    const POWERSWITCH = 0x00000020;
-    const LIGHTSWITCH = 0x00000040;
-    const STAIRCASETIMER = 0x00000080;
+    const CONTROLLINGTHEGATEWAYLOCK = 1 << 0;
+    const CONTROLLINGTHEGATE = 1 << 1;
+    const CONTROLLINGTHEGARAGEDOOR = 1 << 2;
+    const CONTROLLINGTHEDOORLOCK = 1 << 3;
+    const CONTROLLINGTHEROLLERSHUTTER = 1 << 4;
+    const POWERSWITCH = 1 << 5;
+    const LIGHTSWITCH = 1 << 6;
+    const STAIRCASETIMER = 1 << 7;
 
     public static function getSupportedFunctions(int $functionList): array {
         return array_map(function (ChannelFunctionBitsFlist $bit) {

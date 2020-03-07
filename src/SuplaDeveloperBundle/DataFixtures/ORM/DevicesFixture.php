@@ -40,12 +40,6 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_EVERY_FUNCTION = 'ALL-IN-ONE MEGA DEVICE';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
-    const FULL_RELAY_BITS =
-        ChannelFunctionBitsFlist::CONTROLLINGTHEDOORLOCK |
-        ChannelFunctionBitsFlist::CONTROLLINGTHEGARAGEDOOR |
-        ChannelFunctionBitsFlist::CONTROLLINGTHEGATE |
-        ChannelFunctionBitsFlist::CONTROLLINGTHEGATEWAYLOCK;
-
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var \Faker\Generator */
@@ -74,31 +68,35 @@ class DevicesFixture extends SuplaFixture {
             }
             $this->setReference(self::RANDOM_DEVICE_PREFIX . $i, $device);
         }
-        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE');
+        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE', '');
         $this->setReference(self::DEVICE_SUPLER, $suplerDevice);
         $manager->flush();
     }
 
     protected function createDeviceSonoff(Location $location): IODevice {
         return $this->createDevice('SONOFF-DS', $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ], self::DEVICE_SONOFF);
     }
 
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
         return $this->createDevice($name, $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, self::FULL_RELAY_BITS],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER]],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
         ], self::DEVICE_FULL);
     }
 
-    protected function createEveryFunctionDevice(Location $location, $name = 'ALL-IN-ONE MEGA DEVICE'): IODevice {
+    protected function createEveryFunctionDevice(
+        Location $location,
+        $name = 'ALL-IN-ONE MEGA DEVICE'
+    ): IODevice {
         $functionableTypes = array_filter(ChannelType::values(), function (ChannelType $type) {
             return count(ChannelType::functions()[$type->getValue()] ?? []);
         });
@@ -121,7 +119,11 @@ class DevicesFixture extends SuplaFixture {
     private function createDeviceManyGates(Location $location) {
         $channels = [];
         for ($i = 0; $i < 10; $i++) {
-            $channels[] = [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS];
+            $channels[] = [
+                ChannelType::RELAY,
+                ChannelFunction::CONTROLLINGTHEGATE,
+                ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()],
+            ];
         }
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
     }
@@ -147,9 +149,11 @@ class DevicesFixture extends SuplaFixture {
                 'user' => $location->getUser(),
                 'type' => $channelData[0],
                 'function' => $channelData[1],
-                'funcList' => $channelData[2] ?? null,
-                'channelNumber' => $channelNumber++,
+                'channelNumber' => $channelNumber,
             ]);
+            if (isset($channelData[2])) {
+                AnyFieldSetter::set($channel, $channelData[2]);
+            }
             if ($this->faker->boolean) {
                 $channel->setCaption($this->faker->sentence(3));
             }
@@ -157,7 +161,9 @@ class DevicesFixture extends SuplaFixture {
             $this->entityManager->flush();
         }
         $this->entityManager->refresh($device);
-        $this->setReference($registerAs, $device);
+        if ($registerAs) {
+            $this->setReference($registerAs, $device);
+        }
         return $device;
     }
 }
