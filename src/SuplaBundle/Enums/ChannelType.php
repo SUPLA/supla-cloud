@@ -243,16 +243,6 @@ final class ChannelType extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
             self::VALVEOPENCLOSE => [ChannelFunction::VALVEOPENCLOSE()],
             self::VALVEPERCENTAGE => [ChannelFunction::VALVEPERCENTAGE()],
-            self::BRIDGE => [
-                ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
-                ChannelFunction::CONTROLLINGTHEGATE(),
-                ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
-                ChannelFunction::CONTROLLINGTHEDOORLOCK(),
-                ChannelFunction::POWERSWITCH(),
-                ChannelFunction::LIGHTSWITCH(),
-                ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
-                ChannelFunction::STAIRCASETIMER(),
-            ],
             self::GENERAL_PURPOSE_MEASUREMENT => [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT()],
             self::ACTION_TRIGGER => [ChannelFunction::ACTION_TRIGGER()],
         ];

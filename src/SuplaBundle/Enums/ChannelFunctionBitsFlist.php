@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Enums;
 
-final class ChannelFunctionBitsRelay extends ChannelFunctionBits {
+final class ChannelFunctionBitsFlist extends ChannelFunctionBits {
     const CONTROLLINGTHEGATEWAYLOCK = 1 << 0;
     const CONTROLLINGTHEGATE = 1 << 1;
     const CONTROLLINGTHEGARAGEDOOR = 1 << 2;
@@ -28,7 +28,7 @@ final class ChannelFunctionBitsRelay extends ChannelFunctionBits {
     const STAIRCASETIMER = 1 << 7;
 
     public static function getSupportedFunctions(int $functionList): array {
-        return array_map(function (ChannelFunctionBitsRelay $bit) {
+        return array_map(function (ChannelFunctionBitsFlist $bit) {
             return ChannelFunction::values()[$bit->getKey()];
         }, self::getSupportedFeatures($functionList));
     }

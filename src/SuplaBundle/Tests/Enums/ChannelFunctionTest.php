@@ -18,7 +18,10 @@
 namespace SuplaBundle\Tests\Enums;
 
 use PHPUnit\Framework\TestCase;
+use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 
 class ChannelFunctionTest extends TestCase {
     public function testEveryFunctionHasCaption() {
@@ -58,5 +61,30 @@ class ChannelFunctionTest extends TestCase {
     public function testInvalidFromValue() {
         $this->expectExceptionMessage('123');
         ChannelFunction::fromString(123);
+    }
+
+    public function testSupportedFunctionsForNormalChannel() {
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('getType')->willReturn(ChannelType::THERMOMETER());
+        $supportedFunctions = EntityUtils::mapToIds(ChannelFunction::forChannel($channel));
+        $this->assertEquals([ChannelFunction::THERMOMETER], $supportedFunctions);
+    }
+
+    public function testSupportedFunctionsForRelay() {
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('getType')->willReturn(ChannelType::RELAY());
+        $channel->method('getFuncList')->willReturn(17);
+        $supportedFunctions = EntityUtils::mapToIds(ChannelFunction::forChannel($channel));
+        $expectedSupportedFunctions = [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER];
+        $this->assertEquals($expectedSupportedFunctions, $supportedFunctions);
+    }
+
+    public function testSupportedFunctionsForBridge() {
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('getType')->willReturn(ChannelType::BRIDGE());
+        $channel->method('getFuncList')->willReturn(17);
+        $supportedFunctions = EntityUtils::mapToIds(ChannelFunction::forChannel($channel));
+        $expectedSupportedFunctions = [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER];
+        $this->assertEquals($expectedSupportedFunctions, $supportedFunctions);
     }
 }

@@ -19,12 +19,12 @@ namespace SuplaBundle\Tests\Enums;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsRelay;
+use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 
-class ChannelFunctionBitsRelayTest extends TestCase {
+class ChannelFunctionBitsFlistTest extends TestCase {
     /** @dataProvider supportedFunctionsTestCases */
     public function testGettingSupportedFunctions(int $functionList, array $expectedFuncions) {
-        $this->assertEquals($expectedFuncions, ChannelFunctionBitsRelay::getSupportedFunctions($functionList));
+        $this->assertEquals($expectedFuncions, ChannelFunctionBitsFlist::getSupportedFunctions($functionList));
     }
 
     public function supportedFunctionsTestCases() {
@@ -51,7 +51,7 @@ class ChannelFunctionBitsRelayTest extends TestCase {
 
     public function testEveryBitIsExclusive() {
         $bitsSum = 0;
-        foreach (ChannelFunctionBitsRelay::values() as $bit) {
+        foreach (ChannelFunctionBitsFlist::values() as $bit) {
             $newBitsSum = $bitsSum | $bit->getValue();
             $this->assertNotEquals($newBitsSum, $bitsSum, 'Non exclusive detected on ' . $bit->getKey());
             $bitsSum = $newBitsSum;

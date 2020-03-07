@@ -26,7 +26,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsActionTrigger;
-use SuplaBundle\Enums\ChannelFunctionBitsRelay;
+use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\AnyFieldSetter;
 
@@ -76,17 +76,17 @@ class DevicesFixture extends SuplaFixture {
 
     protected function createDeviceSonoff(Location $location): IODevice {
         return $this->createDevice('SONOFF-DS', $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsRelay::LIGHTSWITCH | ChannelFunctionBitsRelay::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ], self::DEVICE_SONOFF);
     }
 
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
         return $this->createDevice($name, $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsRelay::LIGHTSWITCH | ChannelFunctionBitsRelay::POWERSWITCH]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsRelay::getAllFeaturesFlag()]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsRelay::getAllFeaturesFlag()]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsRelay::CONTROLLINGTHEROLLERSHUTTER]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER]],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
@@ -124,7 +124,7 @@ class DevicesFixture extends SuplaFixture {
             $channels[] = [
                 ChannelType::RELAY,
                 ChannelFunction::CONTROLLINGTHEGATE,
-                ['funcList' => ChannelFunctionBitsRelay::getAllFeaturesFlag()],
+                ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()],
             ];
         }
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
