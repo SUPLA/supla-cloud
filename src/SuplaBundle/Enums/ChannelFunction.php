@@ -143,7 +143,7 @@ final class ChannelFunction extends Enum {
      */
     public static function forChannel(IODeviceChannel $channel): array {
         $type = $channel->getType();
-        if ($type->equals(ChannelType::RELAY())) {
+        if (in_array($type->getId(), [ChannelType::RELAY, ChannelType::BRIDGE])) {
             return ChannelFunctionBitsFlist::getSupportedFunctions($channel->getFuncList());
         } else {
             return ChannelType::functions()[$type->getValue()];
