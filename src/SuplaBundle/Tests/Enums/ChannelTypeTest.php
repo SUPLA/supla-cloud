@@ -25,7 +25,7 @@ class ChannelTypeTest extends TestCase {
         $diff = array_map(function (ChannelType $type) {
             return $type->getKey();
         }, array_diff(ChannelType::values(), array_keys(ChannelType::functions())));
-        $diff = array_diff($diff, [ChannelType::RELAY()->getKey()]); // relays have functions incorporated into RelayFunctionBits enum
+        $diff = array_diff($diff, [ChannelType::RELAY()->getKey(), ChannelType::BRIDGE()->getKey()]); // relays have functions incorporated into RelayFunctionBits enum
         $this->assertEmpty($diff, 'Have you forgotten to add a functions definition for the new ChannelType value? Missing: '
             . implode(', ', $diff));
     }
