@@ -6,7 +6,10 @@ imports:
 
 doctrine:
   dbal:
-    charset: UTF8
+    charset: utf8mb4
+    default_table_options:
+      charset: utf8mb4
+      collate: utf8mb4_unicode_ci
     dbname: "%database_name%"
     driver: "%database_driver%"
     host: "%database_host%"
@@ -149,6 +152,8 @@ supla:
   maintenance:
     delete_non_confirmed_users_older_than_hours: 24
     delete_audit_entries_older_than_days: 60
+    delete_audit_entries_older_than_days_custom:
+      DIRECT_LINK_EXECUTION: 2
   oauth:
     tokens_lifetime:
       webapp: {access: 1200}

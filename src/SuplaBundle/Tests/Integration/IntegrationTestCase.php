@@ -108,6 +108,11 @@ abstract class IntegrationTestCase extends WebTestCase {
             SuplaServerMock::$mockedResponses = [];
             $this->fail($error);
         }
+        if (SuplaAutodiscoverMock::$mockedResponses) {
+            $error = 'Some of AD communication you mocked were not used. ' . var_export(SuplaServerMock::$mockedResponses, true);
+            SuplaAutodiscoverMock::$mockedResponses = [];
+            $this->fail($error);
+        }
     }
 
     protected function createHttpsClient(bool $followRedirects = true, string $ipAddress = '1.2.3.4'): TestClient {

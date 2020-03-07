@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Command;
+namespace SuplaBundle\Command\User;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;

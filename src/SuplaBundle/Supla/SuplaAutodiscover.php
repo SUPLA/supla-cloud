@@ -119,7 +119,7 @@ abstract class SuplaAutodiscover {
         return $this->localSuplaCloud;
     }
 
-    public function userExists($username) {
+    public function userExists($username): bool {
         if ($username) {
             if ($this->userManager->userByEmail($username)) {
                 return true;
@@ -132,11 +132,20 @@ abstract class SuplaAutodiscover {
         return false;
     }
 
-    public function registerUser(User $user) {
+    public function userExistsInAd($username): bool {
+        $result = $this->remoteRequest('/users/' . urlencode($username));
+        $this->logger->debug(__FUNCTION__, ['response' => $result]);
+        $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+        return !!$domainFromAutodiscover;
+    }
+
+    public function registerUser(User $user): bool {
         if ($this->isBroker()) {
             $this->logger->debug(__FUNCTION__);
-            $this->remoteRequest('/users', ['email' => $user->getUsername()]);
+            $this->remoteRequest('/users', ['email' => $user->getUsername()], $responseStatus);
+            return $responseStatus === 201;
         }
+        return true;
     }
 
     public function deleteUser(User $user): bool {

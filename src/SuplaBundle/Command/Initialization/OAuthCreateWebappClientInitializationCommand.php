@@ -25,7 +25,8 @@ class OAuthCreateWebappClientInitializationCommand extends Command implements In
     protected function configure() {
         $this
             ->setName('supla:initialize:create-webapp-client')
-            ->setDescription('Creates a client for web application if it does not exist yet.');
+            ->setDescription('Creates a client for web application if it does not exist yet.')
+            ->setHidden(true);
     }
 
     /** @inheritdoc */

@@ -4,6 +4,7 @@ namespace SuplaBundle\ParamConverter;
 use Assert\Assertion;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\ActionableSubjectRepository;
@@ -31,6 +32,12 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
         }
         Assertion::isArray($data['allowedActions'], 'AllowedActions must be an array.');
         $subject = $this->subjectRepository->findForUser($user, $data['subjectType'], $data['subjectId']);
+        Assertion::notEq(ChannelFunction::NONE, $subject->getFunction()->getId(), 'Cannot create direct link for NONE channel function.');
+        Assertion::notEq(
+            ChannelFunction::UNSUPPORTED,
+            $subject->getFunction()->getId(),
+            'Cannot create direct link for UNSUPPORTED channel function.'
+        );
         $link = new DirectLink($subject);
         $link->setCaption($data['caption'] ?? '');
         $link->setEnabled($data['enabled'] ?? false);

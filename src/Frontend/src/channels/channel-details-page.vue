@@ -180,6 +180,7 @@
                     .catch(response => {
                         if (response.status === 409) {
                             this.changeFunctionConfirmationObject = response.body;
+                            this.hasPendingChanges = true;
                         }
                     })
                     .finally(() => this.loading = false);

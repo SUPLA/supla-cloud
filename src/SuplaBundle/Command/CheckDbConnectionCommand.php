@@ -12,7 +12,8 @@ class CheckDbConnectionCommand extends Command {
     protected function configure() {
         $this
             ->setName('supla:check-db-connection')
-            ->setDescription('Checks if the connection with database works.');
+            ->setDescription('Checks if the connection with database works.')
+            ->setHidden(true);
     }
 
     /** @inheritdoc */

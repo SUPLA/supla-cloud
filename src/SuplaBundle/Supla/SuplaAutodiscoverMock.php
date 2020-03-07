@@ -22,6 +22,8 @@ use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\UserManager;
 
 class SuplaAutodiscoverMock extends SuplaAutodiscover {
+    public static $mockedResponses = [];
+
     public static $isBroker = true;
     public static $isTarget = true;
     public static $requests = [];
@@ -87,10 +89,22 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
     }
 
     protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = [], string $method = null) {
+        $method = $method ?: ($post ? 'POST' : 'GET');
         self::$requests[] = ['endpoint' => $endpoint, 'post' => $post, 'headers' => $headers];
-        if (preg_match('#/users/(.+)#', $endpoint, $match)) {
+        foreach (self::$mockedResponses as $mockedEndpoint => $responseSpec) {
+            if (preg_match("#$mockedEndpoint#", $endpoint) && $method === $responseSpec['method']) {
+                unset(self::$mockedResponses[$mockedEndpoint]);
+                $responseStatus = $responseSpec['responseStatus'];
+                return $responseSpec['response'];
+            }
+        }
+        if (preg_match('#/users/?(.*)#', $endpoint, $match)) {
             if ($method == 'DELETE') {
                 $responseStatus = 204;
+                return;
+            }
+            if ($method == 'POST') {
+                $responseStatus = 201;
                 return;
             }
             $server = self::$userMapping[urldecode($match[1])] ?? null;
@@ -171,5 +185,13 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         self::$isTarget = $shouldBeTarget || $shouldBeBroker;
         self::$requests = [];
         self::$userMapping['user@supla.org'] = 'supla.local';
+    }
+
+    public static function mockResponse(string $endpoint, array $response = [], int $responseStatus = 200, string $method = 'GET') {
+        self::$mockedResponses[$endpoint] = [
+            'method' => $method,
+            'response' => $response,
+            'responseStatus' => $responseStatus,
+        ];
     }
 }
