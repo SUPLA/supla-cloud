@@ -37,10 +37,10 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRegistertingTargetCloud() {
-        $client = self::createClient([]);
+        $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('http://private.supla', $address);
+                $this->assertEquals('https://private.supla', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
@@ -54,10 +54,10 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRegistertingTargetIfInvalidDomain() {
-        $client = self::createClient([]);
+        $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('http://private.supla', $address);
+                $this->assertEquals('https://private.supla', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [null, Response::HTTP_NOT_FOUND];
@@ -72,10 +72,10 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRegistertingObsoleteCloud() {
-        $client = self::createClient([]);
+        $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('http://private.supla', $address);
+                $this->assertEquals('https://private.supla', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.2.0'], Response::HTTP_OK];
@@ -91,10 +91,10 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
 
     public function testAdNotAvailable() {
         SuplaAutodiscoverMock::mockResponse('target-cloud-registration-token', [], 503, 'POST');
-        $client = self::createClient([]);
+        $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('http://private.supla', $address);
+                $this->assertEquals('https://private.supla', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
@@ -110,10 +110,10 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
 
     public function testAdFails() {
         SuplaAutodiscoverMock::mockResponse('target-cloud-registration-token', [], 500, 'POST');
-        $client = self::createClient([]);
+        $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('http://private.supla', $address);
+                $this->assertEquals('https://private.supla', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
@@ -134,10 +134,10 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
             409,
             'POST'
         );
-        $client = self::createClient([]);
+        $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('http://private.supla', $address);
+                $this->assertEquals('https://private.supla', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
