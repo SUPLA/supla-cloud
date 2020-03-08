@@ -9,6 +9,7 @@ services:
     bind:
       $suplaUrl: '%supla_url%'
       $recaptchaSecret: '%recaptcha_secret%'
+      $recaptchaEnabled: '%recaptcha_enabled%'
 
   _instanceof:
     SuplaBundle\ParamConverter\AbstractBodyParamConverter:
@@ -49,7 +50,6 @@ services:
     $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
     $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
     $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
-    $recaptchaEnabled: '%recaptcha_enabled%'
     $availableLanguages: '%supla.available_languages%'
     $accountsRegistrationEnabled: '%supla.accounts_registration_enabled%'
 

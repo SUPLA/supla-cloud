@@ -196,10 +196,17 @@ abstract class SuplaAutodiscover {
         $response = $this->remoteRequest('/target-cloud-registration-token', [
             'targetCloudUrl' => $targetCloud->getAddress(),
             'email' => $email,
-        ]);
+        ], $responseStatus);
         $this->logger->debug(__FUNCTION__, ['targetCloud' => $targetCloud->getAddress()]);
+        if ($responseStatus !== 201) {
+            $errors = [
+                409 => 'Private instance of the SUPLA cloud with given URL is already registered.', // i18n
+                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+            ];
+            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+        }
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
-        Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
+        Assertion::notEmpty($token, '');
         return $token;
     }
 

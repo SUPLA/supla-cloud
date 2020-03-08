@@ -109,6 +109,7 @@ Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Id
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
+Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
 Could not reset the password.: Nie udało się zresetować hasła.
 Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
 Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
@@ -217,6 +218,7 @@ Go to your account: Przejdź do swojego konta
 Grant access: Przyznaj dostęp
 HFD4 Relay: Przekaźnik HFD4
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Upewnij się, że nie trafiła do folderu SPAM (niechciana poczta). Możesz też kliknąć [tutaj], by wysłać ją ponownie.'
+Heat meter: Licznik ciepła
 History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
 Home+ Heater: Grzałka Home+
@@ -334,6 +336,7 @@ Pressure sensor: Czujnik ciśnienia
 Previous login: Poprzednie logowanie
 Price per: Cena za
 Private Cloud domain name: Nazwa domeny prywatnej chmury
+Private instance of the SUPLA cloud with given URL is already registered.: Pod tym adresem jest już zarejestrowana prywatna chmura SUPLA.
 Proceed: Kontynuuj
 Processing: W trakcie
 Public ID: Publiczny ID
@@ -456,6 +459,7 @@ Unsupported function: Niewspierana funkcja
 Unsupported type: Niewspierany typ
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.'
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
+Valve: Zawór
 Visible: Widoczne
 Visit app webpage: Otwórz witrynę aplikacji
 WELCOME_MESSAGE: |
@@ -595,9 +599,12 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A-Z: ~
+ID: ~
+Inactive: ~
+Invalid function for channel.: ~
+Open partially: ~
 password: ~
 username: ~
-Valve: Zawór
-Heat meter: Licznik ciepła
 
 #</editor-fold>

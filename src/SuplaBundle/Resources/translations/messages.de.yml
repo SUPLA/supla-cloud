@@ -216,6 +216,7 @@ Go to your account: Geh zu deinem Konto
 Grant access: Vewähre Zugriff
 HFD4 Relay: HFD4 Relais
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nachricht mit dem Link zur Aktivierung Deines Kontos nicht angekommen? Versichere Dich, dass es nicht in die SPAM-Datei (unerwünschte Mail) gelangt ist. Du kannst auch [hier] klicken, um sie erneut zu senden.'
+Heat meter: Wärmezähler
 History of measurements: Messhistorie
 Home appliances: Haushaltwaren
 Home+ Heater: Heizelement Home+
@@ -589,14 +590,21 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A-Z: ~
 Choose Access Identifier: ~
+Could not contact Autodiscover service. Try again in a while.: ~
+ID: ~
+Inactive: ~
+Invalid function for channel.: ~
 Maintenance mode active. You cannot modify any data now.: ~
+Open partially: ~
+Private instance of the SUPLA cloud with given URL is already registered.: ~
 SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+Valve: ~
 We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
 password: ~
 username: ~
-Heat meter: Wärmezähler
 
 #</editor-fold>

@@ -135,9 +135,12 @@
                     captcha
                 };
                 this.isBusy = true;
-                this.$http.post('register-target-cloud', data, {skipErrorHandler: [400]})
+                this.$http.post('register-target-cloud', data, {skipErrorHandler: true})
                     .then(({body}) => this.token = body.token)
-                    .catch(({body}) => this.errorMessage = this.$t(body.message))
+                    .catch(({body, status}) => {
+                        const message = this.$t(body.message || 'Could not contact Autodiscover service. Try again in a while.');
+                        this.errorMessage = `${message} (${this.$t('Error')}: ${status})`;
+                    })
                     .finally(() => this.isBusy = false);
             }
         }

@@ -216,6 +216,7 @@ Go to your account: Μεταβείτε στο λογαριασμό σας
 Grant access: Χορήγηση πρόσβασης
 HFD4 Relay: Ηλεκτρονόμος HFD4
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε κλικ [εδώ] για να το στείλετε ξανά.'
+Heat meter: Μετρητής θερμότητας
 History of measurements: Ιστορικό μετρήσεων
 Home appliances: Οικιακές συσκευές/συσκευές RTV
 Home+ Heater: Θερμαντήρας Home+
@@ -590,13 +591,20 @@ execute: Εκτέλεση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A-Z: ~
 Choose Access Identifier: ~
+Could not contact Autodiscover service. Try again in a while.: ~
+ID: ~
+Inactive: ~
+Invalid function for channel.: ~
 Maintenance mode active. You cannot modify any data now.: ~
+Open partially: ~
+Private instance of the SUPLA cloud with given URL is already registered.: ~
 SUPLA Cloud is under maintenance.: ~
+Valve: ~
 We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
 password: ~
 username: ~
-Heat meter: Μετρητής θερμότητας
 
 #</editor-fold>

@@ -216,6 +216,7 @@ Go to your account: Eiti į savo paskyrą
 Grant access: Pateikti prieigą
 HFD4 Relay: Relė HFD4
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite paspausti [čia], kad jį išsiųstumėte dar kartą.'
+Heat meter: Šilumos skaitiklis
 History of measurements: Matmenų istorija
 Home appliances: Buitinė technika/RTV įranga
 Home+ Heater: Šildytuvas Home+
@@ -589,14 +590,21 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A-Z: ~
 Choose Access Identifier: ~
+Could not contact Autodiscover service. Try again in a while.: ~
+ID: ~
+Inactive: ~
+Invalid function for channel.: ~
 Maintenance mode active. You cannot modify any data now.: ~
+Open partially: ~
+Private instance of the SUPLA cloud with given URL is already registered.: ~
 SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+Valve: ~
 We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
 password: ~
 username: ~
-Heat meter: Šilumos skaitiklis
 
 #</editor-fold>

@@ -216,6 +216,7 @@ Go to your account: Перейди в свой аккаунт
 Grant access: Предоставить доступ
 HFD4 Relay: Реле HFD4
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете нажать [здесь], чтобы отправить его снова.'
+Heat meter: Теплосчетчик
 History of measurements: История измерений
 Home appliances: Бытовая техника
 Home+ Heater: Дом + обогреватель
@@ -589,14 +590,21 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A-Z: ~
 Choose Access Identifier: ~
+Could not contact Autodiscover service. Try again in a while.: ~
+ID: ~
+Inactive: ~
+Invalid function for channel.: ~
 Maintenance mode active. You cannot modify any data now.: ~
+Open partially: ~
+Private instance of the SUPLA cloud with given URL is already registered.: ~
 SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+Valve: ~
 We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
 password: ~
 username: ~
-Heat meter: Теплосчетчик
 
 #</editor-fold>

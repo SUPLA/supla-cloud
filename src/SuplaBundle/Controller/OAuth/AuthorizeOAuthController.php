@@ -54,6 +54,8 @@ class AuthorizeOAuthController extends Controller {
     private $suplaCloudRequestForwarder;
     /** @var string */
     private $recaptchaSecret;
+    /** @var bool */
+    private $recaptchaEnabled;
 
     public function __construct(
         FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
@@ -61,7 +63,8 @@ class AuthorizeOAuthController extends Controller {
         ClientManagerInterface $clientManager,
         LocalSuplaCloud $localSuplaCloud,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
-        $recaptchaSecret
+        $recaptchaSecret,
+        bool $recaptchaEnabled
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
@@ -69,6 +72,7 @@ class AuthorizeOAuthController extends Controller {
         $this->localSuplaCloud = $localSuplaCloud;
         $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
         $this->recaptchaSecret = $recaptchaSecret;
+        $this->recaptchaEnabled = $recaptchaEnabled;
     }
 
     /**
@@ -194,10 +198,12 @@ class AuthorizeOAuthController extends Controller {
      * @UnavailableInMaintenance
      */
     public function registerTargetCloudAction(Request $request) {
-        $gRecaptchaResponse = $request->get('captcha');
-        $recaptcha = new ReCaptcha($this->recaptchaSecret);
-        $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
-        Assertion::true($resp->isSuccess(), 'Captcha token is not valid.'); // i18n
+        if ($this->recaptchaEnabled) {
+            $gRecaptchaResponse = $request->get('captcha');
+            $recaptcha = new ReCaptcha($this->recaptchaSecret);
+            $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
+            Assertion::true($resp->isSuccess(), 'Captcha token is not valid.'); // i18n
+        }
 
         $email = $request->get('email');
         Assertion::email($email, 'Please fill a valid email address'); // i18n
