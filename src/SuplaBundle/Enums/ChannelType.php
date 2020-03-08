@@ -123,6 +123,8 @@ final class ChannelType extends Enum {
             self::RELAYHFD4,
             self::THERMOSTAT,
             self::THERMOSTATHEATPOLHOMEPLUS,
+            self::VALVEOPENCLOSE,
+            self::VALVEPERCENTAGE,
         ];
     }
 

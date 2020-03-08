@@ -299,14 +299,15 @@
             possibleActions() {
                 if (this.directLink && this.directLink.subject) {
                     // OPEN and CLOSE actions are not supported for gates via API
-                    const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
+                    const disableOpenClose = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR', 'VALVEOPENCLOSE', 'VALVEPERCENTAGE']
+                        .includes(this.directLink.subject.function.name);
                     return [{
                         id: 1000,
                         name: 'READ',
                         caption: 'Read',
                         nameSlug: 'read'
                     }].concat(this.directLink.subject.function.possibleActions)
-                        .filter(action => !isGate || (action.name != 'OPEN' && action.name != 'CLOSE'));
+                        .filter(action => !disableOpenClose || (action.name != 'OPEN' && action.name != 'CLOSE'));
                 }
             },
             fullUrl() {

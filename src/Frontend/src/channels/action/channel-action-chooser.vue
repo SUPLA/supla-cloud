@@ -12,14 +12,14 @@
                         {{ $t(possibleAction.caption) }}
                     </label>
                 </div>
-                <div v-else>
+                <p v-else>
                     {{ $t(possibleAction.caption) }}
-                </div>
+                </p>
             </slot>
             <div class="possible-action-params">
                 <transition-expand>
                     <div class="well clearfix"
-                        v-if="possibleAction.id == 50 && actionId == possibleAction.id">
+                        v-if="(possibleAction.id == 50 || possibleAction.id == 120) && actionId == possibleAction.id">
                         <rolette-shutter-partial-percentage v-model="actionParam"></rolette-shutter-partial-percentage>
                     </div>
                 </transition-expand>

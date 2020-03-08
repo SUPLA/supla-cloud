@@ -18,7 +18,6 @@
     import Vue from "vue";
 
     export default {
-        name: 'rolette-shutter-partial-percentage',
         props: ['value'],
         data() {
             return {

@@ -71,9 +71,9 @@
                                     v-if="schedule.subjectType == 'channelGroup'"></channel-group-tile>
                             </div>
                             <div class="form-group"
-                                v-if="displayOpeningSensorWarning">
+                                v-if="scheduleActionWarning">
                                 <div class="alert alert-warning text-center">
-                                    {{ $t('The gate sensor must function properly in order to execute the scheduled action.') }}
+                                    {{ scheduleActionWarning }}
                                 </div>
                             </div>
                         </div>
@@ -160,12 +160,17 @@
             }
         },
         computed: {
-            displayOpeningSensorWarning() {
-                return this.schedule &&
-                    ['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].indexOf(this.schedule.subject.function.name) >= 0;
+            scheduleActionWarning() {
+                if (this.schedule) {
+                    if (['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].includes(this.schedule.subject.function.name)) {
+                        return this.$t('The gate sensor must function properly in order to execute the scheduled action.');
+                    } else if (['VALVEOPENCLOSE'].includes(this.schedule.subject.function.name) && this.schedule.action.name === 'OPEN') {
+                        return this.$t('The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.');
+                    }
+                }
             },
             retryOptionDisabled() {
-                return this.displayOpeningSensorWarning || this.schedule.subjectType != 'channel';
+                return this.scheduleActionWarning || this.schedule.subjectType != 'channel';
             }
         }
     };

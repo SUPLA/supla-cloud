@@ -79,10 +79,13 @@
         },
         mounted() {
             if (this.channel.function.possibleActions && this.channel.function.possibleActions.length) {
-                this.availableTabs.push({
-                    id: 'actions',
-                    header: 'Actions', // i18n
-                });
+                const noApiActionFunctions = ['VALVEOPENCLOSE', 'VALVEPERCENTAGE'];
+                if (!noApiActionFunctions.includes(this.channel.function.name)) {
+                    this.availableTabs.push({
+                        id: 'actions',
+                        header: 'Actions', // i18n
+                    });
+                }
                 this.availableTabs.push({
                     id: 'schedules',
                     header: 'Schedules', // i18n

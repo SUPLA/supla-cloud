@@ -602,6 +602,8 @@ Open partially: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~
 SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
+Valve closed manually: ~
 We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
 password: ~

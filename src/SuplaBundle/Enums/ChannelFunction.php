@@ -184,6 +184,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
+
             self::RGBLIGHTING => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
@@ -200,12 +201,23 @@ final class ChannelFunction extends Enum {
             self::THERMOSTAT => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::TOGGLE()],
+                ChannelFunctionAction::TOGGLE(),
+            ],
 
             self::THERMOSTATHEATPOLHOMEPLUS => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::TOGGLE()],
+                ChannelFunctionAction::TOGGLE(),
+            ],
+
+            self::VALVEOPENCLOSE => [
+                ChannelFunctionAction::OPEN(),
+                ChannelFunctionAction::CLOSE(),
+            ],
+
+            self::VALVEPERCENTAGE => [
+                ChannelFunctionAction::OPEN_PARTIALLY(),
+            ],
 
         ];
     }
