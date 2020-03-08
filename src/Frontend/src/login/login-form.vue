@@ -87,7 +87,7 @@
             </router-link>
         </transition>
         <div v-if="!oauth && !$frontendConfig.maintenanceMode && $frontendConfig.accountsRegistrationEnabled"
-            class="additional-buttons form-group">
+            class="additional-buttons">
             <router-link to="/devices"
                 class="btn btn-white btn-wrapped">
                 <img src="assets/img/devices.png">

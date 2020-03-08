@@ -56,7 +56,7 @@
     @import "../../styles/mixins";
 
     .page-footer {
-        padding-top: 5px;
+        padding-top: 10px;
         a {
             font-weight: 400;
             color: $supla-black;
