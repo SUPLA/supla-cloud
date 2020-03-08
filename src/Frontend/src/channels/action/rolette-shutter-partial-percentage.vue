@@ -33,7 +33,17 @@
         },
         methods: {
             onChange() {
+                this.percentage = this.ensureBetween(this.percentage, 0, 100);
                 this.$emit('input', {percentage: this.percentage});
+            },
+            ensureBetween(value, min, max) {
+                if (value < min) {
+                    return min;
+                } else if (value > max) {
+                    return max;
+                } else {
+                    return +value;
+                }
             }
         }
     };
