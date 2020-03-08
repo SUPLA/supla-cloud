@@ -49,15 +49,18 @@
             };
         },
         mounted() {
-            if (this.actionsToShow.length === 1) {
-                this.action = {
-                    id: this.actionsToShow[0].id,
-                    param: {}
-                };
-                this.updateAction();
-            }
+            this.selectFirstActionIfOnlyOne();
         },
         methods: {
+            selectFirstActionIfOnlyOne() {
+                if (this.actionsToShow.length === 1) {
+                    this.action = {
+                        id: this.actionsToShow[0].id,
+                        param: {}
+                    };
+                    this.updateAction();
+                }
+            },
             updateAction() {
                 this.$emit('input', this.action);
             },
@@ -85,6 +88,11 @@
                     this.$emit('input', {id: this.value.id, param});
                 }
             }
-        }
+        },
+        watch: {
+            subject() {
+                this.selectFirstActionIfOnlyOne();
+            }
+        },
     };
 </script>
