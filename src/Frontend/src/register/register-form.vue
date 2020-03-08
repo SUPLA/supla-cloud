@@ -1,71 +1,69 @@
 <template>
     <div class="create-form">
-        <div class="wrapper">
-            <h1 class="page-title"
-                v-title>{{ $t('Create an account') }}</h1>
+        <h1 class="page-title"
+            v-title>{{ $t('Create an account') }}</h1>
 
-            <div class="alert error"
-                v-if="errorMessage">
-                <p>{{ errorMessage }}</p>
-                <p v-if="resendActivationLinkOption">
-                    <resend-account-activation-link :username="username"></resend-account-activation-link>
-                </p>
-            </div>
+        <div class="alert error"
+            v-if="errorMessage">
+            <p>{{ errorMessage }}</p>
+            <p v-if="resendActivationLinkOption">
+                <resend-account-activation-link :username="username"></resend-account-activation-link>
+            </p>
+        </div>
 
-            <form @submit.prevent="submit()"
-                class="register-form">
-                <input type="hidden"
-                    name="timezone"
-                    :value="timezone">
+        <form @submit.prevent="submit()"
+            class="register-form">
+            <input type="hidden"
+                name="timezone"
+                :value="timezone">
 
-                <input type="email"
-                    class="form-input"
-                    autocorrect="off"
-                    v-focus="true"
-                    autocapitalize="none"
-                    :placeholder="$t('Enter your email address')"
-                    v-model="username">
+            <input type="email"
+                class="form-input"
+                autocorrect="off"
+                v-focus="true"
+                autocapitalize="none"
+                :placeholder="$t('Enter your email address')"
+                v-model="username">
 
-                <input type="password"
-                    class="form-input"
-                    :placeholder="$t('Enter strong password')"
-                    v-model="password">
+            <input type="password"
+                class="form-input"
+                :placeholder="$t('Enter strong password')"
+                v-model="password">
 
-                <input type="password"
-                    class="form-input"
-                    :placeholder="$t('Repeat password')"
-                    v-model="confirmPassword">
+            <input type="password"
+                class="form-input"
+                :placeholder="$t('Repeat password')"
+                v-model="confirmPassword">
 
-                <regulations-checkbox v-model="regulationsAgreed"
-                    v-if="regulationsAcceptRequired"></regulations-checkbox>
+            <regulations-checkbox v-model="regulationsAgreed"
+                v-if="regulationsAcceptRequired"></regulations-checkbox>
 
-                <div v-if="captchaEnabled">
-                    <invisible-recaptcha
-                        :sitekey="captchaSiteKey"
-                        :callback="checkCaptcha"
-                        id="registerRecaptcha"
-                        type="submit"
-                        :disabled="isBusy"
-                        :form-valid="!computedErrorMessage">
-                        <template slot-scope="btn">
-                            <span v-if="!isBusy">
-                                {{ $t('Create an account') }}
-                            </span>
-                            <button-loading-dots v-else></button-loading-dots>
-                        </template>
-                    </invisible-recaptcha>
-                </div>
-                <div v-else>
-                    <button type="submit"
-                        class="btn btn-default btn-block btn-lg">
+            <div v-if="captchaEnabled">
+                <invisible-recaptcha
+                    :sitekey="captchaSiteKey"
+                    :callback="checkCaptcha"
+                    id="registerRecaptcha"
+                    type="submit"
+                    :disabled="isBusy"
+                    :form-valid="!computedErrorMessage">
+                    <template slot-scope="btn">
                         <span v-if="!isBusy">
                             {{ $t('Create an account') }}
                         </span>
                         <button-loading-dots v-else></button-loading-dots>
-                    </button>
-                </div>
-            </form>
-        </div>
+                    </template>
+                </invisible-recaptcha>
+            </div>
+            <div v-else>
+                <button type="submit"
+                    class="btn btn-default btn-block btn-lg">
+                    <span v-if="!isBusy">
+                        {{ $t('Create an account') }}
+                    </span>
+                    <button-loading-dots v-else></button-loading-dots>
+                </button>
+            </div>
+        </form>
     </div>
 </template>
 

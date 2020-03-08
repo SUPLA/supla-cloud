@@ -1,26 +1,55 @@
+.register-page {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-bottom: 60px;
+  margin-bottom: -60px;
+
+  .create-form-container {
+    max-width: 360px;
+  }
+  .register-slider-container {
+    width: 400px;
+    margin-right: 100px;
+  }
+
+  @media screen and (max-width: 1020px) {
+    padding: 15px;
+    padding-bottom: 60px;
+    height: auto;
+    .register-slider-container {
+      display: none;
+    }
+    .create-form-container {
+      h1 {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.register-slider-body {
+  transition: background .4s linear;
+  &.register-slide- {
+    &0 {
+      background-image: url('/assets/img/1.svg');
+    }
+    &1 {
+      background-image: url('/assets/img/2.svg');
+    }
+    &2 {
+      background-image: url('/assets/img/3.svg');
+    }
+  }
+}
+
 .create-form {
   color: $supla-white;
 
   .checkbox a {
     color: $supla-yellow;
-  }
-
-  @media screen and (max-width: 899px) {
-    padding: 15px;
-  }
-
-  @media screen and (min-width: 900px) {
-    display: table;
-    height: 100%;
-    max-width: 400px;
-    position: absolute;
-    top: 0px;
-    left: 55%;
-    z-index: 50;
-  }
-
-  .register-form {
-    max-width: 305px;
   }
 
   .page-title {
@@ -47,7 +76,6 @@
     transition: all 0.3s;
     color: $supla-white;
     margin-top: 10px;
-    max-width: 301px;
     height: 37px;
   }
 
@@ -81,26 +109,5 @@
   .form-input:focus,
   .form-input:hover {
     border-bottom-color: $supla-white;
-  }
-}
-
-@media screen and (max-width: 899px) {
-  .create-form {
-    h1 {
-      text-align: center;
-    }
-
-    form {
-      margin: 0 auto;
-    }
-  }
-}
-
-@media screen and (min-width: 900px) {
-  .create-form .wrapper {
-    display: table-cell;
-    height: 100%;
-    margin: 0 auto;
-    vertical-align: middle;
   }
 }

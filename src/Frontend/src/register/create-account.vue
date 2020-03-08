@@ -8,8 +8,14 @@
         </transition>
         <transition name="fade-router">
             <div v-if="!registeredEmail">
-                <register-slider :texts="['register-slide1', 'register-slide2', 'register-slide3']"></register-slider>
-                <register-form @registered="registeredEmail = $event"></register-form>
+                <div class="register-page">
+                    <div class="register-slider-container">
+                        <register-slider :texts="['register-slide1', 'register-slide2', 'register-slide3']"></register-slider>
+                    </div>
+                    <div class="create-form-container">
+                        <register-form @registered="registeredEmail = $event"></register-form>
+                    </div>
+                </div>
             </div>
         </transition>
     </div>

@@ -26,7 +26,7 @@ export default [
     {
         path: '/register',
         component: () => import("@/register/create-account"),
-        meta: {unrestricted: true, onlyUnauthenticated: true, unavailableInMaintenance: true, bodyClass: 'green'},
+        meta: {unrestricted: true, onlyUnauthenticated: true, unavailableInMaintenance: true, bodyClass: 'green register-slider-body'},
         alias: '/account/create_here'
     },
     {
@@ -106,7 +106,7 @@ export default [
     {
         path: '/register-cloud',
         component: () => import("@/oauth/register-target-cloud-form"),
-        meta: {unrestricted: true, unavailableInMaintenance: true}
+        meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
     {path: '/schedules', component: () => import("@/schedules/schedule-list/schedule-list-page"), name: 'schedules'},
     {path: '/schedules/new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new'},

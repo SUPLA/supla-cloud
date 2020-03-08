@@ -1,31 +1,34 @@
 <template>
-    <div id="slides">
-        <ul class="slides-container">
-            <li v-for="slide in slides">
-                <img :src="slide.img"
-                    alt="">
-                <div class="container">
-                    <div class="info-wrapper">
-                        <article>
-                            <h1>{{ $t(slide.title) }}</h1>
-                            <p>{{ $t(slide.description) }}</p>
-                        </article>
-                    </div>
+    <div class="register-slider">
+        <div class="register-slide-content">
+            <transition name="fade">
+                <div v-if="slide">
+                    <h1 class="nocapitalize">{{ $t(slide.title) }}</h1>
+                    <p>{{ $t(slide.description) }}</p>
                 </div>
-            </li>
-        </ul>
-        <nav class="slides-navigation">
-            <a class="next"><i class="pe-7s-angle-right-circle"></i></a>
-            <a class="prev"><i class="pe-7s-angle-left-circle"></i></a>
-        </nav>
+            </transition>
+        </div>
+        <a class="register-slider-next"
+            @click="showSlide(slideNumber + 1)">
+            <i class="pe-7s-angle-right-circle"></i>
+        </a>
+        <a class="register-slider-prev"
+            @click="showSlide(slideNumber - 1)">
+            <i class="pe-7s-angle-left-circle"></i>
+        </a>
     </div>
 </template>
 
 <script>
-    import "superslides/dist/jquery.superslides";
-
     export default {
         props: ['texts'],
+        data() {
+            return {
+                slide: undefined,
+                slideNumber: 0,
+                timeout: undefined,
+            };
+        },
         computed: {
             slides() {
                 const slides = [];
@@ -40,13 +43,28 @@
             }
         },
         mounted() {
-            $('#slides').superslides({
-                animation: 'fade',
-                play: 12500,
-                pagination: false,
-                inherit_width_from: window,
-                inherit_height_from: window
-            });
+            this.showSlide(0);
+        },
+        methods: {
+            showSlide(number) {
+                this.slideNumber = number % this.slides.length;
+                if (this.slideNumber < 0) {
+                    this.slideNumber = this.slides.length - 1;
+                }
+                this.slide = undefined;
+                let cssClass = document.body.getAttribute('class');
+                cssClass = cssClass.replace(/register-slide-[0-9]/, '').trim();
+                cssClass += ' register-slide-' + this.slideNumber;
+                document.body.setAttribute('class', cssClass);
+                setTimeout(() => {
+                    this.slide = this.slides[this.slideNumber];
+                }, 200);
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => this.showSlide(this.slideNumber + 1), 12500);
+            }
+        },
+        beforeDestroy() {
+            clearTimeout(this.timeout);
         }
     };
 </script>
@@ -54,73 +72,29 @@
 <style lang="scss">
     @import "../styles/variables";
 
-    #slides {
-        position: relative;
-        width: 100%;
-        overflow: visible;
-
-        @media screen and (max-width: 899px) {
-            display: none;
-        }
-
-        .slides-container {
-            display: none;
-        }
-
-        .slides-navigation {
-            margin: 0 auto;
+    .register-slider {
+        a.register-slider-next, a.register-slider-prev {
             position: absolute;
-            z-index: 3;
-            top: 46%;
-            width: 100%;
+            display: block;
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0px;
+            background: transparent;
+            transition: all 0.3s;
+            top: 47%;
 
-            a {
-                position: absolute;
-                display: block;
-                font-size: 60px;
-                color: rgba(255, 255, 255, 0.7);
-                padding: 0px;
+            &:active,
+            &:focus,
+            &:hover {
+                color: $supla-white;
                 background: transparent;
-                transition: all 0.3s;
-
-                &:active,
-                &:focus,
-                &:hover {
-                    color: $supla-white;
-                    background: transparent;
-                }
-
-                &.prev {
-                    left: 20px;
-                }
-                &.next {
-                    right: 20px;
-                }
             }
-        }
 
-        .container {
-            height: 100%;
-            display: table;
-
-            .info-wrapper {
-                display: table-cell;
-                height: 100%;
-                vertical-align: middle;
-
-                article {
-                    margin-left: 90px;
-                    width: 40%;
-
-                    h1 {
-                        color: $supla-white;
-                        text-transform: none;
-                    }
-
-                    p {
-                        color: $supla-white;
-                    }
-                }
+            &.register-slider-prev {
+                left: 20px;
+            }
+            &.register-slider-next {
+                right: 20px;
             }
         }
     }
