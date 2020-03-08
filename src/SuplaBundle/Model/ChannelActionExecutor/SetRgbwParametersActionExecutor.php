@@ -122,7 +122,14 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                 $color = ColorUtils::hexToDec($color);
             }
         } elseif (isset($actionParams['hue'])) {
-            $color = $actionParams['hue'] === 'random' ? 'random' : ColorUtils::hueToDec($actionParams['hue']);
+            $color = $actionParams['hue'];
+            if ($color !== 'random') {
+                if ($color === 'white') {
+                    $color = 0xFFFFFF;
+                } else {
+                    $color = ColorUtils::hueToDec($actionParams['hue']);
+                }
+            }
         } elseif (isset($actionParams['rgb'])) {
             $rgb = $actionParams['rgb'];
             $color = ColorUtils::rgbToDec([$rgb['red'], $rgb['green'], $rgb['blue']]);

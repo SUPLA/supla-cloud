@@ -119,6 +119,7 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
     public function exampleRgbwParameters() {
         return [
             [['hue' => 0, 'color_brightness' => 0], '16711680,0,0'],
+            [['hue' => 'white', 'color_brightness' => 12], '16777215,12,0'],
             [['hue' => 0], '16711680,0,0'],
             [['hue' => 0], '16711680,50,0', ['color_brightness' => 50]],
             [['hue' => 0], '16711680,50,70', ['color_brightness' => 50, 'brightness' => 70]],
@@ -138,6 +139,7 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0', ['color_brightness' => 50]],
             [['color_brightness' => 40], '16711680,40,0', ['color' => '0xFF0000']],
             [['color' => 'random'], 'SET-RAND-RGBW-VALUE:1,1,1,99,0', ['color_brightness' => '99']],
+            [['hue' => 'random', 'color_brightness' => 88], 'SET-RAND-RGBW-VALUE:1,1,1,88,0'],
             [['color' => 'random', 'color_brightness' => 98], 'SET-RAND-RGBW-VALUE:1,1,1,98,0', ['color_brightness' => '99']],
         ];
     }
