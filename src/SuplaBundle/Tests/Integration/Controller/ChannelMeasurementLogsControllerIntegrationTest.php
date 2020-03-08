@@ -143,46 +143,18 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->getEntityManager()->flush();
     }
 
-    private function ensureMeasurementLogsCount(int $channelId, int $expected = 3) {
+    /** @dataProvider measurementLogsCounts */
+    public function testMeasurementLogsCount(int $channelId, int $expectedLogCount = 3) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $this->assertTrue($response->headers->has('X-Total-Count'));
-        $this->assertEquals($expected, $response->headers->get('X-Total-Count'));
+        $this->assertEquals($expectedLogCount, $response->headers->get('X-Total-Count'));
     }
 
-    public function testGettingTemperatureLogsCount() {
-        $this->ensureMeasurementLogsCount(2);
-    }
-
-    public function testGettingTemperatureAndHumidityLogsCount() {
-        $this->ensureMeasurementLogsCount(3);
-    }
-
-    public function testGettingElectricityMeasurementsLogsCount() {
-        $this->ensureMeasurementLogsCount(4);
-    }
-
-    public function testGettingElectricityImpulsesLogsCount() {
-        $this->ensureMeasurementLogsCount(5);
-    }
-
-    public function testGettingGasImpulsesLogsCount() {
-        $this->ensureMeasurementLogsCount(6);
-    }
-
-    public function testGettingWaterImpulsesLogsCount() {
-        $this->ensureMeasurementLogsCount(7);
-    }
-
-    public function testGettingHeatImpulsesLogsCount() {
-        $this->ensureMeasurementLogsCount(8);
-    }
-
-    public function testGettingThermostatLogsCount() {
-        $this->ensureMeasurementLogsCount(9);
-        $this->ensureMeasurementLogsCount(10);
+    public function measurementLogsCounts() {
+        return [[2], [3], [4], [5], [6], [7], [8], [9], [10]];
     }
 
     public function testGettingTemperatureLogsCountObsolete() {
@@ -477,15 +449,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testDeletingMeasurementLogs() {
         foreach ($this->device1->getChannels() as $channel) {
             if ($channel->getType()->getId() != ChannelType::RELAY) {
-                $this->ensureMeasurementLogsCount($channel->getId());
+                $this->testMeasurementLogsCount($channel->getId());
                 $this->deleteMeasurementLogs($channel->getId());
-                $this->ensureMeasurementLogsCount($channel->getId(), 0);
+                $this->testMeasurementLogsCount($channel->getId(), 0);
             }
         }
 
         foreach ($this->device2->getChannels() as $channel) {
             if ($channel->getType()->getId() != ChannelType::RELAY) {
-                $this->ensureMeasurementLogsCount($channel->getId());
+                $this->testMeasurementLogsCount($channel->getId());
             }
         }
     }

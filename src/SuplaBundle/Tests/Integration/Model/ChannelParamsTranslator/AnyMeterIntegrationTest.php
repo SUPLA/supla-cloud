@@ -46,96 +46,100 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
         $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
     }
 
-    public function testUpdatingPricePerUnit() {
-        foreach ($this->device->getChannels() as $channel) {
-            $this->assertEquals(0, $channel->getParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1000]);
-            $this->assertEquals(1000 * 10000, $channel->getParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0.0001]);
-            $this->assertEquals(1, $channel->getParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1001]);
-            $this->assertEquals(1000 * 10000, $channel->getParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0]);
-            $this->assertEquals(0, $channel->getParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => -1]);
-            $this->assertEquals(0, $channel->getParam2());
-        }
+    public function meterChannelsProvider() {
+        return [[0], [1], [2], [3], [4]];
     }
 
-    public function testUpdatingImpulsesPerUnit() {
-        foreach ($this->device->getChannels() as $channel) {
-            if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
-                $this->assertEquals(0, $channel->getParam3());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000000]);
-                $this->assertEquals(1000000, $channel->getParam3());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1]);
-                $this->assertEquals(1, $channel->getParam3());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000001]);
-                $this->assertEquals(1000000, $channel->getParam3());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 0]);
-                $this->assertEquals(0, $channel->getParam3());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => -1]);
-                $this->assertEquals(0, $channel->getParam3());
-            }
-        }
+    public function impulseCountersProvider() {
+        return [[1], [2], [3], [4]];
     }
 
-    public function testUpdatingInitialValue() {
-        foreach ($this->device->getChannels() as $channel) {
-            if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
-                $this->assertEquals(0, $channel->getParam1());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000000]);
-                $this->assertEquals(100000000, $channel->getParam1());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 100.50]);
-                $this->assertEquals(10050, $channel->getParam1());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1]);
-                $this->assertEquals(100, $channel->getParam1());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0.01]);
-                $this->assertEquals(1, $channel->getParam1());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000001]);
-                $this->assertEquals(100000000, $channel->getParam1());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0]);
-                $this->assertEquals(0, $channel->getParam1());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -1]);
-                $this->assertEquals(0, $channel->getParam1());
-            }
-        }
+    /** @dataProvider meterChannelsProvider */
+    public function testUpdatingPricePerUnit(int $channelIndex) {
+        $channel = $this->device->getChannels()[$channelIndex];
+        $this->assertEquals(0, $channel->getParam2());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1000]);
+        $this->assertEquals(1000 * 10000, $channel->getParam2());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0.0001]);
+        $this->assertEquals(1, $channel->getParam2());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1001]);
+        $this->assertEquals(1000 * 10000, $channel->getParam2());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0]);
+        $this->assertEquals(0, $channel->getParam2());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => -1]);
+        $this->assertEquals(0, $channel->getParam2());
     }
 
-    public function testUpdatingCurrency() {
-        foreach ($this->device->getChannels() as $channel) {
-            $this->assertEquals(null, $channel->getTextParam1());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'PLN']);
-            $this->assertEquals("PLN", $channel->getTextParam1());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'ABCD']);
-            $this->assertEquals("PLN", $channel->getTextParam1());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'P']);
-            $this->assertEquals("PLN", $channel->getTextParam1());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => '']);
-            $this->assertEquals("", $channel->getTextParam1());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => null]);
-            $this->assertEquals(null, $channel->getTextParam1());
-        }
+    /** @dataProvider impulseCountersProvider */
+    public function testUpdatingImpulsesPerUnit(int $channelIndex) {
+        $channel = $this->device->getChannels()[$channelIndex];
+        $this->assertEquals(0, $channel->getParam3());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000000]);
+        $this->assertEquals(1000000, $channel->getParam3());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1]);
+        $this->assertEquals(1, $channel->getParam3());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000001]);
+        $this->assertEquals(1000000, $channel->getParam3());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 0]);
+        $this->assertEquals(0, $channel->getParam3());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => -1]);
+        $this->assertEquals(0, $channel->getParam3());
     }
 
-    public function testUpdatingUnit() {
-        foreach ($this->device->getChannels() as $channel) {
-            if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
-                $this->assertEquals(null, $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
-                $this->assertEquals("kWh", $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²']);
-                $this->assertEquals("kWh²", $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²³']);
-                $this->assertEquals('kWh²', $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => '']);
-                $this->assertEquals("", $channel->getTextParam2());
-                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => null]);
-                $this->assertEquals(null, $channel->getTextParam2());
-            } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
-                $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
-                $this->assertEquals(null, $channel->getTextParam2());
-            }
+    /** @dataProvider impulseCountersProvider */
+    public function testUpdatingInitialValue(int $channelIndex) {
+        $channel = $this->device->getChannels()[$channelIndex];
+        $this->assertEquals(0, $channel->getParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000000]);
+        $this->assertEquals(100000000, $channel->getParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 100.50]);
+        $this->assertEquals(10050, $channel->getParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1]);
+        $this->assertEquals(100, $channel->getParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0.01]);
+        $this->assertEquals(1, $channel->getParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000001]);
+        $this->assertEquals(100000000, $channel->getParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0]);
+        $this->assertEquals(0, $channel->getParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -1]);
+        $this->assertEquals(0, $channel->getParam1());
+    }
+
+    /** @dataProvider meterChannelsProvider */
+    public function testUpdatingCurrency(int $channelIndex) {
+        $channel = $this->device->getChannels()[$channelIndex];
+        $this->assertEquals(null, $channel->getTextParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'PLN']);
+        $this->assertEquals("PLN", $channel->getTextParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'ABCD']);
+        $this->assertEquals("PLN", $channel->getTextParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'P']);
+        $this->assertEquals("PLN", $channel->getTextParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => '']);
+        $this->assertEquals("", $channel->getTextParam1());
+        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => null]);
+        $this->assertEquals(null, $channel->getTextParam1());
+    }
+
+    /** @dataProvider meterChannelsProvider */
+    public function testUpdatingUnit(int $channelIndex) {
+        $channel = $this->device->getChannels()[$channelIndex];
+        if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
+            $this->assertEquals(null, $channel->getTextParam2());
+            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
+            $this->assertEquals("kWh", $channel->getTextParam2());
+            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²']);
+            $this->assertEquals("kWh²", $channel->getTextParam2());
+            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²³']);
+            $this->assertEquals('kWh²', $channel->getTextParam2());
+            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => '']);
+            $this->assertEquals("", $channel->getTextParam2());
+            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => null]);
+            $this->assertEquals(null, $channel->getTextParam2());
+        } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
+            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
+            $this->assertEquals(null, $channel->getTextParam2());
         }
     }
 }

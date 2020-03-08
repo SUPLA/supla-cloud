@@ -207,6 +207,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
+            case ChannelFunction::IC_HEATMETER:
                 $result = $this->logItems(
                     "`supla_ic_log`",
                     "`counter`, `calculated_value` / 1000 calculated_value",
