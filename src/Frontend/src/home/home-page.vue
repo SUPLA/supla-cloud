@@ -123,7 +123,6 @@
         h1 {
             font-size: 72px;
             line-height: 72px;
-            letter-spacing: -6px;
             margin-bottom: 25px;
             @include on-xs-and-down {
                 font-size: 48px;
