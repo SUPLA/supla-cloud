@@ -223,6 +223,13 @@ class UserController extends RestController {
      * @UnavailableInMaintenance
      */
     public function accountCreateAction(Request $request) {
+        if (!$this->accountsRegistrationEnabled) {
+            return $this->view(
+                ['status' => Response::HTTP_LOCKED, 'message' => 'Account registration is diabled'],
+                Response::HTTP_LOCKED
+            );
+        }
+
         if ($this->recaptchaEnabled) {
             $gRecaptchaResponse = $request->get('captcha');
             $recaptcha = new ReCaptcha($this->recaptchaSecret);
