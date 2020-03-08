@@ -2,7 +2,7 @@
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 ...and start your adventure with building automation today!: ... وابدأ مغامرتك مع المباني الذكية اليوم!
 ...open and shut roller shutters: ... إسدال وكشف الستائر
-'...open gateways, gates or doors': '... فتح البوابة الصغيرة أو البوابة الكبيرة أو الباب'
+'...open gateways, gates or doors': ... فتح البوابة الصغيرة أو البوابة الكبيرة أو الباب
 ...or control home appliances: ... أو التحكم في الأجهزة المنزلية / الالكترونيات
 ...you can monitor temperature: ... يمكنك مراقبة درجة الحرارة
 ACTIVE: نشطة
@@ -28,7 +28,7 @@ Add first channel to set channel group function and save it: حدد القناة
 Add new channel group: إضافة مجموعة قنوات جديدة
 Add new channel to this group: أضف قناة جديدة إلى المجموعة
 Adjust parameters: ضبط المعلمات
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'ستتلقى جميع القنوات ومجموعات القنوات التي تستخدم هذا الرمز الرموز الافتراضية عند إزالتها.'
+'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': ستتلقى جميع القنوات ومجموعات القنوات التي تستخدم هذا الرمز الرموز الافتراضية عند إزالتها.
 'After granting the access, you can always remove it by adjusting the settings in your account settings section.': بعد منح حق الوصول، يمكنك دائمًا تغيير رأيك عن طريق إلغاء الوصول في إعدادات حسابك.
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': سيتم إنشاء الرابط مباشرة بعد اختيار الكيان. يمكنك إدخال جميع الخيارات الأخرى بمجرد إنشائها.
 All: الكل
@@ -48,7 +48,6 @@ Are you sure you want to delete this client?: هل أنت متأكد أنك تر
 Are you sure you want to delete this direct link?: هل أنت متأكد من أنك تريد حذف هذا الرابط المباشر؟
 Are you sure you want to delete this icon?: هل أنت متأكد أنك تريد حذف هذا الرمز؟
 Are you sure you want to delete this schedule?: هل أنت متأكد أنك تريد حذف هذا الجدول؟
-Are you sure you want to disable this device?: هل أنت متأكد من أنك تريد إيقاف تشغيل هذا الجهاز؟
 Are you sure you want to revoke permissions granted to this OAuth application?: هل أنت متأكد من أنك تريد إلغاء الأذونات الممنوحة لتطبيق OAuth؟
 Are you sure you want to revoke this token?: هل أنت متأكد من أنك تريد إلغاء الرمز المميز؟
 Are you sure?: هل انت متأكد؟
@@ -56,7 +55,7 @@ Assign Access Identifiers: تعيين معرفات الوصول
 Assign Client apps: تعيين تطبيقات العميل
 Assign Locations: تخصيص المواقع
 Authorization callback URLs (one per line): عناوين  URLالمرتجعة للاعتماد (واحد لكل سطر)
-'Authorize the application, so that it can access your account.': 'قم باعتماد التطبيق حتى يتمكن من الوصول إلى حسابك.'
+'Authorize the application, so that it can access your account.': قم باعتماد التطبيق حتى يتمكن من الوصول إلى حسابك.
 Authorized: تم الاعتماد
 Authorized OAuth apps: تطبيقات OAuth المعتمدة
 Automation: الأتمتة
@@ -84,13 +83,12 @@ Channel group limit has been exceeded: تم تجاوز حد مجموعات ال�
 Channel group must consist of at least one channel.: يجب أن تحتوي مجموعة القنوات على قناة واحدة على الأقل.
 Channel groups: مجموعات القنوات
 Channel is assigned to the I/O device location: تم تسجيل القناة إلى موقع الجهاز
-Channel will be deleted from the channel group below: ستتم إزالة القناة من مجموعات القنوات التالية
 Channels: القنوات
 Check the direct link you used and try again.: تحقق من الرابط المباشر الذي تم الاتصال به وحاول مرة أخرى.
 Check your email box: تحقق من صندوق بريدك الإلكتروني
 Choose: اختر
 Choose Access Identifier: Wybierz Identyfikator Dostępu
-Choose Access Identifiers to be assigned to this Location: 'حدد معرفات الوصول لتخصيصها لهذا الموقع'
+Choose Access Identifiers to be assigned to this Location: حدد معرفات الوصول لتخصيصها لهذا الموقع
 Choose client apps: حدد تطبيقات العميل
 Choose location: اختر الموقع
 Chosen hour: الوقت المحدد
@@ -105,7 +103,6 @@ Configuration: الترتيب
 Confirm Password: تأكيد كلمة المرور
 Confirm if you want to remove Access Identifier: تأكد من أنك تريد إزالة معرف الوصول
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'تأكد أنك تريد إزالة معرف الموقع {locationId}. لا يمكن لأي أجهزة إدخال / إخراج أخرى الاتصال بهذا الموقع.'
-'Confirm if you want to remove {deviceName} device': 'أكد أنك تريد إزالة {deviceName}'
 Connected: متصل
 Connection with a private instance of the SUPLA cloud: اتصال بمثيل سحابةSUPLA الخاص.
 Constraints: القيود
@@ -124,7 +121,6 @@ Custom execution limit: حد الاجراءات غير قياسي
 DHT11 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT11
 DHT21 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT21
 DHT22 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT22
-DISABLED: غير مشغل
 DS18B20 Thermometer: ميزان الحرارة DS18B20
 Data saved: تم حفظ البيانات
 Days: الأيام
@@ -132,11 +128,11 @@ Decline: رفض
 Delete: حذف
 Delete measurement history: حذف سجل القياسات
 Delete my account: قم بحذف حسابي
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'سيؤدي حذف حسابك إلى حذف جميع بياناتك، بما في ذلك أجهزتك المتصلة والقنوات المكوّنة والروابط المباشرة وسجلّ القياسات. لا يمكن التراجع عن حذف الحساب.'
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': سيؤدي حذف حسابك إلى حذف جميع بياناتك، بما في ذلك أجهزتك المتصلة والقنوات المكوّنة والروابط المباشرة وسجلّ القياسات. لا يمكن التراجع عن حذف الحساب.
 Depth: العمق
 Depth sensor: مستشعر العمق
 Description: الوصف
-Details: التفاصيل   
+Details: التفاصيل
 Device: الجهاز
 Device unavailable: الجهاز غير متوفر
 Dimmer: العاتم
@@ -147,7 +143,6 @@ Direct link has been created successfully!: تم إنشاء الرابط الم�
 Direct link has been executed: تم إنشاء الرابط المباشر
 'Direct link is not working right now. Reason:': 'الرابط المباشر لا يعمل في هذا الوقت. السبب:'
 Direct links: الروابط المباشرة
-Direct links below will be deleted: ستتم إزالة الروابط المباشرة المدرجة أدناه
 Disabled: غير مشغلة
 Disconnected: منقطع
 Distance: البعد
@@ -156,10 +151,9 @@ Distance sensor: مستشعر البعد
 Door lock operation: فتح الباب
 Door opening sensor: مستشعر فتح الباب
 Doors and gates: الأبواب والبوابات
-'Doors, Gates': 'الأبواب ، البوابات'
+'Doors, Gates': الأبواب ، البوابات
 Download the history of measurement: تحميل تاريخ القياسات
 Drag your image(s) here or click to select from the disk: اسحب الصورة هنا أو انقر للتحديد من القرص
-ENABLED: مفعلة
 Edit: تحرير
 Electric: الكهرباء
 Electricity meter: عداد الكهرباء
@@ -168,7 +162,7 @@ Enabled: مفعل
 End date: تاريخ الانتهاء
 Enter new password: أدخل كلمة مرور جديدة
 Enter strong password: أدخل كلمة مرور قوية
-Enter the data below in the settings of your control device (I/O Device).: أدخل البيانات التالية في إعدادات جهاز التحكم الخاص بك (جهاز المدخل/المخرج). 
+Enter the data below in the settings of your control device (I/O Device).: أدخل البيانات التالية في إعدادات جهاز التحكم الخاص بك (جهاز المدخل/المخرج).
 Enter the data below in your mobile SUPLA application on your smartphone.: أدخل البيانات التالية في تطبيق SUPLA للهاتف المحمول المثبت على هاتفك الذكي.
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: أدخل فقط المجال مع المنفذ إذا كان غير قياسي (443). نطلب اتصال  HTTPS.
 Enter your email address: أدخل عنوان بريدك الإلكتروني
@@ -182,13 +176,12 @@ Executed without confirmation: المتخذة دون تأكيد
 Execution history: تاريخ الاجراء
 Execution limit: حد الاجراء
 Executions: الاجراءات
-Existing schedules: الجداول الزمنية الحالية
 Expired: منتهي الصلاحية
 Failed: غير ناجح
 Failed (zombie): فشل (زومبي)
 File is too large: الملف كبير جدًا
 For devices: للأجهزة
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'لأسباب أمنية، لن يتم عرض عنوان URL الكامل لهذا الرابط المباشر إلا مرة واحدة أثناء إنشائه.'
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': لأسباب أمنية، لن يتم عرض عنوان URL الكامل لهذا الرابط المباشر إلا مرة واحدة أثناء إنشائه.
 Forgot your password?: هل نسيت كلمة المرور؟
 Forward active energy: الطاقة النشطة المستهلكة
 Fridays: الجمعة
@@ -215,7 +208,7 @@ Go to I/O device details: انتقل إلى تفاصيل الجهاز
 Go to channel details: انتقل إلى تفاصيل القناة
 Go to your account: انتقل إلى حسابك
 Grant access: منح الوصول
-HFD4 Relay: مرحلHFD4 
+HFD4 Relay: مرحلHFD4
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'الرسالة مع رابط تفعيل حسابك لم تصل؟ تأكد من أنه غير موجود في مجلد الرسائل غير المطلوبة (البريد العشوائي). يمكنك أيضًا النقر [هنا] لإرسالها مرة أخرى.'
 History of measurements: تاريخ القياسات
 Home appliances: الأجهزة المنزلية / الالكترونيات
@@ -227,16 +220,16 @@ Humidity adjustment: تعديل الرطوبة
 Humidity sensor: مستشعر الرطوبة
 'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'أوافق على [اللوائح] وأوافق على معالجة بياناتي الشخصية للغرض والنطاق المشار إليهما في [اللوائح].'
 I agree: انا موافق
-'I aree, taske me to the app': 'أوافق، انتقل إلى التطبيق'
+'I aree, taske me to the app': أوافق، انتقل إلى التطبيق
 I confirm! Delete my account.: أؤكد! قم بحذف حسابي.
-'I do not agree, get me out of here': 'أنا لا أوافق، أخرجني من هنا'
+'I do not agree, get me out of here': أنا لا أوافق، أخرجني من هنا
 I/O Devices: أجهزة الإدخال / الإخراج
 INACTIVE: غير مفعلة
 Idle: خامل
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'إذا كنت مبرمجًا يريد تقديم ميزات إضافية لـ SUPLI، فقم بإنشاء تطبيق OAuth يمكن للمستخدمين السماح به واستخدامه.'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'إذا كنت متأكدًا من أن لديك حسابًا على cloud.supla.org ، فتحقق من أن التطبيق الذي تحاول تخويله عام.'
+'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': إذا كنت مبرمجًا يريد تقديم ميزات إضافية لـ SUPLI، فقم بإنشاء تطبيق OAuth يمكن للمستخدمين السماح به واستخدامه.
+'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': إذا كنت متأكدًا من أن لديك حسابًا على cloud.supla.org ، فتحقق من أن التطبيق الذي تحاول تخويله عام.
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'إذا كنت تريد دمج سحابة SUPLA الخاصة مع تطبيق OAuth  العام، يجب عليك [تسجيل حالتك].'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'إذا كنت ترغب في استخدام الرابط المباشر في البرامج الأخرى، فأضف رأس الطلب المناسب للحصول على استجابة أسهل في معالجتها.'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': إذا كنت ترغب في استخدام الرابط المباشر في البرامج الأخرى، فأضف رأس الطلب المناسب للحصول على استجابة أسهل في معالجتها.
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'إذا كنت تريد رؤية عمليات الدمج المتاحة، فانتقل إلى [cloud.supla.org/apps].'
 Impulse counter: عداد النبضات
 Impulses: النبضات
@@ -260,7 +253,7 @@ Let me choose later: اسمح لي أن أختار في وقت لاحق
 Light switch: مفتاح الضوء
 Lighting: الإضاءة
 Limit has been exceeded: تم تجاوز الحد
-'Liquid, Temp': 'السائل، ودرجة الحرارة'
+'Liquid, Temp': السائل، ودرجة الحرارة
 Location: الموقع
 Location Identifier: معرف الموقع
 Location limit has been exceeded: تم تجاوز حد الموقع
@@ -270,7 +263,7 @@ Locations: المواقع
 Login: تسجيل الدخول
 Mail sensor: مستشعر البريد
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'تأكد من حفظه في مكان آمن إذا كنت ترغب في استخدامه في المستقبل. لن يتم عرض الرابط بعد مغادرة هذه الصفحة.'
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: تأكد من حفظه في مكان آمن إذا كنت ترغب في استخدامه في المستقبل. لن يتم عرض الرابط بعد مغادرة هذه الصفحة.
 'Maximum filesize limit is {limit}.': 'الحد الأقصى لحجم الملف هو {limit}.'
 Meter value: قراءة العداد
 Minute: دقيقة
@@ -321,14 +314,13 @@ Password Reset: إعادة تعيين كلمة المرور
 Password has been changed: تم تغيير كلمة المرور
 Percentage of closing: النسبة المئوية للإغلاق
 Personal access tokens: رموز الوصول الشخصية
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'تعمل رموز الوصول الشخصية كالمعتاد، إلا أنها تعمل إلى أجل غير مسمى.'
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: تعمل رموز الوصول الشخصية كالمعتاد، إلا أنها تعمل إلى أجل غير مسمى.
 Personal token name is required.: مطلوب اسم رمزي شخصي.
-Please click the link we have sent you after the registration to proceed.: 'انقر على الرابط بالرسالة التي أرسلناها إليك بعد إنشاء الحساب.'
+Please click the link we have sent you after the registration to proceed.: انقر على الرابط بالرسالة التي أرسلناها إليك بعد إنشاء الحساب.
 Please enter a valid email address: يرجى إدخال عنوان بريد إلكتروني صالح
 Please fill a valid email address: يرجى إدخال عنوان بريد إلكتروني صالح
 Please log in again to proceed.: تسجيل الدخول مرة أخرى للمتابعة.
 Please provide a valid domain name for your private SUPLA Cloud: أدخل اسم المجال الصحيح لسحابة SUPLA الخاصة بك
-Please select the schedules that should also be enabled.: 'حدد الجداول التي ينبغي أن تدرج أيضا.'
 Please wait a moment before the next login attempt.: انتظر لحظة قبل محاولة تسجيل الدخول التالية.
 Pressure sensor: مستشعر الضغط
 Previous login: تسجيل الدخول السابق
@@ -366,7 +358,7 @@ Roller shutter operation: فتح وإغلاق الأبجور
 Roller shutters: الأبجور
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: خطأ أثناء تنفيذ الإجراء في خادم  SUPLA.
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA  متاح في أي وقت وفي أي مكان، لذلك لا تقلق في المرة القادمة التي تنسى فيها إطفاء الضوء'
+'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA  متاح في أي وقت وفي أي مكان، لذلك لا تقلق في المرة القادمة التي تنسى فيها إطفاء الضوء
 Saturdays: السبت
 Save: حفظ
 Save and enable: حفظ وإيقاف التشغيل
@@ -377,16 +369,15 @@ Schedule cannot be enabled: لم يتم تشغيل الجدول الزمني
 Schedule limit has been exceeded: تم تجاوز حد الجداول الزمنية
 Schedule mode: وضع الجدول الزمني
 Schedules: الجداول الزمنية
-Schedules below will be deleted: سيتم حذف الجداول الزمنية التالية
 Scope: النطاق (scope)
 Scopes: النطاقات
-Scopes define which sections of your account can be accessed when using the token.: 'تحدد النطاقات موارد الحساب التي يمكن الوصول إليها باستخدام رمز مميز.'
+Scopes define which sections of your account can be accessed when using the token.: تحدد النطاقات موارد الحساب التي يمكن الوصول إليها باستخدام رمز مميز.
 Search: بحث
 Secret: المفتاح السري
 See direct link possibilities: أنظر إمكانيات الرابط المباشر
-Seems like a secret place: 'هناك شيء يخبرنا أنه يجب ألا تكون هنا'
+Seems like a secret place: هناك شيء يخبرنا أنه يجب ألا تكون هنا
 Select icon: اختر الأيقونة
-Select the item (subject) you want to control using this link: 'حدد العنصر (الكيان) الذي تريد التحكم به باستخدام هذا الرابط'
+Select the item (subject) you want to control using this link: حدد العنصر (الكيان) الذي تريد التحكم به باستخدام هذا الرابط
 Sensor (normal closed): مستشعر (مغلق عادة)
 Sensor (normal open): مستشعر (مفتوح بصورة طبيعية)
 Sensor disconnected: لا يوجد مستشعر
@@ -419,7 +410,7 @@ Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطو
 Temperature Sensor: مستشعر درجة الحرارة
 Temperature adjustment: تعديل درجة الحرارة
 Temperature and humidity sensor: مستشعر درجة الحرارة والرطوبة
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'بفضل عمليات الدمج، يمكنك بسهولة إضافة وظائف جديدة إلى حسابك، وذلك باستخدام الحلول المقدمة من الموردين الخارجيين أو المبرمجين أو من قبل نفسك.'
+'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': بفضل عمليات الدمج، يمكنك بسهولة إضافة وظائف جديدة إلى حسابك، وذلك باستخدام الحلول المقدمة من الموردين الخارجيين أو المبرمجين أو من قبل نفسك.
 The Terms and Conditions have changed: لقد تغيرت اللوائح
 The Terms and Conditions have changed – please read them and accept.: تغيرت لوائح موقع الويب – الموافقة مطلوبة.
 The activation link has been sent again. Check the inbox.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك مرة أخرى. تحقق من صندوق الوارد الخاص بك
@@ -427,40 +418,39 @@ The client will be automatically logged out when deleted.: ستؤدي إزالة
 The device is disabled: الجهاز مغلق
 The gate sensor must function properly in order to execute the scheduled action.: لتنفيذ الإجراء، يجب أن يعمل مستشعر فتح البوابة بشكل صحيح.
 The latest execution: آخر إجراء
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'يتم تقديم نتيجة التنفيذ كموقع ويب لأنك (أو متصفحك) طلبت إجابة بتنسيق HTML.'
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': يتم تقديم نتيجة التنفيذ كموقع ويب لأنك (أو متصفحك) طلبت إجابة بتنسيق HTML.
 The measurement history has been deleted.: تم حذف سجل القياسات.
 The next available executions: الاجراءات القادمة
 The password and its confirm are not the same.: كلمة المرور والتأكيد ليست هي نفسها.
 The password should be 8 or more characters.: يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'أرجع الخادم خطأ 400، مما يعني أن الطلب المرسل غير صالح.'
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'أرجع الخادم خطأ HTTP 403. هذا يعني أنه ليس لديك أذونات كافية لعرض هذا العنصر.'
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'أرجع الخادم خطأ HTTP 404. هذا يعني أن العنصر الذي تبحث عنه غير موجود.'
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: أرجع الخادم خطأ 400، مما يعني أن الطلب المرسل غير صالح.
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: أرجع الخادم خطأ HTTP 403. هذا يعني أنه ليس لديك أذونات كافية لعرض هذا العنصر.
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: أرجع الخادم خطأ HTTP 404. هذا يعني أن العنصر الذي تبحث عنه غير موجود.
 'The server has returned an HTTP {statusCode} error.': 'أرجع الخادم خطأ {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'ملفات الرموز التي حددتها كبيرة جدًا. الحد الأقصى لحجم التحميل المسموح به هو {limit}.'
-There are no more channels you can add to this group: 'لا توجد قنوات أخرى لإضافتها إلى هذه المجموعة'
+There are no more channels you can add to this group: لا توجد قنوات أخرى لإضافتها إلى هذه المجموعة
 Thermometer: ميزان الحرارة
 Thermostat: منظم الحرارة
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'يتطلب هذا الرابط المباشر توضيح معلمات الإجراء الذي يتم تنفيذه. انظر الأمثلة أدناه لمعرفة المعلمات التي يمكنك تعيينها.'
-This is the list of applications you have granted access to your account.: 'هذه هي قائمة التطبيقات التي منحت حق الوصول إلى حسابك.'
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: يتطلب هذا الرابط المباشر توضيح معلمات الإجراء الذي يتم تنفيذه. انظر الأمثلة أدناه لمعرفة المعلمات التي يمكنك تعيينها.
+This is the list of applications you have granted access to your account.: هذه هي قائمة التطبيقات التي منحت حق الوصول إلى حسابك.
 Thursdays: الخميس
 Timezone: المنطقة الزمنية
 Toggle: تحويل
 Token does not exist: الرمز المميز غير موجود
 Too many channels in this group: العديد من القنوات في هذه المجموعة
 Tuesdays: الثلاثاء
-Turning this device off will result in disabling all the associated schedules.: 'سيؤدي إيقاف تشغيل هذا الجهاز أيضًا إلى إيقاف تشغيل الجداول الزمنية المرتبطة بها.'
+Turning this device off will result in disabling all the associated schedules.: سيؤدي إيقاف تشغيل هذا الجهاز أيضًا إلى إيقاف تشغيل الجداول الزمنية المرتبطة بها.
 Type: النوع
 Unit: الوحدة
 Unknown: غير معروف
 Unsupported function: وظيفة غير مدعومة
 Unsupported type: نوع غير مدعوم
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'لا تنتهك الملفات التي تم تحميلها حقوق الطبع والنشر وحقوق الأطراف الأخرى، ولدي الحق في استخدامها.'
+'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': لا تنتهك الملفات التي تم تحميلها حقوق الطبع والنشر وحقوق الأطراف الأخرى، ولدي الحق في استخدامها.
 User is already confirmed. Try to log in.: تم تأكيد هذا الحساب بالفعل. قم بتسجيل الدخول
 Visible: مرئي
 Visit app webpage: افتح موقع التطبيق
 WELCOME_MESSAGE: |
   من السهل توصيل منزلك أو مكتبك بـ SUPLI. كل ما عليك فعله هو إعادة كتابة البيانات التالية إلى أجهزة التحكم (المدخل/المخرج) والهواتف الذكية.
-
 Water meter: عداد المياه
 We could not connect to your SUPLA Cloud instance.: لم نتمكن من الاتصال بمثيل SUPLA Cloud الخاص بك.
 We have just sent you an activation link. Be patient.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك. اصبر.
@@ -476,7 +466,7 @@ Wednesdays: الأربعاء
 Weight sensor: الوزن
 What this token is for?: ماذا يفعل هذا الرمز المميز؟
 When: عندما
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'يمكنك تنفيذ إجراء ارتباط مباشر من خلال توفير معرفه الفريد في نص طلب HTTP PATCH. هذا أكثر أمانًا لأنه يمنع حفظ العنوان الكامل للرابط في سجلات الوصول إلى الخادم التي يمر بها طلبك. ستجد أدناه مثالًا باستخدام أداة cURL.'
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': يمكنك تنفيذ إجراء ارتباط مباشر من خلال توفير معرفه الفريد في نص طلب HTTP PATCH. هذا أكثر أمانًا لأنه يمنع حفظ العنوان الكامل للرابط في سجلات الوصول إلى الخادم التي يمر بها طلبك. ستجد أدناه مثالًا باستخدام أداة cURL.
 Where is the JSON?: أين JSON؟
 Where is your SUPLA Cloud?: أين يقع موقع Supla الخاص بك؟
 White: أبيض
@@ -494,12 +484,12 @@ You must agree to the Terms and Conditions.: قبول اللوائح مطلوب.
 You need to provide icons for all states.: يجب عليك توفير الرموز لجميع الحالات.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: يجب عليك تحديث مثيل SUPLA Cloud إلى الإصدار 2.3.0 على الأقل.
 You will not be able to generate a direct link with the same URL again.: لن يكون إنشاء رابط باستخدام نفس عنوان URL ممكنًا.
-Your account has been deleted. We hope you will come back to us soon.: 'تم حذف الحساب. نأمل أن تعود إلينا قريبًا.'
+Your account has been deleted. We hope you will come back to us soon.: تم حذف الحساب. نأمل أن تعود إلينا قريبًا.
 Your account has been locked.: تم حظر حسابك.
 Your account has not been confirmed yet.: لم يتم تأكيد حسابك بعد.
 Your email: بريدك الالكتروني
-Your instance is not registered or you are trying to authorize an application that is not public.: 'المثيل الخاص بك غير مسجل أو تحاول تفويض تطبيق غير عام.'
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'مثيلك الخاص من SUPLA cloud غير متاح. تأكد من اتصال الخادم الخاص بك وأن اتصال HTTPS يعمل بشكل صحيح.'
+Your instance is not registered or you are trying to authorize an application that is not public.: المثيل الخاص بك غير مسجل أو تحاول تفويض تطبيق غير عام.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: مثيلك الخاص من SUPLA cloud غير متاح. تأكد من اتصال الخادم الخاص بك وأن اتصال HTTPS يعمل بشكل صحيح.
 Your private SUPLA Cloud is almost registered.: تم تسجيل سحابة SUPLA الخاصة بك تقريبًا.
 Your private SUPLA Cloud is not registered.: سحابة  SUPLA الخاصة غير مسجلة.
 Your session has been expired.: انتهت جلستك.
@@ -535,14 +525,14 @@ hourly: دورة ساعية
 minutely: دورة بالدقيقة
 minutes: دقائق
 once: لمرة واحدة
-register-slide1-text: 'استنادًا إلى الأجهزة الإلكترونية المتاحة، سوف تسمح لك SUPLA ببناء وحدات بسيطة تسمح لك بالتحكم في مكونات التشغيل الآلي للبناء والتحكم فيها. بفضل SUPLI ، يمكنك من بين أمور أخرى، التحكم في الإضاءة، وتشغيل وإيقاف الأجهزة المنزلية والإلكترونيات، فتح وإغلاق البوابات والأبواب، أو التحكم في درجة الحرارة في الغرف. يمكنك القيام بكل هذا بضغطة واحدة من إصبعك.'
+register-slide1-text: استنادًا إلى الأجهزة الإلكترونية المتاحة، سوف تسمح لك SUPLA ببناء وحدات بسيطة تسمح لك بالتحكم في مكونات التشغيل الآلي للبناء والتحكم فيها. بفضل SUPLI ، يمكنك من بين أمور أخرى، التحكم في الإضاءة، وتشغيل وإيقاف الأجهزة المنزلية والإلكترونيات، فتح وإغلاق البوابات والأبواب، أو التحكم في درجة الحرارة في الغرف. يمكنك القيام بكل هذا بضغطة واحدة من إصبعك.
 register-slide1-title: بناء ذكي الخاصة
-register-slide2-text: 'واحدة من الافتراضات الأساسية للمشروع هي البساطة والتوافر. يتيح لك SUPLA تشغيل الضوء بضغطة واحدة من إصبعك أو فتح بوابة المدخل عندما تريد الدخول إلى العقار. SUPLA متاح أينما كان لديك وصول إلى الإنترنت ولديك هاتف ذكي أو جهاز لوحي في متناول اليد. تم تطوير SUPLA وفقًا لمبادئ البرامج المفتوحة والأجهزة المفتوحة، وبفضل ذلك يمكنك أيضًا تطوير هذا المشروع!'
+register-slide2-text: واحدة من الافتراضات الأساسية للمشروع هي البساطة والتوافر. يتيح لك SUPLA تشغيل الضوء بضغطة واحدة من إصبعك أو فتح بوابة المدخل عندما تريد الدخول إلى العقار. SUPLA متاح أينما كان لديك وصول إلى الإنترنت ولديك هاتف ذكي أو جهاز لوحي في متناول اليد. تم تطوير SUPLA وفقًا لمبادئ البرامج المفتوحة والأجهزة المفتوحة، وبفضل ذلك يمكنك أيضًا تطوير هذا المشروع!
 register-slide2-title: SUPLA  في كل مكان!
-register-slide3-text: 'نظم أتمتة البناء المتاحة في السوق عادة ما تكون معقدة للغاية، ومغلقة ومكلفة. في كثير من الحالات، فإنها تتطلب التثبيت بالفعل في مرحلة بناء المرفق. SUPLA بسيط ومفتوح ومجاني. إنه يمكّن من بناء عناصر تنفيذية تعتمد على منصات RaspberryPI أو Arduino أو ESP8266 وتوصيلها باستخدام LAN و WiFi. انضم إلى المشروع وابني نسختك الخاصة من نظام أتمتة البناء!'
+register-slide3-text: نظم أتمتة البناء المتاحة في السوق عادة ما تكون معقدة للغاية، ومغلقة ومكلفة. في كثير من الحالات، فإنها تتطلب التثبيت بالفعل في مرحلة بناء المرفق. SUPLA بسيط ومفتوح ومجاني. إنه يمكّن من بناء عناصر تنفيذية تعتمد على منصات RaspberryPI أو Arduino أو ESP8266 وتوصيلها باستخدام LAN و WiFi. انضم إلى المشروع وابني نسختك الخاصة من نظام أتمتة البناء!
 register-slide3-title: مجانية ومفتوحة!
 sec.: ثانية.
-'smartphones, tablets, etc.': 'الهواتف الذكية والأجهزة اللوحية وما إلى ذلك'
+'smartphones, tablets, etc.': الهواتف الذكية والأجهزة اللوحية وما إلى ذلك
 state-closed: مغلقة
 state-default: قياسي
 state-empty: فارغة
@@ -554,8 +544,8 @@ state-opened: مفتوح
 state-partially_closed: مغلق جزئيا
 state-revealed: مكشوف
 state-rgb_off_dim_off: RGB والعاتم غير مفعلة
-state-rgb_off_dim_on: 'RGB معطل، العاتم مفعل'
-state-rgb_on_dim_off: 'RGB مفعل، العاتم غير مفعل'
+state-rgb_off_dim_on: RGB معطل، العاتم مفعل
+state-rgb_on_dim_off: RGB مفعل، العاتم غير مفعل
 state-rgb_on_dim_on: RGB والعاتم مطفأة
 state-shut: الستائر مسدلة
 state-temperature: درجة الحرارة
@@ -570,23 +560,32 @@ will expire: يبطل مفعولها
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Are you sure you want to disable this device?: هل أنت متأكد من أنك تريد إيقاف تشغيل هذا الجهاز؟
 Assigned Locations: المواقع المخصصة
+Channel will be deleted from the channel group below: ستتم إزالة القناة من مجموعات القنوات التالية
+'Confirm if you want to remove {deviceName} device': 'أكد أنك تريد إزالة {deviceName}'
+DISABLED: غير مشغل
 Date: التاريخ
+Direct links below will be deleted: ستتم إزالة الروابط المباشرة المدرجة أدناه
 Disable: تعطيل
+ENABLED: مفعلة
 Email already exists: البريد الإلكتروني موجود بالفعل
 Enable: تشغيل
+Existing schedules: الجداول الزمنية الحالية
 Hi: مرحبا
 Hour: الساعة
 I/O: المدخل / المخرج
-'If you want to stay here, do something!': 'إذا كنت ترغب في البقاء هنا، افعل شيئا!'
+'If you want to stay here, do something!': إذا كنت ترغب في البقاء هنا، افعل شيئا!
 Input: المدخل
 Languages: اللغات
 Loading: التحميل
 Next: التالي
 Number: رقم
 Output: خروج
+Please select the schedules that should also be enabled.: حدد الجداول التي ينبغي أن تدرج أيضا.
 Registration: تسجيل
 Remove: حذف
+Schedules below will be deleted: سيتم حذف الجداول الزمنية التالية
 Status: الحالة
 Try again later: يرجى المحاولة مرة أخرى لاحقًا
 You will be logged out shortly: سيتم تسجيل خروجك بعد لحظة
@@ -595,7 +594,87 @@ execute: تنفيذ
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'%s trigger is not supported by the hardware.': ~
+A-Z: ~
+Action trigger: ~
+Action triggers: ~
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
+Add a delay: ~
+Add new item to use in the scene: ~
+Are you sure you want to delete this scene?: ~
+Bar: ~
+Bridge: ~
+Channel reference will be removed from the items below.: ~
+Channel value: ~
+Chart data source type: ~
+Chart type: ~
+Clear: ~
+'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Could not contact Autodiscover service. Try again in a while.: ~
+Create new scene: ~
+Device channel value: ~
+Differential: ~
+Direct links limit has been exceeded: ~
+Execute: ~
+Execute the scene: ~
+General purpose measurement: ~
+Heat meter: ~
+ID: ~
+Icon: ~
+Inactive: ~
+Interpolate measurements: ~
+Invalid action.: ~
+Invalid function for channel.: ~
+Linear: ~
+Need one of these?: ~
+New scene: ~
+No of operations: ~
+Open partially: ~
+Operations: ~
+Precision: ~
+Private instance of the SUPLA cloud with given URL is already registered.: ~
+Scene: ~
+Scene must consist of at least one operation.: ~
+Scenes: ~
+Scenes limit has been exceeded: ~
+Some features depend on this device: ~
+Some of the features you have configured rely on channels from this device.: ~
+Standard: ~
+Store measurements history: ~
+The following items use the channels of these device. These references will be also removed.: ~
+'The following items will be deleted with this device:': ~
+'The items below rely on this channel function, so they will be deleted.': ~
+Triggers: ~
+Turning this device off will cause its channels not working in the following features.: ~
+Turning this device off will result in disabling features listed below.: ~
+Value per unit: ~
+Valve: ~
+You need to specify at least brightness or color for this action.: ~
+actionTriggerDescription_: ~
+actionTriggerDescription_HOLD: ~
+actionTriggerDescription_PRESS: ~
+actionTriggerDescription_PRESS_2X: ~
+actionTriggerDescription_PRESS_3X: ~
+actionTriggerDescription_RELEASE: ~
+actionTrigger_: ~
+actionTrigger_HOLD: ~
+actionTrigger_PRESS: ~
+actionTrigger_PRESS_2X: ~
+actionTrigger_PRESS_3X: ~
+actionTrigger_RELEASE: ~
+actionableSubjectType_: ~
+actionableSubjectType_channel: ~
+actionableSubjectType_channelGroup: ~
+actionableSubjectType_scene: ~
+channel: ~
+channelGroup: ~
+choose the scene: ~
+min.: ~
+or add a delay: ~
 password: ~
+prefix: ~
+scene: ~
+suffix: ~
 username: ~
 
 #</editor-fold>

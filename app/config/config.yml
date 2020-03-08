@@ -136,6 +136,7 @@ sensio_framework_extra:
     annotations: false
 
 supla:
+  accounts_registration_enabled: true
   autodiscover_url: https://autodiscover.supla.org
   brute_force_auth_prevention:
     enabled: '%brute_force_auth_prevention_enabled%'

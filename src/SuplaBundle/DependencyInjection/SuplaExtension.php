@@ -27,6 +27,7 @@ class SuplaExtension extends ConfigurableExtension {
         $container->setParameter('supla.maintenance_mode', $mergedConfig['maintenance_mode']);
         $container->setParameter('supla.webpack_hashes', $mergedConfig['webpack_hashes']);
         $container->setParameter('supla.autodiscover_url', $mergedConfig['autodiscover_url']);
+        $container->setParameter('supla.accounts_registration_enabled', $mergedConfig['accounts_registration_enabled']);
         $container->setParameter(
             'supla.clients_registration.registration_active_time.initial',
             $mergedConfig['clients_registration']['registration_active_time']['initial']

@@ -99,16 +99,31 @@
         methods: {
             onChange() {
                 let value = {};
-                if (this.brightnessClass != 'hidden') {
+                if (this.brightnessClass !== 'hidden') {
+                    this.brightness = this.ensureBetween(this.brightness, 0, 100);
                     value.brightness = this.brightness;
                 }
-                if (this.hueClass != 'hidden') {
-                    value.hue = this.hueMode == 'choose' ? +this.hue : (this.hueMode == 'random' ? 'random' : 'white');
+                if (this.hueClass !== 'hidden') {
+                    if (this.hueMode === 'choose') {
+                        value.hue = this.ensureBetween(this.hue, 0, 360);
+                    } else {
+                        value.hue = this.hueMode === 'random' ? 'random' : 'white';
+                    }
                 }
-                if (this.colorBrightnessClass != 'hidden') {
+                if (this.colorBrightnessClass !== 'hidden') {
+                    this.colorBrightness = this.ensureBetween(this.colorBrightness, 0, 100);
                     value.color_brightness = this.colorBrightness;
                 }
                 this.$emit('input', value);
+            },
+            ensureBetween(value, min, max) {
+                if (value < min) {
+                    return min;
+                } else if (value > max) {
+                    return max;
+                } else {
+                    return +value;
+                }
             }
         },
         computed: {

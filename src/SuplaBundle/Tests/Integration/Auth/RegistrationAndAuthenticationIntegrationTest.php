@@ -59,6 +59,20 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty(TestMailer::getMessages());
     }
 
+    /** @small */
+    public function testCannotRegisterWithInvalidEmailAddress() {
+        $userData = [
+            'email' => 'cooltester @supla.org',
+            'regulationsAgreed' => true,
+            'password' => self::PASSWORD,
+            'timezone' => 'Europe/Warsaw',
+        ];
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    /** @small */
     public function testCreatingUser() {
         $userData = [
             'email' => self::EMAIL,

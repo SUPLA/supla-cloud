@@ -28,6 +28,7 @@
     import ChannelParamsIcElectricitymeter from "./channel-params-ic-electricitymeter";
     import ChannelParamsIcGasmeter from "./channel-params-ic-gasmeter";
     import ChannelParamsIcWatermeter from "./channel-params-ic-watermeter";
+    import ChannelParamsHeatmeter from "./channel-params-water-meter";
     import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
     import ChannelParamsActionTrigger from "./channel-params-action-trigger";
 
@@ -56,6 +57,7 @@
             ChannelParamsIcElectricitymeter,
             ChannelParamsIcGasmeter,
             ChannelParamsIcWatermeter,
+            ChannelParamsHeatmeter,
             ChannelParamsGeneralPurposeMeasurement,
             ChannelParamsActionTrigger,
         },

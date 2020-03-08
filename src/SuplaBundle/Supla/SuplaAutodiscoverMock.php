@@ -145,6 +145,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         } elseif (preg_match('#/(register-target-cloud)|(target-cloud-registration-token)#', $endpoint, $match)) {
             $randomBytes = bin2hex(random_bytes(20));
             $token = preg_replace('#[1lI0O]#', '', preg_replace('#[^a-zA-Z0-9]#', '', base64_encode($randomBytes)));
+            $responseStatus = 201;
             return ['token' => $token];
         } elseif (preg_match('#/public-clients#', $endpoint, $match)) {
             $responseStatus = 200;

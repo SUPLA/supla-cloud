@@ -1,7 +1,7 @@
 {
   "name": "supla-cloud",
   "description": "",
-  "version": "2.3.20",
+  "version": "2.3.21",
   "private": true,
   "scripts": {
     "build": "del-cli -f ../../web/assets/dist && cross-env NODE_ENV=production webpack --hide-modules",
@@ -30,7 +30,6 @@
     "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
-    "superslides": "github:nicinabox/superslides",
     "v-media-query": "^1.0.3",
     "vivus": "0.4.4",
     "vue": "^2.6.10",

@@ -55,24 +55,8 @@
     @import "../../styles/variables";
     @import "../../styles/mixins";
 
-    @media (min-height: 500px) and (min-width: 768px) {
-        $footerHeight: 60px;
-        html, body, .vue-container {
-            height: 100%;
-        }
-        .page-content {
-            min-height: 100%;
-            height: auto;
-            margin-bottom: -$footerHeight;
-            padding: 0 0 $footerHeight;
-        }
-        .page-footer {
-            height: $footerHeight;
-        }
-    }
-
     .page-footer {
-        padding-top: 25px;
+        padding-top: 10px;
         a {
             font-weight: 400;
             color: $supla-black;
@@ -109,5 +93,20 @@
         }
     }
 
-
+    @media (min-height: 500px) and (min-width: 768px) {
+        $footerHeight: 60px;
+        html, body, .vue-container {
+            height: 100%;
+        }
+        .page-content {
+            min-height: 100%;
+            height: auto;
+            margin-bottom: -$footerHeight;
+            padding: 0 0 $footerHeight;
+        }
+        .page-footer {
+            height: $footerHeight;
+            padding-top: 25px;
+        }
+    }
 </style>

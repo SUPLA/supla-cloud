@@ -56,7 +56,6 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function getMeasureLogsCount(IODeviceChannel $channel) {
         $this->ensureChannelHasMeasurementLogs($channel);
-
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
                 $repoName = 'TempHumidityLogItem';
@@ -70,6 +69,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
+            case ChannelFunction::HEATMETER:
                 $repoName = 'ImpulseCounterLogItem';
                 break;
             case ChannelFunction::THERMOSTAT:
@@ -138,6 +138,7 @@ class ChannelMeasurementLogsController extends RestController {
                 ChannelFunction::IC_ELECTRICITYMETER,
                 ChannelFunction::IC_GASMETER,
                 ChannelFunction::IC_WATERMETER,
+                ChannelFunction::HEATMETER,
                 ChannelFunction::THERMOSTAT,
                 ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
             ];

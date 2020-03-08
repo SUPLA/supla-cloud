@@ -47,6 +47,7 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
             ChannelFunction::IC_ELECTRICITYMETER,
             ChannelFunction::IC_GASMETER,
             ChannelFunction::IC_WATERMETER,
+            ChannelFunction::HEATMETER,
         ]);
     }
 }

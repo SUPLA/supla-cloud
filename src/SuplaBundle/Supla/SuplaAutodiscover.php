@@ -86,9 +86,7 @@ abstract class SuplaAutodiscover {
         if ($this->isBroker()) {
             $domainFromAutodiscover = false;
             if (!$this->userManager->userByEmail($username) && filter_var($username, FILTER_VALIDATE_EMAIL) && $this->enabled()) {
-                $result = $this->remoteRequest('/users/' . urlencode($username));
-                $this->logger->debug(__FUNCTION__, ['response' => $result]);
-                $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+                $domainFromAutodiscover = $this->getUserServerFromAd($username);
             }
             if ($domainFromAutodiscover) {
                 $serverUrl = $domainFromAutodiscover;
@@ -132,11 +130,11 @@ abstract class SuplaAutodiscover {
         return false;
     }
 
-    public function userExistsInAd($username): bool {
+    public function getUserServerFromAd($username) {
         $result = $this->remoteRequest('/users/' . urlencode($username));
         $this->logger->debug(__FUNCTION__, ['response' => $result]);
         $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
-        return !!$domainFromAutodiscover;
+        return $domainFromAutodiscover;
     }
 
     public function registerUser(User $user): bool {
@@ -198,10 +196,17 @@ abstract class SuplaAutodiscover {
         $response = $this->remoteRequest('/target-cloud-registration-token', [
             'targetCloudUrl' => $targetCloud->getAddress(),
             'email' => $email,
-        ]);
+        ], $responseStatus);
         $this->logger->debug(__FUNCTION__, ['targetCloud' => $targetCloud->getAddress()]);
+        if ($responseStatus !== 201) {
+            $errors = [
+                409 => 'Private instance of the SUPLA cloud with given URL is already registered.', // i18n
+                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+            ];
+            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+        }
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
-        Assertion::notEmpty($token, 'Could not contact Autodiscover service. Try again in a while.');
+        Assertion::notEmpty($token, '');
         return $token;
     }
 

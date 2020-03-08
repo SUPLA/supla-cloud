@@ -69,6 +69,8 @@ class UserController extends RestController {
     private $recaptchaSecret;
     /** @var array */
     private $availableLanguages;
+    /** * @var bool */
+    private $accountsRegistrationEnabled;
 
     public function __construct(
         UserManager $userManager,
@@ -81,7 +83,8 @@ class UserController extends RestController {
         bool $requireRegulationsAcceptance,
         bool $recaptchaEnabled,
         ?string $recaptchaSecret,
-        array $availableLanguages
+        array $availableLanguages,
+        bool $accountsRegistrationEnabled
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -94,6 +97,7 @@ class UserController extends RestController {
         $this->recaptchaEnabled = $recaptchaEnabled;
         $this->recaptchaSecret = $recaptchaSecret;
         $this->availableLanguages = $availableLanguages;
+        $this->accountsRegistrationEnabled = $accountsRegistrationEnabled;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -209,7 +213,7 @@ class UserController extends RestController {
         if ($server->isLocal()) {
             return $this->accountCreateAction($request);
         } else {
-            list($response, $status) = $this->suplaCloudRequestForwarder->registerUser($server, $request);
+            [$response, $status] = $this->suplaCloudRequestForwarder->registerUser($server, $request);
             return $this->view($response, $status);
         }
     }
@@ -219,6 +223,13 @@ class UserController extends RestController {
      * @UnavailableInMaintenance
      */
     public function accountCreateAction(Request $request) {
+        if (!$this->accountsRegistrationEnabled) {
+            return $this->view(
+                ['status' => Response::HTTP_LOCKED, 'message' => 'Account registration is diabled'],
+                Response::HTTP_LOCKED
+            );
+        }
+
         if ($this->recaptchaEnabled) {
             $gRecaptchaResponse = $request->get('captcha');
             $recaptcha = new ReCaptcha($this->recaptchaSecret);
@@ -236,7 +247,7 @@ class UserController extends RestController {
             if ($targetCloud->isLocal()) {
                 $enabled = $this->userManager->userByEmail($username)->isEnabled();
             } else {
-                list($response,) = $this->suplaCloudRequestForwarder->getUserInfo($targetCloud, $username);
+                [$response,] = $this->suplaCloudRequestForwarder->getUserInfo($targetCloud, $username);
                 $enabled = $response ? ($response['enabled'] ?? false) : false;
             }
             return $this->view(
@@ -308,7 +319,7 @@ class UserController extends RestController {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $server = $this->autodiscover->getAuthServerForUser($username);
                 if (!$server->isLocal()) {
-                    list($content, $status) = $this->suplaCloudRequestForwarder->resendActivationEmail($server, $username);
+                    [$content, $status] = $this->suplaCloudRequestForwarder->resendActivationEmail($server, $username);
                     return new JsonResponse($content, $status);
                 }
             }
@@ -361,7 +372,7 @@ class UserController extends RestController {
         if (preg_match('/@/', $username) || $token) {
             if ($request->getMethod() == Request::METHOD_PATCH) {
                 $server = $this->autodiscover->getAuthServerForUser($username);
-                list(, $status) = $this->suplaCloudRequestForwarder->resetPasswordToken($server, $username);
+                [, $status] = $this->suplaCloudRequestForwarder->resetPasswordToken($server, $username);
                 Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.'); // i18n
             } elseif ($request->getMethod() == Request::METHOD_POST) {
                 $user = $this->userManager->userByEmail($username);

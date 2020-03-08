@@ -2,7 +2,7 @@
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Any application or device that uses the {tokenName} token will not work anymore.'
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.'
-'Confirm if you want to remove {deviceName} device': 'Confirm if you want to remove {deviceName} device'
+'Confirm if you want to remove {deviceName} device and all of its channels.': 'Confirm if you want to remove {deviceName} device and all of its channels.'
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 'Maximum filesize limit is {limit}.': 'Maximum filesize limit is {limit}.'
 'No results match {0}': 'No results match {0}'
@@ -16,6 +16,16 @@ WELCOME_MESSAGE: |
   Having your house or the office connected to SUPLA is very easy.
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.'
+actionTriggerDescription_HOLD: 'By default, this action is triggered after holding the button for a while.'
+actionTriggerDescription_PRESS: 'By default, this action is triggered when the button is pressed, after a device is powered on or going to the high state.'
+actionTriggerDescription_PRESS_2X: 'By default, this action is triggered when the button is pressed twice in a row.'
+actionTriggerDescription_PRESS_3X: 'By default, this action is triggered when the button is pressed three times in a row.'
+actionTriggerDescription_RELEASE: 'By default, this action is triggered when the button is released, after the device is powered off or going to the low state.'
+actionTrigger_HOLD: Hold
+actionTrigger_PRESS: Press / turn on
+actionTrigger_PRESS_2X: Double press
+actionTrigger_PRESS_3X: Triple press
+actionTrigger_RELEASE: Release / turn off
 actionableSubjectType_channel: Channel
 actionableSubjectType_channelGroup: Channel group
 actionableSubjectType_scene: Scene
@@ -63,18 +73,10 @@ sunset-before: the sunset
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+'Confirm if you want to remove {deviceName} device': 'Confirm if you want to remove {deviceName} device'
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-actionTrigger_PRESS: Press / turn on
-actionTriggerDescription_PRESS: By default, this action is triggered when the button is pressed, after a device is powered on or going to the high state.
-actionTrigger_RELEASE: Release / turn off
-actionTriggerDescription_RELEASE: By default, this action is triggered when the button is released, after the device is powered off or going to the low state.
-actionTrigger_HOLD: Hold
-actionTriggerDescription_HOLD: By default, this action is triggered after holding the button for a while.
-actionTrigger_PRESS_2X: Double press
-actionTriggerDescription_PRESS_2X: By default, this action is triggered when the button is pressed twice in a row.
-actionTrigger_PRESS_3X: Triple press
-actionTriggerDescription_PRESS_3X: By default, this action is triggered when the button is pressed three times in a row.
+
 #</editor-fold>

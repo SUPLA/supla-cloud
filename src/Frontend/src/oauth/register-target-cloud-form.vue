@@ -16,58 +16,62 @@
         <transition name="fade-router">
             <div v-if="!token">
                 <!-- i18n:['register-slide1-text','register-slide1-title','register-slide2-text','register-slide2-title','register-slide3-text','register-slide3-title'] -->
-                <register-slider :texts="['register-slide1', 'register-slide2', 'register-slide3']"></register-slider>
-                <div class="create-form">
-                    <div class="wrapper">
-                        <h1 class="page-title"
-                            v-title>
-                            {{ $t('Register private SUPLA Cloud') }}</h1>
+                <div class="register-page">
+                    <div class="register-slider-container">
+                        <register-slider :texts="['register-slide1', 'register-slide2', 'register-slide3']"></register-slider>
+                    </div>
+                    <div class="create-form-container">
+                        <div class="create-form">
+                            <h1 class="page-title"
+                                v-title>
+                                {{ $t('Register private SUPLA Cloud') }}</h1>
 
-                        <div class="error"
-                            v-if="errorMessage">
-                            {{ errorMessage }}
+                            <div class="error"
+                                v-if="errorMessage">
+                                {{ errorMessage }}
+                            </div>
+
+                            <form @submit.prevent="registerTargetCloud()"
+                                class="register-form">
+                                <input type="email"
+                                    class="form-input"
+                                    autocorrect="off"
+                                    autocapitalize="none"
+                                    required
+                                    :placeholder="$t('Enter your email address')"
+                                    v-model="email">
+                                <span class="help-block">{{ $t('We will use it only in justified situations.') }}</span>
+
+
+                                <input type="text"
+                                    class="form-input"
+                                    autocorrect="off"
+                                    required
+                                    autocapitalize="none"
+                                    :placeholder="$t('Where is your SUPLA Cloud?')"
+                                    v-model="targetCloud">
+                                <span class="help-block">{{ $t('Enter the domain with the port only if it is not standard (443). We require HTTPS connection.') }}</span>
+
+                                <regulations-checkbox v-model="regulationsAgreed"></regulations-checkbox>
+
+                                <invisible-recaptcha
+                                    :sitekey="captchaSiteKey"
+                                    :callback="registerTargetCloud"
+                                    id="registerRecaptcha"
+                                    type="submit"
+                                    :disabled="isBusy"
+                                    :form-valid="!computedErrorMessage"
+                                    btn-class="btn-black">
+                                    <template slot-scope="btn">
+                                        <span v-if="!isBusy">
+                                            {{ $t('Register') }}
+                                        </span>
+                                        <button-loading-dots v-else></button-loading-dots>
+                                    </template>
+                                </invisible-recaptcha>
+
+                            </form>
                         </div>
-
-                        <form @submit.prevent="registerTargetCloud()"
-                            class="register-form">
-                            <input type="email"
-                                class="form-input"
-                                autocorrect="off"
-                                autocapitalize="none"
-                                required
-                                :placeholder="$t('Enter your email address')"
-                                v-model="email">
-                            <span class="help-block">{{ $t('We will use it only in justified situations.') }}</span>
-
-
-                            <input type="text"
-                                class="form-input"
-                                autocorrect="off"
-                                required
-                                autocapitalize="none"
-                                :placeholder="$t('Where is your SUPLA Cloud?')"
-                                v-model="targetCloud">
-                            <span class="help-block">{{ $t('Enter the domain with the port only if it is not standard (443). We require HTTPS connection.') }}</span>
-
-                            <regulations-checkbox v-model="regulationsAgreed"></regulations-checkbox>
-
-                            <invisible-recaptcha
-                                :sitekey="captchaSiteKey"
-                                :callback="registerTargetCloud"
-                                id="registerRecaptcha"
-                                type="submit"
-                                :disabled="isBusy"
-                                :form-valid="!computedErrorMessage"
-                                btn-class="btn-black">
-                                <template slot-scope="btn">
-                                    <span v-if="!isBusy">
-                                        {{ $t('Register') }}
-                                    </span>
-                                    <button-loading-dots v-else></button-loading-dots>
-                                </template>
-                            </invisible-recaptcha>
-
-                        </form>
                     </div>
                 </div>
             </div>
@@ -104,7 +108,7 @@
         },
         mounted() {
             if (!this.error) {
-                document.body.setAttribute('class', 'blue');
+                document.body.setAttribute('class', document.body.getAttribute('class') + ' blue');
             }
         },
         computed: {
@@ -135,9 +139,12 @@
                     captcha
                 };
                 this.isBusy = true;
-                this.$http.post('register-target-cloud', data, {skipErrorHandler: [400]})
+                this.$http.post('register-target-cloud', data, {skipErrorHandler: true})
                     .then(({body}) => this.token = body.token)
-                    .catch(({body}) => this.errorMessage = this.$t(body.message))
+                    .catch(({body, status}) => {
+                        const message = this.$t(body.message || 'Could not contact Autodiscover service. Try again in a while.');
+                        this.errorMessage = `${message} (${this.$t('Error')}: ${status})`;
+                    })
                     .finally(() => this.isBusy = false);
             }
         }

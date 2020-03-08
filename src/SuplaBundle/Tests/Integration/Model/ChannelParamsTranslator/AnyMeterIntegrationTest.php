@@ -41,6 +41,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_ELECTRICITYMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::HEATMETER],
         ]);
         $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
     }

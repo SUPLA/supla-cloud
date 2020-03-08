@@ -26,7 +26,7 @@ export default [
     {
         path: '/register',
         component: () => import("@/register/create-account"),
-        meta: {unrestricted: true, onlyUnauthenticated: true, unavailableInMaintenance: true, bodyClass: 'green'},
+        meta: {unrestricted: true, onlyUnauthenticated: true, unavailableInMaintenance: true, bodyClass: 'green register-slider-body'},
         alias: '/account/create_here'
     },
     {
@@ -106,7 +106,7 @@ export default [
     {
         path: '/register-cloud',
         component: () => import("@/oauth/register-target-cloud-form"),
-        meta: {unrestricted: true, unavailableInMaintenance: true}
+        meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
     {
         path: '/scenes', component: () => import("@/scenes/scenes-page"), name: 'scenes', children: [
