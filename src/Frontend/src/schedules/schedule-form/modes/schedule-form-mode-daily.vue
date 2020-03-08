@@ -56,6 +56,7 @@
         },
         beforeMount() {
             if (this.value) {
+                this.timeExpression = this.value;
                 const parts = this.value.split(' ');
                 if (parts[4] != '*') {
                     this.weekdays = parts[4].split(',');

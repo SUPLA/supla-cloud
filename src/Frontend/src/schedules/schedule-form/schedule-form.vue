@@ -65,7 +65,6 @@
                                 label="Retry on failure"></toggler>
                         </div>
                     </div>
-                    {{ schedule }}
                     <div class="col-md-6">
                         <div class="well">
                             <h3 class="no-margin-top">{{ $t('Action') }}</h3>
