@@ -129,7 +129,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_ELECTRICITYMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_GASMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::HEATMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_HEATMETER],
             [ChannelType::THERMOSTAT, ChannelFunction::THERMOSTAT],
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
         ];

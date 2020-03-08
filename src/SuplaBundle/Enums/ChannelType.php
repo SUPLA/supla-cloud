@@ -238,7 +238,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::IC_ELECTRICITYMETER(),
                 ChannelFunction::IC_GASMETER(),
                 ChannelFunction::IC_WATERMETER(),
-                ChannelFunction::HEATMETER(),
+                ChannelFunction::IC_HEATMETER(),
             ],
             self::THERMOSTAT => [ChannelFunction::THERMOSTAT()],
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],

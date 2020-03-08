@@ -69,7 +69,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
-            case ChannelFunction::HEATMETER:
+            case ChannelFunction::IC_HEATMETER:
                 $repoName = 'ImpulseCounterLogItem';
                 break;
             case ChannelFunction::THERMOSTAT:
@@ -138,7 +138,7 @@ class ChannelMeasurementLogsController extends RestController {
                 ChannelFunction::IC_ELECTRICITYMETER,
                 ChannelFunction::IC_GASMETER,
                 ChannelFunction::IC_WATERMETER,
-                ChannelFunction::HEATMETER,
+                ChannelFunction::IC_HEATMETER,
                 ChannelFunction::THERMOSTAT,
                 ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
             ];

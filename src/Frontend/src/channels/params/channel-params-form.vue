@@ -25,10 +25,10 @@
     import ChannelParamsMailsensor from "./channel-params-mailsensor";
     import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
     import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
-    import ChannelParamsIcElectricitymeter from "./channel-params-ic-electricitymeter";
-    import ChannelParamsIcGasmeter from "./channel-params-ic-gasmeter";
-    import ChannelParamsIcWatermeter from "./channel-params-ic-watermeter";
-    import ChannelParamsHeatmeter from "./channel-params-water-meter";
+    import ChannelParamsIcElectricitymeter from "./channel-params-ic-meter";
+    import ChannelParamsIcGasmeter from "./channel-params-ic-meter";
+    import ChannelParamsIcWatermeter from "./channel-params-ic-meter";
+    import ChannelParamsIcHeatmeter from "./channel-params-ic-meter";
     import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
     import ChannelParamsActionTrigger from "./channel-params-action-trigger";
 
@@ -57,7 +57,7 @@
             ChannelParamsIcElectricitymeter,
             ChannelParamsIcGasmeter,
             ChannelParamsIcWatermeter,
-            ChannelParamsHeatmeter,
+            ChannelParamsIcHeatmeter,
             ChannelParamsGeneralPurposeMeasurement,
             ChannelParamsActionTrigger,
         },

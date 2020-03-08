@@ -58,8 +58,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction ELECTRICITYMETER()
  * @method static ChannelFunction IC_ELECTRICITYMETER()
  * @method static ChannelFunction IC_GASMETER()
+ * @method static ChannelFunction IC_HEATMETER()
  * @method static ChannelFunction IC_WATERMETER()
- * @method static ChannelFunction HEATMETER()
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction VALVEOPENCLOSE()
@@ -104,7 +104,7 @@ final class ChannelFunction extends Enum {
     const IC_ELECTRICITYMETER = 315;
     const IC_GASMETER = 320;
     const IC_WATERMETER = 330;
-    const HEATMETER = 340;
+    const IC_HEATMETER = 340;
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const VALVEOPENCLOSE = 500;
@@ -256,7 +256,7 @@ final class ChannelFunction extends Enum {
             self::IC_ELECTRICITYMETER => 'Electricity meter', // i18n
             self::IC_GASMETER => 'Gas meter', // i18n
             self::IC_WATERMETER => 'Water meter', // i18n
-            self::HEATMETER => 'Heat meter', // i18n
+            self::IC_HEATMETER => 'Heat meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
@@ -316,7 +316,7 @@ final class ChannelFunction extends Enum {
             self::IC_ELECTRICITYMETER => ['default'],
             self::IC_GASMETER => ['default'],
             self::IC_WATERMETER => ['default'],
-            self::HEATMETER => ['default'],
+            self::IC_HEATMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
             self::VALVEOPENCLOSE => ['opened', 'closed'],
