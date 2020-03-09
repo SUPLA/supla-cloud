@@ -126,13 +126,16 @@ abstract class SuplaAutodiscover {
     }
 
     public function getUserServerFromAd($username) {
-        $result = $this->remoteRequest('/users/' . urlencode($username));
-        $this->logger->debug(__FUNCTION__, ['response' => $result]);
-        $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
-        if ($domainFromAutodiscover && strpos($domainFromAutodiscover, 'http') !== 0) {
-            $domainFromAutodiscover = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+        if ($this->enabled() && $this->isBroker()) {
+            $result = $this->remoteRequest('/users/' . urlencode($username));
+            $this->logger->debug(__FUNCTION__, ['response' => $result]);
+            $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+            if ($domainFromAutodiscover && strpos($domainFromAutodiscover, 'http') !== 0) {
+                $domainFromAutodiscover = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+            }
+            return $domainFromAutodiscover;
         }
-        return $domainFromAutodiscover;
+        return false;
     }
 
     public function registerUser(User $user): bool {
