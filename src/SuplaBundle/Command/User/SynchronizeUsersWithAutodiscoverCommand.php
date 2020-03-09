@@ -50,7 +50,7 @@ class SynchronizeUsersWithAutodiscoverCommand extends ContainerAwareCommand {
             /** @var User $user */
             $user = $userRow[0];
             $userServerFromAd = $this->autodiscover->getUserServerFromAd($user->getEmail());
-            if ($userServerFromAd !== $this->localSuplaCloud->getHost()) {
+            if ($userServerFromAd !== $this->localSuplaCloud->getAddress()) {
                 $progressbar->clear();
                 $io->section($user->getEmail());
                 $io->writeln("Active: " . ($user->isEnabled() ? 'yes' : 'no'));

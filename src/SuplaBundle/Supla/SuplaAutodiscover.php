@@ -101,17 +101,12 @@ abstract class SuplaAutodiscover {
 
     public function getRegisterServerForUser(Request $request): TargetSuplaCloud {
         if ($this->isBroker()) {
-            $domainFromAutodiscover = false;
             if ($this->enabled()) {
                 $result = $this->remoteRequest('/new-account-server/' . urlencode($request->getClientIp()));
                 $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
-            }
-            if ($domainFromAutodiscover) {
-                $serverUrl = $domainFromAutodiscover;
-                if (strpos($serverUrl, 'http') !== 0) {
-                    $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $serverUrl;
+                if ($domainFromAutodiscover) {
+                    return new TargetSuplaCloud($domainFromAutodiscover);
                 }
-                return new TargetSuplaCloud($serverUrl);
             }
         }
         return $this->localSuplaCloud;
@@ -134,6 +129,9 @@ abstract class SuplaAutodiscover {
         $result = $this->remoteRequest('/users/' . urlencode($username));
         $this->logger->debug(__FUNCTION__, ['response' => $result]);
         $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
+        if ($domainFromAutodiscover && strpos($domainFromAutodiscover, 'http') !== 0) {
+            $domainFromAutodiscover = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
+        }
         return $domainFromAutodiscover;
     }
 
