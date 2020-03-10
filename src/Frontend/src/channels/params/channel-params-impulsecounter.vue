@@ -52,7 +52,15 @@
         props: ['channel'],
         computed: {
             unit() {
-                const defaultUnit = this.channel.function.name === 'IC_ELECTRICITYMETER' ? 'kWh' : 'm³';
+                let defaultUnit = 'm³';
+                switch(this.channel.function.name) {
+                    case 'IC_ELECTRICITYMETER':
+                        defaultUnit = 'kWh';
+                        break;
+                    case 'IC_HEATMETER':
+                        defaultUnit = 'GJ';
+                        break;
+                }
                 return this.channel.config.unit || defaultUnit;
             }
         }
