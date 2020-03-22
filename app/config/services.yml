@@ -153,6 +153,8 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
       - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+  SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit:
+    $rule: '%supla.api_rate_limit.user_default_limit%'
 
   SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener:
     arguments:

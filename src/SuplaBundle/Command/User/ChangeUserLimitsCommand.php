@@ -4,6 +4,8 @@ namespace SuplaBundle\Command\User;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
+use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -17,11 +19,18 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
     private $userRepository;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** * @var DefaultUserApiRateLimit */
+    private $defaultUserApiRateLimit;
 
-    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager) {
+    public function __construct(
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+        DefaultUserApiRateLimit $defaultUserApiRateLimit
+    ) {
         parent::__construct();
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+        $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
     }
 
     protected function configure() {
@@ -40,6 +49,7 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
             ?: $helper->ask($input, $output, new Question('Whose limits do you want to change? (email address): '));
         $user = $this->userRepository->findOneByEmail($email);
         Assertion::notNull($user, 'Such user does not exist.');
+        $limitForAll = $input->getArgument('limitForAll');
         foreach ([
                      'limitAid' => 'Access Identifiers',
                      'limitChannelGroup' => 'Channel Groups',
@@ -50,12 +60,32 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
                      'limitSchedule' => 'Schedules',
                  ] as $field => $label) {
             $currentLimit = EntityUtils::getField($user, $field);
-            $newLimit = $input->getArgument('limitForAll')
-                ?: $helper->ask($input, $output, new Question("Limit of $label [$currentLimit]: ", $currentLimit));
+            $newLimit = $limitForAll ?: $helper->ask($input, $output, new Question("Limit of $label [$currentLimit]: ", $currentLimit));
             EntityUtils::setField($user, $field, $newLimit);
+        }
+        if (!$limitForAll) {
+            $currentRule = $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
+            $newRule = $helper->ask($input, $output, $this->apiRateLimitQuestion($currentRule));
+            if ($newRule != $currentRule) {
+                $user->setApiRateLimit($newRule == $this->defaultUserApiRateLimit ? null : $newRule);
+            }
         }
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         $output->writeln('<info>User limits have been updated.</info>');
+    }
+
+    private function apiRateLimitQuestion(ApiRateLimitRule $currentLimit): Question {
+        $q = new Question("API Rate limit (req/sec or default) [$currentLimit]: ", $currentLimit);
+        $q->setValidator(function ($v) {
+            if ($v === 'default') {
+                return $this->defaultUserApiRateLimit;
+            } else {
+                $rule = new ApiRateLimitRule($v);
+                Assertion::true($rule->isValid(), 'Invalid API rate limit rule. Format: limit/seconds');
+                return $rule;
+            }
+        });
+        return $q;
     }
 }

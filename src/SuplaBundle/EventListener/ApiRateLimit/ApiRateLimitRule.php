@@ -24,7 +24,11 @@ class ApiRateLimitRule {
         return $this->period > 0 && $this->limit > 0;
     }
 
-    public function __toString() {
+    public function toString() {
         return "$this->limit/$this->period";
+    }
+
+    public function __toString() {
+        return $this->toString();
     }
 }
