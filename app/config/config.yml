@@ -141,6 +141,10 @@ sensio_framework_extra:
 supla:
   accounts_registration_enabled: true
   autodiscover_url: https://autodiscover.supla.org
+  api_rate_limit:
+    enabled: true
+    user_default_limit: 1000/3600
+    global_limit: 100/60
   brute_force_auth_prevention:
     enabled: '%brute_force_auth_prevention_enabled%'
     max_failed_attempts: 3

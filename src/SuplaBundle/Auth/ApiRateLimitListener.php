@@ -27,9 +27,15 @@ class ApiRateLimitListener {
 
     /** @var CacheItemPoolInterface */
     private $cache;
+    /** @var bool */
+    private $enabled;
+    /** @var array */
+    private $globalLimit;
 
-    public function __construct(CacheItemPoolInterface $cache) {
+    public function __construct(bool $enabled, array $globalLimit, CacheItemPoolInterface $cache) {
         $this->cache = $cache;
+        $this->globalLimit = $globalLimit;
+        $this->enabled = $enabled;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {

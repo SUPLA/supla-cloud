@@ -124,6 +124,8 @@ services:
 
   SuplaBundle\Auth\ApiRateLimitListener:
     arguments:
+      $enabled: '%supla.api_rate_limit.enabled%'
+      $globalLimit: '%supla.api_rate_limit.global_limit%'
       $cache: '@cache.api_rate_limit'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

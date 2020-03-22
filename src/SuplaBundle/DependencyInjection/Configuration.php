@@ -67,6 +67,17 @@ class Configuration implements ConfigurationInterface {
                         ->normalizeKeys(false)->defaultValue([])->useAttributeAsKey('name')->prototype('scalar')->end()->end()
                 ->end()->end()
             ->end();
+            $rootNode->children()
+                ->arrayNode('api_rate_limit')->children()
+                    ->booleanNode('enabled')->defaultTrue()->end()
+                    ->scalarNode('user_default_limit')->defaultValue('1000/3600')->validate()
+                        ->ifTrue(function($v) { return !preg_match('#^\d+/\d+$#', $v); })->thenInvalid('Rate limit format: requests/seconds')
+                    ->end()->end()
+                    ->scalarNode('global_limit')->defaultValue('100/60')->validate()
+                        ->ifTrue(function($v) { return !preg_match('#^\d+/\d+$#', $v); })->thenInvalid('Rate limit format: requests/seconds')
+                    ->end()->end()
+                ->end()->end()
+            ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd
         return $treeBuilder;
