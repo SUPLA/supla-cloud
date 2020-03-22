@@ -37,6 +37,11 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->executeCommand('cache:pool:clear api_rate_limit');
     }
 
+    /** @after */
+    protected function restoreGlobalRateLimit() {
+        $this->executeCommand('cache:pool:clear api_rate_limit');
+    }
+
     public function testTooManyRequestsGlobal() {
         $client = $this->createAuthenticatedClient($this->user, true);
         $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
