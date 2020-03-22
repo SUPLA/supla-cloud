@@ -33,8 +33,6 @@ class ApiRateLimitListener {
     private $cache;
     /** @var bool */
     private $enabled;
-    /** @var string */
-    private $globalLimit;
     /** @var GlobalApiRateLimit */
     private $globalApiRateLimit;
     /** @var TimeProvider */

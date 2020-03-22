@@ -19,13 +19,15 @@ namespace SuplaBundle\Tests\Integration\EventListener;
 
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\User;
-use SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitListener;
+use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
-class LocationControllerIntegrationTest extends IntegrationTestCase {
+class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
@@ -34,30 +36,21 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
+        $this->executeCommand('cache:pool:clear api_rate_limit');
     }
 
-    public function testCannotCreateLocationInMaintenanceMode() {
-        $client = $this->createAuthenticatedClient($this->user);
-        $listener = $client->getContainer()->get(UnavailableInMaintenanceRequestListener::class);
-        EntityUtils::setField($listener, 'maintenanceMode', true);
-        $client->apiRequestV24('POST', '/api/locations');
-        $response = $client->getResponse();
-        $this->assertStatusCode(503, $response);
-    }
-
-    public function testCanGetLocationsInMaintenanceMode() {
-        $client = $this->createAuthenticatedClient($this->user);
-        $listener = $client->getContainer()->get(UnavailableInMaintenanceRequestListener::class);
-        EntityUtils::setField($listener, 'maintenanceMode', true);
+    public function testTooManyRequestsGlobal() {
+        $client = $this->createAuthenticatedClient($this->user, true);
+        $listener = $client->getContainer()->get(ApiRateLimitListener::class);
+        EntityUtils::setField($listener, 'enabled', true);
+        EntityUtils::setField($listener, 'globalApiRateLimit', new GlobalApiRateLimit('5/60'));
+        for ($i = 0; $i < 5; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-    }
-
-    public function testCanCreateLocationWhenNoMaintenanceMode() {
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('POST', '/api/locations');
-        $response = $client->getResponse();
-        $this->assertStatusCode(201, $response);
+        $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
     }
 }
