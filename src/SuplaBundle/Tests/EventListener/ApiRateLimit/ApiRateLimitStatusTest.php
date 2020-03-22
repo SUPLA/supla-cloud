@@ -56,8 +56,14 @@ class ApiRateLimitStatusTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse((new ApiRateLimitStatus('0,99,10'))->isExceeded());
         $this->assertFalse((new ApiRateLimitStatus('10,99,0'))->isExceeded());
         $this->assertFalse((new ApiRateLimitStatus('10,1,10'))->isExceeded());
-        $this->assertTrue((new ApiRateLimitStatus('10,0,10'))->isExceeded());
+        $this->assertFalse((new ApiRateLimitStatus('10,0,10'))->isExceeded());
         $this->assertTrue((new ApiRateLimitStatus('10,-1,10'))->isExceeded());
         $this->assertTrue((new ApiRateLimitStatus('10,-100,10'))->isExceeded());
+    }
+
+    public function getRemaining() {
+        $this->assertEquals(99, (new ApiRateLimitStatus('100,99,10'))->getRemaining());
+        $this->assertEquals(0, (new ApiRateLimitStatus('100,0,10'))->getRemaining());
+        $this->assertEquals(0, (new ApiRateLimitStatus('100,-100,10'))->getRemaining());
     }
 }

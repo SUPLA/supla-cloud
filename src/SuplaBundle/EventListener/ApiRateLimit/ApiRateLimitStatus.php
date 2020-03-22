@@ -21,7 +21,7 @@ class ApiRateLimitStatus {
     }
 
     public function getRemaining(): int {
-        return $this->remaining;
+        return $this->isExceeded() ? 0 : $this->remaining;
     }
 
     public function getReset(): int {
@@ -33,7 +33,7 @@ class ApiRateLimitStatus {
     }
 
     public function isExceeded(): bool {
-        return $this->remaining <= 0;
+        return $this->remaining < 0;
     }
 
     public function toString() {

@@ -17,9 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\EventListener;
 
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\User;
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitListener;
 use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -41,9 +39,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testTooManyRequestsGlobal() {
         $client = $this->createAuthenticatedClient($this->user, true);
-        $listener = $client->getContainer()->get(ApiRateLimitListener::class);
-        EntityUtils::setField($listener, 'enabled', true);
-        EntityUtils::setField($listener, 'globalApiRateLimit', new GlobalApiRateLimit('5/60'));
+        $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
             $response = $client->getResponse();
