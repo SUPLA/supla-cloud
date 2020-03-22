@@ -122,15 +122,6 @@ services:
       - "%use_webpack_dev_server%"
       - "%supla.webpack_hashes%"
 
-  SuplaBundle\Auth\ApiRateLimitListener:
-    arguments:
-      $enabled: '%supla.api_rate_limit.enabled%'
-      $globalLimit: '%supla.api_rate_limit.global_limit%'
-      $cache: '@cache.api_rate_limit'
-    tags:
-      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
-
   SuplaBundle\Auth\Voter\:
     resource: '../../src/SuplaBundle/Auth/Voter'
 
@@ -153,6 +144,15 @@ services:
       - "%kernel.debug%"
     tags:
       - { name: kernel.event_subscriber }
+
+  SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitListener:
+    arguments:
+      $enabled: '%supla.api_rate_limit.enabled%'
+      $globalLimit: '%supla.api_rate_limit.global_limit%'
+      $cache: '@cache.api_rate_limit'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
 
   SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener:
     arguments:

@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Auth;
+namespace SuplaBundle\EventListener\ApiRateLimit;
 
 use Psr\Cache\CacheItemPoolInterface;
 use SuplaBundle\Model\Audit\AuditAware;
@@ -29,10 +29,10 @@ class ApiRateLimitListener {
     private $cache;
     /** @var bool */
     private $enabled;
-    /** @var array */
+    /** @var string */
     private $globalLimit;
 
-    public function __construct(bool $enabled, array $globalLimit, CacheItemPoolInterface $cache) {
+    public function __construct(bool $enabled, string $globalLimit, CacheItemPoolInterface $cache) {
         $this->cache = $cache;
         $this->globalLimit = $globalLimit;
         $this->enabled = $enabled;

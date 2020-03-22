@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\DependencyInjection;
 
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -71,10 +72,10 @@ class Configuration implements ConfigurationInterface {
                 ->arrayNode('api_rate_limit')->children()
                     ->booleanNode('enabled')->defaultTrue()->end()
                     ->scalarNode('user_default_limit')->defaultValue('1000/3600')->validate()
-                        ->ifTrue(function($v) { return !preg_match('#^\d+/\d+$#', $v); })->thenInvalid('Rate limit format: requests/seconds')
+                        ->ifTrue(function($v) { return !(new ApiRateLimitRule($v))->isValid(); })->thenInvalid('Rate limit format: requests/seconds')
                     ->end()->end()
                     ->scalarNode('global_limit')->defaultValue('100/60')->validate()
-                        ->ifTrue(function($v) { return !preg_match('#^\d+/\d+$#', $v); })->thenInvalid('Rate limit format: requests/seconds')
+                        ->ifTrue(function($v) { return !(new ApiRateLimitRule($v))->isValid(); })->thenInvalid('Rate limit format: requests/seconds')
                     ->end()->end()
                 ->end()->end()
             ->end();

@@ -68,14 +68,8 @@ class SuplaExtension extends ConfigurableExtension {
         $container->setParameter('supla.oauth.tokens_lifetime', $this->buildOauthTokensConfig($mergedConfig['oauth']['tokens_lifetime']));
         $container->setParameter('supla.available_languages', $this->detectAvailableLanguages());
         $container->setParameter('supla.api_rate_limit.enabled', $mergedConfig['api_rate_limit']['enabled']);
-        $container->setParameter(
-            'supla.api_rate_limit.global_limit',
-            $this->decodeApiRateLimit($mergedConfig['api_rate_limit']['global_limit'])
-        );
-        $container->setParameter(
-            'supla.api_rate_limit.user_default_limit',
-            $this->decodeApiRateLimit($mergedConfig['api_rate_limit']['user_default_limit'])
-        );
+        $container->setParameter('supla.api_rate_limit.global_limit', $mergedConfig['api_rate_limit']['global_limit']);
+        $container->setParameter('supla.api_rate_limit.user_default_limit', $mergedConfig['api_rate_limit']['user_default_limit']);
     }
 
     private function buildOauthTokensConfig(array $tokensLifetimes): array {
@@ -98,10 +92,5 @@ class SuplaExtension extends ConfigurableExtension {
             return $match ? $match[1] ?? null : null;
         }, $files);
         return array_values(array_filter($languages));
-    }
-
-    private function decodeApiRateLimit(string $rateLimit): array {
-        $apiRateLimit = explode('/', $rateLimit);
-        return ['limit' => intval($apiRateLimit[0]), 'period' => intval($apiRateLimit[1])];
     }
 }
