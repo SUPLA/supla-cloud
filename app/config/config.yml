@@ -144,7 +144,7 @@ supla:
   api_rate_limit:
     enabled: true
     user_default_limit: 1000/3600
-    global_limit: 100/60
+    global_limit: 320/60
   brute_force_auth_prevention:
     enabled: '%brute_force_auth_prevention_enabled%'
     max_failed_attempts: 3

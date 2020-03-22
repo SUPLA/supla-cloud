@@ -56,6 +56,8 @@ services:
 supla:
   brute_force_auth_prevention:
     enabled: true
+  api_rate_limit:
+    enabled: false
 
 swiftmailer:
   disable_delivery: true

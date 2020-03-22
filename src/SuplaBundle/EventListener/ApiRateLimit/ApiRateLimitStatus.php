@@ -29,7 +29,7 @@ class ApiRateLimitStatus {
     }
 
     public function decrement() {
-        --$this->limit;
+        --$this->remaining;
     }
 
     public function isExceeded(): bool {
@@ -37,7 +37,7 @@ class ApiRateLimitStatus {
     }
 
     public function toString() {
-        return "$this->limit.$this->remaining.$this->reset";
+        return "$this->limit,$this->remaining,$this->reset";
     }
 
     public function __toString() {
