@@ -22,6 +22,11 @@ use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 class ApiRateLimitStatusTest extends \PHPUnit_Framework_TestCase {
+    /** @afterClass */
+    public static function resetTimeProvider() {
+        TestTimeProvider::reset();
+    }
+
     public function testFromApiRateLimitRule() {
         $rule = new ApiRateLimitRule('100/3600');
         $timeProvider = new TestTimeProvider();

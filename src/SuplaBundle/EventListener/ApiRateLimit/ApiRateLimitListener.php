@@ -58,7 +58,10 @@ class ApiRateLimitListener {
             return;
         }
         if ($this->incAndCheckGlobalRate()->isExceeded()) {
-            $response = new Response('API cannot respond right now. Wait a while before subsequent request.', Response::HTTP_TOO_MANY_REQUESTS);
+            $response = new Response(
+                'API cannot respond right now. Wait a while before subsequent request.',
+                Response::HTTP_TOO_MANY_REQUESTS
+            );
             $event->setResponse($response);
             $event->stopPropagation();
             return;
