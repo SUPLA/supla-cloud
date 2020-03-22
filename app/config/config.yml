@@ -54,6 +54,11 @@ framework:
     packages:
       webpack:
         version_strategy: SuplaBundle\Twig\WebpackAssetVersionStrategy
+  cache:
+    app: cache.adapter.filesystem
+    pools:
+      cache.api_rate_limit:
+        adapter: cache.app
   csrf_protection: ~
   default_locale: "%locale%"
   form: ~
