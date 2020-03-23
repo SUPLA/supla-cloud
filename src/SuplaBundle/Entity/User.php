@@ -22,6 +22,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Common\HasRelationsCount;
+use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
@@ -38,7 +40,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     @ORM\Index(name="iodevice_reg_enabled_idx", columns={"iodevice_reg_enabled"})
  * })
  */
-class User implements AdvancedUserInterface, EncoderAwareInterface {
+class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelationsCount {
+    use HasRelationsCountTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")

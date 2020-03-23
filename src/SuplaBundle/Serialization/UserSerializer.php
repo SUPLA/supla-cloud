@@ -21,7 +21,9 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\TimeProvider;
+use SuplaBundle\Repository\UserRepository;
 
 class UserSerializer extends AbstractSerializer {
     /** @var ApiRateLimitStorage */
@@ -30,15 +32,19 @@ class UserSerializer extends AbstractSerializer {
     private $defaultUserApiRateLimit;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var UserRepository */
+    private $userRepository;
 
     public function __construct(
         ApiRateLimitStorage $apiRateLimitStorage,
         DefaultUserApiRateLimit $defaultUserApiRateLimit,
-        TimeProvider $timeProvider
+        TimeProvider $timeProvider,
+        UserRepository $userRepository
     ) {
         $this->apiRateLimitStorage = $apiRateLimitStorage;
         $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
         $this->timeProvider = $timeProvider;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -58,6 +64,11 @@ class UserSerializer extends AbstractSerializer {
                 'rule' => $rule->toArray(),
                 'status' => $status->toArray(),
             ];
+        }
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
+            if (!isset($normalized['relationsCount']) && $this->isSerializationGroupRequested('user.relationsCount', $context)) {
+                $normalized['relationsCount'] = $this->userRepository->find($user->getId())->getRelationsCount();
+            }
         }
     }
 

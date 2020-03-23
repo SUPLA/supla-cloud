@@ -39,7 +39,6 @@
                                 <a class="btn btn-default"
                                     @click="showingLimits = true">{{ $t('Show my limits') }}</a>
                             </div>
-
                             <div class="col-sm-4 text-right">
                                 <a class="btn btn-red-outline btn-xs"
                                     @click="deletingAccount = true">{{ $t('Delete my account') }}</a>

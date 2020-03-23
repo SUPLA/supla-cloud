@@ -6,21 +6,47 @@
             <div v-if="limits">
                 <dl>
                     <dt>{{ $t('Access Identifiers') }}</dt>
-                    <dd>{{ limits.accessId }}</dd>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.accessId"
+                            :value="relationsCount.accessIds"></account-limit-progressbar>
+                    </dd>
                     <dt>{{ $t('Channel groups') }}</dt>
-                    <dd>{{ limits.channelGroup }}</dd>
-                    <dt>{{ $t('Channels in channel group') }}</dt>
-                    <dd>{{ limits.channelGroup }}</dd>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.channelGroup"
+                            :value="relationsCount.channelGroups"></account-limit-progressbar>
+                    </dd>
+                    <!--<dt>{{ $t('Channels in channel group') }}</dt>-->
+                    <!--<dd>{{ limits.channelGroup }}</dd>-->
                     <dt>{{ $t('Locations') }}</dt>
-                    <dd>{{ limits.location }}</dd>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.location"
+                            :value="relationsCount.locations"></account-limit-progressbar>
+                    </dd>
                     <dt>{{ $t('Schedules') }}</dt>
-                    <dd>{{ limits.schedule }}</dd>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.schedule"
+                            :value="relationsCount.schedules"></account-limit-progressbar>
+                    </dd>
                     <dt>{{ $t('Direct links') }}</dt>
-                    <dd>{{ limits.directLink }}</dd>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.directLink"
+                            :value="relationsCount.directLinks"></account-limit-progressbar>
+                    </dd>
                     <dt>{{ $t('OAuth apps') }}</dt>
-                    <dd>{{ limits.oauthClient }}</dd>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.oauthClient"
+                            :value="relationsCount.apiClients"></account-limit-progressbar>
+                    </dd>
                 </dl>
                 <h4>{{ $t('API rate limits') }}</h4>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="well well-sm clearfix">
+                            <account-limit-progressbar :limit="limits.apiRateLimit.rule.limit"
+                                :value="limits.apiRateLimit.rule.limit - limits.apiRateLimit.status.remaining"></account-limit-progressbar>
+                        </div>
+                    </div>
+                </div>
                 <dl>
                     <dt>{{ $t('Requests limit') }}</dt>
                     <dd>
@@ -54,22 +80,24 @@
 
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import AccountLimitProgressbar from "./account-limit-progressbar";
 
     export default {
-        components: {ButtonLoadingDots},
+        components: {AccountLimitProgressbar, ButtonLoadingDots},
         props: ['user'],
         data() {
             return {
                 limits: undefined,
+                relationsCount: undefined,
             };
         },
         mounted() {
-            this.$http.get('users/current?include=limits').then(response => {
+            this.$http.get('users/current?include=limits,relationsCount').then(response => {
                 this.limits = {
                     ...response.body.limits,
                     apiRateLimit: response.body.apiRateLimit,
                 };
-                this.limits.apiRateLimit.status.remaining = 999;
+                this.relationsCount = response.body.relationsCount;
             });
         },
         computed: {
