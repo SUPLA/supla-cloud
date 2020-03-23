@@ -599,12 +599,10 @@ ID: ~
 Inactive: ~
 Invalid function for channel.: ~
 Maintenance mode active. You cannot modify any data now.: ~
-No current API usages: ~
+'Next limit renewal: {date}': ~
 OAuth apps: ~
 Open partially: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~
-Remaining: ~
-Requests limit: ~
 SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
 Show my limits: ~
@@ -616,10 +614,9 @@ You can use the application but you will not be able to modify any settings.: ~
 Your account limits: ~
 password: ~
 username: ~
-'{remainingRequests} to {date}': ~
-'{requests} per day': ~
-'{requests} per hour': ~
-'{requests} per minute': ~
-'{requests} per {seconds} sec.': ~
+'{requests} from {limit} / day': ~
+'{requests} from {limit} / h': ~
+'{requests} from {limit} / min': ~
+'{requests} from {limit} / {seconds} sec.': ~
 
 #</editor-fold>

@@ -5,6 +5,7 @@
 'Confirm if you want to remove {deviceName} device': 'Confirm if you want to remove {deviceName} device'
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 'Maximum filesize limit is {limit}.': 'Maximum filesize limit is {limit}.'
+'Next limit renewal: {date}': 'Next limit renewal: {date}'
 'No results match {0}': 'No results match {0}'
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.'
@@ -56,15 +57,23 @@ sunset-after: the sunset
 sunset-before: the sunset
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} will not be able to interact with your account until you grant the access again.'
 '{clientName} wants to access your account.': '{clientName} wants to access your account.'
-'{remainingRequests} to {date}': '{remainingRequests} to {date}'
-'{requests} per day': '{requests} per day'
-'{requests} per hour': '{requests} per hour'
-'{requests} per minute': '{requests} per minute'
-'{requests} per {seconds} sec.': '{requests} per {seconds} sec.'
+'{requests} from {limit} / day': '{requests} from {limit} / day'
+'{requests} from {limit} / h': '{requests} from {limit} / h'
+'{requests} from {limit} / min': '{requests} from {limit} / min'
+'{requests} from {limit} / {seconds} sec.': '{requests} from {limit} / {seconds} sec.'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+'{remainingRequests} to {date}': '{remainingRequests} to {date}'
+'{requests} / {limit} / day': '{requests} / {limit} / day'
+'{requests} / {limit} / h': '{requests} / {limit} / h'
+'{requests} / {limit} / min': '{requests} / {limit} / min'
+'{requests} / {limit} / {seconds} sec.': '{requests} / {limit} / {seconds} sec.'
+'{requests} per day': '{requests} per day'
+'{requests} per hour': '{requests} per hour'
+'{requests} per minute': '{requests} per minute'
+'{requests} per {seconds} sec.': '{requests} per {seconds} sec.'
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">

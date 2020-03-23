@@ -295,9 +295,9 @@ New channel group: Nowa grupa kanałów
 New direct link: Nowy link bezpośredni
 New password: Nowe hasło
 Newer: Nowsze
+'Next limit renewal: {date}': 'Limit zostanie odnowiony {date}'
 Next run date: Najbliższe wykonanie
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nie masz żadnych aktywnych identyfikatorów dostępu. Przejdź do [listy identyfikatorów dostępu] lub [dodaj nowy identyfikator dostępu].'
-No current API usages: Brak bieżących żądań API
 No function: Brak funkcji
 No future executions - schedule disabled: Brak zaplanowanych wykonań - harmonogram wyłączony
 No limit: Bez limitu
@@ -366,11 +366,9 @@ Relay: Przekaźnik
 Relay switching time: Czas załączenia przekaźnika
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}.'
-Remaining: Pozostało
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}.'
 Repeat password: Powtórz hasło
-Requests limit: Limit żądań
 Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
@@ -587,7 +585,6 @@ username: nazwa użytkownika
 will expire: wygaśnie
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
-'{remainingRequests} to {date}': '{remainingRequests} do {date}'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -605,21 +602,33 @@ Input: Wejście
 Languages: Języki
 Loading: Ładowanie
 Next: Dalej
+No current API usages: Brak bieżących żądań API
 Number: Numer
 Output: Wyjście
 Registration: Rejestracja
+Remaining: Pozostało
 Remove: Usuń
+Requests limit: Limit żądań
 Status: Status
 Try again later: Spróbuj ponownie później
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
+'{remainingRequests} to {date}': '{remainingRequests} do {date}'
+'{requests} / {limit} / day': '{requests} / {limit} / dobę'
+'{requests} / {limit} / h': '{requests} / {limit} / h'
+'{requests} / {limit} / min': '{requests} / {limit} / min'
+'{requests} / {limit} / {seconds} sec.': '{requests} / {limit} / {seconds} sek.'
 '{requests} per day': '{requests} na dzień'
 '{requests} per hour': '{requests} na godzinę'
 '{requests} per minute': '{requests} na minutę'
 '{requests} per {seconds} sec.': '{requests} na {seconds} sek.'
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+'{requests} from {limit} / day': '{requests} z {limit} / dobę'
+'{requests} from {limit} / h': '{requests} z {limit} / h'
+'{requests} from {limit} / min': '{requests} z {limit} / min'
+'{requests} from {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} sek.'
 
 #</editor-fold>

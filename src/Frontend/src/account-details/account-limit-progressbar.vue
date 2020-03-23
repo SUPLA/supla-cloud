@@ -5,7 +5,9 @@
         :aria-valuenow="value"
         :aria-valuemax="limit"
         :style="{width: progress + '%'}">
-        {{ value }}/{{ limit }}
+        <slot>
+            {{ value }}/{{ limit }}
+        </slot>
     </div>
 </template>
 

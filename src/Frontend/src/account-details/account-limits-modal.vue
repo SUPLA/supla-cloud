@@ -1,8 +1,7 @@
 <template>
     <modal class="account-limits-modal"
-        @confirm="$emit('confirm')"
         :header="$t('Your account limits')">
-        <loading-cover :loading="!limits">
+        <loading-cover :loading="fetching">
             <div v-if="limits">
                 <dl>
                     <dt>{{ $t('Access Identifiers') }}</dt>
@@ -40,41 +39,44 @@
                 </dl>
                 <h4>{{ $t('API rate limits') }}</h4>
                 <div class="row">
-                    <div class="col-xs-12">
-                        <div class="well well-sm clearfix">
-                            <account-limit-progressbar :limit="limits.apiRateLimit.rule.limit"
-                                :value="limits.apiRateLimit.rule.limit - limits.apiRateLimit.status.remaining"></account-limit-progressbar>
+                    <div class="col-xs-12 api-rate-limit-progress">
+                        <div class="well well-sm no-margin">
+                            <div class="clearfix">
+                                <account-limit-progressbar :limit="apiRateStatus.limit"
+                                    :value="apiRateStatus.requests">
+                                    <span v-if="apiRateStatus.seconds === 60">
+                                        {{ $t('{requests} from {limit} / min', apiRateStatus) }}
+                                    </span>
+                                    <span v-else-if="apiRateStatus.seconds === 3600">
+                                        {{ $t('{requests} from {limit} / h', apiRateStatus) }}
+                                    </span>
+                                    <span v-else-if="apiRateStatus.seconds === 86400">
+                                        {{ $t('{requests} from {limit} / day', apiRateStatus) }}
+                                    </span>
+                                    <span v-else>
+                                        {{ $t('{requests} from {limit} / {seconds} sec.', apiRateStatus) }}
+                                    </span>
+                                </account-limit-progressbar>
+                            </div>
                         </div>
+                        <p class="text-right text-muted small"
+                            v-if="apiRateStatus.requests > 0">
+                            {{ $t('Next limit renewal: {date}', { date: apiRateStatusReset }) }}
+                        </p>
                     </div>
                 </div>
-                <dl>
-                    <dt>{{ $t('Requests limit') }}</dt>
-                    <dd>
-                        <span v-if="limits.apiRateLimit.rule.period === 60">
-                            {{ $t('{requests} per minute', {requests: limits.apiRateLimit.rule.limit }) }}
-                        </span>
-                        <span v-else-if="limits.apiRateLimit.rule.period === 3600">
-                            {{ $t('{requests} per hour', {requests: limits.apiRateLimit.rule.limit }) }}
-                        </span>
-                        <span v-else-if="limits.apiRateLimit.rule.period === 86400">
-                            {{ $t('{requests} per day', {requests: limits.apiRateLimit.rule.limit }) }}
-                        </span>
-                        <span v-else>
-                            {{ $t('{requests} per {seconds} sec.', {requests: limits.apiRateLimit.rule.limit, seconds: limits.apiRateLimit.rule.period }) }}
-                        </span>
-                    </dd>
-                    <dt>{{ $t('Remaining') }}</dt>
-                    <dd>
-                        <span v-if="limits.apiRateLimit.status.remaining != limits.apiRateLimit.rule.limit">
-                            {{ $t('{remainingRequests} to {date}', {remainingRequests: limits.apiRateLimit.status.remaining, date: apiRateStatusReset }) }}
-                        </span>
-                        <span v-else>
-                            {{ $t('No current API usages') }}
-                        </span>
-                    </dd>
-                </dl>
             </div>
         </loading-cover>
+        <div slot="footer">
+            <a @click="fetchLimits()"
+                class="cancel small">
+                <i class="pe-7s-refresh-2"></i>
+            </a>
+            <a @click="$emit('confirm')"
+                class="confirm">
+                <i class="pe-7s-check"></i>
+            </a>
+        </div>
     </modal>
 </template>
 
@@ -87,18 +89,34 @@
         props: ['user'],
         data() {
             return {
+                fetching: false,
                 limits: undefined,
                 relationsCount: undefined,
+                apiRateStatus: undefined,
             };
         },
         mounted() {
-            this.$http.get('users/current?include=limits,relationsCount').then(response => {
-                this.limits = {
-                    ...response.body.limits,
-                    apiRateLimit: response.body.apiRateLimit,
-                };
-                this.relationsCount = response.body.relationsCount;
-            });
+            this.fetchLimits();
+        },
+        methods: {
+            fetchLimits() {
+                if (this.fetching) {
+                    return;
+                }
+                this.fetching = true;
+                this.$http.get('users/current?include=limits,relationsCount').then(response => {
+                    this.limits = {
+                        ...response.body.limits,
+                        apiRateLimit: response.body.apiRateLimit,
+                    };
+                    this.relationsCount = response.body.relationsCount;
+                    this.apiRateStatus = {
+                        requests: this.limits.apiRateLimit.rule.limit - this.limits.apiRateLimit.status.remaining,
+                        limit: this.limits.apiRateLimit.rule.limit,
+                        seconds: this.limits.apiRateLimit.rule.period,
+                    };
+                }).finally(() => this.fetching = false);
+            },
         },
         computed: {
             apiRateStatusReset() {
@@ -111,28 +129,38 @@
     };
 </script>
 
-<style lang="scss"
-    scoped>
+<style lang="scss">
     @import "../styles/variables";
 
-    dl {
-        display: flex;
-        flex-flow: row wrap;
+    .account-limits-modal {
+        dl {
+            display: flex;
+            flex-flow: row wrap;
 
-        dt {
-            padding: 4px 4px;
-            text-align: right;
+            dt {
+                padding: 4px 4px;
+                text-align: right;
+            }
+            dd {
+                flex-grow: 1;
+                margin: 0;
+                padding: 4px 4px;
+            }
+            dt, dd {
+                flex-basis: 50%;
+                border-bottom: 1px solid $supla-grey-light;
+                &:last-of-type {
+                    border: 0;
+                }
+            }
         }
-        dd {
-            flex-grow: 1;
-            margin: 0;
-            padding: 4px 4px;
-        }
-        dt, dd {
-            flex-basis: 50%;
-            border-bottom: 1px solid $supla-grey-light;
-            &:last-of-type {
-                border: 0;
+
+        .api-rate-limit-progress {
+            .progress-bar {
+                min-width: 10em;
+            }
+            p.text-muted {
+                margin-top: 3px;
             }
         }
     }
