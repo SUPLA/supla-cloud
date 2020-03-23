@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Entity;
 
 use SuplaBundle\Entity\User;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\Tests\AnyFieldSetter;
 
 class UserTest extends \PHPUnit_Framework_TestCase {
@@ -57,5 +58,14 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $user = new User();
         AnyFieldSetter::set($user, 'clientsRegistrationEnabled', new \DateTime('-1second'));
         $this->assertNull($user->getClientsRegistrationEnabled());
+    }
+
+    public function testSettingApiRateLimit() {
+        $user = new User();
+        $this->assertNull($user->getApiRateLimit());
+        $user->setApiRateLimit(new ApiRateLimitRule('5/10'));
+        $this->assertEquals(new ApiRateLimitRule('5/10'), $user->getApiRateLimit());
+        $user->setApiRateLimit(null);
+        $this->assertNull($user->getApiRateLimit());
     }
 }

@@ -5,6 +5,7 @@ use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -19,17 +20,21 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
     private $userRepository;
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** * @var DefaultUserApiRateLimit */
+    /** @var DefaultUserApiRateLimit */
     private $defaultUserApiRateLimit;
+    /** @var ApiRateLimitStorage */
+    private $apiRateLimitStorage;
 
     public function __construct(
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
+        ApiRateLimitStorage $apiRateLimitStorage,
         DefaultUserApiRateLimit $defaultUserApiRateLimit
     ) {
         parent::__construct();
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+        $this->apiRateLimitStorage = $apiRateLimitStorage;
         $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
     }
 
@@ -68,6 +73,7 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
             $newRule = $helper->ask($input, $output, $this->apiRateLimitQuestion($currentRule));
             if ($newRule != $currentRule) {
                 $user->setApiRateLimit($newRule == $this->defaultUserApiRateLimit ? null : $newRule);
+                $this->apiRateLimitStorage->clearUserLimit($user);
             }
         }
         $this->entityManager->persist($user);

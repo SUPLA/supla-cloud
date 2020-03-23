@@ -17,11 +17,15 @@
 
 namespace SuplaBundle\Tests\Integration\EventListener;
 
+use enform\models\Company;
 use SuplaBundle\Entity\User;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
+use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
@@ -39,6 +43,10 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     /** @after */
     protected function restoreGlobalRateLimit() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->user->setApiRateLimit(null);
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
         $this->executeCommand('cache:pool:clear api_rate_limit');
     }
 
@@ -53,5 +61,92 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
+    }
+
+    public function testOkIfFitsInLimits() {
+        $client = $this->createAuthenticatedClient($this->user, true);
+        for ($i = 0; $i < 10; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+    }
+
+    public function testTooManyRequestsPerUser() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->user->setApiRateLimit(new ApiRateLimitRule('5/10'));
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient($this->user, true);
+        for ($i = 0; $i < 5; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
+    }
+
+    public function testSendingRateLimitHeaders() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->user->setApiRateLimit(new ApiRateLimitRule('5/10'));
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient($this->user, true);
+        $now = time();
+        TestTimeProvider::setTime($now);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
+        $this->assertEquals($now + 10, $response->headers->get('X-RateLimit-Reset'));
+        TestTimeProvider::setTime($now + 3);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(3, $response->headers->get('X-RateLimit-Remaining'));
+        $this->assertEquals($now + 10, $response->headers->get('X-RateLimit-Reset'));
+    }
+
+    public function testResettingRateLimit() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->user->setApiRateLimit(new ApiRateLimitRule('5/10'));
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient($this->user, true);
+        $now = time();
+        TestTimeProvider::setTime($now - 11);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
+        $this->assertEquals($now + 10 - 11, $response->headers->get('X-RateLimit-Reset'));
+        TestTimeProvider::setTime($now);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
+        $this->assertEquals($now + 10, $response->headers->get('X-RateLimit-Reset'));
+    }
+
+    public function testChangingLimitForUserIsAppliedImmediately() {
+        $client = $this->createAuthenticatedClient($this->user, true);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertGreaterThan(500, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertGreaterThan(500, $response->headers->get('X-RateLimit-Remaining'));
+
+        $command = $this->application->find('supla:user:change-limits');
+        $commandTester = new CommandTester($command);
+        $commandTester->setInputs(['', '', '', '', '', '', '', '5/10']); // first n: no backup, second: no initial user
+        $exitCode = $commandTester->execute(['username' => $this->user->getUsername()]);
+        $this->assertEquals(0, $exitCode);
+
+        $client = $this->createAuthenticatedClient($this->user, true);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
     }
 }

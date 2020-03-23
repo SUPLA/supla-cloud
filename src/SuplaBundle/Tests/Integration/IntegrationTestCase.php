@@ -37,7 +37,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     /** @var ResettableContainerInterface */
     protected $container;
     /** @var Application */
-    private $application;
+    protected $application;
 
     public function prepareIntegrationTest() {
         if (!$this->hasDependencies()) {

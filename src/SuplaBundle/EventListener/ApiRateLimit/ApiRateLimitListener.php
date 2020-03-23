@@ -17,9 +17,10 @@
 
 namespace SuplaBundle\EventListener\ApiRateLimit;
 
-use Psr\Cache\CacheItemPoolInterface;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\TimeProvider;
+use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -29,28 +30,36 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 class ApiRateLimitListener {
     use CurrentUserAware;
 
-    /** @var CacheItemPoolInterface */
-    private $cache;
+    /** @var ApiRateLimitStorage */
+    private $storage;
     /** @var bool */
     private $enabled;
     /** @var GlobalApiRateLimit */
     private $globalApiRateLimit;
+    /** @var DefaultUserApiRateLimit */
+    private $defaultUserApiRateLimit;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var UserRepository */
+    private $userRepository;
 
     /** @var ApiRateLimitStatus */
-    private $rateLimit;
+    private $currentUserRateLimit;
 
     public function __construct(
         bool $enabled,
         GlobalApiRateLimit $globalApiRateLimit,
-        CacheItemPoolInterface $cache,
-        TimeProvider $timeProvider
+        DefaultUserApiRateLimit $defaultUserApiRateLimit,
+        ApiRateLimitStorage $storage,
+        TimeProvider $timeProvider,
+        UserRepository $userRepository
     ) {
-        $this->cache = $cache;
+        $this->storage = $storage;
         $this->globalApiRateLimit = $globalApiRateLimit;
+        $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
         $this->enabled = $enabled;
         $this->timeProvider = $timeProvider;
+        $this->userRepository = $userRepository;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
@@ -58,20 +67,30 @@ class ApiRateLimitListener {
             return;
         }
         if ($this->incAndCheckGlobalRate()->isExceeded()) {
-            $response = new Response(
-                'API cannot respond right now. Wait a while before subsequent request.',
-                Response::HTTP_TOO_MANY_REQUESTS
-            );
-            $event->setResponse($response);
-            $event->stopPropagation();
+            $this->preventRequestDueToLimitExceeded($event, 'API cannot respond right now. Wait a while before subsequent request.');
             return;
         }
+        $userOrId = $this->getCurrentUserOrId();
+        if ($userOrId) {
+            $this->currentUserRateLimit = $this->incAndCheckUserRate($userOrId);
+            if ($this->currentUserRateLimit->isExceeded()) {
+                $this->preventRequestDueToLimitExceeded($event, 'You have reached your API rate limit. Slow down.');
+            }
+        }
+    }
+
+    private function preventRequestDueToLimitExceeded(GetResponseEvent $event, string $message) {
+        $response = new Response($message, Response::HTTP_TOO_MANY_REQUESTS);
+        $this->setRateLimitHeaders($response);
+        $event->setResponse($response);
+        $event->stopPropagation();
     }
 
     public function onKernelResponse(FilterResponseEvent $event) {
         if (!$this->isRequestRateLimited($event)) {
             return;
         }
+        $this->setRateLimitHeaders($event->getResponse());
     }
 
     private function isRequestRateLimited(KernelEvent $event): bool {
@@ -91,13 +110,20 @@ class ApiRateLimitListener {
     }
 
     private function incAndCheckGlobalRate(): ApiRateLimitStatus {
-        return $this->incAndCheck('global', function () {
+        return $this->incAndCheck($this->storage->getGlobalKey(), function () {
             return $this->globalApiRateLimit;
         });
     }
 
+    private function incAndCheckUserRate($userOrId): ApiRateLimitStatus {
+        return $this->incAndCheck($this->storage->getUserKey($userOrId), function () use ($userOrId) {
+            $user = $userOrId instanceof User ? $userOrId : $this->userRepository->find($userOrId);
+            return $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
+        });
+    }
+
     private function incAndCheck(string $key, callable $ruleProducer): ApiRateLimitStatus {
-        $item = $this->cache->getItem($key);
+        $item = $this->storage->getItem($key);
         if ($item->isHit()) {
             $rateLimitStatus = new ApiRateLimitStatus($item->get());
         } else {
@@ -106,16 +132,22 @@ class ApiRateLimitListener {
         }
         $rateLimitStatus->decrement();
         $item->set($rateLimitStatus->toString());
-        $this->cache->save($item);
+        $this->storage->save($item);
         return $rateLimitStatus;
     }
 
+    private function getCurrentUserOrId() {
+        if ($user = $this->getCurrentUser()) {
+            return $user;
+        }
+    }
+
     private function setRateLimitHeaders(Response $response) {
-        if ($this->rateLimit) {
+        if ($this->currentUserRateLimit) {
             $response->headers->add([
-                'X-RateLimit-Limit' => $this->rateLimit->getLimit(),
-                'X-RateLimit-Remaining' => $this->rateLimit->getRemaining(),
-                'X-RateLimit-Reset' => $this->rateLimit->getReset(),
+                'X-RateLimit-Limit' => $this->currentUserRateLimit->getLimit(),
+                'X-RateLimit-Remaining' => $this->currentUserRateLimit->getRemaining(),
+                'X-RateLimit-Reset' => $this->currentUserRateLimit->getReset(),
             ]);
         }
     }
