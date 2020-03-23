@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\EventListener\ApiRateLimit;
 
+use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\CurrentUserAware;
@@ -74,6 +75,10 @@ class ApiRateLimitListener {
         }
         if ($this->incAndCheckGlobalRate()->isExceeded()) {
             $this->preventRequestDueToLimitExceeded($event, 'API cannot respond right now. Wait a while before subsequent request.');
+            return;
+        }
+        $userToken = $this->getCurrentUserToken();
+        if ($userToken instanceof WebappToken) {
             return;
         }
         $userOrId = $this->getCurrentUserOrId($event);

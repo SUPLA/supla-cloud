@@ -18,12 +18,16 @@
 namespace SuplaBundle\Tests\Integration\EventListener;
 
 use enform\models\Company;
+use SuplaBundle\Auth\OAuthScope;
+use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
@@ -38,9 +42,15 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
+    /** @var AccessToken */
+    private $token;
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
+        $this->token = $this->container->get(SuplaOAuth2::class)
+            ->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
+        $this->getEntityManager()->persist($this->token);
+        $this->getEntityManager()->flush();
         $this->executeCommand('cache:pool:clear api_rate_limit');
     }
 
@@ -74,7 +84,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testTooManyRequestsPerUser() {
         $this->changeUserApiRateLimit();
-        $client = $this->createAuthenticatedClient($this->user, true);
+        $client = $this->getClientWithPersonalToken();
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
             $response = $client->getResponse();
@@ -85,9 +95,19 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
     }
 
+    public function testWebappTokenDoesNotRaisesApiRateLimit() {
+        $this->changeUserApiRateLimit();
+        $client = $this->createAuthenticatedClient($this->user);
+        for ($i = 0; $i < 10; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+    }
+
     public function testSendingRateLimitHeaders() {
         $this->changeUserApiRateLimit();
-        $client = $this->createAuthenticatedClient($this->user, true);
+        $client = $this->getClientWithPersonalToken();
         $now = time();
         TestTimeProvider::setTime($now);
         $client->apiRequestV24('GET', '/api/locations');
@@ -105,7 +125,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testResettingRateLimit() {
         $this->changeUserApiRateLimit();
-        $client = $this->createAuthenticatedClient($this->user, true);
+        $client = $this->getClientWithPersonalToken();
         $now = time();
         TestTimeProvider::setTime($now - 11);
         $client->apiRequestV24('GET', '/api/locations');
@@ -122,21 +142,25 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testLimitsOfOneUserDoesNotInfluenceOtherUser() {
-        $user = $this->createConfirmedUser('another@supla.org');
-        $client = $this->createAuthenticatedClient($this->user, true);
+        $anotherUser = $this->createConfirmedUser('another@supla.org');
+        $token = $this->container->get(SuplaOAuth2::class)
+            ->createPersonalAccessToken($anotherUser, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
+        $this->getEntityManager()->persist($token);
+        $this->getEntityManager()->flush();
+        $client = $this->getClientWithPersonalToken();
         $client->apiRequestV24('GET', '/api/locations');
         $client->apiRequestV24('GET', '/api/locations');
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertEquals($response->headers->get('X-RateLimit-Limit') - 3, $response->headers->get('X-RateLimit-Remaining'));
-        $client->setServerParameter('HTTP_AUTHORIZATION', 'Bearer ' . base64_encode($user->getUsername()));
+        $client->setServerParameter('HTTP_AUTHORIZATION', 'Bearer ' . $token->getToken());
         $client->request('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertEquals($response->headers->get('X-RateLimit-Limit') - 1, $response->headers->get('X-RateLimit-Remaining'));
     }
 
     public function testChangingLimitForUserIsAppliedImmediately() {
-        $client = $this->createAuthenticatedClient($this->user, true);
+        $client = $this->getClientWithPersonalToken();
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertGreaterThan(500, $response->headers->get('X-RateLimit-Limit'));
@@ -148,7 +172,6 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $exitCode = $commandTester->execute(['username' => $this->user->getUsername()]);
         $this->assertEquals(0, $exitCode);
 
-        $client = $this->createAuthenticatedClient($this->user, true);
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
@@ -204,5 +227,10 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->user->setApiRateLimit($rateLimit ? new ApiRateLimitRule($rateLimit) : null);
         $this->getEntityManager()->persist($this->user);
         $this->getEntityManager()->flush();
+    }
+
+    private function getClientWithPersonalToken(AccessToken $token = null): TestClient {
+        $token = $token ?: $this->token;
+        return self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->getToken(), 'HTTPS' => true]);
     }
 }
