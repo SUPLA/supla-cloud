@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\EventListener\ApiRateLimit;
 
+use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
@@ -78,7 +79,7 @@ class ApiRateLimitListener {
             return;
         }
         $userToken = $this->getCurrentUserToken();
-        if ($userToken instanceof WebappToken) {
+        if ($userToken instanceof WebappToken || $userToken instanceof AccessIdAwareToken) {
             return;
         }
         $userOrId = $this->getCurrentUserOrId($event);
