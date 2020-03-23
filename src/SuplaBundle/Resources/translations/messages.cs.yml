@@ -596,6 +596,7 @@ API rate limits: ~
 Channels in channel group: ~
 Choose Access Identifier: ~
 Could not contact Autodiscover service. Try again in a while.: ~
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
 ID: ~
 Inactive: ~
 Invalid function for channel.: ~
@@ -610,6 +611,7 @@ Show my limits: ~
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
 Valve closed manually: ~
 We should be ready shortly.: ~
+We try to be faster: ~
 You can use the application but you will not be able to modify any settings.: ~
 Your account limits: ~
 password: ~

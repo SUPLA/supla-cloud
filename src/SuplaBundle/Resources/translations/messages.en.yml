@@ -65,15 +65,6 @@ sunset-before: the sunset
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-'{remainingRequests} to {date}': '{remainingRequests} to {date}'
-'{requests} / {limit} / day': '{requests} / {limit} / day'
-'{requests} / {limit} / h': '{requests} / {limit} / h'
-'{requests} / {limit} / min': '{requests} / {limit} / min'
-'{requests} / {limit} / {seconds} sec.': '{requests} / {limit} / {seconds} sec.'
-'{requests} per day': '{requests} per day'
-'{requests} per hour': '{requests} per hour'
-'{requests} per minute': '{requests} per minute'
-'{requests} per {seconds} sec.': '{requests} per {seconds} sec.'
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">

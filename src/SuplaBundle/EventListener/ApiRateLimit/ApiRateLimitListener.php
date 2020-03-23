@@ -25,10 +25,12 @@ use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\DirectLinkRepository;
 use SuplaBundle\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ApiRateLimitListener {
@@ -92,10 +94,17 @@ class ApiRateLimitListener {
     }
 
     private function preventRequestDueToLimitExceeded(GetResponseEvent $event, string $message) {
-        $response = new Response($message, Response::HTTP_TOO_MANY_REQUESTS);
-        $this->setRateLimitHeaders($response);
-        $event->setResponse($response);
-        $event->stopPropagation();
+        $request = $event->getRequest();
+        $isApiRequest = preg_match('#/api/#', $request->getRequestUri());
+        if ($isApiRequest || in_array('application/json', $request->getAcceptableContentTypes())) {
+            $data = ['status' => Response::HTTP_TOO_MANY_REQUESTS, 'message' => $message];
+            $response = new JsonResponse($data, Response::HTTP_TOO_MANY_REQUESTS);
+            $this->setRateLimitHeaders($response);
+            $event->setResponse($response);
+            $event->stopPropagation();
+        } else {
+            throw new TooManyRequestsHttpException();
+        }
     }
 
     public function onKernelResponse(FilterResponseEvent $event) {

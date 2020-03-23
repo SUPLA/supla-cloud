@@ -93,6 +93,8 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(Response::HTTP_TOO_MANY_REQUESTS, $content['status']);
     }
 
     public function testWebappTokenDoesNotRaisesApiRateLimit() {
@@ -200,6 +202,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(3, $response->headers->get('X-RateLimit-Remaining'));
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('<direct-link-execution-result', $response->getContent());
         return $slug;
     }
 
@@ -216,6 +219,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/1/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(429, $response);
+        $this->assertNotContains('<direct-link-execution-result', $response->getContent());
         $this->assertEquals(1, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(0, $response->headers->get('X-RateLimit-Remaining'));
         $commands = $this->getSuplaServerCommands($client);
