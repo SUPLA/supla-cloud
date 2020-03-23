@@ -139,9 +139,9 @@ class ApiRateLimitListener {
             $rateLimitStatus = new ApiRateLimitStatus($item->get());
         } else {
             $rateLimitStatus = ApiRateLimitStatus::fromRule($ruleProducer(), $this->timeProvider);
-            $item->expiresAt(new \DateTime('@' . $rateLimitStatus->getReset()));
         }
         $rateLimitStatus->decrement();
+        $item->expiresAt(new \DateTime('@' . $rateLimitStatus->getReset()));
         $item->set($rateLimitStatus->toString());
         $this->storage->save($item);
         return $rateLimitStatus;
