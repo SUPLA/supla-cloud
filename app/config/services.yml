@@ -237,6 +237,10 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\GoogleHome]
 
+  SuplaBundle\Repository\DirectLinkRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\DirectLink]
+
   SuplaBundle\Auth\SuplaOAuth2:
     arguments:
       - '@fos_oauth_server.storage'

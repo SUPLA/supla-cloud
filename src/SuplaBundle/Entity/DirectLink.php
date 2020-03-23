@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\DirectLinkRepository")
  * @ORM\Table(name="supla_direct_link")
  */
 class DirectLink {

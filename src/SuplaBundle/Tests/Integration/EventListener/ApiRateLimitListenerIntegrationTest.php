@@ -18,7 +18,9 @@
 namespace SuplaBundle\Tests\Integration\EventListener;
 
 use enform\models\Company;
+use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -27,6 +29,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
 /** @small */
 class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
@@ -43,10 +46,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     /** @after */
     protected function restoreGlobalRateLimit() {
-        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
-        $this->user->setApiRateLimit(null);
-        $this->getEntityManager()->persist($this->user);
-        $this->getEntityManager()->flush();
+        $this->changeUserApiRateLimit(null);
         $this->executeCommand('cache:pool:clear api_rate_limit');
     }
 
@@ -73,10 +73,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testTooManyRequestsPerUser() {
-        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
-        $this->user->setApiRateLimit(new ApiRateLimitRule('5/10'));
-        $this->getEntityManager()->persist($this->user);
-        $this->getEntityManager()->flush();
+        $this->changeUserApiRateLimit();
         $client = $this->createAuthenticatedClient($this->user, true);
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
@@ -89,10 +86,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSendingRateLimitHeaders() {
-        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
-        $this->user->setApiRateLimit(new ApiRateLimitRule('5/10'));
-        $this->getEntityManager()->persist($this->user);
-        $this->getEntityManager()->flush();
+        $this->changeUserApiRateLimit();
         $client = $this->createAuthenticatedClient($this->user, true);
         $now = time();
         TestTimeProvider::setTime($now);
@@ -110,10 +104,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testResettingRateLimit() {
-        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
-        $this->user->setApiRateLimit(new ApiRateLimitRule('5/10'));
-        $this->getEntityManager()->persist($this->user);
-        $this->getEntityManager()->flush();
+        $this->changeUserApiRateLimit();
         $client = $this->createAuthenticatedClient($this->user, true);
         $now = time();
         TestTimeProvider::setTime($now - 11);
@@ -128,6 +119,20 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
         $this->assertEquals($now + 10, $response->headers->get('X-RateLimit-Reset'));
+    }
+
+    public function testLimitsOfOneUserDoesNotInfluenceOtherUser() {
+        $user = $this->createConfirmedUser('another@supla.org');
+        $client = $this->createAuthenticatedClient($this->user, true);
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertEquals($response->headers->get('X-RateLimit-Limit') - 3, $response->headers->get('X-RateLimit-Remaining'));
+        $client->setServerParameter('HTTP_AUTHORIZATION', 'Bearer ' . base64_encode($user->getUsername()));
+        $client->request('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertEquals($response->headers->get('X-RateLimit-Limit') - 1, $response->headers->get('X-RateLimit-Remaining'));
     }
 
     public function testChangingLimitForUserIsAppliedImmediately() {
@@ -148,5 +153,56 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
+    }
+
+    public function testDirectLinksUsesLimitOfOwner() {
+        $this->changeUserApiRateLimit();
+        $device = $this->createDeviceSonoff($this->createLocation($this->user));
+        $directLink = new DirectLink($device->getChannels()[0]);
+        $directLink->setAllowedActions([ChannelFunctionAction::READ()]);
+        $slug = $directLink->generateSlug(new BCryptPasswordEncoder(4));
+        $this->getEntityManager()->persist($directLink);
+        $this->getEntityManager()->flush();
+        $client = $this->createClient();
+        $client->request('GET', "/direct/{$directLink->getId()}/$slug/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
+        $client->enableProfiler();
+        $client->request('GET', "/direct/{$directLink->getId()}/$slug/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(3, $response->headers->get('X-RateLimit-Remaining'));
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        return $slug;
+    }
+
+    /** @depends testDirectLinksUsesLimitOfOwner */
+    public function testDoesNotContactsSuplaServerWhenUsingDirectLinkAndApiLimitReached(string $slug) {
+        $this->changeUserApiRateLimit('1/10');
+        $client = $this->createClient();
+        $client->request('GET', "/direct/1/$slug/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertEquals(1, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(0, $response->headers->get('X-RateLimit-Remaining'));
+        $client->enableProfiler();
+        $client->request('GET', "/direct/1/$slug/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(429, $response);
+        $this->assertEquals(1, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(0, $response->headers->get('X-RateLimit-Remaining'));
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertEmpty($commands);
+    }
+
+    private function changeUserApiRateLimit($rateLimit = '5/10') {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->user->setApiRateLimit($rateLimit ? new ApiRateLimitRule($rateLimit) : null);
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
     }
 }

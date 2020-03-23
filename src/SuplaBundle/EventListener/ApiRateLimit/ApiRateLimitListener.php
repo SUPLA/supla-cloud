@@ -17,9 +17,11 @@
 
 namespace SuplaBundle\EventListener\ApiRateLimit;
 
+use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\TimeProvider;
+use SuplaBundle\Repository\DirectLinkRepository;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -42,6 +44,8 @@ class ApiRateLimitListener {
     private $timeProvider;
     /** @var UserRepository */
     private $userRepository;
+    /** @var DirectLinkRepository */
+    private $directLinkRepository;
 
     /** @var ApiRateLimitStatus */
     private $currentUserRateLimit;
@@ -52,7 +56,8 @@ class ApiRateLimitListener {
         DefaultUserApiRateLimit $defaultUserApiRateLimit,
         ApiRateLimitStorage $storage,
         TimeProvider $timeProvider,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        DirectLinkRepository $directLinkRepository
     ) {
         $this->storage = $storage;
         $this->globalApiRateLimit = $globalApiRateLimit;
@@ -60,6 +65,7 @@ class ApiRateLimitListener {
         $this->enabled = $enabled;
         $this->timeProvider = $timeProvider;
         $this->userRepository = $userRepository;
+        $this->directLinkRepository = $directLinkRepository;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
@@ -70,7 +76,7 @@ class ApiRateLimitListener {
             $this->preventRequestDueToLimitExceeded($event, 'API cannot respond right now. Wait a while before subsequent request.');
             return;
         }
-        $userOrId = $this->getCurrentUserOrId();
+        $userOrId = $this->getCurrentUserOrId($event);
         if ($userOrId) {
             $this->currentUserRateLimit = $this->incAndCheckUserRate($userOrId);
             if ($this->currentUserRateLimit->isExceeded()) {
@@ -136,9 +142,26 @@ class ApiRateLimitListener {
         return $rateLimitStatus;
     }
 
-    private function getCurrentUserOrId() {
+    private function getCurrentUserOrId(KernelEvent $event) {
         if ($user = $this->getCurrentUser()) {
             return $user;
+        } elseif (substr($event->getRequest()->getRequestUri(), 0, 8) === "/direct/") {
+            preg_match('#^/direct/(\d+)/.+$#', $event->getRequest()->getRequestUri(), $match);
+            if ($match) {
+                $directLinkId = intval($match[1]);
+                $directLinkOwnerId = $this->storage->getItem($this->storage->getDirectLinkOwnerIdKey($directLinkId));
+                if ($directLinkOwnerId->isHit()) {
+                    return $directLinkOwnerId->get();
+                } else {
+                    /** @var DirectLink $directLink */
+                    $directLink = $this->directLinkRepository->find($directLinkId);
+                    $directLinkOwner = $directLink->getUser();
+                    $directLinkOwnerId->set($directLinkOwner->getId());
+                    $directLinkOwnerId->expiresAfter(31536000); // one year
+                    $this->storage->save($directLinkOwnerId);
+                    return $directLinkOwner;
+                }
+            }
         }
     }
 
