@@ -31,4 +31,11 @@ class ApiRateLimitRule {
     public function __toString() {
         return $this->toString();
     }
+
+    public function toArray() {
+        return [
+            'limit' => $this->limit,
+            'period' => $this->period,
+        ];
+    }
 }

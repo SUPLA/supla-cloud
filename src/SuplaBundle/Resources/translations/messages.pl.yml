@@ -603,10 +603,22 @@ execute: wykonaj
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 A-Z: ~
-ID: ~
-Inactive: ~
-Invalid function for channel.: ~
-password: ~
-username: ~
+API rate limits: Limit żądań do API
+Channels in channel group: Kanały w grupach kanałów
+Current limit: Bieżący limit
+ID: ID
+Inactive: Nieaktywny
+Invalid function for channel.: Niepoprawna funkcja dla kanału
+No current API usages: Brak bieżących żądań API
+OAuth apps: Aplikacje OAuth
+Requests limit: Limit żądań
+Show my limits: Pokaż moje limity
+Your account limits: Twoje limity
+password: hasło
+per_24h_unit: dobę
+per_hour_unit: godzinę
+per_minute_unit: minutę
+username: nazwa użytkownika
+Remaining: Pozostało
 
 #</editor-fold>

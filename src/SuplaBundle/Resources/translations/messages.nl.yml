@@ -592,21 +592,32 @@ execute: voer uit
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 A-Z: ~
+API rate limits: ~
+Channels in channel group: ~
 Choose Access Identifier: ~
 Could not contact Autodiscover service. Try again in a while.: ~
+Current limit: ~
 ID: ~
 Inactive: ~
 Invalid function for channel.: ~
 Maintenance mode active. You cannot modify any data now.: ~
+No current API usages: ~
+OAuth apps: ~
 Open partially: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~
+Requests limit: ~
 SUPLA Cloud is under maintenance.: ~
+Show my limits: ~
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
 Valve: ~
 Valve closed manually: ~
 We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
+Your account limits: ~
 password: ~
+per_24h_unit: ~
+per_hour_unit: ~
+per_minute_unit: ~
 username: ~
 
 #</editor-fold>

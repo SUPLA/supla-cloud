@@ -36,20 +36,26 @@
                             <div class="col-sm-6">
                                 <a class="btn btn-default"
                                     @click="changingPassword = true">{{ $t('Change Password') }}</a>
+                                <a class="btn btn-default"
+                                    @click="showingLimits = true">{{ $t('Show my limits') }}</a>
                             </div>
+
                             <div class="col-sm-6 text-right">
                                 <a class="btn btn-red-outline btn-xs"
                                     @click="deletingAccount = true">{{ $t('Delete my account') }}</a>
                             </div>
                         </div>
-                        <account-password-change-modal v-if="changingPassword"
-                            @cancel="changingPassword = false"
-                            :user="user"></account-password-change-modal>
-                        <account-delete-modal v-if="deletingAccount"
-                            @cancel="deletingAccount = false"
-                            :user="user"></account-delete-modal>
                     </div>
                 </transition>
+                <account-password-change-modal v-if="changingPassword"
+                    @cancel="changingPassword = false"
+                    :user="user"></account-password-change-modal>
+                <account-limits-modal v-if="showingLimits"
+                    @confirm="showingLimits = false"
+                    :user="user"></account-limits-modal>
+                <account-delete-modal v-if="deletingAccount"
+                    @cancel="deletingAccount = false"
+                    :user="user"></account-delete-modal>
             </loading-cover>
         </div>
     </div>
@@ -60,9 +66,11 @@
     import TimezonePicker from "./timezone-picker";
     import AccountPasswordChangeModal from "./account-password-change-modal";
     import AccountDeleteModal from "./account-delete-modal";
+    import AccountLimitsModal from "./account-limits-modal";
 
     export default {
         components: {
+            AccountLimitsModal,
             AccountPasswordChangeModal,
             AccountDeleteModal,
             TimezonePicker,
@@ -75,6 +83,7 @@
                 animationFinished: false,
                 changingPassword: false,
                 deletingAccount: false,
+                showingLimits: false,
                 version: VERSION, // eslint-disable-line no-undef
             };
         },

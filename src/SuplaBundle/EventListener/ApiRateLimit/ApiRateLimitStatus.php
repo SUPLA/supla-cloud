@@ -44,6 +44,14 @@ class ApiRateLimitStatus {
         return $this->toString();
     }
 
+    public function toArray(): array {
+        return [
+            'limit' => $this->getLimit(),
+            'remaining' => $this->getRemaining(),
+            'reset' => $this->getReset(),
+        ];
+    }
+
     public static function fromRule(ApiRateLimitRule $rule, TimeProvider $timeProvider): self {
         $limit = $rule->getLimit();
         $remaining = $rule->getLimit();
