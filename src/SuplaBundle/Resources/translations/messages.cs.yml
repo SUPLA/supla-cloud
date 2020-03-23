@@ -596,7 +596,6 @@ API rate limits: ~
 Channels in channel group: ~
 Choose Access Identifier: ~
 Could not contact Autodiscover service. Try again in a while.: ~
-Current limit: ~
 ID: ~
 Inactive: ~
 Invalid function for channel.: ~
@@ -605,6 +604,7 @@ No current API usages: ~
 OAuth apps: ~
 Open partially: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~
+Remaining: ~
 Requests limit: ~
 SUPLA Cloud is under maintenance.: ~
 SUPLA Server was unable to execute the action.: ~
@@ -615,9 +615,11 @@ We should be ready shortly.: ~
 You can use the application but you will not be able to modify any settings.: ~
 Your account limits: ~
 password: ~
-per_24h_unit: ~
-per_hour_unit: ~
-per_minute_unit: ~
 username: ~
+'{remainingRequests} to {date}': ~
+'{requests} per day': ~
+'{requests} per hour': ~
+'{requests} per minute': ~
+'{requests} per {seconds} sec.': ~
 
 #</editor-fold>

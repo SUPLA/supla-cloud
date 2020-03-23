@@ -5,10 +5,12 @@
 '...open gateways, gates or doors': '...otworzyć furtkę, bramę lub drzwi'
 ...or control home appliances: ...lub sterować sprzętem AGD/RTV
 ...you can monitor temperature: ...możesz monitorować temperaturę
+A-Z: A-Z
 ACTIVE: AKTYWNA
 AM2301 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2301
 AM2302 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2302
 API documentation: Dokumentacja API
+API rate limits: Limit żądań do API
 Access ID: ID dostępu
 Access Identifier: Identyfikator Dostępu
 Access Identifiers: Identyfikatory dostępu
@@ -86,6 +88,7 @@ Channel groups: Grupy kanałów
 Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels: Kanały
+Channels in channel group: Kanały w grupach kanałów
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
 Check your email box: Sprawdź swoją skrzynkę email
 Choose: Wybierz
@@ -233,6 +236,7 @@ I agree: Zgadzam się
 I confirm! Delete my account.: Potwierdzam! Usuń moje konto.
 'I do not agree, get me out of here': 'Nie zgadzam się, zabierz mnie stąd'
 I/O Devices: Urządzenia we/wy
+ID: ID
 INACTIVE: NIEAKTYWNA
 Idle: Bezczynne
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.'
@@ -243,6 +247,7 @@ Idle: Bezczynne
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
 'In order to confirm account deletion, enter your password.': W celu potwierdzenia chęci usunięcia Twojego konta podaj swoje hasło.
+Inactive: Nieaktywny
 Incorrect password: Nieprawidłowe hasło
 Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
@@ -250,6 +255,7 @@ Initial value: Wartość początkowa
 Integrations: Integracje
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
+Invalid function for channel.: Niepoprawna funkcja dla kanału
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
 Inverted logic: Odwrócona logika
@@ -291,6 +297,7 @@ New password: Nowe hasło
 Newer: Nowsze
 Next run date: Najbliższe wykonanie
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nie masz żadnych aktywnych identyfikatorów dostępu. Przejdź do [listy identyfikatorów dostępu] lub [dodaj nowy identyfikator dostępu].'
+No current API usages: Brak bieżących żądań API
 No function: Brak funkcji
 No future executions - schedule disabled: Brak zaplanowanych wykonań - harmonogram wyłączony
 No limit: Bez limitu
@@ -305,6 +312,7 @@ No. of devices: Liczba urządzeń
 No. of locations: Liczba lokalizacji
 None: Brak
 OAuth application: Aplikacja OAuth
+OAuth apps: Aplikacje OAuth
 OAuth authorization: Autoryzacja OAuth
 'Off': Wyłącz
 Offline access: Dostęp offline
@@ -358,9 +366,11 @@ Relay: Przekaźnik
 Relay switching time: Czas załączenia przekaźnika
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}.'
+Remaining: Pozostało
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}.'
 Repeat password: Powtórz hasło
+Requests limit: Limit żądań
 Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
@@ -398,6 +408,7 @@ Sensors: Czujniki
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
+Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
 Sign In: Zaloguj się
@@ -504,6 +515,7 @@ You will not be able to generate a direct link with the same URL again.: Utworze
 Your account has been deleted. We hope you will come back to us soon.: 'Konto zostało usunięte. Mamy nadzieję, że wkrótce do nas wrócisz.'
 Your account has been locked.: Twoje konto zostało zablokowane.
 Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
+Your account limits: Twoje limity
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
@@ -542,6 +554,7 @@ hourly: Cykl godzinny
 minutely: Cykl minutowy
 minutes: minut
 once: Jednorazowy
+password: hasło
 register-slide1-text: 'W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.'
 register-slide1-title: Własny Inteligentny Budynek
 register-slide2-text: 'Jednymi z podstawowych założeń projektu są prostota i dostępność. SUPLA pozwala jednym przesunięciem palca włączyć światło czy też otworzyć bramę wjazdową w momencie, gdy chcemy wjechać na posesję. SUPLA dostępna jest wszędzie tam, gdzie posiadasz dostęp do sieci Internet i masz pod ręką smartfon lub tablet. SUPLA jest rozwijana na zasadach Otwartego Oprogramowania oraz Otwartego Sprzętu dzięki temu Ty również możesz rozwijać ten projekt!'
@@ -570,9 +583,11 @@ sunrise-after: wschodzie
 sunrise-before: wschodem
 sunset-after: zachodzie
 sunset-before: zachodem
+username: nazwa użytkownika
 will expire: wygaśnie
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
+'{remainingRequests} to {date}': '{remainingRequests} do {date}'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -602,23 +617,9 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: ~
-API rate limits: Limit żądań do API
-Channels in channel group: Kanały w grupach kanałów
-Current limit: Bieżący limit
-ID: ID
-Inactive: Nieaktywny
-Invalid function for channel.: Niepoprawna funkcja dla kanału
-No current API usages: Brak bieżących żądań API
-OAuth apps: Aplikacje OAuth
-Requests limit: Limit żądań
-Show my limits: Pokaż moje limity
-Your account limits: Twoje limity
-password: hasło
-per_24h_unit: dobę
-per_hour_unit: godzinę
-per_minute_unit: minutę
-username: nazwa użytkownika
-Remaining: Pozostało
+'{requests} per day': '{requests} na dzień'
+'{requests} per hour': '{requests} na godzinę'
+'{requests} per minute': '{requests} na minutę'
+'{requests} per {seconds} sec.': '{requests} na {seconds} sek.'
 
 #</editor-fold>

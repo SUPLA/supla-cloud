@@ -28,9 +28,6 @@ directLinkExecutionFailureReason_noSlugOrAction: Invalid request data - code and
 directLinkExecutionFailureReason_notActiveYet: Direct link is not active yet.
 directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
-per_24h_unit: day
-per_hour_unit: hour
-per_minute_unit: unit
 register-slide1-text: 'Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.'
 register-slide1-title: Develop your own building automation
 register-slide2-text: 'One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!'
@@ -59,6 +56,11 @@ sunset-after: the sunset
 sunset-before: the sunset
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} will not be able to interact with your account until you grant the access again.'
 '{clientName} wants to access your account.': '{clientName} wants to access your account.'
+'{remainingRequests} to {date}': '{remainingRequests} to {date}'
+'{requests} per day': '{requests} per day'
+'{requests} per hour': '{requests} per hour'
+'{requests} per minute': '{requests} per minute'
+'{requests} per {seconds} sec.': '{requests} per {seconds} sec.'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
