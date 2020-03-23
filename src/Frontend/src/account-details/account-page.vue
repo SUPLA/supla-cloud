@@ -33,14 +33,14 @@
                             </dd>
                         </dl>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <a class="btn btn-default"
                                     @click="changingPassword = true">{{ $t('Change Password') }}</a>
                                 <a class="btn btn-default"
                                     @click="showingLimits = true">{{ $t('Show my limits') }}</a>
                             </div>
 
-                            <div class="col-sm-6 text-right">
+                            <div class="col-sm-4 text-right">
                                 <a class="btn btn-red-outline btn-xs"
                                     @click="deletingAccount = true">{{ $t('Delete my account') }}</a>
                             </div>
