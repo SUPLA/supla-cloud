@@ -41,6 +41,7 @@ class UserSerializer extends AbstractSerializer {
         TimeProvider $timeProvider,
         UserRepository $userRepository
     ) {
+        parent::__construct();
         $this->apiRateLimitStorage = $apiRateLimitStorage;
         $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
         $this->timeProvider = $timeProvider;

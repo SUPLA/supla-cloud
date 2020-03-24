@@ -1,6 +1,7 @@
 <?php
 namespace SuplaBundle\Repository;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
@@ -13,6 +14,10 @@ abstract class EntityWithRelationsRepository extends EntityRepository {
     protected $alias;
 
     public function find($id, $lockMode = null, $lockVersion = null) {
+        if (is_array($id)) {
+            $id = $id['id'] ?? null;
+            Assertion::notNull($id, 'Invalid ID given.');
+        }
         $query = $this->getEntityWithRelationsCountQuery()
             ->where($this->alias . '.id = :id')
             ->setParameter('id', $id)
