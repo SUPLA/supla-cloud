@@ -20,7 +20,9 @@ namespace SuplaBundle\Tests\Integration\EventListener;
 use enform\models\Company;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
+use SuplaBundle\Entity\ApiRateLimitExcess;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -141,6 +143,31 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
         $this->assertEquals($now + 10, $response->headers->get('X-RateLimit-Reset'));
+    }
+
+    public function testSavingRateLimitExcess() {
+        $this->changeUserApiRateLimit();
+        $client = $this->getClientWithPersonalToken();
+        $now = time();
+        TestTimeProvider::setTime($now - 11);
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(429, $response);
+        TestTimeProvider::setTime($now);
+        $this->assertNull($this->getEntityManager()->find(ApiRateLimitExcess::class, 1));
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $excess = $this->getEntityManager()->find(ApiRateLimitExcess::class, 1);
+        $this->assertNotNull($excess);
+        $this->assertEquals('user_1', EntityUtils::getField($excess, 'ruleName'));
+        $this->assertEquals(2, EntityUtils::getField($excess, 'excess'));
     }
 
     public function testLimitsOfOneUserDoesNotInfluenceOtherUser() {

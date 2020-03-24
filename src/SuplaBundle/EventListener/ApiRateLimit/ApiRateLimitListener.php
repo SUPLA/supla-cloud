@@ -17,14 +17,14 @@
 
 namespace SuplaBundle\EventListener\ApiRateLimit;
 
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Auth\Token\WebappToken;
+use SuplaBundle\Entity\ApiRateLimitExcess;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\TimeProvider;
-use SuplaBundle\Repository\DirectLinkRepository;
-use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -46,10 +46,8 @@ class ApiRateLimitListener {
     private $defaultUserApiRateLimit;
     /** @var TimeProvider */
     private $timeProvider;
-    /** @var UserRepository */
-    private $userRepository;
-    /** @var DirectLinkRepository */
-    private $directLinkRepository;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
     /** @var ApiRateLimitStatus */
     private $currentUserRateLimit;
@@ -60,16 +58,14 @@ class ApiRateLimitListener {
         DefaultUserApiRateLimit $defaultUserApiRateLimit,
         ApiRateLimitStorage $storage,
         TimeProvider $timeProvider,
-        UserRepository $userRepository,
-        DirectLinkRepository $directLinkRepository
+        EntityManagerInterface $entityManager
     ) {
         $this->storage = $storage;
         $this->globalApiRateLimit = $globalApiRateLimit;
         $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
         $this->enabled = $enabled;
         $this->timeProvider = $timeProvider;
-        $this->userRepository = $userRepository;
-        $this->directLinkRepository = $directLinkRepository;
+        $this->entityManager = $entityManager;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
@@ -138,21 +134,31 @@ class ApiRateLimitListener {
 
     private function incAndCheckUserRate($userOrId): ApiRateLimitStatus {
         return $this->incAndCheck($this->storage->getUserKey($userOrId), function () use ($userOrId) {
-            $user = $userOrId instanceof User ? $userOrId : $this->userRepository->find($userOrId);
+            $user = $userOrId instanceof User ? $userOrId : $this->entityManager->find(User::class, $userOrId);
             return $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
         });
     }
 
     private function incAndCheck(string $key, callable $ruleProducer): ApiRateLimitStatus {
         $item = $this->storage->getItem($key);
+        $rateLimitStatus = null;
         if ($item->isHit()) {
             $rateLimitStatus = new ApiRateLimitStatus($item->get());
-        } else {
+            if ($rateLimitStatus->isExpired($this->timeProvider)) {
+                if ($rateLimitStatus->isExceeded()) {
+                    $excess = new ApiRateLimitExcess($key, $rateLimitStatus);
+                    $this->entityManager->persist($excess);
+                    $this->entityManager->flush();
+                }
+                $rateLimitStatus = null;
+            }
+        }
+        if (!$rateLimitStatus) {
             $rateLimitStatus = ApiRateLimitStatus::fromRule($ruleProducer(), $this->timeProvider);
         }
         $rateLimitStatus->decrement();
-        $item->expiresAt(new \DateTime('@' . $rateLimitStatus->getReset()));
         $item->set($rateLimitStatus->toString());
+        $item->expiresAfter(1209600); // if not checked in 14 days, expire
         $this->storage->save($item);
         return $rateLimitStatus;
     }
@@ -169,7 +175,7 @@ class ApiRateLimitListener {
                     return $directLinkOwnerId->get();
                 } else {
                     /** @var DirectLink $directLink */
-                    $directLink = $this->directLinkRepository->find($directLinkId);
+                    $directLink = $this->entityManager->find(DirectLink::class, $directLinkId);
                     $directLinkOwner = $directLink->getUser();
                     $directLinkOwnerId->set($directLinkOwner->getId());
                     $directLinkOwnerId->expiresAfter(31536000); // one year

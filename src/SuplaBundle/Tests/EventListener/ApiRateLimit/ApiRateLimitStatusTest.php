@@ -39,6 +39,18 @@ class ApiRateLimitStatusTest extends \PHPUnit_Framework_TestCase {
     }
 
     /** @depends testFromApiRateLimitRule */
+    public function testIsExpired(ApiRateLimitStatus $status) {
+        $testTimeProvider = new TestTimeProvider();
+        $this->assertFalse($status->isExpired($testTimeProvider));
+        TestTimeProvider::setTime(3600);
+        $this->assertFalse($status->isExpired($testTimeProvider));
+        TestTimeProvider::setTime(3700);
+        $this->assertFalse($status->isExpired($testTimeProvider));
+        TestTimeProvider::setTime(3701);
+        $this->assertTrue($status->isExpired($testTimeProvider));
+    }
+
+    /** @depends testFromApiRateLimitRule */
     public function testDecrement(ApiRateLimitStatus $status) {
         $status->decrement();
         $this->assertEquals(99, $status->getRemaining());
@@ -70,5 +82,23 @@ class ApiRateLimitStatusTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(99, (new ApiRateLimitStatus('100,99,10'))->getRemaining());
         $this->assertEquals(0, (new ApiRateLimitStatus('100,0,10'))->getRemaining());
         $this->assertEquals(0, (new ApiRateLimitStatus('100,-100,10'))->getRemaining());
+    }
+
+    public function testDecrementingAndExcess() {
+        $status = new ApiRateLimitStatus('100,3,10');
+        $this->assertEquals(0, $status->getExcess());
+        $this->assertEquals(3, $status->getRemaining());
+        $this->assertFalse($status->isExceeded());
+        $status->decrement();
+        $status->decrement();
+        $status->decrement();
+        $this->assertEquals(0, $status->getExcess());
+        $this->assertEquals(0, $status->getRemaining());
+        $this->assertFalse($status->isExceeded());
+        $status->decrement();
+        $status->decrement();
+        $this->assertEquals(2, $status->getExcess());
+        $this->assertEquals(0, $status->getRemaining());
+        $this->assertTrue($status->isExceeded());
     }
 }

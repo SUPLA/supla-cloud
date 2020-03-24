@@ -36,6 +36,14 @@ class ApiRateLimitStatus {
         return $this->remaining < 0;
     }
 
+    public function getExcess(): int {
+        return $this->isExceeded() ? abs($this->remaining) : 0;
+    }
+
+    public function isExpired(TimeProvider $timeProvider): bool {
+        return $timeProvider->getTimestamp() > $this->reset;
+    }
+
     public function toString() {
         return "$this->limit,$this->remaining,$this->reset";
     }
