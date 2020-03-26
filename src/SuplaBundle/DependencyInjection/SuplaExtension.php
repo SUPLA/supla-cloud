@@ -68,6 +68,7 @@ class SuplaExtension extends ConfigurableExtension {
         $container->setParameter('supla.oauth.tokens_lifetime', $this->buildOauthTokensConfig($mergedConfig['oauth']['tokens_lifetime']));
         $container->setParameter('supla.available_languages', $this->detectAvailableLanguages());
         $container->setParameter('supla.api_rate_limit.enabled', $mergedConfig['api_rate_limit']['enabled']);
+        $container->setParameter('supla.api_rate_limit.blocking', $mergedConfig['api_rate_limit']['blocking']);
         $container->setParameter('supla.api_rate_limit.global_limit', $mergedConfig['api_rate_limit']['global_limit']);
         $container->setParameter('supla.api_rate_limit.user_default_limit', $mergedConfig['api_rate_limit']['user_default_limit']);
     }

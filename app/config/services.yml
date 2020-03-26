@@ -148,6 +148,7 @@ services:
   SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitListener:
     arguments:
       $enabled: '%supla.api_rate_limit.enabled%'
+      $blocking: '%supla.api_rate_limit.blocking%'
       $logger: '@monolog.logger.supla_api_rate_limit'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

@@ -40,6 +40,8 @@ class ApiRateLimitListener {
     private $storage;
     /** @var bool */
     private $enabled;
+    /** @var bool */
+    private $blocking;
     /** @var GlobalApiRateLimit */
     private $globalApiRateLimit;
     /** @var DefaultUserApiRateLimit */
@@ -56,6 +58,7 @@ class ApiRateLimitListener {
 
     public function __construct(
         bool $enabled,
+        bool $blocking,
         GlobalApiRateLimit $globalApiRateLimit,
         DefaultUserApiRateLimit $defaultUserApiRateLimit,
         ApiRateLimitStorage $storage,
@@ -64,6 +67,7 @@ class ApiRateLimitListener {
         LoggerInterface $logger
     ) {
         $this->storage = $storage;
+        $this->blocking = $blocking;
         $this->globalApiRateLimit = $globalApiRateLimit;
         $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
         $this->enabled = $enabled;
@@ -94,6 +98,9 @@ class ApiRateLimitListener {
     }
 
     private function preventRequestDueToLimitExceeded(GetResponseEvent $event, string $message) {
+        if (!$this->blocking) {
+            return;
+        }
         $request = $event->getRequest();
         $isApiRequest = preg_match('#/api/#', $request->getRequestUri());
         if ($isApiRequest || in_array('application/json', $request->getAcceptableContentTypes())) {

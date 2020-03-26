@@ -61,6 +61,7 @@ supla:
     enabled: true
   api_rate_limit:
     enabled: true
+    blocking: true
     global_limit: 10000/5
 
 swiftmailer:

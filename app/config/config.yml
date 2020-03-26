@@ -149,6 +149,7 @@ supla:
   autodiscover_url: https://autodiscover.supla.org
   api_rate_limit:
     enabled: true
+    blocking: false
     user_default_limit: 1000/3600
     global_limit: 320/60
   brute_force_auth_prevention:

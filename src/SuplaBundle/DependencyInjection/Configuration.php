@@ -71,6 +71,7 @@ class Configuration implements ConfigurationInterface {
             $rootNode->children()
                 ->arrayNode('api_rate_limit')->children()
                     ->booleanNode('enabled')->defaultTrue()->end()
+                    ->booleanNode('blocking')->defaultFalse()->end()
                     ->scalarNode('user_default_limit')->defaultValue('1000/3600')->validate()
                         ->ifTrue(function($v) { return !(new ApiRateLimitRule($v))->isValid(); })->thenInvalid('Rate limit format: requests/seconds')
                     ->end()->end()
