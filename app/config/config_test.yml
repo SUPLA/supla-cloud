@@ -26,6 +26,9 @@ monolog:
     supla_server:
       level: debug
       max_files: 1
+    test_handler:
+      type: test
+      level: debug
 
 services:
   SuplaBundle\Tests\Integration\TestMailer: ~

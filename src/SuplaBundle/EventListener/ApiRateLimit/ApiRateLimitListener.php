@@ -18,9 +18,9 @@
 namespace SuplaBundle\EventListener\ApiRateLimit;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Auth\Token\WebappToken;
-use SuplaBundle\Entity\ApiRateLimitExcess;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\CurrentUserAware;
@@ -51,6 +51,8 @@ class ApiRateLimitListener {
 
     /** @var ApiRateLimitStatus */
     private $currentUserRateLimit;
+    /** @var LoggerInterface */
+    private $logger;
 
     public function __construct(
         bool $enabled,
@@ -58,7 +60,8 @@ class ApiRateLimitListener {
         DefaultUserApiRateLimit $defaultUserApiRateLimit,
         ApiRateLimitStorage $storage,
         TimeProvider $timeProvider,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
     ) {
         $this->storage = $storage;
         $this->globalApiRateLimit = $globalApiRateLimit;
@@ -66,6 +69,7 @@ class ApiRateLimitListener {
         $this->enabled = $enabled;
         $this->timeProvider = $timeProvider;
         $this->entityManager = $entityManager;
+        $this->logger = $logger;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
@@ -146,9 +150,8 @@ class ApiRateLimitListener {
             $rateLimitStatus = new ApiRateLimitStatus($item->get());
             if ($rateLimitStatus->isExpired($this->timeProvider)) {
                 if ($rateLimitStatus->isExceeded()) {
-                    $excess = new ApiRateLimitExcess($key, $rateLimitStatus);
-                    $this->entityManager->persist($excess);
-                    $this->entityManager->flush();
+                    $data = array_merge($rateLimitStatus->toArray(), ['excess' => $rateLimitStatus->getExcess(), 'key' => $key]);
+                    $this->logger->warning('Renewing exceeded API rate limit: ' . $key, $data);
                 }
                 $rateLimitStatus = null;
             }
