@@ -13,6 +13,7 @@
     "webpack-stats": "cross-env NODE_ENV=production webpack --json > stats.json"
   },
   "dependencies": {
+    "apexcharts": "^3.17.0",
     "autosize": "^4.0.2",
     "babel-runtime": "6.26.0",
     "bootstrap": "3.4.1",
@@ -33,6 +34,7 @@
     "v-media-query": "^1.0.3",
     "vivus": "0.4.4",
     "vue": "^2.6.10",
+    "vue-apexcharts": "^1.5.2",
     "vue-clipboard2": "^0.2.0",
     "vue-i18n": "^7.6.0",
     "vue-moment": "2.0.2",
