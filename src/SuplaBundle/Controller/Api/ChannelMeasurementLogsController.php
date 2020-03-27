@@ -55,57 +55,90 @@ class ChannelMeasurementLogsController extends RestController {
         $this->entityManager = $entityManager;
     }
 
-    private function getMeasureLogsCount(IODeviceChannel $channel) {
+    private function getMeasureLogsCount(IODeviceChannel $channel, $afterTimestamp = 0, $beforeTimestamp = 0) {
         $functionId = $channel->getFunction()->getId();
         Assertion::inArray(
             $functionId,
-            [ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
+            [
+                ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
                 ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
-                ChannelFunction::HEATMETER, ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
+                ChannelFunction::HEATMETER, ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+            ],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
 
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
-                $repoName = 'TempHumidityLogItem';
+                $table = 'supla_temphumidity_log';
                 break;
             case ChannelFunction::THERMOMETER:
-                $repoName = 'TemperatureLogItem';
+                $table = 'supla_temperature_log';
                 break;
             case ChannelFunction::ELECTRICITYMETER:
                 switch ($channel->getType()->getId()) {
                     case ChannelType::IMPULSECOUNTER:
-                        $repoName = 'ImpulseCounterLogItem';
+                        $table = 'supla_ic_log';
                         break;
                     case ChannelType::ELECTRICITYMETER:
-                        $repoName = 'ElectricityMeterLogItem';
+                        $table = 'supla_em_log';
                         break;
                 }
                 break;
             case ChannelFunction::GASMETER:
             case ChannelFunction::WATERMETER:
             case ChannelFunction::HEATMETER:
-                $repoName = 'ImpulseCounterLogItem';
+                $table = 'supla_ic_log';
                 break;
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
-                $repoName = 'ThermostatLogItem';
+                $table = 'supla_thermostat_log';
                 break;
         }
 
-        $rep = $this->entityManager->getRepository('SuplaBundle:' . $repoName);
-        $query = $rep->createQueryBuilder('f')
-            ->select('COUNT(f.id)')
-            ->where('f.channel_id = :id')
-            ->setParameter('id', $channel->getId())
-            ->getQuery();
-        return intval($query->getSingleScalarResult());
+        $sql = "SELECT COUNT(id) FROM `$table` WHERE channel_id = ? ";
+
+        if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
+            if ($afterTimestamp > 0) {
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  > ? ";
+            }
+            if ($beforeTimestamp > 0) {
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  < ? ";
+            }
+        }
+
+        $stmt = $this->entityManager->getConnection()->prepare($sql);
+        $stmt->bindValue(1, $channel->getId(), 'integer');
+
+        if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
+            $n = 2;
+            if ($afterTimestamp > 0) {
+                $stmt->bindValue($n, $afterTimestamp, 'integer');
+                $n++;
+            }
+            if ($beforeTimestamp > 0) {
+                $stmt->bindValue($n, $beforeTimestamp, 'integer');
+            }
+        }
+
+        $stmt->execute();
+        return intval($stmt->fetchColumn(0));
     }
 
-    private function logItems($table, $fields, $channelid, $offset, $limit, $afterTimestamp = 0, $beforeTimestamp = 0, $orderDesc = true) {
+    private function logItems(
+        $table,
+        $fields,
+        IODeviceChannel $channel,
+        $offset,
+        $limit,
+        $afterTimestamp = 0,
+        $beforeTimestamp = 0,
+        $orderDesc = true,
+        $sparse = null
+    ) {
         $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : '';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
+        $limitSql = '';
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
@@ -115,14 +148,29 @@ class ChannelMeasurementLogsController extends RestController {
             if ($beforeTimestamp > 0) {
                 $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  < ? ";
             }
-
-            $sql .= "$order LIMIT ?";
-        } else {
-            $sql .= "$order LIMIT ? OFFSET ?";
+            if (!$sparse) {
+                $limitSql = "LIMIT ?";
+            }
+        } elseif (!$sparse) {
+            $limitSql = "LIMIT ? OFFSET ?";
         }
 
+        if ($sparse > 0) {
+            $this->entityManager->getConnection()->exec('SET @nth_log_item_row := 0');
+            $totalCount = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
+            if ($totalCount > $sparse) {
+                $nth = floor($totalCount / $sparse);
+                $nthTarget = $totalCount % $nth;
+                $sql .= "AND (@nth_log_item_row := @nth_log_item_row + 1) % $nth = $nthTarget";
+            } else {
+                $sparse = null;
+            }
+        }
+
+        $sql .= "$order $limitSql";
+
         $stmt = $this->entityManager->getConnection()->prepare($sql);
-        $stmt->bindValue(1, $channelid, 'integer');
+        $stmt->bindValue(1, $channel->getId(), 'integer');
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             $n = 2;
@@ -134,8 +182,10 @@ class ChannelMeasurementLogsController extends RestController {
                 $stmt->bindValue($n, $beforeTimestamp, 'integer');
                 $n++;
             }
-            $stmt->bindValue($n, $limit, 'integer');
-        } else {
+            if (!$sparse) {
+                $stmt->bindValue($n, $limit, 'integer');
+            }
+        } elseif (!$sparse) {
             $stmt->bindValue(2, $limit, 'integer');
             $stmt->bindValue(3, $offset, 'integer');
         }
@@ -161,7 +211,8 @@ class ChannelMeasurementLogsController extends RestController {
         $afterTimestamp = 0,
         $beforeTimestamp = 0,
         $orderDesc = true,
-        $allowedFuncList = null
+        $allowedFuncList = null,
+        $sparse = null
     ) {
 
         $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
@@ -177,12 +228,13 @@ class ChannelMeasurementLogsController extends RestController {
             return $this->logItems(
                 "`supla_ic_log`",
                 "`counter`, `calculated_value` / 1000 calculated_value",
-                $channel->getId(),
+                $channel,
                 $offset,
                 $limit,
                 $afterTimestamp,
                 $beforeTimestamp,
-                $orderDesc
+                $orderDesc,
+                $sparse
             );
         }
 
@@ -191,24 +243,26 @@ class ChannelMeasurementLogsController extends RestController {
                 $result = $this->logItems(
                     "`supla_temphumidity_log`",
                     "`temperature`, `humidity`",
-                    $channel->getId(),
+                    $channel,
                     $offset,
                     $limit,
                     $afterTimestamp,
                     $beforeTimestamp,
-                    $orderDesc
+                    $orderDesc,
+                    $sparse
                 );
                 break;
             case ChannelFunction::THERMOMETER:
                 $result = $this->logItems(
                     "`supla_temperature_log`",
                     "`temperature`",
-                    $channel->getId(),
+                    $channel,
                     $offset,
                     $limit,
                     $afterTimestamp,
                     $beforeTimestamp,
-                    $orderDesc
+                    $orderDesc,
+                    $sparse
                 );
                 break;
             case ChannelFunction::ELECTRICITYMETER:
@@ -217,12 +271,13 @@ class ChannelMeasurementLogsController extends RestController {
                     "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
                     . "`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
                     . "`phase3_rae`, `phase3_fre`, `phase3_rre`",
-                    $channel->getId(),
+                    $channel,
                     $offset,
                     $limit,
                     $afterTimestamp,
                     $beforeTimestamp,
-                    $orderDesc
+                    $orderDesc,
+                    $sparse
                 );
                 break;
             case ChannelFunction::THERMOSTAT:
@@ -230,12 +285,13 @@ class ChannelMeasurementLogsController extends RestController {
                 $result = $this->logItems(
                     "`supla_thermostat_log`",
                     "`on`,`measured_temperature`,`preset_temperature`",
-                    $channel->getId(),
+                    $channel,
                     $offset,
                     $limit,
                     $afterTimestamp,
                     $beforeTimestamp,
-                    $orderDesc
+                    $orderDesc,
+                    $sparse
                 );
                 break;
         }
@@ -325,11 +381,13 @@ class ChannelMeasurementLogsController extends RestController {
         }
         $logs = $this->getMeasurementLogItemsAction(
             $channel,
-            @$request->query->get('offset'),
-            @$request->query->get('limit'),
-            @$request->query->get('afterTimestamp'),
-            @$request->query->get('beforeTimestamp'),
-            @$request->query->get('order') !== 'ASC'
+            $request->query->get('offset'),
+            $request->query->get('limit'),
+            $request->query->get('afterTimestamp'),
+            $request->query->get('beforeTimestamp'),
+            $request->query->get('order') !== 'ASC',
+            null,
+            $request->query->get('sparse')
         );
         $view = $this->view($logs, Response::HTTP_OK);
         $view->setHeader('X-Total-Count', $this->getMeasureLogsCount($channel));
