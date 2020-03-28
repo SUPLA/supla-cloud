@@ -535,6 +535,22 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertEquals(60, floor(($firstDateTime - $lastDateTime) / 86400), '', 1);
     }
 
+    public function testGettingSparseLogsFromChannelWithManyLogsOrderedAsc() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?sparse=500&order=ASC");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $logItems = json_decode($response->getContent(), true);
+        $this->assertEquals(500, count($logItems), '', 50);
+        $firstDateTime = current($logItems)['date_timestamp'];
+        $lastDateTime = end($logItems)['date_timestamp'];
+        $this->assertGreaterThan(time(), $lastDateTime + 1200);
+        $this->assertLessThan(time(), $firstDateTime);
+        $this->assertLessThan(strtotime('-40 days'), $firstDateTime);
+        $this->assertEquals(60, floor(($lastDateTime - $firstDateTime) / 86400), '', 1);
+    }
+
     public function testGettingSparseLogsBeetweenTimestamps() {
         $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
         $client = $this->createAuthenticatedClient($this->user);
@@ -552,5 +568,26 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertLessThan($beforeTimestamp, $lastDateTime);
         $this->assertGreaterThan($afterTimestamp, $lastDateTime);
         $this->assertEquals(7, floor(($firstDateTime - $lastDateTime) / 86400), '', 1);
+    }
+
+    public function testGettingSparseLogsBeetweenTimestampsOrderedAsc() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $afterTimestamp = strtotime('-10 days');
+        $beforeTimestamp = strtotime('-3 days');
+        $params = http_build_query(
+            ['sparse' => 100, 'afterTimestamp' => $afterTimestamp, 'beforeTimestamp' => $beforeTimestamp, 'order' => 'ASC']
+        );
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?$params");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $logItems = json_decode($response->getContent(), true);
+        $this->assertEquals(100, count($logItems), '', 15);
+        $firstDateTime = current($logItems)['date_timestamp'];
+        $lastDateTime = end($logItems)['date_timestamp'];
+        $this->assertGreaterThan($beforeTimestamp, $lastDateTime + 1200);
+        $this->assertLessThan($beforeTimestamp, $firstDateTime);
+        $this->assertGreaterThan($afterTimestamp, $firstDateTime);
+        $this->assertEquals(7, floor(($lastDateTime - $firstDateTime) / 86400), '', 1);
     }
 }

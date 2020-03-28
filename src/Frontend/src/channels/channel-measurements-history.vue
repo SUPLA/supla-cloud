@@ -12,16 +12,19 @@
                 </button>
             </div>
         </div>
-        <apexchart width="100%"
-            height="230"
-            type="line"
-            :options="chartOptions"
-            :series="series"></apexchart>
-        <apexchart width="100%"
-            height="130"
-            type="area"
-            :options="chartOptions2"
-            :series="series"></apexchart>
+        <div v-if="series">
+            <apexchart width="100%"
+                height="330"
+                type="line"
+                :options="chartOptions"
+                ref="bigChart"
+                :series="series"></apexchart>
+            <apexchart width="100%"
+                height="130"
+                type="area"
+                :options="chartOptions2"
+                :series="series"></apexchart>
+        </div>
         <modal-confirm v-if="deleteConfirm"
             class="modal-warning"
             @confirm="deleteMeasurements()"
@@ -35,6 +38,7 @@
     import Vue from "vue";
     import VueApexCharts from 'vue-apexcharts';
     import {successNotification} from "../common/notifier";
+    import {debounce} from "lodash";
 
     Vue.use(VueApexCharts);
 
@@ -43,19 +47,17 @@
         props: ['channel'],
         data: function () {
 
-            var data = [[1484505000000, 150000000], [1484591400000, 160379978], [1484677800000, 170493749], [1484764200000, 160785250], [1484850600000, 167391904], [1484937000000, 161576838], [1485023400000, 161413854], [1485109800000, 152177211], [1485196200000, 140762210], [1485282600000, 144381072], [1485369000000, 154352310], [1485455400000, 165531790], [1485541800000, 175748881], [1485628200000, 187064037], [1485714600000, 197520685], [1485801000000, 210176418], [1485887400000, 196122924], [1485973800000, 207337480], [1486060200000, 200258882], [1486146600000, 186829538], [1486233000000, 192456897], [1486319400000, 204299711], [1486405800000, 192759017], [1486492200000, 203596183], [1486578600000, 208107346], [1486665000000, 196359852], [1486751400000, 192570783], [1486837800000, 177967768], [1486924200000, 190632803], [1487010600000, 203725316], [1487097000000, 218226177], [1487183400000, 210698669], [1487269800000, 217640656], [1487356200000, 216142362], [1487442600000, 201410971], [1487529000000, 196704289], [1487615400000, 190436945], [1487701800000, 178891686], [1487788200000, 171613962], [1487874600000, 157579773], [1487961000000, 158677098], [1488047400000, 147129977], [1488133800000, 151561876], [1488220200000, 151627421], [1488306600000, 143543872], [1488393000000, 136581057], [1488479400000, 135560715], [1488565800000, 122625263], [1488652200000, 112091484], [1488738600000, 98810329], [1488825000000, 99882912], [1488911400000, 94943095], [1488997800000, 104875743], [1489084200000, 116383678], [1489170600000, 125028841], [1489257000000, 123967310], [1489343400000, 133167029], [1489429800000, 128577263], [1489516200000, 115836969], [1489602600000, 119264529], [1489689000000, 109363374], [1489775400000, 113985628], [1489861800000, 114650999], [1489948200000, 110866108], [1490034600000, 96473454], [1490121000000, 104075886], [1490207400000, 103568384], [1490293800000, 101534883], [1490380200000, 115825447], [1490466600000, 126133916], [1490553000000, 116502109], [1490639400000, 130169411], [1490725800000, 124296886], [1490812200000, 126347399], [1490898600000, 131483669], [1490985000000, 142811333], [1491071400000, 129675396], [1491157800000, 115514483], [1491244200000, 117630630], [1491330600000, 122340239], [1491417000000, 132349091], [1491503400000, 125613305], [1491589800000, 135592466], [1491676200000, 123408762], [1491762600000, 111991454], [1491849000000, 116123955], [1491935400000, 112817214], [1492021800000, 113029590], [1492108200000, 108753398], [1492194600000, 99383763], [1492281000000, 100151737], [1492367400000, 94985209], [1492453800000, 82913669], [1492540200000, 78748268], [1492626600000, 63829135], [1492713000000, 78694727], [1492799400000, 80868994], [1492885800000, 93799013], [1492972200000, 99042416], [1493058600000, 97298692], [1493145000000, 83353499], [1493231400000, 71248129], [1493317800000, 75253744], [1493404200000, 68976648], [1493490600000, 71002284], [1493577000000, 75052401], [1493663400000, 83894030], [1493749800000, 90236528], [1493836200000, 99739114], [1493922600000, 96407136], [1494009000000, 108323177], [1494095400000, 101578914], [1494181800000, 115877608], [1494268200000, 112088857], [1494354600000, 112071353], [1494441000000, 101790062], [1494527400000, 115003761], [1494613800000, 120457727], [1494700200000, 118253926], [1494786600000, 117956992]];
-
             var options = {
-                series: [{
-                    data: data
-                }],
                 chart: {
                     id: 'chart2vue',
                     type: 'line',
-                    height: 230,
+                    // height: 230,
                     toolbar: {
                         autoSelected: 'pan',
                         show: false
+                    },
+                    animations: {
+                        enabled: true,
                     }
                 },
                 colors: ['#546e7a'],
@@ -80,24 +82,22 @@
             // chart.render();
 
             var optionsLine = {
-                series: [{
-                    data: data
-                }],
                 chart: {
                     id: 'chart1vue',
                     height: 130,
                     type: 'area',
                     brush: {
                         target: 'chart2vue',
-                        enabled: true
-                    },
-                    selection: {
                         enabled: true,
-                        xaxis: {
-                            min: 1484505000000,
-                            max: 1484764200000
-                        }
+                        autoScaleYaxis: false,
                     },
+                    // selection: {
+                    //     enabled: true,
+                    // xaxis: {
+                    //     min: 1484505000000,
+                    //     max: 1484764200000
+                    // }
+                    // },
                 },
                 colors: ['#008ffb'],
                 fill: {
@@ -123,20 +123,110 @@
 
             return {
                 deleteConfirm: false,
+                currentMinTimestamp: undefined,
+                currentMaxTimestamp: undefined,
                 chartOptions: options,
                 chartOptions2: optionsLine,
-                series: [{data: data}],
-                series2: [{data: data}],
+                series: undefined,
+                // series2: undefined,
             };
         },
         mounted() {
-            this.fetchLogs();
+            this.fetchAllLogs();
         },
         methods: {
-            fetchLogs() {
-                this.$http.get(`channels/${this.channel.id}/measurement-logs`).then(({body: logItems}) => {
+            fetchAllLogs() {
+                this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=500&order=ASC`).then(({body: logItems}) => {
                     const series = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
                     this.series = [{data: series}];
+                    // this.series2 = [{data: series}];
+                    this.chartOptions2 = {
+                        ...this.chartOptions2,
+                        chart: {
+                            ...this.chartOptions2.chart,
+                            selection: {
+                                enabled: true,
+                                xaxis: {
+                                    max: series[series.length - 1][0],
+                                    min: series[Math.max(0, series.length - 30)][0]
+                                },
+                            }
+                        },
+                    };
+                    this.chartOptions = {
+                        ...this.chartOptions,
+                        chart: {
+                            ...this.chartOptions.chart,
+                            events: {
+                                updated: debounce((chartContext, {config}) => {
+                                    if (config.xaxis.min && config.xaxis.max) {
+                                        this.fetchPreciseLogs(config.xaxis.min, config.xaxis.max);
+                                    }
+                                }, 500),
+                            }
+                        },
+                    };
+                });
+            },
+            fetchPreciseLogs(afterTimestamp, beforeTimestamp) {
+                if (afterTimestamp === this.currentMinTimestamp && beforeTimestamp === this.currentMaxTimestamp) {
+                    return;
+                }
+                this.currentMinTimestamp = afterTimestamp;
+                this.currentMaxTimestamp = beforeTimestamp;
+                this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
+                    sparse: 200,
+                    afterTimestamp: Math.floor(afterTimestamp / 1000),
+                    beforeTimestamp: Math.ceil(beforeTimestamp / 1000),
+                    order: 'ASC',
+                })).then(({body: logItems}) => {
+                    const series = this.series[0].data;
+                    const newItems = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    let seriesIndex = 0;
+                    let newItemsIndex = 0;
+                    const newSeries = [];
+                    while (newItemsIndex < newItems.length || seriesIndex < series.length) {
+                        if (newItemsIndex >= newItems.length) {
+                            newSeries.push(series[seriesIndex++]);
+                        } else if (seriesIndex >= series.length) {
+                            newSeries.push(newItems[newItemsIndex++]);
+                        } else {
+                            const seriesTimestamp = series[seriesIndex][0];
+                            const newItemsTimestamp = newItems[newItemsIndex][0];
+                            if (seriesTimestamp < newItemsTimestamp) {
+                                newSeries.push(series[seriesIndex++]);
+                            } else if (seriesTimestamp > newItemsTimestamp) {
+                                newSeries.push(newItems[newItemsIndex++]);
+                            } else {
+                                newSeries.push(newItems[newItemsIndex]);
+                                ++newItemsIndex;
+                                ++seriesIndex;
+                            }
+                        }
+                    }
+                    // console.log(newSeries);
+
+                    // this.series2 = [{data: newSeries}];
+
+                    this.$refs.bigChart.updateSeries([{data: newSeries}], true);
+                    this.$refs.bigChart.updateOptions({
+                        xaxis: {
+                            min: this.currentMinTimestamp,
+                            max: this.currentMaxTimestamp
+                        }
+                    }, false, false);
+
+                    // setTimeout(() => {
+                    //     this.chartOptions = {
+                    //         ...this.chartOptions,
+                    //         xaxis: {
+                    //             ...this.chartOptions.xaxis,
+                    //             min: this.currentMinTimestamp,
+                    //             max: this.currentMaxTimestamp,
+                    //         }
+                    //     };
+                    // });
+
                 });
             },
             deleteMeasurements() {

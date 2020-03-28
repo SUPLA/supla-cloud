@@ -135,7 +135,7 @@ class ChannelMeasurementLogsController extends RestController {
         $orderDesc = true,
         $sparse = null
     ) {
-        $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : '';
+        $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : ' ORDER BY `date` ASC, id ASC ';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
         $limitSql = '';
@@ -162,8 +162,6 @@ class ChannelMeasurementLogsController extends RestController {
                 $nth = floor($totalCount / $sparse);
                 $nthTarget = $totalCount % $nth;
                 $sql .= "AND (@nth_log_item_row := @nth_log_item_row + 1) % $nth = $nthTarget";
-            } else {
-                $sparse = null;
             }
         }
 

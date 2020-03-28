@@ -30,6 +30,8 @@ class LogItemsFixture extends SuplaFixture {
     /** @var \Faker\Generator */
     private $faker;
 
+    const SINCE = '-1 day';
+
     public function load(ObjectManager $manager) {
         $this->entityManager = $manager;
         $this->faker = Factory::create('pl_PL');
@@ -41,7 +43,7 @@ class LogItemsFixture extends SuplaFixture {
         /** @var IODeviceChannel $thermometer */
         $thermometer = $sonoff->getChannels()[1];
         $thermometerId = $thermometer->getId();
-        $from = strtotime('-6 months');
+        $from = strtotime(self::SINCE);
         $to = time();
         $temperature = 10;
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
