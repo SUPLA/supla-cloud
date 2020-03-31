@@ -200,8 +200,6 @@
                     return;
                 }
 
-                console.log(this.formatTimestamp(afterTimestamp), this.formatTimestamp(beforeTimestamp), this.visibleRange);
-
                 this.currentMinTimestamp = afterTimestamp;
                 this.currentMaxTimestamp = beforeTimestamp;
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
@@ -211,8 +209,26 @@
                     order: 'ASC',
                 })).then(({body: logItems}) => {
                     const series = this.series[0].data;
-                    const newItems = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    let newItems = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
                     // const newItems = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
+
+                    const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
+                    const actualInterval = newItems[1][0] - newItems[0][0];
+                    console.log(this.formatTimestamp(afterTimestamp), this.formatTimestamp(beforeTimestamp), this.visibleRange, expectedInterval, actualInterval);
+                    const filledNewItems = [];
+                    let lastTimestamp = 0;
+                    for (const serie of newItems) {
+                        const currentTimestamp = serie[0];
+                        if (lastTimestamp && (currentTimestamp - lastTimestamp) > expectedInterval * 2) {
+                            for (let missingTimestamp = lastTimestamp + expectedInterval; missingTimestamp < currentTimestamp; missingTimestamp += expectedInterval) {
+                                filledNewItems.push([missingTimestamp, null]);
+                            }
+                        }
+                        filledNewItems.push(serie);
+                        lastTimestamp = currentTimestamp;
+                    }
+                    newItems = filledNewItems;
+
                     let seriesIndex = 0;
                     let newItemsIndex = 0;
                     const newSeries = [];
@@ -236,25 +252,11 @@
                         }
                     }
 
-                    const expectedInterval = Math.max(600000, Math.ceil((beforeTimestamp - afterTimestamp) / 200));
-                    console.log(beforeTimestamp, afterTimestamp, expectedInterval);
-                    const filledSeries = [];
-                    let lastTimestamp = 0;
-                    for (const serie of newSeries) {
-                        const currentTimestamp = serie[0];
-                        if (lastTimestamp && (currentTimestamp - lastTimestamp) > expectedInterval * 2) {
-                            const missingCount = (currentTimestamp - lastTimestamp) / expectedInterval;
-                            console.log(currentTimestamp - lastTimestamp, missingCount);
-                        }
-                        filledSeries.push(serie);
-                        lastTimestamp = currentTimestamp;
-                    }
-
                     // console.log(newSeries);
 
                     // this.series2 = [{data: newSeries}];
 
-                    this.$refs.bigChart.updateSeries([{data: filledSeries}], true);
+                    this.$refs.bigChart.updateSeries([{data: newSeries}], true);
                     this.$refs.bigChart.updateOptions({
                         xaxis: {
                             min: this.currentMinTimestamp,
