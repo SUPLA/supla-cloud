@@ -22,6 +22,7 @@
             <apexchart width="100%"
                 height="130"
                 type="area"
+                ref="smallChart"
                 :options="chartOptions2"
                 :series="series"></apexchart>
         </div>
@@ -55,8 +56,18 @@
                     type: 'line',
                     // height: 230,
                     toolbar: {
-                        autoSelected: 'pan',
-                        show: false
+                        // autoSelected: 'pan',
+                        show: true,
+                        tools: {
+                            download: true,
+                            selection: false,
+                            zoom: true,
+                            zoomin: true,
+                            zoomout: true,
+                            pan: false,
+                            reset: true,
+                            // customIcons: []
+                        },
                     },
                     animations: {
                         enabled: true,
@@ -186,6 +197,9 @@
                                         this.fetchPreciseLogs(config.xaxis.min, config.xaxis.max);
                                     }
                                 }, 500),
+                                click: (event, chartContext, config) => {
+                                    console.log(event, chartContext, config);
+                                },
                             },
                         },
                     };
@@ -256,11 +270,11 @@
 
                     // this.series2 = [{data: newSeries}];
 
-                    this.$refs.bigChart.updateSeries([{data: newSeries}], true);
+                    this.$refs.bigChart.updateSeries([{name: 'Temperatura', data: newSeries}], true);
                     this.$refs.bigChart.updateOptions({
                         xaxis: {
                             min: this.currentMinTimestamp,
-                            max: this.currentMaxTimestamp
+                            max: this.currentMaxTimestamp,
                         }
                     }, false, false);
 
