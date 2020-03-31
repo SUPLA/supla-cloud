@@ -40,6 +40,8 @@
     import {successNotification} from "../common/notifier";
     import {debounce} from "lodash";
 
+    const pl = require("apexcharts/dist/locales/pl.json")
+
     Vue.use(VueApexCharts);
 
     export default {
@@ -58,7 +60,9 @@
                     },
                     animations: {
                         enabled: true,
-                    }
+                    },
+                    locales: [pl],
+                    defaultLocale: 'pl',
                 },
                 colors: ['#546e7a'],
                 stroke: {
@@ -74,7 +78,18 @@
                     size: 0
                 },
                 xaxis: {
-                    type: 'datetime'
+                    type: 'datetime',
+                    // type: 'numeric',
+                    // tickAmount: 8,
+                    labels: {
+                        datetimeUTC: false,
+                        // formatter: (value, timestamp) => moment.unix(value / 1000).format('LT L'),
+                    }
+                },
+                tooltip: {
+                    x: {
+                        formatter: (value, timestamp) => moment.unix(value / 1000).format('LT D MMM'),
+                    }
                 }
             };
 
@@ -91,13 +106,13 @@
                         enabled: true,
                         autoScaleYaxis: false,
                     },
-                    // selection: {
-                    //     enabled: true,
-                    // xaxis: {
-                    //     min: 1484505000000,
-                    //     max: 1484764200000
-                    // }
-                    // },
+                    selection: {
+                        enabled: true,
+                        // xaxis: {
+                        //     min: 1484505000000,
+                        //     max: 1484764200000
+                        // }
+                    },
                 },
                 colors: ['#008ffb'],
                 fill: {
@@ -109,8 +124,15 @@
                 },
                 xaxis: {
                     type: 'datetime',
+                    // type: 'numeric',
                     tooltip: {
                         enabled: false
+                    },
+                    // tickAmount: 12,
+                    labels: {
+                        datetimeUTC: false,
+                        // hideOverlappingLabels: true,
+                        // formatter: (value, timestamp) => moment.unix(value / 1000).format('LT D MMM'),
                     }
                 },
                 yaxis: {
@@ -138,6 +160,7 @@
             fetchAllLogs() {
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=500&order=ASC`).then(({body: logItems}) => {
                     const series = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    // const series = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
                     this.series = [{data: series}];
                     // this.series2 = [{data: series}];
                     this.chartOptions2 = {
@@ -150,7 +173,7 @@
                                     max: series[series.length - 1][0],
                                     min: series[Math.max(0, series.length - 30)][0]
                                 },
-                            }
+                            },
                         },
                     };
                     this.chartOptions = {
@@ -163,15 +186,22 @@
                                         this.fetchPreciseLogs(config.xaxis.min, config.xaxis.max);
                                     }
                                 }, 500),
-                            }
+                            },
                         },
                     };
                 });
+            },
+            formatTimestamp(timestamp) {
+                return moment.unix(timestamp / 1000).format('LT D MMM');
+
             },
             fetchPreciseLogs(afterTimestamp, beforeTimestamp) {
                 if (afterTimestamp === this.currentMinTimestamp && beforeTimestamp === this.currentMaxTimestamp) {
                     return;
                 }
+
+                console.log(this.formatTimestamp(afterTimestamp), this.formatTimestamp(beforeTimestamp), this.visibleRange);
+
                 this.currentMinTimestamp = afterTimestamp;
                 this.currentMaxTimestamp = beforeTimestamp;
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
@@ -182,6 +212,7 @@
                 })).then(({body: logItems}) => {
                     const series = this.series[0].data;
                     const newItems = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    // const newItems = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
                     let seriesIndex = 0;
                     let newItemsIndex = 0;
                     const newSeries = [];
@@ -204,11 +235,26 @@
                             }
                         }
                     }
+
+                    const expectedInterval = Math.max(600000, Math.ceil((beforeTimestamp - afterTimestamp) / 200));
+                    console.log(beforeTimestamp, afterTimestamp, expectedInterval);
+                    const filledSeries = [];
+                    let lastTimestamp = 0;
+                    for (const serie of newSeries) {
+                        const currentTimestamp = serie[0];
+                        if (lastTimestamp && (currentTimestamp - lastTimestamp) > expectedInterval * 2) {
+                            const missingCount = (currentTimestamp - lastTimestamp) / expectedInterval;
+                            console.log(currentTimestamp - lastTimestamp, missingCount);
+                        }
+                        filledSeries.push(serie);
+                        lastTimestamp = currentTimestamp;
+                    }
+
                     // console.log(newSeries);
 
                     // this.series2 = [{data: newSeries}];
 
-                    this.$refs.bigChart.updateSeries([{data: newSeries}], true);
+                    this.$refs.bigChart.updateSeries([{data: filledSeries}], true);
                     this.$refs.bigChart.updateOptions({
                         xaxis: {
                             min: this.currentMinTimestamp,
@@ -234,6 +280,11 @@
                 this.$http.delete('channels/' + this.channel.id + '/measurement-logs')
                     .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')));
             },
-        }
+        },
+        computed: {
+            visibleRange() {
+                return this.currentMaxTimestamp && (this.currentMaxTimestamp - this.currentMinTimestamp);
+            },
+        },
     };
 </script>
