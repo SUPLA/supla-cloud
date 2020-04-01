@@ -21,7 +21,7 @@
                 :series="series"></apexchart>
             <apexchart width="100%"
                 height="130"
-                type="area"
+                type="line"
                 ref="smallChart"
                 :options="smallChartOptions"
                 :series="series"></apexchart>
@@ -121,7 +121,7 @@
                 chart: {
                     id: 'chart1vue',
                     height: 130,
-                    type: 'area',
+                    type: 'line',
                     brush: {
                         target: 'chart2vue',
                         enabled: true,
@@ -135,14 +135,14 @@
                     // }
                     // },
                 },
-                colors: ['#008ffb'],
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        opacityFrom: 0.91,
-                        opacityTo: 0.1,
-                    }
-                },
+                // colors: ['#008ffb'],
+                // fill: {
+                //     type: 'gradient',
+                //     gradient: {
+                //         opacityFrom: 0.91,
+                //         opacityTo: 0.1,
+                //     }
+                // },
                 xaxis: {
                     type: 'datetime',
                     // type: 'numeric',
@@ -222,27 +222,6 @@
                             ...this.bigChartOptions.title,
                             text: channelTitle(this.channel, this),
                         },
-                        yaxis: [
-                            {
-                                seriesName: channelTitle(this.channel, this) + ' (temperatura)',
-                                title: {
-                                    text: "Temperatura"
-                                },
-                                labels: {
-                                    formatter: (v) => `${v}°C`
-                                }
-                            },
-                            {
-                                seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
-                                opposite: true,
-                                title: {
-                                    text: "Wilgotność"
-                                },
-                                labels: {
-                                    formatter: (v) => `${v}%`
-                                }
-                            }
-                        ],
                     };
                 });
             },
@@ -326,7 +305,28 @@
                         xaxis: {
                             min: this.currentMinTimestamp,
                             max: this.currentMaxTimestamp,
-                        }
+                        },
+                        yaxis: [
+                            {
+                                seriesName: channelTitle(this.channel, this) + ' (temperatura)',
+                                title: {
+                                    text: "Temperatura"
+                                },
+                                labels: {
+                                    formatter: (v) => `${v}°C`
+                                }
+                            },
+                            {
+                                seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
+                                opposite: true,
+                                title: {
+                                    text: "Wilgotność"
+                                },
+                                labels: {
+                                    formatter: (v) => `${v}%`
+                                }
+                            }
+                        ],
                     }, false, false);
 
                     // setTimeout(() => {
