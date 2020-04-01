@@ -34,7 +34,6 @@
     "v-media-query": "^1.0.3",
     "vivus": "0.4.4",
     "vue": "^2.6.10",
-    "vue-apexcharts": "^1.5.2",
     "vue-clipboard2": "^0.2.0",
     "vue-i18n": "^7.6.0",
     "vue-moment": "2.0.2",

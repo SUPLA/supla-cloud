@@ -12,20 +12,10 @@
                 </button>
             </div>
         </div>
-        <div v-if="series">
-            <apexchart width="100%"
-                height="330"
-                type="line"
-                :options="bigChartOptions"
-                ref="bigChart"
-                :series="series"></apexchart>
-            <apexchart width="100%"
-                height="130"
-                type="line"
-                ref="smallChart"
-                :options="smallChartOptions"
-                :series="series"></apexchart>
-        </div>
+
+        <div ref="bigChart"></div>
+        <div ref="smallChart"></div>
+
         <modal-confirm v-if="deleteConfirm"
             class="modal-warning"
             @confirm="deleteMeasurements()"
@@ -36,17 +26,17 @@
 </template>
 
 <script>
-    import Vue from "vue";
-    import VueApexCharts from 'vue-apexcharts';
     import {successNotification} from "../common/notifier";
     import {debounce} from "lodash";
     import {channelTitle} from "../common/filters";
+    import ApexCharts from "apexcharts";
 
-    Vue.use(VueApexCharts);
-    const pl = require("apexcharts/dist/locales/pl.json")
+    window.ApexCharts = ApexCharts;
+
+    const pl = require("apexcharts/dist/locales/pl.json");
+    const en = require("apexcharts/dist/locales/en.json");
 
     export default {
-        components: {apexchart: VueApexCharts},
         props: ['channel'],
         data: function () {
 
@@ -54,7 +44,7 @@
                 chart: {
                     id: 'chart2vue',
                     type: 'line',
-                    // height: 230,
+                    height: 230,
                     toolbar: {
                         // autoSelected: 'pan',
                         show: true,
@@ -72,7 +62,7 @@
                     animations: {
                         enabled: true,
                     },
-                    locales: [pl],
+                    locales: [pl, en],
                     defaultLocale: 'pl',
                 },
                 title: {
@@ -126,6 +116,8 @@
                         enabled: true,
                         autoScaleYaxis: false,
                     },
+                    locales: [pl, en],
+                    defaultLocale: 'pl',
                     // selection: {
                     //     enabled: true,
                     // xaxis: {
@@ -147,15 +139,11 @@
                 },
                 xaxis: {
                     type: 'datetime',
-                    // type: 'numeric',
                     tooltip: {
                         enabled: false
                     },
-                    // tickAmount: 12,
                     labels: {
                         datetimeUTC: false,
-                        // hideOverlappingLabels: true,
-                        // formatter: (value, timestamp) => moment.unix(value / 1000).format('LT D MMM'),
                     }
                 },
                 yaxis: {
@@ -163,18 +151,15 @@
                 }
             };
 
-            // var chartLine = new ApexCharts(document.querySelector("#chart-line"), optionsLine);
-            // chartLine.render();
-
             return {
                 deleteConfirm: false,
                 currentMinTimestamp: undefined,
                 currentMaxTimestamp: undefined,
                 bigChartOptions: bigChartOptions,
                 smallChartOptions: smallChartOptions,
-                series: undefined,
                 sparseLogs: undefined,
-                // series2: undefined,
+                bigChart: undefined,
+                smallChart: undefined,
             };
         },
         mounted() {
@@ -187,14 +172,18 @@
                     const temperatureSeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
                     const humiditySeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.humidity]);
                     // const series = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
-                    this.series = [
+                    const series = [
                         {name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries},
                         {name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries},
                     ];
 
+                    this.bigChart = new ApexCharts(this.$refs.bigChart, {...this.bigChartOptions, series});
+                    this.smallChart = new ApexCharts(this.$refs.smallChart, {...this.smallChartOptions, series});
+                    this.bigChart.render();
+                    this.smallChart.render();
+
                     const updateSmallChart = () => {
-                        console.log(this.currentMinTimestamp, this.currentMaxTimestamp);
-                        this.$refs.smallChart.updateOptions(
+                        this.smallChart.updateOptions(
                             {
                                 chart: {
                                     selection: {
@@ -215,76 +204,94 @@
                         this.fetchPreciseLogs();
                     }, 500);
 
-                    this.smallChartOptions = {
-                        ...this.smallChartOptions,
-                        chart: {
-                            ...this.smallChartOptions.chart,
-                            selection: {
-                                enabled: true,
-                                xaxis: {
-                                    max: temperatureSeries[temperatureSeries.length - 1][0],
-                                    min: temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0]
+                    this.smallChart.updateOptions(
+                        {
+                            chart: {
+                                selection: {
+                                    enabled: true,
+                                    xaxis: {
+                                        max: temperatureSeries[temperatureSeries.length - 1][0],
+                                        min: temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0]
+                                    },
                                 },
+                                events: {
+                                    selection: (chartContext, {xaxis, yaxis}) => {
+                                        if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
+                                            this.bigChart.updateOptions({
+                                                xaxis: {
+                                                    min: xaxis.min,
+                                                    max: xaxis.max,
+                                                },
+                                            }, false, false, false, false, false);
+                                            this.currentMinTimestamp = xaxis.min;
+                                            this.currentMaxTimestamp = xaxis.max;
+                                            fetchPreciseLogs();
+                                        }
+                                    },
+                                }
                             },
-                            events: {
-                                selection: (chartContext, {xaxis, yaxis}) => {
-                                    if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
-                                        this.$refs.bigChart.updateOptions({
-                                            xaxis: {
-                                                min: xaxis.min,
-                                                max: xaxis.max,
-                                            },
-                                        }, false, false, false, false, false);
-                                        this.currentMinTimestamp = xaxis.min;
+                        }
+                    );
+                    this.bigChart.updateOptions(
+                        {
+                            chart: {
+                                events: {
+                                    zoomed: (chartContext, {xaxis}) => {
                                         this.currentMaxTimestamp = xaxis.max;
-                                        fetchPreciseLogs();
+                                        this.currentMinTimestamp = xaxis.min;
+                                        updateSmallChart();
+                                    },
+                                    scrolled: (chartContext, {xaxis}) => {
+                                        this.currentMaxTimestamp = xaxis.max;
+                                        this.currentMinTimestamp = xaxis.min;
+                                        updateSmallChart();
+                                    },
+                                    // scrolled: updateSmallChart,
+                                    // click: (event, chartContext, config) => {
+                                    //     console.log(event, chartContext, config);
+                                    // },
+                                },
+                                toolbar: {
+                                    tools: {
+                                        customIcons: [{
+                                            icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
+                                            index: 2,
+                                            title: 'show default view',
+                                            click: () => {
+                                                this.currentMaxTimestamp = temperatureSeries[temperatureSeries.length - 1][0];
+                                                this.currentMinTimestamp = temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0];
+                                                updateSmallChart();
+                                            }
+                                        }]
+                                    }
+                                }
+                            },
+                            title: {
+                                text: channelTitle(this.channel, this),
+                            },
+                            yaxis: [
+                                {
+                                    seriesName: channelTitle(this.channel, this) + ' (temperatura)',
+                                    title: {
+                                        text: "Temperatura"
+                                    },
+                                    labels: {
+                                        formatter: (v) => `${v}°C`
                                     }
                                 },
-                            }
-                        },
-                    };
-                    this.bigChartOptions = {
-                        ...this.bigChartOptions,
-                        chart: {
-                            ...this.bigChartOptions.chart,
-                            events: {
-                                zoomed: (chartContext, {xaxis}) => {
-                                    this.currentMaxTimestamp = xaxis.max;
-                                    this.currentMinTimestamp = xaxis.min;
-                                    updateSmallChart();
-                                },
-                                scrolled: (chartContext, {xaxis}) => {
-                                    this.currentMaxTimestamp = xaxis.max;
-                                    this.currentMinTimestamp = xaxis.min;
-                                    updateSmallChart();
-                                },
-                                // scrolled: updateSmallChart,
-                                // click: (event, chartContext, config) => {
-                                //     console.log(event, chartContext, config);
-                                // },
-                            },
-                            toolbar: {
-                                ...this.bigChartOptions.chart.toolbar,
-                                tools: {
-                                    ...this.bigChartOptions.chart.toolbar.tools,
-                                    customIcons: [{
-                                        icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
-                                        index: 2,
-                                        title: 'show default view',
-                                        click: () => {
-                                            this.currentMaxTimestamp = temperatureSeries[temperatureSeries.length - 1][0];
-                                            this.currentMinTimestamp = temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0];
-                                            updateSmallChart();
-                                        }
-                                    }]
+                                {
+                                    seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
+                                    opposite: true,
+                                    title: {
+                                        text: "Wilgotność"
+                                    },
+                                    labels: {
+                                        formatter: (v) => `${v}%`
+                                    }
                                 }
-                            }
-                        },
-                        title: {
-                            ...this.bigChartOptions.title,
-                            text: channelTitle(this.channel, this),
-                        },
-                    };
+                            ],
+                        }
+                    );
                 });
             },
             formatTimestamp(timestamp) {
@@ -336,7 +343,6 @@
                 return mergedLogs;
             },
             fetchPreciseLogs() {
-
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
                     sparse: 200,
                     afterTimestamp: Math.floor(this.currentMinTimestamp / 1000),
@@ -346,57 +352,18 @@
                     const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
                     logItems = this.fillGaps(logItems, expectedInterval);
                     const allLogs = this.mergeLogs(this.sparseLogs, logItems);
-
                     const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
                     const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, +item.humidity]);
-
-                    // console.log(newSeries);
-
-                    // this.series2 = [{data: newSeries}];
-
-                    this.$refs.bigChart.updateSeries([
+                    this.bigChart.updateSeries([
                         {name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries},
                         {name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries},
                     ], true);
-                    this.$refs.bigChart.updateOptions({
+                    this.bigChart.updateOptions({
                         xaxis: {
                             min: this.currentMinTimestamp,
                             max: this.currentMaxTimestamp,
                         },
-                        yaxis: [
-                            {
-                                seriesName: channelTitle(this.channel, this) + ' (temperatura)',
-                                title: {
-                                    text: "Temperatura"
-                                },
-                                labels: {
-                                    formatter: (v) => `${v}°C`
-                                }
-                            },
-                            {
-                                seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
-                                opposite: true,
-                                title: {
-                                    text: "Wilgotność"
-                                },
-                                labels: {
-                                    formatter: (v) => `${v}%`
-                                }
-                            }
-                        ],
                     }, false, false);
-
-                    // setTimeout(() => {
-                    //     this.chartOptions = {
-                    //         ...this.chartOptions,
-                    //         xaxis: {
-                    //             ...this.chartOptions.xaxis,
-                    //             min: this.currentMinTimestamp,
-                    //             max: this.currentMaxTimestamp,
-                    //         }
-                    //     };
-                    // });
-
                 });
             },
             deleteMeasurements() {
