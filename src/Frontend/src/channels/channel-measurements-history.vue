@@ -62,11 +62,10 @@
                             download: true,
                             selection: false,
                             zoom: true,
-                            zoomin: true,
-                            zoomout: true,
-                            pan: false,
-                            reset: true,
-                            // customIcons: []
+                            zoomin: false,
+                            zoomout: false,
+                            pan: true,
+                            reset: false,
                         },
                     },
 
@@ -143,6 +142,9 @@
                 //         opacityTo: 0.1,
                 //     }
                 // },
+                legend: {
+                    show: false,
+                },
                 xaxis: {
                     type: 'datetime',
                     // type: 'numeric',
@@ -189,7 +191,30 @@
                         {name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries},
                         {name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries},
                     ];
-                    // this.series2 = [{data: series}];
+
+                    const updateSmallChart = () => {
+                        console.log(this.currentMinTimestamp, this.currentMaxTimestamp);
+                        this.$refs.smallChart.updateOptions(
+                            {
+                                chart: {
+                                    selection: {
+                                        xaxis: {
+                                            min: this.currentMinTimestamp,
+                                            max: this.currentMaxTimestamp,
+                                        }
+                                    }
+                                }
+                            },
+                            false,
+                            false
+                        );
+                        fetchPreciseLogs();
+                    };
+
+                    const fetchPreciseLogs = debounce(() => {
+                        this.fetchPreciseLogs();
+                    }, 500);
+
                     this.smallChartOptions = {
                         ...this.smallChartOptions,
                         chart: {
@@ -201,6 +226,21 @@
                                     min: temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0]
                                 },
                             },
+                            events: {
+                                selection: (chartContext, {xaxis, yaxis}) => {
+                                    if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
+                                        this.$refs.bigChart.updateOptions({
+                                            xaxis: {
+                                                min: xaxis.min,
+                                                max: xaxis.max,
+                                            },
+                                        }, false, false, false, false, false);
+                                        this.currentMinTimestamp = xaxis.min;
+                                        this.currentMaxTimestamp = xaxis.max;
+                                        fetchPreciseLogs();
+                                    }
+                                },
+                            }
                         },
                     };
                     this.bigChartOptions = {
@@ -208,15 +248,37 @@
                         chart: {
                             ...this.bigChartOptions.chart,
                             events: {
-                                updated: debounce((chartContext, {config}) => {
-                                    if (config.xaxis.min && config.xaxis.max) {
-                                        this.fetchPreciseLogs(config.xaxis.min, config.xaxis.max);
-                                    }
-                                }, 500),
-                                click: (event, chartContext, config) => {
-                                    console.log(event, chartContext, config);
+                                zoomed: (chartContext, {xaxis}) => {
+                                    this.currentMaxTimestamp = xaxis.max;
+                                    this.currentMinTimestamp = xaxis.min;
+                                    updateSmallChart();
                                 },
+                                scrolled: (chartContext, {xaxis}) => {
+                                    this.currentMaxTimestamp = xaxis.max;
+                                    this.currentMinTimestamp = xaxis.min;
+                                    updateSmallChart();
+                                },
+                                // scrolled: updateSmallChart,
+                                // click: (event, chartContext, config) => {
+                                //     console.log(event, chartContext, config);
+                                // },
                             },
+                            toolbar: {
+                                ...this.bigChartOptions.chart.toolbar,
+                                tools: {
+                                    ...this.bigChartOptions.chart.toolbar.tools,
+                                    customIcons: [{
+                                        icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
+                                        index: 2,
+                                        title: 'show default view',
+                                        click: () => {
+                                            this.currentMaxTimestamp = temperatureSeries[temperatureSeries.length - 1][0];
+                                            this.currentMinTimestamp = temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0];
+                                            updateSmallChart();
+                                        }
+                                    }]
+                                }
+                            }
                         },
                         title: {
                             ...this.bigChartOptions.title,
@@ -273,17 +335,12 @@
                 }
                 return mergedLogs;
             },
-            fetchPreciseLogs(afterTimestamp, beforeTimestamp) {
-                if (afterTimestamp === this.currentMinTimestamp && beforeTimestamp === this.currentMaxTimestamp) {
-                    return;
-                }
+            fetchPreciseLogs() {
 
-                this.currentMinTimestamp = afterTimestamp;
-                this.currentMaxTimestamp = beforeTimestamp;
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
                     sparse: 200,
-                    afterTimestamp: Math.floor(afterTimestamp / 1000),
-                    beforeTimestamp: Math.ceil(beforeTimestamp / 1000),
+                    afterTimestamp: Math.floor(this.currentMinTimestamp / 1000),
+                    beforeTimestamp: Math.ceil(this.currentMaxTimestamp / 1000),
                     order: 'ASC',
                 })).then(({body: logItems}) => {
                     const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
