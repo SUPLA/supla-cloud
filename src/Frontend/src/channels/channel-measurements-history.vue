@@ -58,14 +58,15 @@
         methods: {
             getChartSeries() {
                 const series = [];
+
                 if (this.sparseLogs.length) {
                     const allLogs = this.mergeLogs(this.sparseLogs, this.denseLogs);
                     if (this.sparseLogs[0].temperature !== undefined) {
-                        const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                        const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.temperature]);
                         series.push({name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries});
                     }
                     if (this.sparseLogs[0].humidity !== undefined) {
-                        const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, +item.humidity]);
+                        const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.humidity]);
                         series.push({name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries});
                     }
                 }
@@ -283,6 +284,7 @@
                 if (logs[0].humidity !== undefined) {
                     defaultLog.humidity = null;
                 }
+                expectedInterval /= 1000;
                 let lastTimestamp = 0;
                 const filledLogs = [];
                 for (const log of logs) {
