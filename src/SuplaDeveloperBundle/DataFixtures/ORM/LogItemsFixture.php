@@ -20,8 +20,11 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\TemperatureLogItem;
+use SuplaBundle\Entity\TempHumidityLogItem;
+use SuplaBundle\Enums\ChannelFunction;
 
 class LogItemsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -30,12 +33,14 @@ class LogItemsFixture extends SuplaFixture {
     /** @var \Faker\Generator */
     private $faker;
 
-    const SINCE = '-1 day';
+    const SINCE = '-40 day';
 
     public function load(ObjectManager $manager) {
         $this->entityManager = $manager;
         $this->faker = Factory::create('pl_PL');
         $this->createTemperatureLogItems();
+        $this->createTemperatureAndHumidityLogItems();
+        $this->entityManager->flush();
     }
 
     private function createTemperatureLogItems() {
@@ -52,10 +57,35 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
             $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
             EntityUtils::setField($logItem, 'temperature', $temperature);
-            if ($this->faker->boolean(99)) {
+            if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }
         }
-        $this->entityManager->flush();
+    }
+
+    private function createTemperatureAndHumidityLogItems() {
+        /** @var IODevice $device */
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $tempAndHumidity = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::HUMIDITYANDTEMPERATURE;
+        })->first();
+        $channelId = $tempAndHumidity->getId();
+        $from = strtotime(self::SINCE);
+        $to = time();
+        $temperature = 10;
+        $humidity = 50;
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            $logItem = new TempHumidityLogItem();
+            EntityUtils::setField($logItem, 'channel_id', $channelId);
+            EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
+            $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
+            $humidity += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
+            $humidity = max(0, min(100, $humidity));
+            EntityUtils::setField($logItem, 'temperature', $temperature);
+            EntityUtils::setField($logItem, 'humidity', $humidity);
+            if ($this->faker->boolean(95)) {
+                $this->entityManager->persist($logItem);
+            }
+        }
     }
 }

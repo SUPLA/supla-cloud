@@ -37,6 +37,7 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_FULL = 'deviceFull';
     const DEVICE_RGB = 'deviceRgb';
     const DEVICE_SUPLER = 'deviceSupler';
+    const DEVICE_EVERY_FUNCTION = 'ALL-IN-ONE MEGA DEVICE';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
     const FULL_RELAY_BITS =
@@ -56,7 +57,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceSonoff($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
-        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
+        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), self::DEVICE_EVERY_FUNCTION);
         $device = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
@@ -107,7 +108,7 @@ class DevicesFixture extends SuplaFixture {
             }, ChannelType::functions()[$type->getValue()]);
         }, $functionableTypes));
         $channels = call_user_func_array('array_merge', $channels);
-        return $this->createDevice($name, $location, $channels, 'megadevice');
+        return $this->createDevice($name, $location, $channels, $name);
     }
 
     protected function createDeviceRgb(Location $location): IODevice {

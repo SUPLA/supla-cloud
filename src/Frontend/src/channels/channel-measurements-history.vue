@@ -88,7 +88,7 @@
                     showForSingleSeries: true,
                     position: 'top',
                 },
-                colors: ['#546e7a'],
+                // colors: ['#546e7a'],
                 stroke: {
                     width: 3
                 },
@@ -127,13 +127,13 @@
                         enabled: true,
                         autoScaleYaxis: false,
                     },
-                    selection: {
-                        enabled: true,
-                        // xaxis: {
-                        //     min: 1484505000000,
-                        //     max: 1484764200000
-                        // }
-                    },
+                    // selection: {
+                    //     enabled: true,
+                    // xaxis: {
+                    //     min: 1484505000000,
+                    //     max: 1484764200000
+                    // }
+                    // },
                 },
                 colors: ['#008ffb'],
                 fill: {
@@ -157,7 +157,7 @@
                     }
                 },
                 yaxis: {
-                    tickAmount: 2
+                    labels: {show: false}
                 }
             };
 
@@ -171,6 +171,7 @@
                 bigChartOptions: bigChartOptions,
                 smallChartOptions: smallChartOptions,
                 series: undefined,
+                sparseLogs: undefined,
                 // series2: undefined,
             };
         },
@@ -180,9 +181,14 @@
         methods: {
             fetchAllLogs() {
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=500&order=ASC`).then(({body: logItems}) => {
-                    const series = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    this.sparseLogs = logItems;
+                    const temperatureSeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    const humiditySeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.humidity]);
                     // const series = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
-                    this.series = [{name: channelTitle(this.channel, this) + ' (temperatura)', data: series}];
+                    this.series = [
+                        {name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries},
+                        {name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries},
+                    ];
                     // this.series2 = [{data: series}];
                     this.smallChartOptions = {
                         ...this.smallChartOptions,
@@ -191,8 +197,8 @@
                             selection: {
                                 enabled: true,
                                 xaxis: {
-                                    max: series[series.length - 1][0],
-                                    min: series[Math.max(0, series.length - 30)][0]
+                                    max: temperatureSeries[temperatureSeries.length - 1][0],
+                                    min: temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0]
                                 },
                             },
                         },
@@ -215,13 +221,78 @@
                         title: {
                             ...this.bigChartOptions.title,
                             text: channelTitle(this.channel, this),
-                        }
+                        },
+                        yaxis: [
+                            {
+                                seriesName: channelTitle(this.channel, this) + ' (temperatura)',
+                                title: {
+                                    text: "Temperatura"
+                                },
+                                labels: {
+                                    formatter: (v) => `${v}°C`
+                                }
+                            },
+                            {
+                                seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
+                                opposite: true,
+                                title: {
+                                    text: "Wilgotność"
+                                },
+                                labels: {
+                                    formatter: (v) => `${v}%`
+                                }
+                            }
+                        ],
                     };
                 });
             },
             formatTimestamp(timestamp) {
                 return moment.unix(timestamp / 1000).format('LT D MMM');
 
+            },
+            fillGaps(logs, expectedInterval) {
+                const defaultLog = {temperature: null};
+                if (logs[0].humidity !== undefined) {
+                    defaultLog.humidity = null;
+                }
+                let lastTimestamp = 0;
+                const filledLogs = [];
+                for (const log of logs) {
+                    const currentTimestamp = +log.date_timestamp;
+                    if (lastTimestamp && (currentTimestamp - lastTimestamp) > expectedInterval * 1.5) {
+                        for (let missingTimestamp = lastTimestamp + expectedInterval; missingTimestamp < currentTimestamp; missingTimestamp += expectedInterval) {
+                            filledLogs.push({...defaultLog, date_timestamp: missingTimestamp});
+                        }
+                    }
+                    filledLogs.push(log);
+                    lastTimestamp = currentTimestamp;
+                }
+                return filledLogs;
+            },
+            mergeLogs(sparseLogs, denseLogs) {
+                let sparseLogsIndex = 0;
+                let denseLogsIndex = 0;
+                const mergedLogs = [];
+                while (denseLogsIndex < denseLogs.length || sparseLogsIndex < sparseLogs.length) {
+                    if (denseLogsIndex >= denseLogs.length) {
+                        mergedLogs.push(sparseLogs[sparseLogsIndex++]);
+                    } else if (sparseLogsIndex >= sparseLogs.length) {
+                        mergedLogs.push(denseLogs[denseLogsIndex++]);
+                    } else {
+                        const sparseLogsNextTimestamp = +sparseLogs[sparseLogsIndex].date_timestamp;
+                        const denseLogsNextTimestamp = +denseLogs[denseLogsIndex].date_timestamp;
+                        if (sparseLogsNextTimestamp < denseLogsNextTimestamp) {
+                            mergedLogs.push(sparseLogs[sparseLogsIndex++]);
+                        } else if (sparseLogsNextTimestamp > denseLogsNextTimestamp) {
+                            mergedLogs.push(denseLogs[denseLogsIndex++]);
+                        } else {
+                            mergedLogs.push(denseLogs[denseLogsIndex]);
+                            ++denseLogsIndex;
+                            ++sparseLogsIndex;
+                        }
+                    }
+                }
+                return mergedLogs;
             },
             fetchPreciseLogs(afterTimestamp, beforeTimestamp) {
                 if (afterTimestamp === this.currentMinTimestamp && beforeTimestamp === this.currentMaxTimestamp) {
@@ -236,55 +307,21 @@
                     beforeTimestamp: Math.ceil(beforeTimestamp / 1000),
                     order: 'ASC',
                 })).then(({body: logItems}) => {
-                    const series = this.series[0].data;
-                    let newItems = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
-                    // const newItems = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
-
                     const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
-                    const actualInterval = newItems[1][0] - newItems[0][0];
-                    console.log(this.formatTimestamp(afterTimestamp), this.formatTimestamp(beforeTimestamp), this.visibleRange, expectedInterval, actualInterval);
-                    const filledNewItems = [];
-                    let lastTimestamp = 0;
-                    for (const serie of newItems) {
-                        const currentTimestamp = serie[0];
-                        if (lastTimestamp && (currentTimestamp - lastTimestamp) > expectedInterval * 2) {
-                            for (let missingTimestamp = lastTimestamp + expectedInterval; missingTimestamp < currentTimestamp; missingTimestamp += expectedInterval) {
-                                filledNewItems.push([missingTimestamp, null]);
-                            }
-                        }
-                        filledNewItems.push(serie);
-                        lastTimestamp = currentTimestamp;
-                    }
-                    newItems = filledNewItems;
+                    logItems = this.fillGaps(logItems, expectedInterval);
+                    const allLogs = this.mergeLogs(this.sparseLogs, logItems);
 
-                    let seriesIndex = 0;
-                    let newItemsIndex = 0;
-                    const newSeries = [];
-                    while (newItemsIndex < newItems.length || seriesIndex < series.length) {
-                        if (newItemsIndex >= newItems.length) {
-                            newSeries.push(series[seriesIndex++]);
-                        } else if (seriesIndex >= series.length) {
-                            newSeries.push(newItems[newItemsIndex++]);
-                        } else {
-                            const seriesTimestamp = series[seriesIndex][0];
-                            const newItemsTimestamp = newItems[newItemsIndex][0];
-                            if (seriesTimestamp < newItemsTimestamp) {
-                                newSeries.push(series[seriesIndex++]);
-                            } else if (seriesTimestamp > newItemsTimestamp) {
-                                newSeries.push(newItems[newItemsIndex++]);
-                            } else {
-                                newSeries.push(newItems[newItemsIndex]);
-                                ++newItemsIndex;
-                                ++seriesIndex;
-                            }
-                        }
-                    }
+                    const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, +item.humidity]);
 
                     // console.log(newSeries);
 
                     // this.series2 = [{data: newSeries}];
 
-                    this.$refs.bigChart.updateSeries([{name: channelTitle(this.channel, this) + ' (temperatura)', data: newSeries}], true);
+                    this.$refs.bigChart.updateSeries([
+                        {name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries},
+                        {name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries},
+                    ], true);
                     this.$refs.bigChart.updateOptions({
                         xaxis: {
                             min: this.currentMinTimestamp,
