@@ -39,124 +39,10 @@
     export default {
         props: ['channel'],
         data: function () {
-
-            var bigChartOptions = {
-                chart: {
-                    id: 'chart2vue',
-                    type: 'line',
-                    height: 230,
-                    toolbar: {
-                        // autoSelected: 'pan',
-                        show: true,
-                        tools: {
-                            download: true,
-                            selection: false,
-                            zoom: true,
-                            zoomin: false,
-                            zoomout: false,
-                            pan: true,
-                            reset: false,
-                        },
-                    },
-
-                    animations: {
-                        enabled: true,
-                    },
-                    locales: [pl, en],
-                    defaultLocale: 'pl',
-                },
-                title: {
-                    style: {
-                        fontSize: '20px',
-                        fontWeight: 'normal',
-                        fontFamily: 'Quicksand',
-                    },
-                },
-                legend: {
-                    show: true,
-                    showForSingleSeries: true,
-                    position: 'top',
-                },
-                // colors: ['#546e7a'],
-                stroke: {
-                    width: 3
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                fill: {
-                    opacity: 1,
-                },
-                markers: {
-                    size: 0
-                },
-                xaxis: {
-                    type: 'datetime',
-                    // type: 'numeric',
-                    // tickAmount: 8,
-                    labels: {
-                        datetimeUTC: false,
-                        // formatter: (value, timestamp) => moment.unix(value / 1000).format('LT L'),
-                    }
-                },
-                tooltip: {
-                    x: {
-                        formatter: (value, timestamp) => moment.unix(value / 1000).format('LT D MMM'),
-                    }
-                }
-            };
-
-            var smallChartOptions = {
-                chart: {
-                    id: 'chart1vue',
-                    height: 130,
-                    type: 'line',
-                    brush: {
-                        target: 'chart2vue',
-                        enabled: true,
-                        autoScaleYaxis: false,
-                    },
-                    locales: [pl, en],
-                    defaultLocale: 'pl',
-                    // selection: {
-                    //     enabled: true,
-                    // xaxis: {
-                    //     min: 1484505000000,
-                    //     max: 1484764200000
-                    // }
-                    // },
-                },
-                // colors: ['#008ffb'],
-                // fill: {
-                //     type: 'gradient',
-                //     gradient: {
-                //         opacityFrom: 0.91,
-                //         opacityTo: 0.1,
-                //     }
-                // },
-                legend: {
-                    show: false,
-                },
-                xaxis: {
-                    type: 'datetime',
-                    tooltip: {
-                        enabled: false
-                    },
-                    labels: {
-                        datetimeUTC: false,
-                    }
-                },
-                yaxis: {
-                    labels: {show: false}
-                }
-            };
-
             return {
                 deleteConfirm: false,
                 currentMinTimestamp: undefined,
                 currentMaxTimestamp: undefined,
-                bigChartOptions: bigChartOptions,
-                smallChartOptions: smallChartOptions,
                 sparseLogs: undefined,
                 bigChart: undefined,
                 smallChart: undefined,
@@ -169,18 +55,6 @@
             fetchAllLogs() {
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=500&order=ASC`).then(({body: logItems}) => {
                     this.sparseLogs = logItems;
-                    const temperatureSeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
-                    const humiditySeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.humidity]);
-                    // const series = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
-                    const series = [
-                        {name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries},
-                        {name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries},
-                    ];
-
-                    this.bigChart = new ApexCharts(this.$refs.bigChart, {...this.bigChartOptions, series});
-                    this.smallChart = new ApexCharts(this.$refs.smallChart, {...this.smallChartOptions, series});
-                    this.bigChart.render();
-                    this.smallChart.render();
 
                     const updateSmallChart = () => {
                         this.smallChart.updateOptions(
@@ -204,94 +78,201 @@
                         this.fetchPreciseLogs();
                     }, 500);
 
-                    this.smallChart.updateOptions(
-                        {
-                            chart: {
-                                selection: {
-                                    enabled: true,
-                                    xaxis: {
-                                        max: temperatureSeries[temperatureSeries.length - 1][0],
-                                        min: temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0]
-                                    },
-                                },
-                                events: {
-                                    selection: (chartContext, {xaxis, yaxis}) => {
-                                        if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
-                                            this.bigChart.updateOptions({
-                                                xaxis: {
-                                                    min: xaxis.min,
-                                                    max: xaxis.max,
-                                                },
-                                            }, false, false, false, false, false);
-                                            this.currentMinTimestamp = xaxis.min;
-                                            this.currentMaxTimestamp = xaxis.max;
-                                            fetchPreciseLogs();
+                    const temperatureSeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
+                    const humiditySeries = this.sparseLogs.map((item) => [+item.date_timestamp * 1000, +item.humidity]);
+
+                    var bigChartOptions = {
+                        chart: {
+                            id: 'chart2vue',
+                            type: 'line',
+                            height: 230,
+                            toolbar: {
+                                // autoSelected: 'pan',
+                                show: true,
+                                tools: {
+                                    download: true,
+                                    selection: false,
+                                    zoom: true,
+                                    zoomin: false,
+                                    zoomout: false,
+                                    pan: true,
+                                    reset: false,
+                                    customIcons: [{
+                                        icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
+                                        index: 2,
+                                        title: 'show default view',
+                                        click: () => {
+                                            this.currentMaxTimestamp = temperatureSeries[temperatureSeries.length - 1][0];
+                                            this.currentMinTimestamp = temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0];
+                                            updateSmallChart();
                                         }
-                                    },
-                                }
-                            },
-                        }
-                    );
-                    this.bigChart.updateOptions(
-                        {
-                            chart: {
-                                events: {
-                                    zoomed: (chartContext, {xaxis}) => {
-                                        this.currentMaxTimestamp = xaxis.max;
-                                        this.currentMinTimestamp = xaxis.min;
-                                        updateSmallChart();
-                                    },
-                                    scrolled: (chartContext, {xaxis}) => {
-                                        this.currentMaxTimestamp = xaxis.max;
-                                        this.currentMinTimestamp = xaxis.min;
-                                        updateSmallChart();
-                                    },
-                                    // scrolled: updateSmallChart,
-                                    // click: (event, chartContext, config) => {
-                                    //     console.log(event, chartContext, config);
-                                    // },
+                                    }]
                                 },
-                                toolbar: {
-                                    tools: {
-                                        customIcons: [{
-                                            icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
-                                            index: 2,
-                                            title: 'show default view',
-                                            click: () => {
-                                                this.currentMaxTimestamp = temperatureSeries[temperatureSeries.length - 1][0];
-                                                this.currentMinTimestamp = temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0];
-                                                updateSmallChart();
-                                            }
-                                        }]
-                                    }
+                            },
+
+                            animations: {
+                                enabled: true,
+                            },
+                            locales: [pl, en],
+                            defaultLocale: 'pl',
+                            events: {
+                                zoomed: (chartContext, {xaxis}) => {
+                                    this.currentMaxTimestamp = xaxis.max;
+                                    this.currentMinTimestamp = xaxis.min;
+                                    updateSmallChart();
+                                },
+                                scrolled: (chartContext, {xaxis}) => {
+                                    this.currentMaxTimestamp = xaxis.max;
+                                    this.currentMinTimestamp = xaxis.min;
+                                    updateSmallChart();
+                                },
+                                // scrolled: updateSmallChart,
+                                // click: (event, chartContext, config) => {
+                                //     console.log(event, chartContext, config);
+                                // },
+                            },
+                        },
+                        title: {
+                            text: channelTitle(this.channel, this),
+                            style: {
+                                fontSize: '20px',
+                                fontWeight: 'normal',
+                                fontFamily: 'Quicksand',
+                            },
+                        },
+                        legend: {
+                            show: true,
+                            showForSingleSeries: true,
+                            position: 'top',
+                        },
+                        // colors: ['#546e7a'],
+                        stroke: {
+                            width: 3
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        markers: {
+                            size: 0
+                        },
+                        xaxis: {
+                            type: 'datetime',
+                            // type: 'numeric',
+                            // tickAmount: 8,
+                            labels: {
+                                datetimeUTC: false,
+                                // formatter: (value, timestamp) => moment.unix(value / 1000).format('LT L'),
+                            }
+                        },
+                        tooltip: {
+                            x: {
+                                formatter: (value, timestamp) => moment.unix(value / 1000).format('LT D MMM'),
+                            }
+                        },
+                        yaxis: [
+                            {
+                                seriesName: channelTitle(this.channel, this) + ' (temperatura)',
+                                title: {
+                                    text: "Temperatura"
+                                },
+                                labels: {
+                                    formatter: (v) => `${v}°C`
                                 }
                             },
-                            title: {
-                                text: channelTitle(this.channel, this),
+                            {
+                                seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
+                                opposite: true,
+                                title: {
+                                    text: "Wilgotność"
+                                },
+                                labels: {
+                                    formatter: (v) => `${v}%`
+                                }
+                            }
+                        ],
+                    };
+
+                    var smallChartOptions = {
+                        chart: {
+                            id: 'chart1vue',
+                            height: 130,
+                            type: 'line',
+                            brush: {
+                                target: 'chart2vue',
+                                enabled: true,
+                                autoScaleYaxis: false,
                             },
-                            yaxis: [
-                                {
-                                    seriesName: channelTitle(this.channel, this) + ' (temperatura)',
-                                    title: {
-                                        text: "Temperatura"
-                                    },
-                                    labels: {
-                                        formatter: (v) => `${v}°C`
+                            locales: [pl, en],
+                            defaultLocale: 'pl',
+                            selection: {
+                                enabled: true,
+                                xaxis: {
+                                    max: temperatureSeries[temperatureSeries.length - 1][0],
+                                    min: temperatureSeries[Math.max(0, temperatureSeries.length - 30)][0]
+                                },
+                            },
+                            events: {
+                                selection: (chartContext, {xaxis}) => {
+                                    if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
+                                        this.bigChart.updateOptions({
+                                            xaxis: {
+                                                min: xaxis.min,
+                                                max: xaxis.max,
+                                            },
+                                        }, false, false, false, false, false);
+                                        this.currentMinTimestamp = xaxis.min;
+                                        this.currentMaxTimestamp = xaxis.max;
+                                        fetchPreciseLogs();
                                     }
                                 },
-                                {
-                                    seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
-                                    opposite: true,
-                                    title: {
-                                        text: "Wilgotność"
-                                    },
-                                    labels: {
-                                        formatter: (v) => `${v}%`
-                                    }
-                                }
-                            ],
+                            },
+                            // selection: {
+                            //     enabled: true,
+                            // xaxis: {
+                            //     min: 1484505000000,
+                            //     max: 1484764200000
+                            // }
+                            // },
+                        },
+                        // colors: ['#008ffb'],
+                        // fill: {
+                        //     type: 'gradient',
+                        //     gradient: {
+                        //         opacityFrom: 0.91,
+                        //         opacityTo: 0.1,
+                        //     }
+                        // },
+                        legend: {
+                            show: false,
+                        },
+                        xaxis: {
+                            type: 'datetime',
+                            tooltip: {
+                                enabled: false
+                            },
+                            labels: {
+                                datetimeUTC: false,
+                            }
+                        },
+                        yaxis: {
+                            labels: {show: false}
                         }
-                    );
+                    };
+
+                    // const series = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
+                    const series = [
+                        {name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries},
+                        {name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries},
+                    ];
+
+                    this.bigChart = new ApexCharts(this.$refs.bigChart, {...bigChartOptions, series});
+                    this.smallChart = new ApexCharts(this.$refs.smallChart, {...smallChartOptions, series});
+                    this.bigChart.render();
+                    this.smallChart.render();
+
                 });
             },
             formatTimestamp(timestamp) {
