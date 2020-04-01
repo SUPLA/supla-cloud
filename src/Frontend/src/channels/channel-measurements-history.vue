@@ -16,14 +16,14 @@
             <apexchart width="100%"
                 height="330"
                 type="line"
-                :options="chartOptions"
+                :options="bigChartOptions"
                 ref="bigChart"
                 :series="series"></apexchart>
             <apexchart width="100%"
                 height="130"
                 type="area"
                 ref="smallChart"
-                :options="chartOptions2"
+                :options="smallChartOptions"
                 :series="series"></apexchart>
         </div>
         <modal-confirm v-if="deleteConfirm"
@@ -41,16 +41,16 @@
     import {successNotification} from "../common/notifier";
     import {debounce} from "lodash";
 
+    Vue.use(VueApexCharts);
     const pl = require("apexcharts/dist/locales/pl.json")
 
-    Vue.use(VueApexCharts);
 
     export default {
         components: {apexchart: VueApexCharts},
         props: ['channel'],
         data: function () {
 
-            var options = {
+            var bigChartOptions = {
                 chart: {
                     id: 'chart2vue',
                     type: 'line',
@@ -104,10 +104,7 @@
                 }
             };
 
-            // var chart = new ApexCharts(document.querySelector("#chart-line2"), options);
-            // chart.render();
-
-            var optionsLine = {
+            var smallChartOptions = {
                 chart: {
                     id: 'chart1vue',
                     height: 130,
@@ -158,8 +155,8 @@
                 deleteConfirm: false,
                 currentMinTimestamp: undefined,
                 currentMaxTimestamp: undefined,
-                chartOptions: options,
-                chartOptions2: optionsLine,
+                bigChartOptions: bigChartOptions,
+                smallChartOptions: smallChartOptions,
                 series: undefined,
                 // series2: undefined,
             };
@@ -174,10 +171,10 @@
                     // const series = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
                     this.series = [{data: series}];
                     // this.series2 = [{data: series}];
-                    this.chartOptions2 = {
-                        ...this.chartOptions2,
+                    this.smallChartOptions = {
+                        ...this.smallChartOptions,
                         chart: {
-                            ...this.chartOptions2.chart,
+                            ...this.smallChartOptions.chart,
                             selection: {
                                 enabled: true,
                                 xaxis: {
@@ -187,10 +184,10 @@
                             },
                         },
                     };
-                    this.chartOptions = {
-                        ...this.chartOptions,
+                    this.bigChartOptions = {
+                        ...this.bigChartOptions,
                         chart: {
-                            ...this.chartOptions.chart,
+                            ...this.bigChartOptions.chart,
                             events: {
                                 updated: debounce((chartContext, {config}) => {
                                     if (config.xaxis.min && config.xaxis.max) {

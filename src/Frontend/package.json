@@ -13,7 +13,7 @@
     "webpack-stats": "cross-env NODE_ENV=production webpack --json > stats.json"
   },
   "dependencies": {
-    "apexcharts": "^3.17.0",
+    "apexcharts": "^3.17.1",
     "autosize": "^4.0.2",
     "babel-runtime": "6.26.0",
     "bootstrap": "3.4.1",
