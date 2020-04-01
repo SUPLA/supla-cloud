@@ -40,10 +40,10 @@
     import VueApexCharts from 'vue-apexcharts';
     import {successNotification} from "../common/notifier";
     import {debounce} from "lodash";
+    import {channelTitle} from "../common/filters";
 
     Vue.use(VueApexCharts);
     const pl = require("apexcharts/dist/locales/pl.json")
-
 
     export default {
         components: {apexchart: VueApexCharts},
@@ -69,11 +69,24 @@
                             // customIcons: []
                         },
                     },
+
                     animations: {
                         enabled: true,
                     },
                     locales: [pl],
                     defaultLocale: 'pl',
+                },
+                title: {
+                    style: {
+                        fontSize: '20px',
+                        fontWeight: 'normal',
+                        fontFamily: 'Quicksand',
+                    },
+                },
+                legend: {
+                    show: true,
+                    showForSingleSeries: true,
+                    position: 'top',
                 },
                 colors: ['#546e7a'],
                 stroke: {
@@ -169,7 +182,7 @@
                 this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=500&order=ASC`).then(({body: logItems}) => {
                     const series = logItems.map((item) => [+item.date_timestamp * 1000, +item.temperature]);
                     // const series = logItems.map((item) => [moment.unix(+item.date_timestamp).format(), +item.temperature]);
-                    this.series = [{data: series}];
+                    this.series = [{name: channelTitle(this.channel, this) + ' (temperatura)', data: series}];
                     // this.series2 = [{data: series}];
                     this.smallChartOptions = {
                         ...this.smallChartOptions,
@@ -199,6 +212,10 @@
                                 },
                             },
                         },
+                        title: {
+                            ...this.bigChartOptions.title,
+                            text: channelTitle(this.channel, this),
+                        }
                     };
                 });
             },
@@ -267,7 +284,7 @@
 
                     // this.series2 = [{data: newSeries}];
 
-                    this.$refs.bigChart.updateSeries([{name: 'Temperatura', data: newSeries}], true);
+                    this.$refs.bigChart.updateSeries([{name: channelTitle(this.channel, this) + ' (temperatura)', data: newSeries}], true);
                     this.$refs.bigChart.updateOptions({
                         xaxis: {
                             min: this.currentMinTimestamp,
