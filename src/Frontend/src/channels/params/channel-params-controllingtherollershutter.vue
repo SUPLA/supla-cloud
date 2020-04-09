@@ -1,43 +1,47 @@
 <template>
-    <dl>
-        <dd>{{ $t('Full opening time') }}</dd>
-        <dt>
-            <span class="input-group">
-                <input type="number"
-                    step="0.1"
-                    min="0"
-                    max="300"
-                    class="form-control text-center"
-                    v-model="param1">
-                <span class="input-group-addon">
-                    {{ $t('sec.') }}
+    <div>
+        <dl v-if="timeSelectorEnabled">
+            <dd>{{ $t('Full opening time') }}</dd>
+            <dt>
+                <span class="input-group">
+                    <input type="number"
+                        step="0.1"
+                        min="0"
+                        max="300"
+                        class="form-control text-center"
+                        v-model="param1">
+                    <span class="input-group-addon">
+                        {{ $t('sec.') }}
+                    </span>
                 </span>
-            </span>
-        </dt>
-        <dd>{{ $t('Full closing time') }}</dd>
-        <dt>
-            <span class="input-group">
-                <input type="number"
-                    step="0.1"
-                    min="0"
-                    max="300"
-                    class="form-control text-center"
-                    v-model="param3">
-                <span class="input-group-addon">
-                    {{ $t('sec.') }}
+            </dt>
+            <dd>{{ $t('Full closing time') }}</dd>
+            <dt>
+                <span class="input-group">
+                    <input type="number"
+                        step="0.1"
+                        min="0"
+                        max="300"
+                        class="form-control text-center"
+                        v-model="param3">
+                    <span class="input-group-addon">
+                        {{ $t('sec.') }}
+                    </span>
                 </span>
-            </span>
-        </dt>
-        <dl>
-            <dd>{{ $t('Opening sensor') }}</dd>
-            <dt class="text-center"
-                style="font-weight: normal">
-                <channels-dropdown params="function=OPENINGSENSOR_ROLLERSHUTTER"
-                    v-model="relatedChannel"
-                    @input="relatedChannelChanged()"></channels-dropdown>
             </dt>
         </dl>
-    </dl>
+        <dl>
+            <dl>
+                <dd>{{ $t('Opening sensor') }}</dd>
+                <dt class="text-center"
+                    style="font-weight: normal">
+                    <channels-dropdown params="function=OPENINGSENSOR_ROLLERSHUTTER"
+                        v-model="relatedChannel"
+                        @input="relatedChannelChanged()"></channels-dropdown>
+                </dt>
+            </dl>
+        </dl>
+    </div>
 </template>
 
 <script>
@@ -81,6 +85,9 @@
                 get() {
                     return this.channel.param3 / 10;
                 }
+            },
+            timeSelectorEnabled() {
+                return this.channel && !(this.channel.flags & 0x00100000);
             }
         }
     };

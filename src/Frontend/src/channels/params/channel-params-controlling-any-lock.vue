@@ -1,6 +1,7 @@
 <template>
     <div>
-        <channel-opening-time-selector v-model="channel.param1"
+        <channel-opening-time-selector v-if="timeSelectorEnabled"
+            v-model="channel.param1"
             @input="$emit('change')"
             :times="times"></channel-opening-time-selector>
         <dl>
@@ -49,6 +50,11 @@
             relatedChannelChanged() {
                 this.channel.param2 = this.relatedChannel ? this.relatedChannel.id : 0;
                 this.$emit('change');
+            }
+        },
+        computed: {
+            timeSelectorEnabled() {
+                return this.channel && !(this.channel.flags & 0x00100000);
             }
         }
     };
