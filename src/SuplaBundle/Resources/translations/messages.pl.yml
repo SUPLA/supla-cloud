@@ -561,6 +561,7 @@ register-slide2-text: 'Jednymi z podstawowych założeń projektu są prostota i
 register-slide2-title: SUPLA wszędzie!
 register-slide3-text: 'Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz WiFi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!'
 register-slide3-title: Bezpłatna i otwarta!
+reset chart view: wróć do początkowego widoku
 sec.: sek.
 'smartphones, tablets, etc.': 'smartfony, tablety itp.'
 state-closed: Zamknięte

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="text-right form-group">
+        <div :class="'form-group text-' + (supportsChart ? 'right' : 'center')">
             <div class="button-container">
                 <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
                     class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
@@ -13,8 +13,10 @@
             </div>
         </div>
 
-        <div ref="bigChart"></div>
-        <div ref="smallChart"></div>
+        <div v-if="supportsChart">
+            <div ref="bigChart"></div>
+            <div ref="smallChart"></div>
+        </div>
 
         <modal-confirm v-if="deleteConfirm"
             class="modal-warning"
@@ -33,8 +35,23 @@
 
     window.ApexCharts = ApexCharts;
 
-    const pl = require("apexcharts/dist/locales/pl.json");
-    const en = require("apexcharts/dist/locales/en.json");
+    const locales = [
+        require("apexcharts/dist/locales/en.json"),
+        require("apexcharts/dist/locales/pl.json"),
+        // require("apexcharts/dist/locales/cs.json"),
+        require("apexcharts/dist/locales/de.json"),
+        require("apexcharts/dist/locales/es.json"),
+        require("apexcharts/dist/locales/el.json"),
+        require("apexcharts/dist/locales/fr.json"),
+        require("apexcharts/dist/locales/it.json"),
+        // require("apexcharts/dist/locales/lt.json"),
+        require("apexcharts/dist/locales/nl.json"),
+        // require("apexcharts/dist/locales/nb.json"),
+        // require("apexcharts/dist/locales/pt.json"),
+        require("apexcharts/dist/locales/ru.json"),
+        // require("apexcharts/dist/locales/sk.json"),
+        // require("apexcharts/dist/locales/sl.json"),
+    ];
 
     export default {
         props: ['channel'],
@@ -50,24 +67,25 @@
             };
         },
         mounted() {
-            this.fetchSparseLogs().then((logs) => {
-                this.sparseLogs = logs;
-                this.renderCharts();
-            });
+            if (this.supportsChart) {
+                this.fetchSparseLogs().then((logs) => {
+                    this.sparseLogs = logs;
+                    this.renderCharts();
+                });
+            }
         },
         methods: {
             getChartSeries() {
                 const series = [];
-
                 if (this.sparseLogs.length) {
                     const allLogs = this.mergeLogs(this.sparseLogs, this.denseLogs);
                     if (this.sparseLogs[0].temperature !== undefined) {
                         const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.temperature]);
-                        series.push({name: channelTitle(this.channel, this) + ' (temperatura)', data: temperatureSeries});
+                        series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries});
                     }
                     if (this.sparseLogs[0].humidity !== undefined) {
                         const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.humidity]);
-                        series.push({name: channelTitle(this.channel, this) + ' (wilgotność)', data: humiditySeries});
+                        series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries});
                     }
                 }
                 return series;
@@ -99,13 +117,13 @@
                     this.fetchDenseLogs().then(() => this.rerenderCharts());
                 }, 500);
 
+                let chartId = `channel${this.channel.id}`;
                 const bigChartOptions = {
                     chart: {
-                        id: 'chart2vue',
+                        id: chartId,
                         type: 'line',
                         height: 400,
                         toolbar: {
-                            // autoSelected: 'pan',
                             show: true,
                             tools: {
                                 download: true,
@@ -118,7 +136,7 @@
                                 customIcons: [{
                                     icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
                                     index: 2,
-                                    title: 'show default view',
+                                    title: this.$t('reset chart view'),
                                     click: () => {
                                         this.currentMaxTimestamp = this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000;
                                         this.currentMinTimestamp = this.sparseLogs[Math.max(0, this.sparseLogs.length - 30)].date_timestamp * 1000;
@@ -127,12 +145,8 @@
                                 }]
                             },
                         },
-
-                        animations: {
-                            enabled: true,
-                        },
-                        locales: [pl, en],
-                        defaultLocale: 'pl',
+                        animations: {enabled: true},
+                        locales,
                         events: {
                             zoomed: (chartContext, {xaxis}) => {
                                 this.currentMaxTimestamp = xaxis.max;
@@ -149,39 +163,16 @@
                             // },
                         },
                     },
-                    title: {
-                        text: channelTitle(this.channel, this),
-                        style: {
-                            fontSize: '20px',
-                            fontWeight: 'normal',
-                            fontFamily: 'Quicksand',
-                        },
-                    },
-                    legend: {
-                        show: true,
-                        showForSingleSeries: true,
-                        position: 'top',
-                    },
-                    // colors: ['#546e7a'],
-                    stroke: {
-                        width: 3
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    fill: {
-                        opacity: 1,
-                    },
-                    markers: {
-                        size: 0
-                    },
+                    title: {style: {fontSize: '20px', fontWeight: 'normal', fontFamily: 'Quicksand'}},
+                    legend: {show: true, showForSingleSeries: true, position: 'top'},
+                    stroke: {width: 3},
+                    dataLabels: {enabled: false},
+                    fill: {opacity: 1},
+                    markers: {size: 0},
                     xaxis: {
                         type: 'datetime',
-                        // type: 'numeric',
-                        // tickAmount: 8,
                         labels: {
                             datetimeUTC: false,
-                            // formatter: (value, timestamp) => moment.unix(value / 1000).format('LT L'),
                         }
                     },
                     tooltip: {
@@ -189,41 +180,15 @@
                             formatter: (value) => moment.unix(value / 1000).format('LT D MMM'),
                         }
                     },
-                    yaxis: [
-                        {
-                            seriesName: channelTitle(this.channel, this) + ' (temperatura)',
-                            title: {
-                                text: "Temperatura"
-                            },
-                            labels: {
-                                formatter: (v) => `${v}°C`
-                            }
-                        },
-                        {
-                            seriesName: channelTitle(this.channel, this) + ' (wilgotność)',
-                            opposite: true,
-                            title: {
-                                text: "Wilgotność"
-                            },
-                            labels: {
-                                formatter: (v) => `${v}%`
-                            }
-                        }
-                    ],
                 };
 
                 const smallChartOptions = {
                     chart: {
-                        id: 'chart1vue',
+                        id: 'smallChart',
                         height: 130,
                         type: 'line',
-                        brush: {
-                            target: 'chart2vue',
-                            enabled: true,
-                            autoScaleYaxis: false,
-                        },
-                        locales: [pl, en],
-                        defaultLocale: 'pl',
+                        brush: {target: chartId, enabled: true, autoScaleYaxis: false},
+                        locales,
                         selection: {
                             enabled: true,
                             xaxis: {
@@ -247,37 +212,21 @@
                             },
                         },
                     },
-                    // colors: ['#008ffb'],
-                    // fill: {
-                    //     type: 'gradient',
-                    //     gradient: {
-                    //         opacityFrom: 0.91,
-                    //         opacityTo: 0.1,
-                    //     }
-                    // },
-                    legend: {
-                        show: false,
-                    },
+                    legend: {show: false},
                     xaxis: {
                         type: 'datetime',
-                        tooltip: {
-                            enabled: false
-                        },
-                        labels: {
-                            datetimeUTC: false,
-                        }
+                        tooltip: {enabled: false},
+                        labels: {datetimeUTC: false}
                     },
-                    yaxis: {
-                        labels: {show: false}
-                    }
+                    yaxis: {labels: {show: false}}
                 };
 
                 const series = this.getChartSeries();
-
                 this.bigChart = new ApexCharts(this.$refs.bigChart, {...bigChartOptions, series});
                 this.smallChart = new ApexCharts(this.$refs.smallChart, {...smallChartOptions, series});
                 this.bigChart.render();
                 this.smallChart.render();
+                this.updateChartLocale();
             },
             fillGaps(logs, expectedInterval) {
                 const defaultLog = {temperature: null};
@@ -335,6 +284,29 @@
                     return this.denseLogs = this.fillGaps(logItems, expectedInterval);
                 });
             },
+            updateChartLocale() {
+                const availableLocales = locales.map((l) => l.name);
+                const locale = availableLocales.includes(this.$i18n.locale) ? this.$i18n.locale : 'en';
+                this.smallChart.setLocale(locale);
+                this.bigChart.setLocale(locale);
+                this.bigChart.updateOptions({
+                    title: {text: channelTitle(this.channel, this)},
+                    yaxis: [
+                        {
+                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                            title: {text: this.$t("Temperature")},
+                            labels: {formatter: (v) => `${v}°C`}
+                        },
+                        {
+                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
+                            opposite: true,
+                            title: {text: this.$t('Humidity')},
+                            labels: {formatter: (v) => `${v}%`}
+                        }
+                    ],
+                });
+                this.rerenderCharts();
+            },
             rerenderCharts() {
                 const series = this.getChartSeries();
                 this.bigChart.updateSeries(series, true);
@@ -355,6 +327,14 @@
             visibleRange() {
                 return this.currentMaxTimestamp && (this.currentMaxTimestamp - this.currentMinTimestamp);
             },
+            supportsChart() {
+                return this.channel && ['THERMOMETER', 'HUMIDITYANDTEMPERATURE'].includes(this.channel.function.name);
+            },
         },
+        watch: {
+            '$i18n.locale'() {
+                this.updateChartLocale();
+            }
+        }
     };
 </script>
