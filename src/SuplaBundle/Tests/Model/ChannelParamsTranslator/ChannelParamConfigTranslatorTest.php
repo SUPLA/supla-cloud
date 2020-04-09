@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ControllingAnyLockRelatedSensorUpdater;
@@ -216,6 +217,21 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel = new IODeviceChannel();
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
         $config = $this->configTranslator->getConfigFromParams($channel);
-        $this->assertEquals(['openingSensorChannelId' => null, 'openingSensorSecondaryChannelId' => null, 'relayTimeMs' => 500], $config);
+        $this->assertEquals([
+            'openingSensorChannelId' => null,
+            'openingSensorSecondaryChannelId' => null,
+            'relayTimeMs' => 500,
+            'timeSettingAvailable' => true,
+        ], $config);
+    }
+
+    public function testReturningInfoFromFlagsNoneSet() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
+        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->assertTrue($config['timeSettingAvailable']);
+        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::getAllFeaturesFlag());
+        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->assertFalse($config['timeSettingAvailable']);
     }
 }

@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 
 class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
@@ -16,7 +17,10 @@ class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {
     ];
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
-        return ['relayTimeMs' => $channel->getParam1() ?: 500];
+        return [
+            'relayTimeMs' => $channel->getParam1() ?: 500,
+            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($channel->getFlags()),
+        ];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {

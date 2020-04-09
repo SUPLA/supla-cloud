@@ -4,13 +4,17 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
 class RelayTimeSChannelParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
-        return ['relayTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10, 1)];
+        return [
+            'relayTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10, 1),
+            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($channel->getFlags()),
+        ];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {

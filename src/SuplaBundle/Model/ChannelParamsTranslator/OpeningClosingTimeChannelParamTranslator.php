@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
 class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator {
@@ -13,6 +14,7 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
         return [
             'openingTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10, 1),
             'closingTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 10, 1),
+            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($channel->getFlags()),
         ];
     }
 

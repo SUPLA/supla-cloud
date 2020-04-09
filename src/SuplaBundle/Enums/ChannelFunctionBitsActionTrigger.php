@@ -18,11 +18,11 @@
 namespace SuplaBundle\Enums;
 
 /**
- * @method ChannelFunctionBitsActionTrigger PRESS()
- * @method ChannelFunctionBitsActionTrigger RELEASE()
- * @method ChannelFunctionBitsActionTrigger HOLD()
- * @method ChannelFunctionBitsActionTrigger PRESS_2X()
- * @method ChannelFunctionBitsActionTrigger PRESS_3X()
+ * @method static ChannelFunctionBitsActionTrigger PRESS()
+ * @method static ChannelFunctionBitsActionTrigger RELEASE()
+ * @method static ChannelFunctionBitsActionTrigger HOLD()
+ * @method static ChannelFunctionBitsActionTrigger PRESS_2X()
+ * @method static ChannelFunctionBitsActionTrigger PRESS_3X()
  */
 final class ChannelFunctionBitsActionTrigger extends ChannelFunctionBits {
     const PRESS = 1 << 8; // i18n:['actionTrigger_PRESS','actionTriggerDescription_PRESS']

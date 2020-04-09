@@ -1,6 +1,7 @@
 <template>
     <div>
-        <channel-opening-time-selector v-model="channel.config.relayTimeMs"
+        <channel-opening-time-selector v-if="channel.config.timeSettingAvailable"
+            v-model="channel.config.relayTimeMs"
             @input="$emit('change')"
             :times="times"></channel-opening-time-selector>
         <dl>
