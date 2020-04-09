@@ -69,8 +69,13 @@
         mounted() {
             if (this.supportsChart) {
                 this.fetchSparseLogs().then((logs) => {
-                    this.sparseLogs = logs;
-                    this.renderCharts();
+                    if (logs.length > 1) {
+                        const minTimestamp = +logs[0].date_timestamp * 1000;
+                        const maxTimestamp = +logs[logs.length - 1].date_timestamp * 1000;
+                        const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / 500));
+                        this.sparseLogs = this.fillGaps(logs, expectedInterval);
+                        this.renderCharts();
+                    }
                 });
             }
         },
@@ -229,6 +234,9 @@
                 this.updateChartLocale();
             },
             fillGaps(logs, expectedInterval) {
+                if (logs.length < 2) {
+                    return logs;
+                }
                 const defaultLog = {temperature: null};
                 if (logs[0].humidity !== undefined) {
                     defaultLog.humidity = null;
