@@ -105,6 +105,7 @@
                         {
                             chart: {
                                 selection: {
+                                    enabled: true,
                                     xaxis: {
                                         min: this.currentMinTimestamp,
                                         max: this.currentMaxTimestamp,
