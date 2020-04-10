@@ -171,7 +171,8 @@
                     },
                     title: {style: {fontSize: '20px', fontWeight: 'normal', fontFamily: 'Quicksand'}},
                     legend: {show: true, showForSingleSeries: true, position: 'top'},
-                    stroke: {width: 3},
+                    stroke: {width: 3,/* curve: 'smooth'*/},
+                    colors: ['#00d150', '#008ffb'],
                     dataLabels: {enabled: false},
                     fill: {opacity: 1},
                     markers: {size: 0},
@@ -195,6 +196,7 @@
                         type: 'line',
                         brush: {target: chartId, enabled: true, autoScaleYaxis: false},
                         locales,
+                        colors: ['#00d150', '#008ffb'],
                         selection: {
                             enabled: true,
                             xaxis: {
@@ -300,30 +302,36 @@
                 this.bigChart.setLocale(locale);
                 this.bigChart.updateOptions({
                     title: {text: channelTitle(this.channel, this)},
-                    yaxis: [
-                        {
-                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
-                            title: {text: this.$t("Temperature")},
-                            labels: {formatter: (v) => `${v}°C`}
-                        },
-                        {
-                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
-                            opposite: true,
-                            title: {text: this.$t('Humidity')},
-                            labels: {formatter: (v) => `${v}%`}
-                        }
-                    ],
                 });
                 this.rerenderCharts();
             },
             rerenderCharts() {
                 const series = this.getChartSeries();
                 this.bigChart.updateSeries(series, true);
+                const temperatures = this.denseLogs.map(log => log.temperature).filter(t => +t);
+                const humidities = this.denseLogs.map(log => log.humidity).filter(t => +t);
                 this.bigChart.updateOptions({
                     xaxis: {
                         min: this.currentMinTimestamp,
                         max: this.currentMaxTimestamp,
                     },
+                    yaxis: [
+                        {
+                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                            title: {text: this.$t("Temperature")},
+                            labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
+                            min: Math.min.apply(this, temperatures) - .2,
+                            max: Math.max.apply(this, temperatures) + .2,
+                        },
+                        {
+                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
+                            opposite: true,
+                            title: {text: this.$t('Humidity')},
+                            labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
+                            min: Math.max(0, Math.min.apply(this, humidities) - 1),
+                            max: Math.min(100, Math.max.apply(this, humidities) + 1),
+                        }
+                    ],
                 }, false, false);
             },
             deleteMeasurements() {
