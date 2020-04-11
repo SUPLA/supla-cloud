@@ -620,6 +620,6 @@ username: ~
 '{requests} from {limit} / day': ~
 '{requests} from {limit} / h': ~
 '{requests} from {limit} / min': ~
-'{requests} from {limit} / {seconds} sec.': ~
+'{requests} out of {limit} / {seconds} sec.': ~
 
 #</editor-fold>

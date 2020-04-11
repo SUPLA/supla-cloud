@@ -54,7 +54,7 @@
                                         {{ $t('{requests} from {limit} / day', apiRateStatus) }}
                                     </span>
                                     <span v-else>
-                                        {{ $t('{requests} from {limit} / {seconds} sec.', apiRateStatus) }}
+                                        {{ $t('{requests} out of {limit} / {seconds} sec.', apiRateStatus) }}
                                     </span>
                                 </account-limit-progressbar>
                             </div>
