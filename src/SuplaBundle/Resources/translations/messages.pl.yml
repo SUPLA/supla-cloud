@@ -256,7 +256,7 @@ Initial value: Wartość początkowa
 Integrations: Integracje
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
-Invalid function for channel.: Niepoprawna funkcja dla kanału
+Invalid function for channel.: Niepoprawna funkcja dla kanału.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
 Inverted logic: Odwrócona logika
