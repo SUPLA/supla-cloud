@@ -36,9 +36,11 @@ class LogItemsFixture extends SuplaFixture {
     const SINCE = '-40 day';
 
     public function load(ObjectManager $manager) {
+        ini_set('memory_limit', '1G');
         $this->entityManager = $manager;
         $this->faker = Factory::create('pl_PL');
         $this->createTemperatureLogItems();
+        $this->entityManager->flush();
         $this->createTemperatureAndHumidityLogItems();
         $this->entityManager->flush();
     }
