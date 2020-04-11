@@ -85,11 +85,11 @@
                 if (this.sparseLogs.length) {
                     const allLogs = this.mergeLogs(this.sparseLogs, this.denseLogs);
                     if (this.sparseLogs[0].temperature !== undefined) {
-                        const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.temperature]);
+                        const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.temperature >= -273 ? item.temperature : null]);
                         series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries});
                     }
                     if (this.sparseLogs[0].humidity !== undefined) {
-                        const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.humidity]);
+                        const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.humidity >= 0 ? item.humidity : null]);
                         series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries});
                     }
                 }
