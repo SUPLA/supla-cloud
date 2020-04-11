@@ -4,6 +4,14 @@
             <img src="assets/img/logo.svg"
                 alt="SUPLA">
         </div>
+        <div class="text-center" style="padding-bottom: 15px">
+            <easter-egg></easter-egg>
+            <easter-egg></easter-egg>
+            <easter-egg></easter-egg>
+            <easter-egg></easter-egg>
+            <easter-egg></easter-egg>
+            <easter-egg></easter-egg>
+        </div>
         <slot name="aboveForm"></slot>
         <div class="form-group form-group-lg">
             <span class="input-group">

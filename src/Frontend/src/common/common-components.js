@@ -10,6 +10,7 @@ import SquareLink from "./tiles/square-link";
 import SquareLinksGrid from "./tiles/square-links-grid";
 import Toggler from "./gui/toggler";
 import ButtonLoadingDots from "./gui/loaders/button-loading-dots.vue";
+import EasterEgg from "./easter-egg";
 
 Vue.component('cookieWarning', () => import("./errors/cookie-warning"));
 Vue.component('maintenanceWarning', () => import("./errors/maintenance-warning"));
@@ -24,3 +25,4 @@ Vue.component('squareLink', SquareLink);
 Vue.component('squareLinksGrid', SquareLinksGrid);
 Vue.component('toggler', Toggler);
 Vue.component('buttonLoadingDots', ButtonLoadingDots);
+Vue.component('easterEgg', EasterEgg);
