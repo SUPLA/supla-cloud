@@ -1,30 +1,35 @@
 <template>
-    <div class="container">
-        <div :class="'form-group text-' + (supportsChart ? 'right' : 'center')">
-            <div class="button-container">
-                <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
-                    class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
-                <button @click="deleteConfirm = true"
-                    type="button"
-                    class="btn btn-red">
-                    <i class="pe-7s-trash"></i>
-                    {{ $t('Delete measurement history') }}
-                </button>
+    <loading-cover :loading="hasLogs === undefined">
+        <div class="container">
+            <div :class="'form-group text-' + (sparseLogs.length ? 'right' : 'center')"
+                v-if="hasLogs">
+                <div class="button-container">
+                    <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
+                        class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
+                    <button @click="deleteConfirm = true"
+                        type="button"
+                        class="btn btn-red">
+                        <i class="pe-7s-trash"></i>
+                        {{ $t('Delete measurement history') }}
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div v-if="supportsChart">
-            <div ref="bigChart"></div>
-            <div ref="smallChart"></div>
-        </div>
+            <div v-if="supportsChart">
+                <div ref="bigChart"></div>
+                <div ref="smallChart"></div>
+            </div>
 
-        <modal-confirm v-if="deleteConfirm"
-            class="modal-warning"
-            @confirm="deleteMeasurements()"
-            @cancel="deleteConfirm = false"
-            :header="$t('Are you sure you want to delete the entire measurement history saved for this channel?')">
-        </modal-confirm>
-    </div>
+            <modal-confirm v-if="deleteConfirm"
+                class="modal-warning"
+                @confirm="deleteMeasurements()"
+                @cancel="deleteConfirm = false"
+                :header="$t('Are you sure you want to delete the entire measurement history saved for this channel?')">
+            </modal-confirm>
+
+            <empty-list-placeholder v-if="hasLogs === false"></empty-list-placeholder>
+        </div>
+    </loading-cover>
 </template>
 
 <script>
@@ -60,6 +65,7 @@
                 deleteConfirm: false,
                 currentMinTimestamp: undefined,
                 currentMaxTimestamp: undefined,
+                hasLogs: undefined,
                 sparseLogs: [],
                 denseLogs: [],
                 bigChart: undefined,
@@ -69,6 +75,7 @@
         mounted() {
             if (this.supportsChart) {
                 this.fetchSparseLogs().then((logs) => {
+                    this.hasLogs = logs.length > 0;
                     if (logs.length > 1) {
                         const minTimestamp = +logs[0].date_timestamp * 1000;
                         const maxTimestamp = +logs[logs.length - 1].date_timestamp * 1000;
@@ -77,6 +84,8 @@
                         this.renderCharts();
                     }
                 });
+            } else {
+                this.hasLogs = true;
             }
         },
         methods: {
@@ -287,8 +296,8 @@
             fetchDenseLogs() {
                 return this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
                     sparse: 200,
-                    afterTimestamp: Math.floor(this.currentMinTimestamp / 1000),
-                    beforeTimestamp: Math.ceil(this.currentMaxTimestamp / 1000),
+                    afterTimestamp: Math.floor(this.currentMinTimestamp / 1000) - 1,
+                    beforeTimestamp: Math.ceil(this.currentMaxTimestamp / 1000) + 1,
                     order: 'ASC',
                 })).then(({body: logItems}) => {
                     const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
@@ -310,28 +319,31 @@
                 this.bigChart.updateSeries(series, true);
                 const temperatures = this.denseLogs.map(log => log.temperature).filter(t => +t);
                 const humidities = this.denseLogs.map(log => log.humidity).filter(t => +t);
+                const yaxis = [
+                    {
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                        title: {text: this.$t("Temperature")},
+                        labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
+                        min: Math.min.apply(this, temperatures) - .2,
+                        max: Math.max.apply(this, temperatures) + .2,
+                    }
+                ];
+                if (series.length > 1) {
+                    yaxis.push({
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
+                        opposite: true,
+                        title: {text: this.$t('Humidity')},
+                        labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
+                        min: Math.max(0, Math.min.apply(this, humidities) - 1),
+                        max: Math.min(100, Math.max.apply(this, humidities) + 1),
+                    });
+                }
                 this.bigChart.updateOptions({
                     xaxis: {
                         min: this.currentMinTimestamp,
                         max: this.currentMaxTimestamp,
                     },
-                    yaxis: [
-                        {
-                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
-                            title: {text: this.$t("Temperature")},
-                            labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
-                            min: Math.min.apply(this, temperatures) - .2,
-                            max: Math.max.apply(this, temperatures) + .2,
-                        },
-                        {
-                            seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
-                            opposite: true,
-                            title: {text: this.$t('Humidity')},
-                            labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
-                            min: Math.max(0, Math.min.apply(this, humidities) - 1),
-                            max: Math.min(100, Math.max.apply(this, humidities) + 1),
-                        }
-                    ],
+                    yaxis,
                 }, false, false);
             },
             deleteMeasurements() {

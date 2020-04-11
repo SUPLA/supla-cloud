@@ -99,10 +99,10 @@ class ChannelMeasurementLogsController extends RestController {
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  >= ? ";
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) > ? ";
             }
             if ($beforeTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  <= ? ";
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) < ? ";
             }
         }
 
@@ -142,11 +142,11 @@ class ChannelMeasurementLogsController extends RestController {
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  >= ? ";
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) > ? ";
             }
 
             if ($beforeTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))  <= ? ";
+                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) < ? ";
             }
             if (!$sparse) {
                 $limitSql = "LIMIT ?";
