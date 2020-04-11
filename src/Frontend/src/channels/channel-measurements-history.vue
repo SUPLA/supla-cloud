@@ -114,7 +114,6 @@
                         {
                             chart: {
                                 selection: {
-                                    enabled: true,
                                     xaxis: {
                                         min: this.currentMinTimestamp,
                                         max: this.currentMaxTimestamp,
@@ -144,8 +143,8 @@
                                 download: true,
                                 selection: false,
                                 zoom: true,
-                                zoomin: false,
-                                zoomout: false,
+                                zoomin: true,
+                                zoomout: true,
                                 pan: true,
                                 reset: false,
                                 customIcons: [{
