@@ -8,7 +8,7 @@ use SuplaBundle\Enums\ChannelType;
  * supla_set_channel_function - device_id changed to user_id
  * New procedure supla_set_channel_caption
  */
-class Version20200122200601 extends NoWayBackMigration {
+class Version20200412183701 extends NoWayBackMigration {
     public function migrate() {
         $bridge = ChannelType::BRIDGE;
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_set_channel_function`');
