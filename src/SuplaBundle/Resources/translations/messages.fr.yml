@@ -5,10 +5,12 @@
 '...open gateways, gates or doors': '... vous pouvez ouvrir portillon, portail ou porte'
 ...or control home appliances: ... vous pouvez gérer votre équipement ménager
 ...you can monitor temperature: ...vous pouvez suivre la température
+A-Z: A-Z
 ACTIVE: ACTIVE
 AM2301 Temperature & Humidity Sensor: Capteur de tempétaure et d'humidité AM2301
 AM2302 Temperature & Humidity Sensor: Capteur de température et d'humidité AM2302
 API documentation: Documentation API
+API rate limits: Limites de requêtes API
 Access ID: ID d’accès
 Access Identifier: Identifiant d'accès
 Access Identifiers: Identifiants d'accès
@@ -86,9 +88,11 @@ Channel groups: Groupes de chaînes
 Channel is assigned to the I/O device location: La chaîne est attribuée au lieu du dispositif
 Channel will be deleted from the channel group below: La chaîne sera supprimée des groupes de chaînes suivants
 Channels: Chaînes
+Channels in channel group: Canaux dans les groupes de canaux
 Check the direct link you used and try again.: Vérifiez le lien direct et réessayez
 Check your email box: Vérifiez votre messagerie électronique
 Choose: Choisir
+Choose Access Identifier: Choisissez un Identifiant d'accès
 Choose Access Identifiers to be assigned to this Location: Choisir les Identifiants d'Accès qui vont être attribués à ce lieu
 Choose client apps: Choisissez les applications  pour les clients
 Choose location: Sélectionner le lieu
@@ -108,6 +112,7 @@ Confirm if you want to remove Access Identifier: Confirmer la suppression de mon
 Connected: Connecté
 Connection with a private instance of the SUPLA cloud: Connexion avec l'instance privée du nuage SUPLA.
 Constraints: Limitations
+Could not contact Autodiscover service. Try again in a while.: Impossible de contacter le service d'inscription. Réessayez dans un moment.
 Could not reset the password.: Mot de passe n'a pas pu être réinitialisé.
 Could not reset the password. Please try again later.: Impossible de réinitialiser le mot de passe Réessayez dans un moment.
 Create New Access Identifier: Créer un nouvel Identifiant d'Accès
@@ -221,6 +226,7 @@ History of measurements: Historique de mesures
 Home appliances: Équipement ménager
 Home+ Heater: Élément chauffant Home+
 Hours: Heures
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Actuellement, l''utilisation de nos serveurs a atteint un niveau dangereux. Nous surveillons la situation. Revenez dans un moment.'
 Humidity: Humidité
 Humidity Sensor: Capteur d'humidité
 Humidity adjustment: Réglage de l'humidité
@@ -231,6 +237,7 @@ I agree: J'accepte
 I confirm! Delete my account.: Je confirme! Supprimer mon compte.
 'I do not agree, get me out of here': 'Je ne suis pas d''accord, faites-moi sortir d''ici'
 I/O Devices: Dispositifs d'E/S
+ID: ID
 INACTIVE: INACTIVE
 Idle: Inactif
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Si vous êtes un programmeur qui souhaite fournir des fonctionnalités supplémentaires pour SUPLA, créez une application OAuth que les utilisateurs peuvent autoriser et utiliser.'
@@ -241,6 +248,7 @@ Idle: Inactif
 Impulse counter: Compteur d’impulsions
 Impulses: Impulses
 'In order to confirm account deletion, enter your password.': 'Afin de confirmer que vous souhaitez supprimer votre compte, veuillez entrer votre mot de passe.'
+Inactive: Inactif
 Incorrect password: Mauvais mot de passe
 Information: Information
 Inherit I/O Device location: Utiliser le lieu du dispositif
@@ -248,6 +256,7 @@ Initial value: Valeur initiale
 Integrations: Intégrations
 Interval: Laps de temps
 Invalid SUPLA Cloud URL.: URL incorrecte de l'instance SUPLA Cloud.
+Invalid function for channel.: Fonction invalide pour le canal
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Requête incorrecte.
 Inverted logic: Logique inversée
@@ -269,6 +278,7 @@ Location password must be no longer than 32 characters.: Mot de passe pour la lo
 Locations: Lieux
 Login: Connexion
 Mail sensor: Détecteur de courrier
+Maintenance mode active. You cannot modify any data now.: Mode de service activé. Impossible de modifier aucune donnée.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Assurez-vous qu''il est stocké dans un endroit sûr si vous voulez l''utiliser à l''avenir. Une fois que vous aurez quitté ce site, le lien ne sera plus affiché.'
 'Maximum filesize limit is {limit}.': 'La taille maximale du fichier est {limit}.'
 Meter value: Valeur du compteur
@@ -286,6 +296,7 @@ New channel group: Nouveau groupe de chaînes
 New direct link: Nouveau lien direct
 New password: Nouveau mot de passe
 Newer: Plus récent
+'Next limit renewal: {date}': 'La limite sera renouvelée le {date}'
 Next run date: Prochain programme
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Vous n''avez pas d''identifiants d''accès actifs. Aller à [liste des identifiants d''accès] ou [ajouter un nouvel identifiant d''accès].'
 No function: Aucune fonction
@@ -302,6 +313,7 @@ No. of devices: Nombre de dispositifs
 No. of locations: Nombre des lieux
 None: Nul
 OAuth application: Application OAuth
+OAuth apps: Applications OAuth
 OAuth authorization: Autorisation OAuth
 'Off': Désactiver
 Offline access: Accès hors ligne
@@ -311,6 +323,7 @@ On/Off switch: Interrputeur d'alimentation
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Seuls les noms de domaine avec un numéro de port optionnel sont autorisés. Par exemple, mysupla.org ou mysupla.org:88. HTTPS est nécessaire.'
 Open: Ouvrir
 Open / close: Ouvrez / fermez
+Open partially: Ouvrez partiellement
 Opening sensor: Détecteur d'ouverture
 Original location: Lieu d'origine
 'Otherwise go to [the homepage].': 'Sinon, allez à [page d''accueil].'
@@ -333,6 +346,7 @@ Pressure sensor: Capteur de pression
 Previous login: Dernière connexion
 Price per: Prix pour
 Private Cloud domain name: Nom de domaine privé du nuage
+Private instance of the SUPLA cloud with given URL is already registered.: Un cloud SUPLA privé est déjà enregistré à cette adresse.
 Proceed: Continuer
 Processing: En cours
 Public ID: ID publique
@@ -363,6 +377,8 @@ Revoke: Révoquer
 Roller shutter opening sensor: Capteur d'ouverture de volets
 Roller shutter operation: Ouverture et fermeture de volets roulants
 Roller shutters: Volets roulants
+SUPLA Cloud is under maintenance.: Le SUPLA Cloud est en cours de mise à jour.
+SUPLA Server was unable to execute the action.: Le serveur SUPLA n'a pas pu exécuter l'action.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA est disponible toujours et partout donc ne vous inquiétez pas si vous oubliez d'éteindre la lumière
 Saturdays: Samedi
 Save: Sauvegarder
@@ -391,6 +407,7 @@ Sensors: Capteurs
 Server address: Adresse du serveur
 Server unreachable: Ce serveur est injoignable
 Service temporarily unavailable: Ce service est temporairement indisponible
+Show my limits: Montrez mes limites
 Show on the Client’s devices: Afficher dans les dispositifs client
 Shut: Voiler
 Sign In: Se connecter
@@ -434,6 +451,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Le serveur a renvoyé l''erreur HTTP 404, ce qui signifie que l''article que tu recherches n''existe pas.'
 'The server has returned an HTTP {statusCode} error.': 'Serveur a renvoyé une erreur {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Les fichiers d''icônes que vous avez sélectionnés sont trop volumineux. La taille maximale autorisée de téléchargement est {limit}.'
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'La vanne ne sera pas ouverte si elle a été fermée manuellement ou à distance, ce qui aurait pu être dû à une inondation.'
 There are no more channels you can add to this group: Il n'y a pas d'autres chaînes qui peuvent être ajoutées à ce groupe.
 Thermometer: Thermomètre
 Thermostat: Thermostat
@@ -453,6 +471,8 @@ Unsupported function: Fonction non supportée
 Unsupported type: Type non supporté
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Les fichiers téléchargés ne violent pas les bonnes mœurs, les droits d''auteur et les droits des tiers, et j''ai le droit de les utiliser.'
 User is already confirmed. Try to log in.: Ce compte est déjà confirmé. Connectez-vous.
+Valve: Vanne
+Valve closed manually: Vanne fermée manuellement
 Visible: Affichés
 Visit app webpage: Ouvrez le site de l'application.
 WELCOME_MESSAGE: |
@@ -462,7 +482,9 @@ Water meter: Compteur d'eau
 We could not connect to your SUPLA Cloud instance.: Nous n'avons pas pu nous connecter à votre instance privée de SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Le message avec le lien d’activation de votre compte vient d’être envoyé. Soyez patient.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Nous vous avons envoyé un e-mail avec un lien confirmant la suppression de votre compte. Peut-être que vous allez changer d'avis !
+We should be ready shortly.: On devrait finir bientôt.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Nous enregistrons des informations sur vos préférences dans votre navigateur afin de faciliter l''utilisation de l''application (par exemple au moyen de cookies). [Lire le règlement].'
+We try to be faster: Nous essayons d'être plus rapides
 We were not able to find your account.: Nous n'avons pas pu trouver votre compte.
 We will miss you: Vous nous manquerez
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.Nous ferons de notre mieux pour nous assurer que les icônes sont affichées aussi bien que possible, mais vous obtiendrez les meilleurs résultats en téléchargeant des fichiers PNG avec un fond transparent et une largeur de {width} pixels et une hauteur de {height} pixels.'
@@ -482,6 +504,7 @@ With SUPLA you can operate the lights in your home or office: Avec SUPLA vous po
 With function: Avec la fonction
 Working period: Durée
 YOUR LINK CODE: CODE DE VOTRE LIEN
+You can use the application but you will not be able to modify any settings.: Vous pouvez utiliser l'application mais vous ne pourrez modifier aucun paramètre.
 You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d'accès.
 You cannot delete your last location.: Vous ne pouvez pas supprimer votre dernier lieu.
 You just need to execute the following command inside your host terminal.: Il suffit d'exécuter la commande suivante à l'intérieur de votre terminal hôte.
@@ -492,6 +515,7 @@ You will not be able to generate a direct link with the same URL again.: Il ne s
 Your account has been deleted. We hope you will come back to us soon.: Le compte a été supprimé. Nous espérons que vous reviendrez bientôt chez nous.
 Your account has been locked.: Votre compte a été bloqué.
 Your account has not been confirmed yet.: Votre compte n’est pas encore confirmé.
+Your account limits: Limites de votre compte
 Your email: Votre adresse e-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: Votre instance n'est pas enregistrée ou vous essayez d'autoriser une application qui n'est pas publique.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Votre instance privée SUPLA cloud n'est pas disponible. Assurez-vous que votre serveur est en ligne et que la connexion HTTPS fonctionne correctement.
@@ -530,12 +554,14 @@ hourly: Cycle par heures
 minutely: Cycle par minutes
 minutes: minutes
 once: unique
+password: mot de passe
 register-slide1-text: 'Basée sur l''équipement électronique disponible, SUPLA vous permet de construire des simples modules avec qui vous pouvez gérer et contrôler les composant d''automatisation dans votre bâtiment. Grâce à SUPLA vous pouvez entre autres gérer l''éclairage, allumer et éteindre vos équipements ménager, ouvrir/fermer porte et portails ou bien contrôler la température ambiante. Tout cela vous pouvez faire en un seul click sur l''écran.'
 register-slide1-title: Développez votre Propre Bâtiment Intelligent
 register-slide2-text: L'une des hypothèses principales du projet c'est simplicité et disponibilité. SUPLA vous permet d'allumer la lumière ou d'ouvrir la porte en un seul clic et cela au moment où on veut entrer dans notre possession. SUPLA est toujours disponible là où vous avec l'accès au réseau internet et à votre smartphone ou tablette. Le développement de SUPLA est basée sur les principes de logiciels open source et open hardware ce vous possibilite votre propre engagement dans ce projet!
 register-slide2-title: SUPLA est partout!
 register-slide3-text: 'Les systèmes d''automatisation bâtiment disponibles sur le marché, sont d''habitude très complexes, fermé et chers. Dans des nombreux cas ils exigent d''être installés déjà à l''étape de construction. SUPLA est simple, ouverte et gratuite. Elle permet de construire des composants pour systèmes d''actionnement à partir de plateforme RaspberryPl, Arduino ou bien ESP8266 et de les connecter au réseau LAN et Wifi. Rejoignez le projet et construisez votre propre version do système d''automatisation bâtiment!'
 register-slide3-title: BGratuite et ouverte!
+reset chart view: réinitialisez la vue du graphique
 sec.: secondes
 'smartphones, tablets, etc.': 'smartphones, tablettes, etc.'
 state-closed: Fermé
@@ -558,9 +584,14 @@ sunrise-after: le lever du soleil
 sunrise-before: le lever du soleil
 sunset-after: le coucher du soleil
 sunset-before: le coucher du soleil
+username: nom d'utilisateur
 will expire: expirera
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne peut pas interagir avec votre compte jusqu''à ce que vous accordiez à nouveau l''accès.'
 '{clientName} wants to access your account.': '{clientName} veux accéder à votre compte.'
+'{requests} out of {limit} / day': '{requêtes} de {limite} / jour'
+'{requests} out of {limit} / h': '{requêtes} de {limite} / h'
+'{requests} out of {limit} / min': '{requêtes} de {limite} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requêtes} de {limite} / sec'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -590,36 +621,5 @@ execute: exécuter
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: A-Z
-API rate limits: Limites de requêtes API
-Channels in channel group: Canaux dans les groupes de canaux
-Choose Access Identifier: Choisissez un Identifiant d'accès 
-Could not contact Autodiscover service. Try again in a while.: Impossible de contacter le service d'inscription. Réessayez dans un moment.
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Actuellement, l'utilisation de nos serveurs a atteint un niveau dangereux. Nous surveillons la situation. Revenez dans un moment.'
-ID: ID
-Inactive: Inactif
-Invalid function for channel.: Fonction invalide pour le canal
-Maintenance mode active. You cannot modify any data now.: Mode de service activé. Impossible de modifier aucune donnée.
-'Next limit renewal: {date}': 'La limite sera renouvelée le {date}'
-OAuth apps: Applications OAuth
-Open partially: Ouvrez partiellement
-Private instance of the SUPLA cloud with given URL is already registered.: Un cloud SUPLA privé est déjà enregistré à cette adresse.
-SUPLA Cloud is under maintenance.: Le SUPLA Cloud est en cours de mise à jour.
-SUPLA Server was unable to execute the action.: Le serveur SUPLA n'a pas pu exécuter l'action.
-Show my limits: Montrez mes limites
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'La vanne ne sera pas ouverte si elle a été fermée manuellement ou à distance, ce qui aurait pu être dû à une inondation.'
-Valve: Vanne
-Valve closed manually: Vanne fermée manuellement
-We should be ready shortly.: On devrait finir bientôt.
-We try to be faster: Nous essayons d'être plus rapides
-You can use the application but you will not be able to modify any settings.: Vous pouvez utiliser l'application mais vous ne pourrez modifier aucun paramètre.
-Your account limits: Limites de votre compte 
-password: mot de passe
-reset chart view: réinitialisez la vue du graphique
-username: nom d'utilisateur
-'{requests} from {limit} / day': '{requêtes} de {limite} / jour'
-'{requests} from {limit} / h': '{requêtes} de {limite} / h'
-'{requests} from {limit} / min': '{requêtes} de {limite} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requêtes} de {limite} / sec'
 
 #</editor-fold>

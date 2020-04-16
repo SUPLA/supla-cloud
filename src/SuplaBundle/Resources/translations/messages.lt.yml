@@ -5,10 +5,12 @@
 '...open gateways, gates or doors': '...atidaryti dureles, vartus ar duris'
 ...or control home appliances: ...ar valdyti buitinę techniką/RTV įrangą
 ...you can monitor temperature: ...galite stebėti temperatūrą
+A-Z: A-Z
 ACTIVE: AKTYVI
 AM2301 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2301
 AM2302 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2302
 API documentation: API dokumentacija
+API rate limits: API užklausų apribojimas
 Access ID: Prieigos ID
 Access Identifier: Prieigos identifikatorius
 Access Identifiers: Prieigos identifikatorius
@@ -86,9 +88,11 @@ Channel groups: Kanalų grupės
 Channel is assigned to the I/O device location: Kanalas priskirtas prie įrenginio vietos
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
 Channels: Kanalai
+Channels in channel group: Kanalai kanalų grupėse
 Check the direct link you used and try again.: Patikrink iškviestą tiesioginę nuorodą ir pabandyk vėl.
 Check your email box: Patikrinkite savo el. pašto dėžutę
 Choose: Pasirinkti
+Choose Access Identifier: Pasirinkite Prieigos Identifikatorių
 Choose Access Identifiers to be assigned to this Location: 'Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai'
 Choose client apps: Izvēlieties klienta lietojumprogrammas
 Choose location: Pasirinkti vietą
@@ -108,6 +112,7 @@ Confirm if you want to remove Access Identifier: 'Patvirtinkite, kad norite paš
 Connected: Sujungta
 Connection with a private instance of the SUPLA cloud: Sujungimas su privačia SUPLA debesio instancija.
 Constraints: Apribojimai
+Could not contact Autodiscover service. Try again in a while.: Su registracijos paslauga negalima susisiekti. Pabandykite dar kartą vėliau.
 Could not reset the password.: Paroles atiestatīšana neizdevās.
 Could not reset the password. Please try again later.: Negalima nustatyti iš naujo slaptažodžio. Dar kartą bandykite vėliau.
 Create New Access Identifier: Sukurti naują Prieigos Identifikatorių
@@ -221,6 +226,7 @@ History of measurements: Matmenų istorija
 Home appliances: Buitinė technika/RTV įranga
 Home+ Heater: Šildytuvas Home+
 Hours: Valandos
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Deja, šiuo metu mūsų serverių naudojimas pasiekė pavojingą lygį. Stebime situaciją, sugrįžkite po kelių minučių.'
 Humidity: Drėgmė
 Humidity Sensor: Drėgmės jutiklis
 Humidity adjustment: Drėgmės priderinimas
@@ -231,6 +237,7 @@ I agree: Sutinku
 I confirm! Delete my account.: Patvirtinu! Pašalinti mano paskyrą.
 'I do not agree, get me out of here': 'Nesutinku, pasiimkite mane iš čia'
 I/O Devices: Įv/Iš įrenginiai
+ID: ID
 INACTIVE: NEAKTYVI
 Idle: Nenaudojamos
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA''I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.'
@@ -241,6 +248,7 @@ Idle: Nenaudojamos
 Impulse counter: Impulsų skaitiklis
 Impulses: Impulsai
 'In order to confirm account deletion, enter your password.': 'Jei norite patvirtinti norą pašalinti savo paskyrą, įveskite savo slaptažodį.'
+Inactive: Neaktyvus
 Incorrect password: Neteisingas slaptažodis
 Information: Informacija
 Inherit I/O Device location: Naudokitės įrenginio vietos aptikimu
@@ -248,6 +256,7 @@ Initial value: Pradinė vertė
 Integrations: Įtrauktis
 Interval: Intervalas
 Invalid SUPLA Cloud URL.: Neteisingas SUPLA Cloud diegimo URL adresas.
+Invalid function for channel.: Neteisinga kanalo funkcija
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Neteisinga užklausa
 Inverted logic: Atvirkštinė logika
@@ -269,6 +278,7 @@ Location password must be no longer than 32 characters.: Atrašanās vietas paro
 Locations: Vietos
 Login: Pieteikšanās
 Mail sensor: Pašto jutiklis
+Maintenance mode active. You cannot modify any data now.: Veikimas aptarnavimo režime. Negalite keisti jokių duomenų.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Įsitikinkite ar yra įrašytas saugioje vietoje, jeigu norėsite ją panaudoti ateityje. Nuoroda nebus daugiau rodoma išėjus iš šio tinklalapio.'
 'Maximum filesize limit is {limit}.': 'Maksimalus failo dydis tai {limit}.'
 Meter value: Skaitiklio būsena
@@ -286,6 +296,7 @@ New channel group: Nauja kanalų grupė
 New direct link: Nauja tiesioginė nuoroda
 New password: Naujas slaptažodis
 Newer: Naujesnės
+'Next limit renewal: {date}': 'Limitas bus atnaujintas {date}'
 Next run date: Artimiausias atlikimas
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Neturite jokių aktyvių prieigos identifikatorių. Eikite į [prieigos identifikatorių sąrašą] ir [pridėkite naują prieigos identifikatorių].'
 No function: Funkcijų nėra
@@ -302,6 +313,7 @@ No. of devices: Įrenginių skaičius
 No. of locations: Vietų skaičius
 None: Nėra
 OAuth application: OAuth programa
+OAuth apps: OAuth programėlės
 OAuth authorization: Autorizacija OAuth
 'Off': Išjungti
 Offline access: Offline prieiga
@@ -311,6 +323,7 @@ On/Off switch: Maitinimo jungiklis
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Leidžiama naudoti domenų pavadinimus tik su pasirinktiniu prievado numeriu. Pavyzdžiui, mysupla.org ar mysupla.org:88. HTTPS būtinas.'
 Open: Atidaryti
 Open / close: Atvērt / aizvērt
+Open partially: Atidaryti iš dalies
 Opening sensor: Atidarymo jutiklis
 Original location: Originali vieta
 'Otherwise go to [the homepage].': 'Kitu atveju pereikite į [naminį tinklalapį].'
@@ -333,6 +346,7 @@ Pressure sensor: Slėgio jutiklis
 Previous login: Ankstesnis prisijungimas
 Price per: Kaina už
 Private Cloud domain name: Privataus debesio domeno pavadinimas
+Private instance of the SUPLA cloud with given URL is already registered.: Šiuo adresu jau užregistruotas privatus SUPLA debesys.
 Proceed: Tęsti
 Processing: Vykdoma
 Public ID: Viešasis ID
@@ -363,6 +377,8 @@ Revoke: Atšaukti
 Roller shutter opening sensor: Žaliuzių atidengimo jutiklis
 Roller shutter operation: Žaliuzių atidengimas ir uždengimas
 Roller shutters: Žaliuzės
+SUPLA Cloud is under maintenance.: Vyksta SUPLA Cloud atnaujinimas.
+SUPLA Server was unable to execute the action.: Klaida atliekant veiksmą SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA prieinama visada ir vidur, todėl nesijaudinkite, kai sekantį kartą pamiršite išjungti šviesą'
 Saturdays: Šeštadieniai
 Save: Išsaugoti
@@ -391,6 +407,7 @@ Sensors: Jutikliai
 Server address: Serverio adresas
 Server unreachable: Serveris nepasiekiamas
 Service temporarily unavailable: Paslauga laikinai neprieinama
+Show my limits: Rodyti mano limitus
 Show on the Client’s devices: Rodyti klientų įrenginiuose
 Shut: Uždengti
 Sign In: Prisijungti
@@ -434,6 +451,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serveris grąžino HTTP 404 klaidą. Tai reiškia, kad elementas, kurio ieškote, neegzistuoja.'
 'The server has returned an HTTP {statusCode} error.': 'Serveris atgrieza kļūdu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Jūsų pasirinkti piktogramų failai yra per dideli. Maksimalus leistinas įkeliamo failo dydis tai {limit}.'
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Vožtuvas nebus atidarytas, jei jis buvo uždarytas rankiniu būdu arba radijo bangų pagalba, kas gali būti susiję su užliejimu.'
 There are no more channels you can add to this group: 'Nėra kitų kanalų, kuriuos būtų galima pridėti prie šios grupės'
 Thermometer: Termometras
 Thermostat: Termostatas
@@ -453,6 +471,8 @@ Unsupported function: Funkcija nepalaikoma
 Unsupported type: Tipas nepalaikomas
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.'
 User is already confirmed. Try to log in.: Ši paskyra jau patvirtinta. Prisijungti.
+Valve: Vožtuvas
+Valve closed manually: Vožtuvas uždarytas rankiniu būdu
 Visible: Matomi
 Visit app webpage: Atveriet lietojumprogrammas vietni
 WELCOME_MESSAGE: |
@@ -462,7 +482,9 @@ Water meter: Vandens skaitiklis
 We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
 We have just sent you an activation link. Be patient.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda ką tik buvo išsiųstas. Kantrybės.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Išsiuntėme Tau el. laišką su nuorodą, patvirtinančią norą pašalinti paskyrą. Gal dar apsigalvosi!'
+We should be ready shortly.: Netrukus turėtume baigti.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Jūsų naršyklėje saugojame informacijas apie Jūsų preferencijas, kad palengvintumėme naudojimąsi programa (pvz. slapukų mechanizmo pagalba). [Perskaitykite taisykles].'
+We try to be faster: Esame vis greitesni
 We were not able to find your account.: Mums nepavyko surasti Jūsų paskyros.
 We will miss you: Ilgėsimės Jūsų
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.'
@@ -482,6 +504,7 @@ With SUPLA you can operate the lights in your home or office: Su SUPLA galite va
 With function: Su funkcija
 Working period: Veiklos trukmė
 YOUR LINK CODE: TAVO NUORODOS KODAS
+You can use the application but you will not be able to modify any settings.: 'Galite naudoti programėlę, tačiau nėra galimybės keisti konfigūracijos.'
 You cannot delete your last access identifier.: Negalite pašalinti savo paskutinio prieigos identifikatoriaus.
 You cannot delete your last location.: Negalite pašalinti paskutinės savo vietos.
 You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
@@ -492,6 +515,7 @@ You will not be able to generate a direct link with the same URL again.: Nuorodo
 Your account has been deleted. We hope you will come back to us soon.: 'Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.'
 Your account has been locked.: El. pašto adresas jau egzistuoja
 Your account has not been confirmed yet.: Jūsų paskyra dar nepatvirtinta.
+Your account limits: Jūsų limitai
 Your email: Jūsų el. paštas
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.'
@@ -530,12 +554,14 @@ hourly: Valandinis ciklas
 minutely: Minutinis ciklas
 minutes: minutes
 once: Vienkartinis
+password: slaptažodis
 register-slide1-text: 'Remiantis prieinama elektronika, SUPLA leis Jums sukurti paprastus modulius, leidžiančius valdyti ir kontroliuoti pastato automatikos elementus. SUPLA dėka galite be kita ko valdyti apšvietimą, įjungti ir išjungti buitinę techniką ir RTV įrangą, atidaryti ir uždaryti vartus ir duris, taip pat ir kontroliuoti temperatūrą patalpose. Viską tai galite atlikti vienu piršto perbraukimu.'
 register-slide1-title: Nuosavas Išmanusis Pastatas
 register-slide2-text: 'Viena iš pagrindinių projekto prielaidų tai paprastumas ir prieinamumas. SUPLA leidžia vienu piršto perbraukimu įjungti šviesą ar atidaryti įvažiavimo vartus tuo momentu, kai norime įvažiuoti į teritoriją. SUPLA prieinama visur, kur turite prieigą prie interneto ryšio ir turite prie savęs išmanųjį telefoną arba planšetinį kompiuterį. SUPLA vystoma Atviro Kodo Programinės Įrangos ir Atviros Įrangos principu, dėka ko ir Jūs galite vystyti šį projektą!'
 register-slide2-title: SUPLA visur!
 register-slide3-text: 'Prieinamos rinkoje pastatų automatikos sistemos dažniausiai yra sudėtingos, uždaros ir brangios. Daugelyje atvejų jau pastato statybų etape reikalingas montavimas. SUPLA yra paprasta, atvira ir nemokama. Leidžia kurti vykdomuosius elementus su RaspberryPI, Arduino ar ESP8266 platformomis ir jungti juos LAN bei WiFi tinklo pagalba. Prisijunkite prie projekto ir sukurkite savo pastato automatikos sistemos versiją!'
 register-slide3-title: Nemokama ir atvira!
+reset chart view: grįžti prie pradinio vaizdo
 sec.: sek.
 'smartphones, tablets, etc.': 'išmanieji telefonai, planšetiniai kompiuteriai ir t.t.'
 state-closed: Uždaryta
@@ -558,9 +584,14 @@ sunrise-after: saulėtekio
 sunrise-before: saulėtekį
 sunset-after: saulėlydžio
 sunset-before: saulėlydį
+username: vartotojo vardas
 will expire: baigsis
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} negalima atlikti jokių veiksmu Jūsų paskyroje, kol pakartotinai nepateiksite prieigos.'
 '{clientName} wants to access your account.': '{clientName} nori gauti prieigą prie Tavo paskyros.'
+'{requests} out of {limit} / day': '{requests} iš {limit} / parą'
+'{requests} out of {limit} / h': '{requests} iš {limit} / h'
+'{requests} out of {limit} / min': '{requests} iš {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} iš {limit} / {seconds} s'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -590,36 +621,5 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: A-Z
-API rate limits: API užklausų apribojimas
-Channels in channel group: Kanalai kanalų grupėse
-Choose Access Identifier: Pasirinkite Prieigos Identifikatorių
-Could not contact Autodiscover service. Try again in a while.: Su registracijos paslauga negalima susisiekti. Pabandykite dar kartą vėliau.
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Deja, šiuo metu mūsų serverių naudojimas pasiekė pavojingą lygį. Stebime situaciją, sugrįžkite po kelių minučių.'
-ID: ID
-Inactive: Neaktyvus
-Invalid function for channel.: Neteisinga kanalo funkcija
-Maintenance mode active. You cannot modify any data now.: Veikimas aptarnavimo režime. Negalite keisti jokių duomenų.
-'Next limit renewal: {date}': 'Limitas bus atnaujintas {date}'
-OAuth apps: OAuth programėlės
-Open partially: Atidaryti iš dalies
-Private instance of the SUPLA cloud with given URL is already registered.: Šiuo adresu jau užregistruotas privatus SUPLA debesys.
-SUPLA Cloud is under maintenance.: Vyksta SUPLA Cloud atnaujinimas.
-SUPLA Server was unable to execute the action.: Klaida atliekant veiksmą SUPLA Server.
-Show my limits: Rodyti mano limitus
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Vožtuvas nebus atidarytas, jei jis buvo uždarytas rankiniu būdu arba radijo bangų pagalba, kas gali būti susiję su užliejimu.'
-Valve: Vožtuvas
-Valve closed manually: Vožtuvas uždarytas rankiniu būdu
-We should be ready shortly.: Netrukus turėtume baigti.
-We try to be faster: Esame vis greitesni
-You can use the application but you will not be able to modify any settings.: Galite naudoti programėlę, tačiau nėra galimybės keisti konfigūracijos.
-Your account limits: Jūsų limitai
-password: slaptažodis
-reset chart view: grįžti prie pradinio vaizdo
-username: vartotojo vardas
-'{requests} from {limit} / day': '{requests} iš {limit} / parą'
-'{requests} from {limit} / h': '{requests} iš {limit} / h'
-'{requests} from {limit} / min': '{requests} iš {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} iš {limit} / {seconds} s'
 
 #</editor-fold>

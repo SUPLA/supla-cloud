@@ -5,10 +5,12 @@
 '...open gateways, gates or doors': '...åpne hageport, port eller dør'
 ...or control home appliances: ...styre hvitevarer og elektronikk
 ...you can monitor temperature: ...kontrollere temperaturen
+A-Z: A-Å
 ACTIVE: AKTIV
 AM2301 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor AM2301
 AM2302 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor AM2302
 API documentation: API Dokumentasjon
+API rate limits: Begrensning for etterspørsel til API
 Access ID: Tilgang ID
 Access Identifier: Tilgang Identifikator
 Access Identifiers: Tilgang Identifikatorer
@@ -86,9 +88,11 @@ Channel groups: Kanalgrupper
 Channel is assigned to the I/O device location: Kanal er tilpasset enhetens lokalisering
 Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
 Channels: Kanaler
+Channels in channel group: Kanaler i kanalgrupper
 Check the direct link you used and try again.: Sjekk valgt direkte lenke og prøv en gang til.
 Check your email box: Sjekk din e-post
 Choose: Velg
+Choose Access Identifier: Velg adgangs ID
 Choose Access Identifiers to be assigned to this Location: Velg Tilgang ID som blir tilpasset denne lokaliseringen.
 Choose client apps: Velg kundeapplikasjoner
 Choose location: Velg lokalisering
@@ -108,6 +112,7 @@ Confirm if you want to remove Access Identifier: Bekreft at du vil fjerne tilgan
 Connected: Tilkoblet
 Connection with a private instance of the SUPLA cloud: Tilkobling til privat SUPLA Cloud
 Constraints: Begrensninger
+Could not contact Autodiscover service. Try again in a while.: Kan ikke ta kontakt med registreringstjeneste. Prøv på nytt om en stund.
 Could not reset the password.: Ikke mulig å tilbakestille passordet.
 Could not reset the password. Please try again later.: Ikke mulig å tilbakestille passordet. Prøv senere.
 Create New Access Identifier: Opprett ny Tilgang Identifikator
@@ -221,6 +226,7 @@ History of measurements: Målingshistorie
 Home appliances: Hvitevarer/ Elektronikk
 Home+ Heater: Varmeapparat Home+
 Hours: Timer
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Dessverre, forbrukelsen av serverne våre har økt til en farlig nivå. Vi overvåker situasjonen, kom tilbake om en liten stund.'
 Humidity: Fuktighet
 Humidity Sensor: Fuktighetssensor
 Humidity adjustment: Tilpass fuktigheten
@@ -231,6 +237,7 @@ I agree: Jeg samtykker
 I confirm! Delete my account.: Jeg bekrefter! Fjern min konto.
 'I do not agree, get me out of here': 'Jeg er ikke enig, ta meg bort fra her'
 I/O Devices: Enheter inngang/utgang
+ID: ID
 INACTIVE: INAKTIV
 Idle: Hvile modus
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Hvis du er en programutvikler som ønsker å levere ekstra funksjoner til SUPLA, opprett applikasjonen OAuth som andre brukere kan autorisere og bruke.'
@@ -241,6 +248,7 @@ Idle: Hvile modus
 Impulse counter: Impulsmåler
 Impulses: Impulser
 'In order to confirm account deletion, enter your password.': For å bekrefte at du ønsker å fjerne din konto vennligst oppgi ditt passord.
+Inactive: Ikke aktiv
 Incorrect password: Feil passord
 Information: Informasjon
 Inherit I/O Device location: Benytt deg av enhetens lokalisering
@@ -248,6 +256,7 @@ Initial value: Startverdi
 Integrations: Integrasjoner
 Interval: Intervall
 Invalid SUPLA Cloud URL.: Ugyldig SUPLA Cloud URL adresse.
+Invalid function for channel.: Ugyldig funksjon for kanale
 'Invalid redirect URI: {uri}': 'Ugyldig omdirigering URL: {uri}'
 Invalid request: Ugyldig forespørsel
 Inverted logic: Omvendt logikk
@@ -269,6 +278,7 @@ Location password must be no longer than 32 characters.: Passord for lokaliserin
 Locations: Sted
 Login: Logg inn
 Mail sensor: Postsensor
+Maintenance mode active. You cannot modify any data now.: Handling i servicemodus. Du kan ikke endre på noe data
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Husk å lagre den på et trygd sted dersom du ønsker å bruke den en gang til i fremtiden. Lenken vises ikke mer etter at har forlatt denne siden.
 'Maximum filesize limit is {limit}.': 'Maksimal filstørrelse er {limit}.'
 Meter value: Meterlesing
@@ -286,6 +296,7 @@ New channel group: Ny kanalgruppe
 New direct link: Ny direkte lenke
 New password: Nytt passord
 Newer: Nyere
+'Next limit renewal: {date}': 'Begrensningen vil bli fornyet {date}'
 Next run date: Neste utførelsesdato
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Du har ingen aktive tilgang identifikatorer. Gå til [tilgang identifikator liste] eller [legg til ny tilgang identifikator].'
 No function: Manglende funksjoner
@@ -302,6 +313,7 @@ No. of devices: Antall enheter
 No. of locations: Antall lokaliseringer
 None: Mangel
 OAuth application: Applikasjon OAuth
+OAuth apps: Appene OAuth
 OAuth authorization: Autorisasjon OAuth
 'Off': Av
 Offline access: Tilgang offline
@@ -311,6 +323,7 @@ On/Off switch: Strømbryter
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Kun domenenavn med mulig portnummer er tillat. F.eks. mysupla.org eller mysupla.org:88. HTTPS er påkrevd.'
 Open: Åpne
 Open / close: Åpne / steng
+Open partially: Åpne delvis
 Opening sensor: Åpningssensor
 Original location: Opprinnelig lokalisering
 'Otherwise go to [the homepage].': 'I et annet tilfelle gå til [hjemmeside].'
@@ -333,6 +346,7 @@ Pressure sensor: Trykksensor
 Previous login: Sist innlogging
 Price per: Pris for
 Private Cloud domain name: Domenenavn på privat Cloud
+Private instance of the SUPLA cloud with given URL is already registered.: En privat sky SUPLA er allerede registrert på denne adressen
 Proceed: Fortsett
 Processing: Pågår
 Public ID: Offentlig ID
@@ -363,6 +377,7 @@ Revoke: Opphev
 Roller shutter opening sensor: Rullegardineråpner sensor
 Roller shutter operation: Åpning og stenging av rullegardiner
 Roller shutters: Rullegardiner
+SUPLA Cloud is under maintenance.: Oppdatering av SUPLA Cloud pågår
 SUPLA Server was unable to execute the action.: Feil ved gjennomføring av handlingen i SUPLA server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA er tilgjengelig alltid og overalt, du trenger ikke å være bekymret neste gang du glemmer å skru av lyset.'
 Saturdays: Lørdager
@@ -392,6 +407,7 @@ Sensors: Sensorer
 Server address: Serveradresse
 Server unreachable: Server ikke tilgjengelig
 Service temporarily unavailable: Tjeneste midlertidig ikke tilgjengelig
+Show my limits: Vis mine begrensninger
 Show on the Client’s devices: Vis i kundeenheter
 Shut: Lukke
 Sign In: Logg inn
@@ -435,6 +451,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server viser feil HTTP 404. Dette betyr at elementet du søker etter eksisterer ikke.
 'The server has returned an HTTP {statusCode} error.': 'Server viser feil {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Ikonfiler du har valgt er for store. Maksimal størrelse på upload er {limit}.'
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventilen vil ikke bli åpnet hvis den har blitt stengt manuelt eller gjennom radio, som kunne bli forårsaket av vannskader'
 There are no more channels you can add to this group: Det er ingen andre kanaler du kan legge til denne gruppen.
 Thermometer: Termometer
 Thermostat: Termostat
@@ -454,6 +471,8 @@ Unsupported function: Funksjon ikke støttet
 Unsupported type: Type ikke støttet
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Opplastede filer berører ikke gode skikker, opphavsrett eller tredjeparts rettigheter og jeg har rett til å bruke dem.'
 User is already confirmed. Try to log in.: Konto er bekreftet. Logg inn.
+Valve: Ventil
+Valve closed manually: Ventil stengt manuelt
 Visible: Synlig
 Visit app webpage: Åpne nettsiden til applikasjonen
 WELCOME_MESSAGE: |
@@ -463,7 +482,9 @@ Water meter: Vannmåler
 We could not connect to your SUPLA Cloud instance.: Vi kunne ikke koble til din privat SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Melding med aktiviseringslenke ble nettopp sendt. Vis litt tålmodighet.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vi sendte en e-post med lenke hvor du kan bekrefte fjerning av kontoen. Kanskje du ombestemmer deg!
+We should be ready shortly.: Vi bør bli ferdige snart
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Vi lagrer informasjon om dine preferanser i nettleseren din for å gjøre bruken av applikasjoner lettere (f.eks. ved hjelp av informasjonskapsler). [Les regelverket].'
+We try to be faster: Vi er raskere og raskere
 We were not able to find your account.: Vi klarte ikke å finne din konto.
 We will miss you: Vi kommer til å savne deg
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Vi gjør alt vi kan for at ikonene du sendte skal synes godt, men du vil få de beste resultatene hvis du sender PNG filer med gjennomsiktig bakgrunn og bredden {width} og høyden {height} piksler.'
@@ -483,6 +504,7 @@ With SUPLA you can operate the lights in your home or office: Med SUPLA kan du s
 With function: Med funksjon
 Working period: Driftsperiode
 YOUR LINK CODE: DIN LENKE KODE
+You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
 You cannot delete your last access identifier.: Du kan ikke fjerne din siste tilgang identifikator.
 You cannot delete your last location.: Du kan ikke fjerne din siste lokalisering.
 You just need to execute the following command inside your host terminal.: Det holder med å utføre følgende forespørsel innen din host sin terminal.
@@ -493,6 +515,7 @@ You will not be able to generate a direct link with the same URL again.: Opprett
 Your account has been deleted. We hope you will come back to us soon.: Konto ble fjernet. Vi håper at du kommer tilbake til oss snart.
 Your account has been locked.: Din konto er sperret.
 Your account has not been confirmed yet.: Din konto er ikke bekreftet enda.
+Your account limits: Dine begrensninger
 Your email: Din e-post
 Your instance is not registered or you are trying to authorize an application that is not public.: Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Din privat SUPLA cloud er ikke tilgjengelig. Sjekk om din server er online og at forbindelsen HTTPS fungerer korrekt.
@@ -531,12 +554,14 @@ hourly: Timesyklus
 minutely: Minuttsyklus
 minutes: minutt
 once: Engangs
+password: Passord
 register-slide1-text: 'Ved hjelp av tilgjengelige enheter SUPLA gir deg mulighet til å skape enkle moduler til å styre og kontrollere deler av automatikken i bygget. Med SUPLA kan du blant annet styre belysningen, skru av og på hvitevarer og elektronikk, åpne og stenge porter og dører samt kontrollere temperaturen i rommene. Alt dette kan du gjøre med et sveip.'
 register-slide1-title: Ditt eget smart bygg
 register-slide2-text: Noen av de grunnleggende forutsetningene til prosjektet er enkelhet og tilgjengelighet. SUPLA gir deg muligheten til å åpne porten når du skal kjøre inn på eiendommen din med et sveip. SUPLA er tilgjengelig over alt hvor du har tilgang til internett og har en smarttelefon eller nett brett. SUPLA er en OpenSource programvare derfor kan du også bli med på å utvikle den!
 register-slide2-title: SUPLA over alt
 register-slide3-text: 'Byggautomatisering systemer tilgjengelig på markedet er vanligvis veldig komplekse, stengte og dyre. Ofte må man installere de allerede under oppføring av bygget. SUPLA er enkel, åpen og gratis. Den gir mulighet til å bygge aktuatorer ved bruk av RaspberryPI, Arduino eller ESP8266 plattformer og kombinere dem med LAN og WiFi nettverk. Bli en del av prosjektet og bygg din egen versjon av byggautomatisering systemer.'
 register-slide3-title: Gratis og åpen!
+reset chart view: Tilbake til første utsikt
 sec.: sek.
 'smartphones, tablets, etc.': 'smarttelefoner, nettbrett, etc.'
 state-closed: Stengt
@@ -559,9 +584,14 @@ sunrise-after: soloppgang – etter
 sunrise-before: soloppgang – før
 sunset-after: solnedgang – etter
 sunset-before: solnedgang – før
+username: Brukernavn
 will expire: utløper
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan ikke samhandle med din konto før du gir tilgang på nytt.'
 '{clientName} wants to access your account.': '{clientName} ber om tilgang til din konto.'
+'{requests} out of {limit} / day': '{requests} fra {limit} / døgn'
+'{requests} out of {limit} / h': '{requests} fra {limit} / t'
+'{requests} out of {limit} / min': '{requests} fra {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} fra {limit} / {seconds} sek.'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -591,35 +621,5 @@ execute: utfør
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: A-Å
-API rate limits: Begrensning for etterspørsel til API
-Channels in channel group: Kanaler i kanalgrupper
-Choose Access Identifier: Velg adgangs ID
-Could not contact Autodiscover service. Try again in a while.: Kan ikke ta kontakt med registreringstjeneste. Prøv på nytt om en stund.
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Dessverre, forbrukelsen av serverne våre har økt til en farlig nivå. Vi overvåker situasjonen, kom tilbake om en liten stund.'
-ID: ID
-Inactive: Ikke aktiv
-Invalid function for channel.: Ugyldig funksjon for kanale
-Maintenance mode active. You cannot modify any data now.: Handling i servicemodus. Du kan ikke endre på noe data
-'Next limit renewal: {date}': 'Begrensningen vil bli fornyet {date}'
-OAuth apps: Appene OAuth
-Open partially: Åpne delvis
-Private instance of the SUPLA cloud with given URL is already registered.: En privat sky SUPLA er allerede registrert på denne adressen
-SUPLA Cloud is under maintenance.: Oppdatering av SUPLA Cloud pågår
-Show my limits: Vis mine begrensninger
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventilen vil ikke bli åpnet hvis den har blitt stengt manuelt eller gjennom radio, som kunne bli forårsaket av vannskader'
-Valve: Ventil
-Valve closed manually: Ventil stengt manuelt
-We should be ready shortly.: Vi bør bli ferdige snart
-We try to be faster: Vi er raskere og raskere
-You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
-Your account limits: Dine begrensninger
-password: Passord
-reset chart view: Tilbake til første utsikt
-username: Brukernavn
-'{requests} from {limit} / day': '{requests} fra {limit} / døgn'
-'{requests} from {limit} / h': '{requests} fra {limit} / t'
-'{requests} from {limit} / min': '{requests} fra {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} fra {limit} / {seconds} sek.'
 
 #</editor-fold>

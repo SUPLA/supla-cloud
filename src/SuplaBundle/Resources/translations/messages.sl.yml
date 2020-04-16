@@ -5,10 +5,12 @@
 '...open gateways, gates or doors': '...odpreti vratca, dvoriščna vrata ali vrata'
 ...or control home appliances: ...ali nadzirati z gospodinjskimi aparati/elektroniko
 ...you can monitor temperature: ...lahko spremljate temperaturo
+A-Z: A-Ž
 ACTIVE: AKTIVNA
 AM2301 Temperature & Humidity Sensor: AM2301 senzor temperature in vlažnosti
 AM2302 Temperature & Humidity Sensor: AM2302 senzor temperature in vlažnosti
 API documentation: API Dokumentacija
+API rate limits: Omejitev zahtev do API
 Access ID: ID dostopa
 Access Identifier: Identifikator dostopa
 Access Identifiers: Identifikatorji dostopa
@@ -86,9 +88,11 @@ Channel groups: Skupina kanalov mora vsebovati vsaj en kanal.
 Channel is assigned to the I/O device location: Kanal je dodeljen lokaciji naprave
 Channel will be deleted from the channel group below: Kanal bo odstranjen z naslednjih skupin kanalov
 Channels: Kanali
+Channels in channel group: Kanali v skupinah kanalov
 Check the direct link you used and try again.: Preverite poklicano direktno povezavo in poskusite znova.
 Check your email box: Preverite svojo e-pošto
 Choose: Izberite
+Choose Access Identifier: Izberi identifikator dostopa
 Choose Access Identifiers to be assigned to this Location: 'Izberite Identifikatorje dostopa, ki bodo dodeljeni tej lokaciji'
 Choose client apps: Izberite odjemalske aplikacije
 Choose location: Izberite novo lokacijo
@@ -108,6 +112,7 @@ Confirm if you want to remove Access Identifier: 'Potrdite, da želite odstranit
 Connected: Povezan
 Connection with a private instance of the SUPLA cloud: Povezava z zasebnim primerkom oblaka SUPLA.
 Constraints: Omejitve
+Could not contact Autodiscover service. Try again in a while.: Povezava s storitvijo registracije ni mogoča. Ponovno poskusite kasneje.
 Could not reset the password.: Ponastavitev gesla ni bila uspešna.
 Could not reset the password. Please try again later.: Gesla ni mogoče ponastaviti. Poskusite znova čez trenutek.
 Create New Access Identifier: Ustvarite nov identifikator dostopa
@@ -221,6 +226,7 @@ History of measurements: Zgodovina meritev
 Home appliances: Gospodinjski aparati/elektronika
 Home+ Heater: Home+ grelec
 Hours: Ure
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Na žalost se je trenutno uporaba naših strežnikov povzpela na nevarno raven. Situacijo nadzorujemo, vrnite se nekoliko kasneje.'
 Humidity: Vlažnost
 Humidity Sensor: Senzor vlažnosti
 Humidity adjustment: Prilagoditev vlažnosti
@@ -231,6 +237,7 @@ I agree: Strinjam se
 I confirm! Delete my account.: Potrjujem! Izbrišite moj račun
 'I do not agree, get me out of here': 'Ne strinjam se, spravite me od tu'
 I/O Devices: Naprave
+ID: ID
 INACTIVE: NEAKTIVNA
 Idle: Nedejavno
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Če ste programer, ki želi zagotoviti dodatne funkcije za SUPLO, ustvarite aplikacijo OAuth, ki jo lahko uporabniki overijo in uporabljajo.'
@@ -241,6 +248,7 @@ Idle: Nedejavno
 Impulse counter: Števec impulzov
 Impulses: Impulzi
 'In order to confirm account deletion, enter your password.': 'Če želite potrditi namen izbrisa računa, vnesite svoje geslo.'
+Inactive: Neaktiven
 Incorrect password: Nepravilno geslo
 Information: Informacija
 Inherit I/O Device location: Uporabljajte lokacije naprave
@@ -248,6 +256,7 @@ Initial value: Začetna vrednost
 Integrations: Integracije
 Interval: Interval
 Invalid SUPLA Cloud URL.: Nepravilen URL naslov primerka SUPLA v oblaku.
+Invalid function for channel.: Nepravilna funkcija za kanal
 'Invalid redirect URI: {uri}': 'Nepravilen povratni URL: {uri}'
 Invalid request: Nepravilna zahteva
 Inverted logic: Obrnjena logika
@@ -269,6 +278,7 @@ Location password must be no longer than 32 characters.: Lokacijsko geslo ne sme
 Locations: Lokacije
 Login: Prijava
 Mail sensor: Senzor pošte
+Maintenance mode active. You cannot modify any data now.: Delovanje v servisnem načinu. Ne morete spreminjati nobenih podatkov.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Poskrbite, da je shranjen na varnem mestu, če ga želite uporabiti v prihodnosti. Po zapustitvi te povezave povezava ne bo več prikazana.'
 'Maximum filesize limit is {limit}.': 'Največja velikost datoteke je {limit}.'
 Meter value: Stanje števca
@@ -286,6 +296,7 @@ New channel group: Nova skupina kanalov
 New direct link: Nova neposredna povezava
 New password: Novo geslo
 Newer: Novejše
+'Next limit renewal: {date}': 'Omejitev bo obnovljena {date}'
 Next run date: Prihodnja izvršitev
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nimate nobenih aktivnih identifikatorjev dostopa. Pojdite na [seznam identifikatorjev dostopa] ali [dodaj nov identifikator dostopa].'
 No function: Brez funkcije
@@ -302,6 +313,7 @@ No. of devices: Število naprav
 No. of locations: Število lokacij
 None: Ni prisotna
 OAuth application: Aplikacija OAuth
+OAuth apps: Aplikacije OAuth
 OAuth authorization: Overitev OAuth
 'Off': Izklopite
 Offline access: Dostop brez povezave
@@ -311,6 +323,7 @@ On/Off switch: Stikalo za vklop
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Dovoljena so samo imena domen z izbirno številko vrat. Na primer. mysupla.org ali mysupla.org:88. HTTPS je potreben.'
 Open: Odprite
 Open / close: Odprite / Zaprite
+Open partially: Delno odpri
 Opening sensor: Senzor odprtja
 Original location: Originalna lokacija
 'Otherwise go to [the homepage].': 'V nasprotnem primeru pojdite na [domačo stran].'
@@ -333,6 +346,7 @@ Pressure sensor: Tlačni senzor
 Previous login: Prejšnja prijava
 Price per: Cena za
 Private Cloud domain name: Ime domene zasebnega oblaka
+Private instance of the SUPLA cloud with given URL is already registered.: Pod tem naslovom je že registriran privaten oblak SUPLA.
 Proceed: Nadaljujte
 Processing: V obdelavi
 Public ID: Javni ID
@@ -363,6 +377,7 @@ Revoke: Prekličite
 Roller shutter opening sensor: Senzor odprtja rolet
 Roller shutter operation: Odpiranje in zapiranje rolet
 Roller shutters: Rolete
+SUPLA Cloud is under maintenance.: Poteka posodabljanje SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Napaka med izvedbo dejanja na strežniku SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je na voljo kadarkoli in kjerkoli, zato ne skrbite, ko naslednjič pozabite ugasniti luč'
 Saturdays: Sobote
@@ -392,6 +407,7 @@ Sensors: Senzorji
 Server address: Naslov strežnika
 Server unreachable: Strežnik nedosegljiv
 Service temporarily unavailable: Storitev trenutno ni na voljo
+Show my limits: Prikaži moje omejitve
 Show on the Client’s devices: Pokažite na odjemalskih napravah
 Shut: Zastrite
 Sign In: Prijava
@@ -435,6 +451,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Strežnik je vrnil napako HTTP 404. To pomeni, da iskani izdelek ne obstaja.'
 'The server has returned an HTTP {statusCode} error.': 'Strežnik je vrnil napako {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Izbrane datoteke ikon so prevelike. Največja dovoljena velikost nalaganja je {limit}.'
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se ne bo odprl, če je bil zaprt ročno ali na daljavo, kar bi lahko bilo povezano s poplavljanjem.'
 There are no more channels you can add to this group: V to skupino ni mogoče dodati drugih kanalov
 Thermometer: Termometer
 Thermostat: Termostat
@@ -454,6 +471,8 @@ Unsupported function: Nepodprta funkcija
 Unsupported type: Nepodprti tip
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Poslane datoteke ne kršijo veljavnih običajev spodobnosti, avtorskih pravic in pravic tretjih oseb, in jaz jih imam pravico uporabljati.'
 User is already confirmed. Try to log in.: Ta račun je že potrjen. Prijava
+Valve: Ventil
+Valve closed manually: Ventil je bil zaprt ročno
 Visible: Vidno
 Visit app webpage: Odprite spletno mesto aplikacij
 WELCOME_MESSAGE: |
@@ -463,7 +482,9 @@ Water meter: Merilnik vode
 We could not connect to your SUPLA Cloud instance.: Nismo se mogli povezati z vašim zasebnim primerom v oblaku SUPLA.
 We have just sent you an activation link. Be patient.: Pravkar je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Bodite potrpežljivi.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Poslali smo vam e-sporočilo s povezavo, s katerim potrdite izbris vašega računa. Morda si boste premislili!'
+We should be ready shortly.: Kmalu bomo zaključili.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Podatke o vaših nastavitvah hranimo na vašem brskalniku, da olajšamo uporabo aplikacije (npr. z uporabo piškotkov). [Preberite predpise].'
+We try to be faster: Čedalje hitrejši smo
 We were not able to find your account.: Nismo našli vašega računa.
 We will miss you: Pogrešali te bomo
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Potrudili se bomo, da bi se ikone prikazale na najboljši način, vendar najboljše rezultate boste dosegli, če boste poslali datoteke PNG s prozornim ozadjem ter širino {width} in višino {height} slikovnih pik.'
@@ -483,6 +504,7 @@ With SUPLA you can operate the lights in your home or office: S SUPLO lahko nadz
 With function: S funkcijo
 Working period: Obdobje delovanja
 YOUR LINK CODE: VAŠ KODEK POVEZAVE
+You can use the application but you will not be able to modify any settings.: 'Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.'
 You cannot delete your last access identifier.: Ne morete izbrisati zadnjega identifikatorja dostopa.
 You cannot delete your last location.: Ne morete izbrisati zadnje lokacije.
 You just need to execute the following command inside your host terminal.: Samo izvedite naslednji ukaz znotraj terminala vašega gostitelja.
@@ -493,6 +515,7 @@ You will not be able to generate a direct link with the same URL again.: Ustvarj
 Your account has been deleted. We hope you will come back to us soon.: 'Račun je bil izbrisan. Upamo, da se kmalu vrnete.'
 Your account has been locked.: Vaš račun je bil blokiran.
 Your account has not been confirmed yet.: Vaš račun še ni bil potrjen.
+Your account limits: Vaše omejitve
 Your email: Vaš e-naslov
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaš primerek ni registriran ali poskušate odobriti aplikacijo, ki ni javna.'
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Vaš zasebni primerek oblaka SUPLA ni na voljo. Preverite, ali je vaš strežnik online in povezava HTTPS deluje pravilno.'
@@ -531,12 +554,14 @@ hourly: Urni cikel
 minutely: Minutni cikel
 minutes: minut
 once: Enkraten
+password: geslo
 register-slide1-text: 'Na podlagi razpoložljive elektronike vam bo SUPLA omogočila izdelavo preprostih modulov, ki zagotavljajo nadzor in kontrolo komponent za avtomatizacijo zgradb. Zahvaljujoč SUPLI lahko med drugim nadzorujete osvetlitev, vklopite in izklopite gospodinjske aparate in elektroniko, odprete in zaprete dvoriščna vrata in vrata ali nadzorujete temperaturo v prostorih. Vse to lahko storite z enim premikom prsta.'
 register-slide1-title: Lastna inteligentna zgradba
 register-slide2-text: 'Ena izmed osnovnih predpostavk projekta je preprostost in razpoložljivost. SUPLA vam omogoča, da z enim premikom prsta vklopite luč  ali odprete vhodna vrata, ko želite vstopiti na posest. SUPLA je na voljo povsod, kjer imate dostop do interneta in imate pri roki pametni telefon ali tablico. SUPLA je razvita na osnovi Odprte programske opreme in Odprte opreme, s katerima lahko tudi vi razvijate ta projekt!'
 register-slide2-title: SUPLA povsod!
 register-slide3-text: 'Sistemi za avtomatizacijo zgradb, ki so na voljo na tržišču, so ponavadi zelo zapleteni, zaprti in dragi. V mnogih primerih zahtevajo namestitev že v fazi gradnje objekta. SUPLA je preprosta, odprta in brezplačna. Omogoča gradnjo izvršilnih elementov, ki temeljijo na platformah RaspberryPI, Arduino ali ESP8266, in njihovo povezovanje z uporabo mreže LAN in WiFi. Pridružite se projektu in ustvarite svojo različico sistema avtomatizacije stavb!'
 register-slide3-title: Brezplačna in odprta!
+reset chart view: vrni se na začeten pogled
 sec.: sek.
 'smartphones, tablets, etc.': 'pametni telefoni, tablice itp.'
 state-closed: Zaprto
@@ -559,9 +584,14 @@ sunrise-after: vzhodu
 sunrise-before: vzhodom
 sunset-after: zahodu
 sunset-before: zahodom
+username: naziv uporabnika
 will expire: poteče
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne more komunicirati z vašim računom, dokler ponovno ne odobrite dostopa.'
 '{clientName} wants to access your account.': '{clientName} želi dobiti dostop do vašega računa.'
+'{requests} out of {limit} / day': '{requests} iz {limit} / dan'
+'{requests} out of {limit} / h': '{requests} iz {limit} / h'
+'{requests} out of {limit} / min': '{requests} iz {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} iz {limit} / {seconds} sek.'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -591,35 +621,5 @@ execute: Izvedite
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: A-Ž
-API rate limits: Omejitev zahtev do API
-Channels in channel group: Kanali v skupinah kanalov
-Choose Access Identifier: Izberi identifikator dostopa
-Could not contact Autodiscover service. Try again in a while.: Povezava s storitvijo registracije ni mogoča. Ponovno poskusite kasneje.
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Na žalost se je trenutno uporaba naših strežnikov povzpela na nevarno raven. Situacijo nadzorujemo, vrnite se nekoliko kasneje.'
-ID: ID
-Inactive: Neaktiven
-Invalid function for channel.: Nepravilna funkcija za kanal
-Maintenance mode active. You cannot modify any data now.: Delovanje v servisnem načinu. Ne morete spreminjati nobenih podatkov.
-'Next limit renewal: {date}': 'Omejitev bo obnovljena {date}'
-OAuth apps: Aplikacije OAuth
-Open partially: Delno odpri
-Private instance of the SUPLA cloud with given URL is already registered.: Pod tem naslovom je že registriran privaten oblak SUPLA.
-SUPLA Cloud is under maintenance.: Poteka posodabljanje SUPLA Cloud.
-Show my limits: Prikaži moje omejitve
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se ne bo odprl, če je bil zaprt ročno ali na daljavo, kar bi lahko bilo povezano s poplavljanjem.'
-Valve: Ventil
-Valve closed manually: Ventil je bil zaprt ročno
-We should be ready shortly.: Kmalu bomo zaključili.
-We try to be faster: Čedalje hitrejši smo
-You can use the application but you will not be able to modify any settings.: Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.
-Your account limits: Vaše omejitve
-password: geslo
-reset chart view: vrni se na začeten pogled
-username: naziv uporabnika
-'{requests} from {limit} / day': '{requests} iz {limit} / dan'
-'{requests} from {limit} / h': '{requests} iz {limit} / h'
-'{requests} from {limit} / min': '{requests} iz {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} iz {limit} / {seconds} sek.''
 
 #</editor-fold>
