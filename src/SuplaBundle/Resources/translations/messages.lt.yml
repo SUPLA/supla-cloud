@@ -590,36 +590,36 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: ~
-API rate limits: ~
-Channels in channel group: ~
-Choose Access Identifier: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-ID: ~
-Inactive: ~
-Invalid function for channel.: ~
-Maintenance mode active. You cannot modify any data now.: ~
-'Next limit renewal: {date}': ~
-OAuth apps: ~
-Open partially: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-SUPLA Cloud is under maintenance.: ~
-SUPLA Server was unable to execute the action.: ~
-Show my limits: ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-Valve: ~
-Valve closed manually: ~
-We should be ready shortly.: ~
-We try to be faster: ~
-You can use the application but you will not be able to modify any settings.: ~
-Your account limits: ~
-password: ~
-reset chart view: ~
-username: ~
-'{requests} out of {limit} / day': ~
-'{requests} out of {limit} / h': ~
-'{requests} out of {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+A-Z: A-Z
+API rate limits: API užklausų apribojimas
+Channels in channel group: Kanalai kanalų grupėse
+Choose Access Identifier: Pasirinkite Prieigos Identifikatorių
+Could not contact Autodiscover service. Try again in a while.: Su registracijos paslauga negalima susisiekti. Pabandykite dar kartą vėliau.
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Deja, šiuo metu mūsų serverių naudojimas pasiekė pavojingą lygį. Stebime situaciją, sugrįžkite po kelių minučių.'
+ID: ID
+Inactive: Neaktyvus
+Invalid function for channel.: Neteisinga kanalo funkcija
+Maintenance mode active. You cannot modify any data now.: Veikimas aptarnavimo režime. Negalite keisti jokių duomenų.
+'Next limit renewal: {date}': 'Limitas bus atnaujintas {date}'
+OAuth apps: OAuth programėlės
+Open partially: Atidaryti iš dalies
+Private instance of the SUPLA cloud with given URL is already registered.: Šiuo adresu jau užregistruotas privatus SUPLA debesys.
+SUPLA Cloud is under maintenance.: Vyksta SUPLA Cloud atnaujinimas.
+SUPLA Server was unable to execute the action.: Klaida atliekant veiksmą SUPLA Server.
+Show my limits: Rodyti mano limitus
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Vožtuvas nebus atidarytas, jei jis buvo uždarytas rankiniu būdu arba radijo bangų pagalba, kas gali būti susiję su užliejimu.'
+Valve: Vožtuvas
+Valve closed manually: Vožtuvas uždarytas rankiniu būdu
+We should be ready shortly.: Netrukus turėtume baigti.
+We try to be faster: Esame vis greitesni
+You can use the application but you will not be able to modify any settings.: Galite naudoti programėlę, tačiau nėra galimybės keisti konfigūracijos.
+Your account limits: Jūsų limitai
+password: slaptažodis
+reset chart view: grįžti prie pradinio vaizdo
+username: vartotojo vardas
+'{requests} from {limit} / day': '{requests} iš {limit} / parą'
+'{requests} from {limit} / h': '{requests} iš {limit} / h'
+'{requests} from {limit} / min': '{requests} iš {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} iš {limit} / {seconds} s'
 
 #</editor-fold>

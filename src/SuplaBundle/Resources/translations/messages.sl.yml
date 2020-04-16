@@ -591,35 +591,35 @@ execute: Izvedite
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: ~
-API rate limits: ~
-Channels in channel group: ~
-Choose Access Identifier: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-ID: ~
-Inactive: ~
-Invalid function for channel.: ~
-Maintenance mode active. You cannot modify any data now.: ~
-'Next limit renewal: {date}': ~
-OAuth apps: ~
-Open partially: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-SUPLA Cloud is under maintenance.: ~
-Show my limits: ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-Valve: ~
-Valve closed manually: ~
-We should be ready shortly.: ~
-We try to be faster: ~
-You can use the application but you will not be able to modify any settings.: ~
-Your account limits: ~
-password: ~
-reset chart view: ~
-username: ~
-'{requests} out of {limit} / day': ~
-'{requests} out of {limit} / h': ~
-'{requests} out of {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+A-Z: A-Ž
+API rate limits: Omejitev zahtev do API
+Channels in channel group: Kanali v skupinah kanalov
+Choose Access Identifier: Izberi identifikator dostopa
+Could not contact Autodiscover service. Try again in a while.: Povezava s storitvijo registracije ni mogoča. Ponovno poskusite kasneje.
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Na žalost se je trenutno uporaba naših strežnikov povzpela na nevarno raven. Situacijo nadzorujemo, vrnite se nekoliko kasneje.'
+ID: ID
+Inactive: Neaktiven
+Invalid function for channel.: Nepravilna funkcija za kanal
+Maintenance mode active. You cannot modify any data now.: Delovanje v servisnem načinu. Ne morete spreminjati nobenih podatkov.
+'Next limit renewal: {date}': 'Omejitev bo obnovljena {date}'
+OAuth apps: Aplikacije OAuth
+Open partially: Delno odpri
+Private instance of the SUPLA cloud with given URL is already registered.: Pod tem naslovom je že registriran privaten oblak SUPLA.
+SUPLA Cloud is under maintenance.: Poteka posodabljanje SUPLA Cloud.
+Show my limits: Prikaži moje omejitve
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se ne bo odprl, če je bil zaprt ročno ali na daljavo, kar bi lahko bilo povezano s poplavljanjem.'
+Valve: Ventil
+Valve closed manually: Ventil je bil zaprt ročno
+We should be ready shortly.: Kmalu bomo zaključili.
+We try to be faster: Čedalje hitrejši smo
+You can use the application but you will not be able to modify any settings.: Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.
+Your account limits: Vaše omejitve
+password: geslo
+reset chart view: vrni se na začeten pogled
+username: naziv uporabnika
+'{requests} from {limit} / day': '{requests} iz {limit} / dan'
+'{requests} from {limit} / h': '{requests} iz {limit} / h'
+'{requests} from {limit} / min': '{requests} iz {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} iz {limit} / {seconds} sek.''
 
 #</editor-fold>
