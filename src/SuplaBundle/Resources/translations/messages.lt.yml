@@ -617,9 +617,9 @@ Your account limits: ~
 password: ~
 reset chart view: ~
 username: ~
-'{requests} from {limit} / day': ~
-'{requests} from {limit} / h': ~
-'{requests} from {limit} / min': ~
+'{requests} out of {limit} / day': ~
+'{requests} out of {limit} / h': ~
+'{requests} out of {limit} / min': ~
 '{requests} out of {limit} / {seconds} sec.': ~
 
 #</editor-fold>

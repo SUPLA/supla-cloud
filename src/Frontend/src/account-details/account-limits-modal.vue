@@ -45,13 +45,13 @@
                                 <account-limit-progressbar :limit="apiRateStatus.limit"
                                     :value="apiRateStatus.requests">
                                     <span v-if="apiRateStatus.seconds === 60">
-                                        {{ $t('{requests} from {limit} / min', apiRateStatus) }}
+                                        {{ $t('{requests} out of {limit} / min', apiRateStatus) }}
                                     </span>
                                     <span v-else-if="apiRateStatus.seconds === 3600">
-                                        {{ $t('{requests} from {limit} / h', apiRateStatus) }}
+                                        {{ $t('{requests} out of {limit} / h', apiRateStatus) }}
                                     </span>
                                     <span v-else-if="apiRateStatus.seconds === 86400">
-                                        {{ $t('{requests} from {limit} / day', apiRateStatus) }}
+                                        {{ $t('{requests} out of {limit} / day', apiRateStatus) }}
                                     </span>
                                     <span v-else>
                                         {{ $t('{requests} out of {limit} / {seconds} sec.', apiRateStatus) }}

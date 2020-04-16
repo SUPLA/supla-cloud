@@ -588,9 +588,10 @@ username: nazwa użytkownika
 will expire: wygaśnie
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
-'{requests} from {limit} / day': '{requests} z {limit} / dobę'
-'{requests} from {limit} / h': '{requests} z {limit} / h'
-'{requests} from {limit} / min': '{requests} z {limit} / min'
+'{requests} out of {limit} / day': '{requests} z {limit} / dobę'
+'{requests} out of {limit} / h': '{requests} z {limit} / h'
+'{requests} out of {limit} / min': '{requests} z {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} sek.'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -623,6 +624,5 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} sek.'
 
 #</editor-fold>

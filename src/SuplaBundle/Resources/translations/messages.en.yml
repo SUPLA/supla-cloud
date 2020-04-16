@@ -57,9 +57,9 @@ sunset-after: the sunset
 sunset-before: the sunset
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} will not be able to interact with your account until you grant the access again.'
 '{clientName} wants to access your account.': '{clientName} wants to access your account.'
-'{requests} from {limit} / day': '{requests} from {limit} / day'
-'{requests} from {limit} / h': '{requests} from {limit} / h'
-'{requests} from {limit} / min': '{requests} from {limit} / min'
+'{requests} out of {limit} / day': '{requests} out of {limit} / day'
+'{requests} out of {limit} / h': '{requests} out of {limit} / h'
+'{requests} out of {limit} / min': '{requests} out of {limit} / min'
 '{requests} out of {limit} / {seconds} sec.': '{requests} out of {limit} / {seconds} sec.'
 
 #</editor-fold>
