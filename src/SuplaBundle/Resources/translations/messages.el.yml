@@ -591,35 +591,35 @@ execute: Εκτέλεση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: ~
-API rate limits: ~
-Channels in channel group: ~
-Choose Access Identifier: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-ID: ~
-Inactive: ~
-Invalid function for channel.: ~
-Maintenance mode active. You cannot modify any data now.: ~
-'Next limit renewal: {date}': ~
-OAuth apps: ~
-Open partially: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-SUPLA Cloud is under maintenance.: ~
-Show my limits: ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-Valve: ~
-Valve closed manually: ~
-We should be ready shortly.: ~
-We try to be faster: ~
-You can use the application but you will not be able to modify any settings.: ~
-Your account limits: ~
-password: ~
-reset chart view: ~
-username: ~
-'{requests} from {limit} / day': ~
-'{requests} from {limit} / h': ~
-'{requests} from {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+A-Z: Α-Ω
+API rate limits: Όριο αιτημάτων API
+Channels in channel group: Κανάλια σε ομάδες καναλιών
+Choose Access Identifier: Επιλέξτε Αναγνωριστικό πρόσβασης
+Could not contact Autodiscover service. Try again in a while.: Δεν είναι δυνατή η επικοινωνία με την υπηρεσία εγγραφής. Δοκιμάστε ξανά σε λίγο.
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Δυστυχώς, αυτή τη στιγμή η χρήση των διακομιστών μας έχει αυξηθεί σε ένα επικίνδυνο επίπεδο. Παρακολουθούμε την κατάσταση, επανέλθετε σε λίγα λεπτά.'
+ID: ID
+Inactive: Ανένεργος
+Invalid function for channel.: Μη έγκυρη λειτουργία καναλιού
+Maintenance mode active. You cannot modify any data now.: Σε λειτουργία σέρβις. Δεν μπορείτε να τροποποιήσετε κανένα δεδομένο.
+'Next limit renewal: {date}': 'Το όριο θα ανανεωθεί {date}'
+OAuth apps: Εφαρμογές OAuth
+Open partially: Ανοίξτε εν μέρει
+Private instance of the SUPLA cloud with given URL is already registered.: Ένα ιδιωτικό σύννεφο SUPLA είναι ήδη καταχωρημένο σε αυτή τη διεύθυνση.
+SUPLA Cloud is under maintenance.: Το SUPLA Cloud ενημερώνεται.
+Show my limits: Δείξτε τα όριά μου
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Η βαλβίδα δεν θα ανοίξει εάν έχει κλείσει με το χέρι ή με ραδιόφωνο που μπορεί να είχε σχέση με πλημμύρα.'
+Valve: Βαλβίδα
+Valve closed manually: Η βαλβίδα κλειστή με το χέρι
+We should be ready shortly.: Θα πρέπει να τελειώσουμε σύντομα.
+We try to be faster: Είμαστε πιο γρήγοροι
+You can use the application but you will not be able to modify any settings.: Μπορείτε να χρησιμοποιήσετε την εφαρμογή, αλλά δεν είναι δυνατή η πραγματοποίηση αλλαγών διαμόρφωσης.
+Your account limits: Τα όριά σας
+password: κωδικός πρόσβασης
+reset chart view: επιστροφή στην αρχική προβολή
+username: όνομα χρήστη
+'{requests} from {limit} / day': '{requests} από {limit} / ημέρα'
+'{requests} from {limit} / h': '{requests} από {limit} / h'
+'{requests} from {limit} / min': '{requests} από {limit} / λεπτό'
+'{requests} out of {limit} / {seconds} sec.': '{requests} από {limit} / {seconds} δευτερόλεπτα'
 
 #</editor-fold>

@@ -590,36 +590,36 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: ~
-API rate limits: ~
-Channels in channel group: ~
-Choose Access Identifier: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-ID: ~
-Inactive: ~
-Invalid function for channel.: ~
-Maintenance mode active. You cannot modify any data now.: ~
-'Next limit renewal: {date}': ~
-OAuth apps: ~
-Open partially: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-SUPLA Cloud is under maintenance.: ~
-SUPLA Server was unable to execute the action.: ~
-Show my limits: ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-Valve: ~
-Valve closed manually: ~
-We should be ready shortly.: ~
-We try to be faster: ~
-You can use the application but you will not be able to modify any settings.: ~
-Your account limits: ~
-password: ~
-reset chart view: ~
-username: ~
-'{requests} from {limit} / day': ~
-'{requests} from {limit} / h': ~
-'{requests} from {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+A-Z: A-Z
+API rate limits: Limit der Anforderungen zu API
+Channels in channel group: Kanäle in Kanalgruppen
+Choose Access Identifier: Wähle eine Zugriffs-Identifizierung
+Could not contact Autodiscover service. Try again in a while.: Man kann sich mit dem Registrierungs-Service nicht in Verbindung setzen. Versuche noch einmal später.
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Leider, ist der Gerbrauch von unseren Servern zur Zeit bis auf das gefährliche Niveau gestiegen. Wir überwachen die Situation, komme einer Weile zurück.'
+ID: ID
+Inactive: Nicht aktiv
+Invalid function for channel.: Nicht korrekte Funktion für den Kanal
+Maintenance mode active. You cannot modify any data now.: Aktion im Servicemodus. Du kannst keine Daten modifizieren.
+'Next limit renewal: {date}': 'Limit wird erneuert {Daten}'
+OAuth apps: OAuth – Anwendungen
+Open partially: Öffne teilweise 
+Private instance of the SUPLA cloud with given URL is already registered.: Unter dieser Adresse ist schon eine private Cloud SUPLA registriert
+SUPLA Cloud is under maintenance.: Aktualisierung der SUPLA Cloud dauert
+SUPLA Server was unable to execute the action.: Ein Fehler bei der Ausführung der Aktion im SUPLA Server
+Show my limits: Zeige meine Limits
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Das Ventil wird nicht geöffnet, wenn es manuell oder durch das Funksystem geschlossen wurde, was mit Überflutung zu tun haben kann'
+Valve: Ventil
+Valve closed manually: manuell geschlossenes Ventil
+We should be ready shortly.: Wir sollen bald fertig sein
+We try to be faster: Wir sind immer schneller
+You can use the application but you will not be able to modify any settings.: Du kannst die Anwendung benutzen, aber es ist unmöglich, Konfiguration zu ändern 
+Your account limits: Deine Limits
+password: Kennwort
+reset chart view: Zurück zur Anfangsansicht
+username: Benutzername
+'{requests} from {limit} / day': '{Anfragen} von {Limit} / Tag'
+'{requests} from {limit} / h': '{Anfragen} von {Limit} / h'
+'{requests} from {limit} / min': '{Anfragen} von {Limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} sek'
 
 #</editor-fold>

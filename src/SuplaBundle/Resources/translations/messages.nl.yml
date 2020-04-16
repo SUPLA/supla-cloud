@@ -591,35 +591,35 @@ execute: voer uit
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: ~
-API rate limits: ~
-Channels in channel group: ~
-Choose Access Identifier: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-ID: ~
-Inactive: ~
-Invalid function for channel.: ~
-Maintenance mode active. You cannot modify any data now.: ~
-'Next limit renewal: {date}': ~
-OAuth apps: ~
-Open partially: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-SUPLA Cloud is under maintenance.: ~
-Show my limits: ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-Valve: ~
-Valve closed manually: ~
-We should be ready shortly.: ~
-We try to be faster: ~
-You can use the application but you will not be able to modify any settings.: ~
-Your account limits: ~
-password: ~
-reset chart view: ~
-username: ~
-'{requests} from {limit} / day': ~
-'{requests} from {limit} / h': ~
-'{requests} from {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+A-Z: A-Z
+API rate limits: Limiet vragen aan de API
+Channels in channel group: Kanalen in kanalengroep
+Choose Access Identifier: Selecteer Toegangsidentificatie
+Could not contact Autodiscover service. Try again in a while.: We kunnen geen verbinding maken met registratiedienst. Probeer het later opnieuw
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'We kunnen geen verbinding maken met registratiedienst. Probeer het later opnieuw'
+ID: ID
+Inactive: Niet actief
+Invalid function for channel.: Ongeldige functie voor kanaal.
+Maintenance mode active. You cannot modify any data now.: Onderhoudsmodus actief. U kunt nu geen gegevens wijzigen.
+'Next limit renewal: {date}': 'Volgende limiet vernieuwing: {date}'
+OAuth apps: OAuth apps
+Open partially: Gedeeltelijk open
+Private instance of the SUPLA cloud with given URL is already registered.: Privé SUPLA Cloud met gegeven URL is al geregistreerd.
+SUPLA Cloud is under maintenance.: SUPLA Cloud is in onderhoud.
+Show my limits: Laat mijn limieten zien
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'De klep wordt niet geopend als deze met de hand of op afstand is gesloten, wat door een overstroming zou kunnen worden veroorzaakt.'
+Valve: Klep
+Valve closed manually: Klep werd met de hand gesloten.
+We should be ready shortly.: We zouden binnenkort klaar moeten zijn.
+We try to be faster: We proberen sneller te zijn.
+You can use the application but you will not be able to modify any settings.: U kunt de applicatie gebruiken, maar u kunt geen instellingen wijzigen.
+Your account limits: Uw limieten.
+password: wachtwoord
+reset chart view: reset oorspronkelijke weergave
+username: gebruikersnaam
+'{requests} from {limit} / day': '{requests} van {limit} / etmaal'
+'{requests} from {limit} / h': '{requests} van {limit} / uur'
+'{requests} from {limit} / min': '{requests} van {limit} / minuut'
+'{requests} out of {limit} / {seconds} sec.': '{requests} van {limit} / minuut'
 
 #</editor-fold>

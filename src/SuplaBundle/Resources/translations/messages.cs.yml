@@ -591,35 +591,35 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-A-Z: ~
-API rate limits: ~
-Channels in channel group: ~
-Choose Access Identifier: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-ID: ~
-Inactive: ~
-Invalid function for channel.: ~
-Maintenance mode active. You cannot modify any data now.: ~
-'Next limit renewal: {date}': ~
-OAuth apps: ~
-Open partially: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-SUPLA Cloud is under maintenance.: ~
-SUPLA Server was unable to execute the action.: ~
-Show my limits: ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-Valve closed manually: ~
-We should be ready shortly.: ~
-We try to be faster: ~
-You can use the application but you will not be able to modify any settings.: ~
-Your account limits: ~
-password: ~
-reset chart view: ~
-username: ~
-'{requests} from {limit} / day': ~
-'{requests} from {limit} / h': ~
-'{requests} from {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+A-Z: A-Z
+API rate limits: Limit požadavků na API
+Channels in channel group: Kanály ve skupinách kanálů
+Choose Access Identifier: Vybrat přístupový identifikátor
+Could not contact Autodiscover service. Try again in a while.: Není možné se kontaktovat s registrační službou. Zkuste to prosím později.
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Bohužel, aktuálně jsou naše servery plně vytížené. Celou situaci sledujeme, zkuste to za chvíli.'
+ID: ID
+Inactive: Neaktivní
+Invalid function for channel.: Nesprávná funkce kanálu
+Maintenance mode active. You cannot modify any data now.: Provoz v servisním režimu. Není možné upravovat žádné údaje.
+'Next limit renewal: {date}': 'Limit bude brzy obnoven {date}'
+OAuth apps: Aplikace OAuth
+Open partially: Zkuste postupně otevírat
+Private instance of the SUPLA cloud with given URL is already registered.: Na této adrese je již zaregistrován soukromý cloud SUPLA.
+SUPLA Cloud is under maintenance.: Probíhá aktualizace SUPLA Cloudu.
+SUPLA Server was unable to execute the action.: Chyba při provádění akce na SUPLA Serveru.
+Show my limits: Ukázat moje limity
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se neotevře, dokud bude manuálně nebo vzdáleně uzavřený. Může to souviset s jeho zalitím.'
+Valve closed manually: Manuálně uzavřený ventil
+We should be ready shortly.: Měli bychom mít už brzy hotovo.
+We try to be faster: Jsme čím dál tím rychlejší
+You can use the application but you will not be able to modify any settings.: Můžete používat aplikaci, ale není možné změnit nastavení konfigurace
+Your account limits: Vaše limity
+password: heslo
+reset chart view: vrátit se na původní náhled
+username: název uživatele
+'{requests} from {limit} / day': '{requests} za {limit} / den'
+'{requests} from {limit} / h': '{requests} za {limit} / h'
+'{requests} from {limit} / min': '{requests} za {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} za {limit} / {seconds} sek.'
 
 #</editor-fold>
