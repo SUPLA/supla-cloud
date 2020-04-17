@@ -14,7 +14,7 @@
     ]
   },
   "require": {
-    "php": ">=7.1.3",
+    "php": ">=7.3.8",
     "ext-curl": "*",
     "ext-gd": "*",
     "ext-intl": "*",
@@ -79,7 +79,7 @@
   "config": {
     "process-timeout": 0,
     "platform": {
-      "php": "7.1.3"
+      "php": "7.3.8"
     }
   },
   "extra": {
