@@ -663,15 +663,6 @@ CREATE TABLE `supla_v_device_location` (
 	`password` VARCHAR(32) NOT NULL COLLATE 'utf8_unicode_ci'
 ) ENGINE=MyISAM;
 
-CREATE TABLE `supla_v_rel_cg` (
-	`group_id` INT(11) NOT NULL,
-	`channel_id` INT(11) NOT NULL,
-	`iodevice_id` INT(11) NOT NULL,
-	`protocol_version` INT(11) NOT NULL,
-	`client_id` INT(11) NOT NULL,
-	`channel_hidden` TINYINT(1) NOT NULL
-) ENGINE=MyISAM;
-
 DROP TABLE IF EXISTS `supla_v_client`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client` AS SELECT `c`.`id` AS `id`,`c`.`access_id` AS `access_id`,`c`.`guid` AS `guid`,`c`.`name` AS `name`,`c`.`reg_ipv4` AS `reg_ipv4`,
                `c`.`reg_date` AS `reg_date`,`c`.`last_access_ipv4` AS `last_access_ipv4`,`c`.`last_access_date` AS `last_access_date`,
