@@ -45,6 +45,7 @@ fos_rest:
     default_format: json
   serializer:
     groups: ['basic']
+    serialize_null: true
   versioning: true
   view:
     view_response_listener: 'force'
