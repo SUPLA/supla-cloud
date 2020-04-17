@@ -52,17 +52,20 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
             ->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
         $this->getEntityManager()->persist($this->token);
         $this->getEntityManager()->flush();
-        $this->executeCommand('cache:pool:clear api_rate_limit');
     }
 
-    /** @after */
-    protected function restoreGlobalRateLimit() {
+    protected function tearDown() {
         $this->changeUserApiRateLimit(null);
-        $this->executeCommand('cache:pool:clear api_rate_limit');
+        parent::tearDown();
+    }
+
+    private function freshApiRateLimitClient(TestClient $client) {
+        $this->executeCommand('cache:pool:clear api_rate_limit', $client);
+        return $client;
     }
 
     public function testTooManyRequestsGlobal() {
-        $client = $this->createAuthenticatedClient($this->user, true);
+        $client = $this->freshApiRateLimitClient($this->createAuthenticatedClient($this->user, true));
         $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
@@ -75,7 +78,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testOkIfFitsInLimits() {
-        $client = $this->createAuthenticatedClient($this->user, true);
+        $client = $this->freshApiRateLimitClient($this->createAuthenticatedClient($this->user, true));
         for ($i = 0; $i < 10; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
             $response = $client->getResponse();
@@ -85,7 +88,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testTooManyRequestsPerUser() {
         $this->changeUserApiRateLimit();
-        $client = $this->getClientWithPersonalToken();
+        $client = $this->getFreshClientWithPersonalToken();
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
             $response = $client->getResponse();
@@ -100,7 +103,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testWebappTokenDoesNotRaisesApiRateLimit() {
         $this->changeUserApiRateLimit();
-        $client = $this->createAuthenticatedClient($this->user);
+        $client = $this->freshApiRateLimitClient($this->createAuthenticatedClient($this->user));
         for ($i = 0; $i < 10; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
             $response = $client->getResponse();
@@ -110,7 +113,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testSendingRateLimitHeaders() {
         $this->changeUserApiRateLimit();
-        $client = $this->getClientWithPersonalToken();
+        $client = $this->getFreshClientWithPersonalToken();
         $now = time();
         TestTimeProvider::setTime($now);
         $client->apiRequestV24('GET', '/api/locations');
@@ -128,7 +131,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testResettingRateLimit() {
         $this->changeUserApiRateLimit();
-        $client = $this->getClientWithPersonalToken();
+        $client = $this->getFreshClientWithPersonalToken();
         $now = time();
         TestTimeProvider::setTime($now - 11);
         $client->apiRequestV24('GET', '/api/locations');
@@ -146,7 +149,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testLoggingRateLimitExcess() {
         $this->changeUserApiRateLimit();
-        $client = $this->getClientWithPersonalToken();
+        $client = $this->getFreshClientWithPersonalToken();
         $now = time();
         TestTimeProvider::setTime($now - 11);
         $client->apiRequestV24('GET', '/api/locations');
@@ -161,7 +164,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         TestTimeProvider::setTime($now);
         $client->apiRequestV24('GET', '/api/locations');
         /** @var TestHandler $logger */
-        $logger = $client->getContainer()->get('monolog.handler.test_handler');
+        $logger = self::$container->get('monolog.handler.test_handler');
         $this->assertTrue($logger->hasWarningThatContains('exceeded API rate limit'));
         $this->assertTrue($logger->hasWarningThatPasses(function ($log) {
             $context = $log['context'] ?? [];
@@ -171,11 +174,11 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testLimitsOfOneUserDoesNotInfluenceOtherUser() {
         $anotherUser = $this->createConfirmedUser('another@supla.org');
-        $token = $this->container->get(SuplaOAuth2::class)
+        $token = self::$container->get(SuplaOAuth2::class)
             ->createPersonalAccessToken($anotherUser, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
         $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
-        $client = $this->getClientWithPersonalToken();
+        $client = $this->getFreshClientWithPersonalToken();
         $client->apiRequestV24('GET', '/api/locations');
         $client->apiRequestV24('GET', '/api/locations');
         $client->apiRequestV24('GET', '/api/locations');
@@ -188,7 +191,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testChangingLimitForUserIsAppliedImmediately() {
-        $client = $this->getClientWithPersonalToken();
+        $client = $this->getFreshClientWithPersonalToken();
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertGreaterThan(500, $response->headers->get('X-RateLimit-Limit'));
@@ -196,7 +199,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
         $command = $this->application->find('supla:user:change-limits');
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs(['', '', '', '', '', '', '', '5/10']); // first n: no backup, second: no initial user
+        $commandTester->setInputs(['', '', '', '', '', '', '', '', '5/10']);
         $exitCode = $commandTester->execute(['username' => $this->user->getUsername()]);
         $this->assertEquals(0, $exitCode);
 
@@ -214,7 +217,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $slug = $directLink->generateSlug(new BCryptPasswordEncoder(4));
         $this->getEntityManager()->persist($directLink);
         $this->getEntityManager()->flush();
-        $client = $this->createClient();
+        $client = $this->freshApiRateLimitClient($this->createClient());
         $client->request('GET', "/direct/{$directLink->getId()}/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -235,7 +238,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     /** @depends testDirectLinksUsesLimitOfOwner */
     public function testDoesNotContactsSuplaServerWhenUsingDirectLinkAndApiLimitReached(string $slug) {
         $this->changeUserApiRateLimit('1/10');
-        $client = $this->createClient();
+        $client = $this->freshApiRateLimitClient($this->createClient());
         $client->request('GET', "/direct/1/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -259,8 +262,9 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
-    private function getClientWithPersonalToken(AccessToken $token = null): TestClient {
+    private function getFreshClientWithPersonalToken(AccessToken $token = null): TestClient {
         $token = $token ?: $this->token;
-        return self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->getToken(), 'HTTPS' => true]);
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->getToken(), 'HTTPS' => true]);
+        return $this->freshApiRateLimitClient($client);
     }
 }

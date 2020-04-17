@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Tests\Integration\Traits;
 
-use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
@@ -127,9 +126,5 @@ trait UserFixtures {
         $em->persist($schedule);
         $em->flush();
         return $schedule;
-    }
-
-    protected function getEntityManager(): EntityManagerInterface {
-        return self::$container->get('doctrine')->getManager();
     }
 }
