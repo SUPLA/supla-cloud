@@ -61,8 +61,9 @@ class ChannelMeasurementLogsController extends RestController {
             $functionId,
             [
                 ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER,
-                ChannelFunction::HEATMETER, ChannelFunction::THERMOSTAT, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+                ChannelFunction::ELECTRICITYMETER, ChannelFunction::IC_GASMETER, ChannelFunction::IC_WATERMETER,
+                ChannelFunction::IC_HEATMETER, ChannelFunction::IC_ELECTRICITYMETER, ChannelFunction::THERMOSTAT,
+                ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
             ],
             'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
         );
