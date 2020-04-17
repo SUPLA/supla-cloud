@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface {
         $treeBuilder = new TreeBuilder('supla');
         // @codingStandardsIgnoreStart
         // @formatter:off because indentation makes config structure way clearer
-        $treeBuilder->getRootNode()
+        $rootNode = $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('version')->defaultValue('?.?.?')->info('Version is set by the release script.')->end()
                 ->scalarNode('version_full')->defaultValue(null)->info('Version with git hash, set by the release script.')->end()
@@ -60,8 +60,8 @@ class Configuration implements ConfigurationInterface {
                     ->integerNode('block_time_seconds')->defaultValue(1200)->info('How long the ban should be (in seconds).')->end() // default 20 minutes
                 ->end()->end()
                 ->arrayNode('oauth')->children()
-                    ->arrayNode('tokens_lifetime')->children()
-                        ->info('Lifetime of the OAuth tokens per type, in seconds')
+                    ->arrayNode('tokens_lifetime')
+                        ->info('Lifetime of the OAuth tokens per type, in seconds')->children()
                         ->arrayNode('webapp')->children()->integerNode('access')->isRequired()->end()->end()->end()
                         ->arrayNode('client_app')->children()->integerNode('access')->isRequired()->end()->integerNode('refresh')->end()->end()->end()
                         ->arrayNode('admin')->children()->integerNode('access')->isRequired()->end()->integerNode('refresh')->end()->end()->end()
