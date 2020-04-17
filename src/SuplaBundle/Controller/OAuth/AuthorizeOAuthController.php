@@ -210,10 +210,12 @@ class AuthorizeOAuthController extends Controller {
 
         $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $request->get('targetCloud'));
         $info = $this->getTargetCloudInfo($targetCloud);
+        // phpcs:disable
         Assertion::isArray(
             $info,
             'Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.' // i18n
         );
+        // phpcs:enable
         Assertion::version(
             ApiVersions::V2_3,
             '<=',

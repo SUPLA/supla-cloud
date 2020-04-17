@@ -61,6 +61,10 @@ class UserManager {
      * @var SuplaMailer
      */
     private $mailer;
+    /**
+     * @var LocalSuplaCloud
+     */
+    private $localSuplaCloud;
 
     public function __construct(
         UserRepository $userRepository,
@@ -71,6 +75,7 @@ class UserManager {
         TimeProvider $timeProvider,
         LoggerInterface $logger,
         SuplaMailer $mailer,
+        LocalSuplaCloud $localSuplaCloud,
         int $defaultClientsRegistrationTime,
         int $defaultIoDevicesRegistrationTime
     ) {
@@ -82,6 +87,7 @@ class UserManager {
         $this->defaultClientsRegistrationTime = $defaultClientsRegistrationTime;
         $this->defaultIoDevicesRegistrationTime = $defaultIoDevicesRegistrationTime;
         $this->timeProvider = $timeProvider;
+        $this->localSuplaCloud = $localSuplaCloud;
         $this->logger = $logger;
         $this->mailer = $mailer;
     }
@@ -275,8 +281,11 @@ class UserManager {
     public function deleteAccount(User $user) {
         $userId = $user->getId();
         $this->transactional(function (EntityManagerInterface $em) use ($user) {
-            $deletedFromAd = $this->autodiscover->deleteUser($user);
-            Assertion::true($deletedFromAd, "Could not delete user {$user->getUsername()} in Autodiscover.");
+            $userServerFromAd = $this->autodiscover->getUserServerFromAd($user->getEmail());
+            if ($userServerFromAd === $this->localSuplaCloud->getAddress()) {
+                $deletedFromAd = $this->autodiscover->deleteUser($user);
+                Assertion::true($deletedFromAd, "Could not delete user {$user->getUsername()} in Autodiscover.");
+            }
             $remove = function ($key, $entity) use ($em) {
                 $em->remove($entity);
                 return true;

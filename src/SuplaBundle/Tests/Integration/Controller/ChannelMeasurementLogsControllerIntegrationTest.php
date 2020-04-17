@@ -42,6 +42,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     private $device1;
     /** @var IODevice */
     private $device2;
+    /** @var IODevice */
+    private $deviceWithManyLogs;
 
     protected function addLogItems($offset = 0) {
         $datestr = '2018-09-15';
@@ -136,9 +138,20 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
         $this->device1 = $this->createDevice($location, $channels);
         $this->device2 = $this->createDevice($location, $channels);
+        $this->deviceWithManyLogs = $this->createDevice($location, $channels);
 
         $this->addLogItems();
         $this->addLogItems(count($channels));
+
+        for ($timestamp = strtotime('-60 days'); $timestamp < time(); $timestamp += 600) {
+            $logItem = new TemperatureLogItem();
+            EntityUtils::setField($logItem, 'channel_id', $this->deviceWithManyLogs->getChannels()[1]->getId());
+            EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
+            EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
+            if (rand(0, 100) < 99) {
+                $this->getEntityManager()->persist($logItem);
+            }
+        }
 
         $this->getEntityManager()->flush();
     }
@@ -460,5 +473,93 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
                 $this->testMeasurementLogsCount($channel->getId());
             }
         }
+    }
+
+    public function testGettingLogsFromChannelWithManyLogs() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $logItems = json_decode($response->getContent(), true);
+        $this->assertCount(5000, $logItems);
+        $firstDateTime = current($logItems)['date_timestamp'];
+        $lastDateTime = end($logItems)['date_timestamp'];
+        $this->assertGreaterThan(time(), $firstDateTime + 1200);
+        $this->assertLessThan(time(), $lastDateTime);
+        $this->assertEquals(35, floor(($firstDateTime - $lastDateTime) / 86400), '', 1); // 5000 logs per 10 minutes each ~= 35 days
+        $this->assertGreaterThan(strtotime('-40 days'), $lastDateTime);
+    }
+
+    public function testGettingSparseLogsFromChannelWithManyLogs() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?sparse=500");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $logItems = json_decode($response->getContent(), true);
+        $this->assertEquals(500, count($logItems), '', 50);
+        $firstDateTime = current($logItems)['date_timestamp'];
+        $lastDateTime = end($logItems)['date_timestamp'];
+        $this->assertGreaterThan(time(), $firstDateTime + 1200);
+        $this->assertLessThan(time(), $lastDateTime);
+        $this->assertLessThan(strtotime('-40 days'), $lastDateTime);
+        $this->assertEquals(60, floor(($firstDateTime - $lastDateTime) / 86400), '', 1);
+    }
+
+    public function testGettingSparseLogsFromChannelWithManyLogsOrderedAsc() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?sparse=500&order=ASC");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $logItems = json_decode($response->getContent(), true);
+        $this->assertEquals(500, count($logItems), '', 50);
+        $firstDateTime = current($logItems)['date_timestamp'];
+        $lastDateTime = end($logItems)['date_timestamp'];
+        $this->assertGreaterThan(time(), $lastDateTime + 1200);
+        $this->assertLessThan(time(), $firstDateTime);
+        $this->assertLessThan(strtotime('-40 days'), $firstDateTime);
+        $this->assertEquals(60, floor(($lastDateTime - $firstDateTime) / 86400), '', 1);
+    }
+
+    public function testGettingSparseLogsBeetweenTimestamps() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $afterTimestamp = strtotime('-10 days');
+        $beforeTimestamp = strtotime('-3 days');
+        $params = http_build_query(['sparse' => 100, 'afterTimestamp' => $afterTimestamp, 'beforeTimestamp' => $beforeTimestamp]);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?$params");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $logItems = json_decode($response->getContent(), true);
+        $this->assertEquals(100, count($logItems), '', 15);
+        $firstDateTime = current($logItems)['date_timestamp'];
+        $lastDateTime = end($logItems)['date_timestamp'];
+        $this->assertGreaterThan($beforeTimestamp, $firstDateTime + 1200);
+        $this->assertLessThan($beforeTimestamp, $lastDateTime);
+        $this->assertGreaterThan($afterTimestamp, $lastDateTime);
+        $this->assertEquals(7, floor(($firstDateTime - $lastDateTime) / 86400), '', 1);
+    }
+
+    public function testGettingSparseLogsBeetweenTimestampsOrderedAsc() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $afterTimestamp = strtotime('-10 days');
+        $beforeTimestamp = strtotime('-3 days');
+        $params = http_build_query(
+            ['sparse' => 100, 'afterTimestamp' => $afterTimestamp, 'beforeTimestamp' => $beforeTimestamp, 'order' => 'ASC']
+        );
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?$params");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $logItems = json_decode($response->getContent(), true);
+        $this->assertEquals(100, count($logItems), '', 15);
+        $firstDateTime = current($logItems)['date_timestamp'];
+        $lastDateTime = end($logItems)['date_timestamp'];
+        $this->assertGreaterThan($beforeTimestamp, $lastDateTime + 1200);
+        $this->assertLessThan($beforeTimestamp, $firstDateTime);
+        $this->assertGreaterThan($afterTimestamp, $firstDateTime);
+        $this->assertEquals(7, floor(($lastDateTime - $firstDateTime) / 86400), '', 1);
     }
 }

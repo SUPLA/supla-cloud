@@ -21,7 +21,6 @@ use FOS\OAuthServerBundle\Security\Authentication\Token\OAuthToken;
 use SuplaBundle\Entity\AccessID;
 
 class AccessIdAwareToken extends OAuthToken {
-    const ROLE_WEBAPP = 'ROLE_WEBAPP';
     /** @var AccessID */
     private $accessId;
 

@@ -50,11 +50,12 @@ class SynchronizeUsersWithAutodiscoverCommand extends ContainerAwareCommand {
             /** @var User $user */
             $user = $userRow[0];
             $userServerFromAd = $this->autodiscover->getUserServerFromAd($user->getEmail());
-            if ($userServerFromAd !== $this->localSuplaCloud->getHost()) {
+            if ($userServerFromAd !== $this->localSuplaCloud->getAddress()) {
                 $progressbar->clear();
                 $io->section($user->getEmail());
                 $io->writeln("Active: " . ($user->isEnabled() ? 'yes' : 'no'));
                 $io->writeln("Number of devices: " . $user->getIODevices()->count());
+                $io->writeln("Created: " . $user->getRegDate()->format(\DateTime::ATOM));
                 $io->newLine();
                 if (!$userServerFromAd) {
                     if ($io->confirm("User not registered in AD. Register?")) {
@@ -67,7 +68,12 @@ class SynchronizeUsersWithAutodiscoverCommand extends ContainerAwareCommand {
                     }
                 } else {
                     $io->warning("User registered for different Target Cloud ($userServerFromAd).");
-                    if ($io->confirm("Delete this user from here ({$this->localSuplaCloud->getHost()})?")) {
+                    $deleteNow = !$user->isEnabled() && $user->getIODevices()->isEmpty()
+                        && $user->getRegDate()->getTimestamp() < time() - 86400;
+                    if ($deleteNow) {
+                        $io->writeln("Automatically deleting {$user->getEmail()}");
+                    }
+                    if ($deleteNow || $io->confirm("Delete this user from here ({$this->localSuplaCloud->getHost()})?")) {
                         $command = new StringInput('supla:user:delete ' . $user->getEmail() . ' --no-interaction');
                         $this->getApplication()->run($command, $output);
                     }

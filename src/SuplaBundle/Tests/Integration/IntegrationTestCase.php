@@ -34,7 +34,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     private static $dataForTests = [];
 
     /** @var Application */
-    private $application;
+    protected $application;
 
     public function prepareIntegrationTest() {
         if (!$this->hasDependencies()) {

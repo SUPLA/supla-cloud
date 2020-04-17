@@ -133,4 +133,16 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('longUniqueId', $body);
     }
+
+    public function testGettingUserWithLimitsAndRelationsCount() {
+        SuplaAutodiscoverMock::clear(false);
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/users/current?include=limits,relationsCount');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('relationsCount', $body);
+        $this->assertArrayHasKey('apiRateLimit', $body);
+    }
 }

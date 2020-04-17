@@ -13,16 +13,15 @@
                         {{ $t(possibleAction.caption) }}
                     </label>
                 </div>
-                <div v-else>
+                <p v-else>
                     {{ $t(possibleAction.caption) }}
-                </div>
+                </p>
             </slot>
             <div class="possible-action-params">
                 <transition-expand>
                     <div class="well clearfix"
-                        v-if="possibleAction.id == 50 && action.id == possibleAction.id">
-                        <rolette-shutter-partial-percentage v-model="action.param"
-                            @input="updateModel()"></rolette-shutter-partial-percentage>
+                        v-if="(possibleAction.id == 50 || possibleAction.id == 120) && action.id == possibleAction.id">
+                        <rolette-shutter-partial-percentage v-model="action.param"></rolette-shutter-partial-percentage>
                     </div>
                 </transition-expand>
                 <transition-expand>
@@ -59,10 +58,16 @@
         },
         methods: {
             selectFirstActionIfOnlyOne() {
-                if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
-                    this.action = {id: this.actionsToShow[0].id, param: {}};
-                    this.updateModel();
+                if (this.actionsToShow.length === 1) {
+                    this.action = {
+                        id: this.actionsToShow[0].id,
+                        param: {}
+                    };
+                    this.updateAction();
                 }
+            },
+            updateAction() {
+                this.$emit('input', this.action);
             },
             shouldShowAction(possibleAction) {
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
@@ -82,6 +87,6 @@
                 this.updateModel();
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             }
-        }
+        },
     };
 </script>

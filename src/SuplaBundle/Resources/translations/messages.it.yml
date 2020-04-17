@@ -5,10 +5,12 @@
 '...open gateways, gates or doors': ...aprire il cancello o la porta
 ...or control home appliances: ...oppure controllare gli elettrodomestici
 ...you can monitor temperature: ...puoi monitorare la temperatura
+A-Z: A-Z
 ACTIVE: ATTIVA
 AM2301 Temperature & Humidity Sensor: Termometro di temperatura e umidità AM2301
 AM2302 Temperature & Humidity Sensor: Termometro di temperatura e umidità AM2302
 API documentation: Documentazione API
+API rate limits: Limite richiesta API
 Access ID: ID di accesso
 Access Identifier: Identificatore dell’Accesso
 Access Identifiers: Identificatori dell’accesso
@@ -48,6 +50,7 @@ Are you sure you want to delete this client?: Sei sicuro di voler rimuovere ques
 Are you sure you want to delete this direct link?: Sei sicuro di voler cancellare questo link diretto?
 Are you sure you want to delete this icon?: Sei sicuro di voler cancellare questa icona?
 Are you sure you want to delete this schedule?: Sei sicuro di voler rimuovere questo scadenzario?
+Are you sure you want to disable this device?: Sei sicuro di voler spegnere questo dispositivo?
 Are you sure you want to revoke permissions granted to this OAuth application?: Sei sicuro di voler revocare i permessi concessi a questa applicazione OAuth?
 Are you sure you want to revoke this token?: Sei sicuro di voler revocare il token?
 Are you sure?: Sei sicuro?
@@ -83,10 +86,13 @@ Channel group limit has been exceeded: Limite gruppi di canali è stato superato
 Channel group must consist of at least one channel.: Il gruppo dei canali deve contenere almeno un canale.
 Channel groups: Gruppi di canali
 Channel is assigned to the I/O device location: Il canale è assegnato alla localizzazione del dispositivo I/O
+Channel will be deleted from the channel group below: Il canale verrà eliminato dal seguente gruppo di canali
 Channels: Canali
+Channels in channel group: Canali nei gruppi di canali
 Check the direct link you used and try again.: Controlla link diretto richiesto e riprova.
 Check your email box: Controlla la Tua posta email
 Choose: Seleziona
+Choose Access Identifier: Seleziona ID di accesso
 Choose Access Identifiers to be assigned to this Location: Seleziona gli Identificatori dell’Accesso da assegnare a questa Localizzazione
 Choose client apps: Seleziona le applicazioni client
 Choose location: Scegli una localizzazione
@@ -102,9 +108,11 @@ Configuration: Configurazione
 Confirm Password: Conferma della password
 Confirm if you want to remove Access Identifier: Conferma se vuoi rimuovere l’Identificatore dell’Accesso
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Conferma se vuoi eliminare la Localizzazione ID{locationId}. Dopo non potrai più collegare i dispositivi Input/Output con questa localizzazione.'
+'Confirm if you want to remove {deviceName} device': 'Conferma se vuoi rimuovere il dispositivo {deviceName}'
 Connected: Connesso
 Connection with a private instance of the SUPLA cloud: Connessione con l’istanza privata della nuvola SUPLA
 Constraints: Restrizioni
+Could not contact Autodiscover service. Try again in a while.: Impossibile contattare il servizio di registrazione. Riprova tra un attimo.
 Could not reset the password.: Il reset della password è fallito.
 Could not reset the password. Please try again later.: Non è possibile resettare la password. Riprova tra poco.
 Create New Access Identifier: Crea un nuovo Identificatore dell’Accesso
@@ -120,6 +128,7 @@ Custom execution limit: Limite delle esecuzioni non standard
 DHT11 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT11
 DHT21 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT21
 DHT22 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT22
+DISABLED: DISABILITATO
 DS18B20 Thermometer: Termometro DS18B20
 Data saved: I dati sono stati salvati
 Days: Giorni
@@ -142,6 +151,7 @@ Direct link has been created successfully!: Il link diretto è stato creato con 
 Direct link has been executed: Link diretto è stato eseguito
 'Direct link is not working right now. Reason:': 'In questo momento il link diretto non funziona. Causa. Powód:'
 Direct links: Link diretti
+Direct links below will be deleted: I link diretti di seguito elencati verranno rimossi
 Disabled: Disabilitato
 Disconnected: Disconnesso
 Distance: Distanza
@@ -153,6 +163,7 @@ Doors and gates: Porte e cancelli
 'Doors, Gates': 'Porte, Cancelli'
 Download the history of measurement: Scarica lo storico delle misurazioni
 Drag your image(s) here or click to select from the disk: Trascina l’immagine qui o clicca per selezionare dal disco
+ENABLED: ABILITATO
 Edit: Modifica
 Electric: Elettricità
 Electricity meter: Licznik energii elektrycznej
@@ -175,6 +186,7 @@ Executed without confirmation: Eseguito senza confermare
 Execution history: Storico delle esecuzioni
 Execution limit: Limite delle esecuzioni
 Executions: Esecuzioni
+Existing schedules: Scadenzari esistenti
 Expired: Scaduto
 Failed: Falliti
 Failed (zombie): Falliti (zombie)
@@ -209,10 +221,12 @@ Go to your account: Vai al Tuo account
 Grant access: Concedi l’accesso
 HFD4 Relay: Relè HFD4
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Non hai ricevuto il messaggio con il link di attivazione del Tuo account? Assicurati che esso non sia finito nella casella SPAM (posta indesiderata). Puoi anche cliccare [qui], per inviarlo di nuovo.'
+Heat meter: Contatore di calore
 History of measurements: Storia delle misurazioni
 Home appliances: Elettrodomestici
 Home+ Heater: Riscaldatore Home+
 Hours: Ore
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Purtroppo, attualmente l''uso dei nostri server è salito a un livello pericoloso. Stiamo monitorando la situazione, torniamo tra qualche istante.'
 Humidity: Umidità
 Humidity Sensor: Sensore di umidità
 Humidity adjustment: Regolazione dell’umidità
@@ -223,6 +237,7 @@ I agree: Accetto
 I confirm! Delete my account.: Confermo! Cancella il mio account.
 'I do not agree, get me out of here': 'Non accetto, portami via da qui'
 I/O Devices: Dispositivi I/O
+ID: ID
 INACTIVE: INATTIVA
 Idle: Inattivi
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.'
@@ -233,6 +248,7 @@ Idle: Inattivi
 Impulse counter: Contatore di impulsi
 Impulses: Impulsi
 'In order to confirm account deletion, enter your password.': 'Per confermare la cancellazione del Tuo account, inserisci la password.'
+Inactive: Inattivo
 Incorrect password: Password non corretta
 Information: Informazione
 Inherit I/O Device location: Utilizza la localizzazione del dispositivo I/O
@@ -240,6 +256,7 @@ Initial value: Valore iniziale
 Integrations: Integrazioni
 Interval: Intervallo
 Invalid SUPLA Cloud URL.: Indirizzo URL dell’istanza SUPLA Cloud non valido.
+Invalid function for channel.: Funzione canale non valida
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Richiesta non corretta
 Inverted logic: Logica invertita
@@ -261,6 +278,7 @@ Location password must be no longer than 32 characters.: La password per la loca
 Locations: Localizzazioni
 Login: Log in
 Mail sensor: Rilevatore di posta
+Maintenance mode active. You cannot modify any data now.: Funzionamento in modalità di servizio. Non puoi modificare alcun dato.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Assicurati di averlo salvato in un posto sicuro se vuoi usarlo ancora in futuro. Una volta uscito dalla pagina, il link non verrà più visualizzato.'
 'Maximum filesize limit is {limit}.': 'La dimensione massima del file è {limit}.'
 Meter value: Lettura del contatore
@@ -278,6 +296,7 @@ New channel group: Nuovo gruppo di canali
 New direct link: Nuovo link diretto
 New password: Nuova password
 Newer: Più recenti
+'Next limit renewal: {date}': 'Il limite verrà rinnovato {data}'
 Next run date: Prossima esecuzione
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nessun identificatore di accesso abilitato. Vai alla [Lista di identificatori di accesso] o [aggiungi un nuovo identificatore di accesso].'
 No function: Nessuna funzione
@@ -294,6 +313,7 @@ No. of devices: Numero dei dispositivi
 No. of locations: Numero delle localizzazioni
 None: Nessuno
 OAuth application: Applicazione OAuth
+OAuth apps: Applicazioni OAuth
 OAuth authorization: Autorizzazione OAuth
 'Off': Disabilita
 Offline access: Accesso offline
@@ -303,6 +323,7 @@ On/Off switch: Sensore di alimentazione
 'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Sono ammessi solo i nomi dei domini con un numero opzionale della porta. Ad esempio. mysupla.org oppure mysupla.org:88. L’HTTPS è obbligatorio.'
 Open: Apri
 Open / close: Apri/chiudi
+Open partially: Apri parzialmente
 Opening sensor: Sensore di apertura
 Original location: Localizzazione originale
 'Otherwise go to [the homepage].': 'Altrimenti passa a [home page].'
@@ -319,11 +340,13 @@ Please enter a valid email address: Inserisci l’indirizzo e-mail corretto
 Please fill a valid email address: Inserisci un’email valida
 Please log in again to proceed.: Accedi di nuovo per continuare.
 Please provide a valid domain name for your private SUPLA Cloud: Inserisci il nome corretto del dominio per la Tua nuvola privata SUPLA
+Please select the schedules that should also be enabled.: 'Seleziona gli scadenzari che, anch’essi, devono essere disabilitati.'
 Please wait a moment before the next login attempt.: Aspetta un momento prima di un altro tentativo di login.
 Pressure sensor: Sensore di pressione
 Previous login: Log in precedente
 Price per: Prezzo per
 Private Cloud domain name: Nome del dominio della nuvola privata
+Private instance of the SUPLA cloud with given URL is already registered.: Il cloud SUPLA privato è già registrato a questo indirizzo.
 Proceed: Continua
 Processing: In corso
 Public ID: ID pubblico
@@ -354,6 +377,8 @@ Revoke: Annulla
 Roller shutter opening sensor: Sensore di apertura di avvolgibili
 Roller shutter operation: Apertura e chiusura di avvolgibili
 Roller shutters: Avvolgibili
+SUPLA Cloud is under maintenance.: SUPLA Cloud è in fase di aggiornamento.
+SUPLA Server was unable to execute the action.: Errore durante l'esecuzione dell'azione nel SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA è disponibile sempre e ovunque, quindi non Ti preoccupare se prosssima volta ti dimenticherai di spegnere la luce'
 Saturdays: Sabato
 Save: Salva
@@ -365,6 +390,7 @@ Schedule cannot be enabled: L’abilitazione dello scadenzario è fallita
 Schedule limit has been exceeded: Limite pianificazioni è stato superato
 Schedule mode: Modalità dello scadenzario
 Schedules: Scadenzari
+Schedules below will be deleted: Le seguenti pianificazioni verranno eliminate
 Scope: Ambito (scope)
 Scopes: Ambiti
 Scopes define which sections of your account can be accessed when using the token.: Gli ambiti definiscono a quali parti dell’account è possibile ottenere l’accesso tramite il token.
@@ -381,6 +407,7 @@ Sensors: Sensori
 Server address: Indirizzo del server
 Server unreachable: Server irragiungibile
 Service temporarily unavailable: Servizio temporaneamente non disponibile
+Show my limits: Mostra i miei limiti
 Show on the Client’s devices: Mostra nei dispositivi client
 Shut: Chiudi
 Sign In: Log in
@@ -424,6 +451,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Il server ha restituito l’errore HTTP 404. Ciò significa che l’elemento che stai cercando non esiste.
 'The server has returned an HTTP {statusCode} error.': 'Il server ha restituito un errore {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'I file delle icone che hai selezionato sono troppo grandi. La dimensione massima consentita di upload è {limit}.'
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': La valvola non si aprirà se fosse chiusa manualmente o via radio che potrebbe essere associato a danni causati dall'acqua.
 There are no more channels you can add to this group: Non ci sono altri canali da aggiungere a questo gruppo
 Thermometer: Termometro
 Thermostat: Termostato
@@ -443,6 +471,8 @@ Unsupported function: Funzione non supportata
 Unsupported type: Tipo non supportato
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'I file inviati non contengono contenuti inappropriati, non violano i diritti d’autore od i diritti di terzi, ed io ho il diritto di utilizzarli.'
 User is already confirmed. Try to log in.: Questo account è già confermato. Accedi.
+Valve: Valvola
+Valve closed manually: Valvola chiusa manualmente
 Visible: Visibile
 Visit app webpage: Apri il sito web dell’applicazione
 WELCOME_MESSAGE: |
@@ -452,7 +482,9 @@ Water meter: Licznik wody
 We could not connect to your SUPLA Cloud instance.: Non riuscivamo a connetterci con la Tua istanza privata SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Il messaggio con il link di attivazione del Tuo account è stato appena inviato. Attendi con pazienza.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ti abbiamo inviato un messaggio e-mail contenente il link di conferma della cancellazione dell’account. Forse cambierai la Tua decisione!
+We should be ready shortly.: Dovremmo finire presto.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Conserviamo nel Tuo broswer le informazioni sulle Tue preferenze al fine di facilitare l’uso dell’applicazione (ad esempio mediante un meccanismo di cookies). [Leggi il Regolamento].'
+We try to be faster: Stiamo diventando più veloci
 We were not able to find your account.: Non siamo riusciti a trovare il Tuo account.
 We will miss you: Ci mancherai
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Faremo del nostro meglio affinché le icone inviate possano essere visualizzate nel modo migliore possibile. Tuttavia otterrai i migliori risultati inviando i file PNG con uno sfondo trasparente e con una larghezza di{width} e altezza di {height} pixel.'
@@ -472,6 +504,7 @@ With SUPLA you can operate the lights in your home or office: Con SUPLA puoi ges
 With function: Con la funzione
 Working period: Periodo di lavoro
 YOUR LINK CODE: CODICE DEL TUO LINK
+You can use the application but you will not be able to modify any settings.: 'È possibile utilizzare l''applicazione, ma non è possibile apportare modifiche alla configurazione.'
 You cannot delete your last access identifier.: Non puoi eliminare il Tuo ultimo identificatore di accesso.
 You cannot delete your last location.: Non puoi eliminare la Tua ultima localizzazione.
 You just need to execute the following command inside your host terminal.: Basta eseguire il seguente ordine all’interno di un terminale del Tuo host.
@@ -482,6 +515,7 @@ You will not be able to generate a direct link with the same URL again.: La crea
 Your account has been deleted. We hope you will come back to us soon.: L’account è stato cancellato. Speriamo che tornerai presto.
 Your account has been locked.: Il Tuo account è stato bloccato.
 Your account has not been confirmed yet.: Il Tuo account non è stato ancora confermato.
+Your account limits: I tuoi limiti
 Your email: Tua email
 Your instance is not registered or you are trying to authorize an application that is not public.: La Tua istanza non è registrata oppure stai cercando di autorizzare un’applicazione che non è pubblica.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: La tua installazione privata di SUPLA cloud non è disponibile. Assicurati che il tuo server sia online e la connessione HTTPS funzioni correttamente.
@@ -520,12 +554,14 @@ hourly: Ogni ora
 minutely: Ogni minuto
 minutes: minuti
 once: Una sola volta
+password: password
 register-slide1-text: 'Basandosi sull’elettronica disponibile, SUPLA Ti renderà possibile la costruzione di moduli semplici che permettono di gestire e controllare gli elementi dell’automazione degli edifici. Grazie a SUPLA puoi ad esempio controllare l’illuminazione, accendere e spegnere gli elettrodomestici, aprire e chiudere i cancelli e le porte oppure monitorare la temperatura nei locali.  Basta solo un tocco del dito.'
 register-slide1-title: Tuo edificio intelligente
 register-slide2-text: 'Uno dei presupposti basilari del progetto è la semplicità e disponibilità. SUPLA, con un solo tocco del dito , permette di accendere la luce o di aprire il cancello nel momento in cui vogliamo entrare. SUPLA è disponibile ovunque lì dove hai accesso alla rete Internet e puoi usare il smartphone od il tablet. SUPLA viene sviluppata sulla base di Open Software e Hardware. In questo modo anche Tu puoi sviluppare questo progetto!'
 register-slide2-title: SUPLA dappertutto!
 register-slide3-text: 'I sistemi di automazione disponibili sul mercato sono di solito molto complessi, chiusi e costosi. In molti casi richiedono l’installazione già in fase della creazione dell’oggetto. SUPLA è semplice, aperta e gratuita. Permette di creare gli elementi esecutivi in base alle piattaforme RaspberryPI, Arduino oppure ESP8266 e di unirli avvalendosi della rete LAN e WIFI. UnisciTi al progetto e crea la Tua versione del sistema per l’automazione degli edifici!'
 register-slide3-title: Gratuita e aperta!
+reset chart view: torni alla vista iniziale
 sec.: Sec.
 'smartphones, tablets, etc.': 'smartphone, tablet ecc.'
 state-closed: Chiuso
@@ -548,25 +584,23 @@ sunrise-after: alba
 sunrise-before: alba
 sunset-after: tramonto
 sunset-before: tramonto
+username: nome utente
 will expire: scade
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} non può interagire con il Tuo account finché non concederai di nuovo l’accesso.'
 '{clientName} wants to access your account.': '{clientName} vuole accedere al Tuo account.'
+'{requests} out of {limit} / day': '{richieste} di {limite} / giorno'
+'{requests} out of {limit} / h': '{richieste} di {limite} / ora'
+'{requests} out of {limit} / min': '{richieste} di {limite} / min.'
+'{requests} out of {limit} / {seconds} sec.': '{richieste} di {limite} / {secondi} sec.'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-Are you sure you want to disable this device?: Sei sicuro di voler spegnere questo dispositivo?
 Assigned Locations: Localizzazioni assegnate
-Channel will be deleted from the channel group below: Il canale verrà eliminato dal seguente gruppo di canali
-'Confirm if you want to remove {deviceName} device': 'Conferma se vuoi rimuovere il dispositivo {deviceName}'
-DISABLED: DISABILITATO
 Date: Data
-Direct links below will be deleted: I link diretti di seguito elencati verranno rimossi
 Disable: Disabilita
-ENABLED: ABILITATO
 Email already exists: Email già esistente
 Enable: Abilita
-Existing schedules: Scadenzari esistenti
 Hi: Ciao
 Hour: Ora
 I/O: Entrata/Uscita
@@ -577,10 +611,8 @@ Loading: Caricamento
 Next: Avanti
 Number: Numero
 Output: Uscita
-Please select the schedules that should also be enabled.: 'Seleziona gli scadenzari che, anch’essi, devono essere disabilitati.'
 Registration: Registrazione
 Remove: Elimina
-Schedules below will be deleted: Le seguenti pianificazioni verranno eliminate
 Status: Status
 Try again later: Riprova più tardi
 You will be logged out shortly: A breve verrà eseguito il log out
@@ -589,93 +621,5 @@ execute: esegui
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.': ~
-A-Z: ~
-Action trigger: ~
-Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
-Add a delay: ~
-Add new item to use in the scene: ~
-Are you sure you want to delete this scene?: ~
-Bar: ~
-Bridge: ~
-Channel reference will be removed from the items below.: ~
-Channel value: ~
-Chart data source type: ~
-Chart type: ~
-Choose Access Identifier: ~
-Clear: ~
-'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Could not contact Autodiscover service. Try again in a while.: ~
-Create new scene: ~
-Device channel value: ~
-Differential: ~
-Direct links limit has been exceeded: ~
-Execute: ~
-Execute the scene: ~
-General purpose measurement: ~
-Heat meter: ~
-ID: ~
-Icon: ~
-Inactive: ~
-Interpolate measurements: ~
-Invalid action.: ~
-Invalid function for channel.: ~
-Linear: ~
-Maintenance mode active. You cannot modify any data now.: ~
-Need one of these?: ~
-New scene: ~
-No of operations: ~
-Open partially: ~
-Operations: ~
-Precision: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-SUPLA Cloud is under maintenance.: ~
-SUPLA Server was unable to execute the action.: ~
-Scene: ~
-Scene must consist of at least one operation.: ~
-Scenes: ~
-Scenes limit has been exceeded: ~
-Some features depend on this device: ~
-Some of the features you have configured rely on channels from this device.: ~
-Standard: ~
-Store measurements history: ~
-The following items use the channels of these device. These references will be also removed.: ~
-'The following items will be deleted with this device:': ~
-'The items below rely on this channel function, so they will be deleted.': ~
-Triggers: ~
-Turning this device off will cause its channels not working in the following features.: ~
-Turning this device off will result in disabling features listed below.: ~
-Value per unit: ~
-Valve: ~
-We should be ready shortly.: ~
-You can use the application but you will not be able to modify any settings.: ~
-You need to specify at least brightness or color for this action.: ~
-actionTriggerDescription_: ~
-actionTriggerDescription_HOLD: ~
-actionTriggerDescription_PRESS: ~
-actionTriggerDescription_PRESS_2X: ~
-actionTriggerDescription_PRESS_3X: ~
-actionTriggerDescription_RELEASE: ~
-actionTrigger_: ~
-actionTrigger_HOLD: ~
-actionTrigger_PRESS: ~
-actionTrigger_PRESS_2X: ~
-actionTrigger_PRESS_3X: ~
-actionTrigger_RELEASE: ~
-actionableSubjectType_: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
-actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
-choose the scene: ~
-min.: ~
-or add a delay: ~
-password: ~
-prefix: ~
-scene: ~
-suffix: ~
-username: ~
 
 #</editor-fold>
