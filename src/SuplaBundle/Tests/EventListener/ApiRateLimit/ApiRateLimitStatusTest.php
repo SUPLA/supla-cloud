@@ -17,11 +17,12 @@
 
 namespace SuplaBundle\Tests\EventListener\ApiRateLimit;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
-class ApiRateLimitStatusTest extends \PHPUnit_Framework_TestCase {
+class ApiRateLimitStatusTest extends TestCase {
     /** @afterClass */
     public static function resetTimeProvider() {
         TestTimeProvider::reset();
