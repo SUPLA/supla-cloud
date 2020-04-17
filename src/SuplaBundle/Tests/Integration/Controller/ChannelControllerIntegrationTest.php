@@ -351,7 +351,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorks */
     public function testSavingParamsConfigInDatabaseAsJson(IODeviceChannel $gateChannel) {
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
-        $expectedConfig = ['relayTimeMs' => 1567, 'openingSensorChannelId' => null, 'openingSensorSecondaryChannelId' => null];
+        $expectedConfig = [
+            'relayTimeMs' => 1567,
+            'openingSensorChannelId' => null,
+            'openingSensorSecondaryChannelId' => null,
+            'timeSettingAvailable' => true,
+        ];
         $this->assertEquals($expectedConfig, $gateChannel->getConfig());
     }
 
