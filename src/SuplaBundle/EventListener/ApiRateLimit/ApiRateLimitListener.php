@@ -27,9 +27,9 @@ use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -76,7 +76,7 @@ class ApiRateLimitListener {
         $this->logger = $logger;
     }
 
-    public function onKernelRequest(GetResponseEvent $event) {
+    public function onKernelRequest(RequestEvent $event) {
         if (!$this->isRequestRateLimited($event)) {
             return;
         }
@@ -97,7 +97,7 @@ class ApiRateLimitListener {
         }
     }
 
-    private function preventRequestDueToLimitExceeded(GetResponseEvent $event, string $message) {
+    private function preventRequestDueToLimitExceeded(RequestEvent $event, string $message) {
         if (!$this->blocking) {
             return;
         }
@@ -114,7 +114,7 @@ class ApiRateLimitListener {
         }
     }
 
-    public function onKernelResponse(FilterResponseEvent $event) {
+    public function onKernelResponse(ResponseEvent $event) {
         if (!$this->isRequestRateLimited($event)) {
             return;
         }

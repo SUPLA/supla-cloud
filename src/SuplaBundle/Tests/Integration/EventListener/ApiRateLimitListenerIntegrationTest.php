@@ -48,7 +48,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
-        $this->token = $this->container->get(SuplaOAuth2::class)
+        $this->token = self::$container->get(SuplaOAuth2::class)
             ->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
         $this->getEntityManager()->persist($this->token);
         $this->getEntityManager()->flush();
