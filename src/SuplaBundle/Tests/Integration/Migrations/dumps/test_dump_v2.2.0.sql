@@ -749,14 +749,14 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_device_location` A
         FROM (`supla_location` `l` JOIN `supla_user` `u` ON((`u`.`id` = `l`.`user_id`))) ;
 
 DROP TABLE IF EXISTS `supla_v_rel_cg`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_rel_cg` AS SELECT `r`.`group_id` AS `group_id`,`r`.`channel_id` AS `channel_id`,
+CREATE ALGORITHM=UNDEFINED VIEW `supla_v_rel_cg` AS SELECT `r`.`group_id` AS `group_id`,`r`.`channel_id` AS `channel_id`,
                  `c`.`iodevice_id` AS `iodevice_id`,`d`.`protocol_version` AS `protocol_version`,
                  `g`.`client_id` AS `client_id`,`c`.`hidden` AS `channel_hidden` from 
                  (((`supla`.`supla_v_client_channel_group` `g` join `supla`.`supla_rel_cg` `r` on((`r`.`group_id` = `g`.`id`))) 
                  join `supla`.`supla_dev_channel` `c` on((`c`.`id` = `r`.`channel_id`))) 
                  join `supla`.`supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) where `d`.`enabled` = 1 ;
 
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_user_channel_group` AS select `g`.`id` AS `id`,`g`.`func` AS `func`,`g`.`caption` AS `caption`,`g`.`user_id` AS `user_id`,
+CREATE ALGORITHM=UNDEFINED VIEW `supla_v_user_channel_group` AS select `g`.`id` AS `id`,`g`.`func` AS `func`,`g`.`caption` AS `caption`,`g`.`user_id` AS `user_id`,
 				 `g`.`location_id` AS `location_id`,ifnull(`g`.`alt_icon`,0) AS `alt_icon`,
 				 `rel`.`channel_id` AS `channel_id`,`c`.`iodevice_id` AS `iodevice_id` 
 				 from ((((`supla_dev_channel_group` `g` join `supla_location` `l` on((`l`.`id` = `g`.`location_id`))) 
