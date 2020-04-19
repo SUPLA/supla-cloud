@@ -53,7 +53,7 @@
         computed: {
             unit() {
                 let defaultUnit = 'm³';
-                switch(this.channel.function.name) {
+                switch (this.channel.function.name) {
                     case 'IC_ELECTRICITYMETER':
                         defaultUnit = 'kWh';
                         break;

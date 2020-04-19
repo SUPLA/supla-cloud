@@ -17,7 +17,7 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
 use SuplaBundle\Entity\IODevice;

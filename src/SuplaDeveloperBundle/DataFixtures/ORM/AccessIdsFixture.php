@@ -17,7 +17,7 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Model\AccessIdManager;
 

@@ -17,12 +17,16 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Common\HasRelationsCount;
+use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,7 +40,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     @ORM\Index(name="iodevice_reg_enabled_idx", columns={"iodevice_reg_enabled"})
  * })
  */
-class User implements UserInterface, EncoderAwareInterface {
+class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
+    use HasRelationsCountTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -272,6 +278,11 @@ class User implements UserInterface, EncoderAwareInterface {
      * @ORM\OneToMany(targetEntity="SuplaBundle\Entity\OAuth\ApiClientAuthorization", mappedBy="user", cascade={"persist"})
      */
     private $apiClientAuthorizations;
+
+    /**
+     * @ORM\Column(name="api_rate_limit", type="string", length=100, nullable=true)
+     */
+    private $apiRateLimit;
 
     public function __construct() {
         $this->limitAid = 10;
@@ -598,6 +609,23 @@ class User implements UserInterface, EncoderAwareInterface {
 
     public function setOAuthOldApiCompatEnabled() {
         $this->oauthOldApiCompatEnabled = true;
+    }
+
+    /** @return ApiRateLimitRule|null */
+    public function getApiRateLimit() {
+        return $this->apiRateLimit ? new ApiRateLimitRule($this->apiRateLimit) : null;
+    }
+
+    /** @param ApiRateLimitRule|null $apiRateLimit */
+    public function setApiRateLimit($apiRateLimit) {
+        if ($apiRateLimit) {
+            if (!$apiRateLimit instanceof ApiRateLimitRule) {
+                $apiRateLimit = new ApiRateLimitRule($apiRateLimit);
+            }
+            Assertion::true($apiRateLimit->isValid(), 'Invalid API rate limit rule. Format: limit/seconds');
+            $apiRateLimit = (string)$apiRateLimit;
+        }
+        $this->apiRateLimit = $apiRateLimit;
     }
 
     /** @Groups({"basic"}) */

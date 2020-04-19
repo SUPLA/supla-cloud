@@ -38,6 +38,8 @@ services:
 #  delivery_addresses: ['%admin_email%']
 
 supla:
+  api_rate_limit:
+    enabled: true
   oauth:
     tokens_lifetime:
       webapp: {access: 28800}

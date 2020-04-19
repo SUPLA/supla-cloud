@@ -17,7 +17,7 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
 use Faker\Generator;
@@ -71,7 +71,7 @@ class SchedulesFixture extends SuplaFixture {
             $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
         }
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             /** @var IODeviceChannel $channel */
             $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
             $schedule = $this->faker->randomElement($this->scheduleFactories)($channel);

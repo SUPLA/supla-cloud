@@ -26,6 +26,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
@@ -40,10 +41,38 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($this->user);
     }
 
-    public function testDeletingUser() {
+    public function testDeletingUserNoAd() {
         SuplaAutodiscoverMock::clear(false);
         $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
         $this->assertContains('has been deleted', $output);
         $this->assertNull($this->getEntityManager()->find(Location::class, 2));
+        $this->assertCount(0, SuplaAutodiscoverMock::$requests);
+    }
+
+    public function testDeletingFromAd() {
+        SuplaAutodiscoverMock::clear(true);
+        SuplaAutodiscoverMock::$userMapping[$this->user->getUsername()] = 'supla.local';
+        SuplaAutodiscoverMock::mockResponse('users/supler%40supla.org', [], 204, 'DELETE');
+        $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
+        $this->assertContains('has been deleted', $output);
+        $this->assertNull($this->getEntityManager()->find(Location::class, 2));
+        $this->assertCount(2, SuplaAutodiscoverMock::$requests);
+    }
+
+    public function testNotDeletingFromAdIfDifferentTarget() {
+        SuplaAutodiscoverMock::clear(true);
+        SuplaAutodiscoverMock::$userMapping[$this->user->getUsername()] = 'supla2.local';
+        $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
+        $this->assertContains('has been deleted', $output);
+        $this->assertNull($this->getEntityManager()->find(Location::class, 2));
+        $this->assertCount(1, SuplaAutodiscoverMock::$requests);
+    }
+
+    public function testNotDeletingFromAdIfNoTarget() {
+        SuplaAutodiscoverMock::clear(true);
+        $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
+        $this->assertContains('has been deleted', $output);
+        $this->assertNull($this->getEntityManager()->find(Location::class, 2));
+        $this->assertCount(1, SuplaAutodiscoverMock::$requests);
     }
 }

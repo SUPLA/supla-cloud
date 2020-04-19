@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class TestContainerPass implements CompilerPassInterface {
     private static $publicInTests = [
+        \SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit::class,
         \SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener::class,
     ];
 

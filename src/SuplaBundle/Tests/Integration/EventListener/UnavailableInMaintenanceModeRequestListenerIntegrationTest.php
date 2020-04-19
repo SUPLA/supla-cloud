@@ -25,7 +25,7 @@ use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
 /** @small */
-class LocationControllerIntegrationTest extends IntegrationTestCase {
+class UnavailableInMaintenanceModeRequestListenerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 

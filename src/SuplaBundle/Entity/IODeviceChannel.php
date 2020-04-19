@@ -274,11 +274,6 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
         return ChannelFunction::forChannel($this);
     }
 
-    /** @deprecated ridiculous */
-    public function getChannel() {
-        return $this;
-    }
-
     public function getParam(int $paramNo): int {
         Assertion::inArray($paramNo, [1, 2, 3], 'Invalid param number: ' . $paramNo);
         $getter = "getParam$paramNo";

@@ -26,6 +26,9 @@ monolog:
     supla_server:
       level: debug
       max_files: 1
+    test_handler:
+      type: test
+      level: debug
 
 services:
   SuplaBundle\Tests\Integration\TestMailer: ~
@@ -57,6 +60,10 @@ services:
 supla:
   brute_force_auth_prevention:
     enabled: true
+  api_rate_limit:
+    enabled: true
+    blocking: true
+    global_limit: 10000/5
 
 swiftmailer:
   disable_delivery: true

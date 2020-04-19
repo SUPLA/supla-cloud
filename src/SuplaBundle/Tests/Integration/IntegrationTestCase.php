@@ -34,7 +34,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     private static $dataForTests = [];
 
     /** @var Application */
-    private $application;
+    protected $application;
 
     public function prepareIntegrationTest() {
         if (!$this->hasDependencies()) {
@@ -81,11 +81,16 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function initializeDatabaseForTests() {
     }
 
-    protected function executeCommand(string $command): string {
+    protected function executeCommand(string $command, ?TestClient $client = null): string {
+        $application = $this->application;
+        if ($client) {
+            $application = new Application($client->getKernel());
+            $application->setAutoExit(false);
+        }
         $input = new StringInput("$command --env=test");
         $output = new BufferedOutput();
         $input->setInteractive(false);
-        $error = $this->application->run($input, $output);
+        $error = $application->run($input, $output);
         $result = $output->fetch();
         if ($error) {
             $this->fail("Command error: $command\nReturn code: $error\nOutput:\n$result");

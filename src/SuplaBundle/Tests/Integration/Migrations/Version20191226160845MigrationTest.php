@@ -51,7 +51,12 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 151);
         $this->assertEquals(
-            ['openingSensorChannelId' => null, 'openingSensorSecondaryChannelId' => null, 'relayTimeMs' => 500],
+            [
+                'openingSensorChannelId' => null,
+                'openingSensorSecondaryChannelId' => null,
+                'relayTimeMs' => 500,
+                'timeSettingAvailable' => true,
+            ],
             $channel->getConfig()
         );
     }

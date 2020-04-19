@@ -81,7 +81,7 @@
                 return id == 50 || id == 80;
             },
             possibleActionFilter(possibleAction) {
-                if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].includes(this.subject.function.name)) {
+                if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR', 'VALVEOPENCLOSE'].includes(this.subject.function.name)) {
                     return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
                 }
                 return true;

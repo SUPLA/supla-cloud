@@ -70,3 +70,7 @@ services:
   SuplaBundle\Repository\GoogleHomeRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\GoogleHome]
+
+  SuplaBundle\Repository\DirectLinkRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\DirectLink]
