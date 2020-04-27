@@ -256,7 +256,7 @@
                         log.temperature = log.temperature >= -273 ? +log.temperature : null;
                     }
                     if (log.humidity !== undefined) {
-                        log.humidity = log.humidity >= 0 ? log.humidity : null;
+                        log.humidity = log.humidity >= 0 ? +log.humidity : null;
                     }
                     return log;
                 });
@@ -336,7 +336,7 @@
             rerenderCharts() {
                 const series = this.getChartSeries();
                 this.bigChart.updateSeries(series, true);
-                const temperatures = this.denseLogs.map(log => log.temperature).filter(t => +t);
+                const temperatures = this.denseLogs.map(log => log.temperature).filter(t => t !== null);
                 const yaxis = [
                     {
                         seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
@@ -347,7 +347,7 @@
                     }
                 ];
                 if (series.length > 1) {
-                    const humidities = this.denseLogs.map(log => log.humidity).filter(t => +t);
+                    const humidities = this.denseLogs.map(log => log.humidity).filter(h => h !== null);
                     yaxis.push({
                         seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                         opposite: true,
