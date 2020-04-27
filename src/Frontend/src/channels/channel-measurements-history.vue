@@ -1,5 +1,5 @@
 <template>
-    <loading-cover :loading="hasLogs === undefined">
+    <loading-cover :loading="hasLogs === undefined || fetchingDenseLogs">
         <div class="container">
             <div :class="'form-group text-' + (sparseLogs.length ? 'right' : 'center')"
                 v-if="hasLogs">
@@ -70,6 +70,7 @@
                 denseLogs: [],
                 bigChart: undefined,
                 smallChart: undefined,
+                fetchingDenseLogs: false,
             };
         },
         mounted() {
@@ -309,15 +310,18 @@
                 return mergedLogs;
             },
             fetchDenseLogs() {
+                this.fetchingDenseLogs = true;
                 return this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
                     sparse: 200,
                     afterTimestamp: Math.floor(this.currentMinTimestamp / 1000) - 1,
                     beforeTimestamp: Math.ceil(this.currentMaxTimestamp / 1000) + 1,
                     order: 'ASC',
-                })).then(({body: logItems}) => {
-                    const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
-                    return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
-                });
+                }))
+                    .then(({body: logItems}) => {
+                        const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
+                        return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
+                    })
+                    .finally(() => this.fetchingDenseLogs = false)
             },
             updateChartLocale() {
                 const availableLocales = locales.map((l) => l.name);
