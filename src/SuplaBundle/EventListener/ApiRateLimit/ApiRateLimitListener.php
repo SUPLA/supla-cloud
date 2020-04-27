@@ -84,10 +84,6 @@ class ApiRateLimitListener {
             $this->preventRequestDueToLimitExceeded($event, 'API cannot respond right now. Wait a while before subsequent request.');
             return;
         }
-        $userToken = $this->getCurrentUserToken();
-        if ($userToken instanceof WebappToken || $userToken instanceof AccessIdAwareToken) {
-            return;
-        }
         $userOrId = $this->getCurrentUserOrId($event);
         if ($userOrId) {
             $this->currentUserRateLimit = $this->incAndCheckUserRate($userOrId);
@@ -126,6 +122,10 @@ class ApiRateLimitListener {
             return false;
         }
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+            return false;
+        }
+        $userToken = $this->getCurrentUserToken();
+        if ($userToken instanceof WebappToken || $userToken instanceof AccessIdAwareToken) {
             return false;
         }
         if (substr($event->getRequest()->getRequestUri(), 0, 5) != "/api/") {
