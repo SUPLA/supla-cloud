@@ -75,10 +75,11 @@
         mounted() {
             if (this.supportsChart) {
                 this.fetchSparseLogs().then((logs) => {
+                    logs = this.fixLogs(logs);
                     this.hasLogs = logs.length > 0;
                     if (logs.length > 1) {
-                        const minTimestamp = +logs[0].date_timestamp * 1000;
-                        const maxTimestamp = +logs[logs.length - 1].date_timestamp * 1000;
+                        const minTimestamp = logs[0].date_timestamp * 1000;
+                        const maxTimestamp = logs[logs.length - 1].date_timestamp * 1000;
                         const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / 500));
                         this.sparseLogs = this.fillGaps(logs, expectedInterval);
                         this.renderCharts();
@@ -94,11 +95,11 @@
                 if (this.sparseLogs.length) {
                     const allLogs = this.mergeLogs(this.sparseLogs, this.denseLogs);
                     if (this.sparseLogs[0].temperature !== undefined) {
-                        const temperatureSeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.temperature >= -273 ? item.temperature : null]);
+                        const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
                         series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries});
                     }
                     if (this.sparseLogs[0].humidity !== undefined) {
-                        const humiditySeries = allLogs.map((item) => [+item.date_timestamp * 1000, item.humidity >= 0 ? item.humidity : null]);
+                        const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
                         series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries});
                     }
                 }
@@ -244,6 +245,21 @@
                 this.smallChart.render();
                 this.updateChartLocale();
             },
+            fixLogs(logs) {
+                if (!logs || !logs.length) {
+                    return logs;
+                }
+                return logs.map((log) => {
+                    log.date_timestamp = +log.date_timestamp;
+                    if (log.temperature !== undefined) {
+                        log.temperature = log.temperature >= -273 ? +log.temperature : null;
+                    }
+                    if (log.humidity !== undefined) {
+                        log.humidity = log.humidity >= 0 ? log.humidity : null;
+                    }
+                    return log;
+                });
+            },
             fillGaps(logs, expectedInterval) {
                 if (logs.length < 2) {
                     return logs;
@@ -256,7 +272,7 @@
                 let lastTimestamp = 0;
                 const filledLogs = [];
                 for (const log of logs) {
-                    const currentTimestamp = +log.date_timestamp;
+                    const currentTimestamp = log.date_timestamp;
                     if (lastTimestamp && (currentTimestamp - lastTimestamp) > expectedInterval * 1.5) {
                         for (let missingTimestamp = lastTimestamp + expectedInterval; missingTimestamp < currentTimestamp; missingTimestamp += expectedInterval) {
                             filledLogs.push({...defaultLog, date_timestamp: missingTimestamp});
@@ -277,8 +293,8 @@
                     } else if (sparseLogsIndex >= sparseLogs.length) {
                         mergedLogs.push(denseLogs[denseLogsIndex++]);
                     } else {
-                        const sparseLogsNextTimestamp = +sparseLogs[sparseLogsIndex].date_timestamp;
-                        const denseLogsNextTimestamp = +denseLogs[denseLogsIndex].date_timestamp;
+                        const sparseLogsNextTimestamp = sparseLogs[sparseLogsIndex].date_timestamp;
+                        const denseLogsNextTimestamp = denseLogs[denseLogsIndex].date_timestamp;
                         if (sparseLogsNextTimestamp < denseLogsNextTimestamp) {
                             mergedLogs.push(sparseLogs[sparseLogsIndex++]);
                         } else if (sparseLogsNextTimestamp > denseLogsNextTimestamp) {
@@ -300,7 +316,7 @@
                     order: 'ASC',
                 })).then(({body: logItems}) => {
                     const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
-                    return this.denseLogs = this.fillGaps(logItems, expectedInterval);
+                    return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
                 });
             },
             updateChartLocale() {
@@ -317,7 +333,6 @@
                 const series = this.getChartSeries();
                 this.bigChart.updateSeries(series, true);
                 const temperatures = this.denseLogs.map(log => log.temperature).filter(t => +t);
-                const humidities = this.denseLogs.map(log => log.humidity).filter(t => +t);
                 const yaxis = [
                     {
                         seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
@@ -328,6 +343,7 @@
                     }
                 ];
                 if (series.length > 1) {
+                    const humidities = this.denseLogs.map(log => log.humidity).filter(t => +t);
                     yaxis.push({
                         seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                         opposite: true,
