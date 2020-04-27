@@ -321,7 +321,7 @@
                         const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
                         return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
                     })
-                    .finally(() => this.fetchingDenseLogs = false)
+                    .finally(() => this.fetchingDenseLogs = false);
             },
             updateChartLocale() {
                 const availableLocales = locales.map((l) => l.name);
