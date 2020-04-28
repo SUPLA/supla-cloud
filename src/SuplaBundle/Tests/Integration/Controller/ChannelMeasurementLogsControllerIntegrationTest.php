@@ -56,6 +56,13 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             EntityUtils::setField($logItem, 'date', clone $date);
             EntityUtils::setField($logItem, 'temperature', $temperature);
             $this->getEntityManager()->persist($logItem);
+            if (rand() % 2 == 0) {
+                $logItem = new TemperatureLogItem();
+                EntityUtils::setField($logItem, 'channel_id', 1000 + $offset);
+                EntityUtils::setField($logItem, 'date', clone $date);
+                EntityUtils::setField($logItem, 'temperature', $temperature);
+                $this->getEntityManager()->persist($logItem);
+            }
             $date->add($oneday);
         }
 
