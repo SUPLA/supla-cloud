@@ -56,13 +56,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             EntityUtils::setField($logItem, 'date', clone $date);
             EntityUtils::setField($logItem, 'temperature', $temperature);
             $this->getEntityManager()->persist($logItem);
-            if (rand() % 2 == 0) {
-                $logItem = new TemperatureLogItem();
-                EntityUtils::setField($logItem, 'channel_id', 1000 + $offset);
-                EntityUtils::setField($logItem, 'date', clone $date);
-                EntityUtils::setField($logItem, 'temperature', $temperature);
-                $this->getEntityManager()->persist($logItem);
-            }
             $date->add($oneday);
         }
 
@@ -156,6 +149,14 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
             EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
             if (rand(0, 100) < 99) {
+                $this->getEntityManager()->persist($logItem);
+            }
+
+            if (rand() % 2 == 0) {
+                $logItem = new TemperatureLogItem();
+                EntityUtils::setField($logItem, 'channel_id', 5000);
+                EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
+                EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
                 $this->getEntityManager()->persist($logItem);
             }
         }
