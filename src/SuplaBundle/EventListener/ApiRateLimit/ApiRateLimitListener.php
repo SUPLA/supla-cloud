@@ -128,10 +128,11 @@ class ApiRateLimitListener {
         if ($userToken instanceof WebappToken || $userToken instanceof AccessIdAwareToken) {
             return false;
         }
-        if (substr($event->getRequest()->getRequestUri(), 0, 5) != "/api/") {
-            return true;
+        $uri = $event->getRequest()->getRequestUri();
+        if (substr($uri, 0, 5) === '/api/') {
+            return $uri !== '/api/server-status';
         }
-        if (substr($event->getRequest()->getRequestUri(), 0, 8) != "/direct/") {
+        if (substr($uri, 0, 8) === '/direct/') {
             return true;
         }
         return false;
