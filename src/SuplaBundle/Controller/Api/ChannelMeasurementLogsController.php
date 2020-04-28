@@ -151,7 +151,7 @@ class ChannelMeasurementLogsController extends RestController {
         }
 
         if ($sparse > 0) {
-            $this->entityManager->getConnection()->exec('SET @nth_log_item_row := 0');
+            $this->entityManager->getConnection()->exec('SET @nth_log_item_row := 1');
             $totalCount = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
             if ($totalCount > $sparse) {
                 $nth = floor($totalCount / $sparse);
