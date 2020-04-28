@@ -130,7 +130,7 @@ class ChannelMeasurementLogsController extends RestController {
         $orderDesc = true,
         $sparse = null
     ) {
-        $order = $orderDesc ? ' ORDER BY `date` DESC, id DESC ' : ' ORDER BY `date` ASC, id ASC ';
+        $order = $orderDesc ? ' ORDER BY id DESC ' : ' ORDER BY id ASC ';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
         $limitSql = '';
