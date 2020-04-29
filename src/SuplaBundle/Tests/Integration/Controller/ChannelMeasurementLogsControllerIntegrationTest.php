@@ -614,7 +614,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
         $firstTimestamp = current($logItems)['date_timestamp'];
         $lastTimestamp = end($logItems)['date_timestamp'];
-        $this->assertTimestampsGrow($afterTimestamp, $minTimestamp, $lastTimestamp, $firstTimestamp, $maxTimestamp, $beforeTimestamp, time());
+        $this->assertTimestampsGrow(
+            $afterTimestamp,
+            $minTimestamp,
+            $lastTimestamp,
+            $firstTimestamp,
+            $maxTimestamp,
+            $beforeTimestamp,
+            time()
+        );
         $this->assertEquals(7, floor(($firstTimestamp - $lastTimestamp) / 86400), '', 1);
     }
 
@@ -646,7 +654,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
         $firstTimestamp = current($logItems)['date_timestamp'];
         $lastTimestamp = end($logItems)['date_timestamp'];
-        $this->assertTimestampsGrow($afterTimestamp, $minTimestamp, $firstTimestamp, $lastTimestamp, $maxTimestamp, $beforeTimestamp, time());
+        $this->assertTimestampsGrow(
+            $afterTimestamp,
+            $minTimestamp,
+            $firstTimestamp,
+            $lastTimestamp,
+            $maxTimestamp,
+            $beforeTimestamp,
+            time()
+        );
         $this->assertEquals(7, floor(($lastTimestamp - $firstTimestamp) / 86400), '', 1);
     }
 }

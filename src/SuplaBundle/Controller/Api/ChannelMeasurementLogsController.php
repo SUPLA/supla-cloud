@@ -18,7 +18,6 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -123,7 +122,7 @@ class ChannelMeasurementLogsController extends RestController {
         }
 
         $stmt->execute();
-        $stmt->setFetchMode(FetchMode::NUMERIC);
+        $stmt->setFetchMode(\PDO::FETCH_NUM);
         return $stmt->fetch();
     }
 
