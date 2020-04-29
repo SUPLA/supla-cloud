@@ -264,10 +264,10 @@
                 }
                 return logs.map((log) => {
                     log.date_timestamp = +log.date_timestamp;
-                    if (log.temperature) {
+                    if (log.temperature !== undefined && log.temperature !== null) {
                         log.temperature = log.temperature >= -273 ? +log.temperature : null;
                     }
-                    if (log.humidity) {
+                    if (log.humidity !== undefined && log.humidity !== null) {
                         log.humidity = log.humidity >= 0 ? +log.humidity : null;
                     }
                     return log;
