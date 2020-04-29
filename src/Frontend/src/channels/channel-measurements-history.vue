@@ -108,7 +108,19 @@
             },
             fetchSparseLogs() {
                 return this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=500&order=ASC`)
-                    .then(({body: logItems}) => logItems);
+                    .then(({body: logItems, headers}) => {
+                        if (logItems.length > 0) {
+                            const maxTimestamp = headers.get('X-Max-Timestamp');
+                            if (maxTimestamp > logItems[logItems.length - 1].date_timestamp) {
+                                logItems.push({...logItems[logItems.length - 1], date_timestamp: maxTimestamp});
+                            }
+                            const minTimestamp = headers.get('X-Min-Timestamp');
+                            if (minTimestamp < logItems[0].date_timestamp) {
+                                logItems.unshift({...logItems[0], date_timestamp: minTimestamp});
+                            }
+                        }
+                        return logItems;
+                    });
             },
             renderCharts() {
                 const updateSmallChart = () => {
@@ -252,10 +264,10 @@
                 }
                 return logs.map((log) => {
                     log.date_timestamp = +log.date_timestamp;
-                    if (log.temperature !== undefined) {
+                    if (log.temperature) {
                         log.temperature = log.temperature >= -273 ? +log.temperature : null;
                     }
-                    if (log.humidity !== undefined) {
+                    if (log.humidity) {
                         log.humidity = log.humidity >= 0 ? +log.humidity : null;
                     }
                     return log;
@@ -265,10 +277,7 @@
                 if (logs.length < 2) {
                     return logs;
                 }
-                const defaultLog = {temperature: null};
-                if (logs[0].humidity !== undefined) {
-                    defaultLog.humidity = null;
-                }
+                const defaultLog = this.createEmptyLog(logs[0]);
                 expectedInterval /= 1000;
                 let lastTimestamp = 0;
                 const filledLogs = [];
@@ -283,6 +292,13 @@
                     lastTimestamp = currentTimestamp;
                 }
                 return filledLogs;
+            },
+            createEmptyLog(logItemPattern, timestamp = null) {
+                const defaultLog = {date_timestamp: timestamp, temperature: null};
+                if (logItemPattern.humidity !== undefined) {
+                    defaultLog.humidity = null;
+                }
+                return defaultLog;
             },
             mergeLogs(sparseLogs, denseLogs) {
                 let sparseLogsIndex = 0;
