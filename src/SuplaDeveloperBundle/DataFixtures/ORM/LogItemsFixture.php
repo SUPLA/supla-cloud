@@ -80,7 +80,7 @@ class LogItemsFixture extends SuplaFixture {
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
             $logItem = new TempHumidityLogItem();
             EntityUtils::setField($logItem, 'channel_id', $channelId);
-            EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
             $humidity += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
             $humidity = max(0, min(100, $humidity));

@@ -64,7 +64,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         foreach ([[21, 30], [22, 40], [23, 50]] as $th) {
             $logItem = new TempHumidityLogItem();
             EntityUtils::setField($logItem, 'channel_id', 3 + $offset);
-            EntityUtils::setField($logItem, 'date', clone $date);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
             EntityUtils::setField($logItem, 'temperature', $th[0]);
             EntityUtils::setField($logItem, 'humidity', $th[1]);
             $this->getEntityManager()->persist($logItem);
