@@ -7,7 +7,14 @@ namespace Supla\Migrations;
  */
 class Version20200430113342 extends NoWayBackMigration {
     public function migrate() {
-        foreach (['supla_temperature_log', 'supla_temphumidity_log'] as $logTable) {
+        $logTables = [
+            'supla_temperature_log',
+            'supla_temphumidity_log',
+            'supla_thermostat_log',
+            'supla_ic_log',
+            'supla_em_log',
+        ];
+        foreach ($logTables as $logTable) {
             // drop useless indexes
             $this->addSql("DROP INDEX channel_id_idx ON $logTable");
             $this->addSql("DROP INDEX date_idx ON $logTable");
