@@ -16,8 +16,16 @@ class Version20200430113342MigrationTest extends DatabaseMigrationTestCase {
 
     public function testHasLogItems() {
         /** @var TemperatureLogItem $log */
-        $log = $this->getEntityManager()->createQuery('SELECT t FROM ' . TemperatureLogItem::class . ' t')->getSingleResult();
+        $log = $this->getEntityManager()->createQuery('SELECT t FROM ' . TemperatureLogItem::class . ' t')
+            ->setMaxResults(1)
+            ->getSingleResult();
         $this->assertEquals(2, $log->getChannelId());
         $this->assertEquals(38, $log->getTemperature());
+    }
+
+    public function testRemovingDuplicates() {
+        $logsCount = $this->getEntityManager()->createQuery('SELECT COUNT(t.channel_id) FROM ' . TemperatureLogItem::class . ' t')
+            ->getSingleScalarResult();
+        $this->assertEquals(2, $logsCount);
     }
 }
