@@ -28,6 +28,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -51,12 +52,11 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $oneday = new \DateInterval('P1D');
 
         foreach ([21, 22, 23] as $temperature) {
-            $this->createLogItem('supla_temperature_log', 2 + $offset, $date, $temperature);
-//            $logItem = new TemperatureLogItem();
-//            EntityUtils::setField($logItem, 'channel_id', 2 + $offset);
-//            EntityUtils::setField($logItem, 'date', clone $date);
-//            EntityUtils::setField($logItem, 'temperature', $temperature);
-//            $this->getEntityManager()->persist($logItem);
+            $logItem = new TemperatureLogItem();
+            EntityUtils::setField($logItem, 'channel_id', 2 + $offset);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
+            EntityUtils::setField($logItem, 'temperature', $temperature);
+            $this->getEntityManager()->persist($logItem);
             $date->add($oneday);
         }
 
@@ -120,13 +120,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         }
     }
 
-    private function createLogItem(string $table, int $channelId, \DateTime $date, ...$values) {
-        $implodedValues = implode(',', $values);
-        $datetime = $date->format('Y-m-d H:i:s');
-        $query = "INSERT INTO $table VALUES(NULL, $channelId, '$datetime', $implodedValues)";
-        $this->getEntityManager()->getConnection()->exec($query);
-    }
-
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
@@ -154,7 +147,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         for ($timestamp = strtotime('-60 days'); $timestamp < time(); $timestamp += 600) {
             $logItem = new TemperatureLogItem();
             EntityUtils::setField($logItem, 'channel_id', $this->deviceWithManyLogs->getChannels()[1]->getId());
-            EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
             if (rand(0, 100) < 99) {
                 $this->getEntityManager()->persist($logItem);
@@ -162,7 +155,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             if (rand() % 2 == 0) {
                 $logItem = new TemperatureLogItem();
                 EntityUtils::setField($logItem, 'channel_id', 5000);
-                EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
+                EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
                 EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
                 $this->getEntityManager()->persist($logItem);
             }

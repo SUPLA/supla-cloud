@@ -25,6 +25,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\TemperatureLogItem;
 use SuplaBundle\Entity\TempHumidityLogItem;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 
 class LogItemsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -56,7 +57,7 @@ class LogItemsFixture extends SuplaFixture {
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
             $logItem = new TemperatureLogItem();
             EntityUtils::setField($logItem, 'channel_id', $thermometerId);
-            EntityUtils::setField($logItem, 'date', new \DateTime('@' . $timestamp));
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
             EntityUtils::setField($logItem, 'temperature', $temperature);
             if ($this->faker->boolean(95)) {

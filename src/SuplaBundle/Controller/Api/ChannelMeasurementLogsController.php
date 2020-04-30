@@ -96,7 +96,7 @@ class ChannelMeasurementLogsController extends RestController {
         }
 
         $unixDate = "UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))";
-        $sql = "SELECT COUNT(id), MIN($unixDate), MAX($unixDate) FROM `$table` WHERE channel_id = ? ";
+        $sql = "SELECT COUNT(*), MIN($unixDate), MAX($unixDate) FROM `$table` WHERE channel_id = ? ";
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
