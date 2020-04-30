@@ -46,13 +46,6 @@ class TempHumidityLogItem {
      */
     private $humidity;
 
-    public function __construct() {
-    }
-
-    public function getId() {
-        return $this->id;
-    }
-
     public function getChannelId() {
         return $this->channel_id;
     }
