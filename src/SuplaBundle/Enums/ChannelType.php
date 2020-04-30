@@ -116,6 +116,7 @@ final class ChannelType extends Enum {
     /** @return int[] */
     public static function outputTypes(): array {
         return [
+            self::BRIDGE,
             self::DIMMER,
             self::RGBLEDCONTROLLER,
             self::DIMMERANDRGBLED,
