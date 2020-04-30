@@ -21,12 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_temperature_log",
- *     indexes={
- *      @ORM\Index(name="channel_id_idx", columns={"channel_id"}),
- *      @ORM\Index(name="date_idx", columns={"date"}),
- *      @ORM\Index(name="id", columns={"id"})
- * })
+ * @ORM\Table(name="supla_temperature_log")
  */
 class TemperatureLogItem {
     /**
@@ -40,12 +35,6 @@ class TemperatureLogItem {
      * @ORM\Column(name="date", type="utcdatetime")
      */
     private $date;
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     */
-    private $id;
 
     /**
      * @ORM\Column(name="temperature", type="decimal", precision=8, scale=4)
