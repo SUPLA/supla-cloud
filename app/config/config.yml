@@ -19,7 +19,6 @@ doctrine:
       ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
     user: "%database_user%"
-    server_version: 5.5
     schema_filter: ~^(?!esp_)~
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
