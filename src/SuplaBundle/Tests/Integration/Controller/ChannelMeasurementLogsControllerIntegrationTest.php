@@ -51,11 +51,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $oneday = new \DateInterval('P1D');
 
         foreach ([21, 22, 23] as $temperature) {
-            $logItem = new TemperatureLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 2 + $offset);
-            EntityUtils::setField($logItem, 'date', clone $date);
-            EntityUtils::setField($logItem, 'temperature', $temperature);
-            $this->getEntityManager()->persist($logItem);
+            $this->createLogItem('supla_temperature_log', 2 + $offset, $date, $temperature);
+//            $logItem = new TemperatureLogItem();
+//            EntityUtils::setField($logItem, 'channel_id', 2 + $offset);
+//            EntityUtils::setField($logItem, 'date', clone $date);
+//            EntityUtils::setField($logItem, 'temperature', $temperature);
+//            $this->getEntityManager()->persist($logItem);
             $date->add($oneday);
         }
 
@@ -117,6 +118,13 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             }
             $date->add($oneday);
         }
+    }
+
+    private function createLogItem(string $table, int $channelId, \DateTime $date, ...$values) {
+        $implodedValues = implode(',', $values);
+        $datetime = $date->format('Y-m-d H:i:s');
+        $query = "INSERT INTO $table VALUES(NULL, $channelId, '$datetime', $implodedValues)";
+        $this->getEntityManager()->getConnection()->exec($query);
     }
 
     protected function initializeDatabaseForTests() {
