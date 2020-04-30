@@ -109,7 +109,7 @@ class DirectLink implements HasSubject {
     private $lastUsed;
 
     /**
-     * @ORM\Column(name="last_ipv4", type="ipaddress", nullable=true)
+     * @ORM\Column(name="last_ipv4", type="ipaddress", nullable=true, options={"unsigned"=true})
      * @Groups({"basic"})
      */
     private $lastIpv4;

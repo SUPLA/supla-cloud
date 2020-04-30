@@ -18,51 +18,38 @@
 namespace SuplaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_thermostat_log",
- *     indexes={@ORM\Index(name="channel_id_idx", columns={"channel_id"}), @ORM\Index(name="date_idx", columns={"date"})})
+ * @ORM\Table(name="supla_thermostat_log")
  */
 class ThermostatLogItem {
     /**
      * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @ORM\Column(name="channel_id", type="integer")
-     * @Groups({"basic"})
      */
     private $channel_id;
 
     /**
+     * @ORM\Id
      * @ORM\Column(name="date", type="utcdatetime")
-     * @Groups({"basic"})
      */
     private $date;
 
     /**
      * @ORM\Column(name="`on`", type="boolean", nullable=false)
-     * @Groups({"basic"})
      */
     private $on = false;
 
     /**
      * @ORM\Column(name="measured_temperature", type="decimal", precision=5, scale=2)
-     * @Groups({"basic"})
      */
     private $measuredTemperature;
 
     /**
      * @ORM\Column(name="preset_temperature", type="decimal", precision=5, scale=2)
-     * @Groups({"basic"})
      */
     private $presetTemperature;
-
 
     public function __construct() {
     }

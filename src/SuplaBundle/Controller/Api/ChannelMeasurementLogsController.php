@@ -90,14 +90,15 @@ class ChannelMeasurementLogsController extends RestController {
                 break;
         }
 
-        $sql = "SELECT COUNT(id) FROM `$table` WHERE channel_id = ? ";
+        $unixDate = "UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))";
+        $sql = "SELECT COUNT(*), MIN($unixDate), MAX($unixDate) FROM `$table` WHERE channel_id = ? ";
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) > ? ";
+                $sql .= "AND $unixDate > ? ";
             }
             if ($beforeTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) < ? ";
+                $sql .= "AND $unixDate < ? ";
             }
         }
 
@@ -116,7 +117,8 @@ class ChannelMeasurementLogsController extends RestController {
         }
 
         $stmt->execute();
-        return intval($stmt->fetchColumn(0));
+        $stmt->setFetchMode(\PDO::FETCH_NUM);
+        return $stmt->fetch();
     }
 
     private function logItems(
@@ -130,7 +132,7 @@ class ChannelMeasurementLogsController extends RestController {
         $orderDesc = true,
         $sparse = null
     ) {
-        $order = $orderDesc ? ' ORDER BY id DESC ' : ' ORDER BY id ASC ';
+        $order = $orderDesc ? ' ORDER BY `date` DESC ' : ' ORDER BY `date` ASC ';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
         $limitSql = '';
@@ -144,19 +146,18 @@ class ChannelMeasurementLogsController extends RestController {
                 $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) < ? ";
             }
             if (!$sparse) {
-                $limitSql = "LIMIT ?";
+                $limitSql = 'LIMIT ?';
             }
         } elseif (!$sparse) {
-            $limitSql = "LIMIT ? OFFSET ?";
+            $limitSql = 'LIMIT ? OFFSET ?';
         }
 
         if ($sparse > 0) {
             $this->entityManager->getConnection()->exec('SET @nth_log_item_row := 0');
-            $totalCount = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
+            [$totalCount,] = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
             if ($totalCount > $sparse) {
                 $nth = floor($totalCount / $sparse);
-                $nthTarget = $totalCount % $nth;
-                $sql .= "AND (@nth_log_item_row := @nth_log_item_row + 1) % $nth = $nthTarget";
+                $sql .= "AND (@nth_log_item_row := @nth_log_item_row + 1) % $nth = 0";
             }
         }
 
@@ -309,7 +310,7 @@ class ChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
         Assertion::eq($channel->getFunction()->getId(), ChannelFunction::THERMOMETER);
-        $count = $this->getMeasureLogsCount($channel);
+        [$count,] = $this->getMeasureLogsCount($channel);
         return [
             'count' => $count,
             'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
@@ -325,7 +326,7 @@ class ChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
         Assertion::eq($channel->getFunction()->getId(), ChannelFunction::HUMIDITYANDTEMPERATURE);
-        $count = $this->getMeasureLogsCount($channel);
+        [$count,] = $this->getMeasureLogsCount($channel);
         return [
             'count' => $count,
             'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
@@ -391,7 +392,14 @@ class ChannelMeasurementLogsController extends RestController {
             $request->query->get('sparse')
         );
         $view = $this->view($logs, Response::HTTP_OK);
-        $view->setHeader('X-Total-Count', $this->getMeasureLogsCount($channel));
+        [$totalCount, $minTimestamp, $maxTimestamp] = $this->getMeasureLogsCount(
+            $channel,
+            $request->query->get('afterTimestamp'),
+            $request->query->get('beforeTimestamp')
+        );
+        $view->setHeader('X-Total-Count', $totalCount);
+        $view->setHeader('X-Min-Timestamp', $minTimestamp);
+        $view->setHeader('X-Max-Timestamp', $maxTimestamp);
         return $view;
     }
 

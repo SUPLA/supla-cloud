@@ -57,7 +57,7 @@ class AuditEntry {
     private $createdAt;
 
     /**
-     * @ORM\Column(name="ipv4", type="ipaddress", nullable=true)
+     * @ORM\Column(name="ipv4", type="ipaddress", nullable=true, options={"unsigned"=true})
      * @Groups({"basic"})
      */
     private $ipv4;

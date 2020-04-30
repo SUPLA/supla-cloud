@@ -29,8 +29,8 @@ class UTCDateTimeType extends DateTimeType {
     private static $utc = null;
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform) {
-        if ($value === null) {
-            return null;
+        if ($value === null || is_string($value)) {
+            return $value;
         }
         if (is_null(self::$utc)) {
             self::$utc = new \DateTimeZone('UTC');
