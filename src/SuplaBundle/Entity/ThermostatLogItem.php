@@ -32,7 +32,7 @@ class ThermostatLogItem {
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="date", type="utcdatetime")
+     * @ORM\Column(name="date", type="stringdatetime")
      */
     private $date;
 
@@ -50,13 +50,6 @@ class ThermostatLogItem {
      * @ORM\Column(name="preset_temperature", type="decimal", precision=5, scale=2)
      */
     private $presetTemperature;
-
-    public function __construct() {
-    }
-
-    public function getId() {
-        return $this->id;
-    }
 
     public function getChannelId() {
         return $this->channel_id;

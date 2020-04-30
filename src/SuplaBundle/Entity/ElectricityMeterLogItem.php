@@ -32,7 +32,7 @@ class ElectricityMeterLogItem {
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="date", type="utcdatetime")
+     * @ORM\Column(name="date", type="stringdatetime")
      */
     private $date;
 
@@ -95,13 +95,6 @@ class ElectricityMeterLogItem {
      * @ORM\Column(name="phase3_rre", type="bigint", nullable=true)
      */
     private $phase3_rre;
-
-    public function __construct() {
-    }
-
-    public function getId() {
-        return $this->id;
-    }
 
     public function getChannelId() {
         return $this->channel_id;

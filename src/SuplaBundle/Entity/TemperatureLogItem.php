@@ -32,7 +32,7 @@ class TemperatureLogItem {
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="date", type="utcdatetime")
+     * @ORM\Column(name="date", type="stringdatetime")
      */
     private $date;
 
@@ -40,13 +40,6 @@ class TemperatureLogItem {
      * @ORM\Column(name="temperature", type="decimal", precision=8, scale=4)
      */
     private $temperature;
-
-    public function __construct() {
-    }
-
-    public function getId() {
-        return $this->id;
-    }
 
     public function getChannelId() {
         return $this->channel_id;

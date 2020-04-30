@@ -32,7 +32,7 @@ class TempHumidityLogItem {
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="date", type="utcdatetime")
+     * @ORM\Column(name="date", type="stringdatetime")
      */
     private $date;
 
@@ -45,13 +45,6 @@ class TempHumidityLogItem {
      * @ORM\Column(name="humidity", type="decimal", precision=8, scale=4)
      */
     private $humidity;
-
-    public function __construct() {
-    }
-
-    public function getId() {
-        return $this->id;
-    }
 
     public function getChannelId() {
         return $this->channel_id;

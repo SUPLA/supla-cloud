@@ -17,6 +17,7 @@ doctrine:
     port: "%database_port%"
     types:
       ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
+      stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
     user: "%database_user%"
     schema_filter: ~^(?!esp_)~

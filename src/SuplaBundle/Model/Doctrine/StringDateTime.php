@@ -15,32 +15,16 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Doctrine\Types;
+namespace SuplaBundle\Model\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\Type;
 
-class BinaryType extends Type {
-    const BINARY = 'binary';
-
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform) {
-        return sprintf('BINARY(%d)', $fieldDeclaration['length']);
-    }
-
+class StringDateTime extends UTCDateTimeType {
     public function convertToPHPValue($value, AbstractPlatform $platform) {
-        if ($value !== null) {
-            $value = unpack('H*', $value);
-            return array_shift($value);
-        }
-    }
-
-    public function convertToDatabaseValue($value, AbstractPlatform $platform) {
-        if ($value !== null) {
-            return pack('H*', $value);
-        }
+        return $value;
     }
 
     public function getName() {
-        return self::BINARY;
+        return 'stringdatetime';
     }
 }

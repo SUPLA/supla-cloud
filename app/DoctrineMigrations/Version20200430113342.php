@@ -24,6 +24,8 @@ class Version20200430113342 extends NoWayBackMigration {
             $this->addSql("DELETE t1 FROM $logTable t1 INNER JOIN $logTable t2 WHERE t1.id < t2.id AND t1.channel_id = t2.channel_id AND t1.date = t2.date");
             // create final PK(channel_id, date), drop id
             $this->addSql("ALTER TABLE $logTable DROP PRIMARY KEY, DROP id, ADD PRIMARY KEY(channel_id, date)");
+            // change the datetime doctrine comment not to convert it to \DateTime in PHP
+            $this->addSql("ALTER TABLE $logTable CHANGE date date DATETIME NOT NULL COMMENT '(DC2Type:stringdatetime)'");
         }
     }
 }
