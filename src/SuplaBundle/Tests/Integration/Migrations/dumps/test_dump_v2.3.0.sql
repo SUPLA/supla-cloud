@@ -870,6 +870,7 @@ CREATE TABLE `supla_temperature_log` (
 
 LOCK TABLES `supla_temperature_log` WRITE;
 /*!40000 ALTER TABLE `supla_temperature_log` DISABLE KEYS */;
+INSERT INTO `supla_temperature_log` VALUES (NULL, 2, '2020-04-30 14:32:21', 38);
 /*!40000 ALTER TABLE `supla_temperature_log` ENABLE KEYS */;
 UNLOCK TABLES;
 

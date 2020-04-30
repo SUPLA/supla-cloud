@@ -32,7 +32,7 @@ class TemperatureLogItem {
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="date", type="utcdatetime")
+     * @ORM\Column(name="date", type="stringdatetime")
      */
     private $date;
 
