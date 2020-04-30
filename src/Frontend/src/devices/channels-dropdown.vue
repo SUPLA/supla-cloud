@@ -21,7 +21,7 @@
             <option v-for="channel in channelsForDropdown"
                 :value="channel"
                 :data-content="channelHtml(channel)">
-                {{ channelTitle(channel) }}
+                {{ channelCaption(channel) }}
             </option>
         </select>
     </div>
@@ -32,7 +32,7 @@
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import {channelIconUrl, channelTitle} from "../common/filters";
+    import {channelIconUrl} from "../common/filters";
 
     export default {
         props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter'],
@@ -55,14 +55,14 @@
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });
             },
-            channelTitle(channel) {
-                return channelTitle(channel, this, true);
+            channelCaption(channel) {
+                return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
             },
             channelHtml(channel) {
                 let content = `<div class='subject-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels full"><h4>ID${channel.id} ${this.$t(channel.function.caption)}`;
+                    + `<div class="labels full"><h4>${this.channelCaption(channel)}`;
                 if (channel.caption) {
-                    content += ` <span class='small text-muted'>${channel.caption}</span>`;
+                    content += ` <span class='small text-muted'>ID${channel.id} ${this.$t(channel.function.caption)}</span>`;
                 }
                 content += '</h4>';
                 content += `<p>${channel.location.caption} / ${channel.iodevice.name}</p></div>`;

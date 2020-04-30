@@ -17,7 +17,7 @@
             <option v-for="channelGroup in channelGroupsForDropdown"
                 :value="channelGroup"
                 :data-content="channelGroupHtml(channelGroup)">
-                {{ channelGroupTitle(channelGroup) }}
+                {{ channelGroupCaption(channelGroup) }}
             </option>
         </select>
     </div>
@@ -51,15 +51,14 @@
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });
             },
-            channelGroupTitle(channelGroup) {
-                return 'ID' + channelGroup.id + " " + this.$t(channelGroup.function.caption)
-                    + (channelGroup.caption ? ` (${channelGroup.caption})` : '');
+            channelGroupCaption(channelGroup) {
+                return channelGroup.caption || `ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
             },
             channelGroupHtml(channelGroup) {
                 let content = `<div class='subject-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels full"><h4>ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
+                    + `<div class="labels full"><h4>${this.channelGroupCaption(channelGroup)}`;
                 if (channelGroup.caption) {
-                    content += ` <span class='small text-muted'>${channelGroup.caption}</span>`;
+                    content += ` <span class='small text-muted'>ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}</span>`;
                 }
                 content += '</h4>';
                 content += `<p>${this.$t('No. of channels')}: ${channelGroup.relationsCount.channels}</p></div>`;

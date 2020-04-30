@@ -17,7 +17,7 @@
             <option v-for="scene in scenesForDropdown"
                 :value="scene"
                 :data-content="sceneHtml(scene)">
-                {{ sceneTitle(scene) }}
+                {{ sceneCaption(scene) }}
             </option>
         </select>
     </div>
@@ -51,14 +51,14 @@
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });
             },
-            sceneTitle(scene) {
-                return (scene.caption || '') + (scene.caption ? ` (${scene.id})` : scene.id);
+            sceneCaption(scene) {
+                return scene.caption || `ID${scene.id}`;
             },
             sceneHtml(scene) {
                 let content = `<div class='channel-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels full"><h4>ID${scene.id}`;
+                    + `<div class="labels full"><h4>${this.sceneCaption(scene)}`;
                 if (scene.caption) {
-                    content += ` <span class='small text-muted'>${scene.caption}</span>`;
+                    content += ` <span class='small text-muted'>ID${scene.id}</span>`;
                 }
                 content += '</h4>';
                 content += `<p>${this.$t('No of operations')}: ${scene.relationsCount.operations}</p></div>`;
