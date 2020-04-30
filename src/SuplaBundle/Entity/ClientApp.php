@@ -69,7 +69,7 @@ class ClientApp {
     private $enabled = false;
 
     /**
-     * @ORM\Column(name="reg_ipv4", type="ipaddress", nullable=true)
+     * @ORM\Column(name="reg_ipv4", type="ipaddress", nullable=true, options={"unsigned"=true})
      * @Groups({"basic"})
      */
     private $regIpv4;
@@ -81,7 +81,7 @@ class ClientApp {
     private $regDate;
 
     /**
-     * @ORM\Column(name="last_access_ipv4", type="ipaddress", nullable=true)
+     * @ORM\Column(name="last_access_ipv4", type="ipaddress", nullable=true, options={"unsigned"=true})
      * @Groups({"basic"})
      */
     private $lastAccessIpv4;
