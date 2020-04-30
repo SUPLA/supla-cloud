@@ -18,8 +18,8 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use DateTime;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -37,7 +37,6 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_SONOFF = 'deviceSonoff';
     const DEVICE_FULL = 'deviceFull';
     const DEVICE_RGB = 'deviceRgb';
-    const DEVICE_MEGA = 'deviceMega';
     const DEVICE_SUPLER = 'deviceSupler';
     const DEVICE_EVERY_FUNCTION = 'ALL-IN-ONE MEGA DEVICE';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';

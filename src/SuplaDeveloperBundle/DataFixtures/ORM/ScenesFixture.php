@@ -44,7 +44,7 @@ class ScenesFixture extends SuplaFixture {
     private function createSampleScene(ObjectManager $manager) {
         $scene = new Scene($this->getReference(UsersFixture::USER)->getLocations()[0]);
         /** @var IODevice $deviceFull */
-        $deviceFull = $this->getReference(DevicesFixture::DEVICE_MEGA);
+        $deviceFull = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
         $rgb = $deviceFull->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() == ChannelFunction::DIMMERANDRGBLIGHTING;
         })->first();
