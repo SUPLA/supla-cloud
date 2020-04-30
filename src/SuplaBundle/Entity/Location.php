@@ -48,7 +48,7 @@ class Location implements HasRelationsCount {
     private $password;
 
     /**
-     * @ORM\Column(name="caption", type="string", length=100, nullable=false)
+     * @ORM\Column(name="caption", type="string", length=100, nullable=true)
      * @Groups({"basic"})
      */
     private $caption;
