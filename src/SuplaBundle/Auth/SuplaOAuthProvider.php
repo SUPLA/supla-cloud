@@ -19,6 +19,7 @@ namespace SuplaBundle\Auth;
 
 use FOS\OAuthServerBundle\Security\Authentication\Provider\OAuthProvider;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
+use SuplaBundle\Auth\Token\PublicOauthAppToken;
 use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -30,6 +31,8 @@ class SuplaOAuthProvider extends OAuthProvider {
         $accessToken = $this->serverService->verifyAccessToken($token->getToken());
         if ($accessToken->isForWebapp()) {
             $authenticatedToken = new WebappToken($authenticatedToken);
+        } elseif ($accessToken->isForPublicApp()) {
+            $authenticatedToken = new PublicOauthAppToken($authenticatedToken);
         }
         if ($accessId = $accessToken->getAccessId()) {
             $authenticatedToken = new AccessIdAwareToken($authenticatedToken, $accessId);
