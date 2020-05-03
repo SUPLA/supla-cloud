@@ -111,11 +111,11 @@
                     .then(({body: logItems, headers}) => {
                         if (logItems.length > 0) {
                             const maxTimestamp = headers.get('X-Max-Timestamp');
-                            if (maxTimestamp > logItems[logItems.length - 1].date_timestamp) {
+                            if (maxTimestamp && maxTimestamp > logItems[logItems.length - 1].date_timestamp) {
                                 logItems.push({...logItems[logItems.length - 1], date_timestamp: maxTimestamp});
                             }
                             const minTimestamp = headers.get('X-Min-Timestamp');
-                            if (minTimestamp < logItems[0].date_timestamp) {
+                            if (minTimestamp && minTimestamp < logItems[0].date_timestamp) {
                                 logItems.unshift({...logItems[0], date_timestamp: minTimestamp});
                             }
                         }
