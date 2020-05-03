@@ -389,12 +389,18 @@ class ChannelMeasurementLogsController extends RestController {
             $request->query->get('sparse')
         );
         $view = $this->view($logs, Response::HTTP_OK);
-        list($totalCount, $minTimestamp, $maxTimestamp) = $this->getMeasureLogsCount(
+        list($totalCountWithCondition, $minTimestamp, $maxTimestamp) = $this->getMeasureLogsCount(
             $channel,
             $request->query->get('afterTimestamp'),
             $request->query->get('beforeTimestamp')
         );
+        if ($minTimestamp || $maxTimestamp) {
+            list($totalCount,) = $this->getMeasureLogsCount($channel);
+        } else {
+            $totalCount = $totalCountWithCondition;
+        }
         $view->setHeader('X-Total-Count', $totalCount);
+        $view->setHeader('X-Count', $totalCountWithCondition);
         $view->setHeader('X-Min-Timestamp', $minTimestamp);
         $view->setHeader('X-Max-Timestamp', $maxTimestamp);
         return $view;

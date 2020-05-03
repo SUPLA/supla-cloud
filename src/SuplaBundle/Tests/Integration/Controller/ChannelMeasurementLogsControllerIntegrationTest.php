@@ -421,7 +421,10 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
         $this->assertCount(1, $content);
-
+        $this->assertTrue($response->headers->has('X-Total-Count'));
+        $this->assertTrue($response->headers->has('X-Count'));
+        $this->assertEquals(1, $response->headers->get('X-Count'));
+        $this->assertEquals(3, $response->headers->get('X-Total-Count'));
         return $content;
     }
 
@@ -515,6 +518,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertStatusCode('200', $response);
         $logItems = json_decode($response->getContent(), true);
         $this->assertCount(5000, $logItems);
+        $this->assertEquals($response->headers->get('X-Count'), $response->headers->get('X-Total-Count'));
         $minTimestamp = $response->headers->get('X-Min-Timestamp');
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
         $firstTimestamp = current($logItems)['date_timestamp'];
