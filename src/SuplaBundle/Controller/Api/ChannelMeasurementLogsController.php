@@ -159,7 +159,7 @@ class ChannelMeasurementLogsController extends RestController {
 
         if ($sparse > 0) {
             $this->entityManager->getConnection()->exec('SET @nth_log_item_row := 0');
-            list($totalCount,) = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
+            [$totalCount,] = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
             if ($totalCount > $sparse) {
                 $nth = floor($totalCount / $sparse);
                 $sql .= "AND (@nth_log_item_row := @nth_log_item_row + 1) % $nth = 0";
@@ -307,7 +307,7 @@ class ChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
         Assertion::eq($channel->getFunction()->getId(), ChannelFunction::THERMOMETER);
-        list($count,) = $this->getMeasureLogsCount($channel);
+        [$count,] = $this->getMeasureLogsCount($channel);
         return [
             'count' => $count,
             'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
@@ -323,7 +323,7 @@ class ChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
         Assertion::eq($channel->getFunction()->getId(), ChannelFunction::HUMIDITYANDTEMPERATURE);
-        list($count,) = $this->getMeasureLogsCount($channel);
+        [$count,] = $this->getMeasureLogsCount($channel);
         return [
             'count' => $count,
             'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
@@ -378,24 +378,26 @@ class ChannelMeasurementLogsController extends RestController {
         if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
+        $minTimestampParam = $request->query->get('afterTimestamp');
+        $maxTimestampParam = $request->query->get('beforeTimestamp');
         $logs = $this->getMeasurementLogItemsAction(
             $channel,
             $request->query->get('offset'),
             $request->query->get('limit'),
-            $request->query->get('afterTimestamp'),
-            $request->query->get('beforeTimestamp'),
+            $minTimestampParam,
+            $maxTimestampParam,
             $request->query->get('order') !== 'ASC',
             null,
             $request->query->get('sparse')
         );
         $view = $this->view($logs, Response::HTTP_OK);
-        list($totalCountWithCondition, $minTimestamp, $maxTimestamp) = $this->getMeasureLogsCount(
+        [$totalCountWithCondition, $minTimestamp, $maxTimestamp] = $this->getMeasureLogsCount(
             $channel,
-            $request->query->get('afterTimestamp'),
-            $request->query->get('beforeTimestamp')
+            $minTimestampParam,
+            $maxTimestampParam
         );
-        if ($minTimestamp || $maxTimestamp) {
-            list($totalCount,) = $this->getMeasureLogsCount($channel);
+        if ($minTimestampParam || $maxTimestampParam) {
+            [$totalCount,] = $this->getMeasureLogsCount($channel);
         } else {
             $totalCount = $totalCountWithCondition;
         }
