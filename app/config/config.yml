@@ -131,6 +131,7 @@ nelmio_cors:
       allow_origin: '%cors_allow_origin_regex%'
       allow_headers: ['*']
       allow_methods: ['POST', 'PUT', 'PATCH', 'HEAD', 'GET', 'DELETE']
+      expose_headers: ['X-Total-Count', 'X-Count', 'X-Min-Timestamp', 'X-Max-Timestamp']
       max_age: 3600
 
 parameters:
