@@ -61,7 +61,7 @@ class SuplaOAuth2 extends OAuth2 {
      */
     public function createAccessToken(
         IOAuth2Client $client,
-        $data,
+        $user,
         $scope = null,
         $accessTokenLifetime = null,
         $issueRefreshToken = true,
@@ -71,7 +71,7 @@ class SuplaOAuth2 extends OAuth2 {
         $accessTokenLifetime = $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']);
         $token = parent::createAccessToken(
             $client,
-            $data,
+            $user,
             $scope,
             $accessTokenLifetime,
             (new OAuthScope($scope))->hasScope('offline_access'),
@@ -80,7 +80,7 @@ class SuplaOAuth2 extends OAuth2 {
         if ($clientType == ApiClientType::WEBAPP) {
             $tokenUsedForFilesDownload = parent::createAccessToken(
                 $client,
-                $data,
+                $user,
                 'channels_files',
                 $accessTokenLifetime,
                 false

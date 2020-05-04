@@ -20,6 +20,7 @@ namespace SuplaBundle\EventListener\ApiRateLimit;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
+use SuplaBundle\Auth\Token\PublicOauthAppToken;
 use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
@@ -125,7 +126,7 @@ class ApiRateLimitListener {
             return false;
         }
         $userToken = $this->getCurrentUserToken();
-        if ($userToken instanceof WebappToken || $userToken instanceof AccessIdAwareToken) {
+        if ($userToken instanceof WebappToken || $userToken instanceof AccessIdAwareToken || $userToken instanceof PublicOauthAppToken) {
             return false;
         }
         $uri = $event->getRequest()->getRequestUri();

@@ -18,12 +18,18 @@
 namespace SuplaBundle\Tests\Integration\EventListener;
 
 use enform\models\Company;
+use FOS\OAuthServerBundle\Entity\ClientManager;
+use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use Monolog\Handler\TestHandler;
+use OAuth2\OAuth2;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
@@ -41,16 +47,38 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
+    /** @var ClientManager */
+    private $clientManager;
     /** @var User */
     private $user;
     /** @var AccessToken */
-    private $token;
+    private $peronsalToken;
+    /** @var array */
+    private $appToken;
+    /** @var array */
+    private $publicAppToken;
+    /** @var ApiClient */
+    private $apiClient;
+    /** @var AccessToken */
+    private $smartphoneToken;
 
     protected function initializeDatabaseForTests() {
+        $this->clientManager = self::$container->get(ClientManagerInterface::class);
         $this->user = $this->createConfirmedUser();
-        $this->token = self::$container->get(SuplaOAuth2::class)
-            ->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
-        $this->getEntityManager()->persist($this->token);
+        $oauth = self::$container->get(SuplaOAuth2::class);
+        $this->apiClient = $this->clientManager->createClient();
+        $this->apiClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $this->clientManager->updateClient($this->apiClient);
+        $this->appToken = $oauth->createAccessToken($this->apiClient, $this->user, new OAuthScope(OAuthScope::getSupportedScopes()));
+        $publicClient = $this->clientManager->createClient();
+        $publicClient->setType(ApiClientType::BROKER());
+        $this->clientManager->updateClient($publicClient);
+        $this->publicAppToken = $oauth->createAccessToken($publicClient, $this->user, new OAuthScope(OAuthScope::getSupportedScopes()));
+        $this->peronsalToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
+        $this->smartphoneToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
+        EntityUtils::setField($this->smartphoneToken, 'accessId', $this->user->getAccessIDS()[0]);
+        $this->getEntityManager()->persist($this->peronsalToken);
+        $this->getEntityManager()->persist($this->smartphoneToken);
         $this->getEntityManager()->flush();
     }
 
@@ -74,8 +102,18 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         }
     }
 
-    public function testTooManyRequestsGlobal() {
-        $client = $this->getFreshClientWithPersonalToken();
+    public function testSmartphoneTokenIgnoresApiQuotaGlobal() {
+        $client = $this->getClientWithToken($this->smartphoneToken);
+        $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
+        for ($i = 0; $i < 10; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+    }
+
+    public function testTooManyRequestsGlobalWithPersonalToken() {
+        $client = $this->getClientWithToken();
         $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
@@ -87,8 +125,56 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
     }
 
+    public function testTooManyRequestsGlobalWithNormalOauthToken() {
+        $client = $this->getClientWithToken($this->appToken);
+        $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
+        for ($i = 0; $i < 5; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
+    }
+
+    /** @depends testTooManyRequestsGlobalWithNormalOauthToken */
+    public function testCanRefreshOauthTokenEvenIfQuotaReached() {
+        $client = $this->getClientWithToken($this->appToken);
+        $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
+        for ($i = 0; $i < 5; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->apiClient->getPublicId(),
+            'client_secret' => $this->apiClient->getSecret(),
+            'refresh_token' => $this->appToken['refresh_token'],
+        ];
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(200, $client->getResponse());
+        $refreshResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('access_token', $refreshResponse);
+        $client = $this->getClientWithToken($refreshResponse, false);
+        $client->apiRequestV24('GET', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
+    }
+
+    public function testPublicAppTokenIgnoresApiQuotaGlobal() {
+        $client = $this->getClientWithToken($this->publicAppToken);
+        $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
+        for ($i = 0; $i < 10; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+    }
+
     public function testCanReadServerStatusIfTooManyRequestsGlobal() {
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
@@ -101,7 +187,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCanReadHomePageIfTooManyRequestsGlobal() {
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('5/1000'));
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
@@ -124,7 +210,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testTooManyRequestsPerUser() {
         $this->changeUserApiRateLimit();
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         for ($i = 0; $i < 5; $i++) {
             $client->apiRequestV24('GET', '/api/locations');
             $response = $client->getResponse();
@@ -149,7 +235,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testSendingRateLimitHeaders() {
         $this->changeUserApiRateLimit();
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         $now = time();
         TestTimeProvider::setTime($now);
         $client->apiRequestV24('GET', '/api/locations');
@@ -167,7 +253,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testResettingRateLimit() {
         $this->changeUserApiRateLimit();
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         $now = time();
         TestTimeProvider::setTime($now - 11);
         $client->apiRequestV24('GET', '/api/locations');
@@ -185,7 +271,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testLoggingRateLimitExcess() {
         $this->changeUserApiRateLimit();
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         $now = time();
         TestTimeProvider::setTime($now - 11);
         $client->apiRequestV24('GET', '/api/locations');
@@ -214,7 +300,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
             ->createPersonalAccessToken($anotherUser, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
         $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         $client->apiRequestV24('GET', '/api/locations');
         $client->apiRequestV24('GET', '/api/locations');
         $client->apiRequestV24('GET', '/api/locations');
@@ -227,7 +313,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testChangingLimitForUserIsAppliedImmediately() {
-        $client = $this->getFreshClientWithPersonalToken();
+        $client = $this->getClientWithToken();
         $client->apiRequestV24('GET', '/api/locations');
         $response = $client->getResponse();
         $this->assertGreaterThan(500, $response->headers->get('X-RateLimit-Limit'));
@@ -298,9 +384,10 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
-    private function getFreshClientWithPersonalToken(AccessToken $token = null): TestClient {
-        $token = $token ?: $this->token;
-        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->getToken(), 'HTTPS' => true]);
-        return $this->freshApiRateLimitClient($client);
+    private function getClientWithToken($token = null, $freshLimit = true): TestClient {
+        $token = $token ?: $this->peronsalToken;
+        $token = is_array($token) ? $token['access_token'] : $token->getToken();
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
+        return $freshLimit ? $this->freshApiRateLimitClient($client) : $client;
     }
 }

@@ -92,7 +92,11 @@ class AccessToken extends BaseAccessToken {
     }
 
     public function isForWebapp(): bool {
-        return $this->client && $this->client->getType() == ApiClientType::WEBAPP();
+        return $this->client && $this->client->getType()->getValue() === ApiClientType::WEBAPP;
+    }
+
+    public function isForPublicApp(): bool {
+        return $this->client && $this->client->getType()->getValue() === ApiClientType::BROKER;
     }
 
     /** @return AccessID|null */

@@ -381,23 +381,31 @@ class ChannelMeasurementLogsController extends RestController {
         if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
+        $minTimestampParam = $request->query->get('afterTimestamp');
+        $maxTimestampParam = $request->query->get('beforeTimestamp');
         $logs = $this->getMeasurementLogItemsAction(
             $channel,
             $request->query->get('offset'),
             $request->query->get('limit'),
-            $request->query->get('afterTimestamp'),
-            $request->query->get('beforeTimestamp'),
+            $minTimestampParam,
+            $maxTimestampParam,
             $request->query->get('order') !== 'ASC',
             null,
             $request->query->get('sparse')
         );
         $view = $this->view($logs, Response::HTTP_OK);
-        [$totalCount, $minTimestamp, $maxTimestamp] = $this->getMeasureLogsCount(
+        [$totalCountWithCondition, $minTimestamp, $maxTimestamp] = $this->getMeasureLogsCount(
             $channel,
-            $request->query->get('afterTimestamp'),
-            $request->query->get('beforeTimestamp')
+            $minTimestampParam,
+            $maxTimestampParam
         );
+        if ($minTimestampParam || $maxTimestampParam) {
+            [$totalCount,] = $this->getMeasureLogsCount($channel);
+        } else {
+            $totalCount = $totalCountWithCondition;
+        }
         $view->setHeader('X-Total-Count', $totalCount);
+        $view->setHeader('X-Count', $totalCountWithCondition);
         $view->setHeader('X-Min-Timestamp', $minTimestamp);
         $view->setHeader('X-Max-Timestamp', $maxTimestamp);
         return $view;
