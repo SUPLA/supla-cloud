@@ -220,6 +220,24 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(Response::HTTP_TOO_MANY_REQUESTS, $content['status']);
     }
 
+    public function testCheckinUserLimitStatus() {
+        $this->changeUserApiRateLimit();
+        $client = $this->getClientWithToken();
+        for ($i = 0; $i < 3; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+        $client = $this->createAuthenticatedClient($this->user, true);
+        $client->apiRequestV24('GET', '/api/users/current?include=limits');
+        $response = $client->getResponse();
+        $this->assertStatusCode(Response::HTTP_OK, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('apiRateLimit', $content);
+        $this->assertEquals(5, $content['apiRateLimit']['status']['limit']);
+        $this->assertEquals(2, $content['apiRateLimit']['status']['remaining']);
+    }
+
     public function testWebappTokenDoesNotRaisesApiRateLimit() {
         $this->changeUserApiRateLimit();
         $client = $this->createAuthenticatedClient($this->user);

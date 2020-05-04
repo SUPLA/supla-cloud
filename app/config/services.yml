@@ -171,6 +171,8 @@ services:
 
   SuplaBundle\Serialization\:
     resource: '../../src/SuplaBundle/Serialization'
+  SuplaBundle\Serialization\UserSerializer:
+    $apiRateLimitEnabled: '%supla.api_rate_limit.enabled%'
 
   SuplaBundle\Mailer\SuplaMailer:
     $mailerFrom: "%mailer_from%"
