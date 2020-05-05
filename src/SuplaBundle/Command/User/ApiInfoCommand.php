@@ -24,14 +24,14 @@ class ApiInfoCommand extends ContainerAwareCommand {
     private $apiRateLimitStorage;
     /** @var TimeProvider */
     private $timeProvider;
-    /**
-     * @var GlobalApiRateLimit
-     */
+    /** @var GlobalApiRateLimit */
     private $globalApiRateLimit;
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var bool */
+    private $enabled;
+    /** @var bool */
+    private $blocking;
 
     public function __construct(
         UserRepository $userRepository,
@@ -39,7 +39,9 @@ class ApiInfoCommand extends ContainerAwareCommand {
         EntityManagerInterface $entityManager,
         GlobalApiRateLimit $globalApiRateLimit,
         DefaultUserApiRateLimit $defaultUserApiRateLimit,
-        TimeProvider $timeProvider
+        TimeProvider $timeProvider,
+        bool $enabled,
+        bool $blocking
     ) {
         parent::__construct();
         $this->userRepository = $userRepository;
@@ -48,6 +50,8 @@ class ApiInfoCommand extends ContainerAwareCommand {
         $this->timeProvider = $timeProvider;
         $this->globalApiRateLimit = $globalApiRateLimit;
         $this->entityManager = $entityManager;
+        $this->enabled = $enabled;
+        $this->blocking = $blocking;
     }
 
     protected function configure() {
@@ -59,12 +63,17 @@ class ApiInfoCommand extends ContainerAwareCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $io = new SymfonyStyle($input, $output);
-        $this->displayGlobalLimitStatus($io);
-        if ($input->getOption('users')) {
-            $this->displayUsersLimitStatus($io);
-        } else {
-            $io->newLine();
-            $io->note('To display users limits, add -u');
+        $io->title('API Rate Limit');
+        $io->writeln('Enabled: ' . ($this->enabled ? 'YES' : 'NO'));
+        if ($this->enabled) {
+            $io->writeln('Blocking: ' . ($this->blocking ? 'YES' : 'NO'));
+            $this->displayGlobalLimitStatus($io);
+            if ($input->getOption('users')) {
+                $this->displayUsersLimitStatus($io);
+            } else {
+                $io->newLine();
+                $io->note('To display users limits, add -u');
+            }
         }
     }
 
