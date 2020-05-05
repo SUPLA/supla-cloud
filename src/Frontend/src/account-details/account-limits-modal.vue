@@ -37,32 +37,34 @@
                             :value="relationsCount.apiClients"></account-limit-progressbar>
                     </dd>
                 </dl>
-                <h4>{{ $t('API rate limits') }}</h4>
-                <div class="row">
-                    <div class="col-xs-12 api-rate-limit-progress">
-                        <div class="well well-sm no-margin">
-                            <div class="clearfix">
-                                <account-limit-progressbar :limit="apiRateStatus.limit"
-                                    :value="apiRateStatus.requests">
-                                    <span v-if="apiRateStatus.seconds === 60">
-                                        {{ $t('{requests} out of {limit} / min', apiRateStatus) }}
-                                    </span>
-                                    <span v-else-if="apiRateStatus.seconds === 3600">
-                                        {{ $t('{requests} out of {limit} / h', apiRateStatus) }}
-                                    </span>
-                                    <span v-else-if="apiRateStatus.seconds === 86400">
-                                        {{ $t('{requests} out of {limit} / day', apiRateStatus) }}
-                                    </span>
-                                    <span v-else>
-                                        {{ $t('{requests} out of {limit} / {seconds} sec.', apiRateStatus) }}
-                                    </span>
-                                </account-limit-progressbar>
+                <div v-if="apiRateStatus">
+                    <h4>{{ $t('API rate limits') }}</h4>
+                    <div class="row">
+                        <div class="col-xs-12 api-rate-limit-progress">
+                            <div class="well well-sm no-margin">
+                                <div class="clearfix">
+                                    <account-limit-progressbar :limit="apiRateStatus.limit"
+                                        :value="apiRateStatus.requests">
+                                        <span v-if="apiRateStatus.seconds === 60">
+                                            {{ $t('{requests} out of {limit} / min', apiRateStatus) }}
+                                        </span>
+                                        <span v-else-if="apiRateStatus.seconds === 3600">
+                                            {{ $t('{requests} out of {limit} / h', apiRateStatus) }}
+                                        </span>
+                                        <span v-else-if="apiRateStatus.seconds === 86400">
+                                            {{ $t('{requests} out of {limit} / day', apiRateStatus) }}
+                                        </span>
+                                        <span v-else>
+                                            {{ $t('{requests} out of {limit} / {seconds} sec.', apiRateStatus) }}
+                                        </span>
+                                    </account-limit-progressbar>
+                                </div>
                             </div>
+                            <p class="text-right text-muted small"
+                                v-if="apiRateStatus.requests > 0">
+                                {{ $t('Next limit renewal: {date}', { date: apiRateStatusReset }) }}
+                            </p>
                         </div>
-                        <p class="text-right text-muted small"
-                            v-if="apiRateStatus.requests > 0">
-                            {{ $t('Next limit renewal: {date}', { date: apiRateStatusReset }) }}
-                        </p>
                     </div>
                 </div>
             </div>
@@ -110,17 +112,19 @@
                         apiRateLimit: response.body.apiRateLimit,
                     };
                     this.relationsCount = response.body.relationsCount;
-                    this.apiRateStatus = {
-                        requests: this.limits.apiRateLimit.rule.limit - this.limits.apiRateLimit.status.remaining,
-                        limit: this.limits.apiRateLimit.rule.limit,
-                        seconds: this.limits.apiRateLimit.rule.period,
-                    };
+                    if (this.limits.apiRateLimit) {
+                        this.apiRateStatus = {
+                            requests: this.limits.apiRateLimit.rule.limit - this.limits.apiRateLimit.status.remaining,
+                            limit: this.limits.apiRateLimit.rule.limit,
+                            seconds: this.limits.apiRateLimit.rule.period,
+                        };
+                    }
                 }).finally(() => this.fetching = false);
             },
         },
         computed: {
             apiRateStatusReset() {
-                if (!this.limits) {
+                if (!this.apiRateStatus) {
                     return;
                 }
                 return moment.unix(this.limits.apiRateLimit.status.reset).format('LTS L');
