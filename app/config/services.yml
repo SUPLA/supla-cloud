@@ -36,6 +36,9 @@ services:
   SuplaBundle\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
     $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
     $deleteOlderThanDaysCustom: '%supla.maintenance.delete_audit_entries_older_than_days_custom%'
+  SuplaBundle\Command\User\ApiInfoCommand:
+    $enabled: '%supla.api_rate_limit.enabled%'
+    $blocking: '%supla.api_rate_limit.blocking%'
 
   SuplaBundle\Controller\:
     resource: '../../src/SuplaBundle/Controller'
