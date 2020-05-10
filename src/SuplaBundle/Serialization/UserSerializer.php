@@ -60,9 +60,11 @@ class UserSerializer extends AbstractSerializer {
         if ($this->isSerializationGroupRequested('limits', $context) && $this->apiRateLimitEnabled) {
             $rule = $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
             $cacheItem = $this->apiRateLimitStorage->getItem($this->apiRateLimitStorage->getUserKey($user));
+            $status = null;
             if ($cacheItem->isHit()) {
                 $status = new ApiRateLimitStatus($cacheItem->get());
-            } else {
+            }
+            if (!$status || $status->isExpired($this->timeProvider)) {
                 $status = ApiRateLimitStatus::fromRule($rule, $this->timeProvider);
             }
             $normalized['apiRateLimit'] = [
