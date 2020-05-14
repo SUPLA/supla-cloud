@@ -64,6 +64,7 @@ supla:
     enabled: true
     blocking: true
     global_limit: 10000/5
+    user_default_limit: 20000/5
 
 swiftmailer:
   disable_delivery: true
