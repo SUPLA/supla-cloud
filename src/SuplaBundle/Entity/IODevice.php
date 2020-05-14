@@ -19,17 +19,16 @@ namespace SuplaBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\Manufacturer;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceRepository")
- * @ORM\Table(name="supla_iodevice")
- * @UniqueEntity(fields="id", message="IODevice already exists")
+ * @ORM\Table(name="supla_iodevice", uniqueConstraints={@UniqueConstraint(name="UNIQUE_USER_GUID", columns={"user_id", "guid"})})
  */
 class IODevice implements HasLocation, HasRelationsCount {
     use BelongsToUser;
@@ -44,7 +43,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $id;
 
     /**
-     * @ORM\Column(name="guid", type="binary", length=16, nullable=false, unique=true)
+     * @ORM\Column(name="guid", type="binary", length=16, nullable=false)
      */
     private $guid;
 
