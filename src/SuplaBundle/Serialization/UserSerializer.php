@@ -34,18 +34,22 @@ class UserSerializer extends AbstractSerializer {
     private $timeProvider;
     /** @var UserRepository */
     private $userRepository;
+    /** @var bool */
+    private $apiRateLimitEnabled;
 
     public function __construct(
         ApiRateLimitStorage $apiRateLimitStorage,
         DefaultUserApiRateLimit $defaultUserApiRateLimit,
         TimeProvider $timeProvider,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        bool $apiRateLimitEnabled
     ) {
         parent::__construct();
         $this->apiRateLimitStorage = $apiRateLimitStorage;
         $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
         $this->timeProvider = $timeProvider;
         $this->userRepository = $userRepository;
+        $this->apiRateLimitEnabled = $apiRateLimitEnabled;
     }
 
     /**
@@ -53,12 +57,14 @@ class UserSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $user, array $context) {
-        if ($this->isSerializationGroupRequested('limits', $context)) {
+        if ($this->isSerializationGroupRequested('limits', $context) && $this->apiRateLimitEnabled) {
             $rule = $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
             $cacheItem = $this->apiRateLimitStorage->getItem($this->apiRateLimitStorage->getUserKey($user));
+            $status = null;
             if ($cacheItem->isHit()) {
                 $status = new ApiRateLimitStatus($cacheItem->get());
-            } else {
+            }
+            if (!$status || $status->isExpired($this->timeProvider)) {
                 $status = ApiRateLimitStatus::fromRule($rule, $this->timeProvider);
             }
             $normalized['apiRateLimit'] = [

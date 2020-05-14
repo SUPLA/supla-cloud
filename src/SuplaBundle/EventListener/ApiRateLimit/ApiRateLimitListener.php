@@ -31,7 +31,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ApiRateLimitListener {
@@ -81,33 +80,36 @@ class ApiRateLimitListener {
         if (!$this->isRequestRateLimited($event)) {
             return;
         }
-        if ($this->incAndCheckGlobalRate()->isExceeded()) {
-            $this->preventRequestDueToLimitExceeded($event, 'API cannot respond right now. Wait a while before subsequent request.');
+        $globalRateLimit = $this->incAndCheckGlobalRate();
+        if ($globalRateLimit->isExceeded()) {
+            $this->preventRequestDueToLimitExceeded($globalRateLimit, $event, 'global');
             return;
         }
         $userOrId = $this->getCurrentUserOrId($event);
         if ($userOrId) {
             $this->currentUserRateLimit = $this->incAndCheckUserRate($userOrId);
             if ($this->currentUserRateLimit->isExceeded()) {
-                $this->preventRequestDueToLimitExceeded($event, 'You have reached your API rate limit. Slow down.');
+                $this->preventRequestDueToLimitExceeded($this->currentUserRateLimit, $event, 'user');
             }
         }
     }
 
-    private function preventRequestDueToLimitExceeded(RequestEvent $event, string $message) {
+    private function preventRequestDueToLimitExceeded(ApiRateLimitStatus $status, RequestEvent $event, string $reason) {
         if (!$this->blocking) {
             return;
         }
         $request = $event->getRequest();
+        $retryAfter = max(10, $status->getReset() - $this->timeProvider->getTimestamp());
         $isApiRequest = preg_match('#/api/#', $request->getRequestUri());
+        $exception = new ApiRateLimitExceededException($retryAfter, $reason);
         if ($isApiRequest || in_array('application/json', $request->getAcceptableContentTypes())) {
-            $data = ['status' => Response::HTTP_TOO_MANY_REQUESTS, 'message' => $message];
-            $response = new JsonResponse($data, Response::HTTP_TOO_MANY_REQUESTS);
+            $data = ['status' => Response::HTTP_TOO_MANY_REQUESTS, 'message' => $exception->getMessage()];
+            $response = new JsonResponse($data, Response::HTTP_TOO_MANY_REQUESTS, ['Retry-After' => $retryAfter]);
             $this->setRateLimitHeaders($response);
             $event->setResponse($response);
             $event->stopPropagation();
         } else {
-            throw new TooManyRequestsHttpException();
+            throw $exception;
         }
     }
 

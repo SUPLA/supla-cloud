@@ -478,6 +478,7 @@ Visit app webpage: Otwórz witrynę aplikacji
 WELCOME_MESSAGE: |
   Podłączenie Twojego domu lub biura do SUPLI jest proste. Wszystko co musisz zrobić to
   przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
+Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
 Water meter: Licznik wody
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Wiadomość z linkiem aktywującym Twoje konto została dopiero co wysłana. Cierpliwości.
@@ -507,6 +508,7 @@ YOUR LINK CODE: KOD TWOJEGO LINKU
 You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
+You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.

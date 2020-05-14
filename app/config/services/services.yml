@@ -37,6 +37,9 @@ services:
     $deleteOlderThanDaysCustom: '%supla.maintenance.delete_audit_entries_older_than_days_custom%'
   SuplaBundle\Command\Initialization\InitializeCommand:
     - !tagged supla.initialization_command
+  SuplaBundle\Command\User\ApiInfoCommand:
+    $enabled: '%supla.api_rate_limit.enabled%'
+    $blocking: '%supla.api_rate_limit.blocking%'
 
   SuplaBundle\Controller\:
     resource: '../../../src/SuplaBundle/Controller'
@@ -172,6 +175,8 @@ services:
 
   SuplaBundle\Serialization\:
     resource: '../../../src/SuplaBundle/Serialization'
+  SuplaBundle\Serialization\UserSerializer:
+    $apiRateLimitEnabled: '%supla.api_rate_limit.enabled%'
 
   SuplaBundle\Mailer\SuplaMailer:
     $mailerFrom: "%mailer_from%"
