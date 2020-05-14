@@ -85,7 +85,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     protected function tearDown() {
         $this->changeUserApiRateLimit(null);
-        $this->setGlobalApiRateLimit(self::$container, '10000/5');
+        $this->setGlobalApiRateLimit(EntityUtils::getField(self::$container, 'kernel')->getContainer(), '10000/5');
         parent::tearDown();
     }
 
