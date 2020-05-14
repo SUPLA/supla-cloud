@@ -621,5 +621,7 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Wait a while before the next request. You can check your limits in the account settings.: ~
+You have exceeded your API Rate Limit: ~
 
 #</editor-fold>

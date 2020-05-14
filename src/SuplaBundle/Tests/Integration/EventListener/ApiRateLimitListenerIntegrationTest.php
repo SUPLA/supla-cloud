@@ -218,6 +218,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(Response::HTTP_TOO_MANY_REQUESTS, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(Response::HTTP_TOO_MANY_REQUESTS, $content['status']);
+        $this->assertEquals(10, $response->headers->get('Retry-After'));
     }
 
     public function testCheckinUserLimitStatus() {
@@ -375,7 +376,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     /** @depends testDirectLinksUsesLimitOfOwner */
     public function testDoesNotContactsSuplaServerWhenUsingDirectLinkAndApiLimitReached(string $slug) {
         $this->changeUserApiRateLimit('1/10');
-        $client = $this->createClient();
+        $client = $this->createClient(['debug' => false]);
         $client->request('GET', "/direct/1/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -386,10 +387,28 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(429, $response);
         $this->assertNotContains('<direct-link-execution-result', $response->getContent());
+        $this->assertNotContains('We try to be faster', $response->getContent());
+        $this->assertContains('You have exceeded your API Rate Limit', $response->getContent());
         $this->assertEquals(1, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(0, $response->headers->get('X-RateLimit-Remaining'));
         $commands = $this->getSuplaServerCommands($client);
         $this->assertEmpty($commands);
+    }
+
+    /** @depends testDirectLinksUsesLimitOfOwner */
+    public function testShowingGeneralErrorMessageWhenGlobalApiRateLimitIsHit(string $slug) {
+        $this->changeUserApiRateLimit('100/10');
+        $client = $this->createClient(['debug' => false]);
+        $client->getContainer()->set(GlobalApiRateLimit::class, new GlobalApiRateLimit('1/1000'));
+        $client->request('GET', "/direct/1/$slug/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $client->request('GET', "/direct/1/$slug/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(429, $response);
+        $this->assertNotContains('<direct-link-execution-result', $response->getContent());
+        $this->assertContains('We try to be faster', $response->getContent());
+        $this->assertNotContains('You have exceeded your API Rate Limit', $response->getContent());
     }
 
     private function changeUserApiRateLimit($rateLimit = '5/10') {
