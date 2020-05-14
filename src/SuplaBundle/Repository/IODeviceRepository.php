@@ -22,7 +22,9 @@ class IODeviceRepository extends EntityWithRelationsRepository {
         $unhexed = pack('H*', $guid);
         $query = $this->getEntityWithRelationsCountQuery()
             ->where('io.guid = :guid')
+            ->andWhere('io.user = :user')
             ->setParameter('guid', $unhexed)
+            ->setParameter('user', $user)
             ->getQuery();
         try {
             $device = $this->hydrateRelationsQueryResult($query->getSingleResult());

@@ -177,6 +177,22 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getId(), $content['id']);
     }
 
+    public function testOtherUserCanHaveDeviceWithTheSameGuid() {
+        $anotherUser = $this->createConfirmedUser('anotherguid@supla.org');
+        $location = $this->createLocation($anotherUser);
+        $device = $this->createDeviceFull($location);
+        $this->getEntityManager()->getConnection()->exec("SELECT guid INTO @guid FROM supla_iodevice WHERE id={$this->device->getId()}");
+        $this->getEntityManager()->getConnection()->exec("UPDATE supla_iodevice SET guid=@guid WHERE id={$device->getId()}");
+        $this->getEntityManager()->clear();
+        $client = $this->createAuthenticatedClient($anotherUser->getUsername());
+        $client->request('GET', '/api/iodevices/' . $this->device->getGUIDString());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = current(json_decode($response->getContent(), true));
+        $this->assertEquals($device->getId(), $content['id']);
+        $this->testGettingDevicesDetailsByGuid();
+    }
+
     public function testGettingDevicesDetailsByGuidWith0xPrefix() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/api/iodevices/0x' . $this->device->getGUIDString());
