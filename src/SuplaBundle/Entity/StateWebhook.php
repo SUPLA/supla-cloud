@@ -61,6 +61,16 @@ class StateWebhook {
     private $authToken;
 
     /**
+     * @ORM\Column(name="refresh_token", type="string", length=255, nullable=false)
+     */
+    private $refreshToken;
+
+    /**
+     * @ORM\Column(name="expires_at", type="utcdatetime", nullable=false)
+     */
+    private $expiresAt;
+
+    /**
      * @ORM\Column(name="functions_ids", type="string", length=255, nullable=false)
      * @Groups({"basic"})
      */
