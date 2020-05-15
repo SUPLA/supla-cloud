@@ -25,8 +25,8 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\RelayFunctionBits;
 use SuplaBundle\Tests\AnyFieldSetter;
 
 class DevicesFixture extends SuplaFixture {
@@ -41,10 +41,10 @@ class DevicesFixture extends SuplaFixture {
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
     const FULL_RELAY_BITS =
-        RelayFunctionBits::CONTROLLINGTHEDOORLOCK |
-        RelayFunctionBits::CONTROLLINGTHEGARAGEDOOR |
-        RelayFunctionBits::CONTROLLINGTHEGATE |
-        RelayFunctionBits::CONTROLLINGTHEGATEWAYLOCK;
+        ChannelFunctionBitsFlist::CONTROLLINGTHEDOORLOCK |
+        ChannelFunctionBitsFlist::CONTROLLINGTHEGARAGEDOOR |
+        ChannelFunctionBitsFlist::CONTROLLINGTHEGATE |
+        ChannelFunctionBitsFlist::CONTROLLINGTHEGATEWAYLOCK;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -81,17 +81,17 @@ class DevicesFixture extends SuplaFixture {
 
     protected function createDeviceSonoff(Location $location): IODevice {
         return $this->createDevice('SONOFF-DS', $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, RelayFunctionBits::LIGHTSWITCH | RelayFunctionBits::POWERSWITCH],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ], self::DEVICE_SONOFF);
     }
 
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
         return $this->createDevice($name, $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, RelayFunctionBits::LIGHTSWITCH | RelayFunctionBits::POWERSWITCH],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, self::FULL_RELAY_BITS],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, self::FULL_RELAY_BITS],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, RelayFunctionBits::CONTROLLINGTHEROLLERSHUTTER],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
