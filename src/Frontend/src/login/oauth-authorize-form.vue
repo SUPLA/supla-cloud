@@ -52,6 +52,7 @@
                     rw: 'edit',
                     ea: 'power',
                     access: 'moon',
+                    webhook: 'call',
                 }
             };
         },

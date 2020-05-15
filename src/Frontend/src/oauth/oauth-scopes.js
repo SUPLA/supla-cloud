@@ -49,6 +49,11 @@ export const availableScopes = [
         suffixes: ['access'],
         label: 'Offline access' // i18n
     },
+    {
+        prefix: 'state',
+        suffixes: ['webhook'],
+        label: 'State webhook' // i18n
+    },
 ];
 
 export function scopeId(scope, suffix) {
@@ -60,6 +65,7 @@ export const scopeSuffixLabels = {
     rw: 'Modification', // i18n
     ea: 'Action execution', // i18n
     access: 'Account access when you are unavailable', // i18n
+    webhook: 'Be notified when your channels change state', // i18n
 };
 
 const SCOPE_DELIMITER = ' ';
