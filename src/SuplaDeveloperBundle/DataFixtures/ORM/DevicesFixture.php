@@ -151,7 +151,7 @@ class DevicesFixture extends SuplaFixture {
                 'user' => $location->getUser(),
                 'type' => $channelData[0],
                 'function' => $channelData[1],
-                'channelNumber' => $channelNumber++,
+                'channelNumber' => $channelNumber,
                 'flags' => ChannelFunctionBitsActionTrigger::PRESS | ChannelFunctionBitsActionTrigger::RELEASE,
             ]);
             if (isset($channelData[2])) {
