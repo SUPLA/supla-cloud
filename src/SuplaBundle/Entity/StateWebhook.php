@@ -34,7 +34,6 @@ class StateWebhook {
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"basic"})
      */
     private $id;
 
@@ -52,6 +51,7 @@ class StateWebhook {
 
     /**
      * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     * @Groups({"basic"})
      */
     private $url;
 
@@ -62,11 +62,13 @@ class StateWebhook {
 
     /**
      * @ORM\Column(name="functions_ids", type="string", length=255, nullable=false)
+     * @Groups({"basic"})
      */
     private $functionsIds;
 
     /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false, options={"default"=1})
+     * @Groups({"basic"})
      */
     private $enabled = false;
 
@@ -77,6 +79,10 @@ class StateWebhook {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getUrl(): string {
+        return $this->url;
     }
 
     public function setUrl(string $url) {
@@ -91,6 +97,14 @@ class StateWebhook {
     public function setFunctions(array $functions) {
         Assertion::notEmpty($functions, 'You must subscribe for some functions.');
         $this->functionsIds = implode(',', EntityUtils::mapToIds($functions));
+    }
+
+    public function getFunctionsIds() {
+        return $this->functionsIds;
+    }
+
+    public function isEnabled(): bool {
+        return $this->enabled;
     }
 
     public function setEnabled(bool $enabled) {

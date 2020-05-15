@@ -74,12 +74,26 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $hookData = ['url' => 'https://unicorns.pl', 'functions' => ['LIGHTSWITCH'], 'authToken' => 'XXX'];
         $client->apiRequestV23('PUT', '/api/integrations/state-webhook', $hookData);
         $this->assertStatusCode('2XX', $client->getResponse());
-        $this->assertTrue(json_decode($client->getResponse()->getContent(), true)['success']);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('url', $response);
         $hook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->client, $this->user);
         $this->assertNotNull($hook->getId());
         $this->assertEquals($hookData['url'], EntityUtils::getField($hook, 'url'));
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, EntityUtils::getField($hook, 'functionsIds'));
         $this->assertEquals($hookData['authToken'], EntityUtils::getField($hook, 'authToken'));
+    }
+
+    /** @depends testCreatingStateWebhook */
+    public function testGettingStateWebhook() {
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->apiRequestV23('GET', '/api/integrations/state-webhook');
+        $this->assertStatusCode(200, $client->getResponse());
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('url', $response);
+        $this->assertArrayHasKey('functionsIds', $response);
+        $this->assertArrayNotHasKey('id', $response);
+        $this->assertArrayNotHasKey('authToken', $response);
     }
 
     /** @depends testCreatingStateWebhook */
@@ -90,7 +104,8 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $hookData = ['url' => 'https://unicorns2.pl', 'functions' => ['POWERSWITCH'], 'authToken' => 'YYY'];
         $client->apiRequestV23('PUT', '/api/integrations/state-webhook', $hookData);
         $this->assertStatusCode('2XX', $client->getResponse());
-        $this->assertTrue(json_decode($client->getResponse()->getContent(), true)['success']);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('url', $response);
         $hook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->client, $this->user);
         $this->assertNotNull($hook->getId());
         $this->assertEquals($hookData['url'], EntityUtils::getField($hook, 'url'));
