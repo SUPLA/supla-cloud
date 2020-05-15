@@ -24,7 +24,8 @@ class ChannelTypeTest extends \PHPUnit_Framework_TestCase {
         $diff = array_map(function (ChannelType $type) {
             return $type->getKey();
         }, array_diff(ChannelType::values(), array_keys(ChannelType::functions())));
-        $diff = array_diff($diff, [ChannelType::RELAY()->getKey()]); // relays have functions incorporated into RelayFunctionBits enum
+        // relays and bridges have functions calculated from ChannelFunctionBitsFlist enum
+        $diff = array_diff($diff, [ChannelType::RELAY()->getKey(), ChannelType::BRIDGE()->getKey()]);
         $this->assertEmpty($diff, 'Have you forgotten to add a functions definition for the new ChannelType value? Missing: '
             . implode(', ', $diff));
     }
