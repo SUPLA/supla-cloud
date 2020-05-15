@@ -71,7 +71,13 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         /** @var TestClient $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
         $client->followRedirects();
-        $hookData = ['url' => 'https://unicorns.pl', 'functions' => ['LIGHTSWITCH'], 'authToken' => 'XXX'];
+        $hookData = [
+            'url' => 'https://unicorns.pl',
+            'functions' => ['LIGHTSWITCH'],
+            'authToken' => 'XXX',
+            'refreshToken' => 'YYY',
+            'expiresAt' => time() + 100000,
+        ];
         $client->apiRequestV23('PUT', '/api/integrations/state-webhook', $hookData);
         $this->assertStatusCode('2XX', $client->getResponse());
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -81,6 +87,8 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($hookData['url'], EntityUtils::getField($hook, 'url'));
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, EntityUtils::getField($hook, 'functionsIds'));
         $this->assertEquals($hookData['authToken'], EntityUtils::getField($hook, 'authToken'));
+        $this->assertEquals($hookData['refreshToken'], EntityUtils::getField($hook, 'refreshToken'));
+        $this->assertEquals($hookData['expiresAt'], EntityUtils::getField($hook, 'expiresAt')->getTimestamp());
     }
 
     /** @depends testCreatingStateWebhook */
@@ -91,9 +99,13 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $response = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('url', $response);
-        $this->assertArrayHasKey('functionsIds', $response);
+        $this->assertArrayHasKey('expiresAt', $response);
+        $this->assertArrayHasKey('functions', $response);
+        $this->assertEquals(['LIGHTSWITCH'], $response['functions']);
+        $this->assertArrayNotHasKey('functionsIds', $response);
         $this->assertArrayNotHasKey('id', $response);
         $this->assertArrayNotHasKey('authToken', $response);
+        $this->assertArrayNotHasKey('refreshToken', $response);
     }
 
     /** @depends testCreatingStateWebhook */
@@ -101,7 +113,13 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         /** @var TestClient $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
         $client->followRedirects();
-        $hookData = ['url' => 'https://unicorns2.pl', 'functions' => ['POWERSWITCH'], 'authToken' => 'YYY'];
+        $hookData = [
+            'url' => 'https://unicorns2.pl',
+            'functions' => ['POWERSWITCH'],
+            'authToken' => 'YYY',
+            'refreshToken' => 'ZZZ',
+            'expiresAt' => time() + 200000,
+        ];
         $client->apiRequestV23('PUT', '/api/integrations/state-webhook', $hookData);
         $this->assertStatusCode('2XX', $client->getResponse());
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -111,6 +129,8 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($hookData['url'], EntityUtils::getField($hook, 'url'));
         $this->assertEquals(ChannelFunction::POWERSWITCH, EntityUtils::getField($hook, 'functionsIds'));
         $this->assertEquals($hookData['authToken'], EntityUtils::getField($hook, 'authToken'));
+        $this->assertEquals($hookData['refreshToken'], EntityUtils::getField($hook, 'refreshToken'));
+        $this->assertEquals($hookData['expiresAt'], EntityUtils::getField($hook, 'expiresAt')->getTimestamp());
     }
 
     /** @depends testUpdatingStateWebhook */
@@ -122,5 +142,39 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2XX', $client->getResponse());
         $hook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->client, $this->user);
         $this->assertNull($hook->getId());
+    }
+
+    /** @dataProvider invalidStateWebhookRequests */
+    public function testInvalidStateWebhookRequests($hookData) {
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->apiRequestV23('PUT', '/api/integrations/state-webhook', $hookData);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    public function invalidStateWebhookRequests() {
+        $almostGoodRequest = function (array $override) {
+            return array_replace(
+                [
+                    'url' => 'https://unicorns2.pl',
+                    'functions' => ['POWERSWITCH'],
+                    'authToken' => 'YYY',
+                    'refreshToken' => 'ZZZ',
+                    'expiresAt' => time() + 100000,
+                ],
+                $override
+            );
+        };
+        return [
+            [[]],
+            [$almostGoodRequest(['expiresAt' => time() + 3600])],
+            [$almostGoodRequest(['expiresAt' => time() + 8640000])],
+            [$almostGoodRequest(['functions' => []])],
+            [$almostGoodRequest(['functions' => ['UNICORN']])],
+            [$almostGoodRequest(['authToken' => ''])],
+            [$almostGoodRequest(['refreshToken' => ''])],
+            [$almostGoodRequest(['url' => 'alamakota.pl'])],
+            [$almostGoodRequest(['url' => 'ftp://alamakota.pl'])],
+        ];
     }
 }

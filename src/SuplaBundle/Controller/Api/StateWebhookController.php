@@ -29,6 +29,7 @@ use SuplaBundle\Auth\SuplaOAuthStorage;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\StateWebhookRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,17 +46,21 @@ class StateWebhookController extends RestController {
     private $oAuthStorage;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var TimeProvider */
+    private $timeProvider;
 
     public function __construct(
         StateWebhookRepository $stateWebhookRepository,
         TokenStorageInterface $tokenStorage,
         SuplaOAuthStorage $oAuthStorage,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        TimeProvider $timeProvider
     ) {
         $this->stateWebhookRepository = $stateWebhookRepository;
         $this->tokenStorage = $tokenStorage;
         $this->oAuthStorage = $oAuthStorage;
         $this->entityManager = $entityManager;
+        $this->timeProvider = $timeProvider;
     }
 
     /**
@@ -70,12 +75,28 @@ class StateWebhookController extends RestController {
         Assertion::keyExists($data, 'url', 'url key is missing');
         Assertion::url($data['url']);
         $url = $data['url'];
-        Assertion::keyExists($data, 'authToken', 'authToken key is missing');
-        Assertion::string($data['authToken'], 'authToken key is invalid');
+        Assertion::keyExists($data, 'authToken', 'authToken is missing');
+        Assertion::string($data['authToken'], 'authToken is invalid');
+        Assertion::notBlank($data['authToken'], 'authToken is invalid');
         $authToken = $data['authToken'];
+        Assertion::keyExists($data, 'refreshToken', 'refreshToken is missing');
+        Assertion::string($data['refreshToken'], 'authToken is invalid');
+        Assertion::notBlank($data['refreshToken'], 'authToken is invalid');
+        $refreshToken = $data['refreshToken'];
+        Assertion::keyExists($data, 'expiresAt', 'expiresAt is missing');
+        Assertion::integer($data['expiresAt'], 'expiresAt should be a timestamp');
+        Assertion::between(
+            $data['expiresAt'],
+            $this->timeProvider->getTimestamp('+1 day'),
+            $this->timeProvider->getTimestamp('+90 days'),
+            'expiresAt should be between 24 hours and 90 days from now'
+        );
+        $expiresAt = $data['expiresAt'];
         $webhook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->getCurrentApiClient(), $this->getCurrentUser());
         $webhook->setUrl($url);
         $webhook->setAuthToken($authToken);
+        $webhook->setRefreshToken($refreshToken);
+        $webhook->setExpiresAt(new \DateTime('@' . $expiresAt));
         $webhook->setFunctions($functions);
         $webhook->setEnabled(boolval($data['enabled'] ?? true));
         $this->entityManager->persist($webhook);

@@ -324,16 +324,17 @@ final class ChannelFunction extends Enum {
 
     public static function fromString(string $functionName): ChannelFunction {
         $functionName = trim($functionName);
-        try {
-            if (is_numeric($functionName)) {
+        if (is_numeric($functionName)) {
+            if (self::isValid((int)$functionName)) {
                 return new self((int)$functionName);
-            } else {
-                $functionName = strtoupper($functionName);
+            }
+        } else {
+            $functionName = strtoupper($functionName);
+            if (self::isValidKey($functionName)) {
                 return self::$functionName();
             }
-        } catch (\RuntimeException $e) {
-            throw new ApiException('Invalid function given: ' . $functionName, 400, $e);
         }
+        throw new ApiException('Invalid function given: ' . $functionName, 400);
     }
 
     /**

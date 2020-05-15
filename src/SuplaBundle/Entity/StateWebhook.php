@@ -67,12 +67,12 @@ class StateWebhook {
 
     /**
      * @ORM\Column(name="expires_at", type="utcdatetime", nullable=false)
+     * @Groups({"basic"})
      */
     private $expiresAt;
 
     /**
      * @ORM\Column(name="functions_ids", type="string", length=255, nullable=false)
-     * @Groups({"basic"})
      */
     private $functionsIds;
 
@@ -113,11 +113,32 @@ class StateWebhook {
         return $this->functionsIds;
     }
 
+    /**
+     * @Groups({"basic"})
+     */
+    public function getFunctions(): array {
+        return array_map(function (int $functionId) {
+            return (new ChannelFunction($functionId))->getKey();
+        }, explode(',', $this->functionsIds));
+    }
+
     public function isEnabled(): bool {
         return $this->enabled;
     }
 
     public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
+    }
+
+    public function setRefreshToken(string $refreshToken) {
+        $this->refreshToken = $refreshToken;
+    }
+
+    public function setExpiresAt(\DateTime $expiresAt) {
+        $this->expiresAt = $expiresAt;
+    }
+
+    public function getExpiresAt(): \DateTime {
+        return $this->expiresAt;
     }
 }
