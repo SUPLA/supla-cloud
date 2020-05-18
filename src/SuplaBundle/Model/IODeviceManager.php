@@ -137,7 +137,9 @@ class IODeviceManager {
                 $sql .= "IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, ";
                 $sql .= "IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, ";
                 $sql .= "IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, ";
-                $sql .= "IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre ";
+                $sql .= "IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre,";
+                $sql .= "IFNULL(`fae_balanced`, 0) / 100000.00 fae_balanced, ";
+                $sql .= "IFNULL(`rae_balanced`, 0) / 100000.00 rae_balanced ";
                 $sql .= "FROM `supla_em_log` WHERE channel_id = ?";
 
                 $stmt = $this->doctrine->getManager()->getConnection()->prepare($sql);

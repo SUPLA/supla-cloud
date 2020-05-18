@@ -96,6 +96,16 @@ class ElectricityMeterLogItem {
      */
     private $phase3_rre;
 
+    /**
+     * @ORM\Column(name="fae_balanced", type="bigint", nullable=true)
+     */
+    private $fae_balanced;
+
+    /**
+     * @ORM\Column(name="rae_balanced", type="bigint", nullable=true)
+     */
+    private $rae_balanced;
+
     public function getChannelId() {
         return $this->channel_id;
     }
@@ -150,5 +160,13 @@ class ElectricityMeterLogItem {
                 return $this->phase3_rre;
         }
         return $this->phase1_rre + $this->phase2_rre + $this->phase3_rre;
+    }
+
+    public function getTotalForwardActiveEnergyBalanced() {
+        return $this->fae_balanced;
+    }
+
+    public function getTotalReverseActiveEnergyBalanced() {
+        return $this->fae_balanced;
     }
 }
