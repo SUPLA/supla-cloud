@@ -269,7 +269,7 @@ class ChannelMeasurementLogsController extends RestController {
                     "`supla_em_log`",
                     "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
                     . "`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
-                    . "`phase3_rae`, `phase3_fre`, `phase3_rre`",
+                    . "`phase3_rae`, `phase3_fre`, `phase3_rre`, `fae_balanced`, `rae_balanced`",
                     $channel,
                     $offset,
                     $limit,
