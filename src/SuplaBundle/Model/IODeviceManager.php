@@ -128,7 +128,9 @@ class IODeviceManager {
                     'Phase 3 Forward active Energy kWh',
                     'Phase 3 Reverse active Energy kWh',
                     'Phase 3 Forward reactive Energy kvarh',
-                    'Phase 3 Reverse reactive Energy kvarh']);
+                    'Phase 3 Reverse reactive Energy kvarh',
+                    'Forward active Energy kWh - Vector balance',
+                    'Reverse active Energy kWh - Vector balance']);
 
                 $sql = "SELECT UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`)) date_ts, ";
                 $sql .= "IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`) date,";
@@ -162,6 +164,8 @@ class IODeviceManager {
                         $row['phase3_rae'],
                         $row['phase3_fre'],
                         $row['phase3_rre'],
+                        $row['fae_balanced'],
+                        $row['rae_balanced'],
                     ]);
                 }
             } elseif ($channel->getType()->getId() == ChannelType::THERMOMETERDS18B20
