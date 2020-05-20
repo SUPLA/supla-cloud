@@ -297,7 +297,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testOpeningValveIfManuallyShutFromWebClient() {
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-SHUT-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
         $client = $this->createAuthenticatedClient($this->user);
         $client->request('PATCH', '/api/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
         $response = $client->getResponse();
@@ -305,8 +305,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testPreventingToOpenValveIfManuallyShutFromApiClient() {
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-SHUT-VALUE', "VALUE:1\n");
-        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]);
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
+        $client = self::createClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
+        );
         $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
@@ -315,8 +318,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCanOpenValveIfNotManuallyShutFromApiClient() {
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-SHUT-VALUE', "VALUE:0\n");
-        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]);
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:0\n");
+        $client = self::createClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
+        );
         $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);

@@ -47,5 +47,5 @@ final class DirectLinkExecutionFailureReason extends Enum {
     const INVALID_SLUG = 'directLinkExecutionFailureReason_invalidSlug'; // i18n
     const INVALID_ACTION_PARAMETERS = 'directLinkExecutionFailureReason_invalidActionParameters'; // i18n
     const INVALID_CHANNEL_STATE = 'directLinkExecutionFailureReason_invalidChannelState'; // i18n
-    const OTHER_FAILURE = 'OTHER_FAILUREOTHER_FAILUREdirectLinkExecutionFailureReason_otherFailure'; // i18n
+    const OTHER_FAILURE = 'directLinkExecutionFailureReason_otherFailure'; // i18n
 }
