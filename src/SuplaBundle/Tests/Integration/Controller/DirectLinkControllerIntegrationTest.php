@@ -394,7 +394,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testExecutingDirectLinkToOpenValve */
     public function testCantExecuteDirectLinkToOpenValveIfManuallyShut(array $directLink) {
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-SHUT-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
         $client = $this->createClient();
         $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/open");

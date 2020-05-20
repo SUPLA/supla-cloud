@@ -31,6 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ScheduleActionExecutionResult FAILURE()
  * @method static ScheduleActionExecutionResult CANCELLED()
  * @method static ScheduleActionExecutionResult EXECUTED_WITHOUT_CONFIRMATION()
+ * @method static ScheduleActionExecutionResult VALVE_CLOSED_MANUALLY()
  */
 final class ScheduleActionExecutionResult extends Enum {
     const UNKNOWN = 0;

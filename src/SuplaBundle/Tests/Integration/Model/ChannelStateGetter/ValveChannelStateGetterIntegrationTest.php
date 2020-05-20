@@ -45,7 +45,7 @@ class ValveChannelStateGetterIntegrationTest extends IntegrationTestCase {
 
     public function testGetValveState() {
         SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-SHUT-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('hi', $state);
         $this->assertEquals(true, $state['hi']);
