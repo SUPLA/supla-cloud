@@ -44,7 +44,7 @@ final class ScheduleActionExecutionResult extends Enum {
     const FAILURE = 7;
     const CANCELLED = 8;
     const EXECUTED_WITHOUT_CONFIRMATION = 9;
-    const VALVE_CLOSED_MANUALLY = 10;
+    const VALVE_CLOSED_MANUALLY_OR_FLOODING = 10;
 
     public function __construct($value) {
         parent::__construct($value ?: 0);
@@ -72,7 +72,7 @@ final class ScheduleActionExecutionResult extends Enum {
             self::FAILURE => 'Failed', // i18n
             self::CANCELLED => 'Cancelled', // i18n
             self::EXECUTED_WITHOUT_CONFIRMATION => 'Executed without confirmation', // i18n
-            self::VALVE_CLOSED_MANUALLY => 'Valve closed manually', // i18n
+            self::VALVE_CLOSED_MANUALLY_OR_FLOODING => 'Valve closed manually', // i18n
         ];
     }
 
