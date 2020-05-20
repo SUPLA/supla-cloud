@@ -40,7 +40,7 @@ class ValveChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $this->device = $this->createDevice($location, [
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGetValveState() {

@@ -45,7 +45,7 @@ class CloseChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGARAGEDOOR],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGARAGEDOOR],
         ]);
-        $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
+        $this->channelActionExecutor = self::$container->get(ChannelActionExecutor::class);
         $this->channelGroup = new IODeviceChannelGroup($user, $location, [
             $this->device->getChannels()[0],
             $this->device->getChannels()[1],

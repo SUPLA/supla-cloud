@@ -63,7 +63,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
         ]);
-        $oauth = $this->container->get(SuplaOAuth2::class);
+        $oauth = self::$container->get(SuplaOAuth2::class);
         $this->peronsalToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
         $this->getEntityManager()->persist($this->peronsalToken);
         $this->getEntityManager()->flush();

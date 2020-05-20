@@ -49,7 +49,7 @@ class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGARAGEDOOR],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
         ]);
-        $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
+        $this->channelActionExecutor = self::$container->get(ChannelActionExecutor::class);
         $this->channelGroupGarageDoor = new IODeviceChannelGroup($user, $location, [
             $this->device->getChannels()[0],
             $this->device->getChannels()[2],
