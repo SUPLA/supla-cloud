@@ -36,6 +36,7 @@ directLinkExecutionFailureReason_expired: Direct link has expired.
 directLinkExecutionFailureReason_forbiddenAction: The requested action is not allowed for this direct link.
 directLinkExecutionFailureReason_httpGetForbidden: The action was prevented from being performed using an HTTP GET method that is not permitted.
 directLinkExecutionFailureReason_invalidActionParameters: Incorrect direct link parameters
+directLinkExecutionFailureReason_invalidChannelState: Invalid channel state.
 directLinkExecutionFailureReason_invalidSlug: Given verification code is not valid.
 directLinkExecutionFailureReason_noAllowedActions: No allowed actions have been chosen.
 directLinkExecutionFailureReason_noSlugOrAction: Invalid request data - code and action required.

@@ -31,6 +31,7 @@ use MyCLabs\Enum\Enum;
  * @method static DirectLinkExecutionFailureReason FORBIDDEN_ACTION()
  * @method static DirectLinkExecutionFailureReason INVALID_SLUG()
  * @method static DirectLinkExecutionFailureReason INVALID_ACTION_PARAMETERS()
+ * @method static DirectLinkExecutionFailureReason INVALID_CHANNEL_STATE()
  * @method static DirectLinkExecutionFailureReason OTHER_FAILURE()
  */
 final class DirectLinkExecutionFailureReason extends Enum {
@@ -45,5 +46,6 @@ final class DirectLinkExecutionFailureReason extends Enum {
     const FORBIDDEN_ACTION = 'directLinkExecutionFailureReason_forbiddenAction'; // i18n
     const INVALID_SLUG = 'directLinkExecutionFailureReason_invalidSlug'; // i18n
     const INVALID_ACTION_PARAMETERS = 'directLinkExecutionFailureReason_invalidActionParameters'; // i18n
+    const INVALID_CHANNEL_STATE = 'directLinkExecutionFailureReason_invalidChannelState'; // i18n
     const OTHER_FAILURE = 'directLinkExecutionFailureReason_otherFailure'; // i18n
 }

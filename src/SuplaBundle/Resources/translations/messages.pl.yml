@@ -63,6 +63,7 @@ Authorized: Zautoryzowano
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Automation: Automatyka
 Back to apps list: Powrót do listy aplikacji
+Bridge: Most
 Brightness: Jasność
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
 CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
@@ -280,6 +281,7 @@ Login: Logowanie
 Mail sensor: Czujnik poczty
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
+Manually closed: Zamknięty manualnie
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
 Meter value: Stan licznika
 Minute: Minuta
@@ -343,6 +345,7 @@ Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną
 Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Pressure sensor: Czujnik ciśnienia
+Prevented to open manually shut valve. Open it manually or through the app.: Zablokowano otwarcie zaworu ze względu na jego manualne zamknięcie. Aby wyłączyć ostrzeżenie otwórz zawór manualnie.
 Previous login: Poprzednie logowanie
 Price per: Cena za
 Private Cloud domain name: Nazwa domeny prywatnej chmury
@@ -439,6 +442,7 @@ The Terms and Conditions have changed – please read them and accept.: Regulami
 The activation link has been sent again. Check the inbox.: Wiadomość z linkiem aktywującym Twoje konto została wysłana ponownie. Sprawdź skrzynkę odbiorczą.
 The client will be automatically logged out when deleted.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
 The device is disabled: Urządzenie jest wyłączone
+The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 The latest execution: Ostatnie wykonanie
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
@@ -451,6 +455,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.'
 'The server has returned an HTTP {statusCode} error.': 'Serwer zwrócił błąd {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it from the application?!': 'Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór z aplikacji?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': Zawór nie zostanie otwarty jeśli został zamknięty manualnie lub radiowo co mogło być związane z zalaniem.
 There are no more channels you can add to this group: 'Nie ma innych kanałów, które można by dodać do tej grupy'
 Thermometer: Termometr
@@ -542,6 +547,7 @@ directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
 directLinkExecutionFailureReason_forbiddenAction: Link nie pozwala na wykonanie tej akcji
 directLinkExecutionFailureReason_httpGetForbidden: Uniemożliwiono wykonanie akcji przy użyciu niedozwolonej metody HTTP GET
 directLinkExecutionFailureReason_invalidActionParameters: Niepoprawne parametry linku bezpośredniego
+directLinkExecutionFailureReason_invalidChannelState: Nie można wykonać akcji ze względu na stan kanału.
 directLinkExecutionFailureReason_invalidSlug: Przesłany kod weryfikacyjny jest niepoprawny.
 directLinkExecutionFailureReason_noAllowedActions: Nie wybrano żadnych dozwolonych akcji
 directLinkExecutionFailureReason_noSlugOrAction: Niepoprawne żądanie - kod linku oraz akcja są wymagane

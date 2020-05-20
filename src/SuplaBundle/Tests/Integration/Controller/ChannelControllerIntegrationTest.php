@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Auth\OAuthScope;
+use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -30,6 +32,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -46,6 +49,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var Location */
     private $location;
+    /** @var \SuplaBundle\Entity\OAuth\AccessToken */
+    private $peronsalToken;
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
@@ -56,7 +61,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
         ]);
+        $oauth = $this->container->get(SuplaOAuth2::class);
+        $this->peronsalToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
+        $this->getEntityManager()->persist($this->peronsalToken);
+        $this->getEntityManager()->flush();
     }
 
     public function testGettingChannelInfo() {
@@ -153,6 +163,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [1, 'turn-off', 'SET-CHAR-VALUE:1,1,1,0'],
             [2, 'open', 'SET-CHAR-VALUE:1,1,2,1'],
             [3, 'open-close', 'SET-CHAR-VALUE:1,1,3,1'],
+            [3, 'open', 'SET-CHAR-VALUE:1,1,3,2'],
+            [3, 'close', 'SET-CHAR-VALUE:1,1,3,3'],
             [4, 'shut', 'SET-CHAR-VALUE:1,1,4,110'],
             [4, 'reveal', 'SET-CHAR-VALUE:1,1,4,10'],
             [4, 'stop', 'SET-CHAR-VALUE:1,1,4,0'],
@@ -164,6 +176,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
             [5, 'set-rgbw-parameters', 'SET-RAND-RGBW-VALUE:1,1,5,58,42',
                 ['color' => 'random', 'color_brightness' => 58, 'brightness' => 42]],
+            [6, 'open', 'SET-CHAR-VALUE:1,1,6,2'],
+            [6, 'close', 'SET-CHAR-VALUE:1,1,6,3'],
         ];
     }
 
@@ -457,5 +471,37 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
         $this->assertCount(1, $trigger->getConfig()['actions']);
         $this->assertArrayHasKey('PRESS', $trigger->getConfig()['actions']);
+    }
+
+    public function testOpeningValveIfManuallyShutFromWebClient() {
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->request('PATCH', '/api/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $response = $client->getResponse();
+        $this->assertStatusCode('2XX', $response);
+    }
+
+    public function testPreventingToOpenValveIfManuallyShutFromApiClient() {
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
+        $client = self::createClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
+        );
+        $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertContains('manually shut', $body['message']);
+    }
+
+    public function testCanOpenValveIfNotManuallyShutFromApiClient() {
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:0\n");
+        $client = self::createClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
+        );
+        $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
     }
 }

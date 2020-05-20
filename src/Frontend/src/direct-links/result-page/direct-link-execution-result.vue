@@ -28,6 +28,13 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="failureReason == 'directLinkExecutionFailureReason_invalidChannelState'">
+                    <i class="pe-7s-science"
+                        style="font-size: 160px"></i>
+                    <div v-if="['VALVEOPENCLOSE'].indexOf(directLink.subject.function.name) !== -1">
+                        <p>{{ $t('Prevented to open manually shut valve. Open it manually or through the app.')}}</p>
+                    </div>
+                </div>
                 <div v-else>
                     <i class="pe-7s-close-circle"
                         style="font-size: 160px"></i>
