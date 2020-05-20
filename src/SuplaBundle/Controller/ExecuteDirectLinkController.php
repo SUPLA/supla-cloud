@@ -39,6 +39,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -138,6 +139,13 @@ class ExecuteDirectLinkController extends Controller {
             $this->entityManager->flush();
             return $result;
         } catch (DirectLinkExecutionFailureException $executionException) {
+        } catch (ConflictHttpException $e) {
+            $executionException = new DirectLinkExecutionFailureException(
+                DirectLinkExecutionFailureReason::INVALID_CHANNEL_STATE(),
+                [],
+                Response::HTTP_CONFLICT,
+                $e
+            );
         } catch (Exception $otherException) {
             $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
             if ($directLink) {
@@ -276,7 +284,11 @@ class ExecuteDirectLinkController extends Controller {
         DirectLinkExecutionFailureReason $failureReason = null
     ): Response {
         if ($responseType == 'html') {
-            if ($failureReason && $failureReason != DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS()) {
+            $exposeLinkReasons = [
+                DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS,
+                DirectLinkExecutionFailureReason::INVALID_CHANNEL_STATE,
+            ];
+            if ($failureReason && !in_array($failureReason->getValue(), $exposeLinkReasons)) {
                 $normalized = [];
             } else {
                 $normalizationContext = ['groups' => ['basic'], 'version' => ApiVersions::V2_4];
@@ -285,7 +297,7 @@ class ExecuteDirectLinkController extends Controller {
                     'caption' => $directLink->getCaption(),
                     'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, $normalizationContext),
                     'subject' => $this->normalizer->normalize($directLink->getSubject(), null, $normalizationContext),
-                    'state' => $data ?: null
+                    'state' => $data ?: null,
                 ];
             }
             return $this->render(

@@ -55,7 +55,7 @@
         },
         mounted() {
             if (this.channel.function.possibleActions && this.channel.function.possibleActions.length) {
-                const noApiActionFunctions = ['VALVEOPENCLOSE', 'VALVEPERCENTAGE'];
+                const noApiActionFunctions = ['VALVEPERCENTAGE'];
                 if (!noApiActionFunctions.includes(this.channel.function.name)) {
                     this.availableTabs.push({
                         id: 'actions',

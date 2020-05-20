@@ -311,7 +311,7 @@
             possibleActions() {
                 if (this.directLink && this.directLink.subject) {
                     // OPEN and CLOSE actions are not supported for valves via API
-                    let disableOpenClose = ['VALVEOPENCLOSE', 'VALVEPERCENTAGE']
+                    let disableOpenClose = ['VALVEPERCENTAGE']
                         .includes(this.directLink.subject.function.name);
                     if (this.directLink.subject.subjectType === 'channelGroup'
                         && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) !== -1) {
@@ -328,7 +328,7 @@
             },
             displayOpeningSensorWarning() {
                 const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
-                return isGate && this.currentlyAllowedActions.includes('OPEN') || this.currentlyAllowedActions.includes('CLOSE');
+                return isGate && (this.currentlyAllowedActions.includes('OPEN') || this.currentlyAllowedActions.includes('CLOSE'));
             },
             fullUrl() {
                 return this.item && this.item.url || '';

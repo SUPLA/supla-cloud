@@ -50,6 +50,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],
@@ -373,5 +374,31 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('SET-RGBW-VALUE:1,1,4,9437015,67,100', $commands);
+    }
+
+    public function testExecutingDirectLinkToOpenValve() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[4]->getId(),
+            'allowedActions' => ['open', 'close'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/open");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-CHAR-VALUE:1,1,5,2', $commands);
+        return $directLink;
+    }
+
+    /** @depends testExecutingDirectLinkToOpenValve */
+    public function testCantExecuteDirectLinkToOpenValveIfManuallyShut(array $directLink) {
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-SHUT-VALUE', "VALUE:1\n");
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/open");
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
     }
 }

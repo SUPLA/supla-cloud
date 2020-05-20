@@ -34,6 +34,13 @@
                 {{ $t('Cancel') }}
             </button>
         </channel-action-chooser>
+        <modal-confirm v-if="valveOpenConfirm"
+            class="modal-warning"
+            @confirm="executeAction(valveOpenConfirm, true)"
+            @cancel="valveOpenConfirm = false"
+            :header="$t('Are you sure?')">
+            {{ $t('The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it from the application?!') }}
+        </modal-confirm>
     </div>
 </template>
 
@@ -50,16 +57,24 @@
         data() {
             return {
                 executing: false,
-                actionToExecute: {}
+                actionToExecute: {},
+                valveOpenConfirm: false,
             };
         },
         methods: {
-            executeAction(action) {
+            executeAction(action, confirmed = false) {
                 if (this.requiresParams(action) && this.actionToExecute.id != action.id) {
                     this.actionToExecute = action;
                     return;
                 }
-                // this.actionToExecute = action;
+                if (!confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
+                    if (this.subject.state && this.subject.state.manuallyClosed) {
+                        this.valveOpenConfirm = action;
+                        return;
+                    }
+                } else {
+                    this.valveOpenConfirm = false;
+                }
                 this.$set(action, 'executing', true);
                 this.executing = true;
                 const toSend = Vue.util.extend({}, this.actionToExecute.param);
@@ -81,9 +96,6 @@
                 return id == 50 || id == 80;
             },
             possibleActionFilter(possibleAction) {
-                if (['VALVEOPENCLOSE', 'VALVEPERCENTAGE'].includes(this.subject.function.name)) {
-                    return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
-                }
                 if (this.subject.subjectType === 'channelGroup'
                     && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.subject.function.name) !== -1) {
                     return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
