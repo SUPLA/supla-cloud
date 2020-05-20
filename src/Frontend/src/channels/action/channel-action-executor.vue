@@ -81,7 +81,11 @@
                 return id == 50 || id == 80;
             },
             possibleActionFilter(possibleAction) {
-                if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR', 'VALVEOPENCLOSE'].includes(this.subject.function.name)) {
+                if (['VALVEOPENCLOSE', 'VALVEPERCENTAGE'].includes(this.subject.function.name)) {
+                    return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
+                }
+                if (this.subject.subjectType === 'channelGroup'
+                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.subject.function.name) !== -1) {
                     return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
                 }
                 return true;
