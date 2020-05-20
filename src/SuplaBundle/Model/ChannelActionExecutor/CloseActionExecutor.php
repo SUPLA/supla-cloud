@@ -16,6 +16,7 @@ class CloseActionExecutor extends SetCharValueActionExecutor {
         return [
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
             ChannelFunction::CONTROLLINGTHEGATE(),
+            ChannelFunction::VALVEOPENCLOSE(),
         ];
     }
 

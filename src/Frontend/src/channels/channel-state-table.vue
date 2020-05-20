@@ -63,6 +63,10 @@
                 </span>
             </dt>
         </dl>
+        <span class="label label-warning"
+            v-if="currentState.manuallyClosed === true">
+            {{ $t('Manually closed') }}
+        </span>
         <span class="label label-danger"
             v-if="currentState.connected === false">
             {{ $t('Disconnected') }}

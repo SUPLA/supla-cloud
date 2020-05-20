@@ -135,7 +135,7 @@ abstract class SuplaServer {
         return false;
     }
 
-    private function getValue($type, IODeviceChannel $channel) {
+    public function getValue($type, IODeviceChannel $channel) {
         $result = $this->getRawValue($type, $channel);
         if ($result !== false) {
             list($val) = sscanf($result, "VALUE:%f\n");
