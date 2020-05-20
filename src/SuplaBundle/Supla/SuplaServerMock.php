@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
+use Assert\Assertion;
 use Faker\Factory;
 use Faker\Generator;
 use Psr\Log\LoggerInterface;
@@ -57,9 +58,12 @@ class SuplaServerMock extends SuplaServer {
     }
 
     private function tryToHandleCommand($cmd) {
-        foreach (self::$mockedResponses as $command => $response) {
+        foreach (self::$mockedResponses as $command => &$responses) {
             if (preg_match("#$command#i", $cmd)) {
-                unset(self::$mockedResponses[$command]);
+                $response = array_shift($responses);
+                if (!$responses) {
+                    unset(self::$mockedResponses[$command]);
+                }
                 return $response;
             }
         }
@@ -152,7 +156,11 @@ class SuplaServerMock extends SuplaServer {
         return true;
     }
 
-    public static function mockResponse(string $command, string $response) {
+    public static function mockResponse(string $command, $response) {
+        Assertion::keyNotExists(self::$mockedResponses, $command, $command . ' is already mocked.');
+        if (!is_array($response)) {
+            $response = [$response];
+        }
         self::$mockedResponses[$command] = $response;
     }
 }
