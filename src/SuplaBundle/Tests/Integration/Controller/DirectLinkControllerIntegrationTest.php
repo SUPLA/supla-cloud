@@ -377,6 +377,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingDirectLinkToOpenValve() {
+        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:0\n");
         $response = $this->createDirectLink([
             'subjectId' => $this->device->getChannels()[4]->getId(),
             'allowedActions' => ['open', 'close'],
