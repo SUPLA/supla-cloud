@@ -120,9 +120,9 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
                 $this->updater->updateChannelParams($channel, $newChannel);
                 $this->assertEquals(1, $channel->getParam1());
 
-                $newChannel->setParam1(1000001);
+                $newChannel->setParam1(100000001);
                 $this->updater->updateChannelParams($channel, $newChannel);
-                $this->assertEquals(1000000, $channel->getParam1());
+                $this->assertEquals(100000000, $channel->getParam1());
 
                 $newChannel->setParam1(0);
                 $this->updater->updateChannelParams($channel, $newChannel);
