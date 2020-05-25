@@ -49,8 +49,8 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
         return [
             ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
             ChannelFunction::CONTROLLINGTHEDOORLOCK(),
-            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
-            ChannelFunction::CONTROLLINGTHEGATE(),
+//            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+//            ChannelFunction::CONTROLLINGTHEGATE(),
             ChannelFunction::VALVEOPENCLOSE(),
         ];
     }

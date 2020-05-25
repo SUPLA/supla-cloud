@@ -425,7 +425,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-CHAR-VALUE:1,1,5,2', $commands);
+        $this->assertContains('SET-CHAR-VALUE:1,1,5,1', $commands);
         return $directLink;
     }
 

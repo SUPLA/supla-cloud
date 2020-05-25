@@ -163,8 +163,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [1, 'turn-off', 'SET-CHAR-VALUE:1,1,1,0'],
             [2, 'open', 'SET-CHAR-VALUE:1,1,2,1'],
             [3, 'open-close', 'SET-CHAR-VALUE:1,1,3,1'],
-            [3, 'open', 'SET-CHAR-VALUE:1,1,3,2'],
-            [3, 'close', 'SET-CHAR-VALUE:1,1,3,3'],
+//            [3, 'open', 'SET-CHAR-VALUE:1,1,3,2'],
+//            [3, 'close', 'SET-CHAR-VALUE:1,1,3,3'],
             [4, 'shut', 'SET-CHAR-VALUE:1,1,4,110'],
             [4, 'reveal', 'SET-CHAR-VALUE:1,1,4,10'],
             [4, 'stop', 'SET-CHAR-VALUE:1,1,4,0'],
@@ -176,8 +176,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
             [5, 'set-rgbw-parameters', 'SET-RAND-RGBW-VALUE:1,1,5,58,42',
                 ['color' => 'random', 'color_brightness' => 58, 'brightness' => 42]],
-            [6, 'open', 'SET-CHAR-VALUE:1,1,6,2'],
-            [6, 'close', 'SET-CHAR-VALUE:1,1,6,3'],
+            [6, 'open', 'SET-CHAR-VALUE:1,1,6,1'],
+            [6, 'close', 'SET-CHAR-VALUE:1,1,6,0'],
         ];
     }
 

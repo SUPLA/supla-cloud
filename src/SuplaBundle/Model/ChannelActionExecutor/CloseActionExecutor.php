@@ -25,8 +25,8 @@ class CloseActionExecutor extends SetCharValueActionExecutor {
 
     public function getSupportedFunctions(): array {
         return [
-            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
-            ChannelFunction::CONTROLLINGTHEGATE(),
+//            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+//            ChannelFunction::CONTROLLINGTHEGATE(),
             ChannelFunction::VALVEOPENCLOSE(),
         ];
     }
