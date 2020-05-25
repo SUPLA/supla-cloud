@@ -9,7 +9,18 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 
 class CloseActionExecutor extends SetCharValueActionExecutor {
     protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
-        return 3;
+        if ($this->isGateSubject($subject)) {
+            return 3;
+        } else {
+            return 0;
+        }
+    }
+
+    private function isGateSubject(HasFunction $subject): bool {
+        return in_array(
+            $subject->getFunction()->getId(),
+            [ChannelFunction::CONTROLLINGTHEGATE, ChannelFunction::CONTROLLINGTHEGARAGEDOOR]
+        );
     }
 
     public function getSupportedFunctions(): array {
