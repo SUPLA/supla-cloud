@@ -170,8 +170,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
             [5, 'set-rgbw-parameters', 'SET-RAND-RGBW-VALUE:1,1,5,58,42',
                 ['color' => 'random', 'color_brightness' => 58, 'brightness' => 42]],
-            [6, 'open', 'SET-CHAR-VALUE:1,1,6,2'],
-            [6, 'close', 'SET-CHAR-VALUE:1,1,6,3'],
+            [6, 'open', 'SET-CHAR-VALUE:1,1,6,1'],
+            [6, 'close', 'SET-CHAR-VALUE:1,1,6,0'],
         ];
     }
 
