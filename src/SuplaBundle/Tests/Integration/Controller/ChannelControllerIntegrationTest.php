@@ -296,8 +296,16 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNull($this->getEntityManager()->find(DirectLink::class, $directLink->getId()));
     }
 
+    public function testOpeningValveIfFloodingFromWebClient() {
+        SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,1\n");
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->request('PATCH', '/api/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $response = $client->getResponse();
+        $this->assertStatusCode('2XX', $response);
+    }
+
     public function testOpeningValveIfManuallyShutFromWebClient() {
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,2\n");
         $client = $this->createAuthenticatedClient($this->user);
         $client->request('PATCH', '/api/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
         $response = $client->getResponse();
@@ -305,7 +313,20 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testPreventingToOpenValveIfManuallyShutFromApiClient() {
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,2\n");
+        $client = self::createClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
+        );
+        $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertContains('manually shut', $body['message']);
+    }
+
+    public function testPreventingToOpenValveIfFloodingFromApiClient() {
+        SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,1\n");
         $client = self::createClient(
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
@@ -318,7 +339,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCanOpenValveIfNotManuallyShutFromApiClient() {
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:0\n");
+        SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,0\n");
         $client = self::createClient(
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]

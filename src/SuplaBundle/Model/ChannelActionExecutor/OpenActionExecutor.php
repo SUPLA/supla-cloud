@@ -60,11 +60,15 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
             "Cannot execute the requested action OPEN on channel group."
         );
         if ($subject->getFunction()->getId() == ChannelFunction::VALVEOPENCLOSE) {
-            $manuallyClosed = $this->valveManuallyShutChannelStateGetter->getState($subject)['manuallyClosed'];
-            if ($manuallyClosed) {
+            $state = $this->valveManuallyShutChannelStateGetter->getState($subject);
+            $manuallyClosed = $state['manuallyClosed'] ?? true;
+            $flooding = $state['flooding'] ?? true;
+            if ($manuallyClosed || $flooding) {
                 $userToken = $this->getCurrentUserToken();
                 if (!$userToken instanceof WebappToken) {
-                    throw new ConflictHttpException('Prevented to open manually shut valve. Open it manually or through the app.');
+                    throw new ConflictHttpException(
+                        'Prevented to open manually shut or flooding valve. Open it manually or through the app.'
+                    );
                 }
             }
         }
