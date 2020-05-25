@@ -135,7 +135,7 @@ abstract class SuplaServer {
         return false;
     }
 
-    public function getValue($type, IODeviceChannel $channel) {
+    private function getValue($type, IODeviceChannel $channel) {
         $result = $this->getRawValue($type, $channel);
         if ($result !== false) {
             list($val) = sscanf($result, "VALUE:%f\n");
@@ -178,6 +178,14 @@ abstract class SuplaServer {
             }
         }
         return false;
+    }
+
+    public function getValveValue(IODeviceChannel $channel): array {
+        $result = $this->getRawValue('VALVE', $channel);
+        if ($result !== false) {
+            return sscanf($result, "VALUE:%d,%d\n");
+        }
+        return [null, null];
     }
 
     public function getImpulseCounterValue(IODeviceChannel $channel): array {

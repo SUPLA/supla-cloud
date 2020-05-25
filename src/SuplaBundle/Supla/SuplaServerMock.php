@@ -71,8 +71,10 @@ class SuplaServerMock extends SuplaServer {
             return "CONNECTED:$match[3]\n";
         } elseif (preg_match('#^SET-(CG-)?(CHAR|RGBW|RAND-RGBW)-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
-        } elseif (preg_match('#^GET-(CHAR|VALVE-MANUALLY-CLOSED)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
+        } elseif (preg_match('#^GET-(CHAR)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1);
+        } elseif (preg_match('#^GET-(VALVE)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
+            return 'VALUE:' . rand(0, 1) . ',' . rand(0, 3);
         } elseif (preg_match('#^GET-RGBW-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             $values = [rand(0, 0xFFFFFF), rand(0, 100), rand(0, 100)];
             if (rand(0, 1)) {
