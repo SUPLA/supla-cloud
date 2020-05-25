@@ -96,8 +96,7 @@
                 return id == 50 || id == 80;
             },
             possibleActionFilter(possibleAction) {
-                if (this.subject.subjectType === 'channelGroup'
-                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.subject.function.name) !== -1) {
+                if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.subject.function.name) !== -1) {
                     return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
                 }
                 return true;
