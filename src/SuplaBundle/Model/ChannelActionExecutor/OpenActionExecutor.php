@@ -7,17 +7,17 @@ use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelStateGetter\ValveManuallyClosedChannelStateGetter;
+use SuplaBundle\Model\ChannelStateGetter\ValveChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class OpenActionExecutor extends SetCharValueActionExecutor {
     use CurrentUserAware;
 
-    /** @var ValveManuallyClosedChannelStateGetter */
+    /** @var ValveChannelStateGetter */
     private $valveManuallyShutChannelStateGetter;
 
-    public function __construct(ValveManuallyClosedChannelStateGetter $valveManuallyShutChannelStateGetter) {
+    public function __construct(ValveChannelStateGetter $valveManuallyShutChannelStateGetter) {
         $this->valveManuallyShutChannelStateGetter = $valveManuallyShutChannelStateGetter;
     }
 

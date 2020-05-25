@@ -39,17 +39,27 @@ class ValveChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
+            [ChannelType::VALVEPERCENTAGE, ChannelFunction::VALVEPERCENTAGE],
         ]);
         $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
     }
 
-    public function testGetValveState() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
-        SuplaServerMock::mockResponse('GET-VALVE-MANUALLY-CLOSED-VALUE', "VALUE:1\n");
-        $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
-        $this->assertArrayHasKey('hi', $state);
-        $this->assertEquals(true, $state['hi']);
-        $this->assertArrayHasKey('manuallyClosed', $state);
-        $this->assertEquals(true, $state['manuallyClosed']);
+    /** @dataProvider valveStates */
+    public function testGetValveState($channelIndex, $serverResponse, $expectedState) {
+        SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:$serverResponse\n");
+        $state = $this->channelStateGetter->getState($this->device->getChannels()[$channelIndex]);
+        $expectedState['connected'] = true;
+        $this->assertEquals($expectedState, $state);
+    }
+
+    public function valveStates() {
+        return [
+            [0, '1,2', ['closed' => true, 'manuallyClosed' => true, 'flooding' => false]],
+            [0, '1,3', ['closed' => true, 'manuallyClosed' => true, 'flooding' => true]],
+            [0, '0,0', ['closed' => false, 'manuallyClosed' => false, 'flooding' => false]],
+            [1, '1,1', ['closed' => 1, 'manuallyClosed' => false, 'flooding' => true]],
+            [1, '50,1', ['closed' => 50, 'manuallyClosed' => false, 'flooding' => true]],
+            [1, 'bleh', []],
+        ];
     }
 }
