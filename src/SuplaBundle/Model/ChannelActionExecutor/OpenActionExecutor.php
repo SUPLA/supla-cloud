@@ -22,7 +22,7 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
     }
 
     protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
-        if ($this->isOpenCloseSubject($subject)) {
+        if ($this->isGateSubject($subject)) {
             return 2;
         } else {
             return 1;
@@ -41,10 +41,6 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
 
     public function getSupportedAction(): ChannelFunctionAction {
         return ChannelFunctionAction::OPEN();
-    }
-
-    private function isOpenCloseSubject(HasFunction $subject): bool {
-        return $this->isGateSubject($subject) || in_array($subject->getFunction()->getId(), [ChannelFunction::VALVEOPENCLOSE]);
     }
 
     private function isGateSubject(HasFunction $subject): bool {
