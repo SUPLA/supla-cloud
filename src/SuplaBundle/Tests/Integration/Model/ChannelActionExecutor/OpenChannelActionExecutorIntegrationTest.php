@@ -48,6 +48,7 @@ class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGARAGEDOOR],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+            [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
         ]);
         $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
         $this->channelGroupGarageDoor = new IODeviceChannelGroup($user, $location, [
@@ -75,6 +76,14 @@ class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,2,1', $setCommand);
+    }
+
+    public function testOpeningValve() {
+        SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,0\n");
+        $this->channelActionExecutor->executeAction($this->device->getChannels()[4], ChannelFunctionAction::OPEN());
+        $this->assertCount(2, SuplaServerMock::$executedCommands);
+        $setCommand = end(SuplaServerMock::$executedCommands);
+        $this->assertEquals('SET-CHAR-VALUE:1,1,5,1', $setCommand);
     }
 
     public function testCannotOpenGarageDoorChannelGroup() {

@@ -44,6 +44,7 @@ class CloseChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGARAGEDOOR],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGARAGEDOOR],
+            [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
         ]);
         $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
         $this->channelGroup = new IODeviceChannelGroup($user, $location, [
@@ -59,6 +60,13 @@ class CloseChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,1,3', $setCommand);
+    }
+
+    public function testClosingValve() {
+        $this->channelActionExecutor->executeAction($this->device->getChannels()[2], ChannelFunctionAction::CLOSE());
+        $this->assertCount(1, SuplaServerMock::$executedCommands);
+        $setCommand = end(SuplaServerMock::$executedCommands);
+        $this->assertEquals('SET-CHAR-VALUE:1,1,3,0', $setCommand);
     }
 
     public function testCannotCloseGarageDoorChannelGroup() {
