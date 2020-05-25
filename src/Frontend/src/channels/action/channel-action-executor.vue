@@ -68,7 +68,7 @@
                     return;
                 }
                 if (!confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
-                    if (this.subject.state && this.subject.state.manuallyClosed) {
+                    if (this.subject.state && (this.subject.state.manuallyClosed || this.subject.state.flooding)) {
                         this.valveOpenConfirm = action;
                         return;
                     }

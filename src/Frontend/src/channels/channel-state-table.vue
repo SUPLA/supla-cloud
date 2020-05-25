@@ -37,6 +37,10 @@
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{currentState.shut}}%</dt>
         </dl>
+        <dl v-if="currentState.closed !== undefined && channel.function.name === 'VALVEPERCENTAGE'">
+            <dd>{{ $t('Percentage of closing') }}</dd>
+            <dt>{{currentState.closed}}%</dt>
+        </dl>
         <dl v-if="currentState.calculatedValue !== undefined">
             <dd>{{ $t('Meter value') }}</dd>
             <dt>{{currentState.calculatedValue|roundToDecimals}} {{currentState.unit || ''}}</dt>
@@ -63,14 +67,20 @@
                 </span>
             </dt>
         </dl>
-        <span class="label label-warning"
-            v-if="currentState.manuallyClosed === true">
-            {{ $t('Manually closed') }}
-        </span>
-        <span class="label label-danger"
-            v-if="currentState.connected === false">
-            {{ $t('Disconnected') }}
-        </span>
+        <div class="channel-state-labels">
+            <span class="label label-danger"
+                v-if="currentState.flooding === true">
+                {{ $t('Zalanie') }}
+            </span>
+            <span class="label label-warning"
+                v-if="currentState.manuallyClosed === true">
+                {{ $t('Manually closed') }}
+            </span>
+            <span class="label label-danger"
+                v-if="currentState.connected === false">
+                {{ $t('Disconnected') }}
+            </span>
+        </div>
     </div>
 </template>
 
@@ -135,5 +145,11 @@
         height: 10px;
         width: 40px;
         border-radius: 5px;
+    }
+
+    .channel-state-labels .label {
+        display: inline-block;
+        clear: both;
+        margin-top: 5px;
     }
 </style>

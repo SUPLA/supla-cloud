@@ -195,7 +195,8 @@
                     return false;
                 }
                 if (subject.subjectType === 'channelGroup'
-                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
+                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR', 'VALVEOPENCLOSE', 'VALVEPERCENTAGE']
+                        .indexOf(subject.function.name) !== -1) {
                     return false;
                 }
                 return true;

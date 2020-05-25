@@ -15,23 +15,13 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Model\ChannelStateGetter;
+namespace SuplaBundle\Enums;
 
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Supla\SuplaServerAware;
-
-class ValveManuallyClosedChannelStateGetter implements SingleChannelStateGetter {
-    use SuplaServerAware;
-
-    public function getState(IODeviceChannel $channel): array {
-        $manuallyClosed = $this->suplaServer->getValue('VALVE-MANUALLY-CLOSED', $channel);
-        return ['manuallyClosed' => $manuallyClosed == 1];
-    }
-
-    public function supportedFunctions(): array {
-        return [
-            ChannelFunction::VALVEOPENCLOSE(),
-        ];
-    }
+/**
+ * @method static ValveStateBits FLOODING()
+ * @method static ValveStateBits MANUALLY_CLOSED()
+ */
+final class ValveStateBits extends ChannelFunctionBits {
+    const FLOODING = 1 << 0;
+    const MANUALLY_CLOSED = 1 << 1;
 }

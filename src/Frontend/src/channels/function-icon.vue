@@ -45,7 +45,8 @@
             },
             stateSuffix() {
                 if (this.model.state) {
-                    if (this.model.state.hi || this.model.state.shut > 99) {
+                    if (this.model.state.hi || this.model.state.shut > 99
+                        || (this.model.state.closed === true || this.model.state.closed > 99)) {
                         return '-closed';
                     }
                     if (this.model.state.partial_hi) {

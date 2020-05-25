@@ -219,7 +219,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::CLOSE(),
             ],
             self::VALVEPERCENTAGE => [
-                ChannelFunctionAction::OPEN_PARTIALLY(),
+//                ChannelFunctionAction::OPEN_PARTIALLY(),
             ],
             self::SCENE => [ChannelFunctionAction::EXECUTE()],
         ];

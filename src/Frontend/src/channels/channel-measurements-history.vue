@@ -358,8 +358,8 @@
                         seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
                         title: {text: this.$t("Temperature")},
                         labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
-                        min: Math.min.apply(this, temperatures) - .2,
-                        max: Math.max.apply(this, temperatures) + .2,
+                        min: Math.floor(Math.min.apply(this, temperatures)),
+                        max: Math.ceil(Math.max.apply(this, temperatures)),
                     }
                 ];
                 if (series.length > 1) {
@@ -369,8 +369,8 @@
                         opposite: true,
                         title: {text: this.$t('Humidity')},
                         labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
-                        min: Math.max(0, Math.min.apply(this, humidities) - 1),
-                        max: Math.min(100, Math.max.apply(this, humidities) + 1),
+                        min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
+                        max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
                     });
                 }
                 this.bigChart.updateOptions({
