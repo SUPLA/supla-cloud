@@ -322,7 +322,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
-        $this->assertContains('manually shut', $body['message']);
+        $this->assertContains('closed manually', $body['message']);
     }
 
     public function testPreventingToOpenValveIfFloodingFromApiClient() {
@@ -335,7 +335,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
-        $this->assertContains('manually shut', $body['message']);
+        $this->assertContains('closed manually', $body['message']);
     }
 
     public function testCanOpenValveIfNotManuallyShutFromApiClient() {
