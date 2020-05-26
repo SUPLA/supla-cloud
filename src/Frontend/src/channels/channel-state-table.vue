@@ -70,7 +70,7 @@
         <div class="channel-state-labels">
             <span class="label label-danger"
                 v-if="currentState.flooding === true">
-                {{ $t('Zalanie') }}
+                {{ $t('Flooding') }}
             </span>
             <span class="label label-warning"
                 v-if="currentState.manuallyClosed === true">

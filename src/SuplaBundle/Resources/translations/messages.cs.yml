@@ -451,6 +451,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.'
 'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Ventil byl uzavřen dálkovým ovladačem (klíčenkou nebo záplavovým čidlem). Než ventil znovu otevřete, ujistěte se, že nebyl uzavřen kvůli úniku vody. Pokud je záplavové čidlo ve vodě,  NEvyšle ventilu  opakovaně signál pro uzavření. Chcete-li varování vypnout, otevřte ventil pomocí ovládacího tlačítka na ventilu. Opravdu chcete ventil otevřít?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se neotevře, dokud bude manuálně nebo vzdáleně uzavřený. Může to souviset s jeho zalitím.'
 There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
 Thermometer: Teploměr
@@ -622,10 +623,10 @@ execute: proveď
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Bridge: ~
+Flooding: ~
 Manually closed: ~
 Prevented to open manually shut valve. Open it manually or through the app.: ~
 The gate sensor must function properly in order to execute the Open and Close actions.: ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it from the application?!': ~
 Wait a while before the next request. You can check your limits in the account settings.: ~
 You have exceeded your API Rate Limit: ~
 directLinkExecutionFailureReason_invalidChannelState: ~
