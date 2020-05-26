@@ -39,7 +39,7 @@
             @confirm="executeAction(valveOpenConfirm, true)"
             @cancel="valveOpenConfirm = false"
             :header="$t('Are you sure?')">
-            {{ $t('The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it from the application?!') }}
+            {{ $t('The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!') }}
         </modal-confirm>
     </div>
 </template>
