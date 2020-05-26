@@ -32,7 +32,7 @@
                     <i class="pe-7s-science"
                         style="font-size: 160px"></i>
                     <div v-if="['VALVEOPENCLOSE'].indexOf(directLink.subject.function.name) !== -1">
-                        <p>{{ $t('Prevented to open manually shut valve. Open it manually or through the app.')}}</p>
+                        <p>{{ $t('The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.')}}</p>
                     </div>
                 </div>
                 <div v-else>

@@ -191,6 +191,7 @@ Expired: Prošlý
 Failed: Neúspěšný
 Failed (zombie): Neúspěšný (zombie)
 File is too large: Plik jest za duży
+Flooding: Záplavení
 For devices: Pro zařízení
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.'
 Forgot your password?: Zapoměl jsi heslo?
@@ -280,6 +281,7 @@ Login: Přihlášení
 Mail sensor: Poštovní snímač
 Maintenance mode active. You cannot modify any data now.: Provoz v servisním režimu. Není možné upravovat žádné údaje.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.'
+Manually closed: Uzavřeno ručně
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
 Meter value: Stav měřiče
 Minute: Minuta
@@ -451,6 +453,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.'
 'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': Ventil není možné otevřít pomocí přímého odkazu nebo API pokud byl uzavřen dálkovým ovladačem nebo záplavovým čidlem. Pro obnovení funkce ovládání otevřete ventil pomocí ovládacího tlačítka na ventilu.
 'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Ventil byl uzavřen dálkovým ovladačem (klíčenkou nebo záplavovým čidlem). Než ventil znovu otevřete, ujistěte se, že nebyl uzavřen kvůli úniku vody. Pokud je záplavové čidlo ve vodě,  NEvyšle ventilu  opakovaně signál pro uzavření. Chcete-li varování vypnout, otevřte ventil pomocí ovládacího tlačítka na ventilu. Opravdu chcete ventil otevřít?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se neotevře, dokud bude manuálně nebo vzdáleně uzavřený. Může to souviset s jeho zalitím.'
 There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
@@ -623,9 +626,6 @@ execute: proveď
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Bridge: ~
-Flooding: ~
-Manually closed: ~
-Prevented to open manually shut valve. Open it manually or through the app.: ~
 The gate sensor must function properly in order to execute the Open and Close actions.: ~
 Wait a while before the next request. You can check your limits in the account settings.: ~
 You have exceeded your API Rate Limit: ~

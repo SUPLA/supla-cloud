@@ -624,8 +624,8 @@ execute: esegui
 Bridge: ~
 Flooding: ~
 Manually closed: ~
-Prevented to open manually shut valve. Open it manually or through the app.: ~
 The gate sensor must function properly in order to execute the Open and Close actions.: ~
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
 'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
 Wait a while before the next request. You can check your limits in the account settings.: ~
 You have exceeded your API Rate Limit: ~
