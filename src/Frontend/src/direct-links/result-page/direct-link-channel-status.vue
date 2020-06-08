@@ -16,7 +16,8 @@
             v-else>
             <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state}"
                 width="100"></function-icon>
-            <channel-state-table :state="directLink.state"></channel-state-table>
+            <channel-state-table :state="directLink.state"
+                :channel="directLink.subject"></channel-state-table>
         </div>
         <button type="button"
             :disabled="refreshingState"
