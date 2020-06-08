@@ -8,7 +8,8 @@
                 <div class="form-group">
                     <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state[channelId]}"
                         width="100"></function-icon>
-                    <channel-state-table :state="directLink.state[channelId]"></channel-state-table>
+                    <channel-state-table :state="directLink.state[channelId]"
+                        :channel="directLink.subject"></channel-state-table>
                 </div>
             </div>
         </div>
