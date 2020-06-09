@@ -75,9 +75,7 @@
                 if (this.directLink.subject.subjectType === 'channelGroup') {
                     return this.directLink.state;
                 } else {
-                    const state = {};
-                    state[this.directLink.subject.id] = this.directLink.state;
-                    return state;
+                    return {[this.directLink.subject.id]: this.directLink.state};
                 }
             }
         }
