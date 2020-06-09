@@ -15,7 +15,8 @@
         </div>
         <div class="form-group"
             v-else>
-            <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state}"
+            <function-icon :model="{...directLink.subject, state: directLink.state}"
+                :user-icon="directLink.userIcon"
                 width="100"></function-icon>
             <channel-state-table :state="directLink.state"
                 :channel="directLink.subject"></channel-state-table>

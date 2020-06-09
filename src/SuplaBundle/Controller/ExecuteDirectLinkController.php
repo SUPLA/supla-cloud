@@ -291,13 +291,14 @@ class ExecuteDirectLinkController extends Controller {
             if ($failureReason && !in_array($failureReason->getValue(), $exposeLinkReasons)) {
                 $normalized = [];
             } else {
-                $normalizationContext = ['groups' => ['basic'], 'version' => ApiVersions::V2_4];
+                $normalizationContext = ['groups' => ['basic', 'images'], 'version' => ApiVersions::V2_4];
                 $normalized = [
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
                     'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, $normalizationContext),
                     'subject' => $this->normalizer->normalize($directLink->getSubject(), null, $normalizationContext),
                     'state' => $data ?: null,
+                    'userIcon' => $this->normalizer->normalize($directLink->getSubject()->getUserIcon(), null, $normalizationContext),
                 ];
             }
             return $this->render(
