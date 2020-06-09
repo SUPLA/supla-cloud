@@ -37,6 +37,7 @@ All: Wszystko
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tabletu
 Allowed actions: Dozwolone akcje
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Możesz również dodać parametr GET by określić format odpowiedzi.
 And more: I znacznie więcej
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Wszystkie aplikacje lub urządzenia, które korzystają z tokenu {tokenName} przestaną działać.'
 Application name cannot be blank.: Nazwa aplikacji nie może być pusta

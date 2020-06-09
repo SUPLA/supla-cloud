@@ -93,6 +93,8 @@
                 <p>{{ $t('The link result is presented as a website respone, because you (or your browser) asked for HTML output.') }}</p>
                 <p>{{ $t('If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.') }}</p>
                 <pre><code>Accept: application/json</code></pre>
+                <p>{{ $t('Alternatively, you can add a GET parameter to specify response format.') }}</p>
+                <pre><code>{{currentUrl}}?format=json</code></pre>
             </div>
         </div>
     </div>

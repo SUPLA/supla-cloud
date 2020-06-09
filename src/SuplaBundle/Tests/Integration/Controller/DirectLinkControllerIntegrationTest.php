@@ -220,6 +220,19 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingDirectLink */
+    public function testReadingDirectLinkAsJsonThroughGetParam(array $directLink) {
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=json");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('on', $content);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+    }
+
+    /** @depends testCreatingDirectLink */
     public function testPreferJson(array $directLink) {
         $client = $this->createClient();
         $client->enableProfiler();

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
@@ -225,7 +226,7 @@ class ExecuteDirectLinkController extends Controller {
 
     public static function getSlugAndAction(Request $request): array {
         $slug = $request->get('slug');
-        $action = $request->get('action');
+        $action = $request->get('action', 'read');
         if (!$slug && $request->isMethod(Request::METHOD_PATCH)) {
             $requestPayload = $request->request->all();
             if (!is_array($requestPayload) || !isset($requestPayload['code']) || !isset($requestPayload['action'])) {
@@ -261,6 +262,10 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     private function determineResponseType(Request $request): string {
+        if ($format = $request->get('format')) {
+            Assertion::inArray($format, ['json', 'html', 'plain'], 'Invalid response format requested.');
+            return $format;
+        }
         if ($request->isMethod(Request::METHOD_PATCH) || in_array('application/json', $request->getAcceptableContentTypes())) {
             return 'json';
         } elseif (in_array('text/html', $request->getAcceptableContentTypes())) {
