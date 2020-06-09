@@ -7,7 +7,7 @@
             {% block vue %}{% endblock %}
         </div>
         {# the :username binding is required, because the page-footer component is created before $user prototype variable, so it cannot use it directly #}
-        <page-footer :username="$user.username"></page-footer>
+        <page-footer :username="{{ hide_user_context is defined ? 'false' : 'true' }} && $user.username"></page-footer>
     </div>
     <div id="page-preloader">
         <img src="/assets/img/preloaders/loader_1c_200.gif">

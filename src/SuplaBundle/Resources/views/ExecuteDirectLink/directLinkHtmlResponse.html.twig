@@ -1,6 +1,7 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
 {% set page_title = directLink.caption ?? 'Error' %}
+{% set hide_user_context = true %}
 
 {% block beforeVue %}
     <script>
