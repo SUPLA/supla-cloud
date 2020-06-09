@@ -292,14 +292,23 @@ class ExecuteDirectLinkController extends Controller {
                 $normalized = [];
             } else {
                 $normalizationContext = ['groups' => ['basic', 'images'], 'version' => ApiVersions::V2_4];
+                $subject = $directLink->getSubject();
                 $normalized = [
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
                     'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, $normalizationContext),
-                    'subject' => $this->normalizer->normalize($directLink->getSubject(), null, $normalizationContext),
-                    'state' => $data ?: null,
-                    'userIcon' => $this->normalizer->normalize($directLink->getSubject()->getUserIcon(), null, $normalizationContext),
+                    'subject' => $this->normalizer->normalize($subject, null, $normalizationContext),
+                    'state' => $data ?: $this->channelStateGetter->getState($subject),
                 ];
+                $normalized['subject']['userIcon'] = $this->normalizer->normalize($subject->getUserIcon(), null, $normalizationContext);
+                if ($subject instanceof IODeviceChannelGroup) {
+                    $normalized['channels'] = [];
+                    foreach ($subject->getChannels() as $channel) {
+                        $channelData = $this->normalizer->normalize($channel, null, $normalizationContext);
+                        $channelData['userIcon'] = $this->normalizer->normalize($channel->getUserIcon(), null, $normalizationContext);
+                        $normalized['channels'][] = $channelData;
+                    }
+                }
             }
             return $this->render(
                 '@Supla/ExecuteDirectLink/directLinkHtmlResponse.html.twig',
