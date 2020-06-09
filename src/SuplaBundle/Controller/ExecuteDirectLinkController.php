@@ -103,7 +103,7 @@ class ExecuteDirectLinkController extends Controller {
      */
     public function executeDirectLinkAction(Request $request) {
         return $this->returnDirectLinkErrorIfException($request, function () use ($request) {
-            list($slug, $action) = $this->getSlugAndAction($request);
+            list($slug, $action) = self::getSlugAndAction($request);
             $directLink = $this->getDirectLink($request);
             $responseType = $this->determineResponseType($request);
             $this->ensureLinkCanBeExecuted($directLink, $request, $slug, $action);
@@ -177,7 +177,7 @@ class ExecuteDirectLinkController extends Controller {
         }
         $reason = $executionException->getReason();
         try {
-            $action = $this->getSlugAndAction($request)[1];
+            $action = self::getSlugAndAction($request)[1];
         } catch (Exception $e) {
             $action = $request->get('action', null);
         }
@@ -223,7 +223,7 @@ class ExecuteDirectLinkController extends Controller {
         $directLink->ensureIsActive();
     }
 
-    private function getSlugAndAction(Request $request): array {
+    public static function getSlugAndAction(Request $request): array {
         $slug = $request->get('slug');
         $action = $request->get('action');
         if (!$slug && $request->isMethod(Request::METHOD_PATCH)) {

@@ -22,6 +22,7 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Auth\Token\PublicOauthAppToken;
 use SuplaBundle\Auth\Token\WebappToken;
+use SuplaBundle\Controller\ExecuteDirectLinkController;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\CurrentUserAware;
@@ -32,6 +33,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ApiRateLimitListener {
     use CurrentUserAware;
@@ -50,6 +52,8 @@ class ApiRateLimitListener {
     private $timeProvider;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var EncoderFactoryInterface */
+    private $encoderFactory;
 
     /** @var ApiRateLimitStatus */
     private $currentUserRateLimit;
@@ -64,7 +68,8 @@ class ApiRateLimitListener {
         ApiRateLimitStorage $storage,
         TimeProvider $timeProvider,
         EntityManagerInterface $entityManager,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        EncoderFactoryInterface $encoderFactory
     ) {
         $this->storage = $storage;
         $this->blocking = $blocking;
@@ -74,6 +79,7 @@ class ApiRateLimitListener {
         $this->timeProvider = $timeProvider;
         $this->entityManager = $entityManager;
         $this->logger = $logger;
+        $this->encoderFactory = $encoderFactory;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
@@ -180,21 +186,26 @@ class ApiRateLimitListener {
     private function getCurrentUserOrId(KernelEvent $event) {
         if ($user = $this->getCurrentUser()) {
             return $user;
-        } elseif (substr($event->getRequest()->getRequestUri(), 0, 8) === "/direct/") {
-            preg_match('#^/direct/(\d+)/.+$#', $event->getRequest()->getRequestUri(), $match);
+        } elseif (substr($event->getRequest()->getRequestUri(), 0, 8) === '/direct/') {
+            preg_match('#^/direct/(\d+)#', $event->getRequest()->getRequestUri(), $match);
             if ($match) {
                 $directLinkId = intval($match[1]);
-                $directLinkOwnerId = $this->storage->getItem($this->storage->getDirectLinkOwnerIdKey($directLinkId));
-                if ($directLinkOwnerId->isHit()) {
-                    return $directLinkOwnerId->get();
+                list($slug,) = ExecuteDirectLinkController::getSlugAndAction($event->getRequest());
+                $directLinkCache = $this->storage->getItem($this->storage->getDirectLinkCacheKey($directLinkId));
+                if ($directLinkCache->isHit()) {
+                    $directLinkData = json_decode($directLinkCache->get(), true);
                 } else {
                     /** @var DirectLink $directLink */
                     $directLink = $this->entityManager->find(DirectLink::class, $directLinkId);
-                    $directLinkOwner = $directLink->getUser();
-                    $directLinkOwnerId->set($directLinkOwner->getId());
-                    $directLinkOwnerId->expiresAfter(31536000); // one year
-                    $this->storage->save($directLinkOwnerId);
-                    return $directLinkOwner;
+                    $directLinkData = ['ownerId' => $directLink->getUser()->getId(), 'slug' => $directLink->getSlug()];
+                    $directLinkCache->set(json_encode($directLinkData));
+                    $directLinkCache->expiresAfter(31536000); // one year
+                    $this->storage->save($directLinkCache);
+                }
+                $directLinkVerifier = new DirectLinkForRateLimitStub($directLinkData['slug']);
+                $encoder = $this->encoderFactory->getEncoder($directLinkVerifier);
+                if ($directLinkVerifier->isValidSlug($slug, $encoder)) {
+                    return $directLinkData['ownerId'];
                 }
             }
         }

@@ -374,6 +374,28 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testDirectLinksUsesLimitOfOwner */
+    public function testDirectWithInvalidSlugDoesNotUseLimitOfOwner($slug) {
+        $this->changeUserApiRateLimit('1/10');
+        $client = $this->createClient(['debug' => false]);
+        for ($i = 0; $i < 5; $i++) {
+            $client->request('GET', "/direct/1/X$slug/read");
+            $response = $client->getResponse();
+            $this->assertStatusCode(403, $response);
+        }
+    }
+
+    /** @depends testDirectLinksUsesLimitOfOwner */
+    public function testUsesDirectLinkOwnerLimitWhenPatch(string $slug) {
+        $this->changeUserApiRateLimit('2/10');
+        $client = $this->createClient(['debug' => false]);
+        $client->apiRequestV23('PATCH', '/direct/1', ['code' => $slug, 'action' => 'read']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertEquals(2, $response->headers->get('X-RateLimit-Limit'));
+        $this->assertEquals(1, $response->headers->get('X-RateLimit-Remaining'));
+    }
+
+    /** @depends testDirectLinksUsesLimitOfOwner */
     public function testDoesNotContactsSuplaServerWhenUsingDirectLinkAndApiLimitReached(string $slug) {
         $this->changeUserApiRateLimit('1/10');
         $client = $this->createClient(['debug' => false]);
