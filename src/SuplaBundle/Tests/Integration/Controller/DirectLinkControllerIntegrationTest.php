@@ -282,6 +282,19 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty($this->getSuplaServerCommands($client));
     }
 
+    /** @depends testCreatingDirectLink */
+    public function testDisplayingDirectLinkOptionsPage(array $directLink) {
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
+        $this->assertContains('"on":', $response->getContent());
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+    }
+
     public function testExecutingDirectLinkWithGetWhenGetDisabled() {
         $directLinkDetails = $this->testCreatingDirectLink();
         $directLink = $this->getEntityManager()->find(DirectLink::class, $directLinkDetails['id']);
