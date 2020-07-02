@@ -34,6 +34,7 @@ class ChannelFunctionBitsFlistTest extends TestCase {
             [2, [ChannelFunction::CONTROLLINGTHEGATE()]],
             [3, [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), ChannelFunction::CONTROLLINGTHEGATE()]],
             [16, [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER()]],
+            [16, [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER()]],
             [27, [
                 ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
                 ChannelFunction::CONTROLLINGTHEGATE(),
@@ -45,7 +46,16 @@ class ChannelFunctionBitsFlistTest extends TestCase {
                 ChannelFunction::POWERSWITCH(),
                 ChannelFunction::LIGHTSWITCH(),
             ]],
-            [6656, []],
+            [32512, [
+                ChannelFunction::THERMOMETER(),
+                ChannelFunction::HUMIDITYANDTEMPERATURE(),
+                ChannelFunction::HUMIDITY(),
+                ChannelFunction::WINDSENSOR(),
+                ChannelFunction::PRESSURESENSOR(),
+                ChannelFunction::RAINSENSOR(),
+                ChannelFunction::WEIGHTSENSOR(),
+            ]],
+            [0xFFFF8000, []],
         ];
     }
 
