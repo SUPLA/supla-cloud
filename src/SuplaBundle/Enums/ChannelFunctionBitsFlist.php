@@ -26,6 +26,13 @@ final class ChannelFunctionBitsFlist extends ChannelFunctionBits {
     const POWERSWITCH = 1 << 5;
     const LIGHTSWITCH = 1 << 6;
     const STAIRCASETIMER = 1 << 7;
+    const THERMOMETER = 1 << 8;
+    const HUMIDITYANDTEMPERATURE = 1 << 9;
+    const HUMIDITY = 1 << 10;
+    const WINDSENSOR = 1 << 11;
+    const PRESSURESENSOR = 1 << 12;
+    const RAINSENSOR = 1 << 13;
+    const WEIGHTSENSOR = 1 << 14;
 
     public static function getSupportedFunctions(int $functionList): array {
         return array_map(function (ChannelFunctionBitsFlist $bit) {
