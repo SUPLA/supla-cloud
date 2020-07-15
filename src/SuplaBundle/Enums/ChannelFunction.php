@@ -269,7 +269,7 @@ final class ChannelFunction extends Enum {
     public static function maxAlternativeIconIndexes(): array {
         return [
             self::POWERSWITCH => 4,
-            self::LIGHTSWITCH => 1,
+            self::LIGHTSWITCH => 2,
             self::CONTROLLINGTHEGATE => 2,
             self::OPENINGSENSOR_GATE => 2,
             self::STAIRCASETIMER => 1,
