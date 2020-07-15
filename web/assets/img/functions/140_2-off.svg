@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Creator: CorelDRAW Home & Student 2019 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="143px" height="156px" version="1.0" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 143 156"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:black;stroke-width:4;stroke-miterlimit:22.9256}
+    .str1 {stroke:black;stroke-width:2;stroke-miterlimit:22.9256}
+    .fil0 {fill:none}
+    .fil1 {fill:black;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Warstwa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0 str0" d="M56.563 133l29 0c1.65,0 3,-1.35 3,-3l0 -115c0,-1.651 -1.35,-3 -3,-3l-29 0c-1.65,0 -3,1.349 -3,3l0 115c0,1.65 1.35,3 3,3z"/>
+  <path class="fil0 str1" d="M61.563 137l19 0c0.55,0 1,0.449 1,1l0 0c0,0.55 -0.45,1 -1,1l-19 0c-0.55,0 -1,-0.45 -1,-1l0 0c0,-0.551 0.45,-1 1,-1z"/>
+  <line class="fil0 str1" x1="63" y1="18.5" x2="63" y2= "38.833" />
+  <line class="fil0 str1" x1="66.999" y1="18.5" x2="66.999" y2= "38.833" />
+  <line class="fil0 str1" x1="70.999" y1="18.5" x2="70.999" y2= "38.833" />
+  <line class="fil0 str1" x1="75" y1="18.5" x2="75" y2= "38.833" />
+  <line class="fil0 str1" x1="79" y1="18.5" x2="79" y2= "38.833" />
+  <path class="fil1" d="M58.709 115.5l3.492 0 0 7.629c0,1.062 0.132,1.749 0.399,2.067 0.267,0.315 0.813,0.474 1.638,0.474l0.642 0c0.819,0 1.359,-0.156 1.623,-0.465 0.264,-0.312 0.396,-1.002 0.396,-2.076l0 -7.629 3.492 0 0 7.902c0,1.173 -0.072,2.034 -0.216,2.586 -0.144,0.549 -0.387,1.029 -0.732,1.431 -0.411,0.477 -0.924,0.816 -1.536,1.02 -0.612,0.207 -1.44,0.309 -2.484,0.309l-1.728 0c-1.044,0 -1.872,-0.102 -2.484,-0.309 -0.612,-0.204 -1.122,-0.543 -1.527,-1.02 -0.351,-0.408 -0.6,-0.894 -0.75,-1.455 -0.15,-0.558 -0.225,-1.413 -0.225,-2.562l0 -7.902zm13.155 0l3.726 0 2.538 10.221 2.664 -10.221 3.708 0 -3.726 13.086 -5.307 0 -3.603 -13.086z"/>
+  <path class="fil0 str0" d="M53.5 143l35 0c0.275,0 0.5,0.225 0.5,0.5l0 0c0,0.275 -0.225,0.5 -0.5,0.5l-35 0c-0.275,0 -0.5,-0.225 -0.5,-0.5l0 0c0,-0.275 0.225,-0.5 0.5,-0.5z"/>
+ </g>
+</svg>
