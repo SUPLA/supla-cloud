@@ -25,7 +25,7 @@
     "js-base64": "^2.4.5",
     "js-yaml": "^3.13.1",
     "latinize": "0.4.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.14",
     "pixeden-stroke-7-icon": "^1.2.3",
