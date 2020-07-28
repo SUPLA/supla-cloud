@@ -17,6 +17,7 @@ Vue.config.availableLanguages = [
     {value: 'ru', text: 'Русский'},
     {value: 'sk', text: 'Slovenčina'},
     {value: 'sl', text: 'Slovenščina'},
+    {value: 'vi', text: 'Tiếng Việt'}
 ];
 
 Vue.use(VueI18N);
