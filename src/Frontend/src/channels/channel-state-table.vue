@@ -33,7 +33,7 @@
             <dd>{{ $t('Calibration') }}</dd>
             <dt></dt>
         </dl>
-        <dl v-if="currentState.shut !== undefined">
+        <dl v-if="!currentState.is_calibrating && currentState.shut !== undefined">
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{currentState.shut}}%</dt>
         </dl>
