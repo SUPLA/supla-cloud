@@ -20,6 +20,7 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\TemperatureLogItem;
@@ -43,6 +44,8 @@ class LogItemsFixture extends SuplaFixture {
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
         $this->createTemperatureAndHumidityLogItems();
+        $this->entityManager->flush();
+        $this->createImpulseCounterLogItems();
         $this->entityManager->flush();
     }
 
@@ -86,6 +89,28 @@ class LogItemsFixture extends SuplaFixture {
             $humidity = max(0, min(100, $humidity));
             EntityUtils::setField($logItem, 'temperature', $temperature);
             EntityUtils::setField($logItem, 'humidity', $humidity);
+            if ($this->faker->boolean(95)) {
+                $this->entityManager->persist($logItem);
+            }
+        }
+    }
+
+    private function createImpulseCounterLogItems() {
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $gasMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::GASMETER;
+        })->first();
+        $channelId = $gasMeterIc->getId();
+        $from = strtotime(self::SINCE);
+        $to = time();
+        $counter = 0;
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            $logItem = new ImpulseCounterLogItem();
+            EntityUtils::setField($logItem, 'channel_id', $channelId);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+            $counter += $this->faker->biasedNumberBetween(0, 10);
+            EntityUtils::setField($logItem, 'counter', $counter);
+            EntityUtils::setField($logItem, 'calculated_value', ($counter / 100) * 1000);
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }
