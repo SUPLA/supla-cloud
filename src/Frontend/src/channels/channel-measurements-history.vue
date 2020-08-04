@@ -76,7 +76,7 @@
         mounted() {
             if (this.supportsChart) {
                 this.fetchSparseLogs().then((logs) => {
-                    logs = this.fixLogs(logs);
+                    logs = this.adjustLogs(this.fixLogs(logs));
                     this.hasLogs = logs.length > 0;
                     if (logs.length > 1) {
                         const minTimestamp = logs[0].date_timestamp * 1000;
@@ -101,6 +101,10 @@
                     }
                     if (this.sparseLogs[0].humidity !== undefined) {
                         const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
+                        series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries});
+                    }
+                    if (this.sparseLogs[0].calculated_value !== undefined) {
+                        const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.calculated_value]);
                         series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries});
                     }
                 }
@@ -149,7 +153,7 @@
                 const bigChartOptions = {
                     chart: {
                         id: chartId,
-                        type: 'line',
+                        type: 'bar',
                         height: 400,
                         toolbar: {
                             show: true,
@@ -215,7 +219,7 @@
                     chart: {
                         id: 'smallChart',
                         height: 130,
-                        type: 'line',
+                        type: 'bar',
                         brush: {target: chartId, enabled: true, autoScaleYaxis: false},
                         locales,
                         colors: ['#00d150', '#008ffb'],
@@ -272,6 +276,24 @@
                     }
                     return log;
                 });
+            },
+            adjustLogs(logs) {
+                if (!logs || !logs.length) {
+                    return logs;
+                }
+                let adjustedLogs = logs;
+                if (['GASMETER'].includes(this.channel.function.name)) {
+                    let previousLog = logs[0];
+                    adjustedLogs = [previousLog];
+                    for (let i = 1; i < logs.length; i++) {
+                        const log = {...logs[i]};
+                        log.calculated_value -= previousLog.calculated_value;
+                        log.counter -= previousLog.counter;
+                        adjustedLogs.push(log);
+                        previousLog = logs[i];
+                    }
+                }
+                return adjustedLogs;
             },
             fillGaps(logs, expectedInterval) {
                 if (logs.length < 2) {
@@ -335,7 +357,7 @@
                 }))
                     .then(({body: logItems}) => {
                         const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
-                        return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
+                        return this.denseLogs = this.fillGaps(this.adjustLogs(this.fixLogs(logItems)), expectedInterval);
                     })
                     .finally(() => this.fetchingDenseLogs = false);
             },
@@ -392,7 +414,7 @@
                 return this.currentMaxTimestamp && (this.currentMaxTimestamp - this.currentMinTimestamp);
             },
             supportsChart() {
-                return this.channel && ['THERMOMETER', 'HUMIDITYANDTEMPERATURE'].includes(this.channel.function.name);
+                return this.channel && ['THERMOMETER', 'HUMIDITYANDTEMPERATURE', 'GASMETER'].includes(this.channel.function.name);
             },
         },
         watch: {
