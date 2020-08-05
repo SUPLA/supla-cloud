@@ -58,6 +58,117 @@
         // require("apexcharts/dist/locales/sl.json"),
     ];
 
+    const CHART_TYPES = {
+        THERMOMETER: {
+            chartType: 'line',
+            series: function (allLogs) {
+                const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
+                return [{name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries}];
+            },
+            fixLog: (log) => {
+                if (log.temperature !== undefined && log.temperature !== null) {
+                    log.temperature = log.temperature >= -273 ? +log.temperature : null;
+                }
+                return log;
+            },
+            adjustLogs: (logs) => logs,
+            yaxes: function (logs) {
+                const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
+                return [
+                    {
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                        title: {text: this.$t("Temperature")},
+                        labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
+                        min: Math.floor(Math.min.apply(this, temperatures)),
+                        max: Math.ceil(Math.max.apply(this, temperatures)),
+                    }
+                ];
+            },
+            emptyLog: () => ({date_timestamp: null, temperature: null}),
+        },
+        HUMIDITYANDTEMPERATURE: {
+            chartType: 'line',
+            series: function (allLogs) {
+                const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
+                const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
+                return [
+                    {name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries},
+                    {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries},
+                ];
+            },
+            fixLog: (log) => {
+                if (log.temperature !== undefined && log.temperature !== null) {
+                    log.temperature = log.temperature >= -273 ? +log.temperature : null;
+                }
+                if (log.humidity !== undefined && log.humidity !== null) {
+                    log.humidity = log.humidity >= 0 ? +log.humidity : null;
+                }
+                return log;
+            },
+            adjustLogs: (logs) => logs,
+            yaxes: function (logs) {
+                const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
+                const humidities = logs.map(log => log.humidity).filter(h => h !== null);
+                return [
+                    {
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                        title: {text: this.$t("Temperature")},
+                        labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
+                        min: Math.floor(Math.min.apply(this, temperatures)),
+                        max: Math.ceil(Math.max.apply(this, temperatures)),
+                    },
+                    {
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
+                        opposite: true,
+                        title: {text: this.$t('Humidity')},
+                        labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
+                        min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
+                        max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
+                    }
+                ];
+            },
+            emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
+        },
+        GASMETER: {
+            chartType: 'bar',
+            series: function (allLogs) {
+                const calculatedValues = allLogs.map((item) => [item.date_timestamp * 1000, item.calculated_value]);
+                return [{name: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`, data: calculatedValues}];
+            },
+            fixLog: (log) => {
+                if (log.calculated_value !== undefined && log.calculated_value !== null) {
+                    log.calculated_value = +log.calculated_value;
+                }
+                return log;
+            },
+            adjustLogs: (logs) => {
+                let previousLog = logs[0];
+                const adjustedLogs = [];
+                for (let i = 1; i < logs.length; i++) {
+                    const log = {...logs[i]};
+                    log.calculated_value -= previousLog.calculated_value;
+                    log.counter -= previousLog.counter;
+                    adjustedLogs.push(log);
+                    previousLog = logs[i];
+                }
+                return adjustedLogs;
+            },
+            yaxes: function (logs) {
+                const values = logs.map(log => log.calculated_value).filter(t => t !== null);
+                return [
+                    {
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`,
+                        title: {text: this.$t("Calculated value")},
+                        labels: {formatter: (v) => `${(+v).toFixed(2)} m³`},
+                        min: Math.floor(Math.min.apply(this, values)),
+                        max: Math.ceil(Math.max.apply(this, values)),
+                    }
+                ];
+            },
+            emptyLog: () => ({date_timestamp: null, counter: null, calculated_value: null}),
+        },
+    };
+
     export default {
         props: ['channel'],
         data: function () {
@@ -71,10 +182,13 @@
                 bigChart: undefined,
                 smallChart: undefined,
                 fetchingDenseLogs: false,
+                chartStrategy: undefined,
             };
         },
         mounted() {
             if (this.supportsChart) {
+                console.log(this.channel);
+                this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.fetchSparseLogs().then((logs) => {
                     logs = this.adjustLogs(this.fixLogs(logs));
                     this.hasLogs = logs.length > 0;
@@ -95,18 +209,7 @@
                 const series = [];
                 if (this.sparseLogs.length) {
                     const allLogs = this.mergeLogs(this.sparseLogs, this.denseLogs);
-                    if (this.sparseLogs[0].temperature !== undefined) {
-                        const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
-                        series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries});
-                    }
-                    if (this.sparseLogs[0].humidity !== undefined) {
-                        const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
-                        series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries});
-                    }
-                    if (this.sparseLogs[0].calculated_value !== undefined) {
-                        const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.calculated_value]);
-                        series.push({name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries});
-                    }
+                    return this.chartStrategy.series.call(this, allLogs);
                 }
                 return series;
             },
@@ -153,7 +256,7 @@
                 const bigChartOptions = {
                     chart: {
                         id: chartId,
-                        type: 'bar',
+                        type: this.chartStrategy.chartType,
                         height: 400,
                         toolbar: {
                             show: true,
@@ -219,7 +322,7 @@
                     chart: {
                         id: 'smallChart',
                         height: 130,
-                        type: 'bar',
+                        type: this.chartStrategy.chartType,
                         brush: {target: chartId, enabled: true, autoScaleYaxis: false},
                         locales,
                         colors: ['#00d150', '#008ffb'],
@@ -268,38 +371,20 @@
                 }
                 return logs.map((log) => {
                     log.date_timestamp = +log.date_timestamp;
-                    if (log.temperature !== undefined && log.temperature !== null) {
-                        log.temperature = log.temperature >= -273 ? +log.temperature : null;
-                    }
-                    if (log.humidity !== undefined && log.humidity !== null) {
-                        log.humidity = log.humidity >= 0 ? +log.humidity : null;
-                    }
-                    return log;
+                    return this.chartStrategy.fixLog(log);
                 });
             },
             adjustLogs(logs) {
                 if (!logs || !logs.length) {
                     return logs;
                 }
-                let adjustedLogs = logs;
-                if (['GASMETER'].includes(this.channel.function.name)) {
-                    let previousLog = logs[0];
-                    adjustedLogs = [previousLog];
-                    for (let i = 1; i < logs.length; i++) {
-                        const log = {...logs[i]};
-                        log.calculated_value -= previousLog.calculated_value;
-                        log.counter -= previousLog.counter;
-                        adjustedLogs.push(log);
-                        previousLog = logs[i];
-                    }
-                }
-                return adjustedLogs;
+                return this.chartStrategy.adjustLogs(logs);
             },
             fillGaps(logs, expectedInterval) {
                 if (logs.length < 2) {
                     return logs;
                 }
-                const defaultLog = this.createEmptyLog(logs[0]);
+                const defaultLog = this.chartStrategy.emptyLog();
                 expectedInterval /= 1000;
                 let lastTimestamp = 0;
                 const filledLogs = [];
@@ -314,13 +399,6 @@
                     lastTimestamp = currentTimestamp;
                 }
                 return filledLogs;
-            },
-            createEmptyLog(logItemPattern, timestamp = null) {
-                const defaultLog = {date_timestamp: timestamp, temperature: null};
-                if (logItemPattern.humidity !== undefined) {
-                    defaultLog.humidity = null;
-                }
-                return defaultLog;
             },
             mergeLogs(sparseLogs, denseLogs) {
                 let sparseLogsIndex = 0;
@@ -374,33 +452,12 @@
             rerenderCharts() {
                 const series = this.getChartSeries();
                 this.bigChart.updateSeries(series, true);
-                const temperatures = this.denseLogs.map(log => log.temperature).filter(t => t !== null);
-                const yaxis = [
-                    {
-                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
-                        title: {text: this.$t("Temperature")},
-                        labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
-                        min: Math.floor(Math.min.apply(this, temperatures)),
-                        max: Math.ceil(Math.max.apply(this, temperatures)),
-                    }
-                ];
-                if (series.length > 1) {
-                    const humidities = this.denseLogs.map(log => log.humidity).filter(h => h !== null);
-                    yaxis.push({
-                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
-                        opposite: true,
-                        title: {text: this.$t('Humidity')},
-                        labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
-                        min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
-                        max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
-                    });
-                }
                 this.bigChart.updateOptions({
                     xaxis: {
                         min: this.currentMinTimestamp,
                         max: this.currentMaxTimestamp,
                     },
-                    yaxis,
+                    yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
                 }, false, false);
             },
             deleteMeasurements() {
@@ -414,7 +471,7 @@
                 return this.currentMaxTimestamp && (this.currentMaxTimestamp - this.currentMinTimestamp);
             },
             supportsChart() {
-                return this.channel && ['THERMOMETER', 'HUMIDITYANDTEMPERATURE', 'GASMETER'].includes(this.channel.function.name);
+                return this.channel && CHART_TYPES[this.channel.function.name];
             },
         },
         watch: {
