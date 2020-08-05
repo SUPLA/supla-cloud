@@ -72,6 +72,7 @@
                 return log;
             },
             adjustLogs: (logs) => logs,
+            interpolateGaps: (logs) => logs,
             yaxes: function (logs) {
                 const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
                 return [
@@ -106,6 +107,7 @@
                 return log;
             },
             adjustLogs: (logs) => logs,
+            interpolateGaps: (logs) => logs,
             yaxes: function (logs) {
                 const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
                 const humidities = logs.map(log => log.humidity).filter(h => h !== null);
@@ -153,6 +155,23 @@
                 }
                 return adjustedLogs;
             },
+            interpolateGaps: (logs) => {
+                let firstNullLog = undefined;
+                for (let lastNonNullLog = 0; lastNonNullLog < logs.length; lastNonNullLog++) {
+                    if (logs[lastNonNullLog].calculated_value === null && firstNullLog === undefined) {
+                        firstNullLog = lastNonNullLog;
+                    } else if (logs[lastNonNullLog].calculated_value !== null && firstNullLog !== undefined) {
+                        const logsToFill = lastNonNullLog - firstNullLog + 1;
+                        const normalizedValue = logs[lastNonNullLog].calculated_value / logsToFill;
+                        for (let i = firstNullLog; i <= lastNonNullLog; i++) {
+                            logs[i].calculated_value = normalizedValue;
+                            // logs[i].interpolated = true; may be useful
+                        }
+                        firstNullLog = undefined;
+                    }
+                }
+                return logs;
+            },
             yaxes: function (logs) {
                 const values = logs.map(log => log.calculated_value).filter(t => t !== null);
                 return [
@@ -187,7 +206,6 @@
         },
         mounted() {
             if (this.supportsChart) {
-                console.log(this.channel);
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.fetchSparseLogs().then((logs) => {
                     logs = this.adjustLogs(this.fixLogs(logs));
@@ -398,7 +416,7 @@
                     filledLogs.push(log);
                     lastTimestamp = currentTimestamp;
                 }
-                return filledLogs;
+                return this.chartStrategy.interpolateGaps(filledLogs);
             },
             mergeLogs(sparseLogs, denseLogs) {
                 let sparseLogsIndex = 0;
