@@ -101,6 +101,7 @@ class StateWebhookController extends RestController {
         $webhook->setEnabled(boolval($data['enabled'] ?? true));
         $this->entityManager->persist($webhook);
         $this->entityManager->flush();
+        $this->suplaServer->stateWebhookChanged();
         return $this->view($webhook);
     }
 
@@ -113,6 +114,7 @@ class StateWebhookController extends RestController {
         if ($webhook->getId()) {
             $this->entityManager->remove($webhook);
             $this->entityManager->flush();
+            $this->suplaServer->stateWebhookChanged();
         }
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }

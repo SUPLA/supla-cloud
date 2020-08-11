@@ -95,22 +95,26 @@ abstract class SuplaServer {
         }
         $userId = intval($userId);
         if ($userId != 0) {
-            $result = $this->executeCommand("USER-" . $action . ":" . $userId);
+            $result = $this->executeCommand("USER-{$action}:{$userId}");
             return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
         }
         return false;
     }
 
     public function reconnect($userId = null) {
-        return $this->userAction($userId, "RECONNECT");
+        return $this->userAction($userId, 'RECONNECT');
     }
 
     public function amazonAlexaCredentialsChanged($userId = null) {
-        return $this->userAction($userId, "ALEXA-CREDENTIALS-CHANGED");
+        return $this->userAction($userId, 'ALEXA-CREDENTIALS-CHANGED');
+    }
+
+    public function stateWebhookChanged($userId = null) {
+        return $this->userAction($userId, 'STATE-WEBHOOK-CHANGED');
     }
 
     public function googleHomeCredentialsChanged($userId = null) {
-        return $this->userAction($userId, "GOOGLE-HOME-CREDENTIALS-CHANGED");
+        return $this->userAction($userId, 'GOOGLE-HOME-CREDENTIALS-CHANGED');
     }
 
     public function onOAuthClientRemoved($userId = null) {
@@ -118,7 +122,7 @@ abstract class SuplaServer {
     }
 
     public function onDeviceDeleted($userId = null) {
-        return $this->userAction($userId, "ON-DEVICE-DELETED");
+        return $this->userAction($userId, 'ON-DEVICE-DELETED');
     }
 
     public function clientReconnect(ClientApp $clientApp) {
