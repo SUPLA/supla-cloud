@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelValueRepository")
- * @ORM\Table(name="supla_channel_value")
+ * @ORM\Table(name="supla_dev_channel_value")
  */
 class ChannelValue {
     use BelongsToUser;
@@ -45,7 +45,7 @@ class ChannelValue {
     private $validTo;
 
     /**
-     * @ORM\Column(name="guid", type="binary", length=8, nullable=false, unique=false)
+     * @ORM\Column(name="value", type="binary", length=8, nullable=false, unique=false)
      */
     private $value;
 }
