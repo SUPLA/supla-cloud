@@ -74,7 +74,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $hookData = [
             'url' => 'https://unicorns.pl',
             'functions' => ['LIGHTSWITCH'],
-            'authToken' => 'XXX',
+            'accessToken' => 'XXX',
             'refreshToken' => 'YYY',
             'expiresAt' => time() + 100000,
         ];
@@ -86,7 +86,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($hook->getId());
         $this->assertEquals($hookData['url'], EntityUtils::getField($hook, 'url'));
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, EntityUtils::getField($hook, 'functionsIds'));
-        $this->assertEquals($hookData['authToken'], EntityUtils::getField($hook, 'authToken'));
+        $this->assertEquals($hookData['accessToken'], EntityUtils::getField($hook, 'accessToken'));
         $this->assertEquals($hookData['refreshToken'], EntityUtils::getField($hook, 'refreshToken'));
         $this->assertEquals($hookData['expiresAt'], EntityUtils::getField($hook, 'expiresAt')->getTimestamp());
     }
@@ -104,7 +104,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(['LIGHTSWITCH'], $response['functions']);
         $this->assertArrayNotHasKey('functionsIds', $response);
         $this->assertArrayNotHasKey('id', $response);
-        $this->assertArrayNotHasKey('authToken', $response);
+        $this->assertArrayNotHasKey('accessToken', $response);
         $this->assertArrayNotHasKey('refreshToken', $response);
     }
 
@@ -116,7 +116,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $hookData = [
             'url' => 'https://unicorns2.pl',
             'functions' => ['POWERSWITCH'],
-            'authToken' => 'YYY',
+            'accessToken' => 'YYY',
             'refreshToken' => 'ZZZ',
             'expiresAt' => time() + 200000,
         ];
@@ -128,7 +128,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($hook->getId());
         $this->assertEquals($hookData['url'], EntityUtils::getField($hook, 'url'));
         $this->assertEquals(ChannelFunction::POWERSWITCH, EntityUtils::getField($hook, 'functionsIds'));
-        $this->assertEquals($hookData['authToken'], EntityUtils::getField($hook, 'authToken'));
+        $this->assertEquals($hookData['accessToken'], EntityUtils::getField($hook, 'accessToken'));
         $this->assertEquals($hookData['refreshToken'], EntityUtils::getField($hook, 'refreshToken'));
         $this->assertEquals($hookData['expiresAt'], EntityUtils::getField($hook, 'expiresAt')->getTimestamp());
     }
@@ -158,7 +158,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'url' => 'https://unicorns2.pl',
                     'functions' => ['POWERSWITCH'],
-                    'authToken' => 'YYY',
+                    'accessToken' => 'YYY',
                     'refreshToken' => 'ZZZ',
                     'expiresAt' => time() + 100000,
                 ],
@@ -171,7 +171,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
             [$almostGoodRequest(['expiresAt' => time() + 8640000])],
             [$almostGoodRequest(['functions' => []])],
             [$almostGoodRequest(['functions' => ['UNICORN']])],
-            [$almostGoodRequest(['authToken' => ''])],
+            [$almostGoodRequest(['accessToken' => ''])],
             [$almostGoodRequest(['refreshToken' => ''])],
             [$almostGoodRequest(['url' => 'alamakota.pl'])],
             [$almostGoodRequest(['url' => 'ftp://alamakota.pl'])],

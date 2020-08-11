@@ -56,9 +56,9 @@ class StateWebhook {
     private $url;
 
     /**
-     * @ORM\Column(name="auth_token", type="string", length=255, nullable=false)
+     * @ORM\Column(name="access_token", type="string", length=255, nullable=false)
      */
-    private $authToken;
+    private $accessToken;
 
     /**
      * @ORM\Column(name="refresh_token", type="string", length=255, nullable=false)
@@ -99,8 +99,8 @@ class StateWebhook {
         $this->url = $url;
     }
 
-    public function setAuthToken(string $authToken) {
-        $this->authToken = $authToken;
+    public function setAccessToken(string $accessToken) {
+        $this->accessToken = $accessToken;
     }
 
     /** @param ChannelFunction[] $functions */

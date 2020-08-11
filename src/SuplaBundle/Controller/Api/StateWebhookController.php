@@ -19,7 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\OAuthServerBundle\Security\Authentication\Token\OAuthToken;
+use FOS\OAuthServerBundle\Security\Authentication\Token\OaccessToken;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -75,13 +75,13 @@ class StateWebhookController extends RestController {
         Assertion::keyExists($data, 'url', 'url key is missing');
         Assertion::url($data['url']);
         $url = $data['url'];
-        Assertion::keyExists($data, 'authToken', 'authToken is missing');
-        Assertion::string($data['authToken'], 'authToken is invalid');
-        Assertion::notBlank($data['authToken'], 'authToken is invalid');
-        $authToken = $data['authToken'];
+        Assertion::keyExists($data, 'accessToken', 'accessToken is missing');
+        Assertion::string($data['accessToken'], 'accessToken is invalid');
+        Assertion::notBlank($data['accessToken'], 'accessToken is invalid');
+        $accessToken = $data['accessToken'];
         Assertion::keyExists($data, 'refreshToken', 'refreshToken is missing');
-        Assertion::string($data['refreshToken'], 'authToken is invalid');
-        Assertion::notBlank($data['refreshToken'], 'authToken is invalid');
+        Assertion::string($data['refreshToken'], 'refreshToken is invalid');
+        Assertion::notBlank($data['refreshToken'], 'refreshToken is invalid');
         $refreshToken = $data['refreshToken'];
         Assertion::keyExists($data, 'expiresAt', 'expiresAt is missing');
         Assertion::integer($data['expiresAt'], 'expiresAt should be a timestamp');
@@ -94,7 +94,7 @@ class StateWebhookController extends RestController {
         $expiresAt = $data['expiresAt'];
         $webhook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->getCurrentApiClient(), $this->getCurrentUser());
         $webhook->setUrl($url);
-        $webhook->setAuthToken($authToken);
+        $webhook->setAccessToken($accessToken);
         $webhook->setRefreshToken($refreshToken);
         $webhook->setExpiresAt(new \DateTime('@' . $expiresAt));
         $webhook->setFunctions($functions);
@@ -133,7 +133,7 @@ class StateWebhookController extends RestController {
     }
 
     private function getCurrentApiClient(): ApiClient {
-        /** @var OAuthToken $token */
+        /** @var OaccessToken $token */
         $token = $this->tokenStorage->getToken();
         /** @var AccessToken $accessToken */
         $accessToken = $this->oAuthStorage->getAccessToken($token->getToken());
