@@ -25,14 +25,11 @@ CREATE PROCEDURE `supla_update_channel_value`(
 BEGIN
     IF _validity_time_sec > 0 THEN
         SET @valid_to = DATE_ADD(UTC_TIMESTAMP(), INTERVAL _validity_time_sec SECOND);
-        UPDATE `supla_dev_channel_value` SET `value` = _value,
-            update_time = UTC_TIMESTAMP(),
-            valid_to = @valid_to
-        WHERE `channel_id` = _id;
-
-        IF ROW_COUNT() = 0 THEN
-           INSERT INTO `supla_dev_channel_value` (`channel_id`, `user_id`, `update_time`, `valid_to`, `value`) VALUES(_id, _user_id, UTC_TIMESTAMP(), @valid_to, _value);
-        END IF;
+        
+        INSERT INTO `supla_dev_channel_value` (`channel_id`, `user_id`, `update_time`, `valid_to`, `value`) 
+          VALUES(_id, _user_id, UTC_TIMESTAMP(), @valid_to, _value)
+        ON DUPLICATE KEY UPDATE `value` = _value, update_time = UTC_TIMESTAMP(), valid_to = @valid_to;
+         
     ELSE
         DELETE FROM `supla_dev_channel_value` WHERE `channel_id` = _id;
     END IF;
