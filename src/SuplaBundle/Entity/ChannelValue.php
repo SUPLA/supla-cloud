@@ -29,10 +29,16 @@ class ChannelValue {
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="channel_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $channel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     */
+    private $user;
 
     /**
      * @ORM\Column(name="update_time", type="utcdatetime", nullable=true)
@@ -48,4 +54,8 @@ class ChannelValue {
      * @ORM\Column(name="value", type="binary", length=8, nullable=false, unique=false)
      */
     private $value;
+
+    public function getUser(): User {
+        return $this->user;
+    }
 }
