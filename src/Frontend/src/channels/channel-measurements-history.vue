@@ -59,6 +59,8 @@
         require("apexcharts/dist/locales/sl.json"),
     ];
 
+    const SPARSE_LOGS_COUNT = 300;
+
     const CHART_TYPES = {
         THERMOMETER: {
             chartType: 'line',
@@ -158,23 +160,29 @@
             },
             interpolateGaps: (logs) => {
                 let firstNullLog = undefined;
-                for (let lastNonNullLog = 0; lastNonNullLog < logs.length; lastNonNullLog++) {
-                    if (logs[lastNonNullLog].calculated_value === null && firstNullLog === undefined) {
-                        firstNullLog = lastNonNullLog;
-                    } else if (logs[lastNonNullLog].calculated_value !== null && firstNullLog !== undefined) {
-                        const logsToFill = lastNonNullLog - firstNullLog + 1;
-                        const normalizedValue = logs[lastNonNullLog].calculated_value / logsToFill;
-                        for (let i = firstNullLog; i <= lastNonNullLog; i++) {
-                            logs[i].calculated_value = normalizedValue;
+                let lastNonNullLog = undefined;
+                for (let currentNonNullLog = 0; currentNonNullLog < logs.length; currentNonNullLog++) {
+                    const currentValue = logs[currentNonNullLog].calculated_value;
+                    if (currentValue === null && firstNullLog === undefined) {
+                        firstNullLog = currentNonNullLog;
+                    } else if (currentValue !== null && firstNullLog !== undefined) {
+                        const logsToFill = currentNonNullLog - firstNullLog;
+                        const lastKnownValue = logs[lastNonNullLog].calculated_value;
+                        const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
+                        for (let i = 0; i < logsToFill; i++) {
+                            logs[i + firstNullLog].calculated_value = lastKnownValue + normalizedStep * (i + 1);
                             // logs[i].interpolated = true; may be useful
                         }
                         firstNullLog = undefined;
+                    }
+                    if (currentValue !== null) {
+                        lastNonNullLog = currentNonNullLog;
                     }
                 }
                 return logs;
             },
             yaxes: function (logs) {
-                const values = logs.map(log => log.calculated_value).filter(t => t !== null);
+                const values = this.adjustLogs(logs).map(log => log.calculated_value).filter(t => t !== null);
                 const maxMeasurement = Math.max.apply(this, values);
                 return [
                     {
@@ -212,12 +220,12 @@
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.fetchSparseLogs().then((logs) => {
-                    logs = this.adjustLogs(this.fixLogs(logs));
+                    logs = this.fixLogs(logs);
                     this.hasLogs = logs.length > 0;
                     if (logs.length > 1) {
                         const minTimestamp = logs[0].date_timestamp * 1000;
                         const maxTimestamp = logs[logs.length - 1].date_timestamp * 1000;
-                        const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / 500));
+                        const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / SPARSE_LOGS_COUNT));
                         this.sparseLogs = this.fillGaps(logs, expectedInterval);
                         this.renderCharts();
                     }
@@ -230,13 +238,13 @@
             getChartSeries() {
                 const series = [];
                 if (this.sparseLogs.length) {
-                    const allLogs = this.mergeLogs(this.sparseLogs, this.denseLogs);
+                    const allLogs = this.adjustLogs(this.mergeLogs(this.sparseLogs, this.denseLogs));
                     return this.chartStrategy.series.call(this, allLogs);
                 }
                 return series;
             },
             fetchSparseLogs() {
-                return this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=500&order=ASC`)
+                return this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=${SPARSE_LOGS_COUNT}&order=ASC`)
                     .then(({body: logItems, headers}) => {
                         if (logItems.length > 0) {
                             const maxTimestamp = headers.get('X-Max-Timestamp');
@@ -457,7 +465,7 @@
                 }))
                     .then(({body: logItems}) => {
                         const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
-                        return this.denseLogs = this.fillGaps(this.adjustLogs(this.fixLogs(logItems)), expectedInterval);
+                        return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
                     })
                     .finally(() => this.fetchingDenseLogs = false);
             },
