@@ -17,7 +17,8 @@
 
             <div v-if="supportsChart">
                 <div ref="bigChart"></div>
-                <div ref="smallChart"></div>
+                <div :class="sparseLogs && sparseLogs.length > 10 ? '' : 'invisible'"
+                    ref="smallChart"></div>
             </div>
 
             <modal-confirm v-if="deleteConfirm"
