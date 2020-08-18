@@ -1,17 +1,21 @@
 <template>
     <dl v-if="channel.type.name == 'ELECTRICITYMETER'">
-        <channel-params-any-meter :channel="channel" :unit="unit"
+        <channel-params-any-meter :channel="channel"
+            :unit="unit"
             @change="$emit('change')"></channel-params-any-meter>
     </dl>
     <dl v-else>
         <channel-params-meter-unit v-model="unit"
-            :channel="channel" default_unit="kWh"
+            :channel="channel"
             @change="$emit('change')"></channel-params-meter-unit>
-        <channel-params-any-meter :channel="channel" :unit="unit"
+        <channel-params-any-meter :channel="channel"
+            :unit="unit"
             @change="$emit('change')"></channel-params-any-meter>
-        <channel-params-meter-impulses :channel="channel" :unit="unit"
+        <channel-params-meter-impulses :channel="channel"
+            :unit="unit"
             @change="$emit('change')"></channel-params-meter-impulses>
-        <channel-params-meter-initial-value :channel="channel" :unit="unit"
+        <channel-params-meter-initial-value :channel="channel"
+            :unit="unit"
             @change="$emit('change')"></channel-params-meter-initial-value>
     </dl>
 </template>

@@ -100,19 +100,24 @@ class LogItemsFixture extends SuplaFixture {
         $gasMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::GASMETER;
         })->first();
-        $channelId = $gasMeterIc->getId();
-        $from = strtotime(self::SINCE);
-        $to = time();
-        $counter = 0;
-        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
-            $logItem = new ImpulseCounterLogItem();
-            EntityUtils::setField($logItem, 'channel_id', $channelId);
-            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
-            $counter += $this->faker->biasedNumberBetween(0, 10);
-            EntityUtils::setField($logItem, 'counter', $counter);
-            EntityUtils::setField($logItem, 'calculated_value', ($counter / 100) * 1000);
-            if ($this->faker->boolean(95)) {
-                $this->entityManager->persist($logItem);
+        $heatMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::HEATMETER;
+        })->first();
+        foreach ([$gasMeterIc, $heatMeterIc] as $channel) {
+            $channelId = $channel->getId();
+            $from = strtotime(self::SINCE);
+            $to = time();
+            $counter = 0;
+            for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+                $logItem = new ImpulseCounterLogItem();
+                EntityUtils::setField($logItem, 'channel_id', $channelId);
+                EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+                $counter += $this->faker->biasedNumberBetween(0, 10);
+                EntityUtils::setField($logItem, 'counter', $counter);
+                EntityUtils::setField($logItem, 'calculated_value', ($counter / 100) * 1000);
+                if ($this->faker->boolean(95)) {
+                    $this->entityManager->persist($logItem);
+                }
             }
         }
     }

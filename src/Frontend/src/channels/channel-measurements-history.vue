@@ -37,25 +37,26 @@
     import {debounce} from "lodash";
     import {channelTitle} from "../common/filters";
     import ApexCharts from "apexcharts";
+    import {measurementUnit} from "./channel-helpers";
 
     window.ApexCharts = ApexCharts;
 
     const locales = [
         require("apexcharts/dist/locales/en.json"),
         require("apexcharts/dist/locales/pl.json"),
-        // require("apexcharts/dist/locales/cs.json"),
+        require("apexcharts/dist/locales/cs.json"),
         require("apexcharts/dist/locales/de.json"),
         require("apexcharts/dist/locales/es.json"),
         require("apexcharts/dist/locales/el.json"),
         require("apexcharts/dist/locales/fr.json"),
         require("apexcharts/dist/locales/it.json"),
-        // require("apexcharts/dist/locales/lt.json"),
+        require("apexcharts/dist/locales/lt.json"),
         require("apexcharts/dist/locales/nl.json"),
-        // require("apexcharts/dist/locales/nb.json"),
-        // require("apexcharts/dist/locales/pt.json"),
+        require("apexcharts/dist/locales/nb.json"),
+        require("apexcharts/dist/locales/pt.json"),
         require("apexcharts/dist/locales/ru.json"),
-        // require("apexcharts/dist/locales/sk.json"),
-        // require("apexcharts/dist/locales/sl.json"),
+        require("apexcharts/dist/locales/sk.json"),
+        require("apexcharts/dist/locales/sl.json"),
     ];
 
     const CHART_TYPES = {
@@ -174,19 +175,22 @@
             },
             yaxes: function (logs) {
                 const values = logs.map(log => log.calculated_value).filter(t => t !== null);
+                const maxMeasurement = Math.max.apply(this, values);
                 return [
                     {
                         seriesName: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`,
                         title: {text: this.$t("Calculated value")},
-                        labels: {formatter: (v) => `${(+v).toFixed(2)} m³`},
-                        min: Math.floor(Math.min.apply(this, values)),
-                        max: Math.ceil(Math.max.apply(this, values)),
+                        labels: {formatter: (v) => `${(+v).toFixed(2)} ${measurementUnit(this.channel)}`},
+                        min: 0,
+                        max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
                     }
                 ];
             },
             emptyLog: () => ({date_timestamp: null, counter: null, calculated_value: null}),
         },
     };
+
+    CHART_TYPES.HEATMETER = CHART_TYPES.GASMETER;
 
     export default {
         props: ['channel'],
@@ -468,15 +472,17 @@
                 this.rerenderCharts();
             },
             rerenderCharts() {
-                const series = this.getChartSeries();
-                this.bigChart.updateSeries(series, true);
-                this.bigChart.updateOptions({
-                    xaxis: {
-                        min: this.currentMinTimestamp,
-                        max: this.currentMaxTimestamp,
-                    },
-                    yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
-                }, false, false);
+                if (this.denseLogs && this.denseLogs.length) {
+                    const series = this.getChartSeries();
+                    this.bigChart.updateSeries(series, true);
+                    this.bigChart.updateOptions({
+                        xaxis: {
+                            min: this.currentMinTimestamp,
+                            max: this.currentMaxTimestamp,
+                        },
+                        yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
+                    }, false, false);
+                }
             },
             deleteMeasurements() {
                 this.deleteConfirm = false;
