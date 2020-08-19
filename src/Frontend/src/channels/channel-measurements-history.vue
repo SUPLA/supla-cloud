@@ -35,7 +35,7 @@
 
 <script>
     import {successNotification} from "../common/notifier";
-    import {debounce} from "lodash";
+    import {debounce, merge} from "lodash";
     import {channelTitle} from "../common/filters";
     import ApexCharts from "apexcharts";
     import {measurementUnit} from "./channel-helpers";
@@ -65,6 +65,7 @@
     const CHART_TYPES = {
         THERMOMETER: {
             chartType: 'line',
+            chartOptions: () => ({}),
             series: function (allLogs) {
                 const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
                 return [{name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries}];
@@ -93,6 +94,7 @@
         },
         HUMIDITYANDTEMPERATURE: {
             chartType: 'line',
+            chartOptions: () => ({}),
             series: function (allLogs) {
                 const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
                 const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
@@ -137,6 +139,7 @@
         },
         GASMETER: {
             chartType: 'bar',
+            chartOptions: () => ({}),
             series: function (allLogs) {
                 const calculatedValues = allLogs.map((item) => [item.date_timestamp * 1000, item.calculated_value]);
                 return [{name: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`, data: calculatedValues}];
@@ -196,6 +199,87 @@
                 ];
             },
             emptyLog: () => ({date_timestamp: null, counter: null, calculated_value: null}),
+        },
+        ELECTRICITYMETER: {
+            chartType: 'bar',
+            chartOptions: () => ({
+                chart: {stacked: true},
+            }),
+            series: function (allLogs) {
+                return [
+                    {
+                        name: `${channelTitle(this.channel, this)} (${this.$t('Phase 1')})`,
+                        data: allLogs.map((item) => [item.date_timestamp * 1000, item.phase1_fae]),
+                    },
+                    {
+                        name: `${channelTitle(this.channel, this)} (${this.$t('Phase 2')})`,
+                        data: allLogs.map((item) => [item.date_timestamp * 1000, item.phase2_fae]),
+                    },
+                    {
+                        name: `${channelTitle(this.channel, this)} (${this.$t('Phase 3')})`,
+                        data: allLogs.map((item) => [item.date_timestamp * 1000, item.phase3_fae]),
+                    },
+                ];
+            },
+            fixLog: (log) => {
+                if (log.phase1_fae !== undefined && log.phase1_fae !== null) {
+                    log.phase1_fae = +log.phase1_fae;
+                    log.phase2_fae = +log.phase2_fae;
+                    log.phase3_fae = +log.phase3_fae;
+                }
+                return log;
+            },
+            adjustLogs: (logs) => {
+                let previousLog = logs[0];
+                const adjustedLogs = [];
+                for (let i = 1; i < logs.length; i++) {
+                    const log = {...logs[i]};
+                    log.phase1_fae -= previousLog.phase1_fae;
+                    log.phase2_fae -= previousLog.phase2_fae;
+                    log.phase3_fae -= previousLog.phase3_fae;
+                    adjustedLogs.push(log);
+                    previousLog = logs[i];
+                }
+                return adjustedLogs;
+            },
+            interpolateGaps: (logs) => {
+                return logs;
+                let firstNullLog = undefined;
+                let lastNonNullLog = undefined;
+                for (let currentNonNullLog = 0; currentNonNullLog < logs.length; currentNonNullLog++) {
+                    const currentValue = logs[currentNonNullLog].calculated_value;
+                    if (currentValue === null && firstNullLog === undefined) {
+                        firstNullLog = currentNonNullLog;
+                    } else if (currentValue !== null && firstNullLog !== undefined) {
+                        const logsToFill = currentNonNullLog - firstNullLog;
+                        const lastKnownValue = logs[lastNonNullLog].calculated_value;
+                        const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
+                        for (let i = 0; i < logsToFill; i++) {
+                            logs[i + firstNullLog].calculated_value = lastKnownValue + normalizedStep * (i + 1);
+                            // logs[i].interpolated = true; may be useful
+                        }
+                        firstNullLog = undefined;
+                    }
+                    if (currentValue !== null) {
+                        lastNonNullLog = currentNonNullLog;
+                    }
+                }
+                return logs;
+            },
+            yaxes: function (logs) {
+                const values = this.adjustLogs(logs).map(log => log.phase1_fae + log.phase3_fae + log.phase3_fae).filter(t => t !== null);
+                const maxMeasurement = Math.max.apply(this, values);
+                return [
+                    {
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Forward active energy')})`,
+                        title: {text: this.$t("Forward active energy")},
+                        labels: {formatter: (v) => `${(+v).toFixed(2)} ${measurementUnit(this.channel)}`},
+                        min: 0,
+                        max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
+                    }
+                ];
+            },
+            emptyLog: () => ({date_timestamp: null, phase1_fae: null, phase2_fae: null, phase3_fae: null}),
         },
     };
 
@@ -332,7 +416,7 @@
                     title: {style: {fontSize: '20px', fontWeight: 'normal', fontFamily: 'Quicksand'}},
                     legend: {show: true, showForSingleSeries: true, position: 'top'},
                     stroke: {width: 3,/* curve: 'smooth'*/},
-                    colors: ['#00d150', '#008ffb'],
+                    colors: ['#00d150', '#008ffb', '#ff851b'],
                     dataLabels: {enabled: false},
                     fill: {opacity: 1},
                     markers: {size: 0},
@@ -356,7 +440,7 @@
                         type: this.chartStrategy.chartType,
                         brush: {target: chartId, enabled: true, autoScaleYaxis: false},
                         locales,
-                        colors: ['#00d150', '#008ffb'],
+                        colors: ['#00d150', '#008ffb', '#ff851b'],
                         selection: {
                             enabled: true,
                             xaxis: {
@@ -389,7 +473,10 @@
                     yaxis: {labels: {show: false}}
                 };
 
+                const chartOptions = this.chartStrategy.chartOptions();
                 const series = this.getChartSeries();
+                merge(bigChartOptions, chartOptions);
+                merge(smallChartOptions, chartOptions);
                 this.bigChart = new ApexCharts(this.$refs.bigChart, {...bigChartOptions, series});
                 this.smallChart = new ApexCharts(this.$refs.smallChart, {...smallChartOptions, series});
                 this.bigChart.render();
