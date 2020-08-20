@@ -379,6 +379,7 @@
                 };
 
                 const fetchPreciseLogs = debounce(() => {
+                    this.fetchingDenseLogs = true;
                     this.fetchDenseLogs().then(() => this.rerenderCharts());
                 }, 500);
 
@@ -560,7 +561,6 @@
                 return mergedLogs;
             },
             fetchDenseLogs() {
-                this.fetchingDenseLogs = true;
                 return this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
                     sparse: DENSE_LOGS_COUNT,
                     afterTimestamp: Math.floor(this.currentMinTimestamp / 1000) - 1,
@@ -570,8 +570,7 @@
                     .then(({body: logItems}) => {
                         const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / DENSE_LOGS_COUNT));
                         return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
-                    })
-                    .finally(() => this.fetchingDenseLogs = false);
+                    });
             },
             updateChartLocale() {
                 const availableLocales = locales.map((l) => l.name);
@@ -594,6 +593,7 @@
                         },
                         yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
                     }, false, false);
+                    this.fetchingDenseLogs = false;
                 }
             },
             deleteMeasurements() {
