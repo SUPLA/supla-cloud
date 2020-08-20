@@ -61,6 +61,7 @@
     ];
 
     const SPARSE_LOGS_COUNT = 300;
+    const DENSE_LOGS_COUNT = 150;
 
     const CHART_TYPES = {
         THERMOMETER: {
@@ -223,9 +224,11 @@
             },
             fixLog: (log) => {
                 if (log.phase1_fae !== undefined && log.phase1_fae !== null) {
-                    log.phase1_fae = +log.phase1_fae;
-                    log.phase2_fae = +log.phase2_fae;
-                    log.phase3_fae = +log.phase3_fae;
+                    // factors from supla-core
+                    // https://github.com/SUPLA/supla-core/blob/2628a51b678a2d300fc81b16c24c6a3a5f8d20e8/supla-common/proto.h#L1081
+                    log.phase1_fae = +log.phase1_fae * 0.00001;
+                    log.phase2_fae = +log.phase2_fae * 0.00001;
+                    log.phase3_fae = +log.phase3_fae * 0.00001;
                 }
                 return log;
             },
@@ -243,21 +246,23 @@
                 return adjustedLogs;
             },
             interpolateGaps: (logs) => {
-                return logs;
                 let firstNullLog = undefined;
                 let lastNonNullLog = undefined;
                 for (let currentNonNullLog = 0; currentNonNullLog < logs.length; currentNonNullLog++) {
-                    const currentValue = logs[currentNonNullLog].calculated_value;
+                    const currentValue = logs[currentNonNullLog].phase1_fae;
                     if (currentValue === null && firstNullLog === undefined) {
                         firstNullLog = currentNonNullLog;
                     } else if (currentValue !== null && firstNullLog !== undefined) {
-                        const logsToFill = currentNonNullLog - firstNullLog;
-                        const lastKnownValue = logs[lastNonNullLog].calculated_value;
-                        const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
-                        for (let i = 0; i < logsToFill; i++) {
-                            logs[i + firstNullLog].calculated_value = lastKnownValue + normalizedStep * (i + 1);
-                            // logs[i].interpolated = true; may be useful
-                        }
+                        ['phase1_fae', 'phase2_fae', 'phase3_fae'].forEach((attribute) => {
+                            const currentValue = logs[currentNonNullLog][attribute];
+                            const logsToFill = currentNonNullLog - firstNullLog;
+                            const lastKnownValue = logs[lastNonNullLog][attribute];
+                            const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
+                            for (let i = 0; i < logsToFill; i++) {
+                                logs[i + firstNullLog][attribute] = lastKnownValue + normalizedStep * (i + 1);
+                                // logs[i].interpolated = true; may be useful
+                            }
+                        });
                         firstNullLog = undefined;
                     }
                     if (currentValue !== null) {
@@ -273,7 +278,7 @@
                     {
                         seriesName: `${channelTitle(this.channel, this)} (${this.$t('Forward active energy')})`,
                         title: {text: this.$t("Forward active energy")},
-                        labels: {formatter: (v) => `${(+v).toFixed(2)} ${measurementUnit(this.channel)}`},
+                        labels: {formatter: (v) => `${(+v).toFixed(5)} ${measurementUnit(this.channel)}`},
                         min: 0,
                         max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
                     }
@@ -320,11 +325,21 @@
             }
         },
         methods: {
-            getChartSeries() {
+            getSmallChartSeries() {
                 const series = [];
                 if (this.sparseLogs.length) {
-                    const allLogs = this.adjustLogs(this.mergeLogs(this.sparseLogs, this.denseLogs));
+                    const allLogs = this.adjustLogs(this.sparseLogs);
                     return this.chartStrategy.series.call(this, allLogs);
+                }
+                return series;
+            },
+            getBigChartSeries() {
+                const series = [];
+                if (this.denseLogs.length) {
+                    const allLogs = this.chartStrategy.chartType === 'line'
+                        ? this.mergeLogs(this.sparseLogs, this.denseLogs)
+                        : this.denseLogs;
+                    return this.chartStrategy.series.call(this, this.adjustLogs(allLogs));
                 }
                 return series;
             },
@@ -474,7 +489,7 @@
                 };
 
                 const chartOptions = this.chartStrategy.chartOptions();
-                const series = this.getChartSeries();
+                const series = this.getSmallChartSeries();
                 merge(bigChartOptions, chartOptions);
                 merge(smallChartOptions, chartOptions);
                 this.bigChart = new ApexCharts(this.$refs.bigChart, {...bigChartOptions, series});
@@ -546,13 +561,13 @@
             fetchDenseLogs() {
                 this.fetchingDenseLogs = true;
                 return this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
-                    sparse: 200,
+                    sparse: DENSE_LOGS_COUNT,
                     afterTimestamp: Math.floor(this.currentMinTimestamp / 1000) - 1,
                     beforeTimestamp: Math.ceil(this.currentMaxTimestamp / 1000) + 1,
                     order: 'ASC',
                 }))
                     .then(({body: logItems}) => {
-                        const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / 200));
+                        const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / DENSE_LOGS_COUNT));
                         return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
                     })
                     .finally(() => this.fetchingDenseLogs = false);
@@ -569,7 +584,7 @@
             },
             rerenderCharts() {
                 if (this.denseLogs && this.denseLogs.length) {
-                    const series = this.getChartSeries();
+                    const series = this.getBigChartSeries();
                     this.bigChart.updateSeries(series, true);
                     this.bigChart.updateOptions({
                         xaxis: {
