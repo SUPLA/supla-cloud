@@ -410,7 +410,7 @@
                                 }]
                             },
                         },
-                        animations: {enabled: true},
+                        animations: {enabled: false},
                         locales,
                         events: {
                             zoomed: (chartContext, {xaxis}) => {
@@ -456,6 +456,7 @@
                         brush: {target: chartId, enabled: true, autoScaleYaxis: false},
                         locales,
                         colors: ['#00d150', '#008ffb', '#ff851b'],
+                        animations: {enabled: false},
                         selection: {
                             enabled: true,
                             xaxis: {
