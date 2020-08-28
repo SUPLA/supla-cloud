@@ -14,8 +14,10 @@
 </template>
 
 <script>
+    import {measurementUnit} from "../channel-helpers";
+
     export default {
-        props: ['channel', 'value', 'default_unit'],
+        props: ['channel', 'value'],
         data() {
             return {
                 unit: undefined,
@@ -24,7 +26,7 @@
         },
         methods: {
             getDefaultUnit() {
-                return this.default_unit ? this.default_unit : 'm³';
+                return measurementUnit(this.channel);
             },
             onKeyUp() {
                 this.$emit('input', this.unit);

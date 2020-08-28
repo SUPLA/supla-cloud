@@ -19,12 +19,15 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use SuplaBundle\Entity\ElectricityMeterLogItem;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\TemperatureLogItem;
 use SuplaBundle\Entity\TempHumidityLogItem;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 
 class LogItemsFixture extends SuplaFixture {
@@ -43,6 +46,10 @@ class LogItemsFixture extends SuplaFixture {
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
         $this->createTemperatureAndHumidityLogItems();
+        $this->entityManager->flush();
+        $this->createImpulseCounterLogItems();
+        $this->entityManager->flush();
+        $this->createElectricityMeterLogItems();
         $this->entityManager->flush();
     }
 
@@ -86,6 +93,76 @@ class LogItemsFixture extends SuplaFixture {
             $humidity = max(0, min(100, $humidity));
             EntityUtils::setField($logItem, 'temperature', $temperature);
             EntityUtils::setField($logItem, 'humidity', $humidity);
+            if ($this->faker->boolean(95)) {
+                $this->entityManager->persist($logItem);
+            }
+        }
+    }
+
+    private function createImpulseCounterLogItems() {
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $gasMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::GASMETER;
+        })->first();
+        $heatMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::HEATMETER;
+        })->first();
+        $electricityMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::ELECTRICITYMETER
+                && $channel->getType()->getId() === ChannelType::IMPULSECOUNTER;
+        })->first();
+        foreach ([$gasMeterIc, $heatMeterIc, $electricityMeterIc] as $channel) {
+            $channelId = $channel->getId();
+            $from = strtotime(self::SINCE);
+            $to = time();
+            $counter = 0;
+            for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+                $logItem = new ImpulseCounterLogItem();
+                EntityUtils::setField($logItem, 'channel_id', $channelId);
+                EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+                $counter += $this->faker->biasedNumberBetween(0, 10);
+                EntityUtils::setField($logItem, 'counter', $counter);
+                EntityUtils::setField($logItem, 'calculated_value', ($counter / 100) * 1000);
+                if ($this->faker->boolean(95)) {
+                    $this->entityManager->persist($logItem);
+                }
+            }
+        }
+    }
+
+    private function createElectricityMeterLogItems() {
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER
+                && $channel->getFunction()->getId() === ChannelFunction::ELECTRICITYMETER;
+        })->first();
+        $channelId = $ecChannel->getId();
+        $from = strtotime(self::SINCE);
+        $to = time();
+        $state = [
+            'phase1_fae' => 1,
+            'phase1_rae' => 0,
+            'phase1_fre' => 1,
+            'phase1_rre' => 2,
+            'phase2_fae' => 1,
+            'phase2_rae' => 0,
+            'phase2_fre' => 1,
+            'phase2_rre' => 2,
+            'phase3_fae' => 1,
+            'phase3_rae' => 0,
+            'phase3_fre' => 1,
+            'phase3_rre' => 2,
+            'fae_balanced' => 3,
+            'rae_balanced' => 3,
+        ];
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            $logItem = new ElectricityMeterLogItem();
+            EntityUtils::setField($logItem, 'channel_id', $channelId);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+            foreach ($state as $stateName => $value) {
+                $state[$stateName] += $this->faker->biasedNumberBetween(0, 10);
+                EntityUtils::setField($logItem, $stateName, $state[$stateName]);
+            }
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }
