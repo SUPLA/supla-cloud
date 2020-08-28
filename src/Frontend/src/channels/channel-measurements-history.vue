@@ -18,7 +18,8 @@
             <div v-if="supportsChart">
                 <div class="form-group text-center"
                     v-if="hasLogs">
-                    <div class="btn-group">
+                    <div class="btn-group"
+                        v-if="channel.function.name === 'ELECTRICITYMETER' && channel.type.name === 'ELECTRICITYMETER'">
                         <a :class="'btn btn-' + (chartMode === 'fae' ? 'green' : 'default')"
                             @click="changeChartMode('fae')">
                             {{ $t('Forward active energy') }}
@@ -334,6 +335,8 @@
     };
 
     CHART_TYPES.HEATMETER = CHART_TYPES.GASMETER;
+    CHART_TYPES.WATERMETER = CHART_TYPES.GASMETER;
+    CHART_TYPES.ELECTRICITYMETER_IC = CHART_TYPES.GASMETER;
 
     export default {
         props: ['channel'],
@@ -355,6 +358,9 @@
         mounted() {
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
+                if (this.channel.function.name === 'ELECTRICITYMETER' && this.channel.type.name === 'IMPULSECOUNTER') {
+                    this.chartStrategy = CHART_TYPES.ELECTRICITYMETER_IC;
+                }
                 this.fetchSparseLogs().then((logs) => {
                     logs = this.fixLogs(logs);
                     this.hasLogs = logs.length > 0;

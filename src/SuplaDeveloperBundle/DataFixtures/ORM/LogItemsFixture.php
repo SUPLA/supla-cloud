@@ -107,7 +107,11 @@ class LogItemsFixture extends SuplaFixture {
         $heatMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::HEATMETER;
         })->first();
-        foreach ([$gasMeterIc, $heatMeterIc] as $channel) {
+        $electricityMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::ELECTRICITYMETER
+                && $channel->getType()->getId() === ChannelType::IMPULSECOUNTER;
+        })->first();
+        foreach ([$gasMeterIc, $heatMeterIc, $electricityMeterIc] as $channel) {
             $channelId = $channel->getId();
             $from = strtotime(self::SINCE);
             $to = time();
