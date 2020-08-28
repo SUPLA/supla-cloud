@@ -16,6 +16,26 @@
             </div>
 
             <div v-if="supportsChart">
+                <div class="form-group text-center">
+                    <div class="btn-group">
+                        <a :class="'btn btn-' + (chartMode === 'fae' ? 'green' : 'default')"
+                            @click="changeChartMode('fae')">
+                            {{ $t('Forward active energy') }}
+                        </a>
+                        <a :class="'btn btn-' + (chartMode === 'rae' ? 'green' : 'default')"
+                            @click="changeChartMode('rae')">
+                            {{ $t('Reverse active energy') }}
+                        </a>
+                        <a :class="'btn btn-' + (chartMode === 'fre' ? 'green' : 'default')"
+                            @click="changeChartMode('fre')">
+                            {{ $t('Forward reactive energy') }}
+                        </a>
+                        <a :class="'btn btn-' + (chartMode === 'rre' ? 'green' : 'default')"
+                            @click="changeChartMode('rre')">
+                            {{ $t('Reverse reactive energy') }}
+                        </a>
+                    </div>
+                </div>
                 <div ref="bigChart"></div>
                 <div :class="sparseLogs && sparseLogs.length > 10 ? '' : 'invisible'"
                     ref="smallChart"></div>
@@ -210,15 +230,15 @@
                 return [
                     {
                         name: `${channelTitle(this.channel, this)} (${this.$t('Phase 1')})`,
-                        data: allLogs.map((item) => [item.date_timestamp * 1000, item.phase1_fae]),
+                        data: allLogs.map((item) => [item.date_timestamp * 1000, item['phase1_' + this.chartMode]]),
                     },
                     {
                         name: `${channelTitle(this.channel, this)} (${this.$t('Phase 2')})`,
-                        data: allLogs.map((item) => [item.date_timestamp * 1000, item.phase2_fae]),
+                        data: allLogs.map((item) => [item.date_timestamp * 1000, item['phase2_' + this.chartMode]]),
                     },
                     {
                         name: `${channelTitle(this.channel, this)} (${this.$t('Phase 3')})`,
-                        data: allLogs.map((item) => [item.date_timestamp * 1000, item.phase3_fae]),
+                        data: allLogs.map((item) => [item.date_timestamp * 1000, item['phase3_' + this.chartMode]]),
                     },
                 ];
             },
@@ -229,6 +249,15 @@
                     log.phase1_fae = +log.phase1_fae * 0.00001;
                     log.phase2_fae = +log.phase2_fae * 0.00001;
                     log.phase3_fae = +log.phase3_fae * 0.00001;
+                    log.phase1_rae = +log.phase1_rae * 0.00001;
+                    log.phase2_rae = +log.phase2_rae * 0.00001;
+                    log.phase3_rae = +log.phase3_rae * 0.00001;
+                    log.phase1_fre = +log.phase1_fre * 0.00001;
+                    log.phase2_fre = +log.phase2_fre * 0.00001;
+                    log.phase3_fre = +log.phase3_fre * 0.00001;
+                    log.phase1_rre = +log.phase1_rre * 0.00001;
+                    log.phase2_rre = +log.phase2_rre * 0.00001;
+                    log.phase3_rre = +log.phase3_rre * 0.00001;
                 }
                 return log;
             },
@@ -240,6 +269,15 @@
                     log.phase1_fae -= previousLog.phase1_fae;
                     log.phase2_fae -= previousLog.phase2_fae;
                     log.phase3_fae -= previousLog.phase3_fae;
+                    log.phase1_rae -= previousLog.phase1_rae;
+                    log.phase2_rae -= previousLog.phase2_rae;
+                    log.phase3_rae -= previousLog.phase3_rae;
+                    log.phase1_fre -= previousLog.phase1_fre;
+                    log.phase2_fre -= previousLog.phase2_fre;
+                    log.phase3_fre -= previousLog.phase3_fre;
+                    log.phase1_rre -= previousLog.phase1_rre;
+                    log.phase2_rre -= previousLog.phase2_rre;
+                    log.phase3_rre -= previousLog.phase3_rre;
                     adjustedLogs.push(log);
                     previousLog = logs[i];
                 }
@@ -272,12 +310,19 @@
                 return logs;
             },
             yaxes: function (logs) {
-                const values = this.adjustLogs(logs).map(log => log.phase1_fae + log.phase3_fae + log.phase3_fae).filter(t => t !== null);
+                const values = this.adjustLogs(logs).map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode]).filter(t => t > 0);
                 const maxMeasurement = Math.max.apply(this, values);
+                console.log(values, this.chartMode, maxMeasurement);
+                const label = {
+                    fae: this.$t("Forward active energy"),
+                    rae: this.$t("Reverse active energy"),
+                    fre: this.$t("Forward reactive energy"),
+                    rre: this.$t("Reverse reactive energy"),
+                }[this.chartMode];
                 return [
                     {
-                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Forward active energy')})`,
-                        title: {text: this.$t("Forward active energy")},
+                        seriesName: `${channelTitle(this.channel, this)} (${label})`,
+                        title: {text: label},
                         labels: {formatter: (v) => `${(+v).toFixed(5)} ${measurementUnit(this.channel)}`},
                         min: 0,
                         max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
@@ -304,6 +349,7 @@
                 smallChart: undefined,
                 fetchingDenseLogs: false,
                 chartStrategy: undefined,
+                chartMode: undefined,
             };
         },
         mounted() {
@@ -595,6 +641,10 @@
                     }, false, false);
                     this.fetchingDenseLogs = false;
                 }
+            },
+            changeChartMode(newMode) {
+                this.chartMode = newMode;
+                this.rerenderCharts();
             },
             deleteMeasurements() {
                 this.deleteConfirm = false;
