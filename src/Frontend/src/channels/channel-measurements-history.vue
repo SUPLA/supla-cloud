@@ -16,7 +16,8 @@
             </div>
 
             <div v-if="supportsChart">
-                <div class="form-group text-center">
+                <div class="form-group text-center"
+                    v-if="hasLogs">
                     <div class="btn-group">
                         <a :class="'btn btn-' + (chartMode === 'fae' ? 'green' : 'default')"
                             @click="changeChartMode('fae')">
@@ -312,7 +313,6 @@
             yaxes: function (logs) {
                 const values = this.adjustLogs(logs).map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode]).filter(t => t > 0);
                 const maxMeasurement = Math.max.apply(this, values);
-                console.log(values, this.chartMode, maxMeasurement);
                 const label = {
                     fae: this.$t("Forward active energy"),
                     rae: this.$t("Reverse active energy"),
@@ -349,7 +349,7 @@
                 smallChart: undefined,
                 fetchingDenseLogs: false,
                 chartStrategy: undefined,
-                chartMode: undefined,
+                chartMode: 'fae',
             };
         },
         mounted() {
@@ -426,7 +426,7 @@
 
                 const fetchPreciseLogs = debounce(() => {
                     this.fetchingDenseLogs = true;
-                    this.fetchDenseLogs().then(() => this.rerenderCharts());
+                    this.fetchDenseLogs().then(() => this.rerenderBigChart());
                 }, 500);
 
                 let chartId = `channel${this.channel.id}`;
@@ -502,7 +502,6 @@
                         type: this.chartStrategy.chartType,
                         brush: {target: chartId, enabled: true, autoScaleYaxis: false},
                         locales,
-                        colors: ['#00d150', '#008ffb', '#ff851b'],
                         animations: {enabled: false},
                         selection: {
                             enabled: true,
@@ -527,6 +526,7 @@
                             },
                         },
                     },
+                    colors: ['#00d150', '#008ffb', '#ff851b'],
                     legend: {show: false},
                     xaxis: {
                         type: 'datetime',
@@ -626,9 +626,9 @@
                 this.bigChart.updateOptions({
                     title: {text: channelTitle(this.channel, this)},
                 });
-                this.rerenderCharts();
+                this.rerenderBigChart();
             },
-            rerenderCharts() {
+            rerenderBigChart() {
                 if (this.denseLogs && this.denseLogs.length) {
                     const series = this.getBigChartSeries();
                     this.bigChart.updateSeries(series, true);
@@ -642,9 +642,16 @@
                     this.fetchingDenseLogs = false;
                 }
             },
+            rerenderSmallChart() {
+                if (this.sparseLogs && this.sparseLogs.length) {
+                    const series = this.getSmallChartSeries();
+                    this.smallChart.updateSeries(series, true);
+                }
+            },
             changeChartMode(newMode) {
                 this.chartMode = newMode;
-                this.rerenderCharts();
+                this.rerenderBigChart();
+                this.rerenderSmallChart();
             },
             deleteMeasurements() {
                 this.deleteConfirm = false;
