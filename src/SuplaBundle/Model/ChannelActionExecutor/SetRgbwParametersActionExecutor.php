@@ -11,6 +11,18 @@ use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Utils\ColorUtils;
 
 class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
+    const POSSIBLE_ACTION_KEYS = [
+        'hue',
+        'color_brightness',
+        'brightness',
+        'color',
+        'hsv',
+        'rgb',
+        'alexaCorrelationToken',
+        'googleRequestId',
+        'turnOnOff',
+    ];
+
     /** @var ColorAndBrightnessChannelStateGetter */
     private $channelStateGetter;
 
@@ -33,8 +45,10 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::between(count($actionParams), 1, 4, 'Invalid number of action parameters');
         Assertion::count(
-            array_intersect_key($actionParams, array_flip(['hue', 'color_brightness', 'brightness', 'color', 'hsv', 'rgb',
-                'alexaCorrelationToken', 'googleRequestId'])),
+            array_intersect_key(
+                $actionParams,
+                array_flip(self::POSSIBLE_ACTION_KEYS)
+            ),
             count($actionParams),
             'Invalid action parameters'
         );
@@ -149,9 +163,10 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         }
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;
+        $turnOnOff = ($actionParams['turnOnOff']) ?? false ? 1 : 0;
         $command = $subject->buildServerSetCommand(
             'RGBW',
-            $this->assignCommonParams([$color, $colorBrightness, $brightness], $actionParams)
+            $this->assignCommonParams([$color, $colorBrightness, $brightness, $turnOnOff], $actionParams)
         );
         if ($color == 'random') {
             $command = $subject->buildServerSetCommand('RAND-RGBW', [$colorBrightness, $brightness]);
