@@ -64,10 +64,12 @@ Authorized: Zautoryzowano
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Automation: Automatyka
 Back to apps list: Powrót do listy aplikacji
+Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Bridge: Most
 Brightness: Jasność
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
 CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
+Calculated value: Stan licznika
 Calibration: Kalibracja
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
@@ -198,6 +200,7 @@ For devices: Dla urządzeń
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.'
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
+Forward reactive energy: Energa bierna pobrana
 Fridays: Piątki
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
@@ -339,6 +342,9 @@ Percentage of closing: Procent zamknięcia
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.'
 Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
+Phase 1: Faza 1
+Phase 2: Faza 2
+Phase 3: Faza 3
 Please click the link we have sent you after the registration to proceed.: 'Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.'
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
@@ -377,6 +383,8 @@ Repeat password: Powtórz hasło
 Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
+Reverse active energy: Energia czynna zwrócona
+Reverse reactive energy: Energia bierna zwrócona
 Revoke: Unieważnij
 Roller shutter opening sensor: Czujnik otwarcia rolet
 Roller shutter operation: Otwieranie i zamykanie rolet
@@ -424,6 +432,7 @@ Staircase timer: Automat schodowy
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
 State: Stan
+State webhook: Hook stanu
 Stop: Zatrzymaj
 Subject: Podmiot
 Subject type: Typ podmiotu
