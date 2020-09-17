@@ -382,7 +382,23 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66', $commands);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,0', $commands);
+    }
+
+    public function testExecutingDirectLinkWithTurnOnOffParameter() {
+        SuplaServerMock::mockResponse('GET-RGBW', "VALUE:1,0,100\n");
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[3]->getId(),
+            'allowedActions' => ['set-rgbw-parameters'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66&turnOnOff=1");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,1', $commands);
     }
 
     public function testExecutingDirectLinkWithComplexParameters() {
@@ -399,7 +415,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,9437015,67,100', $commands);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,9437015,67,100,0', $commands);
     }
 
     public function testExecutingDirectLinkToOpenValve() {
