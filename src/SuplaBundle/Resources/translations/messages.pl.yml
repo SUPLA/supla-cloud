@@ -200,7 +200,7 @@ For devices: Dla urządzeń
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.'
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
-Forward reactive energy: Energa bierna pobrana
+Forward reactive energy: Energia bierna pobrana
 Fridays: Piątki
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
@@ -432,7 +432,7 @@ Staircase timer: Automat schodowy
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
 State: Stan
-State webhook: Hook stanu
+State webhook: Webhook stanu
 Stop: Zatrzymaj
 Subject: Podmiot
 Subject type: Typ podmiotu
