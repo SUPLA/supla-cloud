@@ -621,24 +621,24 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': ~
-Be notified when your channels change state: ~
-Bridge: ~
-Calculated value: ~
-Flooding: ~
-Forward reactive energy: ~
-Manually closed: ~
-Phase 1: ~
-Phase 2: ~
-Phase 3: ~
-Reverse active energy: ~
-Reverse reactive energy: ~
-State webhook: ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-You have exceeded your API Rate Limit: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
+'Alternatively, you can add a GET parameter to specify response format.': Sie können auch den GET-Parameter hinzufügen, um den Format der Antwort zu bestimmen
+Be notified when your channels change state: Benachrichtigung über Änderungen des Kanalzustandes
+Bridge: Brücke
+Calculated value: Zählerstand
+Flooding: Überflutung
+Forward reactive energy: Blindleistung bezogen
+Manually closed: Manuell geschlossen
+Phase 1: Phase 1
+Phase 2: Phase 2
+Phase 3: Phase 3
+Reverse active energy: Wirkleistung rückgeliefert
+Reverse reactive energy: Wirkleistung bezogen
+State webhook: Webhook des Zustands
+The gate sensor must function properly in order to execute the Open and Close actions.: Zwecks der Ausführung der Aktion Öffnen oder Schließen muss der Tor-Öffnungssensor einwandfrei funktionieren.
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Das Ventil kann nicht mit Hilfe eines direkten Links oder mittels API geöffnet werden, weil es manuell geschlossen wurde. Um die Steuerung wieder aufzunehmen öffnen Sie das Ventil manuell.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Das Ventil wurde manuell oder per Funk geschlossen. Vor seiner Öffnung versichern Sie sich, dass es nicht wegen Überflutung geschlossen wurde. Um die Warnung abzuschalten, öffnen sie das Ventil manuell. Wollen Sie wirklich das Ventil aus der Ferne öffnen?'
+Wait a while before the next request. You can check your limits in the account settings.: Vor Ausführung einer weiteren Anforderung warten Sie einen Moment ab. Sie können aktuellen Verbrauch Ihrer Limits in den Einstellungen des Kontos prüfen.
+You have exceeded your API Rate Limit: Sie haben Ihren Limit der Anforderungen zu API verbraucht
+directLinkExecutionFailureReason_invalidChannelState: Die Aktion kann nicht aufgrund des Kanalzustands ausgeführt werden.
 
 #</editor-fold>

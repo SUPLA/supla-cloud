@@ -621,24 +621,24 @@ execute: voer uit
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': ~
-Be notified when your channels change state: ~
-Bridge: ~
-Calculated value: ~
-Flooding: ~
-Forward reactive energy: ~
-Manually closed: ~
-Phase 1: ~
-Phase 2: ~
-Phase 3: ~
-Reverse active energy: ~
-Reverse reactive energy: ~
-State webhook: ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-You have exceeded your API Rate Limit: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
+'Alternatively, you can add a GET parameter to specify response format.': U kunt ook een GET parameter toevoegen om het antwoordformaat te specificeren.
+Be notified when your channels change state: Melding van wijzigingen in de kanaalstatus
+Bridge: Brug
+Calculated value: Meterstand
+Flooding: Overstroming
+Forward reactive energy: Reactieve energie opgenomen
+Manually closed: Handmatig gesloten
+Phase 1: Fase 1
+Phase 2: Fase 2
+Phase 3: Fase 3
+Reverse active energy: Teruggegeven actieve energie
+Reverse reactive energy: Teruggegeven reactieve energie
+State webhook: Status webhook
+The gate sensor must function properly in order to execute the Open and Close actions.: De poortopeningsensor moet correct werken om de actie Openen of Sluiten uit te voeren.
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'De klep kan niet worden geopend via een directe link of via API wanneer deze handmatig is gesloten. Om de besturing te hervatten, opent u de klep handmatig.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'De klep is handmatig of per radio gesloten. Voordat u de klep opent, moet u ervoor zorgen dat zij niet vanwege wateroverlast is gesloten. Om de waarschuwing uit te schakelen, opent u de klep handmatig. Weet u zeker dat u de klep op afstand wilt openen?!'
+Wait a while before the next request. You can check your limits in the account settings.: Wacht even voordat u nog een verzoek doet. U kunt het huidige gebruik van uw limieten in uw accountinstellingen controleren.
+You have exceeded your API Rate Limit: U heeft uw limiet van API-verzoeken verbruikt.
+directLinkExecutionFailureReason_invalidChannelState: De actie kan niet worden uitgevoerd vanwege de status van het kanaal.
 
 #</editor-fold>
