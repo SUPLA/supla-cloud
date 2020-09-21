@@ -621,24 +621,24 @@ execute: Εκτέλεση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': ~
-Be notified when your channels change state: ~
-Bridge: ~
-Calculated value: ~
-Flooding: ~
-Forward reactive energy: ~
-Manually closed: ~
-Phase 1: ~
-Phase 2: ~
-Phase 3: ~
-Reverse active energy: ~
-Reverse reactive energy: ~
-State webhook: ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-You have exceeded your API Rate Limit: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
+'Alternatively, you can add a GET parameter to specify response format.': Μπορείτε επίσης να προσθέσετε μια παράμετρο GET για να καθορίσετε τη μορφή ανταπόκρισης.
+Be notified when your channels change state: Ειδοποίηση για αλλαγές στην κατάσταση των καναλιών
+Bridge: Γέφυρα
+Calculated value: Ανάγνωση μετρητή
+Flooding: Πλημμύρα
+Forward reactive energy: Ληφθείσα παθητική ενέργεια
+Manually closed: Κλειστός χειροκίνητα
+Phase 1: Φάση 1
+Phase 2: Φάση 2
+Phase 3: Φάση 3
+Reverse active energy: Ενεργή ενέργεια επιστροφής
+Reverse reactive energy: Παθητική ενέργεια επιστροφής
+State webhook: Webhook κατάστασης
+The gate sensor must function properly in order to execute the Open and Close actions.: Ο αισθητήρας ανοίγματος της πύλης πρέπει να λειτουργεί σωστά για να εκτελέσει την εντολή Άνοιγμα ή Κλείσιμο.
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Η βαλβίδα δεν μπορεί να ανοίξει μέσω απευθείας σύνδεσης ή μέσω API όταν έχει κλείσει χειροκίνητα. Για να συνεχίσετε τον έλεγχο, ανοίξτε τη βαλβίδα χειροκίνητα.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Η βαλβίδα έχει κλείσει χειροκίνητα ή με τηλεχειρισμό. Πριν την ανοίξετε, βεβαιωθείτε ότι δεν έχει κλείσει λόγω πλημμύρας. Για να απενεργοποιήσετε την προειδοποίηση, ανοίξτε τη βαλβίδα χειροκίνητα. Είστε βέβαιοι ότι θέλετε να ανοίξετε τη βαλβίδα από απόσταση;'
+Wait a while before the next request. You can check your limits in the account settings.: Περιμένετε λίγο προτου δώσετε μια άλλη εντολή. Μπορείτε να ελέγξετε την τρέχουσα χρήση σας στις ρυθμίσεις του λογαριασμού σας.
+You have exceeded your API Rate Limit: Έχετε εξαντλήσει το όριο εντολών σας στην API
+directLinkExecutionFailureReason_invalidChannelState: Η εντολή δεν μπορεί να εκτελεστεί λόγω της κατάστασης του καναλιού.
 
 #</editor-fold>

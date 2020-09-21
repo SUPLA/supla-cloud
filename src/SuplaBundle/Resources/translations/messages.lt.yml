@@ -621,24 +621,24 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': ~
-Be notified when your channels change state: ~
-Bridge: ~
-Calculated value: ~
-Flooding: ~
-Forward reactive energy: ~
-Manually closed: ~
-Phase 1: ~
-Phase 2: ~
-Phase 3: ~
-Reverse active energy: ~
-Reverse reactive energy: ~
-State webhook: ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-You have exceeded your API Rate Limit: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
+'Alternatively, you can add a GET parameter to specify response format.': Norėdami apibrėžti atsakymo formatą taip pat galite pridėti GET parametrą.
+Be notified when your channels change state: Pranešimas apie kanalų būsenos pasikeitimus
+Bridge: Tiltas
+Calculated value: Skaitiklio būsena
+Flooding: Užliejimas
+Forward reactive energy: Reaktyvioji energija parsisiųsta
+Manually closed: Uždarytas rankiniu būdu
+Phase 1: 1 fazė
+Phase 2: 2 fazė
+Phase 3: 3 fazė
+Reverse active energy: Aktyvioji energija grąžinta
+Reverse reactive energy: Reaktyvioji energija grąžinta
+State webhook: Būsenos webhook
+The gate sensor must function properly in order to execute the Open and Close actions.: Norint įvykdyti veiksmą Atidaryti arba Uždaryti, vartelių atidarymo jutiklis turi veikti tinkamai.
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Kai vožtuvas buvo uždarytas rankiniu būdų, jo negalima atidaryti tiesioginės nuorodos ar API pagalba. Norėdami atnaujinti valdymą, vožtuvą atidarykite rankiniu būdu.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Vožtuvas uždarytas rankiniu būdu arba radijo ryšiu. Prieš jo atidarymą reikia įsitikinti, kad nebuvo uždarytas dėl užliejimo. Norėdami išjungti įspėjimą, vožtuvą atidarykite rankiniu būdu. Ar tikrai norite atidaryti vožtuvą nuotoliniu būdu?! '
+Wait a while before the next request. You can check your limits in the account settings.: Prieš atlikdami sekančią užklausą palaukite kelias sekundes. Dabartinį savo apribojimų naudojimą galite patikrinti paskyros nustatymuose.
+You have exceeded your API Rate Limit: Išnaudojote savo API užklausų limitą
+directLinkExecutionFailureReason_invalidChannelState: Šio veiksmo negalima atlikti dėl kanalo būsenos.
 
 #</editor-fold>
