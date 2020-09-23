@@ -22,7 +22,7 @@ import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 
 Vue.use(Vuex);
-Vue.use(VueMoment);
+Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 
