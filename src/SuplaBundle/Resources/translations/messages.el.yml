@@ -37,6 +37,7 @@ All: Όλα
 All the above and many more can be done from your phone or tablet: Όλα αυτά και πολλά άλλα μπορείτε να κάνετε μέσω ενός smartphone ή tablet
 Allowed actions: Επιτρεπόμενες ενέργειες
 Allows to perform an action only using the HTTP PATCH request.: Σας επιτρέπει να εκτελείτε ενέργειες μόνο με τη χρήση ενός αιτήματος HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Μπορείτε επίσης να προσθέσετε μια παράμετρο GET για να καθορίσετε τη μορφή ανταπόκρισης.
 And more: Και πολλά άλλα
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Όλες οι εφαρμογές ή συσκευές που χρησιμοποιούν το διακριτικό {tokenName} θα σταματήσουν να λειτουργούν.'
 Application name cannot be blank.: Το όνομα της εφαρμογής δεν μπορεί να είναι κενό
@@ -63,9 +64,12 @@ Authorized: Εγκρίθηκε
 Authorized OAuth apps: Εγκεκριμένες εφαρμογές OAuth
 Automation: Αυτοματοποίηση
 Back to apps list: Επιστροφή στη λίστα εφαρμογών
+Be notified when your channels change state: Ειδοποίηση για αλλαγές στην κατάσταση των καναλιών
+Bridge: Γέφυρα
 Brightness: Φωτεινότητα
 CLICK TO DISABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΚΛΕΙΣΕΤΕ
 CLICK TO ENABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΕΝΕΡΓΟΠΟΙΗΣΕΤΕ
+Calculated value: Ανάγνωση μετρητή
 Calibration: Βαθμονόμηση
 Cancel: Ακύρωση
 Cancel changes: Ακύρωση αλλαγών
@@ -191,10 +195,12 @@ Expired: Έληξε
 Failed: Αποτυχία
 Failed (zombie): Αποτυχία (ζόμπι)
 File is too large: Το αρχείο είναι πολύ μεγάλο
+Flooding: Πλημμύρα
 For devices: Για συσκευές
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Για λόγους ασφαλείας, η πλήρη διεύθυνση URL αυτού του απευθείας συνδέσμου θα εμφανίζεται μόνο μία φορά κατά τη δημιουργία του.'
 Forgot your password?: Ξεχάσατε τον κωδικό πρόσβασης;
 Forward active energy: Ληφθείσα ενεργή ενέργεια
+Forward reactive energy: Ληφθείσα παθητική ενέργεια
 Fridays: Παρασκευές
 From IP: Από τη διεύθυνση IP
 From anywhere: Από κάθε σημείο
@@ -280,6 +286,7 @@ Login: Σύνδεση
 Mail sensor: Αισθητήρας ταχυδρομείου
 Maintenance mode active. You cannot modify any data now.: Σε λειτουργία σέρβις. Δεν μπορείτε να τροποποιήσετε κανένα δεδομένο.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Βεβαιωθείτε ότι αποθηκεύεται σε ασφαλές μέρος, εάν θέλετε να το χρησιμοποιήσετε στο μέλλον. Ο σύνδεσμος δεν θα εμφανίζεται πλέον μετά την έξοδο από αυτήν τη σελίδα.'
+Manually closed: Κλειστός χειροκίνητα
 'Maximum filesize limit is {limit}.': 'Το μέγιστο μέγεθος αρχείου είναι {limit}.'
 Meter value: Κατάσταση μετρητή
 Minute: Λεπτό
@@ -335,6 +342,9 @@ Percentage of closing: Ποσοστό κλεισίματος
 Personal access tokens: Προσωπικά διακριτικά πρόσβασης
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Τα προσωπικά διακριτικά πρόσβασης λειτουργούν κανονικά, με τη διαφορά ότι λειτουργούν επ'' αόριστον.'
 Personal token name is required.: Είναι αναγκαίο να δώσετε το προσωπικό σας  διακριτικό στοιχείο.
+Phase 1: Φάση 1
+Phase 2: Φάση 2
+Phase 3: Φάση 3
 Please click the link we have sent you after the registration to proceed.: Κάντε κλικ στο σύνδεσμο που λάβατε με μήνυμα μετά τη δημιουργία του λογαριασμού.
 Please enter a valid email address: Εισαγάγετε μια έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου
 Please fill a valid email address: Εισαγάγετε μια έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου
@@ -373,6 +383,8 @@ Repeat password: Επαναλάβετε τον κωδικό
 Retry on failure: Επαναλάβετε σε περίπτωση μη εκτέλεσης
 Reveal: Αποκάλυψη
 Reveal partially: Εν μέρει αποκάλυψη
+Reverse active energy: Ενεργή ενέργεια επιστροφής
+Reverse reactive energy: Παθητική ενέργεια επιστροφής
 Revoke: Ανάκληση
 Roller shutter opening sensor: Αισθητήρας ανοίγματος περσίδων
 Roller shutter operation: Άνοιγμα και κλείσιμο περσίδων
@@ -420,6 +432,7 @@ Staircase timer: Αυτόματη σκάλα
 Start Here: Ξεκινήστε εδώ
 Start date: Ημ/νία έναρξης
 State: Κατάσταση
+State webhook: Webhook κατάστασης
 Stop: Διακοπή
 Subject: Υποκείμενο
 Subject type: Είδος υποκειμένου
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Ο Κα�
 The activation link has been sent again. Check the inbox.: To μήνυμα με το σύνδεσμο για την ενεργοποίηση του λογαριασμού σας έχει σταλεί ξανά. Ελέγξτε τα εισερχόμενά σας.
 The client will be automatically logged out when deleted.: Η διαγραφή του πελάτη θα οδηγήσει στην άμεση αποσύνδεσή του.
 The device is disabled: Η συσκευή είναι απενεργοποιημένη
+The gate sensor must function properly in order to execute the Open and Close actions.: Ο αισθητήρας ανοίγματος της πύλης πρέπει να λειτουργεί σωστά για να εκτελέσει την εντολή Άνοιγμα ή Κλείσιμο.
 The gate sensor must function properly in order to execute the scheduled action.: 'Για να εκτελεστεί η ενέργεια, ο αισθητήρας ανοίγματος της πύλης πρέπει να λειτουργεί σωστά.'
 The latest execution: Τελευταία εκτέλεση
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': Το αποτέλεσμα της εκτέλεσης εμφανίζεται σε μορφή ιστοσελίδας επειδή εσείς (ή το πρόγραμμα περιήγησής που χρησιμοποιείτε) ζητήσατε την απάντηση σε μορφή HTML.
@@ -451,6 +465,8 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Ο διακομιστής επέστρεψε το σφάλμα HTTP 404. Αυτό σημαίνει ότι το στοιχείο που ψάχνετε δεν υπάρχει.
 'The server has returned an HTTP {statusCode} error.': 'Ο διακομιστής επέστρεψε το σφάλμα {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Τα εικονίδια που έχετε επιλέξει είναι πολύ μεγάλα. Το μέγιστο επιτρεπόμενο μέγεθος μεταφόρτωσης είναι {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Η βαλβίδα δεν μπορεί να ανοίξει μέσω απευθείας σύνδεσης ή μέσω API όταν έχει κλείσει χειροκίνητα. Για να συνεχίσετε τον έλεγχο, ανοίξτε τη βαλβίδα χειροκίνητα.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Η βαλβίδα έχει κλείσει χειροκίνητα ή με τηλεχειρισμό. Πριν την ανοίξετε, βεβαιωθείτε ότι δεν έχει κλείσει λόγω πλημμύρας. Για να απενεργοποιήσετε την προειδοποίηση, ανοίξτε τη βαλβίδα χειροκίνητα. Είστε βέβαιοι ότι θέλετε να ανοίξετε τη βαλβίδα από απόσταση;'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': Η βαλβίδα δεν θα ανοίξει εάν έχει κλείσει με το χέρι ή με ραδιόφωνο που μπορεί να είχε σχέση με πλημμύρα.
 There are no more channels you can add to this group: Δεν υπάρχουν άλλα κανάλια να προσθέσετε σε αυτή την ομάδα
 Thermometer: Θερμόμετρο
@@ -478,6 +494,7 @@ Visit app webpage: Ανοίξτε τον ιστότοπο της εφαρμογ�
 WELCOME_MESSAGE: |
   Η σύνδεση του σπιτιού ή του γραφείου σας με το SUPLA είναι εύκολη. Το μόνο που έχετε να κάνετε είναι
   να καταχωρίσετε τα παρακάτω στοιχεία στις συσκευές ελέγχου (εισόδου/εξόδου) και στα smartphones.
+Wait a while before the next request. You can check your limits in the account settings.: Περιμένετε λίγο προτου δώσετε μια άλλη εντολή. Μπορείτε να ελέγξετε την τρέχουσα χρήση σας στις ρυθμίσεις του λογαριασμού σας.
 Water meter: Μετρητής νερού
 We could not connect to your SUPLA Cloud instance.: Δεν μπορέσαμε να συνδεθούμε με το ιδιωτικό σας SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Ένα μήνυμα με το σύνδεσμο για την ενεργοποίηση του λογαριασμού σας έχει μόλις αποσταλεί. Υπομονή.
@@ -507,6 +524,7 @@ YOUR LINK CODE: Ο ΚΩΔΙΚΟΣ ΤΟΥ ΣΥΝΔΕΣΜΟΥ ΣΑΣ
 You can use the application but you will not be able to modify any settings.: 'Μπορείτε να χρησιμοποιήσετε την εφαρμογή, αλλά δεν είναι δυνατή η πραγματοποίηση αλλαγών διαμόρφωσης.'
 You cannot delete your last access identifier.: Δεν μπορείτε να διαγράψετε το τελευταίο σας αναγνωριστικό πρόσβασης.
 You cannot delete your last location.: Δεν μπορείτε να διαγράψετε την τελευταία σας τοποθεσία.
+You have exceeded your API Rate Limit: Έχετε εξαντλήσει το όριο εντολών σας στην API
 You just need to execute the following command inside your host terminal.: Αρκεί να εκτελέστε την ακόλουθη εντολή στο τερματικό του κεντρικού σας υπολογιστή.
 You must agree to the Terms and Conditions.: Απαιτείται η αποδοχή του Κανονισμού.
 You need to provide icons for all states.: Θα πρέπει να στείλετε εικονίδια για την κάθε κατάσταση.
@@ -540,6 +558,7 @@ directLinkExecutionFailureReason_expired: Ο απευθείας σύνδεσμο
 directLinkExecutionFailureReason_forbiddenAction: Ο σύνδεσμος δεν επιτρέπει αυτήν την ενέργεια
 directLinkExecutionFailureReason_httpGetForbidden: Η ενέργεια κωλύεται με τη χρήση της παράνομης μεθόδου HTTP GET
 directLinkExecutionFailureReason_invalidActionParameters: Μη έγκυρες παράμετροι του απευθείας συνδέσμου
+directLinkExecutionFailureReason_invalidChannelState: Η εντολή δεν μπορεί να εκτελεστεί λόγω της κατάστασης του καναλιού.
 directLinkExecutionFailureReason_invalidSlug: Ο απεσταλμένος κωδικός επαλήθευσης είναι εσφαλμένος.
 directLinkExecutionFailureReason_noAllowedActions: Δεν έχει επιλεγεί καμία επιτρεπόμενη ενέργεια
 directLinkExecutionFailureReason_noSlugOrAction: Μη έγκυρο αίτημα - απαιτείται κωδικός του συνδέσμου και ενέργεια
@@ -621,24 +640,5 @@ execute: Εκτέλεση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': Μπορείτε επίσης να προσθέσετε μια παράμετρο GET για να καθορίσετε τη μορφή ανταπόκρισης.
-Be notified when your channels change state: Ειδοποίηση για αλλαγές στην κατάσταση των καναλιών
-Bridge: Γέφυρα
-Calculated value: Ανάγνωση μετρητή
-Flooding: Πλημμύρα
-Forward reactive energy: Ληφθείσα παθητική ενέργεια
-Manually closed: Κλειστός χειροκίνητα
-Phase 1: Φάση 1
-Phase 2: Φάση 2
-Phase 3: Φάση 3
-Reverse active energy: Ενεργή ενέργεια επιστροφής
-Reverse reactive energy: Παθητική ενέργεια επιστροφής
-State webhook: Webhook κατάστασης
-The gate sensor must function properly in order to execute the Open and Close actions.: Ο αισθητήρας ανοίγματος της πύλης πρέπει να λειτουργεί σωστά για να εκτελέσει την εντολή Άνοιγμα ή Κλείσιμο.
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Η βαλβίδα δεν μπορεί να ανοίξει μέσω απευθείας σύνδεσης ή μέσω API όταν έχει κλείσει χειροκίνητα. Για να συνεχίσετε τον έλεγχο, ανοίξτε τη βαλβίδα χειροκίνητα.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Η βαλβίδα έχει κλείσει χειροκίνητα ή με τηλεχειρισμό. Πριν την ανοίξετε, βεβαιωθείτε ότι δεν έχει κλείσει λόγω πλημμύρας. Για να απενεργοποιήσετε την προειδοποίηση, ανοίξτε τη βαλβίδα χειροκίνητα. Είστε βέβαιοι ότι θέλετε να ανοίξετε τη βαλβίδα από απόσταση;'
-Wait a while before the next request. You can check your limits in the account settings.: Περιμένετε λίγο προτου δώσετε μια άλλη εντολή. Μπορείτε να ελέγξετε την τρέχουσα χρήση σας στις ρυθμίσεις του λογαριασμού σας.
-You have exceeded your API Rate Limit: Έχετε εξαντλήσει το όριο εντολών σας στην API
-directLinkExecutionFailureReason_invalidChannelState: Η εντολή δεν μπορεί να εκτελεστεί λόγω της κατάστασης του καναλιού.
 
 #</editor-fold>

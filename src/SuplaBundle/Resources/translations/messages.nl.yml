@@ -37,6 +37,7 @@ All: Alles
 All the above and many more can be done from your phone or tablet: Dit alles en nog veel meer kun je doen via een smartphone of tablet
 Allowed actions: Toegestane acties
 Allows to perform an action only using the HTTP PATCH request.: Hiermee kunt u acties alleen uitvoeren met een HTTP PATCH-verzoek.
+'Alternatively, you can add a GET parameter to specify response format.': U kunt ook een GET parameter toevoegen om het antwoordformaat te specificeren.
 And more: En nog veel meer
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Alle toepassingen of apparaten die het token {tokenName} gebruiken, zullen niet meer werken.'
 Application name cannot be blank.: Naam van applicatie mag niet leeg zijn
@@ -63,9 +64,12 @@ Authorized: Geverifieerd
 Authorized OAuth apps: Geautoriseerde OAuth-applicaties
 Automation: Automatiek
 Back to apps list: Keer terug naar de applicatielijst
+Be notified when your channels change state: Melding van wijzigingen in de kanaalstatus
+Bridge: Brug
 Brightness: Helderheid
 CLICK TO DISABLE: KLIK OM UIT TE ZETTEN
 CLICK TO ENABLE: KLIK OM IN TE SCHAKELEN
+Calculated value: Meterstand
 Calibration: Kalibreren
 Cancel: Annuleren
 Cancel changes: Wijzigingen annuleren
@@ -191,10 +195,12 @@ Expired: Verlopen
 Failed: Mislukt
 Failed (zombie): Mislukt (zombies)
 File is too large: Het bestand is te groot
+Flooding: Overstroming
 For devices: Voor apparaten
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Om veiligheidsredenen wordt de volledige URL van deze directe link slechts één keer - tijdens het aanmaken ervan - getoond.
 Forgot your password?: Wachtwoord vergeten?
 Forward active energy: Opgenomen actieve energie
+Forward reactive energy: Reactieve energie opgenomen
 Fridays: Vrijdagen
 From IP: Van een IP-adres
 From anywhere: Van een willekeurige plaats
@@ -280,6 +286,7 @@ Login: Login
 Mail sensor: Postsensor
 Maintenance mode active. You cannot modify any data now.: Onderhoudsmodus actief. U kunt nu geen gegevens wijzigen.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Zorg ervoor dat het op een veilige plaats wordt bewaard als u het in de toekomst wilt gebruiken. De link wordt niet meer weergegeven na het verlaten van deze pagina.
+Manually closed: Handmatig gesloten
 'Maximum filesize limit is {limit}.': 'De maximale bestandsgrootte is {limit}.'
 Meter value: Meterstand
 Minute: Minuut
@@ -335,6 +342,9 @@ Percentage of closing: Percentage van sluiting
 Personal access tokens: Persoonlijke toegangstokens
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Persoonlijke toegangstokens werken als gewone toegangstokens, behalve dat ze voor onbepaalde tijd werken.'
 Personal token name is required.: Persoonlijke tokennaam is vereist.
+Phase 1: Fase 1
+Phase 2: Fase 2
+Phase 3: Fase 3
 Please click the link we have sent you after the registration to proceed.: Klik op de link met het bericht dat we u hebben gestuurd nadat het account is gemaakt.
 Please enter a valid email address: Voer alstublieft een geldig e-mailadres in
 Please fill a valid email address: Voer alstublieft een geldig e-mailadres in
@@ -373,6 +383,8 @@ Repeat password: Wachtwoord opnieuw invoeren
 Retry on failure: Herhaal als dit niet uitgevoerd is
 Reveal: Laat zien
 Reveal partially: Laat gedeeltelijk zien
+Reverse active energy: Teruggegeven actieve energie
+Reverse reactive energy: Teruggegeven reactieve energie
 Revoke: Herroepen
 Roller shutter opening sensor: Rolluik openen sensor
 Roller shutter operation: Rolluik openen en sluiten
@@ -420,6 +432,7 @@ Staircase timer: Trap automaat
 Start Here: Begin hier
 Start date: Begindatum
 State: Status
+State webhook: Status webhook
 Stop: Stop
 Subject: Entiteit
 Subject type: Typ podmiotu
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Website 
 The activation link has been sent again. Check the inbox.: Een bericht met een link om uw account te activeren is opnieuw verzonden. Controleer je inbox.
 The client will be automatically logged out when deleted.: 'Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.'
 The device is disabled: Het apparaat is uitgeschakeld
+The gate sensor must function properly in order to execute the Open and Close actions.: De poortopeningsensor moet correct werken om de actie Openen of Sluiten uit te voeren.
 The gate sensor must function properly in order to execute the scheduled action.: 'Om de actie uit te voeren, moet de poortopeningssensor correct werken.'
 The latest execution: Laatste uitvoering
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.
@@ -451,6 +465,8 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: De server heeft een HTTP 404-fout verzonden. Dit betekent dat het item dat u zoekt niet bestaat.
 'The server has returned an HTTP {statusCode} error.': 'De server heeft de fout {statusCode} verzonden.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'De pictogrambestanden die u hebt geselecteerd, zijn te groot. De maximaal toegestane uploadgrootte is {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'De klep kan niet worden geopend via een directe link of via API wanneer deze handmatig is gesloten. Om de besturing te hervatten, opent u de klep handmatig.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'De klep is handmatig of per radio gesloten. Voordat u de klep opent, moet u ervoor zorgen dat zij niet vanwege wateroverlast is gesloten. Om de waarschuwing uit te schakelen, opent u de klep handmatig. Weet u zeker dat u de klep op afstand wilt openen?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'De klep wordt niet geopend als deze met de hand of op afstand is gesloten, wat door een overstroming zou kunnen worden veroorzaakt.'
 There are no more channels you can add to this group: Er zijn geen andere kanalen om aan deze groep toe te voegen
 Thermometer: Thermometer
@@ -478,6 +494,7 @@ Visit app webpage: Open de site van de applicatie
 WELCOME_MESSAGE: |
   Uw huis of kantoor met SUPLI te verbinden, is eenvoudig. Het enige dat u moet doen, is de volgende 
   gegevens naar uw besturingsapparaten (I / O) en smartphones te herschrijven.
+Wait a while before the next request. You can check your limits in the account settings.: Wacht even voordat u nog een verzoek doet. U kunt het huidige gebruik van uw limieten in uw accountinstellingen controleren.
 Water meter: Watermeter
 We could not connect to your SUPLA Cloud instance.: We kunnen geen verbinding maken met uw privé-SUPLA Cloud-exemplaar.
 We have just sent you an activation link. Be patient.: Er is zojuist een bericht verzonden met een link om uw account te activeren. Geduld.
@@ -507,6 +524,7 @@ YOUR LINK CODE: UW LINKCODE
 You can use the application but you will not be able to modify any settings.: 'U kunt de applicatie gebruiken, maar u kunt geen instellingen wijzigen.'
 You cannot delete your last access identifier.: U kunt uw laatste toegangs-ID niet verwijderen.
 You cannot delete your last location.: U kunt uw laatste locatie niet verwijderen.
+You have exceeded your API Rate Limit: U heeft uw limiet van API-verzoeken verbruikt.
 You just need to execute the following command inside your host terminal.: Voer gewoon de volgende opdracht uit in de terminal van uw host.
 You must agree to the Terms and Conditions.: Aanvaarding van reglement is vereist.
 You need to provide icons for all states.: U moet pictogrammen voor alle staten opgeven.
@@ -540,6 +558,7 @@ directLinkExecutionFailureReason_expired: De directe link is verlopen
 directLinkExecutionFailureReason_forbiddenAction: De link staat deze actie niet toe
 directLinkExecutionFailureReason_httpGetForbidden: De uitvoering van handelingen door middel van een niet veroorloofde  HTTP GET-methode werd onmogelijk gemaakt.
 directLinkExecutionFailureReason_invalidActionParameters: Ongeldige directe link-parameters
+directLinkExecutionFailureReason_invalidChannelState: De actie kan niet worden uitgevoerd vanwege de status van het kanaal.
 directLinkExecutionFailureReason_invalidSlug: 'De verificatiecode die u heeft opgegeven, is onjuist.'
 directLinkExecutionFailureReason_noAllowedActions: Geen toegestane acties geselecteerd
 directLinkExecutionFailureReason_noSlugOrAction: Ongeldig verzoek - linkcode en actie zijn vereist
@@ -621,24 +640,5 @@ execute: voer uit
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': U kunt ook een GET parameter toevoegen om het antwoordformaat te specificeren.
-Be notified when your channels change state: Melding van wijzigingen in de kanaalstatus
-Bridge: Brug
-Calculated value: Meterstand
-Flooding: Overstroming
-Forward reactive energy: Reactieve energie opgenomen
-Manually closed: Handmatig gesloten
-Phase 1: Fase 1
-Phase 2: Fase 2
-Phase 3: Fase 3
-Reverse active energy: Teruggegeven actieve energie
-Reverse reactive energy: Teruggegeven reactieve energie
-State webhook: Status webhook
-The gate sensor must function properly in order to execute the Open and Close actions.: De poortopeningsensor moet correct werken om de actie Openen of Sluiten uit te voeren.
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'De klep kan niet worden geopend via een directe link of via API wanneer deze handmatig is gesloten. Om de besturing te hervatten, opent u de klep handmatig.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'De klep is handmatig of per radio gesloten. Voordat u de klep opent, moet u ervoor zorgen dat zij niet vanwege wateroverlast is gesloten. Om de waarschuwing uit te schakelen, opent u de klep handmatig. Weet u zeker dat u de klep op afstand wilt openen?!'
-Wait a while before the next request. You can check your limits in the account settings.: Wacht even voordat u nog een verzoek doet. U kunt het huidige gebruik van uw limieten in uw accountinstellingen controleren.
-You have exceeded your API Rate Limit: U heeft uw limiet van API-verzoeken verbruikt.
-directLinkExecutionFailureReason_invalidChannelState: De actie kan niet worden uitgevoerd vanwege de status van het kanaal.
 
 #</editor-fold>

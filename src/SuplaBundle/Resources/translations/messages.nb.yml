@@ -37,6 +37,7 @@ All: Alt
 All the above and many more can be done from your phone or tablet: Alt dette og mye mer kan du gjøre ved hjelp av din smarttelefon eller nettbrett.
 Allowed actions: Tillate handlinger
 Allows to perform an action only using the HTTP PATCH request.: Gjennomføring av handlingen er kun tillat ved bruk av HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Du kan også legge til en GET-parameter for å spesifisere svarformatet.
 And more: Og mye mer.
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Alle applikasjoner og enheter som benytter seg av token {tokenName} vil slutte å fungere.'
 Application name cannot be blank.: Applikasjon navnet kan ikke være tomt.
@@ -63,9 +64,12 @@ Authorized: Autorisert
 Authorized OAuth apps: Autoriserte OAuth applikasjoner
 Automation: Automatikk
 Back to apps list: Tilbake til applikasjonslisten
+Be notified when your channels change state: Varsling om endringer i kanalers tilstand
+Bridge: Bro
 Brightness: Lysstyrke
 CLICK TO DISABLE: TRYKK FOR Å SKRU AV
 CLICK TO ENABLE: TRYKK FOR Å SKRU PÅ
+Calculated value: Målerstatus
 Calibration: Kalibrering
 Cancel: Avbryt
 Cancel changes: Avbryt endringer
@@ -191,10 +195,12 @@ Expired: Utdatert
 Failed: Mislykket
 Failed (zombie): Mislykket (zombie)
 File is too large: Filen er for stor
+Flooding: Vannskader
 For devices: For enheter
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': ZFor sikkerhetsmessige grunner full URL av denne direkte lenken blir vist kun en gang ved dens opprettelse.
 Forgot your password?: Husker du ikke passordet?
 Forward active energy: Aktiv energi nedlastet
+Forward reactive energy: Passiv energi nedlastet
 Fridays: Fredager
 From IP: Fra IP adressen
 From anywhere: Fra hvert sted
@@ -280,6 +286,7 @@ Login: Logg inn
 Mail sensor: Postsensor
 Maintenance mode active. You cannot modify any data now.: Handling i servicemodus. Du kan ikke endre på noe data
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Husk å lagre den på et trygd sted dersom du ønsker å bruke den en gang til i fremtiden. Lenken vises ikke mer etter at har forlatt denne siden.
+Manually closed: Stengt manuelt
 'Maximum filesize limit is {limit}.': 'Maksimal filstørrelse er {limit}.'
 Meter value: Meterlesing
 Minute: Minutt
@@ -335,6 +342,9 @@ Percentage of closing: Prosent av stenging
 Personal access tokens: Personlige tilgang token
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Personlige tilgang token fungerer som vanlige, med den forskjellen at de er aktive på ubestemt tid.'
 Personal token name is required.: Det er påkrevd å oppgi navnet på personlig token.
+Phase 1: Fase 1
+Phase 2: Fase 2
+Phase 3: Fase 3
 Please click the link we have sent you after the registration to proceed.: Trykk på lenken i meldingen vi sendte til deg etter oppretting av konto.
 Please enter a valid email address: Tast inn korrekt e-post adresse
 Please fill a valid email address: Tast inn korrekt e-post adresse
@@ -373,6 +383,8 @@ Repeat password: Gjenta passord
 Retry on failure: Gjenta når ikke utført
 Reveal: Avdekk
 Reveal partially: Avdekk delvis
+Reverse active energy: Aktiv energi returnert
+Reverse reactive energy: Passiv energi returnert
 Revoke: Opphev
 Roller shutter opening sensor: Rullegardineråpner sensor
 Roller shutter operation: Åpning og stenging av rullegardiner
@@ -420,6 +432,7 @@ Staircase timer: Trappeautomat
 Start Here: Start her
 Start date: Startdato
 State: Tilstand
+State webhook: Statuswebhook
 Stop: Stop
 Subject: Enhet
 Subject type: Enhetstype
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Tjeneste
 The activation link has been sent again. Check the inbox.: Melding med aktiveringslenke til din konto ble sendt på nytt. Sjekk din innboks.
 The client will be automatically logged out when deleted.: Fjerning av kunden betyr at den blir logget ut med en gang
 The device is disabled: Enheten er av
+The gate sensor must function properly in order to execute the Open and Close actions.: Portåpner sensor må fungere riktig for å utføre handlingen Åpne eller Steng.
 The gate sensor must function properly in order to execute the scheduled action.: For å utføre handlingen må portåpner sensor fungere riktig.
 The latest execution: Utført sist
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.
@@ -451,6 +465,8 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server viser feil HTTP 404. Dette betyr at elementet du søker etter eksisterer ikke.
 'The server has returned an HTTP {statusCode} error.': 'Server viser feil {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Ikonfiler du har valgt er for store. Maksimal størrelse på upload er {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': Ventilen kan ikke åpnes med en direkte lenke eller via API når den har blitt stengt manuelt. Åpne ventilen manuelt for å gjenoppta kontrollen.
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Ventilen har blitt stengt manuelt eller gjennom radio. Før du åpner den, må du sørge for at den ikke har vært stengt på grunn av vannskader. For å deaktivere advarselen, åpne ventilen manuelt. Er du sikker på at du vil åpne ventilen gjennom radio?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventilen vil ikke bli åpnet hvis den har blitt stengt manuelt eller gjennom radio, som kunne bli forårsaket av vannskader'
 There are no more channels you can add to this group: Det er ingen andre kanaler du kan legge til denne gruppen.
 Thermometer: Termometer
@@ -478,6 +494,7 @@ Visit app webpage: Åpne nettsiden til applikasjonen
 WELCOME_MESSAGE: |
   Tilkobling av ditt hus eller kontor til SUPLA er enkelt.Det eneste du må gjøre er å taste
   inn i enhetene som styrer (inngang/ utgang) samt smarttelefonene data du finner nedenfor. 
+Wait a while before the next request. You can check your limits in the account settings.: Vent litt før du sender en ny forespørsel. Du kan sjekke den nåværende statusen av begrensningene dine i kontoinnstillingene.
 Water meter: Vannmåler
 We could not connect to your SUPLA Cloud instance.: Vi kunne ikke koble til din privat SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Melding med aktiviseringslenke ble nettopp sendt. Vis litt tålmodighet.
@@ -507,6 +524,7 @@ YOUR LINK CODE: DIN LENKE KODE
 You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
 You cannot delete your last access identifier.: Du kan ikke fjerne din siste tilgang identifikator.
 You cannot delete your last location.: Du kan ikke fjerne din siste lokalisering.
+You have exceeded your API Rate Limit: Du har overskredet din begrensning for etterspørsler til API
 You just need to execute the following command inside your host terminal.: Det holder med å utføre følgende forespørsel innen din host sin terminal.
 You must agree to the Terms and Conditions.: Du må godkjenne regelverket.
 You need to provide icons for all states.: Du må levere ikoner for alle tilstander.
@@ -540,6 +558,7 @@ directLinkExecutionFailureReason_expired: Direkte lenke er utløpt
 directLinkExecutionFailureReason_forbiddenAction: Lenken tillater ikke utføring av denne handlingen
 directLinkExecutionFailureReason_httpGetForbidden: Utføring av handlingen ved bruk av ulovlig HTTP GET metode ble forhindret
 directLinkExecutionFailureReason_invalidActionParameters: Feil parameter på direkte lenke
+directLinkExecutionFailureReason_invalidChannelState: Handlingen kan ikke utføres på grunn av kanalens tilstand.
 directLinkExecutionFailureReason_invalidSlug: Innsendt verifiseringskode er ikke korrekt.
 directLinkExecutionFailureReason_noAllowedActions: Ingen tillate handlinger ble valgt
 directLinkExecutionFailureReason_noSlugOrAction: Feil forespørsel – lenke kode og handling er påkrevd
@@ -621,24 +640,5 @@ execute: utfør
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': Du kan også legge til en GET-parameter for å spesifisere svarformatet.
-Be notified when your channels change state: Varsling om endringer i kanalers tilstand
-Bridge: Bro
-Calculated value: Målerstatus
-Flooding: Vannskader
-Forward reactive energy: Passiv energi nedlastet
-Manually closed: Stengt manuelt
-Phase 1: Fase 1
-Phase 2: Fase 2
-Phase 3: Fase 3
-Reverse active energy: Aktiv energi returnert
-Reverse reactive energy: Passiv energi returnert
-State webhook: Statuswebhook
-The gate sensor must function properly in order to execute the Open and Close actions.: Portåpner sensor må fungere riktig for å utføre handlingen Åpne eller Steng.
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Ventilen kan ikke åpnes med en direkte lenke eller via API når den har blitt stengt manuelt. Åpne ventilen manuelt for å gjenoppta kontrollen.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Ventilen har blitt stengt manuelt eller gjennom radio. Før du åpner den, må du sørge for at den ikke har vært stengt på grunn av vannskader. For å deaktivere advarselen, åpne ventilen manuelt. Er du sikker på at du vil åpne ventilen gjennom radio?!'
-Wait a while before the next request. You can check your limits in the account settings.: Vent litt før du sender en ny forespørsel. Du kan sjekke den nåværende statusen av begrensningene dine i kontoinnstillingene.
-You have exceeded your API Rate Limit: Du har overskredet din begrensning for etterspørsler til API
-directLinkExecutionFailureReason_invalidChannelState: Handlingen kan ikke utføres på grunn av kanalens tilstand.
 
 #</editor-fold>

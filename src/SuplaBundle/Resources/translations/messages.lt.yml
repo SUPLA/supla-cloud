@@ -37,6 +37,7 @@ All: Viskas
 All the above and many more can be done from your phone or tablet: Visa tai ir dar daugiau galite atlikti išmaniojo telefono ar planšetinio kompiuterio pagalba
 Allowed actions: Priimtinos akcijos
 Allows to perform an action only using the HTTP PATCH request.: Leidžia atlikti akcijas tik naudojant HTTP PATCH užklausą.
+'Alternatively, you can add a GET parameter to specify response format.': Norėdami apibrėžti atsakymo formatą taip pat galite pridėti GET parametrą.
 And more: Ir dar daugiau
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Visas lietojumprogrammas vai ierīces, kuras izmanto marķieri {tokenName} pārstās darboties.'
 Application name cannot be blank.: Lietojumprogrammas nosaukums nevar būt tukšs
@@ -63,9 +64,12 @@ Authorized: Autorizuota
 Authorized OAuth apps: Autorizuotos programos OAuth
 Automation: Automatika
 Back to apps list: Grįžti į programų sąrašą
+Be notified when your channels change state: Pranešimas apie kanalų būsenos pasikeitimus
+Bridge: Tiltas
 Brightness: Ryškumas
 CLICK TO DISABLE: 'SPUSTELĖKITE, KAD IŠJUNGTI'
 CLICK TO ENABLE: 'SPUSTELĖKITE, KAD ĮJUNGTI'
+Calculated value: Skaitiklio būsena
 Calibration: Kalibravimas
 Cancel: Atšaukti
 Cancel changes: Atšaukti pakeitimus
@@ -191,10 +195,12 @@ Expired: Pradelstas
 Failed: Nesėkmingai
 Failed (zombie): Nesėkmingai (zombis)
 File is too large: Failas yra per didelis
+Flooding: Užliejimas
 For devices: Įrenginiams
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Dėl saugumo, pilnas URL šios tiesioginės nuorodos bus rodomas tik kartą, jos kūrimo metu.'
 Forgot your password?: Pamiršote slaptažodį?
 Forward active energy: Aktyvioji energija parsisiųsta
+Forward reactive energy: Reaktyvioji energija parsisiųsta
 Fridays: Penktadieniai
 From IP: Iš IP adreso
 From anywhere: Iš kiekvienos vietos
@@ -280,6 +286,7 @@ Login: Pieteikšanās
 Mail sensor: Pašto jutiklis
 Maintenance mode active. You cannot modify any data now.: Veikimas aptarnavimo režime. Negalite keisti jokių duomenų.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Įsitikinkite ar yra įrašytas saugioje vietoje, jeigu norėsite ją panaudoti ateityje. Nuoroda nebus daugiau rodoma išėjus iš šio tinklalapio.'
+Manually closed: Uždarytas rankiniu būdu
 'Maximum filesize limit is {limit}.': 'Maksimalus failo dydis tai {limit}.'
 Meter value: Skaitiklio būsena
 Minute: Minutė
@@ -335,6 +342,9 @@ Percentage of closing: Uždengimo procentas
 Personal access tokens: Asmeniški prieigos tokenai
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Asmeniniai tokenai veikia, tai kaip ir paprasti, skirtumas, toks, kad neturi nustatyto termino.'
 Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identifikatoriaus (tokeno) pavadinimą.
+Phase 1: 1 fazė
+Phase 2: 2 fazė
+Phase 3: 3 fazė
 Please click the link we have sent you after the registration to proceed.: 'Paspauskite nuorodą pranešime, kurį Jums išsiuntėme, kai paskyra buvo sukurta.'
 Please enter a valid email address: Įveskite teisingą el. pašto adresą
 Please fill a valid email address: Įveskite teisingą el. pašto adresą
@@ -373,6 +383,8 @@ Repeat password: Pakartokite slaptažodį
 Retry on failure: Pakartokite kai neįvykdyta
 Reveal: Atidengti
 Reveal partially: Dalinai atidengti
+Reverse active energy: Aktyvioji energija grąžinta
+Reverse reactive energy: Reaktyvioji energija grąžinta
 Revoke: Atšaukti
 Roller shutter opening sensor: Žaliuzių atidengimo jutiklis
 Roller shutter operation: Žaliuzių atidengimas ir uždengimas
@@ -420,6 +432,7 @@ Staircase timer: Laiptų automatas
 Start Here: Pradėti čia
 Start date: Pradžios data
 State: Būsena
+State webhook: Būsenos webhook
 Stop: Apturēt
 Subject: Subjektas
 Subject type: Subjekto tipas
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Svetain�
 The activation link has been sent again. Check the inbox.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda buvo išsiųstas dar kartą. Patikrinkite el. pašto dėžutę.
 The client will be automatically logged out when deleted.: 'Kliento pašalinimas sukels, kad jis iškart bus atjungtas.'
 The device is disabled: Įrenginys išjungtas
+The gate sensor must function properly in order to execute the Open and Close actions.: 'Norint įvykdyti veiksmą Atidaryti arba Uždaryti, vartelių atidarymo jutiklis turi veikti tinkamai.'
 The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
 The latest execution: Paskutinis atlikimas
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.'
@@ -451,6 +465,8 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serveris grąžino HTTP 404 klaidą. Tai reiškia, kad elementas, kurio ieškote, neegzistuoja.'
 'The server has returned an HTTP {statusCode} error.': 'Serveris atgrieza kļūdu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Jūsų pasirinkti piktogramų failai yra per dideli. Maksimalus leistinas įkeliamo failo dydis tai {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Kai vožtuvas buvo uždarytas rankiniu būdų, jo negalima atidaryti tiesioginės nuorodos ar API pagalba. Norėdami atnaujinti valdymą, vožtuvą atidarykite rankiniu būdu.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Vožtuvas uždarytas rankiniu būdu arba radijo ryšiu. Prieš jo atidarymą reikia įsitikinti, kad nebuvo uždarytas dėl užliejimo. Norėdami išjungti įspėjimą, vožtuvą atidarykite rankiniu būdu. Ar tikrai norite atidaryti vožtuvą nuotoliniu būdu?! '
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Vožtuvas nebus atidarytas, jei jis buvo uždarytas rankiniu būdu arba radijo bangų pagalba, kas gali būti susiję su užliejimu.'
 There are no more channels you can add to this group: 'Nėra kitų kanalų, kuriuos būtų galima pridėti prie šios grupės'
 Thermometer: Termometras
@@ -478,6 +494,7 @@ Visit app webpage: Atveriet lietojumprogrammas vietni
 WELCOME_MESSAGE: |
   Jūsų namų ar ofiso prijungimas prie SUPLA yra paprastas. Viskas, ką turite padaryti, tai
   perrašyti į savo valdymo (įvesties/išvesties) įrenginius bei išmaniuosius telefonus žemiau pateiktus duomenis.
+Wait a while before the next request. You can check your limits in the account settings.: Prieš atlikdami sekančią užklausą palaukite kelias sekundes. Dabartinį savo apribojimų naudojimą galite patikrinti paskyros nustatymuose.
 Water meter: Vandens skaitiklis
 We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
 We have just sent you an activation link. Be patient.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda ką tik buvo išsiųstas. Kantrybės.
@@ -507,6 +524,7 @@ YOUR LINK CODE: TAVO NUORODOS KODAS
 You can use the application but you will not be able to modify any settings.: 'Galite naudoti programėlę, tačiau nėra galimybės keisti konfigūracijos.'
 You cannot delete your last access identifier.: Negalite pašalinti savo paskutinio prieigos identifikatoriaus.
 You cannot delete your last location.: Negalite pašalinti paskutinės savo vietos.
+You have exceeded your API Rate Limit: Išnaudojote savo API užklausų limitą
 You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
 You must agree to the Terms and Conditions.: Sutikimas su taisyklėmis būtinas.
 You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
@@ -540,6 +558,7 @@ directLinkExecutionFailureReason_expired: Tiesioginė nuoroda prarado galiojimo 
 directLinkExecutionFailureReason_forbiddenAction: Nuoroda neleidžia atlikti šios akcijos
 directLinkExecutionFailureReason_httpGetForbidden: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
 directLinkExecutionFailureReason_invalidActionParameters: Neteisingi tiesioginės nuorodos parametrai
+directLinkExecutionFailureReason_invalidChannelState: Šio veiksmo negalima atlikti dėl kanalo būsenos.
 directLinkExecutionFailureReason_invalidSlug: Pateiktas patikros kodas neteisingas
 directLinkExecutionFailureReason_noAllowedActions: Nebuvo pasirinkta jokių leidžiamų akcijų
 directLinkExecutionFailureReason_noSlugOrAction: Neteisinga užklausa – būtina pateikti nuorodos kodą ir akciją
@@ -621,24 +640,5 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': Norėdami apibrėžti atsakymo formatą taip pat galite pridėti GET parametrą.
-Be notified when your channels change state: Pranešimas apie kanalų būsenos pasikeitimus
-Bridge: Tiltas
-Calculated value: Skaitiklio būsena
-Flooding: Užliejimas
-Forward reactive energy: Reaktyvioji energija parsisiųsta
-Manually closed: Uždarytas rankiniu būdu
-Phase 1: 1 fazė
-Phase 2: 2 fazė
-Phase 3: 3 fazė
-Reverse active energy: Aktyvioji energija grąžinta
-Reverse reactive energy: Reaktyvioji energija grąžinta
-State webhook: Būsenos webhook
-The gate sensor must function properly in order to execute the Open and Close actions.: Norint įvykdyti veiksmą Atidaryti arba Uždaryti, vartelių atidarymo jutiklis turi veikti tinkamai.
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Kai vožtuvas buvo uždarytas rankiniu būdų, jo negalima atidaryti tiesioginės nuorodos ar API pagalba. Norėdami atnaujinti valdymą, vožtuvą atidarykite rankiniu būdu.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Vožtuvas uždarytas rankiniu būdu arba radijo ryšiu. Prieš jo atidarymą reikia įsitikinti, kad nebuvo uždarytas dėl užliejimo. Norėdami išjungti įspėjimą, vožtuvą atidarykite rankiniu būdu. Ar tikrai norite atidaryti vožtuvą nuotoliniu būdu?! '
-Wait a while before the next request. You can check your limits in the account settings.: Prieš atlikdami sekančią užklausą palaukite kelias sekundes. Dabartinį savo apribojimų naudojimą galite patikrinti paskyros nustatymuose.
-You have exceeded your API Rate Limit: Išnaudojote savo API užklausų limitą
-directLinkExecutionFailureReason_invalidChannelState: Šio veiksmo negalima atlikti dėl kanalo būsenos.
 
 #</editor-fold>

@@ -37,6 +37,7 @@ All: Tất cả
 All the above and many more can be done from your phone or tablet: Tất cả có thể được thực hiện từ điện thoại và máy tính bảng của bản.
 Allowed actions: Cho phép thao tác
 Allows to perform an action only using the HTTP PATCH request.: Cho phép bạn thực hiện một hành động chỉ bằng cách sử dụng yêu cầu HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Bạn cũng có thể thêm tham số GET để chỉ định định dạng phản hồi.
 And more: Thêm nữa
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Bất kỳ ứng dụng hoặc thiết bị nào sử dụng mã thông báo {tokenName} sẽ không hoạt động nữa.'
 Application name cannot be blank.: Tên ứng dụng không được để trống.
@@ -63,9 +64,12 @@ Authorized: Được hủy quyền
 Authorized OAuth apps: Ứng dụng OAuth ủy quyền
 Automation: Tự động hóa
 Back to apps list: Trở lại danh sách ứng dụng
+Be notified when your channels change state: Thông báo về những thay đổi trong trạng thái kênh
+Bridge: Cầu
 Brightness: Độ sáng
 CLICK TO DISABLE: CLICK TẮT
 CLICK TO ENABLE: CLICK BẬT
+Calculated value: Đọc đồng hồ
 Calibration: Hiệu chuẩn
 Cancel: Hủy
 Cancel changes: Hủy bỏ
@@ -191,10 +195,12 @@ Expired: Đã hết hạn
 Failed: Thất bại
 Failed (zombie): Thất bại
 File is too large: tập tin quá lớn
+Flooding: Ngập
 For devices: Cho thiết bị
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Vì lý do bảo mật, URL đầy đủ của link liên kết này sẽ chỉ được hiển thị một lần, trong khi tạo'
 Forgot your password?: Quên mật khẩu?
 Forward active energy: Forward active energy
+Forward reactive energy: Năng lượng phản ứng lấy
 Fridays: Thứ sáu
 From IP: Từ IP
 From anywhere: Từ bất cứ đâu
@@ -280,6 +286,7 @@ Login: Đăng nhập
 Mail sensor: Cảm biến mail
 Maintenance mode active. You cannot modify any data now.: Chế độ bảo trì hoạt động. Hiện tại bạn không thể sửa đổi bất kỳ dữ liệu.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Đảm bảo lưu nó ở một nơi an toàn nếu bạn muốn truy cập nó trong tương lai. Liên kết sẽ không hiển thị lại sau khi bạn rời khỏi trang này.
+Manually closed: Đóng thủ công
 'Maximum filesize limit is {limit}.': 'Giới hạn kích thước tệp tối đa là {limit}.'
 Meter value: giá trị bộ đếm
 Minute: Phút
@@ -335,6 +342,9 @@ Percentage of closing: Tỷ lệ đóng
 Personal access tokens: Mã thông báo truy cập cá nhân
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Mã thông báo truy cập cá nhân hoạt động giống như mã thông báo truy cập OAuth thông thường nhưng chúng không có thời gian hết hạn
 Personal token name is required.: Tên mã thông báo cá nhân là bắt buộc
+Phase 1: Giai đoạn 1
+Phase 2: Giai đoạn 2
+Phase 3: Giai đoạn 3
 Please click the link we have sent you after the registration to proceed.: Vui lòng nhấp vào liên kết chúng tôi đã gửi cho bạn sau khi đăng ký để tiến hành.
 Please enter a valid email address: Vui lòng nhập một địa chỉ email hợp lệ
 Please fill a valid email address: Vui lòng điền địa chỉ email hợp lệ
@@ -373,6 +383,8 @@ Repeat password: Nhập lại mật khẩu.
 Retry on failure: Thử lại thất bại
 Reveal: Tiết lộ
 Reveal partially: Tiết lộ một phần
+Reverse active energy: Năng lượng hoạt động trở lại
+Reverse reactive energy: Năng lượng phản ứng trở lại
 Revoke: Thu hồi
 Roller shutter opening sensor: Cảm biến mở cửa trập
 Roller shutter operation: Vận hành cửa trập
@@ -420,6 +432,7 @@ Staircase timer: Hẹn giờ cầu thang
 Start Here: Bắt đầu ở đây
 Start date: Ngày bắt đầu
 State: Trạng thái
+State webhook: Trạng thái Webhook
 Stop: Dừng
 Subject: Đối tượng
 Subject type: Loại đối tượng
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Các Đi
 The activation link has been sent again. Check the inbox.: Liên kết kích hoạt đã được gửi lại. Kiểm tra hộp thư đến..
 The client will be automatically logged out when deleted.: Máy khách (Client) sẽ tự động đăng xuất khi bị xóa.
 The device is disabled: Thiết bị bị vô hiệu hóa
+The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
 The gate sensor must function properly in order to execute the scheduled action.: Cảm biến cổng phải hoạt động đúng để thực hiện hành động theo lịch trình
 The latest execution: Thực thi mới nhất
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Kết quả liên kết được trình bày dưới dạng trang web thay thế, bởi vì bạn (hoặc trình duyệt của bạn) đã yêu cầu đầu ra HTML..'
@@ -451,6 +465,8 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist
 'The server has returned an HTTP {statusCode} error.': 'Máy chủ đã trả về lỗi HTTP {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Bộ biểu tượng bạn đã chọn quá lớn. Giới hạn tải lên tối đa là {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Không thể mở van qua liên kết trực tiếp hoặc qua API khi nó đã được đóng bằng tay. Để tiếp tục điều khiển, hãy mở van bằng tay.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Van sẽ không được mở nếu nó được đóng bằng tay hoặc từ xa, điều này có thể gây ra bởi lũ lụt.'
 There are no more channels you can add to this group: Không có thêm kênh bạn có thể thêm vào nhóm này.
 Thermometer: Nhiệt kế
@@ -478,6 +494,7 @@ Visit app webpage: Truy cập trang web ứng dụng
 WELCOME_MESSAGE: |
   Nhà hoặc văn phòng của bạn có thể dễ dàng kết nối với SUPLA.
   Tất cả những gì bạn cần làm là nhập lại trên các thiết bị điều khiển (Vào / Ra) và điện thoại thông minh theo dữ liệu sau.
+Wait a while before the next request. You can check your limits in the account settings.: Chờ một chút trước khi đưa ra yêu cầu khác. Bạn có thể kiểm tra việc sử dụng các giới hạn hiện tại trong cài đặt tài khoản của mình.
 Water meter: Thước đo nước
 We could not connect to your SUPLA Cloud instance.: Chúng tôi không thể kết nối với ví dụ SUPLA Cloud của bạn.
 We have just sent you an activation link. Be patient.: Chúng tôi vừa gửi cho bạn một liên kết kích hoạt. Kiên nhẫn.
@@ -507,6 +524,7 @@ YOUR LINK CODE: MÃ LIÊN KẾT CỦA BẠN
 You can use the application but you will not be able to modify any settings.: Bạn có thể sử dụng ứng dụng nhưng bạn sẽ không thể sửa đổi bất kỳ cài đặt nào.
 You cannot delete your last access identifier.: Bạn không thể xóa định danh truy cập cuối cùng của bạn.
 You cannot delete your last location.: Bạn không thể xóa vị trí cuối cùng của bạn.
+You have exceeded your API Rate Limit: Bạn đã sử dụng hết giới hạn yêu cầu đối với API
 You just need to execute the following command inside your host terminal.: Bạn chỉ cần thực hiện lệnh sau trong thiết bị đầu cuối máy chủ của bạn.
 You must agree to the Terms and Conditions.: Bạn phải đồng ý với các Điều khoản và Điều kiện.
 You need to provide icons for all states.: Bạn cần cung cấp các biểu tượng cho tất cả các tiểu bang
@@ -540,6 +558,7 @@ directLinkExecutionFailureReason_expired: Liên kết trực tiếp không còn 
 directLinkExecutionFailureReason_forbiddenAction: Liên kết không cho phép hành động này
 directLinkExecutionFailureReason_httpGetForbidden: Không thể thực hiện hành động thông qua phương thức HTTP GET bị cấm.
 directLinkExecutionFailureReason_invalidActionParameters: Cài đặt liên kết trực tiếp không chính xác
+directLinkExecutionFailureReason_invalidChannelState: Không thể thực hiện tác vụ do trạng thái của kênh.
 directLinkExecutionFailureReason_invalidSlug: Mã xác minh không chính xác
 directLinkExecutionFailureReason_noAllowedActions: Không có hành động được ủy quyền đã được chọn
 directLinkExecutionFailureReason_noSlugOrAction: Yêu cầu xấu - mã liên kết và hành động cần thiết
@@ -621,24 +640,5 @@ execute: Thực thi
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': Bạn cũng có thể thêm tham số GET để chỉ định định dạng phản hồi.
-Be notified when your channels change state: Thông báo về những thay đổi trong trạng thái kênh
-Bridge: Cầu
-Calculated value: Đọc đồng hồ
-Flooding: Ngập
-Forward reactive energy: Năng lượng phản ứng lấy
-Manually closed: Đóng thủ công
-Phase 1: Giai đoạn 1
-Phase 2: Giai đoạn 2
-Phase 3: Giai đoạn 3
-Reverse active energy: Năng lượng hoạt động trở lại
-Reverse reactive energy: Năng lượng phản ứng trở lại
-State webhook: Trạng thái Webhook
-The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Không thể mở van qua liên kết trực tiếp hoặc qua API khi nó đã được đóng bằng tay. Để tiếp tục điều khiển, hãy mở van bằng tay.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!'
-Wait a while before the next request. You can check your limits in the account settings.: Chờ một chút trước khi đưa ra yêu cầu khác. Bạn có thể kiểm tra việc sử dụng các giới hạn hiện tại trong cài đặt tài khoản của mình.
-You have exceeded your API Rate Limit: Bạn đã sử dụng hết giới hạn yêu cầu đối với API
-directLinkExecutionFailureReason_invalidChannelState: Không thể thực hiện tác vụ do trạng thái của kênh.
 
 #</editor-fold>

@@ -37,6 +37,7 @@ All: Všechno
 All the above and many more can be done from your phone or tablet: 'To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu'
 Allowed actions: Dovolené akce
 Allows to perform an action only using the HTTP PATCH request.: Umožňuje provádět akci pouze pomocí žádosti HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Můžete rovněž pro určení formátu odpovědi přidat parametr GET.
 And more: a více
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.'
 Application name cannot be blank.: Název aplikace nesmí být prázdný
@@ -63,9 +64,12 @@ Authorized: Ověřeno
 Authorized OAuth apps: Autorizované aplikace OAuth
 Automation: Automatizace
 Back to apps list: Zpět na seznam aplikaci
+Be notified when your channels change state: Oznámení o změnách stavu kanálů
+Bridge: Most
 Brightness: Jas
 CLICK TO DISABLE: KLIKNI ABY VYPNOUT
 CLICK TO ENABLE: KLIKNI ABY ZAPNOUT
+Calculated value: Stav elektroměru
 Calibration: Kalibrace
 Cancel: Zrušit
 Cancel changes: Zrušit změny
@@ -196,6 +200,7 @@ For devices: Pro zařízení
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.'
 Forgot your password?: Zapoměl jsi heslo?
 Forward active energy: Pobíraná činná energie
+Forward reactive energy: Jalová odebíraná energie
 Fridays: Pátky
 From IP: Z adresy IP
 From anywhere: Odkudkoliv
@@ -337,6 +342,9 @@ Percentage of closing: Procento uzavření
 Personal access tokens: Osobní přístupové tokeny
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobní přístupové tokeny fungují stejně jako obyčejné tokeny s tím rozdílem, že fungují neomezeně.'
 Personal token name is required.: Je třeba poskytnout název osobního tokenu.
+Phase 1: Jednofázová
+Phase 2: Dvoufázová
+Phase 3: Třífázová
 Please click the link we have sent you after the registration to proceed.: 'Klikněte na odkaz ze zprávy, kterou jsme Vám zaslali po vytvoření účtu.'
 Please enter a valid email address: Zadejte správnou mailovou adresu
 Please fill a valid email address: Zadejte správnou e-mailovou adresu
@@ -375,6 +383,8 @@ Repeat password: Opakujte heslo
 Retry on failure: 'Opakujte, když není hotovo'
 Reveal: Odkrýt
 Reveal partially: Částečně odkrytí
+Reverse active energy: Činná vrácená energie
+Reverse reactive energy: Jalová vrácená energie
 Revoke: Zrušit
 Roller shutter opening sensor: Snímač otevření rolet
 Roller shutter operation: Otevírání a zavírání rolet
@@ -422,6 +432,7 @@ Staircase timer: Schodišťový automat
 Start Here: Začni tady
 Start date: Datum zahájení
 State: Stav
+State webhook: Webhook stavu
 Stop: Zastavit
 Subject: Předmět
 Subject type: Typ předmětu
@@ -441,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Podmínk
 The activation link has been sent again. Check the inbox.: Zpráva s odkazem k aktivaci Vašeho účtu byla znovu odeslána. Zkontrolujte svou doručenou poštu.
 The client will be automatically logged out when deleted.: Odstranění klienta bude mít za následek okamžité odhlášení.
 The device is disabled: Zařízení je vypnuté
+The gate sensor must function properly in order to execute the Open and Close actions.: Pro otevírání a zavírání závory musí snímač závory fungovat velice správně.
 The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
 The latest execution: Poslední výkon
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Výsledek je prezentovaný ve formě internetové stránky, poněvadž Vy (nebo Váš prohlížeč) požádal o odpověď ve formátu HTML.'
@@ -482,6 +494,7 @@ Visit app webpage: Otevřete okno aplikace
 WELCOME_MESSAGE: |
   Připojení vašeho domova nebo kanceláře k SUPLI je snadné. Jediné, co musíte udělat, je
   přepište následující údaje do ovládacích.
+Wait a while before the next request. You can check your limits in the account settings.: Před zadáním dalšího požadavku počkejte chvilku. V nastavení účtu můžete zkontrolovat aktuální využití svých limitů.
 Water meter: Vodoměr
 We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Právě byla odeslána zpráva s odkazem k aktivaci Vašeho účtu. Trpělivost.
@@ -511,6 +524,7 @@ YOUR LINK CODE: KÓD VAŠEHO ODKAZU
 You can use the application but you will not be able to modify any settings.: 'Můžete používat aplikaci, ale není možné změnit nastavení konfigurace'
 You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
 You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
+You have exceeded your API Rate Limit: Využili jste svůj maximální limit API požadavků
 You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
 You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
 You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
@@ -544,6 +558,7 @@ directLinkExecutionFailureReason_expired: Přímý odkaz je zastaralý
 directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje provedení této akce
 directLinkExecutionFailureReason_httpGetForbidden: Akci nebylo možné provést pomocí metody HTTP GET.
 directLinkExecutionFailureReason_invalidActionParameters: Nesprávné parametry přímého odkazu
+directLinkExecutionFailureReason_invalidChannelState: Stav kanálu nedovoluje provést požadovanou akci.
 directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
 directLinkExecutionFailureReason_noAllowedActions: Nebyly vybrány žádné povolené akce
 directLinkExecutionFailureReason_noSlugOrAction: 'Nesprávný požadavek, je nutné provést akci a zadat kód linku'
@@ -625,20 +640,5 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'Alternatively, you can add a GET parameter to specify response format.': Můžete rovněž pro určení formátu odpovědi přidat parametr GET.
-Be notified when your channels change state: Oznámení o změnách stavu kanálů
-Bridge: Most
-Calculated value: Stav elektroměru
-Forward reactive energy: Jalová odebíraná energie
-Phase 1: Jednofázová
-Phase 2: Dvoufázová
-Phase 3: Třífázová
-Reverse active energy: Činná vrácená energie
-Reverse reactive energy: Jalová vrácená energie
-State webhook: Webhook stavu
-The gate sensor must function properly in order to execute the Open and Close actions.: Pro otevírání a zavírání závory musí snímač závory fungovat velice správně.
-Wait a while before the next request. You can check your limits in the account settings.: Před zadáním dalšího požadavku počkejte chvilku. V nastavení účtu můžete zkontrolovat aktuální využití svých limitů. 
-You have exceeded your API Rate Limit: Využili jste svůj maximální limit API požadavků
-directLinkExecutionFailureReason_invalidChannelState: Stav kanálu nedovoluje provést požadovanou akci.
 
 #</editor-fold>
