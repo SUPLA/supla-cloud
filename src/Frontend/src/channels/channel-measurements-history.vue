@@ -17,7 +17,7 @@
 
             <div v-if="supportsChart">
                 <div class="form-group text-center"
-                    v-if="hasLogs">
+                    v-if="sparseLogs && sparseLogs.length > 1">
                     <div class="btn-group"
                         v-if="channel.function.name === 'ELECTRICITYMETER' && channel.type.name === 'ELECTRICITYMETER'">
                         <a :class="'btn btn-' + (chartMode === 'fae' ? 'green' : 'default')"
