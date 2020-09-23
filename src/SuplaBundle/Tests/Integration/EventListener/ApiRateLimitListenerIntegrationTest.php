@@ -374,6 +374,14 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testDirectLinksUsesLimitOfOwner */
+    public function testInvalidDirectLinkIdDoesNotCauseAnError($slug) {
+        $client = $this->createClient(['debug' => false]);
+        $client->request('GET', "/direct/999/$slug/read");
+        $response = $client->getResponse();
+        $this->assertStatusCode(403, $response);
+    }
+
+    /** @depends testDirectLinksUsesLimitOfOwner */
     public function testDirectWithInvalidSlugDoesNotUseLimitOfOwner($slug) {
         $this->changeUserApiRateLimit('1/10');
         $client = $this->createClient(['debug' => false]);

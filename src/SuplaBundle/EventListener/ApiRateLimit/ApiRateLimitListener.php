@@ -197,15 +197,19 @@ class ApiRateLimitListener {
                 } else {
                     /** @var DirectLink $directLink */
                     $directLink = $this->entityManager->find(DirectLink::class, $directLinkId);
-                    $directLinkData = ['ownerId' => $directLink->getUser()->getId(), 'slug' => $directLink->getSlug()];
-                    $directLinkCache->set(json_encode($directLinkData));
-                    $directLinkCache->expiresAfter(31536000); // one year
-                    $this->storage->save($directLinkCache);
+                    if ($directLink) {
+                        $directLinkData = ['ownerId' => $directLink->getUser()->getId(), 'slug' => $directLink->getSlug()];
+                        $directLinkCache->set(json_encode($directLinkData));
+                        $directLinkCache->expiresAfter(31536000); // one year
+                        $this->storage->save($directLinkCache);
+                    }
                 }
-                $directLinkVerifier = new DirectLinkForRateLimitStub($directLinkData['slug']);
-                $encoder = $this->encoderFactory->getEncoder($directLinkVerifier);
-                if ($directLinkVerifier->isValidSlug($slug, $encoder)) {
-                    return $directLinkData['ownerId'];
+                if (isset($directLinkData)) {
+                    $directLinkVerifier = new DirectLinkForRateLimitStub($directLinkData['slug']);
+                    $encoder = $this->encoderFactory->getEncoder($directLinkVerifier);
+                    if ($directLinkVerifier->isValidSlug($slug, $encoder)) {
+                        return $directLinkData['ownerId'];
+                    }
                 }
             }
         }
