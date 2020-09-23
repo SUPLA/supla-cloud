@@ -645,8 +645,8 @@
                         },
                         yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
                     }, false, false);
-                    this.fetchingDenseLogs = false;
                 }
+                this.fetchingDenseLogs = false;
             },
             rerenderSmallChart() {
                 if (this.sparseLogs && this.sparseLogs.length) {
