@@ -151,9 +151,14 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             [['color' => 'random'], 'SET-RAND-RGBW-VALUE:1,1,1,99,0', ['color_brightness' => '99']],
             [['hue' => 'random', 'color_brightness' => 88], 'SET-RAND-RGBW-VALUE:1,1,1,88,0'],
             [['color' => 'random', 'color_brightness' => 98], 'SET-RAND-RGBW-VALUE:1,1,1,98,0', ['color_brightness' => '99']],
-            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,3'],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,3', [], ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 2], '16711680,0,0,2', [], ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 1], '16711680,0,0,1', [], ChannelFunction::DIMMERANDRGBLIGHTING],
             [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,1', [], ChannelFunction::DIMMER],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 2], '16711680,0,0,1', [], ChannelFunction::DIMMER],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 23], '16711680,0,0,1', [], ChannelFunction::DIMMER],
             [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,2', [], ChannelFunction::RGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 1], '16711680,0,0,2', [], ChannelFunction::RGBLIGHTING],
             [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => false], '16711680,0,0,0'],
         ];
     }

@@ -163,7 +163,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         }
         $colorBrightness = $actionParams['color_brightness'] ?? 0;
         $brightness = $actionParams['brightness'] ?? 0;
-        $turnOnOff = $this->chooseTurnOnOffBit($subject, boolval($actionParams['turnOnOff'] ?? false));
+        $turnOnOff = $this->chooseTurnOnOffBit($subject, $actionParams['turnOnOff'] ?? false);
         $command = $subject->buildServerSetCommand(
             'RGBW',
             $this->assignCommonParams([$color, $colorBrightness, $brightness, $turnOnOff], $actionParams)
@@ -174,7 +174,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         $this->suplaServer->executeSetCommand($command);
     }
 
-    private function chooseTurnOnOffBit(HasFunction $subject, bool $turnOnOff): int {
+    private function chooseTurnOnOffBit(HasFunction $subject, $turnOnOff): int {
         if (!$turnOnOff) {
             return 0;
         }
@@ -184,7 +184,10 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             case ChannelFunction::DIMMER:
                 return 0x1;
             case ChannelFunction::DIMMERANDRGBLIGHTING:
-                return 0x1 | 0x2;
+                if ($turnOnOff === true) {
+                    $turnOnOff = 0x1 | 0x2;
+                }
+                return ($turnOnOff & 0x1) | ($turnOnOff & 0x2);
             default:
                 return 0;
         }

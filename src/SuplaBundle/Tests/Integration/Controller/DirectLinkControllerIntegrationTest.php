@@ -394,11 +394,11 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
         $client->enableProfiler();
-        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66&turnOnOff=1");
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66&turnOnOff=2");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,3', $commands);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,2', $commands);
     }
 
     public function testExecutingDirectLinkWithComplexParameters() {
