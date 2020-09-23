@@ -192,7 +192,7 @@
                     const currentValue = logs[currentNonNullLog].calculated_value;
                     if (currentValue === null && firstNullLog === undefined) {
                         firstNullLog = currentNonNullLog;
-                    } else if (currentValue !== null && firstNullLog !== undefined) {
+                    } else if (currentValue !== null && firstNullLog !== undefined && lastNonNullLog !== undefined) {
                         const logsToFill = currentNonNullLog - firstNullLog;
                         const lastKnownValue = logs[lastNonNullLog].calculated_value;
                         const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
@@ -292,7 +292,7 @@
                     const currentValue = logs[currentNonNullLog].phase1_fae;
                     if (currentValue === null && firstNullLog === undefined) {
                         firstNullLog = currentNonNullLog;
-                    } else if (currentValue !== null && firstNullLog !== undefined) {
+                    } else if (currentValue !== null && firstNullLog !== undefined && lastNonNullLog !== undefined) {
                         ['phase1_fae', 'phase2_fae', 'phase3_fae'].forEach((attribute) => {
                             const currentValue = logs[currentNonNullLog][attribute];
                             const logsToFill = currentNonNullLog - firstNullLog;
