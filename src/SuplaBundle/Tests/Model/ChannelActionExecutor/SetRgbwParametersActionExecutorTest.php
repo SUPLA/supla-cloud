@@ -8,6 +8,7 @@ use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelActionExecutor\SetRgbwParametersActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Supla\SuplaServer;
@@ -98,7 +99,12 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
     }
 
     /** @dataProvider exampleRgbwParameters */
-    public function testSettingRgbwParameters(array $params, string $expectedCommand, array $currentState = []) {
+    public function testSettingRgbwParameters(
+        array $params,
+        string $expectedCommand,
+        array $currentState = [],
+        int $functionId = ChannelFunction::DIMMERANDRGBLIGHTING
+    ) {
         $stateGetter = $this->createMock(ColorAndBrightnessChannelStateGetter::class);
         $stateGetter->method('getState')->willReturn($currentState);
         $executor = new SetRgbwParametersActionExecutor($stateGetter);
@@ -113,6 +119,7 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             }
         );
         $channel = new IODeviceChannel();
+        $channel->setFunction(new ChannelFunction($functionId));
         EntityUtils::setField($channel, 'id', 1);
         EntityUtils::setField($channel, 'user', $this->createEntityMock(User::class));
         EntityUtils::setField($channel, 'iodevice', $this->createEntityMock(IODevice::class));
@@ -144,7 +151,9 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             [['color' => 'random'], 'SET-RAND-RGBW-VALUE:1,1,1,99,0', ['color_brightness' => '99']],
             [['hue' => 'random', 'color_brightness' => 88], 'SET-RAND-RGBW-VALUE:1,1,1,88,0'],
             [['color' => 'random', 'color_brightness' => 98], 'SET-RAND-RGBW-VALUE:1,1,1,98,0', ['color_brightness' => '99']],
-            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,1'],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,3'],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,1', [], ChannelFunction::DIMMER],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,2', [], ChannelFunction::RGBLIGHTING],
             [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => false], '16711680,0,0,0'],
         ];
     }

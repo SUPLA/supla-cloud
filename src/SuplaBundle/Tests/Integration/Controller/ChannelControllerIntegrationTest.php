@@ -23,6 +23,7 @@ use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
@@ -46,7 +47,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var Location */
     private $location;
-    /** @var \SuplaBundle\Entity\OAuth\AccessToken */
+    /** @var AccessToken */
     private $peronsalToken;
 
     protected function initializeDatabaseForTests() {
@@ -168,7 +169,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
                 ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42]],
             [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,0',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,1',
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,3',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42, 'turnOnOff' => 1]],
             [5, 'set-rgbw-parameters', 'SET-RAND-RGBW-VALUE:1,1,5,58,42',
                 ['color' => 'random', 'color_brightness' => 58, 'brightness' => 42]],

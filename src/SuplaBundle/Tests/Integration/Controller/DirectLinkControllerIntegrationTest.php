@@ -398,7 +398,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,1', $commands);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,3', $commands);
     }
 
     public function testExecutingDirectLinkWithComplexParameters() {
