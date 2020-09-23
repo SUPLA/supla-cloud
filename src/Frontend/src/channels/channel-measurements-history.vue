@@ -326,11 +326,17 @@
                         title: {text: label},
                         labels: {formatter: (v) => `${(+v).toFixed(5)} ${measurementUnit(this.channel)}`},
                         min: 0,
-                        max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
+                        max: maxMeasurement + Math.max(0.00001, maxMeasurement),
                     }
                 ];
             },
-            emptyLog: () => ({date_timestamp: null, phase1_fae: null, phase2_fae: null, phase3_fae: null}),
+            emptyLog: () => ({
+                date_timestamp: null,
+                phase1_fae: null, phase2_fae: null, phase3_fae: null,
+                phase1_rae: null, phase2_rae: null, phase3_rae: null,
+                phase1_fre: null, phase2_fre: null, phase3_fre: null,
+                phase1_rre: null, phase2_rre: null, phase3_rre: null,
+            }),
         },
     };
 
@@ -621,6 +627,10 @@
                 }))
                     .then(({body: logItems}) => {
                         const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / DENSE_LOGS_COUNT));
+                        if (logItems.length < 2) {
+                            // hit empty period, let's use the sparse logs
+                            return this.denseLogs = this.sparseLogs;
+                        }
                         return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
                     });
             },
