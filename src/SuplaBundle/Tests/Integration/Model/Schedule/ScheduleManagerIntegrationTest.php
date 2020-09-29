@@ -15,8 +15,9 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Integration\Model;
+namespace SuplaBundle\Tests\Integration\Model\Schedule;
 
+use DateTime;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ScheduleMode;
@@ -59,13 +60,13 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
         /** @var ScheduledExecution $execution */
         $execution = current($executions);
         $this->assertEquals($schedule->getId(), $execution->getSchedule()->getId());
-        $this->assertEquals(new \DateTime('2088-01-01 00:00:00'), $execution->getPlannedTimestamp());
+        $this->assertEquals(new DateTime('2088-01-01 00:00:00'), $execution->getPlannedTimestamp());
     }
 
     public function testDoesNotGenerateRunDateForSchedulesWithPastEndDate() {
         $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
-            'dateEnd' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
+            'dateEnd' => (new DateTime('2018-01-01 00:00:00'))->format(DateTime::ATOM),
         ]);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
@@ -75,8 +76,8 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testDisablesScheduleIfNoMoreExecutions() {
         $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
-            'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
-            'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
+            'dateStart' => (new DateTime('2018-01-01 00:00:00'))->format(DateTime::ATOM),
+            'dateEnd' => (new DateTime('2018-01-01 01:00:00'))->format(DateTime::ATOM),
         ]);
         TestTimeProvider::setTime('2018-01-01 00:00:00');
         $this->scheduleManager->generateScheduledExecutions($schedule);
@@ -89,8 +90,8 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     public function testDoesNotDisableIfThereArePendingExecutionsToExecute() {
         $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
-            'dateStart' => (new \DateTime('2018-01-01 00:00:00'))->format(\DateTime::ATOM),
-            'dateEnd' => (new \DateTime('2018-01-01 01:00:00'))->format(\DateTime::ATOM),
+            'dateStart' => (new DateTime('2018-01-01 00:00:00'))->format(DateTime::ATOM),
+            'dateEnd' => (new DateTime('2018-01-01 01:00:00'))->format(DateTime::ATOM),
         ]);
         TestTimeProvider::setTime('2018-01-01 00:00:00');
         $this->scheduleManager->generateScheduledExecutions($schedule);

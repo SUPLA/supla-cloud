@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Supla;
+namespace SuplaBundle\Tests\Utils;
 
 use PHPUnit_Framework_TestCase;
 use SuplaBundle\Utils\NumberUtils;
