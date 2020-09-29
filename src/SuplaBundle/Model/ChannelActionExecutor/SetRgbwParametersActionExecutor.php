@@ -43,7 +43,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
-        Assertion::between(count($actionParams), 1, 4, 'Invalid number of action parameters');
+        Assertion::between(count($actionParams), 1, 5, 'Invalid number of action parameters');
         Assertion::count(
             array_intersect_key(
                 $actionParams,
