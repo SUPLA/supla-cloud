@@ -160,9 +160,6 @@ class ChannelController extends RestController {
                 }
                 $channel->setUserIcon(null);
                 $channel->setAltIcon(0);
-            } else {
-                $channel->setAltIcon($updatedChannel->getAltIcon());
-                $channel->setUserIcon($updatedChannel->getUserIcon());
             }
             if ($updatedChannel->hasInheritedLocation()) {
                 $channel->setLocation(null);
@@ -182,6 +179,7 @@ class ChannelController extends RestController {
                 if ($functionHasBeenChanged) {
                     $channel->setFunction($updatedChannel->getFunction());
                     $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
+                    $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
                     foreach ($channel->getSchedules() as $schedule) {
                         $this->scheduleManager->delete($schedule);
                     }
@@ -189,8 +187,10 @@ class ChannelController extends RestController {
                         $em->remove($directLink);
                     }
                     $channel->removeFromAllChannelGroups($em);
-                    $em->persist($channel);
                 }
+                $channel->setAltIcon($updatedChannel->getAltIcon());
+                $channel->setUserIcon($updatedChannel->getUserIcon());
+                $em->persist($channel);
                 return $channel;
             });
             $this->suplaServer->reconnect();
