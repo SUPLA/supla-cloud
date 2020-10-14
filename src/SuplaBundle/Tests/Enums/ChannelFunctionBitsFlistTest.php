@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Enums;
 
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 
-class ChannelFunctionBitsFlistTest extends \PHPUnit_Framework_TestCase {
+class ChannelFunctionBitsFlistTest extends PHPUnit_Framework_TestCase {
     /** @dataProvider supportedFunctionsTestCases */
     public function testGettingSupportedFunctions(int $functionList, array $expectedFuncions) {
         $this->assertEquals($expectedFuncions, ChannelFunctionBitsFlist::getSupportedFunctions($functionList));
@@ -44,6 +45,7 @@ class ChannelFunctionBitsFlistTest extends \PHPUnit_Framework_TestCase {
                 ChannelFunction::POWERSWITCH(),
                 ChannelFunction::LIGHTSWITCH(),
             ]],
+            [0x00008000, [ChannelFunction::CONTROLLINGTHEROOFWINDOW()]],
         ];
     }
 
