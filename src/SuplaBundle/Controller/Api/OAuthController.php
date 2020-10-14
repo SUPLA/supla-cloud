@@ -192,7 +192,10 @@ class OAuthController extends RestController {
     public function getPublicOAuthAppsAction() {
         if ($this->autodiscover->isTarget()) {
             $clients = $this->autodiscover->getPublicClients();
-            return $this->view($clients, Response::HTTP_OK);
+            $nonHiddenClients = array_filter($clients, function ($client) {
+                return !($client['isHidden'] ?? false);
+            });
+            return $this->view(array_values($nonHiddenClients), Response::HTTP_OK);
         } else {
             return new Response('', Response::HTTP_NOT_ACCEPTABLE);
         }
