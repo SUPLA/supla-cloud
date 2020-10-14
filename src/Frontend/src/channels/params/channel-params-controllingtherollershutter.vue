@@ -35,7 +35,7 @@
                 <dd>{{ $t('Opening sensor') }}</dd>
                 <dt class="text-center"
                     style="font-weight: normal">
-                    <channels-dropdown params="function=OPENINGSENSOR_ROLLERSHUTTER"
+                    <channels-dropdown :params="channelsDropdownFilter"
                         v-model="relatedChannel"
                         @input="relatedChannelChanged()"></channels-dropdown>
                 </dt>
@@ -50,7 +50,7 @@
 
     export default {
         components: {ChannelsDropdown, ChannelParamsControllingAnyLock},
-        props: ['channel'],
+        props: ['channel', 'sensorFunction'],
         data() {
             return {
                 relatedChannel: undefined
@@ -68,6 +68,9 @@
             }
         },
         computed: {
+            channelsDropdownFilter() {
+                return 'function=' + (this.sensorFunction || 'OPENINGSENSOR_ROLLERSHUTTER');
+            },
             param1: {
                 set(value) {
                     this.channel.param1 = Math.round(value * 10);

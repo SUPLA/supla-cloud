@@ -185,6 +185,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::OPENINGSENSOR_DOOR(),
                 ChannelFunction::NOLIQUIDSENSOR(),
                 ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(),
+                ChannelFunction::OPENINGSENSOR_ROOFWINDOW(),
                 ChannelFunction::OPENINGSENSOR_WINDOW(),
                 ChannelFunction::MAILSENSOR(),
             ],

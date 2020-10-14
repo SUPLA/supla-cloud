@@ -7,6 +7,11 @@ class ControllingTheRoletteShutterClosingTimer extends RangeParamsUpdater {
     const MAX_TIME_IN_SECONDS = 300;
 
     public function __construct() {
-        parent::__construct(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), 0, self::MAX_TIME_IN_SECONDS * 10, 3);
+        parent::__construct(
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), ChannelFunction::CONTROLLINGTHEROOFWINDOW()],
+            0,
+            self::MAX_TIME_IN_SECONDS * 10,
+            3
+        );
     }
 }

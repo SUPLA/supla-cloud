@@ -12,6 +12,7 @@ class InvertedSensorLogicParamsUpdater extends RangeParamsUpdater {
             ChannelFunction::OPENINGSENSOR_GARAGEDOOR(),
             ChannelFunction::OPENINGSENSOR_DOOR(),
             ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(),
+            ChannelFunction::OPENINGSENSOR_ROOFWINDOW(),
             ChannelFunction::NOLIQUIDSENSOR(),
             ChannelFunction::MAILSENSOR(),
         ], 0, 1, 3);

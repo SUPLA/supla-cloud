@@ -39,7 +39,9 @@ use UnexpectedValueException;
  * @method static ChannelFunction CONTROLLINGTHEDOORLOCK()
  * @method static ChannelFunction OPENINGSENSOR_DOOR()
  * @method static ChannelFunction CONTROLLINGTHEROLLERSHUTTER()
+ * @method static ChannelFunction CONTROLLINGTHEROOFWINDOW()
  * @method static ChannelFunction OPENINGSENSOR_ROLLERSHUTTER()
+ * @method static ChannelFunction OPENINGSENSOR_ROOFWINDOW()
  * @method static ChannelFunction POWERSWITCH()
  * @method static ChannelFunction LIGHTSWITCH()
  * @method static ChannelFunction DIMMER()
@@ -63,8 +65,6 @@ use UnexpectedValueException;
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction VALVEOPENCLOSE()
  * @method static ChannelFunction VALVEPERCENTAGE()
- * @method static ChannelFunction CONTROLLINGTHEROOFWINDOW()
- * @method static ChannelFunction OPENINGSENSOR_ROOFWINDOW()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
