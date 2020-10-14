@@ -9,6 +9,7 @@ class StopActionExecutor extends SetCharValueActionExecutor {
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
         ];
     }
 
