@@ -31,8 +31,8 @@ class ApiRateLimitStorage {
         return 'user_' . $userId;
     }
 
-    public function getDirectLinkOwnerIdKey(int $directLinkId) {
-        return 'direct_link_owner_' . $directLinkId;
+    public function getDirectLinkCacheKey(int $directLinkId) {
+        return 'direct_link_data_' . $directLinkId;
     }
 
     public function clearUserLimit(User $user) {

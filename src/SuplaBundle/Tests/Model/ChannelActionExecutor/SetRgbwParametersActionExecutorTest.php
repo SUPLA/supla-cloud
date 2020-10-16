@@ -8,6 +8,7 @@ use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelActionExecutor\SetRgbwParametersActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Supla\SuplaServer;
@@ -77,6 +78,9 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
                 ['rgb' => ['red' => 100, 'green' => 50, 'blue' => 50], 'hsv' => ['hue' => 100, 'saturation' => 50, 'value' => 50]],
                 false,
             ],
+            [['hue' => 0, 'turnOnOff' => true], true],
+            [['hue' => 0, 'turnOnOff' => false], true],
+            [['hue' => 0, 'turnOnOff' => 1], true],
         ];
     }
 
@@ -96,7 +100,12 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
     }
 
     /** @dataProvider exampleRgbwParameters */
-    public function testSettingRgbwParameters(array $params, string $expectedCommand, array $currentState = []) {
+    public function testSettingRgbwParameters(
+        array $params,
+        string $expectedCommand,
+        array $currentState = [],
+        int $functionId = ChannelFunction::DIMMERANDRGBLIGHTING
+    ) {
         $stateGetter = $this->createMock(ColorAndBrightnessChannelStateGetter::class);
         $stateGetter->method('getState')->willReturn($currentState);
         $executor = new SetRgbwParametersActionExecutor($stateGetter);
@@ -111,6 +120,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
             }
         );
         $channel = new IODeviceChannel();
+        $channel->setFunction(new ChannelFunction($functionId));
         EntityUtils::setField($channel, 'id', 1);
         EntityUtils::setField($channel, 'user', $this->createEntityMock(User::class));
         EntityUtils::setField($channel, 'iodevice', $this->createEntityMock(IODevice::class));
@@ -119,29 +129,38 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
 
     public function exampleRgbwParameters() {
         return [
-            [['hue' => 0, 'color_brightness' => 0], '16711680,0,0'],
-            [['hue' => 'white', 'color_brightness' => 12], '16777215,12,0'],
-            [['hue' => 0], '16711680,0,0'],
-            [['hue' => 0], '16711680,50,0', ['color_brightness' => 50]],
-            [['hue' => 0], '16711680,50,70', ['color_brightness' => 50, 'brightness' => 70]],
-            [['color' => '0xFF0000'], '16711680,50,70', ['color_brightness' => 50, 'brightness' => 70]],
-            [['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0]], '16711680,100,70', ['color_brightness' => 50, 'brightness' => 70]],
-            [['color' => '0xAA0000'], '11141120,50,70', ['color_brightness' => 50, 'brightness' => 70]],
-            [['color' => '0xAA0000'], '11141120,0,70', ['brightness' => 70]],
-            [['rgb' => ['red' => 170, 'green' => 0, 'blue' => 0]], '16711680,67,70', ['color_brightness' => 50, 'brightness' => 70]],
-            [['color' => '0xFF0000', 'brightness' => 40], '16711680,50,40', ['color_brightness' => 50, 'brightness' => 70]],
+            [['hue' => 0, 'color_brightness' => 0], '16711680,0,0,0'],
+            [['hue' => 'white', 'color_brightness' => 12], '16777215,12,0,0'],
+            [['hue' => 0], '16711680,0,0,0'],
+            [['hue' => 0], '16711680,50,0,0', ['color_brightness' => 50]],
+            [['hue' => 0], '16711680,50,70,0', ['color_brightness' => 50, 'brightness' => 70]],
+            [['color' => '0xFF0000'], '16711680,50,70,0', ['color_brightness' => 50, 'brightness' => 70]],
+            [['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0]], '16711680,100,70,0', ['color_brightness' => 50, 'brightness' => 70]],
+            [['color' => '0xAA0000'], '11141120,50,70,0', ['color_brightness' => 50, 'brightness' => 70]],
+            [['color' => '0xAA0000'], '11141120,0,70,0', ['brightness' => 70]],
+            [['rgb' => ['red' => 170, 'green' => 0, 'blue' => 0]], '16711680,67,70,0', ['color_brightness' => 50, 'brightness' => 70]],
+            [['color' => '0xFF0000', 'brightness' => 40], '16711680,50,40,0', ['color_brightness' => 50, 'brightness' => 70]],
             [
                 ['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0], 'brightness' => 40],
-                '16711680,100,40',
+                '16711680,100,40,0',
                 ['color_brightness' => 50, 'brightness' => 70],
             ],
-            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 100]], '16711680,100,0'],
-            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0'],
-            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0', ['color_brightness' => 50]],
-            [['color_brightness' => 40], '16711680,40,0', ['color' => '0xFF0000']],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 100]], '16711680,100,0,0'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0,0'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '16711680,60,0,0', ['color_brightness' => 50]],
+            [['color_brightness' => 40], '16711680,40,0,0', ['color' => '0xFF0000']],
             [['color' => 'random'], 'SET-RAND-RGBW-VALUE:1,1,1,99,0', ['color_brightness' => '99']],
             [['hue' => 'random', 'color_brightness' => 88], 'SET-RAND-RGBW-VALUE:1,1,1,88,0'],
             [['color' => 'random', 'color_brightness' => 98], 'SET-RAND-RGBW-VALUE:1,1,1,98,0', ['color_brightness' => '99']],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,3', [], ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 2], '16711680,0,0,2', [], ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 1], '16711680,0,0,1', [], ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,1', [], ChannelFunction::DIMMER],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 2], '16711680,0,0,1', [], ChannelFunction::DIMMER],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 23], '16711680,0,0,1', [], ChannelFunction::DIMMER],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,0,2', [], ChannelFunction::RGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => 1], '16711680,0,0,2', [], ChannelFunction::RGBLIGHTING],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => false], '16711680,0,0,0'],
         ];
     }
 }

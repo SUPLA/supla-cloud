@@ -37,6 +37,7 @@ All: Tudo
 All the above and many more can be done from your phone or tablet: Faça tudo isto e muito mais usando o seu smartphone ou tablet
 Allowed actions: Ações permitidas
 Allows to perform an action only using the HTTP PATCH request.: Permite a execução da ação somente usando a solicitação HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Você também pode adicionar um parâmetro GET para especificar o formato da resposta.
 And more: E muito mais
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Todos os aplicativos ou dispositivos que usam o token {tokenName} deixarão de funcionar.'
 Application name cannot be blank.: O nome da aplicação não pode estar vazio
@@ -63,9 +64,12 @@ Authorized: Autenticado
 Authorized OAuth apps: Aplicativos OAuth autorizados
 Automation: Automação
 Back to apps list: Retornar para a lista de aplicativos
+Be notified when your channels change state: Notificação de mudanças no status do canal
+Bridge: Ponte
 Brightness: Clareza
 CLICK TO DISABLE: CLIQUE PARA DESLIGAR
 CLICK TO ENABLE: CLIQUE PARA LIGAR
+Calculated value: Estado do medidor
 Calibration: Calibrar
 Cancel: Cancelar
 Cancel changes: Cancelar modificações
@@ -191,10 +195,12 @@ Expired: Vencido
 Failed: Falhado
 Failed (zombie): Falhado (zombie)
 File is too large: O arquivo é grande demais
+Flooding: Inundação
 For devices: Para dispositivos
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Por motivos de segurança, o URL completo deste link direto será exibido apenas uma vez durante a sua criação.'
 Forgot your password?: Esqueceu a sua senha?
 Forward active energy: Energia ativa direta
+Forward reactive energy: Energia reativa consumida
 Fridays: Sextas
 From IP: Desde o endereço IP
 From anywhere: Desde cada sítio
@@ -280,6 +286,7 @@ Login: Login
 Mail sensor: Sensor de correio
 Maintenance mode active. You cannot modify any data now.: Operação em modo de serviço. Não é possível modificar nenhum dado.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Certifique-se de que ele seja salvo em um local seguro, caso você queira usá-lo novamente no futuro. O link não será mais exibido quando você sair desta página.'
+Manually closed: Fechado manualmente
 'Maximum filesize limit is {limit}.': 'O tamanho máximo de arquivo é {limit}.'
 Meter value: Status do contador
 Minute: Minuto
@@ -335,6 +342,9 @@ Percentage of closing: Percentagem do fecho
 Personal access tokens: Tokens de acesso pessoal
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Os tokens de acesso pessoais funcionam normalmente, exceto quando operam por tempo indeterminado.'
 Personal token name is required.: Você deve proprocionar o nome do token pessoal.
+Phase 1: Fase 1
+Phase 2: Fase 2
+Phase 3: Fase 3
 Please click the link we have sent you after the registration to proceed.: Clique no link da mensagem que lhe enviámos depois da criação da conta.
 Please enter a valid email address: Insira endereço de e-mail válido
 Please fill a valid email address: Introduza o endereço email correto
@@ -373,6 +383,8 @@ Repeat password: Repita a senha
 Retry on failure: Tentar de novo em caso de falha
 Reveal: Revelar
 Reveal partially: Revelar parcialmente
+Reverse active energy: Energia ativa retornada
+Reverse reactive energy: Energia reative retornada
 Revoke: Revogar
 Roller shutter opening sensor: Sensor da abertura dos estores
 Roller shutter operation: Abrir e fechar estores
@@ -420,6 +432,7 @@ Staircase timer: Comutador de escada
 Start Here: Iniciar aqui
 Start date: Data de início
 State: Estado
+State webhook: Estado do webhook
 Stop: Parar
 Subject: Sujeito
 Subject type: Tipo de entidade
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Os termo
 The activation link has been sent again. Check the inbox.: A mensagem com um link para ativar a sua conta foi enviada novamente.  Verifique a sua caixa de mensagens.
 The client will be automatically logged out when deleted.: Suprimir um cliente conduz à desligação imediata dele.
 The device is disabled: O dispositivo está desligado
+The gate sensor must function properly in order to execute the Open and Close actions.: O sensor de abertura do portão deve funcionar corretamente para executar a ação Abrir ou Fechar.
 The gate sensor must function properly in order to execute the scheduled action.: Para executar uma ação o sensor da abertura do portão tem de funcionar corretamente.
 The latest execution: Última execução
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': O resultado da implementação é apresentado como um página da internet porque você (ou seu navegador) solicitou uma resposta no formato HTML.
@@ -451,6 +465,8 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: O servidor devolveu um erro HTTP 404. Isto significa que a página que procura não existe.
 'The server has returned an HTTP {statusCode} error.': 'O servidor retornou o erro {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Os arquivos de ícones selecionados por você são muito grande. O tamanho máximo permitido para upload é {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'A válvula não pode ser aberta por meiod e link direto ou via API quando for fechada manualmente. Para retomar o controle, abra a válvula manualmente.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'A válvula foi fechada manualmente ou por rádio. Antes de abri-la, certifique-se de que não foi fechada devido a alagamento. Para desativar o aviso, abra a válvula manualmente. Tem certeza de que deseja abrir a válvula remotamente?'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'A válvula não abrirá se for fechada manualmente ou por rádio, o que pode estar associado a inundações.'
 There are no more channels you can add to this group: Não há mais canais para adicionar a esse grupo
 Thermometer: Termómetro
@@ -478,6 +494,7 @@ Visit app webpage: Abra o site da aplicação
 WELCOME_MESSAGE: |
   Ligar a sua casa ou o seu escritório a SUPLA é muito simples.
   Basta copiar os dados abaixo para os seus dispositivos de comando (entrada/saída) e smartphones.
+Wait a while before the next request. You can check your limits in the account settings.: Aguarde um momento antes de fazer outra solicitação. Você pode verificar o uso atual de seus limites nas configurações de sua conta
 Water meter: Medidor de água
 We could not connect to your SUPLA Cloud instance.: Não foi possível conectar-se à sua instância privada do SUPLA Cloud.
 We have just sent you an activation link. Be patient.: A mensagem com o link para ativar a sua conta acabou de ser enviada. Paciência.
@@ -507,6 +524,7 @@ YOUR LINK CODE: O CÓDIGO DE SEU LINK
 You can use the application but you will not be able to modify any settings.: 'É possível usar a aplicação, mas não é possível fazer alterações na configuração.'
 You cannot delete your last access identifier.: Você não pode deletar seu último identificador de acesso.
 You cannot delete your last location.: Você não pode deletar sua última localização.
+You have exceeded your API Rate Limit: Você usou seu limite de solicitações de API
 You just need to execute the following command inside your host terminal.: Basta executar o seguinte comando dentro do terminal do seu host.
 You must agree to the Terms and Conditions.: Você deve aceitar os termos e condições.
 You need to provide icons for all states.: Você deve fornecer ícones para todos os estados.
@@ -540,6 +558,7 @@ directLinkExecutionFailureReason_expired: O link direto está desatualizado
 directLinkExecutionFailureReason_forbiddenAction: O link não permite que essa ação seja executada
 directLinkExecutionFailureReason_httpGetForbidden: Foi impedida a execução da ação usando um método HTTP GET não autorizado.
 directLinkExecutionFailureReason_invalidActionParameters: Parâmetros incorretos do link direto
+directLinkExecutionFailureReason_invalidChannelState: A ação não pode ser executada devido ao estado do canal.
 directLinkExecutionFailureReason_invalidSlug: O código de verificação que você enviou está incorreto
 directLinkExecutionFailureReason_noAllowedActions: Nenhuma ação permitida foi selecionada
 directLinkExecutionFailureReason_noSlugOrAction: Solicitação incorreta - código de link e ação são obrigatórios
@@ -621,14 +640,5 @@ execute: realizar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Bridge: ~
-Flooding: ~
-Manually closed: ~
-Prevented to open manually shut valve. Open it manually or through the app.: ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-You have exceeded your API Rate Limit: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
 
 #</editor-fold>

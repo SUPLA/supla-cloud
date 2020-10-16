@@ -1,22 +1,19 @@
 <template>
     <div v-if="directLink.state"
         class="form-group">
-        <h3 class="nocapitalize">{{ stateCaption }}</h3>
-        <div v-if="directLink.subject.subjectType === 'channelGroup'">
+        <h3 class="nocapitalize">{{ subjectCaption }}</h3>
+        <div>
             <div style="display: inline-block"
-                v-for="channelId in availableChannelsIds">
+                v-for="channel in channels">
                 <div class="form-group">
-                    <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state[channelId]}"
+                    <function-icon :model="{...channel, state: channelsState[channel.id]}"
+                        :title="channel.caption"
+                        :user-icon="channel.userIcon"
                         width="100"></function-icon>
-                    <channel-state-table :state="directLink.state[channelId]"></channel-state-table>
+                    <channel-state-table :state="channelsState[channel.id]"
+                        :channel="channel"></channel-state-table>
                 </div>
             </div>
-        </div>
-        <div class="form-group"
-            v-else>
-            <function-icon :model="{functionId: directLink.subject.functionId, state: directLink.state}"
-                width="100"></function-icon>
-            <channel-state-table :state="directLink.state"></channel-state-table>
         </div>
         <button type="button"
             :disabled="refreshingState"
@@ -61,11 +58,25 @@
             readStateUrl() {
                 return this.currentUrl.indexOf('/read') > 0 ? this.currentUrl : this.currentUrl + '/read';
             },
-            stateCaption() {
+            subjectCaption() {
                 return channelTitle(this.directLink.subject, this, false).replace(/^ID[0-9]+/, '');
             },
             availableChannelsIds() {
                 return this.directLink.state ? Object.keys(this.directLink.state) : [];
+            },
+            channels() {
+                if (this.directLink.subject.subjectType === 'channelGroup') {
+                    return this.directLink.channels;
+                } else {
+                    return [this.directLink.subject];
+                }
+            },
+            channelsState() {
+                if (this.directLink.subject.subjectType === 'channelGroup') {
+                    return this.directLink.state;
+                } else {
+                    return {[this.directLink.subject.id]: this.directLink.state};
+                }
             }
         }
     };

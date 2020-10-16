@@ -101,7 +101,7 @@ class TokenController extends RestController {
             'client_id' => $webappClient->getPublicId(),
             'client_secret' => $webappClient->getSecret(),
             'grant_type' => $grantType,
-            'scope' => (string)(new OAuthScope(OAuthScope::getSupportedScopes()))->remove('offline_access'),
+            'scope' => (string)OAuthScope::getScopeForWebappToken(),
         ];
         if ($grantType == OAuth2::GRANT_TYPE_REFRESH_TOKEN) {
             $requestData['refresh_token'] = $request->get('refresh_token');

@@ -37,6 +37,7 @@ All: Wszystko
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tabletu
 Allowed actions: Dozwolone akcje
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Możesz również dodać parametr GET by określić format odpowiedzi.
 And more: I znacznie więcej
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Wszystkie aplikacje lub urządzenia, które korzystają z tokenu {tokenName} przestaną działać.'
 Application name cannot be blank.: Nazwa aplikacji nie może być pusta
@@ -63,10 +64,12 @@ Authorized: Zautoryzowano
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Automation: Automatyka
 Back to apps list: Powrót do listy aplikacji
+Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Bridge: Most
 Brightness: Jasność
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
 CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
+Calculated value: Stan licznika
 Calibration: Kalibracja
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
@@ -192,10 +195,12 @@ Expired: Przeterminowany
 Failed: Nieudane
 Failed (zombie): Nieudane (zombie)
 File is too large: Plik jest za duży
+Flooding: Zalanie
 For devices: Dla urządzeń
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.'
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
+Forward reactive energy: Energia bierna pobrana
 Fridays: Piątki
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
@@ -337,6 +342,9 @@ Percentage of closing: Procent zamknięcia
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.'
 Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
+Phase 1: Faza 1
+Phase 2: Faza 2
+Phase 3: Faza 3
 Please click the link we have sent you after the registration to proceed.: 'Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.'
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
@@ -345,7 +353,6 @@ Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną
 Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Pressure sensor: Czujnik ciśnienia
-Prevented to open manually shut valve. Open it manually or through the app.: Zablokowano otwarcie zaworu ze względu na jego manualne zamknięcie. Aby wyłączyć ostrzeżenie otwórz zawór manualnie.
 Previous login: Poprzednie logowanie
 Price per: Cena za
 Private Cloud domain name: Nazwa domeny prywatnej chmury
@@ -376,6 +383,8 @@ Repeat password: Powtórz hasło
 Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
+Reverse active energy: Energia czynna zwrócona
+Reverse reactive energy: Energia bierna zwrócona
 Revoke: Unieważnij
 Roller shutter opening sensor: Czujnik otwarcia rolet
 Roller shutter operation: Otwieranie i zamykanie rolet
@@ -423,6 +432,7 @@ Staircase timer: Automat schodowy
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
 State: Stan
+State webhook: Webhook stanu
 Stop: Zatrzymaj
 Subject: Podmiot
 Subject type: Typ podmiotu
@@ -455,6 +465,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.'
 'The server has returned an HTTP {statusCode} error.': 'Serwer zwrócił błąd {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Zawór nie może zostać otwarty za pomocą linku bezpośredniego bądź za pośrednictwem API, gdy został zamknięty manualnie. Aby wznowić sterowanie otwórz zawór ręcznie.'
 'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': Zawór nie zostanie otwarty jeśli został zamknięty manualnie lub radiowo co mogło być związane z zalaniem.
 There are no more channels you can add to this group: 'Nie ma innych kanałów, które można by dodać do tej grupy'
@@ -632,6 +643,5 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Flooding: Zalanie
 
 #</editor-fold>

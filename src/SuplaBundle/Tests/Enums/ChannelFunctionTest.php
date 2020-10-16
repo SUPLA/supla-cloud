@@ -22,6 +22,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Exception\ApiException;
 
 class ChannelFunctionTest extends TestCase {
     public function testEveryFunctionHasCaption() {
@@ -54,11 +55,13 @@ class ChannelFunctionTest extends TestCase {
     }
 
     public function testInvalidFromString() {
+        $this->expectException(ApiException::class);
         $this->expectExceptionMessage('UNICORN');
         ChannelFunction::fromString('unicorn');
     }
 
     public function testInvalidFromValue() {
+        $this->expectException(ApiException::class);
         $this->expectExceptionMessage('123');
         ChannelFunction::fromString(123);
     }

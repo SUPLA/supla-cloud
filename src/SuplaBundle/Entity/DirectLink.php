@@ -49,7 +49,7 @@ class DirectLink implements HasSubject {
     /**
      * @ORM\Column(name="slug", type="string", nullable=false, length=255)
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="directLinks")
@@ -186,9 +186,6 @@ class DirectLink implements HasSubject {
         $this->executionsLimit = $executionsLimit;
     }
 
-    /**
-     * @return mixed
-     */
     public function getLastUsed() {
         return $this->lastUsed;
     }
@@ -220,6 +217,10 @@ class DirectLink implements HasSubject {
 
     public function isValidSlug(string $slug, PasswordEncoderInterface $slugEncoder): bool {
         return $slugEncoder->isPasswordValid($this->slug, $slug, null);
+    }
+
+    public function getSlug() {
+        return $this->slug;
     }
 
     /**
@@ -275,10 +276,6 @@ class DirectLink implements HasSubject {
         if (!$this->getAllowedActions()) {
             throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::NO_ALLOWED_ACTIONS());
         }
-    }
-
-    public function verifySlug(string $hashedSlug) {
-        return strcmp($this->slug, $hashedSlug) === 0;
     }
 
     public function buildUrl(string $suplaUrl, string $slug): string {

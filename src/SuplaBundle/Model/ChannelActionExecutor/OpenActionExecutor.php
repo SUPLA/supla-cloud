@@ -79,7 +79,8 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
                 $userToken = $this->getCurrentUserToken();
                 if (!$userToken instanceof WebappToken) {
                     throw new ConflictHttpException(
-                        'Prevented to open manually shut or flooding valve. Open it manually or through the app.'
+                        'The valve cannot be opened via a direct link or via API once it has been closed manually. ' .
+                        'To resume control, open the valve manually.'
                     );
                 }
             }

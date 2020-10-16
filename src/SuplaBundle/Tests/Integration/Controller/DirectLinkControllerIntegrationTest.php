@@ -223,6 +223,19 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingDirectLink */
+    public function testReadingDirectLinkAsJsonThroughGetParam(array $directLink) {
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=json");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('on', $content);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+    }
+
+    /** @depends testCreatingDirectLink */
     public function testPreferJson(array $directLink) {
         $client = $this->createClient();
         $client->enableProfiler();
@@ -270,6 +283,19 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotContains('"on":', $response->getContent());
         $this->assertContains('directLink = [];', $response->getContent());
         $this->assertEmpty($this->getSuplaServerCommands($client));
+    }
+
+    /** @depends testCreatingDirectLink */
+    public function testDisplayingDirectLinkOptionsPage(array $directLink) {
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
+        $this->assertContains('"on":', $response->getContent());
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
     }
 
     public function testCreatingDirectLinkForScene() {
@@ -392,7 +418,23 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66', $commands);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,0', $commands);
+    }
+
+    public function testExecutingDirectLinkWithTurnOnOffParameter() {
+        SuplaServerMock::mockResponse('GET-RGBW', "VALUE:1,0,100\n");
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[3]->getId(),
+            'allowedActions' => ['set-rgbw-parameters'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66&turnOnOff=2");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,2', $commands);
     }
 
     public function testExecutingDirectLinkWithComplexParameters() {
@@ -409,7 +451,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,9437015,67,100', $commands);
+        $this->assertContains('SET-RGBW-VALUE:1,1,4,9437015,67,100,0', $commands);
     }
 
     public function testExecutingDirectLinkToOpenValve() {

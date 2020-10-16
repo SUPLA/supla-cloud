@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
@@ -103,7 +104,7 @@ class ExecuteDirectLinkController extends Controller {
      */
     public function executeDirectLinkAction(Request $request) {
         return $this->returnDirectLinkErrorIfException($request, function () use ($request) {
-            list($slug, $action) = $this->getSlugAndAction($request);
+            list($slug, $action) = self::getSlugAndAction($request);
             $directLink = $this->getDirectLink($request);
             $responseType = $this->determineResponseType($request);
             $this->ensureLinkCanBeExecuted($directLink, $request, $slug, $action);
@@ -177,7 +178,7 @@ class ExecuteDirectLinkController extends Controller {
         }
         $reason = $executionException->getReason();
         try {
-            $action = $this->getSlugAndAction($request)[1];
+            $action = self::getSlugAndAction($request)[1];
         } catch (Exception $e) {
             $action = $request->get('action', null);
         }
@@ -223,9 +224,9 @@ class ExecuteDirectLinkController extends Controller {
         $directLink->ensureIsActive();
     }
 
-    private function getSlugAndAction(Request $request): array {
+    public static function getSlugAndAction(Request $request): array {
         $slug = $request->get('slug');
-        $action = $request->get('action');
+        $action = $request->get('action', 'read');
         if (!$slug && $request->isMethod(Request::METHOD_PATCH)) {
             $requestPayload = $request->request->all();
             if (!is_array($requestPayload) || !isset($requestPayload['code']) || !isset($requestPayload['action'])) {
@@ -261,6 +262,10 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     private function determineResponseType(Request $request): string {
+        if ($format = $request->get('format')) {
+            Assertion::inArray($format, ['json', 'html', 'plain'], 'Invalid response format requested.');
+            return $format;
+        }
         if ($request->isMethod(Request::METHOD_PATCH) || in_array('application/json', $request->getAcceptableContentTypes())) {
             return 'json';
         } elseif (in_array('text/html', $request->getAcceptableContentTypes())) {
@@ -291,14 +296,24 @@ class ExecuteDirectLinkController extends Controller {
             if ($failureReason && !in_array($failureReason->getValue(), $exposeLinkReasons)) {
                 $normalized = [];
             } else {
-                $normalizationContext = ['groups' => ['basic'], 'version' => ApiVersions::V2_4];
+                $normalizationContext = ['groups' => ['basic', 'images'], 'version' => ApiVersions::V2_4];
+                $subject = $directLink->getSubject();
                 $normalized = [
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
                     'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, $normalizationContext),
-                    'subject' => $this->normalizer->normalize($directLink->getSubject(), null, $normalizationContext),
-                    'state' => $data ?: null,
+                    'subject' => $this->normalizer->normalize($subject, null, $normalizationContext),
+                    'state' => $data ?: $this->channelStateGetter->getState($subject),
                 ];
+                $normalized['subject']['userIcon'] = $this->normalizer->normalize($subject->getUserIcon(), null, $normalizationContext);
+                if ($subject instanceof IODeviceChannelGroup) {
+                    $normalized['channels'] = [];
+                    foreach ($subject->getChannels() as $channel) {
+                        $channelData = $this->normalizer->normalize($channel, null, $normalizationContext);
+                        $channelData['userIcon'] = $this->normalizer->normalize($channel->getUserIcon(), null, $normalizationContext);
+                        $normalized['channels'][] = $channelData;
+                    }
+                }
             }
             return $this->render(
                 '@Supla/ExecuteDirectLink/directLinkHtmlResponse.html.twig',

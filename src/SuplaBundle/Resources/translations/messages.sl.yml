@@ -37,6 +37,7 @@ All: Vse
 All the above and many more can be done from your phone or tablet: 'Vse to in še veliko več, kar lahko storite s pametnim telefonom ali tabličnim računalnikom'
 Allowed actions: Dovoljena dejanja
 Allows to perform an action only using the HTTP PATCH request.: 'Omogoča vam, da izvajate dejanja samo z zahtevo HTTP PATCH.'
+'Alternatively, you can add a GET parameter to specify response format.': Da določite format odgovora lahko prav tako dodate parameter GET.
 And more: In še veliko več
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Vse aplikacije ali naprave, ki uporabljajo token {tokenName}, bodo prenehale delovati.'
 Application name cannot be blank.: Ime aplikacije ne sme biti prazno
@@ -63,9 +64,12 @@ Authorized: Overjeno
 Authorized OAuth apps: Overjene aplikacije OAuth
 Automation: Avtomatizacija
 Back to apps list: Vrnitev na seznam aplikacij
+Be notified when your channels change state: Obveščanje o spremembah stanja kanalov
+Bridge: Most
 Brightness: Svetlost
 CLICK TO DISABLE: 'KLIKNITE, DA SE IZKLOPITE'
 CLICK TO ENABLE: 'KLIKNITE, DA VKLOPITE'
+Calculated value: Stanje števca
 Calibration: Kalibracija
 Cancel: Prekličite
 Cancel changes: Prekličite spremembe
@@ -191,10 +195,12 @@ Expired: Potekel
 Failed: Neuspešne
 Failed (zombie): Neuspešen (zombie)
 File is too large: Datoteka je prevelika
+Flooding: Poplava
 For devices: Za naprave
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Zaradi varnostnih razlogov bo celoten URL te neposredne povezave prikazan samo enkrat med njegovim ustvarjanjem.
 Forgot your password?: Pozabili ste geslo?
 Forward active energy: Aktivna porabljena energija
+Forward reactive energy: Zbrana reaktivna energija
 Fridays: Petki
 From IP: Z naslova IP
 From anywhere: Z vsakega mesta
@@ -280,6 +286,7 @@ Login: Prijava
 Mail sensor: Senzor pošte
 Maintenance mode active. You cannot modify any data now.: Delovanje v servisnem načinu. Ne morete spreminjati nobenih podatkov.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Poskrbite, da je shranjen na varnem mestu, če ga želite uporabiti v prihodnosti. Po zapustitvi te povezave povezava ne bo več prikazana.'
+Manually closed: Ročno zaprt
 'Maximum filesize limit is {limit}.': 'Največja velikost datoteke je {limit}.'
 Meter value: Stanje števca
 Minute: Minuta
@@ -335,6 +342,9 @@ Percentage of closing: Odstotek zapiranja
 Personal access tokens: Osebni tokeni za dostop
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osebni tokeni za dostop delujejo kot običajno, le da delujejo za nedoločen čas.'
 Personal token name is required.: Ime osebnega tokena je obvezno.
+Phase 1: Faza 1
+Phase 2: Faza 2
+Phase 3: Faza 3
 Please click the link we have sent you after the registration to proceed.: 'Kliknite povezavo s sporočila, ki smo ga vam poslali po ustvaritvi računa.'
 Please enter a valid email address: Vnesite pravi enaslov
 Please fill a valid email address: Vnesite pravi e-naslov
@@ -373,6 +383,8 @@ Repeat password: Ponovite geslo
 Retry on failure: 'Ponovite, ko še niste končali'
 Reveal: Razkrijte
 Reveal partially: Delno razkrijte
+Reverse active energy: Vrnjena aktivna energija
+Reverse reactive energy: Vrnjena reaktivna energija
 Revoke: Prekličite
 Roller shutter opening sensor: Senzor odprtja rolet
 Roller shutter operation: Odpiranje in zapiranje rolet
@@ -420,6 +432,7 @@ Staircase timer: Stopniščni avtomat
 Start Here: Začnite tukaj
 Start date: Datum začetka
 State: Stanje
+State webhook: Webhook stanja
 Stop: Ustavite
 Subject: Subjekt
 Subject type: Vrsta subjekta
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Predpisi
 The activation link has been sent again. Check the inbox.: Ponovno je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Preverite poštni nabiralnik.
 The client will be automatically logged out when deleted.: 'Če stranko odstranite, se bo takoj odjavil.'
 The device is disabled: Naprava je izklopljena
+The gate sensor must function properly in order to execute the Open and Close actions.: 'Senzor odpiranja vrat mora pravilno delovati, da izvede dejanje Odpri ali Zapri.'
 The gate sensor must function properly in order to execute the scheduled action.: Za izvedbo dejanja mora senzor odpiranja vrat pravilno delovati.
 The latest execution: Zadnja izvršitev
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat izvajanja je predstavljen kot spletno mesto, ker ste (ali vaš brskalnik) zaprosili za odgovor v obliki HTML.'
@@ -451,6 +465,8 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Strežnik je vrnil napako HTTP 404. To pomeni, da iskani izdelek ne obstaja.'
 'The server has returned an HTTP {statusCode} error.': 'Strežnik je vrnil napako {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Izbrane datoteke ikon so prevelike. Največja dovoljena velikost nalaganja je {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Ventila ni mogoče odpreti prek neposredne povezave ali prek API-ja, če je bil ročno zaprt. Za nadaljevanje nadzora ročno odprite ventil.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Ventil je bil zaprt ročno ali na daljavo. Preden ga odprete, se prepričajte, da ni zaprt zaradi poplave. Če želite onemogočiti opozorilo, ročno odprite ventil. Ali ste prepričani, da želite ventil odpreti na daljavo?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se ne bo odprl, če je bil zaprt ročno ali na daljavo, kar bi lahko bilo povezano s poplavljanjem.'
 There are no more channels you can add to this group: V to skupino ni mogoče dodati drugih kanalov
 Thermometer: Termometer
@@ -478,6 +494,7 @@ Visit app webpage: Odprite spletno mesto aplikacij
 WELCOME_MESSAGE: |
   Povezovanje vašega doma ali pisarne s SUPLO je enostavno. Vse, kar morate storiti, je to, 
   da v nadzorne naprave (vhoda/izhoda) in pametne telefone vpišete naslednje podatke.
+Wait a while before the next request. You can check your limits in the account settings.: 'Počakajte trenutek, preden oddate novo zahtevo. Trenutno uporabo vaših omejitev lahko preverite v nastavitvah računa.'
 Water meter: Merilnik vode
 We could not connect to your SUPLA Cloud instance.: Nismo se mogli povezati z vašim zasebnim primerom v oblaku SUPLA.
 We have just sent you an activation link. Be patient.: Pravkar je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Bodite potrpežljivi.
@@ -507,6 +524,7 @@ YOUR LINK CODE: VAŠ KODEK POVEZAVE
 You can use the application but you will not be able to modify any settings.: 'Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.'
 You cannot delete your last access identifier.: Ne morete izbrisati zadnjega identifikatorja dostopa.
 You cannot delete your last location.: Ne morete izbrisati zadnje lokacije.
+You have exceeded your API Rate Limit: Izrabili ste vašo omejitev zahtev za API
 You just need to execute the following command inside your host terminal.: Samo izvedite naslednji ukaz znotraj terminala vašega gostitelja.
 You must agree to the Terms and Conditions.: Sprejemanje predpisov je potrebno.
 You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
@@ -540,6 +558,7 @@ directLinkExecutionFailureReason_expired: Neposredna povezava je potekla
 directLinkExecutionFailureReason_forbiddenAction: Povezava ne omogoča izvajanja tega dejanja
 directLinkExecutionFailureReason_httpGetForbidden: Dejanje je bilo onemogočeno z uporabo nezakonite metode HTTP GET
 directLinkExecutionFailureReason_invalidActionParameters: Nepravilni parametri neposredne povezave
+directLinkExecutionFailureReason_invalidChannelState: Dejanja ni mogoče izvesti zaradi stanja kanala.
 directLinkExecutionFailureReason_invalidSlug: 'Verifikacijska koda, ki ste jo poslali, je napačna.'
 directLinkExecutionFailureReason_noAllowedActions: Ni bila izbrana nobena dovoljena dejanja
 directLinkExecutionFailureReason_noSlugOrAction: Nepravilna zahteva - koda povezave in dejanje sta potrebni
@@ -621,14 +640,5 @@ execute: Izvedite
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Bridge: ~
-Flooding: ~
-Manually closed: ~
-Prevented to open manually shut valve. Open it manually or through the app.: ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-You have exceeded your API Rate Limit: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
 
 #</editor-fold>

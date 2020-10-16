@@ -2,8 +2,8 @@
 namespace SuplaBundle\Model;
 
 class TimeProvider {
-    public function getTimestamp(): int {
-        return time();
+    public function getTimestamp(string $relative = null): int {
+        return $relative ? strtotime($relative) : time();
     }
 
     public function getDateTime(\DateInterval $interval = null): \DateTime {

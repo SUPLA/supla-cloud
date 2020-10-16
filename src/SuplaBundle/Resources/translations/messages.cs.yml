@@ -37,6 +37,7 @@ All: Všechno
 All the above and many more can be done from your phone or tablet: 'To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu'
 Allowed actions: Dovolené akce
 Allows to perform an action only using the HTTP PATCH request.: Umožňuje provádět akci pouze pomocí žádosti HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': Můžete rovněž pro určení formátu odpovědi přidat parametr GET.
 And more: a více
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.'
 Application name cannot be blank.: Název aplikace nesmí být prázdný
@@ -63,9 +64,12 @@ Authorized: Ověřeno
 Authorized OAuth apps: Autorizované aplikace OAuth
 Automation: Automatizace
 Back to apps list: Zpět na seznam aplikaci
+Be notified when your channels change state: Oznámení o změnách stavu kanálů
+Bridge: Most
 Brightness: Jas
 CLICK TO DISABLE: KLIKNI ABY VYPNOUT
 CLICK TO ENABLE: KLIKNI ABY ZAPNOUT
+Calculated value: Stav elektroměru
 Calibration: Kalibrace
 Cancel: Zrušit
 Cancel changes: Zrušit změny
@@ -191,10 +195,12 @@ Expired: Prošlý
 Failed: Neúspěšný
 Failed (zombie): Neúspěšný (zombie)
 File is too large: Plik jest za duży
+Flooding: Záplavení
 For devices: Pro zařízení
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.'
 Forgot your password?: Zapoměl jsi heslo?
 Forward active energy: Pobíraná činná energie
+Forward reactive energy: Jalová odebíraná energie
 Fridays: Pátky
 From IP: Z adresy IP
 From anywhere: Odkudkoliv
@@ -280,6 +286,7 @@ Login: Přihlášení
 Mail sensor: Poštovní snímač
 Maintenance mode active. You cannot modify any data now.: Provoz v servisním režimu. Není možné upravovat žádné údaje.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.'
+Manually closed: Uzavřeno ručně
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
 Meter value: Stav měřiče
 Minute: Minuta
@@ -335,6 +342,9 @@ Percentage of closing: Procento uzavření
 Personal access tokens: Osobní přístupové tokeny
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobní přístupové tokeny fungují stejně jako obyčejné tokeny s tím rozdílem, že fungují neomezeně.'
 Personal token name is required.: Je třeba poskytnout název osobního tokenu.
+Phase 1: Jednofázová
+Phase 2: Dvoufázová
+Phase 3: Třífázová
 Please click the link we have sent you after the registration to proceed.: 'Klikněte na odkaz ze zprávy, kterou jsme Vám zaslali po vytvoření účtu.'
 Please enter a valid email address: Zadejte správnou mailovou adresu
 Please fill a valid email address: Zadejte správnou e-mailovou adresu
@@ -373,6 +383,8 @@ Repeat password: Opakujte heslo
 Retry on failure: 'Opakujte, když není hotovo'
 Reveal: Odkrýt
 Reveal partially: Částečně odkrytí
+Reverse active energy: Činná vrácená energie
+Reverse reactive energy: Jalová vrácená energie
 Revoke: Zrušit
 Roller shutter opening sensor: Snímač otevření rolet
 Roller shutter operation: Otevírání a zavírání rolet
@@ -420,6 +432,7 @@ Staircase timer: Schodišťový automat
 Start Here: Začni tady
 Start date: Datum zahájení
 State: Stav
+State webhook: Webhook stavu
 Stop: Zastavit
 Subject: Předmět
 Subject type: Typ předmětu
@@ -439,6 +452,7 @@ The Terms and Conditions have changed – please read them and accept.: Podmínk
 The activation link has been sent again. Check the inbox.: Zpráva s odkazem k aktivaci Vašeho účtu byla znovu odeslána. Zkontrolujte svou doručenou poštu.
 The client will be automatically logged out when deleted.: Odstranění klienta bude mít za následek okamžité odhlášení.
 The device is disabled: Zařízení je vypnuté
+The gate sensor must function properly in order to execute the Open and Close actions.: Pro otevírání a zavírání závory musí snímač závory fungovat velice správně.
 The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
 The latest execution: Poslední výkon
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Výsledek je prezentovaný ve formě internetové stránky, poněvadž Vy (nebo Váš prohlížeč) požádal o odpověď ve formátu HTML.'
@@ -451,6 +465,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.'
 'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': Ventil není možné otevřít pomocí přímého odkazu nebo API pokud byl uzavřen dálkovým ovladačem nebo záplavovým čidlem. Pro obnovení funkce ovládání otevřete ventil pomocí ovládacího tlačítka na ventilu.
 'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Ventil byl uzavřen dálkovým ovladačem (klíčenkou nebo záplavovým čidlem). Než ventil znovu otevřete, ujistěte se, že nebyl uzavřen kvůli úniku vody. Pokud je záplavové čidlo ve vodě,  NEvyšle ventilu  opakovaně signál pro uzavření. Chcete-li varování vypnout, otevřte ventil pomocí ovládacího tlačítka na ventilu. Opravdu chcete ventil otevřít?!'
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se neotevře, dokud bude manuálně nebo vzdáleně uzavřený. Může to souviset s jeho zalitím.'
 There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
@@ -479,6 +494,7 @@ Visit app webpage: Otevřete okno aplikace
 WELCOME_MESSAGE: |
   Připojení vašeho domova nebo kanceláře k SUPLI je snadné. Jediné, co musíte udělat, je
   přepište následující údaje do ovládacích.
+Wait a while before the next request. You can check your limits in the account settings.: Před zadáním dalšího požadavku počkejte chvilku. V nastavení účtu můžete zkontrolovat aktuální využití svých limitů.
 Water meter: Vodoměr
 We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
 We have just sent you an activation link. Be patient.: Právě byla odeslána zpráva s odkazem k aktivaci Vašeho účtu. Trpělivost.
@@ -508,6 +524,7 @@ YOUR LINK CODE: KÓD VAŠEHO ODKAZU
 You can use the application but you will not be able to modify any settings.: 'Můžete používat aplikaci, ale není možné změnit nastavení konfigurace'
 You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
 You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
+You have exceeded your API Rate Limit: Využili jste svůj maximální limit API požadavků
 You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
 You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
 You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
@@ -541,6 +558,7 @@ directLinkExecutionFailureReason_expired: Přímý odkaz je zastaralý
 directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje provedení této akce
 directLinkExecutionFailureReason_httpGetForbidden: Akci nebylo možné provést pomocí metody HTTP GET.
 directLinkExecutionFailureReason_invalidActionParameters: Nesprávné parametry přímého odkazu
+directLinkExecutionFailureReason_invalidChannelState: Stav kanálu nedovoluje provést požadovanou akci.
 directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
 directLinkExecutionFailureReason_noAllowedActions: Nebyly vybrány žádné povolené akce
 directLinkExecutionFailureReason_noSlugOrAction: 'Nesprávný požadavek, je nutné provést akci a zadat kód linku'
@@ -622,13 +640,5 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Bridge: ~
-Flooding: ~
-Manually closed: ~
-Prevented to open manually shut valve. Open it manually or through the app.: ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-You have exceeded your API Rate Limit: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
 
 #</editor-fold>

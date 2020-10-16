@@ -20,6 +20,7 @@ Vue.config.availableLanguages = [
     {value: 'ro', text: 'Română'},
     {value: 'hu', text: 'Magyar'},
     {value: 'ar', text: 'العربية'},
+    {value: 'vi', text: 'Tiếng Việt'}
 ];
 
 Vue.use(VueI18N);

@@ -25,6 +25,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
@@ -49,7 +50,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var Location */
     private $location;
-    /** @var \SuplaBundle\Entity\OAuth\AccessToken */
+    /** @var AccessToken */
     private $peronsalToken;
 
     protected function initializeDatabaseForTests() {
@@ -170,10 +171,14 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [4, 'stop', 'SET-CHAR-VALUE:1,1,4,0'],
             [4, 'shut', 'SET-CHAR-VALUE:1,1,4,50', ['percent' => 40]],
             [4, 'reveal', 'SET-CHAR-VALUE:1,1,4,50', ['percent' => 60]],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42',
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,0',
                 ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42]],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42',
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,0',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,1',
+                ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42, 'turnOnOff' => 1]],
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,3',
+                ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42, 'turnOnOff' => 3]],
             [5, 'set-rgbw-parameters', 'SET-RAND-RGBW-VALUE:1,1,5,58,42',
                 ['color' => 'random', 'color_brightness' => 58, 'brightness' => 42]],
             [6, 'open', 'SET-CHAR-VALUE:1,1,6,1'],
@@ -203,7 +208,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,5,16711935,58,42', $commands);
+        $this->assertContains('SET-RGBW-VALUE:1,1,5,16711935,58,42,0', $commands);
     }
 
     public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {
@@ -499,7 +504,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
-        $this->assertContains('manually shut', $body['message']);
+        $this->assertContains('closed manually', $body['message']);
     }
 
     public function testPreventingToOpenValveIfFloodingFromApiClient() {
@@ -512,7 +517,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
-        $this->assertContains('manually shut', $body['message']);
+        $this->assertContains('closed manually', $body['message']);
     }
 
     public function testCanOpenValveIfNotManuallyShutFromApiClient() {

@@ -32,7 +32,7 @@
                     <i class="pe-7s-science"
                         style="font-size: 160px"></i>
                     <div v-if="['VALVEOPENCLOSE'].indexOf(directLink.subject.function.name) !== -1">
-                        <p>{{ $t('Prevented to open manually shut valve. Open it manually or through the app.')}}</p>
+                        <p>{{ $t('The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.')}}</p>
                     </div>
                 </div>
                 <div v-else>
@@ -93,6 +93,8 @@
                 <p>{{ $t('The link result is presented as a website respone, because you (or your browser) asked for HTML output.') }}</p>
                 <p>{{ $t('If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.') }}</p>
                 <pre><code>Accept: application/json</code></pre>
+                <p>{{ $t('Alternatively, you can add a GET parameter to specify response format.') }}</p>
+                <pre><code>{{currentUrl}}?format=json</code></pre>
             </div>
         </div>
     </div>

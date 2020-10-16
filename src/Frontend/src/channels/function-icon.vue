@@ -1,22 +1,26 @@
 <template>
     <span class="channel-icon"
         v-if="functionId !== undefined">
-        <img :src="`/api/user-icons/${model.userIconId}/${stateIndex}?` | withDownloadAccessToken"
-            v-if="model.userIconId"
-            :class="`icon-size-${width}`">
-        <!-- Double icon display for HUMIDITYANDTEMPERATURE function. -->
-        <img :src="`/api/user-icons/${model.userIconId}/1?` | withDownloadAccessToken"
-            v-if="model.userIconId && functionId == 45"
-            :class="`icon-size-${width}`">
-        <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
-            :width="width"
-            v-if="!model.userIconId">
+        <template v-if="model.userIconId || userIcon">
+            <img :src="userIconSrc"
+                :class="`icon-size-${width}`">
+            <!-- Double icon display for HUMIDITYANDTEMPERATURE function. -->
+            <img :src="userIconSrcForState(1)"
+                v-if="functionId == 45"
+                :class="`icon-size-${width}`">
+        </template>
+        <template v-else>
+            <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
+                :width="width">
+        </template>
     </span>
 </template>
 
 <script>
+    import {withDownloadAccessToken} from "../common/filters";
+
     export default {
-        props: ['model', 'width', 'alternative'],
+        props: ['model', 'width', 'alternative', 'userIcon'],
         computed: {
             functionId() {
                 if (this.model) {
@@ -73,6 +77,18 @@
                     return 3;
                 } else {
                     return 0;
+                }
+            },
+            userIconSrc() {
+                return this.userIconSrcForState(this.stateIndex);
+            }
+        },
+        methods: {
+            userIconSrcForState(stateIndex) {
+                if (this.userIcon) {
+                    return 'data:image/png;base64,' + this.userIcon.images[stateIndex];
+                } else {
+                    return withDownloadAccessToken(`/api/user-icons/${this.model.userIconId}/${stateIndex}?`);
                 }
             }
         }
