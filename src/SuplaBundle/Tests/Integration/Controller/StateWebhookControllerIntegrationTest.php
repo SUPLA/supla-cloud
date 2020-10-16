@@ -45,7 +45,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
     private $stateWebhookRepository;
 
     public function initializeDatabaseForTests() {
-        $clientManager = $this->container->get(ClientManagerInterface::class);
+        $clientManager = self::$container->get(ClientManagerInterface::class);
         $client = $clientManager->createClient();
         $client->setRedirectUris(['https://unicorns.pl']);
         $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
@@ -59,7 +59,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $token->setScope('state_webhook');
         $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
-        $this->stateWebhookRepository = $this->container->get('doctrine')->getRepository(StateWebhook::class);
+        $this->stateWebhookRepository = self::$container->get('doctrine')->getRepository(StateWebhook::class);
     }
 
     public function testDoesNotHaveWebhookAtTheBeginning() {
