@@ -46,7 +46,9 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
 
     public function initializeDatabaseForTests() {
         $clientManager = $this->container->get(ClientManagerInterface::class);
+        /** @var ApiClient $client */
         $client = $clientManager->createClient();
+        $client->setPublicClientId('123');
         $client->setRedirectUris(['https://unicorns.pl']);
         $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
         $clientManager->updateClient($client);
@@ -142,6 +144,36 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2XX', $client->getResponse());
         $hook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->client, $this->user);
         $this->assertNull($hook->getId());
+    }
+
+    /** @large */
+    public function testCantCreateStateWebhookForNonPublicClient() {
+        $clientManager = $this->container->get(ClientManagerInterface::class);
+        /** @var ApiClient $client */
+        $client = $clientManager->createClient();
+        $client->setRedirectUris(['https://unicorns.pl']);
+        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $clientManager->updateClient($client);
+        $token = new AccessToken();
+        $token->setClient($client);
+        $token->setUser($this->user);
+        $token->setToken('BCD');
+        $token->setScope('state_webhook');
+        $this->getEntityManager()->persist($token);
+        $this->getEntityManager()->flush();
+
+        /** @var TestClient $client */
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer BCD', 'HTTPS' => true]);
+        $client->followRedirects();
+        $hookData = [
+            'url' => 'https://unicorns.pl',
+            'functions' => ['LIGHTSWITCH'],
+            'accessToken' => 'XXX',
+            'refreshToken' => 'YYY',
+            'expiresAt' => time() + 100000,
+        ];
+        $client->apiRequestV23('PUT', '/api/integrations/state-webhook', $hookData);
+        $this->assertStatusCode(409, $client->getResponse());
     }
 
     /** @dataProvider invalidStateWebhookRequests */

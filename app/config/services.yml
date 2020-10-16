@@ -49,6 +49,9 @@ services:
     $suplaVersion: '%supla.version%'
     $actAsBrokerCloud: '%act_as_broker_cloud%'
 
+  SuplaBundle\Controller\Api\StateWebhookController:
+    $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
+
   SuplaBundle\Controller\Api\UserController:
     $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
     $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'

@@ -97,6 +97,10 @@ class Configuration implements ConfigurationInterface {
                         ->ifTrue(function($v) { return !(new ApiRateLimitRule($v))->isValid(); })->thenInvalid('Rate limit format: requests/seconds')
                     ->end()->end()
                 ->end()->end()
+                ->arrayNode('state_webhooks')->children()
+                    ->booleanNode('only_for_public_apps')->defaultFalse()
+                        ->info('Set to true, if the state webhooks should be registarable from the public apps only.')->end()
+                ->end()->end()
             ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd

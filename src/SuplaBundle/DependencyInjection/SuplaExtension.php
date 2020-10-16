@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\DependencyInjection;
 
+use AppKernel;
 use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
@@ -71,6 +72,10 @@ class SuplaExtension extends ConfigurableExtension {
         $container->setParameter('supla.api_rate_limit.blocking', $mergedConfig['api_rate_limit']['blocking']);
         $container->setParameter('supla.api_rate_limit.global_limit', $mergedConfig['api_rate_limit']['global_limit']);
         $container->setParameter('supla.api_rate_limit.user_default_limit', $mergedConfig['api_rate_limit']['user_default_limit']);
+        $container->setParameter(
+            'supla.state_webhooks.only_for_public_apps',
+            ($mergedConfig['state_webhooks'] ?? [])['only_for_public_apps'] ?? false
+        );
     }
 
     private function buildOauthTokensConfig(array $tokensLifetimes): array {
@@ -87,7 +92,7 @@ class SuplaExtension extends ConfigurableExtension {
     }
 
     private function detectAvailableLanguages() {
-        $files = scandir(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Resources/translations');
+        $files = scandir(AppKernel::ROOT_PATH . '/../src/SuplaBundle/Resources/translations');
         $languages = array_map(function ($path) {
             preg_match('#\.([a-z]{2})\.yml$#', $path, $match);
             return $match ? $match[1] ?? null : null;
