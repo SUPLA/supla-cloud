@@ -33,6 +33,7 @@ class HiLowRelatedChannelStateGetter implements SingleChannelStateGetter {
     public function supportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
             ChannelFunction::CONTROLLINGTHEDOORLOCK(),
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
             ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),

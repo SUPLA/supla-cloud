@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Integration\Serializer;
+namespace SuplaBundle\Tests\Integration\Serialization;
 
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\User;

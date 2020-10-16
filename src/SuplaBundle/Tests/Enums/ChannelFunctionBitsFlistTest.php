@@ -55,7 +55,8 @@ class ChannelFunctionBitsFlistTest extends TestCase {
                 ChannelFunction::RAINSENSOR(),
                 ChannelFunction::WEIGHTSENSOR(),
             ]],
-            [0xFFFF8000, []],
+            [0xFFFF0000, []],
+            [0x00008000, [ChannelFunction::CONTROLLINGTHEROOFWINDOW()]],
         ];
     }
 

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Traits;
 
+use DateTime;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
@@ -28,6 +29,7 @@ use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\LocationManager;
@@ -48,7 +50,7 @@ trait UserFixtures {
         $token = new AccessToken();
         EntityUtils::setField($token, 'client', $webappClient);
         EntityUtils::setField($token, 'user', $user);
-        EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
+        EntityUtils::setField($token, 'expiresAt', (new DateTime('2035-01-01T00:00:00'))->getTimestamp());
         EntityUtils::setField($token, 'token', base64_encode($username));
         EntityUtils::setField($token, 'scope', (string)(new OAuthScope(OAuthScope::getSupportedScopes())));
         $em = self::$container->get('doctrine')->getManager();
@@ -89,8 +91,8 @@ trait UserFixtures {
 
         $device = new IODevice();
         $fieldSetter->call($device, 'guid', rand(0, 9999999));
-        $fieldSetter->call($device, 'regDate', new \DateTime());
-        $fieldSetter->call($device, 'lastConnected', new \DateTime());
+        $fieldSetter->call($device, 'regDate', new DateTime());
+        $fieldSetter->call($device, 'lastConnected', new DateTime());
         $fieldSetter->call($device, 'regIpv4', implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]));
         $fieldSetter->call($device, 'softwareVersion', '2.' . rand(0, 50));
         $fieldSetter->call($device, 'protocolVersion', '2.' . rand(0, 50));
@@ -105,7 +107,9 @@ trait UserFixtures {
             $fieldSetter->call($channel, 'type', $channelData[0]);
             $fieldSetter->call($channel, 'function', $channelData[1]);
             $fieldSetter->call($channel, 'channelNumber', $channelNumber++);
-            $fieldSetter->call($channel, 'funcList', 0b1111111111);
+            if ($channel->getType() == ChannelType::RELAY()) {
+                $fieldSetter->call($channel, 'funcList', ChannelFunctionBitsFlist::getAllFeaturesFlag());
+            }
             $fieldSetter->call($channel, 'flags', 0b1111111111);
             $this->getEntityManager()->persist($channel);
             $this->getEntityManager()->flush();

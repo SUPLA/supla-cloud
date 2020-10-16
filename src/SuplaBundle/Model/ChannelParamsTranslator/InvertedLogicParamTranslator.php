@@ -29,6 +29,7 @@ class InvertedLogicParamTranslator implements ChannelParamTranslator {
             ChannelFunction::OPENINGSENSOR_GATE,
             ChannelFunction::OPENINGSENSOR_GATEWAY,
             ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER,
+            ChannelFunction::OPENINGSENSOR_ROOFWINDOW,
             ChannelFunction::OPENINGSENSOR_WINDOW,
         ]);
     }

@@ -23,9 +23,9 @@ use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
@@ -476,6 +476,38 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
         $this->assertCount(1, $trigger->getConfig()['actions']);
         $this->assertArrayHasKey('PRESS', $trigger->getConfig()['actions']);
+    }
+
+    public function testChangingChannelFunctionCanSetSettingForTheNewFunction() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+        ]);
+        $channel = $anotherDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV23('PUT', '/api/channels/' . $channel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
+            'param1' => 2000,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channel->getId());
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGARAGEDOOR, $channel->getFunction()->getId());
+        $this->assertEquals(2000, $channel->getParam1());
+    }
+
+    public function testChangingChannelFunctionCanSetAltIconImmediately() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+        ]);
+        $channel = $anotherDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV23('PUT', '/api/channels/' . $channel->getId(), [
+            'functionId' => ChannelFunction::POWERSWITCH,
+            'altIcon' => 1,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channel->getId());
+        $this->assertEquals(ChannelFunction::POWERSWITCH, $channel->getFunction()->getId());
+        $this->assertEquals(1, $channel->getAltIcon());
     }
 
     public function testOpeningValveIfFloodingFromWebClient() {

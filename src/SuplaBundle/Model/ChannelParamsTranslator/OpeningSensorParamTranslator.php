@@ -39,6 +39,7 @@ class OpeningSensorParamTranslator implements ChannelParamTranslator {
             ChannelFunction::CONTROLLINGTHEGATE,
             ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
         ]);
     }
 }

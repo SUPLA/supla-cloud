@@ -12,6 +12,7 @@ class ControllingChannelParamTranslator implements ChannelParamTranslator {
         ChannelFunction::OPENINGSENSOR_GATE => ChannelFunction::CONTROLLINGTHEGATE,
         ChannelFunction::OPENINGSENSOR_GATEWAY => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
         ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER => ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+        ChannelFunction::OPENINGSENSOR_ROOFWINDOW => ChannelFunction::CONTROLLINGTHEROOFWINDOW,
     ];
 
     /** @var ControllingAnyLockRelatedSensorUpdater */

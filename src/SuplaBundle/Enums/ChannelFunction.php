@@ -21,6 +21,7 @@ use MyCLabs\Enum\Enum;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Exception\ApiException;
 use Symfony\Component\Serializer\Annotation\Groups;
+use UnexpectedValueException;
 
 /**
  * @method static ChannelFunction UNSUPPORTED()
@@ -39,7 +40,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunction CONTROLLINGTHEDOORLOCK()
  * @method static ChannelFunction OPENINGSENSOR_DOOR()
  * @method static ChannelFunction CONTROLLINGTHEROLLERSHUTTER()
+ * @method static ChannelFunction CONTROLLINGTHEROOFWINDOW()
  * @method static ChannelFunction OPENINGSENSOR_ROLLERSHUTTER()
+ * @method static ChannelFunction OPENINGSENSOR_ROOFWINDOW()
  * @method static ChannelFunction POWERSWITCH()
  * @method static ChannelFunction LIGHTSWITCH()
  * @method static ChannelFunction DIMMER()
@@ -84,7 +87,9 @@ final class ChannelFunction extends Enum {
     const CONTROLLINGTHEDOORLOCK = 90;
     const OPENINGSENSOR_DOOR = 100;
     const CONTROLLINGTHEROLLERSHUTTER = 110;
+    const CONTROLLINGTHEROOFWINDOW = 115;
     const OPENINGSENSOR_ROLLERSHUTTER = 120;
+    const OPENINGSENSOR_ROOFWINDOW = 125;
     const POWERSWITCH = 130;
     const LIGHTSWITCH = 140;
     const DIMMER = 180;
@@ -182,6 +187,11 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
             ],
+            self::CONTROLLINGTHEROOFWINDOW => [
+                ChannelFunctionAction::SHUT(),
+                ChannelFunctionAction::REVEAL(),
+                ChannelFunctionAction::REVEAL_PARTIALLY(),
+            ],
             self::POWERSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
             self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
             self::STAIRCASETIMER => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
@@ -241,7 +251,9 @@ final class ChannelFunction extends Enum {
             self::CONTROLLINGTHEDOORLOCK => 'Door lock operation', // i18n
             self::OPENINGSENSOR_DOOR => 'Door opening sensor', // i18n
             self::CONTROLLINGTHEROLLERSHUTTER => 'Roller shutter operation', // i18n
+            self::CONTROLLINGTHEROOFWINDOW => 'Roof window shutter operation', // i18n
             self::OPENINGSENSOR_ROLLERSHUTTER => 'Roller shutter opening sensor', // i18n
+            self::OPENINGSENSOR_ROOFWINDOW => 'Roof window opening sensor', // i18n
             self::POWERSWITCH => 'On/Off switch', // i18n
             self::LIGHTSWITCH => 'Light switch', // i18n
             self::HUMIDITY => 'Humidity sensor', // i18n
@@ -301,7 +313,9 @@ final class ChannelFunction extends Enum {
             self::CONTROLLINGTHEDOORLOCK => ['opened', 'closed'],
             self::OPENINGSENSOR_DOOR => ['opened', 'closed'],
             self::CONTROLLINGTHEROLLERSHUTTER => ['revealed', 'shut'],
+            self::CONTROLLINGTHEROOFWINDOW => ['revealed', 'shut'],
             self::OPENINGSENSOR_ROLLERSHUTTER => ['revealed', 'shut'],
+            self::OPENINGSENSOR_ROOFWINDOW => ['revealed', 'shut'],
             self::POWERSWITCH => ['off', 'on'],
             self::LIGHTSWITCH => ['off', 'on'],
             self::HUMIDITY => ['default'],
@@ -360,7 +374,7 @@ final class ChannelFunction extends Enum {
         $functionId = intval($functionId);
         try {
             return new self($functionId);
-        } catch (\UnexpectedValueException $e) {
+        } catch (UnexpectedValueException $e) {
             $function = self::UNSUPPORTED();
             $function->unsupportedFunctionId = $functionId;
             return $function;

@@ -16,6 +16,7 @@ class HiLowChannelStateGetter implements SingleChannelStateGetter {
     public function supportedFunctions(): array {
         return [
             ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(),
+            ChannelFunction::OPENINGSENSOR_ROOFWINDOW(),
             ChannelFunction::OPENINGSENSOR_DOOR(),
             ChannelFunction::OPENINGSENSOR_GARAGEDOOR(),
             ChannelFunction::OPENINGSENSOR_GATEWAY(),

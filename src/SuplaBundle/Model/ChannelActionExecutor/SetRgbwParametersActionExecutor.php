@@ -43,7 +43,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
-        Assertion::between(count($actionParams), 1, 4, 'You need to specify at least brightness or color for this action.'); // i18n
+        Assertion::between(count($actionParams), 1, 5, 'You need to specify at least brightness or color for this action.');
         Assertion::count(
             array_intersect_key(
                 $actionParams,

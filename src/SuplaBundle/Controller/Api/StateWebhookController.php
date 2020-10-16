@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Security\Authentication\Token\OaccessToken;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
@@ -34,6 +35,7 @@ use SuplaBundle\Repository\StateWebhookRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -48,19 +50,23 @@ class StateWebhookController extends RestController {
     private $entityManager;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var bool */
+    private $stateWebhooksForPublicAppsOnly;
 
     public function __construct(
         StateWebhookRepository $stateWebhookRepository,
         TokenStorageInterface $tokenStorage,
         SuplaOAuthStorage $oAuthStorage,
         EntityManagerInterface $entityManager,
-        TimeProvider $timeProvider
+        TimeProvider $timeProvider,
+        bool $stateWebhooksForPublicAppsOnly
     ) {
         $this->stateWebhookRepository = $stateWebhookRepository;
         $this->tokenStorage = $tokenStorage;
         $this->oAuthStorage = $oAuthStorage;
         $this->entityManager = $entityManager;
         $this->timeProvider = $timeProvider;
+        $this->stateWebhooksForPublicAppsOnly = $stateWebhooksForPublicAppsOnly;
     }
 
     /**
@@ -92,11 +98,15 @@ class StateWebhookController extends RestController {
             'expiresAt should be between 24 hours and 90 days from now'
         );
         $expiresAt = $data['expiresAt'];
-        $webhook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->getCurrentApiClient(), $this->getCurrentUser());
+        $apiClient = $this->getCurrentApiClient();
+        if ($this->stateWebhooksForPublicAppsOnly && !$apiClient->getPublicClientId()) {
+            throw new ConflictHttpException('Registering webhooks for non-public API clients is forbidden.');
+        }
+        $webhook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($apiClient, $this->getCurrentUser());
         $webhook->setUrl($url);
         $webhook->setAccessToken($accessToken);
         $webhook->setRefreshToken($refreshToken);
-        $webhook->setExpiresAt(new \DateTime('@' . $expiresAt));
+        $webhook->setExpiresAt(new DateTime('@' . $expiresAt));
         $webhook->setFunctions($functions);
         $webhook->setEnabled(boolval($data['enabled'] ?? true));
         $this->entityManager->persist($webhook);

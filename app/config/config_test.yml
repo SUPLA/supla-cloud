@@ -65,6 +65,8 @@ supla:
     blocking: true
     global_limit: 10000/5
     user_default_limit: 20000/5
+  state_webhooks:
+    only_for_public_apps: true
 
 swiftmailer:
   disable_delivery: true

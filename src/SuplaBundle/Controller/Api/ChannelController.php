@@ -172,9 +172,6 @@ class ChannelController extends RestController {
                 }
                 $channel->setUserIcon(null);
                 $channel->setAltIcon(0);
-            } else {
-                $channel->setAltIcon($updatedChannel->getAltIcon());
-                $channel->setUserIcon($updatedChannel->getUserIcon());
             }
             if ($updatedChannel->hasInheritedLocation()) {
                 $channel->setLocation(null);
@@ -200,6 +197,8 @@ class ChannelController extends RestController {
                     $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
                 }
                 $channel->setConfig($paramConfigTranslator->getConfigFromParams($channel));
+                $channel->setAltIcon($updatedChannel->getAltIcon());
+                $channel->setUserIcon($updatedChannel->getUserIcon());
                 $em->persist($channel);
                 return $channel;
             });

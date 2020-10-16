@@ -30,6 +30,7 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
     public function supports(IODeviceChannel $channel): bool {
         return in_array($channel->getFunction()->getId(), [
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
         ]);
     }
 }

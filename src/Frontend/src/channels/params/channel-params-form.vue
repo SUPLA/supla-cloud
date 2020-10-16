@@ -12,11 +12,13 @@
     import ChannelParamsControllingthegate from "./channel-params-controllingthegate";
     import ChannelParamsControllingthegaragedoor from "./channel-params-controllingthegaragedoor";
     import ChannelParamsControllingtherollershutter from "./channel-params-controllingtherollershutter";
+    import ChannelParamsControllingtheroofwindow from "./channel-params-controllingtheroofwindow";
     import ChannelParamsOpeningsensorGate from "./channel-params-openingsensor-gate";
     import ChannelParamsOpeningsensorGateway from "./channel-params-openingsensor-gateway";
     import ChannelParamsOpeningsensorDoor from "./channel-params-openingsensor-door";
     import ChannelParamsOpeningsensorGaragedoor from "./channel-params-openingsensor-garagedoor";
     import ChannelParamsOpeningsensorRollershutter from "./channel-params-openingsensor-rollershutter";
+    import ChannelParamsOpeningsensorRoofwindow from "./channel-params-openingsensor-roofwindow";
     import ChannelParamsOpeningsensorWindow from "./channel-params-openingsensor-window";
     import ChannelParamsStaircasetimer from "./channel-params-staircasetimer";
     import ChannelParamsThermometer from "./channel-params-thermometer";
@@ -44,9 +46,11 @@
             ChannelParamsOpeningsensorGateway,
             ChannelParamsOpeningsensorDoor,
             ChannelParamsOpeningsensorRollershutter,
+            ChannelParamsOpeningsensorRoofwindow,
             ChannelParamsOpeningsensorGaragedoor,
             ChannelParamsOpeningsensorWindow,
             ChannelParamsControllingtherollershutter,
+            ChannelParamsControllingtheroofwindow,
             ChannelParamsStaircasetimer,
             ChannelParamsThermometer,
             ChannelParamsHumidity,
