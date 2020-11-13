@@ -104,11 +104,12 @@ class Configuration implements ConfigurationInterface {
             ->end();
             $rootNode->children()
                 ->arrayNode('mqtt_broker')->children()
-                    ->booleanNode('enabled')->defaultFalse()->info('Should the MQTT Broker be enabled?')->end()
+                    ->booleanNode('enabled')->defaultFalse()->info('Should MQTT settings be available?')->end()
                     ->scalarNode('host')->info('MQTT Broker address (host)')->end()
                     ->scalarNode('protocol')->info('MQTT Broker protocol')->end()
                     ->scalarNode('port')->info('MQTT Broker port')->end()
-                    ->booleanNode('auth')->defaultFalse()->info('Does MQTT Broker require authorization?')->end()
+                    ->booleanNode('tls')->defaultFalse()->info('Is TLS enabled?')->end()
+                    ->booleanNode('integrated_auth')->defaultFalse()->info('Does MQTT Broker require authorization?')->end()
                 ->end()->end()
             ->end();
         // @formatter:on
