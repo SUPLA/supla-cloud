@@ -102,6 +102,15 @@ class Configuration implements ConfigurationInterface {
                         ->info('Set to true, if the state webhooks should be registarable from the public apps only.')->end()
                 ->end()->end()
             ->end();
+            $rootNode->children()
+                ->arrayNode('mqtt_broker')->children()
+                    ->booleanNode('enabled')->defaultFalse()->info('Should the MQTT Broker be enabled?')->end()
+                    ->scalarNode('host')->info('MQTT Broker address (host)')->end()
+                    ->scalarNode('protocol')->info('MQTT Broker protocol')->end()
+                    ->scalarNode('port')->info('MQTT Broker port')->end()
+                    ->booleanNode('auth')->defaultFalse()->info('Does MQTT Broker require authorization?')->end()
+                ->end()->end()
+            ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd
         return $treeBuilder;
