@@ -18,10 +18,13 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assertion;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Entity\OAuth\ApiClient;
@@ -274,6 +277,16 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
      */
     private $apiRateLimit;
 
+    /**
+     * @ORM\Column(name="mqtt_broker_enabled", type="boolean", options={"default"=false})
+     */
+    private $mqttBrokerEnabled = false;
+
+    /**
+     * @ORM\Column(name="mqtt_broker_auth_password", type="string", length=64, nullable=true)
+     */
+    private $mqttBrokerAuthPassword;
+
     public function __construct() {
         $this->limitAid = 10;
         $this->limitLoc = 10;
@@ -293,7 +306,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->shortUniqueId = bin2hex(random_bytes(16));
         $this->longUniqueId = bin2hex(random_bytes(100));
-        $this->regDate = new \DateTime();
+        $this->regDate = new DateTime();
         $this->passwordRequestedAt = null;
         $this->enabled = false;
         $this->setTimezone(null);
@@ -366,7 +379,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     /**
      * Gets the registration time.
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRegDate() {
         return $this->regDate;
@@ -381,7 +394,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         return $this;
     }
 
-    public function setPasswordRequestedAt(\DateTime $date = null) {
+    public function setPasswordRequestedAt(DateTime $date = null) {
         $this->passwordRequestedAt = $date;
         return $this;
     }
@@ -389,7 +402,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     /**
      * Gets the timestamp that the user requested a password reset.
      *
-     * @return null|\DateTime
+     * @return null|DateTime
      */
     public function getPasswordRequestedAt() {
         return $this->passwordRequestedAt;
@@ -397,7 +410,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
 
     public function setTokenForAccountRemoval(string $token): string {
         $this->setToken($token);
-        $this->accountRemovalRequestedAt = new \DateTime();
+        $this->accountRemovalRequestedAt = new DateTime();
         return $token;
     }
 
@@ -492,9 +505,9 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
 
     public function setTimezone($timezone) {
         try {
-            new \DateTimeZone($timezone);
+            new DateTimeZone($timezone);
             $this->timezone = $timezone;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->timezone = date_default_timezone_get();
         }
     }
@@ -524,10 +537,10 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         return $this->limitOAuthClient > 0 && count($this->getApiClients()) >= $this->limitOAuthClient;
     }
 
-    /** @return \DateTime|null */
+    /** @return DateTime|null */
     public function getClientsRegistrationEnabled() {
         if ($this->clientsRegistrationEnabled) {
-            $now = new \DateTime();
+            $now = new DateTime();
             if ($now->getTimestamp() > $this->clientsRegistrationEnabled->getTimestamp()) {
                 $this->clientsRegistrationEnabled = null;
             }
@@ -536,17 +549,17 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     }
 
     public function enableClientsRegistration(int $forHowLongInSeconds) {
-        $this->clientsRegistrationEnabled = new \DateTime('@' . (time() + $forHowLongInSeconds));
+        $this->clientsRegistrationEnabled = new DateTime('@' . (time() + $forHowLongInSeconds));
     }
 
     public function disableClientsRegistration() {
         $this->clientsRegistrationEnabled = null;
     }
 
-    /** @return \DateTime|null */
+    /** @return DateTime|null */
     public function getIoDevicesRegistrationEnabled() {
         if ($this->ioDevicesRegistrationEnabled) {
-            $now = new \DateTime();
+            $now = new DateTime();
             if ($now->getTimestamp() > $this->ioDevicesRegistrationEnabled->getTimestamp()) {
                 $this->ioDevicesRegistrationEnabled = null;
             }
@@ -555,7 +568,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     }
 
     public function enableIoDevicesRegistration(int $forHowLongInSeconds) {
-        $this->ioDevicesRegistrationEnabled = new \DateTime('@' . (time() + $forHowLongInSeconds));
+        $this->ioDevicesRegistrationEnabled = new DateTime('@' . (time() + $forHowLongInSeconds));
     }
 
     public function disableIoDevicesRegistration() {
@@ -646,7 +659,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         $authorization->setUser($this);
         $authorization->setApiClient($apiClient);
         $authorization->setScope($scope);
-        $authorization->setAuthorizationDate(new \DateTime());
+        $authorization->setAuthorizationDate(new DateTime());
         $this->apiClientAuthorizations->add($authorization);
     }
 
