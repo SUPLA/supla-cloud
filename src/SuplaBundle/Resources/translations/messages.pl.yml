@@ -156,6 +156,7 @@ Direct link has been executed: Link bezpośredni został wykonany
 'Direct link is not working right now. Reason:': 'Link bezpośredni w tym momencie nie działa. Powód:'
 Direct links: Linki bezpośrednie
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
+Disable: Wyłącz
 Disabled: Wyłączone
 Disconnected: Rozłączony
 Distance: Odległość
@@ -172,6 +173,7 @@ Edit: Edytuj
 Electric: Elektryka
 Electricity meter: Licznik energii elektrycznej
 Empty!: Pusto!
+Enable: Włącz
 Enabled: Włączone
 End date: Data zakończenia
 Enter new password: Wprowadź nowe hasło
@@ -619,9 +621,7 @@ will expire: wygaśnie
 # Translations below have not been found in sources. You might want to delete them.
 Assigned Locations: Przypisane Lokalizacje
 Date: Data
-Disable: Wyłącz
 Email already exists: Adres e-mail już istnieje
-Enable: Włącz
 Hi: Cześć
 Hour: Godzina
 I/O: Wejście/Wyjście
@@ -645,5 +645,25 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Change: Zmień
+Host: Host
+Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
+Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
+MQTT Broker: Broker MQTT
+MQTT Broker Password: Hasło brokera MQTT
+MQTT Broker allows you to publish your channels state to supported consumers.: Broker MQTT umożliwia publikowanie zmian stanów Twoich kanałów do urządzeń wspierających tę komunikację.
+MQTT Broker is disabled.: Broker MQTT jest wyłączony.
+MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
+MQTT Broker password must be at least 8 characters.: Hasło brokera MQTT musi mieć co najmniej 8 znaków.
+MQTT Broker password must be no longer than 32 characters.: Hasło brokera MQTT nie może mieć więcej niż 32 znaki.
+Port: Port
+Protocol: Protokół
+Set a password you will use to authenticate for your account in the MQTT Broker.: Ustaw hasło, w którym będziesz autentykować się w brokerze MQTT.
+'Sharing the state of your channels to the MQTT Broker:': 'Udostępnianie stanu Twoich kanałół do brokera MQTT:'
+TLS: TLS
+The new password will replace the existing. Some of current integrations may not work anymore.: Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie.
+This must be different than the password you use to authenticate in the SUPLA Cloud.: Musi ono być inne od hasła, którego używasz do logowania się w SUPLA Cloud.
+You must set the MQTT auth password before enabling MQTT Broker support.: Musisz ustalić hasło brokera MQTT zanim włączysz udostępnianie stanów swoich kanałów.
+Your MQTT Broker password must be different than your SUPLA Cloud password.: Hasło do brokera MQTT musi być inne niż hasło do twojego konta w SUPLA Cloud.
 
 #</editor-fold>
