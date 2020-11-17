@@ -160,6 +160,19 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($user->isMqttBrokerEnabled());
     }
 
+    /** @depends testSettingMqttPassword */
+    public function testNotifyingSuplaServerAboutMqttSettingsChanged() {
+        SuplaServerMock::$executedCommands = [];
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerEnabled', 'enabled' => true]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertCount(1, SuplaServerMock::$executedCommands);
+        $this->assertEquals('USER-MQTT-SETTINGS-CHANGED:1', SuplaServerMock::$executedCommands[0]);
+    }
+
+    /** @depends testSettingMqttPassword */
     public function testSettingMqttPasswordToTheAccountPassword() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();

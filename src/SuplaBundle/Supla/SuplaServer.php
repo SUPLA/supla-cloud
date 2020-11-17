@@ -113,6 +113,10 @@ abstract class SuplaServer {
         return $this->userAction($userId, 'STATE-WEBHOOK-CHANGED');
     }
 
+    public function mqttSettingsChanged($userId = null) {
+        return $this->userAction($userId, 'MQTT-SETTINGS-CHANGED');
+    }
+
     public function googleHomeCredentialsChanged($userId = null) {
         return $this->userAction($userId, 'GOOGLE-HOME-CREDENTIALS-CHANGED');
     }
@@ -146,7 +150,7 @@ abstract class SuplaServer {
 
             if (is_numeric($val)) {
                 return $val;
-            };
+            }
         }
         return false;
     }

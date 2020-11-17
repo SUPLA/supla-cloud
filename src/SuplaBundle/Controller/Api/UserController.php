@@ -38,6 +38,7 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +49,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 class UserController extends RestController {
     use Transactional;
     use AuditAware;
+    use SuplaServerAware;
 
     /** @var UserManager */
     private $userManager;
@@ -200,6 +202,7 @@ class UserController extends RestController {
                     Assertion::true($user->hasMqttBrokerAuthPassword(), $msg);
                 }
                 $user->setMqttBrokerEnabled($enabled);
+                $this->suplaServer->mqttSettingsChanged();
             } elseif ($data['action'] == 'change:mqttBrokerPassword') {
                 $this->assertNotApiUser();
                 Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
@@ -213,6 +216,7 @@ class UserController extends RestController {
                 );
                 $password = $encoder->encodePassword($password, null);
                 $user->setMqttBrokerAuthPassword($password);
+                $this->suplaServer->mqttSettingsChanged();
             }
             $em->persist($user);
             return $user;
