@@ -58,6 +58,8 @@ services:
     $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
     $availableLanguages: '%supla.available_languages%'
     $accountsRegistrationEnabled: '%supla.accounts_registration_enabled%'
+    $mqttBrokerEnabled: '%supla.mqtt_broker.enabled%'
+    $mqttAuthEnabled: '%supla.mqtt_broker.integrated_auth%'
 
   SuplaBundle\Controller\ExecuteDirectLinkController:
     $logger: '@monolog.logger.supla_direct_links'

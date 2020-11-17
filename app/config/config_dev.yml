@@ -34,6 +34,15 @@ services:
     public: false
     tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
 
+supla:
+  mqtt_broker:
+    enabled: true
+    host: supla.org
+    port: 123
+    tls: true
+    protocol: mqtt
+    integrated_auth: true
+
 #swiftmailer:
 #  delivery_addresses: ['%admin_email%']
 

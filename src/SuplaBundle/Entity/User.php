@@ -309,6 +309,8 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         $this->regDate = new DateTime();
         $this->passwordRequestedAt = null;
         $this->enabled = false;
+        $this->mqttBrokerEnabled = false;
+        $this->mqttBrokerAuthPassword = null;
         $this->setTimezone(null);
         $this->oauthOldApiCompatEnabled = false;
     }
@@ -675,5 +677,21 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     /** @return string|null */
     public function getLocale() {
         return $this->locale;
+    }
+
+    public function isMqttBrokerEnabled(): bool {
+        return $this->mqttBrokerEnabled;
+    }
+
+    public function setMqttBrokerEnabled(bool $mqttBrokerEnabled) {
+        $this->mqttBrokerEnabled = $mqttBrokerEnabled;
+    }
+
+    public function hasMqttBrokerAuthPassword(): bool {
+        return !!$this->mqttBrokerAuthPassword;
+    }
+
+    public function setMqttBrokerAuthPassword(string $mqttBrokerAuthPassword) {
+        $this->mqttBrokerAuthPassword = $mqttBrokerAuthPassword;
     }
 }

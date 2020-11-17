@@ -24,6 +24,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use InvalidArgumentException;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\User;
@@ -42,6 +43,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserController extends RestController {
     use Transactional;
@@ -71,6 +73,12 @@ class UserController extends RestController {
     private $availableLanguages;
     /** * @var bool */
     private $accountsRegistrationEnabled;
+    /** @var bool */
+    private $mqttBrokerEnabled;
+    /** @var bool */
+    private $mqttAuthEnabled;
+    /** @var EncoderFactoryInterface */
+    private $encoderFactory;
 
     public function __construct(
         UserManager $userManager,
@@ -78,13 +86,16 @@ class UserController extends RestController {
         SuplaAutodiscover $autodiscover,
         SuplaMailer $mailer,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
+        EncoderFactoryInterface $encoderFactory,
         int $clientsRegistrationEnableTime,
         int $ioDevicesRegistrationEnableTime,
         bool $requireRegulationsAcceptance,
         bool $recaptchaEnabled,
         $recaptchaSecret,
         array $availableLanguages,
-        bool $accountsRegistrationEnabled
+        bool $accountsRegistrationEnabled,
+        bool $mqttBrokerEnabled,
+        bool $mqttAuthEnabled
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -98,6 +109,9 @@ class UserController extends RestController {
         $this->recaptchaSecret = $recaptchaSecret;
         $this->availableLanguages = $availableLanguages;
         $this->accountsRegistrationEnabled = $accountsRegistrationEnabled;
+        $this->mqttBrokerEnabled = $mqttBrokerEnabled;
+        $this->mqttAuthEnabled = $mqttAuthEnabled;
+        $this->encoderFactory = $encoderFactory;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -177,6 +191,28 @@ class UserController extends RestController {
             } elseif ($data['action'] == 'agree:cookies') {
                 $this->assertNotApiUser();
                 $user->agreeOnCookies();
+            } elseif ($data['action'] == 'change:mqttBrokerEnabled') {
+                $this->assertNotApiUser();
+                Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
+                $enabled = boolval($data['enabled'] ?? false);
+                if ($enabled && $this->mqttAuthEnabled) {
+                    $msg = 'You must set the MQTT auth password before enabling MQTT Broker support.'; // i18n
+                    Assertion::true($user->hasMqttBrokerAuthPassword(), $msg);
+                }
+                $user->setMqttBrokerEnabled($enabled);
+            } elseif ($data['action'] == 'change:mqttBrokerPassword') {
+                $this->assertNotApiUser();
+                Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
+                $password = $data['password'] ?? '';
+                Assertion::minLength($password, 8, 'MQTT Broker password must be at least 8 characters.'); // i18n
+                Assertion::maxLength($password, 32, 'MQTT Broker password must be no longer than 32 characters.'); // i18n
+                $encoder = $this->encoderFactory->getEncoder($user);
+                Assertion::false(
+                    $encoder->isPasswordValid($user->getPassword(), $password, null),
+                    'Your MQTT Broker password must be different than your SUPLA Cloud password.' // i18n
+                );
+                $password = $encoder->encodePassword($password, null);
+                $user->setMqttBrokerAuthPassword($password);
             }
             $em->persist($user);
             return $user;
@@ -333,7 +369,7 @@ class UserController extends RestController {
                     if (!$sent) {
                         throw new ServiceUnavailableHttpException(10, 'Cannot send an activation e-mail. Try again later.'); // i18n
                     }
-                } catch (\InvalidArgumentException $e) {
+                } catch (InvalidArgumentException $e) {
                     throw new ConflictHttpException($e->getMessage(), $e);
                 }
             }

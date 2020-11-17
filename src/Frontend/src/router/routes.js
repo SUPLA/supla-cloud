@@ -100,6 +100,7 @@ export default [
                 ]
             },
             {path: 'tokens', component: () => import("@/oauth/personal-tokens/personal-access-tokens"), name: 'personal-tokens'},
+            {path: 'mqtt-broker', component: () => import("@/oauth/mqtt-broker-settings"), name: 'mqtt-broker'},
         ]
     },
     {path: '/me', component: () => import("@/home/my-supla-page"), name: 'me'},

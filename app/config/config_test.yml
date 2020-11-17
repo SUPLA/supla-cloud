@@ -65,6 +65,9 @@ supla:
     global_limit: 10000/5
   state_webhooks:
     only_for_public_apps: true
+  mqtt_broker:
+    enabled: true
+    integrated_auth: true
 
 swiftmailer:
   disable_delivery: true

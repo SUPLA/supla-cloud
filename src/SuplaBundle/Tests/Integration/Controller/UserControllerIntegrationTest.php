@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\AuditEntry;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -143,5 +144,27 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('relationsCount', $body);
         $this->assertArrayHasKey('apiRateLimit', $body);
+    }
+
+    public function testSettingMqttPassword() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerPassword', 'password' => '123456789']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->assertTrue($user->hasMqttBrokerAuthPassword());
+        $password = EntityUtils::getField($user, 'mqttBrokerAuthPassword');
+        $this->assertNotNull($password);
+        $this->assertNotEquals('123456789', $password);
+        $this->assertFalse($user->isMqttBrokerEnabled());
+    }
+
+    public function testSettingMqttPasswordToTheAccountPassword() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerPassword', 'password' => 'supla123']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 }
