@@ -14,6 +14,9 @@
     &-success {
       color: $supla-green;
     }
+    &-info {
+      color: $supla-blue
+    }
     &-notice {
       color: $supla-orange;
     }
@@ -23,7 +26,7 @@
     }
   }
   .brighttheme {
-    &-icon-error, &-icon-success, &-icon-notice {
+    &-icon-error, &-icon-success, &-icon-notice, &-icon-info {
       font-family: 'Pe-icon-7-stroke';
       line-height: 1;
     }
@@ -35,6 +38,9 @@
     }
     &-icon-notice:before {
       content: "\e681"; // pe-7s-close-circle
+    }
+    &-icon-info:before {
+      content: "\e647"; // pe-7s-info
     }
   }
   .ui-pnotify-closer {
