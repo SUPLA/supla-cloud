@@ -18,6 +18,8 @@ namespace SuplaBundle\Utils;
 
 use Assert\Assertion;
 use Assert\InvalidArgumentException;
+use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 
 final class PasswordStrengthValidator {
     private $minLength;
@@ -65,14 +67,14 @@ final class PasswordStrengthValidator {
         if (!$this->minLength && (null === $rawPassword || '' === $rawPassword)) {
             return;
         }
-        Assertion::true(
-            !$this->minLength || mb_strlen($rawPassword) >= $this->minLength,
-            sprintf('Password must be at least %d characters.', $this->minLength) // i18n
-        );
-        Assertion::true(
-            !$this->maxLength || mb_strlen($rawPassword) <= $this->maxLength,
-            sprintf('Password must be no longer than %d characters.', $this->maxLength) // i18n
-        );
+        if ($this->minLength && mb_strlen($rawPassword) < $this->minLength) {
+            $msg = 'Password must be at least {minLength} characters.'; // i18n
+            throw new ApiExceptionWithDetails($msg, ['minLength' => $this->minLength]);
+        }
+        if ($this->maxLength && mb_strlen($rawPassword) > $this->maxLength) {
+            $msg = 'Password must be no longer than {maxLength} characters.'; // i18n
+            throw new ApiExceptionWithDetails($msg, ['maxLength' => $this->maxLength]);
+        }
         Assertion::true(
             !$this->requireLetters || preg_match('/\pL/u', $rawPassword),
             'Your password must include at least one letter.' // i18n
@@ -96,6 +98,8 @@ final class PasswordStrengthValidator {
             $this->validate($invalidPassword);
             return true;
         } catch (InvalidArgumentException $e) {
+            return false;
+        } catch (ApiException $e) {
             return false;
         }
     }

@@ -15,8 +15,6 @@ Access ID: ID dostępu
 Access Identifier: Identyfikator Dostępu
 Access Identifiers: Identyfikatory dostępu
 Access identifier limit has been exceeded: Limit identyfikatorów dostępu został przekroczony
-Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
-Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
@@ -78,6 +76,7 @@ Cannot execute an action when the device is disconnected.: Nie można wykonywać
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
+Change: Zmień
 Change Password: Zmiana hasła
 Change icon: Zmień ikonę
 Changing channel’s function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
@@ -233,6 +232,7 @@ Heat meter: Licznik ciepła
 History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
 Home+ Heater: Grzałka Home+
+Host: Host
 Hours: Godziny
 'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Niestety, aktualnie wykorzystanie naszych serwerów wzrosło do niebezpiecznego poziomu. Monitorujemy sytuację, wróć za kilka chwil.'
 Humidity: Wilgotność
@@ -261,6 +261,8 @@ Incorrect password: Nieprawidłowe hasło
 Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
 Initial value: Wartość początkowa
+Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
+Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
@@ -281,10 +283,13 @@ Limit has been exceeded: Limit został przekroczony
 Location: Lokalizacja
 Location Identifier: Identyfikator Lokalizacji
 Location limit has been exceeded: Limit lokalizacji został przekroczony
-Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
-Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
 Locations: Lokalizacje
 Login: Logowanie
+MQTT Broker: Broker MQTT
+MQTT Broker Password: Hasło brokera MQTT
+MQTT Broker allows you to publish your channels state to supported consumers.: Broker MQTT umożliwia publikowanie zmian stanów Twoich kanałów do urządzeń wspierających tę komunikację.
+MQTT Broker is disabled.: Broker MQTT jest wyłączony.
+MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
 Mail sensor: Czujnik poczty
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
@@ -340,6 +345,9 @@ Partial opening sensor: Czujnik pośredniego otwarcia
 Password: Hasło
 Password Reset: Resetowanie hasła
 Password has been changed: Hasło zostało zmienione
+'Password must be at least {minLength} characters.': 'Hasło musi mieć co najmniej {minLength} znaków.'
+'Password must be no longer than {maxLength} characters.': 'Hasło nie może być dłuższe niż {maxLength} znaki.'
+'Password requirements: minimum length of {minLength} characters, both uppercase and lowercase letters, at least one number and a special character.': 'Wymagania hasła: długość co najmniej {minLength} znaków, małe i wielkie litery oraz co najmniej jedna cyfra i znak specjalny.'
 Percentage of closing: Procent zamknięcia
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.'
@@ -354,6 +362,7 @@ Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
+Port: Port
 Pressure sensor: Czujnik ciśnienia
 Previous login: Poprzednie logowanie
 Price per: Cena za
@@ -361,6 +370,7 @@ Private Cloud domain name: Nazwa domeny prywatnej chmury
 Private instance of the SUPLA cloud with given URL is already registered.: Pod tym adresem jest już zarejestrowana prywatna chmura SUPLA.
 Proceed: Kontynuuj
 Processing: W trakcie
+Protocol: Protokół
 Public ID: Publiczny ID
 RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
@@ -423,6 +433,8 @@ Sensors: Czujniki
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
+Set a password you will use to authenticate for your account in the MQTT Broker.: 'Ustaw hasło, w którym będziesz autentykować się w brokerze MQTT.'
+'Sharing the state of your channels to the MQTT Broker:': 'Udostępnianie stanu Twoich kanałół do brokera MQTT:'
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
@@ -445,6 +457,7 @@ Successful: Udane
 Sundays: Niedziele
 Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
+TLS: TLS
 Temperature: Temperatura
 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności
 Temperature Sensor: Czujnik temperatury
@@ -461,6 +474,7 @@ The gate sensor must function properly in order to execute the scheduled action.
 The latest execution: Ostatnie wykonanie
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
 The measurement history has been deleted.: Historia pomiarów została usunięta.
+The new password will replace the existing. Some of current integrations may not work anymore.: 'Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie.'
 The next available executions: Najbliższe wykonania
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
@@ -477,6 +491,7 @@ Thermometer: Termometr
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.'
 This is the list of applications you have granted access to your account.: 'To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.'
+This must be different than the password you use to authenticate in the SUPLA Cloud.: 'Musi ono być inne od hasła, którego używasz do logowania się w SUPLA Cloud.'
 Thursdays: Czwartki
 Timezone: Strefa czasowa
 Toggle: Przełącz
@@ -531,15 +546,21 @@ You cannot delete your last location.: Nie możesz usunać swojej ostatniej loka
 You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
+You must set the MQTT auth password before enabling MQTT Broker support.: Musisz ustalić hasło brokera MQTT zanim włączysz udostępnianie stanów swoich kanałów.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
+Your MQTT Broker password must be different than your SUPLA Cloud password.: Hasło do brokera MQTT musi być inne niż hasło do twojego konta w SUPLA Cloud.
 Your account has been deleted. We hope you will come back to us soon.: 'Konto zostało usunięte. Mamy nadzieję, że wkrótce do nas wrócisz.'
 Your account has been locked.: Twoje konto zostało zablokowane.
 Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
 Your account limits: Twoje limity
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
+Your password must contain at least one special character.: Hasło musi zawierać co najmniej jeden znak specjalny.
+Your password must include at least one letter.: Hasło musi zawierać co najmniej jedną literę.
+Your password must include at least one number.: Hasło musi zawierać co najmniej jedną cyfrę.
+Your password must include both upper and lower case letters.: Hasło musi zawierać małe i wielkie litery.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
@@ -619,6 +640,8 @@ will expire: wygaśnie
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
+Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Assigned Locations: Przypisane Lokalizacje
 Date: Data
 Email already exists: Adres e-mail już istnieje
@@ -629,6 +652,10 @@ I/O: Wejście/Wyjście
 Input: Wejście
 Languages: Języki
 Loading: Ładowanie
+Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
+Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
+MQTT Broker password must be at least 8 characters.: Hasło brokera MQTT musi mieć co najmniej 8 znaków.
+MQTT Broker password must be no longer than 32 characters.: Hasło brokera MQTT nie może mieć więcej niż 32 znaki.
 Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer
@@ -645,25 +672,5 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Change: Zmień
-Host: Host
-Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
-Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
-MQTT Broker: Broker MQTT
-MQTT Broker Password: Hasło brokera MQTT
-MQTT Broker allows you to publish your channels state to supported consumers.: Broker MQTT umożliwia publikowanie zmian stanów Twoich kanałów do urządzeń wspierających tę komunikację.
-MQTT Broker is disabled.: Broker MQTT jest wyłączony.
-MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
-MQTT Broker password must be at least 8 characters.: Hasło brokera MQTT musi mieć co najmniej 8 znaków.
-MQTT Broker password must be no longer than 32 characters.: Hasło brokera MQTT nie może mieć więcej niż 32 znaki.
-Port: Port
-Protocol: Protokół
-Set a password you will use to authenticate for your account in the MQTT Broker.: Ustaw hasło, w którym będziesz autentykować się w brokerze MQTT.
-'Sharing the state of your channels to the MQTT Broker:': 'Udostępnianie stanu Twoich kanałół do brokera MQTT:'
-TLS: TLS
-The new password will replace the existing. Some of current integrations may not work anymore.: Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie.
-This must be different than the password you use to authenticate in the SUPLA Cloud.: Musi ono być inne od hasła, którego używasz do logowania się w SUPLA Cloud.
-You must set the MQTT auth password before enabling MQTT Broker support.: Musisz ustalić hasło brokera MQTT zanim włączysz udostępnianie stanów swoich kanałów.
-Your MQTT Broker password must be different than your SUPLA Cloud password.: Hasło do brokera MQTT musi być inne niż hasło do twojego konta w SUPLA Cloud.
 
 #</editor-fold>

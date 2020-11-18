@@ -79,7 +79,7 @@
                 </span>
             </span>
             <span class="help-block">
-                {{ $t('Password requirements: minimum length of 10 characters, both uppercase and lowercase letters, at least one number and a special character.') }}
+                {{ $t('Password requirements: minimum length of {minLength} characters, both uppercase and lowercase letters, at least one number and a special character.', {minLength: 10}) }}
             </span>
         </modal>
     </loading-cover>
@@ -125,7 +125,7 @@
                     .then(() => {
                         this.password = '';
                         this.passwordHidden = true;
-                        this.enteringPassword = false
+                        this.enteringPassword = false;
                     });
             },
             turnMqttBrokerOn() {
