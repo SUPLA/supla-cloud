@@ -9,7 +9,8 @@
                     class="text-success">{{ $t('ENABLED') }}</span>
                 <span v-else>{{ $t('DISABLED') }}</span>
             </div>
-            <div v-if="settings.userEnabled" class="text-center">
+            <div v-if="settings.userEnabled"
+                class="text-center">
                 <dl v-if="settings.host">
                     <dt>{{ $t('Host') }}</dt>
                     <dd>{{ settings.host }}</dd>
@@ -60,7 +61,8 @@
             :header="$t('MQTT Broker Password')">
             <p>{{ $t('Set a password you will use to authenticate for your account in the MQTT Broker.') }}</p>
             <p>{{ $t('This must be different than the password you use to authenticate in the SUPLA Cloud.') }}</p>
-            <p class="text-warning" v-if="settings.hasPassword">
+            <p class="text-warning"
+                v-if="settings.hasPassword">
                 {{ $t('The new password will replace the existing. Some of current integrations may not work anymore.') }}
             </p>
             <span class="input-group">
@@ -75,6 +77,9 @@
                         &lowast;
                     </a>
                 </span>
+            </span>
+            <span class="help-block">
+                {{ $t('Password requirements: minimum length of 10 characters, both uppercase and lowercase letters, at least one number and a special character.') }}
             </span>
         </modal>
     </loading-cover>
@@ -147,7 +152,7 @@
                     });
             },
             generatePassword() {
-                this.password = generatePassword(12);
+                this.password = generatePassword(16, true);
                 this.passwordHidden = false;
             },
         }

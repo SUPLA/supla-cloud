@@ -35,6 +35,8 @@
 </template>
 
 <script>
+    import {generatePassword} from "../utils";
+
     export default {
         props: ['password', 'editable'],
         data() {
@@ -46,12 +48,7 @@
         },
         methods: {
             generatePassword(length) {
-                let text = "";
-                let possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-                for (let i = 0; i < length; i++) {
-                    text += possible.charAt(Math.floor(Math.random() * possible.length));
-                }
-                this.newPassword = text;
+                this.newPassword = generatePassword(length);
             },
             dispatchNewPassword() {
                 if (this.newPassword) {

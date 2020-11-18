@@ -29,6 +29,7 @@ use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\PasswordStrengthValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -164,8 +165,10 @@ class LocationController extends RestController {
         $location->setEnabled($updatedLocation->getEnabled());
         if ($updatedLocation->getPassword()) {
             $newPassword = $updatedLocation->getPassword();
-            Assertion::minLength($newPassword, 4, 'Location password must be at least 4 characters.'); // i18n
-            Assertion::maxLength($newPassword, 32, 'Location password must be no longer than 32 characters.'); // i18n
+            PasswordStrengthValidator::create()
+                ->minLength(4)
+                ->maxLength(32)
+                ->validate($newPassword);
             $location->setPassword($newPassword);
         }
         $location->getAccessIds()->clear();

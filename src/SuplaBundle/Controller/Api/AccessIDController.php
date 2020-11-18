@@ -27,6 +27,7 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessIdRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\PasswordStrengthValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -133,8 +134,10 @@ class AccessIDController extends RestController {
         $accessId->setEnabled($updatedAccessId->getEnabled());
         if ($updatedAccessId->getPassword()) {
             $newPassword = $updatedAccessId->getPassword();
-            Assertion::minLength($newPassword, 8, 'Access identifier password must be at least 8 characters.'); // i18n
-            Assertion::maxLength($newPassword, 32, 'Access identifier password must be no longer than 32 characters.'); // i18n
+            PasswordStrengthValidator::create()
+                ->minLength(8)
+                ->maxLength(32)
+                ->validate($newPassword);
             $accessId->setPassword($newPassword);
         }
         $this->transactional(function (EntityManagerInterface $em) use ($updatedAccessId, $request, $accessId) {

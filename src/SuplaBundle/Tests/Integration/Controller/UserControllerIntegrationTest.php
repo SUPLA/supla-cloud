@@ -149,7 +149,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     public function testSettingMqttPassword() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
-        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerPassword', 'password' => '123456789']);
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerPassword', 'password' => 'h%cFYDC7ybg%88bk']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $user = $this->getEntityManager()->find(User::class, $this->user->getId());
@@ -172,11 +172,23 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('USER-MQTT-SETTINGS-CHANGED:1', SuplaServerMock::$executedCommands[0]);
     }
 
-    /** @depends testSettingMqttPassword */
+    public function testChangingUserPassword() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest(
+            'PATCH',
+            '/api/users/current',
+            ['action' => 'change:password', 'oldPassword' => 'supla123', 'newPassword' => 'Gb;Bq?8V#}WkX"2f']
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+    }
+
+    /** @depends testChangingUserPassword */
     public function testSettingMqttPasswordToTheAccountPassword() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
-        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerPassword', 'password' => 'supla123']);
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerPassword', 'password' => 'Gb;Bq?8V#}WkX"2f']);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
     }

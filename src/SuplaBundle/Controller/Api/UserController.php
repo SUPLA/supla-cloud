@@ -39,6 +39,7 @@ use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\PasswordStrengthValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -185,7 +186,10 @@ class UserController extends RestController {
                 $newPassword = $data['newPassword'] ?? '';
                 $oldPassword = $data['oldPassword'] ?? '';
                 Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect'); // i18n
-                Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.'); // i18n
+                PasswordStrengthValidator::create()
+                    ->minLength(8)
+                    ->maxLength(32)
+                    ->validate($newPassword);
                 $this->userManager->setPassword($newPassword, $user);
             } elseif ($data['action'] == 'agree:rules') {
                 $this->assertNotApiUser();
@@ -207,8 +211,14 @@ class UserController extends RestController {
                 $this->assertNotApiUser();
                 Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
                 $password = $data['password'] ?? '';
-                Assertion::minLength($password, 8, 'MQTT Broker password must be at least 8 characters.'); // i18n
-                Assertion::maxLength($password, 32, 'MQTT Broker password must be no longer than 32 characters.'); // i18n
+                PasswordStrengthValidator::create()
+                    ->requireLetters()
+                    ->requireNumbers()
+                    ->requireCaseDiff()
+                    ->requireSpecialCharacters()
+                    ->minLength(10)
+                    ->maxLength(32)
+                    ->validate($password);
                 $encoder = $this->encoderFactory->getEncoder($user);
                 Assertion::false(
                     $encoder->isPasswordValid($user->getPassword(), $password, null),
@@ -317,7 +327,10 @@ class UserController extends RestController {
         $user->setTimezone($data['timezone']);
 
         $newPassword = $data['password'];
-        Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.'); // i18n
+        PasswordStrengthValidator::create()
+            ->minLength(8)
+            ->maxLength(32)
+            ->validate($newPassword);
         $user->setPlainPassword($newPassword);
 
         $locale = $data['locale'] ?? 'en';
