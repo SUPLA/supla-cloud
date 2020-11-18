@@ -3,6 +3,11 @@
         <div class="container"
             v-if="settings !== undefined">
             <h5>{{ $t('MQTT Broker allows you to publish your channels state to supported consumers.') }}</h5>
+            <p>
+                {{ $t('Useful links:') }}
+                <a href="https://mqtt.org/">mqtt.org</a>,
+                <a href="https://en.wikipedia.org/wiki/MQTT">MQTT (Wikipedia)</a>
+            </p>
             <div class="form-group text-center mqtt-state-header">
                 <h4>{{ $t('Sharing the state of your channels to the MQTT Broker:') }}</h4>
                 <span v-if="settings.userEnabled"
