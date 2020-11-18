@@ -82,7 +82,6 @@ class SuplaExtension extends ConfigurableExtension {
         $container->setParameter('supla.mqtt_broker.port', $mergedConfig['mqtt_broker']['port']);
         $container->setParameter('supla.mqtt_broker.tls', $mergedConfig['mqtt_broker']['tls']);
         $container->setParameter('supla.mqtt_broker.integrated_auth', $mergedConfig['mqtt_broker']['integrated_auth']);
-
     }
 
     private function buildOauthTokensConfig(array $tokensLifetimes): array {

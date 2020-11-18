@@ -2,12 +2,6 @@
     <loading-cover :loading="settings === undefined">
         <div class="container"
             v-if="settings !== undefined">
-            <h5>{{ $t('MQTT Broker allows you to publish your channels state to supported consumers.') }}</h5>
-            <p>
-                {{ $t('Useful links:') }}
-                <a href="https://mqtt.org/">mqtt.org</a>,
-                <a href="https://en.wikipedia.org/wiki/MQTT">MQTT (Wikipedia)</a>
-            </p>
             <div class="form-group text-center mqtt-state-header">
                 <h4>{{ $t('Sharing the state of your channels to the MQTT Broker:') }}</h4>
                 <span v-if="settings.userEnabled"
@@ -19,20 +13,16 @@
                 <dl v-if="settings.host">
                     <dt>{{ $t('Host') }}</dt>
                     <dd>{{ settings.host }}</dd>
-                </dl>
-                <dl v-if="settings.protocol">
                     <dt>{{ $t('Protocol') }}</dt>
                     <dd>{{ settings.protocol }}</dd>
-                </dl>
-                <dl v-if="settings.port">
                     <dt>{{ $t('Port') }}</dt>
                     <dd>{{ settings.port }}</dd>
-                </dl>
-                <dl v-if="settings.tls">
                     <dt>{{ $t('TLS') }}</dt>
                     <dd>{{ settings.tls ? $t('Enabled') : $t('Disabled') }}</dd>
                 </dl>
                 <dl v-if="settings.integratedAuth">
+                    <dt>{{ $t('MQTT Broker Username') }}</dt>
+                    <dd>{{ $user.username }}</dd>
                     <dt>{{ $t('MQTT Broker Password') }}</dt>
                     <dd><a @click="enteringPassword = true">{{ $t('Change') }}</a></dd>
                 </dl>
@@ -57,6 +47,11 @@
                     </span>
                 </a>
             </div>
+            <p class="text-center">
+                {{ $t('Useful links:') }}
+                <a href="https://mqtt.org/">mqtt.org</a>,
+                <a href="https://en.wikipedia.org/wiki/MQTT">MQTT (Wikipedia)</a>
+            </p>
         </div>
         <modal class="square-modal-chooser"
             cancellable="true"

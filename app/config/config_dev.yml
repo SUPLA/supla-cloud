@@ -38,9 +38,6 @@ supla:
   mqtt_broker:
     enabled: true
     host: supla.org
-    port: 123
-    tls: true
-    protocol: mqtt
     integrated_auth: true
 
 #swiftmailer:

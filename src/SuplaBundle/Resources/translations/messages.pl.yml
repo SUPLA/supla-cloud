@@ -287,7 +287,7 @@ Locations: Lokalizacje
 Login: Logowanie
 MQTT Broker: Broker MQTT
 MQTT Broker Password: Hasło brokera MQTT
-MQTT Broker allows you to publish your channels state to supported consumers.: Broker MQTT umożliwia publikowanie zmian stanów Twoich kanałów do urządzeń wspierających tę komunikację.
+MQTT Broker Username: Nazwa użytkownika
 MQTT Broker is disabled.: Broker MQTT jest wyłączony.
 MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
 Mail sensor: Czujnik poczty
@@ -433,8 +433,8 @@ Sensors: Czujniki
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
-Set a password you will use to authenticate for your account in the MQTT Broker.: 'Ustaw hasło, w którym będziesz autentykować się w brokerze MQTT.'
-'Sharing the state of your channels to the MQTT Broker:': 'Udostępnianie stanu Twoich kanałół do brokera MQTT:'
+Set a password you will use to authenticate for your account in the MQTT Broker.: Ustaw hasło którym będziesz się autentykować podczas nawiązywania połączenia z brokerem MQTT.
+'Sharing the state of your channels to the MQTT Broker:': 'Udostępnianie stanu Twoich kanałów do brokera MQTT:'
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
@@ -491,7 +491,7 @@ Thermometer: Termometr
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.'
 This is the list of applications you have granted access to your account.: 'To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.'
-This must be different than the password you use to authenticate in the SUPLA Cloud.: 'Musi ono być inne od hasła, którego używasz do logowania się w SUPLA Cloud.'
+This must be different than the password you use to authenticate in the SUPLA Cloud.: 'Musi być ono inne od hasła, którego używasz do logowania się w SUPLA Cloud.'
 Thursdays: Czwartki
 Timezone: Strefa czasowa
 Toggle: Przełącz
@@ -655,8 +655,6 @@ Languages: Języki
 Loading: Ładowanie
 Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
 Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
-MQTT Broker password must be at least 8 characters.: Hasło brokera MQTT musi mieć co najmniej 8 znaków.
-MQTT Broker password must be no longer than 32 characters.: Hasło brokera MQTT nie może mieć więcej niż 32 znaki.
 Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer

@@ -106,9 +106,9 @@ class Configuration implements ConfigurationInterface {
                 ->arrayNode('mqtt_broker')->addDefaultsIfNotSet()->children()
                     ->booleanNode('enabled')->defaultFalse()->info('When true, the MQTT settings page will be available in the GUI.')->end()
                     ->scalarNode('host')->defaultNull()->info('MQTT Broker address to display in the settings page')->end()
-                    ->scalarNode('protocol')->defaultNull()->info('MQTT Broker protocol')->end()
-                    ->scalarNode('port')->defaultNull()->info('MQTT Broker port')->end()
-                    ->booleanNode('tls')->defaultFalse()->info('Is TLS enabled?')->end()
+                    ->scalarNode('protocol')->defaultValue('mqtt')->info('MQTT Broker protocol')->end()
+                    ->scalarNode('port')->defaultValue(8883)->info('MQTT Broker port')->end()
+                    ->booleanNode('tls')->defaultTrue()->info('Is TLS enabled?')->end()
                     ->booleanNode('integrated_auth')->defaultFalse()->info('When true, the option to specify MQTT password is available.')->end()
                 ->end()->end()
             ->end();
