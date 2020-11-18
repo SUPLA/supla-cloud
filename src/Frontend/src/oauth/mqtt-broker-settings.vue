@@ -2,56 +2,83 @@
     <loading-cover :loading="settings === undefined">
         <div class="container"
             v-if="settings !== undefined">
-            <div class="form-group text-center mqtt-state-header">
-                <h4>{{ $t('Sharing the state of your channels to the MQTT Broker:') }}</h4>
-                <span v-if="settings.userEnabled"
-                    class="text-success">{{ $t('ENABLED') }}</span>
-                <span v-else>{{ $t('DISABLED') }}</span>
+
+            <div class="clearfix left-right-header">
+                <div>
+                    <h5>{{ $t('Your account and MQTT Broker connection.') }}</h5>
+                    <div class="form-group">
+                        <div class="btn-group">
+                            <a class="btn btn-white"
+                                target="_blank"
+                                href="https://mqtt.org/">mqtt.org</a>
+                            <a class="btn btn-white"
+                                target="_blank"
+                                href="https://en.wikipedia.org/wiki/MQTT">MQTT (Wikipedia)</a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a class="btn btn-green btn-lg"
+                        v-if="!settings.userEnabled"
+                        @click="turnMqttBrokerOn()">
+                        <button-loading-dots v-if="fetching"></button-loading-dots>
+                        <span v-else>
+                            <span class="pe-7s-power"></span>
+                            {{ $t('Enable') }}
+                        </span>
+                    </a>
+                    <a class="btn btn-orange btn-lg"
+                        v-else
+                        @click="disableMqttBrokerSupport()">
+                        <button-loading-dots v-if="fetching"></button-loading-dots>
+                        <span v-else>
+                            <span class="pe-7s-power"></span>
+                            {{ $t('Disable') }}
+                        </span>
+                    </a>
+                </div>
             </div>
-            <div v-if="settings.userEnabled"
-                class="text-center">
-                <dl v-if="settings.host">
-                    <dt>{{ $t('Host') }}</dt>
-                    <dd>{{ settings.host }}</dd>
-                    <dt>{{ $t('Protocol') }}</dt>
-                    <dd>{{ settings.protocol }}</dd>
-                    <dt>{{ $t('Port') }}</dt>
-                    <dd>{{ settings.port }}</dd>
-                    <dt>{{ $t('TLS') }}</dt>
-                    <dd>{{ settings.tls ? $t('Enabled') : $t('Disabled') }}</dd>
-                </dl>
-                <dl v-if="settings.integratedAuth">
-                    <dt>{{ $t('MQTT Broker Username') }}</dt>
-                    <dd>{{ $user.username }}</dd>
-                    <dt>{{ $t('MQTT Broker Password') }}</dt>
-                    <dd><a @click="enteringPassword = true">{{ $t('Change') }}</a></dd>
-                </dl>
+
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 mqtt-settings">
+                <div class="panel panel-green"
+                    v-if="settings.userEnabled">
+                    <div class="panel-body">
+                        <div v-if="settings.host">
+                            <input type="text"
+                                v-model="settings.host"
+                                readonly>
+                            <label>{{ $t('Host') }}</label>
+                            <input type="text"
+                                v-model="settings.protocol"
+                                readonly>
+                            <label>{{ $t('Protocol') }}</label>
+                            <input type="text"
+                                v-model="settings.port"
+                                readonly>
+                            <label>{{ $t('Port') }}</label>
+                            <input type="text"
+                                v-model="settings.tls ? $t('Enabled') : $t('Disabled')"
+                                readonly>
+                            <label>{{ $t('TLS') }}</label>
+                        </div>
+                        <div v-if="settings.integratedAuth">
+                            <div class="form-group">
+
+
+                                <input type="text"
+                                    v-model="$user.username"
+                                    readonly>
+                                <label>{{ $t('MQTT Broker Username') }}</label>
+                            </div>
+                            <div>
+                                <a @click="enteringPassword = true"
+                                    class="btn btn-white">{{ $t('Change') }}</a>
+                            </div>
+                            <label>{{ $t('MQTT Broker Password') }}</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group text-center">
-                <a class="btn btn-green btn-lg"
-                    v-if="!settings.userEnabled"
-                    @click="turnMqttBrokerOn()">
-                    <button-loading-dots v-if="fetching"></button-loading-dots>
-                    <span v-else>
-                        <span class="pe-7s-power"></span>
-                        {{ $t('Enable') }}
-                    </span>
-                </a>
-                <a class="btn btn-orange btn-lg"
-                    v-else
-                    @click="disableMqttBrokerSupport()">
-                    <button-loading-dots v-if="fetching"></button-loading-dots>
-                    <span v-else>
-                        <span class="pe-7s-power"></span>
-                        {{ $t('Disable') }}
-                    </span>
-                </a>
-            </div>
-            <p class="text-center">
-                {{ $t('Useful links:') }}
-                <a href="https://mqtt.org/">mqtt.org</a>,
-                <a href="https://en.wikipedia.org/wiki/MQTT">MQTT (Wikipedia)</a>
-            </p>
         </div>
         <modal class="square-modal-chooser"
             cancellable="true"
@@ -70,6 +97,7 @@
                     class="form-control"
                     v-model="password">
                 <span class="input-group-btn">
+
                     <a class="btn btn-white"
                         @click="generatePassword(password.length || 5)">{{$t('GENERATE')}}</a>
                     <a :class="'btn btn-' + (passwordHidden ? 'green' : 'white')"
@@ -160,10 +188,32 @@
 </script>
 
 <style lang="scss">
+    @import '../styles/mixins';
+    @import '../styles/variables';
+
     .mqtt-state-header {
-        padding-top: 1em;
+        font-size: 2em;
         span {
             font-weight: bold;
+        }
+    }
+
+    .mqtt-settings {
+        input[type="text"] {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(0, 2, 4, .25);
+            width: 100%;
+            line-height: 36px;
+            padding: 0 5px;
+            margin-top: 8px;
+            font-size: 16px;
+        }
+        label {
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(0, 2, 4, .6);
+            line-height: 26px;
         }
     }
 </style>

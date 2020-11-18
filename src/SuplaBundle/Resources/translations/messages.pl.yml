@@ -434,7 +434,6 @@ Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
 Set a password you will use to authenticate for your account in the MQTT Broker.: Ustaw hasło którym będziesz się autentykować podczas nawiązywania połączenia z brokerem MQTT.
-'Sharing the state of your channels to the MQTT Broker:': 'Udostępnianie stanu Twoich kanałów do brokera MQTT:'
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
@@ -505,7 +504,6 @@ Unknown: Nieznany
 Unsupported function: Niewspierana funkcja
 Unsupported type: Niewspierany typ
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.'
-'Useful links:': 'Przydatne linki:'
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Valve: Zawór
 Valve closed manually: Zawór zamknięty manualnie
@@ -552,6 +550,7 @@ You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystki
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
 Your MQTT Broker password must be different than your SUPLA Cloud password.: Hasło do brokera MQTT musi być inne niż hasło do twojego konta w SUPLA Cloud.
+Your account and MQTT Broker connection.: Połączenie Twojego konta z brokerem MQTT.
 Your account has been deleted. We hope you will come back to us soon.: 'Konto zostało usunięte. Mamy nadzieję, że wkrótce do nas wrócisz.'
 Your account has been locked.: Twoje konto zostało zablokowane.
 Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
