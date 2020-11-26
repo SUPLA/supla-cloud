@@ -641,10 +641,12 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
             'accessId' => $this->limitAid,
             'channelGroup' => $this->limitChannelGroup,
             'channelPerGroup' => $this->limitChannelPerGroup,
-            'location' => $this->limitLoc,
-            'schedule' => $this->limitSchedule,
+            'clientApp' => $this->limitClientApp,
             'directLink' => $this->limitDirectLink,
+            'ioDevice' => $this->limitIoDev,
+            'location' => $this->limitLoc,
             'oauthClient' => $this->limitOAuthClient,
+            'schedule' => $this->limitSchedule,
         ];
     }
 

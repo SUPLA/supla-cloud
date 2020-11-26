@@ -19,6 +19,8 @@ class UserRepository extends EntityWithRelationsRepository {
             ->addSelect('COUNT(DISTINCT s) schedules')
             ->addSelect('COUNT(DISTINCT dl) directLinks')
             ->addSelect('COUNT(DISTINCT ac) apiClients')
+            ->addSelect('COUNT(DISTINCT io) ioDevices')
+            ->addSelect('COUNT(DISTINCT cl) clientApps')
             ->from(User::class, 'u')
             ->leftJoin('u.channelGroups', 'cg')
             ->leftJoin('u.accessids', 'aid')
@@ -26,6 +28,8 @@ class UserRepository extends EntityWithRelationsRepository {
             ->leftJoin('u.schedules', 's')
             ->leftJoin('u.directLinks', 'dl')
             ->leftJoin('u.apiClients', 'ac')
+            ->leftJoin('u.iodevices', 'io')
+            ->leftJoin('u.clientApps', 'cl')
             ->groupBy('u');
     }
 }

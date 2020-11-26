@@ -4,10 +4,20 @@
         <loading-cover :loading="fetching">
             <div v-if="limits">
                 <dl>
+                    <dt>{{ $t('I/O Devices') }}</dt>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.ioDevice"
+                            :value="relationsCount.ioDevices"></account-limit-progressbar>
+                    </dd>
                     <dt>{{ $t('Access Identifiers') }}</dt>
                     <dd>
                         <account-limit-progressbar :limit="limits.accessId"
                             :value="relationsCount.accessIds"></account-limit-progressbar>
+                    </dd>
+                    <dt>{{ $t('Client’s Apps') }}</dt>
+                    <dd>
+                        <account-limit-progressbar :limit="limits.clientApp"
+                            :value="relationsCount.clientApps"></account-limit-progressbar>
                     </dd>
                     <dt>{{ $t('Channel groups') }}</dt>
                     <dd>
