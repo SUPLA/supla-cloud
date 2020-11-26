@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -228,8 +229,10 @@ class IODeviceController extends RestController {
      */
     public function deleteIodeviceAction(IODevice $ioDevice) {
         $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
+            $cannotDeleteMsg = 'Cannot delete this I/O Device right now.'; // i18n
+            Assertion::true($this->suplaServer->userAction('BEFORE-DEVICE-DELETE', $ioDevice->getId()), $cannotDeleteMsg);
             foreach ($ioDevice->getChannels() as $channel) {
-                // clears all paired channels that are possibly made with the one that is being deleted
+                // clears all paired channels that are possibly made with the on`e that is being deleted
                 $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
                 $channel->removeFromAllChannelGroups($em);
             }
@@ -240,7 +243,7 @@ class IODeviceController extends RestController {
             $em->remove($ioDevice);
         });
         $this->suplaServer->reconnect();
-        $this->suplaServer->onDeviceDeleted();
+        $this->suplaServer->userAction('ON-DEVICE-DELETED');
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 }

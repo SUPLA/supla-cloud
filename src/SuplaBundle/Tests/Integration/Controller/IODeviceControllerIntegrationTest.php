@@ -25,6 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater\IODeviceChannelWithParams;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -230,6 +231,22 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $this->assertEmpty($this->user->getIODevices());
+    }
+
+    /** @depends testDeletingDevice */
+    public function testNotifiesSuplaServerAboutIoDeviceDeletion() {
+        $this->assertContains('USER-BEFORE-DEVICE-DELETE:1,1', SuplaServerMock::$executedCommands);
+        $this->assertContains('USER-ON-DEVICE-DELETED:1', SuplaServerMock::$executedCommands);
+    }
+
+    /** @large */
+    public function testSuplaServerCanPreventDeviceDeletion() {
+        $device = $this->createDeviceFull($this->location);
+        SuplaServerMock::mockResponse('USER-BEFORE-DEVICE-DELETE:1,' . $device->getId(), 'NO!');
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 
     /** @large */

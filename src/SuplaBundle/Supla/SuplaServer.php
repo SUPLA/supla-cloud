@@ -89,14 +89,19 @@ abstract class SuplaServer {
         return $this->isConnected($device->getUser()->getId(), $device->getId());
     }
 
-    public function userAction($action, User $user = null): bool {
+    public function userAction($action, $params = [], User $user = null): bool {
         $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
-        $result = $this->executeCommand("USER-{$action}:{$userId}");
+        $command = "USER-{$action}:{$userId}";
+        if ($params) {
+            $params = is_array($params) ? $params : [$params];
+            $command .= ',' . implode(',', $params);
+        }
+        $result = $this->executeCommand($command);
         return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
     }
 
     public function reconnect(User $user = null): bool {
-        return $this->userAction('RECONNECT', $user);
+        return $this->userAction('RECONNECT', [], $user);
     }
 
     public function amazonAlexaCredentialsChanged(): bool {
@@ -117,10 +122,6 @@ abstract class SuplaServer {
 
     public function onOAuthClientRemoved(): bool {
         return $this->amazonAlexaCredentialsChanged();
-    }
-
-    public function onDeviceDeleted() {
-        return $this->userAction('ON-DEVICE-DELETED');
     }
 
     public function clientReconnect(ClientApp $clientApp) {
