@@ -166,18 +166,14 @@
             enableMqttBrokerSupport() {
                 this.fetching = true;
                 return this.$http.patch(`users/current`, {action: 'change:mqttBrokerEnabled', enabled: true})
-                    .then(() => {
-                        successNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been enabled.'));
-                        this.fetchSettings();
-                    });
+                    .then(() => successNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been enabled.')))
+                    .finally(this.fetchSettings);
             },
             disableMqttBrokerSupport() {
                 this.fetching = true;
                 return this.$http.patch(`users/current`, {action: 'change:mqttBrokerEnabled', enabled: false})
-                    .then(() => {
-                        infoNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been disabled.'));
-                        this.fetchSettings();
-                    });
+                    .then(() => infoNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been disabled.')))
+                    .finally(this.fetchSettings);
             },
             generatePassword() {
                 this.password = generatePassword(16, true);
