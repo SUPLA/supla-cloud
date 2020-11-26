@@ -158,6 +158,8 @@ class ChannelController extends RestController {
                         'directLinks' => $channel->getDirectLinks(),
                     ], Response::HTTP_CONFLICT);
                 }
+                $cannotChangeMsg = 'Cannot change the channel function right now.'; // i18n
+                Assertion::true($this->suplaServer->userAction('BEFORE-CHANNEL-FUNCTION-CHANGE', $channel->getId()), $cannotChangeMsg);
                 $channel->setUserIcon(null);
                 $channel->setAltIcon(0);
             }

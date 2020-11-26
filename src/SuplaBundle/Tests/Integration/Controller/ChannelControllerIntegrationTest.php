@@ -286,6 +286,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'functionId' => ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
         ]);
         $this->assertStatusCode(409, $client->getResponse());
+        $this->assertEmpty(SuplaServerMock::$executedCommands);
         return $sensorChannel;
     }
 
@@ -299,6 +300,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(DirectLink::class, $directLink->getId()));
+        return $sensorChannel;
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenConfirmed */
+    public function testNotifiesSuplaServerAboutFunctionChange(IODeviceChannel $sensorChannel) {
+        $this->assertContains('USER-BEFORE-CHANNEL-FUNCTION-CHANGE:1,' . $sensorChannel->getId(), SuplaServerMock::$executedCommands);
     }
 
     public function testChangingChannelFunctionCanSetSettingForTheNewFunction() {
