@@ -18,6 +18,8 @@
 namespace SuplaBundle\Model;
 
 use Assert\Assertion;
+use DateInterval;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerInterface;
@@ -227,8 +229,8 @@ class UserManager {
         }
 
         $date = $this->timeProvider->getDateTime();
-        $date->setTimeZone(new \DateTimeZone('UTC'));
-        $date->sub(new \DateInterval('PT1H'));
+        $date->setTimeZone(new DateTimeZone('UTC'));
+        $date->sub(new DateInterval('PT1H'));
 
         $qb = $this->rep->createQueryBuilder('u');
 
@@ -247,8 +249,8 @@ class UserManager {
         }
     }
 
-    public function updateTimeZone(User $user, \DateTimeZone $timezone) {
-        $currentTimezone = new \DateTimeZone($user->getTimezone());
+    public function updateTimeZone(User $user, DateTimeZone $timezone) {
+        $currentTimezone = new DateTimeZone($user->getTimezone());
         $user->setTimezone($timezone->getName());
         $this->transactional(function (EntityManagerInterface $em) use ($timezone, $currentTimezone, $user) {
             $em->persist($user);
@@ -291,13 +293,13 @@ class UserManager {
                 ->setTextParam($user->getUsername())
                 ->buildAndSave();
         });
-        $this->suplaServer->reconnect($userId);
+        $this->suplaServer->reconnect($user);
     }
 
     public function deleteAccountByToken(string $token) {
         $date = $this->timeProvider->getDateTime();
-        $date->setTimeZone(new \DateTimeZone('UTC'));
-        $date->sub(new \DateInterval('PT1H'));
+        $date->setTimeZone(new DateTimeZone('UTC'));
+        $date->sub(new DateInterval('PT1H'));
         $qb = $this->rep->createQueryBuilder('u');
         try {
             $user = $qb->where($qb->expr()->eq('u.token', ':token'))

@@ -121,7 +121,7 @@ class AccessIDController extends RestController {
             $em->remove($accessId);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
-        $this->suplaServer->reconnect($this->getUser()->getId());
+        $this->suplaServer->reconnect();
         return $result;
     }
 
@@ -152,7 +152,7 @@ class AccessIDController extends RestController {
                 $em->persist($clientApp);
             }
         });
-        $this->suplaServer->reconnect($this->getCurrentUser()->getId());
+        $this->suplaServer->reconnect();
         return $this->getAccessidAction($request, $accessId->clearRelationsCount());
     }
 }

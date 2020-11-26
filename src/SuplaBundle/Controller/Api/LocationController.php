@@ -148,7 +148,7 @@ class LocationController extends RestController {
             $em->remove($location);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
-        $this->suplaServer->reconnect($this->getUser()->getId());
+        $this->suplaServer->reconnect();
         return $result;
     }
 

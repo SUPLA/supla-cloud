@@ -21,6 +21,7 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -88,45 +89,38 @@ abstract class SuplaServer {
         return $this->isConnected($device->getUser()->getId(), $device->getId());
     }
 
-    private function userAction($userId, $action) {
-        if (!$userId) {
-            $user = $this->getCurrentUserOrThrow();
-            $userId = $user->getId();
-        }
-        $userId = intval($userId);
-        if ($userId != 0) {
-            $result = $this->executeCommand("USER-{$action}:{$userId}");
-            return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
-        }
-        return false;
+    public function userAction($action, User $user = null): bool {
+        $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
+        $result = $this->executeCommand("USER-{$action}:{$userId}");
+        return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
     }
 
-    public function reconnect($userId = null) {
-        return $this->userAction($userId, 'RECONNECT');
+    public function reconnect(User $user = null): bool {
+        return $this->userAction('RECONNECT', $user);
     }
 
-    public function amazonAlexaCredentialsChanged($userId = null) {
-        return $this->userAction($userId, 'ALEXA-CREDENTIALS-CHANGED');
+    public function amazonAlexaCredentialsChanged(): bool {
+        return $this->userAction('ALEXA-CREDENTIALS-CHANGED');
     }
 
-    public function stateWebhookChanged($userId = null) {
-        return $this->userAction($userId, 'STATE-WEBHOOK-CHANGED');
+    public function stateWebhookChanged(): bool {
+        return $this->userAction('STATE-WEBHOOK-CHANGED');
     }
 
-    public function mqttSettingsChanged($userId = null) {
-        return $this->userAction($userId, 'MQTT-SETTINGS-CHANGED');
+    public function mqttSettingsChanged(): bool {
+        return $this->userAction('MQTT-SETTINGS-CHANGED');
     }
 
-    public function googleHomeCredentialsChanged($userId = null) {
-        return $this->userAction($userId, 'GOOGLE-HOME-CREDENTIALS-CHANGED');
+    public function googleHomeCredentialsChanged(): bool {
+        return $this->userAction('GOOGLE-HOME-CREDENTIALS-CHANGED');
     }
 
-    public function onOAuthClientRemoved($userId = null) {
-        $this->amazonAlexaCredentialsChanged($userId);
+    public function onOAuthClientRemoved(): bool {
+        return $this->amazonAlexaCredentialsChanged();
     }
 
-    public function onDeviceDeleted($userId = null) {
-        return $this->userAction($userId, 'ON-DEVICE-DELETED');
+    public function onDeviceDeleted() {
+        return $this->userAction('ON-DEVICE-DELETED');
     }
 
     public function clientReconnect(ClientApp $clientApp) {
