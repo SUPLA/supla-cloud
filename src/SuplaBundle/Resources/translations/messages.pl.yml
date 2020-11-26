@@ -72,6 +72,8 @@ Calibration: Kalibracja
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
 Cancelled: Anulowane
+Cannot change the channel function right now.: Nie można zmienić funkcji tego kanału w tej chwili.
+Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej cwili.
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Captcha token is not valid.: Niepoprawna captcha.
