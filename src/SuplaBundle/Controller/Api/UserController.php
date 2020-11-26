@@ -34,7 +34,6 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
-use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -207,7 +206,8 @@ class UserController extends RestController {
                     Assertion::true($user->hasMqttBrokerAuthPassword(), $msg);
                 }
                 $recentChange = $this->audit->recentEntry(AuditedEvent::MQTT_ENABLED_DISABLED());
-                Assertion::null($recentChange, 'You are changing the settings too quickly. You have to wait a while before making this change.');
+                $tooQuicklyMsg = 'You are changing the settings too quickly. You have to wait a while before making this change.'; // i18n
+                Assertion::null($recentChange, $tooQuicklyMsg);
                 $this->audit->newEntry(AuditedEvent::MQTT_ENABLED_DISABLED())
                     ->setUser($user)
                     ->setIntParam($enabled ? 1 : 0)
