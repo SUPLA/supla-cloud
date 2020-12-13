@@ -283,6 +283,15 @@ abstract class SuplaAutodiscover {
         return $brokerClouds;
     }
 
+    public function getEspUpdates() {
+        if ($this->enabled()) {
+            $result = $this->remoteRequest('/esp-updates');
+            $this->logger->debug(__FUNCTION__, ['response' => $result]);
+            return $result;
+        }
+        return false;
+    }
+
     public function getInfo(string $brokerToken = null): array {
         $response = $this->remoteRequest('/about', null, $responseStatus, ['Authorization' => $brokerToken]);
         return $response ?: ['isBroker' => false, 'isTarget' => false];
