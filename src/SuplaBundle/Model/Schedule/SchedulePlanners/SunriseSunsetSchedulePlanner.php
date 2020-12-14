@@ -35,7 +35,8 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner {
             $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $currentDate);
             $retries = 5; // PHP sometimes returns past sunset even if we query for midnight of the next day...
             $calculatingFromDate = clone max($nextRunDate, $currentDate);
-            while ((($nextRunDate->getTimestamp() <= $currentDate->getTimestamp() + self::MINIMUM_SECONDS_TO_NEXT_SUN) || (!$this->isDue($schedule, $nextRunDate))) && --$retries) {
+            while ((($nextRunDate->getTimestamp() <= $currentDate->getTimestamp() + self::MINIMUM_SECONDS_TO_NEXT_SUN)
+                    || (!$this->isDue($schedule, $nextRunDate))) && --$retries) {
                 $nextRunDate->setTime(0, 0);
                 while ($nextRunDate <= $calculatingFromDate) {
                     $nextRunDate->add(new DateInterval('P1D'));
