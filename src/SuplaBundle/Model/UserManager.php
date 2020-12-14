@@ -267,7 +267,6 @@ class UserManager {
     }
 
     public function deleteAccount(User $user) {
-        $userId = $user->getId();
         $this->transactional(function (EntityManagerInterface $em) use ($user) {
             $userServerFromAd = $this->autodiscover->getUserServerFromAd($user->getEmail());
             if ($userServerFromAd === $this->localSuplaCloud->getAddress()) {
@@ -292,8 +291,8 @@ class UserManager {
                 ->setIntParam($user->getId())
                 ->setTextParam($user->getUsername())
                 ->buildAndSave();
+            $this->suplaServer->reconnect($user);
         });
-        $this->suplaServer->reconnect($user);
     }
 
     public function deleteAccountByToken(string $token) {
