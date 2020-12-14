@@ -86,6 +86,12 @@ class Schedule implements HasSubject {
     private $actionParam;
 
     /**
+     * @ORM\Column(name="config", type="string", nullable=true, length=1023)
+     * @Groups({"basic"})
+     */
+    private $config;
+
+    /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
      * @Groups({"basic"})
      */

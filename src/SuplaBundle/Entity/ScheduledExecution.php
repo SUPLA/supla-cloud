@@ -47,6 +47,18 @@ class ScheduledExecution {
     private $schedule;
 
     /**
+     * @ORM\Column(name="action", type="integer", nullable=false)
+     * @Groups({"basic"})
+     */
+    private $action;
+
+    /**
+     * @ORM\Column(name="action_param", type="string", nullable=true, length=255)
+     * @Groups({"basic"})
+     */
+    private $actionParam;
+
+    /**
      * @ORM\Column(name="planned_timestamp", type="utcdatetime", nullable=true)
      * @Groups({"basic"})
      */
