@@ -15,8 +15,6 @@ Access ID: Toegangs-ID
 Access Identifier: Toegangsidentificatie
 Access Identifiers: Toegangs-ID's
 Access identifier limit has been exceeded: De limiet van de toegangsbadges is overschreden
-Access identifier password must be at least 8 characters.: Het wachtwoord voor de toegangs-ID moet minimaal 8 tekens bevatten.
-Access identifier password must be no longer than 32 characters.: Het wachtwoord voor de toegangs-ID mag niet langer zijn dan 32 tekens.
 Account: Account
 Account access when you are unavailable: Toegang tot uw account wanneer u niet beschikbaar bent
 Account has been activated. You can Sign In now.: Uw account is geactiveerd. U kunt inloggen
@@ -156,6 +154,7 @@ Direct link has been executed: Er is een directe link aangemaakt
 'Direct link is not working right now. Reason:': 'De directe link werkt momenteel niet. Oorzaak:'
 Direct links: Directe links
 Direct links below will be deleted: De hieronder vermelde directe links worden verwijderd
+Disable: Zet uit
 Disabled: Uitgeschakeld
 Disconnected: De verbinding werd verbroken
 Distance: Afstand
@@ -172,6 +171,7 @@ Edit: Bewerken
 Electric: Elektriciteit
 Electricity meter: Kilowattuurmeter
 Empty!: Leeg!
+Enable: Zet in
 Enabled: Aan
 End date: Einddatum
 Enter new password: Voer een nieuw wachtwoord in
@@ -279,8 +279,6 @@ Limit has been exceeded: De limiet is overschreden
 Location: Localisatie
 Location Identifier: Locatie ID
 Location limit has been exceeded: Locatielimiet overschreden
-Location password must be at least 4 characters.: Locatiewachtwoord moet minimaal 4 tekens lang zijn.
-Location password must be no longer than 32 characters.: Locatiewachtwoord mag niet langer zijn dan 32 tekens.
 Locations: Locaties
 Login: Login
 Mail sensor: Postsensor
@@ -615,11 +613,11 @@ will expire: vervallen
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Het wachtwoord voor de toegangs-ID moet minimaal 8 tekens bevatten.
+Access identifier password must be no longer than 32 characters.: Het wachtwoord voor de toegangs-ID mag niet langer zijn dan 32 tekens.
 Assigned Locations: Wijs locaties toe
 Date: Datum
-Disable: Zet uit
 Email already exists: Email adres bestaat al
-Enable: Zet in
 Hi: Hoi
 Hour: Uur
 I/O: Input / Outpt
@@ -627,6 +625,8 @@ I/O: Input / Outpt
 Input: Ingang
 Languages: Talen
 Loading: Opladen
+Location password must be at least 4 characters.: Locatiewachtwoord moet minimaal 4 tekens lang zijn.
+Location password must be no longer than 32 characters.: Locatiewachtwoord mag niet langer zijn dan 32 tekens.
 Next: Doorgaan
 Number: Nummer
 Output: Uitgang
@@ -640,7 +640,32 @@ execute: voer uit
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

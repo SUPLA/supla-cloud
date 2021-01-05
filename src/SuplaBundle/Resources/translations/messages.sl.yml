@@ -15,8 +15,6 @@ Access ID: ID dostopa
 Access Identifier: Identifikator dostopa
 Access Identifiers: Identifikatorji dostopa
 Access identifier limit has been exceeded: Omejitev identifikatorjev je bila presežena
-Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
-Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
 Account: Račun
 Account access when you are unavailable: 'Dostop do vašega računa, ko niste na voljo'
 Account has been activated. You can Sign In now.: Račun je aktiviran. Lahko se prijavite
@@ -156,6 +154,7 @@ Direct link has been executed: Vzpostavljena je bila neposredna povezava
 'Direct link is not working right now. Reason:': 'Neposredna povezava trenutno ne deluje. Razlog:'
 Direct links: Neposredne povezave
 Direct links below will be deleted: Spodaj navedene neposredne povezave bodo odstranjene
+Disable: Izklopite
 Disabled: Izklopljeno
 Disconnected: Odklopljen
 Distance: Razdalja
@@ -172,6 +171,7 @@ Edit: Uredite
 Electric: Elektrika
 Electricity meter: Števec električne energije
 Empty!: Prazno!
+Enable: Vklopite
 Enabled: Vklopljeno
 End date: Datum zaključka
 Enter new password: Vnesite novo geslo
@@ -279,8 +279,6 @@ Limit has been exceeded: Omejitev je bila presežena
 Location: Lokacija
 Location Identifier: Identifikator lokacije
 Location limit has been exceeded: Omejitev lokacije je bila presežena
-Location password must be at least 4 characters.: Lokacijsko geslo mora vsebovati vsaj 4 znake.
-Location password must be no longer than 32 characters.: Lokacijsko geslo ne sme biti daljše od 32 znakov.
 Locations: Lokacije
 Login: Prijava
 Mail sensor: Senzor pošte
@@ -615,11 +613,11 @@ will expire: poteče
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
+Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
 Assigned Locations: Dodeljene lokacije
 Date: Datum
-Disable: Izklopite
 Email already exists: E-naslov že obstaja
-Enable: Vklopite
 Hi: Pozdravljeni!
 Hour: Ura
 I/O: Vstop/Izstop
@@ -627,6 +625,8 @@ I/O: Vstop/Izstop
 Input: Vstop
 Languages: Jeziki
 Loading: Polnjenje
+Location password must be at least 4 characters.: Lokacijsko geslo mora vsebovati vsaj 4 znake.
+Location password must be no longer than 32 characters.: Lokacijsko geslo ne sme biti daljše od 32 znakov.
 Next: Naprej
 Number: Številka
 Output: Izstop
@@ -640,7 +640,32 @@ execute: Izvedite
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

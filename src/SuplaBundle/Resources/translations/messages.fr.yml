@@ -15,8 +15,6 @@ Access ID: ID d’accès
 Access Identifier: Identifiant d'accès
 Access Identifiers: Identifiants d'accès
 Access identifier limit has been exceeded: Vous avez dépassé la limite des identifiants
-Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
-Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
 Account: Mon compte
 Account access when you are unavailable: Accès à votre compte en cas d'indisponibilité
 Account has been activated. You can Sign In now.: Votre compte a été activé. Vous pouvez dorénavant vous connecter
@@ -156,6 +154,7 @@ Direct link has been executed: Lien direct a été exécuté
 'Direct link is not working right now. Reason:': 'Le lien direct ne fonctionne pas pour le moment. Raison:'
 Direct links: Liens directs
 Direct links below will be deleted: Les liens directs énumérés ci-dessous seront supprimés
+Disable: Désactiver
 Disabled: Désactivé
 Disconnected: Déconnecté
 Distance: Distance
@@ -172,6 +171,7 @@ Edit: Modifier
 Electric: Electricité
 Electricity meter: Compteur d'énergie
 Empty!: Vide!
+Enable: Activer
 Enabled: Activé
 End date: Date de désactivation
 Enter new password: Saisissez un nouveau mot de passe
@@ -279,8 +279,6 @@ Limit has been exceeded: La limite a été dépassée
 Location: Lieu
 Location Identifier: Identifiant de lieu
 Location limit has been exceeded: Vous avez dépassé la limite des lieux
-Location password must be at least 4 characters.: Mot de passe pour la localisation doit être composé d'au moins 4 caractères.
-Location password must be no longer than 32 characters.: Mot de passe pour la localisation ne peut être composé de plus de 32 caractères.
 Locations: Lieux
 Login: Connexion
 Mail sensor: Détecteur de courrier
@@ -615,11 +613,11 @@ will expire: expirera
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
+Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
 Assigned Locations: Lieux attribués
 Date: Date
-Disable: Désactiver
 Email already exists: L'email existe déjà
-Enable: Activer
 Hi: Bonjour
 Hour: Heure
 I/O: E/S
@@ -627,6 +625,8 @@ I/O: E/S
 Input: Entrée
 Languages: Langues
 Loading: Chargement
+Location password must be at least 4 characters.: Mot de passe pour la localisation doit être composé d'au moins 4 caractères.
+Location password must be no longer than 32 characters.: Mot de passe pour la localisation ne peut être composé de plus de 32 caractères.
 Next: Suivre
 Number: Numéro
 Output: Sortie
@@ -640,7 +640,32 @@ execute: exécuter
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

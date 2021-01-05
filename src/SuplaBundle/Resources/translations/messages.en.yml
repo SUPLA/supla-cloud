@@ -7,6 +7,8 @@
 'Maximum filesize limit is {limit}.': 'Maximum filesize limit is {limit}.'
 'Next limit renewal: {date}': 'Next limit renewal: {date}'
 'No results match {0}': 'No results match {0}'
+'Password must be at least {minLength} characters.': 'Password must be at least {minLength} characters.'
+'Password must be no longer than {maxLength} characters.': 'Password must be no longer than {maxLength} characters.'
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.'

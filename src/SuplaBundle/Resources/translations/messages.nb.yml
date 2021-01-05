@@ -15,8 +15,6 @@ Access ID: Tilgang ID
 Access Identifier: Tilgang Identifikator
 Access Identifiers: Tilgang Identifikatorer
 Access identifier limit has been exceeded: Maksimum antall tilgang identifikatorer er overskredet
-Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
-Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
 Account: Konto
 Account access when you are unavailable: Tilgang til konto når du ikke er tilgjengelig
 Account has been activated. You can Sign In now.: Konto ble aktivert. Du kan logge inn
@@ -156,6 +154,7 @@ Direct link has been executed: Direkte lenke ble opprettet
 'Direct link is not working right now. Reason:': 'Direkte lenke fungerer ikke akkurat nå. Grunn:'
 Direct links: Direkte lenker
 Direct links below will be deleted: Direkte lenker nevnt nedenfor blir fjernet
+Disable: Av
 Disabled: Av
 Disconnected: Frakoblet
 Distance: Avstand
@@ -172,6 +171,7 @@ Edit: Rediger
 Electric: Elektronikk
 Electricity meter: Elektrisitetsmåler
 Empty!: Tomt!
+Enable: På
 Enabled: PÅ
 End date: Avslutningsdato
 Enter new password: Tast inn nytt passord
@@ -279,8 +279,6 @@ Limit has been exceeded: Grensen er overskredet
 Location: Lokalisering
 Location Identifier: Lokalisering identifikator
 Location limit has been exceeded: Grensen på lokaliseringer er overskredet
-Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
-Location password must be no longer than 32 characters.: Passord for lokalisering kan ikke ha mer enn 32 tegn.
 Locations: Sted
 Login: Logg inn
 Mail sensor: Postsensor
@@ -615,11 +613,11 @@ will expire: utløper
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
+Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
 Assigned Locations: Tildelte lokaliseringer
 Date: Dato
-Disable: Av
 Email already exists: Denne e-post adressen eksisterer allerede
-Enable: På
 Hi: Hei
 Hour: Time
 I/O: Inngang/Utgang
@@ -627,6 +625,8 @@ I/O: Inngang/Utgang
 Input: Inngang
 Languages: Språk
 Loading: Lading
+Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
+Location password must be no longer than 32 characters.: Passord for lokalisering kan ikke ha mer enn 32 tegn.
 Next: Videre
 Number: Nummer
 Output: Utgang
@@ -640,7 +640,32 @@ execute: utfør
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

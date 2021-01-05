@@ -15,8 +15,6 @@ Access ID: Κωδικός πρόσβασης
 Access Identifier: Αναγνωριστικό πρόσβασης
 Access Identifiers: Αναγνωριστικά πρόσβασης
 Access identifier limit has been exceeded: Υπέρβαση ορίου των αναγνωριστικών πρόσβασης
-Access identifier password must be at least 8 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης πρέπει να αποτελείται τουλάχιστον από 8 χαρακτήρες.
-Access identifier password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης δεν μπορεί να υπερβαίνει τους 32 χαρακτήρες.
 Account: Λογαριασμός
 Account access when you are unavailable: Πρόσβαση στο λογαριασμό σας όταν δεν είστε διαθέσιμ-ος /-η
 Account has been activated. You can Sign In now.: Ο λογαριασμός έχει ενεργοποιηθεί. Μπορείτε να συνδεθείτε
@@ -156,6 +154,7 @@ Direct link has been executed: Μόλις δημιουργήθηκε ένας α
 'Direct link is not working right now. Reason:': 'Ο απευθείας σύνδεσμος δεν λειτουργεί αυτή τη στιγμή. Αιτία:'
 Direct links: Απευθείας σύνδεσμοι
 Direct links below will be deleted: Οι απευθείας σύνδεσμοι που αναφέρονται παρακάτω θα διαγραφούν
+Disable: Απενεργοποίηση
 Disabled: Απενεργοποιημένο
 Disconnected: Αποσυνδέθηκε
 Distance: Απόσταση
@@ -172,6 +171,7 @@ Edit: Επεξεργασία
 Electric: Ηλεκτρισμός
 Electricity meter: Μετρητής ηλεκτρικής ενέργειας
 Empty!: Κενό!
+Enable: Ενεργοποίηση
 Enabled: Ενεργοποιημένο
 End date: Ημερομηνία ολοκλήρωσης
 Enter new password: Εισαγάγετε νέο κωδικό πρόσβασης
@@ -279,8 +279,6 @@ Limit has been exceeded: Υπέρβαση ορίου
 Location: Τοποθεσία
 Location Identifier: Αναγνωριστικό τοποθεσίας
 Location limit has been exceeded: Υπέρβαση ορίου των τοποθεσιών
-Location password must be at least 4 characters.: Ο κωδικός πρόσβασης για την τοποθεσία πρέπει να έχει τουλάχιστον 4 χαρακτήρες.
-Location password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για την τοποθεσία δεν μπορεί να έχει περισσότερους από 32 χαρακτήρες.
 Locations: Τοποθεσίες
 Login: Σύνδεση
 Mail sensor: Αισθητήρας ταχυδρομείου
@@ -615,11 +613,11 @@ will expire: θα σβήσει
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης πρέπει να αποτελείται τουλάχιστον από 8 χαρακτήρες.
+Access identifier password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης δεν μπορεί να υπερβαίνει τους 32 χαρακτήρες.
 Assigned Locations: Παραχωρημένες τοποθεσίες
 Date: Ημερομηνία
-Disable: Απενεργοποίηση
 Email already exists: Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου υπάρχει ήδη
-Enable: Ενεργοποίηση
 Hi: Γεια σας!
 Hour: Ώρα
 I/O: Είσοδος/Έξοδος
@@ -627,6 +625,8 @@ I/O: Είσοδος/Έξοδος
 Input: Είσοδος
 Languages: Γλώσσες
 Loading: Φόρτωση
+Location password must be at least 4 characters.: Ο κωδικός πρόσβασης για την τοποθεσία πρέπει να έχει τουλάχιστον 4 χαρακτήρες.
+Location password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για την τοποθεσία δεν μπορεί να έχει περισσότερους από 32 χαρακτήρες.
 Next: Επόμενο
 Number: Αριθμός
 Output: Έξοδος
@@ -640,7 +640,32 @@ execute: Εκτέλεση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

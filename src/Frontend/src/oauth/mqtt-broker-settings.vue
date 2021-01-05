@@ -20,7 +20,7 @@
                 <div>
                     <a class="btn btn-green btn-lg"
                         v-if="!settings.userEnabled"
-                        @click="turnMqttBrokerOn()">
+                        @click="enableMqttBrokerSupport()">
                         <button-loading-dots v-if="fetching"></button-loading-dots>
                         <span v-else>
                             <span class="pe-7s-power"></span>
@@ -63,68 +63,50 @@
                         </div>
                         <div v-if="settings.integratedAuth">
                             <div class="form-group">
-
-
                                 <input type="text"
                                     v-model="$user.username"
                                     readonly>
                                 <label>{{ $t('MQTT Broker Username') }}</label>
                             </div>
                             <div>
-                                <a @click="enteringPassword = true"
-                                    class="btn btn-white">{{ $t('Change') }}</a>
+                                <div class="alert alert-warning"
+                                    v-if="generatedPassword">
+                                    <h4>{{ $t('MQTT Broker password') }}</h4>
+                                    <div class="flex-left-full-width form-group">
+                                        <pre><code>{{ generatedPassword }}</code></pre>
+                                        <copy-button :text="generatedPassword"></copy-button>
+                                    </div>
+                                    <p>{{ $t('The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.')}}</p>
+                                </div>
+                                <a @click="generatingPassword = true"
+                                    class="btn btn-white">{{ $t('Generate new password') }}</a>
                             </div>
-                            <label>{{ $t('MQTT Broker Password') }}</label>
+                            <label>{{ $t('MQTT Broker password') }}</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <modal class="square-modal-chooser"
-            cancellable="true"
-            @cancel="enteringPassword = false"
-            @confirm="changeMqttPassword()"
-            v-if="enteringPassword"
-            :header="$t('MQTT Broker Password')">
-            <p>{{ $t('Set a password you will use to authenticate for your account in the MQTT Broker.') }}</p>
-            <p>{{ $t('This must be different than the password you use to authenticate in the SUPLA Cloud.') }}</p>
-            <p class="text-warning"
-                v-if="settings.hasPassword">
-                {{ $t('The new password will replace the existing. Some of current integrations may not work anymore.') }}
-            </p>
-            <span class="input-group">
-                <input :type="this.passwordHidden ? 'password' : 'text'"
-                    class="form-control"
-                    v-model="password">
-                <span class="input-group-btn">
-
-                    <a class="btn btn-white"
-                        @click="generatePassword(password.length || 5)">{{$t('GENERATE')}}</a>
-                    <a :class="'btn btn-' + (passwordHidden ? 'green' : 'white')"
-                        @click="passwordHidden = !passwordHidden">
-                        &lowast;
-                    </a>
-                </span>
-            </span>
-            <span class="help-block">
-                {{ $t('Password requirements: minimum length of {minLength} characters, both uppercase and lowercase letters, at least one number and a special character.', {minLength: 10}) }}
-            </span>
-        </modal>
+        <modal-confirm @confirm="generateMqttPassword()"
+            class="modal-warning"
+            v-if="generatingPassword"
+            @cancel="generatingPassword = false"
+            :header="$t('MQTT Broker password')">
+            {{ $t('The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?') }}
+        </modal-confirm>
     </loading-cover>
 </template>
 
 <script>
     import {infoNotification, successNotification} from "../common/notifier";
-    import {generatePassword} from "../common/utils";
 
     export default {
         data() {
             return {
                 settings: undefined,
                 publishEnabled: false,
-                enteringPassword: false,
-                password: '',
-                passwordHidden: true,
+                generatingPassword: false,
+                generatedPassword: undefined,
                 fetching: false,
             };
         },
@@ -139,33 +121,20 @@
                     this.fetching = false;
                 });
             },
-            changeMqttPassword() {
+            generateMqttPassword() {
                 this.fetching = true;
                 this.$http.patch(`users/current`, {action: 'change:mqttBrokerPassword', password: this.password})
+                    .then((response) => this.generatedPassword = response.headers.get('SUPLA-MQTT-Password'))
                     .then(() => {
-                        if (!this.settings.userEnabled) {
-                            return this.enableMqttBrokerSupport();
-                        } else {
-                            successNotification(this.$t('Successful'), this.$t('MQTT Broker password has been changed.'));
-                            return this.fetchSettings();
-                        }
-                    })
-                    .then(() => {
-                        this.password = '';
-                        this.passwordHidden = true;
-                        this.enteringPassword = false;
+                        this.generatingPassword = false;
+                        successNotification(this.$t('Successful'), this.$t('MQTT Broker password has been changed.'));
+                        return this.fetchSettings();
                     });
-            },
-            turnMqttBrokerOn() {
-                if (this.settings.hasPassword || !this.settings.integratedAuth) {
-                    this.enableMqttBrokerSupport();
-                } else {
-                    this.enteringPassword = true;
-                }
             },
             enableMqttBrokerSupport() {
                 this.fetching = true;
                 return this.$http.patch(`users/current`, {action: 'change:mqttBrokerEnabled', enabled: true})
+                    .then((response) => this.generatedPassword = response.headers.get('SUPLA-MQTT-Password'))
                     .then(() => successNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been enabled.')))
                     .finally(this.fetchSettings);
             },
@@ -174,10 +143,6 @@
                 return this.$http.patch(`users/current`, {action: 'change:mqttBrokerEnabled', enabled: false})
                     .then(() => infoNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been disabled.')))
                     .finally(this.fetchSettings);
-            },
-            generatePassword() {
-                this.password = generatePassword(16, true);
-                this.passwordHidden = false;
             },
         }
     };
