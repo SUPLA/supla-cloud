@@ -17,18 +17,21 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use DateTime;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityRepository;
+use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
-class ScheduleManagerTest extends \PHPUnit_Framework_TestCase {
+class ScheduleManagerTest extends PHPUnit_Framework_TestCase {
     private $doctrine;
     private $deviceManager;
-    /** @var CompositeSchedulePlanner|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var CompositeSchedulePlanner|PHPUnit_Framework_MockObject_MockObject */
     private $schedulePlanner;
     /** @var ScheduleManager */
     private $manager;
@@ -46,11 +49,11 @@ class ScheduleManagerTest extends \PHPUnit_Framework_TestCase {
     // https://github.com/SUPLA/supla-cloud/issues/82
     public function testDoNotCalculateForPastDates() {
         $schedule = new ScheduleWithTimezone('*/100');
-        $latestExecutionInThePast = new \DateTime('-5days');
+        $latestExecutionInThePast = new DateTime('-5days');
         $this->scheduledExecutionsRepository->method('findBy')->willReturn([new ScheduledExecution($schedule, $latestExecutionInThePast)]);
         $this->schedulePlanner->method('calculateNextRunDatesUntil')->willReturnArgument(2);
         $currentTimestamp = time();
-        $startDate = $this->manager->getNextRunDates($schedule);
+        $startDate = $this->manager->getNextScheduleExecutions($schedule);
         $this->assertGreaterThanOrEqual($currentTimestamp, $startDate->getTimestamp());
     }
 }

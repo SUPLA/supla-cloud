@@ -36,7 +36,7 @@ class SunriseSunsetSchedulePlannerTest extends PHPUnit_Framework_TestCase {
         $format = 'Y-m-d H:i';
         $startDate = DateTime::createFromFormat($format, $startDate, new DateTimeZone($timezone));
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
         $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
     }
 
@@ -86,9 +86,9 @@ class SunriseSunsetSchedulePlannerTest extends PHPUnit_Framework_TestCase {
         $schedule = new ScheduleWithTimezone('SS0 * * * *', 'Europe/Warsaw');
         $format = 'Y-m-d H:i';
         $startDate = DateTime::createFromFormat($format, '2017-04-23 15:00', new DateTimeZone('Europe/Warsaw'));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
         $this->assertEquals('2017-04-23 19:50', $nextRunDate->format($format));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $nextRunDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextRunDate);
         $this->assertEquals('2017-04-24 19:50', $nextRunDate->format($format));
     }
 
@@ -98,11 +98,11 @@ class SunriseSunsetSchedulePlannerTest extends PHPUnit_Framework_TestCase {
         $schedule = new ScheduleWithTimezone('SR0 * * * *', 'Europe/Warsaw');
         $format = 'Y-m-d H:i';
         $startDate = DateTime::createFromFormat($format, '2020-11-03 01:00', new DateTimeZone('Europe/Warsaw'));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
         $this->assertEquals('2020-11-03 06:35', $nextRunDate->format($format));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $nextRunDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextRunDate);
         $this->assertEquals('2020-11-04 06:35', $nextRunDate->format($format));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $nextRunDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextRunDate);
         $this->assertEquals('2020-11-05 06:40', $nextRunDate->format($format));
     }
 }

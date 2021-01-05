@@ -21,6 +21,7 @@ use Cron\CronExpression;
 use DateInterval;
 use DateTime;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\ScheduledExecution;
 
 class SunriseSunsetSchedulePlanner implements SchedulePlanner {
 
@@ -29,7 +30,7 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner {
     const MINIMUM_SECONDS_TO_NEXT_SUN = 360;
 
     /** @inheritdoc */
-    public function calculateNextRunDate(Schedule $schedule, DateTime $currentDate) {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
             $currentDate = $this->getNextDueDate($schedule, $currentDate);
             $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $currentDate);
@@ -47,7 +48,7 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner {
                     $nextRunDate->add(new DateInterval('P1D'));
                 }
             }
-            return $nextRunDate;
+            return new ScheduledExecution($schedule, $nextRunDate);
         });
     }
 

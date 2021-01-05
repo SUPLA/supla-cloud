@@ -17,10 +17,12 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use DateTime;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
-class IntervalSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
+class IntervalSchedulePlannerTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider calculatingNextRunDateProvider
      */
@@ -28,9 +30,9 @@ class IntervalSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
         $schedulePlanner = new IntervalSchedulePlanner();
         $schedule = new ScheduleWithTimezone($cronExpression, 'UTC');
         $format = 'Y-m-d H:i';
-        $startDate = \DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
+        $startDate = DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
         $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
     }
 

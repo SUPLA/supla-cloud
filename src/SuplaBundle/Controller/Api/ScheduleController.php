@@ -19,11 +19,13 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assert;
 use Assert\Assertion;
+use DateTime;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -181,8 +183,8 @@ class ScheduleController extends RestController {
         $schedule->fill($data);
         $errors = iterator_to_array($this->validator->validate($schedule));
         Assertion::count($errors, 0, implode(', ', $errors));
-        $nextRunDates = $this->scheduleManager->getNextRunDates($schedule, '+5days', 1, true);
-        Assertion::notEmpty($nextRunDates, 'Schedule cannot be enabled'); // i18n
+        $nextScheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($schedule, '+5days', 1, true);
+        Assertion::notEmpty($nextScheduleExecutions, 'Schedule cannot be enabled'); // i18n
         return $schedule;
     }
 
@@ -216,13 +218,26 @@ class ScheduleController extends RestController {
     /**
      * @Rest\Post("/schedules/next-run-dates")
      * @Security("has_role('ROLE_SCHEDULES_R')")
+     * @deprecated
      */
     public function getNextRunDatesAction(Request $request) {
         $data = $request->request->all();
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
-        $nextRunDates = $this->scheduleManager->getNextRunDates($temporarySchedule, '+7days', 3);
-        return $this->view(array_map(function ($dateTime) {
-            return $dateTime->format(\DateTime::ATOM);
+        $nextRunDates = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+7days', 3);
+        return $this->view(array_map(function (ScheduledExecution $execution) {
+            return $execution->getPlannedTimestamp()->format(DateTime::ATOM);
         }, $nextRunDates), Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Post("/schedules/next-schedule-executions")
+     * @Security("has_role('ROLE_SCHEDULES_R')")
+     * @deprecated
+     */
+    public function getNextScheduleExecutionsAction(Request $request) {
+        $data = $request->request->all();
+        $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
+        $scheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+7days', 3);
+        return $this->view($scheduleExecutions, Response::HTTP_OK);
     }
 }

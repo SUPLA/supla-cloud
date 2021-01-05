@@ -17,23 +17,28 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\ScheduledExecution;
 
 class IntervalSchedulePlanner implements SchedulePlanner {
 
     const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,3})( \*)*$#';
 
-    public function calculateNextRunDate(Schedule $schedule, \DateTime $currentDate) {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
         preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $schedule->getTimeExpression(), $matches);
         $intervalInMinutes = intval($matches[1]);
         $period = "PT{$intervalInMinutes}M";
         $nextRunDate = clone $currentDate;
         if ($nextRunDate->getTimezone()->getName() != 'UTC') {
             // switching to UTC before adding the interval mitigates problems with DST changes
-            $nextRunDate->setTimezone(new \DateTimeZone('UTC'));
+            $nextRunDate->setTimezone(new DateTimeZone('UTC'));
         }
-        $nextRunDate->add(new \DateInterval($period));
-        return CompositeSchedulePlanner::roundToClosest5Minutes($nextRunDate, $nextRunDate->getTimezone());
+        $nextRunDate->add(new DateInterval($period));
+        $nextRunDate = CompositeSchedulePlanner::roundToClosest5Minutes($nextRunDate, $nextRunDate->getTimezone());
+        return new ScheduledExecution($schedule, $nextRunDate);
     }
 
     public function canCalculateFor(Schedule $schedule) {

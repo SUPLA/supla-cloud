@@ -17,10 +17,12 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use DateTime;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 
-class CronExpressionSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
+class CronExpressionSchedulePlannerTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider calculatingNextRunDateProvider
      */
@@ -29,9 +31,9 @@ class CronExpressionSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
         $schedule = new Schedule();
         $schedule->setTimeExpression($cronExpression);
         $format = 'Y-m-d H:i';
-        $startDate = \DateTime::createFromFormat($format, $startDate);
+        $startDate = DateTime::createFromFormat($format, $startDate);
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
         $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
     }
 
@@ -67,7 +69,7 @@ class CronExpressionSchedulePlannerTest extends \PHPUnit_Framework_TestCase {
     public function testPreservingTimezone() {
         $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Australia/Sydney');
         $schedulePlanner = new CronExpressionSchedulePlanner();
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, new \DateTime('now', $schedule->getUserTimezone()));
+        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, new DateTime('now', $schedule->getUserTimezone()));
         $this->assertEquals($schedule->getUserTimezone(), $nextRunDate->getTimezone());
     }
 }
