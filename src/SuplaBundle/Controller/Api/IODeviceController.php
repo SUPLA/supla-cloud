@@ -219,6 +219,7 @@ class IODeviceController extends RestController {
             $ioDevice->setComment($updatedDevice->getComment());
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
+        $this->suplaServer->onDeviceSettingsChanged($ioDevice);
         $this->suplaServer->reconnect();
         return $result;
     }

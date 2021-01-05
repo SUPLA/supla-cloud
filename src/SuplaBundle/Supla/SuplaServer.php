@@ -108,6 +108,10 @@ abstract class SuplaServer {
         return $this->userAction('ALEXA-CREDENTIALS-CHANGED');
     }
 
+    public function onDeviceSettingsChanged(IODevice $device): bool {
+        return $this->userAction('ON-DEVICE-SETTINGS-CHANGED', [$device->getId()]);
+    }
+
     public function stateWebhookChanged(): bool {
         return $this->userAction('STATE-WEBHOOK-CHANGED');
     }

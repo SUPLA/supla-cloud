@@ -171,6 +171,7 @@ class ChannelController extends RestController {
             $channel->setCaption($updatedChannel->getCaption());
             $channel->setHidden($updatedChannel->getHidden());
             $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
+            /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
                 $updatedChannel,
                 $functionHasBeenChanged,
@@ -195,6 +196,7 @@ class ChannelController extends RestController {
                 $em->persist($channel);
                 return $channel;
             });
+            $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
             $this->suplaServer->reconnect();
             return $this->getChannelAction($request, $channel->clearRelationsCount());
         } else {
