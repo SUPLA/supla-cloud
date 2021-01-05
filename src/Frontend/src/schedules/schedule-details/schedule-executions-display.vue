@@ -59,17 +59,17 @@ NS
             margin-bottom: 5px;
         }
 
-        .past2 {
+        .past3 {
             opacity: .6;
             font-size: 0.8em;
         }
 
-        .past1 {
+        .past2 {
             opacity: .8;
             font-size: 0.9em;
         }
 
-        .past0 {
+        .past1 {
             opacity: .9;
             font-size: 1em;
         }
