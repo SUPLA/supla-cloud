@@ -86,6 +86,12 @@ abstract class IntegrationTestCase extends WebTestCase {
         }
     }
 
+    protected function initializeDatabaseWithMigrations() {
+        $this->executeCommand('doctrine:database:drop --force');
+        $this->executeCommand('doctrine:database:create --if-not-exists');
+        $this->executeCommand('supla:initialize');
+    }
+
     protected function initializeDatabaseForTests() {
     }
 

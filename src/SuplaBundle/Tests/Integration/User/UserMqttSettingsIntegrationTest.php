@@ -35,9 +35,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     private $user;
 
     protected function initializeDatabaseForTests() {
-        $this->executeCommand('doctrine:database:drop --force');
-        $this->executeCommand('doctrine:database:create --if-not-exists');
-        $this->executeCommand('supla:initialize');
+        $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
     }
 
@@ -132,4 +130,5 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $password = $response->headers->get('SUPLA-MQTT-password');
         $this->assertNotNull($password);
     }
+
 }

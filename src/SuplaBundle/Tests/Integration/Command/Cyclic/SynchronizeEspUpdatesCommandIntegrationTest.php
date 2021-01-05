@@ -28,9 +28,7 @@ class SynchronizeEspUpdatesCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
     protected function initializeDatabaseForTests() {
-        $this->executeCommand('doctrine:database:drop --force');
-        $this->executeCommand('doctrine:database:create --if-not-exists');
-        $this->executeCommand('doctrine:migrations:migrate');
+        $this->initializeDatabaseWithMigrations();
     }
 
     public function testAddingNewEspUpdates() {
