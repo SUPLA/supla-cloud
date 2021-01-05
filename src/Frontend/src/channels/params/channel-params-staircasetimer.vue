@@ -7,7 +7,7 @@
                     <input type="number"
                         step="0.5"
                         min="0.5"
-                        max="3600"
+                        max="7200"
                         class="form-control text-center"
                         v-model="param1">
                     <span class="input-group-addon">
