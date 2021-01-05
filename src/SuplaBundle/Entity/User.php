@@ -283,7 +283,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     private $mqttBrokerEnabled = false;
 
     /**
-     * @ORM\Column(name="mqtt_broker_auth_password", type="string", length=64, nullable=true)
+     * @ORM\Column(name="mqtt_broker_auth_password", type="string", length=128, nullable=true)
      */
     private $mqttBrokerAuthPassword;
 

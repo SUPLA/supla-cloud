@@ -40,12 +40,14 @@ use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\PasswordStrengthValidator;
+use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 class UserController extends RestController {
     use Transactional;
@@ -156,7 +158,8 @@ class UserController extends RestController {
             $this->mailer->sendDeleteAccountConfirmationEmailMessage($user);
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
-        $user = $this->transactional(function (EntityManagerInterface $em) use ($user, $data) {
+        $headers = [];
+        $user = $this->transactional(function (EntityManagerInterface $em) use ($user, $data, &$headers) {
             if ($data['action'] == 'change:clientsRegistrationEnabled') {
                 $enable = $data['enable'] ?? false;
                 if ($enable) {
@@ -201,10 +204,6 @@ class UserController extends RestController {
                 $this->assertNotApiUser();
                 Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
                 $enabled = boolval($data['enabled'] ?? false);
-                if ($enabled && $this->mqttAuthEnabled) {
-                    $msg = 'You must set the MQTT auth password before enabling MQTT Broker support.'; // i18n
-                    Assertion::true($user->hasMqttBrokerAuthPassword(), $msg);
-                }
                 $recentChange = $this->audit->recentEntry(AuditedEvent::MQTT_ENABLED_DISABLED());
                 $tooQuicklyMsg = 'You are changing the settings too quickly. You have to wait a while before making this change.'; // i18n
                 Assertion::null($recentChange, $tooQuicklyMsg);
@@ -213,32 +212,27 @@ class UserController extends RestController {
                     ->setIntParam($enabled ? 1 : 0)
                     ->buildAndSave();
                 $user->setMqttBrokerEnabled($enabled);
-                $this->suplaServer->mqttSettingsChanged();
-            } elseif ($data['action'] == 'change:mqttBrokerPassword') {
+                if ($enabled && $this->mqttAuthEnabled && !$user->hasMqttBrokerAuthPassword()) {
+                    $data['action'] = 'change:mqttBrokerPassword';
+                }
+            }
+            if ($data['action'] == 'change:mqttBrokerPassword') {
                 $this->assertNotApiUser();
                 Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
-                $password = $data['password'] ?? '';
-                PasswordStrengthValidator::create()
-                    ->requireLetters()
-                    ->requireNumbers()
-                    ->requireCaseDiff()
-                    ->requireSpecialCharacters()
-                    ->minLength(10)
-                    ->maxLength(32)
-                    ->validate($password);
-                $encoder = $this->encoderFactory->getEncoder($user);
-                Assertion::false(
-                    $encoder->isPasswordValid($user->getPassword(), $password, null),
-                    'Your MQTT Broker password must be different than your SUPLA Cloud password.' // i18n
-                );
-                $password = $encoder->encodePassword($password, null);
-                $user->setMqttBrokerAuthPassword($password);
-                $this->suplaServer->mqttSettingsChanged();
+                Assertion::true($user->isMqttBrokerEnabled(), 'You must enable MQTT Broker first.'); // i18n
+                $password = StringUtils::randomString(32);
+                $mqttEncoder = new MessageDigestPasswordEncoder('sha512', false, 1);
+                $encodedPassword = $mqttEncoder->encodePassword($password, null);
+                $user->setMqttBrokerAuthPassword($encodedPassword);
+                $headers['SUPLA-MQTT-Password'] = $password;
             }
             $em->persist($user);
             return $user;
         });
-        return $this->view($user, Response::HTTP_OK);
+        if (in_array($data['action'], ['change:mqttBrokerEnabled', 'change:mqttBrokerPassword'])) {
+            $this->suplaServer->mqttSettingsChanged();
+        }
+        return $this->view($user, Response::HTTP_OK, $headers);
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */

@@ -32,7 +32,10 @@ final class StringUtils {
     }
 
     /** https://stackoverflow.com/a/31284266/878514 */
-    public static function randomString(int $length, string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+    public static function randomString(
+        int $length,
+        string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-*@!()='
+    ) {
         $str = '';
         $max = mb_strlen($keyspace, '8bit') - 1;
         Assertion::greaterThan($max, 1, '$keyspace must be at least two characters long');
