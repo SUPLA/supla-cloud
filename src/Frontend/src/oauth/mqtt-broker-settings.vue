@@ -99,8 +99,10 @@
 
 <script>
     import {infoNotification, successNotification} from "../common/notifier";
+    import CopyButton from "../common/copy-button";
 
     export default {
+        components: {CopyButton},
         data() {
             return {
                 settings: undefined,
