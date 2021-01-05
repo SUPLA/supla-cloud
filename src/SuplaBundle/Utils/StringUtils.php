@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Utils;
 
+use Assert\Assertion;
+
 final class StringUtils {
     private function __construct() {
     }
@@ -27,5 +29,16 @@ final class StringUtils {
 
     public static function camelCaseToSnakeCase(string $string): string {
         return strtoupper(trim(preg_replace('#([A-Z])#', '_$1', $string), '_'));
+    }
+
+    /** https://stackoverflow.com/a/31284266/878514 */
+    public static function randomString(int $length, string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+        $str = '';
+        $max = mb_strlen($keyspace, '8bit') - 1;
+        Assertion::greaterThan($max, 1, '$keyspace must be at least two characters long');
+        for ($i = 0; $i < $length; ++$i) {
+            $str .= $keyspace[random_int(0, $max)];
+        }
+        return $str;
     }
 }
