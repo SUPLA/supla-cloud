@@ -229,6 +229,7 @@ class IODeviceController extends RestController {
      * @UnavailableInMaintenance
      */
     public function deleteIodeviceAction(IODevice $ioDevice) {
+	$id = $ioDevice->getId();
         $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
             $cannotDeleteMsg = 'Cannot delete this I/O Device right now.'; // i18n
             Assertion::true($this->suplaServer->userAction('BEFORE-DEVICE-DELETE', $ioDevice->getId()), $cannotDeleteMsg);
@@ -244,7 +245,7 @@ class IODeviceController extends RestController {
             $em->remove($ioDevice);
         });
         $this->suplaServer->reconnect();
-        $this->suplaServer->userAction('ON-DEVICE-DELETED');
+        $this->suplaServer->userAction('ON-DEVICE-DELETED', $id);
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 }
