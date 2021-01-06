@@ -27,7 +27,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 /** @small */
-class UserControllerIntegrationTest extends IntegrationTestCase {
+class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
@@ -130,5 +130,4 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $password = $response->headers->get('SUPLA-MQTT-password');
         $this->assertNotNull($password);
     }
-
 }
