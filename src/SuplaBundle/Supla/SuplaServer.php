@@ -66,27 +66,31 @@ abstract class SuplaServer {
         return $result;
     }
 
-    private function isConnected(int $userId, int $id, $what = 'iodev'): bool {
-        if ($userId == 0 || $id == 0) {
-            return false;
-        }
-        $what = $what == 'client' ? 'CLIENT' : 'IODEV';
-        $result = $this->executeCommand("IS-" . $what . "-CONNECTED:" . $userId . "," . $id);
-        return $result !== false && preg_match("/^CONNECTED:" . $id . "\n/", $result) === 1 ? true : false;
+    private function isConnected(string $what, int ...$args): bool {
+        $args = implode(',', $args);
+        $result = $this->executeCommand("IS-$what-CONNECTED:$args");
+        return $result !== false && preg_match("/^CONNECTED:\d+\n/", $result) === 1 ? true : false;
     }
 
     public function isClientAppConnected(ClientApp $clientApp): bool {
         if (!$clientApp->getEnabled()) {
             return false;
         }
-        return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
+        return $this->isConnected('CLIENT', $clientApp->getUser()->getId(), $clientApp->getId());
     }
 
     public function isDeviceConnected(IODevice $device) {
         if (!$device->getEnabled()) {
             return false;
         }
-        return $this->isConnected($device->getUser()->getId(), $device->getId());
+        return $this->isConnected('IODEV', $device->getUser()->getId(), $device->getId());
+    }
+
+    public function isChannelConnected(IODeviceChannel $channel) {
+        if (!$channel->getIoDevice()->getEnabled()) {
+            return false;
+        }
+        return $this->isConnected('CHANNEL', $channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
     }
 
     public function userAction($action, $params = [], User $user = null): bool {
