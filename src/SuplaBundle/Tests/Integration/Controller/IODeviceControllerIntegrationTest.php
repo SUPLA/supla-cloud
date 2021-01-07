@@ -236,7 +236,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingDevice */
     public function testNotifiesSuplaServerAboutIoDeviceDeletion() {
         $this->assertContains('USER-BEFORE-DEVICE-DELETE:1,1', SuplaServerMock::$executedCommands);
-        $this->assertContains('USER-ON-DEVICE-DELETED:1', SuplaServerMock::$executedCommands);
+        $this->assertContains('USER-ON-DEVICE-DELETED:1,1', SuplaServerMock::$executedCommands);
     }
 
     /** @large */
