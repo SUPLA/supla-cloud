@@ -23,8 +23,7 @@
                 <div class="separator"></div>
                 {{ model.caption }}
             </div>
-            <div class="square-link-label"
-                v-if="model.functionId != 0">
+            <div class="square-link-label">
                 <connection-status-label :model="model"></connection-status-label>
             </div>
         </router-link>
