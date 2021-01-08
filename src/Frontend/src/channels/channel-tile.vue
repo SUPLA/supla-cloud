@@ -25,8 +25,7 @@
             </div>
             <div class="square-link-label"
                 v-if="model.functionId != 0">
-                <device-connection-status-label v-if="model.iodevice"
-                    :device="model.iodevice"></device-connection-status-label>
+                <connection-status-label :model="model"></connection-status-label>
             </div>
         </router-link>
     </square-link>
@@ -34,11 +33,11 @@
 
 <script>
     import FunctionIcon from "./function-icon";
-    import DeviceConnectionStatusLabel from "../devices/list/device-connection-status-label.vue";
+    import ConnectionStatusLabel from "../devices/list/connection-status-label.vue";
 
     export default {
         props: ['model', 'noLink'],
-        components: {FunctionIcon, DeviceConnectionStatusLabel},
+        components: {FunctionIcon, ConnectionStatusLabel},
         computed: {
             linkSpec() {
                 return this.noLink ? {} : {name: 'channel', params: {id: this.model.id}};
