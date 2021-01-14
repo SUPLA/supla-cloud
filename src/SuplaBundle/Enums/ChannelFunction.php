@@ -109,6 +109,16 @@ final class ChannelFunction extends Enum {
     const VALVEOPENCLOSE = 500;
     const VALVEPERCENTAGE = 510;
 
+    /*
+     *
+     * DIGIGLASS_HORIZONTAL
+     * DIGIGLASS_VERTICAL
+     *
+     * Remember that the names are the same as here
+     * https://github.com/SUPLA/supla-core/blob/develop-v2.3/supla-server/src/mqtt/mqtt_channel_message_provider.cpp#L300
+     * Remove this comment after adding DIGIGLASS functions
+     * */
+
     private $unsupportedFunctionId;
 
     /** @Groups({"basic"}) */
