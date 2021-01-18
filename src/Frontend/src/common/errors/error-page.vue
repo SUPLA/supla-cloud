@@ -4,7 +4,23 @@
             <h1 class="nocapitalize">{{ $t(headerI18n) }}</h1>
             <i :class="icon"
                 style="font-size: 160px"></i>
-            <h5>{{ $t(messageI18n) }}</h5>
+            <div class="form-group">
+                <h5>{{ $t(messageI18n) }}</h5>
+            </div>
+            <div v-if="guruMeditation">
+                <button type="button"
+                    class="btn btn-link"
+                    @click="guruMeditationVisible = true"
+                    v-if="!guruMeditationVisible">
+                    Guru Meditation <i class="pe-7s-help1"></i>
+                </button>
+                <div class="well"
+                    style="max-width: 600px; margin: 0 auto"
+                    v-if="guruMeditationVisible">
+                    <h3 class="no-margin-top">{{ $t('Guru Meditation') }}</h3>
+                    <pre><code>{{ guruMeditation }}</code></pre>
+                </div>
+            </div>
             <slot></slot>
         </div>
     </div>
@@ -12,6 +28,11 @@
 
 <script>
     export default {
-        props: ['headerI18n', 'messageI18n', 'icon'],
+        props: ['headerI18n', 'messageI18n', 'icon', 'guruMeditation'],
+        data() {
+            return {
+                guruMeditationVisible: false
+            };
+        }
     };
 </script>
