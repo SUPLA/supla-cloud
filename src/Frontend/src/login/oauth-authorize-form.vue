@@ -37,7 +37,7 @@
 
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../oauth/oauth-scopes";
+    import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../integrations/oauth-scopes";
     import {cloneDeep} from "lodash";
 
     export default {
