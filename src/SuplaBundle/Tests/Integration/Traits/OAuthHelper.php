@@ -60,15 +60,16 @@ trait OAuthHelper {
     }
 
     protected function createAccessToken(ApiClient $client, User $user, $scope = null, $tokenCode = 'ABC'): AccessToken {
+        $authorization = $this->createApiClientAuthorization($client, $user, $scope);
         $token = new AccessToken();
         $token->setClient($client);
         $token->setUser($user);
         $token->setToken($tokenCode);
         $scope = $scope ? new OAuthScope($scope) : new OAuthScope(OAuthScope::getAllKnownScopes());
         $token->setScope($scope);
+        $token->setApiClientAuthorization($authorization);
         $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
-        $this->createApiClientAuthorization($client, $user, $scope);
         return $token;
     }
 }

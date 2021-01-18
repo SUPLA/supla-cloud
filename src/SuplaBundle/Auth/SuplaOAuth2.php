@@ -19,7 +19,6 @@ namespace SuplaBundle\Auth;
 use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
-use OAuth2\OAuth2AuthenticateException;
 use OAuth2\OAuth2ServerException;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
@@ -29,7 +28,6 @@ use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
-use Symfony\Component\HttpFoundation\Response;
 
 class SuplaOAuth2 extends OAuth2 {
     /** @var array */
@@ -74,9 +72,6 @@ class SuplaOAuth2 extends OAuth2 {
         $refreshTokenLifetime = null
     ) {
         $clientType = $client->getType()->getValue();
-        if (!in_array($clientType, [ApiClientType::WEBAPP, ApiClientType::CLIENT_APP])) {
-            $this->makeSureAuthorizationIsValid($client, $user, $scope);
-        }
         $accessTokenLifetime = $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']);
         $token = parent::createAccessToken(
             $client,
@@ -145,21 +140,5 @@ class SuplaOAuth2 extends OAuth2 {
 
     public function getStorage(): IOAuth2Storage {
         return $this->storage;
-    }
-
-    private function makeSureAuthorizationIsValid(ApiClient $client, User $user, $scope) {
-        $authorization = $this->apiClientAuthorizationRepository->findOneByUserAndApiClient($user, $client);
-        if (!$authorization) {
-            $tokenType = $this->getVariable(self::CONFIG_TOKEN_TYPE);
-            $realm = $this->getVariable(self::CONFIG_WWW_REALM);
-            throw new OAuth2AuthenticateException(
-                Response::HTTP_UNAUTHORIZED,
-                $tokenType,
-                $realm,
-                self::ERROR_INVALID_GRANT,
-                'User has revoked this application.',
-                $scope
-            );
-        }
     }
 }

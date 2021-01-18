@@ -261,6 +261,22 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createClient();
         $client->followRedirects();
         $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode('4XX', $client->getResponse());
+    }
+
+    public function testCannotAccessApiWithGivenTokenWhenAppIsUnauthorizedByUser() {
+        $this->makeOAuthAuthorizeRequest(['scope' => 'account_r']);
+        $response = $this->issueTokenBasedOnAuthCode();
+
+        $webapp = $this->createAuthenticatedClient();
+        $authorizationRepository = $this->getDoctrine()->getRepository(ApiClientAuthorization::class);
+        $authorization = $authorizationRepository->findOneByUserAndApiClient($this->user, $this->client);
+        $webapp->apiRequest('DELETE', '/api/oauth-authorized-clients/' . $authorization->getId());
+        $this->assertStatusCode(204, $webapp->getResponse());
+
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('GET', '/api/users/current');
         $this->assertStatusCode(401, $client->getResponse());
     }
 

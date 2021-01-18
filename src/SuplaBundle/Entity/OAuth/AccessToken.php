@@ -65,6 +65,12 @@ class AccessToken extends BaseAccessToken {
      */
     private $accessId;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\ApiClientAuthorization")
+     * @ORM\JoinColumn(name="api_client_authorization_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $apiClientAuthorization;
+
     /** @Groups({"basic"}) */
     public function getScope() {
         return parent::getScope();
@@ -102,5 +108,9 @@ class AccessToken extends BaseAccessToken {
     /** @return AccessID|null */
     public function getAccessId() {
         return $this->accessId;
+    }
+
+    public function setApiClientAuthorization(ApiClientAuthorization $apiClientAuthorization) {
+        $this->apiClientAuthorization = $apiClientAuthorization;
     }
 }

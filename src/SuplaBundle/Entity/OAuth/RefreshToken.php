@@ -46,7 +46,17 @@ class RefreshToken extends BaseRefreshToken {
      */
     protected $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\OAuth\ApiClientAuthorization")
+     * @ORM\JoinColumn(name="api_client_authorization_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $apiClientAuthorization;
+
     public function setScope($scope) {
         parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreKnown()->addImplicitScopes());
+    }
+
+    public function setApiClientAuthorization(ApiClientAuthorization $apiClientAuthorization) {
+        $this->apiClientAuthorization = $apiClientAuthorization;
     }
 }
