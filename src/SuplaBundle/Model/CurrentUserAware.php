@@ -18,8 +18,8 @@
 namespace SuplaBundle\Model;
 
 use Assert\Assertion;
+use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use OAuth2\Model\OAuth2AccessToken;
-use SuplaBundle\Auth\SuplaOAuthStorage;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
@@ -29,8 +29,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 trait CurrentUserAware {
     /** @var TokenStorageInterface */
     protected $tokenStorage;
-    /** @var SuplaOAuthStorage */
-    protected $oAuthStorage;
+    /** @var AccessTokenManagerInterface */
+    protected $accessTokenManager;
 
     /** @required */
     public function setTokenStorage(TokenStorageInterface $tokenStorage) {
@@ -38,8 +38,8 @@ trait CurrentUserAware {
     }
 
     /** @required */
-    public function setOAuthStorage(SuplaOAuthStorage $oAuthStorage) {
-        $this->oAuthStorage = $oAuthStorage;
+    public function setAccessTokenManager(AccessTokenManagerInterface $accessTokenManager) {
+        $this->accessTokenManager = $accessTokenManager;
     }
 
     /** @return User|null */
@@ -71,7 +71,7 @@ trait CurrentUserAware {
             return null;
         }
         /** @var AccessToken $accessToken */
-        $accessToken = $this->oAuthStorage->getAccessToken($token->getToken());
+        $accessToken = $this->accessTokenManager->findTokenByToken($token->getToken());
         return $accessToken ? $accessToken->getClient() : null;
     }
 }
