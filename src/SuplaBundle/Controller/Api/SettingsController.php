@@ -44,6 +44,7 @@ class SettingsController extends RestController {
         $userSettings = [
             'userEnabled' => $user->isMqttBrokerEnabled(),
             'hasPassword' => $user->hasMqttBrokerAuthPassword(),
+            'username' => $user->getShortUniqueId(),
         ];
         return $this->view(array_merge($parameters, $userSettings));
     }

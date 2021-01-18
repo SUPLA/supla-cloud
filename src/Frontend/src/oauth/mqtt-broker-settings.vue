@@ -64,7 +64,7 @@
                         <div v-if="settings.integratedAuth">
                             <div class="form-group">
                                 <input type="text"
-                                    v-model="$user.username"
+                                    v-model="settings.username"
                                     readonly>
                                 <label>{{ $t('MQTT Broker Username') }}</label>
                             </div>
