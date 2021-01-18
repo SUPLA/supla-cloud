@@ -28,6 +28,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/** @small */
 class ScheduleControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
@@ -67,5 +68,18 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('subject', $scheduleFromResponse);
         $this->assertArrayHasKey('subjectType', $scheduleFromResponse);
+    }
+
+    public function testGeneratingNextScheduleExecutions() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest(Request::METHOD_POST, '/api/schedules/next-schedule-executions', [
+            'channelId' => $this->device->getChannels()[0]->getId(),
+            'actionId' => ChannelFunctionAction::TURN_ON,
+            'mode' => ScheduleMode::ONCE,
+            'timeExpression' => '2 2 * * *',
+        ]);
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
+        $nextExecutions = json_decode($client->getResponse()->getContent());
+        $this->assertGreaterThan(1, count($nextExecutions));
     }
 }
