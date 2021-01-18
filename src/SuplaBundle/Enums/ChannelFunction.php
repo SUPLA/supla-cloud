@@ -65,6 +65,8 @@ use UnexpectedValueException;
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction VALVEOPENCLOSE()
  * @method static ChannelFunction VALVEPERCENTAGE()
+ * @method static ChannelFunction DIGIGLASS_VERTICAL()
+ * @method static ChannelFunction DIGIGLASS_HORIZONTAL()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -108,16 +110,8 @@ final class ChannelFunction extends Enum {
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const VALVEOPENCLOSE = 500;
     const VALVEPERCENTAGE = 510;
-
-    /*
-     *
-     * DIGIGLASS_HORIZONTAL
-     * DIGIGLASS_VERTICAL
-     *
-     * Remember that the names are the same as here
-     * https://github.com/SUPLA/supla-core/blob/develop-v2.3/supla-server/src/mqtt/mqtt_channel_message_provider.cpp#L300
-     * Remove this comment after adding DIGIGLASS functions
-     * */
+    const DIGIGLASS_VERTICAL = 800;
+    const DIGIGLASS_HORIZONTAL = 810;
 
     private $unsupportedFunctionId;
 
@@ -285,6 +279,8 @@ final class ChannelFunction extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
             self::VALVEPERCENTAGE => 'Valve', // i18n
+            self::DIGIGLASS_VERTICAL => 'Digi Glass Vertical', // i18n
+            self::DIGIGLASS_HORIZONTAL => 'Digi Glass Horizontal', // i18n
         ];
     }
 
@@ -343,6 +339,8 @@ final class ChannelFunction extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
             self::VALVEOPENCLOSE => ['opened', 'closed'],
             self::VALVEPERCENTAGE => ['opened', 'closed'],
+            self::DIGIGLASS_VERTICAL => ['revealed', 'shut'],
+            self::DIGIGLASS_HORIZONTAL => ['revealed', 'shut'],
         ];
     }
 

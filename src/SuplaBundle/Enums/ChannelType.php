@@ -55,6 +55,7 @@ use UnexpectedValueException;
  * @method static ChannelType VALVEOPENCLOSE();
  * @method static ChannelType VALVEPERCENTAGE();
  * @method static ChannelType BRIDGE()
+ * @method static ChannelType DIGIGLASS()
  */
 final class ChannelType extends Enum {
     const UNSUPPORTED = -1;
@@ -90,6 +91,7 @@ final class ChannelType extends Enum {
     const VALVEOPENCLOSE = 7000;
     const VALVEPERCENTAGE = 7010;
     const BRIDGE = 8000;
+    const DIGIGLASS = 12000;
 
     private $unsupportedTypeId;
 
@@ -128,6 +130,7 @@ final class ChannelType extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS,
             self::VALVEOPENCLOSE,
             self::VALVEPERCENTAGE,
+            self::DIGIGLASS,
         ];
     }
 
@@ -171,6 +174,7 @@ final class ChannelType extends Enum {
             self::VALVEOPENCLOSE => 'Valve', // i18n
             self::VALVEPERCENTAGE => 'Valve', // i18n
             self::BRIDGE => 'Bridge', // i18n
+            self::DIGIGLASS => 'Digi Glass', // i18n
         ];
     }
 
@@ -243,6 +247,7 @@ final class ChannelType extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
             self::VALVEOPENCLOSE => [ChannelFunction::VALVEOPENCLOSE()],
             self::VALVEPERCENTAGE => [ChannelFunction::VALVEPERCENTAGE()],
+            self::DIGIGLASS => [ChannelFunction::DIGIGLASS_VERTICAL(), ChannelFunction::DIGIGLASS_HORIZONTAL()],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
