@@ -22,6 +22,7 @@ use OAuth2\OAuth2;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\OAuth\AuthCode;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServerMock;
@@ -239,6 +240,28 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $refreshResponse = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('access_token', $refreshResponse);
+    }
+
+    public function testCannotRefreshTokenWhenAppIsUnauthorizedByUser() {
+        $this->makeOAuthAuthorizeRequest(['scope' => 'offline_access']);
+        $response = $this->issueTokenBasedOnAuthCode();
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'refresh_token' => $response['refresh_token'],
+        ];
+
+        $webapp = $this->createAuthenticatedClient();
+        $authorizationRepository = $this->getDoctrine()->getRepository(ApiClientAuthorization::class);
+        $authorization = $authorizationRepository->findOneByUserAndApiClient($this->user, $this->client);
+        $webapp->apiRequest('DELETE', '/api/oauth-authorized-clients/' . $authorization->getId());
+        $this->assertStatusCode(204, $webapp->getResponse());
+
+        $client = $this->createClient();
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(401, $client->getResponse());
     }
 
     public function testEnablingMqttWhenMqttBrokerScopeGiven() {
