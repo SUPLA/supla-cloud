@@ -62,7 +62,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
     /** @depends testEnablingMqttSupport */
     public function testCheckingPasswordWithProcedure(string $password) {
         $result = $this->getEntityManager()->getConnection()->executeQuery('CALL supla_mqtt_broker_auth(:username, :password);', [
-            'username' => $this->user->getUsername(),
+            'username' => $this->user->getShortUniqueId(),
             'password' => $password,
         ]);
         $this->assertTrue(!!$result->fetchColumn());
@@ -92,7 +92,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
     /** @depends testEnablingMqttSupport */
     public function testCheckingPasswordWithProcedureWhenMqttDisabled(string $password) {
         $result = $this->getEntityManager()->getConnection()->executeQuery('CALL supla_mqtt_broker_auth(:username, :password);', [
-            'username' => $this->user->getUsername(),
+            'username' => $this->user->getShortUniqueId(),
             'password' => $password,
         ]);
         $this->assertFalse(!!$result->fetchColumn());

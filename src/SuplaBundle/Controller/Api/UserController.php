@@ -40,14 +40,12 @@ use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\PasswordStrengthValidator;
-use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 class UserController extends RestController {
     use Transactional;
@@ -220,11 +218,9 @@ class UserController extends RestController {
                 $this->assertNotApiUser();
                 Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
                 Assertion::true($user->isMqttBrokerEnabled(), 'You must enable MQTT Broker first.'); // i18n
-                $password = StringUtils::randomString(32);
-                $mqttEncoder = new MessageDigestPasswordEncoder('sha512', false, 1);
-                $encodedPassword = $mqttEncoder->encodePassword($password, null);
+                list($rawPassword, $encodedPassword) = MqttSettingsController::generateMqttBrokerPassword();
                 $user->setMqttBrokerAuthPassword($encodedPassword);
-                $headers['SUPLA-MQTT-Password'] = $password;
+                $headers['SUPLA-MQTT-Password'] = $rawPassword;
             }
             $em->persist($user);
             return $user;

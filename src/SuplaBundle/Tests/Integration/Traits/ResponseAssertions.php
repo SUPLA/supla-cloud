@@ -31,8 +31,8 @@ trait ResponseAssertions {
         $fullStatusLine = $this->getResponseStatusLine($clientResponse);
         $message = ($message ? $message . PHP_EOL : '') . "Response status $actualStatus isn't %s: $fullStatusLine. Response content: \n"
             . str_replace('%', 'p', $clientResponse->getContent());
-        if (is_int($expectedStatus)) {
-            Assert::assertEquals($expectedStatus, $actualStatus, sprintf($message, $expectedStatus));
+        if (is_numeric($expectedStatus)) {
+            Assert::assertEquals(intval($expectedStatus), $actualStatus, sprintf($message, $expectedStatus));
         } elseif (is_array($expectedStatus)) {
             Assert::assertContains($actualStatus, $expectedStatus, sprintf($message, implode('|', $expectedStatus)));
         } elseif (preg_match('/^[1-5]xx$/i', $expectedStatus)) {
@@ -40,6 +40,8 @@ trait ResponseAssertions {
             Assert::assertEquals($firstDigit, floor($actualStatus / 100), sprintf($message, $expectedStatus));
         } elseif ($expectedStatus === false) {
             Assert::assertNotEquals('2', floor($actualStatus / 100), sprintf($message, 'non-successful'));
+        } else {
+            Assert::fail('Invalid $expectedStatus: ' . $expectedStatus);
         }
     }
 

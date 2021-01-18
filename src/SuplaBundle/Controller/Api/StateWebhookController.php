@@ -20,15 +20,10 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\OAuthServerBundle\Security\Authentication\Token\OaccessToken;
-use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Auth\SuplaOAuthStorage;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\StateWebhookRepository;
@@ -44,8 +39,6 @@ class StateWebhookController extends RestController {
 
     /** @var StateWebhookRepository */
     private $stateWebhookRepository;
-    /** @var OAuthStorage */
-    private $oAuthStorage;
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var TimeProvider */
@@ -56,14 +49,12 @@ class StateWebhookController extends RestController {
     public function __construct(
         StateWebhookRepository $stateWebhookRepository,
         TokenStorageInterface $tokenStorage,
-        SuplaOAuthStorage $oAuthStorage,
         EntityManagerInterface $entityManager,
         TimeProvider $timeProvider,
         bool $stateWebhooksForPublicAppsOnly
     ) {
         $this->stateWebhookRepository = $stateWebhookRepository;
         $this->tokenStorage = $tokenStorage;
-        $this->oAuthStorage = $oAuthStorage;
         $this->entityManager = $entityManager;
         $this->timeProvider = $timeProvider;
         $this->stateWebhooksForPublicAppsOnly = $stateWebhooksForPublicAppsOnly;
@@ -140,13 +131,5 @@ class StateWebhookController extends RestController {
         } else {
             throw new NotFoundHttpException();
         }
-    }
-
-    private function getCurrentApiClient(): ApiClient {
-        /** @var OaccessToken $token */
-        $token = $this->tokenStorage->getToken();
-        /** @var AccessToken $accessToken */
-        $accessToken = $this->oAuthStorage->getAccessToken($token->getToken());
-        return $accessToken->getClient();
     }
 }

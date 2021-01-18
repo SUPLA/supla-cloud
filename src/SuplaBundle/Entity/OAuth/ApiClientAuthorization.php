@@ -114,4 +114,8 @@ class ApiClientAuthorization {
     public function authorizeNewScope($scope) {
         $this->setScope((new OAuthScope($this->scope))->merge($scope));
     }
+
+    public function setMqttBrokerAuthPassword(string $mqttBrokerAuthPassword) {
+        $this->mqttBrokerAuthPassword = $mqttBrokerAuthPassword;
+    }
 }

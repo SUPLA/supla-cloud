@@ -53,6 +53,7 @@
                     ea: 'power',
                     access: 'moon',
                     webhook: 'call',
+                    broker: 'speaker',
                 }
             };
         },
