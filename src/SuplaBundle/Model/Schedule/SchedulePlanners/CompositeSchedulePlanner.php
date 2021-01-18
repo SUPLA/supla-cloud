@@ -31,11 +31,8 @@ class CompositeSchedulePlanner {
         $this->planners = $planners;
     }
 
-    public function calculateNextScheduleExecution(Schedule $schedule, $currentDate = 'now'): ScheduledExecution {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
-            if (!($currentDate instanceof DateTime)) {
-                $currentDate = new DateTime($currentDate, $schedule->getUserTimezone());
-            }
             foreach ($this->planners as $planner) {
                 if ($planner->canCalculateFor($schedule)) {
                     return $planner->calculateNextScheduleExecution($schedule, $currentDate);
@@ -56,24 +53,27 @@ class CompositeSchedulePlanner {
     public function calculateScheduleExecutionsUntil(Schedule $schedule, $until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX) {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $until, $currentDate, $maxCount) {
             $until = is_int($until) ? $until : strtotime($until) + 1; // +1 to make it inclusive
+            if (!($currentDate instanceof DateTime)) {
+                $currentDate = new DateTime($currentDate, $schedule->getUserTimezone());
+            }
             $scheduleExecutions = [];
-            $nextScheduleExecution = new ScheduledExecution($schedule, $currentDate);
+            $nextExecution = new ScheduledExecution($schedule, $currentDate);
             try {
                 do {
-                    $nextScheduleExecution = $this->calculateNextScheduleExecution($schedule, $nextScheduleExecution->getPlannedTimestamp());
-                    $scheduleExecutions[] = $nextScheduleExecution;
-                } while ($nextScheduleExecution->getPlannedTimestamp()->getTimestamp() < $until && count($scheduleExecutions) < $maxCount);
+                    $nextExecution = $this->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
+                    $scheduleExecutions[] = $nextExecution;
+                } while ($nextExecution->getPlannedTimestamp()->getTimestamp() < $until && count($scheduleExecutions) < $maxCount);
             } catch (\RuntimeException $e) {
                 // impossible cron expression
             }
-            if ($nextScheduleExecution->getPlannedTimestamp()->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {
-                $scheduleExecutions = array_map(function (ScheduledExecution $scheduleExecutionInDifferentTimezone) use ($schedule) {
-                    $fixedDateTime = $scheduleExecutionInDifferentTimezone->getPlannedTimestamp()->setTimezone($schedule->getUserTimezone());
+            if ($nextExecution->getPlannedTimestamp()->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {
+                $scheduleExecutions = array_map(function (ScheduledExecution $executionInDifferentTimezone) use ($schedule) {
+                    $fixedDateTime = $executionInDifferentTimezone->getPlannedTimestamp()->setTimezone($schedule->getUserTimezone());
                     return new ScheduledExecution(
                         $schedule,
                         $fixedDateTime,
-                        $scheduleExecutionInDifferentTimezone->getAction(),
-                        $scheduleExecutionInDifferentTimezone->getActionParam()
+                        $executionInDifferentTimezone->getAction(),
+                        $executionInDifferentTimezone->getActionParam()
                     );
                 }, $scheduleExecutions);
             }

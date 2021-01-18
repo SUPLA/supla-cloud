@@ -23,6 +23,7 @@ use Doctrine\ORM\EntityRepository;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
@@ -50,8 +51,9 @@ class ScheduleManagerTest extends PHPUnit_Framework_TestCase {
     public function testDoNotCalculateForPastDates() {
         $schedule = new ScheduleWithTimezone('*/100');
         $latestExecutionInThePast = new DateTime('-5days');
-        $this->scheduledExecutionsRepository->method('findBy')->willReturn([new ScheduledExecution($schedule, $latestExecutionInThePast)]);
-        $this->schedulePlanner->method('calculateNextRunDatesUntil')->willReturnArgument(2);
+        $execution = new ScheduledExecution($schedule, $latestExecutionInThePast, ChannelFunctionAction::CLOSE());
+        $this->scheduledExecutionsRepository->method('findBy')->willReturn([$execution]);
+        $this->schedulePlanner->method('calculateScheduleExecutionsUntil')->willReturnArgument(2);
         $currentTimestamp = time();
         $startDate = $this->manager->getNextScheduleExecutions($schedule);
         $this->assertGreaterThanOrEqual($currentTimestamp, $startDate->getTimestamp());

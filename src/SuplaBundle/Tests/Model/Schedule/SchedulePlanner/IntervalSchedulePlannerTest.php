@@ -30,10 +30,11 @@ class IntervalSchedulePlannerTest extends PHPUnit_Framework_TestCase {
         $schedulePlanner = new IntervalSchedulePlanner();
         $schedule = new ScheduleWithTimezone($cronExpression, 'UTC');
         $format = 'Y-m-d H:i';
+        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextRunDate = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
-        $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
+        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
     }
 
     public function calculatingNextRunDateProvider() {

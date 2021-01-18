@@ -17,15 +17,18 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use DateTime;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ScheduleWithTimezone extends Schedule {
     public function __construct($timeSpec = null, $timezone = 'Europe/Warsaw') {
         $user = new User();
         parent::__construct($user);
         $user->setTimezone($timezone);
-        $this->setDateStart(new \DateTime());
+        $this->setDateStart(new DateTime());
+        $this->setAction(ChannelFunctionAction::TURN_ON());
         if ($timeSpec) {
             $this->setTimeExpression($timeSpec);
         }
