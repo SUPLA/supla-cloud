@@ -18,6 +18,8 @@
 namespace SuplaBundle\Controller\Api;
 
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SettingsController extends RestController {
@@ -47,5 +49,24 @@ class SettingsController extends RestController {
             'username' => $user->getShortUniqueId(),
         ];
         return $this->view(array_merge($parameters, $userSettings));
+    }
+
+    /**
+     * @Post("/settings/mqtt-broker-credentials")
+     * @Security("has_role('ROLE_MQTT_BROKER')")
+     */
+    public function postMqttBrokerCredentialsAction() {
+        // TODO 409
+        // TODO
+        /*
+        {
+          "host": "beta-mqtt.cloud.supla.org",
+          "protocol": "mqtt",
+          "port": 8883,
+          "tls": true,
+          "username": "abcd",
+          "password": "$^&*("
+        }
+         */
     }
 }

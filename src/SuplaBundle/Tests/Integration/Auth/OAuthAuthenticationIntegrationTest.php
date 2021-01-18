@@ -24,6 +24,7 @@ use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\AuthCode;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -238,5 +239,18 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $refreshResponse = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('access_token', $refreshResponse);
+    }
+
+    public function testEnablingMqttWhenMqttBrokerScopeGiven() {
+        $this->assertFalse($this->user->isMqttBrokerEnabled());
+        $this->makeOAuthAuthorizeRequest(['scope' => 'mqtt_broker']);
+        $response = $this->issueTokenBasedOnAuthCode();
+        $this->assertArrayHasKey('access_token', $response);
+        $this->assertArrayNotHasKey('refresh_token', $response);
+        $this->assertArrayHasKey('scope', $response);
+        $this->assertEquals('mqtt_broker', $response['scope']);
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->assertTrue($this->user->isMqttBrokerEnabled());
+        $this->assertContains('USER-MQTT-SETTINGS-CHANGED:' . $this->user->getId(), SuplaServerMock::$executedCommands);
     }
 }

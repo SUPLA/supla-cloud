@@ -119,11 +119,22 @@ final class OAuthScope {
     }
 
     public static function getScopeForWebappToken(): self {
-        return (new self(self::getSupportedScopes()))->remove('offline_access')->remove('state_webhook');
+        return (new self(self::getSupportedScopes()))
+            ->remove('offline_access')
+            ->remove('state_webhook')
+            ->remove('mqtt_broker');
     }
 
     public static function getAllKnownScopes(): array {
-        $supportedScopes = ['restapi', 'offline_access', 'channels_ea', 'channelgroups_ea', 'channels_files', 'state_webhook'];
+        $supportedScopes = [
+            'restapi',
+            'offline_access',
+            'channels_ea',
+            'channelgroups_ea',
+            'channels_files',
+            'state_webhook',
+            'mqtt_broker',
+        ];
         foreach ([
                      'accessids',
                      'account',

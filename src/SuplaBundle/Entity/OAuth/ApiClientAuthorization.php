@@ -61,6 +61,11 @@ class ApiClientAuthorization {
     private $scope;
 
     /**
+     * @ORM\Column(name="mqtt_broker_auth_password", type="string", length=128, nullable=true)
+     */
+    private $mqttBrokerAuthPassword;
+
+    /**
      * @ORM\Column(name="authorization_date", type="utcdatetime")
      * @Groups({"basic"})
      */

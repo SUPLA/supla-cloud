@@ -658,13 +658,14 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         ];
     }
 
-    public function addApiClientAuthorization(ApiClient $apiClient, string $scope) {
+    public function addApiClientAuthorization(ApiClient $apiClient, string $scope): ApiClientAuthorization {
         $authorization = new ApiClientAuthorization();
         $authorization->setUser($this);
         $authorization->setApiClient($apiClient);
         $authorization->setScope($scope);
         $authorization->setAuthorizationDate(new DateTime());
         $this->apiClientAuthorizations->add($authorization);
+        return $authorization;
     }
 
     /** @return ApiClientAuthorization[] */
