@@ -65,20 +65,26 @@ class MqttSettingsController extends RestController {
         $client = $this->getCurrentApiClient();
         $authorization = $this->apiClientAuthorizationRepository->findOneByUserAndApiClient($user, $client);
         Assertion::notNull($authorization, 'Application is not authorized by the user.');
-        list($rawPassword, $encodedPassword) = self::generateMqttBrokerPassword(64);
-        $authorization->setMqttBrokerAuthPassword($encodedPassword);
-        $this->entityManager->persist($authorization);
-        $this->entityManager->flush();
-        $userSettings = [
-            'username' => $user->getShortUniqueId(),
-            'password' => $rawPassword,
-        ];
         $parameters = [
             'host' => 'supla.mqtt_broker.host',
             'protocol' => 'supla.mqtt_broker.protocol',
             'port' => 'supla.mqtt_broker.port',
             'tls' => 'supla.mqtt_broker.tls',
         ];
+        $userSettings = [];
+        if ($this->containerWithParameters->getParameter('supla.mqtt_broker.integrated_auth')) {
+            list($rawPassword, $encodedPassword) = self::generateMqttBrokerPassword(64);
+            $authorization->setMqttBrokerAuthPassword($encodedPassword);
+            $this->entityManager->persist($authorization);
+            $this->entityManager->flush();
+            $userSettings = [
+                'username' => $user->getShortUniqueId(),
+                'password' => $rawPassword,
+            ];
+        } else {
+            $parameters['username'] = 'supla.mqtt_broker.username';
+            $parameters['password'] = 'supla.mqtt_broker.password';
+        }
         $parameters = array_map([$this->containerWithParameters, 'getParameter'], $parameters);
         return $this->view(array_merge($parameters, $userSettings), 201);
     }
@@ -93,8 +99,10 @@ class MqttSettingsController extends RestController {
             'port' => 'supla.mqtt_broker.port',
             'tls' => 'supla.mqtt_broker.tls',
             'integratedAuth' => 'supla.mqtt_broker.integrated_auth',
+            'hasLocalCredentials' => 'supla.mqtt_broker.password',
         ];
         $parameters = array_map([$this->containerWithParameters, 'getParameter'], $parameters);
+        $parameters['hasLocalCredentials'] = !!$parameters['hasLocalCredentials'];
         $userSettings = [
             'userEnabled' => $user->isMqttBrokerEnabled(),
             'hasPassword' => $user->hasMqttBrokerAuthPassword(),

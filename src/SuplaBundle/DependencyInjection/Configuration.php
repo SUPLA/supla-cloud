@@ -109,7 +109,9 @@ class Configuration implements ConfigurationInterface {
                     ->scalarNode('protocol')->defaultValue('mqtt')->info('MQTT Broker protocol')->end()
                     ->scalarNode('port')->defaultValue(8883)->info('MQTT Broker port')->end()
                     ->booleanNode('tls')->defaultTrue()->info('Is TLS enabled?')->end()
-                    ->booleanNode('integrated_auth')->defaultFalse()->info('When true, the option to specify MQTT password is available.')->end()
+                    ->booleanNode('integrated_auth')->defaultFalse()->info('Use MQTT password generation mechanism in database (require SUPLA-enhanced MQTT Broker).')->end()
+                    ->scalarNode('username')->defaultNull()->info('Username for the MQTT Broker (if integrated_auth is off).')->end()
+                    ->scalarNode('password')->defaultNull()->info('Password for the MQTT Broker (if integrated_auth is off).')->end()
                 ->end()->end()
             ->end();
         // @formatter:on
