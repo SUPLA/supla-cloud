@@ -35,8 +35,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\DirectLinkRepository")
  * @ORM\Table(name="supla_direct_link")
  */
-class DirectLink {
+class DirectLink implements HasSubject {
     use BelongsToUser;
+    use HasSubjectTrait;
 
     const SLUG_LENGTH_MIN = 10;
     const SLUG_LENGTH_MAX = 16;
@@ -125,13 +126,7 @@ class DirectLink {
     private $disableHttpGet = false;
 
     public function __construct(HasFunction $subject) {
-        if ($subject instanceof IODeviceChannel) {
-            $this->channel = $subject;
-        } elseif ($subject instanceof IODeviceChannelGroup) {
-            $this->channelGroup = $subject;
-        } else {
-            throw new InvalidArgumentException('Invalid link subject given: ' . get_class($subject));
-        }
+        $this->initializeSubject($subject);
         $this->user = $subject->getUser();
         $this->setAllowedActions([]);
     }
@@ -153,11 +148,7 @@ class DirectLink {
      * @MaxDepth(1)
      */
     public function getSubject(): HasFunction {
-        return $this->channel ?: $this->channelGroup;
-    }
-
-    public function getSubjectType(): ActionableSubjectType {
-        return ActionableSubjectType::forEntity($this->getSubject());
+        return $this->getTheSubject();
     }
 
     public function getUser(): User {

@@ -35,8 +35,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     @ORM\Index(name="date_start_idx", columns={"date_start"})
  * })
  */
-class Schedule {
+class Schedule implements HasSubject {
     use BelongsToUser;
+    use HasSubjectTrait;
 
     /**
      * @ORM\Id
@@ -166,15 +167,7 @@ class Schedule {
 
     /** @param IODeviceChannel|IODeviceChannelGroup|null $subject */
     public function setSubject($subject) {
-        $this->channel = null;
-        $this->channelGroup = null;
-        if ($subject instanceof IODeviceChannel) {
-            $this->channel = $subject;
-        } elseif ($subject instanceof IODeviceChannelGroup) {
-            $this->channelGroup = $subject;
-        } elseif ($subject) {
-            Assertion::null($subject, 'Invalid subject for schedule given: ' . get_class($subject));
-        }
+        $this->initializeSubject($subject);
     }
 
     /**
@@ -182,7 +175,7 @@ class Schedule {
      * @MaxDepth(1)
      */
     public function getSubject(): HasFunction {
-        return $this->channel ?: $this->channelGroup;
+        return $this->getTheSubject();
     }
 
     /** Exists only for v2.2- compatibility (there was a "channel" serialization group before. */
@@ -192,10 +185,6 @@ class Schedule {
 
     public function isSubjectEnabled(): bool {
         return $this->getSubjectType() != ActionableSubjectType::CHANNEL() || $this->getSubject()->getIoDevice()->getEnabled();
-    }
-
-    public function getSubjectType(): ActionableSubjectType {
-        return ActionableSubjectType::forEntity($this->getSubject());
     }
 
     public function getAction(): ChannelFunctionAction {
