@@ -165,7 +165,8 @@ class OAuthController extends RestController {
             $data['name'],
             'Personal token name is required.' // i18n
         );
-        $scope = new OAuthScope($data['scope']);
+        $scope = (new OAuthScope($data['scope']))->removeNonWebappScopes();
+        Assertion::false($scope->isEmpty(), 'You have to choose at least one scope.'); // i18n
         $token = $this->transactional(function (EntityManagerInterface $entityManager) use ($data, $scope) {
             $token = $this->oauthServer->createPersonalAccessToken($this->getUser(), $data['name'], $scope);
             $entityManager->persist($token);

@@ -43,7 +43,7 @@
     export default {
         data() {
             return {
-                availableScopes: availableScopes.filter(scope => scope.prefix != 'offline'),
+                availableScopes: availableScopes.filter(scope => !['offline', 'mqtt', 'state'].includes(scope.prefix)),
                 scopeSuffixLabels,
                 selectedScopes: {},
                 token: {

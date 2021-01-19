@@ -114,15 +114,23 @@ final class OAuthScope {
         return array_values(array_filter(explode(self::SCOPE_DELIMITER, $scope)));
     }
 
+    public function removeNonWebappScopes(): self {
+        return $this
+            ->remove('offline_access')
+            ->remove('state_webhook')
+            ->remove('mqtt_broker');
+    }
+
+    public function isEmpty(): bool {
+        return empty($this->scopes);
+    }
+
     public static function getSupportedScopes(): array {
         return array_diff(self::getAllKnownScopes(), ['restapi']);
     }
 
     public static function getScopeForWebappToken(): self {
-        return (new self(self::getSupportedScopes()))
-            ->remove('offline_access')
-            ->remove('state_webhook')
-            ->remove('mqtt_broker');
+        return (new self(self::getSupportedScopes()))->removeNonWebappScopes();
     }
 
     public static function getAllKnownScopes(): array {

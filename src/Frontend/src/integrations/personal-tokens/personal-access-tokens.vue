@@ -36,8 +36,10 @@
         </div>
         <div class="alert alert-info"
             v-if="latestToken">
-            <div class="form-group">A new personal access token has been generated.
-                <strong>Make sure to copy it now because you won’t be able to see it again!</strong></div>
+            <div class="form-group">
+                {{ $t('A new personal access token has been generated.') }}
+                <strong>{{ $t('Make sure to copy it now because you won’t be able to see it again!') }}</strong>
+            </div>
             <pre><code>{{ latestToken.token }}</code></pre>
             <copy-button :text="latestToken.token"></copy-button>
         </div>
