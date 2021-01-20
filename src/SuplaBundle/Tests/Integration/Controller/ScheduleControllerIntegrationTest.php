@@ -74,12 +74,14 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/api/schedules/next-schedule-executions', [
             'channelId' => $this->device->getChannels()[0]->getId(),
-            'actionId' => ChannelFunctionAction::TURN_ON,
+            'actionId' => ChannelFunctionAction::TURN_OFF,
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
         ]);
         $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
-        $nextExecutions = json_decode($client->getResponse()->getContent());
+        $nextExecutions = json_decode($client->getResponse()->getContent(), true);
         $this->assertGreaterThan(1, count($nextExecutions));
+        $firstExecution = $nextExecutions[0];
+        $this->assertEquals(ChannelFunctionAction::TURN_OFF, $firstExecution['actionId']);
     }
 }
