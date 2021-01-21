@@ -30,6 +30,8 @@
     import ChannelParamsGasmeter from "./channel-params-gas-meter";
     import ChannelParamsWatermeter from "./channel-params-water-meter";
     import ChannelParamsHeatmeter from "./channel-params-heat-meter";
+    import ChannelParamsDigiglassVertical from "./channel-params-smartglass";
+    import ChannelParamsDigiglassHorizontal from "./channel-params-smartglass";
 
     export default {
         props: ['channel'],
@@ -58,6 +60,8 @@
             ChannelParamsGasmeter,
             ChannelParamsWatermeter,
             ChannelParamsHeatmeter,
+            ChannelParamsDigiglassVertical,
+            ChannelParamsDigiglassHorizontal,
         },
         computed: {
             additionalChannelParamsComponent() {
