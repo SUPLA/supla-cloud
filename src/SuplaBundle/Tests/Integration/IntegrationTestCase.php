@@ -53,6 +53,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->application = new Application($kernel);
         $this->application->setAutoExit(false);
         if (!defined('INTEGRATION_TESTS_BOOTSTRAPPED')) {
+            ini_set('memory_limit', '512M');
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
             $this->executeCommand('doctrine:database:create --if-not-exists');
         }
