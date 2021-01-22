@@ -69,7 +69,6 @@
     import HueColorpicker from "./hue-colorpicker.vue";
 
     export default {
-        name: 'rgbw-parameters-setter',
         components: {HueColorpicker},
         props: ['channelFunction', 'value'],
         data() {

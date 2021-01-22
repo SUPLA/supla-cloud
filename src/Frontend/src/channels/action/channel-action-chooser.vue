@@ -33,6 +33,13 @@
                             :channel-function="subject.function"></rgbw-parameters-setter>
                     </div>
                 </transition-expand>
+                <transition-expand>
+                    <div v-if="possibleAction.id == 2000 && action.id == possibleAction.id">
+                        <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
+                            v-model="action.param"
+                            :subject="subject"></digiglass-parameters-setter>
+                    </div>
+                </transition-expand>
             </div>
         </div>
     </div>
@@ -43,9 +50,10 @@
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage";
     import RgbwParametersSetter from "./rgbw-parameters-setter";
     import Vue from "vue";
+    import DigiglassParametersSetter from "./digiglass-parameters-setter";
 
     export default {
-        components: {RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
+        components: {DigiglassParametersSetter, RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
         props: ['subject', 'value', 'possibleActionFilter'],
         data() {
             return {

@@ -53,4 +53,21 @@
 
     }
   }
+  &.small {
+    margin: 0;
+    padding: 0;
+    &, label {
+      height: 15px;
+    }
+    .checkmark {
+      height: 15px;
+      width: 15px;
+      &:after {
+        left: 3px;
+        top: 0;
+        border-width: 0 2px 2px 0;
+        width: 7px;
+      }
+    }
+  }
 }
