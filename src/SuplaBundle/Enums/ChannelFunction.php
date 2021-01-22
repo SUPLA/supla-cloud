@@ -233,6 +233,13 @@ final class ChannelFunction extends Enum {
 //                ChannelFunctionAction::OPEN_PARTIALLY(),
             ],
 
+            self::DIGIGLASS_HORIZONTAL => [
+                ChannelFunctionAction::SET(),
+            ],
+
+            self::DIGIGLASS_VERTICAL => [
+                ChannelFunctionAction::SET(),
+            ],
         ];
     }
 

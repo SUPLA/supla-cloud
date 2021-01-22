@@ -24,6 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @method static ChannelFunctionAction READ()
+ * @method static ChannelFunctionAction SET()
  * @method static ChannelFunctionAction OPEN()
  * @method static ChannelFunctionAction CLOSE()
  * @method static ChannelFunctionAction SHUT()
@@ -39,6 +40,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 final class ChannelFunctionAction extends Enum {
     const READ = 1000;
+    const SET = 2000;
     const OPEN = 10;
     const CLOSE = 20;
     const SHUT = 30;
@@ -75,6 +77,7 @@ final class ChannelFunctionAction extends Enum {
     public static function captions(): array {
         return [
             self::READ => 'Read', // i18n
+            self::SET => 'Adjust parameters', // i18n
             self::OPEN => 'Open', // i18n
             self::CLOSE => 'Close', // i18n
             self::SHUT => 'Shut', // i18n
