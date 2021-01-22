@@ -22,13 +22,16 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::isInstanceOf($subject, IODeviceChannel::class, 'SET DIGIGLASS action can be executed on channels only.');
-        $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque']));
+        $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque', 'mask']));
         Assertion::count(
             $validParameters,
             count($actionParams),
             'Invalid action parameters'
         );
         Assertion::greaterThan(count($validParameters), 0, 'You must set sections with transparent or opaque parameters or both.'); // i18n
+        if (isset($validParameters['mask'])) {
+            return ['mask' => $validParameters['mask']];
+        }
         $validParameters = array_merge(['transparent' => [], 'opaque' => []], $validParameters);
         if (!is_array($validParameters['transparent'])) {
             $validParameters['transparent'] = array_map('trim', explode(',', $validParameters['transparent']));
@@ -44,6 +47,9 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
     public function execute(HasFunction $subject, array $actionParams = []) {
         /** @var IODeviceChannel $subject */
         $state = SmartGlassState::channel($subject);
+        if (isset($actionParams['mask'])) {
+            $state->setMask($actionParams['mask']);
+        }
         if (isset($actionParams['transparent'])) {
             $state->setTransparent($actionParams['transparent']);
         }

@@ -31,6 +31,7 @@ use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\HttpFoundation\Response;
 
+/** @small  */
 class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
@@ -119,7 +120,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('relationsCount', $content['subject']);
     }
 
-    /** @small */
     public function testCannotCreateDirectLinkWithActionNotSupportedInChannel() {
         $response = $this->createDirectLink(['allowedActions' => ['open']]);
         $this->assertStatusCode(400, $response);
@@ -343,8 +343,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         return $content;
     }
 
-    public function testExecutingDirectLinkForChannelGroup() {
-        $directLink = $this->testCreatingDirectLinkForChannelGroup();
+    /** @depends testCreatingDirectLinkForChannelGroup */
+    public function testExecutingDirectLinkForChannelGroup(array $directLink) {
         $client = $this->createClient();
         $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/turn-on");
@@ -471,7 +471,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('SET-DIGIGLASS-VALUE:1,1,6,1,1', $commands);
     }
 
-    public function testExecutingDirectLinkWithDifferentFormat() {
+    public function testExecutingDirectLinkToDigiglassWithDifferentFormat() {
         $response = $this->createDirectLink([
             'subjectId' => $this->device->getChannels()[5]->getId(),
             'allowedActions' => ['read', 'set'],
@@ -484,5 +484,24 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('SET-DIGIGLASS-VALUE:1,1,6,7,1', $commands);
+    }
+
+    public function testExecutingDirectLinkToDigiglassRead() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[5]->getId(),
+            'allowedActions' => ['read', 'set'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'application/json']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('transparent', $content);
+        $this->assertArrayHasKey('opaque', $content);
+        $this->assertArrayHasKey('mask', $content);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('GET-DIGIGLASS-VALUE:1,1,6', $commands);
     }
 }

@@ -44,6 +44,8 @@ class SetDigiglassParametersActionExecutorTest extends PHPUnit_Framework_TestCas
             [['transparent' => [0, 2], 'opaque' => [1, 3]], 'SET-DIGIGLASS-VALUE:222,333,111,15,5'],
             [['transparent' => '0, 2', 'opaque' => '1,3'], 'SET-DIGIGLASS-VALUE:222,333,111,15,5'],
             [['transparent' => [5], 'opaque' => [1, 2]], 'SET-DIGIGLASS-VALUE:222,333,111,38,32'],
+            [['mask' => 0], 'SET-DIGIGLASS-VALUE:222,333,111,127,0'],
+            [['mask' => 16, 'transparent' => 1], 'SET-DIGIGLASS-VALUE:222,333,111,127,16'],
         ];
     }
 
