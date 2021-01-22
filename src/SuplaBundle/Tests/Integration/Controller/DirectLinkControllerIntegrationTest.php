@@ -51,6 +51,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
+            [ChannelType::DIGIGLASS, ChannelFunction::DIGIGLASS_HORIZONTAL],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],
@@ -453,5 +454,35 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/open");
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
+    }
+
+    public function testExecutingDirectLinkToDigiglass() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[5]->getId(),
+            'allowedActions' => ['read', 'set'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set?transparent[]=0");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-DIGIGLASS-VALUE:1,1,6,1,1', $commands);
+    }
+
+    public function testExecutingDirectLinkWithDifferentFormat() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[5]->getId(),
+            'allowedActions' => ['read', 'set'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set?transparent=0&opaque=1,2");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('SET-DIGIGLASS-VALUE:1,1,6,7,1', $commands);
     }
 }

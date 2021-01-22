@@ -27,17 +27,22 @@ class SetDigiglassParametersActionExecutorTest extends PHPUnit_Framework_TestCas
         $channel->method('getIoDevice')->willReturn($this->createEntityMock(IODevice::class, 333));
         $channel->method('getType')->willReturn(ChannelType::DIGIGLASS());
         $channel->method('getParam1')->willReturn(7);
+        $actionParams = $executor->validateActionParams($channel, $actionParams);
         $executor->execute($channel, $actionParams);
     }
 
     public function expectedServerCommandsProvider() {
         return [
             [['transparent' => [0]], 'SET-DIGIGLASS-VALUE:222,333,111,1,1'],
+            [['transparent' => 0], 'SET-DIGIGLASS-VALUE:222,333,111,1,1'],
+            [['transparent' => '0'], 'SET-DIGIGLASS-VALUE:222,333,111,1,1'],
+            [['transparent' => '0,1'], 'SET-DIGIGLASS-VALUE:222,333,111,3,3'],
             [['transparent' => [1]], 'SET-DIGIGLASS-VALUE:222,333,111,2,2'],
             [['opaque' => [0]], 'SET-DIGIGLASS-VALUE:222,333,111,1,0'],
             [['transparent' => [0], 'opaque' => [1]], 'SET-DIGIGLASS-VALUE:222,333,111,3,1'],
             [['transparent' => [1], 'opaque' => [1]], 'SET-DIGIGLASS-VALUE:222,333,111,2,0'],
             [['transparent' => [0, 2], 'opaque' => [1, 3]], 'SET-DIGIGLASS-VALUE:222,333,111,15,5'],
+            [['transparent' => '0, 2', 'opaque' => '1,3'], 'SET-DIGIGLASS-VALUE:222,333,111,15,5'],
             [['transparent' => [5], 'opaque' => [1, 2]], 'SET-DIGIGLASS-VALUE:222,333,111,38,32'],
         ];
     }

@@ -29,6 +29,15 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
             'Invalid action parameters'
         );
         Assertion::greaterThan(count($validParameters), 0, 'You must set sections with transparent or opaque parameters or both.'); // i18n
+        $validParameters = array_merge(['transparent' => [], 'opaque' => []], $validParameters);
+        if (!is_array($validParameters['transparent'])) {
+            $validParameters['transparent'] = array_map('trim', explode(',', $validParameters['transparent']));
+        }
+        if (!is_array($validParameters['opaque'])) {
+            $validParameters['opaque'] = array_map('trim', explode(',', $validParameters['opaque']));
+        }
+        $validParameters['transparent'] = array_map('intval', array_filter($validParameters['transparent'], 'is_numeric'));
+        $validParameters['opaque'] = array_map('intval', array_filter($validParameters['opaque'], 'is_numeric'));
         return $validParameters;
     }
 

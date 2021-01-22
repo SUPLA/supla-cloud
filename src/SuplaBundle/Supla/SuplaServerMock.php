@@ -71,7 +71,7 @@ class SuplaServerMock extends SuplaServer {
             return "CONNECTED:$match[3]\n";
         } elseif (preg_match('#^USER.+:(\d+).+$#', $cmd, $match)) {
             return "OK:$match[1]\n";
-        } elseif (preg_match('#^SET-(CG-)?(CHAR|RGBW|RAND-RGBW)-VALUE:.+$#', $cmd, $match)) {
+        } elseif (preg_match('#^SET-(CG-)?(CHAR|RGBW|RAND-RGBW|DIGIGLASS)-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^GET-(CHAR)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1);
