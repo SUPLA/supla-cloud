@@ -44,6 +44,11 @@ final class Manufacturer extends Enum {
     const ITEAD = 6;
     const VL = 7;
     const HPOL = 8;
+    const FAKRO = 9;
+    const PEVEKO = 10;
+    const WEKTA = 11;
+    const STA_SYSTEM = 12;
+    const DGF = 13;
 
     public function __construct($value) {
         $value = $value && $this->isValid($value) ? $value : 0;
@@ -76,6 +81,11 @@ final class Manufacturer extends Enum {
             self::ITEAD => 'ITEAD INTELLIGENT SYSTEMS CO., LTD',
             self::VL => 'VL',
             self::HPOL => 'HP',
+            self::FAKRO => 'FAKRO',
+            self::PEVEKO => 'PEVEKO',
+            self::WEKTA => 'WEKTA',
+            self::STA_SYSTEM => 'STA SYSTEM',
+            self::DGF => 'DIGI GLASS FACTORY',
         ];
     }
 
