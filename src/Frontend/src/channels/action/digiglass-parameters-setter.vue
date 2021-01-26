@@ -17,6 +17,16 @@
                 <div :class="['digiglass-section', {'digiglass-section-transparent': state[sectionNumber], 'digiglass-section-opaque': state[sectionNumber] === false}]"
                     v-for="sectionNumber in 7"
                     :key="sectionNumber">
+                    <div class="digiglass-glass"
+                        @click="toggleSection(sectionNumber)"></div>
+                    <div class="digiglass-icon">
+                        <img :src="'/assets/img/smartglass/transparent.png' | withBaseUrl"
+                            class="transparent-image"
+                            @click="toggleSection(sectionNumber)">
+                        <img :src="'/assets/img/smartglass/opaque.png' | withBaseUrl"
+                            class="opaque-image"
+                            @click="toggleSection(sectionNumber)">
+                    </div>
                     <div class="checkbox checkbox-green small">
                         <label>
                             <input type="checkbox"
@@ -25,14 +35,6 @@
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    <img :src="'/assets/img/smartglass/transparent.png' | withBaseUrl"
-                        class="transparent-image"
-                        @click="toggleSection(sectionNumber)">
-                    <img :src="'/assets/img/smartglass/opaque.png' | withBaseUrl"
-                        class="opaque-image"
-                        @click="toggleSection(sectionNumber)">
-                    <div class="digiglass-glass"
-                        @click="toggleSection(sectionNumber)"></div>
                 </div>
             </div>
         </div>
@@ -106,25 +108,31 @@
                 display: flex;
                 align-items: center;
                 img {
-                    height: 20px;
-                    margin: 0 10px;
+                    height: 100%;
                     display: none;
                 }
                 .digiglass-glass {
                     transition: .2s linear background-color;
                 }
+                .digiglass-icon {
+                    width: 20px;
+                    height: 20px;
+                }
                 &:not(.digiglass-section-opaque):not(.digiglass-section-transparent):hover {
-                    /*.digiglass-glass {*/
                     background: rgba(#ccc, .5);
-                    /*}*/
+                }
+                &.digiglass-section-opaque, &.digiglass-section-transparent {
+                    .digiglass-glass {
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2r9//38gYGAEESAAEGAAasgJOgzOKCoAAAAASUVORK5CYII=);
+                    }
                 }
                 &.digiglass-section-opaque {
                     .digiglass-glass {
-                        background: rgba(#4eb8e6, .9);
+                        background-color: rgba(#4eb8e6, .9);
                     }
                     &:hover {
                         .digiglass-glass {
-                            background: rgba(#4eb8e6, .99);
+                            background-color: rgba(#4eb8e6, .99);
                         }
                     }
                     img.opaque-image {
@@ -133,11 +141,11 @@
                 }
                 &.digiglass-section-transparent {
                     .digiglass-glass {
-                        background: rgba(#4eb8e6, .2);
+                        background-color: rgba(#4eb8e6, .2);
                     }
                     &:hover {
                         .digiglass-glass {
-                            background: rgba(#4eb8e6, .4);
+                            background-color: rgba(#4eb8e6, .4);
                         }
                     }
                     img.transparent-image {
@@ -153,7 +161,10 @@
                 flex-direction: column;
             }
             .digiglass-section {
-                flex-direction: row-reverse;
+                flex-direction: row;
+                .digiglass-icon {
+                    margin: 0 10px;
+                }
                 .digiglass-glass {
                     height: 100%;
                     width: $sizeSmaller;
@@ -164,7 +175,10 @@
             height: $sizeBigger;
             width: $sizeSmaller;
             .digiglass-section {
-                flex-direction: column-reverse;
+                flex-direction: column;
+                .digiglass-icon {
+                    margin: 10px 0;
+                }
                 .digiglass-glass {
                     width: 100%;
                     height: $sizeSmaller;
