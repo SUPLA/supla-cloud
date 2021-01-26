@@ -3,27 +3,27 @@
         <div class="digiglass-parameters-setter-global-btns btn-group">
             <a class="btn btn-link"
                 @click="setAll(true)">
-                <img :src="'/assets/img/smartglass/transparent.png' | withBaseUrl">
+                <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl">
             </a>
             <a class="btn btn-link"
                 @click="setAll(false)">
-                <img :src="'/assets/img/smartglass/opaque.png' | withBaseUrl">
+                <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl">
             </a>
         </div>
         <div :class="'digiglass-parameters-setter digiglass-' + (subject.function.name.indexOf('HORIZONTAL') > 0 ? 'horizontal' : 'vertical')">
             <img class="digiglass-bg"
-                :src="'/assets/img/smartglass/window.svg' | withBaseUrl">
+                :src="'/assets/img/digiglass/window.svg' | withBaseUrl">
             <div class="digiglass-sections">
                 <div :class="['digiglass-section', {'digiglass-section-transparent': state[sectionNumber], 'digiglass-section-opaque': state[sectionNumber] === false}]"
-                    v-for="sectionNumber in 7"
+                    v-for="sectionNumber in numberOfSections"
                     :key="sectionNumber">
                     <div class="digiglass-glass"
                         @click="toggleSection(sectionNumber)"></div>
                     <div class="digiglass-icon">
-                        <img :src="'/assets/img/smartglass/transparent.png' | withBaseUrl"
+                        <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl"
                             class="transparent-image"
                             @click="toggleSection(sectionNumber)">
-                        <img :src="'/assets/img/smartglass/opaque.png' | withBaseUrl"
+                        <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl"
                             class="opaque-image"
                             @click="toggleSection(sectionNumber)">
                     </div>
@@ -46,7 +46,7 @@
         props: ['subject', 'value'],
         data() {
             return {
-                state: Array(7),
+                state: [...Array(7)],
             };
         },
         mounted() {

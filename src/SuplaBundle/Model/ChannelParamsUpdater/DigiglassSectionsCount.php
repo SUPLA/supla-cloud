@@ -3,7 +3,7 @@ namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
 
-class SmartGlassSectionsCount extends RangeParamsUpdater {
+class DigiglassSectionsCount extends RangeParamsUpdater {
     const MAX_SECTIONS = 7;
 
     public function __construct() {

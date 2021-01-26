@@ -21,7 +21,7 @@ use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 
-class SmartGlassState {
+class DigiglassState {
     /** @var int */
     private $sectionsQuantity;
     /** @var int */

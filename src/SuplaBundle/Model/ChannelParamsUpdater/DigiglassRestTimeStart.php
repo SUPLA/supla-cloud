@@ -3,7 +3,7 @@ namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
 
-class SmartGlassRestTimeStart extends RangeParamsUpdater {
+class DigiglassRestTimeStart extends RangeParamsUpdater {
     const MINUTES_IN_DAY = 1440;
 
     public function __construct() {

@@ -6,7 +6,7 @@ use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelStateGetter\SmartGlassState;
+use SuplaBundle\Model\ChannelStateGetter\DigiglassState;
 
 class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
@@ -46,7 +46,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
 
     public function execute(HasFunction $subject, array $actionParams = []) {
         /** @var IODeviceChannel $subject */
-        $state = SmartGlassState::channel($subject);
+        $state = DigiglassState::channel($subject);
         if (isset($actionParams['mask'])) {
             $state->setMask($actionParams['mask']);
         }

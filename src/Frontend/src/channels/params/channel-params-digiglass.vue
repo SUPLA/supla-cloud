@@ -31,7 +31,7 @@
         computed: {
             sections: {
                 set(value) {
-                    this.channel.param1 = value;
+                    this.channel.param1 = +value;
                     this.$emit('change');
                 },
                 get() {
