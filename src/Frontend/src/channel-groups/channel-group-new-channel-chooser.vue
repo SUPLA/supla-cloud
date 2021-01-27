@@ -32,6 +32,7 @@
                                 v-model="newChannel"
                                 @update="channelsToChoose = $event"
                                 hide-none="true"
+                                :filter="filterOutChannelsNotForChannelGroup"
                                 :hidden-channels="channelGroup.channels">
                             </channels-dropdown>
                         </div>
@@ -75,7 +76,10 @@
                     this.$emit('add', this.newChannel);
                     this.newChannel = undefined;
                 }
-            }
+            },
+            filterOutChannelsNotForChannelGroup(channel) {
+                return !['DIGIGLASS_VERTICAL', 'DIGIGLASS_HORIZONTAL'].includes(channel.function.name);
+            },
         },
         watch: {
             channelGroup() {
