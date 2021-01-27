@@ -10,7 +10,7 @@
                     class="form-control text-center"
                     v-model="sections">
             </dt>
-            <dd>{{ $t('Rest hour start') }}</dd>
+            <dd>{{ $t('Regeneration starts at') }}</dd>
             <dt class="digiglass-rest-timepicker">
                 <div class="clockpicker"
                     ref="clockpicker"></div>
@@ -38,7 +38,7 @@
                     return this.channel.param1;
                 }
             },
-            restHour: {
+            regenerationTime: {
                 set(value) {
                     const parts = value.split(':');
                     this.channel.param2 = +parts[0] * 60 + (+parts[1]);
@@ -58,8 +58,8 @@
                 locale: Vue.config.lang,
                 stepping: 5,
             }).on("dp.change", () => this.updateTime());
-            if (this.restHour) {
-                const parts = this.restHour.split(':');
+            if (this.regenerationTime) {
+                const parts = this.regenerationTime.split(':');
                 const currentDateFromExpression = moment().add(1, 'day').hour(parts[0]).minute(parts[1]);
                 $(this.$refs.clockpicker).data('DateTimePicker').date(currentDateFromExpression);
             }
@@ -67,7 +67,7 @@
         methods: {
             updateTime() {
                 const date = $(this.$refs.clockpicker).data('DateTimePicker').date();
-                this.restHour = moment(date).format('H:m');
+                this.regenerationTime = moment(date).format('H:m');
             },
         }
     };
