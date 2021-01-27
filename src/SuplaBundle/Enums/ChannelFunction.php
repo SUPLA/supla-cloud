@@ -110,8 +110,8 @@ final class ChannelFunction extends Enum {
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const VALVEOPENCLOSE = 500;
     const VALVEPERCENTAGE = 510;
-    const DIGIGLASS_VERTICAL = 800;
-    const DIGIGLASS_HORIZONTAL = 810;
+    const DIGIGLASS_HORIZONTAL = 800;
+    const DIGIGLASS_VERTICAL = 810;
 
     private $unsupportedFunctionId;
 
