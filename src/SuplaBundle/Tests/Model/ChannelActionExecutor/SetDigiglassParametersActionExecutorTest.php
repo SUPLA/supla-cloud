@@ -64,6 +64,7 @@ class SetDigiglassParametersActionExecutorTest extends PHPUnit_Framework_TestCas
     public function actionParametersProvider() {
         return array_merge([
             [[], false],
+            [['transparent' => [], 'opaque' => []], false],
             [['transparent' => [], 'opaque' => [], 'unicorn' => []], false],
             [['unicorn' => []], false],
         ], $this->expectedServerCommandsProvider());

@@ -18,11 +18,12 @@
             <!--                :src="'/assets/img/digiglass/window.svg' | withBaseUrl">-->
             <div class="digiglass-sections">
                 <div :class="['digiglass-section', {'digiglass-section-transparent': state[sectionNumber], 'digiglass-section-opaque': state[sectionNumber] === false}]"
-                    v-for="sectionNumber in numberOfSections"
+                    v-for="(e, sectionNumber) in numberOfSections"
                     :key="sectionNumber">
                     <div class="digiglass-glass"
                         @click="toggleSection(sectionNumber)"></div>
-                    <div class="digiglass-icon" @click="toggleSection(sectionNumber)">
+                    <div class="digiglass-icon"
+                        @click="toggleSection(sectionNumber)">
                         <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl"
                             class="transparent-image">
                         <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl"
@@ -54,9 +55,20 @@
             };
         },
         mounted() {
-
+            this.updateState();
         },
         methods: {
+            updateState() {
+                if (this.value) {
+                    if (this.value.transparent) {
+                        this.value.transparent.forEach((index) => this.state[index] = true);
+                    }
+                    if (this.value.opaque) {
+                        this.value.opaque.forEach((index) => this.state[index] = false);
+                    }
+                    this.state = [...this.state];
+                }
+            },
             toggleSection(sectionIndex) {
                 this.state.splice(sectionIndex, 1, !this.state[sectionIndex]);
                 this.onChange();
@@ -71,9 +83,9 @@
             },
             setAll(transparent) {
                 if (transparent) {
-                    this.state = [...Array(8)].map(() => true);
+                    this.state = [...Array(7)].map(() => true);
                 } else {
-                    this.state = [...Array(8)].map(() => false);
+                    this.state = [...Array(7)].map(() => false);
                 }
                 this.onChange();
             },

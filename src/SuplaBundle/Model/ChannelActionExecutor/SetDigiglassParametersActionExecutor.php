@@ -22,11 +22,11 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::isInstanceOf($subject, IODeviceChannel::class, 'SET DIGIGLASS action can be executed on channels only.');
-        $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque', 'mask']));
+        $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque', 'mask', 'touchedBits']));
         Assertion::count(
             $validParameters,
             count($actionParams),
-            'Invalid action parameters'
+            'Invalid action parameters' // i18n
         );
         Assertion::greaterThan(count($validParameters), 0, 'You must set sections with transparent or opaque parameters or both.'); // i18n
         $validParameters = array_merge(['transparent' => [], 'opaque' => []], $validParameters);
@@ -38,9 +38,16 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
         }
         $validParameters['transparent'] = array_map('intval', array_filter($validParameters['transparent'], 'is_numeric'));
         $validParameters['opaque'] = array_map('intval', array_filter($validParameters['opaque'], 'is_numeric'));
+        if (!$validParameters['transparent']) {
+            unset($validParameters['transparent']);
+        }
+        if (!$validParameters['opaque']) {
+            unset($validParameters['opaque']);
+        }
         if (isset($validParameters['mask'])) {
             $validParameters['mask'] = intval($validParameters['mask']);
         }
+        Assertion::greaterThan(count($validParameters), 0, 'You must set sections with transparent or opaque parameters or both.'); // i18n
         $state = $this->getDigiglassStateFromParams($subject, $validParameters);
         return $state->toArray();
     }
