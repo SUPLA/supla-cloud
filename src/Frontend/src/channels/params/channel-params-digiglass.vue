@@ -11,7 +11,7 @@
                     v-model="sections">
             </dt>
             <dd>{{ $t('Rest hour start') }}</dd>
-            <dt>
+            <dt class="digiglass-rest-timepicker">
                 <div class="clockpicker"
                     ref="clockpicker"></div>
             </dt>
@@ -41,7 +41,7 @@
             restHour: {
                 set(value) {
                     const parts = value.split(':');
-                    this.channel.param2 = parts[0] * 60 + parts[1];
+                    this.channel.param2 = +parts[0] * 60 + (+parts[1]);
                     this.$emit('change');
                 },
                 get() {
@@ -56,14 +56,12 @@
                 format: 'LT',
                 inline: true,
                 locale: Vue.config.lang,
-                stepping: 5
+                stepping: 5,
             }).on("dp.change", () => this.updateTime());
             if (this.restHour) {
-                const parts = this.value.split(':');
+                const parts = this.restHour.split(':');
                 const currentDateFromExpression = moment().add(1, 'day').hour(parts[0]).minute(parts[1]);
                 $(this.$refs.clockpicker).data('DateTimePicker').date(currentDateFromExpression);
-            } else {
-                this.updateTimeExpression();
             }
         },
         methods: {
@@ -76,18 +74,20 @@
 </script>
 
 <style lang="scss">
-    .bootstrap-datetimepicker-widget {
-        table {
-            width: auto;
-            margin: 0 auto;
-            td {
-                &, & span {
-                    height: auto;
-                    line-height: normal;
-                    width: auto !important;
-                }
-                &.separator {
-                    padding: 0 1em;
+    .digiglass-rest-timepicker {
+        .bootstrap-datetimepicker-widget {
+            table {
+                width: auto;
+                margin: 0 auto;
+                td {
+                    &, & span {
+                        height: auto;
+                        line-height: normal;
+                        width: auto !important;
+                    }
+                    &.separator {
+                        padding: 0 1em;
+                    }
                 }
             }
         }

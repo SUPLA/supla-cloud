@@ -88,7 +88,7 @@
         },
         computed: {
             actionsToShow() {
-                return this.subject.function.possibleActions.filter((action) => this.shouldShowAction(action));
+                return (this.subject.function.possibleActions || []).filter((action) => this.shouldShowAction(action));
             },
         },
         watch: {

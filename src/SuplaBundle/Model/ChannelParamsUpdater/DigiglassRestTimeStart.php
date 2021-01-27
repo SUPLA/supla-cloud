@@ -10,7 +10,7 @@ class DigiglassRestTimeStart extends RangeParamsUpdater {
         parent::__construct(
             [ChannelFunction::DIGIGLASS_VERTICAL(), ChannelFunction::DIGIGLASS_HORIZONTAL()],
             0,
-            self::MINUTES_IN_DAY,
+            self::MINUTES_IN_DAY - 1,
             2
         );
     }
