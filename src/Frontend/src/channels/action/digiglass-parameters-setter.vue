@@ -11,21 +11,22 @@
             </a>
         </div>
         <div :class="'digiglass-parameters-setter digiglass-' + (subject.function.name.indexOf('HORIZONTAL') > 0 ? 'horizontal' : 'vertical')">
-            <img class="digiglass-bg"
-                :src="'/assets/img/digiglass/window.svg' | withBaseUrl">
+            <function-icon class="digiglass-bg"
+                :model="subject"
+                width="200"></function-icon>
+            <!--            <img class="digiglass-bg"-->
+            <!--                :src="'/assets/img/digiglass/window.svg' | withBaseUrl">-->
             <div class="digiglass-sections">
                 <div :class="['digiglass-section', {'digiglass-section-transparent': state[sectionNumber], 'digiglass-section-opaque': state[sectionNumber] === false}]"
                     v-for="sectionNumber in numberOfSections"
                     :key="sectionNumber">
                     <div class="digiglass-glass"
                         @click="toggleSection(sectionNumber)"></div>
-                    <div class="digiglass-icon">
+                    <div class="digiglass-icon" @click="toggleSection(sectionNumber)">
                         <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl"
-                            class="transparent-image"
-                            @click="toggleSection(sectionNumber)">
+                            class="transparent-image">
                         <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl"
-                            class="opaque-image"
-                            @click="toggleSection(sectionNumber)">
+                            class="opaque-image">
                     </div>
                     <div class="checkbox checkbox-green small">
                         <label>
@@ -42,7 +43,10 @@
 </template>
 
 <script>
+    import FunctionIcon from "../function-icon";
+
     export default {
+        components: {FunctionIcon},
         props: ['subject', 'value'],
         data() {
             return {
@@ -55,10 +59,12 @@
         methods: {
             toggleSection(sectionIndex) {
                 this.state.splice(sectionIndex, 1, !this.state[sectionIndex]);
+                this.onChange();
             },
             enableDisableSection(sectionIndex) {
-                if (this.state !== undefined) {
+                if (this.state[sectionIndex] !== undefined) {
                     this.state.splice(sectionIndex, 1, undefined);
+                    this.onChange();
                 } else {
                     this.toggleSection(sectionIndex);
                 }
@@ -69,6 +75,10 @@
                 } else {
                     this.state = [...Array(8)].map(() => false);
                 }
+                this.onChange();
+            },
+            onChange() {
+                this.$emit('input', this.channelState);
             }
         },
         computed: {
@@ -77,6 +87,15 @@
             },
             activeSections() {
                 return this.state.map(v => v !== undefined);
+            },
+            channelState() {
+                const state = {transparent: [], opaque: []};
+                for (let i = 0; i < this.numberOfSections; i++) {
+                    if (this.state[i] !== undefined) {
+                        state[this.state[i] ? 'transparent' : 'opaque'].push(i);
+                    }
+                }
+                return state;
             }
         },
     };
@@ -87,7 +106,7 @@
         $sizeSmaller: 200px;
         $sizeBigger: $sizeSmaller + 60px;
         position: relative;
-        img.digiglass-bg {
+        .digiglass-bg {
             left: 0;
             top: 0;
             position: absolute;

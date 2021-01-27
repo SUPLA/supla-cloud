@@ -37,6 +37,7 @@
                     <div v-if="possibleAction.id == 2000 && action.id == possibleAction.id">
                         <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
                             v-model="action.param"
+                            @input="updateModel()"
                             :subject="subject"></digiglass-parameters-setter>
                     </div>
                 </transition-expand>
@@ -61,21 +62,22 @@
             };
         },
         mounted() {
-            if (this.value && this.value.id) {
-                this.action = {id: this.value.id, param: this.value.param || {}};
-            } else {
-                this.selectFirstActionIfOnlyOne();
-            }
+            this.updateAction();
+            this.selectFirstActionIfOnlyOne();
         },
         methods: {
+            updateAction() {
+                if (this.value && this.value.id) {
+                    this.action = {id: this.value.id, param: this.value.param || {}};
+                } else {
+                    this.action = {};
+                }
+            },
             selectFirstActionIfOnlyOne() {
                 if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
                     this.action = {id: this.actionsToShow[0].id, param: {}};
                     this.updateModel();
                 }
-            },
-            updateAction() {
-                this.$emit('input', this.action);
             },
             shouldShowAction(possibleAction) {
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
@@ -94,6 +96,9 @@
                 this.action = {};
                 this.updateModel();
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
+            },
+            value() {
+                this.updateAction();
             }
         },
     };

@@ -300,6 +300,8 @@ final class ChannelFunction extends Enum {
             self::STAIRCASETIMER => 1,
             self::THERMOSTAT => 3,
             self::THERMOSTATHEATPOLHOMEPLUS => 3,
+            self::DIGIGLASS_VERTICAL => 1,
+            self::DIGIGLASS_HORIZONTAL => 1,
         ];
     }
 

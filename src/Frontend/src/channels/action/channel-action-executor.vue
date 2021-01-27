@@ -93,7 +93,7 @@
                     });
             },
             requiresParams({id}) {
-                return id == 50 || id == 80;
+                return id == 50 || id == 80 || id == 2000;
             },
             possibleActionFilter(possibleAction) {
                 if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.subject.function.name) !== -1) {
