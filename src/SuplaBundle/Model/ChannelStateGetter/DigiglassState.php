@@ -42,6 +42,22 @@ class DigiglassState {
         return new self($channel->getParam1() ?: 7);
     }
 
+    public static function fromArray(IODeviceChannel $channel, array $array): self {
+        $state = self::channel($channel);
+        $state->mask = $array['mask'];
+        $state->touchedBits = $array['touchedBits'];
+        return $state;
+    }
+
+    public function toArray(): array {
+        return [
+            'mask' => $this->getMask(),
+            'touchedBits' => $this->getTouchedBits(),
+            'transparent' => $this->getTransparentSections(),
+            'opaque' => $this->getOpaqueSections(),
+        ];
+    }
+
     /** @param int[]|int $section */
     public function setTransparent($section): self {
         if (is_array($section)) {

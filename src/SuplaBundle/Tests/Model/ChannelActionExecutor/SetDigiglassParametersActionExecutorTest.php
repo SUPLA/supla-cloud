@@ -55,7 +55,9 @@ class SetDigiglassParametersActionExecutorTest extends PHPUnit_Framework_TestCas
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new SetDigiglassParametersActionExecutor();
-        $executor->validateActionParams($this->createMock(IODeviceChannel::class), $actionParams);
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('getType')->willReturn(ChannelType::DIGIGLASS());
+        $executor->validateActionParams($channel, $actionParams);
         $this->assertTrue(true);
     }
 

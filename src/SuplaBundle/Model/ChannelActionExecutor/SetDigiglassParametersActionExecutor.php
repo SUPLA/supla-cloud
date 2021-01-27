@@ -29,9 +29,6 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
             'Invalid action parameters'
         );
         Assertion::greaterThan(count($validParameters), 0, 'You must set sections with transparent or opaque parameters or both.'); // i18n
-        if (isset($validParameters['mask'])) {
-            return ['mask' => $validParameters['mask']];
-        }
         $validParameters = array_merge(['transparent' => [], 'opaque' => []], $validParameters);
         if (!is_array($validParameters['transparent'])) {
             $validParameters['transparent'] = array_map('trim', explode(',', $validParameters['transparent']));
@@ -41,21 +38,15 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
         }
         $validParameters['transparent'] = array_map('intval', array_filter($validParameters['transparent'], 'is_numeric'));
         $validParameters['opaque'] = array_map('intval', array_filter($validParameters['opaque'], 'is_numeric'));
-        return $validParameters;
+        if (isset($validParameters['mask'])) {
+            $validParameters['mask'] = intval($validParameters['mask']);
+        }
+        $state = $this->getDigiglassStateFromParams($subject, $validParameters);
+        return $state->toArray();
     }
 
     public function execute(HasFunction $subject, array $actionParams = []) {
-        /** @var IODeviceChannel $subject */
-        $state = DigiglassState::channel($subject);
-        if (isset($actionParams['mask'])) {
-            $state->setMask($actionParams['mask']);
-        }
-        if (isset($actionParams['transparent'])) {
-            $state->setTransparent($actionParams['transparent']);
-        }
-        if (isset($actionParams['opaque'])) {
-            $state->setOpaque($actionParams['opaque']);
-        }
+        $state = DigiglassState::fromArray($subject, $actionParams);
         if ($state->getTouchedBits()) {
             $command = 'SET-DIGIGLASS-VALUE:' . implode(',', [
                     $subject->getUser()->getId(),
@@ -66,5 +57,21 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
                 ]);
             $this->suplaServer->executeSetCommand($command);
         }
+    }
+
+    private function getDigiglassStateFromParams(HasFunction $subject, array $actionParams): DigiglassState {
+        /** @var IODeviceChannel $subject */
+        $state = DigiglassState::channel($subject);
+        if (isset($actionParams['mask'])) {
+            $state->setMask($actionParams['mask']);
+        } else {
+            if (isset($actionParams['transparent'])) {
+                $state->setTransparent($actionParams['transparent']);
+            }
+            if (isset($actionParams['opaque'])) {
+                $state->setOpaque($actionParams['opaque']);
+            }
+        }
+        return $state;
     }
 }
