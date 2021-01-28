@@ -41,8 +41,11 @@
             regenerationTime: {
                 set(value) {
                     const parts = value.split(':');
-                    this.channel.param2 = +parts[0] * 60 + (+parts[1]);
-                    this.$emit('change');
+                    const minuteInDay = +parts[0] * 60 + (+parts[1]);
+                    if (minuteInDay !== this.channel.param2) {
+                        this.channel.param2 = minuteInDay;
+                        this.$emit('change');
+                    }
                 },
                 get() {
                     const hour = Math.floor(this.channel.param2 / 60);
