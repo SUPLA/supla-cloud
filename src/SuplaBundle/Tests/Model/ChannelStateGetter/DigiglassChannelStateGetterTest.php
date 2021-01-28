@@ -41,14 +41,14 @@ class DigiglassChannelStateGetterTest extends PHPUnit_Framework_TestCase {
 
     public function stateExamples() {
         return [
-            [0, ['opaque' => [], 'transparent' => [0, 1, 2, 3, 4, 5, 6], 'mask' => 0]],
-            [1, ['opaque' => [0], 'transparent' => [1, 2, 3, 4, 5, 6], 'mask' => 1]],
-            [2, ['opaque' => [1], 'transparent' => [0, 2, 3, 4, 5, 6], 'mask' => 2]],
-            [3, ['opaque' => [0, 1], 'transparent' => [2, 3, 4, 5, 6], 'mask' => 3]],
-            [15, ['opaque' => [0, 1, 2, 3], 'transparent' => [4, 5, 6], 'mask' => 15]],
-            [16, ['opaque' => [4], 'transparent' => [0, 1, 2, 3, 5, 6], 'mask' => 16]],
-            [16.0, ['opaque' => [4], 'transparent' => [0, 1, 2, 3, 5, 6], 'mask' => 16]],
-            [91, ['opaque' => [0, 1, 3, 4, 6], 'transparent' => [2, 5], 'mask' => 91]],
+            [0, ['transparent' => [], 'opaque' => [0, 1, 2, 3, 4, 5, 6], 'mask' => 0]],
+            [1, ['transparent' => [0], 'opaque' => [1, 2, 3, 4, 5, 6], 'mask' => 1]],
+            [2, ['transparent' => [1], 'opaque' => [0, 2, 3, 4, 5, 6], 'mask' => 2]],
+            [3, ['transparent' => [0, 1], 'opaque' => [2, 3, 4, 5, 6], 'mask' => 3]],
+            [15, ['transparent' => [0, 1, 2, 3], 'opaque' => [4, 5, 6], 'mask' => 15]],
+            [16, ['transparent' => [4], 'opaque' => [0, 1, 2, 3, 5, 6], 'mask' => 16]],
+            [16.0, ['transparent' => [4], 'opaque' => [0, 1, 2, 3, 5, 6], 'mask' => 16]],
+            [91, ['transparent' => [0, 1, 3, 4, 6], 'opaque' => [2, 5], 'mask' => 91]],
         ];
     }
 }

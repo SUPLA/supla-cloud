@@ -53,15 +53,15 @@ class DigiglassState {
         return [
             'mask' => $this->getMask(),
             'touchedBits' => $this->getTouchedBits(),
-            'transparent' => $this->getOpaqueSections(),
-            'opaque' => $this->getTransparentSections(),
+            'transparent' => $this->getTransparentSections(),
+            'opaque' => $this->getOpaqueSections(),
         ];
     }
 
     /** @param int[]|int $section */
-    public function setOpaque($section): self {
+    public function setTransparent($section): self {
         if (is_array($section)) {
-            array_map([$this, 'setOpaque'], $section);
+            array_map([$this, 'setTransparent'], $section);
         } else {
             Assertion::integerish($section);
             $this->setBit($section, true);
@@ -70,9 +70,9 @@ class DigiglassState {
     }
 
     /** @param int[]|int $section */
-    public function setTransparent($section): self {
+    public function setOpaque($section): self {
         if (is_array($section)) {
-            array_map([$this, 'setTransparent'], $section);
+            array_map([$this, 'setOpaque'], $section);
         } else {
             Assertion::integerish($section);
             $this->setBit($section, false);
@@ -108,23 +108,23 @@ class DigiglassState {
         return $this->touchedBits & 1 << $section;
     }
 
-    public function isOpaque(int $section): bool {
+    public function isTransparent(int $section): bool {
         return $this->mask & 1 << $section;
     }
 
-    public function isTransparent(int $section): bool {
-        return !$this->isOpaque($section);
+    public function isOpaque(int $section): bool {
+        return !$this->isTransparent($section);
     }
 
     public function getTouchedSections(): array {
         return array_values(array_filter(range(0, $this->sectionsQuantity - 1), [$this, 'isTouched']));
     }
 
-    public function getOpaqueSections(): array {
-        return array_values(array_filter($this->getTouchedSections(), [$this, 'isOpaque']));
-    }
-
     public function getTransparentSections(): array {
         return array_values(array_filter($this->getTouchedSections(), [$this, 'isTransparent']));
+    }
+
+    public function getOpaqueSections(): array {
+        return array_values(array_filter($this->getTouchedSections(), [$this, 'isOpaque']));
     }
 }
