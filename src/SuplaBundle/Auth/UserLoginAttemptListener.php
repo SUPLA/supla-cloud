@@ -17,11 +17,13 @@
 
 namespace SuplaBundle\Auth;
 
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
@@ -32,10 +34,16 @@ class UserLoginAttemptListener {
     private $userRepository;
     /** @var SuplaMailer */
     private $mailer;
+    /** @var LoggerInterface */
+    private $logger;
+    /** @var RequestStack */
+    private $requestStack;
 
-    public function __construct(UserRepository $userRepository, SuplaMailer $mailer) {
+    public function __construct(UserRepository $userRepository, SuplaMailer $mailer, LoggerInterface $logger, RequestStack $requestStack) {
         $this->userRepository = $userRepository;
         $this->mailer = $mailer;
+        $this->logger = $logger;
+        $this->requestStack = $requestStack;
     }
 
     public function onAuthenticationSuccess(string $username) {
@@ -52,6 +60,10 @@ class UserLoginAttemptListener {
             ->setIntParam($reason->getValue())
             ->setUser($user)
             ->buildAndFlush();
+        $this->logger->debug('Invalid user auth', [
+            'requestHeaders' => $this->requestStack->getCurrentRequest()->headers->all(),
+            'requestServer' => $this->requestStack->getCurrentRequest()->server->all(),
+        ]);
         if ($user && $user->isEnabled() && $entry->getIntParam() != AuthenticationFailureReason::BLOCKED) {
             $this->mailer->sendFailedAuthenticationAttemptWarning($user, $entry->getIpv4());
         }

@@ -87,10 +87,10 @@ framework:
     enable_annotations: true
 
 monolog:
-  channels: [supla_api_rate_limit, supla_autodiscover, supla_direct_links, supla_server]
+  channels: [supla_api_rate_limit, supla_autodiscover, supla_direct_links, supla_server, supla_debug]
   handlers:
     main:
-      channels: ['!supla_direct_links', '!supla_server', '!supla_api_rate_limit']
+      channels: ['!supla_direct_links', '!supla_server', '!supla_api_rate_limit', '!supla_debug']
       action_level: error
       handler: main_logger
       type: fingers_crossed
@@ -123,6 +123,12 @@ monolog:
       path: "%kernel.logs_dir%/supla-server.log"
       type: rotating_file
       max_files: 14
+    supla_debug:
+      channels: [supla_debug]
+      level: warning
+      path: "%kernel.logs_dir%/debug.log"
+      type: rotating_file
+      max_files: 1
 
 nelmio_cors:
   paths:
