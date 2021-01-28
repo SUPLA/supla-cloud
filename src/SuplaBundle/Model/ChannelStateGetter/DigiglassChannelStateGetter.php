@@ -12,8 +12,8 @@ class DigiglassChannelStateGetter implements SingleChannelStateGetter {
         $mask = $this->suplaServer->getValue('DIGIGLASS', $channel);
         $state = DigiglassState::channel($channel)->setMask($mask);
         return [
-            'transparent' => $state->getTransparentSections(),
-            'opaque' => $state->getOpaqueSections(),
+            'transparent' => $state->getOpaqueSections(),
+            'opaque' => $state->getTransparentSections(),
             'mask' => $state->getMask(),
         ];
     }

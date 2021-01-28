@@ -73,10 +73,10 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
             $state->setMask($actionParams['mask']);
         } else {
             if (isset($actionParams['transparent'])) {
-                $state->setTransparent($actionParams['transparent']);
+                $state->setOpaque($actionParams['transparent']);
             }
             if (isset($actionParams['opaque'])) {
-                $state->setOpaque($actionParams['opaque']);
+                $state->setTransparent($actionParams['opaque']);
             }
         }
         return $state;

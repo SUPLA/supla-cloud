@@ -24,7 +24,7 @@ use SuplaBundle\Model\ChannelStateGetter\DigiglassState;
 class DigiglassStateTest extends PHPUnit_Framework_TestCase {
     public function testCannotSetNonExistingSection() {
         $this->expectException(InvalidArgumentException::class);
-        DigiglassState::sections(2)->setTransparent(2);
+        DigiglassState::sections(2)->setOpaque(2);
     }
 
     /** @dataProvider maskTestCases */
@@ -37,20 +37,20 @@ class DigiglassStateTest extends PHPUnit_Framework_TestCase {
     ) {
         $this->assertEquals($expectedMask, $state->getMask());
         $this->assertEquals($expectedTouchedBits, $state->getTouchedBits());
-        $this->assertEquals($expectedTransparentSections, $state->getTransparentSections());
-        $this->assertEquals($expectedOpaqueSections, $state->getOpaqueSections());
+        $this->assertEquals($expectedTransparentSections, $state->getOpaqueSections());
+        $this->assertEquals($expectedOpaqueSections, $state->getTransparentSections());
     }
 
     public function maskTestCases(): array {
         return [
             [0, 0, [], [], DigiglassState::sections(2)],
-            [1, 1, [0], [], DigiglassState::sections(2)->setTransparent(0)],
-            [2, 2, [1], [], DigiglassState::sections(2)->setTransparent(1)],
-            [2, 3, [1], [0], DigiglassState::sections(2)->setOpaque(0)->setTransparent(1)],
-            [2, 3, [1], [0], DigiglassState::sections(2)->setTransparent(1)->setOpaque(0)],
-            [3, 3, [0, 1], [], DigiglassState::sections(2)->setTransparent(0)->setTransparent(1)],
-            [3, 3, [0, 1], [], DigiglassState::sections(2)->setTransparent([0, 1])],
-            [0b0101, 0b1101, [0, 2], [3], DigiglassState::sections(4)->setTransparent(0)->setTransparent(2)->setOpaque(3)],
+            [1, 1, [0], [], DigiglassState::sections(2)->setOpaque(0)],
+            [2, 2, [1], [], DigiglassState::sections(2)->setOpaque(1)],
+            [2, 3, [1], [0], DigiglassState::sections(2)->setTransparent(0)->setOpaque(1)],
+            [2, 3, [1], [0], DigiglassState::sections(2)->setOpaque(1)->setTransparent(0)],
+            [3, 3, [0, 1], [], DigiglassState::sections(2)->setOpaque(0)->setOpaque(1)],
+            [3, 3, [0, 1], [], DigiglassState::sections(2)->setOpaque([0, 1])],
+            [0b0101, 0b1101, [0, 2], [3], DigiglassState::sections(4)->setOpaque(0)->setOpaque(2)->setTransparent(3)],
             [0b10011, 0b11111, [0, 1, 4], [2, 3], DigiglassState::sections(5)->setMask(0b10011)],
         ];
     }
