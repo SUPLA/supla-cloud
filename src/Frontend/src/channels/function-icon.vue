@@ -64,6 +64,9 @@
                     if (this.model.state.on === true) {
                         return '-on';
                     }
+                    if (this.model.state.transparent && this.model.state.transparent.length > 0) {
+                        return '-transparent';
+                    }
                 }
                 return '';
             },
