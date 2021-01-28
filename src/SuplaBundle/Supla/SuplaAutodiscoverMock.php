@@ -175,6 +175,9 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             }
         } elseif (preg_match('#/esp-updates#', $endpoint, $match)) {
             return [self::sampleEspUpdate(), self::sampleEspUpdate()];
+        } elseif (preg_match('#/set-broker-ip-addresses#', $endpoint, $match)) {
+            $responseStatus = 204;
+            return null;
         }
         $responseStatus = 404;
         return false;

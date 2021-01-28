@@ -38,7 +38,7 @@ class SetAutodiscoverIpsCommand extends Command {
         do {
             $question = new Question('IP Address');
             $question->setValidator(function ($value) {
-                if ($value && !preg_match('#\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#', $value)) {
+                if ($value && !preg_match('#^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$#', $value)) {
                     throw new InvalidArgumentException('Invalid IP address');
                 }
                 return $value;
@@ -49,6 +49,10 @@ class SetAutodiscoverIpsCommand extends Command {
                 $ips[] = $ip;
             }
         } while ($ip);
+        if (!$ips) {
+            $io->error('No IP addresses given.');
+            return 2;
+        }
         if (count($ips) > 1) {
             $mainIp = $io->choice('Choose the main IP address.', $ips, $ips[0]);
             $ips = array_diff($ips, [$mainIp]);
