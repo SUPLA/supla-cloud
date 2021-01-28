@@ -17,20 +17,22 @@
 
 namespace SuplaBundle\Tests\Model;
 
+use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Model\RealClientIpResolver;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class RealClientIpResolverTest extends \PHPUnit_Framework_TestCase {
-    /** @var RequestStack|\PHPUnit_Framework_MockObject_MockObject */
+class RealClientIpResolverTest extends PHPUnit_Framework_TestCase {
+    /** @var RequestStack|PHPUnit_Framework_MockObject_MockObject */
     private $requestStack;
-    /** @var SuplaAutodiscover|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var SuplaAutodiscover|PHPUnit_Framework_MockObject_MockObject */
     private $autodiscover;
     /** @var RealClientIpResolver */
     private $resolver;
-    /** @var Request|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var Request|PHPUnit_Framework_MockObject_MockObject */
     private $requestMock;
 
     /** @before */
@@ -63,7 +65,7 @@ class RealClientIpResolverTest extends \PHPUnit_Framework_TestCase {
 
     public function testRealIpWhenOverriddenByBroker() {
         $this->requestStack->method('getCurrentRequest')->willReturn($this->requestMock);
-        $this->autodiscover->method('getBrokerClouds')->willReturn([['ip' => '1.2.3.4']]);
+        $this->autodiscover->method('getBrokerClouds')->willReturn([['ips' => ['5.6.7.8', '1.2.3.4']], ['ips' => ['3.3.3.3']]]);
         $this->requestMock->headers->add(['X-REAL-IP' => '2.3.4.5']);
         $ip = $this->resolver->getRealIp();
         $this->assertEquals('2.3.4.5', $ip);

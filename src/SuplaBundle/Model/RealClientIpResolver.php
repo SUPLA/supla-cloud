@@ -49,7 +49,12 @@ class RealClientIpResolver {
 
     private function isBrokerCloud($ip): bool {
         $brokerClouds = $this->autodiscover->getBrokerClouds();
-        $brokerIps = array_column($brokerClouds, 'ip');
-        return in_array($ip, $brokerIps, true);
+        $brokerIps = array_column($brokerClouds, 'ips');
+        if ($brokerIps) {
+            $brokerIps = call_user_func_array('array_merge', $brokerIps);
+            return in_array($ip, $brokerIps, true);
+        } else {
+            return false;
+        }
     }
 }
