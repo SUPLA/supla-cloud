@@ -20,8 +20,8 @@
             <div class="possible-action-params">
                 <transition-expand>
                     <div class="well clearfix"
-                        v-if="(possibleAction.id == 50 || possibleAction.id == 120) && actionId == possibleAction.id">
-                        <rolette-shutter-partial-percentage v-model="actionParam"
+                        v-if="(possibleAction.id == 50 || possibleAction.id == 120) && action.id == possibleAction.id">
+                        <rolette-shutter-partial-percentage v-model="action.param"
                             @input="updateModel()"></rolette-shutter-partial-percentage>
                     </div>
                 </transition-expand>
