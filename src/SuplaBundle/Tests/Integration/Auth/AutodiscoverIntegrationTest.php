@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
+use AppKernel;
 use SuplaBundle\Auth\AutodiscoverPublicClientStub;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
@@ -40,14 +41,14 @@ services:
 */
 
 /**
- * These tests are disabled by default because of the demand for the specific environment. To run them, change the group name below (this
- * gruop name is excluded in app/phpunit.xml configuration file).
+ * These tests are disabled by default because of the demand for the specific environment. To run them, change the group name below
+ * (this group name is excluded in the app/phpunit.xml configuration file).
  * @group AutodiscoverIntegrationTest
  */
 class AutodiscoverIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
 
-    const AD_PROJECT_PATH = \AppKernel::VAR_PATH . '/../../supla-autodiscover';
+    const AD_PROJECT_PATH = AppKernel::VAR_PATH . '/../../supla-autodiscover';
 
     /** @var SuplaAutodiscover */
     private $autodiscover;
@@ -58,6 +59,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     public function clearState() {
         @unlink(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
         @unlink(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH);
+        @unlink(SuplaAutodiscover::BROKER_CLOUDS_SAVE_PATH);
         $path = realpath(self::AD_PROJECT_PATH);
         exec("$path/vendor/bin/phpunit -c $path/tests --filter testInvalidUrl", $output); // clears the database
         $this->autodiscover = $this->container->get(SuplaAutodiscover::class);
@@ -79,6 +81,17 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $command = $result[2];
         $result = $this->executeCommand(substr($command, strlen('php bin/console ')));
         $this->assertContains('correctly', $result);
+    }
+
+    public function testSettingBrokerIps() {
+        $this->testRegisteringTargetCloud();
+        $this->treatAsBroker();
+        $randomIp = long2ip(rand(0, "4294967295"));
+        $success = $this->autodiscover->setBrokerIpAddresses([$randomIp, '2.3.4.5']);
+        $this->assertTrue($success);
+        $brokerClouds = $this->autodiscover->getBrokerClouds();
+        $this->assertEquals([$randomIp, '2.3.4.5'], $brokerClouds[0]['ips']);
+        $this->assertEquals($randomIp, $brokerClouds[0]['ip']);
     }
 
     public function testRegisteringUserInAd() {

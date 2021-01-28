@@ -17,7 +17,9 @@
 
 namespace SuplaBundle\Supla;
 
+use AppKernel;
 use Assert\Assertion;
+use DateTime;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\OAuth\ApiClient;
@@ -30,9 +32,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class SuplaAutodiscover {
-    const TARGET_CLOUD_TOKEN_SAVE_PATH = \AppKernel::VAR_PATH . '/local/target-cloud-token';
-    const PUBLIC_CLIENTS_SAVE_PATH = \AppKernel::VAR_PATH . '/local/public-clients';
-    const BROKER_CLOUDS_SAVE_PATH = \AppKernel::VAR_PATH . '/local/broker-clouds';
+    const TARGET_CLOUD_TOKEN_SAVE_PATH = AppKernel::VAR_PATH . '/local/target-cloud-token';
+    const PUBLIC_CLIENTS_SAVE_PATH = AppKernel::VAR_PATH . '/local/public-clients';
+    const BROKER_CLOUDS_SAVE_PATH = AppKernel::VAR_PATH . '/local/broker-clouds';
 
     protected $autodiscoverUrl = null;
 
@@ -245,7 +247,7 @@ abstract class SuplaAutodiscover {
         );
         $this->logger->debug(__FUNCTION__, ['responseStatus' => $responseStatus]);
         if ($responseStatus == Response::HTTP_OK) {
-            $publicClients = ['lastFetchedDatetime' => (new \DateTime())->format(\DateTime::RFC822), 'clients' => $response];
+            $publicClients = ['lastFetchedDatetime' => (new DateTime())->format(DateTime::RFC822), 'clients' => $response];
             $saved = file_put_contents(self::PUBLIC_CLIENTS_SAVE_PATH, json_encode($publicClients));
             Assertion::greaterThan($saved, 0, 'Could not save the public clients list from Autodiscover');
         } else {
@@ -295,5 +297,18 @@ abstract class SuplaAutodiscover {
     public function getInfo(string $brokerToken = null): array {
         $response = $this->remoteRequest('/about', null, $responseStatus, ['Authorization' => $brokerToken]);
         return $response ?: ['isBroker' => false, 'isTarget' => false];
+    }
+
+    public function setBrokerIpAddresses(array $ips): bool {
+        $response = $this->remoteRequest('/set-broker-ip-addresses', ['ips' => $ips,], $responseStatus);
+        $this->logger->debug(
+            __FUNCTION__,
+            [
+                'targetCloud' => $this->localSuplaCloud->getAddress(),
+                'responseStatus' => $responseStatus,
+                'response' => $response,
+            ]
+        );
+        return $responseStatus === 204;
     }
 }

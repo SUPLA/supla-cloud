@@ -26,7 +26,8 @@ class DeleteBrokerCloudsCacheCommand extends AbstractCyclicCommand {
     protected function configure() {
         $this
             ->setName('supla:clean:broker-clouds-cache')
-            ->setDescription('Delete broker clouds list cache file.');
+            ->setDescription('Delete broker clouds list cache file.')
+            ->setHidden(true);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
