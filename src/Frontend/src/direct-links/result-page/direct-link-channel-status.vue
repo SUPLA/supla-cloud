@@ -15,7 +15,8 @@
                 </div>
             </div>
         </div>
-        <button type="button"
+        <button v-if="readStateUrl"
+            type="button"
             :disabled="refreshingState"
             @click="refreshState()"
             class="btn btn-xs btn-default">
@@ -56,7 +57,13 @@
                 return window.location.protocol + "//" + window.location.host + window.location.pathname;
             },
             readStateUrl() {
-                return this.currentUrl.indexOf('/read') > 0 ? this.currentUrl : this.currentUrl + '/read';
+                if (this.currentUrl.indexOf('/read') > 0) {
+                    return this.currentUrl;
+                }
+                const match = this.currentUrl.match(/.+\/direct\/[0-9]+\/.+\//);
+                if (match) {
+                    return match[0] + 'read';
+                }
             },
             subjectCaption() {
                 return channelTitle(this.directLink.subject, this, false).replace(/^ID[0-9]+/, '');
