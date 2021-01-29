@@ -173,13 +173,11 @@ class ScheduleController extends RestController {
         }
         Assertion::notNull($subject, 'Invalid schedule subject.');
         $data['subject'] = $subject;
-        if (isset($data['actionParam']) && $data['actionParam']) {
-            $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
-                $subject,
-                new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),
-                $data['actionParam']
-            );
-        }
+        $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
+            $subject,
+            new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),
+            $data['actionParam'] ?? []
+        );
         $schedule->fill($data);
         $errors = iterator_to_array($this->validator->validate($schedule));
         Assertion::count($errors, 0, implode(', ', $errors));

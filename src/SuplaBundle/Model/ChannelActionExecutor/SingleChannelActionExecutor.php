@@ -41,7 +41,6 @@ abstract class SingleChannelActionExecutor {
         } else {
             Assertion::noContent($actionParams, 'This action is not supposed to have any parameters.');
         }
-
         return $actionParams;
     }
 }
