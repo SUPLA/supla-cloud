@@ -172,7 +172,7 @@
                 };
                 const subjectForNewSchedule = AppState.shiftTask('scheduleCreate');
                 if (subjectForNewSchedule) {
-                    this.schedule.subject = subjectForNewSchedule;
+                    this.$set(this.schedule, 'subject', subjectForNewSchedule);
                 }
             }
         },

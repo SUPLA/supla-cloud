@@ -52,6 +52,9 @@
                 this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
                     this.channels = channels;
                     this.setChannelFromModel();
+                    if (!this.value || !this.value.function) {
+                        this.$emit('input', this.chosenChannel);
+                    }
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });
             },

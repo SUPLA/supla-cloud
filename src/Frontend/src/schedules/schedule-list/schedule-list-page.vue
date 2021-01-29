@@ -6,7 +6,16 @@
                     <h1 v-if="!subjectType"
                         v-title>{{ $t('Schedules') }}</h1>
                 </div>
-                <div :class="subjectType ? 'no-margin-top' : ''">
+                <div v-if="subjectType"
+                    class="no-margin-top">
+                    <a @click="createNewSchedule()"
+                        class="btn btn-green btn-lg"
+                        v-if="schedules">
+                        <i class="pe-7s-plus"></i>
+                        {{ $t('Create New Schedule') }}
+                    </a>
+                </div>
+                <div v-else>
                     <router-link :to="{name: 'schedule.new', query: {subjectId: subjectId, subjectType: subjectType}}"
                         class="btn btn-green btn-lg"
                         v-if="schedules">
@@ -42,6 +51,7 @@
 <script type="text/babel">
     import ScheduleTile from "./schedule-tile";
     import ScheduleFilters from "./schedule-filters";
+    import AppState from "../../router/app-state";
 
     export default {
         components: {ScheduleFilters, ScheduleTile},
@@ -60,8 +70,7 @@
             if (this.subjectId) {
                 if (this.subjectType == 'channel') {
                     endpoint = `channels/${this.subjectId}/${endpoint}`;
-                }
-                else if (this.subjectType == 'channelGroup') {
+                } else if (this.subjectType == 'channelGroup') {
                     endpoint = `channel-groups/${this.subjectId}/${endpoint}`;
                 }
             }
@@ -78,6 +87,10 @@
                     this.filteredSchedules = this.filteredSchedules.sort(this.compareFunction);
                 }
             },
+            createNewSchedule() {
+                AppState.addTask('scheduleCreate', {subjectType: this.subjectType, id: this.subjectId});
+                this.$router.push({name: 'schedule.new'});
+            }
         }
     };
 </script>

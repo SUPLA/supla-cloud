@@ -38,17 +38,12 @@
             };
         },
         mounted() {
-            this.$http.get(`direct-links?include=subject&subjectType=${this.subject.subjectType}&subjectId=${this.subjectId}`)
+            this.$http.get(`direct-links?include=subject&subjectType=${this.subject.subjectType}&subjectId=${this.subject.id}`)
                 .then(response => this.directLinks = response.body);
-        },
-        computed: {
-            subjectId() {
-                return this.subject.id;
-            }
         },
         methods: {
             createNewDirectLink() {
-                AppState.addTask('directLinkCreate', {type: this.subject.subjectType, id: this.subjectId});
+                AppState.addTask('directLinkCreate', this.subject);
                 this.$router.push({name: 'directLink', params: {id: 'new'}});
             }
         }

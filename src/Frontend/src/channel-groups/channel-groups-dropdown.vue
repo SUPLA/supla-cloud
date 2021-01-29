@@ -48,6 +48,9 @@
                 this.$http.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
                     this.channelGroups = channelGroups;
                     this.setChannelGroupFromModel();
+                    if (!this.value || !this.value.function) {
+                        this.$emit('input', this.chosenChannelGroup);
+                    }
                     Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
                 });
             },
