@@ -3,10 +3,10 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1 v-if="!subjectType"
+                    <h1 v-if="!subject"
                         v-title>{{ $t('Schedules') }}</h1>
                 </div>
-                <div v-if="subjectType"
+                <div v-if="subject"
                     class="no-margin-top">
                     <a @click="createNewSchedule()"
                         class="btn btn-green btn-lg"
@@ -16,7 +16,7 @@
                     </a>
                 </div>
                 <div v-else>
-                    <router-link :to="{name: 'schedule.new', query: {subjectId: subjectId, subjectType: subjectType}}"
+                    <router-link :to="{name: 'schedule.new'}"
                         class="btn btn-green btn-lg"
                         v-if="schedules">
                         <i class="pe-7s-plus"></i>
@@ -55,7 +55,7 @@
 
     export default {
         components: {ScheduleFilters, ScheduleTile},
-        props: ['subjectId', 'subjectType'],
+        props: ['subject'],
         data() {
             return {
                 schedules: undefined,
@@ -67,11 +67,11 @@
         },
         mounted() {
             let endpoint = 'schedules?include=subject,closestExecutions';
-            if (this.subjectId) {
-                if (this.subjectType == 'channel') {
-                    endpoint = `channels/${this.subjectId}/${endpoint}`;
-                } else if (this.subjectType == 'channelGroup') {
-                    endpoint = `channel-groups/${this.subjectId}/${endpoint}`;
+            if (this.subject) {
+                if (this.subject.subjectType == 'channel') {
+                    endpoint = `channels/${this.subject.id}/${endpoint}`;
+                } else if (this.subject.subjectType == 'channelGroup') {
+                    endpoint = `channel-groups/${this.subject.id}/${endpoint}`;
                 }
             }
             this.$http.get(endpoint).then(response => {
@@ -88,7 +88,7 @@
                 }
             },
             createNewSchedule() {
-                AppState.addTask('scheduleCreate', {subjectType: this.subjectType, id: this.subjectId});
+                AppState.addTask('scheduleCreate', this.subject);
                 this.$router.push({name: 'schedule.new'});
             }
         }

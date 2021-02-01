@@ -20,8 +20,7 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :subject-id="channel.id"
-                subject-type="channel"></schedule-list-page>
+            <schedule-list-page :subject="channel"></schedule-list-page>
         </div>
         <div v-if="currentTab == 'directLinks'">
             <direct-links-list :subject="channel"></direct-links-list>
