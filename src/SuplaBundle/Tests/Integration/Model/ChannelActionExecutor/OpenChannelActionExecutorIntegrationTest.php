@@ -65,7 +65,6 @@ class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     }
 
     public function testOpeningGarageDoor() {
-        $this->markTestSkipped('OPEN/CLOSE temporarily disabled');
         $this->channelActionExecutor->executeAction($this->device->getChannels()[0], ChannelFunctionAction::OPEN());
         $this->assertCount(1, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
