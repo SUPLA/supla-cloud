@@ -7,21 +7,28 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class CloseActionExecutor extends TurnOffActionExecutor {
+class OpenGateActionExecutor extends SingleChannelActionExecutor {
+    public function execute(HasFunction $subject, array $actionParams = []) {
+        $command = $subject->buildServerSetCommand('ACTION-OPEN', $this->assignCommonParams([], $actionParams));
+        $command = str_replace('SET-ACTION-OPEN-VALUE:', 'ACTION-OPEN:', $command);
+        $this->suplaServer->executeSetCommand($command);
+    }
+
     public function getSupportedFunctions(): array {
         return [
-            ChannelFunction::VALVEOPENCLOSE(),
+            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+            ChannelFunction::CONTROLLINGTHEGATE(),
         ];
     }
 
     public function getSupportedAction(): ChannelFunctionAction {
-        return ChannelFunctionAction::CLOSE();
+        return ChannelFunctionAction::OPEN();
     }
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::true(
             $subject instanceof IODeviceChannel,
-            "Cannot execute the requested action CLOSE on channel group."
+            "Cannot execute the requested action OPEN on channel group."
         );
         return parent::validateActionParams($subject, $actionParams);
     }

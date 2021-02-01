@@ -2,18 +2,19 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ChannelActionExecutor {
-    /** @var SingleChannelActionExecutor[] */
+    /** @var SingleChannelActionExecutor[][] */
     private $actionExecutors = [];
 
     /** @param SingleChannelActionExecutor[] $actionExecutors */
     public function __construct($actionExecutors) {
         foreach ($actionExecutors as $actionExecutor) {
-            $this->actionExecutors[$actionExecutor->getSupportedAction()->getName()] = $actionExecutor;
+            $this->actionExecutors[$actionExecutor->getSupportedAction()->getName()][] = $actionExecutor;
         }
     }
 
@@ -30,12 +31,14 @@ class ChannelActionExecutor {
 
     private function getExecutor(HasFunction $subject, ChannelFunctionAction $action): SingleChannelActionExecutor {
         Assertion::keyIsset($this->actionExecutors, $action->getName(), 'Cannot execute requested action through API.');
-        $executor = $this->actionExecutors[$action->getName()];
-        Assertion::inArray(
-            $subject->getFunction()->getId(),
-            EntityUtils::mapToIds($executor->getSupportedFunctions()),
+        $executors = $this->actionExecutors[$action->getName()];
+        foreach ($executors as $executor) {
+            if (in_array($subject->getFunction()->getId(), EntityUtils::mapToIds($executor->getSupportedFunctions()))) {
+                return $executor;
+            }
+        }
+        throw new InvalidArgumentException(
             "Cannot execute the requested action {$action->getName()} on function {$subject->getFunction()->getName()}."
         );
-        return $executor;
     }
 }

@@ -7,10 +7,17 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class CloseActionExecutor extends TurnOffActionExecutor {
+class CloseGateActionExecutor extends SingleChannelActionExecutor {
+    public function execute(HasFunction $subject, array $actionParams = []) {
+        $command = $subject->buildServerSetCommand('ACTION-CLOSE', $this->assignCommonParams([], $actionParams));
+        $command = str_replace('SET-ACTION-CLOSE-VALUE:', 'ACTION-CLOSE:', $command);
+        $this->suplaServer->executeSetCommand($command);
+    }
+
     public function getSupportedFunctions(): array {
         return [
-            ChannelFunction::VALVEOPENCLOSE(),
+            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+            ChannelFunction::CONTROLLINGTHEGATE(),
         ];
     }
 

@@ -1,10 +1,8 @@
 <?php
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
-use Assert\Assertion;
 use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\HasFunction;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\ValveChannelStateGetter;
@@ -21,20 +19,10 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
         $this->valveManuallyShutChannelStateGetter = $valveManuallyShutChannelStateGetter;
     }
 
-    protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
-        if ($this->isGateSubject($subject)) {
-            return 2;
-        } else {
-            return 1;
-        }
-    }
-
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
             ChannelFunction::CONTROLLINGTHEDOORLOCK(),
-            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
-            ChannelFunction::CONTROLLINGTHEGATE(),
             ChannelFunction::VALVEOPENCLOSE(),
         ];
     }
@@ -43,18 +31,7 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
         return ChannelFunctionAction::OPEN();
     }
 
-    private function isGateSubject(HasFunction $subject): bool {
-        return in_array(
-            $subject->getFunction()->getId(),
-            [ChannelFunction::CONTROLLINGTHEGATE, ChannelFunction::CONTROLLINGTHEGARAGEDOOR]
-        );
-    }
-
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
-        Assertion::true(
-            !$this->isGateSubject($subject) || $subject instanceof IODeviceChannel,
-            "Cannot execute the requested action OPEN on channel group."
-        );
         if ($subject->getFunction()->getId() == ChannelFunction::VALVEOPENCLOSE) {
             $state = $this->valveManuallyShutChannelStateGetter->getState($subject);
             $manuallyClosed = $state['manuallyClosed'] ?? true;

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelActionExecutor;
 
+use InvalidArgumentException;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunction;
@@ -59,7 +60,7 @@ class CloseChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->channelActionExecutor->executeAction($this->device->getChannels()[0], ChannelFunctionAction::CLOSE());
         $this->assertCount(1, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
-        $this->assertEquals('SET-CHAR-VALUE:1,1,1,3', $setCommand);
+        $this->assertEquals('ACTION-CLOSE:1,1,1', $setCommand);
     }
 
     public function testClosingValve() {
@@ -70,7 +71,7 @@ class CloseChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCannotCloseGarageDoorChannelGroup() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->channelActionExecutor->executeAction($this->channelGroup, ChannelFunctionAction::CLOSE());
     }
 }
