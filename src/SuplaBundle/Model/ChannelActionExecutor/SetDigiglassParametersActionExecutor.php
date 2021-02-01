@@ -22,7 +22,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
         Assertion::isInstanceOf($subject, IODeviceChannel::class, 'SET DIGIGLASS action can be executed on channels only.');
-        $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque', 'mask', 'touchedBits']));
+        $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque', 'mask', 'activeBits']));
         Assertion::count(
             $validParameters,
             count($actionParams),
@@ -54,12 +54,12 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
 
     public function execute(HasFunction $subject, array $actionParams = []) {
         $state = DigiglassState::fromArray($subject, $actionParams);
-        if ($state->getTouchedBits()) {
+        if ($state->getActiveBits()) {
             $command = 'SET-DIGIGLASS-VALUE:' . implode(',', [
                     $subject->getUser()->getId(),
                     $subject->getIoDevice()->getId(),
                     $subject->getId(),
-                    $state->getTouchedBits(),
+                    $state->getActiveBits(),
                     $state->getMask(),
                 ]);
             $this->suplaServer->executeSetCommand($command);

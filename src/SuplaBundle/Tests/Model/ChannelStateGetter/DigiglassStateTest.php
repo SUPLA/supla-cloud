@@ -30,13 +30,13 @@ class DigiglassStateTest extends PHPUnit_Framework_TestCase {
     /** @dataProvider maskTestCases */
     public function testMaskValues(
         int $expectedMask,
-        int $expectedTouchedBits,
+        int $expectedActiveBits,
         array $expectedTransparentSections,
         array $expectedOpaqueSections,
         DigiglassState $state
     ) {
         $this->assertEquals($expectedMask, $state->getMask());
-        $this->assertEquals($expectedTouchedBits, $state->getTouchedBits());
+        $this->assertEquals($expectedActiveBits, $state->getActiveBits());
         $this->assertEquals($expectedTransparentSections, $state->getTransparentSections());
         $this->assertEquals($expectedOpaqueSections, $state->getOpaqueSections());
     }

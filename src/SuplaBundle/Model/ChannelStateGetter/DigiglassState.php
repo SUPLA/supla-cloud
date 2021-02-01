@@ -27,7 +27,7 @@ class DigiglassState {
     /** @var int */
     private $mask = 0;
     /** @var int */
-    private $touchedBits = 0;
+    private $activeBits = 0;
 
     private function __construct(int $sectionsQuantity) {
         $this->sectionsQuantity = $sectionsQuantity;
@@ -45,14 +45,14 @@ class DigiglassState {
     public static function fromArray(IODeviceChannel $channel, array $array): self {
         $state = self::channel($channel);
         $state->mask = $array['mask'];
-        $state->touchedBits = $array['touchedBits'];
+        $state->activeBits = $array['activeBits'];
         return $state;
     }
 
     public function toArray(): array {
         return [
             'mask' => $this->getMask(),
-            'touchedBits' => $this->getTouchedBits(),
+            'activeBits' => $this->getActiveBits(),
             'transparent' => $this->getTransparentSections(),
             'opaque' => $this->getOpaqueSections(),
         ];
@@ -82,7 +82,7 @@ class DigiglassState {
 
     private function setBit(int $section, bool $transparent) {
         Assertion::between($section, 0, $this->sectionsQuantity - 1);
-        $this->touchedBits |= 1 << $section;
+        $this->activeBits |= 1 << $section;
         if ($transparent) {
             $this->mask |= 1 << $section;
         } else {
@@ -96,16 +96,16 @@ class DigiglassState {
 
     public function setMask(int $mask): self {
         $this->mask = $mask;
-        $this->touchedBits = pow(2, $this->sectionsQuantity) - 1;
+        $this->activeBits = pow(2, $this->sectionsQuantity) - 1;
         return $this;
     }
 
-    public function getTouchedBits(): int {
-        return $this->touchedBits;
+    public function getActiveBits(): int {
+        return $this->activeBits;
     }
 
-    public function isTouched(int $section): bool {
-        return $this->touchedBits & 1 << $section;
+    public function isActive(int $section): bool {
+        return $this->activeBits & 1 << $section;
     }
 
     public function isTransparent(int $section): bool {
@@ -116,15 +116,15 @@ class DigiglassState {
         return !$this->isTransparent($section);
     }
 
-    public function getTouchedSections(): array {
-        return array_values(array_filter(range(0, $this->sectionsQuantity - 1), [$this, 'isTouched']));
+    public function getActiveSections(): array {
+        return array_values(array_filter(range(0, $this->sectionsQuantity - 1), [$this, 'isActive']));
     }
 
     public function getTransparentSections(): array {
-        return array_values(array_filter($this->getTouchedSections(), [$this, 'isTransparent']));
+        return array_values(array_filter($this->getActiveSections(), [$this, 'isTransparent']));
     }
 
     public function getOpaqueSections(): array {
-        return array_values(array_filter($this->getTouchedSections(), [$this, 'isOpaque']));
+        return array_values(array_filter($this->getActiveSections(), [$this, 'isOpaque']));
     }
 }
