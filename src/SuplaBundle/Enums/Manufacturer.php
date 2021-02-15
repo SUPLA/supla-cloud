@@ -30,8 +30,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static Manufacturer ZAMEL()
  * @method static Manufacturer NICE()
  * @method static Manufacturer ITEAD()
- * @method static Manufacturer VL()
- * @method static Manufacturer HPOL()
+ * @method static Manufacturer DOYLETRATT()
+ * @method static Manufacturer HEATPOL()
+ * @method static Manufacturer FAKRO()
+ * @method static Manufacturer PEVEKO()
+ * @method static Manufacturer WEKTA()
+ * @method static Manufacturer STA_STSTEM()
+ * @method static Manufacturer DGF()
  */
 
 final class Manufacturer extends Enum {
@@ -42,8 +47,8 @@ final class Manufacturer extends Enum {
     const ZAMEL = 4;
     const NICE = 5;
     const ITEAD = 6;
-    const VL = 7;
-    const HPOL = 8;
+    const DOYLETRATT = 7;
+    const HEATPOL = 8;
     const FAKRO = 9;
     const PEVEKO = 10;
     const WEKTA = 11;
@@ -79,8 +84,8 @@ final class Manufacturer extends Enum {
             self::ZAMEL => 'Zamel sp. z o.o.',
             self::NICE => 'Nice Poland sp. z o.o.',
             self::ITEAD => 'ITEAD INTELLIGENT SYSTEMS CO., LTD',
-            self::VL => 'VL',
-            self::HPOL => 'HP',
+            self::DOYLETRATT => 'Doyle & Tratt',
+            self::HEATPOL => 'Heatpol',
             self::FAKRO => 'FAKRO',
             self::PEVEKO => 'PEVEKO',
             self::WEKTA => 'WEKTA',
