@@ -66,9 +66,15 @@
     "test": [
       "phpunit -c app --testdox"
     ],
-    "lint": [
-      "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml",
+    "lint-backend": [
+      "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml"
+    ],
+    "lint-frontend": [
       "cd src/Frontend && npm run lint -s"
+    ],
+    "lint": [
+      "@lint-frontend",
+      "@lint-backend"
     ],
     "phpcbf": [
       "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml"

@@ -1,0 +1,32 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+  database_driver: pdo_mysql
+  database_host: database
+  database_port: ~
+  database_name: supla_test
+  database_user: root
+  database_password: ~
+
+  mailer_transport: smtp
+  mailer_host: 127.0.0.1
+  mailer_user: ~
+  mailer_password: ~
+  mailer_port: 465
+  mailer_encryption: ssl
+  mailer_from: ~
+  admin_email: ~
+  supla_server: supla.local
+  supla_require_regulations_acceptance: false
+  supla_require_cookie_policy_acceptance: false
+  brute_force_auth_prevention_enabled: true
+
+  recaptcha_enabled: false
+  recaptcha_site_key: ~
+  recaptcha_secret: ~
+
+  locale: en
+
+  # A secret key that's used to generate certain security-related tokens
+  secret: ThisTokenIsNotSoSecretChangeIt
+
+  cors_allow_origin_regex: []

@@ -1,0 +1,90 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    depends_on: [clone]
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - ./vendor
+        - ./src/Frontend/node_modules
+
+  - name: install-frontend
+    image: node:8.17.0-slim
+    depends_on: [restore-cache]
+    commands:
+      - npm -v
+      - node -v
+      - cd src/Frontend
+      - (ls node_modules && npm prune) || true
+      - npm install
+
+  - name: build-frontend
+    image: node:8.17.0-slim
+    depends_on: [ install-frontend ]
+    commands:
+      - cd src/Frontend && npm run build
+
+  - name: lint-frontend
+    image: node:8.17.0-slim
+    depends_on: [install-frontend]
+    commands:
+      - cd src/Frontend && npm run lint -s
+
+  - name: install-backend
+    image: supla/supla-cloud
+    depends_on: [restore-cache]
+    commands:
+      - cp app/config/parameters.yml.drone app/config/parameters.yml
+      - wget https://raw.githubusercontent.com/composer/getcomposer.org/e3e43bde99447de1c13da5d1027545be81736b27/web/installer -O - -q | php -- --quiet --1
+      - php composer.phar install
+
+  - name: lint-backend
+    image: supla/supla-cloud
+    depends_on: [install-backend]
+    commands:
+      - php composer.phar run lint-backend
+
+  - name: backend-unit-tests
+    image: supla/supla-cloud
+    depends_on: [install-backend]
+    commands:
+      - ./vendor/bin/phpunit -c app --testsuite unit
+
+  - name: integration-tests
+    image: supla/supla-cloud
+    depends_on: [install-backend]
+    commands:
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    depends_on: [install-backend, install-frontend]
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      rebuild: true
+      mount:
+        - ./vendor
+        - ./src/Frontend/node_modules
+
+services:
+  - name: database
+    image: mysql:5.7.20
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: supla_test
+      MYSQL_USER: drone
+      MYSQL_PASSWORD: ~
+
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
