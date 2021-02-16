@@ -2,7 +2,6 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use Assert\InvalidArgumentException;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -37,7 +36,8 @@ class ChannelActionExecutor {
                 return $executor;
             }
         }
-        throw new InvalidArgumentException(
+        Assertion::true(
+            false,
             "Cannot execute the requested action {$action->getName()} on function {$subject->getFunction()->getName()}."
         );
     }
