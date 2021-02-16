@@ -268,18 +268,16 @@
                 const adjustedLogs = [];
                 for (let i = 1; i < logs.length; i++) {
                     const log = {...logs[i]};
-                    log.phase1_fae -= previousLog.phase1_fae;
-                    log.phase2_fae -= previousLog.phase2_fae;
-                    log.phase3_fae -= previousLog.phase3_fae;
-                    log.phase1_rae -= previousLog.phase1_rae;
-                    log.phase2_rae -= previousLog.phase2_rae;
-                    log.phase3_rae -= previousLog.phase3_rae;
-                    log.phase1_fre -= previousLog.phase1_fre;
-                    log.phase2_fre -= previousLog.phase2_fre;
-                    log.phase3_fre -= previousLog.phase3_fre;
-                    log.phase1_rre -= previousLog.phase1_rre;
-                    log.phase2_rre -= previousLog.phase2_rre;
-                    log.phase3_rre -= previousLog.phase3_rre;
+                    ['fae', 'rae', 'fre', 'rre'].forEach((suffix) => {
+                        for (let phaseNo = 1; phaseNo <= 3; phaseNo++) {
+                            const attributeName = `phase${phaseNo}_${suffix}`;
+                            if (log[attributeName] === null) {
+                                log[attributeName] = previousLog[attributeName];
+                            }
+                            log[attributeName] -= previousLog[attributeName] || log[attributeName];
+                        }
+
+                    });
                     adjustedLogs.push(log);
                     previousLog = logs[i];
                 }
