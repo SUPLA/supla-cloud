@@ -24,12 +24,20 @@
     <ScssCodeStyleSettings>
       <option name="BLANK_LINES_AROUND_NESTED_SELECTOR" value="0" />
     </ScssCodeStyleSettings>
+    <VueCodeStyleSettings>
+      <option name="INDENT_CHILDREN_OF_TOP_LEVEL" value="template,script,style" />
+    </VueCodeStyleSettings>
     <yaml>
       <option name="SEQUENCE_ON_NEW_LINE" value="true" />
     </yaml>
     <codeStyleSettings language="HTML">
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="JSON">
+      <indentOptions>
+        <option name="INDENT_SIZE" value="4" />
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="JavaScript">
@@ -51,6 +59,12 @@
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="2" />
         <option name="TAB_SIZE" value="2" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="Vue">
+      <indentOptions>
+        <option name="INDENT_SIZE" value="4" />
+        <option name="TAB_SIZE" value="4" />
       </indentOptions>
     </codeStyleSettings>
   </code_scheme>
