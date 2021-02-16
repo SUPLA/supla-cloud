@@ -92,10 +92,11 @@
     ]
   },
   "config": {
-    "process-timeout": 0,
     "platform": {
       "php": "7.0.8"
-    }
+    },
+    "process-timeout": 0,
+    "sort-packages": true
   },
   "extra": {
     "symfony-app-dir": "app",
