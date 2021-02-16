@@ -22,7 +22,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */
-class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
+class SetAutodiscoverIpsCommandIntegrationTest extends IntegrationTestCase {
     public function testSendingIpsToAd() {
         SuplaAutodiscoverMock::clear();
         SuplaAutodiscoverMock::mockResponse('set-broker-ip-addresses', [], 204, 'POST');
