@@ -39,6 +39,8 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
+        $location = $this->createLocation($this->user);
+        $this->createDeviceSonoff($location);
     }
 
     public function testDeletingUserAccountWithInvalidPasswordFails() {
@@ -145,6 +147,12 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('relationsCount', $body);
         $this->assertArrayHasKey('apiRateLimit', $body);
+        $relationsCount = $body['relationsCount'];
+        $this->assertEquals(2, $relationsCount['locations']);
+        $this->assertEquals(1, $relationsCount['accessIds']);
+        $this->assertEquals(1, $relationsCount['ioDevices']);
+        $this->assertEquals(0, $relationsCount['schedules']);
+        $this->assertEquals(2, $relationsCount['channels']);
     }
 
     /** @small */

@@ -4,6 +4,7 @@ namespace SuplaBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -40,9 +41,7 @@ class IODeviceRepository extends EntityWithRelationsRepository {
     protected function getEntityWithRelationsCountQuery(): QueryBuilder {
         return $this->_em->createQueryBuilder()
             ->addSelect('io entity')
-            ->addSelect('COUNT(DISTINCT c) channels')
-            ->from(IODevice::class, 'io')
-            ->leftJoin('io.channels', 'c')
-            ->groupBy('io');
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s c WHERE c.iodevice = io) channels', IODeviceChannel::class))
+            ->from(IODevice::class, 'io');
     }
 }
