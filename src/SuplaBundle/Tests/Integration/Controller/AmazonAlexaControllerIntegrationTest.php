@@ -24,6 +24,7 @@ use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/** @small */
 class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
@@ -34,10 +35,9 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
     /** @var Client $client */
     private $client;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $this->client = $this->createAuthenticatedClient($this->user);
-        $this->getEntityManager()->flush();
     }
 
     private function getAmazonAlexa() : AmazonAlexa {

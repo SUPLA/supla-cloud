@@ -122,6 +122,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
 
+    /** @small */
     public function testGettingUserWithLongUniqueId() {
         SuplaAutodiscoverMock::clear(false);
         /** @var TestClient $client */
@@ -133,6 +134,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('longUniqueId', $body);
     }
 
+    /** @small */
     public function testGettingUserWithLimitsAndRelationsCount() {
         SuplaAutodiscoverMock::clear(false);
         /** @var TestClient $client */
@@ -145,6 +147,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('apiRateLimit', $body);
     }
 
+    /** @small */
     public function testChangingUserPassword() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();

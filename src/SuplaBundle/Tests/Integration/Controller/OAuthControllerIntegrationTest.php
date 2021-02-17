@@ -23,6 +23,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class OAuthControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
@@ -30,7 +31,7 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
     /** @var User */
     private $user;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
     }
 
@@ -73,20 +74,6 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
     }
 
-    public function testListOfTokensDoesNotContainTokens() {
-        $this->testCreatingPersonalAccessToken();
-        $client = $this->createAuthenticatedClient();
-        $client->apiRequest('GET', '/api/oauth-personal-tokens');
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $content = json_decode($response->getContent(), true);
-        $this->assertCount(1, $content);
-        $this->assertArrayHasKey('id', $content[0]);
-        $this->assertArrayHasKey('name', $content[0]);
-        $this->assertArrayHasKey('scope', $content[0]);
-        $this->assertArrayNotHasKey('token', $content[0]);
-    }
-
     public function testCannotAskForPersonalTokenExposure() {
         $this->testCreatingPersonalAccessToken();
         $client = $this->createAuthenticatedClient();
@@ -122,5 +109,20 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $client->request('GET', '/api/oauth-personal-tokens');
         $this->assertStatusCode(403, $client->getResponse());
+    }
+
+    /** @large */
+    public function testListOfTokensDoesNotContainTokens() {
+        $this->testCreatingPersonalAccessToken();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest('GET', '/api/oauth-personal-tokens');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertArrayHasKey('id', $content[0]);
+        $this->assertArrayHasKey('name', $content[0]);
+        $this->assertArrayHasKey('scope', $content[0]);
+        $this->assertArrayNotHasKey('token', $content[0]);
     }
 }
