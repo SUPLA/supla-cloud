@@ -37,6 +37,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static Manufacturer WEKTA()
  * @method static Manufacturer STA_STSTEM()
  * @method static Manufacturer DGF()
+ * @method static Manufacturer COMELIT()
  */
 
 final class Manufacturer extends Enum {
@@ -54,6 +55,7 @@ final class Manufacturer extends Enum {
     const WEKTA = 11;
     const STA_SYSTEM = 12;
     const DGF = 13;
+    const COMELIT = 14;
 
     public function __construct($value) {
         $value = $value && $this->isValid($value) ? $value : 0;
@@ -91,6 +93,7 @@ final class Manufacturer extends Enum {
             self::WEKTA => 'WEKTA',
             self::STA_SYSTEM => 'STA SYSTEM',
             self::DGF => 'DIGI GLASS FACTORY',
+            self::COMELIT => 'COMELIT',
         ];
     }
 
