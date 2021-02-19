@@ -640,28 +640,43 @@ execute: realizar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new personal access token has been generated.: ~
+Access to all of your devices through MQTT Broker: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Channels groups are not supported for this function.: ~
+Digi Glass: ~
+Digi Glass Horizontal: ~
+Digi Glass Vertical: ~
 Generate new password: ~
+Guru Meditation: ~
 Host: ~
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Invalid action parameters: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
 MQTT Broker is disabled.: ~
 MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
+Make sure to copy it now because you won’t be able to see it again!: ~
+Number of sections: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
 Protocol: ~
+Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
+You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
