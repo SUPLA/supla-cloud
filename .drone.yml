@@ -64,6 +64,12 @@ steps:
     commands:
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
 
+  - name: api-tests
+    image: supla/supla-cloud
+    depends_on: [integration-tests]
+    commands:
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+
 #  - name: rebuild-cache
 #    image: drillster/drone-volume-cache
 #    depends_on: [install-backend, install-frontend]

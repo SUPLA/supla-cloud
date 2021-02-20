@@ -28,6 +28,10 @@
         </testsuite>
         <testsuite name="integration">
             <directory>../src/*Bundle/Tests/Integration</directory>
+            <exclude>../src/*Bundle/Tests/Integration/Controller</exclude>
+        </testsuite>
+        <testsuite name="api">
+            <directory>../src/*Bundle/Tests/Integration/Controller</directory>
         </testsuite>
     </testsuites>
 
