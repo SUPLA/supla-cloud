@@ -2,21 +2,22 @@ kind: pipeline
 name: default
 
 steps:
-  - name: restore-cache
-    image: drillster/drone-volume-cache
-    depends_on: [clone]
-    volumes:
-      - name: cache
-        path: /cache
-    settings:
-      restore: true
-      mount:
-        - ./vendor
-        - ./src/Frontend/node_modules
+#  - name: restore-cache
+#    image: drillster/drone-volume-cache
+#    depends_on: [clone]
+#    volumes:
+#      - name: cache
+#        path: /cache
+#    settings:
+#      restore: true
+#      mount:
+#        - ./vendor
+#        - ./src/Frontend/node_modules
 
   - name: install-frontend
     image: node:8.17.0-slim
-    depends_on: [restore-cache]
+#    depends_on: [restore-cache]
+    depends_on: [clone]
     commands:
       - npm -v
       - node -v
@@ -38,7 +39,8 @@ steps:
 
   - name: install-backend
     image: supla/supla-cloud
-    depends_on: [restore-cache]
+#    depends_on: [restore-cache]
+    depends_on: [clone]
     commands:
       - cp app/config/parameters.yml.drone app/config/parameters.yml
       - wget https://raw.githubusercontent.com/composer/getcomposer.org/e3e43bde99447de1c13da5d1027545be81736b27/web/installer -O - -q | php -- --quiet --1
@@ -62,17 +64,17 @@ steps:
     commands:
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
 
-  - name: rebuild-cache
-    image: drillster/drone-volume-cache
-    depends_on: [install-backend, install-frontend]
-    volumes:
-      - name: cache
-        path: /cache
-    settings:
-      rebuild: true
-      mount:
-        - ./vendor
-        - ./src/Frontend/node_modules
+#  - name: rebuild-cache
+#    image: drillster/drone-volume-cache
+#    depends_on: [install-backend, install-frontend]
+#    volumes:
+#      - name: cache
+#        path: /cache
+#    settings:
+#      rebuild: true
+#      mount:
+#        - ./vendor
+#        - ./src/Frontend/node_modules
 
 services:
   - name: database
