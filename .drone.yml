@@ -86,7 +86,7 @@ services:
       MYSQL_PASSWORD: ~
 
 
-volumes:
-  - name: cache
-    host:
-      path: /tmp/cache
+#volumes:
+#  - name: cache
+#    host:
+#      path: /tmp/cache
