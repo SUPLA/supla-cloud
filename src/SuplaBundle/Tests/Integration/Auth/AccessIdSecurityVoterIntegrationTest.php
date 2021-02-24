@@ -15,8 +15,9 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Integration\Controller;
+namespace SuplaBundle\Tests\Integration\Auth;
 
+use DateTime;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\EntityUtils;
@@ -56,7 +57,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
         $token = new AccessToken();
         EntityUtils::setField($token, 'client', $this->container->get(ApiClientRepository::class)->getWebappClient());
         EntityUtils::setField($token, 'user', $this->user);
-        EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
+        EntityUtils::setField($token, 'expiresAt', (new DateTime('2035-01-01T00:00:00'))->getTimestamp());
         EntityUtils::setField($token, 'token', 'abc');
         EntityUtils::setField($token, 'scope', (string)(new OAuthScope(OAuthScope::getSupportedScopes())));
         EntityUtils::setField($token, 'accessId', $this->accessId);

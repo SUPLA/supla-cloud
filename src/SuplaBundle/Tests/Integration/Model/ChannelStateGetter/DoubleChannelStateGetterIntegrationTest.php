@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater;
+namespace SuplaBundle\Tests\Integration\Model\ChannelStateGetter;
 
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
