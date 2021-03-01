@@ -46,7 +46,7 @@
                 } else {
                     promise
                         .then(() => this.success = true)
-                        .catch(response => this.error = response.body.message)
+                        .catch(response => this.error = response.body.message);
                 }
             }
         }
