@@ -6,9 +6,12 @@ use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
+ * 1. supla_add_client:
  * Removed verification if registration is enabled, due to the possibility of client
  * registration without logging into cloud.supla.org after providing the
  * login and password of the superuser.
+ *
+ * 2. New procedure added "supla_set_location_caption"
  */
 class Version20210228201414 extends NoWayBackMigration
 {
@@ -30,6 +33,10 @@ SELECT LAST_INSERT_ID() INTO _id;
 END
 PROCEDURE
         );
+
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_set_location_caption`');
+        $this->addSql("CREATE PROCEDURE `supla_set_location_caption`(IN `_user_id` INT, IN `_location_id` INT, IN `_caption` VARCHAR(100) CHARSET utf8mb4) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER UPDATE supla_location SET caption = _caption WHERE id = _location_id AND user_id = _user_id");
+
     }
 
 }
