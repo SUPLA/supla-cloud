@@ -12,7 +12,7 @@
                 </div>
                 <devices-registration-button v-show="!$frontendConfig.maintenanceMode"
                     field="ioDevicesRegistrationEnabled"
-                    caption-i18n="Registration of new I/O devices"></devices-registration-button>
+                    caption-i18n="I/O devices registration"></devices-registration-button>
             </div>
         </div>
         <devices-list-page v-if="listType == 'devices'"></devices-list-page>
