@@ -78,7 +78,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
-        $this->assertContains('You cannot use "SUPLA"', $body['message']);
+        $this->assertContains('You cannot use SUPLA', $body['message']);
     }
 
     public function testRegisteringObsoleteCloud() {
