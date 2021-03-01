@@ -74,6 +74,7 @@ Cancel changes: Ακύρωση αλλαγών
 Cancelled: Ακυρώθηκε
 Cannot execute an action when the device is disconnected.: 'Δεν μπορείτε να εκτελείτε ενέργειες, όταν η συσκευή είναι αποσυνδεδεμένη.'
 Cannot send an activation e-mail. Try again later.: Δεν είναι δυνατή η αποστολή μηνύματος με το σύνδεσμο ενεργοποίησης. Δοκιμάστε ξανά αργότερα.
+'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε κλικ [εδώ] για να το στείλετε ξανά.'
 Captcha token is not valid.: Μη έγκυρο captcha.
 Caption: Υπογραφή
 Change Password: Αλλαγή κωδικού πρόσβασης
@@ -99,6 +100,7 @@ Choose Access Identifiers to be assigned to this Location: Επιλογή ανα
 Choose client apps: Επιλογή εφαρμογών πελάτη
 Choose location: Επιλογή τοποθεσίας
 Chosen hour: Επιλεγμένη ώρα
+Client registration: Εγγραφή πελατών
 Client’s Apps: Εφαρμογές πελάτη
 Client’s app has been deleted: Η εφαρμογή πελάτη έχει καταργηθεί
 Close: Κλείσιμο
@@ -226,7 +228,6 @@ Go to channel details: Μεταβείτε στις λεπτομέρειες το
 Go to your account: Μεταβείτε στο λογαριασμό σας
 Grant access: Χορήγηση πρόσβασης
 HFD4 Relay: Ηλεκτρονόμος HFD4
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε κλικ [εδώ] για να το στείλετε ξανά.'
 Heat meter: Μετρητής θερμότητας
 History of measurements: Ιστορικό μετρήσεων
 Home appliances: Οικιακές συσκευές/συσκευές RTV
@@ -243,6 +244,7 @@ I agree: Συμφωνώ
 I confirm! Delete my account.: Επιβεβαιώνω! Ακύρωσε το λογαριασμό μου.
 'I do not agree, get me out of here': 'Δεν συμφωνώ, βγαίνω από εδώ'
 I/O Devices: Συσκευές εισόδου/εξόδου
+I/O devices registration: Εγγραφή συσκευών
 ID: ID
 INACTIVE: ΑΝΕΝΕΡΓΗ
 Idle: Σε αδράνεια
@@ -369,8 +371,6 @@ Register: Εγγραφή
 Register a new OAuth application: Εγγραφή νέας εφαρμογής OAuth
 Register private SUPLA Cloud: Εγγραφή ιδιωτικού SUPLA-cloud
 Registered: Εγγεγραμμένος
-I/O devices registration: Εγγραφή συσκευών
-Client registration: Εγγραφή πελατών
 Relay: Ηλεκτρονόμος
 Relay switching time: Χρόνος ενεργοποίησης του ηλεκτρονόμου
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Προτού  διαγράψετε μια τοποθεσία, πρέπει πρώτα να μετακινήσετε ομάδες καναλιών που συνδέονται με αυτήν. Αναγνωριστικά: {relatedIds}.'
@@ -640,28 +640,48 @@ execute: Εκτέλεση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new personal access token has been generated.: ~
+Access to all of your devices through MQTT Broker: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Channel name: ~
+Channels groups are not supported for this function.: ~
+Check your email inbox: ~
+Default: ~
+Digi Glass: ~
+Digi Glass Horizontal: ~
+Digi Glass Vertical: ~
 Generate new password: ~
+Guru Meditation: ~
 Host: ~
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Invalid action parameters: ~
+Location name: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
 MQTT Broker is disabled.: ~
 MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
+Make sure to copy it now because you won’t be able to see it again!: ~
+Number of sections: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
 Protocol: ~
+Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You cannot use SUPLA project name in the domain name.: ~
+You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
+You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~

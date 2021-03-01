@@ -74,6 +74,7 @@ Cancel changes: Änderungen rückgängig machen
 Cancelled: Anulliert
 Cannot execute an action when the device is disconnected.: 'Die Aktion kann nicht vorgenommen werden, wenn das Gerät getrennt ist.'
 Cannot send an activation e-mail. Try again later.: Nachricht mit Aktivierungslink kann nicht geschickt werden. Versuche später erneut.
+'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Nachricht mit dem Link zur Aktivierung Deines Kontos nicht angekommen? Versichere Dich, dass es nicht in die SPAM-Datei (unerwünschte Mail) gelangt ist. Du kannst auch [hier] klicken, um sie erneut zu senden.'
 Captcha token is not valid.: Falsches Captcha.
 Caption: Bildunterschrift
 Change Password: Kennwort Änderung
@@ -99,6 +100,7 @@ Choose Access Identifiers to be assigned to this Location: 'Die Zugriffskennunge
 Choose client apps: Wählen Sie Clientanwendungen aus
 Choose location: Wählen Sie eine Lokalisierung
 Chosen hour: Ausgewählte Uhrzeit
+Client registration: Registrierung der Client-Anwendungen
 Client’s Apps: Client-Anwendungen
 Client’s app has been deleted: Die Client-Anwendung wurde gelöscht
 Close: Schliesse
@@ -226,7 +228,6 @@ Go to channel details: Gehen Sie zu den Kanaldetails
 Go to your account: Geh zu deinem Konto
 Grant access: Vewähre Zugriff
 HFD4 Relay: HFD4 Relais
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Nachricht mit dem Link zur Aktivierung Deines Kontos nicht angekommen? Versichere Dich, dass es nicht in die SPAM-Datei (unerwünschte Mail) gelangt ist. Du kannst auch [hier] klicken, um sie erneut zu senden.'
 Heat meter: Wärmezähler
 History of measurements: Messhistorie
 Home appliances: Haushaltwaren
@@ -243,6 +244,7 @@ I agree: Ich stimme zu
 I confirm! Delete my account.: Ich bestätige! Mein Konto löschen.
 'I do not agree, get me out of here': 'Ich bin nicht einverstanden, bringt mich hier raus'
 I/O Devices: E/A Geräte
+I/O devices registration: Geräteregistrierung
 ID: ID
 INACTIVE: INAKTIV
 Idle: Untätig
@@ -369,8 +371,6 @@ Register: Registrieren
 Register a new OAuth application: Registrieren Sie eine neue OAuth-Anwendung
 Register private SUPLA Cloud: Registrieren Sie eine private SUPLA-Cloud
 Registered: Registriert
-I/O devices registration: Geräteregistrierung
-Client registration: Registrierung der Client-Anwendungen
 Relay: Relais
 Relay switching time: Dauer der Befestigung des Relais
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Bevor Sie einen Lokalisierung löschen können, müssen Sie zuerst die Sendergruppen an diesen Ort verschieben. Zugriffskennung: {relatedIds}.'
@@ -640,28 +640,48 @@ execute: ausführen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new personal access token has been generated.: ~
+Access to all of your devices through MQTT Broker: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Channel name: ~
+Channels groups are not supported for this function.: ~
+Check your email inbox: ~
+Default: ~
+Digi Glass: ~
+Digi Glass Horizontal: ~
+Digi Glass Vertical: ~
 Generate new password: ~
+Guru Meditation: ~
 Host: ~
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Invalid action parameters: ~
+Location name: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
 MQTT Broker is disabled.: ~
 MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
+Make sure to copy it now because you won’t be able to see it again!: ~
+Number of sections: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
 Protocol: ~
+Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You cannot use SUPLA project name in the domain name.: ~
+You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
+You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~

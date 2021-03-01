@@ -214,7 +214,7 @@ class AuthorizeOAuthController extends Controller {
         $parts = array_reverse($parts);
         Assertion::true(
             strpos($parts[0], 'supla') === false && strpos($parts[1], 'supla') === false,
-            'You cannot use "SUPLA" project name in the domain name.' // i18n
+            'You cannot use SUPLA project name in the domain name.' // i18n
         );
 
         $info = $this->getTargetCloudInfo($targetCloud);
