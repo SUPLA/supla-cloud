@@ -29,7 +29,7 @@
         },
         computed: {
             resendHelpText() {
-                const template = this.$t('Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.')
+                const template = this.$t('Having problems with account activation? Make sure that the message did not land in the SPAM/Junk folder. You can also click [here] to resend the account activation link.')
                     .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
                 return {template: `<span>${template}</span>`};
             }
