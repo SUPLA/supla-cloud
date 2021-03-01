@@ -370,7 +370,7 @@ Register a new OAuth application: Đăng ký OAuth
 Register private SUPLA Cloud: Đăng ký private SUPLA Cloud
 Registered: Đã đăng ký
 Registration of new I/O devices: Đăng ký thiết bị I/O mới
-Registration of new clients: Đăng ký Client
+Client registration: Đăng ký Client
 Relay: Rơle
 Relay switching time: Rơle thời gian chuyển mạch
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Di dời tất cả các nhóm kênh được liên kết trước khi bạn xóa vị trí này. Ids: {relatedIds}.'

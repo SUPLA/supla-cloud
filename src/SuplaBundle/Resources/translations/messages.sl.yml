@@ -370,7 +370,7 @@ Register a new OAuth application: Registrirajte novo aplikacijo OAuth
 Register private SUPLA Cloud: Registrirajte zasebni oblak SUPLA
 Registered: Registrirani
 Registration of new I/O devices: Registracija naprav
-Registration of new clients: Registracija strank
+Client registration: Registracija strank
 Relay: Rele
 Relay switching time: Čas vklopa releja
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete lokacijo, morate najprej premakniti skupine kanalov v njej. Identifikatorji: {relatedIds}.'

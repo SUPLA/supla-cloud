@@ -370,7 +370,7 @@ Register a new OAuth application: Registruotis į OAuth programą
 Register private SUPLA Cloud: Įregistruokite privatų SUPLA debesį
 Registered: Užregistruotas
 Registration of new I/O devices: Įrenginių registracija
-Registration of new clients: Klientų registracija
+Client registration: Klientų registracija
 Relay: Relė
 Relay switching time: Relė perjungimo laikas
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Prieš pašalindami vietą pirmiau turite perkelti kanalų grupes, kurios yra joje. Identifikatoriai: {relatedIds}.'

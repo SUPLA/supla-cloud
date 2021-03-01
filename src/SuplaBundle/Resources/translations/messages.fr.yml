@@ -370,7 +370,7 @@ Register a new OAuth application: Enregistrer une nouvelle application OAuth
 Register private SUPLA Cloud: Enregistrer un nuage SUPLA privé
 Registered: Enregistré
 Registration of new I/O devices: Enregistrement appareil
-Registration of new clients: Enregistrement client
+Client registration: Enregistrement client
 Relay: Relais
 Relay switching time: Durée d'activation de relais
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Avant de pouvoir supprimer un lieu, vous devez d''abord déplacer les groupes de chaînes attribués. Identifiants: {relatedIds}.'

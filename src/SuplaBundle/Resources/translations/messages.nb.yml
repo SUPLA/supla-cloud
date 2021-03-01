@@ -370,7 +370,7 @@ Register a new OAuth application: Registrer ny OAuth applikasjon
 Register private SUPLA Cloud: Registrer privat SUPLA Cloud
 Registered: Registrert
 Registration of new I/O devices: Registrering av enheter
-Registration of new clients: Registrering av kunder
+Client registration: Registrering av kunder
 Relay: Relé
 Relay switching time: Relé koblingstid
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Før du fjerner lokalisering må du først flytte kanalgrupper som finnes i den. Identifikatorer: {relatedIds}.'

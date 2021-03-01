@@ -370,7 +370,7 @@ Register a new OAuth application: Εγγραφή νέας εφαρμογής OAu
 Register private SUPLA Cloud: Εγγραφή ιδιωτικού SUPLA-cloud
 Registered: Εγγεγραμμένος
 Registration of new I/O devices: Εγγραφή συσκευών
-Registration of new clients: Εγγραφή πελατών
+Client registration: Εγγραφή πελατών
 Relay: Ηλεκτρονόμος
 Relay switching time: Χρόνος ενεργοποίησης του ηλεκτρονόμου
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Προτού  διαγράψετε μια τοποθεσία, πρέπει πρώτα να μετακινήσετε ομάδες καναλιών που συνδέονται με αυτήν. Αναγνωριστικά: {relatedIds}.'
