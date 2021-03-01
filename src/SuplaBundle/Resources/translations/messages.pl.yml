@@ -285,6 +285,7 @@ Limit has been exceeded: Limit został przekroczony
 Location: Lokalizacja
 Location Identifier: Identyfikator Lokalizacji
 Location limit has been exceeded: Limit lokalizacji został przekroczony
+Location name: Nazwa lokalizacji
 Locations: Lokalizacje
 Login: Logowanie
 MQTT Broker: Broker MQTT
@@ -671,5 +672,20 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new personal access token has been generated.: ~
+Access to all of your devices through MQTT Broker: ~
+Channels groups are not supported for this function.: ~
+Digi Glass: ~
+Digi Glass Horizontal: ~
+Digi Glass Vertical: ~
+Guru Meditation: ~
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
+Invalid action parameters: ~
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
+Make sure to copy it now because you won’t be able to see it again!: ~
+Number of sections: ~
+Regeneration starts at: ~
+You have to choose at least one scope.: ~
+You must set sections with transparent or opaque parameters or both.: ~
 
 #</editor-fold>
