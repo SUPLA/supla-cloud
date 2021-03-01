@@ -23,7 +23,7 @@
                     <div class="row text-center">
                         <div class="col-sm-4">
                             <h3>{{ $t('Function') }}</h3>
-                            <div class="hover-editable text-left">
+                            <div class="hover-editable hovered text-left">
                                 <div class="form-group">
                                     <div class="dropdown hovered">
                                         <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
@@ -44,10 +44,11 @@
                                     </div>
                                 </div>
                                 <dl v-if="channel.function.id">
-                                    <dd>{{ $t('Caption') }}</dd>
+                                    <dd>{{ $t('Channel name') }}</dd>
                                     <dt>
                                         <input type="text"
                                             class="form-control text-center"
+                                            :placeholder="$t('Default')"
                                             @keydown="updateChannel()"
                                             v-model="channel.caption">
                                     </dt>

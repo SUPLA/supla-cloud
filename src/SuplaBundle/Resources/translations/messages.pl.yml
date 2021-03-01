@@ -90,6 +90,7 @@ Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 Channel group must consist of at least one channel.: Grupa kanałów musi zawierać przynajmniej jeden kanał.
 Channel groups: Grupy kanałów
 Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
+Channel name: Nazwa kanału
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels: Kanały
 Channels in channel group: Kanały w grupach kanałów
@@ -137,6 +138,7 @@ DS18B20 Thermometer: Termometr DS18B20
 Data saved: Dane zostały zapisane
 Days: Dni
 Decline: Odmów
+Default: domyślnie
 Delete: Usuń
 Delete measurement history: Usuń historię pomiarów
 Delete my account: Usuń moje konto
