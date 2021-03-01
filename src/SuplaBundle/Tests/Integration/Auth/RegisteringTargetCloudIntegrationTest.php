@@ -40,13 +40,13 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('https://private.supla', $address);
+                $this->assertEquals('https://supla.private.pl', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
             };
 
-        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'private.supla']);
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
@@ -57,13 +57,13 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('https://private.supla', $address);
+                $this->assertEquals('https://supla.private.pl', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [null, Response::HTTP_NOT_FOUND];
             };
 
-        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'private.supla']);
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
@@ -71,17 +71,27 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertContains('not available', $body['message']);
     }
 
-    public function testRegistertingObsoleteCloud() {
+    public function testRegisteringTargetIfDomainWithSuplaName() {
+        $client = $this->createHttpsClient();
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla-cloud.pl']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('message', $body);
+        $this->assertContains('You cannot use "SUPLA"', $body['message']);
+    }
+
+    public function testRegisteringObsoleteCloud() {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('https://private.supla', $address);
+                $this->assertEquals('https://supla.private.pl', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.2.0'], Response::HTTP_OK];
             };
 
-        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'private.supla']);
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
@@ -94,13 +104,13 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('https://private.supla', $address);
+                $this->assertEquals('https://supla.private.pl', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
             };
 
-        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'private.supla']);
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
         $response = $client->getResponse();
         $this->assertStatusCode(503, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
@@ -113,13 +123,13 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('https://private.supla', $address);
+                $this->assertEquals('https://supla.private.pl', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
             };
 
-        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'private.supla']);
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
         $response = $client->getResponse();
         $this->assertStatusCode(500, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
@@ -137,13 +147,13 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('https://private.supla', $address);
+                $this->assertEquals('https://supla.private.pl', $address);
                 $this->assertEquals('server-info', $endpoint);
                 $targetCalled = true;
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
             };
 
-        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'private.supla']);
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
