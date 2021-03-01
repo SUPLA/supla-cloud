@@ -3,8 +3,13 @@
         <transition name="fade-router">
             <whole-screen-message v-if="registeredEmail"
                 icon="pe-7s-mail-open-file"
-                header-i18n="Check your email box"
-                :message="registeredEmail"></whole-screen-message>
+                header-i18n="Check your email inbox"
+                :message="registeredEmail">
+                <p>
+                    <resend-account-activation-link :username="registeredEmail"
+                        :notifications="true"></resend-account-activation-link>
+                </p>
+            </whole-screen-message>
         </transition>
         <transition name="fade-router">
             <div v-if="!registeredEmail">
@@ -25,9 +30,10 @@
     import RegisterSlider from './register-slider';
     import RegisterForm from './register-form';
     import WholeScreenMessage from "./whole-screen-message";
+    import ResendAccountActivationLink from "./resend-account-activation-link";
 
     export default {
-        components: {WholeScreenMessage, RegisterSlider, RegisterForm},
+        components: {ResendAccountActivationLink, WholeScreenMessage, RegisterSlider, RegisterForm},
         data() {
             return {
                 registeredEmail: ''

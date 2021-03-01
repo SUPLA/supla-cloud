@@ -15,9 +15,10 @@
 
 <script>
     import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+    import {errorNotification, successNotification} from "../common/notifier";
 
     export default {
-        props: ['username'],
+        props: ['username', 'notifications'],
         components: {ButtonLoadingDots},
         data() {
             return {
@@ -36,10 +37,17 @@
         methods: {
             resendActivationLink() {
                 this.loading = true;
-                this.$http.patch('register-resend', {email: this.username}, {skipErrorHandler: [400, 409]})
-                    .then(() => this.success = true)
-                    .catch(response => this.error = response.body.message)
+                const promise = this.$http.patch('register-resend', {email: this.username}, {skipErrorHandler: [400, 409]})
                     .finally(() => this.loading = false);
+                if (this.notifications) {
+                    promise
+                        .then(() => successNotification(this.$t('Successful'), this.$t('The activation link has been sent again. Check the inbox.')))
+                        .catch((response) => errorNotification(this.$t('Error'), this.$t(response.body.message)));
+                } else {
+                    promise
+                        .then(() => this.success = true)
+                        .catch(response => this.error = response.body.message)
+                }
             }
         }
     };
