@@ -602,7 +602,7 @@ sunrise-before: alba
 sunset-after: tramonto
 sunset-before: tramonto
 username: nome utente
-will expire: scade
+valid until: scade
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} non può interagire con il Tuo account finché non concederai di nuovo l’accesso.'
 '{clientName} wants to access your account.': '{clientName} vuole accedere al Tuo account.'
 '{requests} out of {limit} / day': '{richieste} di {limite} / giorno'

@@ -602,7 +602,7 @@ sunrise-before: soloppgang – før
 sunset-after: solnedgang – etter
 sunset-before: solnedgang – før
 username: Brukernavn
-will expire: utløper
+valid until: utløper
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan ikke samhandle med din konto før du gir tilgang på nytt.'
 '{clientName} wants to access your account.': '{clientName} ber om tilgang til din konto.'
 '{requests} out of {limit} / day': '{requests} fra {limit} / døgn'

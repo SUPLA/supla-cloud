@@ -602,7 +602,7 @@ sunrise-before: Sonnenaufgang
 sunset-after: Sonnenuntergang
 sunset-before: Sonnenuntergang
 username: Benutzername
-will expire: es erlischt
+valid until: es erlischt
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kann erst mit Ihrem Konto interagieren, wenn Sie den Zugriff erneut erteilen.'
 '{clientName} wants to access your account.': '{clientName} möchte auf Ihr Konto zugreifen. Falsche Link Parameter'
 '{requests} out of {limit} / day': '{Anfragen} von {Limit} / Tag'

@@ -602,7 +602,7 @@ sunrise-before: východom
 sunset-after: západe
 sunset-before: západom
 username: názov používateľa
-will expire: uplynie
+valid until: uplynie
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nemôže spolupracovať s vašim účtom, kým jej opätovne neudelíte prístup.'
 '{clientName} wants to access your account.': '{clientName} chce získať prístup k vášmu účtu.'
 '{requests} out of {limit} / day': '{requests} z {limit} / deň'

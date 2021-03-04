@@ -649,7 +649,7 @@ sunrise-before: wschodem
 sunset-after: zachodzie
 sunset-before: zachodem
 username: nazwa użytkownika
-will expire: wygaśnie
+valid until: wygaśnie
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
 '{requests} out of {limit} / day': '{requests} z {limit} / dobę'

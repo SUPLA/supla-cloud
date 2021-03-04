@@ -602,7 +602,7 @@ sunrise-before: восхода
 sunset-after: заката
 sunset-before: заката
 username: имя пользователя
-will expire: Истечет
+valid until: Истечет
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} мы не можем взаимодействовать с вашей учетной записью до повторного предоставления доступа.'
 '{clientName} wants to access your account.': '{clientName} хочет получить доступ к вашей учетной записи.'
 '{requests} out of {limit} / day': '{requests} из {limit} / день'

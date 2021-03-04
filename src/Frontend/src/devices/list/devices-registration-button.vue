@@ -14,7 +14,7 @@
                         <span v-if="saving">{{ $t(captionI18n) }}</span>
                         <span v-else>{{ $t(captionI18n) }}:
                             <span class="big">{{ enabledUntil ? $t('ACTIVE') : $t('INACTIVE') }}</span></span>
-                        <div v-if="enabledUntil">{{ $t('will expire') }} : {{ enabledUntilCalendar }}</div>
+                        <div v-if="enabledUntil">{{ $t('valid until') }} : {{ enabledUntilCalendar }}</div>
                         <div class="small text-muted"
                             v-if="!saving">{{ enabledUntil ? $t('CLICK TO DISABLE') : $t('CLICK TO ENABLE') }}
                         </div>

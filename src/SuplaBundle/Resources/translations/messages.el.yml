@@ -602,7 +602,7 @@ sunrise-before: με την Ανατολή
 sunset-after: με τη Δύση
 sunset-before: με τη Δύση
 username: όνομα χρήστη
-will expire: θα σβήσει
+valid until: θα σβήσει
 '{applicationName} will not be able to interact with your account until you grant the access again.': 'Το {applicationName} δεν μπορεί να παρουσιάζει την αλληλεπίδραση με το λογαριασμό σας μέχρι που δεν παραχωρήσετε πάλι την πρόσβαση.'
 '{clientName} wants to access your account.': 'Ο χρήστης {clientName} θέλει να έχει πρόσβαση στον λογαριασμό σας.'
 '{requests} out of {limit} / day': '{requests} από {limit} / ημέρα'

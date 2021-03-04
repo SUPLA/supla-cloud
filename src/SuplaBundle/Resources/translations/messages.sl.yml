@@ -602,7 +602,7 @@ sunrise-before: vzhodom
 sunset-after: zahodu
 sunset-before: zahodom
 username: naziv uporabnika
-will expire: poteče
+valid until: poteče
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne more komunicirati z vašim računom, dokler ponovno ne odobrite dostopa.'
 '{clientName} wants to access your account.': '{clientName} želi dobiti dostop do vašega računa.'
 '{requests} out of {limit} / day': '{requests} iz {limit} / dan'

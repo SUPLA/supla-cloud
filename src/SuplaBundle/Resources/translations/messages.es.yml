@@ -602,7 +602,7 @@ sunrise-before: la salida del sol
 sunset-after: la puesta del sol
 sunset-before: la puesta del sol
 username: nombre de usuario
-will expire: caducará
+valid until: caducará
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} no puede interactuar con tu cuenta hasta que no vuelvas a otorgar el acceso.'
 '{clientName} wants to access your account.': '{clientName} quiere acceder a tu cuenta.'
 '{requests} out of {limit} / day': '{requests} de {limit} / día'

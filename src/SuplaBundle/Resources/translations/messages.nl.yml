@@ -602,7 +602,7 @@ sunrise-before: oosten
 sunset-after: westen
 sunset-before: westen
 username: gebruikersnaam
-will expire: vervallen
+valid until: vervallen
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan pas met uw account werken als u opnieuw toegang verleent.'
 '{clientName} wants to access your account.': '{clientName} wil toegang tot uw account.'
 '{requests} out of {limit} / day': '{requests} van {limit} / etmaal'

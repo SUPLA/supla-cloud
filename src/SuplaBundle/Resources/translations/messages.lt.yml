@@ -602,7 +602,7 @@ sunrise-before: saulėtekį
 sunset-after: saulėlydžio
 sunset-before: saulėlydį
 username: vartotojo vardas
-will expire: baigsis
+valid until: baigsis
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} negalima atlikti jokių veiksmu Jūsų paskyroje, kol pakartotinai nepateiksite prieigos.'
 '{clientName} wants to access your account.': '{clientName} nori gauti prieigą prie Tavo paskyros.'
 '{requests} out of {limit} / day': '{requests} iš {limit} / parą'

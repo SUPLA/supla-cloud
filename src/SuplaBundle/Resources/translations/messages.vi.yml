@@ -602,7 +602,7 @@ sunrise-before: trước bình minh
 sunset-after: sau hoàng hôn
 sunset-before: trước hoàng hôn
 username: Tên người dùng
-will expire: sẽ hết hạn
+valid until: sẽ hết hạn
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} sẽ không thể tương tác với tài khoản của bạn cho đến khi bạn cấp lại quyền truy cập.'
 '{clientName} wants to access your account.': '{clientName} muốn truy cập tài khoản của bạn'
 '{requests} out of {limit} / day': '{requêtes} trong {limite} / ngày'
