@@ -23,8 +23,10 @@
                 id="supla-navbar">
                 <ul class="nav navbar-nav">
                     <router-link tag="li"
+                        active-class="link-active"
+                        exact-active-class="active"
                         :class="{'active': subIsActive(['/devices', '/channels'])}"
-                        to="/me">
+                        to="/">
                         <a>
                             <i class="hidden-sm hidden-xs pe-7s-plug"></i>
                             {{ $t('My SUPLA') }}

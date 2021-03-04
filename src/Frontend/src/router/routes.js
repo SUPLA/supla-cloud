@@ -1,5 +1,7 @@
 export default [
-    {path: '/', component: () => import("@/home/home-page")},
+    {path: '/', component: () => import("@/home/my-supla-page"), name: 'me'},
+    {path: '/me', redirect: '/'}, // backward compat
+    {path: '/old-config', component: () => import("@/home/home-page")},
     {
         path: '/login',
         component: () => import("@/login/login-page"),
@@ -103,7 +105,6 @@ export default [
             {path: 'mqtt-broker', component: () => import("@/integrations/mqtt-broker-settings"), name: 'mqtt-broker'},
         ]
     },
-    {path: '/me', component: () => import("@/home/my-supla-page"), name: 'me'},
     {
         path: '/register-cloud',
         component: () => import("@/integrations/register-target-cloud-form"),

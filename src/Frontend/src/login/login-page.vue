@@ -44,7 +44,7 @@
                                 }
                             }
                         })
-                        .then(() => this.$router.push(this.$router.currentRoute.query.target || '/me'))
+                        .then(() => this.$router.push(this.$router.currentRoute.query.target || '/'))
                         .catch((error) => {
                             if (error.status == 401) {
                                 this.displayError = 'error';
