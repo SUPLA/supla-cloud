@@ -98,6 +98,7 @@
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             },
             value() {
+                this.value.param = {};
                 this.updateAction();
             }
         },
