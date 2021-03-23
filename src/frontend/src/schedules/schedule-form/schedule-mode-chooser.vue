@@ -21,6 +21,7 @@
                     'minutely', // i18n
                     'hourly', // i18n
                     'daily', // i18n
+                    'onoff', // i18n
                 ]
             };
         },
