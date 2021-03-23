@@ -123,6 +123,12 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     private $param3 = 0;
 
     /**
+     * @ORM\Column(name="param4", type="integer", nullable=false, options={"default"=0})
+     * @Groups({"basic"})
+     */
+    private $param4 = 0;
+
+    /**
      * @ORM\Column(name="text_param1", type="string", length=255, nullable=true)
      * @Groups({"basic"})
      */
@@ -241,7 +247,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
         } else {
             $function = intval($function);
         }
-        Assertion::true(ChannelFunction::isValid($function), "Not valid channel function: " . $function);
+        Assertion::true(ChannelFunction::isValid($function), 'Not valid channel function: ' . $function);
         $this->function = $function;
         $this->param1 = $this->param2 = $this->param3 = 0;
         $this->altIcon = 0;
@@ -265,13 +271,13 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     }
 
     public function getParam(int $paramNo): int {
-        Assertion::inArray($paramNo, [1, 2, 3], 'Invalid param number: ' . $paramNo);
+        Assertion::inArray($paramNo, [1, 2, 3, 4], 'Invalid param number: ' . $paramNo);
         $getter = "getParam$paramNo";
         return $this->{$getter}();
     }
 
     public function setParam(int $paramNo, int $value) {
-        Assertion::inArray($paramNo, [1, 2, 3], 'Invalid param number: ' . $paramNo);
+        Assertion::inArray($paramNo, [1, 2, 3, 4], 'Invalid param number: ' . $paramNo);
         $setter = "setParam$paramNo";
         return $this->{$setter}($value);
     }
@@ -298,6 +304,14 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
 
     public function setParam3(int $param3) {
         $this->param3 = $param3;
+    }
+
+    public function getParam4(): int {
+        return $this->param4;
+    }
+
+    public function setParam4(int $param4) {
+        $this->param4 = $param4;
     }
 
     /**
