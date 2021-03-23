@@ -32,6 +32,7 @@
     import ChannelParamsHeatmeter from "./channel-params-heat-meter";
     import ChannelParamsDigiglassVertical from "./channel-params-digiglass";
     import ChannelParamsDigiglassHorizontal from "./channel-params-digiglass";
+    import ChannelParamsPowerswitch from "./channel-params-powerswitch";
 
     export default {
         props: ['channel'],
@@ -62,6 +63,7 @@
             ChannelParamsHeatmeter,
             ChannelParamsDigiglassVertical,
             ChannelParamsDigiglassHorizontal,
+            ChannelParamsPowerswitch,
         },
         computed: {
             additionalChannelParamsComponent() {
