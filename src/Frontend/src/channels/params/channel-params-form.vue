@@ -33,6 +33,7 @@
     import ChannelParamsDigiglassVertical from "./channel-params-digiglass";
     import ChannelParamsDigiglassHorizontal from "./channel-params-digiglass";
     import ChannelParamsPowerswitch from "./channel-params-powerswitch";
+    import ChannelParamsLightswitch from "./channel-params-lightswitch";
 
     export default {
         props: ['channel'],
@@ -64,6 +65,7 @@
             ChannelParamsDigiglassVertical,
             ChannelParamsDigiglassHorizontal,
             ChannelParamsPowerswitch,
+            ChannelParamsLightswitch,
         },
         computed: {
             additionalChannelParamsComponent() {
