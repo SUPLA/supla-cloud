@@ -15,10 +15,9 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Model;
+namespace SuplaBundle\Tests\Model\ChannelParamsUpdater;
 
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Controller\ClientAppController;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelParamsUpdater\RelatedChannelsConnector;
@@ -38,8 +37,8 @@ class RelatedChannelsConnectorTest extends PHPUnit_Framework_TestCase {
         $relations = RelatedChannelsConnector::getPossibleRelations();
         $this->assertArrayHasKey(ChannelFunction::OPENINGSENSOR_DOOR, $relations);
         $this->assertArrayHasKey(ChannelFunction::CONTROLLINGTHEDOORLOCK, $relations);
-        $this->assertEquals([1, 2], $relations[ChannelFunction::OPENINGSENSOR_DOOR][ChannelFunction::CONTROLLINGTHEDOORLOCK]);
-        $this->assertEquals([2, 1], $relations[ChannelFunction::CONTROLLINGTHEDOORLOCK][ChannelFunction::OPENINGSENSOR_DOOR]);
+        $this->assertEquals([1, 2], $relations[ChannelFunction::OPENINGSENSOR_DOOR][ChannelFunction::CONTROLLINGTHEDOORLOCK][0]);
+        $this->assertEquals([2, 1], $relations[ChannelFunction::CONTROLLINGTHEDOORLOCK][ChannelFunction::OPENINGSENSOR_DOOR][0]);
     }
 
     public function testSupports() {
