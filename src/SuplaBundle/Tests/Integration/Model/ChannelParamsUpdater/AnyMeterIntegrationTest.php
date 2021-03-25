@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
@@ -33,10 +34,12 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var ChannelParamsUpdater */
     private $updater;
+    /** @var User */
+    private $user;
 
     public function initializeDatabaseForTests() {
-        $user = $this->createConfirmedUser();
-        $location = $this->createLocation($user);
+        $this->user = $this->createConfirmedUser();
+        $location = $this->createLocation($this->user);
         $this->device = $this->createDevice($location, [
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::ELECTRICITYMETER],
@@ -44,7 +47,12 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::WATERMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::HEATMETER],
         ]);
+    }
+
+    /** @before */
+    public function initialize() {
         $this->updater = $this->container->get(ChannelParamsUpdater::class);
+        $this->simulateAuthentication($this->user);
     }
 
     public function testUpdatingPricePerUnit() {
