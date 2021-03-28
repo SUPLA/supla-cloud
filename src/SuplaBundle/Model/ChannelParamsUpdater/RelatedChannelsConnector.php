@@ -103,7 +103,12 @@ class RelatedChannelsConnector implements SingleChannelParamsUpdater {
             [ChannelFunction::OPENINGSENSOR_GARAGEDOOR, 1, ChannelFunction::CONTROLLINGTHEGARAGEDOOR, 2],
             [ChannelFunction::OPENINGSENSOR_GATE, 1, ChannelFunction::CONTROLLINGTHEGATE, 2],
             [ChannelFunction::OPENINGSENSOR_GATE, 2, ChannelFunction::CONTROLLINGTHEGATE, 3],
-            [[ChannelFunction::POWERSWITCH, ChannelFunction::LIGHTSWITCH], 1, ChannelFunction::ELECTRICITYMETER, 4],
+            [
+                [ChannelFunction::POWERSWITCH, ChannelFunction::LIGHTSWITCH],
+                1,
+                [ChannelFunction::ELECTRICITYMETER, ChannelFunction::GASMETER, ChannelFunction::WATERMETER, ChannelFunction::HEATMETER],
+                4,
+            ],
         ];
         $relationsMapped = [];
         foreach ($relations as $relation) {

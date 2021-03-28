@@ -20,12 +20,6 @@
                 :unit="unit"
                 @change="$emit('change')"></channel-params-meter-initial-value>
         </dl>
-        <channel-params-related-channel
-            :channel="channel"
-            label-i18n="Associated measured channel"
-            channel-filter="function=POWERSWITCH,LIGHTSWITCH"
-            param-no="4"
-            @change="$emit('change')"></channel-params-related-channel>
     </div>
 </template>
 
@@ -34,11 +28,9 @@
     import ChannelParamsMeterUnit from "./channel-params-meter-unit";
     import ChannelParamsMeterImpulses from "./channel-params-meter-impulses";
     import ChannelParamsMeterInitialValue from "./channel-params-meter-initial-value";
-    import ChannelParamsRelatedChannel from "./channel-params-related-channel";
 
     export default {
         components: {
-            ChannelParamsRelatedChannel,
             ChannelParamsAnyMeter, ChannelParamsMeterUnit, ChannelParamsMeterImpulses, ChannelParamsMeterInitialValue
         },
         props: ['channel'],
