@@ -101,6 +101,7 @@ class RelatedChannelsConnector implements SingleChannelParamsUpdater {
             [ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER, 1, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, 2],
             [ChannelFunction::OPENINGSENSOR_GATEWAY, 1, ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, 2],
             [ChannelFunction::OPENINGSENSOR_GARAGEDOOR, 1, ChannelFunction::CONTROLLINGTHEGARAGEDOOR, 2],
+            [ChannelFunction::OPENINGSENSOR_GARAGEDOOR, 2, ChannelFunction::CONTROLLINGTHEGARAGEDOOR, 3],
             [ChannelFunction::OPENINGSENSOR_GATE, 1, ChannelFunction::CONTROLLINGTHEGATE, 2],
             [ChannelFunction::OPENINGSENSOR_GATE, 2, ChannelFunction::CONTROLLINGTHEGATE, 3],
             [
