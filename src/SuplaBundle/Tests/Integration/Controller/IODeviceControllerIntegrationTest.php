@@ -155,8 +155,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', '/api/iodevices/' . $this->device->getId() . '/channels');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $content = current(json_decode($response->getContent(), true));
-        $this->assertCount(20, $content);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(5, $content);
     }
 
     public function testGettingDevicesDetailsWithLocation() {
