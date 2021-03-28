@@ -642,6 +642,8 @@ execute: proveď
 # Translations below are missing. You want to translate them.
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
+Associated measured channel: ~
+Associated measurement channel: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
 Channel name: ~
