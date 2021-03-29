@@ -61,4 +61,17 @@ class DeleteNotConfirmedUsersCommandIntegrationTest extends IntegrationTestCase 
         $this->getEntityManager()->clear();
         $this->assertNull($this->getEntityManager()->find(User::class, $this->userId));
     }
+
+    public function testDeletingUserWithHyphenAtTheBeginning() {
+        $userManager = $this->container->get(UserManager::class);
+        $user = new User();
+        $user->setEmail('-zenon@supla.org');
+        $user->setPlainPassword('januszowe');
+        $userManager->create($user);
+        $userId = $user->getId();
+        TestTimeProvider::setTime('+50 hours');
+        $this->getEntityManager()->clear();
+        $this->executeCommand('supla:clean:not-confirmed-users');
+        $this->assertNull($this->getEntityManager()->find(User::class, $userId));
+    }
 }

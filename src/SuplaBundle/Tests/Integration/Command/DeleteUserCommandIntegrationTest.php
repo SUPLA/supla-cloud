@@ -75,4 +75,14 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
         $this->assertNull($this->getEntityManager()->find(Location::class, 2));
         $this->assertCount(1, SuplaAutodiscoverMock::$requests);
     }
+
+    public function testDeletingUserWithHyphenInUsername() {
+        SuplaAutodiscoverMock::clear(false);
+        $this->user = $this->createConfirmedUser('-zupler@supla.org');
+        $location = $this->createLocation($this->user);
+        $this->createDeviceFull($location);
+        $this->getEntityManager()->refresh($this->user);
+        $output = $this->executeCommand(['command' => 'supla:delete-user', 'username' => $this->user->getUsername()]);
+        $this->assertContains('has been deleted', $output);
+    }
 }

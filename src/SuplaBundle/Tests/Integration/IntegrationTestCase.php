@@ -28,6 +28,7 @@ use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\DependencyInjection\ResettableContainerInterface;
@@ -96,8 +97,14 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function initializeDatabaseForTests() {
     }
 
-    protected function executeCommand(string $command): string {
-        $input = new StringInput("$command --env=test");
+    /** @param array|string $command */
+    protected function executeCommand($command): string {
+        if (is_array($command)) {
+            $command['--env'] = 'test';
+            $input = new ArrayInput($command);
+        } else {
+            $input = new StringInput("$command --env=test");
+        }
         $output = new BufferedOutput();
         $input->setInteractive(false);
         $error = $this->application->run($input, $output);
