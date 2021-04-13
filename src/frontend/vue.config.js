@@ -19,6 +19,9 @@ module.exports = {
             new webpack.ProvidePlugin({
                 jQuery: 'jquery',
             }),
+            new webpack.DefinePlugin({
+                VERSION: JSON.stringify(process.env.RELEASE_VERSION || process.env.npm_package_version)
+            })
         ],
     }
 };

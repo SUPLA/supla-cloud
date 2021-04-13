@@ -64,6 +64,7 @@
 
 <script>
     import Vue from "vue";
+    import moment from "moment";
     import AppState from "../../router/app-state";
 
     export default {

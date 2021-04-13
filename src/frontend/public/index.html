@@ -30,6 +30,7 @@
         </loading-cover>
         <cookie-warning v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
     </div>
+    <page-footer :username="$user.username"></page-footer>
 </div>
 <div id="page-preloader"></div>
 <!-- built files will be auto injected -->

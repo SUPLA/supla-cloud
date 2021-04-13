@@ -26,7 +26,7 @@ Vue.use(vMediaQuery, {variables: {xs: 768}});
 
 Vue.config.productionTip = false;
 Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
-Vue.http.headers.common['X-Client-Version'] = '2.4.0';//VERSION; // eslint-disable-line no-undef
+Vue.http.headers.common['X-Client-Version'] = VERSION; // eslint-disable-line no-undef
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 Vue.http.options.root = '/api';
