@@ -1,9 +1,12 @@
-{% extends 'SuplaBundle::vue-template.html.twig' %}
+{% extends '@web/dist/index.html' %}
 
 {% block vue %}
-    <router-view last-username="{{ last_username }}"
-            error="{{ error }}"
-            :ask-for-target-cloud="{{ askForTargetCloud ? 'true' : 'false' }}"
-            last-target-cloud="{{ lastTargetCloud }}"
-            client-name="{{ client.name | default('') }}"></router-view>
+    <div class="page-content">
+        <router-view last-username="{{ last_username }}"
+                error="{{ error }}"
+                :ask-for-target-cloud="{{ askForTargetCloud ? 'true' : 'false' }}"
+                last-target-cloud="{{ lastTargetCloud }}"
+                client-name="{{ client.name | default('') }}"></router-view>
+    </div>
+    <page-footer></page-footer>
 {% endblock %}

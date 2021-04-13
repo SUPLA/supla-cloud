@@ -1,24 +1,27 @@
-{% extends 'SuplaBundle::vue-template.html.twig' %}
+{% extends '@web/dist/index.html' %}
 
 {% block vue %}
-    <oauth-authorize-form desired-scopes="{{ form.scope.vars.value }}"
-            client-name="{{ client.name }}"
-            locale="{{ app.user.locale }}">
-        {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
-        <input type="submit"
-                name="rejected"
-                class="btn btn-white btn-lg"
-                :value="$t('Decline')">
-        <input type="submit"
-                name="accepted"
-                class="btn btn-green btn-lg pull-right"
-                :value="$t('Grant access')">
-        {{ form_row(form.client_id) }}
-        {{ form_row(form.response_type) }}
-        {{ form_row(form.redirect_uri) }}
-        {{ form_row(form.state) }}
-        {{ form_row(form.scope, {attr: {ref: 'scopeField'}}) }}
-        {{ form_rest(form) }}
-        </form>
-    </oauth-authorize-form>
+    <div class="page-content">
+        <oauth-authorize-form desired-scopes="{{ form.scope.vars.value }}"
+                client-name="{{ client.name }}"
+                locale="{{ app.user.locale }}">
+            {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
+            <input type="submit"
+                    name="rejected"
+                    class="btn btn-white btn-lg"
+                    :value="$t('Decline')">
+            <input type="submit"
+                    name="accepted"
+                    class="btn btn-green btn-lg pull-right"
+                    :value="$t('Grant access')">
+            {{ form_row(form.client_id) }}
+            {{ form_row(form.response_type) }}
+            {{ form_row(form.redirect_uri) }}
+            {{ form_row(form.state) }}
+            {{ form_row(form.scope, {attr: {ref: 'scopeField'}}) }}
+            {{ form_rest(form) }}
+            </form>
+        </oauth-authorize-form>
+    </div>
+    <page-footer></page-footer>
 {% endblock %}

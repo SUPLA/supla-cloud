@@ -48,13 +48,13 @@ class DefaultController extends Controller {
         return $this->redirectToRoute('_register', ['lang' => $request->getLocale()]);
     }
 
-//    /**
-//     * @Route("/api-docs/docs.html", methods={"GET"})
-//     * @Template()
-//     */
-//    public function apiDocsAction() {
-//        return ['supla_url' => $this->suplaUrl];
-//    }
+    /**
+     * @Route("/api-docs/docs.html", methods={"GET"})
+     * @Template()
+     */
+    public function apiDocsAction() {
+        return ['supla_url' => $this->suplaUrl];
+    }
 
     /**
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
@@ -65,12 +65,12 @@ class DefaultController extends Controller {
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
 
-//    /**
-//     * @Route("/api-docs/oauth2-redirect.html", methods={"GET"})
-//     * @Template()
-//     */
-//    public function apiDocsOAuth2RedirectAction() {
-//    }
+    /**
+     * @Route("/api-docs/oauth2-redirect.html", methods={"GET"})
+     * @Template()
+     */
+    public function apiDocsOAuth2RedirectAction() {
+    }
 
     /**
      * @Route("/", name="_homepage")

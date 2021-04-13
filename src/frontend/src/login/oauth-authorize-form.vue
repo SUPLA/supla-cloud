@@ -4,17 +4,19 @@
             <div class="authorization-logo">
                 <span class="app-name">{{ clientName }}</span>
                 <span class="arrow"><span class="pe-7s-link"></span></span>
-                <img src="assets/img/logo.svg"
+                <img src="../assets/img/logo.svg"
                     alt="SUPLA">
             </div>
-            <h3 class="text-center">{{ $t('Authorize the application, so that it can access your account.')}}</h3>
+            <h3 class="text-center">{{ $t('Authorize the application, so that it can access your account.') }}</h3>
             <div class="form-group clearfix">
                 <div class="list-group scope-selector">
                     <div class="list-group-item"
+                        :key="scope.label"
                         v-for="scope in desiredAvailableScopes">
                         <h4>{{ $t(scope.label) }}</h4>
                         <div class="permissions">
-                            <div v-for="suffix in scope.suffixes">
+                            <div v-for="suffix in scope.suffixes"
+                                :key="suffix">
                                 <i :class="'pe-7s-' + icons[suffix]"></i>
                                 {{ $t(scopeSuffixLabels[suffix]) }}
                             </div>
@@ -36,12 +38,10 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../integrations/oauth-scopes";
     import {cloneDeep} from "lodash";
 
     export default {
-        components: {ButtonLoadingDots},
         props: ['desiredScopes', 'clientName', 'locale'],
         data() {
             return {
