@@ -39,7 +39,7 @@ Vue.http.get('server-info')
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }
-        const serverTime = new Date(Vue.config.external.serverTime);
+        const serverTime = moment(info.time).toDate();
         const offset = serverTime.getTime() - renderStart.getTime();
         moment.now = function () {
             return Date.now() + offset;

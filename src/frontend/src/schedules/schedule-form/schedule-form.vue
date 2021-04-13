@@ -106,6 +106,7 @@
     import SubjectDropdown from "../../devices/subject-dropdown";
     import ChannelActionChooser from "../../channels/action/channel-action-chooser";
     import Vue from "vue";
+    import moment from "moment";
 
     export default {
         props: ['id'],

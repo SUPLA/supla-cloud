@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
+import $ from 'jquery';
 
 Vue.use(VueRouter);
 

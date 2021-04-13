@@ -29,6 +29,7 @@
 
 <script>
     import Vue from "vue";
+    import $ from "jquery";
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
