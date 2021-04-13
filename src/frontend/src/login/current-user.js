@@ -25,7 +25,6 @@ export class CurrentUser {
     }
 
     determineServerUrl() {
-            this.serverUrl = ''; return; // TODO
         if (Vue.config.external.actAsBrokerCloud) {
             this.serverUrl = Base64.decode((this.getToken() || '').split('.')[1] || '') || Vue.config.external.suplaUrl;
         } else {
