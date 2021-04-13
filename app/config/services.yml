@@ -125,11 +125,6 @@ services:
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}
 
-  SuplaBundle\Twig\WebpackAssetVersionStrategy:
-    arguments:
-      - "%use_webpack_dev_server%"
-      - "%supla.webpack_hashes%"
-
   SuplaBundle\Auth\Voter\:
     resource: '../../src/SuplaBundle/Auth/Voter'
 
