@@ -4,14 +4,16 @@ import routes from './routes';
 
 Vue.use(VueRouter);
 
-let config = window.FRONTEND_CONFIG || {};
-if (!config.baseUrl) {
-    config.baseUrl = '';
-}
+// let config = window.FRONTEND_CONFIG || {};
+// if (!config.baseUrl) {
+//     config.baseUrl = '';
+// }
+// TODO
+const config = {};
 
 const router = new VueRouter({
     routes,
-    base: config.baseUrl + '/',
+    base: '/',
     linkActiveClass: 'active',
     mode: 'history',
 });

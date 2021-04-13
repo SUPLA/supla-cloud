@@ -84,7 +84,7 @@ export class CurrentUser {
                 return Vue.http.get('server-info')
                     .then(response => {
                         if (response.body.config) {
-                            $.extend(window.FRONTEND_CONFIG, response.body.config);
+                            $.extend(Vue.config.external, response.body.config);
                         }
                     });
             });

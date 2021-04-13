@@ -6,6 +6,8 @@
 /vendor/
 /var/
 /web/assets/dist
+/web/dist
+/web/index.html
 /*.sh
 .idea/
 *.log
