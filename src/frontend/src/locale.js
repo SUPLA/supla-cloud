@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueI18N from "vue-i18n";
+import moment from "moment";
 
 Vue.config.availableLanguages = [
     {value: 'en', text: 'English'},

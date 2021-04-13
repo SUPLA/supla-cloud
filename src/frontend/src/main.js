@@ -1,5 +1,5 @@
-import "expose-loader?jQuery!expose-loader?$!jquery";
-import "expose-loader?moment!moment";
+import $ from "jquery";
+import moment from "moment";
 import "bootstrap";
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,7 +15,7 @@ import "moment-timezone";
 import "./common/common-components";
 import "./common/common-directives";
 import "./common/filters";
-import "style-loader!css-loader!sass-loader!./styles/styles.scss";
+import "./styles/styles.scss";
 import "./polyfills";
 import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
@@ -31,7 +31,7 @@ if (!Vue.config.external.baseUrl) {
     Vue.config.external.baseUrl = '';
 }
 Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
-Vue.http.headers.common['X-Client-Version'] = VERSION; // eslint-disable-line no-undef
+Vue.http.headers.common['X-Client-Version'] = '2.4.0';//VERSION; // eslint-disable-line no-undef
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 

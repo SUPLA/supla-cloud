@@ -1,4 +1,4 @@
-import PNotify from "expose-loader?PNotify!pnotify"; // TODO remove expose loader when all legacy notification are removed
+import PNotify from "pnotify";
 import "pnotify/dist/pnotify.buttons";
 import "pnotify/dist/pnotify.buttons.css";
 import "pnotify/dist/pnotify.mobile";

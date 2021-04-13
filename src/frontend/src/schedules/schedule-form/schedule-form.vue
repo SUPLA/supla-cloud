@@ -97,7 +97,7 @@
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
     import ButtonLoading from "../../common/gui/loaders/button-loading.vue";
     import LoadingDots from "../../common/gui/loaders/loader-dots.vue";
-    import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
+    import 'eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import Toggler from "../../common/gui/toggler";
     import PageContainer from "../../common/pages/page-container";

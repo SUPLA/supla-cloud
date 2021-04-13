@@ -47,12 +47,12 @@
 </template>
 
 <script>
-    import BtnFilters from "src/common/btn-filters.vue";
+    import BtnFilters from "../../common/btn-filters.vue";
     import DeviceTile from "./device-tile.vue";
     import ConnectionStatusLabel from "./connection-status-label.vue";
-    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
+    import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder.vue";
     import DeviceFilters from "./device-filters";
-    import EventBus from "src/common/event-bus";
+    import EventBus from "../../common/event-bus";
 
     export default {
         components: {

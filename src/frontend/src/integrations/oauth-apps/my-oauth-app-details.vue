@@ -83,8 +83,8 @@
 </template>
 
 <script>
-    import PageContainer from "src/common/pages/page-container";
-    import PendingChangesPage from "src/common/pages/pending-changes-page";
+    import PageContainer from "../../common/pages/page-container";
+    import PendingChangesPage from "../../common/pages/pending-changes-page";
     import Vue from "vue";
     import CopyButton from "../../common/copy-button";
 

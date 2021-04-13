@@ -42,7 +42,7 @@
 
 <script>
     import {Carousel, Slide} from 'vue-carousel';
-    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
+    import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder";
     import Vue from "vue";
 
     export default {

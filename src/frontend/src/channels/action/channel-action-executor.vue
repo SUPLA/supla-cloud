@@ -46,8 +46,8 @@
 
 <script>
     import ChannelActionChooser from "./channel-action-chooser";
-    import EventBus from "src/common/event-bus";
-    import ButtonLoadingDots from "src/common/gui/loaders/button-loading-dots.vue";
+    import EventBus from "../../common/event-bus";
+    import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
     import Vue from "vue";
     import TransitionExpand from "../../common/gui/transition-expand";
 

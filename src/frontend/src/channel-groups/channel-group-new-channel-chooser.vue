@@ -56,7 +56,7 @@
 </template>
 
 <script>
-    import ChannelsDropdown from "src/devices/channels-dropdown.vue";
+    import ChannelsDropdown from "../devices/channels-dropdown.vue";
 
     export default {
         props: ['channelGroup'],

@@ -176,7 +176,7 @@
     import Vue from "vue";
     import SquareLinksCarousel from "../common/tiles/square-links-carousel";
     import FunctionIcon from "../channels/function-icon";
-    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
+    import EmptyListPlaceholder from "../common/gui/empty-list-placeholder";
     import AccessIdChooser from "../access-ids/access-id-chooser";
     import Toggler from "../common/gui/toggler";
     import {channelTitle} from "../common/filters";

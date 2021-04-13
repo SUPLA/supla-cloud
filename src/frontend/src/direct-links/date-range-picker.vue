@@ -32,7 +32,7 @@
 <script>
     import Vue from "vue";
     import moment from "moment";
-    import 'imports-loader?define=>false,exports=>false!eonasdan-bootstrap-datetimepicker';
+    import 'eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
     export default {

@@ -54,11 +54,13 @@
                 if (this.model.closestExecutions.future.length) {
                     return this.model.closestExecutions.future[0];
                 }
+                return undefined;
             },
             latestExecution() {
                 if (this.model.closestExecutions.past.length) {
                     return this.model.closestExecutions.past[this.model.closestExecutions.past.length - 1];
                 }
+                return undefined;
             },
         }
     };

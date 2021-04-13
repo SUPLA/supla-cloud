@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0">
+    <link rel="icon"
+        href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app"></div>
+<div class="vue-container invisible">
+    <div class="page-content">
+        <transition name="fade">
+            <navbar v-if="$user.username"></navbar>
+        </transition>
+        <div class="alert alert-warning maintenance-warning"
+            v-if="$frontendConfig.maintenanceMode && $user.username">
+            <maintenance-warning></maintenance-warning>
+        </div>
+        <loading-cover :loading="changingRoute">
+            <transition name="fade-router">
+                <router-view></router-view>
+            </transition>
+        </loading-cover>
+        <cookie-warning v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
+    </div>
+    {# the :username binding is required, because the page-footer component is created before $user prototype variable, so it cannot use it directly #}
+</div>
+<div id="page-preloader"></div>
+<script>
+    window.FRONTEND_CONFIG = {"regulationsAcceptRequired":true,"requireCookiePolicyAcceptance":true,"recaptchaEnabled":true,"recaptchaSiteKey":"6LdZXE8UAAAAAKdwBkiz4uw1AwL0i0HJTsgY7Yjq","actAsBrokerCloud":true,"suplaUrl":"https:\/\/svr10.supla.org","maintenanceMode":false,"accountsRegistrationEnabled":true,"mqttBrokerEnabled":true,"max_upload_size":{"file":2097152,"total":8388608}};
+    window.FRONTEND_CONFIG['serverTime'] = '2021-04-13T10:31:14+02:00';
+    window.FRONTEND_CONFIG['renderStart'] = new Date();
+    window.FRONTEND_CONFIG['baseUrl'] = '';
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- built files will be auto injected -->
+</body>
 </html>

@@ -121,7 +121,7 @@
     import Toggler from "../common/gui/toggler";
     import LocationChooser from "../locations/location-chooser";
     import ClientAppChooser from "../client-apps/client-app-chooser";
-    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder";
+    import EmptyListPlaceholder from "../common/gui/empty-list-placeholder";
     import PageContainer from "../common/pages/page-container";
 
     export default {

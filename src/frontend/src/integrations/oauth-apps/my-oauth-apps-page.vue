@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import CarouselPage from "src/common/pages/carousel-page";
+    import CarouselPage from "../../common/pages/carousel-page";
     import MyOauthAppTile from "./my-oauth-app-tile";
     import Vue from "vue";
 

@@ -43,12 +43,12 @@
 
 <script>
     import LoaderDots from "../common/gui/loaders/loader-dots.vue";
-    import DevicesRegistrationButton from "src/devices/list/devices-registration-button.vue";
+    import DevicesRegistrationButton from "../devices/list/devices-registration-button.vue";
     import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
-    import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
+    import EmptyListPlaceholder from "../common/gui/empty-list-placeholder.vue";
     import ClientAppTileEditable from "./client-app-tile-editable";
     import ClientAppFilters from "./client-app-filters";
-    import EventBus from "src/common/event-bus";
+    import EventBus from "../common/event-bus";
 
     export default {
         components: {

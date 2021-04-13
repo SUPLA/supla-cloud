@@ -26,7 +26,7 @@
 <script>
     import ChannelFilters from "./channel-filters";
     import ChannelTile from "./channel-tile";
-    import EventBus from "src/common/event-bus";
+    import EventBus from "../common/event-bus";
 
     export default {
         components: {ChannelTile, ChannelFilters},
