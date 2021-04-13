@@ -19,6 +19,7 @@ import "./styles/styles.scss";
 import "./polyfills";
 import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
+import App from "./App";
 
 Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
@@ -29,6 +30,7 @@ Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
 Vue.http.headers.common['X-Client-Version'] = VERSION; // eslint-disable-line no-undef
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
+Vue.prototype.$changingRoute = false;
 Vue.http.options.root = '/api';
 
 const renderStart = new Date();
@@ -50,31 +52,34 @@ Vue.http.get('server-info')
     .then((userData) => setGuiLocale(userData))
     .then(() => {
         $(document).ready(() => {
-            if ($('.vue-container').length) {
-
-                const app = new Vue({
-                    data: {changingRoute: false},
+            if ($('#vue-container').length) {
+                const appConfig = {
                     i18n,
                     router,
                     components: {
                         OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
                         ErrorPage: () => import("./common/errors/error-page"),
                         DirectLinkExecutionResult: () => import("./direct-links/result-page/direct-link-execution-result"),
+                        PageFooter: () => import("./common/gui/page-footer"),
                     },
                     mounted() {
                         document.getElementById('page-preloader').remove();
-                        $('.vue-container').removeClass('invisible');
-                    }
-                }).$mount('.vue-container');
+                        $('#vue-container').removeClass('invisible');
+                    },
+                };
+                if (!$("#vue-container").children().length) {
+                    appConfig.render = h => h(App);
+                }
+                const app = new Vue(appConfig).$mount('#vue-container');
 
                 router.beforeEach((to, from, next) => {
-                    app.changingRoute = true;
+                    Vue.prototype.$changingRoute = true;
                     next();
                 });
-                router.afterEach(() => app.changingRoute = false);
+                router.afterEach(() => Vue.prototype.$changingRoute = false);
 
                 Vue.http.interceptors.push(ResponseErrorInterceptor(app));
-                for (let transformer in requestTransformers) {
+                for (const transformer in requestTransformers) {
                     Vue.http.interceptors.push(requestTransformers[transformer]);
                 }
             }

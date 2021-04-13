@@ -51,6 +51,7 @@
 
 <script>
     import Switches from "vue-switches";
+    import moment from "moment";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
 
     export default {

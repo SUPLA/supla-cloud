@@ -95,7 +95,7 @@
 
     @media (min-height: 500px) and (min-width: 768px) {
         $footerHeight: 60px;
-        html, body, .vue-container {
+        html, body, #vue-container {
             height: 100%;
         }
         .page-content {

@@ -2,13 +2,14 @@
 
 {% block beforeVue %}
     <script>
-        window.component = {
-            name: 'directLinkExecutionResult',
-            props: {
-                {% if failureReason %}failureReason: "{{ failureReason.value }}",{% endif %}
-                action: "{{ action.name is defined ? action.name : action }}",
-                directLink: {{ directLink | json_encode | raw }}
-            }
-        };
+        window.directLink = {{ directLink | json_encode | raw }};
     </script>
+{% endblock %}
+
+{% block vue %}
+    <div class="page-content">
+        <direct-link-execution-result {% if failureReason %}failure-reason="{{ failureReason.value }}"{% endif %}
+                action="{{ action.name is defined ? action.name : action }}"></direct-link-execution-result>
+    </div>
+    <page-footer></page-footer>
 {% endblock %}

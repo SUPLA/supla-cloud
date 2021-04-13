@@ -24,23 +24,8 @@
 </head>
 <body>
 <span class="hidden">{% block beforeVue %}{% endblock %}</span>
-<div class="vue-container invisible">
-    <div class="page-content">
-        <transition name="fade">
-            <navbar v-if="$user.username"></navbar>
-        </transition>
-        <div class="alert alert-warning maintenance-warning"
-            v-if="$frontendConfig.maintenanceMode && $user.username">
-            <maintenance-warning></maintenance-warning>
-        </div>
-        <loading-cover :loading="changingRoute">
-            <transition name="fade-router">
-                <router-view></router-view>
-            </transition>
-        </loading-cover>
-        <cookie-warning v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
-    </div>
-    <page-footer :username="$user.username"></page-footer>
+<div id="vue-container" class="invisible">
+    {% block vue %}{% endblock %}
 </div>
 <div id="page-preloader">
     <img src="/assets/img/preloaders/loader_1c_200.gif">
