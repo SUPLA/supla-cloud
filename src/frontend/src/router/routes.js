@@ -89,6 +89,12 @@ export default [
         ]
     },
     {
+        path: '/direct/:id/:slug/:action?',
+        component: () => import("../common/backend-component"),
+        name: 'directLinkExecutionResult',
+        meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'no-navbar no-footer'},
+    },
+    {
         path: '/integrations', component: () => import("@/integrations/integrations-page"), children: [
             {path: 'authorized', component: () => import("@/integrations/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
             {

@@ -4,6 +4,9 @@ const webpack = require('webpack');
 module.exports = {
     lintOnSave: false,
     outputDir: path.resolve(__dirname, '../../web/dist'),
+    publicPath: process.env.NODE_ENV === 'production'
+        ? '/dist/'
+        : '/',
     devServer: {
         proxy: 'http://supla.local'
     },

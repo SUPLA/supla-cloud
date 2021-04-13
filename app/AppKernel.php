@@ -1,6 +1,8 @@
 <?php
 
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -63,7 +65,7 @@ class AppKernel extends Kernel {
                     'assets' => [
                         'packages' => [
                             'webpack' => [
-                                'base_urls' => [$protocol . '://localhost:25787'],
+                                'base_urls' => [$protocol . '://localhost:8080'],
                             ],
                         ],
                     ],
@@ -72,10 +74,10 @@ class AppKernel extends Kernel {
         });
     }
 
-    protected function build(\Symfony\Component\DependencyInjection\ContainerBuilder $container) {
+    protected function build(ContainerBuilder $container) {
         parent::build($container);
         if ($this->getEnvironment() === 'test') {
-            $container->addCompilerPass(new SuplaBundle\Tests\Integration\TestContainerPass(), \Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_OPTIMIZE);
+            $container->addCompilerPass(new SuplaBundle\Tests\Integration\TestContainerPass(), PassConfig::TYPE_OPTIMIZE);
         }
     }
 }

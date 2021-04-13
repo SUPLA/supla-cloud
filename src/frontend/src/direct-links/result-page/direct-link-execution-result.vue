@@ -112,16 +112,12 @@
     import DirectLinkChannelStatus from "./direct-link-channel-status";
 
     export default {
-        props: ['failureReason', 'action'],
+        props: ['directLink', 'failureReason', 'action'],
         components: {DirectLinkChannelStatus, CopyButton},
         data() {
             return {
-                directLink: undefined,
                 jsonHintVisible: false
             };
-        },
-        mounted() {
-            this.directLink = window.directLink;
         },
         methods: {
             executeAction(action) {

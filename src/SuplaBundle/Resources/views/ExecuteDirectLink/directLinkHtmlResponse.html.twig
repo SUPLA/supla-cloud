@@ -1,15 +1,14 @@
 {% extends 'SuplaBundle::vue-template.html.twig' %}
 
-{% set page_title = directLink.caption ?? 'Error' %}
-{% set hide_user_context = true %}
-
 {% block beforeVue %}
     <script>
-        window.directLink = {{ directLink | json_encode | raw }};
+        window.component = {
+            name: 'directLinkExecutionResult',
+            props: {
+                {% if failureReason %}failureReason: "{{ failureReason.value }}",{% endif %}
+                action: "{{ action.name is defined ? action.name : action }}",
+                directLink: {{ directLink | json_encode | raw }}
+            }
+        };
     </script>
-{% endblock %}
-
-{% block vue %}
-    <direct-link-execution-result {% if failureReason %}failure-reason="{{ failureReason.value }}"{% endif %}
-            action="{{ action.name is defined ? action.name : action }}"></direct-link-execution-result>
 {% endblock %}

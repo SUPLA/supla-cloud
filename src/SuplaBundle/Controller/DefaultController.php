@@ -18,11 +18,14 @@
 namespace SuplaBundle\Controller;
 
 use AppKernel;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller {
     /** @var string */
@@ -69,17 +72,17 @@ class DefaultController extends Controller {
 //    public function apiDocsOAuth2RedirectAction() {
 //    }
 
-//    /**
-//     * @Route("/", name="_homepage")
-//     * @Route("/register", name="_register")
-//     * @Route("/auth/login", name="_obsolete_login")
-//     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/|direct/).*"}, methods={"GET"})
-//     * @Template()
-//     * @Cache(expires="2016-01-01")
-//     */
-//    public function spaBoilerplateAction($suffix = null) {
-//        if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
-//            throw new NotFoundHttpException("$suffix file could not be found");
-//        }
-//    }
+    /**
+     * @Route("/", name="_homepage")
+     * @Route("/register", name="_register")
+     * @Route("/auth/login", name="_obsolete_login")
+     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/|direct/).*"}, methods={"GET"})
+     * @Template()
+     * @Cache(expires="2016-01-01")
+     */
+    public function spaBoilerplateAction($suffix = null) {
+        if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
+            throw new NotFoundHttpException("$suffix file could not be found");
+        }
+    }
 }

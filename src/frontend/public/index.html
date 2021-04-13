@@ -16,9 +16,12 @@
         #page-preloader .if-too-long {opacity: 0;transition: opacity 1s linear;padding-top: 30px;}
         #page-preloader.too-long .if-too-long {opacity: 1;}
         #page-preloader noscript {color: #F60;}
+        .invisible { visibility: hidden; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
+<span class="hidden">{% block beforeVue %}{% endblock %}</span>
 <div class="vue-container invisible">
     <div class="page-content">
         <transition name="fade">

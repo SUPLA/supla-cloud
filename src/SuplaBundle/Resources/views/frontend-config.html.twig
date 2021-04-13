@@ -1,6 +1,0 @@
-<script>
-    window.FRONTEND_CONFIG = {{ getFrontendConfig() | json_encode | raw }};
-    window.FRONTEND_CONFIG['serverTime'] = '{{ "now"|date("Y-m-d\\TH:i:sP") }}';
-    window.FRONTEND_CONFIG['renderStart'] = new Date();
-    window.FRONTEND_CONFIG['baseUrl'] = '{{ path('_homepage')[:-1] }}';
-</script>
