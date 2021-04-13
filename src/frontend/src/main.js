@@ -24,6 +24,7 @@ Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 
+Vue.config.productionTip = false;
 Vue.config.external = window.FRONTEND_CONFIG || {};
 Vue.prototype.$frontendConfig = Vue.config.external;
 if (!Vue.config.external.baseUrl) {
