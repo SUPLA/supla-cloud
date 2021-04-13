@@ -120,12 +120,10 @@
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
-    import ChannelActionExecutor from "./action/channel-action-executor";
 
     export default {
         props: ['id'],
         components: {
-            ChannelActionExecutor,
             PageContainer,
             PendingChangesPage,
             ChannelFunctionEditConfirmation,

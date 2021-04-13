@@ -31,7 +31,6 @@
 </template>
 
 <script>
-    import PageContainer from "../../common/pages/page-container";
     import OauthScopePreview from "../../login/oauth-scope-preview";
     import I18nText from "./i18n-text";
 
@@ -40,7 +39,6 @@
         components: {
             I18nText,
             OauthScopePreview,
-            PageContainer,
 
         },
         data() {

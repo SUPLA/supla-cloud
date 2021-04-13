@@ -99,6 +99,7 @@
 </template>
 
 <script>
+    import $ from "jquery";
     import DotsRoute from "../../common/gui/dots-route";
     import ChannelTile from "../../channels/channel-tile";
     import ChannelGroupTile from "../../channel-groups/channel-group-tile";
@@ -168,6 +169,7 @@
                         return this.$t('The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.');
                     }
                 }
+                return undefined;
             },
             retryOptionDisabled() {
                 return this.scheduleActionWarning || this.schedule.subjectType != 'channel';

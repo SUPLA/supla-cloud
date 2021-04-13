@@ -2,10 +2,12 @@
     <div class="form-group clearfix">
         <div class="list-group scope-selector">
             <div class="list-group-item col-xs-12 col-sm-6"
+                :key="scope.label"
                 v-for="scope in desiredAvailableScopes">
                 <h4>{{ $t(scope.label) }}</h4>
                 <div class="permissions">
-                    <div v-for="suffix in scope.suffixes">
+                    <div v-for="suffix in scope.suffixes"
+                        :key="suffix">
                         <i :class="'pe-7s-' + icons[suffix]"></i>
                         {{ $t(scopeSuffixLabels[suffix]) }}
                     </div>

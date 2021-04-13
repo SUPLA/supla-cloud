@@ -5,13 +5,13 @@
             :type="type"
             :disabled="isDisabled"
             :id="id">
-            <slot btn></slot>
+            <slot></slot>
         </button>
         <button :class="'btn btn-block btn-lg ' + btnClass"
             v-show="!formValid"
             :type="type"
             :disabled="isDisabled">
-            <slot btn></slot>
+            <slot></slot>
         </button>
     </div>
 </template>

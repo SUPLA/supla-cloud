@@ -26,6 +26,7 @@
                     <label>{{ $t('Days') }}</label>
                     <!-- i18n:['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'] -->
                     <div class="checkbox"
+                        :key="weekday"
                         v-for="(weekday, index) in ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays']">
                         <label>
                             <input type="checkbox"
@@ -71,7 +72,7 @@
                 if (this.weekdays.length == 0 || this.weekdays.length == 7) {
                     return '*';
                 } else {
-                    return this.weekdays.sort((a, b) => a - b).join(',');
+                    return [...this.weekdays].sort((a, b) => a - b).join(',');
                 }
             },
         }

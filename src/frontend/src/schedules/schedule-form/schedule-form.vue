@@ -95,8 +95,6 @@
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
-    import ButtonLoading from "../../common/gui/loaders/button-loading.vue";
-    import LoadingDots from "../../common/gui/loaders/loader-dots.vue";
     import 'eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import Toggler from "../../common/gui/toggler";
@@ -122,8 +120,6 @@
             ScheduleFormModeDaily,
             NextRunDatesPreview,
             ScheduleFormStartEndDate,
-            ButtonLoading,
-            LoadingDots,
             Toggler,
         },
         data() {

@@ -69,6 +69,7 @@
 
 <script>
     import Vue from 'vue';
+    import moment from "moment";
     import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
     import InvisibleRecaptcha from './invisible-recaptcha.vue';
     import RegulationsCheckbox from "../common/errors/regulations-checkbox";

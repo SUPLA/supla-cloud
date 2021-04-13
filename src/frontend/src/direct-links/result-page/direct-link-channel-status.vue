@@ -4,6 +4,7 @@
         <h3 class="nocapitalize">{{ subjectCaption }}</h3>
         <div>
             <div style="display: inline-block"
+                :key="channel.id"
                 v-for="channel in channels">
                 <div class="form-group">
                     <function-icon :model="{...channel, state: channelsState[channel.id]}"
@@ -64,6 +65,7 @@
                 if (match) {
                     return match[0] + 'read';
                 }
+                return undefined;
             },
             subjectCaption() {
                 return channelTitle(this.directLink.subject, this, false).replace(/^ID[0-9]+/, '');

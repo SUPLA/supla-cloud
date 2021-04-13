@@ -57,7 +57,7 @@
                                 readonly>
                             <label>{{ $t('Port') }}</label>
                             <input type="text"
-                                v-model="settings.tls ? $t('Enabled') : $t('Disabled')"
+                                :value="settings.tls ? $t('Enabled') : $t('Disabled')"
                                 readonly>
                             <label>{{ $t('TLS') }}</label>
                         </div>

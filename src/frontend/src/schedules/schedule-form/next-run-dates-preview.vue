@@ -10,6 +10,7 @@
             <h4>{{ $t('The next available executions') }}</h4>
             <div class="list-group">
                 <div class="list-group-item"
+                    :key="nextScheduleExecution.plannedTimestamp"
                     v-for="nextScheduleExecution in value">
                     <span class="pull-right small text-muted">
                         <span v-if="schedule.actionId"

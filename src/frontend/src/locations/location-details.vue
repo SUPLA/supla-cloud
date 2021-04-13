@@ -51,6 +51,7 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="ioDevice in location.ioDevices"
+                                        :key="ioDevice.id"
                                         v-go-to-link-on-row-click>
                                         <td>
                                             <router-link :to="{name: 'device', params: {id: ioDevice.id}}">{{ ioDevice.id }}</router-link>
@@ -76,6 +77,7 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="aid in location.accessIds"
+                                        :key="aid.id"
                                         v-go-to-link-on-row-click>
                                         <td>
                                             <router-link :to="{name: 'accessId', params: {id: aid.id}}">{{ aid.id }}</router-link>
@@ -112,6 +114,7 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="channelGroup in location.channelGroups"
+                                        :key="channelGroup.id"
                                         v-go-to-link-on-row-click>
                                         <td style="width: 45px">
                                             <function-icon :model="channelGroup"></function-icon>
@@ -142,6 +145,7 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="channel in location.channels"
+                                        :key="channel.id"
                                         v-go-to-link-on-row-click>
                                         <td style="width: 45px">
                                             <function-icon :model="channel"></function-icon>
@@ -174,7 +178,6 @@
 
 <script>
     import Vue from "vue";
-    import SquareLinksCarousel from "../common/tiles/square-links-carousel";
     import FunctionIcon from "../channels/function-icon";
     import EmptyListPlaceholder from "../common/gui/empty-list-placeholder";
     import AccessIdChooser from "../access-ids/access-id-chooser";
@@ -192,7 +195,6 @@
             Toggler,
             AccessIdChooser,
             FunctionIcon,
-            SquareLinksCarousel,
             EmptyListPlaceholder
         },
         props: ['id'],

@@ -1,9 +1,9 @@
-NS
 <template>
     <loading-cover :loading="!executions">
         <ul class="schedule-times"
             v-if="executions">
-            <li v-for="execution, $index in executions.past"
+            <li v-for="(execution, $index) in executions.past"
+                :key="$index"
                 :class="'past past' + (executions.past.length - $index) + (execution.failed ? ' failed' : '')">
                 {{ (execution.resultTimestamp || execution.plannedTimestamp) | moment('LLLL') }}
                 <div class="small"
@@ -11,11 +11,13 @@ NS
                     {{ $t(execution.result.caption) }}
                 </div>
             </li>
-            <li :class="'future future' + $index"
-                v-if="schedule.enabled"
-                v-for="execution, $index in executions.future">
-                {{ execution.plannedTimestamp|moment('LLLL') }}
-            </li>
+            <template v-if="schedule.enabled">
+                <li :class="'future future' + $index"
+                    :key="$index"
+                    v-for="(execution, $index) in executions.future">
+                    {{ execution.plannedTimestamp|moment('LLLL') }}
+                </li>
+            </template>
         </ul>
     </loading-cover>
 </template>

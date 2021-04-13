@@ -57,6 +57,7 @@
                 <div style="max-width: 850px; margin: 0 auto"
                     class="text-left">
                     <div v-for="allowedAction in directLink.allowedActions"
+                        :key="allowedAction"
                         class="form-group">
                         <div class="flex-left-full-width">
                             <span class="label label-default hidden-xs">{{ $t(allowedAction.caption) }}</span>

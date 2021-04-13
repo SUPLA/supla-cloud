@@ -9,6 +9,7 @@ if (!String.prototype.startsWith) {
 // from:https://github.com/jserz/js_piece/blob/master/DOM/ChildNode/remove()/remove().md
 (function (arr) {
     arr.forEach(function (item) {
+        // eslint-disable-next-line no-prototype-builtins
         if (item.hasOwnProperty('remove')) {
             return;
         }

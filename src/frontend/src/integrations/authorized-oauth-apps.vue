@@ -13,12 +13,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="authorizedApp in authorizedApps">
+                <tr v-for="authorizedApp in authorizedApps"
+                    :key="authorizedApp.id">
                     <td>{{ authorizedApp.apiClient.name }}</td>
                     <td>
                         <oauth-scope-label :scope="authorizedApp.scope"></oauth-scope-label>
                     </td>
-                    <td>{{ authorizedApp.authorizationDate | moment("LT L")}}</td>
+                    <td>{{ authorizedApp.authorizationDate | moment("LT L") }}</td>
                     <td class="text-right">
                         <button type="button"
                             class="btn btn-red"
@@ -38,7 +39,7 @@
             @cancel="appToRevoke = undefined"
             :header="$t('Are you sure you want to revoke permissions granted to this OAuth application?')"
             :loading="revoking">
-            {{ $t('{applicationName} will not be able to interact with your account until you grant the access again.', {applicationName: appToRevoke.apiClient.name})}}
+            {{ $t('{applicationName} will not be able to interact with your account until you grant the access again.', {applicationName: appToRevoke.apiClient.name}) }}
         </modal-confirm>
     </div>
 </template>

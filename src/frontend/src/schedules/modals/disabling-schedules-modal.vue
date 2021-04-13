@@ -4,7 +4,8 @@
         :header="$t('Existing schedules')">
         {{ $t(messageI18n) }}
         <ul>
-            <li v-for="schedule in schedules">
+            <li v-for="schedule in schedules"
+                :key="schedule.id">
                 {{ $t('Schedule') }} ID{{ schedule.id }}
                 <span class="small">{{ schedule.caption }}</span>
             </li>

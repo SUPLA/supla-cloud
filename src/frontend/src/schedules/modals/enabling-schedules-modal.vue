@@ -4,7 +4,8 @@
         :header="$t('Existing schedules')">
         {{ $t('Please select the schedules that should also be enabled.') }}
         <ul>
-            <li v-for="schedule in schedules">
+            <li v-for="schedule in schedules"
+                :key="schedule.id">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"
@@ -24,7 +25,7 @@
 
     export default {
         props: ['schedules'],
-        data(){
+        data() {
             return {
                 schedulesToEnable: []
             };

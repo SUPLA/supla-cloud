@@ -15,6 +15,7 @@
 </template>
 
 <script>
+    import moment from "moment";
     import BtnFilters from "../../common/btn-filters";
     import latinize from "latinize";
 
