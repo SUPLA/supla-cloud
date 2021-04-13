@@ -37,7 +37,7 @@
         components: {LanguageSelector, SessionCountdown},
         data() {
             return {
-                version: VERSION, // eslint-disable-line no-undef
+                version: '123',//VERSION, // eslint-disable-line no-undef
             };
         },
         methods: {

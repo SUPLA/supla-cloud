@@ -29,7 +29,11 @@
         }, 8000);
     </script>
     {% include '@Supla/frontend-config.html.twig' %}
-    <script src="{{ asset('assets/dist/commons.js', 'webpack') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- built files will be auto injected -->
+{#    <script type="text/javascript" src="/assets/dist/js/chunk-vendors.js"></script><script type="text/javascript" src="/assets/dist/js/app.js"></script></body>#}
+    <script src="{{ asset('assets/dist/js/chunk-vendors.js', 'webpack') }}"></script>
+    <script src="{{ asset('assets/dist/js/app.js', 'webpack') }}"></script>
 {% endblock %}
 {% block styles %}
     <style>

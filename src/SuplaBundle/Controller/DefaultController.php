@@ -18,14 +18,11 @@
 namespace SuplaBundle\Controller;
 
 use AppKernel;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller {
     /** @var string */
@@ -48,13 +45,13 @@ class DefaultController extends Controller {
         return $this->redirectToRoute('_register', ['lang' => $request->getLocale()]);
     }
 
-    /**
-     * @Route("/api-docs/docs.html", methods={"GET"})
-     * @Template()
-     */
-    public function apiDocsAction() {
-        return ['supla_url' => $this->suplaUrl];
-    }
+//    /**
+//     * @Route("/api-docs/docs.html", methods={"GET"})
+//     * @Template()
+//     */
+//    public function apiDocsAction() {
+//        return ['supla_url' => $this->suplaUrl];
+//    }
 
     /**
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
@@ -65,24 +62,24 @@ class DefaultController extends Controller {
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
 
-    /**
-     * @Route("/api-docs/oauth2-redirect.html", methods={"GET"})
-     * @Template()
-     */
-    public function apiDocsOAuth2RedirectAction() {
-    }
+//    /**
+//     * @Route("/api-docs/oauth2-redirect.html", methods={"GET"})
+//     * @Template()
+//     */
+//    public function apiDocsOAuth2RedirectAction() {
+//    }
 
-    /**
-     * @Route("/", name="_homepage")
-     * @Route("/register", name="_register")
-     * @Route("/auth/login", name="_obsolete_login")
-     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/|direct/).*"}, methods={"GET"})
-     * @Template()
-     * @Cache(expires="2016-01-01")
-     */
-    public function spaBoilerplateAction($suffix = null) {
-        if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
-            throw new NotFoundHttpException("$suffix file could not be found");
-        }
-    }
+//    /**
+//     * @Route("/", name="_homepage")
+//     * @Route("/register", name="_register")
+//     * @Route("/auth/login", name="_obsolete_login")
+//     * @Route("/{suffix}", requirements={"suffix"="^(?!api|oauth/|direct/).*"}, methods={"GET"})
+//     * @Template()
+//     * @Cache(expires="2016-01-01")
+//     */
+//    public function spaBoilerplateAction($suffix = null) {
+//        if ($suffix && preg_match('#\..{2,4}$#', $suffix)) {
+//            throw new NotFoundHttpException("$suffix file could not be found");
+//        }
+//    }
 }

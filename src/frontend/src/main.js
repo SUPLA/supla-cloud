@@ -25,28 +25,28 @@ Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 
 Vue.config.productionTip = false;
-Vue.config.external = window.FRONTEND_CONFIG || {};
-Vue.prototype.$frontendConfig = Vue.config.external;
-if (!Vue.config.external.baseUrl) {
-    Vue.config.external.baseUrl = '';
-}
 Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
 Vue.http.headers.common['X-Client-Version'] = '2.4.0';//VERSION; // eslint-disable-line no-undef
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
+Vue.http.options.root = '/api';
 
-// synchronize browser time with server's
-(function () {
-    const serverTime = new Date(window.FRONTEND_CONFIG.serverTime);
-    const renderStart = window.FRONTEND_CONFIG.renderStart;
-    const offset = serverTime.getTime() - renderStart.getTime();
-    moment.now = function () {
-        return Date.now() + offset;
-    };
-})();
-
-Vue.prototype.$user = new CurrentUser();
-Vue.prototype.$user.fetchUser()
+const renderStart = new Date();
+Vue.http.get('server-info')
+    .then(({body: info}) => {
+        Vue.config.external = info.config;
+        Vue.prototype.$frontendConfig = Vue.config.external;
+        if (!Vue.config.external.baseUrl) {
+            Vue.config.external.baseUrl = '';
+        }
+        const serverTime = new Date(window.FRONTEND_CONFIG.serverTime);
+        const offset = serverTime.getTime() - renderStart.getTime();
+        moment.now = function () {
+            return Date.now() + offset;
+        };
+        Vue.prototype.$user = new CurrentUser();
+    })
+    .then(() => Vue.prototype.$user.fetchUser())
     .then((userData) => setGuiLocale(userData))
     .then(() => {
         $(document).ready(() => {

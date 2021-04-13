@@ -1,7 +1,7 @@
 <template>
     <div class="centered-form login-form">
         <div class="logo">
-            <img src="assets/img/logo.svg"
+            <img src="../assets/img/logo.svg"
                 alt="SUPLA">
         </div>
         <slot name="aboveForm"></slot>
