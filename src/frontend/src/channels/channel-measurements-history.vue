@@ -61,6 +61,8 @@
     import {channelTitle} from "../common/filters";
     import ApexCharts from "apexcharts";
     import {measurementUnit} from "./channel-helpers";
+    import $ from "jquery";
+    import moment from "moment";
 
     window.ApexCharts = ApexCharts;
 

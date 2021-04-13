@@ -23,17 +23,7 @@ Vue.config.availableLanguages = [
 
 Vue.use(VueI18N);
 
-const i18n = new VueI18N({
-    // uncomment to collect missing translations automatically in MISSING_TRANSLATIONS global variable.
-    // then collect yml with: Object.keys(MISSING_TRANSLATIONS).map(t => `${t}: ~`).join("\n")
-    // missing(locale, key) {
-    //     if (!window.MISSING_TRANSLATIONS) {
-    //         window.MISSING_TRANSLATIONS = {};
-    //     }
-    //     window.MISSING_TRANSLATIONS[key] = '~';
-    //     return key;
-    // }
-});
+const i18n = new VueI18N();
 
 Vue.prototype.$setLocale = (lang) => {
     if (i18n.locale !== lang) {
@@ -61,7 +51,7 @@ const loadedLanguages = [];
 const loadLanguage = (lang) => {
     return import(`json-loader!yaml-loader!../../SuplaBundle/Resources/translations/messages.${lang}.yml`)
         .then((translations) => {
-            i18n.setLocaleMessage(lang, translations);
+            i18n.setLocaleMessage(lang, translations.default);
             loadedLanguages.push(lang);
         })
         .catch(() => Vue.prototype.$setLocale('en'));
