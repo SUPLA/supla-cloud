@@ -15,13 +15,13 @@ steps:
 #        - ./src/Frontend/node_modules
 
   - name: install-frontend
-    image: node:8.17.0-slim
+    image: node:14.16.1-slim
 #    depends_on: [restore-cache]
     depends_on: [clone]
     commands:
       - npm -v
       - node -v
-      - cd src/Frontend
+      - cd src/frontend
       - (ls node_modules && npm prune) || true
       - npm install
 
@@ -29,13 +29,13 @@ steps:
     image: node:8.17.0-slim
     depends_on: [ install-frontend ]
     commands:
-      - cd src/Frontend && npm run build
+      - cd src/frontend && npm run build
 
   - name: lint-frontend
     image: node:8.17.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/Frontend && npm run lint -s
+      - cd src/frontend && npm run lint -s
 
   - name: install-backend
     image: supla/supla-cloud

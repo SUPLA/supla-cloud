@@ -100,6 +100,7 @@
     "last 2 versions",
     "not dead"
   ],
-  "_id": "supla-cloud@2.3.27",
-  "readme": "ERROR: No README data found!"
+  "engines": {
+    "node": "^14.0"
+  }
 }

@@ -7,7 +7,7 @@ The sources are built with [webpack](https://webpack.github.io/).
 
 ## How to build the sources?
 
-Install [Node.js](https://nodejs.org/).
+Install [Node.js](https://nodejs.org/) at least v14 and NPM at least v7.
 
 ```bash
 npm install
@@ -15,19 +15,12 @@ npm run build
 ```
 
 The first command downloads the Internet. The second one builds the sources
-to the output directory (`web/assets/dist`).
+to the output directory (`web/dist`).
 
 ## How to develop the frontend components?
 
-In order to start the webpack dev server with continous building and hot reloads, 
-add the following in your `app/config/parameters.yml`:
-
-```
-use_webpack_dev_server: true
-```
-
-and run:
+In order to start the webpack dev server with continuous building and hot reloads:
 
 ```bash
-npm run dev
+npm run serve
 ```

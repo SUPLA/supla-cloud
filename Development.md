@@ -12,7 +12,7 @@ uses mock of supla-server by default.
 1. Install a web server with PHP Support. We recommend [Apache](http://httpd.apache.org/docs/2.4/).
    On Winows machines, you can install [XAMPP](https://www.apachefriends.org/pl/index.html).
 2. Install [MySQL database server](https://dev.mysql.com/downloads/installer/) (XAMPP already contains it).
-3. Install [Node JS LTS](https://nodejs.org/en/). Version 8.x is proved to be working.
+3. Install [Node JS LTS](https://nodejs.org/en/). Version 14.x with NPM 7.x is proved to be working.
 4. Install [Git](https://git-scm.com/), then fork and clone the repository with `git clone` command.
    It is good idea to clone in into a directory from which Apache can server the application
    (for example, `/var/www/supla-cloud` or `C:\xampp\htdocs\supla-cloud` or wherever
@@ -66,9 +66,9 @@ uses mock of supla-server by default.
 
 1. Run webpack dev server with
     ```
-    cd src/Frontend && npm run dev
+    cd src/frontend && npm run serve
     ```
-2. Enter http://supla.local to see the application.
+2. Enter http://localhost:8080 to see the application.
 3. Login with `user@supla.org` and `pass` (this is a sample account).
 
 ## Contributing
