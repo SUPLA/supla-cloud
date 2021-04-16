@@ -37,8 +37,6 @@ class Configuration implements ConfigurationInterface {
                     ->info('If false, the registration of new users will be disabled.')->end()
                 ->booleanNode('maintenance_mode')->defaultFalse()
                     ->info('If maintenance mode is true, no modifying actions will be allowed.')->end()
-                ->arrayNode('webpack_hashes')->normalizeKeys(false)->defaultValue([])->useAttributeAsKey('script_name')->prototype('scalar')->end()
-                    ->info('Information set by the build system. Do not change it.')->end()
                 ->arrayNode('clients_registration')->children()
                     ->arrayNode('registration_active_time')->children()
                         ->integerNode('initial')->defaultValue(86400 * 7)
