@@ -5,13 +5,6 @@ import $ from 'jquery';
 
 Vue.use(VueRouter);
 
-// let config = window.FRONTEND_CONFIG || {};
-// if (!config.baseUrl) {
-//     config.baseUrl = '';
-// }
-// TODO
-const config = {};
-
 const router = new VueRouter({
     routes,
     base: '/',
@@ -19,15 +12,15 @@ const router = new VueRouter({
     mode: 'history',
 });
 
-if (config.regulationsAcceptRequired) {
-    router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
+    if (Vue.config.external.regulationsAcceptRequired) {
         if (Vue.prototype.$user.username && !Vue.prototype.$user.userData.agreements.rules && to.name != 'agree-on-rules') {
             next({name: 'agree-on-rules'});
         } else {
             next();
         }
-    });
-}
+    }
+});
 
 router.beforeEach((to, from, next) => {
     if (!Vue.prototype.$user.username && !to.meta.unrestricted) {
