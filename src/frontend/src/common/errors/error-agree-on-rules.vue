@@ -23,6 +23,7 @@
 
 <script>
     import RegulationsCheckbox from "./regulations-checkbox";
+    import $ from "jquery";
 
     export default {
         components: {RegulationsCheckbox},

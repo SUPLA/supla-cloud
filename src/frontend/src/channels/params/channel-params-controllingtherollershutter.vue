@@ -45,11 +45,10 @@
 </template>
 
 <script>
-    import ChannelParamsControllingAnyLock from "./channel-params-controlling-any-lock";
     import ChannelsDropdown from "../../devices/channels-dropdown";
 
     export default {
-        components: {ChannelsDropdown, ChannelParamsControllingAnyLock},
+        components: {ChannelsDropdown},
         props: ['channel', 'sensorFunction'],
         data() {
             return {

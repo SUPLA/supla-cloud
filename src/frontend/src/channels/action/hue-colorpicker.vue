@@ -7,6 +7,7 @@
 <script>
     import "spectrum-colorpicker";
     import "spectrum-colorpicker/spectrum.css";
+    import $ from "jquery";
 
     export default {
         name: 'hue-colorpicker',

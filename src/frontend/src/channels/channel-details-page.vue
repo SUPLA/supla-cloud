@@ -11,8 +11,8 @@
                     @save="saveChanges()"
                     :is-pending="hasPendingChanges">
                     <h4>
-                        {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',')}}
-                        <span v-if="channel.type.name == 'UNSUPPORTED'">{{channel.type.id}},</span>
+                        {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
+                        <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
                         {{ $t('Channel No') }}: {{ channel.channelNumber }}
                     </h4>
                     <div class="row hidden-xs">
@@ -31,12 +31,13 @@
                                             data-toggle="dropdown">
                                             <h4>
                                                 {{ $t(channel.function.caption) }}
-                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{channel.functionId}})</span>
+                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
                                             </h4>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li v-for="fnc in supportedFunctions">
+                                            <li v-for="fnc in supportedFunctions"
+                                                :key="fnc.id">
                                                 <a @click="onFunctionChange(fnc)"
                                                     v-show="channel.function.id != fnc.id">{{ $t(fnc.caption) }}</a>
                                             </li>
@@ -120,6 +121,7 @@
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
+    import $ from "jquery";
 
     export default {
         props: ['id'],

@@ -87,6 +87,7 @@
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import Vue from "vue";
     import CopyButton from "../../common/copy-button";
+    import $ from "jquery";
 
     export default {
         props: ['id'],

@@ -9,9 +9,10 @@
             @change="updateTimezone()"
             ref="dropdown">
             <option v-for="timezone in availableTimezones"
+                :key="timezone.name"
                 :value="timezone.name">
                 {{ timezone.name }}
-                (UTC{{timezone.offset >= 0 ? '+' : ''}}{{timezone.offset}})
+                (UTC{{ timezone.offset >= 0 ? '+' : '' }}{{ timezone.offset }})
                 {{ timezone.currentTime }}
             </option>
         </select>
@@ -22,6 +23,8 @@
     import Vue from "vue";
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";
+    import moment from "moment";
+    import $ from "jquery";
 
     export default {
         props: ['timezone'],

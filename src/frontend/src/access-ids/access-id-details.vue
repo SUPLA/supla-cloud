@@ -51,6 +51,7 @@
                                 </thead>
                                 <tbody>
                                 <tr v-for="location in accessId.locations"
+                                    :key="location.id"
                                     v-go-to-link-on-row-click>
                                     <td>
                                         <router-link :to="{name: 'location', params: {id: location.id}}">{{ location.id }}</router-link>
@@ -82,7 +83,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="app in accessId.clientApps">
+                                <tr v-for="app in accessId.clientApps"
+                                    :key="app.id">
                                     <td>{{ app.id }}</td>
                                     <td>{{ app.caption }}</td>
                                     <td>{{ app.lastAccessDate | moment("LT L") }}</td>
@@ -121,7 +123,6 @@
     import Toggler from "../common/gui/toggler";
     import LocationChooser from "../locations/location-chooser";
     import ClientAppChooser from "../client-apps/client-app-chooser";
-    import EmptyListPlaceholder from "../common/gui/empty-list-placeholder";
     import PageContainer from "../common/pages/page-container";
 
     export default {
@@ -132,7 +133,6 @@
             Toggler,
             PasswordDisplay,
             PendingChangesPage,
-            EmptyListPlaceholder
         },
         props: ['id'],
         data() {

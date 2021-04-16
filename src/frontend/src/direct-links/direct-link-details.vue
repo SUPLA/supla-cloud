@@ -54,6 +54,7 @@
                                             <dt>
                                                 <div class="row">
                                                     <div v-for="action in possibleActions"
+                                                        :key="action.id"
                                                         class="col-sm-3 text-center">
                                                         <toggler
                                                             :label="action.caption"
@@ -86,7 +87,7 @@
                                         <div class="help-block small"
                                             v-if="directLink.disableHttpGet">
                                             {{ $t('When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.') }}
-                                            <pre style="margin-top: 5px"><code>{{examplePatchBody}}</code></pre>
+                                            <pre style="margin-top: 5px"><code>{{ examplePatchBody }}</code></pre>
                                         </div>
                                     </div>
                                 </div>
@@ -178,12 +179,10 @@
 
 <script>
     import Vue from "vue";
-    import FunctionIcon from "../channels/function-icon.vue";
     import DotsRoute from "../common/gui/dots-route.vue";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
-    import ChannelsDropdown from "../devices/channels-dropdown";
     import ChannelTile from "../channels/channel-tile";
     import ChannelGroupTile from "../channel-groups/channel-group-tile";
     import DirectLinkPreview from "./direct-link-preview";
@@ -203,12 +202,10 @@
             DirectLinkPreview,
             ChannelTile,
             ChannelGroupTile,
-            ChannelsDropdown,
             PageContainer,
             PendingChangesPage,
             Toggler,
             DotsRoute,
-            FunctionIcon,
         },
         data() {
             return {
@@ -325,6 +322,7 @@
                     }].concat(this.directLink.subject.function.possibleActions)
                         .filter(action => !disableOpenClose || (action.name != 'OPEN' && action.name != 'CLOSE'));
                 }
+                return [];
             },
             displayOpeningSensorWarning() {
                 const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;

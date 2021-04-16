@@ -31,6 +31,7 @@
 <script>
     import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
     import {warningNotification} from "../notifier";
+    import $ from "jquery";
 
     export default {
         props: ['headerI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'listRoute', 'limit'],

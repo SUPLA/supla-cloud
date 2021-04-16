@@ -7,12 +7,12 @@
                     <div class="btn-group">
                         <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#personal-access-tokens"
                             class="btn btn-white">
-                            {{ $t('Full documentation')}} @ GitHub
+                            {{ $t('Full documentation') }} @ GitHub
                         </a>
                         <a :href="'/api-docs/docs.html' | withBaseUrl"
                             target="_blank"
                             class="btn btn-white">
-                            {{ $t('API documentation')}}
+                            {{ $t('API documentation') }}
                             <i class="pe-7s-exapnd2"></i>
                         </a>
                     </div>
@@ -54,7 +54,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="token in tokens">
+                <tr v-for="token in tokens"
+                    :key="token.id">
                     <td>{{ token.name }}</td>
                     <td>
                         <oauth-scope-label :scope="token.scope"></oauth-scope-label>
@@ -78,7 +79,7 @@
             @cancel="tokenToRevoke = undefined"
             :header="$t('Are you sure you want to revoke this token?')"
             :loading="revoking">
-            {{ $t('Any application or device that uses the {tokenName} token will not work anymore.', {tokenName: tokenToRevoke.name})}}
+            {{ $t('Any application or device that uses the {tokenName} token will not work anymore.', {tokenName: tokenToRevoke.name}) }}
         </modal-confirm>
     </div>
 </template>

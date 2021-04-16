@@ -14,11 +14,10 @@
 
 <script>
     import ChannelParamsOpeningsensorAny from "./channel-params-openingsensor-any";
-    import ChannelsDropdown from "../../devices/channels-dropdown";
     import ChannelParamsRelatedChannel from "@/channels/params/channel-params-related-channel";
 
     export default {
-        components: {ChannelParamsRelatedChannel, ChannelsDropdown, ChannelParamsOpeningsensorAny},
+        components: {ChannelParamsRelatedChannel, ChannelParamsOpeningsensorAny},
         props: ['channel'],
         watch: {
             'channel.param1'() {

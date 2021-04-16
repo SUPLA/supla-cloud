@@ -34,6 +34,7 @@
     import moment from "moment";
     import 'eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+    import $ from "jquery";
 
     export default {
         props: ['value'],

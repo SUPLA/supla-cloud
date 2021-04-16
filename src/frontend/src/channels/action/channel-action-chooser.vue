@@ -1,6 +1,7 @@
 <template>
     <div class="possible-actions">
         <div v-for="possibleAction in actionsToShow"
+            :key="possibleAction.id"
             class="possible-action">
             <slot :possibleAction="possibleAction">
                 <div class="radio"

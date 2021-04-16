@@ -3,9 +3,10 @@
         <div class="list-group"
             v-if="auditEntries">
             <div :class="'list-group-item list-group-item-' + (entry.event.name == 'DIRECT_LINK_EXECUTION' ? 'success' : 'danger')"
+                :key="entry.id"
                 v-for="entry in auditEntries">
                 <div v-if="entry.event.name == 'DIRECT_LINK_EXECUTION'">
-                    {{ $t('Executed action')}}
+                    {{ $t('Executed action') }}
                     <strong>{{ functionLabel(entry.textParam) }}</strong>
                 </div>
                 <div v-else>
@@ -90,6 +91,7 @@
                         nameSlug: 'read'
                     }].concat(this.directLink.subject.function.possibleActions);
                 }
+                return [];
             },
         },
         beforeDestroy() {

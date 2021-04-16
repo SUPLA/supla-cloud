@@ -18,6 +18,7 @@
 <script>
     import BtnFilters from "../common/btn-filters";
     import latinize from "latinize";
+    import moment from "moment";
 
     export default {
         components: {BtnFilters},

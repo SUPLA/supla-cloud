@@ -9,13 +9,15 @@
         </div>
         <div class="form-group clearfix">
             <label>{{ $t('Scopes') }}</label>
-            <p>{{ $t('Scopes define which sections of your account can be accessed when using the token.')}}</p>
+            <p>{{ $t('Scopes define which sections of your account can be accessed when using the token.') }}</p>
             <div class="list-group scope-selector">
                 <div class="list-group-item"
-                    v-for="scope in availableScopes">
+                    v-for="scope in availableScopes"
+                    :key="scope.label">
                     <h4>{{ $t(scope.label) }}</h4>
                     <div class="togglers">
-                        <div v-for="suffix in scope.suffixes">
+                        <div v-for="suffix in scope.suffixes"
+                            :key="suffix">
                             <toggler :label="scopeSuffixLabels[suffix]"
                                 @input="scopeChanged(scope, suffix)"
                                 v-model="selectedScopes[scopeId(scope, suffix)]"></toggler>

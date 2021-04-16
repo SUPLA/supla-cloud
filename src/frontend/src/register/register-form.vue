@@ -46,7 +46,7 @@
                     type="submit"
                     :disabled="isBusy"
                     :form-valid="!computedErrorMessage">
-                    <template slot-scope="btn">
+                    <template>
                         <span v-if="!isBusy">
                             {{ $t('Create an account') }}
                         </span>

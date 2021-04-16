@@ -121,6 +121,7 @@
     import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal";
     import SquareLocationChooser from "../../locations/square-location-chooser";
     import PageContainer from "../../common/pages/page-container";
+    import $ from "jquery";
 
     export default {
         props: ['id'],

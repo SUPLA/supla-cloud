@@ -19,6 +19,7 @@
                 v-show="!hideNone && chosenChannel">{{ $t('None') }}
             </option>
             <option v-for="channel in channelsForDropdown"
+                :key="channel.id"
                 :value="channel"
                 :data-content="channelHtml(channel)">
                 {{ channelTitle(channel) }}

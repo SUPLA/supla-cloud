@@ -15,6 +15,7 @@
             v-model="chosenChannelGroup"
             @change="$emit('input', chosenChannelGroup)">
             <option v-for="channelGroup in channelGroupsForDropdown"
+                :key="channelGroup.id"
                 :value="channelGroup"
                 :data-content="channelGroupHtml(channelGroup)">
                 {{ channelGroupTitle(channelGroup) }}
@@ -29,6 +30,7 @@
     import "bootstrap-select/dist/css/bootstrap-select.css";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {channelIconUrl} from "../common/filters";
+    import $ from "jquery";
 
     export default {
         props: ['params', 'value', 'filter'],

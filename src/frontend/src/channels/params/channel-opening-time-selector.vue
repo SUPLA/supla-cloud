@@ -6,6 +6,7 @@
                 v-if="times.length < 5">
                 <a :class="'btn ' + (value == time ? 'btn-green' : 'btn-default')"
                     v-for="time in times"
+                    :key="time"
                     @click="$emit('input', time)">
                     {{ timeInSeconds(time) }}
                 </a>
@@ -19,7 +20,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li v-for="time in times">
+                    <li v-for="time in times"
+                        :key="time">
                         <a @click="$emit('input', time)"
                             v-show="time != value">{{ timeInSeconds(time) }}</a>
                     </li>

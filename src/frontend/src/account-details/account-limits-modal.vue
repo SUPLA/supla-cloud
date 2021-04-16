@@ -93,11 +93,11 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import AccountLimitProgressbar from "./account-limit-progressbar";
+    import moment from "moment";
 
     export default {
-        components: {AccountLimitProgressbar, ButtonLoadingDots},
+        components: {AccountLimitProgressbar},
         props: ['user'],
         data() {
             return {

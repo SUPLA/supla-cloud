@@ -9,6 +9,7 @@
             @change="$emit('input', chosenCurrency)"
             ref="dropdown">
             <option v-for="code in currencyCodeList"
+                :key="code"
                 :value="code">
                 {{ code }}
             </option>
@@ -20,6 +21,7 @@
     import Vue from "vue";
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";
+    import $ from "jquery";
 
     export default {
         props: ['value'],

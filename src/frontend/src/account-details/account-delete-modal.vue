@@ -29,6 +29,7 @@
 <script>
     import {errorNotification, successNotification} from "../common/notifier";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import $ from "jquery";
 
     export default {
         components: {ButtonLoadingDots},

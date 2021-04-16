@@ -62,7 +62,7 @@
                                     :disabled="isBusy"
                                     :form-valid="!computedErrorMessage"
                                     btn-class="btn-black">
-                                    <template slot-scope="btn">
+                                    <template>
                                         <span v-if="!isBusy">
                                             {{ $t('Register') }}
                                         </span>

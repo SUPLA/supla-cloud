@@ -2,6 +2,7 @@
     <div class="btn-filters">
         <div class="btn-group btn-group-filters btn-group-filters-inline">
             <button v-for="filter in filters"
+                :key="filter.label"
                 :class="'btn ' + (chosenFilter === filter.value ? 'active' : '')"
                 @click="setFilter(filter.value)"
                 type="button">
@@ -17,7 +18,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li v-for="filter in filters">
+                    <li v-for="filter in filters"
+                        :key="filter.label">
                         <a @click="setFilter(filter.value)">{{ filter.label }}</a>
                     </li>
                 </ul>

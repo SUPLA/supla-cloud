@@ -50,13 +50,12 @@
 </style>
 
 <script>
-    import Switches from "vue-switches";
     import moment from "moment";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
 
     export default {
         props: ['field', 'captionI18n'],
-        components: {Switches, ButtonLoadingDots},
+        components: {ButtonLoadingDots},
         data() {
             return {
                 saving: false,

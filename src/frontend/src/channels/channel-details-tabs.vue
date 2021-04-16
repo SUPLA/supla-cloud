@@ -5,7 +5,8 @@
             <div class="form-group">
                 <ul class="nav nav-tabs">
                     <li :class="currentTab == tabDefinition.id ? 'active' : ''"
-                        v-for="tabDefinition in availableTabs">
+                        v-for="tabDefinition in availableTabs"
+                        :key="tabDefinition.id">
                         <a @click="changeTab(tabDefinition.id)">
                             {{ $t(tabDefinition.header) }}
                             <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count }})</span>

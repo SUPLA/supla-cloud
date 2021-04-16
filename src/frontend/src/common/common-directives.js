@@ -1,5 +1,6 @@
 import Vue from "vue";
 import autosize from "autosize";
+import $ from "jquery";
 
 Vue.directive('go-to-link-on-row-click', {
     inserted: function (el) {

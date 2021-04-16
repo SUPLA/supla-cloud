@@ -1,11 +1,12 @@
 <template>
     <div>
-        <div class="container">
-            <device-filters @filter-function="filterFunction = $event"
-                @compare-function="compareFunction = $event"
-                @filter="filter()"></device-filters>
-        </div>
         <loading-cover :loading="!devices">
+            <div class="container"
+                v-show="devices && devices.length">
+                <device-filters @filter-function="filterFunction = $event"
+                    @compare-function="compareFunction = $event"
+                    @filter="filter()"></device-filters>
+            </div>
             <square-links-grid v-if="filteredDevices && filteredDevices.length || (showPossibleDevices && !devices.length)"
                 :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)"
                 class="square-links-height-240">
@@ -14,25 +15,26 @@
                     :ref="'device-tile-' + device.id">
                     <device-tile :device="device"></device-tile>
                 </div>
-                <div v-for="possibleDevice in possibleDevices"
-                    :key="'possible' + possibleDevice.title"
-                    v-if="showPossibleDevices">
-                    <square-link class="grey possible-device">
-                        <a href="https://www.supla.org"
-                            target="_blank"
-                            class="valign-center">
-                            <span>
-                                <i v-if="possibleDevice.icon"
-                                    :class="possibleDevice.icon"></i>
-                                <img v-else
-                                    :src="'/assets/img/' + possibleDevice.image"
-                                    :alt="$t(possibleDevice.title)">
-                                <h3>{{ $t(possibleDevice.title) }}</h3>
-                                <p>{{ $t(possibleDevice.description) }}</p>
-                            </span>
-                        </a>
-                    </square-link>
-                </div>
+                <template v-if="showPossibleDevices">
+                    <div v-for="possibleDevice in possibleDevices"
+                        :key="'possible' + possibleDevice.title">
+                        <square-link class="grey possible-device">
+                            <a href="https://www.supla.org"
+                                target="_blank"
+                                class="valign-center">
+                                <span>
+                                    <i v-if="possibleDevice.icon"
+                                        :class="possibleDevice.icon"></i>
+                                    <img v-else
+                                        :src="'/assets/img/' + possibleDevice.image"
+                                        :alt="$t(possibleDevice.title)">
+                                    <h3>{{ $t(possibleDevice.title) }}</h3>
+                                    <p>{{ $t(possibleDevice.description) }}</p>
+                                </span>
+                            </a>
+                        </square-link>
+                    </div>
+                </template>
             </square-links-grid>
             <empty-list-placeholder v-else-if="devices"></empty-list-placeholder>
         </loading-cover>
@@ -47,7 +49,6 @@
 </template>
 
 <script>
-    import BtnFilters from "../../common/btn-filters.vue";
     import DeviceTile from "./device-tile.vue";
     import ConnectionStatusLabel from "./connection-status-label.vue";
     import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder.vue";
@@ -57,7 +58,6 @@
     export default {
         components: {
             DeviceFilters,
-            BtnFilters,
             ConnectionStatusLabel,
             DeviceTile,
             EmptyListPlaceholder,

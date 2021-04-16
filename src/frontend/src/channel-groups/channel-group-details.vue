@@ -97,7 +97,6 @@
     import Vue from "vue";
     import FunctionIcon from "../channels/function-icon.vue";
     import DotsRoute from "../common/gui/dots-route.vue";
-    import LocationTileContent from "../locations/location-tile-content.vue";
     import ChannelGroupNewChannelChooser from "./channel-group-new-channel-chooser.vue";
     import ChannelGroupChannelTile from "./channel-group-channel-tile";
     import SquareLocationChooser from "../locations/square-location-chooser";
@@ -119,7 +118,6 @@
             ChannelGroupNewChannelChooser,
             DotsRoute,
             FunctionIcon,
-            LocationTileContent,
             SquareLocationChooser,
         },
         data() {

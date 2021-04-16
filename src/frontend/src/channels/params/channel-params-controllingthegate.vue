@@ -15,11 +15,10 @@
 
 <script>
     import ChannelParamsControllingAnyLock from "./channel-params-controlling-any-lock";
-    import ChannelsDropdown from "../../devices/channels-dropdown";
     import ChannelParamsRelatedChannel from "@/channels/params/channel-params-related-channel";
 
     export default {
-        components: {ChannelParamsRelatedChannel, ChannelsDropdown, ChannelParamsControllingAnyLock},
+        components: {ChannelParamsRelatedChannel, ChannelParamsControllingAnyLock},
         props: ['channel'],
         watch: {
             'channel.param2'() {
