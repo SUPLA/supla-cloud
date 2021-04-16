@@ -63,13 +63,13 @@ steps:
     image: supla/supla-cloud
     depends_on: [ install-backend ]
     commands:
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api --debug
 
   - name: integration-tests
     image: supla/supla-cloud
     depends_on: [ api-tests, build-frontend ]
     commands:
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration --debug
 
 #  - name: rebuild-cache
 #    image: drillster/drone-volume-cache
