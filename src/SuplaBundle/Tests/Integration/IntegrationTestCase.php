@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
+use ReflectionObject;
 use ReflectionProperty;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -134,6 +135,30 @@ abstract class IntegrationTestCase extends WebTestCase {
             $error = 'Some of AD communication you mocked were not used. ' . var_export(SuplaServerMock::$mockedResponses, true);
             SuplaAutodiscoverMock::$mockedResponses = [];
             $this->fail($error);
+        }
+    }
+
+    /**
+     * @see https://stackoverflow.com/a/37864440/878514
+     * @after
+     */
+    public function freeUpMemory() {
+        $this->container = null;
+        $this->application = null;
+        $refl = new ReflectionObject($this);
+        foreach ($refl->getProperties() as $prop) {
+            if (!$prop->isStatic() && 0 !== strpos($prop->getDeclaringClass()->getName(), 'PHPUnit_')) {
+                $prop->setAccessible(true);
+                $prop->setValue($this, null);
+            }
+        }
+//        print sprintf("Memory usage: %d MB\n", round(memory_get_usage() / 1024 / 1024));
+    }
+
+    /** @afterClass */
+    public function freeUpSavedTestData() {
+        if (isset(self::$dataForTests[static::class])) {
+            unset(self::$dataForTests[static::class]);
         }
     }
 
