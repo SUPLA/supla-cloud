@@ -142,6 +142,7 @@ abstract class IntegrationTestCase extends WebTestCase {
      * @after
      */
     public function freeUpMemory() {
+        $this->container->reset();
         $this->container = null;
         $this->application = null;
         $refl = new ReflectionObject($this);
@@ -156,9 +157,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     /** @afterClass */
     public static function freeUpSavedTestData() {
-        if (isset(self::$dataForTests[static::class])) {
-            unset(self::$dataForTests[static::class]);
-        }
+        self::$dataForTests = [];
     }
 
     protected function createHttpsClient(bool $followRedirects = true, string $ipAddress = '1.2.3.4'): TestClient {
