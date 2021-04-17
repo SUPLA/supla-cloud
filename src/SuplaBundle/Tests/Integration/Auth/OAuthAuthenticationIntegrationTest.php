@@ -61,8 +61,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'response_type' => 'code',
             'scope' => 'account_r offline_access',
         ], $params);
-        $client = $this->createClient();
-        $client->insulate($insulate);
+        $client = $insulate ? $this->createInsulatedClient() : $this->createClient();
         $client->followRedirects();
         $client->request('GET', '/oauth/v2/auth?' . http_build_query($params));
         if ($testCase['login']) {
@@ -117,7 +116,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'redirect_uri' => 'https://unicorns.pl',
             'code' => $authCode->getToken(),
         ], $params);
-        $client = $this->createClient();
+        $client = $this->createInsulatedClient();
         $client->followRedirects();
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertStatusCode(200, $client->getResponse());
@@ -145,7 +144,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'redirect_uri' => 'https://unicorns.pl',
             'code' => $authCodes[0]->getToken(),
         ];
-        $client = $this->createClient();
+        $client = $this->createInsulatedClient();
         $client->followRedirects();
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertStatusCode(400, $client->getResponse());
@@ -204,7 +203,10 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testAccessingApiWithGivenToken() {
         $this->makeOAuthAuthorizeRequest(['scope' => 'account_r']);
         $response = $this->issueTokenBasedOnAuthCode();
-        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]);
+        $client = $this->createInsulatedClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]
+        );
         $client->followRedirects();
         $client->request('GET', '/api/users/current');
         $this->assertStatusCode(200, $client->getResponse());
@@ -221,7 +223,10 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         EntityUtils::setField($token, 'expiresAt', strtotime('-1hour'));
         $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
-        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]);
+        $client = $this->createInsulatedClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]
+        );
         $client->request('GET', '/api/users/current');
         $this->assertStatusCode(401, $client->getResponse());
     }
@@ -235,7 +240,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'client_secret' => $this->client->getSecret(),
             'refresh_token' => $response['refresh_token'],
         ];
-        $client = $this->createClient();
+        $client = $this->createInsulatedClient();
         $client->followRedirects();
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertStatusCode(200, $client->getResponse());
@@ -259,7 +264,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $webapp->apiRequest('DELETE', '/api/oauth-authorized-clients/' . $authorization->getId());
         $this->assertStatusCode(204, $webapp->getResponse());
 
-        $client = $this->createClient();
+        $client = $this->createInsulatedClient();
         $client->followRedirects();
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertStatusCode('4XX', $client->getResponse());
@@ -275,7 +280,10 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $webapp->apiRequest('DELETE', '/api/oauth-authorized-clients/' . $authorization->getId());
         $this->assertStatusCode(204, $webapp->getResponse());
 
-        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]);
+        $client = $this->createInsulatedClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]
+        );
         $client->followRedirects();
         $client->request('GET', '/api/users/current');
         $this->assertStatusCode(401, $client->getResponse());

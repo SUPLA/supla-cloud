@@ -171,4 +171,20 @@ abstract class IntegrationTestCase extends WebTestCase {
         }
         return $client;
     }
+
+    /**
+     * Insulation saves memory but can't read static state of the app.
+     * @see https://jolicode.com/blog/you-may-have-memory-leaking-from-php-7-and-symfony-tests
+     */
+    protected function createHttpsInsulatedClient() {
+        $client = $this->createHttpsClient();
+        $client->insulate();
+        return $client;
+    }
+
+    protected function createInsulatedClient(array $options = [], array $server = []) {
+        $client = self::createClient($options, $server);
+        $client->insulate();
+        return $client;
+    }
 }
