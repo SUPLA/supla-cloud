@@ -56,7 +56,6 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->application->setAutoExit(false);
         if (!defined('INTEGRATION_TESTS_BOOTSTRAPPED')) {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
-            ini_set('memory_limit', '512M');
             $this->executeCommand('doctrine:database:create --if-not-exists');
         }
         $this->clearDatabase();
@@ -152,11 +151,11 @@ abstract class IntegrationTestCase extends WebTestCase {
                 $prop->setValue($this, null);
             }
         }
-//        print sprintf("Memory usage: %d MB\n", round(memory_get_usage() / 1024 / 1024));
+        print sprintf("Memory usage: %d MB\n", round(memory_get_usage() / 1024 / 1024));
     }
 
     /** @afterClass */
-    public function freeUpSavedTestData() {
+    public static function freeUpSavedTestData() {
         if (isset(self::$dataForTests[static::class])) {
             unset(self::$dataForTests[static::class]);
         }
