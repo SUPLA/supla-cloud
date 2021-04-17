@@ -53,7 +53,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->user = $this->createConfirmedUser();
     }
 
-    private function makeOAuthAuthorizeRequest(array $params = [], array $testCase = []): TestClient {
+    private function makeOAuthAuthorizeRequest(array $params = [], array $testCase = [], bool $insulate = true): TestClient {
         $testCase = array_merge(['grant' => true, 'login' => true], $testCase);
         $params = array_merge([
             'client_id' => $this->client->getPublicId(),
@@ -62,6 +62,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'scope' => 'account_r offline_access',
         ], $params);
         $client = $this->createClient();
+        $client->insulate($insulate);
         $client->followRedirects();
         $client->request('GET', '/oauth/v2/auth?' . http_build_query($params));
         if ($testCase['login']) {
@@ -282,7 +283,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testEnablingMqttWhenMqttBrokerScopeGiven() {
         $this->assertFalse($this->user->isMqttBrokerEnabled());
-        $this->makeOAuthAuthorizeRequest(['scope' => 'mqtt_broker']);
+        $this->makeOAuthAuthorizeRequest(['scope' => 'mqtt_broker'], [], false);
         $response = $this->issueTokenBasedOnAuthCode();
         $this->assertArrayHasKey('access_token', $response);
         $this->assertArrayNotHasKey('refresh_token', $response);
