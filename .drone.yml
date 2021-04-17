@@ -63,12 +63,14 @@ steps:
     image: supla/supla-cloud
     depends_on: [ install-backend ]
     commands:
+      - php bin/console cache:warmup -e test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api --debug
 
   - name: integration-tests
     image: supla/supla-cloud
     depends_on: [ api-tests, build-frontend ]
     commands:
+      - php bin/console cache:warmup -e test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration --debug
 
 #  - name: rebuild-cache
