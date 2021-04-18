@@ -152,7 +152,7 @@ abstract class IntegrationTestCase extends WebTestCase {
                 $prop->setValue($this, null);
             }
         }
-        print sprintf("Memory usage: %d MB\n", round(memory_get_usage() / 1024 / 1024));
+        print sprintf("\nMemory usage: %d MB\n", round(memory_get_usage() / 1024 / 1024));
     }
 
     /** @afterClass */
