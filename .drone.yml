@@ -64,14 +64,14 @@ steps:
     depends_on: [ install-backend ]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api --debug
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
 
   - name: integration-tests
     image: supla/supla-cloud
     depends_on: [ api-tests, build-frontend ]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration --debug
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
 
   - name: slack
     image: plugins/slack

@@ -8,6 +8,7 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="false"
          convertWarningsToExceptions="true"
+         beStrictAboutOutputDuringTests="true"
          bootstrap="autoload.php">
 
     <php>
