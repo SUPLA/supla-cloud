@@ -75,11 +75,13 @@ steps:
 
   - name: slack
     image: plugins/slack
+    depends_on: [ integration-tests ]
     settings:
       webhook:
         from_secret: slack_webhook
       channel: github
       username: drone
+      icon_url: https://unsplash.it/256/256/?random
       template: >
         {{#if build.pull }}
           *{{#success build.status}}✔{{ else }}✘{{/success}} {{ uppercasefirst build.status }}*: <https://github.com/{{ repo.owner }}/{{ repo.name }}/pull/{{ build.pull }}|Pull Request #{{ build.pull }}> in {{since build.created}}
@@ -89,10 +91,9 @@ steps:
         Commit: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}> at: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commits/{{ build.branch }}|{{repo.owner}}/{{repo.name}}/{{ build.branch }}> by: {{ build.author }}
         <{{ build.link }}|Visit build page ↗>
     when:
-      status: [success, failure]
-      event:
-        exclude:
-          - pull_request
+      status: [ success, failure ]
+    trigger:
+      status: [ success, failure ]
 
 
 #  - name: rebuild-cache
