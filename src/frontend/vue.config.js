@@ -3,6 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     lintOnSave: 'warning',
+    productionSourceMap: false,
     outputDir: path.resolve(__dirname, '../../web/dist'),
     publicPath: process.env.NODE_ENV === 'production'
         ? '/dist/'
