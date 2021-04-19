@@ -47,6 +47,7 @@ services:
   SuplaBundle\Controller\Api\ServerController:
     $suplaServerHost: '%supla_server%'
     $suplaVersion: '%supla.version%'
+    $suplaVersionFull: '%supla.version_full%'
     $actAsBrokerCloud: '%act_as_broker_cloud%'
 
   SuplaBundle\Controller\Api\StateWebhookController:

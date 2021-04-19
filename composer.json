@@ -57,10 +57,12 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
     ],
     "post-install-cmd": [
-      "@symfony-scripts"
+      "@symfony-scripts",
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
     ],
     "post-update-cmd": [
-      "@symfony-scripts"
+      "@symfony-scripts",
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
     ],
     "test": [
       "phpunit -c app --testdox"
@@ -83,11 +85,13 @@
       "cd src/frontend && npm run build"
     ],
     "release": [
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
       "composer install --no-dev --optimize-autoloader",
       "composer run-script webpack",
       "cd src/frontend && npm run release"
     ],
     "release-dev": [
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
       "composer install --optimize-autoloader",
       "composer run-script webpack",
       "cd src/frontend && npm run release-dev"

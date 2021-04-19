@@ -30,7 +30,7 @@ class Configuration implements ConfigurationInterface {
         $rootNode
             ->children()
                 ->scalarNode('version')->defaultValue('?.?.?')->info('Version is set by the release script.')->end()
-                ->scalarNode('version_full')->defaultValue(null)->info('Version with git hash, set by the release script.')->end()
+                ->scalarNode('version_full')->defaultValue('?.?.?')->info('Version with git hash, set by the release script.')->end()
                 ->scalarNode('autodiscover_url')->defaultValue('https://autodiscover.supla.org')
                     ->info('The address of the supla-autodiscover service.')->end()
                 ->booleanNode('accounts_registration_enabled')->defaultTrue()
