@@ -33,7 +33,14 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceChannelRepository")
  * @ORM\Table(name="supla_dev_channel",
- *     uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})})
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})},
+ *     indexes={
+ *       @ORM\Index(name="supla_dev_channel_param1_idx", columns={"param1"}),
+ *       @ORM\Index(name="supla_dev_channel_param2_idx", columns={"param2"}),
+ *       @ORM\Index(name="supla_dev_channel_param3_idx", columns={"param3"}),
+ *       @ORM\Index(name="supla_dev_channel_param4_idx", columns={"param4"})
+ *     }
+ * )
  */
 class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     use BelongsToUser;
