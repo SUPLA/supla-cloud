@@ -25,7 +25,7 @@ find_unused () {
   [[ "$LINE" =~ \"$ ]] && LINE=$(echo "$LINE" | sed 's/"$//')
 
   grep -m 1 -FRi --exclude-dir="*translations*" "$LINE" ./src/SuplaBundle/* 2>/dev/null >/dev/null && return
-  grep -m 1 -FRi "$LINE" ./src/Frontend/src/* 2>/dev/null >/dev/null && return
+  grep -m 1 -FRi "$LINE" ./src/frontend/src/* 2>/dev/null >/dev/null && return
   echo $1
 }
 

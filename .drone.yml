@@ -2,45 +2,46 @@ kind: pipeline
 name: default
 
 steps:
-#  - name: restore-cache
-#    image: drillster/drone-volume-cache
-#    depends_on: [clone]
-#    volumes:
-#      - name: cache
-#        path: /cache
-#    settings:
-#      restore: true
-#      mount:
-#        - ./vendor
-#        - ./src/Frontend/node_modules
+  #  - name: restore-cache
+  #    image: drillster/drone-volume-cache
+  #    depends_on: [clone]
+  #    volumes:
+  #      - name: cache
+  #        path: /cache
+  #    settings:
+  #      restore: true
+  #      mount:
+  #        - ./vendor
+  #        - ./src/Frontend/node_modules
 
   - name: install-frontend
-    image: node:8.17.0-slim
-#    depends_on: [restore-cache]
-    depends_on: [clone]
+    image: node:14.16.1-slim
+    #    depends_on: [restore-cache]
+    depends_on: [ clone ]
     commands:
+      - npm install --global npm@7
       - npm -v
       - node -v
-      - cd src/Frontend
+      - cd src/frontend
       - (ls node_modules && npm prune) || true
       - npm install
 
   - name: build-frontend
-    image: node:8.17.0-slim
+    image: node:14.16.1-slim
     depends_on: [ install-frontend ]
     commands:
-      - cd src/Frontend && npm run build
+      - cd src/frontend && npm run build
 
   - name: lint-frontend
-    image: node:8.17.0-slim
-    depends_on: [install-frontend]
+    image: node:14.16.1-slim
+    depends_on: [ install-frontend ]
     commands:
-      - cd src/Frontend && npm run lint -s
+      - cd src/frontend && npm run lint -s
 
   - name: install-backend
     image: supla/supla-cloud
-#    depends_on: [restore-cache]
-    depends_on: [clone]
+    #    depends_on: [restore-cache]
+    depends_on: [ clone ]
     commands:
       - cp app/config/parameters.yml.drone app/config/parameters.yml
       - wget https://raw.githubusercontent.com/composer/getcomposer.org/e3e43bde99447de1c13da5d1027545be81736b27/web/installer -O - -q | php -- --quiet --1
@@ -48,27 +49,52 @@ steps:
 
   - name: lint-backend
     image: supla/supla-cloud
-    depends_on: [install-backend]
+    depends_on: [ install-backend ]
     commands:
       - php composer.phar run lint-backend
 
   - name: backend-unit-tests
     image: supla/supla-cloud
-    depends_on: [install-backend]
+    depends_on: [ install-backend ]
     commands:
       - ./vendor/bin/phpunit -c app --testsuite unit
 
-  - name: integration-tests
-    image: supla/supla-cloud
-    depends_on: [install-backend]
-    commands:
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
-
   - name: api-tests
     image: supla/supla-cloud
-    depends_on: [integration-tests]
+    depends_on: [ install-backend ]
     commands:
+      - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+
+  - name: integration-tests
+    image: supla/supla-cloud
+    depends_on: [ api-tests, build-frontend ]
+    commands:
+      - rm -fr var/cache/test
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+
+  - name: slack
+    image: plugins/slack
+    depends_on: [ integration-tests ]
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      channel: github
+      username: drone
+      icon_url: https://unsplash.it/256/256/?random
+      template: >
+        {{#if build.pull }}
+          *{{#success build.status}}✔{{ else }}✘{{/success}} {{ uppercasefirst build.status }}*: <https://github.com/{{ repo.owner }}/{{ repo.name }}/pull/{{ build.pull }}|Pull Request #{{ build.pull }}> in {{since build.created}}
+        {{else}}
+          *{{#success build.status}}✔{{ else }}✘{{/success}} {{ uppercasefirst build.status }}: Build #{{ build.number }}* (type: `{{ build.event }}`) in {{since build.created}}
+        {{/if}}
+        Commit: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}> at: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commits/{{ build.branch }}|{{repo.owner}}/{{repo.name}}/{{ build.branch }}> by: {{ build.author }}
+        <{{ build.link }}|Visit build page ↗>
+    when:
+      status: [ success, failure ]
+    trigger:
+      status: [ success, failure ]
+
 
 #  - name: rebuild-cache
 #    image: drillster/drone-volume-cache
@@ -96,3 +122,4 @@ services:
 #  - name: cache
 #    host:
 #      path: /tmp/cache
+

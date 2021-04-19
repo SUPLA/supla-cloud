@@ -58,7 +58,7 @@ Are you sure?: Czy na pewno?
 Assign Access Identifiers: Przypisz Identyfikatory Dostępu
 Assign Client apps: Przypisz aplikacje klienckie
 Assign Locations: Przypisz Lokalizacje
-Associated measured channel: Powiązany kanał miernika
+Associated measured channel: Powiązany kanał sterujący
 Associated measurement channel: Powiązany kanał pomiarowy
 Authorization callback URLs (one per line): Zwrotne URLe autoryzacyjne (jeden na linię)
 'Authorize the application, so that it can access your account.': 'Autoryzuj aplikację, aby mogła uzyskać dostęp do Twojego konta.'

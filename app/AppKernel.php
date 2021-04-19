@@ -1,7 +1,8 @@
 <?php
 
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel {
@@ -28,7 +29,6 @@ class AppKernel extends Kernel {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
             $bundles[] = new SuplaDeveloperBundle\SuplaDeveloperBundle();
         }
@@ -54,28 +54,12 @@ class AppKernel extends Kernel {
         if (file_exists($optionalLocalConfigFile)) {
             $loader->load($optionalLocalConfigFile);
         }
-        // optional webpack dev server: https://www.slideshare.net/nachomartin/webpacksf/60
-        $loader->load(function ($container) {
-            /** @var ContainerInterface $container */
-            if ($this->getEnvironment() === 'dev' && $container->getParameter('use_webpack_dev_server')) {
-                $protocol = $container->getParameter('supla_protocol');
-                $container->loadFromExtension('framework', [
-                    'assets' => [
-                        'packages' => [
-                            'webpack' => [
-                                'base_urls' => [$protocol . '://localhost:25787'],
-                            ],
-                        ],
-                    ],
-                ]);
-            }
-        });
     }
 
-    protected function build(\Symfony\Component\DependencyInjection\ContainerBuilder $container) {
+    protected function build(ContainerBuilder $container) {
         parent::build($container);
         if ($this->getEnvironment() === 'test') {
-            $container->addCompilerPass(new SuplaBundle\Tests\Integration\TestContainerPass(), \Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_OPTIMIZE);
+            $container->addCompilerPass(new SuplaBundle\Tests\Integration\TestContainerPass(), PassConfig::TYPE_OPTIMIZE);
         }
     }
 }

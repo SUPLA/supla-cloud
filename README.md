@@ -15,7 +15,7 @@ https://github.com/SUPLA/supla-docker
 ## Development
 
 Application is written with [Symfony](https://symfony.com/) and [Doctrine](http://www.doctrine-project.org/) on backend. 
-Frontend uses [jQuery](https://jquery.com/) and [Vue.js](https://vuejs.org/).
+Frontend uses [Vue.js](https://vuejs.org/).
 
 See [how to install the SUPLA Cloud for development](https://github.com/SUPLA/supla-cloud/blob/master/Development.md).
 

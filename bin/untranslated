@@ -20,4 +20,4 @@
 while read -r line
 do
     grep "^$line:" ./src/SuplaBundle/Resources/translations/messages."$1".yml > /dev/null || echo $line
-done < <(grep -R \$t ./src/Frontend/src/* | sed -n "s/\(.*\)\(('\)\(.*\)\(')\)\(.*\)/\3/p")
+done < <(grep -R \$t ./src/frontend/src/* | sed -n "s/\(.*\)\(('\)\(.*\)\(')\)\(.*\)/\3/p")

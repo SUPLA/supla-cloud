@@ -67,7 +67,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
 
     /** @small */
     public function testGettingChannelInfoOfChannelNotIncludedInAccessIdIsFailed() {
-        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client = $this->createInsulatedClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
         $client->request('GET', '/api/channels/1');
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
@@ -75,7 +75,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
 
     /** @small */
     public function testGettingChannelsListWithNoLocationsAccessId() {
-        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client = $client = $this->createInsulatedClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
         $client->request('GET', '/api/channels');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -86,7 +86,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
         $this->accessId->updateLocations([$this->location1]);
         $this->getEntityManager()->persist($this->accessId);
         $this->getEntityManager()->flush();
-        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client = $client = $this->createInsulatedClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
         $client->request('GET', '/api/channels/1');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -96,7 +96,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
         $this->accessId->updateLocations([$this->location2]);
         $this->getEntityManager()->persist($this->accessId);
         $this->getEntityManager()->flush();
-        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client = $client = $this->createInsulatedClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
         $client->request('GET', '/api/channels');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -109,7 +109,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
         $this->accessId->updateLocations([$this->location1]);
         $this->getEntityManager()->persist($this->accessId);
         $this->getEntityManager()->flush();
-        $client = $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
+        $client = $client = $this->createInsulatedClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer abc', 'HTTPS' => true]);
         $client->request('GET', '/api/v2.3.0/iodevices');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);

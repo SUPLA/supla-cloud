@@ -46,7 +46,6 @@
     "doctrine/doctrine-fixtures-bundle": "^2.3",
     "fzaninotto/faker": "^1.8",
     "phpunit/phpunit": "^5.7",
-    "sensio/generator-bundle": "^3.0",
     "squizlabs/php_codesniffer": "^2.8",
     "symfony/phpunit-bridge": "^3.0"
   },
@@ -58,10 +57,12 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
     ],
     "post-install-cmd": [
-      "@symfony-scripts"
+      "@symfony-scripts",
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
     ],
     "post-update-cmd": [
-      "@symfony-scripts"
+      "@symfony-scripts",
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
     ],
     "test": [
       "phpunit -c app --testdox"
@@ -70,7 +71,7 @@
       "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml"
     ],
     "lint-frontend": [
-      "cd src/Frontend && npm run lint -s"
+      "cd src/frontend && npm run lint -s"
     ],
     "lint": [
       "@lint-frontend",
@@ -80,21 +81,23 @@
       "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml"
     ],
     "webpack": [
-      "cd src/Frontend && npm install",
-      "cd src/Frontend && npm run build"
+      "cd src/frontend && npm install",
+      "cd src/frontend && npm run build"
     ],
     "release": [
-      "composer install --no-dev --optimize-autoloader",
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
+      "APPLICATION_ENV=prod composer install --no-dev --optimize-autoloader",
       "composer run-script webpack",
-      "cd src/Frontend && npm run release"
+      "cd src/frontend && npm run release"
     ],
     "release-dev": [
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
       "composer install --optimize-autoloader",
       "composer run-script webpack",
-      "cd src/Frontend && npm run release-dev"
+      "cd src/frontend && npm run release-dev"
     ],
     "collect-translations": [
-      "cd src/Frontend && npm run collect-translations"
+      "cd src/frontend && npm run collect-translations"
     ]
   },
   "config": {

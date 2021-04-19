@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
+use ReflectionObject;
 use ReflectionProperty;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -55,7 +56,6 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->application->setAutoExit(false);
         if (!defined('INTEGRATION_TESTS_BOOTSTRAPPED')) {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
-            ini_set('memory_limit', '512M');
             $this->executeCommand('doctrine:database:create --if-not-exists');
         }
         $this->clearDatabase();
@@ -137,6 +137,29 @@ abstract class IntegrationTestCase extends WebTestCase {
         }
     }
 
+    /**
+     * @see https://stackoverflow.com/a/37864440/878514
+     * @after
+     */
+    public function freeUpMemory() {
+        $this->container->reset();
+        $this->container = null;
+        $this->application = null;
+        $refl = new ReflectionObject($this);
+        foreach ($refl->getProperties() as $prop) {
+            if (!$prop->isStatic() && 0 !== strpos($prop->getDeclaringClass()->getName(), 'PHPUnit_')) {
+                $prop->setAccessible(true);
+                $prop->setValue($this, null);
+            }
+        }
+//        print sprintf("\nMemory usage: %d MB\n", round(memory_get_usage() / 1024 / 1024));
+    }
+
+    /** @afterClass */
+    public static function freeUpSavedTestData() {
+        self::$dataForTests = [];
+    }
+
     protected function createHttpsClient(bool $followRedirects = true, string $ipAddress = '1.2.3.4'): TestClient {
         $client = self::createClient(['debug' => false], [
             'HTTPS' => true,
@@ -146,6 +169,22 @@ abstract class IntegrationTestCase extends WebTestCase {
         if ($followRedirects) {
             $client->followRedirects();
         }
+        return $client;
+    }
+
+    /**
+     * Insulation saves memory but can't read static state of the app.
+     * @see https://jolicode.com/blog/you-may-have-memory-leaking-from-php-7-and-symfony-tests
+     */
+    protected function createHttpsInsulatedClient() {
+        $client = $this->createHttpsClient();
+        $client->insulate();
+        return $client;
+    }
+
+    protected function createInsulatedClient(array $options = [], array $server = []) {
+        $client = self::createClient($options, $server);
+        $client->insulate();
         return $client;
     }
 }

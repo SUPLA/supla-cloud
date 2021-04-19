@@ -25,8 +25,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 class SuplaExtension extends ConfigurableExtension {
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container) {
         $container->setParameter('supla.version', $mergedConfig['version']);
+        $container->setParameter('supla.version_full', $mergedConfig['version_full']);
         $container->setParameter('supla.maintenance_mode', $mergedConfig['maintenance_mode']);
-        $container->setParameter('supla.webpack_hashes', $mergedConfig['webpack_hashes']);
         $container->setParameter('supla.autodiscover_url', $mergedConfig['autodiscover_url']);
         $container->setParameter('supla.accounts_registration_enabled', $mergedConfig['accounts_registration_enabled']);
         $container->setParameter(

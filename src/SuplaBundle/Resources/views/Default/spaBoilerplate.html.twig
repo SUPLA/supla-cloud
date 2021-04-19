@@ -1,17 +1,1 @@
-{% extends 'SuplaBundle::vue-template.html.twig' %}
-
-{% block vue %}
-    <transition name="fade">
-        <navbar v-if="$user.username"></navbar>
-    </transition>
-    <div class="alert alert-warning maintenance-warning"
-            v-if="$frontendConfig.maintenanceMode && $user.username">
-        <maintenance-warning></maintenance-warning>
-    </div>
-    <loading-cover :loading="changingRoute">
-        <transition name="fade-router">
-            <router-view></router-view>
-        </transition>
-    </loading-cover>
-    <cookie-warning v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
-{% endblock %}
+{% include '@web/dist/index.html' %}

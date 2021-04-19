@@ -2,6 +2,14 @@
 namespace SuplaBundle\Tests\Integration;
 
 use Assert\Assertion;
+use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
+use SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener;
+use SuplaBundle\Model\Audit\Audit;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\ApiClientRepository;
+use SuplaBundle\Repository\AuditEntryRepository;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -13,12 +21,16 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class TestContainerPass implements CompilerPassInterface {
     private static $publicInTests = [
-        \SuplaBundle\Model\Audit\Audit::class,
-        \SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater::class,
-        \SuplaBundle\Model\Schedule\ScheduleManager::class,
-        \SuplaBundle\Model\UserManager::class,
-        \SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit::class,
-        \SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener::class,
+        'test.client',
+        'location_manager',
+        Audit::class,
+        ChannelParamsUpdater::class,
+        ScheduleManager::class,
+        UserManager::class,
+        GlobalApiRateLimit::class,
+        UnavailableInMaintenanceRequestListener::class,
+        ApiClientRepository::class,
+        AuditEntryRepository::class,
     ];
 
     public function process(ContainerBuilder $container) {

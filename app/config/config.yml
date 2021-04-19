@@ -51,10 +51,6 @@ fos_rest:
     view_response_listener: 'force'
 
 framework:
-  assets:
-    packages:
-      webpack:
-        version_strategy: SuplaBundle\Twig\WebpackAssetVersionStrategy
   cache:
     app: cache.adapter.filesystem
     pools:
@@ -153,7 +149,6 @@ parameters:
   supla_protocol: https
   supla_server_socket: /var/run/supla/supla-server-ctrl.sock
   supla_url: '%supla_protocol%://%supla_server%'
-  use_webpack_dev_server: false
   container.autowiring.strict_mode: true
 
 sensio_framework_extra:
@@ -205,3 +200,5 @@ swiftmailer:
 twig:
   debug: "%kernel.debug%"
   strict_variables: "%kernel.debug%"
+  paths:
+    '%kernel.project_dir%/web': web

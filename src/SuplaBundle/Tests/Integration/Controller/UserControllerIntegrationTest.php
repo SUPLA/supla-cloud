@@ -95,7 +95,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
         $this->assertStatusCode(204, $client->getResponse());
-        $this->getDoctrine()->resetEntityManager();
+        $this->getDoctrine()->resetManager();
         $this->assertNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
 
