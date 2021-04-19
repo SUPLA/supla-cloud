@@ -297,18 +297,6 @@ table {
   }
 }
 
-body.no-navbar {
-  nav {
-    display: none;
-  }
-}
-
-body.no-footer {
-  .page-footer {
-    display: none;
-  }
-}
-
 body.green {
   background: $supla-green;
   color: $supla-white;
