@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use DateInterval;
+use DateTime;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
@@ -27,7 +29,9 @@ use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater\IODeviceChannelWithParams;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -48,8 +52,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     protected function addLogItems($offset = 0) {
         $datestr = '2018-09-15';
-        $date = new \DateTime($datestr);
-        $oneday = new \DateInterval('P1D');
+        $date = new DateTime($datestr);
+        $oneday = new DateInterval('P1D');
 
         foreach ([21, 22, 23] as $temperature) {
             $logItem = new TemperatureLogItem();
@@ -60,7 +64,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
-        $date = new \DateTime($datestr);
+        $date = new DateTime($datestr);
         foreach ([[21, 30], [22, 40], [23, 50]] as $th) {
             $logItem = new TempHumidityLogItem();
             EntityUtils::setField($logItem, 'channel_id', 3 + $offset);
@@ -71,7 +75,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
-        $date = new \DateTime($datestr);
+        $date = new DateTime($datestr);
         foreach ([854800, 854900, 855000] as $energy) {
             $logItem = new ElectricityMeterLogItem();
             EntityUtils::setField($logItem, 'channel_id', 4 + $offset);
@@ -88,7 +92,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
-        $date = new \DateTime($datestr);
+        $date = new DateTime($datestr);
         foreach ([100, 200, 300] as $impulses) {
             foreach ([1, 2, 3, 4] as $num) {
                 $logItem = new ImpulseCounterLogItem();
@@ -101,7 +105,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
-        $date = new \DateTime($datestr);
+        $date = new DateTime($datestr);
         foreach ([-10, 0, 30] as $temperature) {
             foreach ([1, 2] as $num) {
                 $logItem = new ThermostatLogItem();
@@ -411,8 +415,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     private function getMeasurementLogsWithTimestampRange(int $channelId) {
-        $afterDate = new \DateTime('2018-09-15');
-        $beforeDate = new \DateTime('2018-09-17');
+        $afterDate = new DateTime('2018-09-15');
+        $beforeDate = new DateTime('2018-09-17');
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/'
             . $channelId . '/measurement-logs?afterTimestamp=' . $afterDate->getTimestamp()
@@ -485,6 +489,17 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $client->apiRequestV22('GET', '/api/channels/1/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('400', $response);
+    }
+
+    /** @depends testGettingMeasurementLogsOfUnsupportedChannel */
+    public function testGettingElectricityMeasurementsLogsCountFromRelatedRelay() {
+        $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
+        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        $relayChannel = $this->device1->getChannels()[0];
+        $channelParamsUpdater->updateChannelParams($relayChannel, new IODeviceChannelWithParams(4));
+        $this->getEntityManager()->persist($relayChannel);
+        $this->getEntityManager()->flush();
+        $this->ensureMeasurementLogsCount(1);
     }
 
     private function deleteMeasurementLogs(int $channelId) {

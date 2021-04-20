@@ -5,13 +5,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RelatedChannelsConnector implements SingleChannelParamsUpdater {
-    use CurrentUserAware;
     use Transactional;
 
     /** @var IODeviceChannelRepository */
@@ -23,7 +21,7 @@ class RelatedChannelsConnector implements SingleChannelParamsUpdater {
 
     public function updateChannelParams(IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
         $this->transactional(function (EntityManagerInterface $em) use ($channel, $updatedChannel) {
-            $user = $this->getCurrentUserOrThrow();
+            $user = $channel->getUser();
             $this->pairRelatedChannel($em, $user, $channel, $updatedChannel);
         });
     }
